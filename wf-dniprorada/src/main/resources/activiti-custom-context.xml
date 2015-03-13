@@ -10,7 +10,7 @@
    
    
    
-   <!-- profile="prod" -   ББоевой запуск, все настройки боевые, 
+   <!-- profile="prod" -   Боевой запуск, все настройки боевые, 
    указанные в db.properties,email.properties. Установить в catalina.bat переменную  
    -Dspring.profiles.active=prod"-->    
   <beans profile="prod">
