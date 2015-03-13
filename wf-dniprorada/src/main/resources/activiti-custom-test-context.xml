@@ -9,6 +9,14 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
+
+	<!-- profile="test" - тестовый запуск, все настройки боевые, указанные в 
+		db.properties. Установить в catalina.bat переменную -Dspring.profiles.active=test" -->
+	<beans profile="test">
+		<import resource="classpath:activiti-custom-test-context.xml" />
+	</beans>
+	
+	<beans profile="test">
 		<bean id="dbProperties"
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 			<property name="location" value="classpath:db.properties" />
@@ -85,4 +93,5 @@
 			factory-method="getManagementService" />
 		<bean id="identityService" factory-bean="processEngine"
 			factory-method="getIdentityService" />
+	</beans>
 </beans>
