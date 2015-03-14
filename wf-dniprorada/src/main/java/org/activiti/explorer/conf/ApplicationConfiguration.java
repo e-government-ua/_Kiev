@@ -11,7 +11,8 @@ import org.springframework.context.annotation.PropertySources;
   @PropertySource(value = "classpath:db.properties", ignoreResourceNotFound = true),
   @PropertySource(value = "classpath:engine.properties", ignoreResourceNotFound = true)
 })
-@ComponentScan(basePackages = { "org.activiti.explorer.conf","ua.pb.p48.wf.dib" })
+@ComponentScan(basePackages = { "org.activiti.explorer.conf",
+		"ua.pb.p48.wf.dib", "org.activiti.rest.controller" })
 @ImportResource({"classpath:activiti-ui-context.xml", "classpath:activiti-login-context.xml", "classpath:activiti-custom-context.xml"})
 public class ApplicationConfiguration {
   
