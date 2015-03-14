@@ -17,74 +17,60 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
-@ComponentScan({ "org.activiti.rest.editor", "org.activiti.rest.diagram",
-		"org.activiti.rest.controller" })
+@ComponentScan({"org.activiti.rest.editor", "org.activiti.rest.diagram"})
 @EnableAsync
 public class DispatcherServletConfiguration extends WebMvcConfigurationSupport {
 
-	private final Logger log = LoggerFactory
-			.getLogger(DispatcherServletConfiguration.class);
+  private final Logger log = LoggerFactory.getLogger(DispatcherServletConfiguration.class);
 
-	@Autowired
-	private ObjectMapper objectMapper;
+  @Autowired
+  private ObjectMapper objectMapper;
+  
+  @Autowired
+  private Environment environment;
 
-	@Autowired
-	private Environment environment;
+  @Bean
+  public SessionLocaleResolver localeResolver() {
+    return new SessionLocaleResolver();
+  }
 
-	@Bean
-	public SessionLocaleResolver localeResolver() {
-		return new SessionLocaleResolver();
-	}
+  @Bean
+  public LocaleChangeInterceptor localeChangeInterceptor() {
+    log.debug("Configuring localeChangeInterceptor");
+    LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+    localeChangeInterceptor.setParamName("language");
+    return localeChangeInterceptor;
+  }
 
-	@Bean
-	public LocaleChangeInterceptor localeChangeInterceptor() {
-		log.debug("Configuring localeChangeInterceptor");
-		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-		localeChangeInterceptor.setParamName("language");
-		return localeChangeInterceptor;
-	}
+  @Bean
+  public RequestMappingHandlerMapping requestMappingHandlerMapping() {
+    log.debug("Creating requestMappingHandlerMapping");
+    RequestMappingHandlerMapping requestMappingHandlerMapping = new RequestMappingHandlerMapping();
+    requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
+    Object[] interceptors = {localeChangeInterceptor()};
+    requestMappingHandlerMapping.setInterceptors(interceptors);
+    return requestMappingHandlerMapping;
+  }
+  
+  @Override
+  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    addDefaultHttpMessageConverters(converters);
+    for (HttpMessageConverter<?> converter: converters) {
+      if (converter instanceof MappingJackson2HttpMessageConverter) {
+        MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = (MappingJackson2HttpMessageConverter) converter;
+        jackson2HttpMessageConverter.setObjectMapper(objectMapper);
+        break;
+      }
+    }
+  }
 
-	@Bean
-	public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-		log.debug("Creating requestMappingHandlerMapping");
-		RequestMappingHandlerMapping requestMappingHandlerMapping = new RequestMappingHandlerMapping();
-		requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
-		Object[] interceptors = { localeChangeInterceptor() };
-		requestMappingHandlerMapping.setInterceptors(interceptors);
-		return requestMappingHandlerMapping;
-	}
-
-	@Override
-	public void configureMessageConverters(
-			List<HttpMessageConverter<?>> converters) {
-		addDefaultHttpMessageConverters(converters);
-		for (HttpMessageConverter<?> converter : converters) {
-			if (converter instanceof MappingJackson2HttpMessageConverter) {
-				MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = (MappingJackson2HttpMessageConverter) converter;
-				jackson2HttpMessageConverter.setObjectMapper(objectMapper);
-				break;
-			}
-		}
-	}
-
-	@Override
-	protected void configureContentNegotiation(
-			ContentNegotiationConfigurer configurer) {
-		configurer.favorPathExtension(false);
-	}
-	
-	/*REST API*/
-	  @Bean
-	  public InternalResourceViewResolver configureInternalResourceViewResolver() {
-	   InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		// resolver.setPrefix("/WEB-INF/");
-		// resolver.setSuffix(".jsp");
-	   return resolver;
-	  }
-
+  @Override
+  protected void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+    configurer.favorPathExtension(false);
+  }
+  
 }
