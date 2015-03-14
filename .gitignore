@@ -1,8 +1,8 @@
 *.class
 
 # eclipse 
-target 
-target/*
+**/target 
+**/target/*
 .classpath
 .project
 .settings
