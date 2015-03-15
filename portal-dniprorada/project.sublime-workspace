@@ -1,0 +1,537 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"local",
+				"localhost"
+			],
+			[
+				"p",
+				"pointer (obj)"
+			],
+			[
+				"move",
+				"moveTo (fn)"
+			],
+			[
+				"in",
+				"influenceTrack (obj)"
+			],
+			[
+				"inf",
+				"influenceTrack (?)"
+			],
+			[
+				"c",
+				"counters"
+			],
+			[
+				"add",
+				"addChild"
+			],
+			[
+				"influe",
+				"InfluenceCounter"
+			],
+			[
+				"g",
+				"game"
+			],
+			[
+				"Influ",
+				"influenceTrack"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Gruntfile.js",
+			"settings":
+			{
+				"buffer_size": 15196,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/app/app.js",
+			"settings":
+			{
+				"buffer_size": 309,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "server/app.js",
+			"settings":
+			{
+				"buffer_size": 593,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "server/config/local.env.sample.js",
+			"settings":
+			{
+				"buffer_size": 594,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "server/api/process-definitions/process-definitions.controller.js",
+			"settings":
+			{
+				"buffer_size": 1174,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "server/config/local.env.js",
+			"settings":
+			{
+				"buffer_size": 580,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "server/config/environment/development.js",
+			"settings":
+			{
+				"buffer_size": 231,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 159.0,
+		"selected_items":
+		[
+			[
+				"git comm",
+				"Git: Commit"
+			],
+			[
+				"git add ",
+				"Git: Add..."
+			],
+			[
+				"git push",
+				"Git: Push"
+			],
+			[
+				"git c",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add..."
+			],
+			[
+				"web",
+				"Web Inspector"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"instll",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/domash/workspace/dniprorada/portal-dniprorada/.gitignore",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/project.json",
+		"/home/domash/workspace/dniprorada/.gitignore",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/server/routes.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/server/api/process-definitions/process-definitions.controller.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/server/app.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/client/app/main/main.controller.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/client/app/main/main.html",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/client/app/main/main.css",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/client/components/navbar/navbar.html",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/client/favicon.ico",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/client/assets/images/explorer-logo.png",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/client/components/modal/modal.html",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/client/app/main/main.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/client/index.html",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/client/robots.txt",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/server/components/errors/index.js",
+		"/home/domash/workspacejs/stroyindustria/app/scripts/controllers/contacts.js",
+		"/home/domash/workspacejs/stroyindustria/app/views/contacts.html",
+		"/home/domash/workspacejs/stroyindustria/app/styles/main.css",
+		"/home/domash/workspacejs/stroyindustria/dist/server.js",
+		"/home/domash/workspacejs/stroyindustria/app/scripts/app.js",
+		"/home/domash/workspacejs/stroyindustria/app/styles/screen.css",
+		"/home/domash/workspacejs/stroyindustria/app/server.js",
+		"/home/domash/workspacejs/stroyindustria/deploy.sh",
+		"/home/domash/workspacejs/stroyindustria/package.json",
+		"/home/domash/workspacejs/stroyindustria/app/index.html",
+		"/home/domash/workspacejs/stroyindustria/bower.json",
+		"/home/domash/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
+		"/home/domash/workspacejs/stroyindustria/dist/index.html",
+		"/home/domash/workspacejs/stroyindustria/Gruntfile.js",
+		"/home/domash/workspacejs/stroyindustria/project.json",
+		"/home/domash/workspacejs/server/server.js",
+		"/home/domash/workspacejs/stroyindustria/app/db/data/contacts.json",
+		"/home/domash/workspacejs/stroyindustria/app/scripts/controllers/index.js",
+		"/home/domash/workspacejs/stroyindustria/app/views/main.html",
+		"/home/domash/workspacejs/stroyindustria/app/db/data/partners.json",
+		"/home/domash/workspacejs/stroyindustria/app/scripts/custom/custom.js",
+		"/home/domash/workspacejs/stroyindustria/app/scripts/controllers/main.js",
+		"/home/domash/workspacejs/goth/README.md",
+		"/home/domash/workspacejs/goth/bower.json",
+		"/home/domash/.config/sublime-text-2/Packages/Web Inspector/swi.sublime-settings",
+		"/home/domash/workspacejs/goth/assets/baratheon_counter.png",
+		"/home/domash/workspacejs/goth/assets/stark_counter.png",
+		"/home/domash/workspacejs/goth/game/main.js",
+		"/home/domash/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
+		"/home/domash/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
+		"/home/domash/workspacejs/goth/game/states/play.js"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"env",
+			"all",
+			"debug",
+			"env",
+			"serve",
+			"env",
+			"localConfig",
+			"ngconstant:development",
+			"DOMAIN",
+			"local.env.js",
+			"img_file",
+			"server",
+			"server.js",
+			"copy",
+			"\"\n",
+			"{\n",
+			")\n",
+			"stepY",
+			");\n",
+			";\n",
+			"  \n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 6,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Gruntfile.js",
+					"settings":
+					{
+						"buffer_size": 15196,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11237,
+								11237
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 7255.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "client/app/app.js",
+					"settings":
+					{
+						"buffer_size": 309,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "server/app.js",
+					"settings":
+					{
+						"buffer_size": 593,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								203,
+								203
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "server/config/local.env.sample.js",
+					"settings":
+					{
+						"buffer_size": 594,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								475,
+								475
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "server/api/process-definitions/process-definitions.controller.js",
+					"settings":
+					{
+						"buffer_size": 1174,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								728,
+								728
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "server/config/local.env.js",
+					"settings":
+					{
+						"buffer_size": 580,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								542,
+								542
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "server/config/environment/development.js",
+					"settings":
+					{
+						"buffer_size": 231,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								227,
+								227
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 112.0
+	},
+	"output.git":
+	{
+		"height": 112.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 247.0,
+	"status_bar_visible": true
+}

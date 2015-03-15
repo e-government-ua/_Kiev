@@ -1,0 +1,58 @@
+{
+	"build_systems":
+	[
+		{
+			"cmd":
+			[
+				"ls"
+			],
+			"name": "List"
+		}
+	],
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				
+			],
+			"folder_exclude_patterns":
+			[
+			
+			],
+			"name": "Root",
+			"path": "../"
+		},
+		{
+			"file_exclude_patterns":
+			[
+				
+			],
+			"folder_exclude_patterns":
+			[
+				"bower_components"
+			],
+			"name": "Client",
+			"path": "client"
+		},
+		{
+			"file_exclude_patterns":
+			[
+				
+			],
+			"name": "E2e",
+			"path": "e2e"
+		},
+		{
+			"file_exclude_patterns":
+			[
+			
+			],
+			"name": "Server",
+			"path": "server"
+		}		
+	],
+	"settings":
+	{
+	}
+}
