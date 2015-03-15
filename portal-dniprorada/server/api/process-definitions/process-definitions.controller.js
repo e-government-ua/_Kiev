@@ -6,13 +6,13 @@ var http = require("http");
 // Get list of process-definitionss
 exports.index = function(req, res) {
 	var options = {
-		host: process.env.ACTIVITI.HOST, //'localhost',
-		port: process.env.ACTIVITI.PORT,
-		path: '/' + process.env.ACTIVITI.PATH + '/process-definitions',
+		host: 'localhost',
+		port: 8080,
+		path: '/activiti-rest/service/repository/process-definitions',
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': process.env.ACTIVITI.AUTHORIZATION
+			'Authorization': 'Basic a2VybWl0Omtlcm1pdA=='
 		}
 	};
 	getJSON(options,
