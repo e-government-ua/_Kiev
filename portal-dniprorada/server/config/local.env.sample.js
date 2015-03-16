@@ -13,10 +13,10 @@ module.exports = {
   DEBUG: '',
 
   //activiti settings
-  activiti: {
-  	HOST: 'localhost',
-  	PORT: 8080,
-  	PATH: 'activiti-rest/service/repository',
-  	AUTHORIZATION: 'Basic'
+ ACTIVITI: {
+    HOST: 'localhost',
+    PORT: 8080,
+    PATH: 'activiti-rest/service/repository',
+    AUTHORIZATION: 'Basic a2VybWl0Omtlcm1pdA=='
   }
 };
