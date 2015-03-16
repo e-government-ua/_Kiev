@@ -6,6 +6,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @Service
-public class ActivitiRestApiController {
+public class ActivitiRestApiController extends ExecutionBaseResource{
 	private final Logger log = LoggerFactory
 			.getLogger(ActivitiRestApiController.class);
 
@@ -36,7 +37,8 @@ public class ActivitiRestApiController {
 
 	@Autowired
 	private TaskService taskService;
-
+	
+	
 	@RequestMapping(value = "/startProcessByKey/{key}", method = RequestMethod.GET)
 	@Transactional
 	public @ResponseBody String startProcess(@PathVariable("key") String key) {
