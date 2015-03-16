@@ -2,6 +2,7 @@ package org.activiti.explorer.servlet;
 
 import java.util.List;
 
+import org.activiti.rest.service.api.PutAwareCommonsMultipartResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -23,7 +25,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 @ComponentScan({ "org.activiti.rest.editor", "org.activiti.rest.diagram",
-		"org.activiti.rest.controller" })
+		"org.activiti.rest.controller", "org.activiti.rest.conf",
+		"org.activiti.rest.service.api" })
 @EnableAsync
 public class DispatcherServletConfiguration extends WebMvcConfigurationSupport {
 
@@ -77,14 +80,20 @@ public class DispatcherServletConfiguration extends WebMvcConfigurationSupport {
 			ContentNegotiationConfigurer configurer) {
 		configurer.favorPathExtension(false);
 	}
-	
-	/*REST API*/
-	  @Bean
-	  public InternalResourceViewResolver configureInternalResourceViewResolver() {
-	   InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+
+	/* REST API */
+	@Bean
+	public InternalResourceViewResolver configureInternalResourceViewResolver() {
+		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		// resolver.setPrefix("/WEB-INF/");
 		// resolver.setSuffix(".jsp");
-	   return resolver;
-	  }
+		return resolver;
+	}
+
+	@Bean
+	public MultipartResolver multipartResolver() {
+		PutAwareCommonsMultipartResolver multipartResolver = new PutAwareCommonsMultipartResolver();
+		return multipartResolver;
+	}
 
 }
