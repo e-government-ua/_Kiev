@@ -2,17 +2,18 @@
 
 var _ = require('lodash');
 var http = require("http");
+var config = require('../../config/environment');
 
 // Get list of process-definitionss
 exports.index = function(req, res) {
 	var options = {
-		host: 'localhost',
-		port: 8080,
-		path: '/activiti-rest/service/repository/process-definitions',
+		host: config.activiti.host,
+		port: config.activiti.port,
+		path: '/' + config.activiti.rest + '/process-definitions',
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': 'Basic a2VybWl0Omtlcm1pdA=='
+			'Authorization': config.activiti.auth.basic
 		}
 	};
 	getJSON(options,
@@ -46,6 +47,8 @@ function getJSON(options, onResult) {
 
 	req.on('error', function(err) {
 		//res.send('error: ' + err.message);
+		console.log(err.message);
+		req.end();
 	});
 
 	req.end();

@@ -4,7 +4,7 @@ var path = require('path');
 var _ = require('lodash');
 
 function requiredProcessEnv(name) {
-  if(!process.env[name]) {
+  if (!process.env[name]) {
     throw new Error('You must set the ' + name + ' environment variable');
   }
   return process.env[name];
@@ -27,6 +27,15 @@ var all = {
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
     session: 'portal-dniprorada-secret'
+  },
+
+  activiti: {
+    host: process.env.ACTIVITI_HOST || 'localhost',
+    port: process.env.ACTIVITI_PORT || 8080,
+    rest: process.env.ACTIVITI_REST || 'activiti-rest/service/repository',
+    auth: {
+      basic: process.env.ACTIVITI_AUTH_BASIC || 'Basic a2VybWl0Omtlcm1pdA=='
+    }
   },
 
   // List of user roles
