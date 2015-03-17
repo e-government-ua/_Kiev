@@ -15,6 +15,6 @@ module.exports = {
   //activiti settings
   ACTIVITI_HOST: 'localhost',
   ACTIVITI_PORT: 8081,
-  ACTIVITI_REST: 'activiti-rest/service/repository',
+  ACTIVITI_REST: 'activiti-rest/service',
   ACTIVITI_AUTH_BASIC: 'Basic a2VybWl0Omtlcm1pdA=='
 };
