@@ -10,7 +10,7 @@ exports.index = function(req, res) {
 		path: 'repository/process-definitions',
 		method: 'GET',
 	};
-	activiti.rest(options, function(statusCode, result) {
+	activiti.get(options, function(statusCode, result) {
 		res.statusCode = statusCode;
 		res.send(result);
 	});
