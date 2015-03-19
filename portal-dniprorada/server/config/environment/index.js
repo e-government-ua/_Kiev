@@ -26,7 +26,7 @@ var all = {
 
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
-    session: 'portal-dniprorada-secret'
+    session: process.env.SESSION_SECRET
   },
 
   activiti: {
@@ -36,6 +36,12 @@ var all = {
     auth: {
       basic: process.env.ACTIVITI_AUTH_BASIC || 'Basic a2VybWl0Omtlcm1pdA=='
     }
+  },
+
+  bankid : {
+    host: process.env.BANK_ID_HOST || 'localhost',
+    path: process.env.BANK_ID_PATH || 'service/bankid',
+    appid: process.env.BANK_ID_APP_ID || 'myApp',
   },
 
   // List of user roles
