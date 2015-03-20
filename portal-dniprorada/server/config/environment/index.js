@@ -39,17 +39,16 @@ var all = {
     }
   },
 
-<<<<<<< HEAD
   ssl : {
     private_key: process.env.PRIVATE_KEY,
     certificate: process.env.CERTIFICATE,
     port: process.env.SSL_PORT
-=======
+  },
+  
   bankid : {
     host: process.env.BANK_ID_HOST || 'localhost',
     path: process.env.BANK_ID_PATH || 'service/bankid',
-    appid: process.env.BANK_ID_APP_ID || 'myApp',
->>>>>>> 80ac4326c86771f04884f844567c5fa3d40b168c
+    appid: process.env.BANK_ID_APP_ID || 'myApp'
   },
 
   // List of user roles
