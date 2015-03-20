@@ -51,7 +51,8 @@ module.exports = function (grunt) {
     },
     open: {
       server: {
-        url: 'http://localhost:<%= express.options.port %>'
+        url: (localConfig.SSL_PORT ? 'https': 'http') 
+              + '://localhost:<%= express.options.port %>'
       }
     },
     watch: {
@@ -200,7 +201,8 @@ module.exports = function (grunt) {
             // opens browser on initial server start
             nodemon.on('config:update', function () {
               setTimeout(function () {
-                require('open')('http://localhost:8080/debug?port=5858');
+                var prot = localConfig.SSL_PORT ? 'https': 'http';
+                require('open')(prot + '://localhost:8080/debug?port=5858');
               }, 500);
             });
           }

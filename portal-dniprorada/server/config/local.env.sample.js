@@ -13,8 +13,13 @@ module.exports = {
   DEBUG: '',
 
   //activiti settings
+  ACTIVITI_PROT: 'https',
   ACTIVITI_HOST: 'localhost',
   ACTIVITI_PORT: 8081,
   ACTIVITI_REST: 'activiti-rest/service',
-  ACTIVITI_AUTH_BASIC: 'Basic a2VybWl0Omtlcm1pdA=='
+  ACTIVITI_AUTH_BASIC: 'Basic a2VybWl0Omtlcm1pdA==',
+
+  PRIVATE_KEY: 'path to sslcert/server.key',
+  CERTIFICATE: 'sslcert/server.crt',
+  SSL_PORT: 8084
 };

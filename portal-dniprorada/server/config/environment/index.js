@@ -30,12 +30,19 @@ var all = {
   },
 
   activiti: {
+    prot: process.env.ACTIVITI_PROT || 'http',
     host: process.env.ACTIVITI_HOST || 'localhost',
     port: process.env.ACTIVITI_PORT || 8080,
     rest: process.env.ACTIVITI_REST || 'activiti-rest/service/repository',
     auth: {
       basic: process.env.ACTIVITI_AUTH_BASIC || 'Basic a2VybWl0Omtlcm1pdA=='
     }
+  },
+
+  ssl : {
+    private_key: process.env.PRIVATE_KEY,
+    certificate: process.env.CERTIFICATE,
+    port: process.env.SSL_PORT
   },
 
   // List of user roles

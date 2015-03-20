@@ -6,11 +6,19 @@
 
 
 var _ = require('lodash');
-var http = require("http");
-var https = require('https');
+
+var createProt = function(options){
+	var prot;
+	if(options.prot){
+		prot = require(options.prot);
+	} else {
+		prot = options.port == 443 ? require('https') : require("http");
+	} 
+	return prot;
+}
 
 exports.postJSON = function(options, data, onResult) {
-	var prot = options.port == 443 ? https : http;
+	var prot = createProt(options);
 	var dataString = JSON.stringify(data);
 	var default_headers = {
 		'Content-Type': 'application/json',
@@ -49,7 +57,7 @@ exports.postJSON = function(options, data, onResult) {
  * @param callback: callback to pass the results JSON object(s) back
  */
 exports.getJSON = function(options, onResult) {
-	var prot = options.port == 443 ? https : http;
+	var prot = createProt(options);
 	var req = prot.request(options, function(res) {
 		var responseString = '';
 		res.setEncoding('utf8');

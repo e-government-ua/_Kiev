@@ -10,6 +10,7 @@ var default_headers = {
 
 var getRequestOptions = function(options) {
 	return {
+		prot: config.activiti.prot,
 		host: config.activiti.host,
 		port: config.activiti.port,
 		path: '/' + config.activiti.rest + '/' + options.path,
