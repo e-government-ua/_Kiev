@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * ...wf-dniprorada/service/...
  * Example:
- * http://localhost:9090/wf-dniprorada/service/startProcessByKey/citizensRequest
+ * .../wf-dniprorada/service/rest/startProcessByKey/citizensRequest
  * 
  * @author Tereshchenko
  *
  */
-@Controller
-@Service
+@Controller()
+@RequestMapping(value="/rest")
 public class ActivitiRestApiController extends ExecutionBaseResource{
 	private final Logger log = LoggerFactory
 			.getLogger(ActivitiRestApiController.class);
