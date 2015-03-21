@@ -63,10 +63,10 @@ public class BankIDChecked implements JavaDelegate {
 	private void getData(HttpsURLConnection con, DelegateExecution execution)
 			throws IOException {
 		if (con != null) {
-
+			BufferedReader br =null;
 			try {
 
-				BufferedReader br = new BufferedReader(new InputStreamReader(
+				br = new BufferedReader(new InputStreamReader(
 						con.getInputStream()));
 
 				JsonNode jNode = objectMapper.readTree(br);
