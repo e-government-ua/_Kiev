@@ -6,7 +6,7 @@
   <process id="myProcess" name="My process" isExecutable="true">
     <startEvent id="startevent1" name="request">
       <extensionElements>
-        <activiti:formProperty id="bankID" name="bankID" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="access_token" name="bankID" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="docType" name="Тип запрашиваемого документа" type="enum" writable="false" required="true">
           <activiti:value id="copyDesicionExecutiveCommittee" name="копія рішення виконавчого комітету"></activiti:value>
           <activiti:value id="copyDecisionCityCouncil" name="копія рішення Дніпропетровської міської ради"></activiti:value>
@@ -53,24 +53,26 @@
     <sequenceFlow id="flow5" sourceRef="mailtask1" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
-    <serviceTask id="servicetask1" name="получение данных по bankID">
-      <extensionElements>
+    <serviceTask id="BankIDCheck" name="получение данных по bankID" activiti:delegateExpression="${bankIDChecked}">
+     <!--  no need extension elements, client data fill added to execution
+     <extensionElements>
         <activiti:field name="firstName">
-          <activiti:string><![CDATA[Иван]]></activiti:string>
+          <activiti:string><![CDATA[$(firstName)]]></activiti:string>
         </activiti:field>
         <activiti:field name="lastName">
-          <activiti:string><![CDATA[Иванов]]></activiti:string>
+          <activiti:string><![CDATA[$(lastName)]]></activiti:string>
         </activiti:field>
         <activiti:field name="secondName">
-          <activiti:string><![CDATA[Иванович]]></activiti:string>
+          <activiti:string><![CDATA[$(secondName)]]></activiti:string>
         </activiti:field>
         <activiti:field name="phone">
-          <activiti:string><![CDATA[+380971234578]]></activiti:string>
+          <activiti:string><![CDATA[$(phone)]]></activiti:string>
         </activiti:field>
-        <activiti:field name="addres">
-          <activiti:string><![CDATA[Украина обл.Днепропетровская г Днепропетровск наб.Победы д.106 кв.1]]></activiti:string>
+        <activiti:field name="adress">
+          <activiti:string><![CDATA[$(adress)]]></activiti:string>
         </activiti:field>
       </extensionElements>
+      -->
     </serviceTask>
     <userTask id="usertask4" name="анализ входящего запроса">
       <extensionElements>
