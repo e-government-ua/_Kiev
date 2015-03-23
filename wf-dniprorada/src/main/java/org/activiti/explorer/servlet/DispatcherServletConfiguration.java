@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 @ComponentScan({ "org.activiti.rest.editor", "org.activiti.rest.diagram",
 		"org.activiti.rest.controller", "org.activiti.rest.conf",
-		"org.activiti.rest.service.api" })
+		"org.activiti.rest.service.api","org.egov.web.controller" })
 @EnableAsync
 public class DispatcherServletConfiguration extends WebMvcConfigurationSupport {
 
@@ -85,8 +85,8 @@ public class DispatcherServletConfiguration extends WebMvcConfigurationSupport {
 	@Bean
 	public InternalResourceViewResolver configureInternalResourceViewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		// resolver.setPrefix("/WEB-INF/");
-		// resolver.setSuffix(".jsp");
+		resolver.setPrefix("/WEB-INF/jsp/");
+		resolver.setSuffix(".jsp");
 		return resolver;
 	}
 
