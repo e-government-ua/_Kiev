@@ -3,11 +3,39 @@
 var path = require('path');
 var _ = require('lodash');
 
-function requiredProcessEnv(name) {
-  if (!process.env[name]) {
-    throw new Error('You must set the ' + name + ' environment variable');
+(function() {
+
+  var required_for_activiti = [
+    'ACTIVITI_PROT',
+    'ACTIVITI_HOST',
+    'ACTIVITI_REST',
+    'ACTIVITI_AUTH_BASIC'
+  ];
+  requiredProcessEnv(required_for_activiti);
+
+  var required_for_bankid = [
+    'BANK_ID_HOST',
+    'BANK_ID_APP_ID',
+    'BANK_ID_PATH'
+  ];
+  requiredProcessEnv(required_for_bankid);
+
+  if (process.env.SSL_PORT) {
+    var required_for_ssl = [
+      'PORT',
+      'PRIVATE_KEY',
+      'CERTIFICATE'
+    ];
+    requiredProcessEnv(required_for_ssl);
   }
-  return process.env[name];
+})();
+
+function requiredProcessEnv(envNames) {
+  for (var name in envNames) {
+    if (!process.env[envNames[name]]) {
+      throw new Error('You must set the ' + envNames[name] + ' environment variable');
+    }
+  }
 }
 
 // All configurations will extend these options
@@ -39,13 +67,13 @@ var all = {
     }
   },
 
-  ssl : {
+  ssl: {
     private_key: process.env.PRIVATE_KEY,
     certificate: process.env.CERTIFICATE,
     port: process.env.SSL_PORT
   },
-  
-  bankid : {
+
+  bankid: {
     host: process.env.BANK_ID_HOST || 'localhost',
     path: process.env.BANK_ID_PATH || 'service/bankid',
     appid: process.env.BANK_ID_APP_ID || 'myApp'
