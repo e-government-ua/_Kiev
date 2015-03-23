@@ -19,7 +19,6 @@
         <activiti:formProperty id="email" name="Укажите Ваш E-mail для обратной связи" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <serviceTask id="mailtask1" name="Уведомление об отказе" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -52,28 +51,6 @@
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow5" sourceRef="mailtask1" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
-    <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
-    <serviceTask id="BankIDCheck" name="получение данных по bankID" activiti:delegateExpression="${bankIDChecked}">
-     <!--  no need extension elements, client data fill added to execution
-     <extensionElements>
-        <activiti:field name="firstName">
-          <activiti:string><![CDATA[$(firstName)]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="lastName">
-          <activiti:string><![CDATA[$(lastName)]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="secondName">
-          <activiti:string><![CDATA[$(secondName)]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="phone">
-          <activiti:string><![CDATA[$(phone)]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="adress">
-          <activiti:string><![CDATA[$(adress)]]></activiti:string>
-        </activiti:field>
-      </extensionElements>
-      -->
-    </serviceTask>
     <userTask id="usertask4" name="анализ входящего запроса">
       <extensionElements>
         <activiti:formProperty id="decide" name="резолюция по запросу" type="enum" required="true">
@@ -82,7 +59,6 @@
         </activiti:formProperty>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow8" sourceRef="servicetask1" targetRef="usertask4"></sequenceFlow>
     <serviceTask id="mailtask2" name="Отправка ответа на запрос пользователю" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -102,19 +78,11 @@
 
 Вы запросили копию $(docType) №$(docNumber)  от  $(docDate)
 
-Запрашиваемый документ добавлен в приложение этого письма.
-</activiti:expression>
+Запрашиваемый документ добавлен в приложение этого письма.</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow9" sourceRef="usertask4" targetRef="exclusivegateway1"></sequenceFlow>
-    <sequenceFlow id="flow10" name="Запрос одобрен" sourceRef="exclusivegateway1" targetRef="usertask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[$(decide=='accept')]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow11" name="Запрос отклонен" sourceRef="exclusivegateway1" targetRef="mailtask1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[$(decide==!reject!)]]></conditionExpression>
-    </sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Пользователь портала  отправляет запрос на  получение  информации.
 Указывается необходимый тип документа, номер, дата принятия и для какой цели запрашивается документ.</text>
@@ -128,7 +96,6 @@
   <process id="process_pool1" name="process_pool1" isExecutable="true">
     <laneSet id="laneSet_process_pool1">
       <lane id="lane1" name="Пользователь">
-        <flowNodeRef>servicetask1</flowNodeRef>
         <flowNodeRef>usertask4</flowNodeRef>
         <flowNodeRef>endevent1</flowNodeRef>
         <flowNodeRef>mailtask1</flowNodeRef>
@@ -142,20 +109,19 @@
       <lane id="lane2" name="Система">
         <flowNodeRef>usertask4</flowNodeRef>
         <flowNodeRef>startevent1</flowNodeRef>
-        <flowNodeRef>servicetask1</flowNodeRef>
         <flowNodeRef>exclusivegateway1</flowNodeRef>
         <flowNodeRef>usertask2</flowNodeRef>
         <flowNodeRef>endevent2</flowNodeRef>
         <flowNodeRef>mailtask2</flowNodeRef>
         <flowNodeRef>mailtask1</flowNodeRef>
         <flowNodeRef>endevent1</flowNodeRef>
-        <flowNodeRef>servicetask1</flowNodeRef>
         <flowNodeRef>mailtask1</flowNodeRef>
         <flowNodeRef>endevent1</flowNodeRef>
         <flowNodeRef>mailtask2</flowNodeRef>
         <flowNodeRef>endevent2</flowNodeRef>
         <flowNodeRef>mailtask3</flowNodeRef>
         <flowNodeRef>endevent3</flowNodeRef>
+        <flowNodeRef>servicetask2</flowNodeRef>
       </lane>
       <lane id="lane3" name="Ответственный сотрудник">
         <flowNodeRef>usertask4</flowNodeRef>
@@ -180,27 +146,6 @@
         <activiti:formProperty id="email" name="Укажите Ваш E-mail для обратной связи" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
-    <serviceTask id="servicetask1" name="получение данных по bankID">
-      <extensionElements>
-        <activiti:field name="firstName">
-          <activiti:string><![CDATA[Иван]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="lastName">
-          <activiti:string><![CDATA[Иванов]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="secondName">
-          <activiti:string><![CDATA[Иванович]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="phone">
-          <activiti:string><![CDATA[+380971234578]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="addres">
-          <activiti:string><![CDATA[Украина обл.Днепропетровская г Днепропетровск наб.Победы д.106 кв.1]]></activiti:string>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
-    <sequenceFlow id="flow8" sourceRef="servicetask1" targetRef="usertask4"></sequenceFlow>
     <userTask id="usertask4" name="анализ входящего запроса">
       <extensionElements>
         <activiti:formProperty id="decide" name="резолюция по запросу" type="enum" required="true">
@@ -209,14 +154,7 @@
         </activiti:formProperty>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow9" sourceRef="usertask4" targetRef="exclusivegateway1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow10" name="Запрос одобрен" sourceRef="exclusivegateway1" targetRef="usertask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[$(decide=='accept')]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow11" name="Запрос отклонен" sourceRef="exclusivegateway1" targetRef="mailtask1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[$(decide==!reject!)]]></conditionExpression>
-    </sequenceFlow>
     <userTask id="usertask2" name="Поиск документа">
       <extensionElements>
         <activiti:formProperty id="searchResult" name="Результат поиска" type="enum" writable="false" required="true">
@@ -267,12 +205,10 @@
 
 Вы запросили копию $(docType) №$(docNumber)  от  $(docDate)
 
-Запрашиваемый документ добавлен в приложение этого письма.
-</activiti:expression>
+Запрашиваемый документ добавлен в приложение этого письма.</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow12" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
@@ -285,8 +221,7 @@
           <activiti:expression>Уважаемый, ${firstName} ${lastName}.
 
 Вы запросили копию $(docType) №$(docNumber)  от  $(docDate)
-К сожалению интересующий Вас документ не найден.
-</activiti:expression>
+К сожалению интересующий Вас документ не найден.</activiti:expression>
         </activiti:field>
         <activiti:field name="to">
           <activiti:string><![CDATA[$(email)]]></activiti:string>
@@ -307,11 +242,16 @@
     <sequenceFlow id="flow15" sourceRef="usertask5" targetRef="mailtask2"></sequenceFlow>
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow16" sourceRef="mailtask3" targetRef="endevent3"></sequenceFlow>
+    <serviceTask id="servicetask2" name="поулчение данных по bankID"></serviceTask>
+    <sequenceFlow id="flow17" sourceRef="startevent1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow18" sourceRef="servicetask2" targetRef="usertask4"></sequenceFlow>
+    <sequenceFlow id="flow19" sourceRef="usertask4" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow20" sourceRef="exclusivegateway1" targetRef="mailtask1"></sequenceFlow>
+    <sequenceFlow id="flow21" sourceRef="exclusivegateway1" targetRef="usertask2"></sequenceFlow>
     <textAnnotation id="textannotation3">
       <text>По banlID система получает необходимые данные пользователя:
 ФИО, адрес проживания, телефон</text>
     </textAnnotation>
-    <association id="association3" sourceRef="servicetask1" targetRef="textannotation3"></association>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
     <bpmndi:BPMNPlane bpmnElement="Collaboration" id="BPMNPlane_Collaboration">
@@ -342,9 +282,6 @@
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="1330.0" y="259.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
-        <omgdc:Bounds height="55.0" width="141.0" x="170.0" y="249.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
         <omgdc:Bounds height="55.0" width="111.0" x="380.0" y="438.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -372,45 +309,15 @@
       <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
         <omgdc:Bounds height="35.0" width="35.0" x="1080.0" y="259.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="62.0" width="115.0" x="190.0" y="246.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
         <omgdc:Bounds height="50.0" width="341.0" x="60.0" y="330.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="145.0" y="117.0"></omgdi:waypoint>
-        <omgdi:waypoint x="240.0" y="117.0"></omgdi:waypoint>
-        <omgdi:waypoint x="240.0" y="249.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="725.0" y="276.0"></omgdi:waypoint>
         <omgdi:waypoint x="750.0" y="276.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="1285.0" y="276.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1330.0" y="276.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="311.0" y="276.0"></omgdi:waypoint>
-        <omgdi:waypoint x="435.0" y="276.0"></omgdi:waypoint>
-        <omgdi:waypoint x="435.0" y="438.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
-        <omgdi:waypoint x="491.0" y="465.0"></omgdi:waypoint>
-        <omgdi:waypoint x="560.0" y="466.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
-        <omgdi:waypoint x="600.0" y="466.0"></omgdi:waypoint>
-        <omgdi:waypoint x="700.0" y="465.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="640.0" y="814.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
-        <omgdi:waypoint x="580.0" y="446.0"></omgdi:waypoint>
-        <omgdi:waypoint x="578.0" y="276.0"></omgdi:waypoint>
-        <omgdi:waypoint x="620.0" y="276.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="558.0" y="689.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
         <omgdi:waypoint x="127.0" y="100.0"></omgdi:waypoint>
@@ -436,7 +343,7 @@
         <omgdi:waypoint x="890.0" y="466.0"></omgdi:waypoint>
         <omgdi:waypoint x="1090.0" y="465.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="946.0" y="813.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="90.0" x="946.0" y="813.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
@@ -448,9 +355,28 @@
         <omgdi:waypoint x="1051.0" y="276.0"></omgdi:waypoint>
         <omgdi:waypoint x="1080.0" y="276.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
-        <omgdi:waypoint x="240.0" y="304.0"></omgdi:waypoint>
-        <omgdi:waypoint x="230.0" y="330.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="145.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="247.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="247.0" y="246.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="305.0" y="277.0"></omgdi:waypoint>
+        <omgdi:waypoint x="435.0" y="276.0"></omgdi:waypoint>
+        <omgdi:waypoint x="435.0" y="438.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="491.0" y="465.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="466.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="580.0" y="446.0"></omgdi:waypoint>
+        <omgdi:waypoint x="580.0" y="276.0"></omgdi:waypoint>
+        <omgdi:waypoint x="620.0" y="276.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="600.0" y="466.0"></omgdi:waypoint>
+        <omgdi:waypoint x="700.0" y="465.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
