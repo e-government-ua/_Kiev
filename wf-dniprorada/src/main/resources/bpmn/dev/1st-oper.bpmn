@@ -4,21 +4,7 @@
     <participant id="pool1" name="Участники процесса" processRef="process_pool1"></participant>
   </collaboration>
   <process id="myProcess" name="My process" isExecutable="true">
-    <startEvent id="startevent1" name="request">
-      <extensionElements>
-        <activiti:formProperty id="access_token" name="bankID" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="docType" name="Тип запрашиваемого документа" type="enum" writable="false" required="true">
-          <activiti:value id="copyDesicionExecutiveCommittee" name="копія рішення виконавчого комітету"></activiti:value>
-          <activiti:value id="copyDecisionCityCouncil" name="копія рішення Дніпропетровської міської ради"></activiti:value>
-          <activiti:value id="copyMayorOrder" name="копія розпорядження міського голови"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="docNumber" name="Номер запрашиваемого документа" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="docDate" name="Дата создания запрашиваемого документа" type="date"></activiti:formProperty>
-        <activiti:formProperty id="docName" name="Название запрашиваемого документа" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="goal" name="Для какой цели необходимы запрашиваемые данные ?" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Укажите Ваш E-mail для обратной связи" type="string" required="true"></activiti:formProperty>
-      </extensionElements>
-    </startEvent>
+    <startEvent id="startevent1" name="request"></startEvent>
     <serviceTask id="mailtask1" name="Уведомление об отказе" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -51,8 +37,11 @@
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow5" sourceRef="mailtask1" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
-    <userTask id="usertask4" name="анализ входящего запроса">
+    <userTask id="usertask4" name="анализ входящего запроса" activiti:candidateGroups="management_clerk_dmr">
       <extensionElements>
+        <activiti:formProperty id="clFio" name="Автор запроса " default="${clLastName} ${clFirstName} ${clSecondName}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="request" name="Запрашиваемый документ" default="${docType} номер  ${docNumber} от  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="request_goal" name="Цель запроса" type="string" default="${goal}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="decide" name="резолюция по запросу" type="enum" required="true">
           <activiti:value id="accept" name="Запрос аргументирован"></activiti:value>
           <activiti:value id="reject" name="Запрос не аргументирован"></activiti:value>
@@ -84,8 +73,7 @@
     </serviceTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <textAnnotation id="textannotation1">
-      <text>Пользователь портала  отправляет запрос на  получение  информации.
-Указывается необходимый тип документа, номер, дата принятия и для какой цели запрашивается документ.</text>
+      <text>Пользователь портала  отправляет выбирает услугу</text>
     </textAnnotation>
     <association id="association1" sourceRef="startevent1" targetRef="textannotation1"></association>
     <textAnnotation id="textannotation2">
@@ -105,6 +93,7 @@
         <flowNodeRef>startevent1</flowNodeRef>
         <flowNodeRef>exclusivegateway1</flowNodeRef>
         <flowNodeRef>startevent1</flowNodeRef>
+        <flowNodeRef>usertask6</flowNodeRef>
       </lane>
       <lane id="lane2" name="Система">
         <flowNodeRef>usertask4</flowNodeRef>
@@ -242,12 +231,35 @@
     <sequenceFlow id="flow15" sourceRef="usertask5" targetRef="mailtask2"></sequenceFlow>
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow16" sourceRef="mailtask3" targetRef="endevent3"></sequenceFlow>
-    <serviceTask id="servicetask2" name="поулчение данных по bankID"></serviceTask>
-    <sequenceFlow id="flow17" sourceRef="startevent1" targetRef="servicetask2"></sequenceFlow>
-    <sequenceFlow id="flow18" sourceRef="servicetask2" targetRef="usertask4"></sequenceFlow>
+    <serviceTask id="servicetask2" name="получение данных по bankID"></serviceTask>
     <sequenceFlow id="flow19" sourceRef="usertask4" targetRef="exclusivegateway1"></sequenceFlow>
-    <sequenceFlow id="flow20" sourceRef="exclusivegateway1" targetRef="mailtask1"></sequenceFlow>
+    <sequenceFlow id="flow20" name="запрос необоснован" sourceRef="exclusivegateway1" targetRef="mailtask1">
+      <documentation>${decide == 'decline'}</documentation>
+    </sequenceFlow>
     <sequenceFlow id="flow21" sourceRef="exclusivegateway1" targetRef="usertask2"></sequenceFlow>
+    <sequenceFlow id="flow22" sourceRef="startevent1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow23" sourceRef="servicetask2" targetRef="usertask6"></sequenceFlow>
+    <userTask id="usertask6" name="клиент указывает данные запроса">
+      <extensionElements>
+        <activiti:formProperty id="text" name="Автор запроса" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clFirstName" name="Имя" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="clLastName" name="Фамилия" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="clSecondName" name="Отчество" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clPhone" name="Телефон" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="clAddress" name="Адрес" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="text2" name="Данные запроса" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="docType" name="тип документа" type="enum">
+          <activiti:value id="type1" name="копію рішення Дніпропетровської міської ради"></activiti:value>
+          <activiti:value id="type2" name="копію рішення виконавчого комітету Дніпропетровської"></activiti:value>
+          <activiti:value id="type3" name="копію розпорядження міського голови"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="docDate" name="Дата принятия документа" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="docNumber" name="Номер документа" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="docName" name="Название документа" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="gaol" name="Цель получения документа" type="string"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow24" sourceRef="usertask6" targetRef="usertask4"></sequenceFlow>
     <textAnnotation id="textannotation3">
       <text>По banlID система получает необходимые данные пользователя:
 ФИО, адрес проживания, телефон</text>
@@ -310,7 +322,10 @@
         <omgdc:Bounds height="35.0" width="35.0" x="1080.0" y="259.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="62.0" width="115.0" x="190.0" y="246.0"></omgdc:Bounds>
+        <omgdc:Bounds height="62.0" width="115.0" x="170.0" y="246.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask6" id="BPMNShape_usertask6">
+        <omgdc:Bounds height="85.0" width="105.0" x="330.0" y="60.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
         <omgdc:Bounds height="50.0" width="341.0" x="60.0" y="330.0"></omgdc:Bounds>
@@ -355,16 +370,6 @@
         <omgdi:waypoint x="1051.0" y="276.0"></omgdi:waypoint>
         <omgdi:waypoint x="1080.0" y="276.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
-        <omgdi:waypoint x="145.0" y="117.0"></omgdi:waypoint>
-        <omgdi:waypoint x="247.0" y="117.0"></omgdi:waypoint>
-        <omgdi:waypoint x="247.0" y="246.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
-        <omgdi:waypoint x="305.0" y="277.0"></omgdi:waypoint>
-        <omgdi:waypoint x="435.0" y="276.0"></omgdi:waypoint>
-        <omgdi:waypoint x="435.0" y="438.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
         <omgdi:waypoint x="491.0" y="465.0"></omgdi:waypoint>
         <omgdi:waypoint x="560.0" y="466.0"></omgdi:waypoint>
@@ -373,10 +378,28 @@
         <omgdi:waypoint x="580.0" y="446.0"></omgdi:waypoint>
         <omgdi:waypoint x="580.0" y="276.0"></omgdi:waypoint>
         <omgdi:waypoint x="620.0" y="276.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="540.0" y="331.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
         <omgdi:waypoint x="600.0" y="466.0"></omgdi:waypoint>
         <omgdi:waypoint x="700.0" y="465.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="145.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="227.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="227.0" y="246.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="285.0" y="277.0"></omgdi:waypoint>
+        <omgdi:waypoint x="382.0" y="277.0"></omgdi:waypoint>
+        <omgdi:waypoint x="382.0" y="145.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="435.0" y="102.0"></omgdi:waypoint>
+        <omgdi:waypoint x="435.0" y="145.0"></omgdi:waypoint>
+        <omgdi:waypoint x="435.0" y="438.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
