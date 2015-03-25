@@ -8,10 +8,10 @@
     <serviceTask id="mailtask1" name="Уведомление об отказе" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[$(email)]]></activiti:string>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Обращение на тему: ${goal}</activiti:expression>
+          <activiti:expression>Обращение на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -20,9 +20,9 @@
           <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Уважаемый, ${firstName} ${lastName}.
+          <activiti:expression>Уважаемый(-ая), ${clFirstName} ${clSecondName}.
 
-К сожалению вынуждены Вам отказать в предоставлении информации в связи с недостаточной аргументаоцией запроса информации</activiti:expression>
+К сожалению вынуждены Вам отказать в предоставлении информации в связи с недостаточной аргументацией запроса информации</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -51,21 +51,21 @@
     <serviceTask id="mailtask2" name="Отправка ответа на запрос пользователю" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[$(email)]]></activiti:string>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Обращение на тему: ${goal}</activiti:expression>
+          <activiti:expression>Обращение на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Уважаемый, ${firstName} ${lastName}.
+          <activiti:expression>Уважаемый(-ая), ${clFirstName} ${clSecondName}.
 
-Вы запросили копию $(docType) №$(docNumber)  от  $(docDate)
+Вы запросили  ${docType}) № ${docNumber}  от  ${docDate}
 
 Запрашиваемый документ добавлен в приложение этого письма.</activiti:expression>
         </activiti:field>
@@ -202,31 +202,34 @@
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow12" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow13" name="Документ не найден" sourceRef="exclusivegateway2" targetRef="mailtask3">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[$(searchResult=='notFound')]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult=='notFound'}]]></conditionExpression>
     </sequenceFlow>
     <serviceTask id="mailtask3" name="Уведомление о том, что документ не найден" activiti:type="mail">
       <extensionElements>
         <activiti:field name="text">
-          <activiti:expression>Уважаемый, ${firstName} ${lastName}.
+          <activiti:expression>Уважаемый(-ая), ${clFirstName} ${clSecondName}.
 
-Вы запросили копию $(docType) №$(docNumber)  от  $(docDate)
+Вы запросили  ${docType}) № ${docNumber}  от  ${docDate}
+
 К сожалению интересующий Вас документ не найден.</activiti:expression>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[$(email)]]></activiti:string>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Обращение на тему: ${goal}</activiti:expression>
+          <activiti:expression>Обращение на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow14" name="Документ найден" sourceRef="exclusivegateway2" targetRef="usertask5"></sequenceFlow>
+    <sequenceFlow id="flow14" name="Документ найден" sourceRef="exclusivegateway2" targetRef="usertask5">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult == 'found'}]]></conditionExpression>
+    </sequenceFlow>
     <userTask id="usertask5" name="Прикрепление наденных документов к ответу на запрос"></userTask>
     <sequenceFlow id="flow15" sourceRef="usertask5" targetRef="mailtask2"></sequenceFlow>
     <endEvent id="endevent3" name="End"></endEvent>
@@ -234,9 +237,11 @@
     <serviceTask id="servicetask2" name="получение данных по bankID"></serviceTask>
     <sequenceFlow id="flow19" sourceRef="usertask4" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow20" name="запрос необоснован" sourceRef="exclusivegateway1" targetRef="mailtask1">
-      <documentation>${decide == 'decline'}</documentation>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow21" sourceRef="exclusivegateway1" targetRef="usertask2"></sequenceFlow>
+    <sequenceFlow id="flow21" sourceRef="exclusivegateway1" targetRef="usertask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="flow22" sourceRef="startevent1" targetRef="servicetask2"></sequenceFlow>
     <sequenceFlow id="flow23" sourceRef="servicetask2" targetRef="usertask6"></sequenceFlow>
     <userTask id="usertask6" name="клиент указывает данные запроса">
@@ -257,6 +262,7 @@
         <activiti:formProperty id="docNumber" name="Номер документа" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="docName" name="Название документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="gaol" name="Цель получения документа" type="string"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail" type="string" expression="На этот е-maul Вы будете проинформированы о результатах обработки запроса" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow24" sourceRef="usertask6" targetRef="usertask4"></sequenceFlow>
@@ -358,7 +364,7 @@
         <omgdi:waypoint x="890.0" y="466.0"></omgdi:waypoint>
         <omgdi:waypoint x="1090.0" y="465.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="90.0" x="946.0" y="813.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="946.0" y="813.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
