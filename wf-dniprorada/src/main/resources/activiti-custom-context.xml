@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-		<beans profile="prod">
+	<beans profile="prod">
 
 		<bean id="dbProperties"
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -51,8 +51,16 @@
 					<bean class="org.activiti.explorer.form.UserFormType" />
 					<bean class="org.activiti.explorer.form.ProcessDefinitionFormType" />
 					<bean class="org.activiti.explorer.form.MonthFormType" />
-					<bean class="org.activiti.engine.impl.form.DateFormType" />
-					<bean class="org.activiti.engine.impl.form.EnumFormType" />
+					<bean class="org.activiti.engine.impl.form.DateFormType">
+						<constructor-arg value="dd/MM/yyyy" />
+					</bean>
+					<bean class="org.activiti.engine.impl.form.EnumFormType">
+						<constructor-arg>
+							<map>
+								<entry key="DEF" value="def" />
+							</map>
+						</constructor-arg>
+					</bean>
 				</list>
 			</property>
 
@@ -135,8 +143,16 @@
 					<bean class="org.activiti.explorer.form.UserFormType" />
 					<bean class="org.activiti.explorer.form.ProcessDefinitionFormType" />
 					<bean class="org.activiti.explorer.form.MonthFormType" />
-					<bean class="org.activiti.engine.impl.form.DateFormType" />
-					<bean class="org.activiti.engine.impl.form.EnumFormType" />
+					<bean class="org.activiti.engine.impl.form.DateFormType">
+						<constructor-arg value="dd/MM/yyyy" />
+					</bean>
+					<bean class="org.activiti.engine.impl.form.EnumFormType">
+						<constructor-arg>
+							<map>
+								<entry key="DEF" value="def" />
+							</map>
+						</constructor-arg>
+					</bean>
 				</list>
 			</property>
 
@@ -215,8 +231,16 @@
 					<bean class="org.activiti.explorer.form.UserFormType" />
 					<bean class="org.activiti.explorer.form.ProcessDefinitionFormType" />
 					<bean class="org.activiti.explorer.form.MonthFormType" />
-					<bean class="org.activiti.engine.impl.form.DateFormType" />
-					<bean class="org.activiti.engine.impl.form.EnumFormType" />
+					<bean class="org.activiti.engine.impl.form.DateFormType">
+						<constructor-arg value="dd/MM/yyyy" />
+					</bean>
+					<bean class="org.activiti.engine.impl.form.EnumFormType">
+						<constructor-arg>
+							<map>
+								<entry key="DEF" value="def" />
+							</map>
+						</constructor-arg>
+					</bean>
 				</list>
 			</property>
 
