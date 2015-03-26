@@ -1,15 +1,19 @@
 # dniprorada
-Backend
-
-Frontend-Portal
-
+<h3>Backend/Backend-Operational</h3>
+Основан на http://activiti.org/
+<h4>Стек технологий:</h4> 
+Разработка: <i>java, spring, activiti</i> 
+<h4>Сборка проекта:</h4> 
+http://maven.apache.org/index.html
+<br/>
+<h3>Frontend-Portal</h3>
 <h4>Структура проекта</h4>
 сгенерирована на основе https://github.com/DaftMonk/generator-angular-fullstack для http://yeoman.io/
 <h4>Стек технологий:</h4> 
 Разработка: <i>angularJS, express, bootstrap, css3, html5</i> 
 <br/>
 Тесты: <i>karma, protractor</i> 
-<h4>Сборка проекта:</h4> <i>grunt</i> (см. http://gruntjs.com/)
+<h4>Сборка проекта:</h4> http://gruntjs.com
 <h4>Почему такой стек:</h4>
 быстро на начальном этапе, параллельная разработка, легко переключится с java на javascript, легкий процес сборки, струкутра проекта изначально разбита на профайлы - разработка, тесты, production, переменные окружения вынесены в настроечные файлы. 
 <h4>Структура проекта (клиентская часть):</h4>
