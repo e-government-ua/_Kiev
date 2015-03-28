@@ -46,6 +46,7 @@ var all = {
   // Root path of server
   root: path.normalize(__dirname + '/../../..'),
 
+  host: process.env.DOMAIN || 'localhost',
   // Server port
   port: process.env.PORT || 9000,
 
@@ -74,9 +75,19 @@ var all = {
   },
 
   bankid: {
+    prot: process.env.BANK_ID_PROT || 'https',
     host: process.env.BANK_ID_HOST || 'localhost',
     path: process.env.BANK_ID_PATH || 'service/bankid',
-    appid: process.env.BANK_ID_APP_ID || 'myApp'
+    appid: process.env.BANK_ID_APP_ID || 'myApp',
+
+    token: {
+      path: process.env.BANK_ID_TOKEN_PATH || 'service/bankid/token',
+      secret: process.env.BANK_ID_SECRET || 'secret'
+    },
+
+    user: {
+      path: process.env.BANK_ID_USER_PATH || 'service/bankid/user'
+    }
   },
 
   // List of user roles

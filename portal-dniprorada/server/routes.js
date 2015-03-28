@@ -9,7 +9,7 @@ var errors = require('./components/errors');
 module.exports = function(app) {
 
   // Insert routes below
-  app.use('/api/bankID', require('./api/bankID'));
+  app.use('/auth', require('./auth'));
   app.use('/api/process-form', require('./api/process-form'));
   app.use('/api/process-definitions', require('./api/process-definitions'));
   

@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"b",
+				"bankid"
+			],
+			[
+				"back",
+				"back_redirect_uri"
+			],
+			[
+				"redi",
+				"redirect_uri"
+			],
+			[
 				"fun",
 				"function"
 			],
@@ -56,18 +68,34 @@
 	"buffers":
 	[
 		{
-			"file": "client/index.html",
+			"file": "server/config/local.env.sample.js",
 			"settings":
 			{
-				"buffer_size": 3848,
+				"buffer_size": 1041,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "client/app/process-form/process-form.controller.js",
+			"file": "server/config/local.env.js",
 			"settings":
 			{
-				"buffer_size": 1663,
+				"buffer_size": 781,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "server/config/environment/index.js",
+			"settings":
+			{
+				"buffer_size": 2296,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "server/api/bankID/bankID.controller.js",
+			"settings":
+			{
+				"buffer_size": 737,
 				"line_ending": "Unix"
 			}
 		},
@@ -75,25 +103,29 @@
 			"file": "server/components/request/index.js",
 			"settings":
 			{
-				"buffer_size": 1684,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/app/process-form/process-form.html",
-			"settings":
-			{
-				"buffer_size": 871,
+				"buffer_size": 2590,
 				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "",
+	"build_system": "Packages/JSHint/JSHint.sublime-build",
 	"command_palette":
 	{
-		"height": 159.0,
+		"height": 96.0,
 		"selected_items":
 		[
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
 			[
 				"git comm",
 				"Git: Commit"
@@ -117,10 +149,6 @@
 			[
 				"web",
 				"Web Inspector"
-			],
-			[
-				"inst",
-				"Package Control: Install Package"
 			],
 			[
 				"ins",
@@ -156,39 +184,52 @@
 	},
 	"file_history":
 	[
+		"/home/domash/workspace/dniprorada/portal-dniprorada/process.json",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/server/config/local.env.sample.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/server/config/local.env.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/Gruntfile.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/node_start.sh",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/dist/start.sh",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/dist/process.json",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/pm2_start.sh",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/server/config/environment/index.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/server/app.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/server/config/express.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/server/routes.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/dist/server/config/local.env.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/server/components/request/index.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/dist/server/config/environment/index.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/dist/public/index.html",
+		"/home/domash/.config/sublime-text-2/Packages/JSHint Gutter/Default (Linux).sublime-keymap",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/.gitignore",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/client/app/process-form/process-form.controller.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/server/api/bankID/bankID.controller.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/client/app/process-form/process-form.html",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/package.json",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/client/app/process-form/process-form.js",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/client/components/modal/modal.html",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/client/index.html",
+		"/home/domash/workspace/dniprorada/portal-dniprorada/server/api/bankID/index.js",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/bower.json",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/server/api/process-form/index.js",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/server/api/process-form/process-form.controller.js",
-		"/home/domash/workspace/dniprorada/portal-dniprorada/server/components/request/index.js",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/server/components/activiti/index.js",
-		"/home/domash/workspace/dniprorada/portal-dniprorada/client/app/process-form/process-form.controller.js",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/server/api/process-definitions/process-definitions.controller.js",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/client/app/app.js",
-		"/home/domash/workspace/dniprorada/portal-dniprorada/client/index.html",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/client/app/main/main.html",
-		"/home/domash/workspace/dniprorada/portal-dniprorada/client/app/process-form/process-form.js",
-		"/home/domash/workspace/dniprorada/portal-dniprorada/client/app/process-form/process-form.html",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/client/components/banner/banner.html",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/client/components/banner/banner.css",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/server/components/request/request.js",
-		"/home/domash/workspace/dniprorada/portal-dniprorada/server/config/local.env.js",
-		"/home/domash/workspace/dniprorada/portal-dniprorada/server/config/local.env.sample.js",
-		"/home/domash/workspace/dniprorada/portal-dniprorada/server/routes.js",
-		"/home/domash/workspace/dniprorada/portal-dniprorada/server/config/environment/index.js",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/server/api/process-definitions/index.js",
-		"/home/domash/workspace/dniprorada/portal-dniprorada/server/app.js",
-		"/home/domash/workspace/dniprorada/portal-dniprorada/Gruntfile.js",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/client/app/main/main.controller.js",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/server/api/process-definitions/process-definitions.spec.js",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/server/config/environment/development.js",
-		"/home/domash/workspace/dniprorada/portal-dniprorada/.gitignore",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/project.json",
 		"/home/domash/workspace/dniprorada/.gitignore",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/client/app/main/main.css",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/client/components/navbar/navbar.html",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/client/favicon.ico",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/client/assets/images/explorer-logo.png",
-		"/home/domash/workspace/dniprorada/portal-dniprorada/client/components/modal/modal.html",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/client/app/main/main.js",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/client/robots.txt",
 		"/home/domash/workspace/dniprorada/portal-dniprorada/server/components/errors/index.js",
@@ -240,6 +281,16 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"=== ",
+			"backRedirectUrl",
+			"package.json",
+			"env",
+			"localConfig",
+			"session",
+			");      ",
+			"0.0.0",
+			"						\n",
+			"localhost",
 			"process",
 			"console",
 			"localConfig",
@@ -288,51 +339,50 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "client/index.html",
+					"file": "server/config/local.env.sample.js",
 					"settings":
 					{
-						"buffer_size": 3848,
+						"buffer_size": 1041,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3041,
-								3041
+								320,
+								320
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 918.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "client/app/process-form/process-form.controller.js",
+					"file": "server/config/local.env.js",
 					"settings":
 					{
-						"buffer_size": 1663,
+						"buffer_size": 781,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								737,
-								737
+								274,
+								274
 							]
 						],
 						"settings":
@@ -341,25 +391,53 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 510.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "server/components/request/index.js",
+					"file": "server/config/environment/index.js",
 					"settings":
 					{
-						"buffer_size": 1684,
+						"buffer_size": 2296,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								273,
-								273
+								1631,
+								1631
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 867.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "server/api/bankID/bankID.controller.js",
+					"settings":
+					{
+						"buffer_size": 737,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13,
+								13
 							]
 						],
 						"settings":
@@ -368,35 +446,34 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 51.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "client/app/process-form/process-form.html",
+					"buffer": 4,
+					"file": "server/components/request/index.js",
 					"settings":
 					{
-						"buffer_size": 871,
+						"buffer_size": 2590,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								580,
-								580
+								607,
+								607
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 317.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

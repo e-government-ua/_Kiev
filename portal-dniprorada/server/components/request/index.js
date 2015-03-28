@@ -4,17 +4,65 @@
 
 'use strict';
 
-
+var config = require('../../config/environment');
 var _ = require('lodash');
+var url = require('url')
+var extIP = require('external-ip');
 
-var createProt = function(options){
+var getIP = extIP({
+	replace: true,
+	services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
+	timeout: 400,
+	getIP: 'parallel'
+});
+
+var createProt = function(options) {
 	var prot;
-	if(options.prot){
+	if (options.prot) {
 		prot = require(options.prot);
 	} else {
-		prot = options.port == 443 ? require('https') : require("http");
-	} 
+		prot = options.port === 443 ? require('https') : require("http");
+	}
 	return prot;
+}
+
+exports.getProtocol = function() {
+	return config.ssl.port ? 'https' : 'http';
+}
+
+exports.getBackRedirectURL = function(path) {
+	var back_redirect_uri 
+		= (config.host) + ':' + (config.port);
+	return url.format({
+		protocol: module.exports.getProtocol(),
+		host: back_redirect_uri,
+		pathname: path
+	});
+}
+
+exports.getAsynchBackRedirectURL = function(path, onResult) {
+	var back_redirect_uri 
+		= (config.host) + ':' + (config.port);
+
+	if (back_redirect_uri) {
+		onResult(url.format({
+			protocol: module.exports.getProtocol(),
+			host: back_redirect_uri,
+			pathname: path
+		}));
+	} else {
+		getIP(function(err, ip) {
+			if (err) {
+				// every service in the list has failed 
+				throw err;
+			}
+			onResult(url.format({
+				protocol: module.exports.getProtocol(),
+				host: ip,
+				pathname: path
+			}));
+		});
+	}
 }
 
 exports.postJSON = function(options, data, onResult) {
@@ -36,8 +84,7 @@ exports.postJSON = function(options, data, onResult) {
 		});
 
 		res.on('end', function() {
-			var responseObject = JSON.parse(responseString);
-			onResult(res.statusCode, responseObject);
+			onResult(res.statusCode, responseString);
 		});
 
 		req.on('error', function(err) {
@@ -67,8 +114,7 @@ exports.getJSON = function(options, onResult) {
 		});
 
 		res.on('end', function() {
-			var responseObject = JSON.parse(responseString);
-			onResult(res.statusCode, responseObject);
+			onResult(res.statusCode, responseString);
 		});
 
 		req.on('error', function(err) {
