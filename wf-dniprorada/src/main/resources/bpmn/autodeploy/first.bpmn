@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="myProcess" name="My process" isExecutable="true">
+    <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
+      <extensionElements>
+        <activiti:formProperty id="clLastName" name="Фамилия" type="string" default="Свириденко" required="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clFirstName" name="Имя" type="string" default="Евгения" required="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clSecondName" name="Отчество" type="string" default="Вадимовна" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clPhone" name="Телефон" type="string" default="+380504206734" required="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clAddress" name="Адрес" type="string" default="наб. Победы 32" required="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="docType" name="Тип документа" type="enum" writable="false" readable="true" default="Постановление">
+          <activiti:value id="Постановление" name="Постановление"></activiti:value>
+          <activiti:value id="Указ" name="Указ"></activiti:value>
+          <activiti:value id="Распоряжение" name="Распоряжение"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="docDate" name="Дата принятия документа" type="date" default="08/03/2015" required="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="docNumber" name="Номер документа" type="long" default="12345" required="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="docName" name="Название документа" type="string" default="Постановление № 12345" required="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="gaol" name="Цель получения документа" type="string" default="для предоставления по месту требования" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail" type="string" default="dn290689sev@gmail.com" required="true" writable="false"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <serviceTask id="mailtask1" name="Уведомление об отказе" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Обращение на тему: ${docType}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Уважаемый(-ая), ${clFirstName} ${clSecondName}.
+
+К сожалению вынуждены Вам отказать в предоставлении информации в связи с недостаточной аргументацией запроса информации</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <userTask id="usertask4" name="Анализ входящего запроса" activiti:assignee="${initiator}">
+      <extensionElements>
+        <activiti:formProperty id="clFio" name="Автор запроса " default="${clLastName} ${clFirstName} ${clSecondName}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="request" name="Запрашиваемый документ" default="${docType} номер  ${docNumber} от  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="request_goal" name="Цель запроса" type="string" default="${gaol}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="decide" name="Резолюция по запросу" type="enum" required="true">
+          <activiti:value id="accept" name="Принять"></activiti:value>
+          <activiti:value id="reject" name="Отказать"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <serviceTask id="mailtask2" name="Отправка ответа на запрос пользователю" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Обращение на тему: ${docType}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Уважаемый(-ая), ${clFirstName} ${clSecondName}.
+
+Вы запросили  ${docType} № ${docNumber}  от  ${docDate}
+
+Запрашиваемый документ добавлен в приложение этого письма.</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow13" name="searchResult=='notFound'" sourceRef="exclusivegateway2" targetRef="mailtask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult=='notFound'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="mailtask3" name="Уведомление о том, что документ не найден" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="text">
+          <activiti:expression>Уважаемый(-ая), ${clFirstName} ${clSecondName}.
+
+Вы запросили  ${docType} № ${docNumber}  от  ${docDate}
+
+К сожалению интересующий Вас документ не найден.</activiti:expression>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Обращение на тему: ${docType}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <endEvent id="endevent3" name="End"></endEvent>
+    <sequenceFlow id="flow16" sourceRef="mailtask3" targetRef="endevent3"></sequenceFlow>
+    <userTask id="usertask7" name="Поиск документа" activiti:assignee="${initiator}">
+      <extensionElements>
+        <activiti:formProperty id="clFio" name="Автор запроса " default="${clLastName} ${clFirstName} ${clSecondName}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="request" name="Запрашиваемый документ" default="${docType} номер  ${docNumber} от  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="request_goal" name="Цель запроса" type="string" default="${gaol}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="searchResult" name="Результат поиска" type="enum" required="true">
+          <activiti:value id="found" name="Документ найден"></activiti:value>
+          <activiti:value id="notFound" name="Документ не найден"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <endEvent id="endevent4" name="End"></endEvent>
+    <endEvent id="endevent5" name="End"></endEvent>
+    <sequenceFlow id="flow31" sourceRef="usertask7" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow35" sourceRef="mailtask1" targetRef="endevent5"></sequenceFlow>
+    <sequenceFlow id="flow37" sourceRef="mailtask2" targetRef="endevent4"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow38" sourceRef="usertask4" targetRef="exclusivegateway3"></sequenceFlow>
+    <sequenceFlow id="flow39" name="decide == 'reject'" sourceRef="exclusivegateway3" targetRef="mailtask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow40" name="decide == 'accept'" sourceRef="exclusivegateway3" targetRef="usertask7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow41" name="searchResult == 'found'" sourceRef="exclusivegateway2" targetRef="mailtask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult == 'found'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow42" sourceRef="startevent1" targetRef="usertask4"></sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>Пользователь портала  отправляет выбирает услугу</text>
+    </textAnnotation>
+    <textAnnotation id="textannotation2">
+      <text>Принимается решение обоснован ли запрос на предоставление информации</text>
+    </textAnnotation>
+    <association id="association2" sourceRef="usertask4" targetRef="textannotation2"></association>
+    <textAnnotation id="textannotation3">
+      <text>По banlID система получает необходимые данные пользователя:
+ФИО, адрес проживания, телефон</text>
+    </textAnnotation>
+    <association id="association3" sourceRef="startevent1" targetRef="textannotation1"></association>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
+    <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="318.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="67.0" width="105.0" x="620.0" y="243.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+        <omgdc:Bounds height="55.0" width="111.0" x="377.0" y="438.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
+        <omgdc:Bounds height="71.0" width="105.0" x="990.0" y="430.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="850.0" y="445.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+        <omgdc:Bounds height="55.0" width="151.0" x="900.0" y="249.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="1080.0" y="259.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask7" id="BPMNShape_usertask7">
+        <omgdc:Bounds height="55.0" width="105.0" x="700.0" y="438.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="1130.0" y="448.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent5" id="BPMNShape_endevent5">
+        <omgdc:Bounds height="35.0" width="35.0" x="770.0" y="259.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="536.0" y="446.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="50.0" width="299.0" x="283.0" y="194.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
+        <omgdc:Bounds height="50.0" width="341.0" x="70.0" y="510.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
+        <omgdc:Bounds height="50.0" width="341.0" x="60.0" y="330.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="870.0" y="445.0"></omgdi:waypoint>
+        <omgdi:waypoint x="869.0" y="277.0"></omgdi:waypoint>
+        <omgdi:waypoint x="900.0" y="276.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="-65.0" y="-17.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="1051.0" y="276.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1080.0" y="276.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="805.0" y="465.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="465.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="725.0" y="276.0"></omgdi:waypoint>
+        <omgdi:waypoint x="770.0" y="276.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="1095.0" y="465.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1130.0" y="465.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="488.0" y="465.0"></omgdi:waypoint>
+        <omgdi:waypoint x="536.0" y="466.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
+        <omgdi:waypoint x="556.0" y="446.0"></omgdi:waypoint>
+        <omgdi:waypoint x="556.0" y="276.0"></omgdi:waypoint>
+        <omgdi:waypoint x="620.0" y="276.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="81.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="576.0" y="466.0"></omgdi:waypoint>
+        <omgdi:waypoint x="656.0" y="466.0"></omgdi:waypoint>
+        <omgdi:waypoint x="700.0" y="465.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="87.0" x="-58.0" y="7.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
+        <omgdi:waypoint x="890.0" y="465.0"></omgdi:waypoint>
+        <omgdi:waypoint x="990.0" y="465.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="-50.0" y="-20.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow42" id="BPMNEdge_flow42">
+        <omgdi:waypoint x="432.0" y="353.0"></omgdi:waypoint>
+        <omgdi:waypoint x="432.0" y="438.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
+        <omgdi:waypoint x="432.0" y="493.0"></omgdi:waypoint>
+        <omgdi:waypoint x="240.0" y="510.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
+        <omgdi:waypoint x="432.0" y="318.0"></omgdi:waypoint>
+        <omgdi:waypoint x="432.0" y="244.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
