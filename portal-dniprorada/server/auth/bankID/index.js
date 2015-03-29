@@ -12,9 +12,10 @@ router.get('/callback', function(req, res, next) {
   passport.authenticate('oauth2', {
     session: false
   }, function(err, user, info) {
+    //TODO user = xml format string. Have todo something with it
     if (err) {
       return res.json(err, {
-        message: 'Error. Cant find user'
+        message: 'Error' + err
       });
     }
     if (!info.accessToken) {

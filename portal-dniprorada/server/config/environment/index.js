@@ -53,6 +53,10 @@ var all = {
   // Should we populate the DB with sample data?
   seedDB: false,
 
+  logger: {
+    dir: process.env.LOG_DIR
+  },
+
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
     session: process.env.SESSION_SECRET

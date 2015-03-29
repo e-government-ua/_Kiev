@@ -5,8 +5,10 @@ var activiti = require('../../components/activiti');
 
 var getFormByProcessDefinitionId = function(processDefinitionId, req, res) {
 	var options = {
-		path: 'form/form-data?processDefinitionId=' + processDefinitionId,
-		method: 'GET'
+		path: 'form/form-data',
+		query: {
+			'processDefinitionId' : processDefinitionId,
+		}
 	};
 
 	activiti.get(options, function(statusCode, result) {

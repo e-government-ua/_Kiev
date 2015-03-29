@@ -9,3 +9,5 @@ dist
 .tern-project
 *.key
 *.crt
+*.sublime-workspace
+*.log

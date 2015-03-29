@@ -7,8 +7,7 @@ var activiti = require('../../components/activiti');
 // Get list of process-definitionss
 exports.index = function(req, res) {
 	var options = {
-		path: 'repository/process-definitions',
-		method: 'GET',
+		path: 'repository/process-definitions'
 	};
 	activiti.get(options, function(statusCode, result) {
 		res.statusCode = statusCode;

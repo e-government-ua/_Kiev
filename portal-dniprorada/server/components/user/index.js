@@ -1,27 +1,30 @@
 'use strict';
 
 var _ = require('lodash');
-var request = require("../request");
+var request = require('request');
+var url = require('url')
 var config = require('../../config/environment');
 
-// getRequestOptions()
-// Object
-// host: "bankid.privatbank.ua"
-// method: "GET"
-// path: "checked/fio?access_token=undefined"
-// prot: "https"
-// __proto__: Object
-// https://bankid.privatbank.ua/DataAccessService/checked/fio?access_token=caef896e-3d84-4c16-8a2b-f4f2264db6b1
-
-var getRequestOptions = function(accessToken) {
-	return {
-		prot: config.bankid.prot,
-		host: config.bankid.host,
-		path: config.bankid.user.path + '?access_token=' + accessToken,
-		method: 'GET'
-	};
-}
-
+//curl -k -H "Authorization: Bearer 44f21a7d-b94a-4800-99ad-b16f012deb18" 
+//https://bankid.privatbank.ua/DataAccessService/checked/fio%3Faccess_token=44f21a7d-b94a-4800-99ad-b16f012deb18
 exports.findUser = function(accessToken, onResult) {
-	request.getJSON(getRequestOptions(accessToken), onResult);
+	var userDataUrl = url.format({
+		protocol: config.bankid.prot,
+		hostname: config.bankid.host,
+		pathname: config.bankid.user.path,
+		query: {
+			'access_token': accessToken
+		}
+	});
+	var options = {
+		url: userDataUrl,
+		headers: {
+			'Authorization': 'Bearer ' + accessToken
+		}
+	};
+	request
+		.get(options, function(error, response, body) {
+			console.log(response + ' ' + body) // 200 
+			onResult(response.statusCode, body);
+		});
 }

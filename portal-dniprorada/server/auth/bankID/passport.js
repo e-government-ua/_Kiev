@@ -23,7 +23,7 @@ exports.setup = function(config, request, url, user) {
 		},
 		function(accessToken, refreshToken, profile, done) {
 			user.findUser(accessToken, function(err, user) {
-				if (err) return done(err);
+				if (err !== 200) return done(err);
 
 				return done(null, user, {
 					accessToken: accessToken,

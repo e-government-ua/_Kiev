@@ -21,7 +21,8 @@
     "ejs": "~0.8.4",
     "composable-middleware": "^0.3.0",
     "connect-mongo": "^0.4.1",
-    "external-ip":"0.2.3"
+    "external-ip":"0.2.3",
+    "request":"2.54.0"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

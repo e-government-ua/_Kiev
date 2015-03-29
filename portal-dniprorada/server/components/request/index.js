@@ -6,8 +6,13 @@
 
 var config = require('../../config/environment');
 var _ = require('lodash');
-var url = require('url')
+var url = require('url');
 var extIP = require('external-ip');
+
+var prot_ = {
+	'http': require("http"),
+	'https': require('https')
+};
 
 var getIP = extIP({
 	replace: true,
@@ -16,14 +21,34 @@ var getIP = extIP({
 	getIP: 'parallel'
 });
 
-var createProt = function(options) {
+var getProt = function(options) {
 	var prot;
 	if (options.prot) {
-		prot = require(options.prot);
+		prot = prot_[options.prot];
 	} else {
-		prot = options.port === 443 ? require('https') : require("http");
+		prot = options.port === 443 ? prot_.https : prot_.http;
 	}
 	return prot;
+}
+
+var callback = function(res, onResult) {
+	var responseString = '';
+	res.setEncoding('utf8');
+
+	res.on('data', function(chunk) {
+		responseString += chunk;
+	});
+
+	res.on('end', function() {
+		console.log(res.statusCode + ' : ' + responseString);
+		onResult(res.statusCode, responseString);
+	});
+
+	res.on('error', function(err) {
+		//res.send('error: ' + err.message);
+		console.log(err.message);
+		onResult(res.statusCode);
+	});
 }
 
 exports.getProtocol = function() {
@@ -31,8 +56,7 @@ exports.getProtocol = function() {
 }
 
 exports.getBackRedirectURL = function(path) {
-	var back_redirect_uri 
-		= (config.host) + ':' + (config.port);
+	var back_redirect_uri = (config.host) + ':' + (config.port);
 	return url.format({
 		protocol: module.exports.getProtocol(),
 		host: back_redirect_uri,
@@ -41,8 +65,7 @@ exports.getBackRedirectURL = function(path) {
 }
 
 exports.getAsynchBackRedirectURL = function(path, onResult) {
-	var back_redirect_uri 
-		= (config.host) + ':' + (config.port);
+	var back_redirect_uri = (config.host) + ':' + (config.port);
 
 	if (back_redirect_uri) {
 		onResult(url.format({
@@ -66,7 +89,7 @@ exports.getAsynchBackRedirectURL = function(path, onResult) {
 }
 
 exports.postJSON = function(options, data, onResult) {
-	var prot = createProt(options);
+	var prot = getProt(options);
 	var dataString = JSON.stringify(data);
 	var default_headers = {
 		'Content-Type': 'application/json',
@@ -75,27 +98,10 @@ exports.postJSON = function(options, data, onResult) {
 	options.headers =
 		_.merge(options.headers, default_headers) || default_headers
 
-	var req = prot.request(options, function(res) {
-		var responseString = '';
-		res.setEncoding('utf8');
-
-		res.on('data', function(chunk) {
-			responseString += chunk;
-		});
-
-		res.on('end', function() {
-			onResult(res.statusCode, responseString);
-		});
-
-		req.on('error', function(err) {
-			//res.send('error: ' + err.message);
-			console.log(err.message);
-			onResult(res.statusCode);
-		});
-	});
-
-	req.write(dataString);
-	req.end();
+	console.log('request options : ' + JSON.stringify(options));
+	prot.request(options, function(res) {
+		callback.call(this, res, onResult);
+	}).write(dataString).end();
 }
 
 /**
@@ -104,26 +110,9 @@ exports.postJSON = function(options, data, onResult) {
  * @param callback: callback to pass the results JSON object(s) back
  */
 exports.getJSON = function(options, onResult) {
-	var prot = createProt(options);
-	var req = prot.request(options, function(res) {
-		var responseString = '';
-		res.setEncoding('utf8');
-
-		res.on('data', function(chunk) {
-			responseString += chunk;
-		});
-
-		res.on('end', function() {
-			onResult(res.statusCode, responseString);
-		});
-
-		req.on('error', function(err) {
-			//res.send('error: ' + err.message);
-			console.log(err.message);
-			onResult(res.statusCode);
-		});
-
-	});
-
-	req.end();
+	var prot = getProt(options);
+	console.log('request options : ' + JSON.stringify(options));
+	prot.request(options, function(res) {
+		callback.call(this, res, onResult);
+	}).end();
 };
