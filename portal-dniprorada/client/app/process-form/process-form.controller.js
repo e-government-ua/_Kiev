@@ -35,21 +35,35 @@ var createProperties = function(formProperties, clientForm) {
 	});
 };
 
+var fillInValues = function(formProperties, user) {
+	if (user) {
+		formProperties.forEach(function(item) {
+			if (user.fio[item.id]) {
+				item.value = user.fio[item.id];
+			}
+		});
+	}
+};
+
 angular.module('portalDniproradaApp')
 	.controller('ProcessFormCtrl',
-		function($scope, $routeParams, $http, $window) {
-			$scope.authCode = $routeParams.code;
-			$scope.disbleStartProcess = !$scope.authCode;
+		function($scope, $routeParams, $http, $window, $cookieStore, $cookies) {
+			$scope.disbleStartProcess = !$cookieStore.get('user');
 			//TODO be ready for redirect from BANKID service
 			$scope.processDefinitionId = $routeParams.processDefinitionId;
 			if ($scope.processDefinitionId) {
 				$http.get('/api/process-form/' + $routeParams.processDefinitionId)
 					.success(function(result) {
+						var user = $cookieStore.get('user');
+						fillInValues(result.formProperties, user);
 						$scope.processFormData = result;
 					});
 			} else {
 				$http.get('/api/process-form')
 					.success(function(result) {
+						var user = $cookieStore.get('user');
+						fillInValues(result.formProperties, user);
+
 						$scope.processFormData = result;
 						$scope.processDefinitionId = result.processDefinitionId;
 					});
@@ -68,7 +82,7 @@ angular.module('portalDniproradaApp')
 					'properties': createProperties(formProperties, form)
 				};
 
-				if ($scope.authCode) {
+				if ($cookieStore.get('user')) {
 					$http.post('/api/process-form/' + processDefinitionId, startProcessData)
 						.success(function(result) {
 							$window.alert('Process has been started ' + JSON.stringify(result));

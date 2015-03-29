@@ -3,6 +3,7 @@
 var _ = require('lodash');
 var request = require('request');
 var url = require('url')
+var parseString = require('xml2js').parseString;
 var config = require('../../config/environment');
 
 //curl -k -H "Authorization: Bearer 44f21a7d-b94a-4800-99ad-b16f012deb18" 
@@ -22,9 +23,20 @@ exports.findUser = function(accessToken, onResult) {
 			'Authorization': 'Bearer ' + accessToken
 		}
 	};
+
 	request
 		.get(options, function(error, response, body) {
-			console.log(response + ' ' + body) // 200 
-			onResult(response.statusCode, body);
+			console.log(response + ' ' + body);
+			parseString(body, function(err, userString) {
+				var fio = userString.message.fio;
+				var user = {
+					fio: {
+						firstName: fio[0].firstName[0],
+						lastName: fio[0].lastName[0],
+						middleName: fio[0].middleName[0]
+					}
+				}
+				onResult(response.statusCode, user);
+			});
 		});
 }

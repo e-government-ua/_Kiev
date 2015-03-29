@@ -19,9 +19,9 @@ function isAuthenticated() {
 		.use(function(req, res, next) {
 			// allow access_token to be passed through cookies
 			if (req.cookies && 
-				req.cookies.hasOwnProperty('access_token') && 
-				req.cookies.hasOwnProperty('refresh_token')) {
-				req.headers.authorization = 'Bearer ' + req.query.access_token;
+				req.cookies.hasOwnProperty('token') &&
+				req.cookies.hasOwnProperty('user')) {
+				// req.headers.authorization = 'Bearer ' + req.query.access_token;
 			}
 			validateJwt(req, res, next);
 			next();

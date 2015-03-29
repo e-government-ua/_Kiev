@@ -39,9 +39,17 @@ router.get('/callback', function(req, res, next) {
       });
     }
 
-    res.cookie.user = user;
-    res.cookie.accessToken = auth.signToken(info.accessToken);
-    res.cookie.refreshToken = auth.signToken(info.refreshToken);
+    var token = {
+      accessToken: auth.signToken(info.accessToken),
+      refreshToken: auth.signToken(info.refreshToken)
+    }
+
+    res.cookie('user', JSON.stringify(user), {
+      expires: new Date(Date.now() + 1000 * 60 * 10)
+    });
+    res.cookie('token', JSON.stringify(token), {
+      expires: new Date(Date.now() + 1000 * 60 * 3)
+    });
 
     res.redirect('/process-form');
   })(req, res, next)
