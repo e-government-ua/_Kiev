@@ -1,5 +1,5 @@
 var passport = require('passport')
-var OAuth2Strategy = require('passport-oauth2').OAuth2Strategy;
+var OAuth2Strategy = require('passport-oauth2');
 
 exports.setup = function(config, request, url, user) {
 	var authorizationURL = url.format({
