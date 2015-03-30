@@ -1,13 +1,10 @@
 package org.wf.dp.dniprorada.engine.task;
 
-import org.activiti.engine.ProcessEngine;
-import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.MultiPartEmail;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,10 +16,6 @@ import org.springframework.stereotype.Component;
 @Component("mailTaskWithAttachment")
 public class MailTaskWithAttachment implements JavaDelegate {
 
-	@Autowired
-	private TaskService taskService;
-	@Autowired
-	private ProcessEngine processEngine;
 	@Value("${mailServerHost}")
 	private String mailServerHost;
 
