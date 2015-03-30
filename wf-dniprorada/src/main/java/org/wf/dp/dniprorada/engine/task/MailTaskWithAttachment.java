@@ -20,7 +20,7 @@ public class MailTaskWithAttachment implements JavaDelegate {
 	private String mailServerHost;
 
 	@Value("${mailServerPort}")
-	private Integer mailServerPort;
+	private String mailServerPort;
 
 	@Value("${mailServerDefaultFrom}")
 	private String mailServerDefaultFrom;
