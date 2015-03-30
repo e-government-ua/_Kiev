@@ -17,7 +17,7 @@
         <activiti:formProperty id="docNumber" name="Номер документа" type="long" default="12345" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="docName" name="Название документа" type="string" default="Постановление № 12345" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="gaol" name="Цель получения документа" type="string" default="для предоставления по месту требования" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваш e-mail" type="string" default="dn290689sev@gmail.com" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail" type="string" default="inna.dascenko@privatbank.ua" writable="false" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Уведомление об отказе" activiti:type="mail">
@@ -107,11 +107,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult == 'found'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow42" sourceRef="startevent1" targetRef="usertask4"></sequenceFlow>
-    <userTask id="usertask8" name="Путь к документу" activiti:assignee="${initiator}">
-      <extensionElements>
-        <activiti:formProperty id="path" name="Путь к документу" type="string" required="true"></activiti:formProperty>
-      </extensionElements>
-    </userTask>
+    <userTask id="usertask8" name="Выбрать файл для отправки" activiti:assignee="${initiator}"></userTask>
     <serviceTask id="servicetask1" name="Отправка ответа на запрос пользователю" activiti:delegateExpression="#{mailTaskWithAttachment}">
       <extensionElements>
         <activiti:field name="from">
@@ -125,9 +121,6 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Уважаемый(-ая), ${clFirstName} ${clSecondName}. Вы запросили  ${docType} № ${docNumber}  от  ${docDate}. Запрашиваемый документ добавлен в приложение этого письма.</activiti:expression>
-        </activiti:field>
-        <activiti:field name="path">
-          <activiti:expression>${path}</activiti:expression>
         </activiti:field>
         <activiti:field name="docName">
           <activiti:expression>${docName}</activiti:expression>
