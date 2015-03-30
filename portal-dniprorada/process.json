@@ -15,11 +15,12 @@
     "BANK_ID_APP_ID": "",
     "BANK_ID_PATH": "",
     "BANK_ID_TOKEN_PATH": "",
-	  "BANK_ID_SECRET": "",
-	  "BANK_ID_USER_PATH": "",
+    "BANK_ID_SECRET": "",
+    "BANK_ID_USER_PATH": "",
     "SSL_PORT": "8080",
     "PORT": "8080",
     "PRIVATE_KEY": "",
-    "CERTIFICATE": ""
+    "CERTIFICATE": "",
+    "NODE_TLS_REJECT_UNAUTHORIZED":""
   }
 }
