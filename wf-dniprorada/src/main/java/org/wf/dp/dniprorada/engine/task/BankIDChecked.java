@@ -123,13 +123,7 @@ public class BankIDChecked implements JavaDelegate {
 		// Tell the url connection object to use our socket factory which
 		// bypasses security checks
 		((HttpsURLConnection) con).setSSLSocketFactory(sslSocketFactory);
-		 /*
-		  * TODO authorization
-		  * String userPassword= "username:password";
-		 String encoding = new String(org.apache.commons.codec.binary.Base64.encodeBase64(userPassword.getBytes()));
 		
-		con.setRequestProperty("Authorization", String.format("Basic %s", encoding));*/
-
 		return con;
 	}
 
