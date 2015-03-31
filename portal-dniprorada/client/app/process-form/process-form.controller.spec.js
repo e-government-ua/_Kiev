@@ -1,12 +1,32 @@
 'use strict';
-
-describe('Controller: ProcessFormCtrl', function () {
+/*
+describe('Controller: DatepickerDemoCtrl', function () {
 
   // load the controller's module
   beforeEach(module('ui.bootstrap.demo'));
+  
+  var DatepickerDemoCtrl, scope;
+  // Initialize the controller and a mock scope
+  beforeEach(inject(function ($controller, $rootScope) {
+    scope = $rootScope.$new();
+    DatepickerDemoCtrl = $controller('DatepickerDemoCtrl', {
+      $scope: scope
+    });
+  }));
+
+  it('should ...', function () {
+    expect(1).toEqual(1);
+  });
+});
+*/
+describe('Controller: ProcessFormCtrl', function () {
+
+  // load the controller's module
+  //beforeEach(module('ui.bootstrap.demo'));
   beforeEach(module('portalDniproradaApp'));
   
 
+  //var DatepickerDemoCtrl;
   var ProcessFormCtrl, scope;
 
   // Initialize the controller and a mock scope
@@ -15,6 +35,9 @@ describe('Controller: ProcessFormCtrl', function () {
     ProcessFormCtrl = $controller('ProcessFormCtrl', {
       $scope: scope
     });
+    /*DatepickerDemoCtrl = $controller('DatepickerDemoCtrl', {
+      $scope: scope
+    });*/
   }));
 
   it('should ...', function () {

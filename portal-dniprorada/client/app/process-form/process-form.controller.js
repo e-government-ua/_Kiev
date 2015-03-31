@@ -45,7 +45,9 @@ var fillInValues = function(formProperties, user) {
 	}
 };
 
-angular.module('ui.bootstrap.demo').controller('DatepickerDemoCtrl', function ($scope) {
+/*
+angular.module('ui.bootstrap.demo')
+        .controller('DatepickerDemoCtrl', function ($scope) {
   $scope.today = function() {
     $scope.dt = new Date();
   };
@@ -82,6 +84,7 @@ angular.module('ui.bootstrap.demo').controller('DatepickerDemoCtrl', function ($
   //$scope.format = $scope.formats[0];
   $scope.format = 'dd.MM.yyyy';
 });                
+*/
 
 angular.module('portalDniproradaApp')
 	.controller('ProcessFormCtrl',
