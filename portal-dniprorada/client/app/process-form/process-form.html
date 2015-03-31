@@ -16,16 +16,17 @@
             <input ng-if="formProperty.type == 'long'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
             <!--input ng-if="formProperty.type == 'date'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/-->
             <!--div ng-controller="DatepickerDemoCtrl"-->
-                <div ng-if="formProperty.type == 'date'" class="row">
+                <mydatepicker ng-if="formProperty.type == 'date'" ng-app="foo" ng-controller="myCtrl" class="input-group" datepicker-popup="dd/MM/yyyy" ng-model="dt" init-date="{{formProperty.value}}" date-options="dateOptions" opened="opened"  clear-text="Стереть" close-text="Закрыть"/>
+                <!--div ng-if="formProperty.type == 'date'" class="row">
                     <div class="col-md-6">
-                        <p class="input-group"> <!--is-open="opened" -->
+                        <p class="input-group">
                           <input type="text" name="{{formProperty.id}}" class="form-control" datepicker-popup="{{format}}" ng-model="dt" init-date="{{formProperty.value}}" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" clear-text="Стереть" close-text="Закрыть" />
                           <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                           </span>
                         </p>
                     </div>
-                </div>
+                </div-->
             <!--/div--><!--08/03/2015-->
             
             <div ng-if="formProperty.type == 'enum'" class="form-control">
