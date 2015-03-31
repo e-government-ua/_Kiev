@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 describe('Controller: DatepickerDemoCtrl', function () {
 
   // load the controller's module
@@ -18,7 +18,7 @@ describe('Controller: DatepickerDemoCtrl', function () {
     expect(1).toEqual(1);
   });
 });
-
+*/
 describe('Controller: ProcessFormCtrl', function () {
 
   // load the controller's module
