@@ -62,12 +62,52 @@ var fillInTokenValues = function(formProperties, token) {
 });                */
 
 
+
+
 angular.module('portalDniproradaApp')
+
+//Datepicker
+.directive("mydatepicker", function(){
+  return {
+    restrict: "E",
+    scope:{
+      ngModel: "=",
+      dateOptions: "=",
+      opened: "=",
+    },
+    link: function($scope, element, attrs) {
+      $scope.open = function(event){
+        console.log("open");
+        event.preventDefault();
+        event.stopPropagation();
+        $scope.opened = true;
+      };
+
+      $scope.clear = function () {
+        $scope.ngModel = null;
+      };
+    },
+    templateUrl: 'datepicker.html'
+  }
+})
+
 	.controller('ProcessFormCtrl',
 		function($scope, $routeParams, $http, $window, $cookieStore) {
                     
-                    
-                    
+
+
+    $scope.formData      = {};
+    $scope.formData.date = "";
+    $scope.opened        = false;
+
+    //Datepicker
+    $scope.dateOptions = {
+            'year-format': "'yy'",
+            'show-weeks' : false
+    };
+
+
+/*
   $scope.today = function() {
     $scope.dt = new Date();
   };
@@ -104,7 +144,7 @@ angular.module('portalDniproradaApp')
   //$scope.format = $scope.formats[0];
   //$scope.format = 'dd.MM.yyyy';                        
   $scope.format = 'dd/MM/yyyy';                        
-                        
+*/
                                             
                     
                     

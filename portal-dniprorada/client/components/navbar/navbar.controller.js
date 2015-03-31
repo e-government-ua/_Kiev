@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('portalDniproradaApp', ['ui.bootstrap'])
-
+//angular.module('portalDniproradaApp', ['ui.bootstrap'])
+angular.module('portalDniproradaApp')
+/*
 //Datepicker
 .directive("mydatepicker", function(){
   return {
@@ -26,7 +27,7 @@ angular.module('portalDniproradaApp', ['ui.bootstrap'])
     templateUrl: 'datepicker.html'
   }
 })
-
+*/
   .controller('NavbarCtrl', function ($scope, $location) {
     $scope.menu = [{
       'title': 'Home',
@@ -41,7 +42,7 @@ angular.module('portalDniproradaApp', ['ui.bootstrap'])
     
     
     
-    
+/*    
     
     $scope.formData      = {};
     $scope.formData.date = "";
@@ -53,7 +54,7 @@ angular.module('portalDniproradaApp', ['ui.bootstrap'])
             'show-weeks' : false
     };
     
-    
+*/
     
     
     
