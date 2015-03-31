@@ -19,9 +19,18 @@
             <!--div ng-controller="DatepickerDemoCtrl"  NavbarCtrl  ng-controller="ProcessFormCtrl" -->
             <!-- ng-controller="myCtrl" ng-app="foo"  ng-if="formProperty.type == 'date'"  datepicker-popup="dd/MM/yyyy" init-date="{{formProperty.value}}" -->
 
-
+<!--
                <input ng-if="formProperty.type == 'date'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
-
+-->
+            <div ng-if="formProperty.type == 'date'" class="row">
+                <!--mydatepicker class="input-group" ng-model="dt" date-options="dateOptions" opened="opened" /-->
+                <input type="text" class="form-control" datepicker-popup="" ng-model="dt" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                  <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div> 
+               
+               
           <!--   <div ng-if="formProperty.type == 'date'" class="row">
                 <mydatepicker class="input-group" ng-model="dt" date-options="dateOptions" opened="opened" />
             </div> -->
