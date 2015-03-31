@@ -25,10 +25,10 @@
           <activiti:expression>Обращение на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
+          <activiti:string>dniprorada@egov.ua</activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Уважаемый(-ая), ${firstName} ${middleName}.
@@ -39,8 +39,8 @@
     </serviceTask>
     <userTask id="usertask4" name="Анализ входящего запроса" activiti:assignee="${initiator}">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Автор запроса " default="${lastName} ${firstName} ${middleName}" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="request" name="Запрашиваемый документ" default="${docType} номер  ${docNumber} от  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Автор запроса " type="string" default="${lastName} ${firstName} ${middleName}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="request" name="Запрашиваемый документ" type="string" default="${docType} номер  ${docNumber} от  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Цель запроса" type="string" default="${gaol}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Резолюция по запросу" type="enum" required="true">
           <activiti:value id="accept" name="Принять"></activiti:value>
@@ -65,13 +65,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
+          <activiti:string>dniprorada@egov.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Обращение на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -79,8 +79,8 @@
     <sequenceFlow id="flow16" sourceRef="mailtask3" targetRef="endevent3"></sequenceFlow>
     <userTask id="usertask7" name="Поиск документа" activiti:assignee="${initiator}">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Автор запроса " default="${lastName} ${firstName} ${middleName}" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="request" name="Запрашиваемый документ" default="${docType} номер  ${docNumber} от  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Автор запроса " type="string" default="${lastName} ${firstName} ${middleName}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="request" name="Запрашиваемый документ" type="string" default="${docType} номер  ${docNumber} от  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Цель запроса" type="string" default="${gaol}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="searchResult" name="Результат поиска" type="enum" required="true">
           <activiti:value id="found" name="Документ найден"></activiti:value>
@@ -102,7 +102,7 @@
     <serviceTask id="servicetask1" name="Отправка ответа на запрос пользователю" activiti:delegateExpression="#{mailTaskWithAttachment}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
+          <activiti:string>dniprorada@egov.ua</activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
