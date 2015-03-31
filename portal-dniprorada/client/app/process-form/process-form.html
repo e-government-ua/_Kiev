@@ -14,8 +14,8 @@
             <!--input type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/-->
             <input ng-if="formProperty.type == 'string'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
             <input ng-if="formProperty.type == 'long'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
-            <!--input ng-if="formProperty.type == 'date'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/-->
-            <div ng-if="formProperty.type == 'date'" class="row">
+            <input ng-if="formProperty.type == 'date'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
+            <!--div ng-if="formProperty.type == 'date'" class="row">
                 <div class="col-md-6">
                     <p class="input-group">
                       <input type="text" name="{{formProperty.id}}" class="form-control" datepicker-popup="{{format}}" ng-model="dt" init-date="{{formProperty.value}}" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" clear-text="Стереть" close-text="Закрыть" />
@@ -24,7 +24,7 @@
                       </span>
                     </p>
                 </div>
-            </div>
+            </div-->
             <!--08/03/2015-->
             <!--div class="row">
                 <div class="col-md-6">
