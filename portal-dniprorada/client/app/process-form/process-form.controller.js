@@ -55,6 +55,48 @@ var fillInValues = function(formProperties, user) {
 angular.module('portalDniproradaApp')
 	.controller('ProcessFormCtrl',
 		function($scope, $routeParams, $http, $window, $cookieStore, $cookies) {
+                    
+                    
+                    
+  $scope.today = function() {
+    $scope.dt = new Date();
+  };
+  $scope.today();
+
+  $scope.clear = function () {
+    $scope.dt = null;
+  };
+
+  // Disable weekend selection
+  $scope.disabled = function(date, mode) {
+    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+  };
+
+  $scope.toggleMin = function() {
+    $scope.minDate = $scope.minDate ? null : new Date();
+  };
+  $scope.toggleMin();
+
+  $scope.open = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope.opened = true;
+  };
+
+  $scope.dateOptions = {
+    formatYear: 'yy',
+    startingDay: 1
+  };
+
+  //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+  //$scope.formats = ['dd.MM.yyyy'];
+  //$scope.format = $scope.formats[0];
+  $scope.format = 'dd.MM.yyyy';                        
+                        
+                                            
+                    
+                    
 			$scope.disbleStartProcess = !$cookieStore.get('user');
 			//TODO be ready for redirect from BANKID service
 			$scope.processDefinitionId = $routeParams.processDefinitionId;
@@ -104,46 +146,6 @@ angular.module('portalDniproradaApp')
 			$scope.authorize = function() {
 				$window.location.href = '/auth/bankID';
 			};
-                        
-                        
-                        
-                        
-                        
-  $scope.today = function() {
-    $scope.dt = new Date();
-  };
-  $scope.today();
-
-  $scope.clear = function () {
-    $scope.dt = null;
-  };
-
-  // Disable weekend selection
-  $scope.disabled = function(date, mode) {
-    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-  };
-
-  $scope.toggleMin = function() {
-    $scope.minDate = $scope.minDate ? null : new Date();
-  };
-  $scope.toggleMin();
-
-  $scope.open = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
-
-    $scope.opened = true;
-  };
-
-  $scope.dateOptions = {
-    formatYear: 'yy',
-    startingDay: 1
-  };
-
-  //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-  //$scope.formats = ['dd.MM.yyyy'];
-  //$scope.format = $scope.formats[0];
-  $scope.format = 'dd.MM.yyyy';                        
                         
                         
                         
