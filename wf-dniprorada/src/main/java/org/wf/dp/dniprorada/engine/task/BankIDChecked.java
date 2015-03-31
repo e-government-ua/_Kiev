@@ -48,6 +48,8 @@ public class BankIDChecked implements JavaDelegate {
 
 	@Value("${checkBankIDUrl}")
 	private String checkBankIDUrl;
+	@Value("${systemClient}")
+	private String systemClient;
 
 	@Value("${firstNameElementName}")
 	private static final String FIRST_NAME = "firstName";
@@ -67,12 +69,11 @@ public class BankIDChecked implements JavaDelegate {
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
 		String token = execution.getVariable(ACCESS_TOKEN, String.class);
-		String clid = execution.getVariable(CLIENT_ID, String.class);
 
 		HttpsURLConnection con;
 		try {
 
-			con = getConnection(String.format(checkBankIDUrl, token, clid));
+			con = getConnection(String.format(checkBankIDUrl, token, systemClient));
 
 			// dump all the content
 			getData(con, execution);
@@ -122,6 +123,12 @@ public class BankIDChecked implements JavaDelegate {
 		// Tell the url connection object to use our socket factory which
 		// bypasses security checks
 		((HttpsURLConnection) con).setSSLSocketFactory(sslSocketFactory);
+		 /*
+		  * TODO authorization
+		  * String userPassword= "username:password";
+		 String encoding = new String(org.apache.commons.codec.binary.Base64.encodeBase64(userPassword.getBytes()));
+		
+		con.setRequestProperty("Authorization", String.format("Basic %s", encoding));*/
 
 		return con;
 	}
@@ -207,4 +214,5 @@ public class BankIDChecked implements JavaDelegate {
 		}
 	}
 
+	
 }
