@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="myProcess" name="My process" isExecutable="true">
+  <process id="myProcess" name="Звернення громадян стосовно надання копій документів" isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
-        <activiti:formProperty id="clLastName" name="Фамилия" type="string" default="Свириденко" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="clFirstName" name="Имя" type="string" default="Евгения" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="clSecondName" name="Отчество" type="string" default="Вадимовна" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clPhone" name="Телефон" type="string" default="+380504206734" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="clAddress" name="Адрес" type="string" default="наб. Победы 32" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="docType" name="Тип документа" type="enum" default="Постановление" writable="false">
-          <activiti:value id="Постановление" name="Постановление"></activiti:value>
-          <activiti:value id="Указ" name="Указ"></activiti:value>
-          <activiti:value id="Распоряжение" name="Распоряжение"></activiti:value>
+        <activiti:formProperty id="access_token" name="BankId" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="docType" name="Тип документа" type="enum">
+          <activiti:value id="копія рішення виконавчого комітету Дніпропетровської міської ради" name="копія рішення виконавчого комітету Дніпропетровської міської ради"></activiti:value>
+          <activiti:value id="копія рішення Дніпропетровської міської ради" name="копія рішення Дніпропетровської міської ради"></activiti:value>
+          <activiti:value id="копія розпорядження міського голови" name="копія розпорядження міського голови"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="docDate" name="Дата принятия документа" type="date" default="08/03/2015" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="docNumber" name="Номер документа" type="long" default="12345" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="docName" name="Название документа" type="string" default="Постановление № 12345" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="gaol" name="Цель получения документа" type="string" default="для предоставления по месту требования" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваш e-mail" type="string" default="inna.dascenko@privatbank.ua" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="docDate" name="Дата принятия документа" type="date" default="08/03/2015" required="true"></activiti:formProperty>
+        <activiti:formProperty id="docNumber" name="Номер документа" type="long" default="12345" required="true"></activiti:formProperty>
+        <activiti:formProperty id="docName" name="Название документа" type="string" default="Постановление № 12345" required="true"></activiti:formProperty>
+        <activiti:formProperty id="gaol" name="Цель получения документа" type="string" default="для предоставления по месту требования"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail" type="string" default="dn290689sev@gmail.com" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Уведомление об отказе" activiti:type="mail">
@@ -29,13 +25,13 @@
           <activiti:expression>Обращение на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>dniprorada@egov.ua</activiti:string>
+          <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Уважаемый(-ая), ${clFirstName} ${clSecondName}.
+          <activiti:expression>Уважаемый(-ая), ${firstName} ${secondName}.
 
 К сожалению вынуждены Вам отказать в предоставлении информации в связи с недостаточной аргументацией запроса информации</activiti:expression>
         </activiti:field>
@@ -43,7 +39,7 @@
     </serviceTask>
     <userTask id="usertask4" name="Анализ входящего запроса" activiti:assignee="${initiator}">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Автор запроса " default="${clLastName} ${clFirstName} ${clSecondName}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Автор запроса " default="${lastName} ${firstName} ${secondName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запрашиваемый документ" default="${docType} номер  ${docNumber} от  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Цель запроса" type="string" default="${gaol}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Резолюция по запросу" type="enum" required="true">
@@ -59,7 +55,7 @@
     <serviceTask id="mailtask3" name="Уведомление о том, что документ не найден" activiti:type="mail">
       <extensionElements>
         <activiti:field name="text">
-          <activiti:expression>Уважаемый(-ая), ${clFirstName} ${clSecondName}.
+          <activiti:expression>Уважаемый(-ая), ${firstName} ${secondName}.
 
 Вы запросили  ${docType} № ${docNumber}  от  ${docDate}
 
@@ -69,13 +65,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>dniprorada@egov.ua</activiti:string>
+          <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Обращение на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -83,7 +79,7 @@
     <sequenceFlow id="flow16" sourceRef="mailtask3" targetRef="endevent3"></sequenceFlow>
     <userTask id="usertask7" name="Поиск документа" activiti:assignee="${initiator}">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Автор запроса " default="${clLastName} ${clFirstName} ${clSecondName}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Автор запроса " default="${lastName} ${firstName} ${secondName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запрашиваемый документ" default="${docType} номер  ${docNumber} от  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Цель запроса" type="string" default="${gaol}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="searchResult" name="Результат поиска" type="enum" required="true">
@@ -103,15 +99,10 @@
     <sequenceFlow id="flow40" name="decide == 'accept'" sourceRef="exclusivegateway3" targetRef="usertask7">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow41" name="searchResult == 'found'" sourceRef="exclusivegateway2" targetRef="usertask8">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult == 'found'}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow42" sourceRef="startevent1" targetRef="usertask4"></sequenceFlow>
-    <userTask id="usertask8" name="Выбрать файл для отправки" activiti:assignee="${initiator}"></userTask>
     <serviceTask id="servicetask1" name="Отправка ответа на запрос пользователю" activiti:delegateExpression="#{mailTaskWithAttachment}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>dniprorada@egov.ua</activiti:string>
+          <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
@@ -120,16 +111,21 @@
           <activiti:expression>Обращение на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Уважаемый(-ая), ${clFirstName} ${clSecondName}. Вы запросили  ${docType} № ${docNumber}  от  ${docDate}. Запрашиваемый документ добавлен в приложение этого письма.</activiti:expression>
+          <activiti:expression>Уважаемый(-ая), ${firstName} ${secondName}. Вы запросили  ${docType} № ${docNumber}  от  ${docDate}. Запрашиваемый документ добавлен в приложение этого письма.</activiti:expression>
         </activiti:field>
         <activiti:field name="docName">
           <activiti:expression>${docName}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow43" sourceRef="usertask8" targetRef="servicetask1"></sequenceFlow>
     <endEvent id="endevent6" name="End"></endEvent>
     <sequenceFlow id="flow44" sourceRef="servicetask1" targetRef="endevent6"></sequenceFlow>
+    <serviceTask id="servicetask2" name="Получение кл.данных по BankId" activiti:delegateExpression="#{bankIDChecked}"></serviceTask>
+    <sequenceFlow id="flow45" sourceRef="startevent1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow46" sourceRef="servicetask2" targetRef="usertask4"></sequenceFlow>
+    <sequenceFlow id="flow47" name="searchResult == 'found'" sourceRef="exclusivegateway2" targetRef="servicetask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult == 'found'}]]></conditionExpression>
+    </sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Пользователь портала  отправляет выбирает услугу</text>
     </textAnnotation>
@@ -142,11 +138,12 @@
 ФИО, адрес проживания, телефон</text>
     </textAnnotation>
     <association id="association3" sourceRef="startevent1" targetRef="textannotation1"></association>
+    <association id="association4" sourceRef="textannotation3" targetRef="servicetask2"></association>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
     <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="318.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="67.0" width="105.0" x="620.0" y="243.0"></omgdc:Bounds>
@@ -172,23 +169,23 @@
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
         <omgdc:Bounds height="40.0" width="40.0" x="536.0" y="446.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
-        <omgdc:Bounds height="50.0" width="299.0" x="283.0" y="194.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
-        <omgdc:Bounds height="50.0" width="341.0" x="70.0" y="510.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
-        <omgdc:Bounds height="50.0" width="341.0" x="60.0" y="330.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask8" id="BPMNShape_usertask8">
-        <omgdc:Bounds height="55.0" width="105.0" x="994.0" y="438.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="71.0" width="105.0" x="1114.0" y="430.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent6" id="BPMNShape_endevent6">
         <omgdc:Bounds height="35.0" width="35.0" x="1240.0" y="448.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="114.0" x="376.0" y="275.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="50.0" width="299.0" x="-40.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
+        <omgdc:Bounds height="50.0" width="341.0" x="70.0" y="510.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
+        <omgdc:Bounds height="50.0" width="271.0" x="60.0" y="330.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
         <omgdi:waypoint x="870.0" y="445.0"></omgdi:waypoint>
@@ -230,32 +227,37 @@
           <omgdc:Bounds height="14.0" width="87.0" x="-58.0" y="7.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
-        <omgdi:waypoint x="890.0" y="465.0"></omgdi:waypoint>
-        <omgdi:waypoint x="994.0" y="465.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="-50.0" y="-20.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNEdge bpmnElement="flow44" id="BPMNEdge_flow44">
+        <omgdi:waypoint x="1219.0" y="465.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1240.0" y="465.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow42" id="BPMNEdge_flow42">
-        <omgdi:waypoint x="432.0" y="353.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow45" id="BPMNEdge_flow45">
+        <omgdi:waypoint x="432.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="433.0" y="275.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow46" id="BPMNEdge_flow46">
+        <omgdi:waypoint x="433.0" y="330.0"></omgdi:waypoint>
         <omgdi:waypoint x="432.0" y="438.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow47" id="BPMNEdge_flow47">
+        <omgdi:waypoint x="890.0" y="465.0"></omgdi:waypoint>
+        <omgdi:waypoint x="972.0" y="465.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1114.0" y="465.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="-76.0" y="-19.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
         <omgdi:waypoint x="432.0" y="493.0"></omgdi:waypoint>
         <omgdi:waypoint x="240.0" y="510.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
-        <omgdi:waypoint x="432.0" y="318.0"></omgdi:waypoint>
-        <omgdi:waypoint x="432.0" y="244.0"></omgdi:waypoint>
+        <omgdi:waypoint x="432.0" y="180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="109.0" y="140.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow43" id="BPMNEdge_flow43">
-        <omgdi:waypoint x="1099.0" y="465.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1114.0" y="465.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow44" id="BPMNEdge_flow44">
-        <omgdi:waypoint x="1219.0" y="465.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1240.0" y="465.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="association4" id="BPMNEdge_association4">
+        <omgdi:waypoint x="331.0" y="355.0"></omgdi:waypoint>
+        <omgdi:waypoint x="433.0" y="330.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
