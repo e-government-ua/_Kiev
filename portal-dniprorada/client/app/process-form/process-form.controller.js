@@ -96,7 +96,7 @@ angular.module('portalDniproradaApp')
     },
     link: function($scope, element, attrs) {
       $scope.open = function(event){
-        console.log("open");
+        //console.log("open");
         event.preventDefault();
         event.stopPropagation();
         $scope.opened = true;
@@ -145,21 +145,26 @@ angular.module('portalDniproradaApp')
 			};
 
 			    $scope.formData      = {};
-    $scope.formData.date = "";
-    $scope.opened        = false;
+// ======= ????
+// /*
+//     $scope.formData      = {};
+// >>>>>>> 73d6f11b8002cf3331d62984419b80fd9bb8bc6c
+//     $scope.formData.date = "";
+//                     */
+//     $scope.opened        = false;
 
-    //Datepicker
-    $scope.dateOptions = {
-            'year-format': "'yy'",
-            'show-weeks' : false
-    };
+//     //Datepicker
+//     $scope.dateOptions = {
+//             'year-format': "'yy'",
+//             'show-weeks' : false
+//     };
 
 			//$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
 			//$scope.formats = ['dd.MM.yyyy'];
 			//$scope.format = $scope.formats[0];
 			//$scope.format = 'dd.MM.yyyy';                        
 			$scope.format = 'dd/MM/yyyy';
-		$scope.disbleStartProcess = !$cookieStore.get('user');
+			$scope.disbleStartProcess = !$cookieStore.get('user');
 			$scope.processDefinitionId = $routeParams.processDefinitionId;
 			if ($scope.processDefinitionId) {
 				$http.get('/api/process-form/' + $routeParams.processDefinitionId)
