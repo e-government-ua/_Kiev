@@ -4,9 +4,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -77,17 +85,49 @@ public class BankIDChecked implements JavaDelegate {
 
 	}
 
-	private HttpsURLConnection getConnection(String httpsUrl)
-			throws MalformedURLException, IOException {
+	private static HttpsURLConnection getConnection(String httpsUrl)
+			throws MalformedURLException, IOException,
+			NoSuchAlgorithmException, KeyManagementException {
 		URL url;
 		HttpsURLConnection con;
 		url = new URL(httpsUrl);
+		// Create a trust manager that does not validate certificate chains
+		final TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+			@Override
+			public X509Certificate[] getAcceptedIssuers() {
+				return null;
+			}
+
+			@Override
+			public void checkClientTrusted(X509Certificate[] chain,
+					String authType) throws CertificateException {
+
+			}
+
+			@Override
+			public void checkServerTrusted(X509Certificate[] chain,
+					String authType) throws CertificateException {
+
+			}
+		} };
+
+		// Install the all-trusting trust manager
+		final SSLContext sslContext = SSLContext.getInstance("SSL");
+		sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+		// Create an ssl socket factory with our all-trusting manager
+		final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+		HttpsURLConnection.setDefaultSSLSocketFactory(sslSocketFactory);
+
 		con = (HttpsURLConnection) url.openConnection();
+		// Tell the url connection object to use our socket factory which
+		// bypasses security checks
+		((HttpsURLConnection) con).setSSLSocketFactory(sslSocketFactory);
+
 		return con;
 	}
 
-	private void getData(HttpsURLConnection con, DelegateExecution execution)
-			throws XMLStreamException, IOException {
+	private static void getData(HttpsURLConnection con,
+			DelegateExecution execution) throws XMLStreamException, IOException {
 		if (con != null) {
 
 			readFio(con.getInputStream(), execution);
@@ -166,4 +206,5 @@ public class BankIDChecked implements JavaDelegate {
 			throw new BpmnError("fio not found");
 		}
 	}
+
 }
