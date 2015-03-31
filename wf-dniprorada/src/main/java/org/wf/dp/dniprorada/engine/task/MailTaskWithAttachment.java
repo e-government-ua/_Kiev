@@ -95,6 +95,7 @@ public class MailTaskWithAttachment implements JavaDelegate {
 		email.setSmtpPort(Integer.valueOf(mailServerPort));
 		email.setSSL(true);
 		email.setTLS(true);
+		if(attachmentList!=null && !attachmentList.isEmpty()){
 		String exp = "";
 		if (typeFile.startsWith("imag")) {
 			exp = typeFile.substring(11);
@@ -106,7 +107,10 @@ public class MailTaskWithAttachment implements JavaDelegate {
 
 		// add the attachment
 		email.attach(source, nameFile + "." + exp, docNameStr);
-
+		}else{
+			throw new ActivitiObjectNotFoundException(
+					"add the file to send");
+		}
 		// send the email
 		email.send();
 	}
