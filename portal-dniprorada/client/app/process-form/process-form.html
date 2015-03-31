@@ -12,7 +12,11 @@
             <label>{{formProperty.name}} <label ng-show="{{formProperty.datePattern}}"> in format : {{formProperty.datePattern}}</label></label>
             <input type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
             <div ng-if="formProperty.type == 'enum'">
-                (комбо-бокс)
+                 (комбо-бокс)
+                <div class="form-group" ng-repeat="oEnumValue in formProperty.enumValues">
+                    oEnumValue.id=<label>{{oEnumValue.id}}</label>
+                    oEnumValue.name=<label>{{oEnumValue.name}}</label>
+                </div>
             </div>          
         </div>
          <button class="btn btn-lg btn-primary" ng-click="authorize()">Ідентифікация BankID</button>
