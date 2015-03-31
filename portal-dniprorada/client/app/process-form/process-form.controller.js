@@ -77,7 +77,7 @@ angular.module('portalDniproradaApp')
     },
     link: function($scope, element, attrs) {
       $scope.open = function(event){
-        console.log("open");
+        //console.log("open");
         event.preventDefault();
         event.stopPropagation();
         $scope.opened = true;
@@ -95,9 +95,10 @@ angular.module('portalDniproradaApp')
 		function($scope, $routeParams, $http, $window, $cookieStore) {
                     
 
-
+/*
     $scope.formData      = {};
     $scope.formData.date = "";
+                    */
     $scope.opened        = false;
 
     //Datepicker
