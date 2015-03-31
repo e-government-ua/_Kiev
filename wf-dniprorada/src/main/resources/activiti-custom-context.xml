@@ -203,7 +203,7 @@
 		<bean id="banckIDProperties"
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 			<property name="location"
-				value="file:${catalina.home}/conf/bankID.properties" />
+				value="classpath:bankID.properties" />
 			<property name="ignoreUnresolvablePlaceholders" value="true" />
 		</bean>
 
@@ -302,7 +302,7 @@
 		<bean id="banckIDProperties"
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 			<property name="location"
-				value="file:${catalina.home}/conf/bankID.properties" />
+				value="classpath:bankID.properties" />
 			<property name="ignoreUnresolvablePlaceholders" value="true" />
 		</bean>
 	</beans>
