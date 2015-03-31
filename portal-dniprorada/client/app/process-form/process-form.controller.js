@@ -65,49 +65,44 @@ var fillInTokenValues = function(formProperties, token) {
 angular.module('portalDniproradaApp')
 	.controller('ProcessFormCtrl',
 		function($scope, $routeParams, $http, $window, $cookieStore) {
-                    
-                    
-                    
-  $scope.today = function() {
-    $scope.dt = new Date();
-  };
-  $scope.today();
 
-  $scope.clear = function () {
-    $scope.dt = null;
-  };
+			$scope.today = function() {
+				$scope.dt = new Date();
+			};
+			$scope.today();
 
-  // Disable weekend selection
-  $scope.disabled = function(date, mode) {
-    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-  };
+			$scope.clear = function() {
+				$scope.dt = null;
+			};
 
-  $scope.toggleMin = function() {
-    $scope.minDate = $scope.minDate ? null : new Date();
-  };
-  $scope.toggleMin();
+			// Disable weekend selection
+			$scope.disabled = function(date, mode) {
+				return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+			};
 
-  $scope.open = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
+			$scope.toggleMin = function() {
+				$scope.minDate = $scope.minDate ? null : new Date();
+			};
+			$scope.toggleMin();
 
-    $scope.opened = false;
-  };
+			$scope.open = function($event) {
+				$event.preventDefault();
+				$event.stopPropagation();
 
-  $scope.dateOptions = {
-    formatYear: 'yy',
-    startingDay: 1
-  };
+				$scope.opened = false;
+			};
 
-  //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-  //$scope.formats = ['dd.MM.yyyy'];
-  //$scope.format = $scope.formats[0];
-  //$scope.format = 'dd.MM.yyyy';                        
-  $scope.format = 'dd/MM/yyyy';                        
-                        
-                                            
-                    
-                    
+			$scope.dateOptions = {
+				formatYear: 'yy',
+				startingDay: 1
+			};
+
+			//$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+			//$scope.formats = ['dd.MM.yyyy'];
+			//$scope.format = $scope.formats[0];
+			//$scope.format = 'dd.MM.yyyy';                        
+			$scope.format = 'dd/MM/yyyy';
+
 			$scope.disbleStartProcess = !$cookieStore.get('user');
 			//TODO be ready for redirect from BANKID service
 			$scope.processDefinitionId = $routeParams.processDefinitionId;
@@ -156,12 +151,7 @@ angular.module('portalDniproradaApp')
 			$scope.authorize = function() {
 				$window.location.href = '/auth/bankID';
 			};
-                        
-                        
-                        
-                        
-                        
+
+
+
 		});
-                
-
-
