@@ -59,12 +59,12 @@ public class ActivitiRestApiController extends ExecutionBaseResource{
 	public List<Task> getTasks(@PathVariable("assignee") String assignee) {
 		return taskService.createTaskQuery().taskAssignee(assignee).list();
 	}
-	
+
 	
 	@RequestMapping(value = "/getProcessDefinitions", method = RequestMethod.GET)
 	@Transactional
 	public List<ProcessDefinition> getProcessDefinitions() {
 		return repositoryService.createProcessDefinitionQuery().latestVersion().list();
-	}
+}
 
 }

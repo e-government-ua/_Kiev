@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="myProcess" name="Звернення громадян стосовно надання копій документів" isExecutable="true">
+  <process id="CivilCopyDocRequest" name="Звернення громадян стосовно надання копій документів" isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
-        <activiti:formProperty id="access_token" name="BankId" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="access_token" name="Access Token" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="docType" name="Тип документа" type="enum">
           <activiti:value id="копія рішення виконавчого комітету Дніпропетровської міської ради" name="копія рішення виконавчого комітету Дніпропетровської міської ради"></activiti:value>
           <activiti:value id="копія рішення Дніпропетровської міської ради" name="копія рішення Дніпропетровської міської ради"></activiti:value>
@@ -126,6 +126,11 @@
     <sequenceFlow id="flow47" name="searchResult == 'found'" sourceRef="exclusivegateway2" targetRef="servicetask1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult == 'found'}]]></conditionExpression>
     </sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask2">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <endEvent id="endevent7" name="End"></endEvent>
+    <sequenceFlow id="flow48" sourceRef="boundaryerror1" targetRef="endevent7"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Пользователь портала  отправляет выбирает услугу</text>
     </textAnnotation>
@@ -140,8 +145,8 @@
     <association id="association3" sourceRef="startevent1" targetRef="textannotation1"></association>
     <association id="association4" sourceRef="textannotation3" targetRef="servicetask2"></association>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
-    <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_CivilCopyDocRequest">
+    <bpmndi:BPMNPlane bpmnElement="CivilCopyDocRequest" id="BPMNPlane_CivilCopyDocRequest">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -177,6 +182,12 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
         <omgdc:Bounds height="55.0" width="114.0" x="376.0" y="275.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="470.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent7" id="BPMNShape_endevent7">
+        <omgdc:Bounds height="35.0" width="35.0" x="467.0" y="200.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="50.0" width="299.0" x="-40.0" y="90.0"></omgdc:Bounds>
@@ -246,6 +257,10 @@
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="42.0" width="100.0" x="-76.0" y="-19.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow48" id="BPMNEdge_flow48">
+        <omgdi:waypoint x="485.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="484.0" y="235.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
         <omgdi:waypoint x="432.0" y="493.0"></omgdi:waypoint>

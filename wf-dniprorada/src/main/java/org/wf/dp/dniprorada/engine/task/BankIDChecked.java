@@ -130,8 +130,13 @@ public class BankIDChecked implements JavaDelegate {
 	private static void getData(HttpsURLConnection con,
 			DelegateExecution execution) throws XMLStreamException, IOException {
 		if (con != null) {
-
-			readFio(con.getInputStream(), execution);
+			try {
+				readFio(con.getInputStream(), execution);
+			} catch (Exception e) {
+				execution.setVariable("error_message", "invalid token");
+				throw new BpmnError("invalid token");
+			}
+			
 
 		} else {
 			throw new BpmnError("connection unavailable");
