@@ -1,44 +1,70 @@
 package org.wf.dp.dniprorada.engine.task;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.Attribute;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
 
+import org.activiti.engine.delegate.BpmnError;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Check client data throw bankID system.</br>
- * https://bankid.privatbank.ua/DataAccessService
- * /checked/fio?access_token=caef896e-3d84-4c16-8a2b-f4f2264db6b1
+ * 
+ * Request: https://bankid.privatbank.ua/DataAccessService
+ * /checked/fio?access_token=095be9eb
+ * -01e7-4045-b60b-9d71581fb4d9&client_id=d9c8b4d6-6a18-4492-a50a-2b3b4ea6285b
+ * 
+ * Response: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><message
+ * state="ok"><fio><firstName>имя</firstName><lastName>фамилия</lastName><
+ * middleName>отчество</middleName></fio></message>
+ * 
  * 
  * @author Tereshchenko
- *
+ * 
  */
 @Component("bankIDChecked")
 public class BankIDChecked implements JavaDelegate {
 
-	@Autowired
-	private ObjectMapper objectMapper;
-	// TODO pull to variables (can change dynamicaly)
-	private final String bankIdUrl = "https://bankid.privatbank.ua/DataAccessService/checked/fio?access_token=";
+	@Value("${checkBankIDUrl}")
+	private String checkBankIDUrl;
+
+	@Value("${firstNameElementName}")
+	private static final String FIRST_NAME = "firstName";
+	@Value("${lastNameElementName}")
+	private static final String LAST_NAME = "lastName";
+	@Value("${middleNameElementName}")
+	private static final String MIDDLE_NAME = "middleName";
+	@Value("${messageElementName}")
+	private static final String MESSAGE = "message";
+	@Value("${stateElementName}")
+	private static final String STATE = "state";
+	@Value("${access_tokenPathParam}")
+	private static final String ACCESS_TOKEN = "access_token";
+	@Value("${client_idPathParam}")
+	private static final String CLIENT_ID = "client_id";
 
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
-		String token = execution.getVariable("access_token", String.class);
+		String token = execution.getVariable(ACCESS_TOKEN, String.class);
+		String clid = execution.getVariable(CLIENT_ID, String.class);
+
 		HttpsURLConnection con;
 		try {
 
-			con = getConnection(bankIdUrl + token);
+			con = getConnection(String.format(checkBankIDUrl, token, clid));
 
 			// dump all the content
 			getData(con, execution);
@@ -61,35 +87,83 @@ public class BankIDChecked implements JavaDelegate {
 	}
 
 	private void getData(HttpsURLConnection con, DelegateExecution execution)
-			throws IOException {
+			throws XMLStreamException, IOException {
 		if (con != null) {
-			BufferedReader br =null;
-			try {
 
-				br = new BufferedReader(new InputStreamReader(
-						con.getInputStream()));
+			readFio(con.getInputStream(), execution);
 
-				JsonNode jNode = objectMapper.readTree(br);
-				// TODO pull variables names to constants
-				// TODO get description for variables
-				execution.setVariable("firstName", jNode.findValue("firstName")
-						.asText());
-				execution.setVariable("lastName", jNode.findValue("lastName")
-						.asText());
-				execution.setVariable("secondName",
-						jNode.findValue("secondName").asText());
-				execution.setVariable("phone", jNode.findValue("phone")
-						.asText());
-				execution.setVariable("adress", jNode.findValue("adress")
-						.asText());
+		} else {
+			throw new BpmnError("connection unavailable");
+		}
+	}
 
-			} catch (IOException e) {
-				throw e;
-			} finally {
+	private static void readFio(InputStream is, DelegateExecution execution)
+			throws XMLStreamException {
+		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+		XMLEventReader eventReader = inputFactory.createXMLEventReader(is);
 
-				br.close();
+		boolean isEmptyFio = true;
+		while (eventReader.hasNext()) {
+			XMLEvent event = eventReader.nextEvent();
+
+			if (event.isStartElement()) {
+				StartElement startElement = event.asStartElement();
+
+				if (MESSAGE.equals(startElement.getName().getLocalPart())) {
+
+					@SuppressWarnings("unchecked")
+					Iterator<Attribute> attributes = startElement
+							.getAttributes();
+					boolean stateAttrFound = false;
+					while (attributes.hasNext()) {
+						Attribute attribute = attributes.next();
+						if (STATE.equals(attribute.getName().toString())) {
+							if (!"ok".equals(attribute.getValue())) {
+
+								throw new BpmnError("wrong response state : "
+										+ attribute.getValue());
+							}
+							stateAttrFound = true;
+						}
+
+					}
+					if (stateAttrFound) {
+						throw new BpmnError(
+								"message did not contains [state] attribute  ");
+					}
+
+				}
+
+				if (event.isStartElement()) {
+					if (FIRST_NAME.equals(event.asStartElement().getName()
+							.getLocalPart())) {
+						event = eventReader.nextEvent();
+						execution.setVariable(FIRST_NAME, event.toString());
+						isEmptyFio = false;
+						continue;
+					}
+				}
+				if (LAST_NAME.equals(event.asStartElement().getName()
+						.getLocalPart())) {
+					event = eventReader.nextEvent();
+					execution.setVariable(LAST_NAME, event.toString());
+					isEmptyFio = false;
+					continue;
+				}
+
+				if (MIDDLE_NAME.equals(event.asStartElement().getName()
+						.getLocalPart())) {
+					event = eventReader.nextEvent();
+					execution.setVariable(MIDDLE_NAME, event.toString());
+					isEmptyFio = false;
+					continue;
+				}
+
 			}
 
+		}
+		if (isEmptyFio) {
+			throw new BpmnError("fio not found");
 		}
 	}
 }

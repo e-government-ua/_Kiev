@@ -1,5 +1,5 @@
 /**
- * custome service task.
+ * custom service tasks.
  */
 /**
  * @author Tereshchenko
