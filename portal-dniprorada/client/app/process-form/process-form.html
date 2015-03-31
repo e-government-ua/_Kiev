@@ -18,8 +18,8 @@
             <!--div ng-controller="DatepickerDemoCtrl"-->
                 <div ng-if="formProperty.type == 'date'" class="row">
                     <div class="col-md-6">
-                        <p class="input-group">
-                          <input type="text" name="{{formProperty.id}}" class="form-control" datepicker-popup="{{format}}" ng-model="dt" init-date="{{formProperty.value}}" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" clear-text="Стереть" close-text="Закрыть" />
+                        <p class="input-group"> <!--is-open="opened" -->
+                          <input type="text" name="{{formProperty.id}}" class="form-control" datepicker-popup="{{format}}" ng-model="dt" init-date="{{formProperty.value}}" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" clear-text="Стереть" close-text="Закрыть" />
                           <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                           </span>

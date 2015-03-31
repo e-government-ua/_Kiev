@@ -8,6 +8,7 @@ var activiti = require('../../components/activiti');
 exports.index = function(req, res) {
 	var options = {
 		path: 'repository/process-definitions'
+                , latest  : true
 	};
 	activiti.get(options, function(error, statusCode, result) {
 		if (error) {
