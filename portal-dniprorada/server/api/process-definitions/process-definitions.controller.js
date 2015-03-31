@@ -7,8 +7,10 @@ var activiti = require('../../components/activiti');
 // Get list of process-definitionss
 exports.index = function(req, res) {
 	var options = {
-		path: 'repository/process-definitions'
-                , latest  : true
+		path: 'repository/process-definitions',
+        query: {
+			'latest' : true
+		}
 	};
 	activiti.get(options, function(error, statusCode, result) {
 		if (error) {

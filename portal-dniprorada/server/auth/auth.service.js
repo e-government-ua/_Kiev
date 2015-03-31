@@ -23,7 +23,7 @@ function isAuthenticated() {
 				req.cookies.hasOwnProperty('user')) {
 
 				var signedToken = JSON.parse(req.cookies.token);
-
+				//don't use it
 				jwt.verify(signedToken.accessToken, config.secrets.session, function(err, decoded) {
 					req.headers.authorization = 'Bearer ' + decoded._id;
 					validateJwt(req, res, next);
@@ -41,8 +41,8 @@ function isAuthenticated() {
  */
 function setTokenCookie(req, res, accessToken, refreshToken) {
 		var token = {
-			accessToken: signToken(accessToken),
-			refreshToken: signToken(refreshToken)
+			access_token: accessToken,
+			refresh_token: refreshToken
 		}
 		res.cookie('token', JSON.stringify(token), {
 			expires: new Date(Date.now() + 1000 * 60 * 3)
