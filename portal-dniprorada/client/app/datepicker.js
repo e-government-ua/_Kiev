@@ -1,3 +1,4 @@
+/*
 // Code goes here
 angular.module('foo', ['ui.bootstrap'])
 
@@ -38,3 +39,4 @@ angular.module('foo', ['ui.bootstrap'])
 		'show-weeks' : false
 	};
 });
+*/
