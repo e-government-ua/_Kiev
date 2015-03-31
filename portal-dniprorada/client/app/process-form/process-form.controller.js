@@ -49,7 +49,7 @@ var deleteAccessTokenProperty = function(formProperties) {
 			forDeletion = i;
 		}
 	});
-	if (forDeletion != -1) {
+	if (forDeletion !== -1) {
 		formProperties.splice(forDeletion, 1);
 	}
 };
@@ -81,7 +81,35 @@ var fillInTokenValues = function(formProperties, token) {
 });                */
 
 
+
+
 angular.module('portalDniproradaApp')
+
+//Datepicker
+.directive("mydatepicker", function(){
+  return {
+    restrict: "E",
+    scope:{
+      ngModel: "=",
+      dateOptions: "=",
+      opened: "=",
+    },
+    link: function($scope, element, attrs) {
+      $scope.open = function(event){
+        console.log("open");
+        event.preventDefault();
+        event.stopPropagation();
+        $scope.opened = true;
+      };
+
+      $scope.clear = function () {
+        $scope.ngModel = null;
+      };
+    },
+    templateUrl: 'datepicker.html'
+  }
+})
+
 	.controller('ProcessFormCtrl',
 		function($scope, $routeParams, $http, $window, $cookieStore) {
 
@@ -116,15 +144,22 @@ angular.module('portalDniproradaApp')
 				startingDay: 1
 			};
 
+			    $scope.formData      = {};
+    $scope.formData.date = "";
+    $scope.opened        = false;
+
+    //Datepicker
+    $scope.dateOptions = {
+            'year-format': "'yy'",
+            'show-weeks' : false
+    };
+
 			//$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
 			//$scope.formats = ['dd.MM.yyyy'];
 			//$scope.format = $scope.formats[0];
 			//$scope.format = 'dd.MM.yyyy';                        
 			$scope.format = 'dd/MM/yyyy';
-			$scope.disbleStartProcess = !$cookieStore.get('bankdIDToken');
-			if($cookieStore.get('disableBankID')){
-				$scope.disbleStartProcess = false;
-			}
+		$scope.disbleStartProcess = !$cookieStore.get('user');
 			$scope.processDefinitionId = $routeParams.processDefinitionId;
 			if ($scope.processDefinitionId) {
 				$http.get('/api/process-form/' + $routeParams.processDefinitionId)
@@ -182,4 +217,48 @@ angular.module('portalDniproradaApp')
 						$window.alert('Process has been started ' + JSON.stringify(result));
 					});
 			};
+
+
+/*
+  $scope.today = function() {
+    $scope.dt = new Date();
+  };
+  $scope.today();
+
+  $scope.clear = function () {
+    $scope.dt = null;
+  };
+
+  // Disable weekend selection
+  $scope.disabled = function(date, mode) {
+    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+  };
+
+  $scope.toggleMin = function() {
+    $scope.minDate = $scope.minDate ? null : new Date();
+  };
+  $scope.toggleMin();
+
+  $scope.open = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope.opened = false;
+  };
+
+  $scope.dateOptions = {
+    formatYear: 'yy',
+    startingDay: 1
+  };
+
+  //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+  //$scope.formats = ['dd.MM.yyyy'];
+  //$scope.format = $scope.formats[0];
+  //$scope.format = 'dd.MM.yyyy';                        
+  $scope.format = 'dd/MM/yyyy';                        
+*/
+                                            
+                    
+                    
+			
 		});

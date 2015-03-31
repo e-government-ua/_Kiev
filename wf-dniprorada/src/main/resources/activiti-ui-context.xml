@@ -31,7 +31,7 @@
     <!-- Renderers by property type -->
     <property name="propertyRenderers">
       <list>
-        <bean class="org.activiti.explorer.ui.form.StringFormPropertyRenderer" />
+       <!--  <bean class="org.activiti.explorer.ui.form.StringFormPropertyRenderer" /> -->
         <bean class="org.activiti.explorer.ui.form.EnumFormPropertyRenderer" />
         <bean class="org.activiti.explorer.ui.form.LongFormPropertyRenderer" />
         <bean class="org.activiti.explorer.ui.form.DoubleFormPropertyRenderer" />
@@ -40,6 +40,7 @@
         <bean class="org.activiti.explorer.ui.form.BooleanFormPropertyRenderer" />
         <bean class="org.activiti.explorer.ui.form.ProcessDefinitionFormPropertyRenderer" />
         <bean class="org.activiti.explorer.ui.form.MonthFormPropertyRenderer" />
+        <bean class="org.wf.dp.dniprorada.ui.form.StringFormPropertyRenderer" />
       </list>
     </property>
   </bean>

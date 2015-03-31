@@ -93,7 +93,7 @@ var all = {
       path: process.env.BANK_ID_USER_PATH || 'service/bankid/user'
     },
 
-    disable: process.env.BANK_ID_DISABLE || 'false';
+    disable: process.env.BANK_ID_DISABLE || 'false'
   },
 
   // List of user roles
