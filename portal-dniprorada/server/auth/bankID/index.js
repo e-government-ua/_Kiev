@@ -39,11 +39,6 @@ router.get('/callback', function(req, res, next) {
       });
     }
 
-    var token = {
-      accessToken: auth.signToken(info.accessToken),
-      refreshToken: auth.signToken(info.refreshToken)
-    }
-
     auth.setTokenCookie(req, res, info.accessToken, info.refreshToken);
     auth.setUserCookie(req, res, user);
 

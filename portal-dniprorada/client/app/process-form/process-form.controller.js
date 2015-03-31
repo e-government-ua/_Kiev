@@ -24,15 +24,34 @@ var guid = function guid() {
 		s4() + '-' + s4() + s4() + s4();
 };
 
-var createProperties = function(formProperties, clientForm) {
+var createProperties = function(formProperties, accessToken) {
 	var arr = Array.apply(null, new Array(formProperties.length));
-	return arr.map(function(x, i) {
+	var properties = arr.map(function(x, i) {
 		var formProperty = formProperties[i];
-		return {
-			'id': formProperty.id,
-			'value': clientForm[formProperty.id].$modelValue
-		};
+		if (formProperty) {
+			return {
+				id: formProperty.id,
+				value: formProperty.value
+			};
+		}
 	});
+	properties.push({
+		id: 'access_token',
+		value: accessToken
+	});
+	return properties;
+};
+
+var deleteAccessTokenProperty = function(formProperties) {
+	var forDeletion = -1;
+	formProperties.forEach(function(item, i) {
+		if (item.id === 'access_token') {
+			forDeletion = i;
+		}
+	});
+	if (forDeletion != -1) {
+		formProperties.splice(forDeletion, 1);
+	}
 };
 
 var fillInUserValues = function(formProperties, user) {
@@ -102,26 +121,32 @@ angular.module('portalDniproradaApp')
 			//$scope.format = $scope.formats[0];
 			//$scope.format = 'dd.MM.yyyy';                        
 			$scope.format = 'dd/MM/yyyy';
-
-			$scope.disbleStartProcess = !$cookieStore.get('user');
-			//TODO be ready for redirect from BANKID service
+			$scope.disbleStartProcess = !$cookieStore.get('bankdIDToken');
+			if($cookieStore.get('disableBankID')){
+				$scope.disbleStartProcess = false;
+			}
 			$scope.processDefinitionId = $routeParams.processDefinitionId;
 			if ($scope.processDefinitionId) {
 				$http.get('/api/process-form/' + $routeParams.processDefinitionId)
 					.success(function(result) {
+						deleteAccessTokenProperty(result.formProperties);
 						fillInUserValues(result.formProperties, $cookieStore.get('user'));
-						fillInTokenValues(result.formProperties, $cookieStore.get('token'));
 						$scope.processFormData = result;
+						$scope.processDefinitionName =
+							$cookieStore.get('lastFormProcessName') || result.processDefinitionId;
 					}).error(function(data, status, headers, config) {
 						$scope.processFormData = {};
 					});
 			} else {
 				$http.get('/api/process-form')
 					.success(function(result) {
+						deleteAccessTokenProperty(result.formProperties);
 						fillInUserValues(result.formProperties, $cookieStore.get('user'));
-						fillInTokenValues(result.formProperties, $cookieStore.get('token'));
 						$scope.processFormData = result;
 						$scope.processDefinitionId = result.processDefinitionId;
+						$scope.processDefinitionName =
+							$cookieStore.get('lastFormProcessName') || result.processDefinitionId;
+						$cookieStore.put('lastFormProcessName', processDefinitionName);
 					}).error(function(data, status, headers, config) {
 						$scope.processFormData = {};
 					});
@@ -131,27 +156,30 @@ angular.module('portalDniproradaApp')
 				if (form.$invalid) {
 					return;
 				}
+				if (!$cookieStore.get('disableBankID')) {
+					if (!$cookieStore.get('user')) {
+						return;
+					}
+					if (!$cookieStore.get('bankdIDToken')) {
+						return;
+					}
+				}
+
+				var token = $cookieStore.get('bankdIDToken') || {
+					accessToken: 'aaa'
+				};
 				var processDefinitionId = $scope.processDefinitionId;
 				var formProperties = $scope.processFormData.formProperties;
 				// Default values for the request.
 				var startProcessData = {
 					'processDefinitionId': processDefinitionId,
 					'businessKey': guid(),
-					'properties': createProperties(formProperties, form)
+					'properties': createProperties(formProperties, token.accessToken)
 				};
 
-				if ($cookieStore.get('user')) {
-					$http.post('/api/process-form/' + processDefinitionId, startProcessData)
-						.success(function(result) {
-							$window.alert('Process has been started ' + JSON.stringify(result));
-						});
-				}
+				$http.post('/api/process-form/' + processDefinitionId, startProcessData)
+					.success(function(result) {
+						$window.alert('Process has been started ' + JSON.stringify(result));
+					});
 			};
-
-			$scope.authorize = function() {
-				$window.location.href = '/auth/bankID';
-			};
-
-
-
 		});

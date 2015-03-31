@@ -5,34 +5,53 @@ var config = require('../config/environment');
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
 var compose = require('composable-middleware');
+var url = require('url')
 var validateJwt = expressJwt({
 	secret: config.secrets.session
 });
 
-/**
- * Attaches the user object to the request if authenticated
- * Otherwise returns 403
- */
+var getBankIDBaseURL = function() {
+		return url.format({
+			protocol: config.bankid.prot,
+			hostname: config.bankid.host
+		});
+	}
+	/**
+	 * Attaches the user object to the request if authenticated
+	 * Otherwise returns 403
+	 */
 function isAuthenticated() {
 	return compose()
 		// Validate jwt
 		.use(function(req, res, next) {
-			// allow access_token to be passed through cookies
-			if (req.cookies &&
-				req.cookies.hasOwnProperty('token') &&
-				req.cookies.hasOwnProperty('user')) {
-
-				var signedToken = JSON.parse(req.cookies.token);
-				//don't use it
-				jwt.verify(signedToken.accessToken, config.secrets.session, function(err, decoded) {
-					req.headers.authorization = 'Bearer ' + decoded._id;
-					validateJwt(req, res, next);
-					next();
+			if (config.bankid.disable === 'true') {
+				res.cookie('disableBankID', config.bankid.disable, {
+					expires: new Date(Date.now() + 1000 * 60 * 100)
 				});
-			} else {
-				validateJwt(req, res, next);
 				next();
+			} else {
+				// allow access_token to be passed through cookies
+				if (req.cookies &&
+					req.cookies.hasOwnProperty('bankdIDToken') &&
+					req.cookies.hasOwnProperty('user')) {
+					next();
+				} else {
+					next();
+				}
 			}
+		});
+}
+
+function isDisabledBankID() {
+	return compose()
+		// Validate jwt
+		.use(function(req, res, next) {
+			if (config.bankid.disable) {
+				res.cookie('disableBankID', config.bankid.disable, {
+					expires: new Date(Date.now() + 1000 * 60 * 3)
+				});
+			}
+			next();
 		});
 }
 
@@ -44,7 +63,7 @@ function setTokenCookie(req, res, accessToken, refreshToken) {
 			access_token: accessToken,
 			refresh_token: refreshToken
 		}
-		res.cookie('token', JSON.stringify(token), {
+		res.cookie('bankdIDToken', JSON.stringify(token), {
 			expires: new Date(Date.now() + 1000 * 60 * 3)
 		});
 	}
@@ -69,6 +88,7 @@ function signToken(id) {
 }
 
 exports.isAuthenticated = isAuthenticated;
+exports.isDisabledBankID = isDisabledBankID;
 exports.signToken = signToken;
 exports.setTokenCookie = setTokenCookie;
 exports.setUserCookie = setUserCookie;

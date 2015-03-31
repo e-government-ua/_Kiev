@@ -14,14 +14,14 @@ var getFormByProcessDefinitionId = function(processDefinitionId, req, res) {
 	activiti.get(options, function(error, statusCode, result) {
 		res.statusCode = statusCode;
 		if (res.statusCode === 200) {
-			req.session.lastFormProcess = processDefinitionId;
+			req.session.lastFormProcessID = processDefinitionId;
 		}
 		res.send(result);
 	});
 }
 
 exports.getLastFormProcess = function(req, res) {
-	var processDefinitionId = req.session.lastFormProcess;
+	var processDefinitionId = req.session.lastFormProcessID || req.cookies.lastFormProcessID;
 	getFormByProcessDefinitionId(processDefinitionId, req, res);
 }
 

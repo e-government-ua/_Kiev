@@ -5,8 +5,8 @@ var controller = require('./process-form.controller');
 var auth = require('../../auth/auth.service');
 var router = express.Router();
 
-router.get('/:processDefinitionId', controller.getFormByProcessDefinitionId);
-router.get('/', controller.getLastFormProcess);
-router.post('/:processDefinitionId', controller.submitForm);
+router.get('/:processDefinitionId', auth.isAuthenticated(), controller.getFormByProcessDefinitionId);
+router.get('/', auth.isAuthenticated(), controller.getLastFormProcess);
+router.post('/:processDefinitionId', auth.isAuthenticated(), controller.submitForm);
 
 module.exports = router;

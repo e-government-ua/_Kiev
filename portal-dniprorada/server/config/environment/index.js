@@ -66,7 +66,7 @@ var all = {
     prot: process.env.ACTIVITI_PROT || 'http',
     host: process.env.ACTIVITI_HOST || 'localhost',
     port: process.env.ACTIVITI_PORT || 8080,
-    rest: process.env.ACTIVITI_REST || 'activiti-rest/service/repository',
+    rest: process.env.ACTIVITI_REST || 'activiti-rest/service',
     auth: {
       basic: process.env.ACTIVITI_AUTH_BASIC || 'Basic a2VybWl0Omtlcm1pdA=='
     }
@@ -91,7 +91,9 @@ var all = {
 
     user: {
       path: process.env.BANK_ID_USER_PATH || 'service/bankid/user'
-    }
+    },
+
+    disable: process.env.BANK_ID_DISABLE || 'false';
   },
 
   // List of user roles

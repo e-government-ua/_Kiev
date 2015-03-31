@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 var activiti = require('../../components/activiti');
-
+var auth = require('../../auth/auth.service');
 
 // Get list of process-definitionss
 exports.index = function(req, res) {

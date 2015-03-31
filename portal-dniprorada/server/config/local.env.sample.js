@@ -16,6 +16,7 @@ module.exports = {
 	ACTIVITI_REST: 'activiti rest service path [activiti-rest/service]',
 	ACTIVITI_AUTH_BASIC: 'activiti basic auth [Basic a2VybWl0Omtlcm1pdA==]',
 
+	BANK_ID_DISABLE: 'true',
 	BANK_ID_PROT: 'protocol for bankid service [http|https]',
 	BANK_ID_HOST: 'bank id service host [localhost]',
 	BANK_ID_PATH: 'bank id service path [bankid/tobankidservice]',
