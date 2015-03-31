@@ -15,3 +15,5 @@ angular.module('portalDniproradaApp', [
 
     $locationProvider.html5Mode(true);
   });
+  
+  angular.module('ui.bootstrap.datepicker');

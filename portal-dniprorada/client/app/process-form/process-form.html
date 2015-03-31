@@ -14,8 +14,8 @@
             <!--input type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/-->
             <input ng-if="formProperty.type == 'string'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
             <input ng-if="formProperty.type == 'long'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
-            <input ng-if="formProperty.type == 'date'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
-            <!--div ng-controller="DatepickerDemoCtrl">
+            <!--input ng-if="formProperty.type == 'date'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/-->
+            <!--div ng-controller="DatepickerDemoCtrl"-->
                 <div ng-if="formProperty.type == 'date'" class="row">
                     <div class="col-md-6">
                         <p class="input-group">
@@ -26,9 +26,9 @@
                         </p>
                     </div>
                 </div>
-            </div--><!--08/03/2015-->
+            <!--/div--><!--08/03/2015-->
             
-            <div ng-if="formProperty.type == 'enum'">
+            <div ng-if="formProperty.type == 'enum'" class="form-control">
                  <!--(комбо-бокс)-->
                 <!--select class="form-group-combobox" ng-repeat="oEnumValue in formProperty.enumValues" title="" onchange=""-->
                 <select class="form-group-combobox" title="" onchange="">
