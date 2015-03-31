@@ -1,5 +1,7 @@
 'use strict';
 
+angular.module('ui.bootstrap.datepicker');
+        
 angular.module('portalDniproradaApp')
 	.config(function($routeProvider) {
 		$routeProvider
