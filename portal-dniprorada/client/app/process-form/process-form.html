@@ -18,10 +18,13 @@
                 <select class="form-group-combobox" title="" onchange="">
                     <!--option value="{{oEnumValue.id}}">{{oEnumValue.name}}</option-->
                     <option ng-repeat="oEnumValue in formProperty.enumValues"
-                            selected="<!--ng-if='formProperty.value == oEnumValue.id' selected-->"
+                            selected="{{formProperty.value == oEnumValue.id?'selected':''}}"
                             value="{{oEnumValue.id}}">{{oEnumValue.name}}
                     </option>
+                    
+                    
                     <!--
+                        selected="<!--ng-if='formProperty.value == oEnumValue.id' selected>
                     <option ng-if="formProperty.value == oEnumValue.id" selected="selected" value="{{oEnumValue.id}}">{{oEnumValue.name}}</option>
                     <option ng-if="formProperty.value != oEnumValue.id" value="{{oEnumValue.id}}">{{oEnumValue.name}}</option>
                     -->
