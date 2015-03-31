@@ -12,6 +12,8 @@
             <label>{{formProperty.name}} <label ng-show="{{formProperty.datePattern}}"> in format : {{formProperty.datePattern}}</label></label>
             <!--input type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/-->
             <input ng-if="formProperty.type == 'string'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
+            <input ng-if="formProperty.type == 'long'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
+            <input ng-if="formProperty.type == 'date'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
             <div ng-if="formProperty.type == 'enum'">
                  <!--(комбо-бокс)-->
                 <!--select class="form-group-combobox" ng-repeat="oEnumValue in formProperty.enumValues" title="" onchange=""-->
