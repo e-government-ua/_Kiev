@@ -110,10 +110,11 @@
 			<property name="ignoreUnresolvablePlaceholders" value="true" />
 		</bean>
 
-		<!--при тестовом запуске не подтягиваем -->
-		<!-- <bean id="emailProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
-			<property name="location" value="classpath:email.properties" /> <property 
-			name="ignoreUnresolvablePlaceholders" value="true" /> </bean> -->
+		<bean id="emailProperties"
+			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="location" value="classpath:email.properties" />
+			<property name="ignoreUnresolvablePlaceholders" value="true" />
+		</bean>
 
 
 		<bean id="dataSource"
@@ -156,13 +157,14 @@
 				</list>
 			</property>
 
-			<!-- mail server configurations - при тестовом запуске не подтягиваем -->
-			<!-- <property name="mailServerHost" value="${mailServerHost}" /> <property 
-				name="mailServerPort" value="${mailServerPort}" /> <property name="mailServerDefaultFrom" 
-				value="${mailServerDefaultFrom}" /> <property name="mailServerUsername" value="${mailServerUsername}" 
-				/> <property name="mailServerPassword" value="${mailServerPassword}" /> <property 
-				name="mailServerUseSSL" value="true" /> <property name="mailServerUseTLS" 
-				value="true" /> -->
+			<!-- mail server configurations -->
+			<property name="mailServerHost" value="${mailServerHost}" />
+			<property name="mailServerPort" value="${mailServerPort}" />
+			<property name="mailServerDefaultFrom" value="${mailServerDefaultFrom}" />
+			<property name="mailServerUsername" value="${mailServerUsername}" />
+			<property name="mailServerPassword" value="${mailServerPassword}" />
+			<property name="mailServerUseSSL" value="true" />
+			<property name="mailServerUseTLS" value="true" />
 
 
 
@@ -198,10 +200,11 @@
 			<property name="ignoreUnresolvablePlaceholders" value="true" />
 		</bean>
 
-		<!--при тестовом запуске не подтягиваем -->
-		<!-- <bean id="emailProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
-			<property name="location" value="classpath:email.properties" /> <property 
-			name="ignoreUnresolvablePlaceholders" value="true" /> </bean> -->
+		<bean id="emailProperties"
+			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="location" value="classpath:email.properties" />
+			<property name="ignoreUnresolvablePlaceholders" value="true" />
+		</bean>
 
 
 		<bean id="dataSource"
@@ -245,12 +248,13 @@
 			</property>
 
 			<!-- mail server configurations - при тестовом запуске не подтягиваем -->
-			<!-- <property name="mailServerHost" value="${mailServerHost}" /> <property 
-				name="mailServerPort" value="${mailServerPort}" /> <property name="mailServerDefaultFrom" 
-				value="${mailServerDefaultFrom}" /> <property name="mailServerUsername" value="${mailServerUsername}" 
-				/> <property name="mailServerPassword" value="${mailServerPassword}" /> <property 
-				name="mailServerUseSSL" value="true" /> <property name="mailServerUseTLS" 
-				value="true" /> -->
+			<property name="mailServerHost" value="${mailServerHost}" />
+			<property name="mailServerPort" value="${mailServerPort}" />
+			<property name="mailServerDefaultFrom" value="${mailServerDefaultFrom}" />
+			<property name="mailServerUsername" value="${mailServerUsername}" />
+			<property name="mailServerPassword" value="${mailServerPassword}" />
+			<property name="mailServerUseSSL" value="true" />
+			<property name="mailServerUseTLS" value="true" />
 
 
 
