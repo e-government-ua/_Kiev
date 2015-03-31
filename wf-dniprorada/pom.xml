@@ -29,6 +29,7 @@
 					<warName>${artifactId}</warName>
 					<warSourceExcludes>**/db.properties</warSourceExcludes>
 					<warSourceExcludes>**/email.properties</warSourceExcludes>
+					<warSourceExcludes>**/bankID.properties</warSourceExcludes>
 				</configuration>
 			</plugin>
 
