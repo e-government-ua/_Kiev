@@ -31,7 +31,7 @@
           <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Уважаемый(-ая), ${firstName} ${secondName}.
+          <activiti:expression>Уважаемый(-ая), ${firstName} ${middleName}.
 
 К сожалению вынуждены Вам отказать в предоставлении информации в связи с недостаточной аргументацией запроса информации</activiti:expression>
         </activiti:field>
@@ -39,7 +39,7 @@
     </serviceTask>
     <userTask id="usertask4" name="Анализ входящего запроса" activiti:assignee="${initiator}">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Автор запроса " default="${lastName} ${firstName} ${secondName}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Автор запроса " default="${lastName} ${firstName} ${middleName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запрашиваемый документ" default="${docType} номер  ${docNumber} от  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Цель запроса" type="string" default="${gaol}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Резолюция по запросу" type="enum" required="true">
@@ -55,7 +55,7 @@
     <serviceTask id="mailtask3" name="Уведомление о том, что документ не найден" activiti:type="mail">
       <extensionElements>
         <activiti:field name="text">
-          <activiti:expression>Уважаемый(-ая), ${firstName} ${secondName}.
+          <activiti:expression>Уважаемый(-ая), ${firstName} ${middleName}.
 
 Вы запросили  ${docType} № ${docNumber}  от  ${docDate}
 
@@ -79,7 +79,7 @@
     <sequenceFlow id="flow16" sourceRef="mailtask3" targetRef="endevent3"></sequenceFlow>
     <userTask id="usertask7" name="Поиск документа" activiti:assignee="${initiator}">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Автор запроса " default="${lastName} ${firstName} ${secondName}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Автор запроса " default="${lastName} ${firstName} ${middleName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запрашиваемый документ" default="${docType} номер  ${docNumber} от  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Цель запроса" type="string" default="${gaol}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="searchResult" name="Результат поиска" type="enum" required="true">
@@ -111,7 +111,7 @@
           <activiti:expression>Обращение на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Уважаемый(-ая), ${firstName} ${secondName}. Вы запросили  ${docType} № ${docNumber}  от  ${docDate}. Запрашиваемый документ добавлен в приложение этого письма.</activiti:expression>
+          <activiti:expression>Уважаемый(-ая), ${firstName} ${middleName}. Вы запросили  ${docType} № ${docNumber}  от  ${docDate}. Запрашиваемый документ добавлен в приложение этого письма.</activiti:expression>
         </activiti:field>
         <activiti:field name="docName">
           <activiti:expression>${docName}</activiti:expression>
