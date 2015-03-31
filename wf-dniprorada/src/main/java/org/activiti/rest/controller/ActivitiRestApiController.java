@@ -2,8 +2,10 @@ package org.activiti.rest.controller;
 
 import java.util.List;
 
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
@@ -37,6 +39,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource{
 
 	@Autowired
 	private TaskService taskService;
+	@Autowired
+	private RepositoryService repositoryService;
 	
 	
 	@RequestMapping(value = "/startProcessByKey/{key}", method = RequestMethod.GET)
@@ -54,6 +58,13 @@ public class ActivitiRestApiController extends ExecutionBaseResource{
 	@Transactional
 	public List<Task> getTasks(@PathVariable("assignee") String assignee) {
 		return taskService.createTaskQuery().taskAssignee(assignee).list();
+	}
+	
+	
+	@RequestMapping(value = "/getProcessDefinitions", method = RequestMethod.GET)
+	@Transactional
+	public List<ProcessDefinition> getProcessDefinitions() {
+		return repositoryService.createProcessDefinitionQuery().latestVersion().list();
 	}
 
 }
