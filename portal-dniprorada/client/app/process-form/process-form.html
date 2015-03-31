@@ -8,13 +8,56 @@
   	</div>  
   	<div class="col-sm-12">
       <form class="form" name="form" ng-submit="startProcess(form)" novalidate>
-		<div class="form-group" ng-repeat="formProperty in processFormData.formProperties">
-        <label>{{formProperty.name}} <label ng-show="{{formProperty.datePattern}}"> in format : {{formProperty.datePattern}}</label></label>
-        <input type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
+        <!--div ng-show="!disbleStartProcess" class="form-group" ng-repeat="formProperty in processFormData.formProperties"-->
+        <div class="form-group" ng-repeat="formProperty in processFormData.formProperties">
+            <label>{{formProperty.name}} <label ng-show="{{formProperty.datePattern}}"> in format : {{formProperty.datePattern}}</label></label>
+            <!--input type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/-->
+            <input ng-if="formProperty.type == 'string'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
+            <input ng-if="formProperty.type == 'long'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
+            <input ng-if="formProperty.type == 'date'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
+            <!--div ng-if="formProperty.type == 'date'" class="row">
+                <div class="col-md-6">
+                    <p class="input-group">
+                      <input type="text" name="{{formProperty.id}}" class="form-control" datepicker-popup="{{format}}" ng-model="dt" init-date="{{formProperty.value}}" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" clear-text="Стереть" close-text="Закрыть" />
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </p>
+                </div>
+            </div-->
+            <!--08/03/2015-->
+            <!--div class="row">
+                <div class="col-md-6">
+                    <label>Format:</label> <select class="form-control" ng-model="format" ng-options="f for f in formats"><option></option></select>
+                </div>
+            </div-->
+            
+            <div ng-if="formProperty.type == 'enum'">
+                 <!--(комбо-бокс)-->
+                <!--select class="form-group-combobox" ng-repeat="oEnumValue in formProperty.enumValues" title="" onchange=""-->
+                <select class="form-group-combobox" title="" onchange="">
+                    <!--option value="{{oEnumValue.id}}">{{oEnumValue.name}}</option-->
+                    <option ng-repeat="oEnumValue in formProperty.enumValues"
+                            selected="{{formProperty.value == oEnumValue.id?'selected':''}}"
+                            value="{{oEnumValue.id}}">{{oEnumValue.name}}
+                    </option>
+                    
+                    
+                    <!--
+                        selected="<!--ng-if='formProperty.value == oEnumValue.id' selected>
+                    <option ng-if="formProperty.value == oEnumValue.id" selected="selected" value="{{oEnumValue.id}}">{{oEnumValue.name}}</option>
+                    <option ng-if="formProperty.value != oEnumValue.id" value="{{oEnumValue.id}}">{{oEnumValue.name}}</option>
+                    -->
+                </select>                 
+                <!--div class="form-group" ng-repeat="oEnumValue in formProperty.enumValues">
+                    oEnumValue.id=<label>{{oEnumValue.id}}</label>
+                    oEnumValue.name=<label>{{oEnumValue.name}}</label>
+                </div-->
+            </div>          
         </div>
          <button class="btn btn-lg btn-primary" ng-click="authorize()">Ідентифікация BankID</button>
         <button class="btn btn-lg btn-primary" type="submit" ng-disabled="disbleStartProcess">Подати заявку</button>       
       </form>
     </div>
   </div>
-</dib>
+</div>
