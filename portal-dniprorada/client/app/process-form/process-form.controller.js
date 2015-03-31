@@ -92,7 +92,8 @@ angular.module('portalDniproradaApp')
   //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
   //$scope.formats = ['dd.MM.yyyy'];
   //$scope.format = $scope.formats[0];
-  $scope.format = 'dd.MM.yyyy';                        
+  //$scope.format = 'dd.MM.yyyy';                        
+  $scope.format = 'dd/MM/yyyy';                        
                         
                                             
                     
