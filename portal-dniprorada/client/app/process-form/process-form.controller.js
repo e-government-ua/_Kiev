@@ -35,11 +35,21 @@ var createProperties = function(formProperties, clientForm) {
 	});
 };
 
-var fillInValues = function(formProperties, user) {
+var fillInUserValues = function(formProperties, user) {
 	if (user) {
 		formProperties.forEach(function(item) {
 			if (user.fio[item.id]) {
 				item.value = user.fio[item.id];
+			}
+		});
+	}
+};
+
+var fillInTokenValues = function(formProperties, token) {
+	if (token) {
+		formProperties.forEach(function(item) {
+			if (token[item.id]) {
+				item.value = token[item.id];
 			}
 		});
 	}
@@ -54,7 +64,7 @@ var fillInValues = function(formProperties, user) {
 
 angular.module('portalDniproradaApp')
 	.controller('ProcessFormCtrl',
-		function($scope, $routeParams, $http, $window, $cookieStore, $cookies) {
+		function($scope, $routeParams, $http, $window, $cookieStore) {
                     
                     
                     
@@ -104,8 +114,8 @@ angular.module('portalDniproradaApp')
 			if ($scope.processDefinitionId) {
 				$http.get('/api/process-form/' + $routeParams.processDefinitionId)
 					.success(function(result) {
-						var user = $cookieStore.get('user');
-						fillInValues(result.formProperties, user);
+						fillInUserValues(result.formProperties, $cookieStore.get('user'));
+						fillInTokenValues(result.formProperties, $cookieStore.get('token'));
 						$scope.processFormData = result;
 					}).error(function(data, status, headers, config) {
 						$scope.processFormData = {};
@@ -113,9 +123,8 @@ angular.module('portalDniproradaApp')
 			} else {
 				$http.get('/api/process-form')
 					.success(function(result) {
-						var user = $cookieStore.get('user');
-						fillInValues(result.formProperties, user);
-
+						fillInUserValues(result.formProperties, $cookieStore.get('user'));
+						fillInTokenValues(result.formProperties, $cookieStore.get('token'));
 						$scope.processFormData = result;
 						$scope.processDefinitionId = result.processDefinitionId;
 					}).error(function(data, status, headers, config) {
