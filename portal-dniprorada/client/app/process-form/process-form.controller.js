@@ -57,6 +57,8 @@ angular.module('portalDniproradaApp')
 						var user = $cookieStore.get('user');
 						fillInValues(result.formProperties, user);
 						$scope.processFormData = result;
+					}).error(function(data, status, headers, config) {
+						$scope.processFormData = {};
 					});
 			} else {
 				$http.get('/api/process-form')
@@ -66,6 +68,8 @@ angular.module('portalDniproradaApp')
 
 						$scope.processFormData = result;
 						$scope.processDefinitionId = result.processDefinitionId;
+					}).error(function(data, status, headers, config) {
+						$scope.processFormData = {};
 					});
 			}
 

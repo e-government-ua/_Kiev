@@ -7,6 +7,6 @@ var router = express.Router();
 
 router.get('/:processDefinitionId', controller.getFormByProcessDefinitionId);
 router.get('/', controller.getLastFormProcess);
-router.post('/:processDefinitionId', auth.isAuthenticated(), controller.submitForm);
+router.post('/:processDefinitionId', controller.submitForm);
 
 module.exports = router;

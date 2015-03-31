@@ -1,7 +1,6 @@
 'use strict';
 
 var _ = require('lodash');
-var request = require("../request");
 var config = require('../../config/environment');
 var request = require('request');
 var url = require('url');
@@ -31,11 +30,26 @@ var getRequestOptions = function(options) {
 exports.get = function(options, onResult) {
 	request
 		.get(getRequestOptions(options), function(error, response, body) {
-			console.log(response + ' ' + body) // 200 
-			onResult(response.statusCode, body);
+			console.log(error + ' ' + response + ' ' + body);
+			if (!error) {
+				onResult(null, response.statusCode, body);
+			} else {
+				onResult(error, null, null);
+			}
 		});
 }
 
 exports.post = function(options, data, onResult) {
-	request.postJSON(getRequestOptions(options), data, onResult);
+	request.post(_.merge(getRequestOptions(options), {
+			json: true,
+			body: data
+		}),
+		function(error, response, result) {
+			console.log(error + ' ' + response + ' ' + result);
+			if (!error) {
+				onResult(null, response.statusCode, result);
+			} else {
+				onResult(error, null, null);
+			}
+		});
 }

@@ -11,7 +11,7 @@ var getFormByProcessDefinitionId = function(processDefinitionId, req, res) {
 		}
 	};
 
-	activiti.get(options, function(statusCode, result) {
+	activiti.get(options, function(error, statusCode, result) {
 		res.statusCode = statusCode;
 		if (res.statusCode === 200) {
 			req.session.lastFormProcess = processDefinitionId;
@@ -47,10 +47,9 @@ POST
 exports.submitForm = function(req, res) {
 	var processDefinitionId = req.params.processDefinitionId;
 	var options = {
-		path: 'form/form-data',
-		method: 'POST'
+		path: 'form/form-data'
 	};
-	activiti.post(options, req.body, function(statusCode, result) {
+	activiti.post(options, req.body, function(error, statusCode, result) {
 		res.statusCode = statusCode;
 		res.send(result);
 	});

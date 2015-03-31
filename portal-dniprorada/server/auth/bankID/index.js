@@ -44,12 +44,8 @@ router.get('/callback', function(req, res, next) {
       refreshToken: auth.signToken(info.refreshToken)
     }
 
-    res.cookie('user', JSON.stringify(user), {
-      expires: new Date(Date.now() + 1000 * 60 * 10)
-    });
-    res.cookie('token', JSON.stringify(token), {
-      expires: new Date(Date.now() + 1000 * 60 * 3)
-    });
+    auth.setTokenCookie(req, res, info.accessToken, info.refreshToken);
+    auth.setUserCookie(req, res, user);
 
     res.redirect('/process-form');
   })(req, res, next)

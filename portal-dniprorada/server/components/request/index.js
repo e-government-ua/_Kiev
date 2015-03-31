@@ -99,9 +99,11 @@ exports.postJSON = function(options, data, onResult) {
 		_.merge(options.headers, default_headers) || default_headers
 
 	console.log('request options : ' + JSON.stringify(options));
-	prot.request(options, function(res) {
+	var postReq = prot.request(options, function(res) {
 		callback.call(this, res, onResult);
-	}).write(dataString).end();
+	});
+	postReq.write(dataString);
+	postReq.end();
 }
 
 /**
