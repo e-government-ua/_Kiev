@@ -10,13 +10,19 @@
       <form class="form" name="form" ng-submit="startProcess(form)" novalidate>
         <div class="form-group" ng-repeat="formProperty in processFormData.formProperties">
             <label>{{formProperty.name}} <label ng-show="{{formProperty.datePattern}}"> in format : {{formProperty.datePattern}}</label></label>
-            <input type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
+            <!--input type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/-->
+            <input ng-if="formProperty.type == 'string'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
             <div ng-if="formProperty.type == 'enum'">
-                 (комбо-бокс)
-                <div class="form-group" ng-repeat="oEnumValue in formProperty.enumValues">
+                 <!--(комбо-бокс)-->
+                <select class="form-group-combobox" ng-repeat="oEnumValue in formProperty.enumValues" title="" onchange="/*saveFilters();*/">
+                    <!--option value="{{oEnumValue.id}}">{{oEnumValue.name}}</option-->
+                    <option ng-if="formProperty.value == oEnumValue.id" selected="selected" value="{{oEnumValue.id}}">{{oEnumValue.name}}</option>
+                    <option ng-if="formProperty.value != oEnumValue.id" value="{{oEnumValue.id}}">{{oEnumValue.name}}</option>
+                </select>                 
+                <!--div class="form-group" ng-repeat="oEnumValue in formProperty.enumValues">
                     oEnumValue.id=<label>{{oEnumValue.id}}</label>
                     oEnumValue.name=<label>{{oEnumValue.name}}</label>
-                </div>
+                </div-->
             </div>          
         </div>
          <button class="btn btn-lg btn-primary" ng-click="authorize()">Ідентифікация BankID</button>
