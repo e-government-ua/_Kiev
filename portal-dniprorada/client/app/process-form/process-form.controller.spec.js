@@ -3,7 +3,9 @@
 describe('Controller: ProcessFormCtrl', function () {
 
   // load the controller's module
+  beforeEach(module('ui.bootstrap.demo'));
   beforeEach(module('portalDniproradaApp'));
+  
 
   var ProcessFormCtrl, scope;
 
