@@ -14,7 +14,24 @@
             <!--input type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/-->
             <input ng-if="formProperty.type == 'string'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
             <input ng-if="formProperty.type == 'long'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
-            <input ng-if="formProperty.type == 'date'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
+            <!--input ng-if="formProperty.type == 'date'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/-->
+            <div ng-if="formProperty.type == 'date'" class="row">
+                <div class="col-md-6">
+                    <p class="input-group">
+                      <input type="text" name="{{formProperty.id}}" class="form-control" datepicker-popup="{{format}}" ng-model="dt" init-date="{{formProperty.value}}" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" clear-text="Стереть" close-text="Закрыть" />
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </p>
+                </div>
+            </div>
+            <!--08/03/2015-->
+            <!--div class="row">
+                <div class="col-md-6">
+                    <label>Format:</label> <select class="form-control" ng-model="format" ng-options="f for f in formats"><option></option></select>
+                </div>
+            </div-->
+            
             <div ng-if="formProperty.type == 'enum'">
                  <!--(комбо-бокс)-->
                 <!--select class="form-group-combobox" ng-repeat="oEnumValue in formProperty.enumValues" title="" onchange=""-->
