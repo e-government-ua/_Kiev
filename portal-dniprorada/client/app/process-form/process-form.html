@@ -16,7 +16,8 @@
             <input ng-if="formProperty.type == 'long'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
             <!--input ng-if="formProperty.type == 'date'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/-->
             <!--div ng-controller="DatepickerDemoCtrl"-->
-                <mydatepicker ng-if="formProperty.type == 'date'" ng-app="foo" ng-controller="myCtrl" class="input-group" datepicker-popup="dd/MM/yyyy" ng-model="dt" init-date="{{formProperty.value}}" date-options="dateOptions" opened="opened"  clear-text="Стереть" close-text="Закрыть"/>
+            <!-- ng-controller="myCtrl"  -->
+                <mydatepicker ng-if="formProperty.type == 'date'" ng-app="foo" class="input-group" datepicker-popup="dd/MM/yyyy" ng-model="dt" init-date="{{formProperty.value}}" date-options="dateOptions" opened="opened"  clear-text="Стереть" close-text="Закрыть"/>
                 <!--div ng-if="formProperty.type == 'date'" class="row">
                     <div class="col-md-6">
                         <p class="input-group">
