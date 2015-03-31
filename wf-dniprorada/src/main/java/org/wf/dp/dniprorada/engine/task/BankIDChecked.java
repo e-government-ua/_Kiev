@@ -168,7 +168,7 @@ public class BankIDChecked implements JavaDelegate {
 						}
 
 					}
-					if (stateAttrFound) {
+					if (!stateAttrFound) {
 						throw new BpmnError(
 								"message did not contains [state] attribute  ");
 					}
