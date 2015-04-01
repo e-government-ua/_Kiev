@@ -73,7 +73,8 @@ public class BankIDChecked implements JavaDelegate {
 		HttpsURLConnection con;
 		try {
 
-			con = getConnection(String.format(checkBankIDUrl, token, systemClient));
+			con = getConnection(String.format(checkBankIDUrl, token,
+					systemClient));
 
 			// dump all the content
 			getData(con, execution);
@@ -123,7 +124,7 @@ public class BankIDChecked implements JavaDelegate {
 		// Tell the url connection object to use our socket factory which
 		// bypasses security checks
 		((HttpsURLConnection) con).setSSLSocketFactory(sslSocketFactory);
-		
+
 		return con;
 	}
 
@@ -134,12 +135,13 @@ public class BankIDChecked implements JavaDelegate {
 				readFio(con.getInputStream(), execution);
 			} catch (Exception e) {
 				execution.setVariable("error_message", "invalid token");
-				throw new BpmnError("invalid token");
+				// throw new BpmnError("invalid token");
+				throw new IllegalArgumentException("invalid token");
 			}
-			
 
 		} else {
-			throw new BpmnError("connection unavailable");
+			// throw new BpmnError("connection unavailable");
+			throw new IllegalArgumentException("connection unavailable");
 		}
 	}
 
@@ -209,9 +211,10 @@ public class BankIDChecked implements JavaDelegate {
 
 		}
 		if (isEmptyFio) {
-			throw new BpmnError("fio not found");
+			// throw new BpmnError("fio not found");
+			throw new IllegalArgumentException("fio not found");
+
 		}
 	}
 
-	
 }
