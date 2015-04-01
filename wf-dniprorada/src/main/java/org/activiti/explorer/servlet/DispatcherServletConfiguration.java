@@ -87,6 +87,12 @@ public class DispatcherServletConfiguration extends WebMvcConfigurationSupport {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setPrefix("/WEB-INF/jsp/");
 		resolver.setSuffix(".jsp");
+                /*
+                if(resolver.getApplicationContext()!=null){
+                    log.info("!!!!!!!!!!!!!!!resolver.getApplicationContext().getApplicationName()="+resolver.getApplicationContext().getApplicationName());
+                }else{
+                    log.info("!!!!!!!!!!!!!!!resolver.getApplicationContext()=null");
+                }*/
 		return resolver;
 	}
 
