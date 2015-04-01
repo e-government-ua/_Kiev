@@ -86,7 +86,7 @@ var fillInTokenValues = function(formProperties, token) {
 angular.module('portalDniproradaApp')
 
 //Datepicker
-.directive("mydatepicker", function(){
+/*.directive("mydatepicker", function(){
   return {
     restrict: "E",
     scope:{
@@ -108,7 +108,7 @@ angular.module('portalDniproradaApp')
     },
     templateUrl: 'datepicker.html'
   }
-})
+})*/
 
 	.controller('ProcessFormCtrl',
 		function($scope, $routeParams, $http, $window, $cookieStore) {
@@ -136,7 +136,7 @@ angular.module('portalDniproradaApp')
 				$event.preventDefault();
 				$event.stopPropagation();
 
-				$scope.opened = false;
+				$scope.opened = true;
 			};
 
 			$scope.dateOptions = {
@@ -164,6 +164,9 @@ angular.module('portalDniproradaApp')
 			//$scope.format = $scope.formats[0];
 			//$scope.format = 'dd.MM.yyyy';                        
 			$scope.format = 'dd/MM/yyyy';
+                        
+                        
+                        
 			$scope.disbleStartProcess = !$cookieStore.get('user');
 			$scope.processDefinitionId = $routeParams.processDefinitionId;
 			if ($scope.processDefinitionId) {
