@@ -63,14 +63,15 @@ POST
   ]
 }
 */
-var startProcess = function(form, scope, http, cookieStore, window) {
+var startProcess = function(form, scope, http, cookieStore, window, Modal) {
 	if (form.$invalid) {
 		return;
 	}
 	if (!cookieStore.get('disableBankID')) {
 		if (!cookieStore.get('user') || !cookieStore.get('bankdIDToken')) {
-			window.alert('Час авторізації закінчився');
-			window.location.href = '/';
+			Modal.inform.warning(function(event){
+				window.location.href = '/';
+			})('Час авторізації закінчився');			
 			return;
 		}
 	}
@@ -90,15 +91,15 @@ var startProcess = function(form, scope, http, cookieStore, window) {
 
 	http.post('/api/process-form/' + processDefinitionId, startProcessData)
 		.success(function(result) {
-			window.alert('Ваша заявка прийнята в обробку  ' + JSON.stringify(result));
+			Modal.inform.success()('Ваша заявка прийнята в обробку. Ваш код заявки : ' + result.businessKey);
 		}).error(function(data, status, headers, config) {
-			window.alert('Помилка. Спробуйте ще раз');
+			Modal.inform.error()('Помилка. Спробуйте ще раз');
 		});
 };
 
 angular.module('portalDniproradaApp')
 	.controller('ProcessFormCtrl',
-		function($scope, $routeParams, $http, $window, $cookieStore) {
+		function($scope, $routeParams, $http, $window, $cookieStore, Modal) {
 
 			$scope.formData = {};
 			$scope.formData.dt = '';
@@ -155,7 +156,7 @@ angular.module('portalDniproradaApp')
 
 						$scope.processFormData = result;
 						$scope.processDefinitionName =
-							$cookieStore.get('lastFormProcessName') || result.processDefinitionId;
+						$cookieStore.get('lastFormProcessName') || result.processDefinitionId;
 					}).error(function(data, status, headers, config) {
 						$scope.processFormData = {};
 					});
@@ -182,6 +183,6 @@ angular.module('portalDniproradaApp')
 			}
 
 			$scope.startProcess = function(form) {
-				startProcess(form, $scope, $http, $cookieStore, $window);
-			}
+				startProcess(form, $scope, $http, $cookieStore, $window, Modal);
+			};
 		});
