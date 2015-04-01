@@ -136,7 +136,7 @@ angular.module('portalDniproradaApp')
 				$event.preventDefault();
 				$event.stopPropagation();
 
-				$scope.opened = false;
+				$scope.opened = true;
 			};
 
 			$scope.dateOptions = {
