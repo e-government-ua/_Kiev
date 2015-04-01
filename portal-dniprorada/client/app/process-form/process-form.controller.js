@@ -113,38 +113,43 @@ angular.module('portalDniproradaApp')
 	.controller('ProcessFormCtrl',
 		function($scope, $routeParams, $http, $window, $cookieStore) {
 
-			$scope.oDate.today = function() {
-				$scope.oDate.dt = new Date();
+                        $scope.datepickers = {
+                           dt: false
+                         };
+                         
+			$scope.today = function() {
+				$scope.formData.dt = new Date();
 			};
-			$scope.oDate.today();
+			$scope.today();
 
-			$scope.oDate.clear = function() {
-				$scope.oDate.dt = null;
+			$scope.clear = function() {
+				$scope.formData.dt = null;
 			};
 
 			// Disable weekend selection
-			$scope.oDate.disabled = function(date, mode) {
+			$scope.disabled = function(date, mode) {
 				return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
 			};
 
-			$scope.oDate.toggleMin = function() {
-				$scope.oDate.minDate = $scope.oDate.minDate ? null : new Date();
+			$scope.toggleMin = function() {
+				$scope.minDate = $scope.minDate ? null : new Date();
 			};
-			$scope.oDate.toggleMin();
+			$scope.toggleMin();
 
-			$scope.oDate.open = function($event) {
+			$scope.open = function($event) {
 				$event.preventDefault();
 				$event.stopPropagation();
 
-				$scope.oDate.opened = true;
+				//$scope.oDate.opened = true;
+                                $scope.datepickers[which]= true;
 			};
 
-			$scope.oDate.dateOptions = {
+			$scope.dateOptions = {
 				formatYear: 'yy',
 				startingDay: 1
 			};
 
-			    $scope.oDate.formData      = {};
+			    $scope.formData      = {};
 // ======= ????
 // /*
 //     $scope.formData      = {};
