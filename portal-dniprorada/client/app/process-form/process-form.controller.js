@@ -62,6 +62,13 @@ var fillInUserValues = function(formProperties, user) {
 			}
 		});
 	}
+        if(formProperties!=null){
+            formProperties.forEach(function(formProperty) {
+                if(formProperty.type == 'date'){
+                    $scope.formData.dt = formProperty.value;
+                }
+            });
+        }
 };
 
 var fillInTokenValues = function(formProperties, token) {
@@ -114,7 +121,7 @@ angular.module('portalDniproradaApp')
 		function($scope, $routeParams, $http, $window, $cookieStore) {
 
                         $scope.formData      = {};
-                        $scope.formData.date = "";
+                        $scope.formData.dt = "";
 
                         $scope.datepickers = {
                            dt: false
@@ -187,6 +194,7 @@ angular.module('portalDniproradaApp')
 						$scope.processDefinitionName =
 							$cookieStore.get('lastFormProcessName') || result.processDefinitionId;
                                                 //$scope.dt = result.formProperties
+                                                
 					}).error(function(data, status, headers, config) {
 						$scope.processFormData = {};
 					});
