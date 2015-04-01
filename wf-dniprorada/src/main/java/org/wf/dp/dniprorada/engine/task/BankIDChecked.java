@@ -136,7 +136,7 @@ public class BankIDChecked implements JavaDelegate {
 			} catch (Exception e) {
 				execution.setVariable("error_message", "invalid token");
 				// throw new BpmnError("invalid token");
-				throw new IllegalArgumentException("invalid token");
+				throw new IllegalArgumentException("invalid token", e);
 			}
 
 		} else {

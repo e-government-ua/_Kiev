@@ -1,19 +1,5 @@
 'use strict';
 
-/*
-POST
-{
-  "processDefinitionId" : "5",
-  "businessKey" : "myKey",
-  "properties" : [
-    {
-      "id" : "room",
-      "value" : "normal"
-    }
-  ]
-}
-*/
-
 var guid = function guid() {
 	function s4() {
 		return Math.floor((1 + Math.random()) * 0x10000)
@@ -64,64 +50,63 @@ var fillInUserValues = function(formProperties, user) {
 	}
 };
 
-var fillInTokenValues = function(formProperties, token) {
-	if (token) {
-		formProperties.forEach(function(item) {
-			if (token[item.id]) {
-				item.value = token[item.id];
-			}
-		});
+/*
+POST
+{
+  "processDefinitionId" : "5",
+  "businessKey" : "myKey",
+  "properties" : [
+    {
+      "id" : "room",
+      "value" : "normal"
+    }
+  ]
+}
+*/
+var startProcess = function(form, scope, http, cookieStore, window) {
+	if (form.$invalid) {
+		return;
 	}
+	if (!cookieStore.get('disableBankID')) {
+		if (!cookieStore.get('user') || !cookieStore.get('bankdIDToken')) {
+			window.alert('Час авторізації закінчився');
+			window.location.href = '/';
+			return;
+		}
+	}
+
+	var token = cookieStore.get('bankdIDToken') || {
+		accessToken: 'aaa'
+	};
+	var processDefinitionId = scope.processDefinitionId;
+	var formProperties = scope.processFormData.formProperties;
+	var properties = createProperties(formProperties, token.accessToken);
+	// Default values for the request.
+	var startProcessData = {
+		'processDefinitionId': processDefinitionId,
+		'businessKey': guid(),
+		'properties': properties
+	};
+
+	http.post('/api/process-form/' + processDefinitionId, startProcessData)
+		.success(function(result) {
+			window.alert('Ваша заявка прийнята в обробку  ' + JSON.stringify(result));
+		}).error(function(data, status, headers, config) {
+			window.alert('Помилка. Спробуйте ще раз');
+		});
 };
 
-
-/*angular.module('ui.bootstrap.demo')
-        .controller('DatepickerDemoCtrl', function ($scope) {
-
-});                */
-
-
-
-
 angular.module('portalDniproradaApp')
-
-//Datepicker
-/*.directive("mydatepicker", function(){
-  return {
-    restrict: "E",
-    scope:{
-      ngModel: "=",
-      dateOptions: "=",
-      opened: "=",
-    },
-    link: function($scope, element, attrs) {
-      $scope.open = function(event){
-        //console.log("open");
-        event.preventDefault();
-        event.stopPropagation();
-        $scope.opened = true;
-      };
-
-      $scope.clear = function () {
-        $scope.ngModel = null;
-      };
-    },
-    templateUrl: 'datepicker.html'
-  }
-})*/
-
 	.controller('ProcessFormCtrl',
 		function($scope, $routeParams, $http, $window, $cookieStore) {
 
-                        $scope.formData      = {};
-                        $scope.formData.dt = "";
+			$scope.formData = {};
+			$scope.formData.dt = '';
 
-                        $scope.datepickers = {
-                           dt: false
-                         };
-    //$scope.opened        = false;
-    //$scope.datepickers['dt']= false;
-                         
+			$scope.datepickers = {
+				dt: false
+			};
+
 			$scope.today = function() {
 				$scope.formData.dt = new Date();
 			};
@@ -141,12 +126,10 @@ angular.module('portalDniproradaApp')
 			};
 			$scope.toggleMin();
 
-			$scope.open = function($event,which) {
+			$scope.open = function($event, which) {
 				$event.preventDefault();
 				$event.stopPropagation();
-
-				//$scope.oDate.opened = true;
-                                $scope.datepickers[which]= true;
+				$scope.datepickers[which] = true;
 			};
 
 			$scope.dateOptions = {
@@ -154,28 +137,7 @@ angular.module('portalDniproradaApp')
 				startingDay: 1
 			};
 
-// ======= ????
-// /*
-//     $scope.formData      = {};
-// >>>>>>> 73d6f11b8002cf3331d62984419b80fd9bb8bc6c
-//     $scope.formData.date = "";
-//                     */
-//     $scope.opened        = false;
-
-//     //Datepicker
-//     $scope.dateOptions = {
-//             'year-format': "'yy'",
-//             'show-weeks' : false
-//     };
-
-			//$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-			//$scope.formats = ['dd.MM.yyyy'];
-			//$scope.format = $scope.formats[0];
-			//$scope.format = 'dd.MM.yyyy';                        
 			$scope.format = 'dd/MM/yyyy';
-                        
-                        
-                        
 			$scope.disbleStartProcess = !$cookieStore.get('user');
 			$scope.processDefinitionId = $routeParams.processDefinitionId;
 			if ($scope.processDefinitionId) {
@@ -183,19 +145,17 @@ angular.module('portalDniproradaApp')
 					.success(function(result) {
 						deleteAccessTokenProperty(result.formProperties);
 						fillInUserValues(result.formProperties, $cookieStore.get('user'));
-                                                if(result.formProperties!=null){
-                                                    result.formProperties.forEach(function(formProperty) {
-                                                        if(formProperty.type == 'date'){
-                                                            $scope.formData.dt = formProperty.value;
-                                                        }
-                                                    });
-                                                }
-                                                
+						if (result.formProperties !== null) {
+							result.formProperties.forEach(function(formProperty) {
+								if (formProperty.type === 'date') {
+									$scope.formData.dt = formProperty.value;
+								}
+							});
+						}
+
 						$scope.processFormData = result;
 						$scope.processDefinitionName =
 							$cookieStore.get('lastFormProcessName') || result.processDefinitionId;
-                                                //$scope.dt = result.formProperties
-                                                
 					}).error(function(data, status, headers, config) {
 						$scope.processFormData = {};
 					});
@@ -204,96 +164,24 @@ angular.module('portalDniproradaApp')
 					.success(function(result) {
 						deleteAccessTokenProperty(result.formProperties);
 						fillInUserValues(result.formProperties, $cookieStore.get('user'), $scope);
-                                                if(result.formProperties!=null){
-                                                    result.formProperties.forEach(function(formProperty) {
-                                                        if(formProperty.type == 'date'){
-                                                            $scope.formData.dt = formProperty.value;
-                                                        }
-                                                    });
-                                                }
-                                                
+						if (result.formProperties !== null) {
+							result.formProperties.forEach(function(formProperty) {
+								if (formProperty.type === 'date') {
+									$scope.formData.dt = formProperty.value;
+								}
+							});
+						}
+
 						$scope.processFormData = result;
 						$scope.processDefinitionId = result.processDefinitionId;
 						$scope.processDefinitionName =
 							$cookieStore.get('lastFormProcessName') || result.processDefinitionId;
-						$cookieStore.put('lastFormProcessName', processDefinitionName);
 					}).error(function(data, status, headers, config) {
 						$scope.processFormData = {};
 					});
 			}
 
 			$scope.startProcess = function(form) {
-				if (form.$invalid) {
-					return;
-				}
-				if (!$cookieStore.get('disableBankID')) {
-					if (!$cookieStore.get('user')) {
-						return;
-					}
-					if (!$cookieStore.get('bankdIDToken')) {
-						return;
-					}
-				}
-
-				var token = $cookieStore.get('bankdIDToken') || {
-					accessToken: 'aaa'
-				};
-				var processDefinitionId = $scope.processDefinitionId;
-				var formProperties = $scope.processFormData.formProperties;
-				// Default values for the request.
-				var startProcessData = {
-					'processDefinitionId': processDefinitionId,
-					'businessKey': guid(),
-					'properties': createProperties(formProperties, token.accessToken)
-				};
-
-				$http.post('/api/process-form/' + processDefinitionId, startProcessData)
-					.success(function(result) {
-						$window.alert('Process has been started ' + JSON.stringify(result));
-					});
-			};
-
-
-/*
-  $scope.today = function() {
-    $scope.dt = new Date();
-  };
-  $scope.today();
-
-  $scope.clear = function () {
-    $scope.dt = null;
-  };
-
-  // Disable weekend selection
-  $scope.disabled = function(date, mode) {
-    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-  };
-
-  $scope.toggleMin = function() {
-    $scope.minDate = $scope.minDate ? null : new Date();
-  };
-  $scope.toggleMin();
-
-  $scope.open = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
-
-    $scope.opened = false;
-  };
-
-  $scope.dateOptions = {
-    formatYear: 'yy',
-    startingDay: 1
-  };
-
-  //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-  //$scope.formats = ['dd.MM.yyyy'];
-  //$scope.format = $scope.formats[0];
-  //$scope.format = 'dd.MM.yyyy';                        
-  $scope.format = 'dd/MM/yyyy';                        
-*/
-                                            
-                    
-                    
-			
+				startProcess(form, $scope, $http, $cookieStore, $window);
+			}
 		});

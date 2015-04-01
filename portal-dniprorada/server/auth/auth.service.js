@@ -60,8 +60,8 @@ function isDisabledBankID() {
  */
 function setTokenCookie(req, res, accessToken, refreshToken) {
 		var token = {
-			access_token: accessToken,
-			refresh_token: refreshToken
+			accessToken: accessToken,
+			refreshToken: refreshToken
 		}
 		res.cookie('bankdIDToken', JSON.stringify(token), {
 			expires: new Date(Date.now() + 1000 * 60 * 3)
