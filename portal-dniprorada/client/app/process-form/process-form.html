@@ -24,7 +24,7 @@
 -->
             <div ng-if="formProperty.type == 'date'" class="form-control">
                 <!--mydatepicker class="input-group" ng-model="dt" date-options="dateOptions" opened="opened"  is-open="opened" opened="opened" /  init-date="{{formProperty.value}}"  -->
-                <input type="text" ng-click="open($event)" class="input-group" datepicker-popup="dd/MM/yyyy" ng-model="dt" is-open="opened" datepicker-options="dateOptions" ng-required="true" date-options="dateOptions" value="{{formProperty.value}}"/>
+                <input type="text" ng-click="open($event)" class="input-group" datepicker-popup="dd/MM/yyyy" ng-model="oDate.dt" is-open="opened" datepicker-options="dateOptions" ng-required="true" date-options="dateOptions" value="{{formProperty.value}}"/>
                 <span class="input-group-btn">
                   <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>

@@ -113,38 +113,38 @@ angular.module('portalDniproradaApp')
 	.controller('ProcessFormCtrl',
 		function($scope, $routeParams, $http, $window, $cookieStore) {
 
-			$scope.today = function() {
-				$scope.dt = new Date();
+			$scope.oDate.today = function() {
+				$scope.oDate.dt = new Date();
 			};
-			$scope.today();
+			$scope.oDate.today();
 
-			$scope.clear = function() {
-				$scope.dt = null;
+			$scope.oDate.clear = function() {
+				$scope.oDate.dt = null;
 			};
 
 			// Disable weekend selection
-			$scope.disabled = function(date, mode) {
+			$scope.oDate.disabled = function(date, mode) {
 				return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
 			};
 
-			$scope.toggleMin = function() {
-				$scope.minDate = $scope.minDate ? null : new Date();
+			$scope.oDate.toggleMin = function() {
+				$scope.oDate.minDate = $scope.oDate.minDate ? null : new Date();
 			};
-			$scope.toggleMin();
+			$scope.oDate.toggleMin();
 
-			$scope.open = function($event) {
+			$scope.oDate.open = function($event) {
 				$event.preventDefault();
 				$event.stopPropagation();
 
-				$scope.opened = true;
+				$scope.oDate.opened = true;
 			};
 
-			$scope.dateOptions = {
+			$scope.oDate.dateOptions = {
 				formatYear: 'yy',
 				startingDay: 1
 			};
 
-			    $scope.formData      = {};
+			    $scope.oDate.formData      = {};
 // ======= ????
 // /*
 //     $scope.formData      = {};
@@ -163,7 +163,7 @@ angular.module('portalDniproradaApp')
 			//$scope.formats = ['dd.MM.yyyy'];
 			//$scope.format = $scope.formats[0];
 			//$scope.format = 'dd.MM.yyyy';                        
-			$scope.format = 'dd/MM/yyyy';
+			$scope.oDate.format = 'dd/MM/yyyy';
                         
                         
                         
