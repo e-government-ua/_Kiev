@@ -141,7 +141,7 @@ angular.module('portalDniproradaApp')
 			};
 			$scope.toggleMin();
 
-			$scope.open = function($event) {
+			$scope.open = function($event,which) {
 				$event.preventDefault();
 				$event.stopPropagation();
 
