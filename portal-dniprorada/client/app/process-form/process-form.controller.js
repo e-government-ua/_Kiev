@@ -113,9 +113,14 @@ angular.module('portalDniproradaApp')
 	.controller('ProcessFormCtrl',
 		function($scope, $routeParams, $http, $window, $cookieStore) {
 
+    $scope.formData      = {};
+    $scope.formData.date = "";
+
                         $scope.datepickers = {
                            dt: false
                          };
+    //$scope.opened        = false;
+    //$scope.datepickers['dt']= false;
                          
 			$scope.today = function() {
 				$scope.formData.dt = new Date();
@@ -149,7 +154,6 @@ angular.module('portalDniproradaApp')
 				startingDay: 1
 			};
 
-			    $scope.formData      = {};
 // ======= ????
 // /*
 //     $scope.formData      = {};
