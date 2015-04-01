@@ -136,7 +136,7 @@ angular.module('portalDniproradaApp')
 				$event.preventDefault();
 				$event.stopPropagation();
 
-				$scope.opened = true;
+				$scope.opened = false;
 			};
 
 			$scope.dateOptions = {
@@ -177,6 +177,7 @@ angular.module('portalDniproradaApp')
 						$scope.processFormData = result;
 						$scope.processDefinitionName =
 							$cookieStore.get('lastFormProcessName') || result.processDefinitionId;
+                                                //$scope.dt = result.formProperties
 					}).error(function(data, status, headers, config) {
 						$scope.processFormData = {};
 					});
