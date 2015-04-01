@@ -35,9 +35,12 @@ public class ServiceJSP_Filter implements Filter {
                 sRequestURL = ((sRequestURL.replaceAll("service/rest/", "WEB-INF/jsp/"))+".jsp");
                 ((HttpServletResponse) response).sendRedirect(sRequestURL);//"/index.jsp"
                 System.out.println("After_sRequestURL="+sRequestURL);
+            }else{
+                chain.doFilter(request, response);
             }
             //-resolver.setPrefix("/WEB-INF/jsp/");
             //-resolver.setSuffix(".jsp");
+            
     }
 
     @Override
