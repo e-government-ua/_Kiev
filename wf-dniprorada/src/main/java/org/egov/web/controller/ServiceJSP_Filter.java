@@ -22,7 +22,7 @@ public class ServiceJSP_Filter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-            HttpServletRequest oRequest = (HttpServletRequest) request;
+            /*HttpServletRequest oRequest = (HttpServletRequest) request;
             String sRequestURL = oRequest.getRequestURL().toString();
             System.out.println("Before_sRequestURL="+sRequestURL);
             //String sPath = "wf-dniprorada/";
@@ -37,7 +37,9 @@ public class ServiceJSP_Filter implements Filter {
                 System.out.println("After_sRequestURL="+sRequestURL);
             }else{
                 chain.doFilter(request, response);
-            }
+            }*/
+            chain.doFilter(request, response);
+            
             //-resolver.setPrefix("/WEB-INF/jsp/");
             //-resolver.setSuffix(".jsp");
             
