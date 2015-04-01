@@ -12,6 +12,8 @@ angular.module('portalDniproradaApp')
 			} else {
 				if (!$cookieStore.get('bankdIDToken')) {
 					$window.location.href = '/auth/bankID';
+				} else {
+					$window.location.href = '/process-form/' + processDefinitionID;
 				}
 			}
 

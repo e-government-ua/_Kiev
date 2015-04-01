@@ -21,7 +21,8 @@ var getFormByProcessDefinitionId = function(processDefinitionId, req, res) {
 }
 
 exports.getLastFormProcess = function(req, res) {
-	var processDefinitionId = req.session.lastFormProcessID || req.cookies.lastFormProcessID;
+	var processDefinitionId = req.session.lastFormProcessID 
+		|| JSON.parse(req.cookies.lastFormProcessID);
 	getFormByProcessDefinitionId(processDefinitionId, req, res);
 }
 
