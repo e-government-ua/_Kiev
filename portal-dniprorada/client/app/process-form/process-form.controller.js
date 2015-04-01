@@ -62,13 +62,6 @@ var fillInUserValues = function(formProperties, user) {
 			}
 		});
 	}
-        if(formProperties!=null){
-            formProperties.forEach(function(formProperty) {
-                if(formProperty.type == 'date'){
-                    $scope.formData.dt = formProperty.value;
-                }
-            });
-        }
 };
 
 var fillInTokenValues = function(formProperties, token) {
@@ -190,6 +183,14 @@ angular.module('portalDniproradaApp')
 					.success(function(result) {
 						deleteAccessTokenProperty(result.formProperties);
 						fillInUserValues(result.formProperties, $cookieStore.get('user'));
+                                                if(result.formProperties!=null){
+                                                    result.formProperties.forEach(function(formProperty) {
+                                                        if(formProperty.type == 'date'){
+                                                            $scope.formData.dt = formProperty.value;
+                                                        }
+                                                    });
+                                                }
+                                                
 						$scope.processFormData = result;
 						$scope.processDefinitionName =
 							$cookieStore.get('lastFormProcessName') || result.processDefinitionId;
@@ -202,7 +203,15 @@ angular.module('portalDniproradaApp')
 				$http.get('/api/process-form')
 					.success(function(result) {
 						deleteAccessTokenProperty(result.formProperties);
-						fillInUserValues(result.formProperties, $cookieStore.get('user'));
+						fillInUserValues(result.formProperties, $cookieStore.get('user'), $scope);
+                                                if(result.formProperties!=null){
+                                                    result.formProperties.forEach(function(formProperty) {
+                                                        if(formProperty.type == 'date'){
+                                                            $scope.formData.dt = formProperty.value;
+                                                        }
+                                                    });
+                                                }
+                                                
 						$scope.processFormData = result;
 						$scope.processDefinitionId = result.processDefinitionId;
 						$scope.processDefinitionName =
