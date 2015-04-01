@@ -113,8 +113,8 @@ angular.module('portalDniproradaApp')
 	.controller('ProcessFormCtrl',
 		function($scope, $routeParams, $http, $window, $cookieStore) {
 
-    $scope.formData      = {};
-    $scope.formData.date = "";
+                        $scope.formData      = {};
+                        $scope.formData.date = "";
 
                         $scope.datepickers = {
                            dt: false
@@ -172,7 +172,7 @@ angular.module('portalDniproradaApp')
 			//$scope.formats = ['dd.MM.yyyy'];
 			//$scope.format = $scope.formats[0];
 			//$scope.format = 'dd.MM.yyyy';                        
-			$scope.oDate.format = 'dd/MM/yyyy';
+			$scope.format = 'dd/MM/yyyy';
                         
                         
                         
