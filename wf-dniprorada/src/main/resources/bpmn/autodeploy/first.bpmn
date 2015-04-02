@@ -3,7 +3,6 @@
   <process id="CivilCopyDocRequest" name="Звернення громадян стосовно надання копій документів" isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
-        <activiti:formProperty id="access_token" name="Access Token" type="string"></activiti:formProperty>
         <activiti:formProperty id="cllastName" name="Фамилия" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="clfirstName" name="Имя" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="clmiddleName" name="Отчество" type="string" required="true"></activiti:formProperty>
