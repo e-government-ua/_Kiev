@@ -1,6 +1,6 @@
 <?php
 
-define('activityUrl','https://10.59.101.19:8080/wf-dniprorada/service',false);
-define('selfUrl','http://10.59.101.19:5588',false);
+define('activityUrl','https://52.17.126.64:8080/wf-dniprorada/service',false);
+define('selfUrl','http://52.17.126.64:5588',false);
 
 ?>
