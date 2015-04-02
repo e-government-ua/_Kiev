@@ -2,6 +2,9 @@
 ############################
 require_once("conf.php");
 ############################
+
+ini_set('session.cookie_lifetime', 10*60);
+ini_set('session.gc_maxlifetime', 10*60);
 session_start();
 
 if(isset($_REQUEST["code"])) {
@@ -33,7 +36,6 @@ if(isset($_REQUEST["code"])) {
 				echo 'Error in auth: '.$rez.'; Http-state: '.$http_status;
 			} else {
 				$_SESSION["access_token"] = (string)$obj->access_token;
-
 				header("Location: ".selfUrl."/form.php?id=".$id);
 			}
 		}

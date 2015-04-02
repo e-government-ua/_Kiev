@@ -2,6 +2,8 @@
 ############################
 require_once("conf.php");
 ############################
+ini_set('session.cookie_lifetime', 10*60);
+ini_set('session.gc_maxlifetime', 10*60);
 session_start();
 ?>
 
