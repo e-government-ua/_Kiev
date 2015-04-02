@@ -69,9 +69,9 @@ var startProcess = function(form, scope, http, cookieStore, window, Modal) {
 	}
 	if (!cookieStore.get('disableBankID')) {
 		if (!cookieStore.get('user') || !cookieStore.get('bankdIDToken')) {
-			Modal.inform.warning(function(event){
+			Modal.inform.warning(function(event) {
 				window.location.href = '/';
-			})('Час авторізації закінчився');			
+			})('Час авторізації закінчився');
 			return;
 		}
 	}
@@ -91,10 +91,9 @@ var startProcess = function(form, scope, http, cookieStore, window, Modal) {
 
 	http.post('/api/process-form/' + processDefinitionId, startProcessData)
 		.success(function(result) {
-			//Modal.inform.success()('Ваша заявка прийнята в обробку. Ваш код заявки : ' + result.businessKey);
-                        Modal.inform.success(function(event){
-                            document.location.href="/";
-                        })('Ваша заявка прийнята в обробку. Ваш код заявки : ' + result.businessKey);
+			Modal.inform.success(function(event) {
+				window.location.href = "/";
+			})('Ваша заявка прийнята в обробку. Ваш код заявки : ' + result.businessKey);
 		}).error(function(data, status, headers, config) {
 			Modal.inform.error()('Помилка. Спробуйте ще раз');
 		});
@@ -159,7 +158,7 @@ angular.module('portalDniproradaApp')
 
 						$scope.processFormData = result;
 						$scope.processDefinitionName =
-						$cookieStore.get('lastFormProcessName') || result.processDefinitionId;
+							$cookieStore.get('lastFormProcessName') || result.processDefinitionId;
 					}).error(function(data, status, headers, config) {
 						$scope.processFormData = {};
 					});
