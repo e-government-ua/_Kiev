@@ -40,7 +40,8 @@ angular.module('portalDniproradaApp')
                   classes: 'btn-info',
                   text: 'Ok',
                   click: function(e) {
-                    document.location.href="/";
+                    warningModal.close(e);
+                    //document.location.href="/";
                   }
                 }]
               }
