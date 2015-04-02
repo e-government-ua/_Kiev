@@ -91,7 +91,10 @@ var startProcess = function(form, scope, http, cookieStore, window, Modal) {
 
 	http.post('/api/process-form/' + processDefinitionId, startProcessData)
 		.success(function(result) {
-			Modal.inform.success()('Ваша заявка прийнята в обробку. Ваш код заявки : ' + result.businessKey);
+			//Modal.inform.success()('Ваша заявка прийнята в обробку. Ваш код заявки : ' + result.businessKey);
+                        Modal.inform.success(function(event){
+                            document.location.href="/";
+                        })('Ваша заявка прийнята в обробку. Ваш код заявки : ' + result.businessKey);
 		}).error(function(data, status, headers, config) {
 			Modal.inform.error()('Помилка. Спробуйте ще раз');
 		});
