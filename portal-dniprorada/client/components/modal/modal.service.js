@@ -41,6 +41,7 @@ angular.module('portalDniproradaApp')
                   text: 'Ok',
                   click: function(e) {
                     warningModal.close(e);
+                    document.location.href="/";
                   }
                 }]
               }
