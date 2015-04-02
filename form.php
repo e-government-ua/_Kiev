@@ -1,11 +1,11 @@
 ﻿<?php
 ############################
 require_once("conf.php");
-############################
 
 ini_set('session.cookie_lifetime', 10*60);
 ini_set('session.gc_maxlifetime', 10*60);
 session_start();
+############################
 
 if(!isset($_SESSION["access_token"])) {
 	header("Location: ".selfUrl."/index.php");
@@ -22,7 +22,11 @@ if(!isset($_SESSION["access_token"])) {
 <meta name="author" content="">
 
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-datepicker3.min.css">
+
 <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-datepicker.ru.min.js"></script>
 
 <script type="text/javascript">
 
@@ -72,9 +76,13 @@ $(document).ready(function() {
 				alert('Error: '+errorThrown);				
 			}
 		});
-	});       	      
+	});
+	
+	$('#dateP').datepicker({
+		orientation: "top auto",
+		language: "ru"
+	});
 });
-
 </script> 
 
 </head>
@@ -126,7 +134,7 @@ if(trim($http_status) == "200" && trim($rez) !='') {
 			echo '<div class="form-group">';
 			echo '<label for="email">'.$entry->name.':</label>';
 
-			if($entry->type == 'string' || $entry->type == 'date' || $entry->type == 'long') {
+			if($entry->type == 'string' || $entry->type == 'long') {
 				echo '<input type="text" class="form-control" name="'.$entry->id.'" id="'.$entry->id.'" value="'.$entry->value.'">';
 			} else if($entry->type == 'enum') {
 				echo '<select name="'.$entry->id.'" class="form-control">';
@@ -139,9 +147,10 @@ if(trim($http_status) == "200" && trim($rez) !='') {
 					}
 
 					echo '<option value="'.$entrySub->id.'" '.$sel.'>'.$entrySub->name.'</option>';
-				}
-				
+				}				
 				echo '</select>';
+			} else if($entry->type == 'date') {
+				echo '<input type="text" class="form-control" id="dateP" value="'.$entry->value.'">';
 			}
 			
 			echo '</div>';			
