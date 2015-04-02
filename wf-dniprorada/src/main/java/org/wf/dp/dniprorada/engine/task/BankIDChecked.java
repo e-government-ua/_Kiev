@@ -46,7 +46,7 @@ import org.springframework.stereotype.Component;
 @Component("bankIDChecked")
 public class BankIDChecked implements JavaDelegate {
 
-	@Value("${checkBankIDUrl}")
+/*	@Value("${checkBankIDUrl}")
 	private String checkBankIDUrl;
 	@Value("${systemClient}")
 	private String systemClient;
@@ -64,11 +64,12 @@ public class BankIDChecked implements JavaDelegate {
 	@Value("${access_tokenPathParam}")
 	private static final String ACCESS_TOKEN = "access_token";
 	@Value("${client_idPathParam}")
-	private static final String CLIENT_ID = "client_id";
+	private static final String CLIENT_ID = "client_id";*/
 
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
-		String token = execution.getVariable(ACCESS_TOKEN, String.class);
+	
+/*		String token = execution.getVariable(ACCESS_TOKEN, String.class);
 
 		HttpsURLConnection con;
 		try {
@@ -84,10 +85,10 @@ public class BankIDChecked implements JavaDelegate {
 		} catch (IOException e) {
 			throw e;
 		}
-
+*/
 	}
 
-	private static HttpsURLConnection getConnection(String httpsUrl)
+	/*private static HttpsURLConnection getConnection(String httpsUrl)
 			throws MalformedURLException, IOException,
 			NoSuchAlgorithmException, KeyManagementException {
 		URL url;
@@ -215,6 +216,6 @@ public class BankIDChecked implements JavaDelegate {
 			throw new IllegalArgumentException("fio not found");
 
 		}
-	}
+	}*/
 
 }
