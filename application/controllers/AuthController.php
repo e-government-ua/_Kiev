@@ -17,10 +17,6 @@ class AuthController extends Controller
                 'class' => 'yii\authclient\AuthAction',
                 'successCallback' => [$this, 'successCallback'],
             ],
-            'testl' => [
-                'class' => 'yii\authclient\AuthAction',
-                'successCallback' => [$this, 'successCallback'],
-            ],
         ];
     }
 
@@ -45,7 +41,7 @@ class AuthController extends Controller
 
     public function actionTest()
     {
-        echo 'test';
+        var_dump($_GET);
     }
 
 }
