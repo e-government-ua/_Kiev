@@ -43,7 +43,7 @@ $config = [
             'class'           => 'app\components\User',
             'identityClass'   => 'app\models\User',
             'enableAutoLogin' => false,
-            'authTimeout'     => 300,
+            'authTimeout'     => 3600,
             'loginUrl'        => ['/auth/login?authclient=bankid']
         ],
         'session'              => [
