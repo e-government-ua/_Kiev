@@ -25,8 +25,13 @@ $this->title = 'Портал -= Электронное правительств�
 
                     <?php foreach($model->attributes as $propertyName => $item): ?>
                         <?php
-                            $formField = $form->field($model, $propertyName);
                             $field = $model->getField($propertyName);
+                            $options = [];
+                            if($field['type'] == app\models\ProcessDefinitionForm::TYPE_DATE) {
+                                $options['inputTemplate'] = '<div class="row"><div class="col-lg-4">{input}</div></div>';
+                            }
+                            $formField = $form->field($model, $propertyName, $options);
+
                         ?>
                         <?= $model->getEditField($propertyName, $formField)?>
                     <?php endforeach; ?>
