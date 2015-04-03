@@ -17,6 +17,10 @@ class AuthController extends Controller
                 'class' => 'yii\authclient\AuthAction',
                 'successCallback' => [$this, 'successCallback'],
             ],
+            'testl' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'successCallback'],
+            ],
         ];
     }
 
