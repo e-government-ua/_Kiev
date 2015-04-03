@@ -67,10 +67,11 @@ class SiteController extends Controller
                 Yii::$app->user->logout(false);
                 Yii::$app->session->set('definition', $model->attributes);
                 Yii::$app->user->loginRequired();
+            } else {
+                $data = Yii::$app->apiClient->saveProcessDefinition($id, $model->attributes);
+                Yii::$app->session->setFlash('success', ['id' => $data['id'], 'email' => $model->email ? $model->email : false]);
+                return $this->redirect(['success']);
             }
-            $data = Yii::$app->apiClient->saveProcessDefinition($id, $model->attributes);
-            Yii::$app->session->setFlash('success', ['id' => $data['id'], 'email' => $model->email ? $model->email : false]);
-            return $this->redirect(['success']);
         }
 
         return $this->render('definition', [
