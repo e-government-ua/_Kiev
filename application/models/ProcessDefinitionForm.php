@@ -253,4 +253,13 @@ class ProcessDefinitionForm extends Model
         $this->_attributes = $attributes;
     }
 
+    /**
+     *
+     * @return string
+     */
+    public function getFormEmail()
+    {
+        return isset($this->_attributes['email']) ? $this->_attributes['email'] : false;
+    }
+
 }
