@@ -9,7 +9,6 @@ $this->title = 'Портал -= Электронное правительств�
     <div class="body-content">
         <div class="row">
             <div class="col-lg-8">
-                <h2>Електронні послуги:</h2>
                 <ul>
                     <?php foreach($definitions as $definition): ?>
                         <h4>
