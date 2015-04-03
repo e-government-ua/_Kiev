@@ -41,7 +41,7 @@ class AuthController extends Controller
 
     public function actionTest()
     {
-        var_dump($_GET);
+        var_dump($_REQUEST);
     }
 
 }
