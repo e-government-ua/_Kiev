@@ -6,8 +6,8 @@ $config = [
     'id'             => 'e-government-ua',
     'name'           => 'Портал -= Электронное правительство =-',
     'timeZone'       => 'Europe/Kiev',
-    'language'       => 'ru',
-    'sourceLanguage' => 'ru',
+    'language'       => 'uk',
+    'sourceLanguage' => 'uk',
     'basePath'       => dirname(__DIR__),
     'bootstrap'      => ['log'],
     'components'     => [
