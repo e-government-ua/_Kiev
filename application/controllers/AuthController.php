@@ -39,4 +39,9 @@ class AuthController extends Controller
         Yii::$app->user->login($user,  $tokenParams['expires_in']);
     }
 
+    public function actionTest()
+    {
+        echo 'test';
+    }
+
 }
