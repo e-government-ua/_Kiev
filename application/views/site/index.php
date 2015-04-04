@@ -8,7 +8,7 @@ $this->title = 'Портал -= Электронное правительств�
 <div class="site-index">
     <div class="body-content">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12 text-center">
                 <ul>
                     <?php foreach($definitions as $definition): ?>
                         <h4>
