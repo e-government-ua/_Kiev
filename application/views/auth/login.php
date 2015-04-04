@@ -7,7 +7,7 @@ use yii\helpers\Html;
     <h1>Авторизація</h1>
     <div class="row">
         <div class="col-lg-12">
-            <b>Ця послуга потребує Вашої веріфікації. Будь ласка, оберіть спосіб:</b>
+            <b>Ця послуга потребує Вашої верифікації. Будь ласка, оберіть спосіб:</b>
             <br>
             <div class="row">
                 <div class="well  col-lg-offset-3 col-lg-6">
