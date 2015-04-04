@@ -13,7 +13,7 @@ class AuthController extends Controller
     public function actions()
     {
         return [
-            'login' => [
+            'authclient' => [
                 'class' => 'yii\authclient\AuthAction',
                 'successCallback' => [$this, 'successCallback'],
             ],
@@ -37,6 +37,15 @@ class AuthController extends Controller
         $user->authKey = time() . rand(10000, 99999);
         $user->save();
         Yii::$app->user->login($user,  $tokenParams['expires_in']);
+    }
+
+
+    /**
+     *
+     */
+    public function actionLogin()
+    {
+        return $this->render('login');
     }
 
 

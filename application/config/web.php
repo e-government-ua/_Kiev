@@ -44,7 +44,7 @@ $config = [
             'identityClass'   => 'app\models\User',
             'enableAutoLogin' => false,
             'authTimeout'     => 3600,
-            'loginUrl'        => ['/auth/login?authclient=bankid']
+            'loginUrl'        => ['/auth/login']
         ],
         'session'              => [
             'class' => 'yii\web\Session',
