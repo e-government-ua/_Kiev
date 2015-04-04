@@ -68,7 +68,7 @@ class ApiClient extends Component
         $user = Yii::$app->user->loadUser();
 
         $props = [];
-  
+
         foreach ($properties as $key => $value) {
             $props[] = ['id' => $key, 'value' => $value];
         }
@@ -77,6 +77,7 @@ class ApiClient extends Component
                     'businessKey'         => $user->authKey,
                     'properties'          => $props
         ]);
+        Yii::error("SEND JSON: " . $data);
         $client = $this->getGuzzleClient();
         $response = $client->post($this->apiUrl . '/form/form-data', [
             'headers' => ['Content-Type' => 'application/json;charset="utf-8"', 'Accept' => '*'],
