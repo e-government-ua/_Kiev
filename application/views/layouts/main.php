@@ -24,13 +24,8 @@ AppAsset::register($this);
 
 <?php $this->beginBody() ?>
     <div class="container">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="<?= Yii::$app->homeUrl?>">Портал звернень громадян</a>
-            </div>
-        </nav>
         <center>
-            <img src="<?= Yii::$app->homeUrl ?>img/logo.png" border="0" style="margin-top:20px;">
+            <a href="<?= Yii::$app->homeUrl?>"><img src="<?= Yii::$app->homeUrl ?>img/logo.png" border="0" style="margin-top:20px;"></a>
         </center>
         <?= $content ?>
     </div>
