@@ -11,7 +11,7 @@ use yii\helpers\Html;
             <br>
             <div class="row">
                 <div class="well  col-lg-offset-3 col-lg-6">
-                    <?= Html::a('Увийті через BankID', ['/auth/authclient', 'authclient' => 'bankid'], ['class' => 'btn btn-primary btn-lg btn-block']) ?> <br>
+                    <?= Html::a('Увійти через BankID', ['/auth/authclient', 'authclient' => 'bankid'], ['class' => 'btn btn-primary btn-lg btn-block']) ?> <br>
                     <?= Html::a('Скористатися електронно-цифровим підписом (згодом)', 'javascript:{}', ['class' => 'btn btn-default btn-lg btn-block']) ?>
                 </div>
             </div>
