@@ -20,10 +20,6 @@ $this->title = 'Портал -= Электронное правительств�
             ]); ?>
                 <div class="box-body">
                     <?= $form->errorSummary($model); ?>
-<!--                    <div class="form-group field-processdefinitionform-doctype">
-                        <label class="control-label" for="processdefinitionform-doctype">Заявник</label>
-                        <h4>Заявник <?= Yii::$app->user->loadUser()->username?></h4>
-                    </div>-->
 
                     <?php foreach($model->attributes as $propertyName => $item): ?>
                         <?php
