@@ -6,7 +6,7 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Портал -= Электронное правительство =-';
 ?>
 <div class="page-header">
-  <h1><?php echo $definition["processDefinitionId"]; ?></h1>
+<!--  <h1><?php echo $definition["processDefinitionId"]; ?></h1>-->
 </div>
 
 <div class=row">
