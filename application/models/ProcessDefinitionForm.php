@@ -209,7 +209,7 @@ class ProcessDefinitionForm extends Model
      *
      * @return array
      */
-    public function getAttributes()
+    public function getAttributes($names = null, $except = [])
     {
         return $this->_attributes;
     }
