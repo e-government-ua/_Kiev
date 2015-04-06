@@ -141,7 +141,7 @@ angular.module('portalDniproradaApp')
 			};
 
 			$scope.format = 'dd/MM/yyyy';
-			$scope.disbleStartProcess = !$cookieStore.get('user');
+			$scope.disableStartProcess = !$cookieStore.get('user') && !$cookieStore.get('disableBankID');
 			$scope.processDefinitionId = $routeParams.processDefinitionId;
 			if ($scope.processDefinitionId) {
 				$http.get('/api/process-form/' + $routeParams.processDefinitionId)
