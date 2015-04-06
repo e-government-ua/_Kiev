@@ -31,9 +31,9 @@ exports.findUser = function(accessToken, onResult) {
 				var customer = userString.message.customer;
 				var user = {
 					fio: {
-						firstName: customer[0].firstName[0],
-						lastName: customer[0].lastName[0],
-						middleName: customer[0].middleName[0]
+						clfirstName: customer[0].firstName[0],
+						cllastName: customer[0].lastName[0],
+						clmiddleName: customer[0].middleName[0]
 					}
 				}
 				onResult(response.statusCode, user);
