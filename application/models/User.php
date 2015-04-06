@@ -72,7 +72,7 @@ class User extends Object implements IdentityInterface
      */
     public function getUsername()
     {
-        $dataArray = [$this->userData['lastName'], $this->userData['firstName'], $this->userData['middleName']];
+        $dataArray = [$this->userData['bankIdLastName'], $this->userData['bankIdFirstName'], $this->userData['bankIdMiddleName']];
         return implode(' ', $dataArray);
     }
 
