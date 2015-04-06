@@ -190,7 +190,7 @@ class ProcessDefinitionForm extends Model
                     'options'       => ['class' => 'form-control'],
                     'dateFormat'    => $field['datePattern'],
                     'clientOptions' => [
-                        'minDate' => 0,
+                        'maxDate' => 0,
                     ]
                 ]);
                 break;
