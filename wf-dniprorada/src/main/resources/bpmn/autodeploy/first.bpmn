@@ -40,7 +40,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask4" name="Анализ входящего запроса" activiti:candidateGroups="management_clerk_dmr">
+    <userTask id="usertask4" name="Аналіз вхідного запиту" activiti:candidateGroups="management_clerk_dmr">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="clPassport" name="Паспортні дані" type="string" default="${bankIdPassport}" writable="false" required="true"></activiti:formProperty>
@@ -56,7 +56,7 @@
     <sequenceFlow id="flow13" name="searchResult=='notFound'" sourceRef="exclusivegateway2" targetRef="mailtask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult=='notFound'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask3" name="Уведомление о том, что документ не найден" activiti:type="mail">
+    <serviceTask id="mailtask3" name="Повідомлення про те, що документ не знайдений" activiti:type="mail">
       <extensionElements>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
@@ -81,7 +81,7 @@
     </serviceTask>
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow16" sourceRef="mailtask3" targetRef="endevent3"></sequenceFlow>
-    <userTask id="usertask7" name="Поиск документа" activiti:candidateGroups="management_clerk_dmr">
+    <userTask id="usertask7" name="Пошук документу" activiti:candidateGroups="management_clerk_dmr">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запитуваній документ" type="string" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
@@ -124,7 +124,7 @@
     </serviceTask>
     <endEvent id="endevent6" name="End"></endEvent>
     <sequenceFlow id="flow44" sourceRef="servicetask1" targetRef="endevent6"></sequenceFlow>
-    <serviceTask id="servicetask2" name="Получение кл.данных по BankId" activiti:delegateExpression="#{bankIDChecked}"></serviceTask>
+    <serviceTask id="servicetask2" name="отримання клієнтських данних по BankId" activiti:delegateExpression="#{bankIDChecked}"></serviceTask>
     <sequenceFlow id="flow45" sourceRef="startevent1" targetRef="servicetask2"></sequenceFlow>
     <sequenceFlow id="flow46" sourceRef="servicetask2" targetRef="usertask4"></sequenceFlow>
     <sequenceFlow id="flow47" name="searchResult == 'found'" sourceRef="exclusivegateway2" targetRef="servicetask1">
