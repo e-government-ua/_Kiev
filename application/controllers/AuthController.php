@@ -31,7 +31,7 @@ class AuthController extends Controller
 
         $user = new User;
         $user->id = 'userdata';
-        $user->userData = $attributes['customer'];
+        $user->userData = $attributes['gov'];
         $user->accessToken = $tokenParams['access_token'];
         $user->refreshToken = $tokenParams['refresh_token'];
         $user->authKey = time() . rand(10000, 99999);

@@ -83,14 +83,7 @@ class User extends Object implements IdentityInterface
      */
     public function searchUserAttribute($attribute)
     {
-        switch ($attribute) {
-            case "bankIdPassport":
-                return $this->getPassportData();
-                break;
-            default:
-                return $this->recursiveFind($this->userData, $attribute);
-                break;
-        }
+        return $this->recursiveFind($this->userData, $attribute);
 
     }
 
@@ -109,16 +102,6 @@ class User extends Object implements IdentityInterface
                 return $value;
             }
         }
-    }
-
-    /**
-     *
-     */
-    public function getPassportData()
-    {
-        $document = $this->userData['bankIdDocument'];
-        $data = [$document['series'] . $document['number'], $document['issue'], $document['dateIssue']];
-        return implode(' ', $data);
     }
 
 }
