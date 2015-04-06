@@ -222,7 +222,7 @@ class ProcessDefinitionForm extends Model
      */
     public function isAttributeFromBankid($attribute)
     {
-        if(strpos($attribute, 'cl') === 0) {
+        if(strpos($attribute, 'bankId') === 0) {
             return true;
         }
         return false;
@@ -235,7 +235,8 @@ class ProcessDefinitionForm extends Model
      */
     public function getAttributeValueFromBankid($attribute)
     {
-        $attributeName = lcfirst(substr($attribute, 2));
+        $attributeName = 'bankId' . ucfirst(substr($attribute, 6));
+        //$attributeName = $attribute;
         return Yii::$app->user->loadUser()->searchUserAttribute($attributeName);
     }
 
