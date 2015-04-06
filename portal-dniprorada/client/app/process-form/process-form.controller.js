@@ -42,9 +42,9 @@ var deleteAccessTokenProperty = function(formProperties) {
 
 var fillInUserValues = function(formProperties, user) {
 	if (user) {
-		formProperties.forEach(function(item) {
-			if (user.fio[item.id]) {
-				item.value = user.fio[item.id];
+		formProperties.forEach(function(formProperty) {
+			if (user.fio[formProperty.id]) {
+				formProperty.value = user.fio[formProperty.id];
 			}
 		});
 	}
@@ -186,5 +186,11 @@ angular.module('portalDniproradaApp')
 
 			$scope.startProcess = function(form) {
 				startProcess(form, $scope, $http, $cookieStore, $window, Modal);
+			};
+
+			$scope.isClientInfo = function(formProperty) {
+				return function(str) {
+					return formProperty.id.slice(0, str.length) === str;
+				}('cl');				
 			};
 		});

@@ -28,12 +28,12 @@ exports.findUser = function(accessToken, onResult) {
 		.get(options, function(error, response, body) {
 			console.log(response + ' ' + body);
 			parseString(body, function(err, userString) {
-				var fio = userString.message.fio;
+				var customer = userString.message.customer;
 				var user = {
 					fio: {
-						firstName: fio[0].firstName[0],
-						lastName: fio[0].lastName[0],
-						middleName: fio[0].middleName[0]
+						clfirstName: customer[0].firstName[0],
+						cllastName: customer[0].lastName[0],
+						clmiddleName: customer[0].middleName[0]
 					}
 				}
 				onResult(response.statusCode, user);
