@@ -252,7 +252,12 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
-
+        <dependency>
+            <groupId>com.orange.redis-embedded</groupId>
+            <artifactId>embedded-redis</artifactId>
+            <version>0.6</version>
+            <scope>test</scope>
+        </dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
@@ -274,6 +279,19 @@
 			<version>1.2</version>
 		</dependency>
 
+        <!--    Spring libs -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>1.5.0.RELEASE</version>
+        </dependency>
+
+        <!-- Tokens expiring map module-->
+        <dependency>
+            <groupId>net.jodah</groupId>
+            <artifactId>expiringmap</artifactId>
+            <version>0.4.1</version>
+        </dependency>
 
 	</dependencies>
 	<version>5.17.0</version>
