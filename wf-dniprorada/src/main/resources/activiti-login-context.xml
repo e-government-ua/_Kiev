@@ -17,7 +17,7 @@
     </bean>
 
     <security:http auto-config="true" realm="Activiti REST API">
-        <security:intercept-url pattern="/service/rest/**" access="ROLE_USER"/>
+        <security:intercept-url pattern="/service/**" access="ROLE_USER"/>
         <security:http-basic/>
     </security:http>
 
