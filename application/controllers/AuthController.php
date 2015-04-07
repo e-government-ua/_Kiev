@@ -6,6 +6,7 @@ use app\models\User;
 use Yii;
 use yii\authclient\BaseOAuth;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class AuthController extends Controller
 {
@@ -28,6 +29,10 @@ class AuthController extends Controller
     {
         $tokenParams = $client->getAccessToken()->getParams();
         $attributes = $client->getUserAttributes();
+
+        if($attributes['state'] == 'err') {
+            throw new NotFoundHttpException($attributes['desc']);
+        }
 
         $user = new User;
         $user->id = 'userdata';
