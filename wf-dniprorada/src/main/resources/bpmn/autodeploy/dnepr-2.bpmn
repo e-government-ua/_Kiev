@@ -54,7 +54,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="management_trade_service_dmr">
+    <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="management_clerk_dmr">
       <extensionElements>
         <activiti:formProperty id="view_request" name="Запит" type="string" default="${topic}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="view_Fio" name="Автор запиту" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
@@ -85,7 +85,7 @@
         <activiti:formProperty id="comment" name="Причина відмови" type="string"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <userTask id="usertask7" name="Підготовка відповіді на запит: оформлення картки обліку" activiti:candidateGroups="management_trade_service_dmr">
+    <userTask id="usertask7" name="Підготовка відповіді на запит: оформлення картки обліку" activiti:candidateGroups="management_clerk_dmr">
       <extensionElements>
         <activiti:formProperty id="view_request" name="Запит" type="string" default="${topic}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="view_Fio" name="Автор запиту" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
@@ -169,8 +169,8 @@
     </textAnnotation>
     <association id="association3" sourceRef="startevent1" targetRef="textannotation1"></association>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr2">
-    <bpmndi:BPMNPlane bpmnElement="dnepr2" id="BPMNPlane_dnepr2">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_CivilCardAccountlRequest">
+    <bpmndi:BPMNPlane bpmnElement="CivilCardAccountlRequest" id="BPMNPlane_CivilCardAccountlRequest">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="318.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
