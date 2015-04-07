@@ -10,17 +10,17 @@ class BankId extends OAuth2
     /**
      * @inheritdoc
      */
-    public $authUrl = 'https://bankid.privatbank.ua/DataAccessService/das/authorize';
+    public $authUrl = 'https://bankid.org.ua/DataAccessService/das/authorize';
 
     /**
      * @inheritdoc
      */
-    public $tokenUrl = 'https://bankid.privatbank.ua/DataAccessService/oauth/token';
+    public $tokenUrl = 'https://bankid.org.ua/DataAccessService/oauth/token';
 
     /**
      * @inheritdoc
      */
-    public $apiBaseUrl = 'https://bankid.privatbank.ua/DataAccessService/checked';
+    public $apiBaseUrl = 'https://bankid.org.ua/DataAccessService/checked';
 
     /**
      *
