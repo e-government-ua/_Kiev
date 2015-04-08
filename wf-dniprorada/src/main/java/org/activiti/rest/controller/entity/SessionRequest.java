@@ -3,7 +3,7 @@ package org.activiti.rest.controller.entity;
 /**
  * Created by diver on 4/6/15.
  */
-public class InitRequest implements InitRequestI {
+public class SessionRequest implements SessionRequestI {
 
     private String accessToken;
     private String refreshToken;
@@ -31,7 +31,7 @@ public class InitRequest implements InitRequestI {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        InitRequest that = (InitRequest) o;
+        SessionRequest that = (SessionRequest) o;
 
         if (accessToken != null ? !accessToken.equals(that.accessToken) : that.accessToken != null) return false;
         if (refreshToken != null ? !refreshToken.equals(that.refreshToken) : that.refreshToken != null) return false;

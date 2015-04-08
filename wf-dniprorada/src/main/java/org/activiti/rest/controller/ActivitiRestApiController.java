@@ -6,9 +6,11 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import org.activiti.rest.controller.entity.InitRequestI;
-import org.activiti.rest.controller.entity.InitResponse;
-import org.activiti.rest.controller.entity.InitResponseI;
+import org.activiti.rest.controller.adapter.TaskAssigneeAdapter;
+import org.activiti.rest.controller.entity.SessionRequestI;
+import org.activiti.rest.controller.entity.SessionResponse;
+import org.activiti.rest.controller.entity.SessionResponseI;
+import org.activiti.rest.controller.entity.TaskAssigneeI;
 import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,13 +42,13 @@ public class ActivitiRestApiController extends ExecutionBaseResource{
 	@Autowired
 	private RepositoryService repositoryService;
 
-    @RequestMapping(value = "/init", method = RequestMethod.POST)
-    public @ResponseBody InitResponseI init(@RequestBody InitRequestI initRequest) throws ActivitiRestException {
+    @RequestMapping(value = "/create-session", method = RequestMethod.POST)
+    public @ResponseBody SessionResponseI saveBankIdTokens(@RequestBody SessionRequestI initRequest) throws ActivitiRestException {
 
-        return new InitResponse(null);
+        return new SessionResponse(null);
     }
 	
-	@RequestMapping(value = "/startProcessByKey/{key}", method = RequestMethod.GET)
+	@RequestMapping(value = "/start-process/{key}", method = RequestMethod.GET)
 	@Transactional
 	public @ResponseBody String startProcess(@PathVariable("key") String key) {
 		ProcessInstance pi = runtimeService.startProcessInstanceByKey(key);
@@ -56,14 +59,20 @@ public class ActivitiRestApiController extends ExecutionBaseResource{
 		return pi.getProcessInstanceId();
 	}
 
-	@RequestMapping(value = "/getTasks/{assignee}", method = RequestMethod.GET)
+	@RequestMapping(value = "/tasks/{assignee}", method = RequestMethod.GET)
 	@Transactional
-	public List<Task> getTasks(@PathVariable("assignee") String assignee) {
-		return taskService.createTaskQuery().taskAssignee(assignee).list();
-	}
+	public @ResponseBody List<TaskAssigneeI> getTasks(@PathVariable("assignee") String assignee) {
+        List<Task> tasks = taskService.createTaskQuery().taskAssignee(assignee).list();
+        List<TaskAssigneeI> facadeTasks = new ArrayList<>();
+        TaskAssigneeAdapter adapter = new TaskAssigneeAdapter();
+        for (Task task : tasks) {
+            facadeTasks.add(adapter.apply(task));
+        }
+        return facadeTasks;
+    }
 
 	
-	@RequestMapping(value = "/getProcessDefinitions", method = RequestMethod.GET)
+	@RequestMapping(value = "/process-definitions", method = RequestMethod.GET)
 	@Transactional
 	public List<ProcessDefinition> getProcessDefinitions() {
 		return repositoryService.createProcessDefinitionQuery().latestVersion().list();

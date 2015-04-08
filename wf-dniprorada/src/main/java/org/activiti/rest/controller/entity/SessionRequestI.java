@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 /**
  * Created by diver on 4/6/15.
  */
-@JsonSerialize(as = InitRequest.class)
-@JsonDeserialize(as = InitRequest.class)
-public interface InitRequestI {
+@JsonSerialize(as = SessionRequest.class)
+@JsonDeserialize(as = SessionRequest.class)
+public interface SessionRequestI {
 
     /**
      *

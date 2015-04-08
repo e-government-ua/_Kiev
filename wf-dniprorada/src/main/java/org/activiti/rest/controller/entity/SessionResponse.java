@@ -3,11 +3,11 @@ package org.activiti.rest.controller.entity;
 /**
  * Created by diver on 4/6/15.
  */
-public class InitResponse implements InitResponseI {
+public class SessionResponse implements SessionResponseI {
 
     private String session;
 
-    public InitResponse(String session) {
+    public SessionResponse(String session) {
         this.session = session;
     }
 
@@ -21,7 +21,7 @@ public class InitResponse implements InitResponseI {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        InitResponse that = (InitResponse) o;
+        SessionResponse that = (SessionResponse) o;
 
         if (session != null ? !session.equals(that.session) : that.session != null) return false;
 
