@@ -69,7 +69,6 @@ var all = {
     rest: process.env.ACTIVITI_REST || 'activiti-rest/service',
     auth: {
       basic: process.env.ACTIVITI_AUTH_BASIC || 'Basic a2VybWl0Omtlcm1pdA=='
-      //basic: process.env.ACTIVITI_AUTH_BASIC || 'Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE='
     }
   },
 
