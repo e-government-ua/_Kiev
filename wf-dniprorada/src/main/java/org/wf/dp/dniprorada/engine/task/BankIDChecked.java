@@ -46,7 +46,7 @@ import org.springframework.stereotype.Component;
 @Component("bankIDChecked")
 public class BankIDChecked implements JavaDelegate {
 
-	@Value("${checkBankIDUrl}")
+/*	@Value("${checkBankIDUrl}")
 	private String checkBankIDUrl;
 	@Value("${systemClient}")
 	private String systemClient;
@@ -64,16 +64,18 @@ public class BankIDChecked implements JavaDelegate {
 	@Value("${access_tokenPathParam}")
 	private static final String ACCESS_TOKEN = "access_token";
 	@Value("${client_idPathParam}")
-	private static final String CLIENT_ID = "client_id";
+	private static final String CLIENT_ID = "client_id";*/
 
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
-		String token = execution.getVariable(ACCESS_TOKEN, String.class);
+	
+/*		String token = execution.getVariable(ACCESS_TOKEN, String.class);
 
 		HttpsURLConnection con;
 		try {
 
-			con = getConnection(String.format(checkBankIDUrl, token, systemClient));
+			con = getConnection(String.format(checkBankIDUrl, token,
+					systemClient));
 
 			// dump all the content
 			getData(con, execution);
@@ -83,10 +85,10 @@ public class BankIDChecked implements JavaDelegate {
 		} catch (IOException e) {
 			throw e;
 		}
-
+*/
 	}
 
-	private static HttpsURLConnection getConnection(String httpsUrl)
+	/*private static HttpsURLConnection getConnection(String httpsUrl)
 			throws MalformedURLException, IOException,
 			NoSuchAlgorithmException, KeyManagementException {
 		URL url;
@@ -123,7 +125,7 @@ public class BankIDChecked implements JavaDelegate {
 		// Tell the url connection object to use our socket factory which
 		// bypasses security checks
 		((HttpsURLConnection) con).setSSLSocketFactory(sslSocketFactory);
-		
+
 		return con;
 	}
 
@@ -134,12 +136,13 @@ public class BankIDChecked implements JavaDelegate {
 				readFio(con.getInputStream(), execution);
 			} catch (Exception e) {
 				execution.setVariable("error_message", "invalid token");
-				throw new BpmnError("invalid token");
+				// throw new BpmnError("invalid token");
+				throw new IllegalArgumentException("invalid token", e);
 			}
-			
 
 		} else {
-			throw new BpmnError("connection unavailable");
+			// throw new BpmnError("connection unavailable");
+			throw new IllegalArgumentException("connection unavailable");
 		}
 	}
 
@@ -209,9 +212,10 @@ public class BankIDChecked implements JavaDelegate {
 
 		}
 		if (isEmptyFio) {
-			throw new BpmnError("fio not found");
-		}
-	}
+			// throw new BpmnError("fio not found");
+			throw new IllegalArgumentException("fio not found");
 
-	
+		}
+	}*/
+
 }

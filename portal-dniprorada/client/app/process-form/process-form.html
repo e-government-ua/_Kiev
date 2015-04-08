@@ -1,64 +1,29 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <div ng-include="'components/banner/banner.html'"></div>
-
 <div class="container">
-  <div class="row">
-  	<div class="col-lg-12">
-      <h1 class="page-header">Будь ласка заповніть форму</h1>
-      <h2 class="page-header">{{processDefinitionName}}</h2>
-  	</div>  
-  	<div class="col-sm-12">
-      <form class="form" name="form" ng-submit="startProcess(form)" novalidate>
-        <!--div ng-show="!disbleStartProcess" class="form-group" ng-repeat="formProperty in processFormData.formProperties"-->
-        <div class="form-group" ng-repeat="formProperty in processFormData.formProperties">
-            <label>{{formProperty.name}} <label ng-show="{{formProperty.datePattern}}"> in format : {{formProperty.datePattern}}</label></label>
-            <!--input type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/-->
-            <input ng-if="formProperty.type == 'string'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
-            <input ng-if="formProperty.type == 'long'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
-            <!--input ng-if="formProperty.type == 'date'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/-->
-            <!--div ng-controller="DatepickerDemoCtrl"  NavbarCtrl  ng-controller="ProcessFormCtrl" -->
-            <!-- ng-controller="myCtrl" ng-app="foo"  ng-if="formProperty.type == 'date'"  datepicker-popup="dd/MM/yyyy" init-date="{{formProperty.value}}" -->
-
-<!--
-               <input ng-if="formProperty.type == 'date'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value"/>
--->
-            <input ng-if="formProperty.type == 'date'" class="form-control input-group" name="dt" type="text" ng-click="open($event,'dt')" datepicker-popup="dd/MM/yyyy" ng-model="formData.dt" is-open="datepickers.dt" datepicker-options="dateOptions" ng-required="true" date-options="dateOptions" value="{{formProperty.value}}"/>
-<!--            <div ng-if="formProperty.type == 'date'" class="form-control"> -->
-                <!--mydatepicker class="input-group" ng-model="dt" date-options="dateOptions" opened="opened"  is-open="opened" opened="opened" /  init-date="{{formProperty.value}}"  -->
-<!--                <input name="dt" type="text" ng-click="open($event,'dt')" class="input-group" datepicker-popup="dd/MM/yyyy" ng-model="formData.dt" is-open="datepickers.dt" datepicker-options="dateOptions" ng-required="true" date-options="dateOptions" value="{{formProperty.value}}"/>-->
-                <!--span class="input-group-btn">
-                  <button class="btn btn-default" ng-click="open($event,'dt')"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-                <button type="button" class="btn btn-sm btn-default" ng-click="formData.dt = '2009-08-24'">2009-08-24</button-->
-<!--            </div> -->
-               
-               
-          <!--   <div ng-if="formProperty.type == 'date'" class="row">
-                <mydatepicker class="input-group" ng-model="dt" date-options="dateOptions" opened="opened" />
-            </div> -->
-
-<!-- 
-            <div ng-if="formProperty.type == 'date'" class="row">
-                mydatepicker class="input-group" ng-model="dt" date-options="dateOptions" opened="opened" /
-            </div> -->
-
-                <!--div ng-if="formProperty.type == 'date'" class="row">
-                    <div class="col-md-6">
-                        <p class="input-group">
-                          <input type="text" name="{{formProperty.id}}" class="form-control" datepicker-popup="{{format}}" ng-model="dt" init-date="{{formProperty.value}}" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" clear-text="Стереть" close-text="Закрыть" />
-                          <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                          </span>
-                        </p>
-                    </div>
-                </div>                
-                </div-->
-            <!--/div--><!--08/03/2015-->
-            
-          <select ng-if="formProperty.type == 'enum'" class="form-control" ng-model="formProperty.value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in formProperty.enumValues"></select>      
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Будь ласка заповніть форму</h1>
+            <h2 class="page-header">{{processDefinitionName}}</h2>
         </div>
-        <button class="btn btn-lg btn-primary" type="submit" ng-disabled="disbleStartProcess">Подати заявку</button>       
-      </form>
+        <div class="col-sm-12">
+            <form class="form" name="form" ng-submit="startProcess(form)" novalidate>
+                <div class="form-group" ng-repeat="formProperty in processFormData.formProperties">
+                    <label>{{formProperty.name}}</label>
+                    <input ng-if="formProperty.type == 'string'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value" ng-required="formProperty.required"
+                    ng-disabled="isClientInfo(formProperty)"/>
+                    <input ng-if="formProperty.type == 'long'" type="text" name="{{formProperty.id}}" class="form-control" ng-model="formProperty.value" ng-required="formProperty.required" 
+                    ng-disabled="isClientInfo(formProperty)"/>
+                    <input ng-if="formProperty.type == 'date'" class="form-control input-group" name="{{formProperty.id}}" type="text" ng-click="open($event,'dt')" datepicker-popup="dd/MM/yyyy" ng-model="formData.dt" is-open="datepickers.dt" datepicker-options="dateOptions" date-options="dateOptions" value="{{formProperty.value}}" ng-required="formProperty.required"
+                    ng-disabled="isClientInfo(formProperty)"/>
+                    <select ng-if="formProperty.type == 'enum'" class="form-control" name="{{formProperty.id}}" ng-model="formProperty.value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in formProperty.enumValues" ng-required="formProperty.required"
+                    ng-disabled="isClientInfo(formProperty)"></select>
+                    <div class="processFormErrorRequiredField" ng-show="form.$submitted || form.{{formProperty.id}}.$touched">
+                        <span ng-show="form.{{formProperty.id}}.$error.required">Заповніть поле {{formProperty.name}}</span>                    
+                    </div>
+                </div>
+                <button class="btn btn-lg btn-primary" type="submit" ng-disabled="disableStartProcess">Подати заявку</button>
+            </form>
+        </div>
     </div>
-  </div>
 </div>

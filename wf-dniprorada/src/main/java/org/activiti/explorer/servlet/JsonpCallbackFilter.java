@@ -27,6 +27,33 @@ public class JsonpCallbackFilter implements Filter {
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
 
+    
+    
+    String sRequestURL = httpRequest.getRequestURL().toString();
+    //String sPath = "wf-dniprorada/";
+    //String sPath = "wf-dniprorada/";
+    //"*/index","*/startForm","*/startedProcess"
+    if(sRequestURL.endsWith("/index")
+    || sRequestURL.endsWith("/startForm")
+    || sRequestURL.endsWith("/startedProcess")){
+        String sPath = "service/";
+        int nAt=sRequestURL.indexOf(sPath);
+        System.out.println("Before_sRequestURL="+sRequestURL);
+        if(nAt>=0){
+            //sRequestURL = ((sRequestURL.replaceAll(sPath, "/"+sPath+"WEB-INF/jsp"))+".jsp").substring(nAt);
+            //sRequestURL = ((sRequestURL.replaceAll(sPath, "/WEB-INF/jsp"+sPath+""))+".jsp").substring(nAt);
+            sRequestURL = ((sRequestURL.replaceAll("service/rest/", "WEB-INF/jsp/"))+".jsp");
+            System.out.println("After_sRequestURL="+sRequestURL);
+            ((HttpServletResponse) response).sendRedirect(sRequestURL);//"/index.jsp"
+        /*}else{
+            chain.doFilter(request, response);*/
+        }
+    }
+    
+    //-resolver.setPrefix("/WEB-INF/jsp/");
+    //-resolver.setSuffix(".jsp");
+    
+    
     Map<String, String[]> parms = httpRequest.getParameterMap();
 
     if (parms.containsKey("callback")) {
