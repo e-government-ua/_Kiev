@@ -3,7 +3,6 @@
   <process id="CivilCardAccountlRequest" name="Видача картки обліку об’єкта торговельного призначення, сфери послуг та з виробництва продуктів харчування" isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
-        <activiti:formProperty id="topic" name="Запит" type="string" default="Видача картки обліку об’єкта торговельного призначення, сфери послуг та з виробництва продуктів харчування" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
@@ -56,7 +55,7 @@
     </serviceTask>
     <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="management_trade_service_dmr">
       <extensionElements>
-        <activiti:formProperty id="view_request" name="Запит" type="string" default="${topic}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="topic" name="Запит" type="string" default="Видача картки обліку об’єкта торговельного призначення, сфери послуг та з виробництва продуктів харчування" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="view_Fio" name="Автор запиту" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="view_objName" name="повна назва об`єкта " type="string" default="${objName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objType" name="тип об`єкта" type="string" default="${objType}" writable="false"></activiti:formProperty>
@@ -68,7 +67,7 @@
         <activiti:formProperty id="view_objEDRPOU" name="ЄДРПОУ" type="long" default="${objEDRPOU}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objBank" name="Назва банку" type="string" default="${objBank}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objRegAddress" name="місце державної реєстрації суб`єкта господарювання" type="string" default="${objRegAddress}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="view_objRegDate" name="дата державної реєстрації суб`єкта господарювання" type="date" default="${objRegDate}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objRegDate" name="дата державної реєстрації суб`єкта господарювання" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objOwnerFio" name="прізвище, ім`я, по батькові керівника" type="string" default="${objOwnerFio}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objActivity" name="вид діяльності" type="string" default="${objActivity}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objSpec" name="спеціалізація об`єкта" type="string" default="${objSpec}" writable="false"></activiti:formProperty>
@@ -85,7 +84,7 @@
         <activiti:formProperty id="comment" name="Причина відмови" type="string"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <userTask id="usertask7" name="Підготовка відповіді на запит: оформлення картки обліку" activiti:candidateGroups="management_clerk_dmr">
+    <userTask id="usertask7" name="Підготовка відповіді на запит: оформлення картки обліку" activiti:candidateGroups="management_trade_service_dmr">
       <extensionElements>
         <activiti:formProperty id="view_request" name="Запит" type="string" default="${topic}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="view_Fio" name="Автор запиту" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
@@ -99,7 +98,7 @@
         <activiti:formProperty id="view_objEDRPOU" name="ЄДРПОУ" type="long" default="${objEDRPOU}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objBank" name="Назва банку" type="string" default="${objBank}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objRegAddress" name="місце державної реєстрації суб`єкта господарювання" type="string" default="${objRegAddress}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="view_objRegDate" name="дата державної реєстрації суб`єкта господарювання" type="date" default="${objRegDate}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objRegDate" name="дата державної реєстрації суб`єкта господарювання" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objOwnerFio" name="прізвище, ім`я, по батькові керівника" type="string" default="${objOwnerFio}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objActivity" name="вид діяльності" type="string" default="${objActivity}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objSpec" name="спеціалізація об`єкта" type="string" default="${objSpec}" writable="false"></activiti:formProperty>
