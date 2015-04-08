@@ -17,6 +17,16 @@ class ApiClient extends Component
     public $apiUrl;
 
     /**
+     * @var string
+     */
+    public $login;
+
+    /**
+     * @var string
+     */
+    public $password;
+
+    /**
      * @var HttpClient a client to make requests to the API
      */
     private $_guzzle;
@@ -39,7 +49,7 @@ class ApiClient extends Component
     public function getProcessDefinitions()
     {
         $client = $this->getGuzzleClient();
-        $response = $client->get($this->apiUrl . '/repository/process-definitions?latest=true');
+        $response = $client->get('repository/process-definitions?latest=true');
         $result = $response->json();
         return $result['data'];
     }
@@ -52,7 +62,7 @@ class ApiClient extends Component
     public function getProcessDefinition($id)
     {
         $client = $this->getGuzzleClient();
-        $response = $client->get($this->apiUrl . '/form/form-data', ['query' => ['processDefinitionId' => $id]]);
+        $response = $client->get('form/form-data', ['query' => ['processDefinitionId' => $id]]);
         $result = $response->json();
         return $result;
     }
@@ -77,9 +87,9 @@ class ApiClient extends Component
                     'businessKey'         => $user->authKey,
                     'properties'          => $props
         ]);
-        Yii::error("SEND JSON: " . $data);
+
         $client = $this->getGuzzleClient();
-        $response = $client->post($this->apiUrl . '/form/form-data', [
+        $response = $client->post('form/form-data', [
             'headers' => ['Content-Type' => 'application/json;charset="utf-8"', 'Accept' => '*'],
             'body'    => $data
         ]);
@@ -94,9 +104,16 @@ class ApiClient extends Component
     protected function getGuzzleClient()
     {
         if ($this->_guzzle == null) {
-            $this->_guzzle = new HttpClient(['defaults' => [
-                    'verify' => false
-            ]]);
+            $this->_guzzle = new HttpClient([
+                'base_url' => $this->apiUrl,
+                'defaults' => [
+                    'verify' => false,
+                    'auth'   => [
+                        $this->login,
+                        $this->password
+                    ],
+                ]
+            ]);
         }
         return $this->_guzzle;
     }

@@ -23,7 +23,9 @@ $config = [
         ],
         'apiClient'            => [
             'class'  => 'app\components\ApiClient',
-            'apiUrl' => 'https://52.17.126.64:8080/wf-dniprorada/service'
+            'apiUrl' => 'https://52.17.126.64:8080/wf-dniprorada/service/',
+            'login' => 'activiti-master',
+            'password' => 'UjhtJnEvf!'
         ],
         'request'              => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
