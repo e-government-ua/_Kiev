@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="CivilCardAccountlRequest" name="Видача картки обліку об’єкта торговельного призначення, сфери послуг та з виробництва продуктів харчування" isExecutable="true">
+  <process id="myProcess" name="My process" isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
+        <activiti:formProperty id="topic" name="Запит" type="string" default="Видача картки обліку об’єкта торговельного призначення, сфери послуг та з виробництва продуктів харчування" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPhone" name="Телефон" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPhone" name="Телефон" type="string" default="+380504206734" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail" type="string" default="dn290689sev@gmail.com" required="true"></activiti:formProperty>
         <activiti:formProperty id="objName" name="повна назва об`єкта " type="string"></activiti:formProperty>
         <activiti:formProperty id="objType" name="тип об`єкта" type="string"></activiti:formProperty>
         <activiti:formProperty id="objOwn" name="належність об`єкта" type="string"></activiti:formProperty>
@@ -49,13 +50,13 @@
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
 За Вашим запитом винесено відмову.
-Підстава: ${comment}</activiti:expression>
+Причина: ${comment}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
     <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="management_trade_service_dmr">
       <extensionElements>
-        <activiti:formProperty id="topic" name="Запит" type="string" default="Видача картки обліку об’єкта торговельного призначення, сфери послуг та з виробництва продуктів харчування" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="view_request" name="Запит" type="string" default="${topic}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="view_Fio" name="Автор запиту" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="view_objName" name="повна назва об`єкта " type="string" default="${objName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objType" name="тип об`єкта" type="string" default="${objType}" writable="false"></activiti:formProperty>
@@ -67,7 +68,7 @@
         <activiti:formProperty id="view_objEDRPOU" name="ЄДРПОУ" type="long" default="${objEDRPOU}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objBank" name="Назва банку" type="string" default="${objBank}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objRegAddress" name="місце державної реєстрації суб`єкта господарювання" type="string" default="${objRegAddress}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="objRegDate" name="дата державної реєстрації суб`єкта господарювання" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="view_objRegDate" name="дата державної реєстрації суб`єкта господарювання" type="date" default="${objRegDate}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objOwnerFio" name="прізвище, ім`я, по батькові керівника" type="string" default="${objOwnerFio}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objActivity" name="вид діяльності" type="string" default="${objActivity}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objSpec" name="спеціалізація об`єкта" type="string" default="${objSpec}" writable="false"></activiti:formProperty>
@@ -84,6 +85,7 @@
         <activiti:formProperty id="comment" name="Причина відмови" type="string"></activiti:formProperty>
       </extensionElements>
     </userTask>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <userTask id="usertask7" name="Підготовка відповіді на запит: оформлення картки обліку" activiti:candidateGroups="management_trade_service_dmr">
       <extensionElements>
         <activiti:formProperty id="view_request" name="Запит" type="string" default="${topic}" writable="false" required="true"></activiti:formProperty>
@@ -98,7 +100,7 @@
         <activiti:formProperty id="view_objEDRPOU" name="ЄДРПОУ" type="long" default="${objEDRPOU}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objBank" name="Назва банку" type="string" default="${objBank}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objRegAddress" name="місце державної реєстрації суб`єкта господарювання" type="string" default="${objRegAddress}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="objRegDate" name="дата державної реєстрації суб`єкта господарювання" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="view_objRegDate" name="дата державної реєстрації суб`єкта господарювання" type="date" default="${objRegDate}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objOwnerFio" name="прізвище, ім`я, по батькові керівника" type="string" default="${objOwnerFio}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objActivity" name="вид діяльності" type="string" default="${objActivity}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objSpec" name="спеціалізація об`єкта" type="string" default="${objSpec}" writable="false"></activiti:formProperty>
@@ -114,6 +116,7 @@
       </extensionElements>
     </userTask>
     <endEvent id="endevent5" name="End"></endEvent>
+    <sequenceFlow id="flow31" sourceRef="usertask7" targetRef="exclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow35" sourceRef="mailtask1" targetRef="endevent5"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow38" sourceRef="usertask4" targetRef="exclusivegateway3"></sequenceFlow>
@@ -141,35 +144,29 @@
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
-Ваш запит виконано.
-Ви можете отримату замовлену картку обліку</activiti:expression>
+Ваш запит выконано. Картка обліку готова.</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
+    <sequenceFlow id="flow43" sourceRef="exclusivegateway2" targetRef="mailtask2"></sequenceFlow>
     <endEvent id="endevent6" name="End"></endEvent>
     <sequenceFlow id="flow44" sourceRef="mailtask2" targetRef="endevent6"></sequenceFlow>
-    <sequenceFlow id="flow45" sourceRef="usertask7" targetRef="mailtask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${requestResult == 'ready'}]]></conditionExpression>
-    </sequenceFlow>
     <textAnnotation id="textannotation1">
-      <text>Пользователь портала отправляет выбирает услугу:
-Видача картки обліку об’єкта торговельного призначення, сфери послугта з виробництва продуктів харчування
-			</text>
+      <text>Пользователь портала  отправляет выбирает услугу:
+Видача картки обліку об’єкта торговельного призначення, сфери послугта з  виробництва продуктів харчування</text>
     </textAnnotation>
     <textAnnotation id="textannotation2">
-      <text>Принимается решение обоснован ли запрос на предоставление
-				информации</text>
+      <text>Принимается решение обоснован ли запрос на предоставление информации</text>
     </textAnnotation>
     <association id="association2" sourceRef="usertask4" targetRef="textannotation2"></association>
     <textAnnotation id="textannotation3">
       <text>По banlID система получает необходимые данные пользователя:
-				ФИО, адрес проживания, телефон
-			</text>
+ФИО, адрес проживания, телефон</text>
     </textAnnotation>
     <association id="association3" sourceRef="startevent1" targetRef="textannotation1"></association>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_CivilCardAccountlRequest">
-    <bpmndi:BPMNPlane bpmnElement="CivilCardAccountlRequest" id="BPMNPlane_CivilCardAccountlRequest">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
+    <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="318.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -178,6 +175,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
         <omgdc:Bounds height="55.0" width="111.0" x="377.0" y="439.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="850.0" y="445.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask7" id="BPMNShape_usertask7">
         <omgdc:Bounds height="55.0" width="105.0" x="700.0" y="438.0"></omgdc:Bounds>
@@ -203,6 +203,10 @@
       <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
         <omgdc:Bounds height="50.0" width="341.0" x="60.0" y="366.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="805.0" y="465.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="465.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
         <omgdi:waypoint x="725.0" y="276.0"></omgdi:waypoint>
         <omgdi:waypoint x="770.0" y="276.0"></omgdi:waypoint>
@@ -231,13 +235,13 @@
         <omgdi:waypoint x="432.0" y="353.0"></omgdi:waypoint>
         <omgdi:waypoint x="432.0" y="439.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow43" id="BPMNEdge_flow43">
+        <omgdi:waypoint x="890.0" y="465.0"></omgdi:waypoint>
+        <omgdi:waypoint x="920.0" y="465.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow44" id="BPMNEdge_flow44">
         <omgdi:waypoint x="1025.0" y="465.0"></omgdi:waypoint>
         <omgdi:waypoint x="1060.0" y="466.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow45" id="BPMNEdge_flow45">
-        <omgdi:waypoint x="805.0" y="465.0"></omgdi:waypoint>
-        <omgdi:waypoint x="920.0" y="465.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
         <omgdi:waypoint x="432.0" y="494.0"></omgdi:waypoint>
