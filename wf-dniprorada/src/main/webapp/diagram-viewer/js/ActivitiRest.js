@@ -5,6 +5,9 @@ var ActivitiRest = {
 		
 		$.ajax({
 			url: url,
+                         beforeSend: function (xhr) {
+                            xhr.setRequestHeader("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=");
+                        },
                         headers: {'Authorization':'Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE='},
 			dataType: 'jsonp',
 			cache: false,
@@ -29,6 +32,9 @@ var ActivitiRest = {
 		
 		$.ajax({
 			url: url,
+                         beforeSend: function (xhr) {
+                            xhr.setRequestHeader("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=");
+                        },
                         headers: {'Authorization':'Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE='},
 			dataType: 'jsonp',
 			cache: false,
@@ -54,6 +60,9 @@ var ActivitiRest = {
 		
 		$.ajax({
 			url: url,
+                         beforeSend: function (xhr) {
+                            xhr.setRequestHeader("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=");
+                        },
                         headers: {'Authorization':'Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE='},
 			dataType: 'jsonp',
 			cache: false,
