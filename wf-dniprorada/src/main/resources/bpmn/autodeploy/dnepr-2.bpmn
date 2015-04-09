@@ -29,7 +29,7 @@
         <activiti:formProperty id="objEmployees" name="проектна кількість працюючих, робочих місць" type="long"></activiti:formProperty>
         <activiti:formProperty id="objArea" name="загальна площа об`єкта, у т.ч. торговельна, виробнича (кв.м)" type="long"></activiti:formProperty>
         <activiti:formProperty id="objSpecConditions" name="особливі умови здійснення діяльності" type="string"></activiti:formProperty>
-        <activiti:formProperty id="processName" name="Видача картки обліку об’єкта торговельного призначення, сфери послугта з виробництва продуктів харчування" type="sting" readable="false" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="processName" name="Видача картки обліку об’єкта торговельного призначення, сфери послугта з виробництва продуктів харчування" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
