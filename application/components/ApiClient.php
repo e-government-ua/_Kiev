@@ -77,7 +77,13 @@ class ApiClient extends Component
     {
         $user = Yii::$app->user->loadUser();
 
-        $props = [];
+        $props = [
+            [
+                'id' => 'processName',
+                'value' => ''
+            ]
+        ];
+
 
         foreach ($properties as $key => $value) {
             $props[] = ['id' => $key, 'value' => $value];

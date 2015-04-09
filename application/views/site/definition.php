@@ -6,12 +6,11 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Портал -= Электронное правительство =-';
 ?>
 <div class="page-header">
-<!--  <h1><?php echo $definition["processDefinitionId"]; ?></h1>-->
+<h1><?php echo $model->getFormName(); ?></h1>
 </div>
 
 <div class=row">
     <div class="col-lg-10">
-        <h3>Заповніть, будь ласка, форму</h3>
         <div class="box box-primary">
             <?php $form = ActiveForm::begin([
                 'fieldConfig' => [

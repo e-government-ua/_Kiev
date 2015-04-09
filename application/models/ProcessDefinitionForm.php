@@ -28,6 +28,12 @@ class ProcessDefinitionForm extends Model
 
     /**
      *
+     * @var string
+     */
+    protected $_formName = '';
+
+    /**
+     *
      * @param array $fields
      * @param array $defaultValues
      * @param array $config
@@ -39,7 +45,8 @@ class ProcessDefinitionForm extends Model
 
         foreach ($fields as $field) {
             $key = $field['id'];
-            if($key == 'access_token') {
+            if($key == 'processName') {
+                $this->_formName = $field['name'];
                 continue;
             }
             $attributesArray[$key] = isset($field['value']) ? $field['value'] : '';
@@ -107,6 +114,15 @@ class ProcessDefinitionForm extends Model
     public function attributes()
     {
         return array_keys($this->_attributes);
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getFormName()
+    {
+        return $this->_formName;
     }
 
     /**
