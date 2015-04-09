@@ -5,6 +5,7 @@ var ActivitiRest = {
 		
 		$.ajax({
 			url: url,
+                        headers: {'Authorization':'Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE='},
 			dataType: 'jsonp',
 			cache: false,
 			async: true,
@@ -28,6 +29,7 @@ var ActivitiRest = {
 		
 		$.ajax({
 			url: url,
+                        headers: {'Authorization':'Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE='},
 			dataType: 'jsonp',
 			cache: false,
 			async: true,
@@ -52,6 +54,7 @@ var ActivitiRest = {
 		
 		$.ajax({
 			url: url,
+                        headers: {'Authorization':'Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE='},
 			dataType: 'jsonp',
 			cache: false,
 			async: true,
