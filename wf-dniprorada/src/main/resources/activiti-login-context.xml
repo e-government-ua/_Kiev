@@ -16,17 +16,17 @@
         <property name="identityService" ref="identityService"/>
     </bean>
 
-    <!--<security:http auto-config="true" realm="Activiti REST API">-->
-        <!--<security:intercept-url pattern="/service-api/**" access="ROLE_USER"/>-->
-        <!--<security:http-basic/>-->
-    <!--</security:http>-->
+    <security:http create-session="stateless" realm="Activiti REST API">
+        <security:intercept-url pattern="/service/**" access="ROLE_USER"/>
+        <security:http-basic/>
+    </security:http>
 
-    <!--<security:authentication-manager>-->
-        <!--<security:authentication-provider>-->
-            <!--<security:user-service>-->
-                <!--<security:user name="activiti-master" password="UjhtJnEvf!" authorities="ROLE_USER"/>-->
-            <!--</security:user-service>-->
-        <!--</security:authentication-provider>-->
-    <!--</security:authentication-manager>-->
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="activiti-master" password="UjhtJnEvf!" authorities="ROLE_USER"/>
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
 
 </beans>
