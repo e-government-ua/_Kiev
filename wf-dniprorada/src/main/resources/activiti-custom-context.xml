@@ -161,6 +161,7 @@
 							</map>
 						</constructor-arg>
 					</bean>
+						<bean class="org.wf.dp.dniprorada.form.FormFileType" />
 				</list>
 			</property>
 
@@ -260,6 +261,7 @@
 							</map>
 						</constructor-arg>
 					</bean>
+						<bean class="org.wf.dp.dniprorada.form.FormFileType" />
 				</list>
 			</property>
 
