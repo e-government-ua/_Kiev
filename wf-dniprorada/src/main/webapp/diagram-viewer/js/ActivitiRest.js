@@ -5,11 +5,10 @@ var ActivitiRest = {
 		
 		$.ajax({
 			url: url,
-                         beforeSend: function (xhr) {
-                            xhr.setRequestHeader("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=");
-                        },
-                        headers: {'Authorization':'Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE='},
-			dataType: 'jsonp',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=");
+            },
+            dataType: 'jsonp',
 			cache: false,
 			async: true,
 			success: function(data, textStatus) {
@@ -32,11 +31,10 @@ var ActivitiRest = {
 		
 		$.ajax({
 			url: url,
-                         beforeSend: function (xhr) {
-                            xhr.setRequestHeader("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=");
-                        },
-                        headers: {'Authorization':'Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE='},
-			dataType: 'jsonp',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=");
+            },
+            dataType: 'jsonp',
 			cache: false,
 			async: true,
 			success: function(data, textStatus) {
@@ -60,10 +58,9 @@ var ActivitiRest = {
 		
 		$.ajax({
 			url: url,
-                         beforeSend: function (xhr) {
-                            xhr.setRequestHeader("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=");
-                        },
-                        headers: {'Authorization':'Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE='},
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=");
+            },
 			dataType: 'jsonp',
 			cache: false,
 			async: true,
