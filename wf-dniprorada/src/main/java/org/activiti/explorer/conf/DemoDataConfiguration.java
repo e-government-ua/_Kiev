@@ -103,7 +103,7 @@ public class DemoDataConfiguration {
   }
   
   protected void initDemoGroups() {
-    String[] assignmentGroups = new String[] {"management", "sales", "marketing", "engineering"};
+    String[] assignmentGroups = new String[] {"management", "sales", "marketing", "engineering", "management_clerk_dmr"};
     for (String groupId : assignmentGroups) {
       createGroup(groupId, "assignment");
     }
@@ -126,7 +126,7 @@ public class DemoDataConfiguration {
   protected void initDemoUsers() {
     createUser("kermit", "Kermit", "The Frog", "kermit", "kermit@activiti.org", 
             "org/activiti/explorer/images/kermit.jpg",
-            Arrays.asList("management", "sales", "marketing", "engineering", "user", "admin"),
+            Arrays.asList("management", "sales", "marketing", "engineering", "management_clerk_dmr", "user", "admin"),
             Arrays.asList("birthDate", "10-10-1955", "jobTitle", "Muppet", "location", "Hollywoord",
                           "phone", "+123456789", "twitterName", "alfresco", "skype", "activiti_kermit_frog"));
     
