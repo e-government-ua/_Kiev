@@ -9,6 +9,7 @@ import org.activiti.engine.task.Task;
 import org.activiti.rest.controller.adapter.ProcDefinitionAdapter;
 import org.activiti.rest.controller.adapter.TaskAssigneeAdapter;
 import org.activiti.rest.controller.entity.*;
+import org.activiti.rest.controller.entity.Process;
 import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,13 +43,13 @@ public class ActivitiRestApiController extends ExecutionBaseResource{
 
 	@RequestMapping(value = "/start-process/{key}", method = RequestMethod.GET)
 	@Transactional
-	public @ResponseBody String startProcessByKey(@PathVariable("key") String key) {
+	public @ResponseBody ProcessI startProcessByKey(@PathVariable("key") String key) {
 		ProcessInstance pi = runtimeService.startProcessInstanceByKey(key);
 		if (pi == null || pi.getId() == null) {
 			throw new IllegalArgumentException(String.format(
 					"process did not started by key:{%s}", key));
 		}
-		return pi.getProcessInstanceId();
+		return new Process(pi.getProcessInstanceId());
 	}
 
 	@RequestMapping(value = "/tasks/{assignee}", method = RequestMethod.GET)

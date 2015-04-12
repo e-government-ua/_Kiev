@@ -22,7 +22,6 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -31,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = IntegrationTestsApplicationConfiguration.class)
-public class ActivitiRestApiControllerGetProcessDefinitionsScenario {
+public class ActivitiRestApiControllerProcessDefinitionsScenario {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -61,7 +60,6 @@ public class ActivitiRestApiControllerGetProcessDefinitionsScenario {
         mockMvc.perform(get("/rest/process-definitions").
                 accept(MediaType.APPLICATION_JSON).
                 header("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=")).
-                andDo(print()).
                 andExpect(status().isOk()).
                 andExpect(content().contentType("application/json;charset=UTF-8")).
                 andExpect(jsonPath("$", hasSize(1))).
@@ -86,9 +84,9 @@ public class ActivitiRestApiControllerGetProcessDefinitionsScenario {
         mockMvc.perform(get("/rest/process-definitions").
                 accept(MediaType.APPLICATION_JSON).
                 header("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=")).
-                andDo(print()).
                 andExpect(status().isBadRequest()).
                 andExpect(content().contentType("application/json;charset=UTF-8")).
+                andExpect(jsonPath("$.*", hasSize(2))).
                 andExpect(jsonPath("$.code", is("API_ERR_S_0000"))).
                 andExpect(jsonPath("$.message", is("Parameter not specified")));
         Mockito.reset(repositoryService);
