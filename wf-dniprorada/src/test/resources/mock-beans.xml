@@ -17,4 +17,8 @@
         <constructor-arg value="org.activiti.engine.RuntimeService" />
     </bean>
 
+    <bean id="taskService" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.activiti.engine.TaskService" />
+    </bean>
+
 </beans>
