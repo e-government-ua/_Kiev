@@ -1,6 +1,5 @@
 package org.activiti.rest.controller.entity;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -10,7 +9,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 //TODO diver: Create JavaDoc
 @JsonSerialize(as = TaskAssignee.class)
 @JsonDeserialize(as = TaskAssignee.class)
-@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public interface TaskAssigneeI {
 
     String getDelegationState();

@@ -14,8 +14,6 @@ public class ProcDefinition implements ProcDefinitionI {
     private String resourceName;
     private String deploymentId;
     private String diagramResourceName;
-    private boolean hasStartFormKey;
-    private boolean hasGraphicalNotation;
     private boolean isSuspended;
     private String tenantId;
 
@@ -65,16 +63,6 @@ public class ProcDefinition implements ProcDefinitionI {
     }
 
     @Override
-    public boolean hasStartFormKey() {
-        return hasStartFormKey;
-    }
-
-    @Override
-    public boolean hasGraphicalNotation() {
-        return hasGraphicalNotation;
-    }
-
-    @Override
     public boolean isSuspended() {
         return isSuspended;
     }
@@ -120,14 +108,6 @@ public class ProcDefinition implements ProcDefinitionI {
         this.diagramResourceName = diagramResourceName;
     }
 
-    public void setHasStartFormKey(boolean hasStartFormKey) {
-        this.hasStartFormKey = hasStartFormKey;
-    }
-
-    public void setHasGraphicalNotation(boolean hasGraphicalNotation) {
-        this.hasGraphicalNotation = hasGraphicalNotation;
-    }
-
     public void setSuspended(boolean isSuspended) {
         this.isSuspended = isSuspended;
     }
@@ -143,8 +123,6 @@ public class ProcDefinition implements ProcDefinitionI {
 
         ProcDefinition that = (ProcDefinition) o;
 
-        if (hasGraphicalNotation != that.hasGraphicalNotation) return false;
-        if (hasStartFormKey != that.hasStartFormKey) return false;
         if (isSuspended != that.isSuspended) return false;
         if (version != that.version) return false;
         if (category != null ? !category.equals(that.category) : that.category != null) return false;
@@ -172,8 +150,6 @@ public class ProcDefinition implements ProcDefinitionI {
         result = 31 * result + (resourceName != null ? resourceName.hashCode() : 0);
         result = 31 * result + (deploymentId != null ? deploymentId.hashCode() : 0);
         result = 31 * result + (diagramResourceName != null ? diagramResourceName.hashCode() : 0);
-        result = 31 * result + (hasStartFormKey ? 1 : 0);
-        result = 31 * result + (hasGraphicalNotation ? 1 : 0);
         result = 31 * result + (isSuspended ? 1 : 0);
         result = 31 * result + (tenantId != null ? tenantId.hashCode() : 0);
         return result;
@@ -191,8 +167,6 @@ public class ProcDefinition implements ProcDefinitionI {
                 ", resourceName='" + resourceName + '\'' +
                 ", deploymentId='" + deploymentId + '\'' +
                 ", diagramResourceName='" + diagramResourceName + '\'' +
-                ", hasStartFormKey=" + hasStartFormKey +
-                ", hasGraphicalNotation=" + hasGraphicalNotation +
                 ", isSuspended=" + isSuspended +
                 ", tenantId='" + tenantId + '\'' +
                 '}';

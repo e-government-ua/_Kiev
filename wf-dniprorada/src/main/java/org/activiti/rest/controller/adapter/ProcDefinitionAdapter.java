@@ -16,8 +16,6 @@ public class ProcDefinitionAdapter implements AdapterI<ProcessDefinition, ProcDe
         procDefinition.setDeploymentId(processDefinition.getDeploymentId());
         procDefinition.setDescription(processDefinition.getDescription());
         procDefinition.setDiagramResourceName(processDefinition.getDiagramResourceName());
-        procDefinition.setHasGraphicalNotation(processDefinition.hasGraphicalNotation());
-        procDefinition.setHasStartFormKey(processDefinition.hasStartFormKey());
         procDefinition.setId(processDefinition.getId());
         procDefinition.setKey(processDefinition.getKey());
         procDefinition.setName(processDefinition.getName());

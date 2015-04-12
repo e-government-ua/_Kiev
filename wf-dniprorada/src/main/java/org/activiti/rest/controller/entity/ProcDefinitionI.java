@@ -67,18 +67,6 @@ public interface ProcDefinitionI {
 
     /**
      *
-     * @return ture - если данных процесс может быть запущен по ключу
-     */
-    boolean hasStartFormKey();
-
-    /**
-     *
-     * @return true - если процесс имеет графическое представление
-     */
-    boolean hasGraphicalNotation();
-
-    /**
-     *
      * @return true - если процесс в приостановленном состоянии
      */
     boolean isSuspended();

@@ -40,15 +40,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource{
 	@Autowired
 	private RepositoryService repositoryService;
 
-    @RequestMapping(value = "/create-session", method = RequestMethod.POST)
-    public @ResponseBody SessionResponseI saveBankIdTokens(@RequestBody SessionRequestI initRequest) throws ActivitiRestException {
-
-        return new SessionResponse(null);
-    }
-	
 	@RequestMapping(value = "/start-process/{key}", method = RequestMethod.GET)
 	@Transactional
-	public @ResponseBody String startProcess(@PathVariable("key") String key) {
+	public @ResponseBody String startProcessByKey(@PathVariable("key") String key) {
 		ProcessInstance pi = runtimeService.startProcessInstanceByKey(key);
 		if (pi == null || pi.getId() == null) {
 			throw new IllegalArgumentException(String.format(
@@ -59,7 +53,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource{
 
 	@RequestMapping(value = "/tasks/{assignee}", method = RequestMethod.GET)
 	@Transactional
-	public @ResponseBody List<TaskAssigneeI> getTasks(@PathVariable("assignee") String assignee) {
+	public @ResponseBody List<TaskAssigneeI> getTasksByAssignee(@PathVariable("assignee") String assignee) {
         List<Task> tasks = taskService.createTaskQuery().taskAssignee(assignee).list();
         List<TaskAssigneeI> facadeTasks = new ArrayList<>();
         TaskAssigneeAdapter adapter = new TaskAssigneeAdapter();
