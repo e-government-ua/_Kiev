@@ -6,11 +6,9 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.activiti.rest.controller.adapter.ProcDefinitionAdapter;
 import org.activiti.rest.controller.adapter.TaskAssigneeAdapter;
-import org.activiti.rest.controller.entity.SessionRequestI;
-import org.activiti.rest.controller.entity.SessionResponse;
-import org.activiti.rest.controller.entity.SessionResponseI;
-import org.activiti.rest.controller.entity.TaskAssigneeI;
+import org.activiti.rest.controller.entity.*;
 import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,7 +72,13 @@ public class ActivitiRestApiController extends ExecutionBaseResource{
 	
 	@RequestMapping(value = "/process-definitions", method = RequestMethod.GET)
 	@Transactional
-	public List<ProcessDefinition> getProcessDefinitions() {
-		return repositoryService.createProcessDefinitionQuery().latestVersion().list();
+	public @ResponseBody List<ProcDefinitionI> getProcessDefinitions() {
+        List<ProcessDefinition> processDefinitions = repositoryService.createProcessDefinitionQuery().latestVersion().list();
+        List<ProcDefinitionI> procDefinitions = new ArrayList<>();
+        ProcDefinitionAdapter adapter = new ProcDefinitionAdapter();
+        for (ProcessDefinition processDefinition : processDefinitions) {
+            procDefinitions.add(adapter.apply(processDefinition));
+        }
+        return procDefinitions;
     }
 }
