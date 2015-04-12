@@ -307,18 +307,5 @@
 				value="classpath:bankID.properties" />
 			<property name="ignoreUnresolvablePlaceholders" value="true" />
 		</bean>
-
-        <bean class="redis.embedded.RedisServer" init-method="start" destroy-method="stop"/>
-
-        <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"/>
-        
-        <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
-            <property name="connectionFactory" ref="jedisConnectionFactory"/>
-        </bean>
-
-        <bean id="sessionInfoDAO" class="org.activiti.rest.data_access.ActivitiDAO">
-            <property name="redisTemplate" ref="redisTemplate"/>
-        </bean>
-        
 	</beans>
 </beans>
