@@ -20,9 +20,13 @@ var getRequestURL = function(options) {
 }
 
 var getRequestOptions = function(options) {
+	var headers = options.headers;
+	if (config.activiti.auth.basic) {
+		headers = _.merge(options.headers, default_headers) || default_headers;
+	}
 	return {
 		url: getRequestURL(options),
-		headers: _.merge(options.headers, default_headers) || default_headers
+		headers: headers
 	};
 };
 

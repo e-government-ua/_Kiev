@@ -11,9 +11,9 @@ angular.module('dashboardJsApp')
     url: "https://52.17.126.64:8080/wf-dniprorada/service/identity/users/kermit"
     **/
     var currentUser = {};
-    
-    if($cookieStore.get('auth') && $cookieStore.get('user')) {
-       currentUser = $cookieStore.get('user');
+
+    if ($cookieStore.get('auth') && $cookieStore.get('user')) {
+      currentUser = $cookieStore.get('user');
     }
 
     return {
@@ -29,10 +29,19 @@ angular.module('dashboardJsApp')
         var deferred = $q.defer();
         var creds = 'Basic ' + Base64.encode(user.login + ':' + user.password);
 
-        $http.post('/auth/activiti', {
-          login: user.login,
-          password: user.password
-        }).
+        var req = {
+          method: 'POST',
+          url: '/auth/activiti',
+          headers: {
+            'Authorization': creds
+          },
+          data: {
+            login: user.login,
+            password: user.password
+          }
+        };
+
+        $http(req).
         success(function(data) {
           $cookieStore.put('auth', creds);
           $cookieStore.put('user', data);
