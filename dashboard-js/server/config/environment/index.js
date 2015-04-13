@@ -26,7 +26,23 @@ var all = {
 
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
-    session: 'dashboard-js-secret'
+    session: process.env.SESSION_SECRET
+  },
+
+  activiti: {
+    prot: process.env.ACTIVITI_PROT || 'http',
+    host: process.env.ACTIVITI_HOST || 'localhost',
+    port: process.env.ACTIVITI_PORT || 8080,
+    rest: process.env.ACTIVITI_REST || 'activiti-rest/service',
+    auth: {
+      basic: process.env.ACTIVITI_AUTH_BASIC || 'Basic a2VybWl0Omtlcm1pdA=='
+    }
+  },
+
+  ssl: {
+    private_key: process.env.PRIVATE_KEY,
+    certificate: process.env.CERTIFICATE,
+    port: process.env.SSL_PORT
   },
 
   // List of user roles

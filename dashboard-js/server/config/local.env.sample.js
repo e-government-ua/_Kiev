@@ -6,9 +6,14 @@
 // You will need to set these on the server you deploy to.
 
 module.exports = {
-  DOMAIN:           'http://localhost:9000',
-  SESSION_SECRET:   'dashboardjs-secret',
+	DEBUG: '',
+	DOMAIN: 'localhost',
+	SESSION_SECRET: 'dashboardjs-secret',
 
-  // Control debug level for modules using visionmedia/debug
-  DEBUG: ''
+	//activiti settings
+	ACTIVITI_PROT: 'protocol for activiti service [http|https]',
+	ACTIVITI_HOST: 'activiti rest service host [localhost]',
+	ACTIVITI_PORT: 8081, //port for activiti service
+	ACTIVITI_REST: 'activiti rest service path [activiti-rest/service]',
+	ACTIVITI_AUTH_BASIC: 'activiti basic auth [Basic a2VybWl0Omtlcm1pdA==]'
 };
