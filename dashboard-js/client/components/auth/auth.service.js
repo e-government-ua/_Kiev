@@ -12,8 +12,8 @@ angular.module('dashboardJsApp')
     **/
     var currentUser = {};
 
-    if ($cookieStore.get('auth') && $cookieStore.get('user')) {
-      currentUser = $cookieStore.get('user');
+    if ($cookieStore.get('user')) {
+      currentUser = JSON.parse($cookieStore.get('user'));
     }
 
     return {
@@ -27,14 +27,10 @@ angular.module('dashboardJsApp')
       login: function(user, callback) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();
-        var creds = 'Basic ' + Base64.encode(user.login + ':' + user.password);
 
         var req = {
           method: 'POST',
           url: '/auth/activiti',
-          headers: {
-            'Authorization': creds
-          },
           data: {
             login: user.login,
             password: user.password
@@ -43,8 +39,6 @@ angular.module('dashboardJsApp')
 
         $http(req).
         success(function(data) {
-          $cookieStore.put('auth', creds);
-          $cookieStore.put('user', data);
           currentUser = data;
           deferred.resolve(data);
           return cb();
@@ -64,7 +58,6 @@ angular.module('dashboardJsApp')
        * @param  {Function}
        */
       logout: function() {
-        $cookieStore.remove('auth');
         $cookieStore.remove('user');
         currentUser = {};
       },
