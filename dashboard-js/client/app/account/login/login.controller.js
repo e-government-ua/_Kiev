@@ -15,7 +15,7 @@ angular.module('dashboardJsApp')
         })
         .then( function() {
           // Logged in, redirect to home
-          $location.path('/');
+          $location.path('/tasks');
         })
         .catch( function(err) {
           $scope.errors.other = err.message;

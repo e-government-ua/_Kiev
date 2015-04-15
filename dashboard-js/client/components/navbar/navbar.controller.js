@@ -4,7 +4,7 @@ angular.module('dashboardJsApp')
   .controller('NavbarCtrl', function($scope, $location, Auth) {
     $scope.menu = [{
       'title': 'Задачі',
-      'link': '/'
+      'link': '/tasks'
     }];
 
     $scope.isCollapsed = true;

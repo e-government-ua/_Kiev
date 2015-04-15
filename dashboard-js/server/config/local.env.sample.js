@@ -15,5 +15,9 @@ module.exports = {
 	ACTIVITI_HOST: 'activiti rest service host [localhost]',
 	ACTIVITI_PORT: 8081, //port for activiti service
 	ACTIVITI_REST: 'activiti rest service path [activiti-rest/service]',
-	ACTIVITI_AUTH_BASIC: 'activiti basic auth [Basic a2VybWl0Omtlcm1pdA==]'
+	ACTIVITI_AUTH_BASIC: 'activiti basic auth [Basic a2VybWl0Omtlcm1pdA==]',
+
+	PRIVATE_KEY: 'path to [sslcert/server.key]', //works only with SSL_PORT
+	CERTIFICATE: 'path to [sslcert/server.crt]', //works only with SSL_PORT
+	//SSL_PORT: 8084 //ssl port. enalbe if https is needed for portal	
 };
