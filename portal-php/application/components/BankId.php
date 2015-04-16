@@ -10,17 +10,17 @@ class BankId extends OAuth2
     /**
      * @inheritdoc
      */
-    public $authUrl = 'https://bankid.org.ua/DataAccessService/das/authorize';
+    public $authUrl = 'https://bankid.privatbank.ua/DataAccessService/das/authorize';
 
     /**
      * @inheritdoc
      */
-    public $tokenUrl = 'https://bankid.org.ua/DataAccessService/oauth/token';
+    public $tokenUrl = 'https://bankid.privatbank.ua/DataAccessService/oauth/token';
 
     /**
      * @inheritdoc
      */
-    public $apiBaseUrl = 'https://bankid.org.ua/DataAccessService/checked';
+    public $apiBaseUrl = 'https://bankid.privatbank.ua/DataAccessService/checked';
 
     /**
      *
@@ -46,26 +46,22 @@ class BankId extends OAuth2
      */
     protected function initUserAttributes()
     {
-        //return $this->api('testFio', 'GET');
-        //return $this->api('allClientData', 'GET');
-        $url = 'govData?client_id=' . $this->clientId;
-        return $this->api($url, 'CUSTOM_POST');
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function apiInternal($accessToken, $url, $method, array $params, array $headers)
-    {
+        $accessToken = $this->getAccessToken();
         $token = $accessToken->getToken();
         //$params['access_token'] = $token;
-        $params[] = '{"bankIdPhone":"true","bankIdLastName":"true","bankIdFirstName":"true","bankIdMiddleName":"true","bankIdAddress":"true","bankIdDocument":"true", "bankIdBirthDate":"true"}';
+        //$params[] = '{"bankIdPhone":"true","bankIdLastName":"true","bankIdFirstName":"true","bankIdMiddleName":"true","bankIdAddress":"true","bankIdDocument":"true", "bankIdBirthDate":"true"}';
 
-        $headers[] = "Content-Type: application/json";
-        $headers[] = "Authorization: Bearer $token";
-        $headers[] = "Accept: application/json";
+        $params = [
+            json_encode($this->getRequestFields())
+        ];
+        $headers = [
+            "Content-Type: application/json",
+            "Authorization: Bearer $token",
+            "Accept: application/json"
+        ];
 
-        return $this->sendRequest($method, $url, $params, $headers);
+        $url = 'data?client_id=' . $this->clientId;
+        return $this->api($url, 'CUSTOM_POST', $params, $headers);
     }
 
     /**
@@ -78,7 +74,7 @@ class BankId extends OAuth2
      */
     protected function composeRequestCurlOptions($method, $url, array $params)
     {
-        if($method == 'CUSTOM_POST') {
+        if ($method == 'CUSTOM_POST') {
             $curlOptions = [];
             $curlOptions[CURLOPT_POST] = true;
             $curlOptions[CURLOPT_POSTFIELDS] = implode('&', $params);
@@ -88,7 +84,6 @@ class BankId extends OAuth2
         }
     }
 
-
     /**
      *
      */
@@ -96,6 +91,52 @@ class BankId extends OAuth2
     {
         $token = $this->getState('token');
         return $token;
+    }
+
+    /**
+     *
+     */
+    public function getRequestFields()
+    {
+        return [
+            "type"      => "physical",
+            "fields"    => ["firstName", "middleName", "lastName", "phone", "inn", "clId", "birthDay"],
+            //"fields"    => ["firstName", "middleName", "lastName", "phone", "inn", "clId", "clIdText", "birthDay"],
+            "scans"     => [
+                [
+                    "type"   => "passport",
+                    "fields" => ["link", "dateCreate"]
+                ],
+//                [
+//                    "type"   => "zpassport",
+//                    "fields" => ["link", "dateCreate"]
+//                ],
+//                [
+//                    "type"   => "inn",
+//                    "fields" => ["link", "dateCreate"]
+//                ],
+            ],
+            "addresses" => [
+                [
+                    "type"   => "factual",
+                    "fields" => ["country", "state", "area", "city", "street", "houseNo", "flatNo"],
+                ],
+//                [
+//                    "type"   => "birth",
+//                    "fields" => ["country", "state", "area", "city", "street", "houseNo", "flatNo"],
+//                ],
+            ],
+            "documents" => [
+                [
+                    "type"   => "passport",
+                    "fields" => ["series", "number", "issue", "dateIssue", "dateExpiration", "issueCountryIso2"],
+                ],
+//                [
+//                    "type"   => "zpassport",
+//                    "fields" => ["series", "number", "issue", "dateIssue", "dateExpiration", "issueCountryIso2"],
+//                ],
+            ],
+        ];
     }
 
 }
