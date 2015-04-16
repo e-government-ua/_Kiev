@@ -72,7 +72,7 @@ class User extends Object implements IdentityInterface
      */
     public function getUsername()
     {
-        $dataArray = [$this->userData['bankIdLastName'], $this->userData['bankIdFirstName'], $this->userData['bankIdMiddleName']];
+        $dataArray = [$this->userData['lastName'], $this->userData['firstName'], $this->userData['middleName']];
         return implode(' ', $dataArray);
     }
 
@@ -83,7 +83,15 @@ class User extends Object implements IdentityInterface
      */
     public function searchUserAttribute($attribute)
     {
-        return $this->recursiveFind($this->userData, $attribute);
+        switch ($attribute) {
+            case "passport":
+                return $this->getPassportData();
+                break;
+            default:
+                return $this->recursiveFind($this->userData, $attribute);
+                break;
+        }
+
 
     }
 
@@ -104,4 +112,19 @@ class User extends Object implements IdentityInterface
         }
     }
 
+    /**
+     *
+     */
+    public function getPassportData()
+    {
+        $documents = $this->userData['documents'];
+        foreach($documents as $document) {
+            if($document['type'] == 'passport') {
+                $data = [$document['series'] . $document['number'], $document['issue'], $document['dateIssue']];
+                return implode(' ', $data);
+            }
+        }
+        return false;
+
+    }
 }
