@@ -1,0 +1,13 @@
+ACTIVITI_PROT="" \
+ACTIVITI_HOST="" \
+ACTIVITI_PORT="" \
+ACTIVITI_REST="" \
+ACTIVITI_AUTH_BASIC="" \
+BANK_ID_HOST="" \
+BANK_ID_APP_ID="" \
+BANK_ID_PATH="" \
+SSL_PORT="" \
+PORT="" \
+PRIVATE_KEY="" \
+CERTIFICATE="" \
+NODE_ENV="production" node ./server/app.js

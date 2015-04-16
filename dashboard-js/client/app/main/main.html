@@ -1,0 +1,18 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <h1>Електронний портал</h1>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Доступні сервіси:</h1>
+      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="weblink in weblinks">
+        <li><a href="{{weblink.link}}" tooltip="{{weblink.info}}">{{weblink.name}}</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
