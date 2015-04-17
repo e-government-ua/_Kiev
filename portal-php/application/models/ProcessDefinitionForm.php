@@ -251,8 +251,7 @@ class ProcessDefinitionForm extends Model
      */
     public function getAttributeValueFromBankid($attribute)
     {
-        $attributeName = 'bankId' . ucfirst(substr($attribute, 6));
-        //$attributeName = $attribute;
+        $attributeName = lcfirst(substr($attribute, 6));
         return Yii::$app->user->loadUser()->searchUserAttribute($attributeName);
     }
 
