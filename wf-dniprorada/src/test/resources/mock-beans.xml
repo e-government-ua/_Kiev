@@ -21,4 +21,8 @@
         <constructor-arg value="org.activiti.engine.TaskService" />
     </bean>
 
+    <bean id="redisTemplate" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.springframework.data.redis.core.RedisTemplate" />
+    </bean>
+
 </beans>
