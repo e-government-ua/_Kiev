@@ -380,7 +380,8 @@ var SaveModelCtrl = [ '$rootScope', '$scope', '$http', '$route', '$location',
             data: params,
             ignoreErrors: true,
             headers: {'Accept': 'application/json',
-                      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                      'Authorization' : 'Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE='},
             transformRequest: function (obj) {
                 var str = [];
                 for (var p in obj) {
