@@ -5,6 +5,7 @@ angular.module('dashboardJsApp', [
     'ngResource',
     'ngSanitize',
     'ngRoute',
+    'ngIdle',
     'ui.bootstrap'
   ])
   .config(function($routeProvider, $locationProvider) {

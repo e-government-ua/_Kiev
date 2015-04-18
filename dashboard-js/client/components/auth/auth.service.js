@@ -11,9 +11,14 @@ angular.module('dashboardJsApp')
     url: "https://52.17.126.64:8080/wf-dniprorada/service/identity/users/kermit"
     **/
     var currentUser = {};
+    var sessionSettings;
 
     if ($cookieStore.get('user')) {
       currentUser = JSON.parse($cookieStore.get('user'));
+    }
+
+    if ($cookieStore.get('sessionSettings')) {
+      sessionSettings = $cookieStore.get('sessionSettings');
     }
 
     return {
@@ -52,6 +57,28 @@ angular.module('dashboardJsApp')
         return deferred.promise;
       },
 
+      pingSession: function(callback) {
+        var cb = callback || angular.noop;
+        var deferred = $q.defer();
+
+        var req = {
+          method: 'POST',
+          url: '/auth/activiti/ping',
+        }
+
+        $http(req).
+        success(function(data) {
+          deferred.resolve(data);
+          return cb();
+        }).
+        error(function(err) {
+          this.logout();
+          deferred.reject(err);
+          return cb(err);
+        }.bind(this));
+
+        return deferred.promise;
+      },
       /**
        * Delete access token and user info
        *
@@ -59,7 +86,10 @@ angular.module('dashboardJsApp')
        */
       logout: function() {
         $cookieStore.remove('user');
+        $cookieStore.remove('session');
+        $cookieStore.remove('sessionSettings');
         currentUser = {};
+        sessionSettings = undefined;
       },
 
       /**
@@ -69,6 +99,10 @@ angular.module('dashboardJsApp')
        */
       getCurrentUser: function() {
         return currentUser;
+      },
+
+      getSessionSettings: function(){
+        return sessionSettings;
       },
 
       /**
