@@ -16,6 +16,9 @@ module.exports = {
 	ACTIVITI_PORT: 8081, //port for activiti service
 	ACTIVITI_REST: 'activiti rest service path [activiti-rest/service]',
 	ACTIVITI_AUTH_BASIC: 'activiti basic auth [Basic a2VybWl0Omtlcm1pdA==]',
+	ACTIVITI_SESSION_IDLE: 'time in seconds', //sec show warning
+	ACTIVITI_SESSION_TIMEOUT: 'time in second', //sec close session after warning
+	ACTIVITI_SESSION_INTERVAL: 'time in second', //sec update session
 
 	PRIVATE_KEY: 'path to [sslcert/server.key]', //works only with SSL_PORT
 	CERTIFICATE: 'path to [sslcert/server.crt]', //works only with SSL_PORT
