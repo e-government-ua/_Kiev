@@ -17,7 +17,7 @@ public class AuthController {
 	@Autowired
 	ProcessingUser procUser;
 
-	@RequestMapping(value = "/params/{sLogin}/{sPassword}", method = RequestMethod.POST)
+	@RequestMapping(value = "/params", method = RequestMethod.POST)
 	public @ResponseBody boolean getUserNameAndPassword(@RequestParam(value = "sLogin") String login, @RequestParam(value = "sPassword") String password,HttpServletRequest request) {
 
 		if (procUser.validateUser(login, password)) {
