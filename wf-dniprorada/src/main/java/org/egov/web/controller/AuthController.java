@@ -1,5 +1,7 @@
 package org.egov.web.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,11 +17,11 @@ public class AuthController {
 	@Autowired
 	ProcessingUser procUser;
 
-	@RequestMapping(value = "/params", method = RequestMethod.POST)
-	public @ResponseBody boolean getUserNameAndPassword(@RequestParam(value = "param") String authParam[]) {
+	@RequestMapping(value = "/params/{sLogin}/{sPassword}", method = RequestMethod.POST)
+	public @ResponseBody boolean getUserNameAndPassword(@RequestParam(value = "sLogin") String login, @RequestParam(value = "sPassword") String password,HttpServletRequest request) {
 
-		if (procUser.validateUser(authParam[0], authParam[1])) {
-			//create and return session
+		if (procUser.validateUser(login, password)) {
+			request.getSession(true);
 			return true;
 		} else {
 			//
