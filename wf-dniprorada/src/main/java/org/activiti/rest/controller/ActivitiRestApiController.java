@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.engine.ActivitiObjectNotFoundException;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Attachment;
@@ -58,6 +60,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     private RepositoryService repositoryService;
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private HistoryService historyService;
 
     @RequestMapping(value = "/start-process/{key}", method = RequestMethod.GET)
     @Transactional
@@ -123,30 +127,39 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     @RequestMapping(value = "/file/downloadFromDb", method = RequestMethod.GET)
     @Transactional
     public @ResponseBody
-    byte[] getAttachmentFromDb(@RequestParam("taskId") String taskProcessInstanceId, @RequestParam("attachmentId") String attachmentId,
-    		HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
-        
-        //Выбираем по задаче прикрепленные файлы и ищем запрашиваемый
-        List<Attachment> attachments = taskService.getProcessInstanceAttachments(taskProcessInstanceId);
+    byte[] getAttachmentFromDb(@RequestParam("taskId") String taskId, 
+    		             //@RequestParam("attachmentId") String attachmentId,
+    		             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
+    	
+    	//Получаем по задаче ид процесса
+    	HistoricTaskInstance historicTaskInstanceQuery = historyService.createHistoricTaskInstanceQuery()
+        		.taskId(taskId).singleResult(); 
+    	String processInstanceId = historicTaskInstanceQuery.getProcessInstanceId();
+    	if (processInstanceId == null) {
+            throw new ActivitiObjectNotFoundException(
+                    "ProcessInstanceId for taskId '" + taskId + "' not found.",
+                    Attachment.class);
+        }
+    	
+        //Выбираем по процессу прикрепленные файлы
+        List<Attachment> attachments = taskService.getProcessInstanceAttachments(processInstanceId);
         Attachment attachmentRequested = null;
-    
         for (Attachment attachment : attachments) {
-            if (attachment.getId().equalsIgnoreCase(attachmentId)) {
+            //if (attachment.getId().equalsIgnoreCase(attachmentId)) {
                 attachmentRequested = attachment;
-            }
+            //}
         }
 
         if (attachmentRequested == null) {
             throw new ActivitiObjectNotFoundException(
-                    "Attachment with id '" + attachmentId + "' not found.",
+                    "Attachment for taskId '" + taskId + "' not found.",
                     Attachment.class);
         }
 
         InputStream attachmentStream = taskService.getAttachmentContent(attachmentRequested.getId());
         if (attachmentStream == null) {
             throw new ActivitiObjectNotFoundException(
-                    "Attachment with id '" + attachmentId
-                    + "' doesn't have content associated with it.",
+                    "Attachment for taskId '" + taskId + "' doesn't have content associated with it.",
                     Attachment.class);
         }
 
