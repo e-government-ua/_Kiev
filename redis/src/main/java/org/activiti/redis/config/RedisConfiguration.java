@@ -19,7 +19,7 @@ public class RedisConfiguration {
 	static final transient Logger LOG = LoggerFactory
 			.getLogger(RedisConfiguration.class);
 
-	@Bean
+	/*@Bean
 	public redis.clients.jedis.JedisPoolConfig jedisConfigKibana(
 			final @Value("#{redisProps['redis.maxActive']}") Integer maxActive,
 			final @Value("#{redisProps['redis.maxIdle']}") Integer maxIdle,
@@ -53,7 +53,7 @@ public class RedisConfiguration {
 			throw new IllegalArgumentException("host can not be null");
 		}
 		return new JedisPool(poolConfig, host, port);
-	}
+	}*/
 	
 
 }

@@ -1,5 +1,7 @@
 package org.activiti.redis.client;
 
+import java.io.IOException;
+
 /**
  * @author inna
  *
@@ -11,7 +13,8 @@ public interface RedisOperations extends Operations {
 	 * @param key
 	 * @param message
 	 */
-	void write(String key, byte[]value);
 	
-	byte[] read(String valueByKey);
+	String putAttachments(byte[] file) throws IOException,Exception;
+	
+	byte[] getAttachments(String key) throws IOException;
 }
