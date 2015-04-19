@@ -10,11 +10,13 @@
 
 #### 2. Authentificate user
 
-**HTTP Metod: GET**
+**HTTP Metod: POST**
 
 **HTTP Context: https://seriver:port/wf-dniprorada/serivce/auth/login**
 
-Content-Type: application/x-www-form-urlencoded
+| Name        | Value           |
+| ------------- |:-------------:|
+| Content-Type | application/x-www-form-urlencoded |
 
 sLogin - Логин пользователя
 sPassword - Пароль пользователя
@@ -30,6 +32,9 @@ sPassword - Пароль пользователя
 ```json
 	true
 ```
+
+true - Пользователь авторизирован
+false - Имя пользователя или пароль не корректны
 
 #### 2. Start process
 
