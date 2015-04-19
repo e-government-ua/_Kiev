@@ -55,11 +55,13 @@ exports.authenticate = function(req, res) {
 	activiti.post(checkLogin, function(error, statusCode, result, headers) {
 		res.statusCode = statusCode;
 
-		var jsessionCookie = headers['set-cookie'][0].split('JSESSIONID=')[1];
-
 		if (error) {
 			res.send(error);
-		} else {
+			return;
+		}
+
+		if (result === true) {
+			var jsessionCookie = headers['set-cookie'][0].split('JSESSIONID=')[1];
 			activiti.get(getUser, function(error, statusCode, result) {
 				res.statusCode = statusCode;
 				//TODO call check password
@@ -82,6 +84,9 @@ exports.authenticate = function(req, res) {
 					res.json(result);
 				}
 			});
+		} else {
+			res.statusCode = 401;
+			res.send({message:'Відмовлено у авторізаціі. Перевірте логін/пароль'});
 		}
 	});
 }
