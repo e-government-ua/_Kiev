@@ -15,9 +15,9 @@ import org.wf.dp.dniprorada.service.ProcessingUser;
 @RequestMapping(value = "/auth")
 public class AuthController {
 	@Autowired
-	ProcessingUser procUser;
+	private ProcessingUser procUser;
 
-	@RequestMapping(value = "/params", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody boolean getUserNameAndPassword(@RequestParam(value = "sLogin") String login, @RequestParam(value = "sPassword") String password,HttpServletRequest request) {
 
 		if (procUser.validateUser(login, password)) {
