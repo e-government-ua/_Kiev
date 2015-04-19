@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:oauth2="http://www.springframework.org/schema/security/oauth2"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+       http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd"
+       default-autowire="byName">
+
+    <context:component-scan base-package="ua.org.bankid"/>
+
+    <!-- access decision manager -->
+    <bean id="oauthAuthAccessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased">
+        <constructor-arg>
+            <list>
+                <bean class="org.springframework.security.oauth2.provider.vote.ScopeVoter">
+                    <property name="scopePrefix" value="scope." />
+                </bean>
+                <bean class="org.springframework.security.access.vote.RoleVoter">
+                    <property name="rolePrefix" value="citizen.role." />
+                </bean>
+                <bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <security:http pattern="/**" create-session="stateless"
+                   entry-point-ref="oauth2AuthenticationEntryPoint"
+                   authentication-manager-ref="authenticationManager"
+                   access-decision-manager-ref="oauthAuthAccessDecisionManager"
+                   auto-config="true"
+                   realm="BankID" >
+        <!-- PUBLIC  -->
+        <security:intercept-url pattern="/some/public/url/*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+
+        <!-- RESTRICTED -->
+        <!-- SERVICE_PRODUCER - official person (e.g. mayor) -->
+        <security:intercept-url pattern="/common/restricted/url/**"
+                                access="citizen.role.SERVICE_CONSUMER, citizen.role.SERVICE_PRODUCER "/>
+        <security:intercept-url pattern="/*/consumer/restricted/url/**" access="citizen.role.SERVICE_CONSUMER"/>
+        <security:intercept-url pattern="/*/producer/service/url/**" access="citizen.role.SERVICE_PRODUCER "/>
+
+        <security:intercept-url pattern="/*/scope/example/**" method="POST" access="scope.view.passport"/>
+        <security:intercept-url pattern="/*/elections/**" method="POST"
+                                access="scope.vote.president, scope.vote.parliament"/>
+
+        <security:custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />
+        <security:access-denied-handler ref="oauth2AccessDeniedHandler" />
+    </security:http>
+
+    <!-- ******************************************************************* -->
+    <!-- OAuth2: Resource servers security filters                           -->
+    <!-- ******************************************************************* -->
+    <oauth2:resource-server id="resourceServerFilter" resource-id="ProtectedResourceByBankId"
+                            token-services-ref="tokenServices" />
+
+    <bean id="oauth2AccessDeniedHandler"
+          class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler" />
+
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider ref="customAuthProvider"/>
+    </security:authentication-manager>
+
+</beans>
