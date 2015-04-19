@@ -62,6 +62,51 @@ angular.module('dashboardJsApp')
           }.bind(this));
 
         return deferred.promise;
+      },
+
+      getEventMap: function() {
+        var deferred = $q.defer();
+        var eventMap = {
+          'AddAttachment': {},
+          'AddComment': {
+            'messageTemplate': '${ user.name } відповів(ла): ${ message }',
+            'getMessageOptions': function (messageObject) {
+              return !_.isEmpty(messageObject) ? messageObject[0] : ''
+            },
+            'getFullMessage': function (user, messageObject) {
+              return _.template(
+                eventMap.AddComment.messageTemplate,
+                {
+                  'user': {'name': user.name },
+                  'message': eventMap.AddComment.getMessageOptions(messageObject)
+                }
+              );
+            }
+          },
+          'AddGroupLink': {},
+          'AddUserLink': {
+            'messageTemplate': '${ user.name } призначив(ла) : ${ message }',
+            'getMessageOptions': function (messageObject) {
+              return !_.isEmpty(messageObject) ? messageObject[0] : ''
+            },
+            'getFullMessage': function (user, messageObject) {
+              return _.template(
+                eventMap.AddUserLink.messageTemplate,
+                {
+                  'user': {'name': user.name},
+                  'message': eventMap.AddUserLink.getMessageOptions(messageObject)
+                }
+              );
+            }
+          },
+          'DeleteAttachment': {},
+          'DeleteGroupLink': {},
+          'DeleteUserLink': {}
+        };
+
+        deferred.resolve(eventMap);
+
+        return deferred.promise;
       }
 
     };
