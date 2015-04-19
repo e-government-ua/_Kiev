@@ -8,7 +8,7 @@
 | Accept | application/json |
 | Authorization | Basic ... |
 
-#### 2. Authentificate user
+#### 1. Authenticate user
 
 **HTTP Metod: POST**
 
