@@ -23,5 +23,5 @@ angular.module('dashboardJsApp')
         .catch(function (err) {
           $scope.errors.other = err.message;
         });
-    }
+    };
   });

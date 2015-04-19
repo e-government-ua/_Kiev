@@ -6,7 +6,8 @@ angular.module('dashboardJsApp', [
     'ngSanitize',
     'ngRoute',
     'ngIdle',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'angularMoment'
   ])
   .config(function($routeProvider, $locationProvider) {
     $routeProvider
@@ -16,3 +17,7 @@ angular.module('dashboardJsApp', [
 
     $locationProvider.html5Mode(true);
   })
+  .run(function(amMoment) {
+    amMoment.changeLocale('uk');
+  })
+;

@@ -23,9 +23,9 @@
     			</form>
     		</div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <ul class="list-unstyled">
-            <li ng-repeat="event in events">
-              {{ event.action }}
+          <ul class="media-list">
+            <li class="media" ng-repeat="event in events">
+              <task-event event="event"></task-event>
             </li>
           </ul>
         </div>

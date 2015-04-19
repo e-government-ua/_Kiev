@@ -23,6 +23,7 @@
       <link rel="stylesheet" href="app/account/login/login.css">
       <link rel="stylesheet" href="app/app.css">
       <link rel="stylesheet" href="app/main/main.css">
+      <link rel="stylesheet" href="app/taskEvent/taskEvent.css">
       <link rel="stylesheet" href="app/tasks/tasks.css">
       <link rel="stylesheet" href="components/modal/modal.css">
       <!-- endinjector -->
@@ -62,8 +63,11 @@
       <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
       <script src="bower_components/ng-idle/angular-idle.js"></script>
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+      <script src="bower_components/moment/moment.js"></script>
+      <script src="bower_components/angular-moment/angular-moment.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
+    <script src="bower_components/moment/locale/uk.js"></script>
 
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
@@ -72,6 +76,7 @@
           <script src="app/account/login/login.controller.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
+          <script src="app/taskEvent/taskEvent.directive.js"></script>
           <script src="app/tasks/tasks.controller.js"></script>
           <script src="app/tasks/tasks.js"></script>
           <script src="components/auth/auth.service.js"></script>
