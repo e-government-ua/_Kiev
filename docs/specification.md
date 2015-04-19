@@ -1,6 +1,6 @@
 ### Custom Activiti RESTfull APi Specification
 
-##### Baic Headers
+##### Mandatory HTTP Headers
 
 | Name        | Value           |
 | ------------- |:-------------:|
@@ -8,11 +8,34 @@
 | Accept | application/json |
 | Authorization | Basic ... |
 
-#### 1. Start process
+#### 2. Authentificate user
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/rest/start-process/{key}**
+**HTTP Context: https://seriver:port/wf-dniprorada/serivce/auth/login**
+
+Content-Type: application/x-www-form-urlencoded
+
+sLogin - Логин пользователя
+sPassword - Пароль пользователя
+
+**Request**
+
+```text
+    sLogin=user&sPassword=password
+```
+
+**Response**
+
+```json
+	true
+```
+
+#### 2. Start process
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://seriver:port/wf-dniprorada/serivce/rest/start-process/{key}**
 
 {key} - Ключ процесса
 
@@ -24,11 +47,11 @@
 	}
 ```
 
-#### 2. Get tasks
+#### 3. Get tasks
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/rest/tasks/{assignee}**
+**HTTP Context: https://seriver:port/wf-dniprorada/serivce/rest/tasks/{assignee}**
 
 {assignee} - Владелец
 
@@ -59,11 +82,11 @@
 	]
 ```
 
-#### 3. Process definitions
+#### 4. Process definitions
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/rest/process-definitions**
+**HTTP Context: https://seriver:port/wf-dniprorada/serivce/rest/process-definitions**
 
 **Response**
 
