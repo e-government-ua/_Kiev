@@ -123,6 +123,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         //Выбираем по задаче прикрепленные файлы и ищем запрашиваемый
         List<Attachment> attachments = taskService.getProcessInstanceAttachments(taskProcessInstanceId);
         Attachment attachmentRequested = null;
+    
         for (Attachment attachment : attachments) {
             if (attachment.getId().equalsIgnoreCase(attachmentId)) {
                 attachmentRequested = attachment;
@@ -143,13 +144,11 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     Attachment.class);
         }
 
-        //Вычитывем из потока массив байтов контента и помещаем параметры файла в header 
+        //Вычитывем из потока массив байтов контента и помещаем параметры контента в header 
         ByteArrayMultipartFile multipartFile = new ByteArrayMultipartFile(attachmentStream, 
         	     attachmentRequested.getName(), attachmentRequested.getName(), attachmentRequested.getType()); 
-        httpResponse.setHeader("Content-disposition", "attachment");
-        httpResponse.setHeader("filename", multipartFile.getName());
-        httpResponse.setHeader("exp", multipartFile.getExp());
-        httpResponse.setContentType("." + multipartFile.getContentType());
+        httpResponse.setHeader("Content-disposition", "attachment; filename=" + multipartFile.getName() + "." + multipartFile.getExp());
+        httpResponse.setHeader("Content-Type", multipartFile.getContentType() + ";charset=UTF-8");
         httpResponse.setContentLength(multipartFile.getBytes().length);
       
         return multipartFile.getBytes();

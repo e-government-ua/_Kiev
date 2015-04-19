@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class ByteArrayMultipartFile implements MultipartFile {
@@ -27,17 +28,6 @@ public class ByteArrayMultipartFile implements MultipartFile {
         String[] contentSplit = contentType.split(";"); //в типе контента содержится расширение файла image/jpeg;jpg
         this.contentType = contentSplit[0];
         this.exp = contentSplit[1];
-        
-         /*if (content.startsWith("imag")) {
-         this.contentType = contentt[0];
-         exp = content.substring(11);
-         } else {
-         this.contentType = contentt[0];
-         exp = content.substring(25);
-         }*/
-
-        
-
 
         List<Byte> contentByteList = new ArrayList<Byte>();
         BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
@@ -49,11 +39,10 @@ public class ByteArrayMultipartFile implements MultipartFile {
             }
             content = new byte[contentByteList.size()];
             for (int i = 0; i < contentByteList.size(); i++) {
-                content[i] = contentByteList.get(i);
+                 content[i] = contentByteList.get(i);
             }
-            this.content = null;
         } catch (IOException ex) {
-            this.content = ex.getMessage().getBytes();
+            content = ex.getMessage().getBytes();
         }
     }
 
@@ -86,8 +75,8 @@ public class ByteArrayMultipartFile implements MultipartFile {
         return content.length;
     }
 
-    @Override
-    public byte[] getBytes() throws IOException {
+   @Override
+    public byte[] getBytes() {
         return content;
     }
 
