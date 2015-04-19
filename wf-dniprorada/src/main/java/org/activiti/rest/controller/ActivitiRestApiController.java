@@ -1,10 +1,19 @@
 package org.activiti.rest.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.Task;
 import org.activiti.rest.controller.adapter.ProcDefinitionAdapter;
 import org.activiti.rest.controller.adapter.TaskAssigneeAdapter;
@@ -25,11 +34,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import org.wf.dp.dniprorada.model.ByteArrayMultipartFile;
 
 /**
  * ...wf-dniprorada/service/...
@@ -108,4 +113,46 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return key;
     }
 
+    
+    @RequestMapping(value = "/file/download", method = RequestMethod.GET)
+    @Transactional
+    public @ResponseBody
+    byte[] getAttachment(@RequestParam("taskId") String taskProcessInstanceId, @RequestParam("attachmentId") String attachmentId,
+    		HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
+        
+        //Выбираем по задаче прикрепленные файлы и ищем запрашиваемый
+        List<Attachment> attachments = taskService.getProcessInstanceAttachments(taskProcessInstanceId);
+        Attachment attachmentRequested = null;
+        for (Attachment attachment : attachments) {
+            if (attachment.getId().equalsIgnoreCase(attachmentId)) {
+                attachmentRequested = attachment;
+            }
+        }
+
+        if (attachmentRequested == null) {
+            throw new ActivitiObjectNotFoundException(
+                    "Attachment with id '" + attachmentId + "' not found.",
+                    Attachment.class);
+        }
+
+        InputStream attachmentStream = taskService.getAttachmentContent(attachmentRequested.getId());
+        if (attachmentStream == null) {
+            throw new ActivitiObjectNotFoundException(
+                    "Attachment with id '" + attachmentId
+                    + "' doesn't have content associated with it.",
+                    Attachment.class);
+        }
+
+        //Вычитывем из потока массив байтов контента и помещаем параметры файла в header 
+        ByteArrayMultipartFile multipartFile = new ByteArrayMultipartFile(attachmentStream, 
+        	     attachmentRequested.getName(), attachmentRequested.getName(), attachmentRequested.getType()); 
+        httpResponse.setHeader("Content-disposition", "attachment");
+        httpResponse.setHeader("filename", multipartFile.getName());
+        httpResponse.setHeader("exp", multipartFile.getExp());
+        httpResponse.setContentType("." + multipartFile.getContentType());
+        httpResponse.setContentLength(multipartFile.getBytes().length);
+      
+        return multipartFile.getBytes();
+
+    }
 }

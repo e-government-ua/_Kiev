@@ -75,7 +75,7 @@ public class JsonpCallbackFilter implements Filter {
 
       wrapper.setContentType("text/javascript;charset=UTF-8");
       wrapper.setContentLength(jsonpResponse.length);
-
+      
       out.write(jsonpResponse);
 
       out.close();
