@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -15,6 +16,7 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.Task;
+import org.activiti.redis.service.RedisService;
 import org.activiti.rest.controller.adapter.ProcDefinitionAdapter;
 import org.activiti.rest.controller.adapter.TaskAssigneeAdapter;
 import org.activiti.rest.controller.entity.ProcDefinitionI;
@@ -25,7 +27,6 @@ import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,7 +57,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     @Autowired
     private RepositoryService repositoryService;
     @Autowired
-    private RedisTemplate<String, byte[]> template;
+    private RedisService redisService;
 
     @RequestMapping(value = "/start-process/{key}", method = RequestMethod.GET)
     @Transactional
@@ -100,24 +101,29 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return procDefinitions;
     }
 
-    @RequestMapping(value = "/file/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/file/uploadToRedis", method = RequestMethod.POST)
     @Transactional
     public
     @ResponseBody
-    String putAttachments(@RequestParam("file") MultipartFile file) throws IOException {
-        String key = UUID.randomUUID().toString();
-        while (template.hasKey(key)) {
-            key = UUID.randomUUID().toString();
-        }
-        template.boundValueOps(key).set(file.getBytes());
-        return key;
+    String putAttachmentsToRedis(@RequestParam("file") MultipartFile file) throws IOException {
+    	
+    	return redisService.putAttachments(file.getBytes());
+    }
+    
+    @RequestMapping(value = "/file/downloadFromRedis", method = RequestMethod.POST)
+    @Transactional
+    public
+    @ResponseBody
+    byte[] getAttachmentsFromRedis(@RequestParam("key") String key) throws IOException {
+    	
+    	return redisService.getAttachments(key);
     }
 
     
-    @RequestMapping(value = "/file/download", method = RequestMethod.GET)
+    @RequestMapping(value = "/file/downloadFromDb", method = RequestMethod.GET)
     @Transactional
     public @ResponseBody
-    byte[] getAttachment(@RequestParam("taskId") String taskProcessInstanceId, @RequestParam("attachmentId") String attachmentId,
+    byte[] getAttachmentFromDb(@RequestParam("taskId") String taskProcessInstanceId, @RequestParam("attachmentId") String attachmentId,
     		HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
         
         //Выбираем по задаче прикрепленные файлы и ищем запрашиваемый

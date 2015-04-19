@@ -1,5 +1,7 @@
 package org.activiti.redis.service.impl;
 
+import java.io.IOException;
+
 import org.activiti.redis.client.RedisClient;
 import org.activiti.redis.service.RedisService;
 import org.slf4j.Logger;
@@ -22,30 +24,31 @@ public class RedisServiceImpl implements RedisService {
 	private RedisClient jedisClient;
 
 	@Override
-	public void write(String key, byte[]value) {
+	public String putAttachments(byte[]file) throws IOException {
+		String key = null;
 		try {
-			LOG.debug("Log message:{} ", value);
-			getJedisClient().write(key, value);
+			key = getJedisClient().putAttachments(file);
 
 		} catch (Exception e) {
 			LOG.error("Error Log: " + e.getMessage());
 		}
-
+		return key;
 	}
 
 	@Override
-	public byte[] read(String valueByKey) {
-		byte[] mess = null;
+	public byte[] getAttachments(String key) throws IOException {
+		byte[] byteFile= null;
 		try {
-			LOG.debug("Log message:{} ", valueByKey);
-			mess = getJedisClient().read(valueByKey);
+			byteFile = getJedisClient().getAttachments(key);
 
 		} catch (Exception e) {
+			
 			LOG.error("Error Log: " + e.getMessage());
 		}
-		return mess;
+		return byteFile;
 	}
 
+	
 	public RedisClient getJedisClient() {
 		return jedisClient;
 	}

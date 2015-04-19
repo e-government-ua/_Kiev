@@ -9,7 +9,9 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+		<context:component-scan base-package="org.wf.dp.dniprorada" />
 
 	<beans profile="prod">
 
@@ -109,38 +111,10 @@
 			<property name="ignoreUnresolvablePlaceholders" value="true" />
 		</bean>
 
-        <bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
-
-        <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-            	<property name="maxIdle" value="250"/>
-            	<property name="maxTotal" value="500"/>
-            	<property name="minIdle" value="50"/>
-		<property name="testOnBorrow" value="true" />
-		<property name="testOnReturn" value="true" />
-		<property name="testWhileIdle" value="true" />
-		<property name="numTestsPerEvictionRun" value="10" />
-		<property name="timeBetweenEvictionRunsMillis" value="60000" />
-        </bean>
-
-        <bean id="jedisFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-              destroy-method="destroy">
-            <property name="hostName" value="127.0.0.1"/>
-            <property name="port" value="6379"/>
-            <property name="timeout" value="5000"/>
-            <property name="poolConfig" ref="jedisPoolConfig"/>
-        </bean>
-
-        <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-            <property name="connectionFactory" ref="jedisFactory"/>
-            <property name="keySerializer" ref="stringRedisSerializer"/>
-            <property name="valueSerializer" ref="stringRedisSerializer"/>
-            <property name="hashKeySerializer" ref="stringRedisSerializer"/>
-            <property name="hashValueSerializer" ref="stringRedisSerializer"/>
-        </bean>
-
+		<import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml" />
 	</beans>
 
-	<!-- profile="test" - тестовый запуск, все настройки боевые, указанные в
+	<!-- profile="test" - тестовый запуск, все настройки боевые, указанные в 
 		db.properties. Установить в catalina.bat переменную -Dspring.profiles.active=test" -->
 	<beans profile="test">
 		<bean id="dbProperties"
@@ -193,7 +167,7 @@
 							</map>
 						</constructor-arg>
 					</bean>
-						<bean class="org.wf.dp.dniprorada.form.FormFileType" />
+					<bean class="org.wf.dp.dniprorada.form.FormFileType" />
 				</list>
 			</property>
 
@@ -235,40 +209,11 @@
 
 		<bean id="banckIDProperties"
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-			<property name="location"
-				value="classpath:bankID.properties" />
+			<property name="location" value="classpath:bankID.properties" />
 			<property name="ignoreUnresolvablePlaceholders" value="true" />
 		</bean>
 
-        <bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
-
-        <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-            	<property name="maxIdle" value="250"/>
-            	<property name="maxTotal" value="500"/>
-            	<property name="minIdle" value="50"/>
-        	<property name="testOnBorrow" value="true" />
-		<property name="testOnReturn" value="true" />
-		<property name="testWhileIdle" value="true" />
-		<property name="numTestsPerEvictionRun" value="10" />
-		<property name="timeBetweenEvictionRunsMillis" value="60000" />
-        </bean>
-
-        <bean id="jedisFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-              destroy-method="destroy">
-            <property name="hostName" value="127.0.0.1"/>
-            <property name="port" value="6379"/>
-            <property name="timeout" value="5000"/>
-            <property name="poolConfig" ref="jedisPoolConfig"/>
-        </bean>
-
-        <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-            <property name="connectionFactory" ref="jedisFactory"/>
-            <property name="keySerializer" ref="stringRedisSerializer"/>
-            <property name="valueSerializer" ref="stringRedisSerializer"/>
-            <property name="hashKeySerializer" ref="stringRedisSerializer"/>
-            <property name="hashValueSerializer" ref="stringRedisSerializer"/>
-        </bean>
-
+		<import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml" />
 
 	</beans>
 
@@ -323,7 +268,7 @@
 							</map>
 						</constructor-arg>
 					</bean>
-						<bean class="org.wf.dp.dniprorada.form.FormFileType" />
+					<bean class="org.wf.dp.dniprorada.form.FormFileType" />
 				</list>
 			</property>
 
@@ -365,39 +310,10 @@
 
 		<bean id="banckIDProperties"
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-			<property name="location"
-				value="classpath:bankID.properties" />
+			<property name="location" value="classpath:bankID.properties" />
 			<property name="ignoreUnresolvablePlaceholders" value="true" />
 		</bean>
 
-        <bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
-
-        <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-            	<property name="maxIdle" value="250"/>
-            	<property name="maxTotal" value="500"/>
-        	<property name="minIdle" value="50"/>
-        	<property name="testOnBorrow" value="true" />
-		<property name="testOnReturn" value="true" />
-		<property name="testWhileIdle" value="true" />
-		<property name="numTestsPerEvictionRun" value="10" />
-		<property name="timeBetweenEvictionRunsMillis" value="60000" />
-        </bean>
-
-        <bean id="jedisFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-              destroy-method="destroy">
-            <property name="hostName" value="127.0.0.1"/>
-            <property name="port" value="6379"/>
-            <property name="timeout" value="5000"/>
-            <property name="poolConfig" ref="jedisPoolConfig"/>
-        </bean>
-
-        <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-            <property name="connectionFactory" ref="jedisFactory"/>
-            <property name="keySerializer" ref="stringRedisSerializer"/>
-            <property name="valueSerializer" ref="stringRedisSerializer"/>
-            <property name="hashKeySerializer" ref="stringRedisSerializer"/>
-            <property name="hashValueSerializer" ref="stringRedisSerializer"/>
-        </bean>
-
+		<import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml" />
 	</beans>
 </beans>
