@@ -1,8 +1,10 @@
-package org.wf.dp.dniprorada.service;
+package org.activiti.rest.service.api;
 
 import org.activiti.engine.ProcessEngines;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ProcessingUser {
 	private static final Logger log = Logger.getLogger(ProcessingUser.class);
 

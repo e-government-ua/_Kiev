@@ -112,7 +112,7 @@
     <property name="mainWindow" ref="mainWindow" />
     <property name="environment" value="${activiti.ui.environment}" />
   </bean>
-	<bean id="procUser" class="org.wf.dp.dniprorada.service.ProcessingUser"/>
+
   <bean name="workflowDefinitionConversionFactory" class="org.activiti.workflow.simple.converter.WorkflowDefinitionConversionFactory" />
   
 </beans>
