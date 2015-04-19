@@ -1,12 +1,13 @@
 package org.activiti.redis.client;
 
+import java.io.IOException;
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
 /**
  * 
@@ -20,50 +21,24 @@ public class RedisClient implements RedisOperations {
 
 
 	@Autowired
-	private JedisPool jedisPool;
+    private RedisTemplate<String, byte[]> template;
+
+    
+    @Override
+    public String putAttachments(byte[] file) throws IOException, Exception {
+        String key = UUID.randomUUID().toString();
+        while (template.hasKey(key)) {
+            key = UUID.randomUUID().toString();
+        }
+    	template.boundValueOps(key).set(file);
+        return key;
+    }
 
 	@Override
-	public void write(final String key, final byte[] message) {
-		Jedis jedis = null;
-		try {
-			jedis = getJedisPool().getResource();
-			if (!jedis.isConnected()) {
-				jedis.connect();
-			}
-			jedis.set(key.getBytes(), message);
-		} catch (Exception e) {
-			LOG.error("Write to jedis e.class:{}, e.getMessage: {}",
-					e.getCause(), e.getMessage());
-			getJedisPool().returnBrokenResource(jedis);
-		} finally {
-			getJedisPool().returnResource(jedis);
-		}
-	}
-
-
-	@Override
-	public byte[] read(String valueByKey) {
-		Jedis jedis = null;
-		byte[] data = null;
-		try {
-			jedis = getJedisPool().getResource();
-			if (!jedis.isConnected()) {
-				jedis.connect();
-			}
-			data = jedis.get(valueByKey.getBytes());
-		} catch (Exception e) {
-			LOG.error("Write to jedis e.class:{}, e.getMessage: {}",
-					e.getCause(), e.getMessage());
-			getJedisPool().returnBrokenResource(jedis);
-		} finally {
-			getJedisPool().returnResource(jedis);
-		}
-		return data;
-		
+	public byte[] getAttachments(String key) throws IOException {
+		byte[] boundValue = template.boundValueOps(key).get();
+		return boundValue;
 	}
 	
-	public JedisPool getJedisPool() {
-		return jedisPool;
-	}
 	
 }

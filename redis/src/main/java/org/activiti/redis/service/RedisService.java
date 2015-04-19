@@ -1,5 +1,7 @@
 package org.activiti.redis.service;
 
+import java.io.IOException;
+
 /**
  * Сервис логирования данных.
  * @author inna
@@ -12,9 +14,10 @@ public interface RedisService {
 	 * 
 	 * @param key
 	 * @param message
+	 * @return 
 	 */
-void write(String key, byte[]value);
+	String putAttachments(byte[]file) throws IOException;
 	
-	byte[] read(String valueByKey);
+byte[] getAttachments(String key) throws IOException;
 
 }

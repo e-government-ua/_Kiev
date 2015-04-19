@@ -8,21 +8,17 @@
        http://www.springframework.org/schema/context          
        http://www.springframework.org/schema/context/spring-context.xsd
        ">
-<context:component-scan base-package="org.activiti.redis" />
+	<context:component-scan base-package="org.activiti.redis" />
 	<bean id="redisProps"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:redisProps.properties" />
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
 
-	<bean id="jedisPoolKibana" class="redis.clients.jedis.JedisPool"
-		destroy-method="destroy">
-		<constructor-arg index="0" ref="jedisConfigKibana" />
-		<constructor-arg index="1" value="${redis.host}" />
-		<constructor-arg index="2" value="${redis.port}" />
-	</bean>
+	<bean id="stringRedisSerializer"
+		class="org.springframework.data.redis.serializer.StringRedisSerializer" />
 
-	<bean id="jedisConfigKibana" class="redis.clients.jedis.JedisPoolConfig">
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
 		<property name="maxTotal" value="${redis.maxActive}" />
 		<property name="maxIdle" value="${redis.maxIdle}" />
 		<property name="minIdle" value="${redis.minIdle}" />
@@ -33,7 +29,24 @@
 		<property name="timeBetweenEvictionRunsMillis" value="${redis.timeBetweenEvictionRunsMillis}" />
 		<property name="maxWaitMillis" value="${redis.maxWait}" />
 	</bean>
-	
+
+	<bean id="jedisFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		destroy-method="destroy">
+		<property name="hostName" value="${redis.host}" />
+		<property name="port" value="${redis.port}" />
+		<property name="timeout" value="5000" />
+		<property name="poolConfig" ref="jedisPoolConfig" />
+	</bean>
+
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisFactory" />
+		<!-- <property name="keySerializer" ref="stringRedisSerializer" />
+		<property name="valueSerializer" ref="stringRedisSerializer" />
+		<property name="hashKeySerializer" ref="stringRedisSerializer" />
+		<property name="hashValueSerializer" ref="stringRedisSerializer" /> -->
+	</bean>
+
 	<bean id="redisService" class="org.activiti.redis.service.impl.RedisServiceImpl">
 	</bean>
 </beans>

@@ -29,16 +29,20 @@ public class TestRedis {
 	@Test
     public void testRedis() throws IOException {
 		byte[] data = loadfile("D:/db.properties");
-		redisService.write("File1", data);
-		LOG.info("redisService read "+redisService.read("File1"));
+		String key = redisService.putAttachments(data);
+		System.out.println(key);
+		byte[] dataFile  = redisService.getAttachments(key);
+		System.out.println(dataFile);
+		if(dataFile!=null){
 		FileOutputStream fos = null;
 		try {
 			fos = new FileOutputStream("D:/em1.properties");
-			fos.write(redisService.read("File1"));
+			fos.write(dataFile);
 			fos.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
 		}
     }
 
