@@ -5,6 +5,8 @@ var config = require('../../config/environment');
 var request = require('request');
 var url = require('url');
 
+request.debug = true;
+
 var default_headers = {
 	'Authorization': config.activiti.auth.basic
 }
@@ -14,7 +16,7 @@ var getRequestURL = function(options) {
 		protocol: config.activiti.prot,
 		hostname: config.activiti.host,
 		port: config.activiti.port,
-		pathname: '/' + config.activiti.rest + '/' + options.path,
+		pathname: '/' + (options.root || config.activiti.rest) + '/' + options.path,
 		query: options.query
 	});
 }
@@ -36,22 +38,24 @@ exports.get = function(options, onResult) {
 		.get(getRequestOptions(options), function(error, response, body) {
 			console.log(error + ' ' + response + ' ' + body);
 			if (!error) {
-				onResult(null, response.statusCode, body);
+				onResult(null, response.statusCode, body, response.headers);
 			} else {
 				onResult(error, null, null);
 			}
 		});
 }
 
-exports.post = function(options, data, onResult) {
-	request.post(_.merge(getRequestOptions(options), {
+exports.post = function(options, onResult, data) {
+	request.post(_.merge(getRequestOptions(options), data ? {
 			json: true,
 			body: data
+		} : {
+			json: true
 		}),
-		function(error, response, result) {
-			console.log(error + ' ' + response + ' ' + result);
+		function(error, response, body) {
+			console.log(error + ' ' + response + ' ' + body);
 			if (!error) {
-				onResult(null, response.statusCode, result);
+				onResult(null, response.statusCode, body, response.headers);
 			} else {
 				onResult(error, null, null);
 			}
