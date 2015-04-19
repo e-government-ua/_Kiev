@@ -2,11 +2,34 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-			<ul>
+			<ul class="list-unstyled">
         <li ng-repeat="task in tasks">
-          {{ task.name }}
+          <span ng-click="selectTask(task.id)">{{ task.name }}</span>
         </li>
       </ul>
 		</div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    	<div class="row">
+    		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    			<span>Події</span>
+    		</div>
+    		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    			<form class="form-inline" action="" method="post" role="form">
+    				<div class="form-group">
+    					<label for=""></label>
+    					<input type="text" class="form-control" name="" id="" >
+    				</div>
+    				<button type="submit" class="btn btn-primary">Створити</button>
+    			</form>
+    		</div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="list-unstyled">
+            <li ng-repeat="event in events">
+              {{ event.action }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
 	</div>
 </div>

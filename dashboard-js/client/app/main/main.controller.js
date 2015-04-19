@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dashboardJsApp')
-	.controller('MainCtrl', function($scope, $http) {
+	.controller('MainCtrl', function($scope) {
 		$scope.weblinks = [{
 			name: 'Дніпровська міська рада',
 			link: 'https://dniprorada.egov.dp.ua',
