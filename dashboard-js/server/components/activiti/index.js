@@ -5,8 +5,6 @@ var config = require('../../config/environment');
 var request = require('request');
 var url = require('url');
 
-request.debug = true;
-
 var default_headers = {
 	'Authorization': config.activiti.auth.basic
 }

@@ -68,17 +68,18 @@ exports.authenticate = function(req, res) {
 				if (error) {
 					res.send(error);
 				} else {
-					res.cookie('user', JSON.stringify(result), {
+					res.cookie('user', result, {
 						expires: expiresUserInMs()
 					});
 					res.cookie('JSESSIONID', jsessionCookie, {
 						expires: expiresUserInMs()
 					});
-					res.cookie('sessionSettings', JSON.stringify({
+					var sessionSettings = {
 						sessionIdle: config.activiti.session.sessionIdle,
 						timeOut: config.activiti.session.timeOut,
 						interval: config.activiti.session.interval
-					}), {
+					};
+					res.cookie('sessionSettings', JSON.stringify(sessionSettings), {
 						expires: expiresUserInMs()
 					});
 					res.json(result);
@@ -86,7 +87,9 @@ exports.authenticate = function(req, res) {
 			});
 		} else {
 			res.statusCode = 401;
-			res.send({message:'Відмовлено у авторізаціі. Перевірте логін/пароль'});
+			res.send({
+				message: 'Відмовлено у авторізаціі. Перевірте логін/пароль'
+			});
 		}
 	});
 }
