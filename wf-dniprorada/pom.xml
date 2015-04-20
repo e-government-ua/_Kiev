@@ -312,15 +312,6 @@
 			<version>2.3.0</version>
 		</dependency>
 
-		<!-- Vaadin addons -->
-		<!-- Must be defined both in activiti-explorer and activiti-webapp-explorer, 
-			as otherwise the gwt compiler won't find it -->
-		<!-- <dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>dcharts-widget</artifactId>
-			<version>0.10.0</version>
-		</dependency> -->
-
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
