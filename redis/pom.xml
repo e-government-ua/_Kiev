@@ -473,4 +473,17 @@
 			</plugin>
 		</plugins>
 	</reporting>
+	
+<distributionManagement>
+		<repository>
+			<id>localNexus</id>
+			<name>localNexus</name>
+			<url>http://52.17.32.123:8081/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>localNexus</id>
+			<name>localNexus</name>
+			<url>http://52.17.32.123:8081/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
