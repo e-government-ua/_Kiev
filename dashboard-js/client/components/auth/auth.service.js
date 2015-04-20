@@ -14,7 +14,7 @@ angular.module('dashboardJsApp')
     var sessionSettings;
 
     if ($cookieStore.get('user')) {
-      currentUser = JSON.parse($cookieStore.get('user'));
+      currentUser = $cookieStore.get('user');
     }
 
     if ($cookieStore.get('sessionSettings')) {
