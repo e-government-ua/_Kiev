@@ -114,7 +114,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	return redisService.putAttachments(file.getBytes());
     }
     
-    @RequestMapping(value = "/file/downloadFromRedis", method = RequestMethod.POST)
+    @RequestMapping(value = "/file/downloadFromRedis", method = RequestMethod.GET)
     @Transactional
     public
     @ResponseBody
