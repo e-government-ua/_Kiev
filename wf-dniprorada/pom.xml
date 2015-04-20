@@ -6,6 +6,7 @@
 	<groupId>org.activiti</groupId>
 	<name>WorkFlows DniproRada UA/</name>
 	<artifactId>wf-dniprorada</artifactId>
+	<version>5.17.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<properties>
@@ -321,8 +322,6 @@
 
 
 	</dependencies>
-	<version>5.17.0-SNAPSHOT</version>
-	
 	<distributionManagement>
 		<repository>
 			<id>localNexus</id>
