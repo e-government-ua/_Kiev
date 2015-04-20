@@ -10,6 +10,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<activity.version>5.17.0</activity.version>
 	</properties>
 
 	<repositories>
@@ -164,18 +165,18 @@
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-engine</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
 
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-spring</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-explorer</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.vaadin.addons</groupId>
@@ -186,7 +187,7 @@
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-modeler</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>xalan</groupId>
@@ -197,12 +198,12 @@
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-diagram-rest</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-simple-workflow</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
 		</dependency>
 
 		<dependency>
@@ -216,12 +217,12 @@
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-rest</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-json-converter</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
 		</dependency>
 		
 		<!-- REDIS-->
@@ -320,7 +321,7 @@
 
 
 	</dependencies>
-	<version>5.17.0</version>
+	<version>5.17.0-SNAPSHOT</version>
 	
 	<distributionManagement>
 		<repository>
