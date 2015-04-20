@@ -24,6 +24,9 @@ hr {
 p {
     margin: 0 0 0 0;
 }
+label {
+    font-weight: normal !important;
+}
 .row {
     margin-bottom: 10px;
 }
@@ -44,6 +47,7 @@ p {
     moz-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
     webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
     min-height: 80px;
+    margin-bottom: 40px;
 }
 .nav>li>a {
   padding: 0px 15px;
@@ -117,6 +121,9 @@ p {
         background-color: #65abd0;
         color: #ffffff;
     }
+    .navbar-default{
+    margin-bottom: 20px;
+    }
     .navbar-default .navbar-brand {
     margin-top: 10px;
     }
@@ -154,7 +161,7 @@ p {
     padding-right: 80px
 }
 .submit-button {
-    text-align: center
+    text-align: center;
 }
 .footer {
     background-color: #f5f5f5;
@@ -167,7 +174,19 @@ p {
 .footer p {
     margin: 0 0 0px
 }
-.btn-default .badge-info {
+.btn-primary{
+    background-color: #65abd0;
+    border-color: #65abd0;
+    color: #fff;
+    font-size: 100%;   
+}
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:hover{
+    background-color: #65abd0 !important;
+    border-color: #65abd0;
+}
+.btn-default .badge-info .btn-primary{
     background-color: #65abd0;
     color: #fff;
 }
@@ -213,4 +232,8 @@ p {
     right: 10px;
     color: #000000;
     font-size: 60%;
+}
+.table-striped > tbody > tr.hrow{
+  background-color: #fff;
+  line-height: 0px;
 }
