@@ -8,7 +8,7 @@
 | Accept | application/json |
 | Authorization | Basic ... |
 
-#### 1. Authenticate user
+#### 1. Login user
 
 **HTTP Metod: POST**
 
@@ -30,13 +30,31 @@ sPassword - Пароль пользователя
 **Response**
 
 ```json
-	true
+	{"session":"true"} //[1..1]
 ```
 
 true - Пользователь авторизирован
 false - Имя пользователя или пароль не корректны
 
-#### 2. Start process
+#### 2. Logout user
+
+**HTTP Metod: POST/DELETE**
+
+**HTTP Context: https://seriver:port/wf-dniprorada/serivce/auth/logout**
+
+Наличие cookie JSESSIONID
+
+**Response**
+
+```json
+	{"session":"97AE7CA414A5DA85749FE379CC843796"}
+```
+
+true - Пользователь авторизирован
+false - Имя пользователя или пароль не корректны
+
+
+#### 3. Start process
 
 **HTTP Metod: GET**
 
@@ -52,7 +70,7 @@ false - Имя пользователя или пароль не коррект�
 	}
 ```
 
-#### 3. Get tasks
+#### 4. Get tasks
 
 **HTTP Metod: GET**
 
@@ -87,7 +105,7 @@ false - Имя пользователя или пароль не коррект�
 	]
 ```
 
-#### 4. Process definitions
+#### 5. Process definitions
 
 **HTTP Metod: GET**
 
