@@ -18,6 +18,18 @@
 	<bean id="stringRedisSerializer"
 		class="org.springframework.data.redis.serializer.StringRedisSerializer" />
 
+	<!-- <bean id="jedisPool" class="redis.clients.jedis.JedisSentinelPool"
+        destroy-method="destroy">
+        <constructor-arg name="masterName" value="mymaster" />
+        <constructor-arg name="sentinels">
+            <set>
+                <value>${redis.sentinel}</value>
+                <value>${redis.sentinel_2}</value>
+            </set>
+        </constructor-arg>
+        <constructor-arg name="poolConfig" ref="jedisPoolConfig" />
+    </bean> -->
+
 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
 		<property name="maxTotal" value="${redis.maxActive}" />
 		<property name="maxIdle" value="${redis.maxIdle}" />
@@ -41,10 +53,10 @@
 
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
 		<property name="connectionFactory" ref="jedisFactory" />
-		<!-- <property name="keySerializer" ref="stringRedisSerializer" />
-		<property name="valueSerializer" ref="stringRedisSerializer" />
-		<property name="hashKeySerializer" ref="stringRedisSerializer" />
-		<property name="hashValueSerializer" ref="stringRedisSerializer" /> -->
+		<!-- <property name="keySerializer" ref="stringRedisSerializer" /> <property 
+			name="valueSerializer" ref="stringRedisSerializer" /> <property name="hashKeySerializer" 
+			ref="stringRedisSerializer" /> <property name="hashValueSerializer" ref="stringRedisSerializer" 
+			/> -->
 	</bean>
 
 	<bean id="redisService" class="org.activiti.redis.service.impl.RedisServiceImpl">
