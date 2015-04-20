@@ -2,8 +2,13 @@ body {
     font-family: 'PT Sans', sans-serif;
     font-size: 160%;
 }
-h3,
-h4 { font-weight: bold }
+h1 {
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+h3 {
+    font-weight: bold
+}
 hr {
     border: 0;
     border-top: 2px solid #b2d5e7;
@@ -12,7 +17,9 @@ hr {
     margin: 1em 0;
     padding: 0;
 }
-.row li { margin-top: 10px }
+.row li {
+    margin-top: 10px
+}
 .sitename {
     color: #ffffff;
     float: left;
@@ -23,9 +30,9 @@ hr {
     background-color: #65abd0;
     border-color: #65abd0;
     border-radius: 0px;
-    box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.25);
-    moz-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.25);
-    webkit-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
+    moz-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
+    webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
 }
 .navbar-default .navbar-brand {
     color: #ffffff;
@@ -34,11 +41,19 @@ hr {
     margin-top: -2px;
 }
 .navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus { color: #ffffff }
-.navbar-default .navbar-text { color: #ffffff }
-.navbar-default .navbar-nav > li > a { color: #ffffff }
+.navbar-default .navbar-brand:focus {
+    color: #ffffff
+}
+.navbar-default .navbar-text {
+    color: #ffffff
+}
+.navbar-default .navbar-nav > li > a {
+    color: #ffffff
+}
 .navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus { color: #ffffff }
+.navbar-default .navbar-nav > li > a:focus {
+    color: #ffffff
+}
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
@@ -51,18 +66,34 @@ hr {
     background-color: #65abd0;
     color: #ffffff;
 }
-.navbar-default .navbar-toggle { border-color: #65abd0 }
+.navbar-default .navbar-toggle {
+    border-color: #65abd0
+}
 .navbar-default .navbar-toggle:hover,
-.navbar-default .navbar-toggle:focus { background-color: #65abd0 }
-.navbar-default .navbar-toggle .icon-bar { background-color: #ffffff }
+.navbar-default .navbar-toggle:focus {
+    background-color: #65abd0
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #ffffff
+}
 .navbar-default .navbar-collapse,
-.navbar-default .navbar-form { border-color: #ffffff }
-.navbar-default .navbar-link { color: #ffffff }
-.navbar-default .navbar-link:hover { color: #ffffff }
-@media (max-width: 767px) { 
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a { color: #ffffff }
+.navbar-default .navbar-form {
+    border-color: #ffffff
+}
+.navbar-default .navbar-link {
+    color: #ffffff
+}
+.navbar-default .navbar-link:hover {
+    color: #ffffff
+}
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #ffffff
+    }
     .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus { color: #ffffff }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #ffffff
+    }
     .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
     .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
     .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
@@ -70,11 +101,23 @@ hr {
         color: #ffffff;
     }
 }
-.share-form { padding: 30px}
-.panel-default { padding-bottom: 25px; padding-top: 25px; padding-left: 35px; padding-right: 35px }
-.input-header { text-align: center; padding-left: 80px; padding-right: 80px }
-.submit-button {text-align: center}
-
+.share-form {
+    padding: 30px
+}
+.panel-default {
+    padding-bottom: 25px;
+    padding-top: 25px;
+    padding-left: 35px;
+    padding-right: 35px
+}
+.input-header {
+    text-align: center;
+    padding-left: 80px;
+    padding-right: 80px
+}
+.submit-button {
+    text-align: center
+}
 .footer {
     background-color: #f5f5f5;
     bottom: 0;
@@ -83,17 +126,53 @@ hr {
     margin-top: 50px;
     width: 100%;
 }
-.footer p { margin: 0 0 0px }
-.input-group-addon { background-color: #fff }
-.merged input:first-child { border-right: 0px }
-.input-group .form-control:not(:first-child):not(:last-child),
-.input-group-addon:not(:first-child):not(:last-child),
-.input-group-btn:not(:first-child):not(:last-child) {
-    border-left: 0px;
-    border-right: 0px;
+.footer p {
+    margin: 0 0 0px
 }
-.merged .input-group-addon + input { border-left: 0px }
 .btn-default .badge-info {
     background-color: #65abd0;
     color: #fff;
+}
+.big-inner-addon {
+    position: relative;
+}
+.big-inner-addon input {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.big-inner-addon .al-left {
+    position: absolute;
+    left: 15px;
+    top: 17px;
+    pointer-events: none;
+    color: #C0C0C0;
+}
+.big-inner-addon .al-right {
+    position: absolute;
+    top: 17px;
+    right: 15px;
+    color: #000000;
+    font-size: 80%;
+}
+.ord-inner-addon {
+    position: relative;
+}
+.ord-inner-addon input {
+    padding-left: 30px;
+    padding-right: 25px;
+}
+.ord-inner-addon .al-left {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    pointer-events: none;
+    font-size: 80%;
+    color: #C0C0C0;
+}
+.ord-inner-addon .al-right {
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    color: #000000;
+    font-size: 60%;
 }
