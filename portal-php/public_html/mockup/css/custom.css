@@ -9,6 +9,10 @@ h1 {
 h3 {
     font-weight: bold
 }
+h4 {
+    margin: 0px 0px 0px 0px;
+    line-height: 80px;
+}
 hr {
     border: 0;
     border-top: 2px solid #b2d5e7;
@@ -33,6 +37,10 @@ hr {
     box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
     moz-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
     webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
+    min-height: 80px;
+}
+.nav>li>a {
+  padding: 0px 15px;
 }
 .navbar-default .navbar-brand {
     color: #ffffff;
@@ -78,7 +86,10 @@ hr {
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-    border-color: #ffffff
+    border-color: #65abd0;
+    border-top: 0px solid transparent;
+    -webkit-box-shadow: inset 0 0px 0 rgba(255,255,255,.1);
+    box-shadow: inset 0 0px 0 rgba(255,255,255,.1);
 }
 .navbar-default .navbar-link {
     color: #ffffff
@@ -100,7 +111,28 @@ hr {
         background-color: #65abd0;
         color: #ffffff;
     }
-}
+    .navbar-default .navbar-brand {
+    margin-top: 10px;
+    }
+    .navbar-toggle {
+    margin-top: 20px;   
+    }
+    .sitename {
+    color: #ffffff;
+    float: left;
+    position: absolute;
+    top: 50px;
+    left: 15px;
+    }
+    h4 {
+    margin: 0px 0px 0px 0px;
+    line-height: 40px;
+    }
+    .sitename {
+        display: none;
+    }
+}    
+
 .share-form {
     padding: 30px
 }
