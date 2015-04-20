@@ -18,7 +18,6 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -54,11 +53,8 @@ public class ActivityRestApiControllerFileUploadScenario {
     @Test
     public void shouldSuccessfulFileUploadToRedis() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "", "application/json", "some file content".getBytes());
-        mockMvc.perform(MockMvcRequestBuilders.fileUpload("/rest/file/upload")
+        mockMvc.perform(MockMvcRequestBuilders.fileUpload("/rest/file/uploadToRedis")
                 .file(file))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
-
-
 }

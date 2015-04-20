@@ -1,10 +1,13 @@
 package org.activiti.rest.controller;
 
+import org.springframework.http.HttpStatus;
+
 /**
  * Created by diver on 4/6/15.
  */
 public class ActivitiRestException extends Exception {
 
+    private HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
     private String errorCode;
 
     public ActivitiRestException(String errorCode, String message) {
@@ -24,5 +27,13 @@ public class ActivitiRestException extends Exception {
 
     public String getErrorCode() {
         return errorCode;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public void setHttpStatus(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
     }
 }
