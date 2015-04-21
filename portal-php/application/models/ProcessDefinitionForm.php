@@ -15,6 +15,7 @@ class ProcessDefinitionForm extends Model
     const TYPE_LONG = 'long';
     const TYPE_ENUM = 'enum';
     const TYPE_DATE = 'date';
+    const TYPE_TEXTAREA = 'textArea';
 
     /**
      * @var array
@@ -166,6 +167,9 @@ class ProcessDefinitionForm extends Model
                 case self::TYPE_LONG:
                     $validators[] = [$key, 'number'];
                     break;
+                case self::TYPE_TEXTAREA:
+                    $validators[] = [$key, 'filter', 'filter' => 'trim'];
+                    break;
                 default:
                     $validators[] = [$key, 'safe'];
             }
@@ -212,6 +216,9 @@ class ProcessDefinitionForm extends Model
                 break;
             case self::TYPE_ENUM:
                 $input = $formField->dropDownList(ArrayHelper::map($field['enumValues'], 'id', 'name'));
+                break;
+            case self::TYPE_TEXTAREA:
+                $input = $formField->textarea(['rows' => 5]);
                 break;
             case self::TYPE_STRING:
             case self::TYPE_LONG:
