@@ -22,8 +22,8 @@ public class ActivitiRestAuthController {
     @Autowired
 	private ProcessingUser procUser;
 
-	@RequestMapping(value = "/login-v2", method = RequestMethod.POST)
-	public @ResponseBody LoginResponseI loginv2(@RequestParam(value = "sLogin") String login, @RequestParam(value = "sPassword") String password, HttpServletRequest request) throws ActivitiAuthException {
+	@RequestMapping(value = {"/login", "/login-v2"}, method = RequestMethod.POST)
+	public @ResponseBody LoginResponseI login(@RequestParam(value = "sLogin") String login, @RequestParam(value = "sPassword") String password, HttpServletRequest request) throws ActivitiAuthException {
 		if (procUser.validateUser(login, password)) {
 			request.getSession(true);
 			return new LoginResponse(Boolean.TRUE.toString());
@@ -31,16 +31,6 @@ public class ActivitiRestAuthController {
 			throw new ActivitiAuthException(ActivitiAuthException.Error.LOGIN_ERROR, "User or password not valid");
 		}
 	}
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public @ResponseBody boolean login(@RequestParam(value = "sLogin") String login, @RequestParam(value = "sPassword") String password, HttpServletRequest request) throws ActivitiAuthException {
-        if (procUser.validateUser(login, password)) {
-            request.getSession(true);
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     @RequestMapping(value = "/logout", method = {RequestMethod.DELETE, RequestMethod.POST})
     public @ResponseBody LogoutResponseI logout(HttpServletRequest request) throws ActivitiAuthException {
