@@ -14,8 +14,10 @@
 		<![endif]-->
 	</head>
 	<body>
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script src="js/custom.js"></script>
 		<nav class="navbar navbar-default navbar-static-top">
 			<div class="container">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -71,7 +73,8 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-12" id="accordion">
+
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -102,8 +105,55 @@
 								</td>
 								<td>
 									<a href="#"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></a>
-									<i>  </i>
-									<a href="#"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+									<a href="#accordion1" data-parent="#accordion" data-toggle="collapse" class="accordion-toggle"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+								</td>
+							</tr>
+							<tr id="accordion1" class="collapse">
+								<td colspan="4">
+									<div>
+										<h3 class="input-header">Надати доступ до електронного документу</h3>
+										<p class="input-header">Ви можете надати посилання на цей документ третій особі (в тому числі державному службовцю або представнику будь-якої іншої організації) через
+											мобільний телефон цієї особи (він верифікує свою особистість через SMS-пароль).
+										</p>
+										<br>
+										<div class="panel panel-default">
+											<form role="form">
+												<div class="row">
+													<div class="form-group col-md-6">
+														<label for="name">Введіть ПІБ персони, якій надається доступ:</label>
+														<input type="text" class="form-control" id="name">
+													</div>
+												</div>
+												<div class="row">
+													<div class="form-group col-md-10">
+														<label for="purpose">Введіть для яких цілей Ви надаєте доступ до цього документу:</label>
+														<textarea class="form-control" id="purpose"></textarea>
+													</div>
+												</div>
+												<div class="row">
+													<div class="form-group col-md-6">
+														<label for="phone">Введіть номер телефону, через який ця людина верифікується:</label>
+														<input type="text" class="form-control" id="phone">
+													</div>
+												</div>
+												
+												<div class="row">
+													<div class="form-group col-md-2">
+														<label for="valid-days">Введіть строк дії доступу:</label>
+														<select class="form-control" id="valid-days">
+															<option>1 день</option>
+															<option>2 дня</option>
+															<option>3 дні</option>
+															<option>4 дні</option>
+														</select>
+													</div>
+												</div>
+												<div class="submit-button">
+													<button type="submit" class="btn btn-primary">Надіслати посилання</button>
+												</div>
+											</form>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -118,8 +168,55 @@
 								</td>
 								<td>
 									<a href="#"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></a>
-									<i>  </i>
-									<a href="#"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+									<a href="#accordion2" data-parent="#accordion" data-toggle="collapse" class="accordion-toggle"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+								</td>
+							</tr>
+							<tr id="accordion2" class="collapse">
+								<td colspan="4">
+									<div>
+										<h3 class="input-header">Надати доступ до електронного документу</h3>
+										<p class="input-header">Ви можете надати посилання на цей документ третій особі (в тому числі державному службовцю або представнику будь-якої іншої організації) через
+											мобільний телефон цієї особи (він верифікує свою особистість через SMS-пароль).
+										</p>
+										<br>
+										<div class="panel panel-default">
+											<form role="form">
+												<div class="row">
+													<div class="form-group col-md-6">
+														<label for="name">Введіть ПІБ персони, якій надається доступ:</label>
+														<input type="text" class="form-control" id="name">
+													</div>
+												</div>
+												<div class="row">
+													<div class="form-group col-md-10">
+														<label for="purpose">Введіть для яких цілей Ви надаєте доступ до цього документу:</label>
+														<textarea class="form-control" id="purpose"></textarea>
+													</div>
+												</div>
+												<div class="row">
+													<div class="form-group col-md-6">
+														<label for="phone">Введіть номер телефону, через який ця людина верифікується:</label>
+														<input type="text" class="form-control" id="phone">
+													</div>
+												</div>
+												
+												<div class="row">
+													<div class="form-group col-md-2">
+														<label for="valid-days">Введіть строк дії доступу:</label>
+														<select class="form-control" id="valid-days">
+															<option>1 день</option>
+															<option>2 дня</option>
+															<option>3 дні</option>
+															<option>4 дні</option>
+														</select>
+													</div>
+												</div>
+												<div class="submit-button">
+													<button type="submit" class="btn btn-primary">Надіслати посилання</button>
+												</div>
+											</form>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -134,14 +231,12 @@
 								</td>
 								<td>
 									<a href="#"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></a>
-									<i>  </i>
-									<a href="#" data-target="#accordion1" data-toggle="collapse"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+									<a href="#accordion3" data-parent="#accordion" data-toggle="collapse" class="accordion-toggle"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
 								</td>
 							</tr>
-							
-							<tr>
+							<tr id="accordion3" class="collapse">
 								<td colspan="4">
-									<div id="accordion1" class="collapse">
+									<div>
 										<h3 class="input-header">Надати доступ до електронного документу</h3>
 										<p class="input-header">Ви можете надати посилання на цей документ третій особі (в тому числі державному службовцю або представнику будь-якої іншої організації) через
 											мобільний телефон цієї особи (він верифікує свою особистість через SMS-пароль).
@@ -199,13 +294,12 @@
 								</td>
 								<td>
 									<a href="#"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></a>
-									<i>  </i>
-									<a href="#accordion" data-target="#accordion2" data-toggle="collapse"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+									<a href="#accordion4" data-parent="#accordion" data-toggle="collapse" class="accordion-toggle"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
 								</td>
 							</tr>
-							<tr>
+							<tr id="accordion4" class="collapse">
 								<td colspan="4">
-									<div id="accordion2" class="collapse">
+									<div>
 										<h3 class="input-header">Надати доступ до електронного документу</h3>
 										<p class="input-header">Ви можете надати посилання на цей документ третій особі (в тому числі державному службовцю або представнику будь-якої іншої організації) через
 											мобільний телефон цієї особи (він верифікує свою особистість через SMS-пароль).
@@ -263,12 +357,60 @@
 								</td>
 								<td>
 									<a href="#"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></a>
-									<i>  </i>
-									<a href="#"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+									<a href="#accordion5" data-parent="#accordion" data-toggle="collapse" class="accordion-toggle"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+								</td>
+							</tr>
+							<tr id="accordion5" class="collapse">
+								<td colspan="4">
+									<div>
+										<h3 class="input-header">Надати доступ до електронного документу</h3>
+										<p class="input-header">Ви можете надати посилання на цей документ третій особі (в тому числі державному службовцю або представнику будь-якої іншої організації) через
+											мобільний телефон цієї особи (він верифікує свою особистість через SMS-пароль).
+										</p>
+										<br>
+										<div class="panel panel-default">
+											<form role="form">
+												<div class="row">
+													<div class="form-group col-md-6">
+														<label for="name">Введіть ПІБ персони, якій надається доступ:</label>
+														<input type="text" class="form-control" id="name">
+													</div>
+												</div>
+												<div class="row">
+													<div class="form-group col-md-10">
+														<label for="purpose">Введіть для яких цілей Ви надаєте доступ до цього документу:</label>
+														<textarea class="form-control" id="purpose"></textarea>
+													</div>
+												</div>
+												<div class="row">
+													<div class="form-group col-md-6">
+														<label for="phone">Введіть номер телефону, через який ця людина верифікується:</label>
+														<input type="text" class="form-control" id="phone">
+													</div>
+												</div>
+												
+												<div class="row">
+													<div class="form-group col-md-2">
+														<label for="valid-days">Введіть строк дії доступу:</label>
+														<select class="form-control" id="valid-days">
+															<option>1 день</option>
+															<option>2 дня</option>
+															<option>3 дні</option>
+															<option>4 дні</option>
+														</select>
+													</div>
+												</div>
+												<div class="submit-button">
+													<button type="submit" class="btn btn-primary">Надіслати посилання</button>
+												</div>
+											</form>
+										</div>
+									</div>
 								</td>
 							</tr>
 						</tbody>
 					</table>
+					
 				</div>
 			</div>
 		</div>

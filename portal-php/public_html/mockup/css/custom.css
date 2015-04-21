@@ -243,3 +243,11 @@ label {
 .table-striped > tbody > tr:nth-of-type(4n+2), .table-striped > tbody > tr:nth-of-type(4n+1) {
   background-color: #f9f9f9;
 }
+
+.table-striped > tbody> tr.collapse > td { 
+     border-top: none !important; 
+ }
+.collapsing {
+    -webkit-transition: width 2s, height 4s; /* Safari */
+    transition: width 2s, height 4s;
+}
