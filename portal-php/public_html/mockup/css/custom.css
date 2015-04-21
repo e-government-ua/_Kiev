@@ -190,6 +190,10 @@ label {
     background-color: #65abd0;
     color: #fff;
 }
+.btn-default .badge{
+    background-color: #65abd0;
+    color: #fff;
+}
 .big-inner-addon {
     position: relative;
 }
@@ -233,7 +237,9 @@ label {
     color: #000000;
     font-size: 60%;
 }
-.table-striped > tbody > tr.hrow{
+.table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #fff;
-  line-height: 0px;
+}
+.table-striped > tbody > tr:nth-of-type(4n+2), .table-striped > tbody > tr:nth-of-type(4n+1) {
+  background-color: #f9f9f9;
 }
