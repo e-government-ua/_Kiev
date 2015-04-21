@@ -36,4 +36,22 @@ exports.getAllTaskEvents = function(req, res) {
       res.json(result);
     }
   });
+
+};
+
+exports.getForm = function(req, res) {
+  var options = {
+    path: 'form/form-data',
+    query: {
+      'taskId': req.params.taskId
+    }
+  };
+
+  activiti.get(options, function(error, statusCode, result) {
+    if (error) {
+      res.send(error);
+    } else {
+      res.json(result);
+    }
+  });
 };
