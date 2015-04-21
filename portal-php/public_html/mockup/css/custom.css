@@ -335,7 +335,7 @@ label {
 .icon-bank-id {
     vertical-align: middle;
     display: inline-block;
-    background-image: url(/mockup/img/icons/bank-id.png);
+    background-image: url(/img/icons/bank-id.png);
     background-repeat: no-repeat !important;
     background-position: 0px 0px;
     width: 23px;
@@ -345,7 +345,7 @@ label {
 .icon-mobil-id {
     vertical-align: middle;
     display: inline-block;
-    background-image: url(/mockup/img/icons/mobil-id.png);
+    background-image: url(/img/icons/mobil-id.png);
     background-repeat: no-repeat !important;
     background-position: 0px 0px;
     width: 87px;
@@ -355,7 +355,7 @@ label {
 .icon-badge {
     vertical-align: middle;
     display: inline-block;
-    background-image: url(/mockup/img/icons/badge.png);
+    background-image: url(/img/icons/badge.png);
     background-repeat: no-repeat !important;
     background-position: 0px 0px;
     width: 18px;
@@ -365,7 +365,7 @@ label {
 .icon-door-lock {
     vertical-align: middle;
     display: inline-block;
-    background-image: url(/mockup/img/icons/door-lock.png);
+    background-image: url(/img/icons/door-lock.png);
     background-repeat: no-repeat !important;
     background-position: 0px 0px;
     width: 21px;
