@@ -394,3 +394,29 @@ label {
     height: 34px;
     padding-top: 6px;
 }
+
+.notification-info {
+    background-color: #FCF7E3;
+    padding: 15px 10px 15px 10px;
+    margin: 20px 0px 20px 0px;
+
+    vertical-align: middle;
+
+}
+
+.notification-header {
+    font-weight: bold;
+    font-size: 90%;
+    margin-bottom: 10px;
+}
+
+.notification-button-group > button.btn.btn-success {
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 90px;
+}
+
+.notification-button-group > button.btn.btn-danger {
+    font-weight: bold;
+    width: 90px;
+}

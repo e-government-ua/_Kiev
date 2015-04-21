@@ -41,7 +41,7 @@ exports.authenticate = function(req, res) {
 	var user = req.body;
 
 	var checkLogin = {
-		path: 'auth/login',
+		path: 'auth/login-v2',
 		query: {
 			'sLogin': user.login,
 			'sPassword': user.password
@@ -60,7 +60,7 @@ exports.authenticate = function(req, res) {
 			return;
 		}
 
-		if (result === true) {
+		if (result.session && Boolean(result.session) === true) {
 			var jsessionCookie = headers['set-cookie'][0].split('JSESSIONID=')[1];
 			activiti.get(getUser, function(error, statusCode, result) {
 				res.statusCode = statusCode;
@@ -88,7 +88,9 @@ exports.authenticate = function(req, res) {
 		} else {
 			res.statusCode = 401;
 			res.send({
-				message: 'Відмовлено у авторізаціі. Перевірте логін/пароль'
+				message: 'Відмовлено у авторізаціі. Перевірте логін/пароль',
+				serverMessage: result.message,
+				code: result.code
 			});
 		}
 	});
