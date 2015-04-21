@@ -7,11 +7,11 @@ var activiti = require('../../components/activiti');
 exports.index = function(req, res) {
   var user = JSON.parse(req.cookies.user);
   var options = {
-    path: 'runtime/tasks',
-    query: {
-      'candidateUser': user.id,
-      'unassigned': true
-    }
+    path: 'runtime/tasks' //,
+      // query: {
+      //   'candidateUser': user.id,
+      //   'unassigned': true
+      // }
   };
 
   activiti.get(options, function(error, statusCode, result) {

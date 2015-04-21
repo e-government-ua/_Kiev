@@ -18,6 +18,8 @@
         <activiti:formProperty id="gaol" name="Мета отримання документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="processName" name="Надання копій рішень міської ради та її виконкому, розпоряджень міського голови за зверненням юридичних та фізичних осіб, правоохоронних органів,адвокатів" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="attachedId" name="Додаткові документи" type="string"></activiti:formProperty>
+        <activiti:formProperty id="textArea" name="Додаткова iнформацiя" type="textArea"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
@@ -52,6 +54,8 @@
           <activiti:value id="accept" name="Прийняти"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="textArea" name="Додаткова iнформацiя" type="textArea" expression="${textArea}" writable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
@@ -128,7 +132,6 @@
     <sequenceFlow id="flow44" sourceRef="servicetask1" targetRef="endevent6"></sequenceFlow>
     <serviceTask id="servicetask2" name="отримання клієнтських данних по BankId" activiti:delegateExpression="#{bankIDChecked}"></serviceTask>
     <sequenceFlow id="flow45" sourceRef="startevent1" targetRef="servicetask2"></sequenceFlow>
-    <sequenceFlow id="flow46" sourceRef="servicetask2" targetRef="usertask4"></sequenceFlow>
     <sequenceFlow id="flow47" name="searchResult == 'found'" sourceRef="exclusivegateway2" targetRef="servicetask1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult == 'found'}]]></conditionExpression>
     </sequenceFlow>
@@ -137,6 +140,7 @@
     </boundaryEvent>
     <endEvent id="endevent7" name="End"></endEvent>
     <sequenceFlow id="flow48" sourceRef="boundaryerror1" targetRef="endevent7"></sequenceFlow>
+    <sequenceFlow id="flow49" sourceRef="servicetask2" targetRef="usertask4"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Пользователь портала  отправляет выбирает услугу:
 Надання копій рішень міської ради та її виконкому, розпоряджень міського голови за зверненням юридичних та фізичних осіб, правоохоронних органів,адвокатів</text>
@@ -253,10 +257,6 @@
         <omgdi:waypoint x="432.0" y="215.0"></omgdi:waypoint>
         <omgdi:waypoint x="433.0" y="275.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow46" id="BPMNEdge_flow46">
-        <omgdi:waypoint x="433.0" y="330.0"></omgdi:waypoint>
-        <omgdi:waypoint x="432.0" y="438.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow47" id="BPMNEdge_flow47">
         <omgdi:waypoint x="980.0" y="465.0"></omgdi:waypoint>
         <omgdi:waypoint x="972.0" y="465.0"></omgdi:waypoint>
@@ -280,6 +280,10 @@
       <bpmndi:BPMNEdge bpmnElement="association4" id="BPMNEdge_association4">
         <omgdi:waypoint x="331.0" y="355.0"></omgdi:waypoint>
         <omgdi:waypoint x="433.0" y="330.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
+        <omgdi:waypoint x="433.0" y="330.0"></omgdi:waypoint>
+        <omgdi:waypoint x="432.0" y="438.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

@@ -105,7 +105,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return procDefinitions;
     }
 
-    @RequestMapping(value = "/file/uploadToRedis", method = RequestMethod.POST)
+    @RequestMapping(value = "/file/upload_file_to_redis", method = RequestMethod.POST)
     @Transactional
     public
     @ResponseBody
@@ -114,7 +114,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	return redisService.putAttachments(file.getBytes());
     }
     
-    @RequestMapping(value = "/file/downloadFromRedis", method = RequestMethod.GET)
+    @RequestMapping(value = "/file/download_file_from_redis", method = RequestMethod.GET)
     @Transactional
     public
     @ResponseBody
@@ -124,7 +124,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     }
 
     
-    @RequestMapping(value = "/file/downloadFromDb", method = RequestMethod.GET)
+    @RequestMapping(value = "/file/download_file_from_db", method = RequestMethod.GET)
     @Transactional
     public @ResponseBody
     byte[] getAttachmentFromDb(@RequestParam("taskId") String taskId, 
