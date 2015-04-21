@@ -2,6 +2,7 @@
 
 angular.module('dashboardJsApp')
   .controller('TasksCtrl', function($scope, tasks) {
+
     tasks
       .list()
       .then(function(result) {
@@ -14,7 +15,11 @@ angular.module('dashboardJsApp')
       });
 
     $scope.selectTask = function(taskId) {
-      tasks.taskForm(taskId).then(function(result) {
+      $scope.taskForm = null;
+      
+      tasks
+        .taskForm(taskId)
+        .then(function(result) {
           result = JSON.parse(result);
           $scope.taskForm = result.formProperties;
         })
