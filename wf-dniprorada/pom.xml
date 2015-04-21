@@ -178,8 +178,12 @@
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-explorer</artifactId>
 			<version>${activity.version}</version>
-			<!-- <exclusions> <exclusion> <groupId>org.vaadin.addons</groupId> <artifactId>dcharts-widget</artifactId> 
-				</exclusion> </exclusions> -->
+			<exclusions>
+				<exclusion>
+					<groupId>org.vaadin.addons</groupId>
+					<artifactId>dcharts-widget</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
@@ -192,11 +196,8 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>dcharts-widget</artifactId>
-			<version>0.10.0</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.vaadin.addons</groupId> <artifactId>dcharts-widget</artifactId> 
+			<version>0.10.0</version> </dependency> -->
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-diagram-rest</artifactId>
