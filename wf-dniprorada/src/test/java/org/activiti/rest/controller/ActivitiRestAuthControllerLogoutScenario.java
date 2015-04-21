@@ -1,6 +1,5 @@
 package org.activiti.rest.controller;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +38,7 @@ public class ActivitiRestAuthControllerLogoutScenario {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
-    @Ignore //TODO diver: Try to test session invalidation
+    //TODO diver: Try to test session invalidation
     public void shouldSuccessfullyReturnLoginJsonResponse() throws Exception {
         mockMvc.perform(post("/auth/logout").
                 accept(MediaType.APPLICATION_JSON).
