@@ -12,7 +12,7 @@ package org.activiti.redis.exception;
 public class RedisException extends BaseRedisException {
 	
 	/**
-     * Код ошибки - ошибка внешнего сервиса 
+     * Код ошибки -ошибка сервиса 
      */
     public static final String CODE_REDIS_EXCEPTION_ERROR = "REDEER";
     /**
