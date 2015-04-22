@@ -6,12 +6,21 @@ var activiti = require('../../components/activiti');
 // Get list of tasks
 exports.index = function(req, res) {
   var user = JSON.parse(req.cookies.user);
+  var query = {};
+
+  if (req.query.filterType === 'selfAssigned') {
+    query.assignee = user.id;
+  } else if (req.query.filterType === 'unassigned') {
+    query.candidateUser = user.id;
+    query.unassigned = true;
+  } else if (req.query.filterType === 'finished'){
+    query.candidateUser = user.id;
+    query.delegationState = 'resolved';
+  }
+
   var options = {
     path: 'runtime/tasks',
-    query: {
-      // 'candidateUser': user.id,
-      'unassigned': true
-    }
+    query: query
   };
 
   activiti.get(options, function(error, statusCode, result) {

@@ -1,30 +1,50 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">    
+    <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+      <ul class="nav navbar-nav">
+        <li ng-repeat="item in menus" ng-class="{active: isTaskFilterActive(item.type)}">
+            <a ng-click="applyTaskFilter(item.type)">{{item.title}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
 <div class="container">
 	<div class="row">
 		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
       <ul class="nav nav-tabs nav-stacked col-md-4_ col-lg-4_ col-sm-6_" ng-repeat="task in tasks">
-        <li><a href="#" tooltip="{{task.description}}" ng-click="selectTask(task.id)">{{ task.name }}</a></li>
+        <li><a href="#" tooltip="{{task.description}}" ng-click="selectTask(task)">{{ task.name }}</a></li>
       </ul>
 		</div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <h3 ng-show="taskForm == null">Завантаження ...</h3>
+      <!-- <h3 ng-show="taskForm == null">Завантаження ...</h3> -->
 
       <div ng-repeat="item in taskForm">
-        <p ng-if="item.type == 'string' || item.type == 'long' || item.type == 'date'">
+        <p ng-if="item.type == 'string' || item.type == 'long' || item.type == 'date' || item.type == 'textArea'">
           <label>{{item.name}}</label>
-          <input class="form-control" ng-disabled="!item.writable" ng-required="item.required" ng-model="item.value"/>
+          <input class="form-control" ng-disabled="!item.writable && selectedTask.assignee == null" ng-required="item.required" ng-model="item.value"/>
+        </p>
+
+        <p ng-if="item.type == 'user'">
+          <label>{{item.name}}</label>
+          <input class="form-control" ng-disabled="true" ng-required="item.required" ng-model="item.value"/>
         </p>
 
         <p ng-if="item.type == 'enum'">
           <label>{{item.name}}</label>
-          <select class="form-control" ng-model="item.value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues" ng-required="item.required" ng-disabled="!item.writable"></select>  
+          <select class="form-control" ng-model="item.value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues" ng-required="item.required" ng-disabled="!item.writable && selectedTask.assignee == null"></select>  
         </p>
 
-        <div ng-if="item.type != 'string' && item.type != 'long' && item.type != 'date' && item.type != 'enum'">{{item}}</div>
+        <p ng-if="item.type != 'string' && item.type != 'long' && item.type != 'date' && item.type != 'enum' && item.type != 'user' && item.type != 'textArea'">
+          <label>{{item.name}}</label>  
+          <input class="form-control" ng-disabled="true" ng-required="item.required" ng-model="item.value" />
+        </p>
       </div>
       <p>
-        <button ng-hide="taskForm == null" class="btn btn-success">Опрацювати</button>
+        <button ng-hide="taskForm == null" ng-disabled="selectedTask.assignee != null" class="btn btn-success">Взяти в роботу</button>
+        <button ng-hide="taskForm == null" ng-disabled="selectedTask.assignee == null" class="btn btn-success">Опрацювати</button>
       </p>
     </div>
 

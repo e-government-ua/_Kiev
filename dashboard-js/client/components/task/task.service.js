@@ -4,32 +4,39 @@ angular.module('dashboardJsApp')
   .factory('tasks', function tasks($http, $q) {
 
     return {
+      filterTypes: {
+        selfAssigned: 'selfAssigned',
+        unassigned: 'unassigned',
+        finished: 'finished'
+      },
       /**
        * Get list of tasks
        *
        * @param  {Function} callback - optional
        * @return {Promise}
        */
-      list: function(callback) {
+      list: function(filterType, callback) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();
 
         var req = {
           method: 'GET',
           url: '/api/tasks',
-          data: {
+          data: {},
+          params: {
+            filterType: filterType
           }
         };
 
         $http(req).
-          success(function(data) {
-            deferred.resolve(data);
-            return cb();
-          }).
-          error(function(err) {
-            deferred.reject(err);
-            return cb(err);
-          }.bind(this));
+        success(function(data) {
+          deferred.resolve(data);
+          return cb();
+        }).
+        error(function(err) {
+          deferred.reject(err);
+          return cb(err);
+        }.bind(this));
 
         return deferred.promise;
       },
@@ -47,19 +54,18 @@ angular.module('dashboardJsApp')
         var req = {
           method: 'GET',
           url: '/api/tasks/' + taskId + '/events',
-          data: {
-          }
+          data: {}
         };
 
         $http(req).
-          success(function(data) {
-            deferred.resolve(data);
-            return cb();
-          }).
-          error(function(err) {
-            deferred.reject(err);
-            return cb(err);
-          }.bind(this));
+        success(function(data) {
+          deferred.resolve(data);
+          return cb();
+        }).
+        error(function(err) {
+          deferred.reject(err);
+          return cb(err);
+        }.bind(this));
 
         return deferred.promise;
       },
@@ -70,14 +76,15 @@ angular.module('dashboardJsApp')
           'AddAttachment': {},
           'AddComment': {
             'messageTemplate': '${ user.name } відповів(ла): ${ message }',
-            'getMessageOptions': function (messageObject) {
+            'getMessageOptions': function(messageObject) {
               return !_.isEmpty(messageObject) ? messageObject[0] : '';
             },
-            'getFullMessage': function (user, messageObject) {
+            'getFullMessage': function(user, messageObject) {
               return _.template(
-                eventMap.AddComment.messageTemplate,
-                {
-                  'user': {'name': user.name },
+                eventMap.AddComment.messageTemplate, {
+                  'user': {
+                    'name': user.name
+                  },
                   'message': eventMap.AddComment.getMessageOptions(messageObject)
                 }
               );
@@ -86,14 +93,15 @@ angular.module('dashboardJsApp')
           'AddGroupLink': {},
           'AddUserLink': {
             'messageTemplate': '${ user.name } призначив(ла) : ${ message }',
-            'getMessageOptions': function (messageObject) {
+            'getMessageOptions': function(messageObject) {
               return !_.isEmpty(messageObject) ? messageObject[0] : '';
             },
-            'getFullMessage': function (user, messageObject) {
+            'getFullMessage': function(user, messageObject) {
               return _.template(
-                eventMap.AddUserLink.messageTemplate,
-                {
-                  'user': {'name': user.name},
+                eventMap.AddUserLink.messageTemplate, {
+                  'user': {
+                    'name': user.name
+                  },
                   'message': eventMap.AddUserLink.getMessageOptions(messageObject)
                 }
               );
@@ -116,19 +124,18 @@ angular.module('dashboardJsApp')
         var req = {
           method: 'GET',
           url: '/api/tasks/' + taskId + '/form',
-          data: {
-          }
+          data: {}
         };
 
         $http(req).
-          success(function(data) {
-            deferred.resolve(data);
-            return cb();
-          }).
-          error(function(err) {
-            deferred.reject(err);
-            return cb(err);
-          }.bind(this));
+        success(function(data) {
+          deferred.resolve(data);
+          return cb();
+        }).
+        error(function(err) {
+          deferred.reject(err);
+          return cb(err);
+        }.bind(this));
 
         return deferred.promise;
       }
