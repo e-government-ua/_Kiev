@@ -1,4 +1,5 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
+
 <div class="container">
 	<div class="row">
 		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -8,7 +9,9 @@
 		</div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <h3 ng-show="taskForm == null">Завантаження ...</h3>
+      <h3 ng-show="taskForm == null && !error">Завантаження ...</h3>
+
+      <show-error data="error" ng-show="error"></show-error>
 
       <div ng-repeat="item in taskForm">
         <p ng-if="item.type == 'string' || item.type == 'long' || item.type == 'date'">
@@ -21,7 +24,7 @@
           <select class="form-control" ng-model="item.value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues" ng-required="item.required" ng-disabled="!item.writable"></select>  
         </p>
 
-        <div ng-if="item.type != 'string' && item.type != 'long' && item.type != 'date' && item.type != 'enum'">{{item}}</div>
+        <!-- <div ng-if="item.type != 'string' && item.type != 'long' && item.type != 'date' && item.type != 'enum'">{{item}}</div> -->
       </div>
       <p>
         <button ng-hide="taskForm == null" class="btn btn-success">Опрацювати</button>
