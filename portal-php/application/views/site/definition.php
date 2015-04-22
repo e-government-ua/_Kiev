@@ -59,6 +59,8 @@ $this->title = 'Портал -= Электронное правительств�
                                         }',
                                         'fileuploadfail' => 'function(e, data) {
                                             $(".js-upload-btn").button("reset");
+                                            //$(".js-filename").html(data.textStatus);
+                                            $(".js-filename").html("При завантаженні файлу виникла помилка");
                                         }',
                                     ],
                                 ]);?>
