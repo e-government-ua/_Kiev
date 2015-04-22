@@ -8,5 +8,6 @@ var router = express.Router();
 router.get('/', controller.index);
 router.get('/:taskId/events', controller.getAllTaskEvents);
 router.get('/:taskId/form', controller.getForm);
+router.post('/:taskId/form', controller.submitForm);
 
 module.exports = router;

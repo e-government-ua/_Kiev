@@ -13,7 +13,7 @@ exports.index = function(req, res) {
   } else if (req.query.filterType === 'unassigned') {
     query.candidateUser = user.id;
     query.unassigned = true;
-  } else if (req.query.filterType === 'finished'){
+  } else if (req.query.filterType === 'finished') {
     query.candidateUser = user.id;
     query.delegationState = 'resolved';
   }
@@ -63,4 +63,14 @@ exports.getForm = function(req, res) {
       res.status(statusCode).json(result);
     }
   });
+};
+
+exports.submitForm = function(req, res) {
+  var options = {
+    path: 'form/form-data'
+  };
+  activiti.post(options, function(error, statusCode, result) {
+    res.statusCode = statusCode;
+    res.send(result);
+  }, req.body);
 };

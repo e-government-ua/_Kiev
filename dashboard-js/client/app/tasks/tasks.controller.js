@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dashboardJsApp')
-  .controller('TasksCtrl', function($scope, tasks) {
+  .controller('TasksCtrl', function($scope, tasks, Modal) {
     $scope.menus = [{
       'title': 'В роботі',
       'type': tasks.filterTypes.selfAssigned
@@ -25,9 +25,9 @@ angular.module('dashboardJsApp')
         .then(function(result) {
           result = JSON.parse(result);
           $scope.tasks = result.data;
-          if($scope.tasks[0]){
-             $scope.selectTask($scope.tasks[0]);
-           }         
+          if ($scope.tasks[0]) {
+            $scope.selectTask($scope.tasks[0]);
+          }
         })
         .catch(function(err) {
           $scope.errors.other = err.message;
@@ -48,7 +48,7 @@ angular.module('dashboardJsApp')
           $scope.taskForm = result.formProperties;
         })
         .catch(function(err) {
-          err = JSON.parse(err)
+          err = JSON.parse(err);
           $scope.error = err;
         });
 
@@ -61,5 +61,23 @@ angular.module('dashboardJsApp')
         .catch(function(err) {
           $scope.error = err.message;
         });
+    };
+
+    $scope.submitTask = function() {
+      if ($scope.selectedTask && $scope.taskForm) {
+        tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm)
+          .then(function(result) {
+            result = JSON.parse(result);
+            $scope.events = result;
+
+            Modal.inform.success(function(event) {
+              $scope.applyTaskFilter($scope.tasksFilter);
+            })('Ваша заявка прийнята в обробку : ' + result);
+
+          })
+          .catch(function(err) {
+            Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
+          });
+      }
     };
   });

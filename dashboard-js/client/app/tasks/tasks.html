@@ -48,7 +48,7 @@
       </div>
       <p>
         <button ng-hide="taskForm == null" ng-disabled="selectedTask.assignee != null" class="btn btn-success">Взяти в роботу</button>
-        <button ng-hide="taskForm == null" ng-disabled="selectedTask.assignee == null" class="btn btn-success">Опрацювати</button>
+        <button ng-hide="taskForm == null" ng-disabled="false && selectedTask.assignee == null" ng-click="submitTask()" class="btn btn-success">Опрацювати</button>
       </p>
     </div>
 
