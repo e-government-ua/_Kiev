@@ -65,6 +65,20 @@ exports.getForm = function(req, res) {
   });
 };
 
+exports.getAttachments = function(req, res) {
+  var options = {
+    path: 'runtime/tasks/' + req.params.taskId + '/attachments'
+  };
+
+  activiti.get(options, function(error, statusCode, result) {
+    if (error) {
+      res.send(error);
+    } else {
+      res.status(statusCode).json(result);
+    }
+  });
+};
+
 exports.submitForm = function(req, res) {
   var options = {
     path: 'form/form-data'

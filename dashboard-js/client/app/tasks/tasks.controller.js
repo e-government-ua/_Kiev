@@ -57,6 +57,19 @@ angular.module('dashboardJsApp')
         });
 
       tasks
+        .taskAttachments(task.id)
+        .then(function(result) {
+          // result = JSON.parse(result);
+          // $scope.taskForm = result.formProperties;
+          console.log(result)
+        })
+        .catch(function(err) {
+          // err = JSON.parse(err);
+          // $scope.error = err;
+          console.log(err)
+        });
+
+      tasks
         .listTaskEvents(task.id)
         .then(function(result) {
           result = JSON.parse(result);
