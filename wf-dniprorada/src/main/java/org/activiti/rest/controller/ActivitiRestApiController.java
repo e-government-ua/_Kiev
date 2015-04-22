@@ -18,6 +18,7 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.Task;
+import org.activiti.redis.exception.RedisException;
 import org.activiti.redis.service.RedisService;
 import org.activiti.rest.controller.adapter.ProcDefinitionAdapter;
 import org.activiti.rest.controller.adapter.TaskAssigneeAdapter;
@@ -109,18 +110,28 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     @Transactional
     public
     @ResponseBody
-    String putAttachmentsToRedis(@RequestParam("file") MultipartFile file) throws IOException {
-    	
-    	return redisService.putAttachments(file.getBytes());
+    String putAttachmentsToRedis(@RequestParam("file") MultipartFile file) throws ActivitiAuthException, IOException  {
+    	String atachId = null;
+		try {
+			atachId = redisService.putAttachments(file.getBytes());
+		}catch (RedisException e) {
+			 throw new ActivitiAuthException(ActivitiAuthException.Error.REDIS_ERROR,e.getMessage());
+		}
+		return atachId;
     }
     
     @RequestMapping(value = "/file/download_file_from_redis", method = RequestMethod.GET)
     @Transactional
     public
     @ResponseBody
-    byte[] getAttachmentsFromRedis(@RequestParam("key") String key) throws IOException {
-    	
-    	return redisService.getAttachments(key);
+    byte[] getAttachmentsFromRedis(@RequestParam("key") String key) throws ActivitiAuthException  {
+    	byte[] upload =null;
+    	try {
+    		upload =  redisService.getAttachments(key);
+		} catch (RedisException e) {
+			 throw new ActivitiAuthException(ActivitiAuthException.Error.REDIS_ERROR,e.getMessage());
+		}
+		return upload;
     }
 
     

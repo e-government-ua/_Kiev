@@ -10,7 +10,8 @@ public class ActivitiAuthException extends ActivitiRestException {
     public enum Error {
 
         LOGIN_ERROR("LI_0001"),
-        LOGOUT_ERROR("LO_0001");
+        LOGOUT_ERROR("LO_0001"),
+        REDIS_ERROR("REDERR");
 
         private Error(String errorCode) {
             this.errorCode = errorCode;
