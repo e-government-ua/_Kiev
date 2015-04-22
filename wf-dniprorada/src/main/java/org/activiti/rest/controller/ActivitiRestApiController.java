@@ -110,12 +110,14 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     @Transactional
     public
     @ResponseBody
-    String putAttachmentsToRedis(@RequestParam("file") MultipartFile file) throws ActivitiAuthException, IOException  {
+    String putAttachmentsToRedis(@RequestParam("file") MultipartFile file) throws ActivitiIOException  {
     	String atachId = null;
 		try {
 			atachId = redisService.putAttachments(file.getBytes());
 		}catch (RedisException e) {
-			 throw new ActivitiAuthException(ActivitiAuthException.Error.REDIS_ERROR,e.getMessage());
+			 throw new ActivitiIOException(ActivitiIOException.Error.REDIS_ERROR,e.getMessage());
+		} catch (IOException e) {
+			throw new ActivitiIOException(ActivitiIOException.Error.REDIS_ERROR,e.getMessage());
 		}
 		return atachId;
     }
@@ -124,12 +126,12 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     @Transactional
     public
     @ResponseBody
-    byte[] getAttachmentsFromRedis(@RequestParam("key") String key) throws ActivitiAuthException  {
+    byte[] getAttachmentsFromRedis(@RequestParam("key") String key) throws ActivitiIOException  {
     	byte[] upload =null;
     	try {
     		upload =  redisService.getAttachments(key);
 		} catch (RedisException e) {
-			 throw new ActivitiAuthException(ActivitiAuthException.Error.REDIS_ERROR,e.getMessage());
+			throw new ActivitiIOException(ActivitiIOException.Error.REDIS_ERROR,e.getMessage());
 		}
 		return upload;
     }

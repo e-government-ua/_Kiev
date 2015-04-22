@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 /**
  * Created by diver on 4/20/15.
  */
-public class ActivitiAuthException extends ActivitiRestException {
+public class ActivitiIOException extends ActivitiRestException {
 
     /**
 	 * 
@@ -14,8 +14,7 @@ public class ActivitiAuthException extends ActivitiRestException {
 
 	public enum Error {
 
-        LOGIN_ERROR("LI_0001"),
-        LOGOUT_ERROR("LO_0001");
+        REDIS_ERROR("REDERR");
 
         private Error(String errorCode) {
             this.errorCode = errorCode;
@@ -28,7 +27,7 @@ public class ActivitiAuthException extends ActivitiRestException {
         }
     }
 
-    public ActivitiAuthException(Error error, String message) {
+    public ActivitiIOException(Error error, String message) {
         super(error.getErrorCode(), message);
     }
 
@@ -36,4 +35,5 @@ public class ActivitiAuthException extends ActivitiRestException {
     public HttpStatus getHttpStatus() {
         return HttpStatus.UNAUTHORIZED;
     }
+
 }
