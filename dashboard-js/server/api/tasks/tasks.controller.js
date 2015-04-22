@@ -7,11 +7,11 @@ var activiti = require('../../components/activiti');
 exports.index = function(req, res) {
   var user = JSON.parse(req.cookies.user);
   var options = {
-    path: 'runtime/tasks'//,
-    // query: {
-    //   'candidateUser': user.id,
-    //   'unassigned': true
-    // }
+    path: 'runtime/tasks',
+    query: {
+      // 'candidateUser': user.id,
+      'unassigned': true
+    }
   };
 
   activiti.get(options, function(error, statusCode, result) {
@@ -27,6 +27,24 @@ exports.index = function(req, res) {
 exports.getAllTaskEvents = function(req, res) {
   var options = {
     path: '/runtime/tasks/' + req.params.taskId + '/events'
+  };
+
+  activiti.get(options, function(error, statusCode, result) {
+    if (error) {
+      res.send(error);
+    } else {
+      res.json(result);
+    }
+  });
+
+};
+
+exports.getForm = function(req, res) {
+  var options = {
+    path: 'form/form-data',
+    query: {
+      'taskId': req.params.taskId
+    }
   };
 
   activiti.get(options, function(error, statusCode, result) {

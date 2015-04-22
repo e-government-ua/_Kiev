@@ -71,7 +71,7 @@ angular.module('dashboardJsApp')
           'AddComment': {
             'messageTemplate': '${ user.name } відповів(ла): ${ message }',
             'getMessageOptions': function (messageObject) {
-              return !_.isEmpty(messageObject) ? messageObject[0] : ''
+              return !_.isEmpty(messageObject) ? messageObject[0] : '';
             },
             'getFullMessage': function (user, messageObject) {
               return _.template(
@@ -87,7 +87,7 @@ angular.module('dashboardJsApp')
           'AddUserLink': {
             'messageTemplate': '${ user.name } призначив(ла) : ${ message }',
             'getMessageOptions': function (messageObject) {
-              return !_.isEmpty(messageObject) ? messageObject[0] : ''
+              return !_.isEmpty(messageObject) ? messageObject[0] : '';
             },
             'getFullMessage': function (user, messageObject) {
               return _.template(
@@ -105,6 +105,30 @@ angular.module('dashboardJsApp')
         };
 
         deferred.resolve(eventMap);
+
+        return deferred.promise;
+      },
+
+      taskForm: function(taskId, callback) {
+        var cb = callback || angular.noop;
+        var deferred = $q.defer();
+
+        var req = {
+          method: 'GET',
+          url: '/api/tasks/' + taskId + '/form',
+          data: {
+          }
+        };
+
+        $http(req).
+          success(function(data) {
+            deferred.resolve(data);
+            return cb();
+          }).
+          error(function(err) {
+            deferred.reject(err);
+            return cb(err);
+          }.bind(this));
 
         return deferred.promise;
       }
