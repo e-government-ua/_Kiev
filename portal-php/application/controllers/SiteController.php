@@ -15,10 +15,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['definition', 'success'],
+                'only' => ['definition', 'success', 'upload'],
                 'rules' => [
                     [
-                        'actions' => ['definition', 'success'],
+                        'actions' => ['definition', 'upload', 'success'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -94,5 +94,23 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionUpload()
+    {
+        $data = file_get_contents($_FILES['ProcessDefinitionForm']['tmp_name']['attachedId']);
+        $filePath = $_FILES['ProcessDefinitionForm']['tmp_name']['attachedId'];
+        $fileType = $_FILES['ProcessDefinitionForm']['type']['attachedId'];
+        $postFields = ['file'=>'@'.$filePath.';type='.$fileType];
 
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, 'https://52.17.126.64:8080/wf-dniprorada/service/rest/file/upload_file_to_redis');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, ['Authorization: Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=']);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $postFields);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+
+        $result = curl_exec($curl);
+        var_dump($result);
+    }
 }

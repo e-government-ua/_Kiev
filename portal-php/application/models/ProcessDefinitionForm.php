@@ -7,6 +7,8 @@ use Yii;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\jui\DatePicker;
+use dosamigos\fileupload\FileUpload;
+use dosamigos\fileupload\FileUploadUI;
 
 class ProcessDefinitionForm extends Model
 {
@@ -221,6 +223,32 @@ class ProcessDefinitionForm extends Model
                 $input = $formField->textarea(['rows' => 5]);
                 break;
             case self::TYPE_STRING:
+                if ($key === 'attachedId') {
+                    $input = $formField->widget(FileUploadUi::className(), [
+                        'model' => $this,
+                        'attribute' => 'attachedId',
+                        'url' => ['site/upload'],
+                        'options' => ['accept' => '*'],
+                        'clientOptions' => [
+                            'maxFileSize' => 2000000,
+                            'autoUpload' => true
+                        ],
+                        // see: https://github.com/blueimp/jQuery-File-Upload/wiki/Options#processing-callback-options
+                        'clientEvents' => [
+                            'fileuploaddone' => 'function(e, data) {
+                                console.log(e);
+                                console.log(data);
+                            }',
+                            'fileuploadfail' => 'function(e, data) {
+                                console.log(e);
+                                console.log(data);
+                            }',
+                        ],
+                    ]);
+                } else {
+                    $input = $formField->textInput();
+                }
+                break;
             case self::TYPE_LONG:
             default:
                 $input = $formField->textInput();
