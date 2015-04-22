@@ -30,7 +30,7 @@ $this->title = 'Портал -= Электронное правительств�
                             $formField = $form->field($model, $propertyName, $options);
 
                         ?>
-                        <?= $model->getEditField($propertyName, $formField)?>
+                        <?= $model->getEditField($propertyName, $formField); ?>
                     <?php endforeach; ?>
 
                     <button class="btn btn-lg btn-primary" type="submit">Подати заявку</button>
