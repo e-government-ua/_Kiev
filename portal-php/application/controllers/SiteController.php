@@ -108,9 +108,8 @@ class SiteController extends Controller
             return ['id' => null, 'name' => 'При завантаженні файлу виникла помилка'];
         }
 
-        $fileData = fopen($file->tempName, 'r');
+        $fileData = file_get_contents($file->tempName);
         $fileId = Yii::$app->apiClient->uploadFile($fileData);
-
 
         return ['id' => $fileId, 'name' => $file->name];
     }
