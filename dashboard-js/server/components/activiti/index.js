@@ -59,3 +59,20 @@ exports.post = function(options, onResult, data) {
 			}
 		});
 }
+
+exports.put = function(options, onResult, data) {
+	request.put(_.merge(getRequestOptions(options), data ? {
+			json: true,
+			body: data
+		} : {
+			json: true
+		}),
+		function(error, response, body) {
+			console.log(error + ' ' + response + ' ' + body);
+			if (!error) {
+				onResult(null, response.statusCode, body, response.headers);
+			} else {
+				onResult(error, null, null);
+			}
+		});
+}

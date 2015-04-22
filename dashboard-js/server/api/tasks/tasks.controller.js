@@ -74,3 +74,13 @@ exports.submitForm = function(req, res) {
     res.send(result);
   }, req.body);
 };
+
+exports.updateTask = function(req, res) {
+  var options = {
+    path: 'runtime/tasks/' + req.params.taskId
+  };
+  activiti.put(options, function(error, statusCode, result) {
+    res.statusCode = statusCode;
+    res.send(result);
+  }, req.body);
+};

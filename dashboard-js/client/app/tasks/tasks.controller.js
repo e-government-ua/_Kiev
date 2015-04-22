@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dashboardJsApp')
-  .controller('TasksCtrl', function($scope, tasks, Modal) {
+  .controller('TasksCtrl', function($scope, tasks, Modal, Auth) {
     $scope.menus = [{
       'title': 'В роботі',
       'type': tasks.filterTypes.selfAssigned
@@ -67,17 +67,27 @@ angular.module('dashboardJsApp')
       if ($scope.selectedTask && $scope.taskForm) {
         tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm)
           .then(function(result) {
-            result = JSON.parse(result);
             $scope.events = result;
 
             Modal.inform.success(function(event) {
               $scope.applyTaskFilter($scope.tasksFilter);
-            })('Ваша заявка прийнята в обробку : ' + result);
+            })('Форма відправлена : ' + result);
 
           })
           .catch(function(err) {
             Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
           });
       }
+    };
+
+    $scope.assignTask = function() {
+      tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id).then(function(result) {
+          Modal.inform.success(function(event) {
+              $scope.applyTaskFilter($scope.tasksFilter);
+            })('Задача у вас в роботі');
+        })
+        .catch(function(err) {
+           Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
+        });
     };
   });

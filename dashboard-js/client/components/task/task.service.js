@@ -117,6 +117,31 @@ angular.module('dashboardJsApp')
         return deferred.promise;
       },
 
+      assignTask: function(taskId, userId, callback) {
+        var cb = callback || angular.noop;
+        var deferred = $q.defer();
+
+        var req = {
+          method: 'PUT',
+          url: '/api/tasks/' + taskId,
+          data: {
+            assignee: userId
+          }
+        };
+
+        $http(req).
+        success(function(data) {
+          deferred.resolve(data);
+          return cb();
+        }).
+        error(function(err) {
+          deferred.reject(err);
+          return cb(err);
+        }.bind(this));
+
+        return deferred.promise;
+      },
+
       taskForm: function(taskId, callback) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();
@@ -154,7 +179,7 @@ angular.module('dashboardJsApp')
                 value: formProperty.value
               });
             }
-          }          
+          }
           return properties;
         };
 
