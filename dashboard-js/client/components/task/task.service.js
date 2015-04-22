@@ -142,6 +142,52 @@ angular.module('dashboardJsApp')
         return deferred.promise;
       },
 
+      downloadDocument: function(taskId, callback) {
+        var cb = callback || angular.noop;
+        var deferred = $q.defer();
+
+        var req = {
+          method: 'GET',
+          url: '/api/tasks/' + taskId + '/document',
+          data: {}
+        };
+
+        $http(req).
+        success(function(data) {
+          deferred.resolve(data);
+          return cb();
+        }).
+        error(function(err) {
+          deferred.reject(err);
+          return cb(err);
+        }.bind(this));
+
+        return deferred.promise;
+      },
+
+      getTaskAttachments: function(taskId, callback) {
+        var cb = callback || angular.noop;
+        var deferred = $q.defer();
+
+        var req = {
+          method: 'GET',
+          url: '/api/tasks/' + taskId + '/attachments',
+          data: {}
+        };
+
+        $http(req).
+        success(function(data) {
+          deferred.resolve(data);
+          return cb();
+        }).
+        error(function(err) {
+          deferred.reject(err);
+          return cb(err);
+        }.bind(this));
+
+        return deferred.promise;
+      },
+
       taskForm: function(taskId, callback) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();

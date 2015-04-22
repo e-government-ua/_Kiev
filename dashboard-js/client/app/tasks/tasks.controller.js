@@ -21,6 +21,14 @@ angular.module('dashboardJsApp')
       return $scope.selectedTask.id === task.id;
     };
 
+    $scope.hasAttachment = function(){
+      return $scope.taskAttachments !== undefined && $scope.taskAttachments !== null && $scope.taskAttachments.length !== 0;
+    };
+
+    $scope.downloadAttachment = function(){
+      tasks.downloadDocument($scope.selectedTask.id);
+    };
+
     $scope.applyTaskFilter = function(taskType) {
       $scope.taskForm = null;
       $scope.tasksFilter = taskType;
@@ -44,6 +52,7 @@ angular.module('dashboardJsApp')
       $scope.selectedTask = task;
       $scope.taskForm = null;
       $scope.error = null;
+      $scope.taskAttachments = null;
 
       tasks
         .taskForm(task.id)
@@ -61,6 +70,14 @@ angular.module('dashboardJsApp')
         .then(function(result) {
           result = JSON.parse(result);
           $scope.events = result;
+        })
+        .catch(function(err) {
+          $scope.error = err.message;
+        });
+
+        tasks.getTaskAttachments(task.id)
+        .then(function(result) {
+          $scope.taskAttachments = result;
         })
         .catch(function(err) {
           $scope.error = err.message;
