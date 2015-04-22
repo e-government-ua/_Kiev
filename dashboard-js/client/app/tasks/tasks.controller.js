@@ -34,7 +34,7 @@ angular.module('dashboardJsApp')
         });
     };
 
-    $scope.applyTaskFilter($scope.tasksFilter);
+    $scope.applyTaskFilter(tasks.filterTypes.selfAssigned);
 
     $scope.selectTask = function(task) {
       $scope.selectedTask = task;
