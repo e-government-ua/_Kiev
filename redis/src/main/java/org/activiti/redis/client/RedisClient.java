@@ -1,6 +1,5 @@
 package org.activiti.redis.client;
 
-import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -30,7 +29,7 @@ public class RedisClient implements RedisOperations {
 
     
     @Override
-    public String putAttachments(byte[] file) throws IOException, Exception {
+    public String putAttachments(byte[] file) throws Exception {
         String key = UUID.randomUUID().toString();
         while (template.hasKey(key)) {
             key = UUID.randomUUID().toString();
@@ -41,7 +40,7 @@ public class RedisClient implements RedisOperations {
     }
 
 	@Override
-	public byte[] getAttachments(String key) throws IOException {
+	public byte[] getAttachments(String key) throws Exception {
 		return template.boundValueOps(key).get();
 	}
 	

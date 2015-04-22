@@ -1,6 +1,6 @@
 package org.activiti.redis.service;
 
-import java.io.IOException;
+import org.activiti.redis.exception.RedisException;
 
 /**
  * Сервис логирования данных.
@@ -16,8 +16,8 @@ public interface RedisService {
 	 * @param message
 	 * @return 
 	 */
-	String putAttachments(byte[]file) throws IOException;
+	String putAttachments(byte[]file) throws RedisException;
 	
-byte[] getAttachments(String key) throws IOException;
+byte[] getAttachments(String key) throws RedisException;
 
 }
