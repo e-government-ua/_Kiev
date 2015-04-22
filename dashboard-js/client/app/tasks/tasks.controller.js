@@ -39,6 +39,7 @@ angular.module('dashboardJsApp')
     $scope.selectTask = function(task) {
       $scope.selectedTask = task;
       $scope.taskForm = null;
+      $scope.error = null;
 
       tasks
         .taskForm(task.id)
@@ -47,7 +48,8 @@ angular.module('dashboardJsApp')
           $scope.taskForm = result.formProperties;
         })
         .catch(function(err) {
-          $scope.errors.other = err.message;
+          err = JSON.parse(err)
+          $scope.error = err;
         });
 
       tasks
@@ -57,7 +59,7 @@ angular.module('dashboardJsApp')
           $scope.events = result;
         })
         .catch(function(err) {
-          $scope.errors.other = err.message;
+          $scope.error = err.message;
         });
     };
   });

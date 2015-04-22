@@ -41,7 +41,7 @@ public enum Form {
 		 */
 		@Override
 		public Dimension getDimension() {			
-			return new Dimension("150","300");
+			return new Dimension("100","300");
 		}
 	};
 	

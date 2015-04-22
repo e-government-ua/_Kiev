@@ -49,6 +49,7 @@
 		<property name="hostName" value="${redis.host}" />
 		<property name="port" value="${redis.port}" />
 		<property name="timeout" value="5000" />
+		<property name="password" value="${redis.password}" />
 		<property name="poolConfig" ref="jedisPoolConfig" />
 	</bean>
 

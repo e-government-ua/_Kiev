@@ -60,7 +60,7 @@ exports.getForm = function(req, res) {
     if (error) {
       res.send(error);
     } else {
-      res.json(result);
+      res.status(statusCode).json(result);
     }
   });
 };

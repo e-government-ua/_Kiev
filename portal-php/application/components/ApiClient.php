@@ -3,6 +3,7 @@
 namespace app\components;
 
 use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Post\PostFile;
 use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
@@ -100,6 +101,23 @@ class ApiClient extends Component
             'body'    => $data
         ]);
         $result = $response->json();
+        return $result;
+    }
+
+    /**
+     *
+     * @param string $fileData
+     * @return string
+     */
+    public function uploadFile($fileData)
+    {
+        $client = $this->getGuzzleClient();
+        $response = $client->post('rest/file/upload_file_to_redis', [
+            'body'    => [
+                'file' => new PostFile('file', $fileData)
+            ]
+        ]);
+        $result = $response->getBody()->__toString();
         return $result;
     }
 

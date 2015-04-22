@@ -20,7 +20,8 @@
         "yiisoft/yii2-jui": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "yiisoft/yii2-authclient": "~2.0.0",
-        "guzzlehttp/guzzle": "~5.0@dev"
+        "guzzlehttp/guzzle": "~5.0@dev",
+        "2amigos/yii2-file-upload-widget": "~1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",

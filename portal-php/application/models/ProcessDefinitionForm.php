@@ -221,6 +221,12 @@ class ProcessDefinitionForm extends Model
                 $input = $formField->textarea(['rows' => 5]);
                 break;
             case self::TYPE_STRING:
+                if ($key === 'attachedId') {
+                    $input = $formField->hiddenInput(['class' => 'js-attached-id']);
+                } else {
+                    $input = $formField->textInput();
+                }
+                break;
             case self::TYPE_LONG:
             default:
                 $input = $formField->textInput();
