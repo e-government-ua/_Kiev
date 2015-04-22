@@ -6,6 +6,8 @@ use app\models\ProcessDefinitionForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\Response;
+use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
@@ -15,12 +17,12 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['definition', 'success', 'upload'],
+                'only'  => ['definition', 'success', 'upload'],
                 'rules' => [
                     [
                         'actions' => ['definition', 'upload', 'success'],
-                        'allow' => true,
-                        'roles' => ['@'],
+                        'allow'   => true,
+                        'roles'   => ['@'],
                     ],
                 ],
             ],
@@ -30,18 +32,17 @@ class SiteController extends Controller
     public function actions()
     {
         return [
-             'error' => [
+            'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
         ];
     }
 
-
     public function actionIndex()
     {
         $definitions = Yii::$app->apiClient->getProcessDefinitions();
         return $this->render('index', [
-            'definitions' => $definitions
+                    'definitions' => $definitions
         ]);
     }
 
@@ -56,14 +57,14 @@ class SiteController extends Controller
         $model = new ProcessDefinitionForm($definition['formProperties']);
 
         $attributes = Yii::$app->session->get('definition');
-        if($attributes) {
+        if ($attributes) {
             $model->setAttributes($attributes);
             Yii::$app->session->remove('definition');
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->loadDefaultAtributes();
-            if(Yii::$app->user->isTokenExpired()) {
+            if (Yii::$app->user->isTokenExpired()) {
                 Yii::$app->user->logout(false);
                 Yii::$app->session->set('definition', $model->attributes);
                 Yii::$app->user->loginRequired();
@@ -75,8 +76,8 @@ class SiteController extends Controller
         }
 
         return $this->render('definition', [
-            'definition' => $definition,
-            'model' => $model
+                    'definition' => $definition,
+                    'model'      => $model
         ]);
     }
 
@@ -85,32 +86,33 @@ class SiteController extends Controller
      */
     public function actionSuccess()
     {
-        if(!Yii::$app->session->hasFlash('success')) {
+        if (!Yii::$app->session->hasFlash('success')) {
             return $this->redirect(Yii::$app->homeUrl);
         }
         $data = Yii::$app->session->getFlash('success');
         return $this->render('success', [
-            'data' => $data
+                    'data' => $data
         ]);
     }
 
+    /**
+     *
+     * @return array
+     */
     public function actionUpload()
     {
-        $data = file_get_contents($_FILES['ProcessDefinitionForm']['tmp_name']['attachedId']);
-        $filePath = $_FILES['ProcessDefinitionForm']['tmp_name']['attachedId'];
-        $fileType = $_FILES['ProcessDefinitionForm']['type']['attachedId'];
-        $postFields = ['file'=>'@'.$filePath.';type='.$fileType];
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $file = UploadedFile::getInstanceByName('file');
 
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, 'https://52.17.126.64:8080/wf-dniprorada/service/rest/file/upload_file_to_redis');
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, ['Authorization: Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=']);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $postFields);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        if ($file->error != UPLOAD_ERR_OK) {
+            return ['id' => null, 'name' => 'При завантаженні файлу виникла помилка'];
+        }
 
-        $result = curl_exec($curl);
-        var_dump($result);
+        $fileData = fopen($file->tempName, 'r');
+        $fileId = Yii::$app->apiClient->uploadFile($fileData);
+
+
+        return ['id' => $fileId, 'name' => $file->name];
     }
+
 }
