@@ -1,11 +1,10 @@
 package org.activiti.rest.controller;
 
+import org.activiti.engine.ProcessEngines;
 import org.activiti.rest.controller.entity.LoginResponse;
 import org.activiti.rest.controller.entity.LoginResponseI;
 import org.activiti.rest.controller.entity.LogoutResponse;
 import org.activiti.rest.controller.entity.LogoutResponseI;
-import org.activiti.rest.service.api.ProcessingUser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,16 +18,13 @@ import javax.servlet.http.HttpSession;
 @RequestMapping(value = "/auth")
 public class ActivitiRestAuthController {
 
-    @Autowired
-	private ProcessingUser procUser;
-
 	@RequestMapping(value = {"/login", "/login-v2"}, method = RequestMethod.POST)
 	public @ResponseBody LoginResponseI login(@RequestParam(value = "sLogin") String login, @RequestParam(value = "sPassword") String password, HttpServletRequest request) throws ActivitiAuthException {
-		if (procUser.validateUser(login, password)) {
+        if (ProcessEngines.getDefaultProcessEngine().getIdentityService().checkPassword(login, password)) {
 			request.getSession(true);
 			return new LoginResponse(Boolean.TRUE.toString());
 		} else {
-			throw new ActivitiAuthException(ActivitiAuthException.Error.LOGIN_ERROR, "User or password not valid");
+			throw new ActivitiAuthException(ActivitiAuthException.Error.LOGIN_ERROR, "Login or password invalid");
 		}
 	}
 
