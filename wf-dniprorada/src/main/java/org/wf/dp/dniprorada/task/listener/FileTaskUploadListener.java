@@ -35,13 +35,9 @@ public class FileTaskUploadListener implements TaskListener {
 		DelegateExecution execution = task.getExecution();
 		
 		byte[] contentbyte=null;
-		try {
 			contentbyte = getRedisService().getAttachments(
 					execution.getVariable("attachedId").toString());
 			LOG.info("contentbyte"+ contentbyte);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
 		if(contentbyte!=null){
 			

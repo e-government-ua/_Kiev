@@ -68,7 +68,7 @@ exports.getForm = function(req, res) {
 exports.getAttachments = function(req, res) {
   var options = {
     path: 'runtime/tasks/' + req.params.taskId + '/attachments'
-    // path: 'runtime/tasks/32569/attachments'
+    //path: 'runtime/tasks/32569/attachments'
   };
 
   activiti.get(options, function(error, statusCode, result) {
@@ -83,7 +83,7 @@ exports.getAttachments = function(req, res) {
 exports.getAttachmentContent = function(req, res) {
   var options = {
     path: 'runtime/tasks/' + req.params.taskId + '/attachments/'+ req.params.attachmentId +'/content'
-    // path: 'runtime/tasks/32569/attachments/72544/content'
+    //path: 'runtime/tasks/32569/attachments/72544/content'
     // taskId: 32569
     // attachmentId: 72544
   };
