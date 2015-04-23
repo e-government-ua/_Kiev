@@ -34,11 +34,11 @@
                    auto-config="true"
                    realm="BankID" >
         <!-- PUBLIC  -->
-        <security:intercept-url pattern="/some/public/url/*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <security:intercept-url pattern="/public/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
         <!-- RESTRICTED -->
         <!-- SERVICE_PRODUCER - official person (e.g. mayor) -->
-        <security:intercept-url pattern="/common/restricted/url/**"
+        <security:intercept-url pattern="/protected/**"
                                 access="citizen.role.SERVICE_CONSUMER, citizen.role.SERVICE_PRODUCER "/>
         <security:intercept-url pattern="/*/consumer/restricted/url/**" access="citizen.role.SERVICE_CONSUMER"/>
         <security:intercept-url pattern="/*/producer/service/url/**" access="citizen.role.SERVICE_PRODUCER "/>
