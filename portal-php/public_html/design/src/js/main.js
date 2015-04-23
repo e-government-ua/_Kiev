@@ -5,7 +5,11 @@ requirejs.config({
         'bower': './bower',
 		'angularAMD': './angularAMD/angularAMD',
 		'ngload': './angularAMD/ngload',
-		'script': './script'
+		'script': './script',
+		'index': './app/index',
+		'documents': './app/documents',
+		'journal': './app/journal',
+		'profile': './app/profile',
     },
     shim: {
         'angularAMD': ['bower'],

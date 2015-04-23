@@ -68,6 +68,22 @@ module.exports = function(grunt) {
 					{
 						src: ['./src/js/main/*.js'],
 						dest: './tmp/js/concat/script.js'
+					},
+					{
+						src: ['./src/js/index/**/*.js'],
+						dest: './tmp/js/concat/app/index.js'
+					},
+					{
+						src: ['./src/js/documents/**/*.js'],
+						dest: './tmp/js/concat/app/documents.js'
+					},
+					{
+						src: ['./src/js/journal/**/*.js'],
+						dest: './tmp/js/concat/app/journal.js'
+					},
+					{
+						src: ['./src/js/profile/**/*.js'],
+						dest: './tmp/js/concat/app/profile.js'
 					}
 				]
 			}
@@ -80,7 +96,11 @@ module.exports = function(grunt) {
 					'./tmp/js/uglify/angularAMD/angularAMD.js': ['./tmp/js/concat/angularAMD/angularAMD.js'],
 					'./tmp/js/uglify/angularAMD/ngload.js': ['./tmp/js/concat/angularAMD/ngload.js'],
 					'./tmp/js/uglify/bower.js': ['./tmp/js/concat/bower.js'],
-					'./tmp/js/uglify/script.js': ['./tmp/js/concat/script.js']
+					'./tmp/js/uglify/script.js': ['./tmp/js/concat/script.js'],
+					'./tmp/js/uglify/app/index.js': ['./tmp/js/concat/app/index.js'],
+					'./tmp/js/uglify/app/documents.js': ['./tmp/js/concat/app/documents.js'],
+					'./tmp/js/uglify/app/journal.js': ['./tmp/js/concat/app/journal.js'],
+					'./tmp/js/uglify/app/profile.js': ['./tmp/js/concat/app/profile.js']
 				}
 			}
 		},
@@ -130,6 +150,18 @@ module.exports = function(grunt) {
 						cwd: './tmp/js/concat/angularAMD',
 						dest: './tmp/js/compress/angularAMD',
 						ext: '.js'
+					},
+					{
+						expand: true,
+						src: [
+							'index.js',
+							'documents.js',
+							'journal.js',
+							'profile.js',
+						],
+						cwd: './tmp/js/concat/app',
+						dest: './tmp/js/compress/app',
+						ext: '.js'
 					}
 				]
 			},
@@ -166,6 +198,18 @@ module.exports = function(grunt) {
 						cwd: './tmp/js/uglify/angularAMD',
 						dest: './tmp/js/compress/angularAMD',
 						ext: '.js'
+					},
+					{
+						expand: true,
+						src: [
+							'index.js',
+							'documents.js',
+							'journal.js',
+							'profile.js',
+						],
+						cwd: './tmp/js/uglify/app',
+						dest: './tmp/js/compress/app',
+						ext: '.js'
 					}
 				]
 			}
@@ -174,19 +218,22 @@ module.exports = function(grunt) {
 			concat: {
 				files: [
 					{expand: true, cwd: './tmp/css/concat', src: ['**'], dest: './build/css/' },
-					{expand: true, cwd: './tmp/js/concat', src: ['**'], dest: './build/js/' }
+					{expand: true, cwd: './tmp/js/concat', src: ['**'], dest: './build/js/' },
+					{expand: false, src: ['./src/js/main/data.json'], dest: './build/data.json', filter: 'isFile'}
 				]
 			},
 			min: {
 				files: [
 					{expand: true, cwd: './tmp/css/cssmin', src: ['**'], dest: './build/css/' },
-					{expand: true, cwd: './tmp/js/uglify', src: ['**'], dest: './build/js/' }
+					{expand: true, cwd: './tmp/js/uglify', src: ['**'], dest: './build/js/' },
+					{expand: false, src: ['./src/js/main/data.json'], dest: './build/data.json', filter: 'isFile'}
 				]
 			},
 			compress: {
 				files: [
 					{expand: true, cwd: './tmp/css/compress', src: ['**'], dest: './build/css/' },
-					{expand: true, cwd: './tmp/js/compress', src: ['**'], dest: './build/js/' }
+					{expand: true, cwd: './tmp/js/compress', src: ['**'], dest: './build/js/' },
+					{expand: false, src: ['./src/js/main/data.json'], dest: './build/data.json', filter: 'isFile'}
 				]
 			}
 		}

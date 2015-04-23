@@ -1,14 +1,14 @@
-define('documents', ['angularAMD'], function (angularAMD) {
-    var app = angular.module('Documents', []);
+define('journal', ['angularAMD'], function (angularAMD) {
+    var app = angular.module('journal', []);
 
     app.config(['$stateProvider', function ($stateProvider) {
         $stateProvider
-            .state('documents', {
-                url: '/documents',
+            .state('journal', {
+                url: '/journal',
                 views: {
                     '': angularAMD.route({
                         template: '',
-                        controllerUrl: 'state/documents/controller'
+                        controllerUrl: 'state/journal/controller'
                     })
                 }
             })
