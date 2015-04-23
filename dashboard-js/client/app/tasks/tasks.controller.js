@@ -43,6 +43,8 @@ angular.module('dashboardJsApp')
     $scope.selectTask = function(task) {
       $scope.selectedTask = task;
       $scope.taskForm = null;
+      $scope.taskId = task.id;
+      $scope.attachments = null;
       $scope.error = null;
 
       tasks
@@ -59,9 +61,8 @@ angular.module('dashboardJsApp')
       tasks
         .taskAttachments(task.id)
         .then(function(result) {
-          // result = JSON.parse(result);
-          // $scope.taskForm = result.formProperties;
-          console.log(result)
+          result = JSON.parse(result);
+          $scope.attachments = result;
         })
         .catch(function(err) {
           // err = JSON.parse(err);

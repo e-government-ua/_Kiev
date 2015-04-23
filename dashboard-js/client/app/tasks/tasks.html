@@ -46,6 +46,11 @@
           <input class="form-control" ng-disabled="true" ng-required="item.required" ng-model="item.value" />
         </p>
       </div>
+      <div ng-show="attachments">
+        <p ng-repeat="item in attachments">
+          Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content" target="_blank"><b>{{item.name}}</b> {{item.description}}</a>
+        </p>
+      </div>
       <p>
         <button ng-hide="taskForm == null" ng-disabled="selectedTask.assignee != null" ng-click="assignTask()"class="btn btn-success">Взяти в роботу</button>
         <button ng-hide="taskForm == null" ng-disabled="selectedTask.assignee == null" ng-click="submitTask()" class="btn btn-success">Опрацювати</button>
