@@ -134,7 +134,7 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/serivce/rest/download_file_from_db?taskId=XXX **
+**HTTP Context: https://seriver:port/wf-dniprorada/serivce/rest/download_file_from_db?taskId=XXX**
 
 {taskId} - ид задачи
 
