@@ -12,23 +12,30 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/META-INF/spring/org-activiti-redis-context.xml"})
-public class TestRedis {
+@ContextConfiguration(locations = {"/META-INF/spring/org-activiti-redis-context.xml","/META-INF/spring/redis-test.xml"})
+public class RedisTest {
 
 	static final transient Logger LOG = LoggerFactory
-			.getLogger(TestRedis.class);
+			.getLogger(RedisTest.class);
 	
 	@Autowired
 	RedisService redisService;
 	
+	@Value("#{testProps['loadFile']}")
+	private String loadFile;
+	
+	@Value("#{testProps['pathToFile']}")
+	private String pathToFile;
+	
 	@Test
     public void testRedis() throws IOException {
-		byte[] data = loadfile("D:/db.properties");
+		byte[] data = loadfile(loadFile);
 		String key = redisService.putAttachments(data);
 		System.out.println(key);
 		byte[] dataFile  = redisService.getAttachments(key);
@@ -36,7 +43,7 @@ public class TestRedis {
 		if(dataFile!=null){
 		FileOutputStream fos = null;
 		try {
-			fos = new FileOutputStream("D:/em1.properties");
+			fos = new FileOutputStream(pathToFile);
 			fos.write(dataFile);
 			fos.close();
 
@@ -45,7 +52,6 @@ public class TestRedis {
 		}
 		}
     }
-
 	
 	
 	public byte[] loadfile(String pathDirFile) {
