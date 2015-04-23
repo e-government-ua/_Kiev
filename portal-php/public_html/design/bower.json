@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "homepage": "https://github.com/e-government-ua/i",
   "authors": [
-    "Artur Kvasnii <artur.kvasnii@gmail.com>"
+    "Artur Kvasnii <artur.kvasnii@gmail.com>",
+    "Dmytro Khalin <d.khalin@gmail.com>"
   ],
   "license": "MIT",
   "ignore": [
@@ -21,6 +22,7 @@
     "angular-ui-router": "~0.2.13",
     "ui-router-extras": "~0.0.13",
     "requirejs": "~2.1.17",
-    "angularAMD": "~0.2.1"
+    "angularAMD": "~0.2.1",
+    "pt-sans": "*"
   }
 }

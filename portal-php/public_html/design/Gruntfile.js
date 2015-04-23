@@ -219,6 +219,7 @@ module.exports = function(grunt) {
 				files: [
 					{expand: true, cwd: './tmp/css/concat', src: ['**'], dest: './build/css/' },
 					{expand: true, cwd: './tmp/js/concat', src: ['**'], dest: './build/js/' },
+					{expand: true, cwd: './bower_components/pt-sans/fonts', src: ['**'], dest: './build/fonts/'},
 					{expand: false, src: ['./src/js/main/data.json'], dest: './build/data.json', filter: 'isFile'}
 				]
 			},
@@ -226,6 +227,7 @@ module.exports = function(grunt) {
 				files: [
 					{expand: true, cwd: './tmp/css/cssmin', src: ['**'], dest: './build/css/' },
 					{expand: true, cwd: './tmp/js/uglify', src: ['**'], dest: './build/js/' },
+					{expand: true, cwd: './bower_components/pt-sans/fonts', src: ['**'], dest: './build/fonts/'},
 					{expand: false, src: ['./src/js/main/data.json'], dest: './build/data.json', filter: 'isFile'}
 				]
 			},
@@ -233,6 +235,7 @@ module.exports = function(grunt) {
 				files: [
 					{expand: true, cwd: './tmp/css/compress', src: ['**'], dest: './build/css/' },
 					{expand: true, cwd: './tmp/js/compress', src: ['**'], dest: './build/js/' },
+					{expand: true, cwd: './bower_components/pt-sans/fonts', src: ['**'], dest: './build/fonts/'},
 					{expand: false, src: ['./src/js/main/data.json'], dest: './build/data.json', filter: 'isFile'}
 				]
 			}
