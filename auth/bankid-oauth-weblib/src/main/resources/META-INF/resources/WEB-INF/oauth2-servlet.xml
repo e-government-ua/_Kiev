@@ -4,13 +4,15 @@
        xmlns:security="http://www.springframework.org/schema/security"
        xmlns:oauth2="http://www.springframework.org/schema/security/oauth2"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
-       http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+       http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2-2.0.xsd"
        default-autowire="byName">
 
-    <context:component-scan base-package="ua.org.bankid"/>
+    <context:component-scan base-package="ua.org.bankid.oauth"/>
+
+    <bean id="bankIdStorageService" class="ua.org.bankid.oauth.impl.BankIdStorageServiceRedisImpl" />
 
     <!-- access decision manager -->
     <bean id="oauthAuthAccessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased">
@@ -27,12 +29,15 @@
         </constructor-arg>
     </bean>
 
-    <security:http pattern="/**" create-session="stateless"
+    <bean id="oauth2AuthenticationEntryPoint"
+          class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint" />
+
+    <security:http create-session="never"
                    entry-point-ref="oauth2AuthenticationEntryPoint"
-                   authentication-manager-ref="authenticationManager"
                    access-decision-manager-ref="oauthAuthAccessDecisionManager"
                    auto-config="true"
-                   realm="BankID" >
+                   use-expressions="true">
+
         <!-- PUBLIC  -->
         <security:intercept-url pattern="/public/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
@@ -51,17 +56,25 @@
         <security:access-denied-handler ref="oauth2AccessDeniedHandler" />
     </security:http>
 
-    <!-- ******************************************************************* -->
-    <!-- OAuth2: Resource servers security filters                           -->
-    <!-- ******************************************************************* -->
-    <oauth2:resource-server id="resourceServerFilter" resource-id="ProtectedResourceByBankId"
+    <!-- authorization server on e-gov side -->
+    <oauth2:authorization-server client-details-service-ref="clientDetailsService"
+                                 token-services-ref="tokenServices"
+                                 token-endpoint-url="/oauth/token">
+        <oauth2:authorization-code disabled="false"/>
+        <oauth2:refresh-token disabled="true"/>
+        <oauth2:client-credentials disabled="true"/>
+        <oauth2:password disabled="true"/>
+    </oauth2:authorization-server>
+
+    <oauth2:resource-server id="resourceServerFilter"
+                            resource-id="ProtectedResourceByBankId"
                             token-services-ref="tokenServices" />
 
     <bean id="oauth2AccessDeniedHandler"
           class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler" />
 
     <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider ref="customAuthProvider"/>
+        <security:authentication-provider ref="authenticationProvider"/>
     </security:authentication-manager>
 
 </beans>

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:beans="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:security="http://www.springframework.org/schema/security"
        xmlns:oauth2="http://www.springframework.org/schema/security/oauth2"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
-       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
-       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
-       http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+       http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2-2.0.xsd"
        default-autowire="byName">
 
     <context:component-scan base-package="ua.org.bankid.oauth.provider.mock"/>
@@ -32,10 +31,8 @@
 
     <bean id="oauth2AccessDeniedHandler" class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler" />
 
-    <security:http pattern="/oauth/token"
-                   create-session="stateless"
-                   entry-point-ref="oauth2AuthenticationEntryPoint"
-                   authentication-manager-ref="authenticationManager">
+    <security:http create-session="never"
+                   entry-point-ref="oauth2AuthenticationEntryPoint">
         <security:anonymous enabled="false" />
         <security:http-basic entry-point-ref="customBasicAuthenticationEntryPoint"/>
         <security:access-denied-handler ref="oauth2AccessDeniedHandler" />
@@ -50,7 +47,13 @@
     </oauth2:authorization-server>
 
     <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider ref="customAuthProvider"/>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user authorities="ROLE_ADMIN" name="admin" password="admin" />
+                <security:user authorities="citizen.role.SERVICE_CONSUMER" name="consumer" password="password" />
+                <security:user authorities="citizen.role.SERVICE_PRODUCER" name="producer" password="password" />
+            </security:user-service>
+        </security:authentication-provider>
     </security:authentication-manager>
 
 </beans>
