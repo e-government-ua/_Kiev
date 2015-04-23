@@ -8,7 +8,7 @@
 
 	<properties>
 		<spring-version>4.1.4.RELEASE</spring-version>
-		<jedis.redis.client>2.6.2</jedis.redis.client>
+		<jedis.redis.client>2.4.0</jedis.redis.client>
 		<cglib.version>2.2.2</cglib.version>
 		<guava-version>15.0</guava-version>
 		<junit-version>4.10</junit-version>
@@ -39,10 +39,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<targetJdk>1.6</targetJdk>
 		<commons-lang-version>2.6</commons-lang-version>
-		<slf4j-version>1.6.2</slf4j-version>
+		 <!-- <slf4j-version>1.6.2</slf4j-version> -->
 
 		<!-- test setings -->
-		<skip.unit.test>true</skip.unit.test>
+		<skip.unit.test>false</skip.unit.test>
 		<skip.it.test>true</skip.it.test>
 	</properties>
 	<dependencies>
@@ -55,6 +55,13 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		
+		<dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>1.2.1.RELEASE</version>
+        </dependency>
+        
 
 		<!-- required for @Configuration annotation -->
 		<dependency>
@@ -86,15 +93,21 @@
 			<artifactId>commons-lang</artifactId>
 			<version>${commons-lang-version}</version>
 		</dependency>
+		
+		  <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+           <version>${spring-version}</version>
+        </dependency>
 
 
 		<!-- LOGGING -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j-version}</version>
-		</dependency>
-		<dependency>
+		<!-- <dependency> -->
+		<!-- 	<groupId>org.slf4j</groupId> -->
+		<!--	<artifactId>slf4j-api</artifactId> -->
+		<!-- 	<version>${slf4j-version}</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>log4j-over-slf4j</artifactId>
 				<version>${slf4j-version}</version>
@@ -103,7 +116,7 @@
 				<groupId>org.slf4j</groupId>
 				<artifactId>jcl-over-slf4j</artifactId>
 				<version>${slf4j-version}</version>
-			</dependency>
+			</dependency> -->
 		<!-- DEPENDENCIES FOR TESTING -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -460,4 +473,17 @@
 			</plugin>
 		</plugins>
 	</reporting>
+	
+<distributionManagement>
+		<repository>
+			<id>localNexus</id>
+			<name>localNexus</name>
+			<url>http://52.17.32.123:8081/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>localNexus</id>
+			<name>localNexus</name>
+			<url>http://52.17.32.123:8081/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>

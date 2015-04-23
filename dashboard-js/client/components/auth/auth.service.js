@@ -14,7 +14,7 @@ angular.module('dashboardJsApp')
     var sessionSettings;
 
     if ($cookieStore.get('user')) {
-      currentUser = JSON.parse($cookieStore.get('user'));
+      currentUser = $cookieStore.get('user');
     }
 
     if ($cookieStore.get('sessionSettings')) {
@@ -44,7 +44,7 @@ angular.module('dashboardJsApp')
 
         $http(req).
         success(function(data) {
-          currentUser = data;
+          currentUser = JSON.parse(data);
           deferred.resolve(data);
           return cb();
         }).
@@ -84,12 +84,32 @@ angular.module('dashboardJsApp')
        *
        * @param  {Function}
        */
-      logout: function() {
+      logout: function(callback) {
         $cookieStore.remove('user');
-        $cookieStore.remove('session');
         $cookieStore.remove('sessionSettings');
+        $cookieStore.remove('JSESSIONID');
         currentUser = {};
         sessionSettings = undefined;
+
+        var cb = callback || angular.noop;
+        var deferred = $q.defer();
+
+        var req = {
+          method: 'POST',
+          url: '/auth/activiti/logout',
+        }
+
+        $http(req).
+        success(function(data) {
+          deferred.resolve(data);
+          return cb();
+        }).
+        error(function(err) {
+          deferred.reject(err);
+          return cb(err);
+        }.bind(this));
+
+        return deferred.promise;
       },
 
       /**
@@ -101,7 +121,7 @@ angular.module('dashboardJsApp')
         return currentUser;
       },
 
-      getSessionSettings: function(){
+      getSessionSettings: function() {
         return sessionSettings;
       },
 

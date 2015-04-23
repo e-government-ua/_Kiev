@@ -1,6 +1,7 @@
 package org.activiti.redis.service.impl;
 
 import org.activiti.redis.client.RedisClient;
+import org.activiti.redis.exception.RedisException;
 import org.activiti.redis.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 @Service("redisService")
 public class RedisServiceImpl implements RedisService {
 
+	@SuppressWarnings("unused")
 	private static final transient Logger LOG = LoggerFactory
 			.getLogger(RedisServiceImpl.class);
 
@@ -22,30 +24,30 @@ public class RedisServiceImpl implements RedisService {
 	private RedisClient jedisClient;
 
 	@Override
-	public void write(String key, byte[]value) {
+	public String putAttachments(byte[]file) throws RedisException {
+		String key = null;
 		try {
-			LOG.debug("Log message:{} ", value);
-			getJedisClient().write(key, value);
+			key = getJedisClient().putAttachments(file);
 
 		} catch (Exception e) {
-			LOG.error("Error Log: " + e.getMessage());
+			throw new RedisException(RedisException.CODE_REDIS_EXCEPTION_ERROR, e.getMessage());
 		}
-
+		return key;
 	}
 
 	@Override
-	public byte[] read(String valueByKey) {
-		byte[] mess = null;
+	public byte[] getAttachments(String key) throws RedisException {
+		byte[] byteFile= null;
 		try {
-			LOG.debug("Log message:{} ", valueByKey);
-			mess = getJedisClient().read(valueByKey);
+			byteFile = getJedisClient().getAttachments(key);
 
 		} catch (Exception e) {
-			LOG.error("Error Log: " + e.getMessage());
+			throw new RedisException(RedisException.CODE_REDIS_EXCEPTION_ERROR, e.getMessage());
 		}
-		return mess;
+		return byteFile;
 	}
 
+	
 	public RedisClient getJedisClient() {
 		return jedisClient;
 	}

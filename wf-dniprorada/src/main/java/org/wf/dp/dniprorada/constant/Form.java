@@ -34,6 +34,15 @@ public enum Form {
 			dimension.setHeight("30");
 			return dimension;
 		}
+	},
+	TEXT_AREA{
+		/**
+		 * Возвращает размер текстового окна для ввода текста
+		 */
+		@Override
+		public Dimension getDimension() {			
+			return new Dimension("100","300");
+		}
 	};
 	
 	

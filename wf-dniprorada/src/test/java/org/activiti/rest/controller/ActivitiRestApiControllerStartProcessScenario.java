@@ -18,7 +18,6 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -56,7 +55,6 @@ public class ActivitiRestApiControllerStartProcessScenario {
         mockMvc.perform(get("/rest/start-process/kermit").
                 accept(MediaType.APPLICATION_JSON).
                 header("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=")).
-                andDo(print()).
                 andExpect(status().isOk()).
                 andExpect(content().contentType("application/json;charset=UTF-8")).
                 andExpect(jsonPath("$.*", hasSize(1))).
@@ -70,10 +68,10 @@ public class ActivitiRestApiControllerStartProcessScenario {
         mockMvc.perform(get("/rest/start-process/kermit").
                 accept(MediaType.APPLICATION_JSON).
                 header("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=")).
-                andExpect(status().isBadRequest()).
+                andExpect(status().isInternalServerError()).
                 andExpect(content().contentType("application/json;charset=UTF-8")).
                 andExpect(jsonPath("$.*", hasSize(2))).
-                andExpect(jsonPath("$.code", is("API_ERR_S_0000"))).
+                andExpect(jsonPath("$.code", is("SYSTEM_ERR"))).
                 andExpect(jsonPath("$.message", is("Parameter not specified")));
         Mockito.reset(runtimeService);
     }

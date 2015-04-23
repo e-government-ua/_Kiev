@@ -42,6 +42,7 @@
         <bean class="org.activiti.explorer.ui.form.MonthFormPropertyRenderer" />
         <bean class="org.wf.dp.dniprorada.ui.form.StringFormPropertyRenderer" />
         <bean class="org.wf.dp.dniprorada.ui.form.FileFormPropertyRenderer" />
+        <bean class="org.wf.dp.dniprorada.ui.form.TextAreaFormPropertyRenderer" />
       </list>
     </property>
   </bean>

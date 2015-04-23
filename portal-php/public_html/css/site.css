@@ -94,3 +94,7 @@ div.required label:after {
     content: " *";
     color: red;
 }
+
+.fileinput-button {
+      margin-top: -15px;
+}

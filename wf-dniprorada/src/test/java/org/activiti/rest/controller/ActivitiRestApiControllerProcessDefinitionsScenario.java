@@ -84,10 +84,10 @@ public class ActivitiRestApiControllerProcessDefinitionsScenario {
         mockMvc.perform(get("/rest/process-definitions").
                 accept(MediaType.APPLICATION_JSON).
                 header("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=")).
-                andExpect(status().isBadRequest()).
+                andExpect(status().isInternalServerError()).
                 andExpect(content().contentType("application/json;charset=UTF-8")).
                 andExpect(jsonPath("$.*", hasSize(2))).
-                andExpect(jsonPath("$.code", is("API_ERR_S_0000"))).
+                andExpect(jsonPath("$.code", is("SYSTEM_ERR"))).
                 andExpect(jsonPath("$.message", is("Parameter not specified")));
         Mockito.reset(repositoryService);
     }

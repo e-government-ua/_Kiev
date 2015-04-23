@@ -22,8 +22,4 @@ angular.module('dashboardJsApp')
           });
       }
     };
-
-    $scope.loginOauth = function(provider) {
-      $window.location.href = '/auth/' + provider;
-    };
   });

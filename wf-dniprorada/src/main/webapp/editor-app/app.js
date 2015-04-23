@@ -97,7 +97,7 @@ activitiModeler
 
                 var modelUrl = KISBPM.URL.getModel(modelId);
 
-                $http({method: 'GET', url: modelUrl}).
+                $http({method: 'GET', url: modelUrl, headers : {"Authorization" : "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE="}}).
                     success(function (data, status, headers, config) {
                         $rootScope.editor = new ORYX.Editor(data);
                         $rootScope.modelData = angular.fromJson(data);
