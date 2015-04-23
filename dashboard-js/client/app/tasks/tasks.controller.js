@@ -30,6 +30,7 @@ angular.module('dashboardJsApp')
     };
 
     $scope.applyTaskFilter = function(taskType) {
+      $scope.selectedTask = null;
       $scope.taskForm = null;
       $scope.tasksFilter = taskType;
       tasks
