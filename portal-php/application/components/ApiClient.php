@@ -109,12 +109,12 @@ class ApiClient extends Component
      * @param string $fileData
      * @return string
      */
-    public function uploadFile($fileData)
+    public function uploadFile($fileName, $fileData)
     {
         $client = $this->getGuzzleClient();
         $response = $client->post('rest/file/upload_file_to_redis', [
             'body'    => [
-                'file' => new PostFile('file', $fileData)
+                'file' => new PostFile('file', $fileData, $fileName)
             ]
         ]);
         $result = $response->getBody()->__toString();

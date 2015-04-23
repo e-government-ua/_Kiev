@@ -109,7 +109,7 @@ class SiteController extends Controller
         }
 
         $fileData = file_get_contents($file->tempName);
-        $fileId = Yii::$app->apiClient->uploadFile($fileData);
+        $fileId = Yii::$app->apiClient->uploadFile($file->name, $fileData);
 
         return ['id' => $fileId, 'name' => $file->name];
     }
