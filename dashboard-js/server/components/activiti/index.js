@@ -30,6 +30,8 @@ var getRequestOptions = function(options) {
 	};
 };
 
+exports.getRequestURL = getRequestURL;
+exports.getRequestOptions = getRequestOptions;
 
 exports.get = function(options, onResult) {
 	request
