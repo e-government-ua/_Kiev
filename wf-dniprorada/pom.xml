@@ -161,7 +161,11 @@
 
 
 	<dependencies>
-
+		<dependency>
+			<groupId>jmimemagic</groupId>
+			<artifactId>jmimemagic</artifactId>
+			<version>0.1.2</version>
+		</dependency>
 		<!-- Activiti -->
 		<dependency>
 			<groupId>org.activiti</groupId>
