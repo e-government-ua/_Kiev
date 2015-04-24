@@ -19,6 +19,14 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		git_deploy: {
+			your_target: {
+				options: {
+					url: 'git@github.com:e-government-ua/i.git'
+				},
+			src: './build'
+			},
+		},
 		bower_concat: {
 			all: {
 				dest: './tmp/js/concat/bower.js',
@@ -253,7 +261,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-git-deploy');
 
     // default task
-    grunt.registerTask('default', ['bower_concat', 'concat', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild']);
+    grunt.registerTask('default', ['bower_concat', 'concat', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild', 'git_deploy']);
 };
