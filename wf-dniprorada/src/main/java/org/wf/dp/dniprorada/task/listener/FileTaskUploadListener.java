@@ -2,6 +2,7 @@ package org.wf.dp.dniprorada.task.listener;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.List;
 
 import net.sf.jmimemagic.Magic;
 import net.sf.jmimemagic.MagicException;
@@ -11,6 +12,9 @@ import net.sf.jmimemagic.MagicParseException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.TaskListener;
+import org.activiti.engine.identity.User;
+import org.activiti.engine.impl.el.FixedValue;
+import org.activiti.engine.task.Attachment;
 import org.activiti.redis.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +33,7 @@ public class FileTaskUploadListener implements TaskListener {
 			.getLogger(FileTaskUploadListener.class);
 	@Autowired
 	RedisService redisService;
-
+	
 	/**
 	 * 
 	 */
@@ -38,6 +42,8 @@ public class FileTaskUploadListener implements TaskListener {
 	@Override
 	public void notify(DelegateTask task) {
 		DelegateExecution execution = task.getExecution();
+		 List<User> user = execution.getEngineServices().getIdentityService().createUserQuery().memberOfGroup("management_clerk_dmr").list();
+		task.setAssignee(user.get(0).getId());
 
 		byte[] contentbyte = getRedisService().getAttachments(
 				execution.getVariable("attachedId").toString());
@@ -45,7 +51,7 @@ public class FileTaskUploadListener implements TaskListener {
 
 			InputStream content = new ByteArrayInputStream(contentbyte);
 			MimiTypeModel mimiType = getMimiType(contentbyte);
-			execution
+			Attachment atach = execution
 					.getEngineServices()
 					.getTaskService()
 					.createAttachment(mimiType.getExtension(), task.getId(),
@@ -77,5 +83,6 @@ public class FileTaskUploadListener implements TaskListener {
 		}
 		return mimiTypeModel;
 	}
-
+	
+	
 }
