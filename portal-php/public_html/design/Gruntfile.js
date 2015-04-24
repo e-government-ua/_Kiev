@@ -28,7 +28,25 @@ module.exports = function(grunt) {
 			},
 		},
 		bower_concat: {
-			all: {
+			main: {
+				dest: './tmp/js/concat/bower.js',
+				cssDest: './tmp/css/concat/bower.css',
+				exclude: [
+					'requirejs',
+					'angularAMD',
+					'angular-mocks'
+				],
+				dependencies: {
+					'angular-mocks': 'angular',
+					'angular-boostrap': 'angular',
+					'angular-ui-router': 'angular',
+					'ui-router-extras': 'angular-ui-router',
+				},
+				bowerOptions: {
+					relative: false
+				}
+			},
+			debug: {
 				dest: './tmp/js/concat/bower.js',
 				cssDest: './tmp/css/concat/bower.css',
 				exclude: [
@@ -74,7 +92,7 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/angularAMD/ngload.js'
 					},
 					{
-						src: ['./src/js/main/*.js'],
+						src: ['./src/js/main/script.js'],
 						dest: './tmp/js/concat/script.js'
 					},
 					{
@@ -92,6 +110,50 @@ module.exports = function(grunt) {
 					{
 						src: ['./src/js/profile/**/*.js'],
 						dest: './tmp/js/concat/app/profile.js'
+					}
+				]
+			},
+			debug: {
+                files: [
+					{
+						src: ['./src/css/**/*.css'],
+						dest: './tmp/css/concat/style.css'
+					},
+					{
+						src: ['./src/js/debug.js'],
+						dest: './tmp/js/concat/main.js'
+					},
+					{
+						src: ['./bower_components/angularAMD/angularAMD.js'],
+						dest: './tmp/js/concat/angularAMD/angularAMD.js'
+					},
+					{
+						src: ['./bower_components/angularAMD/ngload.js'],
+						dest: './tmp/js/concat/angularAMD/ngload.js'
+					},
+					{
+						src: ['./src/js/main/debug.js'],
+						dest: './tmp/js/concat/script.js'
+					},
+					{
+						src: ['./src/js/index/**/*.js'],
+						dest: './tmp/js/concat/app/index.js'
+					},
+					{
+						src: ['./src/js/documents/**/*.js'],
+						dest: './tmp/js/concat/app/documents.js'
+					},
+					{
+						src: ['./src/js/journal/**/*.js'],
+						dest: './tmp/js/concat/app/journal.js'
+					},
+					{
+						src: ['./src/js/profile/**/*.js'],
+						dest: './tmp/js/concat/app/profile.js'
+					},
+					{
+						src: ['./src/js/server/**/*.js'],
+						dest: './tmp/js/concat/app/server.js'
 					}
 				]
 			}
@@ -264,5 +326,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-git-deploy');
 
     // default task
-    grunt.registerTask('default', ['bower_concat', 'concat', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild', 'git_deploy']);
+    grunt.registerTask('default', ['bower_concat:main', 'bower_concat:require', 'concat:main', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild']);
+	grunt.registerTask('debug', ['bower_concat:debug', 'bower_concat:require', 'concat:debug', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild']);
 };
