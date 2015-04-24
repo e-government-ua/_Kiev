@@ -10,17 +10,17 @@ class BankId extends OAuth2
     /**
      * @inheritdoc
      */
-    public $authUrl = 'https://bankid.privatbank.ua/DataAccessService/das/authorize';
+    public $authUrl = 'https://bankid.org.ua/DataAccessService/das/authorize';
 
     /**
      * @inheritdoc
      */
-    public $tokenUrl = 'https://bankid.privatbank.ua/DataAccessService/oauth/token';
+    public $tokenUrl = 'https://bankid.org.ua/DataAccessService/oauth/token';
 
     /**
      * @inheritdoc
      */
-    public $apiBaseUrl = 'https://bankid.privatbank.ua/DataAccessService/checked';
+    public $apiBaseUrl = 'https://bankid.org.ua/DataAccessService/checked';
 
     /**
      *
@@ -48,20 +48,17 @@ class BankId extends OAuth2
     {
         $accessToken = $this->getAccessToken();
         $token = $accessToken->getToken();
-        //$params['access_token'] = $token;
-        //$params[] = '{"bankIdPhone":"true","bankIdLastName":"true","bankIdFirstName":"true","bankIdMiddleName":"true","bankIdAddress":"true","bankIdDocument":"true", "bankIdBirthDate":"true"}';
 
         $params = [
             json_encode($this->getRequestFields())
         ];
         $headers = [
             "Content-Type: application/json",
-            "Authorization: Bearer $token",
+            "Authorization: Bearer $token, Id $this->clientId",
             "Accept: application/json"
         ];
 
-        $url = 'data?client_id=' . $this->clientId;
-        return $this->api($url, 'CUSTOM_POST', $params, $headers);
+        return $this->api('data', 'CUSTOM_POST', $params, $headers);
     }
 
     /**
@@ -100,41 +97,48 @@ class BankId extends OAuth2
     {
         return [
             "type"      => "physical",
-            "fields"    => ["firstName", "middleName", "lastName", "phone", "inn", "clId", "birthDay"],
-            //"fields"    => ["firstName", "middleName", "lastName", "phone", "inn", "clId", "clIdText", "birthDay"],
+            "fields"    => ["firstName", "middleName", "lastName", "phone", "inn", "clId", "clIdText", "birthDay", "sex", "email"],
             "scans"     => [
                 [
                     "type"   => "passport",
                     "fields" => ["link", "dateCreate"]
                 ],
-//                [
-//                    "type"   => "zpassport",
-//                    "fields" => ["link", "dateCreate"]
-//                ],
-//                [
-//                    "type"   => "inn",
-//                    "fields" => ["link", "dateCreate"]
-//                ],
+                [
+                    "type"   => "zpassport",
+                    "fields" => ["link", "dateCreate"]
+                ],
+                [
+                    "type"   => "inn",
+                    "fields" => ["link", "dateCreate"]
+                ],
+                [
+                    "type"   => "personalPhoto",
+                    "fields" => ["link", "dateCreate"]
+                ],
             ],
             "addresses" => [
                 [
                     "type"   => "factual",
                     "fields" => ["country", "state", "area", "city", "street", "houseNo", "flatNo"],
                 ],
-//                [
-//                    "type"   => "birth",
-//                    "fields" => ["country", "state", "area", "city", "street", "houseNo", "flatNo"],
-//                ],
+                [
+                    "type"   => "birth",
+                    "fields" => ["country", "state", "area", "city", "street", "houseNo", "flatNo"],
+                ],
             ],
             "documents" => [
                 [
                     "type"   => "passport",
                     "fields" => ["series", "number", "issue", "dateIssue", "dateExpiration", "issueCountryIso2"],
                 ],
-//                [
-//                    "type"   => "zpassport",
-//                    "fields" => ["series", "number", "issue", "dateIssue", "dateExpiration", "issueCountryIso2"],
-//                ],
+                [
+                    "type"   => "zpassport",
+                    "fields" => ["series", "number", "issue", "dateIssue", "dateExpiration", "issueCountryIso2"],
+                ],
+                [
+                    "type"   => "ident",
+                    "fields" => ["series", "number", "issue", "dateIssue", "dateExpiration", "issueCountryIso2"],
+                ],
             ],
         ];
     }
