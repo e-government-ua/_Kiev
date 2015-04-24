@@ -13,7 +13,6 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.TaskListener;
 import org.activiti.engine.identity.User;
-import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.task.Attachment;
 import org.activiti.redis.service.RedisService;
 import org.slf4j.Logger;
@@ -21,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.wf.dp.dniprorada.model.MimiTypeModel;
+import org.activiti.engine.delegate.Expression;
 
 /**
  * 
@@ -34,6 +34,8 @@ public class FileTaskUploadListener implements TaskListener {
 	@Autowired
 	RedisService redisService;
 	
+	private Expression assignee;
+	
 	/**
 	 * 
 	 */
@@ -42,8 +44,9 @@ public class FileTaskUploadListener implements TaskListener {
 	@Override
 	public void notify(DelegateTask task) {
 		DelegateExecution execution = task.getExecution();
-		 List<User> user = execution.getEngineServices().getIdentityService().createUserQuery().memberOfGroup("management_clerk_dmr").list();
-		task.setAssignee(user.get(0).getId());
+	//	 List<User> user = execution.getEngineServices().getIdentityService().createUserQuery().memberOfGroup("management_clerk_dmr").list();
+		 
+		// task.setAssignee(getStringFromFieldExpression(this.assignee, execution));
 
 		byte[] contentbyte = getRedisService().getAttachments(
 				execution.getVariable("attachedId").toString());
@@ -51,7 +54,7 @@ public class FileTaskUploadListener implements TaskListener {
 
 			InputStream content = new ByteArrayInputStream(contentbyte);
 			MimiTypeModel mimiType = getMimiType(contentbyte);
-			Attachment atach = execution
+			execution
 					.getEngineServices()
 					.getTaskService()
 					.createAttachment(mimiType.getExtension(), task.getId(),
@@ -82,6 +85,17 @@ public class FileTaskUploadListener implements TaskListener {
 			LOG.info("MagicException" + e.getMessage());
 		}
 		return mimiTypeModel;
+	}
+	
+	protected String getStringFromFieldExpression(Expression expression,
+			DelegateExecution execution) {
+		if (expression != null) {
+			Object value = expression.getValue(execution);
+			if (value != null) {
+				return value.toString();
+			}
+		}
+		return null;
 	}
 	
 	
