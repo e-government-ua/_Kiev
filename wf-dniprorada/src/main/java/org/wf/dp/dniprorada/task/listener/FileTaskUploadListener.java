@@ -1,8 +1,12 @@
 package org.wf.dp.dniprorada.task.listener;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
+
+import net.sf.jmimemagic.Magic;
+import net.sf.jmimemagic.MagicException;
+import net.sf.jmimemagic.MagicMatchNotFoundException;
+import net.sf.jmimemagic.MagicParseException;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.DelegateTask;
@@ -12,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.wf.dp.dniprorada.model.MimiTypeModel;
 
 /**
  * 
@@ -33,27 +38,44 @@ public class FileTaskUploadListener implements TaskListener {
 	@Override
 	public void notify(DelegateTask task) {
 		DelegateExecution execution = task.getExecution();
-		
-		byte[] contentbyte=null;
-			contentbyte = getRedisService().getAttachments(
-					execution.getVariable("attachedId").toString());
-			LOG.info("contentbyte"+ contentbyte);
-		
-		if(contentbyte!=null){
-			
-		InputStream content = new ByteArrayInputStream(contentbyte);
-		LOG.info("InputStream"+ content);
-		execution
-				.getEngineServices()
-				.getTaskService()
-				.createAttachment("application/properties", task.getId(),
-						execution.getProcessInstanceId(), "attached",
-						"attached", content);
+
+		byte[] contentbyte = getRedisService().getAttachments(
+				execution.getVariable("attachedId").toString());
+		if (contentbyte != null) {
+
+			InputStream content = new ByteArrayInputStream(contentbyte);
+			MimiTypeModel mimiType = getMimiType(contentbyte);
+			execution
+					.getEngineServices()
+					.getTaskService()
+					.createAttachment(mimiType.getExtension(), task.getId(),
+							execution.getProcessInstanceId(),
+							"Копiя паспорта", "attached", content);
 		}
 	}
 
 	public RedisService getRedisService() {
 		return redisService;
+	}
+
+	public MimiTypeModel getMimiType(byte[] dataFile) {
+		MimiTypeModel mimiTypeModel = new MimiTypeModel();
+		try {
+			String exe = Magic.getMagicMatch(dataFile).getExtension();
+			if (exe != null && !exe.isEmpty()) {
+				mimiTypeModel.setExtension("application/" + exe);
+			} else {
+				mimiTypeModel.setExtension("application/octet-stream");
+			}
+
+		} catch (MagicParseException e) {
+			LOG.info("MagicParseException" + e.getMessage());
+		} catch (MagicMatchNotFoundException e) {
+			LOG.info("MagicMatchNotFoundException" + e.getMessage());
+		} catch (MagicException e) {
+			LOG.info("MagicException" + e.getMessage());
+		}
+		return mimiTypeModel;
 	}
 
 }
