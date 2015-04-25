@@ -23,7 +23,7 @@ module.exports = function(grunt) {
 			main: {
 				src: [
 					'./src/html/catalog/*.html',
-					'./src/html/service/*.html',
+					'./src/html/service/**/*.html',
 					'./src/html/documents/*.html',
 					'./src/html/journal/*.html'
 				],

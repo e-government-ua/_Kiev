@@ -1,4 +1,4 @@
-define('service', ['angularAMD'], function (angularAMD) {
+define('service', ['angularAMD', 'service.link', 'service.built-in'], function (angularAMD) {
     var app = angular.module('service', []);
 
     app.config(['$stateProvider', function ($stateProvider) {
