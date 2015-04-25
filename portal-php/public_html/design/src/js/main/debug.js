@@ -1,5 +1,5 @@
-define(['angularAMD', 'server'], function (angularAMD) {
-    var app = angular.module("main", ['ct.ui.router.extras', 'server']);
+define(['angularAMD', 'templates', 'server'], function (angularAMD) {
+    var app = angular.module("main", ['ct.ui.router.extras', 'templates-main', 'server']);
 
     app.config(['$futureStateProvider', '$controllerProvider', function ($futureStateProvider, $controllerProvider) {
         var ngloadStateFactory = ['$q', 'futureState', function ($q, futureState) {
@@ -22,6 +22,11 @@ define(['angularAMD', 'server'], function (angularAMD) {
         }];
         $futureStateProvider.stateFactory('ngload', ngloadStateFactory); // register AngularAMD ngload state factory
         $futureStateProvider.addResolve(loadAndRegisterFutureStates);
+    }]);
+	
+    app.config(['$urlRouterProvider', function ($urlRouterProvider) {
+		$urlRouterProvider.when('', '/index');
+        $urlRouterProvider.otherwise('/index');
     }]);
 
     angularAMD.bootstrap(app);
