@@ -140,7 +140,21 @@ define('server', ['angularAMD'], function (angularAMD) {
 						'id': 4,
 						'name': 'built-in',
 						'url': null
-					}
+					},
+					"range": 0
+				}, {}];
+			}
+			
+			if(data.id == 6) {
+				return [200,{
+					'id': 6,
+					'name': 'Service6',
+					'serviceType': {
+						'id': 4,
+						'name': 'built-in',
+						'url': null
+					},
+					"range": 1
 				}, {}];
 			}
 			
