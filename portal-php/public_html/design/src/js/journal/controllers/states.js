@@ -1,5 +1,5 @@
-define('state/journal/controller', [], function () {
-    return ['$rootScope', function ($rootScope) {
+define('state/journal/controller', ['angularAMD'], function (angularAMD) {
+	angularAMD.controller('JournalController', ['$rootScope', function ($rootScope) {
 		console.log('$rootScope');
-    }]
+    }]);
 });

@@ -7,7 +7,10 @@ define('journal', ['angularAMD'], function (angularAMD) {
                 url: '/journal',
                 views: {
                     '': angularAMD.route({
-                        template: '',
+                        templateProvider: ['$templateCache', function($templateCache) {
+							return $templateCache.get('html/journal/index.html');
+						}],
+						controller: 'JournalController',
                         controllerUrl: 'state/journal/controller'
                     })
                 }
