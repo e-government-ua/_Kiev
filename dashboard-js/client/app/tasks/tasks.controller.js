@@ -80,16 +80,6 @@ angular.module('dashboardJsApp')
           console.log(err)
         });
 
-      tasks
-        .listTaskEvents(task.id)
-        .then(function(result) {
-          result = JSON.parse(result);
-          $scope.events = result;
-        })
-        .catch(function(err) {
-          $scope.error = err.message;
-        });
-
         tasks.getTaskAttachments(task.id)
         .then(function(result) {
           $scope.taskAttachments = result;
@@ -103,8 +93,6 @@ angular.module('dashboardJsApp')
       if ($scope.selectedTask && $scope.taskForm) {
         tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm)
           .then(function(result) {
-            $scope.events = result;
-
             Modal.inform.success(function(event) {
               $scope.applyTaskFilter($scope.tasksFilter);
             })('Форма відправлена : ' + result);
