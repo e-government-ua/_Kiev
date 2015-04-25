@@ -52,12 +52,12 @@
 
     <distributionManagement>
         <repository>
-            <id>releases</id>
+            <id>localNexus</id>
             <name>Internal Releases</name>
             <url>http://52.17.32.123:8081/nexus/content/repositories/releases</url>
         </repository>
         <snapshotRepository>
-            <id>snapshots</id>
+            <id>localNexus</id>
             <name>Internal Snapshots</name>
             <url>http://52.17.32.123:8081/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
