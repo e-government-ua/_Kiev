@@ -8,7 +8,7 @@
     <groupId>org.egov-ua</groupId>
     <artifactId>org.egov-ua</artifactId>
     <packaging>pom</packaging>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
 
     <properties>
         <!--compiler properties-->
@@ -52,12 +52,12 @@
 
     <distributionManagement>
         <repository>
-            <id>localNexus</id>
+            <id>releases</id>
             <name>Internal Releases</name>
             <url>http://52.17.32.123:8081/nexus/content/repositories/releases</url>
         </repository>
         <snapshotRepository>
-            <id>localNexus</id>
+            <id>snapshots</id>
             <name>Internal Snapshots</name>
             <url>http://52.17.32.123:8081/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
