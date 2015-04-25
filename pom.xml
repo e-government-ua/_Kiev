@@ -11,11 +11,6 @@
     <version>1.0</version>
 
     <properties>
-        <!--our properties-->
-        <redis.version>1.0</redis.version>
-        <base.version>1.0</base.version>
-        <!--our properties-->
-
         <!--compiler properties-->
         <source.version>1.7</source.version>
         <target.version>1.7</target.version>
@@ -52,18 +47,18 @@
         <jsonassert.version>1.2.3</jsonassert.version>
     </properties>
 
-    <!--<distributionManagement>-->
-        <!--<repository>-->
-            <!--<id>releases</id>-->
-            <!--<name>Internal Releases</name>-->
-            <!--<url>xxx</url>-->
-        <!--</repository>-->
-        <!--<snapshotRepository>-->
-            <!--<id>snapshots</id>-->
-            <!--<name>Internal Snapshots</name>-->
-            <!--<url>xxx</url>-->
-        <!--</snapshotRepository>-->
-    <!--</distributionManagement>-->
+    <distributionManagement>
+        <repository>
+            <id>localNexus</id>
+            <name>Internal Releases</name>
+            <url>http://52.17.32.123:8081/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>localNexus</id>
+            <name>Internal Snapshots</name>
+            <url>http://52.17.32.123:8081/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
@@ -72,12 +67,6 @@
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
-                <type>jar</type>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slj4j.version}</version>
                 <type>jar</type>
             </dependency>
             <dependency>
@@ -188,6 +177,7 @@
     </dependencyManagement>
 
     <modules>
+        <module>auth</module>
         <module>redis</module>
         <module>wf-base</module>
         <module>wf-dniprorada</module>

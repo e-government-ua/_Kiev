@@ -1,6 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.egov-ua</groupId>
+        <artifactId>org.egov-ua</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
 	<groupId>org.activiti.redis</groupId>
 	<artifactId>wf-dniprorada-redis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -39,7 +46,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<targetJdk>1.6</targetJdk>
 		<commons-lang-version>2.6</commons-lang-version>
-		 <!-- <slf4j-version>1.6.2</slf4j-version> -->
 
 		<!-- test setings -->
 		<skip.unit.test>true</skip.unit.test>
@@ -100,23 +106,6 @@
            <version>${spring-version}</version>
         </dependency>
 
-
-		<!-- LOGGING -->
-		<!-- <dependency> -->
-		<!-- 	<groupId>org.slf4j</groupId> -->
-		<!--	<artifactId>slf4j-api</artifactId> -->
-		<!-- 	<version>${slf4j-version}</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>log4j-over-slf4j</artifactId>
-				<version>${slf4j-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>jcl-over-slf4j</artifactId>
-				<version>${slf4j-version}</version>
-			</dependency> -->
 		<!-- DEPENDENCIES FOR TESTING -->
 		<dependency>
 			<groupId>org.springframework</groupId>
