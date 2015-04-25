@@ -19,6 +19,12 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		html2js: {
+			main: {
+				src: ['./src/html/catalog/*.html'],
+				dest: './build/js/templates.js'
+			}
+		},
 		git_deploy: {
 			your_target: {
 				options: {
@@ -96,7 +102,7 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/script.js'
 					},
 					{
-						src: ['./src/js/index/**/*.js'],
+						src: ['./src/js/index/services/catalog.js', './src/js/index/controllers/states.js', './src/js/index/script.js'],
 						dest: './tmp/js/concat/app/index.js'
 					},
 					{
@@ -136,7 +142,7 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/script.js'
 					},
 					{
-						src: ['./src/js/index/**/*.js'],
+						src: ['./src/js/index/services/catalog.js', './src/js/index/controllers/states.js', './src/js/index/script.js'],
 						dest: './tmp/js/concat/app/index.js'
 					},
 					{
@@ -317,6 +323,7 @@ module.exports = function(grunt) {
 
     // load plugins
 	grunt.loadNpmTasks('grunt-html-build');
+	grunt.loadNpmTasks('grunt-html2js');
 	grunt.loadNpmTasks('grunt-bower-concat');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -326,6 +333,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-git-deploy');
 
     // default task
-    grunt.registerTask('default', ['bower_concat:main', 'bower_concat:require', 'concat:main', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild']);
-	grunt.registerTask('debug', ['bower_concat:debug', 'bower_concat:require', 'concat:debug', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild']);
+    grunt.registerTask('default', ['bower_concat:main', 'bower_concat:require', 'concat:main', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild', 'html2js']);
+	grunt.registerTask('debug', ['bower_concat:debug', 'bower_concat:require', 'concat:debug', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild', 'html2js']);
 };

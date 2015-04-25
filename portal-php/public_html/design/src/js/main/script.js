@@ -1,5 +1,5 @@
-define(['angularAMD'], function (angularAMD) {
-    var app = angular.module("main", ['ct.ui.router.extras']);
+define(['angularAMD', 'templates'], function (angularAMD) {
+    var app = angular.module("main", ['ct.ui.router.extras', 'templates-main']);
 
     app.config(['$futureStateProvider', '$controllerProvider', function ($futureStateProvider, $controllerProvider) {
         var ngloadStateFactory = ['$q', 'futureState', function ($q, futureState) {
