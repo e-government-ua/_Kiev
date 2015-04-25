@@ -4,6 +4,7 @@ define('service', ['angularAMD', 'service.link', 'service.built-in', 'service/se
     app.config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('service', {
+				'abstract': true,
                 url: '/service/{id:int}',
 				resolve: {
 					service: ['$stateParams', 'ServiceService', function($stateParams, ServiceService) {
