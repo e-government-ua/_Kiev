@@ -1,0 +1,32 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="list-group">
+			<div class="list-group-item disabled">
+				<div class="row no-margin-bottom">
+					<div class="col-md-11 form-inline">
+						<span>Крок 1. Оберіть свій регіон </span>
+						<span>Область</span>
+						<select class="form-control" name="region" ng-model="region" ng-options="element.name for element in regions"></select>
+						<span>Місто</span>
+						<select class="form-control" name="city" ng-model="city" ng-options="element.name for element in cities"></select>
+					</div>
+					<div class="col-md-1">
+						<div class="link-button">
+							<a href="#">Змінити</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="list-group-item">
+				<span>Крок 2. Увійдіть в систему через</span>
+				<button class="btn btn-info"><i class="icon-door-lock"></i><span class="btn-text">i.gov.ua</span></button>
+				<button class="btn btn-info"><i class="icon-bank-id"></i><span class="btn-text">BankID</span></button>
+				<button class="btn"><i class="icon-mobil-id"></i></button>
+				<button class="btn btn-success i-btn-badge">
+					<i class="icon-badge"></i>
+					<span class="btn-text"><div>Сертифікат електронно-</div><div>цифрового підпису</div></span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

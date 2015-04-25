@@ -19,6 +19,17 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		html2js: {
+			main: {
+				src: [
+					'./src/html/catalog/*.html',
+					'./src/html/service/**/*.html',
+					'./src/html/documents/*.html',
+					'./src/html/journal/*.html'
+				],
+				dest: './build/js/templates.js'
+			}
+		},
 		git_deploy: {
 			your_target: {
 				options: {
@@ -96,7 +107,7 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/script.js'
 					},
 					{
-						src: ['./src/js/index/**/*.js'],
+						src: ['./src/js/index/services/catalog.js', './src/js/index/controllers/states.js', './src/js/index/script.js'],
 						dest: './tmp/js/concat/app/index.js'
 					},
 					{
@@ -108,8 +119,14 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/app/journal.js'
 					},
 					{
-						src: ['./src/js/profile/**/*.js'],
-						dest: './tmp/js/concat/app/profile.js'
+						src: [
+							'./src/js/service/link/**/*.js',
+							'./src/js/service/built-in/**/*.js',
+							'./src/js/service/controllers/**/*.js',
+							'./src/js/service/services/**/*.js',
+							'./src/js/service/*.js',
+						],
+						dest: './tmp/js/concat/app/service.js'
 					}
 				]
 			},
@@ -136,7 +153,7 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/script.js'
 					},
 					{
-						src: ['./src/js/index/**/*.js'],
+						src: ['./src/js/index/services/catalog.js', './src/js/index/controllers/states.js', './src/js/index/script.js'],
 						dest: './tmp/js/concat/app/index.js'
 					},
 					{
@@ -148,8 +165,14 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/app/journal.js'
 					},
 					{
-						src: ['./src/js/profile/**/*.js'],
-						dest: './tmp/js/concat/app/profile.js'
+						src: [
+							'./src/js/service/link/**/*.js',
+							'./src/js/service/built-in/**/*.js',
+							'./src/js/service/controllers/**/*.js',
+							'./src/js/service/services/**/*.js',
+							'./src/js/service/*.js',
+						],
+						dest: './tmp/js/concat/app/service.js'
 					},
 					{
 						src: ['./src/js/server/**/*.js'],
@@ -170,7 +193,7 @@ module.exports = function(grunt) {
 					'./tmp/js/uglify/app/index.js': ['./tmp/js/concat/app/index.js'],
 					'./tmp/js/uglify/app/documents.js': ['./tmp/js/concat/app/documents.js'],
 					'./tmp/js/uglify/app/journal.js': ['./tmp/js/concat/app/journal.js'],
-					'./tmp/js/uglify/app/profile.js': ['./tmp/js/concat/app/profile.js']
+					'./tmp/js/uglify/app/service.js': ['./tmp/js/concat/app/service.js']
 				}
 			}
 		},
@@ -227,7 +250,7 @@ module.exports = function(grunt) {
 							'index.js',
 							'documents.js',
 							'journal.js',
-							'profile.js',
+							'service.js',
 						],
 						cwd: './tmp/js/concat/app',
 						dest: './tmp/js/compress/app',
@@ -275,7 +298,7 @@ module.exports = function(grunt) {
 							'index.js',
 							'documents.js',
 							'journal.js',
-							'profile.js',
+							'service.js',
 						],
 						cwd: './tmp/js/uglify/app',
 						dest: './tmp/js/compress/app',
@@ -290,6 +313,7 @@ module.exports = function(grunt) {
 					{expand: true, cwd: './tmp/css/concat', src: ['**'], dest: './build/css/' },
 					{expand: true, cwd: './tmp/js/concat', src: ['**'], dest: './build/js/' },
 					{expand: true, cwd: './bower_components/pt-sans/fonts', src: ['**'], dest: './build/fonts/'},
+					{expand: true, cwd: './src/img', src: ['**'], dest: './build/img/'},
 					{expand: false, src: ['./bower_components/bootstrap/dist/css/bootstrap.css.map'], dest: './build/css/bootstrap.css.map', filter: 'isFile'},
 					{expand: false, src: ['./src/js/main/data.json'], dest: './build/data.json', filter: 'isFile'}
 				]
@@ -299,6 +323,7 @@ module.exports = function(grunt) {
 					{expand: true, cwd: './tmp/css/cssmin', src: ['**'], dest: './build/css/' },
 					{expand: true, cwd: './tmp/js/uglify', src: ['**'], dest: './build/js/' },
 					{expand: true, cwd: './bower_components/pt-sans/fonts', src: ['**'], dest: './build/fonts/'},
+					{expand: true, cwd: './src/img', src: ['**'], dest: './build/img/'},
 					{expand: false, src: ['./bower_components/bootstrap/dist/css/bootstrap.css.map'], dest: './build/css/bootstrap.css.map', filter: 'isFile'},
 					{expand: false, src: ['./src/js/main/data.json'], dest: './build/data.json', filter: 'isFile'}
 				]
@@ -308,6 +333,7 @@ module.exports = function(grunt) {
 					{expand: true, cwd: './tmp/css/compress', src: ['**'], dest: './build/css/' },
 					{expand: true, cwd: './tmp/js/compress', src: ['**'], dest: './build/js/' },
 					{expand: true, cwd: './bower_components/pt-sans/fonts', src: ['**'], dest: './build/fonts/'},
+					{expand: true, cwd: './src/img', src: ['**'], dest: './build/img/'},
 					{expand: false, src: ['./bower_components/bootstrap/dist/css/bootstrap.css.map'], dest: './build/css/bootstrap.css.map', filter: 'isFile'},
 					{expand: false, src: ['./src/js/main/data.json'], dest: './build/data.json', filter: 'isFile'}
 				]
@@ -317,6 +343,7 @@ module.exports = function(grunt) {
 
     // load plugins
 	grunt.loadNpmTasks('grunt-html-build');
+	grunt.loadNpmTasks('grunt-html2js');
 	grunt.loadNpmTasks('grunt-bower-concat');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -326,6 +353,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-git-deploy');
 
     // default task
-    grunt.registerTask('default', ['bower_concat:main', 'bower_concat:require', 'concat:main', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild']);
-	grunt.registerTask('debug', ['bower_concat:debug', 'bower_concat:require', 'concat:debug', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild']);
+    grunt.registerTask('default', ['bower_concat:main', 'bower_concat:require', 'concat:main', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild', 'html2js']);
+	grunt.registerTask('debug', ['bower_concat:debug', 'bower_concat:require', 'concat:debug', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild', 'html2js']);
 };

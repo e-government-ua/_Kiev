@@ -1,13 +1,21 @@
-define('index', ['angularAMD'], function (angularAMD) {
+define('index', ['angularAMD', 'catalog/service'], function (angularAMD) {
     var app = angular.module('index', []);
 
     app.config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('index', {
                 url: '/index',
+				resolve: {
+					catalog: ['CatalogService', function(CatalogService) {
+						return CatalogService.getServices();
+					}]
+				},
                 views: {
                     '': angularAMD.route({
-                        template: '',
+                        templateProvider: ['$templateCache', function($templateCache) {
+							return $templateCache.get('html/catalog/services.html');
+						}],
+						controller: 'IndexController',
                         controllerUrl: 'state/index/controller'
                     })
                 }

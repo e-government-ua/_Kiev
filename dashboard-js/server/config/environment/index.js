@@ -62,6 +62,10 @@ var all = {
     }
   },
 
+  request: {
+    debug: process.env.DEBUG  || false
+  }
+
 };
 
 // Export the config object based on the NODE_ENV
