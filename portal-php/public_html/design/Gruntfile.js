@@ -21,7 +21,12 @@ module.exports = function(grunt) {
 		},
 		html2js: {
 			main: {
-				src: ['./src/html/catalog/*.html'],
+				src: [
+					'./src/html/catalog/*.html',
+					'./src/html/service/*.html',
+					'./src/html/documents/*.html',
+					'./src/html/journal/*.html'
+				],
 				dest: './build/js/templates.js'
 			}
 		},
@@ -114,8 +119,8 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/app/journal.js'
 					},
 					{
-						src: ['./src/js/profile/**/*.js'],
-						dest: './tmp/js/concat/app/profile.js'
+						src: ['./src/js/service/**/*.js'],
+						dest: './tmp/js/concat/app/service.js'
 					}
 				]
 			},
@@ -154,8 +159,8 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/app/journal.js'
 					},
 					{
-						src: ['./src/js/profile/**/*.js'],
-						dest: './tmp/js/concat/app/profile.js'
+						src: ['./src/js/service/**/*.js'],
+						dest: './tmp/js/concat/app/service.js'
 					},
 					{
 						src: ['./src/js/server/**/*.js'],
@@ -176,7 +181,7 @@ module.exports = function(grunt) {
 					'./tmp/js/uglify/app/index.js': ['./tmp/js/concat/app/index.js'],
 					'./tmp/js/uglify/app/documents.js': ['./tmp/js/concat/app/documents.js'],
 					'./tmp/js/uglify/app/journal.js': ['./tmp/js/concat/app/journal.js'],
-					'./tmp/js/uglify/app/profile.js': ['./tmp/js/concat/app/profile.js']
+					'./tmp/js/uglify/app/service.js': ['./tmp/js/concat/app/service.js']
 				}
 			}
 		},
@@ -233,7 +238,7 @@ module.exports = function(grunt) {
 							'index.js',
 							'documents.js',
 							'journal.js',
-							'profile.js',
+							'service.js',
 						],
 						cwd: './tmp/js/concat/app',
 						dest: './tmp/js/compress/app',
@@ -281,7 +286,7 @@ module.exports = function(grunt) {
 							'index.js',
 							'documents.js',
 							'journal.js',
-							'profile.js',
+							'service.js',
 						],
 						cwd: './tmp/js/uglify/app',
 						dest: './tmp/js/compress/app',

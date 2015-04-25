@@ -7,7 +7,10 @@ define('documents', ['angularAMD'], function (angularAMD) {
                 url: '/documents',
                 views: {
                     '': angularAMD.route({
-                        template: '',
+                        templateProvider: ['$templateCache', function($templateCache) {
+							return $templateCache.get('html/documents/index.html');
+						}],
+						controller: 'DocumentsController',
                         controllerUrl: 'state/documents/controller'
                     })
                 }
