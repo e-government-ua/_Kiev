@@ -4,7 +4,7 @@ define('service', ['angularAMD', 'service.link', 'service.built-in'], function (
     app.config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('service', {
-                url: '/service',
+                url: '/service/{id:int}',
                 views: {
                     '': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {

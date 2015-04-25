@@ -15,11 +15,21 @@ define('server', ['angularAMD'], function (angularAMD) {
 								'services': [
 									{
 										'id': 1,
-										'name': 'Service1'
+										'name': 'Service1',
+										'serviceType': {
+											'id': 1,
+											'name': 'link',
+											'url': 'http://google.com.ua'
+										}
 									},
 									{
 										'id': 2,
-										'name': 'Service2'
+										'name': 'Service2',
+										'serviceType': {
+											'id': 1,
+											'name': 'link',
+											'url': 'http://google.com.ua'
+										}
 									}
 								]
 							},
@@ -29,11 +39,21 @@ define('server', ['angularAMD'], function (angularAMD) {
 								'services': [
 									{
 										'id': 3,
-										'name': 'Service3'
+										'name': 'Service3',
+										'serviceType': {
+											'id': 1,
+											'name': 'link',
+											'url': 'http://google.com.ua'
+										}
 									},
 									{
 										'id': 4,
-										'name': 'Service4'
+										'name': 'Service4',
+										'serviceType': {
+											'id': 1,
+											'name': 'link',
+											'url': 'http://google.com.ua'
+										}
 									}
 								]
 							}
@@ -49,11 +69,21 @@ define('server', ['angularAMD'], function (angularAMD) {
 								'services': [
 									{
 										'id': 5,
-										'name': 'Service5'
+										'name': 'Service5',
+										'serviceType': {
+											'id': 4,
+											'name': 'built-in',
+											'url': null
+										}
 									},
 									{
 										'id': 6,
-										'name': 'Service6'
+										'name': 'Service6',
+										'serviceType': {
+											'id': 4,
+											'name': 'built-in',
+											'url': null
+										}
 									}
 								]
 							},
@@ -63,11 +93,21 @@ define('server', ['angularAMD'], function (angularAMD) {
 								'services': [
 									{
 										'id': 7,
-										'name': 'Service7'
+										'name': 'Service7',
+										'serviceType': {
+											'id': 4,
+											'name': 'built-in',
+											'url': null
+										}
 									},
 									{
 										'id': 8,
-										'name': 'Service8'
+										'name': 'Service8',
+										'serviceType': {
+											'id': 4,
+											'name': 'built-in',
+											'url': null
+										}
 									}
 								]
 							}
