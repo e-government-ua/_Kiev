@@ -29,10 +29,10 @@ angular.module('dashboardJsApp')
       tasks.downloadDocument($scope.selectedTask.id);
     };
 
-    $scope.applyTaskFilter = function(taskType) {
+    $scope.applyTaskFilter = function(taskFilter) {
       $scope.selectedTask = null;
       $scope.taskForm = null;
-      $scope.tasksFilter = taskType;
+      $scope.tasksFilter = taskFilter;
       tasks
         .list($scope.tasksFilter)
         .then(function(result) {

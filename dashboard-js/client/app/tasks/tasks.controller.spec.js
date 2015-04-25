@@ -1,21 +1,28 @@
 'use strict';
+describe('Controller: TasksCtrl', function() {
+	var scope, tasks, q;
 
-describe('Controller: TasksCtrl', function () {
+	beforeEach(module('dashboardJsApp'));
 
-  // load the controller's module
-  beforeEach(module('dashboardJsApp'));
+	beforeEach(inject(function($controller, $rootScope, $q) {
+		scope = $rootScope.$new();
+		q = $q;
+		mockTasksService();
+		$controller('TasksCtrl', {
+			$scope: scope,
+			tasks: tasks
+		});
+	}));
 
-  var TasksCtrl, scope;
+	it('provides selected task', function() {
+		scope.selectedTask = {id: '666'};
+		expect(scope.isTaskSelected({id: '666'})).toBeTruthy();
+		expect(scope.isTaskSelected({id: 666})).toBeFalsy();
+	});
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-    TasksCtrl = $controller('TasksCtrl', {
-      $scope: scope
-    });
-  }));
-
-  it('should ...', function () {
-    expect(1).toEqual(1);
-  });
+	function mockTasksService () {
+		tasks = jasmine.createSpyObj('task', ['list']);
+		tasks.list.andReturn(q.when({}));
+		tasks.filterTypes = {};
+	}
 });
