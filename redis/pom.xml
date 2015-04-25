@@ -42,7 +42,7 @@
 		 <!-- <slf4j-version>1.6.2</slf4j-version> -->
 
 		<!-- test setings -->
-		<skip.unit.test>false</skip.unit.test>
+		<skip.unit.test>true</skip.unit.test>
 		<skip.it.test>true</skip.it.test>
 	</properties>
 	<dependencies>
