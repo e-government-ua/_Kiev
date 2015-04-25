@@ -6,7 +6,7 @@
 				<h3>{{subcategory.name}}</h3>
 				<ul class="list-unstyled">
 					<li ng-repeat="service in subcategory.services" ng-switch on="service.serviceType.id">
-						<div ng-switch-when="1"><a ng-href="{{service.serviceType.url}}">{{service.name}}</a></div>
+						<div ng-switch-when="1"><a ui-sref="service.general({'id': service.id })">{{service.name}}</a></div>
 						<div ng-switch-when="4"><a ui-sref="service.general({'id': service.id })">{{service.name}}</a></div>
 					</li>
 				</ul>
