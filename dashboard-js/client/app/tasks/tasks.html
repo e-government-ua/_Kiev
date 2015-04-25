@@ -1,17 +1,5 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="navbar navbar-default navbar-static-top">
-  <div class="container">    
-    <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
-      <ul class="nav navbar-nav">
-        <li ng-repeat="item in menus" ng-class="{active: isTaskFilterActive(item.type)}">
-            <a ng-click="applyTaskFilter(item.type)">{{item.title}}</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
-
 <div class="container">
 	<div class="row">
 		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
