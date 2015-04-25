@@ -21,7 +21,10 @@ module.exports = function(grunt) {
 		},
 		html2js: {
 			main: {
-				src: ['./src/html/catalog/*.html'],
+				src: [
+					'./src/html/catalog/*.html',
+					'./src/html/service/*.html'
+				],
 				dest: './build/js/templates.js'
 			}
 		},

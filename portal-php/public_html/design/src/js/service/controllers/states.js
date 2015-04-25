@@ -1,5 +1,5 @@
-define('state/service/controller', [], function () {
-    return ['$rootScope', function ($rootScope) {
+define('state/service/controller', ['angularAMD'], function (angularAMD) {
+	angularAMD.controller('ServiceController', ['$rootScope', function ($rootScope) {
 		console.log('$rootScope');
-    }]
+    }]);
 });
