@@ -1,5 +1,5 @@
-define('service.built-in', ['angularAMD'], function (angularAMD) {
-    var app = angular.module('service.link', []);
+define('service.built-in', ['angularAMD', 'service.built-in.default', 'service.built-in.region'], function (angularAMD) {
+    var app = angular.module('service.built-in', []);
 
     app.config(['$stateProvider', function ($stateProvider) {
         $stateProvider
