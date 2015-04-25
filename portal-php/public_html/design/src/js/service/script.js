@@ -21,7 +21,16 @@ define('service', ['angularAMD', 'service.link', 'service.built-in', 'service/se
                 }
             })
 			.state('service.general', {
-				url: '/general'
+				url: '/general',
+                views: {
+                    '': angularAMD.route({
+                        templateProvider: ['$templateCache', function($templateCache) {
+							return $templateCache.get('html/service/general.html');
+						}],
+						controller: 'ServiceGeneralController',
+                        controllerUrl: 'state/service/general/controller'
+                    })
+                }
 			})
 			.state('service.instruction', {
 				url: '/instruction'
