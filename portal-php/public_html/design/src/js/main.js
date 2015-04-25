@@ -9,7 +9,7 @@ requirejs.config({
 		'index': './app/index',
 		'documents': './app/documents',
 		'journal': './app/journal',
-		'profile': './app/profile',
+		'service': './app/service',
     },
     shim: {
         'angularAMD': ['bower'],
