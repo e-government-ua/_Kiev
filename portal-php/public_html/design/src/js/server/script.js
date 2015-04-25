@@ -116,6 +116,44 @@ define('server', ['angularAMD'], function (angularAMD) {
 				]
 			}, {}];
 		});
+		
+		$httpBackend.whenGET(/\/api\/service\?/).respond(function(method, url, rawData) {
+			var data = angular.fromJson(rawData);
+			
+			if(data.id == 1) {
+				return [200,{
+					'id': 1,
+					'name': 'Service1',
+					'serviceType': {
+						'id': 1,
+						'name': 'link',
+						'url': 'http://google.com.ua/'
+					}
+				}, {}];
+			}
+			
+			if(data.id == 5) {
+				return [200,{
+					'id': 5,
+					'name': 'Service5',
+					'serviceType': {
+						'id': 4,
+						'name': 'built-in',
+						'url': null
+					}
+				}, {}];
+			}
+			
+			return [200,{
+				'id': 8,
+				'name': 'Service8',
+				'serviceType': {
+					'id': 4,
+					'name': 'built-in',
+					'url': null
+				}
+			}, {}];
+		});
 	
 		$httpBackend.whenGET('./data.json').passThrough();
 	}]);

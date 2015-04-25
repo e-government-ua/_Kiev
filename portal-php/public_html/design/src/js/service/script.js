@@ -1,10 +1,15 @@
-define('service', ['angularAMD', 'service.link', 'service.built-in'], function (angularAMD) {
+define('service', ['angularAMD', 'service.link', 'service.built-in', 'service/service'], function (angularAMD) {
     var app = angular.module('service', []);
 
     app.config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('service', {
                 url: '/service/{id:int}',
+				resolve: {
+					service: ['$stateParams', 'ServiceService', function($stateParams, ServiceService) {
+						return ServiceService.get($stateParams.id);
+					}]
+				},
                 views: {
                     '': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {

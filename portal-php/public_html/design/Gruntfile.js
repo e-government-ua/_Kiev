@@ -119,7 +119,13 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/app/journal.js'
 					},
 					{
-						src: ['./src/js/service/**/*.js'],
+						src: [
+							'./src/js/service/link/**/*.js',
+							'./src/js/service/built-in/**/*.js',
+							'./src/js/service/controllers/**/*.js',
+							'./src/js/service/services/**/*.js',
+							'./src/js/service/*.js',
+						],
 						dest: './tmp/js/concat/app/service.js'
 					}
 				]
@@ -159,7 +165,13 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/app/journal.js'
 					},
 					{
-						src: ['./src/js/service/**/*.js'],
+						src: [
+							'./src/js/service/link/**/*.js',
+							'./src/js/service/built-in/**/*.js',
+							'./src/js/service/controllers/**/*.js',
+							'./src/js/service/services/**/*.js',
+							'./src/js/service/*.js',
+						],
 						dest: './tmp/js/concat/app/service.js'
 					},
 					{
