@@ -4,9 +4,12 @@
 		<div class="row">
 			<div class="col-xs-4" ng-repeat="subcategory in category.subcategories">
 				<h3>{{subcategory.name}}</h3>
-				<ul>
-					<li ng-repeat="service in subcategory.services">{{service.name}}</li>
+				<ul class="list-unstyled">
+					<li ng-repeat="service in subcategory.services">
+						<a>{{service.name}}</a>
+					</li>
 				</ul>
+				<p><a class="btn btn-default" href="#" role="button">Всі послуги <span class="badge badge-info">42</span></a></p>
 			</div>
 		</div>
 	</div>
