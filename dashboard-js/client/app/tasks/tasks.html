@@ -3,9 +3,15 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-      <ul class="nav nav-tabs nav-stacked col-md-4_ col-lg-4_ col-sm-6_" ng-repeat="task in tasks">
-        <li><a href="#" tooltip="{{task.description}}" ng-click="selectTask(task)" ng-class="{active: isTaskSelected(task)}">{{ task.name }}</a></li>
-      </ul>
+          <ul class="nav nav-tabs nav-stacked col-md-4_ col-lg-4_ col-sm-6_" ng-repeat="task in tasks">
+            <li>
+                <a tooltip="{{task.description}}"
+                   ng-click="selectTask(task)"
+                   class="task-menu-item"
+                   ng-class="{active: isTaskSelected(task)}">{{ task.name }}
+                </a>
+            </li>
+          </ul>
 		</div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
