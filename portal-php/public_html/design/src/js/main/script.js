@@ -23,6 +23,10 @@ define(['angularAMD', 'templates'], function (angularAMD) {
         $futureStateProvider.stateFactory('ngload', ngloadStateFactory); // register AngularAMD ngload state factory
         $futureStateProvider.addResolve(loadAndRegisterFutureStates);
     }]);
+	
+    app.config(['$urlRouterProvider', function ($urlRouterProvider) {
+        $urlRouterProvider.otherwise('/index');
+    }]);
 
     angularAMD.bootstrap(app);
     return app;
