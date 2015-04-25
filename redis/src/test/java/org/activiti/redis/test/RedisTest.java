@@ -18,52 +18,51 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/META-INF/spring/org-activiti-redis-context.xml","/META-INF/spring/redis-test.xml"})
+@ContextConfiguration(locations = {"/META-INF/spring/org-activiti-redis-context.xml", "/META-INF/spring/redis-test.xml"})
 public class RedisTest {
 
-	static final transient Logger LOG = LoggerFactory
-			.getLogger(RedisTest.class);
-	
-	@Autowired
-	RedisService redisService;
-	
-	@Value("#{testProps['loadFile']}")
-	private String loadFile;
-	
-	@Value("#{testProps['pathToFile']}")
-	private String pathToFile;
-	
-	@Test
-    public void testRedis() throws IOException {
-		byte[] data = loadfile(loadFile);
-		String key = redisService.putAttachments(data);
-		System.out.println(key);
-		byte[] dataFile  = redisService.getAttachments(key);
-		System.out.println(dataFile);
-		if(dataFile!=null){
-		FileOutputStream fos = null;
-		try {
-			fos = new FileOutputStream(pathToFile);
-			fos.write(dataFile);
-			fos.close();
+   static final transient Logger LOG = LoggerFactory.getLogger(RedisTest.class);
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		}
-    }
-	
-	
-	public byte[] loadfile(String pathDirFile) {
-		Path path = Paths.get(pathDirFile);
-		byte[] data = null;
-		try {
-			data = Files.readAllBytes(path);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return data;
-	}
-	
+   @Autowired
+   RedisService redisService;
+
+   @Value("#{testProps['loadFile']}")
+   private String loadFile;
+
+   @Value("#{testProps['pathToFile']}")
+   private String pathToFile;
+
+   @Test
+   public void testRedis() throws IOException {
+      byte[] data = loadfile(loadFile);
+      String key = redisService.putAttachments(data);
+      System.out.println(key);
+      byte[] dataFile = redisService.getAttachments(key);
+      System.out.println(dataFile);
+      if (dataFile != null) {
+         FileOutputStream fos = null;
+         try {
+            fos = new FileOutputStream(pathToFile);
+            fos.write(dataFile);
+            fos.close();
+
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
+      }
+   }
+
+
+   public byte[] loadfile(String pathDirFile) {
+      Path path = Paths.get(pathDirFile);
+      byte[] data = null;
+      try {
+         data = Files.readAllBytes(path);
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+      return data;
+   }
+
 
 }
