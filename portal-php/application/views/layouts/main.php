@@ -24,10 +24,7 @@ AppAsset::register($this);
 
 <?php $this->beginBody() ?>
     <div class="container">
-        <center>
-            <a href="<?= Yii::$app->homeUrl?>"><img src="<?= Yii::$app->homeUrl ?>img/logo.png" border="0" style="margin-top:20px;"></a>
-            <hr>
-        </center>
+        <div style="margin-top:20px;"></div>
         <?= $content ?>
     </div>
 
