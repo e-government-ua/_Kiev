@@ -36,6 +36,7 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
+		
 		String keys = getStringFromFieldExpression(this.files, execution);
 		List<String> listKeys = getListKeysRedis(keys);
 		List<BuilderAtachModel> listModel = new ArrayList<BuilderAtachModel>();

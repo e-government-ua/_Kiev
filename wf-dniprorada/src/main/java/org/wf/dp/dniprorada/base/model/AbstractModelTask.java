@@ -90,7 +90,7 @@ public abstract class AbstractModelTask {
 			}
 			String mimeType = Magic.getMagicMatch(dataFile).getMimeType();
 			if (mimeType != null && !mimeType.isEmpty()) {
-				mimiTypeModel.setMimiType("application/" + mimeType);
+				mimiTypeModel.setMimiType(mimeType);
 			} else {
 				mimiTypeModel.setMimiType("application/octet-stream");
 			}
