@@ -55,9 +55,6 @@ public FileFormPropertyRenderer()
 	    textField.setWidth(Form.STRING_W.getDimension().getWidth());
 	    
 	    if (formProperty.getValue() != null) {
-	    	byte[] contentbyte=null;
-			contentbyte = getRedisService().getAttachments(
-					formProperty.getValue());
 	      textField.setValue(formProperty.getValue());
 	    }
 

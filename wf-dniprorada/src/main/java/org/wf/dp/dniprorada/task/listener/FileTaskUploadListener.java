@@ -45,7 +45,7 @@ public class FileTaskUploadListener implements TaskListener {
 	public void notify(DelegateTask task) {
 		DelegateExecution execution = task.getExecution();
 	//	 List<User> user = execution.getEngineServices().getIdentityService().createUserQuery().memberOfGroup("management_clerk_dmr").list();
-		 
+		task.setAssignee(getStringFromFieldExpression(this.assignee, execution));
 
 		byte[] contentbyte = getRedisService().getAttachments(
 				execution.getVariable("attachedId").toString());

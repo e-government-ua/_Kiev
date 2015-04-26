@@ -34,7 +34,6 @@ public class RedisTest {
    private String pathToFile;
 
    @Test
-   @Ignore // TODO investigate why its broken
    public void testRedis() throws IOException {
       byte[] data = loadfile(loadFile);
       String key = redisService.putAttachments(data);
