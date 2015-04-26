@@ -46,9 +46,9 @@
         </p>
       </div>
       <p>
-        <button ng-hide="taskForm == null" ng-hide="selectedTask.assignee != null" ng-click="assignTask()"class="btn btn-success">Взяти в роботу</button>
+        <button ng-if="taskForm == null" ng-hide="selectedTask.assignee != null" ng-click="assignTask()"class="btn btn-success">Взяти в роботу</button>
         <!-- <button ng-hide="taskForm == null" ng-disabled="selectedTask.assignee != null && hasAttachment()" ng-click="downloadAttachment()" class="btn btn-success">Загрузити документ</button> -->
-        <button ng-hide="taskForm == null" ng-hide="selectedTask.assignee == null" ng-click="submitTask()" class="btn btn-success">Опрацювати</button>
+        <button ng-if="taskForm == null" ng-hide="selectedTask.assignee == null" ng-click="submitTask()" class="btn btn-success">Опрацювати</button>
       </p>
     </div>
 </div>
