@@ -19,7 +19,7 @@ public class ByteArrayMultipartFile implements MultipartFile {
     private String contentType;
     private String exp;
     private String originalFilename;
-
+    
     public ByteArrayMultipartFile(InputStream inputStream, String name,
             String originalFilename, String contentType) {
         this.inputStream = inputStream;
@@ -34,6 +34,9 @@ public class ByteArrayMultipartFile implements MultipartFile {
         if(contentSplit.length == 2){
         	this.contentType = contentSplit[0];
             this.exp = contentSplit[1];
+        } else if (contentType.startsWith("image")){
+        	this.contentType = contentType;
+        	this.exp = contentType.split("/")[1];
         } else {
         	this.contentType = contentType;
         	this.exp = null;

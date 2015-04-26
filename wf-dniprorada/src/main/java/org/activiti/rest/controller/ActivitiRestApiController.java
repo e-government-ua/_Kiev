@@ -177,8 +177,10 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         }
 
         //Вычитывем из потока массив байтов контента и помещаем параметры контента в header 
-        ByteArrayMultipartFile multipartFile = new ByteArrayMultipartFile(attachmentStream, 
-        	     attachmentRequested.getName(), attachmentRequested.getName(), attachmentRequested.getType()); 
+		ByteArrayMultipartFile multipartFile = new ByteArrayMultipartFile(
+				attachmentStream, attachmentRequested.getName(),
+				attachmentRequested.getName(), attachmentRequested.getType());
+
         httpResponse.setHeader("Content-disposition", 
         		"attachment; filename=" + composeFileName(multipartFile));
         httpResponse.setHeader("Content-Type", multipartFile.getContentType() + ";charset=UTF-8");
