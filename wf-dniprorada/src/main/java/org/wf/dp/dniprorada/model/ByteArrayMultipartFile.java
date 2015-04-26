@@ -25,6 +25,11 @@ public class ByteArrayMultipartFile implements MultipartFile {
         this.inputStream = inputStream;
         this.name = name;
         this.originalFilename = originalFilename;
+        if(contentType == null){
+        	throw new IllegalArgumentException(
+        			String.format("Content type of file [name:%s|originalName:%s] is null",
+        					name, originalFilename));
+        }
         String[] contentSplit = contentType.split(";"); //в типе контента содержится расширение файла image/jpeg;jpg
         this.contentType = contentSplit[0];
         this.exp = contentSplit[1];
