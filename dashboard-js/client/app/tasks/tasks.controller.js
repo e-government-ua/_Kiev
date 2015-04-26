@@ -18,7 +18,7 @@ angular.module('dashboardJsApp')
     };
 
     $scope.isTaskSelected = function(task) {
-      return $scope.selectedTask.id === task.id;
+      return $scope.selectedTask && $scope.selectedTask.id === task.id;
     };
 
     $scope.hasAttachment = function(){
