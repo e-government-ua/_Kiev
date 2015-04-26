@@ -38,10 +38,9 @@ public class FileTaskUploadListener extends AbstractModelTask implements TaskLis
 	@Override
 	public void notify(DelegateTask task) {
 		DelegateExecution execution = task.getExecution();
-	//	 List<User> user = execution.getEngineServices().getIdentityService().createUserQuery().memberOfGroup("management_clerk_dmr").list();
+		task.setOwner(getStringFromFieldExpression(this.assignee, execution));
 		task.setAssignee(getStringFromFieldExpression(this.assignee, execution));
 
-		//String keys = getStringFromFieldExpression(this.attachedId, execution);
 		List<String> listKeys = getListKeysRedis(execution.getVariable("attachedId").toString());
 		if (!listKeys.isEmpty()) {
 			for (String keyRedis : listKeys) {
