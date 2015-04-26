@@ -31,13 +31,14 @@ public class ByteArrayMultipartFile implements MultipartFile {
         					name, originalFilename));
         }
         String[] contentSplit = contentType.split(";"); //в типе контента содержится расширение файла image/jpeg;jpg
-        if(contentSplit.length < 2){
-        	throw new IllegalArgumentException(
-        			String.format("Content type [%s] of file [name:%s|originalName:%s] should have [type;extension] format",
-        					contentType, name, originalFilename));
+        if(contentSplit.length == 2){
+        	this.contentType = contentSplit[0];
+            this.exp = contentSplit[1];
+        } else {
+        	this.contentType = contentType;
+        	this.exp = null;
         }
-        this.contentType = contentSplit[0];
-        this.exp = contentSplit[1];
+        
 
         List<Byte> contentByteList = new ArrayList<Byte>();
         BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
