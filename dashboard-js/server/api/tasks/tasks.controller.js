@@ -89,8 +89,11 @@ exports.getAttachmentContent = function(req, res) {
   };
 
   activiti.get(options, function(error, statusCode, result) {
+    res.statusCode = statusCode;
     if (error) {
       res.send(error);
+    } else if (res.statusCode >=400 && res.statusCode <=600 ) {
+      res.send(result);
     } else {
       res.end(result, 'binary');
     }
