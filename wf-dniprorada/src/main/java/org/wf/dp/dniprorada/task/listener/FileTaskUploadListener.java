@@ -56,7 +56,7 @@ public class FileTaskUploadListener implements TaskListener {
 			execution
 					.getEngineServices()
 					.getTaskService()
-					.createAttachment(mimiType.getExtension(), task.getId(),
+					.createAttachment(mimiType.getMimiType(), task.getId(),
 							execution.getProcessInstanceId(),
 							"Копiя паспорта", "attached", content);
 		}
@@ -69,11 +69,11 @@ public class FileTaskUploadListener implements TaskListener {
 	public MimiTypeModel getMimiType(byte[] dataFile) {
 		MimiTypeModel mimiTypeModel = new MimiTypeModel();
 		try {
-			String exe = Magic.getMagicMatch(dataFile).getExtension();
-			if (exe != null && !exe.isEmpty()) {
-				mimiTypeModel.setExtension("application/" + exe);
+			String mimeType = Magic.getMagicMatch(dataFile).getMimeType();
+			if (mimeType != null && !mimeType.isEmpty()) {
+				mimiTypeModel.setMimiType("application/" + mimeType);
 			} else {
-				mimiTypeModel.setExtension("application/octet-stream");
+				mimiTypeModel.setMimiType("application/octet-stream");
 			}
 
 		} catch (MagicParseException e) {
