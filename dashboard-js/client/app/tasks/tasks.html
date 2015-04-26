@@ -8,8 +8,9 @@
                 <a tooltip="{{task.description}}"
                    ng-click="selectTask(task)"
                    class="task-menu-item"
-                   ng-class="{active: isTaskSelected(task)}">{{ task.name }}
+                   ng-class="{active: isTaskSelected(task)}">{{ task.processDefinitionId }} {{ task.taskDefinitionKey }} {{ task.createTime }}
                 </a>
+                   <!--ng-class="{active: isTaskSelected(task)}">{{ task.name }} -->
             </li>
           </ul>
 		</div>
