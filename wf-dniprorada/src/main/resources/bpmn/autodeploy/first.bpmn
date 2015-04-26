@@ -18,9 +18,8 @@
         <activiti:formProperty id="gaol" name="Мета отримання документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="processName" name="Надання копій рішень міської ради та її виконкому, розпоряджень міського голови за зверненням юридичних та фізичних осіб, правоохоронних органів,адвокатів" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="attachedId1" name="Копiя IНН" type="file"></activiti:formProperty>
+        <activiti:formProperty id="attachedId" name="Додаткоивi документи" type="file"></activiti:formProperty>
         <activiti:formProperty id="textArea" name="Додаткова iнформацiя" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="attachedId2" name="Копiя паспорта" type="file"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
@@ -44,9 +43,9 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:assignee="${initiator}" activiti:candidateGroups="management_clerk_dmr">
+    <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="management_clerk_dmr">
       <extensionElements>
-        <activiti:formProperty id="assignee" name="Виконавець" type="user" default="${initiator}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="assignee" name="Виконавець" type="user" required="true"></activiti:formProperty>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="clPassport" name="Паспортні дані" type="string" default="${bankIdPassport}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запитуваний документ" type="string" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
@@ -133,7 +132,7 @@
     <serviceTask id="servicetask2" name="отримання додаткових документiв" activiti:delegateExpression="#{fileTaskUpload}">
       <extensionElements>
         <activiti:field name="files">
-          <activiti:expression>${attachedId1};${attachedId2}</activiti:expression>
+          <activiti:expression>${attachedId}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
