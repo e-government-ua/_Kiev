@@ -31,6 +31,11 @@ public class ByteArrayMultipartFile implements MultipartFile {
         					name, originalFilename));
         }
         String[] contentSplit = contentType.split(";"); //в типе контента содержится расширение файла image/jpeg;jpg
+        if(contentSplit.length == 0){
+        	throw new IllegalArgumentException(
+        			String.format("Content type [%s] of file [name:%s|originalName:%s] should have [type;extension] format",
+        					contentType, name, originalFilename));
+        }
         this.contentType = contentSplit[0];
         this.exp = contentSplit[1];
 
