@@ -2,6 +2,7 @@
 
 angular.module('dashboardJsApp')
   .controller('TasksCtrl', function($scope, tasks, Modal, Auth) {
+    $scope.tasks = [];
     $scope.menus = [{
       'title': 'В роботі',
       'type': tasks.filterTypes.selfAssigned
