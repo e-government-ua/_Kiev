@@ -223,6 +223,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	//получаем по ид процесса сам процесс
     	HistoricProcessInstance processInstance = historyService.createHistoricProcessInstanceQuery()
     	    	.processInstanceId(processInstanceId)
+    	    	.includeProcessVariables()
     	    	.singleResult();
     	if (processInstance == null) {
     		throw new ActivitiObjectNotFoundException(String.format(
