@@ -86,7 +86,7 @@ public abstract class AbstractModelTask {
 		try {
 			String exe = Magic.getMagicMatch(dataFile).getExtension();
 			if (exe != null && !exe.isEmpty()) {
-				mimiTypeModel.setExtension("application/" + exe);
+				mimiTypeModel.setExtension(exe);
 			} else {
 				mimiTypeModel.setExtension("application/octet-stream");
 			}
