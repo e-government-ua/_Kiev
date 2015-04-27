@@ -236,7 +236,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 			throw new ActivitiObjectNotFoundException(String.format(
 					"ProcessVariable '{%s}' for processInstanceId '{%s}' not found.", 
 					FileTaskUpload.BUILDER_ATACH_MODEL_LIST, processInstanceId));
-		}
+		} 
     	
     	//получаем прикрепленный файл
     	BuilderAtachModel atachModel = 
