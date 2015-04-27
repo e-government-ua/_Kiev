@@ -8,6 +8,7 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.TaskListener;
+import org.activiti.engine.identity.User;
 import org.activiti.redis.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,8 @@ public class FileTaskUploadListener extends AbstractModelTask implements TaskLis
 	@Override
 	public void notify(DelegateTask task) {
 		DelegateExecution execution = task.getExecution();
-		execution.getEngineServices().getIdentityService().setAuthenticatedUserId("kermit");
+		List<User> user = execution.getEngineServices().getIdentityService().createUserQuery().memberOfGroup("management_clerk_dmr").list();
+		execution.getEngineServices().getIdentityService().setAuthenticatedUserId(user.get(0).getId());
 		//task.setAssignee(getStringFromFieldExpression(this.assignee, execution));
 
 		List<String> listKeys = getListKeysRedis(execution.getVariable("attachedId").toString());
