@@ -176,6 +176,12 @@
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-explorer</artifactId>
 			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.vaadin.addons</groupId>
+					<artifactId>dcharts-widget</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
@@ -289,11 +295,6 @@
 		<!-- Vaadin addons -->
 		<!-- Must be defined both in activiti-explorer and activiti-webapp-explorer, 
 			as otherwise the gwt compiler won't find it -->
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>dcharts-widget</artifactId>
-			<version>0.10.0</version>
-		</dependency>
 
 		<dependency>
 			<groupId>jstl</groupId>
