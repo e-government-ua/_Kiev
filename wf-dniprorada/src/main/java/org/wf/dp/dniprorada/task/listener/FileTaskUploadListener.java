@@ -54,12 +54,13 @@ public class FileTaskUploadListener extends AbstractModelTask implements TaskLis
 			execution
 					.getEngineServices()
 					.getTaskService()
-					.createAttachment(mimiType.getMimiType(), task.getId(),
+					.createAttachment(mimiType.getMimiType()+";"+mimiType.getExtension(), task.getId(),
 							execution.getProcessInstanceId(),
 							keyRedis, "attached", content);
 		}
 			}
 		}
+		
 	}
 
 	public RedisService getRedisService() {
