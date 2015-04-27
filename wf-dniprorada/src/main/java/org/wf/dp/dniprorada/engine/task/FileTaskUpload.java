@@ -1,9 +1,7 @@
 package org.wf.dp.dniprorada.engine.task;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
@@ -60,13 +58,10 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 		}
 
 		if (!listModel.isEmpty()) {
-
-			Map<String, Object> variablsBuilderAtachModel = new HashMap<String, Object>();
-			variablsBuilderAtachModel.put("BuilderAtachModel", listModel);
 			execution.setVariable(BUILDER_ATACH_MODEL_LIST,
-					variablsBuilderAtachModel);
+					listModel);
 		}
-
+		
 	}
 
 	public RedisService getRedisService() {
