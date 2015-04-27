@@ -16,6 +16,10 @@ angular.module('dashboardJsApp')
       return user.firstName + ' ' + user.lastName;
     };
 
+    $scope.goToTasks = function(){
+      $location.path('/tasks');
+    }
+
     $scope.logout = function() {
       Auth.logout();
       $location.path('/login');
