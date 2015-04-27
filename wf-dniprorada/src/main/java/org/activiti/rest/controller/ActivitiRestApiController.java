@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -38,7 +40,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.wf.dp.dniprorada.model.BuilderAtachModel;
 import org.wf.dp.dniprorada.model.ByteArrayMultipartFile;
+import org.wf.dp.dniprorada.model.MimiTypeModel;
+import org.wf.dp.dniprorada.engine.task.FileTaskUpload;
 
 /**
  * ...wf-dniprorada/service/...
@@ -136,7 +141,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 		return upload;
     }
 
-    
+    @Deprecated
     @RequestMapping(value = "/file/download_file_from_db", method = RequestMethod.GET)
     @Transactional
     public @ResponseBody
@@ -189,9 +194,62 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return multipartFile.getBytes();
     }
     
+    @Deprecated
     private String composeFileName(ByteArrayMultipartFile multipartFile){
     	return multipartFile.getName() + (multipartFile.getExp() != null 
     				? "." + multipartFile.getExp() 
     				: "");
     }
+
+    
+    @RequestMapping(value = "/file/download_file_from_db_new", method = RequestMethod.GET)
+    @Transactional
+    public @ResponseBody
+    byte[] getAttachmentFromDbNew(@RequestParam("taskId") String taskId, 
+    		             //@RequestParam("attachmentId") String attachmentId,
+    		             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
+    	
+    	//получаем по задаче ид процесса
+    	HistoricTaskInstance historicTaskInstanceQuery = historyService.createHistoricTaskInstanceQuery()
+        		.taskId(taskId).singleResult(); 
+    	String processInstanceId = historicTaskInstanceQuery.getProcessInstanceId();
+    	if (processInstanceId == null) {
+            throw new ActivitiObjectNotFoundException(String.format(
+        			"ProcessInstanceId for taskId '{%s}' not found.", taskId),
+                    Attachment.class);
+        }
+    	
+    	//получаем по ид процесса сам процесс
+    	HistoricProcessInstance processInstance = historyService.createHistoricProcessInstanceQuery()
+    	    	.processInstanceId(processInstanceId)
+    	    	.singleResult();
+    	if (processInstance == null) {
+    		throw new ActivitiObjectNotFoundException(String.format(
+    			"ProcessInstance for processInstanceId '{%s}' not found.", processInstanceId),
+                Attachment.class);
+    	}
+    	
+    	//получаем коллекцию переменных процеса 
+    	Map<String, Object> processVariables = processInstance.getProcessVariables();
+    	if (processVariables == null || processVariables.get(FileTaskUpload.BUILDER_ATACH_MODEL_LIST) == null
+    			|| ((List<BuilderAtachModel>)processVariables.get(FileTaskUpload.BUILDER_ATACH_MODEL_LIST)).get(0) == null) {
+			throw new ActivitiObjectNotFoundException(String.format(
+					"ProcessVariable '{%s}' for processInstanceId '{%s}' not found.", 
+					FileTaskUpload.BUILDER_ATACH_MODEL_LIST, processInstanceId));
+		}
+    	
+    	//получаем прикрепленный файл
+    	BuilderAtachModel atachModel = 
+    			((List<BuilderAtachModel>) processVariables.get(FileTaskUpload.BUILDER_ATACH_MODEL_LIST)).get(0);
+
+        //Помещаем параметры контента в header 
+        httpResponse.setHeader("Content-disposition", 
+        		"attachment; filename=" + atachModel.getOriginalFilename() + "." + atachModel.getExp());
+        httpResponse.setHeader("Content-Type", atachModel.getContentType() + ";charset=UTF-8");
+        httpResponse.setContentLength(atachModel.getByteToStringContent().getBytes().length);
+      
+        return atachModel.getByteToStringContent().getBytes();
+    }
+    
+    
 }

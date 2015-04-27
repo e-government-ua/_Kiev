@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+@Deprecated
 public class ByteArrayMultipartFile implements MultipartFile {
 
     private InputStream inputStream;
