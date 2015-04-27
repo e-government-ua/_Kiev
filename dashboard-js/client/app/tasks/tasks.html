@@ -1,23 +1,18 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="navbar navbar-default navbar-static-top">
-  <div class="container">    
-    <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
-      <ul class="nav navbar-nav">
-        <li ng-repeat="item in menus" ng-class="{active: isTaskFilterActive(item.type)}">
-            <a ng-click="applyTaskFilter(item.type)">{{item.title}}</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
-
 <div class="container">
 	<div class="row">
 		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-      <ul class="nav nav-tabs nav-stacked col-md-4_ col-lg-4_ col-sm-6_" ng-repeat="task in tasks">
-        <li><a href="#" tooltip="{{task.description}}" ng-click="selectTask(task)" ng-class="{active: isTaskSelected(task)}">{{ task.name }}</a></li>
-      </ul>
+          <ul class="nav nav-tabs nav-stacked col-md-4_ col-lg-4_ col-sm-6_" ng-repeat="task in tasks">
+            <li>
+                <a tooltip="{{task.description}}"
+                   ng-click="selectTask(task)"
+                   class="task-menu-item"
+                   ng-class="{active: isTaskSelected(task)}">{{ task.processDefinitionId }} {{ task.taskDefinitionKey }} {{ task.createTime }}
+                </a>
+                   <!--ng-class="{active: isTaskSelected(task)}">{{ task.name }} -->
+            </li>
+          </ul>
 		</div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -38,11 +33,11 @@
 
         <p ng-if="item.type == 'enum'">
           <label>{{item.name}}</label>
-          <select class="form-control" ng-model="item.value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues" ng-required="item.required" ng-disabled="!item.writable && selectedTask.assignee == null"></select>  
+          <select class="form-control" ng-model="item.value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues" ng-required="item.required" ng-disabled="!item.writable && selectedTask.assignee == null"></select>
         </p>
 
         <p ng-if="item.type != 'string' && item.type != 'long' && item.type != 'date' && item.type != 'enum' && item.type != 'user' && item.type != 'textArea'">
-          <label>{{item.name}}</label>  
+          <label>{{item.name}}</label>
           <input class="form-control" ng-disabled="true" ng-required="item.required" ng-model="item.value" />
         </p>
       </div>
@@ -52,28 +47,9 @@
         </p>
       </div>
       <p>
-        <button ng-hide="taskForm == null" ng-disabled="selectedTask.assignee != null" ng-click="assignTask()"class="btn btn-success">Взяти в роботу</button>
+        <button ng-if="taskForm != null" ng-hide="selectedTask.assignee != null" ng-click="assignTask()"class="btn btn-success">Взяти в роботу</button>
         <!-- <button ng-hide="taskForm == null" ng-disabled="selectedTask.assignee != null && hasAttachment()" ng-click="downloadAttachment()" class="btn btn-success">Загрузити документ</button> -->
-        <button ng-hide="taskForm == null" ng-disabled="selectedTask.assignee == null" ng-click="submitTask()" class="btn btn-success">Опрацювати</button>
+        <button ng-if="taskForm != null" ng-hide="selectedTask.assignee == null" ng-click="submitTask()" class="btn btn-success">Опрацювати</button>
       </p>
     </div>
-
-    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">	
-    	<h4>Події</h4>	
-
-			<form class="form-inline" action="" method="post" role="form">
-				<div class="form-group">
-					<label for=""></label>
-					<input type="text" class="form-control" name="" id="" >
-				</div>
-				<button type="submit" class="btn btn-primary">Створити</button>
-			</form>
-		
-      <ul class="media-list">
-        <li class="media" ng-repeat="event in events">
-          <task-event event="event"></task-event>
-        </li>
-      </ul>
-    </div>
-	</div>
 </div>

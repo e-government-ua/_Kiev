@@ -9,12 +9,16 @@
       </button>
       <a href="/" class="navbar-brand">egov.ua</a>
     </div>
+
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+
       <ul class="nav navbar-nav">
-        <li ng-show="isLoggedIn()" ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
-            <a ng-href="{{item.link}}">{{item.title}}
-              <span class="label label-info">{{tasks.length}}</span>
-            </a>
+        <li ng-repeat="item in menus"
+            ng-show="isLoggedIn()"
+            ng-class="{active: isTaskFilterActive(item.type)}">
+          <a ng-click="applyTaskFilter(item.type)">{{item.title}}
+            <span class="label label-info">{{tasks.length}}</span>
+          </a>
         </li>
       </ul>
 

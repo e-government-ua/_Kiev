@@ -5,6 +5,11 @@ define('service.built-in.region', ['angularAMD'], function (angularAMD) {
         $stateProvider
             .state('service.built-in.region', {
                 url: '/region',
+				resolve: {
+					regions: ['$stateParams', 'ServiceService', function($stateParams, ServiceService) {
+						return ServiceService.getRegions();
+					}]
+				},
                 views: {
                     '': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {

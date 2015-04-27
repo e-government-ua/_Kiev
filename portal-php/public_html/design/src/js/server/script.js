@@ -168,6 +168,19 @@ define('server', ['angularAMD'], function (angularAMD) {
 				}
 			}, {}];
 		});
+		
+		$httpBackend.whenGET(/\/api\/regions/).respond(function(method, url, rawData) {
+			return [200, [
+				{
+					'id': 1,
+					'name': 'Львівська область'
+				},
+				{
+					'id': 2,
+					'name': 'Київська область'
+				}
+			], {}];
+		});
 	
 		$httpBackend.whenGET('./data.json').passThrough();
 	}]);

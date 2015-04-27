@@ -11,5 +11,10 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 				return response.data;
 			});
 		};
+		this.getRegions = function() {
+			return $http.get('./api/regions').then(function(response) {
+				return response.data;
+			});
+		};
 	}]);
 });

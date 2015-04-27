@@ -14,12 +14,12 @@ module.exports = {
 	ACTIVITI_PORT: 8080,
 	ACTIVITI_REST: 'wf-dniprorada/service',
 	ACTIVITI_AUTH_BASIC: 'Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=',
-	ACTIVITI_SESSION_IDLE: '3000',
-	ACTIVITI_SESSION_TIMEOUT: '3000',
-	ACTIVITI_SESSION_INTERVAL: '1000',
+	ACTIVITI_SESSION_IDLE: 3000,
+	ACTIVITI_SESSION_TIMEOUT: 3000,
+	ACTIVITI_SESSION_INTERVAL: 1000,
 
 	PRIVATE_KEY: 'path to [sslcert/server.key]', //works only with SSL_PORT
 	CERTIFICATE: 'path to [sslcert/server.crt]' //works only with SSL_PORT
-	//SSL_PORT: 8084 //ssl port. enalbe if https is needed for portal
+	//SSL_PORT: 8084 //ssl port. enable if https is needed for portal
 };
 

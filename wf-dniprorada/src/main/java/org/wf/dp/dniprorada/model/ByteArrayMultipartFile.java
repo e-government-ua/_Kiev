@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+@Deprecated
 public class ByteArrayMultipartFile implements MultipartFile {
 
     private InputStream inputStream;
@@ -19,15 +20,29 @@ public class ByteArrayMultipartFile implements MultipartFile {
     private String contentType;
     private String exp;
     private String originalFilename;
-
+    
     public ByteArrayMultipartFile(InputStream inputStream, String name,
             String originalFilename, String contentType) {
         this.inputStream = inputStream;
         this.name = name;
         this.originalFilename = originalFilename;
+        if(contentType == null){
+        	throw new IllegalArgumentException(
+        			String.format("Content type of file [name:%s|originalName:%s] is null",
+        					name, originalFilename));
+        }
         String[] contentSplit = contentType.split(";"); //в типе контента содержится расширение файла image/jpeg;jpg
-        this.contentType = contentSplit[0];
-        this.exp = contentSplit[1];
+        if(contentSplit.length == 2){
+        	this.contentType = contentSplit[0];
+            this.exp = contentSplit[1];
+        } else if (contentType.startsWith("image")){
+        	this.contentType = contentType;
+        	this.exp = contentType.split("/")[1];
+        } else {
+        	this.contentType = contentType;
+        	this.exp = null;
+        }
+        
 
         List<Byte> contentByteList = new ArrayList<Byte>();
         BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
