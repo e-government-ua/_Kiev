@@ -4,14 +4,11 @@
 			<div class="list-group-item disabled">
 				<div class="row no-margin-bottom">
 					<div class="col-md-11 form-inline">
-						<span>Крок 1. Оберіть свій регіон Область</span>
-						<select class="form-control" disabled="">
-							<option>Львівська область</option>
-						</select>
+						<span>Крок 1. Оберіть свій регіон </span>
+						<span>Область</span>
+						<select class="form-control" name="region" ng-model="region" ng-options="element.name for element in regions"></select>
 						<span>Місто</span>
-						<select class="form-control" disabled="">
-							<option>Львів</option>
-						</select>
+						<select class="form-control" name="city" ng-model="city" ng-options="element.name for element in cities"></select>
 					</div>
 					<div class="col-md-1">
 						<div class="link-button">

@@ -82,15 +82,18 @@ exports.getAttachments = function(req, res) {
 
 exports.getAttachmentContent = function(req, res) {
   var options = {
-    path: 'runtime/tasks/' + req.params.taskId + '/attachments/'+ req.params.attachmentId +'/content'
-    //path: 'runtime/tasks/32569/attachments/72544/content'
-    // taskId: 32569
-    // attachmentId: 72544
+    path: 'rest/file/download_file_from_db',
+    query: {
+      'taskId': req.params.taskId
+    }
   };
 
   activiti.get(options, function(error, statusCode, result) {
+    res.statusCode = statusCode;
     if (error) {
       res.send(error);
+    } else if (res.statusCode >=400 && res.statusCode <=600 ) {
+      res.send(result);
     } else {
       res.end(result, 'binary');
     }
@@ -116,31 +119,3 @@ exports.updateTask = function(req, res) {
     res.send(result);
   }, req.body);
 };
-
-/*
-  
-
-  MADE BY OLEKSIY, COMMENTED OUT BY ANTON, SEE IMPLEMENTATION ABOVE
-
-
-exports.getAttachments = function(req, res) {
-  var options = {
-    path: 'runtime/tasks/' + req.params.taskId + '/attachments'
-  };
-  activiti.get(options, function(error, statusCode, result) {
-    res.statusCode = statusCode;
-    res.send(result);
-  }, req.body);
-};
-
-exports.getDocument = function(req, res) {
-  var options = {
-    path: 'rest/file/download_file_from_db',
-    query: {
-      'taskId': req.params.taskId
-    }
-  };
-  var url = activiti.getRequestURL(activiti.getRequestOptions(options));
-  res.redirect('https://52.17.126.64:8080/wf-dniprorada/service/rest/file/download_file_from_db?taskId=82596');
-}
-*/

@@ -1,8 +1,5 @@
 package org.wf.dp.dniprorada.ui.form;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-
 import org.activiti.engine.form.FormProperty;
 import org.activiti.explorer.ui.form.AbstractFormPropertyRenderer;
 import org.activiti.redis.service.RedisService;
@@ -55,9 +52,6 @@ public FileFormPropertyRenderer()
 	    textField.setWidth(Form.STRING_W.getDimension().getWidth());
 	    
 	    if (formProperty.getValue() != null) {
-	    	byte[] contentbyte=null;
-			contentbyte = getRedisService().getAttachments(
-					formProperty.getValue());
 	      textField.setValue(formProperty.getValue());
 	    }
 

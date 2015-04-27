@@ -40,36 +40,6 @@ angular.module('dashboardJsApp')
 
         return deferred.promise;
       },
-
-      /**
-       * Get list of task events
-       * @param taskId
-       * @param  {Function} callback - optional
-       * @return {Promise}
-       */
-      listTaskEvents: function(taskId, callback) {
-        var cb = callback || angular.noop;
-        var deferred = $q.defer();
-
-        var req = {
-          method: 'GET',
-          url: '/api/tasks/' + taskId + '/events',
-          data: {}
-        };
-
-        $http(req).
-        success(function(data) {
-          deferred.resolve(data);
-          return cb();
-        }).
-        error(function(err) {
-          deferred.reject(err);
-          return cb(err);
-        }.bind(this));
-
-        return deferred.promise;
-      },
-
       getEventMap: function() {
         var deferred = $q.defer();
         var eventMap = {

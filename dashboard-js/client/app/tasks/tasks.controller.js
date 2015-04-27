@@ -2,6 +2,7 @@
 
 angular.module('dashboardJsApp')
   .controller('TasksCtrl', function($scope, tasks, Modal, Auth) {
+    $scope.tasks = [];
     $scope.menus = [{
       'title': 'В роботі',
       'type': tasks.filterTypes.selfAssigned
@@ -18,7 +19,7 @@ angular.module('dashboardJsApp')
     };
 
     $scope.isTaskSelected = function(task) {
-      return $scope.selectedTask.id === task.id;
+      return $scope.selectedTask && $scope.selectedTask.id === task.id;
     };
 
     $scope.hasAttachment = function(){
@@ -29,10 +30,10 @@ angular.module('dashboardJsApp')
       tasks.downloadDocument($scope.selectedTask.id);
     };
 
-    $scope.applyTaskFilter = function(taskType) {
+    $scope.applyTaskFilter = function(taskFilter) {
       $scope.selectedTask = null;
       $scope.taskForm = null;
-      $scope.tasksFilter = taskType;
+      $scope.tasksFilter = taskFilter;
       tasks
         .list($scope.tasksFilter)
         .then(function(result) {
@@ -80,16 +81,6 @@ angular.module('dashboardJsApp')
           console.log(err)
         });
 
-      tasks
-        .listTaskEvents(task.id)
-        .then(function(result) {
-          result = JSON.parse(result);
-          $scope.events = result;
-        })
-        .catch(function(err) {
-          $scope.error = err.message;
-        });
-
         tasks.getTaskAttachments(task.id)
         .then(function(result) {
           $scope.taskAttachments = result;
@@ -103,8 +94,6 @@ angular.module('dashboardJsApp')
       if ($scope.selectedTask && $scope.taskForm) {
         tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm)
           .then(function(result) {
-            $scope.events = result;
-
             Modal.inform.success(function(event) {
               $scope.applyTaskFilter($scope.tasksFilter);
             })('Форма відправлена : ' + result);
@@ -126,4 +115,15 @@ angular.module('dashboardJsApp')
            Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
         });
     };
+    
+    $scope.sDateShort = function(sDateLong) {
+    //function sDateShort (sDateLong) {
+            if(sDateLong!=null){
+                //var o=new Date("2015-04-27T13:19:44.098+03:00");
+                var o=new Date("2015-04-27T13:19:44.098+03:00");
+                return o.getFullYear()+"-"+o.getMonth()+"-"+o.getDate()+" "+o.getHours()+":"+o.getMinutes();
+            }
+    }
+    
+    
   });
