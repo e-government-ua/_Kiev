@@ -1,6 +1,7 @@
 package ua.org.egov.service;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,8 @@ public class AnnotationProtectedResource {
         return info;
     }
 
-    @PreAuthorize("hasRole('" + OAuthRoles.SERVICE_CONSUMER + "')")
+//    @PreAuthorize("hasRole('" + OAuthRoles.SERVICE_CONSUMER + "')")
+    @Secured(OAuthRoles.SERVICE_CONSUMER)
     @RequestMapping(value = "/citizen/protected_stub", method = RequestMethod.GET)
     @ResponseBody
     public ProtectedCitizenInfo getProtectedCitizenInfo() {

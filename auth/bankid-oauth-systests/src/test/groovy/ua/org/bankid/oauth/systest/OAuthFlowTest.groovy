@@ -5,6 +5,10 @@ import groovyx.net.http.RESTClient
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
+import org.springframework.http.HttpStatus
+
+import static org.junit.Assert.assertEquals
+import static org.junit.Assert.fail
 
 @Slf4j(value = "logger")
 public class OAuthFlowTest {
@@ -22,28 +26,40 @@ public class OAuthFlowTest {
     @Test
     public void testPublicResourceAvailable() {
         def resp = rest.get(path:"/public/citizen/stub")
-        assert resp.status == 200
+        assertEquals(HttpStatus.OK.value(), resp.status)
     }
 
     @Test
     public void testNotProtectedURLResourceAvailable() {
         def resp = rest.get(path:"/not_protected/citizen/stub")
-        assert resp.status == 200
+        assertEquals(HttpStatus.OK.value(), resp.status)
     }
 
     @Test
     public void testNotProtectedURLProtectedResourceForbiden() {
-        def resp = rest.get(path:"/not_protected/citizen/stub")
-        assert resp.status == 403
+        try {
+            rest.get(path:"/not_protected/citizen/protected_stub")
+            fail("expected unauthrized exception")
+        } catch (Exception resp) {
+            assertEquals(HttpStatus.UNAUTHORIZED.value(), resp.statusCode)
+        }
     }
 
     @Test
     public void testProtectedURLResourceForbiden() {
-        def resp = rest.get(path:"/protected/citizen/stub")
-        assert resp.status == 403
+        try {
+            rest.get(path:"/protected/citizen/stub")
+            fail("expected unauthrized exception")
+        } catch (Exception resp) {
+            assertEquals(HttpStatus.UNAUTHORIZED.value(), resp.statusCode)
+        }
 
-        def resp2 = rest.get(path:"/protected/citizen/protected_stub")
-        assert resp2.status == 403
+        try {
+            rest.get(path:"/protected/citizen/protected_stub")
+            fail("expected unauthrized exception")
+        } catch (Exception resp) {
+            assertEquals(HttpStatus.UNAUTHORIZED.value(), resp.statusCode)
+        }
     }
 
     @Ignore
