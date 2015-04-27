@@ -115,4 +115,15 @@ angular.module('dashboardJsApp')
            Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
         });
     };
+    
+    $scope.sDateShort = function(sDateLong) {
+    //function sDateShort (sDateLong) {
+            if(sDateLong!=null){
+                //var o=new Date("2015-04-27T13:19:44.098+03:00");
+                var o=new Date("2015-04-27T13:19:44.098+03:00");
+                return o.getFullYear()+"-"+o.getMonth()+"-"+o.getDate()+" "+o.getHours()+":"+o.getMinutes();
+            }
+    }
+    
+    
   });
