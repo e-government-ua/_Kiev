@@ -10,19 +10,28 @@
        http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2-2.0.xsd"
        default-autowire="byName">
 
-    <context:component-scan base-package="ua.org.bankid.oauth"/>
+    <bean id="tokenStore" class="ua.org.bankid.oauth.impl.RedisTokenStore" />
 
-    <bean id="bankIdStorageService" class="ua.org.bankid.oauth.impl.BankIdStorageServiceRedisImpl" />
+    <bean id="clientDetailsService" class="ua.org.bankid.oauth.BankIdClientDetailsService" />
+
+    <bean id="tokenServices" class="org.springframework.security.oauth2.provider.token.DefaultTokenServices">
+        <property name="clientDetailsService" ref="clientDetailsService" />
+        <property name="tokenStore" ref="tokenStore" />
+        <property name="authenticationManager" ref="authenticationManager" />
+    </bean>
+
+    <bean id="authenticationProvider" class="ua.org.bankid.oauth.BankIdAuthenticationProvider" />
 
     <!-- access decision manager -->
     <bean id="oauthAuthAccessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased">
         <constructor-arg>
             <list>
+                <bean class="org.springframework.security.web.access.expression.WebExpressionVoter"/>
                 <bean class="org.springframework.security.oauth2.provider.vote.ScopeVoter">
                     <property name="scopePrefix" value="scope." />
                 </bean>
                 <bean class="org.springframework.security.access.vote.RoleVoter">
-                    <property name="rolePrefix" value="citizen.role." />
+                    <property name="rolePrefix" value="" />
                 </bean>
                 <bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
             </list>
@@ -32,6 +41,13 @@
     <bean id="oauth2AuthenticationEntryPoint"
           class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint" />
 
+    <!--<security:global-method-security secured-annotations="enabled"-->
+                                     <!--pre-post-annotations="enabled"-->
+                                     <!--access-decision-manager-ref="oauthAuthAccessDecisionManager"-->
+                                     <!--proxy-target-class="true">-->
+        <!--<security:expression-handler ref="securityExpressionHandler"/>-->
+    <!--</security:global-method-security>-->
+
     <security:http create-session="never"
                    entry-point-ref="oauth2AuthenticationEntryPoint"
                    access-decision-manager-ref="oauthAuthAccessDecisionManager"
@@ -39,18 +55,18 @@
                    use-expressions="true">
 
         <!-- PUBLIC  -->
-        <security:intercept-url pattern="/public/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <security:intercept-url pattern="/public/**" access="permitAll"/>
 
         <!-- RESTRICTED -->
         <!-- SERVICE_PRODUCER - official person (e.g. mayor) -->
         <security:intercept-url pattern="/protected/**"
-                                access="citizen.role.SERVICE_CONSUMER, citizen.role.SERVICE_PRODUCER "/>
+                                access="hasAnyRole('citizen.role.SERVICE_CONSUMER','citizen.role.SERVICE_PRODUCER')"/>
         <security:intercept-url pattern="/*/consumer/restricted/url/**" access="citizen.role.SERVICE_CONSUMER"/>
         <security:intercept-url pattern="/*/producer/service/url/**" access="citizen.role.SERVICE_PRODUCER "/>
 
         <security:intercept-url pattern="/*/scope/example/**" method="POST" access="scope.view.passport"/>
         <security:intercept-url pattern="/*/elections/**" method="POST"
-                                access="scope.vote.president, scope.vote.parliament"/>
+                                access="hasAnyRole('scope.vote.president', 'scope.vote.parliament')"/>
 
         <security:custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />
         <security:access-denied-handler ref="oauth2AccessDeniedHandler" />

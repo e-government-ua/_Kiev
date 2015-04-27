@@ -2,11 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <parent>
-        <groupId>org.egov-ua</groupId>
-        <artifactId>org.egov-ua</artifactId>
-        <version>1.0</version>
-    </parent>
+    <!--<parent>-->
+    <!-- wrong package name, @see java naming convention, not allowed symbol "-" -->
+    <!-- our package starts from ua.org.bankid.oauth it could not be org.egov_ua parent for it -->
+    <!-- if we want manage dependency we should use bom instead of inheritance pom.xml this will decouple artifacts -->
+        <!--<groupId>org.egov-ua</groupId>-->
+        <!--<artifactId>org.egov-ua</artifactId>-->
+        <!--<version>1.0</version>-->
+    <!--</parent>-->
 
     <modelVersion>4.0.0</modelVersion>
 	<groupId>ua.org.bankid.oauth</groupId>
@@ -118,6 +121,12 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
                 <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.glassfish.jersey.core</groupId>
+                <artifactId>jersey-client</artifactId>
+                <version>2.17</version>
             </dependency>
 
             <!-- util libraries dependencies -->
