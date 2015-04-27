@@ -43,6 +43,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.model.BuilderAtachModel;
 import org.wf.dp.dniprorada.model.ByteArrayMultipartFile;
 import org.wf.dp.dniprorada.model.MimiTypeModel;
+import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import org.wf.dp.dniprorada.engine.task.FileTaskUpload;
 
 /**
@@ -247,8 +248,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         		"attachment; filename=" + atachModel.getOriginalFilename() + "." + atachModel.getExp());
         httpResponse.setHeader("Content-Type", atachModel.getContentType() + ";charset=UTF-8");
         httpResponse.setContentLength(atachModel.getByteToStringContent().getBytes().length);
-      
-        return atachModel.getByteToStringContent().getBytes();
+        
+        return AbstractModelTask.contentStringToByte(atachModel.getByteToStringContent());
     }
     
     

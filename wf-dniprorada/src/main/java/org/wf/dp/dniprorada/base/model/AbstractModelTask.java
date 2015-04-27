@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.base.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.wf.dp.dniprorada.model.MimiTypeModel;
 
 import sun.misc.BASE64Encoder;
+import sun.misc.BASE64Decoder;
 
 public abstract class AbstractModelTask {
 	
@@ -114,6 +116,18 @@ public abstract class AbstractModelTask {
 		BASE64Encoder encoder = new BASE64Encoder();
 		 String byteToStringContent = encoder.encode(contentbyte);
 		return byteToStringContent;
+	}
+	
+	/**
+	 * Конверт Byte To String 
+	 * @param contentbyte
+	 * @return
+	 * @throws IOException 
+	 */
+	public static byte[] contentStringToByte(String contentString) throws IOException {
+		BASE64Decoder decoder = new BASE64Decoder();
+		byte[] contentbyte = decoder.decodeBuffer(contentString);
+		return contentbyte;
 	}
 	
 	
