@@ -21,9 +21,14 @@
       <show-error data="error" ng-show="error"></show-error>
 
       <div ng-repeat="item in taskForm">
-        <p ng-if="item.type == 'string' || item.type == 'long' || item.type == 'date' || item.type == 'textArea'">
+        <p ng-if="item.type == 'string' || item.type == 'long' || item.type == 'date'">
           <label>{{item.name}}</label>
           <input class="form-control" ng-disabled="isFormPropertyDisabled(item)" ng-required="item.required" ng-model="item.value"/>
+        </p>
+
+        <p ng-if="item.type == 'textArea'">
+          <label>{{item.name}}</label>
+          <textarea class="form-control" ng-disabled="isFormPropertyDisabled(item)" ng-required="item.required" ng-model="item.value"/>
         </p>
 
         <p ng-if="item.type == 'user'">
