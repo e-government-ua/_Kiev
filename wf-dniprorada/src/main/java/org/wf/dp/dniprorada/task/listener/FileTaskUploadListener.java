@@ -2,15 +2,12 @@ package org.wf.dp.dniprorada.task.listener;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.TaskListener;
-import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.identity.User;
 import org.activiti.redis.service.RedisService;
@@ -19,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
-import org.wf.dp.dniprorada.form.FormFileType;
 import org.wf.dp.dniprorada.model.MimiTypeModel;
 
 /**
@@ -33,8 +29,6 @@ public class FileTaskUploadListener extends AbstractModelTask implements TaskLis
 			.getLogger(FileTaskUploadListener.class);
 	@Autowired
 	RedisService redisService;
-	
-	private Expression assignee;
 	
 	/**
 	 * 
