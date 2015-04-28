@@ -3,14 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!--<parent>-->
-    <!-- wrong package name, @see java naming convention, not allowed symbol "-" -->
-    <!-- our package starts from ua.org.bankid.oauth it could not be org.egov_ua parent for it -->
-    <!-- if we want manage dependency we should use bom instead of inheritance pom.xml this will decouple artifacts -->
-        <!--<groupId>org.egov-ua</groupId>-->
-        <!--<artifactId>org.egov-ua</artifactId>-->
-        <!--<version>1.0</version>-->
-    <!--</parent>-->
+    <parent>
+         <groupId>org.egov-ua</groupId>
+        <artifactId>org.egov-ua</artifactId>
+        <version>1.0</version>
+    </parent>
 
 	<groupId>ua.org.bankid.oauth</groupId>
 	<artifactId>bankid-oauth</artifactId>
