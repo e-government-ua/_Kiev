@@ -13,7 +13,7 @@
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="sales">
+    <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="management_clerk_dmr">
       <extensionElements>
         <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -111,6 +111,7 @@
         <activiti:field name="files">
           <activiti:expression>${attachedId}</activiti:expression>
         </activiti:field>
+        <activiti:executionListener event="start" delegateExpression="${fileTaskUploadListener}"></activiti:executionListener>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow9" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>

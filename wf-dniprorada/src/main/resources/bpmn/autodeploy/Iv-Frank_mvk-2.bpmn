@@ -16,7 +16,7 @@
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="sales">
+    <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="management_clerk_dmr">
       <extensionElements>
         <activiti:formProperty id="processName" name="Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою." type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -33,6 +33,7 @@
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
         </activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
@@ -110,8 +111,7 @@
           <activiti:expression>Шановний (-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
 Ваше звернення розглянуто. 
-Єлектронні копії документів знаходяться в додатку до цього листа.
-</activiti:expression>
+Єлектронні копії документів знаходяться в додатку до цього листа.</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
