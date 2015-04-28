@@ -23,7 +23,7 @@
       <div ng-repeat="item in taskForm">
         <p ng-if="item.type == 'string' || item.type == 'long' || item.type == 'date' || item.type == 'textArea'">
           <label>{{item.name}}</label>
-          <input class="form-control" ng-disabled="!item.writable && selectedTask.assignee == null" ng-required="item.required" ng-model="item.value"/>
+          <input class="form-control" ng-disabled="isFormPropertyDisabled(item)" ng-required="item.required" ng-model="item.value"/>
         </p>
 
         <p ng-if="item.type == 'user'">
@@ -33,7 +33,7 @@
 
         <p ng-if="item.type == 'enum'">
           <label>{{item.name}}</label>
-          <select class="form-control" ng-model="item.value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues" ng-required="item.required" ng-disabled="!item.writable && selectedTask.assignee == null"></select>
+          <select class="form-control" ng-model="item.value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues" ng-required="item.required" ng-disabled="isFormPropertyDisabled(item)"></select>
         </p>
 
         <p ng-if="item.type != 'string' && item.type != 'long' && item.type != 'date' && item.type != 'enum' && item.type != 'user' && item.type != 'textArea'">
