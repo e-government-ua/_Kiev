@@ -122,6 +122,9 @@ module.exports = function(grunt) {
 						src: [
 							'./src/js/service/link/**/*.js',
 							'./src/js/service/built-in/**/*.js',
+							'./src/js/service/country/**/*.js',
+							'./src/js/service/region/**/*.js',
+							'./src/js/service/city/**/*.js',
 							'./src/js/service/controllers/**/*.js',
 							'./src/js/service/services/**/*.js',
 							'./src/js/service/*.js',
@@ -168,6 +171,9 @@ module.exports = function(grunt) {
 						src: [
 							'./src/js/service/link/**/*.js',
 							'./src/js/service/built-in/**/*.js',
+							'./src/js/service/country/**/*.js',
+							'./src/js/service/region/**/*.js',
+							'./src/js/service/city/**/*.js',
 							'./src/js/service/controllers/**/*.js',
 							'./src/js/service/services/**/*.js',
 							'./src/js/service/*.js',

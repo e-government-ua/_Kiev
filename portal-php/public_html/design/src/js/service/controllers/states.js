@@ -7,13 +7,16 @@ define('state/service/controller', ['angularAMD'], function (angularAMD) {
 define('state/service/general/controller', ['angularAMD'], function (angularAMD) {
 	angularAMD.controller('ServiceGeneralController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
 		$scope.service = service;
-		switch(service.serviceType.id) {
-			case 1:
-				$state.go('service.link', {id: service.id}, { location: true });
-				break;
-			case 4:
-				$state.go('service.built-in', {id: service.id}, { location: true });
-				break;
+		
+		var places = service.places;
+		if(places.regions.length == 0) {
+			return $state.go('service.country', {id: service.id}, { location: true });
 		}
+		
+		if(places.cities.length == 0) {
+			return $state.go('service.region', {id: service.id}, { location: true });
+		}
+		
+		return $state.go('service.city', {id: service.id}, { location: true });
     }]);
 });

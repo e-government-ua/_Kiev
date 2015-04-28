@@ -11,8 +11,8 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 				return response.data;
 			});
 		};
-		this.getRegions = function() {
-			return $http.get('./api/regions').then(function(response) {
+		this.getPlaces = function() {
+			return $http.get('./api/places').then(function(response) {
 				return response.data;
 			});
 		};

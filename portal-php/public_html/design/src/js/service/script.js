@@ -1,10 +1,9 @@
-define('service', ['angularAMD', 'service.link', 'service.built-in', 'service/service'], function (angularAMD) {
+define('service', ['angularAMD', 'service.country', 'service.region', 'service.city', 'service/service'], function (angularAMD) {
     var app = angular.module('service', []);
 
     app.config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('service', {
-				'abstract': true,
                 url: '/service/{id:int}',
 				resolve: {
 					service: ['$stateParams', 'ServiceService', function($stateParams, ServiceService) {
