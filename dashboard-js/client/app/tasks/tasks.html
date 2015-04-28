@@ -51,7 +51,7 @@
           Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content" target="_blank"><b>{{item.name}}</b> {{item.description}}</a>
         </p>
       </div>
-      <p ng-if="selectedTask"> <!--taskForm != null-->
+      <p ng-if="selectedTask != null"> <!--taskForm != null-->
         <button ng-hide="selectedTask.assignee != null" ng-click="assignTask()"class="btn btn-success">Взяти в роботу</button>
         <!-- <button ng-hide="taskForm == null" ng-disabled="selectedTask.assignee != null && hasAttachment()" ng-click="downloadAttachment()" class="btn btn-success">Загрузити документ</button> -->
         <button ng-hide="selectedTask.assignee == null" ng-click="submitTask()" class="btn btn-success">Опрацювати</button>
