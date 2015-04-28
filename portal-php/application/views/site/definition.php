@@ -34,7 +34,8 @@ $this->title = 'Портал -= Электронное правительств�
                         ?>
                         <?= $model->getEditField($propertyName, $formField); ?>
 
-                        <?php if($propertyName == 'attachedId'): ?>
+                        <!--?php if($propertyName == 'attachedId'): ?-->
+                        <?php if($field['type'] == ProcessDefinitionForm::TYPE_FILE): ?>
                             <div class="fileinput-button">
                                 <button type="button" class="btn btn-success js-upload-btn" data-loading-text="Завантаження..." class="btn btn-primary" autocomplete="off">
                                     <span class="glyphicon glyphicon-file" aria-hidden="true"></span> Завантажити файл
