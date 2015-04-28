@@ -33,7 +33,7 @@
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <userTask id="usertask2" name="Підстави для відмови " activiti:assignee="${assignee}">
       <extensionElements>
-        <activiti:formProperty id="coment" name="Причина відмови " type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="Причина відмови " type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow3" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="usertask2">
@@ -47,7 +47,6 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="attachedId" name="Архів з документами" type="string"></activiti:formProperty>
-        <activiti:formProperty id="assignee" name="Виконавець" type="user"></activiti:formProperty>
         <activiti:formProperty id="regChanged" name="Витяг готовий?" type="enum" required="true">
           <activiti:value id="yes" name="Так, готовий"></activiti:value>
         </activiti:formProperty>
@@ -81,26 +80,30 @@
     </serviceTask>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow6" sourceRef="mailtask1" targetRef="endevent1"></sequenceFlow>
-    <sequenceFlow id="flow7" name="${regChanged == 'yes'}" sourceRef="usertask3" targetRef="servicetask1">
+    <sequenceFlow id="flow7" name="${regChanged == 'yes'}" sourceRef="usertask3" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${regChanged == 'yes'}]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
-    <sequenceFlow id="flow8" sourceRef="servicetask1" targetRef="endevent2"></sequenceFlow>
-    <serviceTask id="servicetask1" name="Відправлення листа громадянину" activiti:delegateExpression="#{mailTaskWithAttachment}">
+    <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
+    <serviceTask id="mailtask2" name="Відправлення листа громадянину" activiti:type="mail">
       <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
         </activiti:field>
-        <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
-        </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: Взяття на соціальний квартирний облік</activiti:expression>
+          <activiti:string><![CDATA[Взяття на соціальний квартирний облік]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний (-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
-Ваше звернення оброблено.</activiti:expression>
+Ваше звернення оброблено.
+Ви можете отримати витяг з рішення виконавчого комітету Ммр щодо взяття на соціальний квартирний облік.</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -143,7 +146,7 @@
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="1070.0" y="390.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="55.0" width="191.0" x="790.0" y="380.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">

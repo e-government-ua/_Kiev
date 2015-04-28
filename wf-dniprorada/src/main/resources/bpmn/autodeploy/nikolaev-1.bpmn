@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="publicАssociationRegistration " name="Миколаєвська ОГА - Реєстрація громадського об’єднання" isExecutable="true">
+  <process id="publicAssociationRegistration" name="Миколаєвська ОГА - Реєстрація громадського об’єднання" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="processName" name="Послуга" type="string" default="Реєстрація громадського об’єднання" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="processName" name="Реєстрація громадського об’єднання" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string"></activiti:formProperty>
@@ -11,14 +11,14 @@
         <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string"></activiti:formProperty>
         <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date"></activiti:formProperty>
-        <activiti:formProperty id="attachedId" name="Архів з документами ( копія протоколу установчих зборів підписана ЄЦП нотаріуса; заява з ЄЦП засновників або уповноважених осіб;)" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objFounder" name="відомості про засновників громадського об'єднання із зазначенням прізвища, ім'я, по батькові (за наявності), дати народження, адреси місця проживання, а в разі якщо засновником є юридична особа приватного права, - її найменування, місцезнаходження, ідентифікаційного коду" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="attachedId" name="Архів з документами " type="string"></activiti:formProperty>
+        <activiti:formProperty id="objFounder" name="Додаткова інформація про засновників" type="textArea" default="відомості про засновників громадського об'єднання із зазначенням прізвища, ім'я, по батькові (за наявності), дати народження, адреси місця проживання, а в разі якщо засновником є юридична особа приватного права, - її найменування, місцезнаходження, ідентифікаційного коду"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Прийняття рішення про реєстрацію" activiti:candidateGroups="sales">
       <extensionElements>
-        <activiti:formProperty id="processName" name="Послуга" type="string" default="Реєстрація громадського об’єднання" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="processName" name="Реєстрація громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
@@ -40,7 +40,7 @@
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <userTask id="usertask2" name="Підстави для відмови " activiti:assignee="${assignee}">
       <extensionElements>
-        <activiti:formProperty id="coment" name="Причина відмови в реєстрации " type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="Причина відмови в реєстрации " type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow3" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="usertask2">
@@ -48,7 +48,6 @@
     </sequenceFlow>
     <userTask id="usertask3" name="Внесення відомостей до Реєстру" activiti:assignee="${assignee}">
       <extensionElements>
-       <activiti:formProperty id="processName" name="Послуга" type="string" default="Реєстрація громадського об’єднання" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
@@ -76,7 +75,7 @@
           <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Запит: ${processName}</activiti:expression>
+          <activiti:string><![CDATA[Запит: Реєстрація громадського об’єднання]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -105,7 +104,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: ${processName}</activiti:expression>
+          <activiti:expression>Звернення на тему: Реєстрація громадського об’єднання</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний (-а), ${bankIdfirstName} ${bankIdmiddleName}.
@@ -135,8 +134,8 @@
     </textAnnotation>
     <association id="association2" sourceRef="textannotation3" targetRef="usertask1"></association>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_publicАssociationRegistration ">
-    <bpmndi:BPMNPlane bpmnElement="publicАssociationRegistration " id="BPMNPlane_publicАssociationRegistration ">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_publicAssociationRegistration">
+    <bpmndi:BPMNPlane bpmnElement="publicAssociationRegistration" id="BPMNPlane_publicAssociationRegistration">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="220.0" y="130.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
