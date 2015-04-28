@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.DelegateTask;
-import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.TaskListener;
 import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.identity.User;
