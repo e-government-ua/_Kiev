@@ -38,7 +38,6 @@ exports.getRequestOptions = getRequestOptions;
 exports.get = function(options, onResult) {
 	request
 		.get(getRequestOptions(options), function(error, response, body) {
-			console.log(error + ' ' + response + ' ' + body);
 			if (!error) {
 				onResult(null, response.statusCode, body, response.headers);
 			} else {
@@ -55,7 +54,6 @@ exports.post = function(options, onResult, data) {
 			json: true
 		}),
 		function(error, response, body) {
-			console.log(error + ' ' + response + ' ' + body);
 			if (!error) {
 				onResult(null, response.statusCode, body, response.headers);
 			} else {
@@ -72,7 +70,6 @@ exports.put = function(options, onResult, data) {
 			json: true
 		}),
 		function(error, response, body) {
-			console.log(error + ' ' + response + ' ' + body);
 			if (!error) {
 				onResult(null, response.statusCode, body, response.headers);
 			} else {

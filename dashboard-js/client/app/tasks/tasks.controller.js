@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('dashboardJsApp')
-  .controller('TasksCtrl', function($scope, tasks, Modal, Auth) {
+  .controller('TasksCtrl', function($scope, tasks, processes, Modal, Auth) {
+    $scope.tasks = [];
     $scope.menus = [{
       'title': 'В роботі',
       'type': tasks.filterTypes.selfAssigned
@@ -21,11 +22,11 @@ angular.module('dashboardJsApp')
       return $scope.selectedTask && $scope.selectedTask.id === task.id;
     };
 
-    $scope.hasAttachment = function(){
+    $scope.hasAttachment = function() {
       return $scope.taskAttachments !== undefined && $scope.taskAttachments !== null && $scope.taskAttachments.length !== 0;
     };
 
-    $scope.downloadAttachment = function(){
+    $scope.downloadAttachment = function() {
       tasks.downloadDocument($scope.selectedTask.id);
     };
 
@@ -33,6 +34,7 @@ angular.module('dashboardJsApp')
       $scope.selectedTask = null;
       $scope.taskForm = null;
       $scope.tasksFilter = taskFilter;
+
       tasks
         .list($scope.tasksFilter)
         .then(function(result) {
@@ -46,8 +48,6 @@ angular.module('dashboardJsApp')
           $scope.errors.other = err.message;
         });
     };
-
-    $scope.applyTaskFilter(tasks.filterTypes.selfAssigned);
 
     $scope.selectTask = function(task) {
       $scope.selectedTask = task;
@@ -77,10 +77,10 @@ angular.module('dashboardJsApp')
         .catch(function(err) {
           // err = JSON.parse(err);
           // $scope.error = err;
-          console.log(err)
+          console.log(err);
         });
 
-        tasks.getTaskAttachments(task.id)
+      tasks.getTaskAttachments(task.id)
         .then(function(result) {
           $scope.taskAttachments = result;
         })
@@ -107,11 +107,33 @@ angular.module('dashboardJsApp')
     $scope.assignTask = function() {
       tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id).then(function(result) {
           Modal.inform.success(function(event) {
-              $scope.applyTaskFilter($scope.tasksFilter);
-            })('Задача у вас в роботі');
+            $scope.applyTaskFilter($scope.tasksFilter);
+          })('Задача у вас в роботі');
         })
         .catch(function(err) {
-           Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
+          Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
         });
     };
+
+    $scope.sDateShort = function(sDateLong) {
+      //function sDateShort (sDateLong) {
+      if (sDateLong !== null) {
+        //var o=new Date("2015-04-27T13:19:44.098+03:00");
+        var o = new Date('2015-04-27T13:19:44.098+03:00');
+        return o.getFullYear() + '-' + o.getMonth() + '-' + o.getDate() + ' ' + o.getHours() + ':' + o.getMinutes();
+      }
+    };
+
+    $scope.getProcessName = function(processDefinitionId){
+        return processes.getProcessName(processDefinitionId);
+    }
+
+    processes.list().then(function(processesDefinitions) {
+      $scope.applyTaskFilter(tasks.filterTypes.selfAssigned);
+    }).catch(function(err) {
+      err = JSON.parse(err);
+      $scope.error = err;
+    });
+
+
   });
