@@ -10,7 +10,7 @@ angular.module('dashboardJsApp')
 			return map;
 		};
 		
-		var processesDefinitions = undefined;
+		var processesDefinitions;
 
 		return {
 			list: function(callback) {
@@ -28,8 +28,8 @@ angular.module('dashboardJsApp')
 					};
 
 					$http(req).
-					success(function(data) {
-						processesDefinitions = idToProcessMap(JSON.parse(data));
+					success(function(result) {
+						processesDefinitions = idToProcessMap(JSON.parse(result).data);
 						deferred.resolve(processesDefinitions);
 						return cb();
 					}).
