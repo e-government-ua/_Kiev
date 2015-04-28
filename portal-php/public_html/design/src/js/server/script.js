@@ -110,6 +110,10 @@ define('server', ['angularAMD'], function (angularAMD) {
 				return [200, {
 					'id': 1,
 					'name': 'Service1',
+					'serviceType': {
+						'id': 1,
+						'name': 'link'
+					},
 					'places': {
 						'regions': [],
 						'cities': []
@@ -121,8 +125,12 @@ define('server', ['angularAMD'], function (angularAMD) {
 				return [200, {
 					'id': 2,
 					'name': 'Service2',
+					'serviceType': {
+						'id': 4,
+						'name': 'built-in'
+					},
 					'places': {
-						'regions': [1],
+						'regions': [],
 						'cities': []
 					}
 				}, {}];
@@ -132,6 +140,55 @@ define('server', ['angularAMD'], function (angularAMD) {
 				return [200, {
 					'id': 3,
 					'name': 'Service3',
+					'serviceType': {
+						'id': 1,
+						'name': 'link'
+					},
+					'places': {
+						'regions': [1],
+						'cities': []
+					}
+				}, {}];
+			}
+			
+			if(data.id == 4) {
+				return [200, {
+					'id': 4,
+					'name': 'Service4',
+					'serviceType': {
+						'id': 4,
+						'name': 'built-in'
+					},
+					'places': {
+						'regions': [1],
+						'cities': []
+					}
+				}, {}];
+			}
+			
+			if(data.id == 5) {
+				return [200, {
+					'id': 5,
+					'name': 'Service5',
+					'serviceType': {
+						'id': 1,
+						'name': 'link'
+					},
+					'places': {
+						'regions': [1],
+						'cities': [1]
+					}
+				}, {}];
+			}
+			
+			if(data.id == 6) {
+				return [200, {
+					'id': 6,
+					'name': 'Service6',
+					'serviceType': {
+						'id': 4,
+						'name': 'built-in'
+					},
 					'places': {
 						'regions': [1],
 						'cities': [1]
@@ -140,8 +197,12 @@ define('server', ['angularAMD'], function (angularAMD) {
 			}
 			
 			return [200, {
-				'id': 4,
-				'name': 'Service4',
+				'id': 6,
+				'name': 'Service6',
+				'serviceType': {
+					'id': 4,
+					'name': 'built-in'
+				},
 				'places': {
 					'regions': [1],
 					'cities': [1]
