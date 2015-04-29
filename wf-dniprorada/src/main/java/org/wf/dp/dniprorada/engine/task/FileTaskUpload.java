@@ -3,6 +3,7 @@ package org.wf.dp.dniprorada.engine.task;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.activiti.engine.form.StartFormData;
@@ -46,6 +47,13 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 					ByteArrayMultipartFile contentMultipartFile = getRedisService()
 							.getAttachObjFromRedis(keyRedis);
 					if (contentMultipartFile != null) {
+						String outFilename = null;
+				        try {
+				            outFilename = new String(contentMultipartFile
+									.getOriginalFilename().getBytes("ISO-8859-1"), "UTF-8");
+				        } catch (java.io.UnsupportedEncodingException e) {
+				        	throw new ActivitiException(e.getMessage(), e);
+				        }
 						BuilderAtachModel builderAtachModel = new BuilderAtachModel();
 						builderAtachModel
 								.setByteToStringContent(contentByteToString(contentMultipartFile
@@ -54,8 +62,7 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 								.getContentType());
 						builderAtachModel.setExp(contentMultipartFile.getExp());
 						builderAtachModel
-								.setOriginalFilename(contentMultipartFile
-										.getOriginalFilename());
+								.setOriginalFilename(outFilename);
 						builderAtachModel.setName(contentMultipartFile
 								.getName());
 						listModel.add(builderAtachModel);
