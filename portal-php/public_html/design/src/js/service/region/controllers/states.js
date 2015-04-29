@@ -4,6 +4,10 @@ define('state/service/region/controller', ['angularAMD'], function (angularAMD) 
 			$scope.service = service;
 			$scope.places = places;
 			
+			$scope.data = {
+				region: null
+			};
+			
 			switch(service.serviceType.id) {
 				case 1:
 					return $state.go('service.region.link', {id: service.id}, { location: true });

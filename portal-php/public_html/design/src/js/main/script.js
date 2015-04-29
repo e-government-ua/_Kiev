@@ -1,6 +1,10 @@
 define(['angularAMD', 'templates'], function (angularAMD) {
     var app = angular.module("main", ['ct.ui.router.extras', 'templates-main']);
 
+    app.config(['$locationProvider', function ($locationProvider) {
+		$locationProvider.html5Mode(true);
+    }]);
+	
     app.config(['$futureStateProvider', '$controllerProvider', function ($futureStateProvider, $controllerProvider) {
         var ngloadStateFactory = ['$q', 'futureState', function ($q, futureState) {
             var ngloadDeferred = $q.defer();

@@ -1,6 +1,8 @@
 package org.wf.dp.dniprorada.base.model;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,8 +17,10 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.StartFormData;
+import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.form.FormFileType;
 import org.wf.dp.dniprorada.model.MimiTypeModel;
 
@@ -199,6 +203,25 @@ public abstract class AbstractModelTask {
 		}
 		}
 		return filedTypeFile;
+	}
+	
+	/**
+	 * multipartFile To ByteArray
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 */
+	public static ByteArrayOutputStream multipartFileToByteArray(MultipartFile file)
+			throws IOException {
+		ByteArrayMultipartFile byteArrayMultipartFile  
+				= new ByteArrayMultipartFile(
+						file.getBytes(), file.getName(), file.getOriginalFilename(), file.getContentType());
+		 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		 ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
+		 oos.writeObject(byteArrayMultipartFile);
+		 oos.flush();
+		 oos.close();
+		return byteArrayOutputStream;
 	}
 
 	
