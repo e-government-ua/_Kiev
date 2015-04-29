@@ -60,6 +60,13 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 						throw new ActivitiException(e.getMessage(), e);
 					}
 					if (contentMultipartFile != null) {
+						String outFilename = null;
+				        try {
+				            outFilename = new String(contentMultipartFile
+									.getOriginalFilename().getBytes("ISO-8859-1"), "UTF-8");
+				        } catch (java.io.UnsupportedEncodingException e) {
+				        	throw new ActivitiException(e.getMessage(), e);
+				        }
 						execution
 								.getEngineServices()
 								.getTaskService()
@@ -69,8 +76,7 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 												+ contentMultipartFile.getExp(),
 										task.getId(),
 										execution.getProcessInstanceId(),
-										contentMultipartFile
-												.getOriginalFilename(),
+										outFilename,
 										contentMultipartFile.getName(), is);
 					}
 				}
