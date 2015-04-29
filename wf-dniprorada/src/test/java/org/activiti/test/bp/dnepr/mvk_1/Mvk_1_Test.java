@@ -1,7 +1,6 @@
 package org.activiti.test.bp.dnepr.mvk_1;
 
 //import static com.plexiti.activiti.test.fluent.Assertions.assertThat;
-import org.fest.assertions.api.Assertions;
 import java.util.HashMap;
 import java.util.Map;
 
