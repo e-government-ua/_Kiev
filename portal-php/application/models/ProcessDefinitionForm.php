@@ -15,6 +15,7 @@ class ProcessDefinitionForm extends Model
     const TYPE_LONG = 'long';
     const TYPE_ENUM = 'enum';
     const TYPE_DATE = 'date';
+    const TYPE_FILE = 'file';
     const TYPE_TEXTAREA = 'textArea';
 
     /**
@@ -161,6 +162,9 @@ class ProcessDefinitionForm extends Model
                     $range = ArrayHelper::getColumn($field['enumValues'], 'id');
                     $validators[] = [$key, 'in', 'range' => $range];
                     break;
+                case self::TYPE_FILE:
+                    $validators[] = [$key, 'filter', 'filter' => 'trim'];
+                    break;
                 case self::TYPE_STRING:
                     $validators[] = [$key, 'filter', 'filter' => 'trim'];
                     break;
@@ -221,11 +225,15 @@ class ProcessDefinitionForm extends Model
                 $input = $formField->textarea(['rows' => 5]);
                 break;
             case self::TYPE_STRING:
-                if ($key === 'attachedId') {
+                $input = $formField->textInput();
+                /*if ($key === 'attachedId') {
                     $input = $formField->hiddenInput(['class' => 'js-attached-id']);
                 } else {
                     $input = $formField->textInput();
-                }
+                }*/
+                break;
+            case self::TYPE_FILE:
+                $input = $formField->hiddenInput(['class' => 'js-attached-id']);
                 break;
             case self::TYPE_LONG:
             default:

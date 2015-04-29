@@ -14,6 +14,18 @@ angular.module('dashboardJsApp')
       'type': tasks.filterTypes.finished
     }];
 
+    $scope.isFormPropertyDisabled = function(formProperty) {
+      if ($scope.selectedTask && $scope.selectedTask.assignee == null) {
+        return true;
+      } else if ($scope.selectedTask 
+              && $scope.selectedTask.assignee != null
+              && !formProperty.writable) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     $scope.isTaskFilterActive = function(taskType) {
       return $scope.tasksFilter === taskType;
     };
@@ -124,8 +136,8 @@ angular.module('dashboardJsApp')
       }
     };
 
-    $scope.getProcessName = function(processDefinitionId){
-        return processes.getProcessName(processDefinitionId);
+    $scope.getProcessName = function(processDefinitionId) {
+      return processes.getProcessName(processDefinitionId);
     }
 
     processes.list().then(function(processesDefinitions) {

@@ -40,11 +40,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.wf.dp.dniprorada.model.BuilderAtachModel;
-import org.wf.dp.dniprorada.model.ByteArrayMultipartFile;
-import org.wf.dp.dniprorada.model.MimiTypeModel;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import org.wf.dp.dniprorada.engine.task.FileTaskUpload;
+import org.wf.dp.dniprorada.model.BuilderAtachModel;
+import org.wf.dp.dniprorada.model.ByteArrayMultipartFileOld;
 
 /**
  * ...wf-dniprorada/service/...
@@ -112,6 +111,13 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return procDefinitions;
     }
 
+    
+    /**
+     * Укладываем в редис multipartFileToByteArray 
+     * @param file
+     * @return
+     * @throws ActivitiIOException
+     */
     @RequestMapping(value = "/file/upload_file_to_redis", method = RequestMethod.POST)
     @Transactional
     public
@@ -119,7 +125,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     String putAttachmentsToRedis(@RequestParam("file") MultipartFile file) throws ActivitiIOException  {
     	String atachId = null;
 		try {
-			atachId = redisService.putAttachments(file.getBytes());
+			atachId = redisService.putAttachments(AbstractModelTask.multipartFileToByteArray(file).toByteArray());
 		}catch (RedisException e) {
 			 throw new ActivitiIOException(ActivitiIOException.Error.REDIS_ERROR,e.getMessage());
 		} catch (IOException e) {
@@ -127,6 +133,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 		}
 		return atachId;
     }
+    
     
     @RequestMapping(value = "/file/download_file_from_redis", method = RequestMethod.GET)
     @Transactional
@@ -142,12 +149,19 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 		return upload;
     }
 
-    @Deprecated
+    
+    /**
+     * Получение Attachment средствами активити из таблицы ACT_HI_ATTACHMENT
+     * @param taskId
+     * @param request
+     * @param httpResponse
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/file/download_file_from_db", method = RequestMethod.GET)
     @Transactional
     public @ResponseBody
     byte[] getAttachmentFromDb(@RequestParam("taskId") String taskId, 
-    		             //@RequestParam("attachmentId") String attachmentId,
     		             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
     	
     	//Получаем по задаче ид процесса
@@ -183,7 +197,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         }
 
         //Вычитывем из потока массив байтов контента и помещаем параметры контента в header 
-		ByteArrayMultipartFile multipartFile = new ByteArrayMultipartFile(
+		ByteArrayMultipartFileOld multipartFile = new ByteArrayMultipartFileOld(
 				attachmentStream, attachmentRequested.getName(),
 				attachmentRequested.getName(), attachmentRequested.getType());
 
@@ -195,19 +209,26 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return multipartFile.getBytes();
     }
     
-    @Deprecated
-    private String composeFileName(ByteArrayMultipartFile multipartFile){
+    private String composeFileName(ByteArrayMultipartFileOld multipartFile){
     	return multipartFile.getName() + (multipartFile.getExp() != null 
     				? "." + multipartFile.getExp() 
     				: "");
     }
 
     
-    @RequestMapping(value = "/file/download_file_from_db_new", method = RequestMethod.GET)
+    /**
+     * Сервис для получения Attachment из execution
+     * @param taskId
+     * @param request
+     * @param httpResponse
+     * @return
+     * @throws IOException
+     */
+    
+    @RequestMapping(value = "/file/download_file_from_db_execution", method = RequestMethod.GET)
     @Transactional
     public @ResponseBody
-    byte[] getAttachmentFromDbNew(@RequestParam("taskId") String taskId, 
-    		             //@RequestParam("attachmentId") String attachmentId,
+    byte[] getAttachmentFromDbExecution(@RequestParam("taskId") String taskId, 
     		             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
     	
     	//получаем по задаче ид процесса
@@ -245,8 +266,10 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     			((List<BuilderAtachModel>) processVariables.get(FileTaskUpload.BUILDER_ATACH_MODEL_LIST)).get(0);
 
         //Помещаем параметры контента в header 
+        /*httpResponse.setHeader("Content-disposition", 
+        		"attachment; filename=" + atachModel.getOriginalFilename() + "." + atachModel.getExp());*/
         httpResponse.setHeader("Content-disposition", 
-        		"attachment; filename=" + atachModel.getOriginalFilename() + "." + atachModel.getExp());
+        		"attachment; filename=" + atachModel.getOriginalFilename());
         httpResponse.setHeader("Content-Type", atachModel.getContentType() + ";charset=UTF-8");
         httpResponse.setContentLength(atachModel.getByteToStringContent().getBytes().length);
         

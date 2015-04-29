@@ -1,11 +1,14 @@
 package org.activiti.redis.test;
 
-import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.activiti.redis.service.RedisService;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -16,54 +19,55 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
+import org.springframework.web.multipart.MultipartFile;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/META-INF/spring/org-activiti-redis-context.xml", "/META-INF/spring/redis-test.xml"})
+@ContextConfiguration(locations = {
+		"/META-INF/spring/org-activiti-redis-context.xml",
+		"/META-INF/spring/redis-test.xml" })
 public class RedisTest {
 
-   static final transient Logger LOG = LoggerFactory.getLogger(RedisTest.class);
+	static final transient Logger LOG = LoggerFactory
+			.getLogger(RedisTest.class);
 
-   @Autowired
-   RedisService redisService;
+	@Autowired
+	RedisService redisService;
 
-   @Value("#{testProps['loadFile']}")
-   private String loadFile;
+	@Value("#{testProps['loadFile']}")
+	private String loadFile;
 
-   @Value("#{testProps['pathToFile']}")
-   private String pathToFile;
+	@Value("#{testProps['pathToFile']}")
+	private String pathToFile;
 
-   @Test
-   public void testRedis() throws IOException {
-      byte[] data = loadfile(loadFile);
-      String key = redisService.putAttachments(data);
-      System.out.println(key);
-      byte[] dataFile = redisService.getAttachments(key);
-      System.out.println(dataFile);
-      if (dataFile != null) {
-         FileOutputStream fos = null;
-         try {
-            fos = new FileOutputStream(pathToFile);
-            fos.write(dataFile);
-            fos.close();
+	@Ignore
+	@Test
+	public void testRedis() throws IOException {
+		byte[] data = loadfile(loadFile);
+		File newFile = new File(loadFile);
+		MultipartFile byteArrayMultipartFile = new ByteArrayMultipartFile(
+				data, newFile.getName(), newFile.getName(), "text/plain");
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
+		oos.writeObject(byteArrayMultipartFile);
+		oos.flush();
+		oos.close();
+		String key = redisService.putAttachments(byteArrayOutputStream
+				.toByteArray());
+		System.out.println(key);
+		ByteArrayMultipartFile contentMultipartFile = redisService
+				.getAttachObjFromRedis(key);
+		System.out.println(contentMultipartFile);
+	}
 
-         } catch (IOException e) {
-            e.printStackTrace();
-         }
-      }
-   }
-
-
-   public byte[] loadfile(String pathDirFile) {
-      Path path = Paths.get(pathDirFile);
-      byte[] data = null;
-      try {
-         data = Files.readAllBytes(path);
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
-      return data;
-   }
-
+	public byte[] loadfile(String pathDirFile) {
+		Path path = Paths.get(pathDirFile);
+		byte[] data = null;
+		try {
+			data = Files.readAllBytes(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
 
 }

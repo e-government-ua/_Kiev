@@ -1,9 +1,12 @@
 package org.wf.dp.dniprorada.base.model;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.jmimemagic.Magic;
 import net.sf.jmimemagic.MagicException;
@@ -12,12 +15,17 @@ import net.sf.jmimemagic.MagicParseException;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
+import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.StartFormData;
+import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
+import org.wf.dp.dniprorada.form.FormFileType;
 import org.wf.dp.dniprorada.model.MimiTypeModel;
 
-import sun.misc.BASE64Encoder;
 import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 public abstract class AbstractModelTask {
 	
@@ -142,6 +150,11 @@ public abstract class AbstractModelTask {
 		return null;
 	}
 	
+	/**
+	 * Получить 
+	 * @param keyRedis
+	 * @return
+	 */
 	public static List<String> getListKeysRedis(String keyRedis) {
 		List<String> listKeys = new ArrayList<String>();
 		if(keyRedis!=null&&!keyRedis.isEmpty()){
@@ -151,5 +164,65 @@ public abstract class AbstractModelTask {
 		}
 		return listKeys;
 	}
+	
+	/**
+	 * Получить значения полей с кастомным типом file
+	 * @param execution
+	 * @param filedTypeFile
+	 * @return
+	 */
+	public static List<String> getValueFieldWithCastomTypeFile(
+			DelegateExecution execution, List<String> filedTypeFile) {
+		List<String> listValueKeys = new ArrayList<String>();
+		if (!filedTypeFile.isEmpty()) {
+			Map<String, Object> variables = execution.getEngineServices()
+					.getRuntimeService()
+					.getVariables(execution.getProcessInstanceId());
+			for (Map.Entry<String, Object> entry1 : variables.entrySet()) {
+				if (filedTypeFile.contains(entry1.getKey())) {
+					listValueKeys.add(String.valueOf(entry1.getValue()));
+				}
+			}
+		}
+		return listValueKeys;
+	}
+
+	/**
+	 * Получить ид поля с кастомным типом file
+	 * @param startformData
+	 * @return
+	 */
+	public static List<String> getListFieldCastomTypeFile(StartFormData startformData) {
+		List<String>filedTypeFile = new ArrayList<String>();
+		List<FormProperty> startformDataList = startformData.getFormProperties();
+		if(!startformDataList.isEmpty()){
+		for (FormProperty prop : startformDataList) {
+			if(prop.getType() instanceof FormFileType){
+				filedTypeFile.add(prop.getId());
+			}
+		}
+		}
+		return filedTypeFile;
+	}
+	
+	/**
+	 * multipartFile To ByteArray
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 */
+	public static ByteArrayOutputStream multipartFileToByteArray(MultipartFile file)
+			throws IOException {
+		ByteArrayMultipartFile byteArrayMultipartFile  
+				= new ByteArrayMultipartFile(
+						file.getBytes(), file.getName(), file.getOriginalFilename(), file.getContentType());
+		 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		 ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
+		 oos.writeObject(byteArrayMultipartFile);
+		 oos.flush();
+		 oos.close();
+		return byteArrayOutputStream;
+	}
+
 	
 }

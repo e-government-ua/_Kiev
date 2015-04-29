@@ -16,19 +16,17 @@ define('server', ['angularAMD'], function (angularAMD) {
 									{
 										'id': 1,
 										'name': 'Service1',
-										'serviceType': {
-											'id': 1,
-											'name': 'link',
-											'url': 'http://google.com.ua'
+										'places': {
+											'regions': [],
+											'cities': []
 										}
 									},
 									{
 										'id': 2,
 										'name': 'Service2',
-										'serviceType': {
-											'id': 1,
-											'name': 'link',
-											'url': 'http://google.com.ua'
+										'places': {
+											'regions': [1],
+											'cities': []
 										}
 									}
 								]
@@ -40,10 +38,9 @@ define('server', ['angularAMD'], function (angularAMD) {
 									{
 										'id': 3,
 										'name': 'Service3',
-										'serviceType': {
-											'id': 1,
-											'name': 'link',
-											'url': 'http://google.com.ua'
+										'places': {
+											'regions': [1],
+											'cities': [1]
 										}
 									},
 									{
@@ -70,20 +67,15 @@ define('server', ['angularAMD'], function (angularAMD) {
 									{
 										'id': 5,
 										'name': 'Service5',
-										'serviceType': {
-											'id': 4,
-											'name': 'built-in',
-											'url': null
-										}
+										'cities': null,
+										'regions': null,
+										
 									},
 									{
 										'id': 6,
 										'name': 'Service6',
-										'serviceType': {
-											'id': 4,
-											'name': 'built-in',
-											'url': null
-										}
+										'cities': null,
+										'regions': [1],
 									}
 								]
 							},
@@ -94,20 +86,14 @@ define('server', ['angularAMD'], function (angularAMD) {
 									{
 										'id': 7,
 										'name': 'Service7',
-										'serviceType': {
-											'id': 4,
-											'name': 'built-in',
-											'url': null
-										}
+										'cities': null,
+										'regions': null,
 									},
 									{
 										'id': 8,
 										'name': 'Service8',
-										'serviceType': {
-											'id': 4,
-											'name': 'built-in',
-											'url': null
-										}
+										'cities': null,
+										'regions': null,
 									}
 								]
 							}
@@ -121,65 +107,138 @@ define('server', ['angularAMD'], function (angularAMD) {
 			var data = angular.fromJson(rawData);
 			
 			if(data.id == 1) {
-				return [200,{
+				return [200, {
 					'id': 1,
 					'name': 'Service1',
 					'serviceType': {
 						'id': 1,
-						'name': 'link',
-						'url': 'http://google.com.ua/'
+						'name': 'link'
+					},
+					'places': {
+						'regions': [],
+						'cities': []
+					}
+				}, {}];
+			}
+			
+			if(data.id == 2) {
+				return [200, {
+					'id': 2,
+					'name': 'Service2',
+					'serviceType': {
+						'id': 4,
+						'name': 'built-in'
+					},
+					'places': {
+						'regions': [],
+						'cities': []
+					}
+				}, {}];
+			}
+			
+			if(data.id == 3) {
+				return [200, {
+					'id': 3,
+					'name': 'Service3',
+					'serviceType': {
+						'id': 1,
+						'name': 'link'
+					},
+					'places': {
+						'regions': [1],
+						'cities': []
+					}
+				}, {}];
+			}
+			
+			if(data.id == 4) {
+				return [200, {
+					'id': 4,
+					'name': 'Service4',
+					'serviceType': {
+						'id': 4,
+						'name': 'built-in'
+					},
+					'places': {
+						'regions': [1],
+						'cities': []
 					}
 				}, {}];
 			}
 			
 			if(data.id == 5) {
-				return [200,{
+				return [200, {
 					'id': 5,
 					'name': 'Service5',
 					'serviceType': {
-						'id': 4,
-						'name': 'built-in',
-						'url': null
+						'id': 1,
+						'name': 'link'
 					},
-					"range": 0
+					'places': {
+						'regions': [1],
+						'cities': [1]
+					}
 				}, {}];
 			}
 			
 			if(data.id == 6) {
-				return [200,{
+				return [200, {
 					'id': 6,
 					'name': 'Service6',
 					'serviceType': {
 						'id': 4,
-						'name': 'built-in',
-						'url': null
+						'name': 'built-in'
 					},
-					"range": 1
+					'places': {
+						'regions': [1],
+						'cities': [1]
+					}
 				}, {}];
 			}
 			
-			return [200,{
-				'id': 8,
-				'name': 'Service8',
+			return [200, {
+				'id': 6,
+				'name': 'Service6',
 				'serviceType': {
 					'id': 4,
-					'name': 'built-in',
-					'url': null
+					'name': 'built-in'
+				},
+				'places': {
+					'regions': [1],
+					'cities': [1]
 				}
 			}, {}];
 		});
 		
-		$httpBackend.whenGET(/\/api\/regions/).respond(function(method, url, rawData) {
-			return [200, [
-				{
-					'id': 1,
-					'name': 'Львівська область'
-				},
-				{
-					'id': 2,
-					'name': 'Київська область'
-				}
-			], {}];
+		$httpBackend.whenGET(/\/api\/places/).respond(function(method, url, rawData) {
+			return [200, {
+				'regions': [
+					{
+						'id': 1,
+						'name': 'Львівська область',
+						'cities': [
+							{
+								'id': 1,
+								'name': 'Львів'
+							},
+							{
+								'id': 2,
+								'name': 'Червонооград'
+							}
+						]
+					},
+					{
+						'id': 2,
+						'name': 'Київська область',
+						'cities': [
+							{
+								'id': 3,
+								'name': 'Київ'
+							},
+						]
+					}
+				]
+			}, {}];
 		});
 	
 		$httpBackend.whenGET('./data.json').passThrough();

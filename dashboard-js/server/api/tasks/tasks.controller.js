@@ -7,7 +7,9 @@ var activiti = require('../../components/activiti');
 exports.index = function(req, res) {
   var user = JSON.parse(req.cookies.user);
   var query = {};
-
+  //https://test.e-gov.org.ua/wf-dniprorada/service/runtime/tasks?size=20
+  query.size = 100;
+    
   if (req.query.filterType === 'selfAssigned') {
     query.assignee = user.id;
   } else if (req.query.filterType === 'unassigned') {
