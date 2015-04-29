@@ -2,11 +2,9 @@ package org.wf.dp.dniprorada.engine.task;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
-import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.StartFormData;
 import org.activiti.redis.service.RedisService;
 import org.slf4j.Logger;
@@ -14,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
-import org.wf.dp.dniprorada.form.FormFileType;
 import org.wf.dp.dniprorada.model.BuilderAtachModel;
 import org.wf.dp.dniprorada.model.MimiTypeModel;
 
