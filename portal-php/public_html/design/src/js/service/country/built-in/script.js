@@ -15,6 +15,15 @@ define('service.country.built-in', ['angularAMD'], function (angularAMD) {
                     })
                 }
             })
+			.state('service.country.built-in.bankid', {
+				url: '/?code',
+				onEnter: function() {
+					console.log('service.country.built-in.bankid');
+				},
+				controller: [function() {
+					console.log('service.country.built-in.bankid');
+				}]
+			})
     }]);
     return app;
 });
