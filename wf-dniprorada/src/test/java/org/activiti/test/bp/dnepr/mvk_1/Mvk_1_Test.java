@@ -1,26 +1,34 @@
 package org.activiti.test.bp.dnepr.mvk_1;
 
-//import static com.plexiti.activiti.test.fluent.Assertions.assertThat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.history.HistoricActivityInstance;
+import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.impl.test.PluggableActivitiTestCase;
 import org.activiti.engine.impl.test.TestHelper;
+import org.activiti.engine.runtime.JobQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
+import org.easymock.EasyMock;
+import org.easymock.IMocksControl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContextManager;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.plexiti.activiti.test.fluent.ActivitiFluentTestHelper;
+import com.plexiti.activiti.test.fluent.mocking.Mockitos;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("default")
@@ -37,8 +45,13 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 	public ActivitiRule activitiRule = new ActivitiRule(
 			"activiti-custom-context-test.xml");
 
+	public IMocksControl mockControl;
+
 	@Before
 	public void injectDependencies() throws Exception {
+		MockitoAnnotations.initMocks(this);
+		Mockitos.register(this);
+		mockControl = (IMocksControl) EasyMock.createNiceControl();
 
 		new TestContextManager(getClass()).prepareTestInstance(this);
 		processEngine = TestHelper.getProcessEngine(activitiRule
@@ -61,19 +74,7 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 
 	}
 
-	@Test
-	@Deployment(resources = { PROCESS_RESOURCE })
-	public void isDeployed() {
-/*		assertThat(
-				processEngine.getRepositoryService()
-						.createProcessDefinitionQuery()
-						.processDefinitionKey(PROCESS_KEY).singleResult())
-				.isDeployed();*/
-	}
-
-	@Test
-	@Deployment(resources = { PROCESS_RESOURCE })
-	public void startProcessInstance() throws InterruptedException {
+	private Map<String, Object> createStartFormVariables() {
 		Map<String, Object> procVars = new HashMap<String, Object>();
 
 		procVars.put("bankIdlastName", "Кочубей");
@@ -90,23 +91,65 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 		procVars.put(
 				"processName",
 				"Надання копій рішень міської ради та її виконкому, розпоряджень міського голови за зверненням юридичних та фізичних осіб, правоохоронних органів,адвокатів");
+		return procVars;
+	}
+
+	@Test
+	@Deployment(resources = { PROCESS_RESOURCE })
+	public void startProcessInstance() throws InterruptedException {
+		Map<String, Object> procVars = createStartFormVariables();
 
 		ProcessInstance pi = runtimeService.startProcessInstanceByKey(
 				PROCESS_KEY, procVars);
 
-		assertNotNull(pi);		
+		assertNotNull(pi);
+
+		runtimeService.deleteProcessInstance(pi.getProcessInstanceId(),
+				"not needed, created only for test");
+
+	}
+
+	@Test
+	@Deployment(resources = { PROCESS_RESOURCE })
+	public void processRejected() throws InterruptedException {
+		Map<String, Object> procVars = createStartFormVariables();
+
+		ProcessInstance pi = runtimeService.startProcessInstanceByKey(
+				PROCESS_KEY, procVars);
+
+		assertNotNull(pi);
 
 		Task task = activitiRule.getTaskService().createTaskQuery()
 				.singleResult();
-		assertNotNull(task);	
-		assertEquals("usertask4", task.getTaskDefinitionKey());
-		assertEquals("Прийняття рішення: доцільність запиту", task.getName());
+		assertNotNull(task);
+
 		Map<String, Object> taskVars = new HashMap<String, Object>();
-		taskVars.put("decide", "reject");		
-		processEngine.getTaskService().complete(task.getId(),taskVars);	
-		
-		assertEquals(0, runtimeService.createProcessInstanceQuery().count()); 
-		
+		taskVars.put("decide", "reject");
+		processEngine.getTaskService().complete(task.getId(), taskVars);
+
+		HistoryService historyService = activitiRule.getHistoryService();
+
+		HistoricProcessInstance historicProcessInstance = historyService
+				.createHistoricProcessInstanceQuery()
+				.processInstanceId(pi.getProcessInstanceId()).singleResult();
+
+		assertNotNull(historicProcessInstance);
+		// check that only one process running
+		assertEquals(pi.getProcessInstanceId(), historicProcessInstance.getId());
+
+		List<HistoricActivityInstance> activityList = historyService
+				.createHistoricActivityInstanceQuery().list();
+
+		JobQuery jquery = activitiRule.getManagementService().createJobQuery();
+
+		// check how many tasks must be done
+		assertEquals("done task count", 5, activityList.size());
+
+		// and the job is done
+		assertEquals("job is done", 0, jquery.count());
+
+		assertEquals(0, runtimeService.createProcessInstanceQuery().count());
+
 	}
 
 }
