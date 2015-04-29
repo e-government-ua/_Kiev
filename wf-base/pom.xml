@@ -19,8 +19,8 @@
         </repository>
     </repositories>
     <modules>
-        <module>wf-example</module>
-        <module>wf-core</module>
+        <module>wf-dniprorada-core</module>
+        <module>wf-dniprorada-process</module>
     </modules>
 
 </project>
