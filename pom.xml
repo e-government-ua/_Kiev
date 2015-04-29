@@ -202,6 +202,14 @@
 			</dependency>
 
 			<dependency>
+				<groupId>com.plexiti.activiti</groupId>
+				<artifactId>activiti-fluent-tests</artifactId>
+				<version>0.3</version>
+				<scope>test</scope>
+				<type>jar</type>
+			</dependency>
+
+			<dependency>
 				<groupId>org.easymock</groupId>
 				<artifactId>easymock</artifactId>
 				<version>${easymock.version}</version>
