@@ -26,3 +26,4 @@ hs_err_pid*
 # virtual environment
 .vagrant
 
+/wf-dniprorada/
