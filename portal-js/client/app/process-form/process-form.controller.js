@@ -43,9 +43,10 @@ var deleteAccessTokenProperty = function(formProperties) {
 var fillInUserValues = function(formProperties, user) {
 	if (user) {
 		formProperties.forEach(function(formProperty) {
-			if (user.fio[formProperty.id]) {
-				formProperty.value = user.fio[formProperty.id];
-			}
+			// if (user.fio[formProperty.id]) {
+			// 	formProperty.value = user.fio[formProperty.id];
+			// }
+			//TODO waits for fix because of new API
 		});
 	}
 };

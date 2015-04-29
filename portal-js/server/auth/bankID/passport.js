@@ -22,10 +22,10 @@ exports.setup = function(config, request, url, user) {
 			callbackURL: request.getBackRedirectURL('/auth/bankID/callback')
 		},
 		function(accessToken, refreshToken, profile, done) {
-			user.findUser(accessToken, function(err, user) {
-				if (err !== 200) return done(err);
+			user.findUser(accessToken, function(err, statusCode, userInfo) {
+				if (statusCode !== 200) return done(err);
 
-				return done(null, user, {
+				return done(null, userInfo, {
 					accessToken: accessToken,
 					refreshToken: refreshToken
 				});
