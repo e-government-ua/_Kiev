@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.plexiti.activiti.test.fluent.ActivitiFluentTestHelper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-//@ActiveProfiles("default")
+@ActiveProfiles("default")
 @ContextConfiguration(locations = {
 		"classpath:META-INF/spring/dnepr/mvk/1/activiti.cfg.mock.xml",
 		"classpath:META-INF/spring/dnepr/mvk/1/activiti.cfg.scan.xml",
@@ -62,15 +62,15 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 
 	}
 
-//	@Test
-//	@Deployment(resources = { PROCESS_RESOURCE })
-//	public void isDeployed() {
-//		assertThat(
-//				processEngine.getRepositoryService()
-//						.createProcessDefinitionQuery()
-//						.processDefinitionKey(PROCESS_KEY).singleResult())
-//				.isDeployed();
-//	}
+	@Test
+	@Deployment(resources = { PROCESS_RESOURCE })
+	public void isDeployed() {
+		assertThat(
+				processEngine.getRepositoryService()
+						.createProcessDefinitionQuery()
+						.processDefinitionKey(PROCESS_KEY).singleResult())
+				.isDeployed();
+	}
 
 	@Test
 	@Deployment(resources = { PROCESS_RESOURCE })
