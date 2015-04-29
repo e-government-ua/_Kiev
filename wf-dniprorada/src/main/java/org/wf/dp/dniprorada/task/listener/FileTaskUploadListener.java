@@ -1,21 +1,21 @@
 package org.wf.dp.dniprorada.task.listener;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
 
+import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.TaskListener;
 import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.identity.User;
+import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.activiti.redis.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
-import org.wf.dp.dniprorada.model.MimiTypeModel;
 
 /**
  * 
@@ -45,18 +45,20 @@ public class FileTaskUploadListener extends AbstractModelTask implements TaskLis
 				filedTypeFile);
 		if (!listValueKeys.isEmpty()) {
 			for (String keyRedis : listValueKeys) {
-				 byte[] contentbyte = getRedisService().getAttachments(keyRedis);
-				if (contentbyte != null) {
-
-			InputStream content = new ByteArrayInputStream(contentbyte);
-			MimiTypeModel mimiType = getMimiType(contentbyte);
-			execution
+				ByteArrayMultipartFile contentMultipartFile = getRedisService().getAttachObjFromRedis(keyRedis);
+				InputStream is = null;	
+				try{
+					is = contentMultipartFile.getInputStream();
+				} catch (Exception e) {
+					throw new ActivitiException(e.getMessage(), e);
+				}
+				if (contentMultipartFile != null) {
+					execution
 					.getEngineServices()
 					.getTaskService()
-					.createAttachment(mimiType.getMimiType()+";"+mimiType.getExtension(), task.getId(),
-							execution.getProcessInstanceId(),
-							keyRedis, "attached", content);
-		}
+					.createAttachment(contentMultipartFile.getContentType() + ";" + contentMultipartFile.getExp(), task.getId(),
+							execution.getProcessInstanceId(), contentMultipartFile.getOriginalFilename(), contentMultipartFile.getName(), is);
+				}
 			}
 		}
 		

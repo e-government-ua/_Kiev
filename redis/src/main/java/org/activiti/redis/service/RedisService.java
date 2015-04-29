@@ -1,6 +1,7 @@
 package org.activiti.redis.service;
 
 import org.activiti.redis.exception.RedisException;
+import org.activiti.redis.model.ByteArrayMultipartFile;
 
 /**
  * Сервис логирования данных.
@@ -19,5 +20,7 @@ public interface RedisService {
 	String putAttachments(byte[]file) throws RedisException;
 	
 byte[] getAttachments(String key) throws RedisException;
+
+ByteArrayMultipartFile getAttachObjFromRedis(String key) throws RedisException;
 
 }

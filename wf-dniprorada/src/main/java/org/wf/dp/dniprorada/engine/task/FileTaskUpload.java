@@ -6,6 +6,7 @@ import java.util.List;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.activiti.engine.form.StartFormData;
+import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.activiti.redis.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import org.wf.dp.dniprorada.model.BuilderAtachModel;
-import org.wf.dp.dniprorada.model.MimiTypeModel;
 
 /**
  * 
@@ -40,19 +40,17 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 		List<BuilderAtachModel> listModel = new ArrayList<BuilderAtachModel>();
 		if (!listValueKeys.isEmpty()) {
 			for (String keyRedis : listValueKeys) {
-				 byte[] contentbyte = getRedisService().getAttachments(keyRedis);
-				if (contentbyte != null) {
-					String byteToStringContent = contentByteToString(contentbyte);
-					MimiTypeModel mimiType = getMimiType(contentbyte);
-
+				ByteArrayMultipartFile contentMultipartFile = getRedisService().getAttachObjFromRedis(keyRedis);
+				if (contentMultipartFile != null) {
 					BuilderAtachModel builderAtachModel = new BuilderAtachModel();
 					builderAtachModel
-							.setByteToStringContent(byteToStringContent);
-					builderAtachModel.setContentType(mimiType.getMimiType());
-					builderAtachModel.setExp(mimiType.getExtension());
-					builderAtachModel.setOriginalFilename(keyRedis);
-
+							.setByteToStringContent(contentByteToString(contentMultipartFile.getBytes()));
+					builderAtachModel.setContentType(contentMultipartFile.getContentType());
+					builderAtachModel.setExp(contentMultipartFile.getExp());
+					builderAtachModel.setOriginalFilename(contentMultipartFile.getOriginalFilename());
+					builderAtachModel.setName(contentMultipartFile.getName());
 					listModel.add(builderAtachModel);
+
 				}
 			}
 		}
