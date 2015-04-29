@@ -1,5 +1,5 @@
 {
-  "name": "portal-dniprorada",
+  "name": "portal-js",
   "script": "./server/app.js",
   "args": "",
   "env": {
