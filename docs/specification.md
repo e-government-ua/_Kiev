@@ -131,10 +131,14 @@ false - Имя пользователя или пароль не коррект�
 	]
 ```
 #### 6. Download file from DB
+Сервис загрузки прикрепленного к заявке файла из постоянной базы:
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/serivce/rest/download_file_from_db?taskId=XXX**
+**HTTP Context: https://seriver:port/wf-dniprorada/service/rest/download_file_from_db?taskId=XXX**
 
 {taskId} - ид задачи
+
+https://52.17.126.64:8080/wf-dniprorada/service/rest/file/download_file_from_db?taskId=82596
+
 
