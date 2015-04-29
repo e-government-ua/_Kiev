@@ -32,36 +32,44 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
-		
-		StartFormData startformData = execution.getEngineServices().getFormService().getStartFormData(execution.getProcessDefinitionId());
+
+		StartFormData startformData = execution.getEngineServices()
+				.getFormService()
+				.getStartFormData(execution.getProcessDefinitionId());
 		List<String> filedTypeFile = getListFieldCastomTypeFile(startformData);
 		List<String> listValueKeys = getValueFieldWithCastomTypeFile(execution,
 				filedTypeFile);
 		List<BuilderAtachModel> listModel = new ArrayList<BuilderAtachModel>();
 		if (!listValueKeys.isEmpty()) {
 			for (String keyRedis : listValueKeys) {
-				ByteArrayMultipartFile contentMultipartFile = getRedisService().getAttachObjFromRedis(keyRedis);
-				if (contentMultipartFile != null) {
-					BuilderAtachModel builderAtachModel = new BuilderAtachModel();
-					builderAtachModel
-							.setByteToStringContent(contentByteToString(contentMultipartFile.getBytes()));
-					builderAtachModel.setContentType(contentMultipartFile.getContentType());
-					builderAtachModel.setExp(contentMultipartFile.getExp());
-					builderAtachModel.setOriginalFilename(contentMultipartFile.getOriginalFilename());
-					builderAtachModel.setName(contentMultipartFile.getName());
-					listModel.add(builderAtachModel);
+				if (keyRedis != null && !keyRedis.isEmpty()) {
+					ByteArrayMultipartFile contentMultipartFile = getRedisService()
+							.getAttachObjFromRedis(keyRedis);
+					if (contentMultipartFile != null) {
+						BuilderAtachModel builderAtachModel = new BuilderAtachModel();
+						builderAtachModel
+								.setByteToStringContent(contentByteToString(contentMultipartFile
+										.getBytes()));
+						builderAtachModel.setContentType(contentMultipartFile
+								.getContentType());
+						builderAtachModel.setExp(contentMultipartFile.getExp());
+						builderAtachModel
+								.setOriginalFilename(contentMultipartFile
+										.getOriginalFilename());
+						builderAtachModel.setName(contentMultipartFile
+								.getName());
+						listModel.add(builderAtachModel);
 
+					}
 				}
 			}
 		}
 
 		if (!listModel.isEmpty()) {
-			execution.setVariable(BUILDER_ATACH_MODEL_LIST,
-					listModel);
+			execution.setVariable(BUILDER_ATACH_MODEL_LIST, listModel);
 		}
-		
-	}
 
+	}
 
 	public RedisService getRedisService() {
 		return redisService;
