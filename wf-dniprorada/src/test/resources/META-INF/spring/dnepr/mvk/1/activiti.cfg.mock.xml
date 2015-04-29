@@ -12,10 +12,10 @@
        
        <context:component-scan base-package="org.activiti.test"
 		annotation-config="true" />
-<!-- 	<bean id="serviceId" class="org.activiti.test.bp.MockUtil" -->
-<!-- 		factory-method="createMock" primary="true"> -->
-<!-- 		<constructor-arg value="class.to.be.mocked" /> -->
-<!-- 	</bean> -->
+	<bean class="org.activiti.test.MockUtil"
+		factory-method="createMock" primary="true">
+		<constructor-arg value="org.activiti.redis.service.RedisService" />
+	</bean>
 	
 
 </beans>
