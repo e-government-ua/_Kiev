@@ -62,15 +62,15 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 
 	}
 
-	@Test
-	@Deployment(resources = { PROCESS_RESOURCE })
-	public void isDeployed() {
-		assertThat(
-				processEngine.getRepositoryService()
-						.createProcessDefinitionQuery()
-						.processDefinitionKey(PROCESS_KEY).singleResult())
-				.isDeployed();
-	}
+//	@Test
+//	@Deployment(resources = { PROCESS_RESOURCE })
+//	public void isDeployed() {
+//		assertThat(
+//				processEngine.getRepositoryService()
+//						.createProcessDefinitionQuery()
+//						.processDefinitionKey(PROCESS_KEY).singleResult())
+//				.isDeployed();
+//	}
 
 	@Test
 	@Deployment(resources = { PROCESS_RESOURCE })
