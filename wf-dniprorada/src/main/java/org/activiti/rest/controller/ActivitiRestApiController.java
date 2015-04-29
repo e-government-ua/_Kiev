@@ -111,6 +111,13 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return procDefinitions;
     }
 
+    
+    /**
+     * Укладываем в редис multipartFileToByteArray 
+     * @param file
+     * @return
+     * @throws ActivitiIOException
+     */
     @RequestMapping(value = "/file/upload_file_to_redis", method = RequestMethod.POST)
     @Transactional
     public
@@ -118,7 +125,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     String putAttachmentsToRedis(@RequestParam("file") MultipartFile file) throws ActivitiIOException  {
     	String atachId = null;
 		try {
-			//atachId = redisService.putAttachments(file.getBytes()); 
 			atachId = redisService.putAttachments(AbstractModelTask.multipartFileToByteArray(file).toByteArray());
 		}catch (RedisException e) {
 			 throw new ActivitiIOException(ActivitiIOException.Error.REDIS_ERROR,e.getMessage());
@@ -143,6 +149,15 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 		return upload;
     }
 
+    
+    /**
+     * Получение Attachment средствами активити из таблицы ACT_HI_ATTACHMENT
+     * @param taskId
+     * @param request
+     * @param httpResponse
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/file/download_file_from_db", method = RequestMethod.GET)
     @Transactional
     public @ResponseBody
@@ -201,10 +216,19 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     }
 
     
-    @RequestMapping(value = "/file/download_file_from_db_new", method = RequestMethod.GET)
+    /**
+     * Сервис для получения Attachment из execution
+     * @param taskId
+     * @param request
+     * @param httpResponse
+     * @return
+     * @throws IOException
+     */
+    
+    @RequestMapping(value = "/file/download_file_from_db_execution", method = RequestMethod.GET)
     @Transactional
     public @ResponseBody
-    byte[] getAttachmentFromDbNew(@RequestParam("taskId") String taskId, 
+    byte[] getAttachmentFromDbExecution(@RequestParam("taskId") String taskId, 
     		             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
     	
     	//получаем по задаче ид процесса
