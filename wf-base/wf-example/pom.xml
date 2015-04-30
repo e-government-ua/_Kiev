@@ -9,20 +9,20 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>wf-dniprorada-process</artifactId>
+    <artifactId>wf-example</artifactId>
     <packaging>war</packaging>
 
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>wf-dniprorada-core</artifactId>
+            <artifactId>wf-core</artifactId>
             <version>5.17.0-SNAPSHOT</version>
             <classifier>lib</classifier>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>wf-dniprorada-core</artifactId>
+            <artifactId>wf-core</artifactId>
             <version>5.17.0-SNAPSHOT</version>
             <classifier>ui-zip</classifier>
             <type>zip</type>
@@ -51,7 +51,7 @@
                         <configuration>
                             <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF</outputDirectory>
                             <includeGroupIds>${project.groupId}</includeGroupIds>
-                            <includeArtifactIds>wf-dniprorada-core</includeArtifactIds>
+                            <includeArtifactIds>wf-core</includeArtifactIds>
                             <includeClassifiers>ui-zip</includeClassifiers>
                         </configuration>
                     </execution>

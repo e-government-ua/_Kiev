@@ -22,8 +22,8 @@
         <activity.version>5.17.0</activity.version>
     </properties>
     <modules>
-        <module>wf-dniprorada-core</module>
-        <module>wf-dniprorada-process</module>
+        <module>wf-core</module>
+        <module>wf-example</module>
     </modules>
 
 </project>
