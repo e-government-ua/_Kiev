@@ -73,6 +73,6 @@ Vagrant.configure(2) do |config|
   # SHELL
 
   config.vm.provision :shell, path: "scripts/prepare_machine.sh"
-  config.vm.provision :shell, privileged: false, path: "scripts/update_wf_fast.sh"
+  config.vm.provision :shell, privileged: false, path: "scripts/update_wf_full.sh"
 
 end
