@@ -4,6 +4,7 @@ cd /project
 echo Building workflow project
 mvn install -DskipTests
 echo Shutdown Tomcat for safer deploy
+echo \(may throw java.net.ConnectException: Connection refused if Tomcat isn't yet running - it's ok, just ignore it. Will fix later.\)
 $TOMCAT_HOME/bin/shutdown.sh
 echo Copy WAR to webapps dir
 WAR_SRC=/project/wf-dniprorada/target/wf-dniprorada.war

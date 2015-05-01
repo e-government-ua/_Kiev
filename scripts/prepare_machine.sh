@@ -17,28 +17,38 @@ echo installing JDK
 # --no-install-recommends avoids installing X11 stuff.
 apt-get -y --no-install-recommends install openjdk-7-jdk
 
-mkdir -p /tmp/egov
-mkdir -p /tmp/egov/log
 DOWNLOAD_DIR=/tmp/egov/download
 mkdir -p $DOWNLOAD_DIR
 
-echo installing Maven
+MAVEN_HOME=$PROGRAMS_HOME/apache-maven-3.3.1
+echo installing Maven to $MAVEN_HOME
 #using direct download because Ubuntu package has too many unnecessary dependencies
-MAVEN_DIST=apache-maven-3.3.1-bin.tar.gz
-wget -P $DOWNLOAD_DIR http://apache.volia.net/maven/maven-3/3.3.1/binaries/$MAVEN_DIST
-tar -xvzf $DOWNLOAD_DIR/$MAVEN_DIST -C $PROGRAMS_HOME
-rm $DOWNLOAD_DIR/$MAVEN_DIST
+if [ -e $MAVEN_HOME ]
+then
+    echo already installed, skip
+else
+    MAVEN_DIST=apache-maven-3.3.1-bin.tar.gz
+    wget -P $DOWNLOAD_DIR http://apache.volia.net/maven/maven-3/3.3.1/binaries/$MAVEN_DIST
+    tar -xvzf $DOWNLOAD_DIR/$MAVEN_DIST -C $PROGRAMS_HOME
+    rm $DOWNLOAD_DIR/$MAVEN_DIST
+fi
 
-echo installing Tomcat
+TOMCAT_HOME=$PROGRAMS_HOME/apache-tomcat-8.0.21
+echo installing Tomcat to $TOMCAT_HOME
 #Ubuntu repository ATM contains only Tomcat 6 - so using direct download to get something more up-to-date
-TOMCAT_DIST=apache-tomcat-8.0.21.tar.gz
-wget -P $DOWNLOAD_DIR http://apache.cp.if.ua/tomcat/tomcat-8/v8.0.21/bin/$TOMCAT_DIST
-tar -xvzf $DOWNLOAD_DIR/$TOMCAT_DIST -C $PROGRAMS_HOME
-rm $DOWNLOAD_DIR/$TOMCAT_DIST
-chown -R vagrant $PROGRAMS_HOME/apache-tomcat-8.0.21
+if [ -e $TOMCAT_HOME ]
+then
+    echo already installed, skip
+else
+    TOMCAT_DIST=apache-tomcat-8.0.21.tar.gz
+    wget -P $DOWNLOAD_DIR http://apache.cp.if.ua/tomcat/tomcat-8/v8.0.21/bin/$TOMCAT_DIST
+    tar -xvzf $DOWNLOAD_DIR/$TOMCAT_DIST -C $PROGRAMS_HOME
+    rm $DOWNLOAD_DIR/$TOMCAT_DIST
+    chown -R vagrant $TOMCAT_HOME
+fi
 
 echo ******************************************************************
-echo ** Setting up tools for portal \(PHP\): TODO                      **
+echo ** Setting up tools for dashboard-js: TODO                      **
 echo ******************************************************************
 echo
 
@@ -52,8 +62,8 @@ echo setting up environment
 ENV_FILE=/etc/profile.d/egov-env.sh
 echo "#!/bin/sh
 export PROGRAMS_HOME=$PROGRAMS_HOME
-export MAVEN_HOME=\$PROGRAMS_HOME/apache-maven-3.3.1
-export TOMCAT_HOME=\$PROGRAMS_HOME/apache-tomcat-8.0.21
+export MAVEN_HOME=$MAVEN_HOME
+export TOMCAT_HOME=$TOMCAT_HOME
 export PATH=$PATH:\$MAVEN_HOME/bin:\$TOMCAT_HOME/bin
 " > $ENV_FILE
 
