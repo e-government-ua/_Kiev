@@ -21,5 +21,5 @@
 var ACTIVITI = ACTIVITI || {};
 
 ACTIVITI.CONFIG = {
-	'contextRoot' : '/wf-dniprorada/service',
+	'contextRoot' : '/wf-central/service',
 };
