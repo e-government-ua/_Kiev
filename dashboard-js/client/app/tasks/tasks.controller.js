@@ -3,6 +3,7 @@
 angular.module('dashboardJsApp')
   .controller('TasksCtrl', function($scope, tasks, processes, Modal, Auth) {
     $scope.tasks = [];
+    $scope.selectedTasks = {};
     $scope.menus = [{
       'title': 'В роботі',
       'type': tasks.filterTypes.selfAssigned
@@ -43,7 +44,7 @@ angular.module('dashboardJsApp')
     };
 
     $scope.applyTaskFilter = function(taskFilter) {
-      $scope.selectedTask = null;
+      $scope.selectedTask = $scope.selectedTasks[taskFilter];
       $scope.taskForm = null;
       $scope.tasksFilter = taskFilter;
 
@@ -52,7 +53,9 @@ angular.module('dashboardJsApp')
         .then(function(result) {
           result = JSON.parse(result);
           $scope.tasks = result.data;
-          if ($scope.tasks[0]) {
+          if ($scope.selectedTask) {
+            $scope.selectTask($scope.selectedTask);
+          } else if ($scope.tasks[0]) {
             $scope.selectTask($scope.tasks[0]);
           }
         })
@@ -63,6 +66,7 @@ angular.module('dashboardJsApp')
 
     $scope.selectTask = function(task) {
       $scope.selectedTask = task;
+      $scope.selectedTasks[$scope.tasksFilter] = task;
       $scope.taskForm = null;
       $scope.taskId = task.id;
       $scope.attachments = null;
