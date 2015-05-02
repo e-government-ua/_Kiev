@@ -69,7 +69,7 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<configuration>
 					<port>8080</port>
-					<path>/wf-dniprorada</path>
+					<path>/wf-central</path>
 					<systemProperties>
 						<com.sun.management.jmxremote.port>4000</com.sun.management.jmxremote.port>
 						<spring.profiles.active>test</spring.profiles.active>
