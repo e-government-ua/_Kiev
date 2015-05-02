@@ -4,96 +4,27 @@ define('server', ['angularAMD'], function (angularAMD) {
 	app.run(['$http', '$httpBackend', function($http, $httpBackend) {
 		$httpBackend.whenGET('./api/services').respond(function(method, url, data) {
 			return [200, {
-				categories: [
+				aCategory : [
 					{
-						'id': 1,
-						'name': 'Category1',
-						'subcategories': [
+						nID: 1,
+						sID:'Citizen',
+						sName:'Гражданин',
+						nOrder:1,
+						aSubcategory: [
 							{
-								'id': 1,
-								'name': 'SubCategory1',
-								'services': [
+								nID: 6,
+								sID:'Transport',
+								sName:'Транспорт',
+								nOrder:1,
+								aService: [
 									{
-										'id': 1,
-										'name': 'Service1',
-										'places': {
-											'regions': [],
-											'cities': []
-										}
-									},
-									{
-										'id': 2,
-										'name': 'Service2',
-										'places': {
-											'regions': [1],
-											'cities': []
-										}
-									}
-								]
-							},
-							{
-								'id': 2,
-								'name': 'SubCategory2',
-								'services': [
-									{
-										'id': 3,
-										'name': 'Service3',
-										'places': {
-											'regions': [1],
-											'cities': [1]
-										}
-									},
-									{
-										'id': 4,
-										'name': 'Service4',
-										'serviceType': {
-											'id': 1,
-											'name': 'link',
-											'url': 'http://google.com.ua'
-										}
-									}
-								]
-							}
-						]
-					},
-					{
-						'id': 2,
-						'name': 'Category2',
-						'subcategories': [
-							{
-								'id': 3,
-								'name': 'SubCategory3',
-								'services': [
-									{
-										'id': 5,
-										'name': 'Service5',
-										'cities': null,
-										'regions': null,
-										
-									},
-									{
-										'id': 6,
-										'name': 'Service6',
-										'cities': null,
-										'regions': [1],
-									}
-								]
-							},
-							{
-								'id': 4,
-								'name': 'SubCategory4',
-								'services': [
-									{
-										'id': 7,
-										'name': 'Service7',
-										'cities': null,
-										'regions': null,
-									},
-									{
-										'id': 8,
-										'name': 'Service8',
-										'cities': null,
-										'regions': null,
+										nID:1,
+										nOrder:1,
+										sName:'Отримати довідку про несудимість',
+										nID_City:1,
+										nID_Region:null,
+										nID_ServiceType:1,
+										sURL:'https://lviv.e-gov.org.ua'
 									}
 								]
 							}
