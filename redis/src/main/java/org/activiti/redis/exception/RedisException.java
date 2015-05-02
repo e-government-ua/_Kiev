@@ -28,4 +28,10 @@ public class RedisException extends BaseRedisException {
 	public RedisException(String prCode, String prMess) {
 		super(prCode, prMess);
 	}
+
+	public RedisException(String prCode, String prMess, Throwable cause) {
+		super(prCode, prMess, cause);
+	}
+
+
 }

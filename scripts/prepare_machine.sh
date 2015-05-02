@@ -47,6 +47,18 @@ else
     chown -R vagrant $TOMCAT_HOME
 fi
 
+echo installing Redis
+apt-get -y install redis-server
+REDIS_CONF=/etc/redis/redis.conf
+REDIS_CONF_BKUP=${REDIS_CONF}.bkup
+if [ ! -e $REDIS_CONF_BKUP ]
+then
+    cp $REDIS_CONF $REDIS_CONF_BKUP
+fi
+# see comments in config/redis.conf for list of customizations
+cp /project/scripts/config/redis.conf $REDIS_CONF
+service redis-server restart
+
 echo ******************************************************************
 echo ** Setting up tools for dashboard-js: TODO                      **
 echo ******************************************************************
