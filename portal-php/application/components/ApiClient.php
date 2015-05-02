@@ -50,7 +50,7 @@ class ApiClient extends Component
     public function getProcessDefinitions()
     {
         $client = $this->getGuzzleClient();
-        $response = $client->get('repository/process-definitions?latest=true');
+        $response = $client->get('repository/process-definitions?latest=true&size=100');
         $result = $response->json();
         return $result['data'];
     }
