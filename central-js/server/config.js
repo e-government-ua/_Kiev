@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
 	'server': {
-		'protocol': 'http',
+		'protocol': 'https',
 		'key': '/sybase/cert/server.key',
 		'cert': '/sybase/cert/server.crt',
 		'port': '8443'
