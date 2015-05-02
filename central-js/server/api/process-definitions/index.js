@@ -5,14 +5,16 @@ router.use(function(req, res, next) {
 	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 	var processDefinitions = require('./index.controller');
 	
+	var config = require('../../config.js');
+	var activiti = config.activiti;
+	
 	var options = {
-		protocol: 'https',
-		hostname: '52.17.126.64',
-		port: 8080,
-		path: '/wf-dniprorada/service',
-		method: 'GET',
-		username: 'activiti-master',
-		password: 'UjhtJnEvf!'
+		protocol: activiti.protocol,
+		hostname: activiti.hostname,
+		port: activiti.port,
+		path: activiti.path,
+		username: activiti.username,
+		password: activiti.password
 	};
 	
 	var callback = function(error, response, body) {

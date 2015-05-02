@@ -34,7 +34,7 @@ public class RedisServiceImpl implements RedisService {
 			key = getJedisClient().putAttachments(file);
 
 		} catch (Exception e) {
-			throw new RedisException(RedisException.CODE_REDIS_EXCEPTION_ERROR, e.getMessage());
+			throw new RedisException(RedisException.CODE_REDIS_EXCEPTION_ERROR, e.getMessage(), e);
 		}
 		return key;
 	}

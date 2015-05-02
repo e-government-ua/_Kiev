@@ -3,11 +3,6 @@ var router = express.Router();
 
 router.use('/', express.static(__dirname + '../../client/build/'));
 
-router.param('code', function (req, res, next, id) {
-  console.log('CALLED ONLY ONCE');
-  next();
-})
-
 router.use('/api/account', require('./api/account/index'));
 router.get('/api/bankid/login', require('./api/bankid/login'));
 router.use('/api/bankid/account', require('./api/bankid/account'));

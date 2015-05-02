@@ -1,15 +1,30 @@
 var express = require('express');
 var ejs = require('ejs');
+var fs = require('fs');
+
+var config = require('./config');
 
 var app = express();
 app.engine('html', ejs.renderFile);
 app.use(require('./routes'));
 
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
+var server = null;
+switch(config.server.protocol) {
+	case 'https':
+		var credentials = {
+			key: fs.readFileSync(config.server.key).toString(),
+			cert: fs.readFileSync(config.server.cert).toString()
+		};
+		
+		server = require('https').createServer(credentials, app);
+		break;
+	case 'http':
+	default:
+		server = require('http').createServer(app);
+}
 
-  console.log('Example app listening at http://%s:%s', host, port);
+server.listen(config.server.port, function() {
+	console.log('Express server listening on %d', config.server.port);
 });
 
-module.exports = app;
+module.exports = server;

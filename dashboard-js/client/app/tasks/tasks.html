@@ -1,65 +1,69 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
-
+<div ng-include="'components/navbar/navbar.html'" class="navbar-fixed-top"></div>
 <div class="container">
-	<div class="row">
-		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <ul class="nav nav-tabs nav-stacked col-md-4_ col-lg-4_ col-sm-6_" ng-repeat="task in tasks">
-            <li>
-                <a tooltip="{{task.description}}"
-                   ng-click="selectTask(task)"
-                   class="task-menu-item"
-                   ng-class="{active: isTaskSelected(task)}">
-                    {{ getProcessName(task.processDefinitionId) }} | {{ task.name }} {{ sDateShort(task.createTime) }}
-                </a>
-                   <!--ng-class="{active: isTaskSelected(task)}">{{ task.name }} -->
-            </li>
-          </ul>
-		</div>
+  <div class="container__in">
+    <div class="row">
+      <div class="col-xs-5 sidebar">
+        <div class="tasks">
+          <div class="list-group">
+            <a class="list-group-item task" href=""
+               ng-repeat="task in tasks"
+               tooltip="{{task.description}}"
+               ng-click="selectTask(task)"
+               ng-class="{'active': isTaskSelected(task)}">
+              {{ getProcessName(task.processDefinitionId) }} | {{ task.name }} {{ sDateShort(task.createTime) }}
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-7 col-xs-offset-5 main">
+        <h3 ng-show="selectedTask && taskForm == null && !error">Завантаження ...</h3>
 
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <h3 ng-show="selectedTask && taskForm == null && !error">Завантаження ...</h3>
+        <show-error data="error" ng-show="error"></show-error>
 
-      <show-error data="error" ng-show="error"></show-error>
+        <div ng-repeat="item in taskForm">
+          <p ng-if="['string', 'long', 'date'].indexOf(item.type) > -1">
+            <label>{{item.name}} {{item.type}}</label>
+            <input class="form-control" ng-disabled="isFormPropertyDisabled(item)"
+                   ng-required="item.required" ng-model="item.value"/>
+          </p>
 
-      <div ng-repeat="item in taskForm">
-        <p ng-if="['string', 'long', 'date'].indexOf(item.type) > -1">
-          <label>{{item.name}}</label>
-          <input class="form-control" ng-disabled="isFormPropertyDisabled(item)"
-                 ng-required="item.required" ng-model="item.value"/>
-        </p>
+          <p ng-if="item.type == 'textArea'">
+            <label>{{item.name}}</label>
+        <textarea class="form-control" ng-disabled="isFormPropertyDisabled(item)"
+                  ng-required="item.required" ng-model="item.value"></textarea>
+          </p>
 
-        <p ng-if="item.type == 'textArea'">
-          <label>{{item.name}}</label>
-          <textarea class="form-control" ng-disabled="isFormPropertyDisabled(item)"
-                    ng-required="item.required" ng-model="item.value"></textarea>
-        </p>
+          <p ng-if="item.type == 'user'">
+            <label>{{item.name}}</label>
+            <input class="form-control" ng-disabled="true" ng-required="item.required" ng-model="item.value"/>
+          </p>
 
-        <p ng-if="item.type == 'user'">
-          <label>{{item.name}}</label>
-          <input class="form-control" ng-disabled="true" ng-required="item.required" ng-model="item.value"/>
-        </p>
-
-        <p ng-if="item.type == 'enum'">
-          <label>{{item.name}}</label>
-          <select class="form-control" ng-disabled="isFormPropertyDisabled(item)"
-                  ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues"
-                  ng-required="item.required" ng-model="item.value"></select>
-        </p>
-
-        <p ng-if="['string', 'long', 'date', 'enum', 'user', 'textArea'].indexOf(item.type) == -1">
-          <label>{{item.name}}</label>
-          <input class="form-control" ng-disabled="true" ng-required="item.required" ng-model="item.value" />
+          <p ng-if="item.type == 'enum'">
+            <label>{{item.name}}</label>
+            <select class="form-control" ng-disabled="isFormPropertyDisabled(item)"
+                    ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues"
+                    ng-required="item.required" ng-model="item.value"></select>
+          </p>
+          <p ng-if="item.type == 'file'">
+            <label>{{item.name}}</label>
+            <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content/{{item.nFileIdx}}" target="_blank"><b>{{item.name}}</b> {{item.description}}</a>
+          </p>
+          <p ng-if="['string', 'long', 'date', 'enum', 'user', 'textArea', 'file'].indexOf(item.type) == -1">
+            <label>{{item.name}} {{item.type}}</label>
+            <input class="form-control" ng-disabled="true" ng-required="item.required" ng-model="item.value" />
+          </p>
+        </div>
+        <div ng-show="attachments">
+          <p ng-repeat="item in attachments">
+            Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content/{{$index}}" target="_blank"><b>{{item.name}}</b> {{item.description}}</a>
+          </p>
+        </div>
+        <p ng-if="selectedTask"> <!--taskForm != null    -->
+          <button ng-hide="selectedTask.assignee != null" ng-click="assignTask()" class="btn btn-success">Взяти в роботу</button>
+          <!-- <button ng-hide="taskForm == null" ng-disabled="selectedTask.assignee != null && hasAttachment()" ng-click="downloadAttachment()" class="btn btn-success">Загрузити документ</button> -->
+          <button ng-hide="selectedTask.assignee == null" ng-click="submitTask()" class="btn btn-success">Опрацювати</button>
         </p>
       </div>
-      <div ng-show="attachments">
-        <p ng-repeat="item in attachments">
-          Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content" target="_blank"><b>{{item.name}}</b> {{item.description}}</a>
-        </p>
-      </div>
-      <p ng-if="selectedTask"> <!--taskForm != null    -->
-        <button ng-hide="selectedTask.assignee != null" ng-click="assignTask()" class="btn btn-success">Взяти в роботу</button>
-        <!-- <button ng-hide="taskForm == null" ng-disabled="selectedTask.assignee != null && hasAttachment()" ng-click="downloadAttachment()" class="btn btn-success">Загрузити документ</button> -->
-        <button ng-hide="selectedTask.assignee == null" ng-click="submitTask()" class="btn btn-success">Опрацювати</button>
-      </p>
     </div>
+  </div>
 </div>
