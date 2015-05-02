@@ -63,6 +63,34 @@
 		</snapshotRepository>
 	</distributionManagement>
 
+	<profiles>
+		<profile>
+			<id>wf-dniprorada</id>
+
+			<modules>
+				<module>auth</module>
+				<module>redis</module>
+				<module>wf-base</module>
+				<module>wf-dniprorada</module>
+			</modules>
+
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+
+		<profile>
+			<id>wf-central</id>
+
+			<modules>
+				<module>auth</module>
+				<module>redis</module>
+				<module>wf-base</module>
+				<module>wf-central</module>
+			</modules>
+		</profile>
+	</profiles>
+
 	<dependencyManagement>
 		<dependencies>
 
@@ -224,13 +252,6 @@
 
 		</dependencies>
 	</dependencyManagement>
-
-	<modules>
-		<module>auth</module>
-		<module>redis</module>
-		<module>wf-base</module>
-		<module>wf-dniprorada</module>
-	</modules>
 
 	<build>
 		<pluginManagement>
