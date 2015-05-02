@@ -18,7 +18,7 @@ angular.module('dashboardJsApp')
     $scope.isFormPropertyDisabled = function(formProperty) {
       if ($scope.selectedTask && $scope.selectedTask.assignee == null) {
         return true;
-      } else if ($scope.selectedTask 
+      } else if ($scope.selectedTask
               && $scope.selectedTask.assignee != null
               && !formProperty.writable) {
         return true;
@@ -42,6 +42,17 @@ angular.module('dashboardJsApp')
     $scope.downloadAttachment = function() {
       tasks.downloadDocument($scope.selectedTask.id);
     };
+
+    function addIndexForFileItems (val) {
+      var idx = 0;
+      return (val || []).map(function (item) {
+        if (item.type == 'file') {
+          item.nFileIdx = idx;
+          idx ++;
+        }
+        return item;
+      });
+    }
 
     $scope.applyTaskFilter = function(taskFilter) {
       $scope.selectedTask = $scope.selectedTasks[taskFilter];
@@ -78,6 +89,7 @@ angular.module('dashboardJsApp')
         .then(function(result) {
           result = JSON.parse(result);
           $scope.taskForm = result.formProperties;
+          $scope.taskForm = addIndexForFileItems($scope.taskForm);
         })
         .catch(function(err) {
           err = JSON.parse(err);
