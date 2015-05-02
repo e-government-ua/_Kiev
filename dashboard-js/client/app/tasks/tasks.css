@@ -1,3 +1,7 @@
-.task-menu-item.active {
-    background-color: #f8f8f8;
-}
+.tasks .task {
+  cursor: pointer; }
+.tasks .task a {
+  margin-right: 0;
+  border-radius: 0; }
+.tasks .task.active {
+  background-color: #cccccc; }

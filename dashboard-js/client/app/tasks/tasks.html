@@ -2,12 +2,17 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <ul class="nav nav-tabs nav-stacked col-md-4_ col-lg-4_ col-sm-6_" ng-repeat="task in tasks">
-            <li>
+		<div class="col-xs-4 tasks">
+          <div class="tasks__search">
+            <div class="form-group">
+              <label>Пошук</label>
+              <input type="text" class="form-control" placeholder="Введіть запит.." ng-model="filter.raw"/>
+            </div>
+          </div>
+          <ul class="tasks__list">
+            <li class="task"  ng-repeat="task in tasks | filter: filter.raw">
                 <a tooltip="{{task.description}}"
                    ng-click="selectTask(task)"
-                   class="task-menu-item"
                    ng-class="{active: isTaskSelected(task)}">
                     {{ getProcessName(task.processDefinitionId) }} | {{ task.name }} {{ sDateShort(task.createTime) }}
                 </a>
@@ -16,7 +21,7 @@
           </ul>
 		</div>
 
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="col-xs-8">
       <h3 ng-show="selectedTask && taskForm == null && !error">Завантаження ...</h3>
 
       <show-error data="error" ng-show="error"></show-error>
@@ -62,4 +67,5 @@
         <button ng-hide="selectedTask.assignee == null" ng-click="submitTask()" class="btn btn-success">Опрацювати</button>
       </p>
     </div>
+  </div>
 </div>
