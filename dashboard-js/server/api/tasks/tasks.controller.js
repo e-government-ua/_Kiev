@@ -9,7 +9,7 @@ exports.index = function(req, res) {
   var query = {};
   //https://test.e-gov.org.ua/wf-dniprorada/service/runtime/tasks?size=20
   query.size = 100;
-    
+
   if (req.query.filterType === 'selfAssigned') {
     query.assignee = user.id;
   } else if (req.query.filterType === 'unassigned') {
@@ -86,7 +86,8 @@ exports.getAttachmentContent = function(req, res) {
   var options = {
     path: 'rest/file/download_file_from_db',
     query: {
-      'taskId': req.params.taskId
+      'taskId': req.params.taskId,
+      'nFile': req.params.nFile
     }
   };
 
