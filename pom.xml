@@ -63,6 +63,33 @@
 		</snapshotRepository>
 	</distributionManagement>
 
+    <repositories>
+        <repository>
+            <id>vaadin-addons</id>
+            <url>http://maven.vaadin.com/vaadin-addons</url>
+        </repository>
+        <repository>
+            <id>repo1</id>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>Central</id>
+            <url>http://central.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>iGov_Nexus</id>
+            <url>http://52.17.32.123:8081/nexus/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>Activiti</id>
+            <url>http://maven.alfresco.com/nexus/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>Activiti third party</id>
+            <url>http://maven.alfresco.com/nexus/content/repositories/activiti-thirdparty/</url>
+        </repository>
+    </repositories>
+
 	<profiles>
 		<profile>
 			<id>wf-all</id>
