@@ -13,28 +13,28 @@ import org.wf.dp.dniprorada.logic.Logic;
 import org.wf.dp.dniprorada.model.Merchant;
 
 @Controller
-@RequestMapping(value = "/merch")
+@RequestMapping(value = "/merchant")
 public class ActivitiRestMerchController {
 	@Autowired
 	@Qualifier(value = "logic")
 	private Logic logic;
 	
-	@RequestMapping(value = "/getMerchList", method = RequestMethod.GET)
+	@RequestMapping(value = "/getMerchants", method = RequestMethod.GET)
 	public @ResponseBody List<Merchant> getMerchants(){
 		return logic.getMerchants();
 	}
 	
-	@RequestMapping(value = "/delMerch", method = RequestMethod.POST)
+	@RequestMapping(value = "/removeMerchant", method = RequestMethod.POST)
 	public void deleteMerchant(@RequestParam(value = "idOwner") String idOwner, @RequestParam(value = "id") String id){
 		logic.removeMerchant(idOwner, id);
 	}
 	
-	@RequestMapping(value = "/updMerch", method = RequestMethod.POST)
+	@RequestMapping(value = "/setMerchant", method = RequestMethod.POST)
 	public void updateMerchant(@RequestParam(value = "idOwner") String idOwner, @RequestParam(value = "ownerName") String ownerName, @RequestParam(value = "id") String id){
 		logic.updateMerchant(idOwner, ownerName, id);
 	}	
 	
-	@RequestMapping(value = "/insMerch", method = RequestMethod.POST)
+	@RequestMapping(value = "/addMerchant", method = RequestMethod.POST)
 	public void insertMerchant(@RequestParam(value = "idOwner") String idOwner, @RequestParam(value = "ownerName") String ownerName, @RequestParam(value = "id") String id){
 		logic.addMerchant(idOwner, ownerName, id);
 	}

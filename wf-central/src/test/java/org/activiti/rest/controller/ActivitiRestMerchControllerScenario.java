@@ -36,7 +36,7 @@ public class ActivitiRestMerchControllerScenario {
 	    
 	    //@Test
 	    public void shouldSuccessfullyUpdateMerchant() throws Exception {
-	        mockMvc.perform(post("/merch/updMerch").
+	        mockMvc.perform(post("/merchant/addMerchant").
 	                accept(MediaType.APPLICATION_JSON).
 	                param("idOwner", "A").
 	                param("ownerName", "XXX").
@@ -47,13 +47,13 @@ public class ActivitiRestMerchControllerScenario {
 	    
 	    @Test
 	    public void shouldSuccessfullySelectMerchant() throws Exception {
-	    	 mockMvc.perform(get("/merch/getMerchList").
+	    	 mockMvc.perform(get("/merchant/getMerchants").
 	                 accept(MediaType.APPLICATION_JSON));
 	    }
 	    
 	    //@Test
 	    public void shouldSuccessfullyDeleteMerchant() throws Exception {
-	        mockMvc.perform(post("/merch/delMerch").
+	        mockMvc.perform(post("/merchant/removeMerchant").
 	                accept(MediaType.APPLICATION_JSON).
 	                param("idOwner", "A").
 	                param("ownerName", "XXX").
@@ -64,7 +64,7 @@ public class ActivitiRestMerchControllerScenario {
 	    
 	    //@Test
 	    public void shouldSuccessfullyInsertMerchant() throws Exception {
-	        mockMvc.perform(post("/merch/insMerch").
+	        mockMvc.perform(post("/merchant/setMerchant").
 	        		accept(MediaType.APPLICATION_JSON).
 	                param("idOwner", "A").
 	                param("ownerName", "XXX").
