@@ -25,6 +25,16 @@ define('service.region', ['angularAMD', 'service.region.link', 'service.region.b
                     })
                 }
             })
+            .state('service.region.error', {
+                url: '/error',
+                views: {
+					'content@service.region': angularAMD.route({
+                        templateProvider: ['$templateCache', function($templateCache) {
+							return $templateCache.get('html/service/region/error.html');
+						}]
+                    })
+                }
+            })
     }]);
     return app;
 });

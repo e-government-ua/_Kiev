@@ -25,6 +25,16 @@ define('service.city', ['angularAMD', 'service.city.link', 'service.city.built-i
                     })
                 }
             })
+            .state('service.city.error', {
+                url: '/error',
+                views: {
+					'content@service.city': angularAMD.route({
+                        templateProvider: ['$templateCache', function($templateCache) {
+							return $templateCache.get('html/service/city/error.html');
+						}]
+                    })
+                }
+            })
     }]);
     return app;
 });

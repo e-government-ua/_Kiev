@@ -1,0 +1,28 @@
+<div class="list-group">
+	<div class="list-group-item" ng-class="{'disabled': data.region}">
+		<div class="row no-margin-bottom">
+			<div class="col-md-11 form-inline">
+				<span>Крок 1. Оберіть свій регіон </span>
+				<div style="display:inline-block">
+					<span>Область</span>
+					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.sName for region in places.aRegion track by region.nID" ng-disabled="data.region"></select>
+				</div>
+			</div>
+			<div class="col-md-1" ng-if="data.region">
+				<div class="link-button">
+					<a ng-click="step1()">Змінити</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="list-group-item" ng-if="data.region">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<strong>На жаль, поки що у Вашому регіоні неможливе надання цієї послуги в електронному вигляді.</strong>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center">Ознайомитись, як можна скористатися цією послугою, можна в <a href="#">Інструкції</a></div>
+		</div>
+	</div>
+</div>

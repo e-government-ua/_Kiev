@@ -291,6 +291,7 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 2,
 							nID_Region: null,
 							nID_ServiceType: 3,
+							oData:null,
 							sURL: 'https://dniprorada.e-gov.org.ua'
 						}
 					]
@@ -307,6 +308,7 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: null,
 							nID_Region: 2,
 							nID_ServiceType: 3,
+							oData: null,
 							sURL: 'https://lviv.e-gov.org.ua'
 						}
 					]
@@ -323,7 +325,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 1,
 							nID_Region: null,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=CivilCardAccountlRequest:6:60061'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'CivilCardAccountlRequest:6:60061'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -339,7 +347,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 1,
 							nID_Region: null,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=demo1:1:60052'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'demo1:1:60052'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -355,7 +369,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 1,
 							nID_Region: null,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=CivilCopyDocRequest:6:60062'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'CivilCopyDocRequest:6:60062'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -371,7 +391,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 1,
 							nID_Region: null,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=demo14:1:60059'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'demo14:1:60059'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -387,7 +413,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 4,
 							nID_Region: null,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=ivFrank_mvk_2:5:60064'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'ivFrank_mvk_2:5:60064'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -403,7 +435,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 4,
 							nID_Region: null,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=ivFrank_mvk_1:5:60053'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'ivFrank_mvk_1:5:60053'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -419,7 +457,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 4,
 							nID_Region: null,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=demo3:1:60045'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'demo3:1:60045'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -435,7 +479,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 4,
 							nID_Region: null,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=demo4:1:60055'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'demo4:1:60055'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -451,7 +501,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 5,
 							nID_Region: null,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=monetaryValuationOfLand:5:60066'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'monetaryValuationOfLand:5:60066'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -467,7 +523,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 5,
 							nID_Region: null,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=demo13:1:60047'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'demo13:1:60047'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -483,7 +545,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 6,
 							nID_Region: null,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=demo12:1:60058'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'demo12:1:60058'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -499,7 +567,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 3,
 							nID_Region: null,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=demo6:1:60057'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'demo6:1:60057'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -515,7 +589,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 3,
 							nID_Region: null,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=demo7:1:60063'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'demo7:1:60063'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -531,7 +611,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 3,
 							nID_Region: null,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=demo8:1:60050'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'demo8:1:60050'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -547,7 +633,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 3,
 							nID_Region: null,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=demo9:1:60048'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'demo9:1:60048'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -563,7 +655,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: null,
 							nID_Region: 4,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=nikolaev_oda_2:5:60065'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'nikolaev_oda_2:5:60065'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -579,7 +677,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: null,
 							nID_Region: 4,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=nikolaev_oda_3:5:60049'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'nikolaev_oda_3:5:60049'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -595,7 +699,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: null,
 							nID_Region: 4,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=nikolaev_oda_4:5:60056'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'nikolaev_oda_4:5:60056'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 
@@ -612,7 +722,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: null,
 							nID_Region: 4,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=nikolaev_oda_1:5:60046'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'nikolaev_oda_1:5:60046'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -628,7 +744,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: 5,
 							nID_Region: null,
 							nID_ServiceType: null,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=demo2:1:60054'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'demo2:1:60054'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -644,7 +766,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: null,
 							nID_Region: 6,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=demo11:1:60051'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'demo11:1:60051'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				},
@@ -660,7 +788,13 @@ define('server', ['angularAMD'], function (angularAMD) {
 							nID_City: null,
 							nID_Region: 6,
 							nID_ServiceType: 4,
-							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/service/form/form-data?processDefinitionId=demo10:1:60060'
+							oData: {
+								sPath: 'service/form/form-data',
+								oParams: {
+									processDefinitionId: 'demo10:1:60060'
+								}
+							},
+							sURL: 'https://test.e-gov.org.ua/wf-dniprorada/'
 						}
 					]
 				}
@@ -750,6 +884,7 @@ define('server', ['angularAMD'], function (angularAMD) {
 	
 		$httpBackend.whenGET('./data.json').passThrough();
 		$httpBackend.whenGET(/\/api\/bankid/).passThrough();
+		$httpBackend.whenGET(/\/api\/process-form/).passThrough();
 	}]);
 	
     return app;

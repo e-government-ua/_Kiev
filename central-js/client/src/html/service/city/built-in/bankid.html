@@ -14,7 +14,7 @@
 			</div>
 			<div class="col-md-1" ng-if="data.city">
 				<div class="link-button">
-					<a href="#">Змінити</a>
+					<a ng-click="step1()">Змінити</a>
 				</div>
 			</div>
 		</div>
@@ -24,7 +24,7 @@
 			<div class="col-md-11">Крок 2. Ви увійшли як {{account.customer.firstName}} {{account.customer.middleName}} {{account.customer.lastName}}</div>
 			<div class="col-md-1">
 				<div class="link-button">
-					<a href="#">Змінити</a>
+					<a ng-click="step2()">Змінити</a>
 				</div>
 			</div>
 		</div>
@@ -37,14 +37,11 @@
 			<div class="col-md-12">
 				<div class="highlight">
 					<form>
-						<div class="row">
-							<div class="col-md-5">На який номер телефону слати SMS про готовність довідки:</div>
-							<div class="col-md-3"><input type="text" class="form-control" value="+38"></div>
-							<div class="col-md-4"></div>
-						</div>
-						<div class="row">
-							<div class="col-md-5">На яку адресу слати email про готовність довідки:</div>
-							<div class="col-md-3"><input type="email" class="form-control"></div>
+						<div class="row" ng-repeat="property in ActivitiForm.formProperties track by property.id">
+							<div class="col-md-5">{{property.name}}:</div>
+							<div class="col-md-3">
+								<input type="text" class="form-control" value="">
+							</div>
 							<div class="col-md-4"></div>
 						</div>
 						<div class="row">

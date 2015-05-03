@@ -20,6 +20,16 @@ define('service.country', ['angularAMD', 'service.country.link', 'service.countr
                     })
                 }
             })
+            .state('service.country.error', {
+                url: '/error',
+                views: {
+                    'content@service.country': angularAMD.route({
+                        templateProvider: ['$templateCache', function($templateCache) {
+							return $templateCache.get('html/service/country/error.html');
+						}]
+                    })
+                }
+            })
     }]);
     return app;
 });

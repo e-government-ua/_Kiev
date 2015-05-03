@@ -33,6 +33,14 @@ define('service.country.built-in', ['angularAMD'], function (angularAMD) {
 					}],
 					BankIDAccount: ['BankIDService', 'BankIDLogin', function(BankIDService, BankIDLogin) {
 						return BankIDService.account(BankIDLogin.access_token);
+					}],
+					ActivitiForm: ['$stateParams', 'ActivitiService', 'service', 'places', function($stateParams, ActivitiService, service, places) {
+						var aServiceData = service.aServiceData;
+						var oServiceData = null;
+						angular.forEach(aServiceData, function(value, key) {
+							oServiceData = value;
+						});
+						return ActivitiService.getForm(oServiceData);
 					}]
 				},
 				views: {

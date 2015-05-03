@@ -121,6 +121,7 @@ module.exports = function(grunt) {
 					{
 						src: [
 							'./src/js/bankid/**/*.js',
+							'./src/js/activiti/**/*.js',
 							'./src/js/service/link/**/*.js',
 							'./src/js/service/built-in/**/*.js',
 							'./src/js/service/country/**/*.js',
@@ -171,6 +172,7 @@ module.exports = function(grunt) {
 					{
 						src: [
 							'./src/js/bankid/**/*.js',
+							'./src/js/activiti/**/*.js',
 							'./src/js/service/link/**/*.js',
 							'./src/js/service/built-in/**/*.js',
 							'./src/js/service/country/**/*.js',
