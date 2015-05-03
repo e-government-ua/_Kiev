@@ -6,7 +6,7 @@ define('service.country.built-in', ['angularAMD'], function (angularAMD) {
             .state('service.country.built-in', {
                 url: '/built-in',
                 views: {
-                    '': angularAMD.route({
+                    'content@service.country': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/country/built-in/index.html');
 						}],
@@ -36,9 +36,9 @@ define('service.country.built-in', ['angularAMD'], function (angularAMD) {
 					}]
 				},
 				views: {
-					'@service.country': angularAMD.route({
+					'content@service.country': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
-							return $templateCache.get('html/service/country/built-in/login.html');
+							return $templateCache.get('html/service/country/built-in/bankid.html');
 						}],
 						controller: 'ServiceBuiltInBankIDController',
 						controllerUrl: 'service/built-in/bankid/controller'

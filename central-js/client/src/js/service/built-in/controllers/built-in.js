@@ -7,14 +7,14 @@ define('service/built-in/controller', ['angularAMD'], function (angularAMD) {
 
 define('service/built-in/bankid/controller', ['angularAMD'], function (angularAMD) {
 	angularAMD.controller('ServiceBuiltInBankIDController', ['$state', '$stateParams', '$scope', 'BankIDAccount', function($state, $stateParams, $scope, BankIDAccount) {
-		angular.forEach($scope.places.regions, function(value, key) {
-			if($stateParams.region == value.id) {
+		angular.forEach($scope.places.aRegion, function(value, key) {
+			if($stateParams.region == value.nID) {
 				$scope.data.region = value;
 			}
 		});
 		if($scope.data.region) {
-			angular.forEach($scope.data.region.cities, function(value, key) {
-				if($stateParams.city == value.id) {
+			angular.forEach($scope.data.region.aCity, function(value, key) {
+				if($stateParams.city == value.nID) {
 					$scope.data.city = value;
 				}
 			});

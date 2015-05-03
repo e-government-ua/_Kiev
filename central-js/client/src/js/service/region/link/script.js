@@ -6,7 +6,7 @@ define('service.region.link', ['angularAMD'], function (angularAMD) {
             .state('service.region.link', {
                 url: '/link',
                 views: {
-                    '': angularAMD.route({
+                    'content@service.region': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/region/link/index.html');
 						}],

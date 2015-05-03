@@ -17,6 +17,11 @@ define('service.region', ['angularAMD', 'service.region.link', 'service.region.b
 						}],
 						controller: 'ServiceRegionController',
                         controllerUrl: 'state/service/region/controller'
+                    }),
+					'content@service.region': angularAMD.route({
+                        templateProvider: ['$templateCache', function($templateCache) {
+							return $templateCache.get('html/service/region/content.html');
+						}]
                     })
                 }
             })

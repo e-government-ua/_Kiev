@@ -6,7 +6,7 @@ define('service.city.link', ['angularAMD'], function (angularAMD) {
             .state('service.city.link', {
                 url: '/link',
                 views: {
-                    '': angularAMD.route({
+                    'content@service.city': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/city/link/index.html');
 						}],

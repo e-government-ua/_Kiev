@@ -17,6 +17,11 @@ define('service.city', ['angularAMD', 'service.city.link', 'service.city.built-i
 						}],
 						controller: 'ServiceCityController',
                         controllerUrl: 'state/service/city/controller'
+                    }),
+					'content@service.city': angularAMD.route({
+                        templateProvider: ['$templateCache', function($templateCache) {
+							return $templateCache.get('html/service/city/content.html');
+						}]
                     })
                 }
             })

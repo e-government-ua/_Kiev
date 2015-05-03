@@ -13,11 +13,17 @@ define('state/service/country/controller', ['angularAMD'], function (angularAMD)
 				return true;
 			}
 			
-			switch(service.serviceType.id) {
+			var aServiceData = $scope.service.aServiceData;
+			var serviceType = null;
+			angular.forEach(aServiceData, function(value, key) {
+				serviceType = value.nID_ServiceType;
+			});
+				
+			switch(serviceType) {
 				case 1:
-					return $state.go('service.country.link', {id: service.id}, { location: true });
+					return $state.go('service.country.link', {id: $scope.service.nID});
 				case 4:
-					return $state.go('service.country.built-in', {id: service.id}, { location: true });
+					return $state.go('service.country.built-in', {id: $scope.service.nID});
 			}
 		}
 	]);

@@ -13,12 +13,27 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 				return true;
 			}
 			
-			switch(service.serviceType.id) {
-				case 1:
-					return $state.go('service.city.link', {id: service.id}, { location: true });
-				case 4:
-					return $state.go('service.city.built-in', {id: service.id}, { location: true });
-			}
+			$scope.$watchCollection('data.city', function(newValue, oldValue) {
+				if(newValue == null) {
+					return null;
+				}
+				
+				var aServiceData = $scope.service.aServiceData;
+				var serviceType = null;
+				angular.forEach(aServiceData, function(value, key) {
+					if(value.nID_City == $scope.data.city.nID) {
+						serviceType = value.nID_ServiceType;
+					}
+				});
+				
+				switch(serviceType) {
+					case 1:
+						return $state.go('service.city.link', {id: $scope.service.nID});
+					case 4:
+						return $state.go('service.city.built-in', {id: $scope.service.nID});
+				}
+			});
+
 		}
 	]);
 });
