@@ -42,7 +42,7 @@ systests preparation
     cd bankid-oauth-example
     mvn jetty:run-exploded -Djetty.port=8081
 
-    run OAuthFlowTest in your IDE
+    mvn test -DskipTests=false
 
 // TODO provide description
 

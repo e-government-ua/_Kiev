@@ -10,6 +10,10 @@
 
     <artifactId>bankid-oauth-systests</artifactId>
 
+    <properties>
+        <skipTests>true</skipTests>
+    </properties>
+
     <dependencies>
 
         <dependency>
@@ -89,7 +93,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <!-- TODO move test to level up should be run after deployment -->
                 <configuration>
-                    <skipTests>true</skipTests>
+                    <skipTests>${skipTests}</skipTests>
                 </configuration>
             </plugin>
         </plugins>
