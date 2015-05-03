@@ -24,6 +24,8 @@ define('state/service/country/controller', ['angularAMD'], function (angularAMD)
 					return $state.go('service.country.link', {id: $scope.service.nID});
 				case 4:
 					return $state.go('service.country.built-in', {id: $scope.service.nID});
+				default:
+					return $state.go('service.country.error', {id: $scope.service.nID});
 			}
 		}
 	]);

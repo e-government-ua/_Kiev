@@ -31,6 +31,8 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 						return $state.go('service.city.link', {id: $scope.service.nID});
 					case 4:
 						return $state.go('service.city.built-in', {id: $scope.service.nID});
+					default:
+						return $state.go('service.city.error', {id: $scope.service.nID});
 				}
 			});
 

@@ -31,6 +31,8 @@ define('state/service/region/controller', ['angularAMD'], function (angularAMD) 
 						return $state.go('service.region.link', {id: $scope.service.nID});
 					case 4:
 						return $state.go('service.region.built-in', {id: $scope.service.nID});
+					default:
+						return $state.go('service.region.error', {id: $scope.service.nID});
 				}
 			});
 		}
