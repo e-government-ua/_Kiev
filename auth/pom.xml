@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-         <groupId>org.egov-ua</groupId>
-        <artifactId>org.egov-ua</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
+    <!--<parent>-->
+         <!--<groupId>org.egov-ua</groupId>-->
+        <!--<artifactId>org.egov-ua</artifactId>-->
+        <!--<version>1.0-SNAPSHOT</version>-->
+    <!--</parent>-->
 
 	<groupId>ua.org.bankid.oauth</groupId>
 	<artifactId>bankid-oauth</artifactId>
@@ -230,6 +230,13 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.11</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.spockframework</groupId>
+                <artifactId>spock-core</artifactId>
+                <version>1.0-groovy-2.4</version>
                 <scope>test</scope>
             </dependency>
 
