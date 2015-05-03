@@ -12,7 +12,7 @@ Usefull e-gov Links
 * [bankid official site](http://bankid.org.ua/)
 * [sequence diagram](https://www.gliffy.com/go/publish/7853145)
 * [done in scope of issue #37](https://github.com/e-government-ua/i/issues/37)
-* [specification](https://github.com/e-government-ua/portal-php/wiki/%D0%90%D0%B2%D1%82%D0%BE%D1%80%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8-%D0%BF%D0%BE-bankid)
+* [authorization using bankId](https://github.com/e-government-ua/portal-php/wiki/%D0%90%D0%B2%D1%82%D0%BE%D1%80%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8-%D0%BF%D0%BE-bankid)
 
 Common Links
 ------------
