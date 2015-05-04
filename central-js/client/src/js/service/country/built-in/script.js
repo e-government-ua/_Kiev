@@ -1,12 +1,12 @@
-define('service.country.built-in', ['angularAMD'], function (angularAMD) {
-    var app = angular.module('service.country.built-in', []);
+define('service.general.country.built-in', ['angularAMD'], function (angularAMD) {
+    var app = angular.module('service.general.country.built-in', []);
 
     app.config(['$stateProvider', function ($stateProvider) {
         $stateProvider
-            .state('service.country.built-in', {
+            .state('service.general.country.built-in', {
                 url: '/built-in',
                 views: {
-                    'content@service.country': angularAMD.route({
+                    'content@service.general.country': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/country/built-in/index.html');
 						}],
@@ -15,9 +15,9 @@ define('service.country.built-in', ['angularAMD'], function (angularAMD) {
                     })
                 }
             })
-			.state('service.country.built-in.bankid', {
+			.state('service.general.country.built-in.bankid', {
 				url: '/built-in/?code',
-				parent: 'service.country',
+				parent: 'service.general.country',
 				resolve: {
 					BankIDLogin: ['$q', '$state', '$location', '$stateParams', 'BankIDService', function($q, $state, $location, $stateParams, BankIDService) {
 						var url = $location.protocol()
@@ -25,7 +25,7 @@ define('service.country.built-in', ['angularAMD'], function (angularAMD) {
 							+$location.host()
 							+':'
 							+$location.port()
-							+$state.href('service.country.built-in.bankid', { id: $stateParams.id });
+							+$state.href('service.general.country.built-in.bankid', { id: $stateParams.id });
 						
 						return BankIDService.login($stateParams.code, url).then(function(data) {
 							return data.hasOwnProperty('error') ? $q.reject(null): data;
@@ -44,7 +44,7 @@ define('service.country.built-in', ['angularAMD'], function (angularAMD) {
 					}]
 				},
 				views: {
-					'content@service.country': angularAMD.route({
+					'content@service.general.country': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/country/built-in/bankid.html');
 						}],

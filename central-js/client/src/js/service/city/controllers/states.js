@@ -9,15 +9,15 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 				city: null
 			};
 			
-			if($state.current.name == 'service.city.built-in.bankid') {
-				return true;
-			}
+			$scope.step1 = function() {
+				$scope.data = {
+					region: null,
+					city: null
+				};
+				return $state.go('service.general.city', {id: $scope.service.nID});
+			};
 			
-			$scope.$watchCollection('data.city', function(newValue, oldValue) {
-				if(newValue == null) {
-					return null;
-				}
-				
+			$scope.step2 = function() {
 				var aServiceData = $scope.service.aServiceData;
 				var serviceType = null;
 				angular.forEach(aServiceData, function(value, key) {
@@ -28,12 +28,20 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 				
 				switch(serviceType) {
 					case 1:
-						return $state.go('service.city.link', {id: $scope.service.nID});
+						return $state.go('service.general.city.link', {id: $scope.service.nID});
 					case 4:
-						return $state.go('service.city.built-in', {id: $scope.service.nID});
+						return $state.go('service.general.city.built-in', {id: $scope.service.nID});
 					default:
-						return $state.go('service.city.error', {id: $scope.service.nID});
+						return $state.go('service.general.city.error', {id: $scope.service.nID});
 				}
+			};
+			
+			if($state.current.name == 'service.general.city.built-in.bankid') {
+				return true;
+			}
+			
+			$scope.$watchCollection('data.city', function(newValue, oldValue) {
+				return (newValue == null) ? null: $scope.step2();
 			});
 
 		}

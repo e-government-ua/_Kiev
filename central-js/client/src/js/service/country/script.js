@@ -1,9 +1,9 @@
-define('service.country', ['angularAMD', 'service.country.link', 'service.country.built-in'], function (angularAMD) {
-    var app = angular.module('service.country', []);
+define('service.general.country', ['angularAMD', 'service.general.country.link', 'service.general.country.built-in'], function (angularAMD) {
+    var app = angular.module('service.general.country', []);
 
     app.config(['$stateProvider', function ($stateProvider) {
         $stateProvider
-            .state('service.country', {
+            .state('service.general.country', {
                 url: '/country',
 				resolve: {
 					places: ['$stateParams', 'ServiceService', function($stateParams, ServiceService) {
@@ -11,7 +11,7 @@ define('service.country', ['angularAMD', 'service.country.link', 'service.countr
 					}]
 				},
                 views: {
-                    '': angularAMD.route({
+                    '@service': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/country/index.html');
 						}],
@@ -20,10 +20,10 @@ define('service.country', ['angularAMD', 'service.country.link', 'service.countr
                     })
                 }
             })
-            .state('service.country.error', {
+            .state('service.general.country.error', {
                 url: '/error',
                 views: {
-                    'content@service.country': angularAMD.route({
+                    'content@service.general.country': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/country/error.html');
 						}]

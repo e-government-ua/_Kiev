@@ -10,6 +10,10 @@
 
     <artifactId>bankid-oauth-systests</artifactId>
 
+    <properties>
+        <skipTests>true</skipTests>
+    </properties>
+
     <dependencies>
 
         <dependency>
@@ -72,10 +76,27 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>gmaven-plugin</artifactId>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
                 <version>1.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <!-- TODO move test to level up should be run after deployment -->
+                <configuration>
+                    <skipTests>${skipTests}</skipTests>
+                </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>

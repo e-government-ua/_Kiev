@@ -9,24 +9,28 @@ define('state/service/country/controller', ['angularAMD'], function (angularAMD)
 				city: null
 			};
 			
-			if($state.current.name == 'service.country.built-in.bankid') {
+			$scope.step1 = function() {
+				var aServiceData = $scope.service.aServiceData;
+				var serviceType = null;
+				angular.forEach(aServiceData, function(value, key) {
+					serviceType = value.nID_ServiceType;
+				});
+					
+				switch(serviceType) {
+					case 1:
+						return $state.go('service.general.country.link', {id: $scope.service.nID});
+					case 4:
+						return $state.go('service.general.country.built-in', {id: $scope.service.nID});
+					default:
+						return $state.go('service.general.country.error', {id: $scope.service.nID});
+				}
+			}
+			
+			if($state.current.name == 'service.general.country.built-in.bankid') {
 				return true;
 			}
 			
-			var aServiceData = $scope.service.aServiceData;
-			var serviceType = null;
-			angular.forEach(aServiceData, function(value, key) {
-				serviceType = value.nID_ServiceType;
-			});
-				
-			switch(serviceType) {
-				case 1:
-					return $state.go('service.country.link', {id: $scope.service.nID});
-				case 4:
-					return $state.go('service.country.built-in', {id: $scope.service.nID});
-				default:
-					return $state.go('service.country.error', {id: $scope.service.nID});
-			}
+			$scope.step1();
 		}
 	]);
 });
