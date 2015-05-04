@@ -1,6 +1,6 @@
 var request = require('request');
 
-module.exports.index = function(options, callback) {
+module.exports.get = function(options, callback) {
 	return request.get({
 		'url': options.params.url,
 		'auth': {

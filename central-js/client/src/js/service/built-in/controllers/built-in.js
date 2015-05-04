@@ -23,6 +23,16 @@ define('service/built-in/bankid/controller', ['angularAMD'], function (angularAM
 			
 			$scope.account = BankIDAccount;
 			$scope.ActivitiForm = ActivitiForm;
+			
+			$scope.data = {
+				bankid: {}
+			};
+			
+			angular.forEach(BankIDAccount.customer, function(value, key) {
+				$scope.data.bankid['bankId'+key] = value;
+			});
+			
+			console.log($scope.data);
 		}
 	]);
 });

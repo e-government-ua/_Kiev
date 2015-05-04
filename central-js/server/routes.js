@@ -11,7 +11,7 @@ router.use('/api/login', require('./api/login/index'));
 router.use('/api/logout', require('./api/logout/index'));
 router.use('/api/places', require('./api/places/index'));
 router.use('/api/process-definitions', require('./api/process-definitions/index'));
-router.use('/api/process-form', require('./api/process-form/index'));
+router.get('/api/process-form', require('./api/process-form/get'));
 router.use('/api/service', require('./api/service/index'));
 router.use('/api/services', require('./api/services/index'));
 

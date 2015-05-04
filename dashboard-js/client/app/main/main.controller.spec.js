@@ -1,13 +1,12 @@
 'use strict';
 describe('Controller: MainCtrl', function() {
-	var ctrl,
-		scope;
+  var scope;
 
-	beforeEach(module('dashboardJsApp'));
-	beforeEach(inject(function($controller, $rootScope) {
-		scope = $rootScope.$new();
-		ctrl = $controller('MainCtrl', {
-			$scope: scope
-		});
-	}));
+  beforeEach(module('dashboardJsApp'));
+  beforeEach(inject(function($controller, $rootScope) {
+    scope = $rootScope.$new();
+    $controller('MainCtrl', {
+      $scope: scope
+    });
+  }));
 });

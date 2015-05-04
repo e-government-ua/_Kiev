@@ -3,7 +3,7 @@ var router = express.Router();
 
 router.use(function(req, res, next) {
 	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-	var processForm = require('./index.controller');
+	var processForm = require('./form.controller');
 	
 	var config = require('../../config.js');
 	var activiti = config.activiti;
@@ -25,7 +25,7 @@ router.use(function(req, res, next) {
 		res.end();
 	}
 	
-	processForm.index(options, callback);
+	processForm.get(options, callback);
 });
 
 module.exports = router;

@@ -40,7 +40,7 @@
 						<div class="row" ng-repeat="property in ActivitiForm.formProperties track by property.id">
 							<div class="col-md-5">{{property.name}}:</div>
 							<div class="col-md-3">
-								<input type="text" class="form-control" value="">
+								<input type="text" ng-model="data.bankid[property.id]" class="form-control" value="">
 							</div>
 							<div class="col-md-4"></div>
 						</div>

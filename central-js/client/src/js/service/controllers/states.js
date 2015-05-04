@@ -17,7 +17,7 @@ define('state/service/general/controller', ['angularAMD'], function (angularAMD)
 			}
 		});
 		if(isCity) {
-			return $state.go('service.city', {id: service.nID}, { location: true });
+			return $state.go('service.general.city', {id: service.nID}, { location: true });
 		}
 		
 		var isRegion = false;
@@ -27,9 +27,9 @@ define('state/service/general/controller', ['angularAMD'], function (angularAMD)
 			}
 		});
 		if(isRegion) {
-			return $state.go('service.region', {id: service.nID}, { location: true });
+			return $state.go('service.general.region', {id: service.nID}, { location: true });
 		}
 		
-		return $state.go('service.country', {id: service.nID}, { location: true });
+		return $state.go('service.general.country', {id: service.nID}, { location: true });
     }]);
 });

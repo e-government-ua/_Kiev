@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -203,6 +204,24 @@ public abstract class AbstractModelTask {
 		}
 		}
 		return filedTypeFile;
+	}
+	
+	/**
+	 * Получить имя поля 
+	 * @param startformData
+	 * @return
+	 */
+	public static List<String> getListCastomFieldName(StartFormData startformData) {
+		List<String>filedName = new ArrayList<String>();
+		List<FormProperty> startformDataList = startformData.getFormProperties();
+		if(!startformDataList.isEmpty()){
+		for (FormProperty prop : startformDataList) {
+			if(prop.getType() instanceof FormFileType){
+				filedName.add(prop.getName());
+			}
+		}
+		}
+		return filedName;
 	}
 	
 	/**

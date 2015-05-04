@@ -1,12 +1,12 @@
-define('service.city.built-in', ['angularAMD'], function (angularAMD) {
-    var app = angular.module('service.city.built-in', []);
+define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
+    var app = angular.module('service.general.city.built-in', []);
 
     app.config(['$stateProvider', function ($stateProvider) {
         $stateProvider
-            .state('service.city.built-in', {
+            .state('service.general.city.built-in', {
                 url: '/built-in',
                 views: {
-                    'content@service.city': angularAMD.route({
+                    'content@service.general.city': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/city/built-in/index.html');
 						}],
@@ -15,9 +15,9 @@ define('service.city.built-in', ['angularAMD'], function (angularAMD) {
                     })
                 }
             })
-			.state('service.city.built-in.bankid', {
+			.state('service.general.city.built-in.bankid', {
 				url: '/built-in/region/{region:int}/city/{city:int}/?code',
-				parent: 'service.city',
+				parent: 'service.general.city',
 				resolve: {
 					BankIDLogin: ['$q', '$state', '$location', '$stateParams', 'BankIDService', function($q, $state, $location, $stateParams, BankIDService) {
 						var url = $location.protocol()
@@ -25,7 +25,7 @@ define('service.city.built-in', ['angularAMD'], function (angularAMD) {
 							+$location.host()
 							+':'
 							+$location.port()
-							+$state.href('service.city.built-in.bankid', { id: $stateParams.id, region: $stateParams.region, city: $stateParams.city });
+							+$state.href('service.general.city.built-in.bankid', { id: $stateParams.id, region: $stateParams.region, city: $stateParams.city });
 						
 						return BankIDService.login($stateParams.code, url).then(function(data) {
 							return data.hasOwnProperty('error') ? $q.reject(null): data;
@@ -46,7 +46,7 @@ define('service.city.built-in', ['angularAMD'], function (angularAMD) {
 					}]
 				},
 				views: {
-					'content@service.city': angularAMD.route({
+					'content@service.general.city': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/city/built-in/bankid.html');
 						}],

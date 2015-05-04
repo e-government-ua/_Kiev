@@ -22,10 +22,6 @@
   
   <bean name="attachmentRendererManager" class="org.activiti.explorer.ui.content.AttachmentRendererManager" />
    
-  
-   <bean id="logic" class="org.wf.dp.dniprorada.logic.MerchantLogic" />
-   <bean id="merchantDao" class="org.wf.dp.dniprorada.dao.MerchantDaoImpl" />
-   <bean id="merchant" class="org.wf.dp.dniprorada.model.Merchant" />
    
   <!-- Custom form property renderers can be plugged in here -->
   <bean id="formPropertyRendererManager" class="org.activiti.explorer.ui.form.FormPropertyRendererManager" lazy-init="true">
