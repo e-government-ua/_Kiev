@@ -18,6 +18,7 @@
     </startEvent>
     <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="management_clerk_dmr">
       <extensionElements>
+        <activiti:formProperty id="assignee" name="Виконавець" type="user"></activiti:formProperty>
         <activiti:formProperty id="processName" name="Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою." type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -27,8 +28,7 @@
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Inn" name="ІПН власника (землекористувача) земельної ділянки або уповноваженої ним особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження земельної ділянки" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="attachedId" name="Запит нотаріуса " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="assignee" name="Виконавець" type="user"></activiti:formProperty>
+        <activiti:formProperty id="attachedId" name="Запит нотаріуса " type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про реєстрацію" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>

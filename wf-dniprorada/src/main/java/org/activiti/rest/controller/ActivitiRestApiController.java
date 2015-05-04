@@ -198,7 +198,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         //Вычитывем из потока массив байтов контента и помещаем параметры контента в header 
 		ByteArrayMultipartFileOld multipartFile = new ByteArrayMultipartFileOld(
-				attachmentStream, attachmentRequested.getName(),
+				attachmentStream, attachmentRequested.getDescription(),
 				attachmentRequested.getName(), attachmentRequested.getType());
 
         httpResponse.setHeader("Content-disposition", 
