@@ -14,7 +14,7 @@ define('state/service/region/controller', ['angularAMD'], function (angularAMD) 
 					region: null,
 					city: null
 				};
-				return $state.go('service.region', {id: $scope.service.nID});
+				return $state.go('service.general.region', {id: $scope.service.nID});
 			};
 			
 			$scope.step2 = function() {
@@ -28,15 +28,15 @@ define('state/service/region/controller', ['angularAMD'], function (angularAMD) 
 				
 				switch(serviceType) {
 					case 1:
-						return $state.go('service.region.link', {id: $scope.service.nID});
+						return $state.go('service.general.region.link', {id: $scope.service.nID});
 					case 4:
-						return $state.go('service.region.built-in', {id: $scope.service.nID});
+						return $state.go('service.general.region.built-in', {id: $scope.service.nID});
 					default:
-						return $state.go('service.region.error', {id: $scope.service.nID});
+						return $state.go('service.general.region.error', {id: $scope.service.nID});
 				}
 			};
 			
-			if($state.current.name == 'service.region.built-in.bankid') {
+			if($state.current.name == 'service.general.region.built-in.bankid') {
 				return true;
 			}
 			
