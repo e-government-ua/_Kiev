@@ -49,7 +49,7 @@
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF</outputDirectory>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
                             <includeGroupIds>${project.groupId}</includeGroupIds>
                             <includeArtifactIds>wf-core</includeArtifactIds>
                             <includeClassifiers>ui-zip</includeClassifiers>
