@@ -32,7 +32,7 @@ public class ByteArrayMultipartFile implements MultipartFile, Serializable {
         this.name = name;
         this.originalFilename = originalFilename;
         this.contentType = contentType;
-        String[] filenameParts = originalFilename.split(".");
+        String[] filenameParts = originalFilename.split("\\.");
         if(filenameParts != null && filenameParts.length == 2){
         	this.exp = filenameParts[1];
         } else{
