@@ -7,6 +7,8 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <import resource="classpath:/META-INF/resources/WEB-INF/oauth2-servlet.xml" />
+
     <mvc:annotation-driven />
 
     <context:component-scan base-package="ua.org.egov.service" />

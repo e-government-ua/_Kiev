@@ -41,12 +41,12 @@
     <bean id="oauth2AuthenticationEntryPoint"
           class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint" />
 
-    <!--<security:global-method-security secured-annotations="enabled"-->
-                                     <!--pre-post-annotations="enabled"-->
-                                     <!--access-decision-manager-ref="oauthAuthAccessDecisionManager"-->
-                                     <!--proxy-target-class="true">-->
+    <security:global-method-security secured-annotations="enabled"
+                                     pre-post-annotations="enabled">
+                                     <!--access-decision-manager-ref="oauthAuthAccessDecisionManager">-->
+                                     <!--proxy-target-class="true"> -->
         <!--<security:expression-handler ref="securityExpressionHandler"/>-->
-    <!--</security:global-method-security>-->
+    </security:global-method-security>
 
     <security:http create-session="never"
                    entry-point-ref="oauth2AuthenticationEntryPoint"
@@ -92,5 +92,8 @@
     <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider ref="authenticationProvider"/>
     </security:authentication-manager>
+
+    <security:form-login login-page="/login" default-target-url="/main"
+                         authentication-failure-url="/loginError"/>
 
 </beans>
