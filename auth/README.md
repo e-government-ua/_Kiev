@@ -42,8 +42,9 @@ systests preparation
     cd bankid-oauth-example
     mvn jetty:run-exploded -Djetty.port=8081
 
+    cd bankid-oauth-systests
     mvn test -DskipTests=false
 
-// TODO provide description
+// TODO provide more description
 
 
