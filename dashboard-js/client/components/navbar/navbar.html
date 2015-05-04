@@ -13,12 +13,11 @@
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
 
       <ul class="nav navbar-nav">
-        <li ng-repeat="item in menus"
+        <li ng-repeat="menu in menus"
             ng-show="isLoggedIn()"
-            ng-class="{active: isTaskFilterActive(item.type)}">
-          <a ng-click="applyTaskFilter(item.type)">{{item.title}}
-            <span class="label label-info"
-                    ng-show='isTaskFilterActive(item.type)'>{{tasks.length}}</span>
+            ng-class="{active: isTaskFilterActive(menu.type)}">
+          <a ng-click="applyTaskFilter(menu.type)">{{menu.title}}
+            <span class="label label-info">{{menu.count}}</span>
           </a>
         </li>
       </ul>
