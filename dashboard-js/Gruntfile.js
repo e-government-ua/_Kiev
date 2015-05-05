@@ -496,7 +496,7 @@ module.exports = function (grunt) {
           ]
         }
       }
-    },
+    }
   });
 
   // Used for delaying livereload until after server has restarted
@@ -519,7 +519,6 @@ module.exports = function (grunt) {
     if (target === 'dist') {
       return grunt.task.run([
         'build',
-        'test:client',
         'env:all',
         'env:prod',
         'express:prod',
@@ -552,11 +551,6 @@ module.exports = function (grunt) {
       'open',
       'watch'
     ]);
-  });
-
-  grunt.registerTask('server', function () {
-    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run(['serve']);
   });
 
   grunt.registerTask('test', function(target) {
@@ -610,6 +604,7 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
+    'test',
     'cdnify',
     'cssmin',
     'uglify',
