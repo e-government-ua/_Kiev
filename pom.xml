@@ -48,6 +48,8 @@
 		<jsonassert.version>1.2.3</jsonassert.version>
 		<guava.version>15.0</guava.version>
 		<easymock.version>3.0</easymock.version>
+		<hibernate.version>4.3.9.Final</hibernate.version>
+		<liquibase.version>3.3.3</liquibase.version>
 	</properties>
 
 	<distributionManagement>
@@ -191,6 +193,20 @@
 				<artifactId>spring-context</artifactId>
 				<version>${springframework.version}</version>
 				<scope>compile</scope>
+			</dependency>
+
+			<!-- Database -->
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-core</artifactId>
+				<version>${liquibase.version}</version>
 			</dependency>
 
 			<!-- Dependencies for tests -->

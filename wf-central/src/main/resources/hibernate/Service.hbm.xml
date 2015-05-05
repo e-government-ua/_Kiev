@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.wf.dp.dniprorada">
+    <class name="org.wf.dp.dniprorada.model.Service" table="Service">
+        <id name="id" column="nID">
+            <generator class="native"/>
+        </id>
+
+        <property name="name" column="sName" not-null="true"/>
+        <property name="order" column="nOrder" not-null="true"/>
+        <many-to-one name="subcategory" column="nID_Subcategory" not-null="true"/>
+
+        <property name="info" column="sInfo" not-null="true"/>
+        <property name="faq" column="sFAQ" not-null="true"/>
+        <property name="law" column="sLaw" not-null="true"/>
+
+        <list name="serviceDataList" inverse="true" lazy="true" fetch="select">
+            <key column="nID_Service"/>
+            <list-index column="nID"/>
+            <one-to-many class="org.wf.dp.dniprorada.model.ServiceData"/>
+        </list>
+
+    </class>
+</hibernate-mapping>

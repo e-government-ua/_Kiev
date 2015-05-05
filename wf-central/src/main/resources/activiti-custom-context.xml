@@ -9,6 +9,7 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
+	<!-- Central -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 		<context:component-scan base-package="org.wf.dp.dniprorada" />
@@ -55,6 +56,10 @@
 			</property>
 		</bean>
 
+		<bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
+			<property name="dataSource" ref="dataSource" />
+			<property name="changeLog" value="classpath:liquibase/db.changelog-master.xml" />
+		</bean>
 	</beans>
 
 	<beans>
@@ -67,10 +72,29 @@
 			<property name="password" value="${jdbc.password}" />
 		</bean>
 
+		<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+			<property name="dataSource" ref="dataSource"/>
+			<property name="mappingResources">
+				<list>
+					<value>hibernate/Region.hbm.xml</value>
+					<value>hibernate/City.hbm.xml</value>
+					<value>hibernate/Category.hbm.xml</value>
+					<value>hibernate/Subcategory.hbm.xml</value>
+					<value>hibernate/ServiceType.hbm.xml</value>
+					<value>hibernate/Service.hbm.xml</value>
+					<value>hibernate/ServiceData.hbm.xml</value>
+				</list>
+			</property>
+			<property name="hibernateProperties">
+				<value>
+					hibernate.dialect=org.hibernate.dialect.HSQLDialect
+				</value>
+			</property>
+		</bean>
 
 		<bean id="transactionManager"
-			  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-			<property name="dataSource" ref="dataSource" />
+			  class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+			<property name="sessionFactory" ref="sessionFactory"/>
 		</bean>
 
 		<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">

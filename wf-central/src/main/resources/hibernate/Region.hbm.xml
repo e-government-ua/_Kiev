@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.wf.dp.dniprorada">
+    <class name="org.wf.dp.dniprorada.model.Region" table="Region">
+        <id name="id" column="nID">
+            <generator class="native"/>
+        </id>
+
+        <property name="name" column="sName" not-null="true"/>
+    </class>
+</hibernate-mapping>
