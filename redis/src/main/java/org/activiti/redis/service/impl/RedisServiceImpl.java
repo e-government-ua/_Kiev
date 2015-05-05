@@ -1,11 +1,7 @@
 package org.activiti.redis.service.impl;
 
-import java.io.ByteArrayInputStream;
-import java.io.ObjectInputStream;
-
 import org.activiti.redis.client.RedisClient;
 import org.activiti.redis.exception.RedisException;
-import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.activiti.redis.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,21 +48,6 @@ public class RedisServiceImpl implements RedisService {
 	}
 	
 	
-	@Override
-	public ByteArrayMultipartFile getAttachObjFromRedis(String key) throws RedisException {
-		byte[] byteFile= null;
-		ByteArrayMultipartFile content = null;
-		try {
-			byteFile = getJedisClient().getAttachments(key);
-			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteFile);
-  		    ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
-  		    content = (ByteArrayMultipartFile) ois.readObject();
-  		    ois.close();
-  		    return content;
-		} catch (Exception e) {
-			throw new RedisException(RedisException.CODE_REDIS_EXCEPTION_ERROR, e.getMessage());
-		}
-	}
 
 	
 	public RedisClient getJedisClient() {

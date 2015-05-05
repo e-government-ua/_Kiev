@@ -8,7 +8,7 @@ define('server', ['angularAMD'], function (angularAMD) {
 					{
 						nID: 1,
 						sID: 'Citizen',
-						sName: 'Гражданин',
+						sName: 'Громадянин',
 						nOrder: 1,
 						aSubcategory: [
 							{
@@ -78,7 +78,7 @@ define('server', ['angularAMD'], function (angularAMD) {
 							{
 								nID: 12,
 								sID: 'JusticeCitizen',
-								sName: 'Юриспруденция физлиц',
+								sName: 'Юриспруденция фізлиц',
 								nOrder: 7,
 								aService: [
 									{
@@ -111,7 +111,7 @@ define('server', ['angularAMD'], function (angularAMD) {
 							{
 								nID: 13,
 								sID: 'Permission',
-								sName: 'Разрешения',
+								sName: 'Дозвіли',
 								nOrder: 8,
 								aService: [
 									{
@@ -181,7 +181,7 @@ define('server', ['angularAMD'], function (angularAMD) {
 							{
 								nID: 17,
 								sID: 'Help',
-								sName: 'Помощь',
+								sName: 'Допомога',
 								nOrder: 11,
 								aService: [
 									{
@@ -201,7 +201,7 @@ define('server', ['angularAMD'], function (angularAMD) {
 					{
 						nID: 2,
 						sID: 'Business',
-						sName: 'Бизнес',
+						sName: 'Бізнес',
 						nOrder: 2,
 						aSubcategory: [
 							{

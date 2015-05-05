@@ -1,7 +1,9 @@
 package org.wf.dp.dniprorada.base.model;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -206,6 +208,24 @@ public abstract class AbstractModelTask {
 	}
 	
 	/**
+	 * Получить имя поля 
+	 * @param startformData
+	 * @return
+	 */
+	public static List<String> getListCastomFieldName(StartFormData startformData) {
+		List<String>filedName = new ArrayList<String>();
+		List<FormProperty> startformDataList = startformData.getFormProperties();
+		if(!startformDataList.isEmpty()){
+		for (FormProperty prop : startformDataList) {
+			if(prop.getType() instanceof FormFileType){
+				filedName.add(prop.getName());
+			}
+		}
+		}
+		return filedName;
+	}
+	
+	/**
 	 * multipartFile To ByteArray
 	 * @param file
 	 * @return
@@ -224,5 +244,19 @@ public abstract class AbstractModelTask {
 		return byteArrayOutputStream;
 	}
 
-	
+	/**
+	 * ByteArray To multipartFile
+	 * @param byteFile
+	 * @return
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
+	public static ByteArrayMultipartFile getByteArrayMultipartFileFromRedis(
+			byte[] byteFile) throws IOException, ClassNotFoundException {
+		ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteFile);
+		ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
+		  ByteArrayMultipartFile contentMultipartFile = (ByteArrayMultipartFile) ois.readObject();
+		ois.close();
+		return contentMultipartFile;
+	}
 }
