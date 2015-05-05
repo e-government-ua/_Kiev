@@ -1,6 +1,4 @@
-// Generated on 2015-04-13 using generator-angular-fullstack 2.0.13
 'use strict';
-
 module.exports = function (grunt) {
   var localConfig;
   try {
@@ -55,9 +53,6 @@ module.exports = function (grunt) {
       }
     },
     watch: {
-      options: {
-        livereload: 1337
-      },
       injectJS: {
         files: [
           '<%= yeoman.client %>/{app,components}/**/*.js',
@@ -96,7 +91,7 @@ module.exports = function (grunt) {
           '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
         options: {
-          livereload: 1337
+          livereload: true
         }
       },
       express: {
@@ -105,7 +100,7 @@ module.exports = function (grunt) {
         ],
         tasks: ['express:dev', 'wait'],
         options: {
-          livereload: 1337,
+          livereload: true,
           nospawn: true //Without this option specified express won't be reloaded
         }
       }
@@ -551,6 +546,11 @@ module.exports = function (grunt) {
       'open',
       'watch'
     ]);
+  });
+
+  grunt.registerTask('server', function () {
+    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
+    grunt.task.run(['serve']);
   });
 
   grunt.registerTask('test', function(target) {
