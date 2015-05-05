@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.task.listener;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
@@ -66,8 +67,13 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 		if (!listValueKeys.isEmpty()) {
 			for (String keyRedis : listValueKeys) {
 				if (keyRedis != null && !keyRedis.isEmpty()) {
-					ByteArrayMultipartFile contentMultipartFile = getRedisService()
-							.getAttachObjFromRedis(keyRedis);
+					byte[] byteFile = getRedisService().getAttachments(keyRedis);
+					ByteArrayMultipartFile contentMultipartFile = null;
+					try {
+						contentMultipartFile = getByteArrayMultipartFileFromRedis(byteFile);
+					} catch (ClassNotFoundException | IOException e1) {
+						throw new ActivitiException(e1.getMessage(), e1);
+					}
 					InputStream is = null;
 					try {
 						is = contentMultipartFile.getInputStream();

@@ -68,7 +68,7 @@
         <security:intercept-url pattern="/*/elections/**" method="POST"
                                 access="hasAnyRole('scope.vote.president', 'scope.vote.parliament')"/>
 
-        <security:custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />
+        <!--<security:custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />-->
         <security:access-denied-handler ref="oauth2AccessDeniedHandler" />
     </security:http>
 
@@ -93,7 +93,7 @@
         <security:authentication-provider ref="authenticationProvider"/>
     </security:authentication-manager>
 
-    <security:form-login login-page="/login" default-target-url="/main"
-                         authentication-failure-url="/loginError"/>
+    <!--<security:form-login login-page="/login" default-target-url="/main"-->
+                         <!--authentication-failure-url="/loginError"/>-->
 
 </beans>

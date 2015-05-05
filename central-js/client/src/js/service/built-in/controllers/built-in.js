@@ -24,9 +24,8 @@ define('service/built-in/bankid/controller', ['angularAMD'], function (angularAM
 			$scope.account = BankIDAccount;
 			$scope.ActivitiForm = ActivitiForm;
 			
-			$scope.data = {
-				bankid: {}
-			};
+			$scope.data = $scope.data || {};
+			$scope.data.bankid = {};
 			
 			angular.forEach(BankIDAccount.customer, function(value, key) {
 				$scope.data.bankid['bankId'+key] = value;

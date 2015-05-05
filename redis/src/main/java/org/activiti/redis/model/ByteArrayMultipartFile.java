@@ -6,12 +6,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.regex.Pattern;
 
+import org.activiti.redis.util.RedisUtil;
 import org.springframework.web.multipart.MultipartFile;
 
 
 public class ByteArrayMultipartFile implements MultipartFile, Serializable {
-
+	public static Pattern dotPattern = Pattern.compile("\\.");
     /**
 	 * 
 	 */
@@ -32,9 +34,9 @@ public class ByteArrayMultipartFile implements MultipartFile, Serializable {
         this.name = name;
         this.originalFilename = originalFilename;
         this.contentType = contentType;
-        String[] filenameParts = originalFilename.split(".");
-        if(filenameParts != null && filenameParts.length == 2){
-        	this.exp = filenameParts[1];
+        String fileExp=RedisUtil.getFileExp(originalFilename);
+        if(fileExp != null){
+        	this.exp = fileExp;
         } else{
         	this.exp = "txt";
         }

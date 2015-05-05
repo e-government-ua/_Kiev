@@ -44,8 +44,8 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 		if (!listValueKeys.isEmpty()) {
 			for (String keyRedis : listValueKeys) {
 				if (keyRedis != null && !keyRedis.isEmpty()) {
-					ByteArrayMultipartFile contentMultipartFile = getRedisService()
-							.getAttachObjFromRedis(keyRedis);
+					byte[] byteFile = getRedisService().getAttachments(keyRedis);
+					ByteArrayMultipartFile contentMultipartFile = getByteArrayMultipartFileFromRedis(byteFile);
 					if (contentMultipartFile != null) {
 						String outFilename = null;
 				        try {
@@ -77,6 +77,8 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 		}
 
 	}
+
+	
 
 	public RedisService getRedisService() {
 		return redisService;
