@@ -2,6 +2,7 @@ package org.wf.dp.dniprorada.task.listener;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Set;
 
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -9,6 +10,7 @@ import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.TaskListener;
 import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.identity.User;
+import org.activiti.engine.task.IdentityLink;
 import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.activiti.redis.service.RedisService;
 import org.slf4j.Logger;
@@ -27,6 +29,7 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 		TaskListener {
 	static final transient Logger LOG = LoggerFactory
 			.getLogger(FileTaskUploadListener.class);
+
 	@Autowired
 	RedisService redisService;
 
@@ -38,16 +41,28 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 	@Override
 	public void notify(DelegateTask task) {
 		DelegateExecution execution = task.getExecution();
+		// получить группу бп
+		Set<IdentityLink> identityLink = task.getCandidates();
+		// получить User группы
 		List<User> user = execution.getEngineServices().getIdentityService()
-				.createUserQuery().memberOfGroup("management_clerk_dmr").list();
+				.createUserQuery()
+				.memberOfGroup(identityLink.iterator().next().getGroupId())
+				.list();
+
+		// setAuthenticatedUserId первого попавщегося
 		execution.getEngineServices().getIdentityService()
 				.setAuthenticatedUserId(user.get(0).getId());
+
+		// получить информацию по стартовой форме бп
 		StartFormData startformData = execution.getEngineServices()
 				.getFormService()
 				.getStartFormData(execution.getProcessDefinitionId());
+
 		List<String> filedTypeFile = getListFieldCastomTypeFile(startformData);
 		List<String> listValueKeys = getValueFieldWithCastomTypeFile(execution,
 				filedTypeFile);
+		List<String> filedName = getListCastomFieldName(startformData);
+		
 		if (!listValueKeys.isEmpty()) {
 			for (String keyRedis : listValueKeys) {
 				if (keyRedis != null && !keyRedis.isEmpty()) {
@@ -61,12 +76,15 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 					}
 					if (contentMultipartFile != null) {
 						String outFilename = null;
-				        try {
-				            outFilename = new String(contentMultipartFile
-									.getOriginalFilename().getBytes("ISO-8859-1"), "UTF-8");
-				        } catch (java.io.UnsupportedEncodingException e) {
-				        	throw new ActivitiException(e.getMessage(), e);
-				        }
+						try {
+							outFilename = new String(contentMultipartFile
+									.getOriginalFilename().getBytes(
+											"ISO-8859-1"), "UTF-8");
+						} catch (java.io.UnsupportedEncodingException e) {
+							throw new ActivitiException(e.getMessage(), e);
+						}
+						if (!filedName.isEmpty()) {
+							for (String name : filedName) {
 						execution
 								.getEngineServices()
 								.getTaskService()
@@ -77,7 +95,9 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 										task.getId(),
 										execution.getProcessInstanceId(),
 										outFilename,
-										contentMultipartFile.getName(), is);
+										name, is);
+							}
+						}
 					}
 				}
 			}

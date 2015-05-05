@@ -8,15 +8,28 @@ define('state/service/general/controller', ['angularAMD'], function (angularAMD)
 	angularAMD.controller('ServiceGeneralController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
 		$scope.service = service;
 		
-		var places = service.places;
-		if(places.regions.length == 0) {
-			return $state.go('service.country', {id: service.id}, { location: true });
+		var aServiceData = service.aServiceData;
+		
+		var isCity = false;
+		angular.forEach(aServiceData, function(value, key) {
+			if(angular.isNumber(value.nID_City)) {
+				isCity = true;
+			}
+		});
+		if(isCity) {
+			return $state.go('service.general.city', {id: service.nID}, { location: true });
 		}
 		
-		if(places.cities.length == 0) {
-			return $state.go('service.region', {id: service.id}, { location: true });
+		var isRegion = false;
+		angular.forEach(aServiceData, function(value, key) {
+			if(angular.isNumber(value.nID_Region)) {
+				isRegion = true;
+			}
+		});
+		if(isRegion) {
+			return $state.go('service.general.region', {id: service.nID}, { location: true });
 		}
 		
-		return $state.go('service.city', {id: service.id}, { location: true });
+		return $state.go('service.general.country', {id: service.nID}, { location: true });
     }]);
 });

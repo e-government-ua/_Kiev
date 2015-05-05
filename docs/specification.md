@@ -135,10 +135,82 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/service/rest/download_file_from_db?taskId=XXX**
+**HTTP Context: https://seriver:port/wf-dniprorada/service/rest/download_file_from_db?taskId=XXX&attachmentId=XXX&nFile=XXX**
 
 {taskId} - ид задачи
+{attachmentID} - ID прикрепленного файла
+{nFile} - порядковый номер прикрепленного файла
 
-https://52.17.126.64:8080/wf-dniprorada/service/rest/file/download_file_from_db?taskId=82596
+https://52.17.126.64:8080/wf-dniprorada/service/rest/file/download_file_from_db?taskId=82596&attachmentId=6726532&nFile=7
+
+#### 7. Merchants
+Сервис работы с мерчантами
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://seriver:port/wf-dniprorada/service/merchant/getMerchants** - весь список мерчантов
+
+**Response**
+
+```json					
+	[				        //[0..N]
+	{"idOwner":"14360570"   //[1..1]
+	 "ownerName":"ПриватБанк" //[1..1]
+	 "id":"1" 				//[1..1]
+	}  
+	]
+```
 
 
+**HTTP Metod: DELETE**
+
+**HTTP Context: http://seriver:port/wf-dniprorada/service/merchant/removeMerchant** - удалить мерчанта
+
+| Name        | Value           |
+| ------------- |:-------------:|
+| Content-Type | application/x-www-form-urlencoded |
+
+idOwner - ОКПО
+id - id мерчанта
+
+**Request**
+
+```text
+    idOwner=idOwner&id=id
+```
+
+**HTTP Metod: POST**
+
+**HTTP Context: http://seriver:port/wf-dniprorada/service/merchant/setMerchant** - обновить информацию мерчанта
+
+| Name        | Value           |
+| ------------- |:-------------:|
+| Content-Type | application/x-www-form-urlencoded |
+
+idOwner - ОКПО
+ownerName - название организации
+id - id мерчанта
+
+**Request**
+
+```text
+    idOwner=idOwner&ownerName=ownerName&id=id
+```
+
+**HTTP Metod: PUT**
+
+**HTTP Context: http://seriver:port/wf-dniprorada/service/merchant/addMerchant** - добавить мерчанта
+
+| Name        | Value           |
+| ------------- |:-------------:|
+| Content-Type | application/x-www-form-urlencoded |
+
+idOwner - ОКПО
+ownerName - название организации
+id - id мерчанта
+
+**Request**
+
+```text
+    idOwner=idOwner&ownerName=ownerName&id=id
+```

@@ -1,12 +1,12 @@
-define('service.country.built-in', ['angularAMD'], function (angularAMD) {
-    var app = angular.module('service.country.built-in', []);
+define('service.general.country.built-in', ['angularAMD'], function (angularAMD) {
+    var app = angular.module('service.general.country.built-in', []);
 
     app.config(['$stateProvider', function ($stateProvider) {
         $stateProvider
-            .state('service.country.built-in', {
+            .state('service.general.country.built-in', {
                 url: '/built-in',
                 views: {
-                    '': angularAMD.route({
+                    'content@service.general.country': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/country/built-in/index.html');
 						}],
@@ -15,9 +15,9 @@ define('service.country.built-in', ['angularAMD'], function (angularAMD) {
                     })
                 }
             })
-			.state('service.country.built-in.bankid', {
+			.state('service.general.country.built-in.bankid', {
 				url: '/built-in/?code',
-				parent: 'service.country',
+				parent: 'service.general.country',
 				resolve: {
 					BankIDLogin: ['$q', '$state', '$location', '$stateParams', 'BankIDService', function($q, $state, $location, $stateParams, BankIDService) {
 						var url = $location.protocol()
@@ -25,7 +25,7 @@ define('service.country.built-in', ['angularAMD'], function (angularAMD) {
 							+$location.host()
 							+':'
 							+$location.port()
-							+$state.href('service.country.built-in.bankid', { id: $stateParams.id });
+							+$state.href('service.general.country.built-in.bankid', { id: $stateParams.id });
 						
 						return BankIDService.login($stateParams.code, url).then(function(data) {
 							return data.hasOwnProperty('error') ? $q.reject(null): data;
@@ -33,12 +33,20 @@ define('service.country.built-in', ['angularAMD'], function (angularAMD) {
 					}],
 					BankIDAccount: ['BankIDService', 'BankIDLogin', function(BankIDService, BankIDLogin) {
 						return BankIDService.account(BankIDLogin.access_token);
+					}],
+					ActivitiForm: ['$stateParams', 'ActivitiService', 'service', 'places', function($stateParams, ActivitiService, service, places) {
+						var aServiceData = service.aServiceData;
+						var oServiceData = null;
+						angular.forEach(aServiceData, function(value, key) {
+							oServiceData = value;
+						});
+						return ActivitiService.getForm(oServiceData);
 					}]
 				},
 				views: {
-					'@service.country': angularAMD.route({
+					'content@service.general.country': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
-							return $templateCache.get('html/service/country/built-in/login.html');
+							return $templateCache.get('html/service/country/built-in/bankid.html');
 						}],
 						controller: 'ServiceBuiltInBankIDController',
 						controllerUrl: 'service/built-in/bankid/controller'

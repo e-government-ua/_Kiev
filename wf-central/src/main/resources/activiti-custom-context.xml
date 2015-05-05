@@ -71,6 +71,10 @@
 			<property name="username" value="${jdbc.username}" />
 			<property name="password" value="${jdbc.password}" />
 		</bean>
+    	
+    	 <bean id="merchantDao" class="org.wf.dp.dniprorada.dao.MerchantDaoImpl" >
+    	 	<property name="dataSource" ref="dataSource"/>
+    	 </bean>
 
 		<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 			<property name="dataSource" ref="dataSource"/>

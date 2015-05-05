@@ -41,6 +41,10 @@ label {
     font-weight: normal !important;
 }
 
+a {
+	cursor: pointer;
+}
+
 .row {
     margin-bottom: 10px;
 }

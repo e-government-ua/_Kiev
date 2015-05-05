@@ -1,20 +1,16 @@
 <div class="list-group">
-	<div class="list-group-item" ng-class="{'disabled': data.city}">
+	<div class="list-group-item" ng-class="{'disabled': data.region}">
 		<div class="row no-margin-bottom">
 			<div class="col-md-11 form-inline">
 				<span>Крок 1. Оберіть свій регіон </span>
 				<div style="display:inline-block">
 					<span>Область</span>
-					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.name for region in places.regions track by region.id" ng-disabled="data.city"></select>
-				</div>
-				<div style="display:inline-block" ng-if="data.region">
-					<span>Місто</span>
-					<select class="form-control" name="city" ng-model="data.city" ng-options="city as city.name for city in data.region.cities track by city.id" ng-disabled="data.city"></select>
+					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.sName for region in places.aRegion track by region.nID" ng-disabled="data.region"></select>
 				</div>
 			</div>
-			<div class="col-md-1" ng-if="data.city">
+			<div class="col-md-1" ng-if="data.region">
 				<div class="link-button">
-					<a href="#">Змінити</a>
+					<a ng-click="step1()">Змінити</a>
 				</div>
 			</div>
 		</div>
@@ -24,7 +20,7 @@
 			<div class="col-md-11">Крок 2. Ви увійшли як {{account.customer.firstName}} {{account.customer.middleName}} {{account.customer.lastName}}</div>
 			<div class="col-md-1">
 				<div class="link-button">
-					<a href="#">Змінити</a>
+					<a ng-click="step2()">Змінити</a>
 				</div>
 			</div>
 		</div>
@@ -37,14 +33,11 @@
 			<div class="col-md-12">
 				<div class="highlight">
 					<form>
-						<div class="row">
-							<div class="col-md-5">На який номер телефону слати SMS про готовність довідки:</div>
-							<div class="col-md-3"><input type="text" class="form-control" value="+38"></div>
-							<div class="col-md-4"></div>
-						</div>
-						<div class="row">
-							<div class="col-md-5">На яку адресу слати email про готовність довідки:</div>
-							<div class="col-md-3"><input type="email" class="form-control"></div>
+						<div class="row" ng-repeat="property in ActivitiForm.formProperties track by property.id">
+							<div class="col-md-5">{{property.name}}:</div>
+							<div class="col-md-3">
+								<input type="text" class="form-control" value="">
+							</div>
 							<div class="col-md-4"></div>
 						</div>
 						<div class="row">

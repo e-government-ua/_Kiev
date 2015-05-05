@@ -6,20 +6,32 @@ define('service/built-in/controller', ['angularAMD'], function (angularAMD) {
 });
 
 define('service/built-in/bankid/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceBuiltInBankIDController', ['$state', '$stateParams', '$scope', 'BankIDAccount', function($state, $stateParams, $scope, BankIDAccount) {
-		angular.forEach($scope.places.regions, function(value, key) {
-			if($stateParams.region == value.id) {
-				$scope.data.region = value;
-			}
-		});
-		if($scope.data.region) {
-			angular.forEach($scope.data.region.cities, function(value, key) {
-				if($stateParams.city == value.id) {
-					$scope.data.city = value;
+	angularAMD.controller('ServiceBuiltInBankIDController', ['$state', '$stateParams', '$scope', 'BankIDAccount', 'ActivitiForm',
+		function($state, $stateParams, $scope, BankIDAccount, ActivitiForm) {
+			angular.forEach($scope.places.aRegion, function(value, key) {
+				if($stateParams.region == value.nID) {
+					$scope.data.region = value;
 				}
 			});
+			if($scope.data.region) {
+				angular.forEach($scope.data.region.aCity, function(value, key) {
+					if($stateParams.city == value.nID) {
+						$scope.data.city = value;
+					}
+				});
+			}
+			
+			$scope.account = BankIDAccount;
+			$scope.ActivitiForm = ActivitiForm;
+			
+			$scope.data = $scope.data || {};
+			$scope.data.bankid = {};
+			
+			angular.forEach(BankIDAccount.customer, function(value, key) {
+				$scope.data.bankid['bankId'+key] = value;
+			});
+			
+			console.log($scope.data);
 		}
-		
-		$scope.account = BankIDAccount;
-	}]);
+	]);
 });
