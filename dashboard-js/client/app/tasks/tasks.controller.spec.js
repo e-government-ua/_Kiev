@@ -33,7 +33,7 @@ describe('Controller: TasksCtrl', function() {
   });
 
   function thenLoadCounts () {
-    expect(tasks.list.calls.count()).toBe(4);
+    expect(tasks.list.calls.count()).toBe(3);
     expect(tasks.list.calls.argsFor(0)[0]).toBe('selfAssigned');
     expect(tasks.list.calls.argsFor(1)[0]).toBe('unassigned');
     expect(tasks.list.calls.argsFor(2)[0]).toBe('finished');
