@@ -1,5 +1,7 @@
 package org.wf.dp.dniprorada.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 /**
@@ -14,6 +16,8 @@ public class Service extends Entity {
    private Subcategory subcategory;
    private List<ServiceData> serviceDataList;
    private String info;
+
+   @JsonProperty("sFAQ")
    private String faq;
    private String law;
 

@@ -10,6 +10,6 @@
         </id>
 
         <property name="name" column="sName" not-null="true"/>
-        <many-to-one name="region" column="nID_Region" not-null="true"/>
+        <many-to-one name="region" column="nID_Region" not-null="true" lazy="false"/>
     </class>
 </hibernate-mapping>

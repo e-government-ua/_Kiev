@@ -11,7 +11,7 @@
 
         <property name="code" column="sID" not-null="true"/>
         <property name="name" column="sName" not-null="true"/>
-        <many-to-one name="category" column="nID_Category" not-null="true"/>
+        <many-to-one name="category" column="nID_Category" not-null="true" lazy="false"/>
         <property name="order" column="nOrder" not-null="true"/>
     </class>
 </hibernate-mapping>

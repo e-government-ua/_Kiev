@@ -10,9 +10,9 @@
         </id>
 
         <many-to-one name="service" column="nID_Service" not-null="true"/>
-        <many-to-one name="city" column="nID_City"/>
-        <many-to-one name="region" column="nID_Region"/>
-        <many-to-one name="serviceType" column="nID_ServiceType" not-null="true"/>
+        <many-to-one name="city" column="nID_City" lazy="false"/>
+        <many-to-one name="region" column="nID_Region" lazy="false"/>
+        <many-to-one name="serviceType" column="nID_ServiceType" not-null="true" lazy="false"/>
         <property name="data" column="oData" not-null="true"/>
         <property name="url" column="sURL" not-null="true"/>
 

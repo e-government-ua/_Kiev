@@ -11,17 +11,16 @@
 
         <property name="name" column="sName" not-null="true"/>
         <property name="order" column="nOrder" not-null="true"/>
-        <many-to-one name="subcategory" column="nID_Subcategory" not-null="true"/>
+        <many-to-one name="subcategory" column="nID_Subcategory" not-null="true" lazy="false"/>
 
         <property name="info" column="sInfo" not-null="true"/>
         <property name="faq" column="sFAQ" not-null="true"/>
         <property name="law" column="sLaw" not-null="true"/>
 
-        <list name="serviceDataList" inverse="true" lazy="true" fetch="select">
+        <bag name="serviceDataList" inverse="true" lazy="false" fetch="select">
             <key column="nID_Service"/>
-            <list-index column="nID"/>
             <one-to-many class="org.wf.dp.dniprorada.model.ServiceData"/>
-        </list>
+        </bag>
 
     </class>
 </hibernate-mapping>
