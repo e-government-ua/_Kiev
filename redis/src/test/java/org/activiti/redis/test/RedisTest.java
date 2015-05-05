@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 
 import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.activiti.redis.service.RedisService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -40,7 +41,7 @@ public class RedisTest {
 	@Value("#{testProps['pathToFile']}")
 	private String pathToFile;
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void testRedis() throws IOException {
 		byte[] data = loadfile(loadFile);
