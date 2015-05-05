@@ -149,10 +149,12 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 		return upload;
     }
 
-    
+
     /**
      * Получение Attachment средствами активити из таблицы ACT_HI_ATTACHMENT
      * @param taskId
+     * @param attachmentId
+     * @param nFile
      * @param request
      * @param httpResponse
      * @return
@@ -161,7 +163,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     @RequestMapping(value = "/file/download_file_from_db", method = RequestMethod.GET)
     @Transactional
     public @ResponseBody
-    byte[] getAttachmentFromDb(@RequestParam("taskId") String taskId, 
+    byte[] getAttachmentFromDb(@RequestParam(value = "taskId") String taskId,
+                               @RequestParam(required = false, value = "attachmentId") String attachmentId,
+                               @RequestParam(required = false, value = "nFile") Integer nFile,
     		             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
     	
     	//Получаем по задаче ид процесса
@@ -177,10 +181,19 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         //Выбираем по процессу прикрепленные файлы
         List<Attachment> attachments = taskService.getProcessInstanceAttachments(processInstanceId);
         Attachment attachmentRequested = null;
-        for (Attachment attachment : attachments) {
-            //if (attachment.getId().equalsIgnoreCase(attachmentId)) {
-                attachmentRequested = attachment;
-            //}
+        for (int i = 0; i < attachments.size(); i++) {
+            if (attachments.get(i).getId().equalsIgnoreCase(attachmentId)) {
+                attachmentRequested = attachments.get(i);
+                break;
+            }
+            if (null != nFile && nFile.equals(i+1)) {
+                attachmentRequested = attachments.get(i);
+                break;
+            }
+        }
+
+        if (attachmentRequested == null && !attachments.isEmpty()) {
+            attachmentRequested = attachments.get(0);
         }
 
         if (attachmentRequested == null) {
@@ -198,7 +211,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         //Вычитывем из потока массив байтов контента и помещаем параметры контента в header 
 		ByteArrayMultipartFileOld multipartFile = new ByteArrayMultipartFileOld(
-				attachmentStream, attachmentRequested.getName(),
+				attachmentStream, attachmentRequested.getDescription(),
 				attachmentRequested.getName(), attachmentRequested.getType());
 
         httpResponse.setHeader("Content-disposition", 

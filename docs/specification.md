@@ -135,11 +135,13 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/service/rest/download_file_from_db?taskId=XXX**
+**HTTP Context: https://seriver:port/wf-dniprorada/service/rest/download_file_from_db?taskId=XXX&attachmentId=XXX&nFile=XXX**
 
 {taskId} - ид задачи
+{attachmentID} - ID прикрепленного файла
+{nFile} - порядковый номер прикрепленного файла
 
-https://52.17.126.64:8080/wf-dniprorada/service/rest/file/download_file_from_db?taskId=82596
+https://52.17.126.64:8080/wf-dniprorada/service/rest/file/download_file_from_db?taskId=82596&attachmentId=6726532&nFile=7
 
 #### 7. Merchants
 Сервис работы с мерчантами

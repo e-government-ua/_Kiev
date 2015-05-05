@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals
 import static org.junit.Assert.fail
 
 @Slf4j(value = "logger")
-public class OAuthFlowTest {
+public class OAuthNotAuthorizedFlowTest {
 
     RESTClient rest
     ConfigObject conf;
@@ -62,9 +62,4 @@ public class OAuthFlowTest {
         }
     }
 
-    @Ignore
-    @Test
-    public void testOAuthSuccessFlow() {
-        logger.info("test oauth success flow {}", client)
-    }
 }
