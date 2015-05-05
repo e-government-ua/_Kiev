@@ -24,7 +24,7 @@ public class ActivitiRestMerchController {
 		return merchantDao.getMerchants();
 	}
 	
-	@RequestMapping(value = "/removeMerchant", method = RequestMethod.POST)
+	@RequestMapping(value = "/removeMerchant", method = RequestMethod.DELETE)
 	public void deleteMerchant(@RequestParam(value = "idOwner") String idOwner, @RequestParam(value = "id") String id){
 		merchantDao.removeMerchant(idOwner, id);
 	}
@@ -38,7 +38,7 @@ public class ActivitiRestMerchController {
 		merchantDao.updateMerchant(merchant);
 	}	
 	
-	@RequestMapping(value = "/addMerchant", method = RequestMethod.POST)
+	@RequestMapping(value = "/addMerchant", method = RequestMethod.PUT)
 	public void insertMerchant(@RequestParam(value = "idOwner") String idOwner, @RequestParam(value = "ownerName") String ownerName, @RequestParam(value = "id") String id){
 		Merchant merchant = new Merchant();
 		merchant.setIdOwner(idOwner);
