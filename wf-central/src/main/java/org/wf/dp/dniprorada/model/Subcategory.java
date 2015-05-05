@@ -7,7 +7,6 @@ package org.wf.dp.dniprorada.model;
  */
 public class Subcategory extends Entity {
 
-   private Integer id;
    private String name;
    private String code;
    private Category category;
