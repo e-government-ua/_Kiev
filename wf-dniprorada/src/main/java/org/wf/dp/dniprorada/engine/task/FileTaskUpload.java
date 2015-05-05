@@ -1,5 +1,8 @@
 package org.wf.dp.dniprorada.engine.task;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,8 +47,8 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 		if (!listValueKeys.isEmpty()) {
 			for (String keyRedis : listValueKeys) {
 				if (keyRedis != null && !keyRedis.isEmpty()) {
-					ByteArrayMultipartFile contentMultipartFile = getRedisService()
-							.getAttachObjFromRedis(keyRedis);
+					byte[] byteFile = getRedisService().getAttachments(keyRedis);
+					ByteArrayMultipartFile contentMultipartFile = getByteArrayMultipartFileFromRedis(byteFile);
 					if (contentMultipartFile != null) {
 						String outFilename = null;
 				        try {
@@ -77,6 +80,8 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 		}
 
 	}
+
+	
 
 	public RedisService getRedisService() {
 		return redisService;

@@ -1,8 +1,10 @@
 package org.activiti.redis.test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,7 +12,6 @@ import java.nio.file.Paths;
 
 import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.activiti.redis.service.RedisService;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -39,7 +40,7 @@ public class RedisTest {
 	@Value("#{testProps['pathToFile']}")
 	private String pathToFile;
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void testRedis() throws IOException {
 		byte[] data = loadfile(loadFile);
@@ -54,8 +55,13 @@ public class RedisTest {
 		String key = redisService.putAttachments(byteArrayOutputStream
 				.toByteArray());
 		System.out.println(key);
-		ByteArrayMultipartFile contentMultipartFile = redisService
-				.getAttachObjFromRedis(key);
+		byte[] byteFile = redisService.getAttachments(key);
+		ByteArrayMultipartFile contentMultipartFile = null;
+		try {
+			contentMultipartFile = getByteArrayMultipartFileFromRedis(byteFile);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		System.out.println(contentMultipartFile);
 	}
 
@@ -68,6 +74,15 @@ public class RedisTest {
 			e.printStackTrace();
 		}
 		return data;
+	}
+	
+	public static ByteArrayMultipartFile getByteArrayMultipartFileFromRedis(
+			byte[] byteFile) throws IOException, ClassNotFoundException {
+		ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteFile);
+		ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
+		  ByteArrayMultipartFile contentMultipartFile = (ByteArrayMultipartFile) ois.readObject();
+		ois.close();
+		return contentMultipartFile;
 	}
 
 }
