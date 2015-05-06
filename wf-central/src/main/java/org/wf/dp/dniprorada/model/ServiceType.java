@@ -1,5 +1,7 @@
 package org.wf.dp.dniprorada.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * User: goodg_000
  * Date: 04.05.2015
@@ -7,7 +9,9 @@ package org.wf.dp.dniprorada.model;
  */
 public class ServiceType extends Entity {
 
+	@JsonProperty(value="sName")
    private String name;
+	@JsonProperty(value="sNote")
    private String note;
 
    public String getName() {

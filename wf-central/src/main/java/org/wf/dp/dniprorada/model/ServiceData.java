@@ -1,5 +1,7 @@
 package org.wf.dp.dniprorada.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * User: goodg_000
  * Date: 04.05.2015
@@ -7,11 +9,17 @@ package org.wf.dp.dniprorada.model;
  */
 public class ServiceData extends Entity {
 
+	@JsonProperty(value="nID_Service")
    private Service service;
+	@JsonProperty(value="nID_City")
    private City city;
+	@JsonProperty(value="nID_Region")
    private Region region;
+	@JsonProperty(value="nID_ServiceType")
    private ServiceType serviceType;
+	@JsonProperty(value="oData")
    private String data;
+	@JsonProperty(value="sUrl")
    private String url;
 
    public Service getService() {

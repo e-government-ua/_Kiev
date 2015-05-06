@@ -11,14 +11,19 @@ import java.util.List;
  */
 public class Service extends Entity {
 
+	@JsonProperty(value="sName")
    private String name;
+	@JsonProperty(value="nOrder")
    private Integer order;
+	@JsonProperty(value="nID_Subcategory")
    private Subcategory subcategory;
-   private List<ServiceData> serviceDataList;
+	@JsonProperty(value="aServiceData")
+   private List<ServiceData> serviceDataList;   
+	@JsonProperty(value="sInfo")
    private String info;
-
-   @JsonProperty("sFAQ")
+    @JsonProperty("sFAQ")
    private String faq;
+    @JsonProperty("sLaw")
    private String law;
 
    public String getName() {

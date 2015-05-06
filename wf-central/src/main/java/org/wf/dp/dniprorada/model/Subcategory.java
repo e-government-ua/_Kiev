@@ -1,5 +1,7 @@
 package org.wf.dp.dniprorada.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * User: goodg_000
  * Date: 04.05.2015
@@ -7,9 +9,13 @@ package org.wf.dp.dniprorada.model;
  */
 public class Subcategory extends Entity {
 
+	@JsonProperty(value="sName")
    private String name;
+	@JsonProperty(value="sID")
    private String code;
+	@JsonProperty(value="nID_Category")
    private Category category;
+	@JsonProperty(value="nOrder")
    private Integer order;
 
    public String getName() {
