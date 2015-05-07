@@ -45,14 +45,18 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 		// получить группу бп
 		Set<IdentityLink> identityLink = task.getCandidates();
 		// получить User группы
-		List<User> user = execution.getEngineServices().getIdentityService()
+		List<User> users = execution.getEngineServices().getIdentityService()
 				.createUserQuery()
 				.memberOfGroup(identityLink.iterator().next().getGroupId())
 				.list();
 
+		
+		if(users == null || users.size()==0|| users.get(0)==null || users.get(0).getId() == null){
+			//TODO  what to do if no user?
+		} else {
 		// setAuthenticatedUserId первого попавщегося
 		execution.getEngineServices().getIdentityService()
-				.setAuthenticatedUserId(user.get(0).getId());
+				.setAuthenticatedUserId(users.get(0).getId());
 
 		// получить информацию по стартовой форме бп
 		StartFormData startformData = execution.getEngineServices()
@@ -108,7 +112,7 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 				}
 			}
 		}
-
+		}
 	}
 
 	public RedisService getRedisService() {

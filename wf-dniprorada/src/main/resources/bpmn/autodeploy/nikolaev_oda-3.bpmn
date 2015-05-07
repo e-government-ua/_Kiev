@@ -108,7 +108,7 @@
     </serviceTask>
     <serviceTask id="servicetask1" name="отримання додаткових документiв" activiti:delegateExpression="#{fileTaskUpload}">
       <extensionElements>
-        <activiti:executionListener event="start" delegateExpression="${fileTaskUploadListener}"></activiti:executionListener>
+        <activiti:taskListener event="start" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow9" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
