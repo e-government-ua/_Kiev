@@ -48,6 +48,11 @@
                 <configuration>
                     <jarName>${project.artifactId}-${project.version}</jarName>
                     <classifier>lib</classifier>
+                    <excludes>
+                        <exclude>*.properties</exclude>
+                        <exclude>*.alfresco</exclude>
+                        <exclude>*.json</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
