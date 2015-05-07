@@ -71,7 +71,7 @@ public class AllBusinessProcessesDeploymentTest extends
 				.getManagementService(), activitiRule.getProcessEngine()
 				.getFormService());
 	}
-
+	
 	@Test
 	public void testProcessDeployment() {
 		Map<String, Map<String, String>> bpEmtyAssociation = new TreeMap<String, Map<String, String>>();
@@ -80,12 +80,11 @@ public class AllBusinessProcessesDeploymentTest extends
 				.createProcessDefinitionQuery().list();
 
 		for (ProcessDefinition processDefinition : pd) {
-			/*assertThat(
 					processDefinition = processEngine.getRepositoryService()
 							.createProcessDefinitionQuery()
 							.processDefinitionKey(processDefinition.getKey())
-							.singleResult()).isDeployed();*/
-
+							.singleResult();
+					assertNotNull(processDefinition);
 			if (processDefinition != null && processEngine != null) {
 				// получаем модель
 				BpmnModel model = processEngine.getRepositoryService()
