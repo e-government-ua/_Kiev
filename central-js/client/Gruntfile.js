@@ -323,6 +323,7 @@ module.exports = function(grunt) {
 					{expand: true, cwd: './tmp/css/concat', src: ['**'], dest: './build/css/' },
 					{expand: true, cwd: './tmp/js/concat', src: ['**'], dest: './build/js/' },
 					{expand: true, cwd: './bower_components/pt-sans/fonts', src: ['**'], dest: './build/fonts/'},
+					{expand: true, cwd: './bower_components/bootstrap/fonts', src: ['**'], dest: './build/fonts/'},
 					{expand: true, cwd: './src/img', src: ['**'], dest: './build/img/'},
 					{expand: false, src: ['./bower_components/bootstrap/dist/css/bootstrap.css.map'], dest: './build/css/bootstrap.css.map', filter: 'isFile'},
 					{expand: false, src: ['./src/js/main/data.json'], dest: './build/data.json', filter: 'isFile'}
@@ -333,6 +334,7 @@ module.exports = function(grunt) {
 					{expand: true, cwd: './tmp/css/cssmin', src: ['**'], dest: './build/css/' },
 					{expand: true, cwd: './tmp/js/uglify', src: ['**'], dest: './build/js/' },
 					{expand: true, cwd: './bower_components/pt-sans/fonts', src: ['**'], dest: './build/fonts/'},
+					{expand: true, cwd: './bower_components/bootstrap/fonts', src: ['**'], dest: './build/fonts/'},
 					{expand: true, cwd: './src/img', src: ['**'], dest: './build/img/'},
 					{expand: false, src: ['./bower_components/bootstrap/dist/css/bootstrap.css.map'], dest: './build/css/bootstrap.css.map', filter: 'isFile'},
 					{expand: false, src: ['./src/js/main/data.json'], dest: './build/data.json', filter: 'isFile'}
@@ -343,6 +345,7 @@ module.exports = function(grunt) {
 					{expand: true, cwd: './tmp/css/compress', src: ['**'], dest: './build/css/' },
 					{expand: true, cwd: './tmp/js/compress', src: ['**'], dest: './build/js/' },
 					{expand: true, cwd: './bower_components/pt-sans/fonts', src: ['**'], dest: './build/fonts/'},
+					{expand: true, cwd: './bower_components/bootstrap/fonts', src: ['**'], dest: './build/fonts/'},
 					{expand: true, cwd: './src/img', src: ['**'], dest: './build/img/'},
 					{expand: false, src: ['./bower_components/bootstrap/dist/css/bootstrap.css.map'], dest: './build/css/bootstrap.css.map', filter: 'isFile'},
 					{expand: false, src: ['./src/js/main/data.json'], dest: './build/data.json', filter: 'isFile'}
