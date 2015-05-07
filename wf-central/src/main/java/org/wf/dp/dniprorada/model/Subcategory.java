@@ -1,5 +1,7 @@
 package org.wf.dp.dniprorada.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -18,7 +20,10 @@ public class Subcategory extends Entity {
 	
 	@JsonProperty(value = "nOrder")
 	private Integer order;
-
+	
+	@JsonProperty(value="aService")
+	private List<Service> serviceList;
+	
 	public String getName() {
 		return name;
 	}
@@ -49,5 +54,13 @@ public class Subcategory extends Entity {
 
 	public void setOrder(Integer order) {
 		this.order = order;
+	}
+
+	public List<Service> getServiceList() {
+		return serviceList;
+	}
+
+	public void setServiceList(List<Service> serviceList) {
+		this.serviceList = serviceList;
 	}
 }

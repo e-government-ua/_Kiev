@@ -16,6 +16,7 @@ import org.wf.dp.dniprorada.model.Category;
 import org.wf.dp.dniprorada.model.Region;
 import org.wf.dp.dniprorada.model.Service;
 import org.wf.dp.dniprorada.model.ServiceData;
+import org.wf.dp.dniprorada.model.Subcategory;
 
 import java.io.IOException;
 import java.util.List;
@@ -61,6 +62,17 @@ public class ActivitiRestServicesController {
 	public @ResponseBody
 	List<Category> getServices() {
 		List<Category> list = servicesDao.getAll();
+		for(Category cat : list){
+			for(Subcategory sub : cat.getSubcategoryList()){
+				for(Service service : sub.getServiceList()){
+					service.setFaq(null);
+					service.setInfo(null);
+					service.setLaw(null);
+					service.setServiceDataList(null);
+					service.setSubcategory(null);
+				}
+			}
+		}
 		return list;
 	}
 
