@@ -29,24 +29,25 @@ public class ActivitiRestServicesController {
 
 	@Autowired
 	private PlacesDao placesDao;
-	
+
 	@Autowired
 	private ServiceDao servicesDao;
 
-	@RequestMapping(value = "/getService", method = RequestMethod.GET)
+	@RequestMapping(value = "/getService", method = RequestMethod.POST)
 	public @ResponseBody
-	List<Service> getService() {
+	Service getService(@RequestParam(value = "nID") String nID) {
 		List<Service> res = serviceDao.getAll();
-
 		// nullify some fields which are not required in response
 		for (Service s : res) {
-			s.setSubcategory(null);
-			for (ServiceData serviceData : s.getServiceDataList()) {
-				serviceData.setService(null);
+			if (s.getId().equals(Integer.valueOf(nID))) {
+				s.setSubcategory(null);
+				for (ServiceData serviceData : s.getServiceDataList()) {
+					serviceData.setService(null);
+				}
+				return s;
 			}
 		}
-
-		return res;
+		return null;
 	}
 
 	@RequestMapping(value = "/getPlaces", method = RequestMethod.GET)
