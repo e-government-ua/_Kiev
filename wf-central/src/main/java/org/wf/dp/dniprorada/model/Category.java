@@ -11,10 +11,13 @@ public class Category extends Entity {
 
 	@JsonProperty(value = "sID")
 	private String code;
+	
 	@JsonProperty(value = "sName")
 	private String name;
+	
 	@JsonProperty(value = "nOrder")
 	private Integer order;
+	
 	@JsonProperty(value = "aSubcategory")
 	private List<Subcategory> subcategoryList;
 

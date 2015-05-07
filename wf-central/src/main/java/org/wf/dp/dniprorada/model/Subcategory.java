@@ -3,46 +3,51 @@ package org.wf.dp.dniprorada.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * User: goodg_000
- * Date: 04.05.2015
- * Time: 22:24
+ * User: goodg_000 Date: 04.05.2015 Time: 22:24
  */
 public class Subcategory extends Entity {
 
-	@JsonProperty(value="sName")
-   private String name;
-	@JsonProperty(value="sID")
-   private String code;
-	@JsonProperty(value="nID_Category")
-   private Category category;
-	@JsonProperty(value="nOrder")
-   private Integer order;
+	@JsonProperty(value = "sName")
+	private String name;
+	
+	@JsonProperty(value = "sID")
+	private String code;
+	
+	@JsonProperty(value = "nID_Category")
+	private Category category;
+	
+	@JsonProperty(value = "nOrder")
+	private Integer order;
 
-   public String getName() {
-      return name;
-   }
-   public void setName(String name) {
-      this.name = name;
-   }
+	public String getName() {
+		return name;
+	}
 
-   public String getCode() {
-      return code;
-   }
-   public void setCode(String code) {
-      this.code = code;
-   }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-   public Category getCategory() {
-      return category;
-   }
-   public void setCategory(Category category) {
-      this.category = category;
-   }
+	public String getCode() {
+		return code;
+	}
 
-   public Integer getOrder() {
-      return order;
-   }
-   public void setOrder(Integer order) {
-      this.order = order;
-   }
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public Integer getOrder() {
+		return order;
+	}
+
+	public void setOrder(Integer order) {
+		this.order = order;
+	}
 }
