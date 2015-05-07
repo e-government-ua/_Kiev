@@ -28,7 +28,11 @@
 			<property name="jobExecutorActivate" value="true" />
 			<property name="enableDatabaseEventLogging" value="true" />
 			<!-- for unit tests deployments sets from test class -->
-<!-- 			<property name="deploymentResources" value="classpath*:bpmn/autodeploy/*.bpmn" /> -->
+				<property name="deploymentResources">
+					<list>
+						<value>classpath*:bpmn/autodeploy/*.bpmn</value>
+					</list>
+				</property>	
 
 			<property name="customFormTypes">
 				<list>
