@@ -14,8 +14,6 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
-import org.easymock.EasyMock;
-import org.easymock.IMocksControl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -45,19 +43,16 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 	public ActivitiRule activitiRule = new ActivitiRule(
 			"activiti-custom-context-test.xml");
 
-	public IMocksControl mockControl;
-
 	@Before
 	public void injectDependencies() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		Mockitos.register(this);
-		mockControl = (IMocksControl) EasyMock.createNiceControl();
 
 		new TestContextManager(getClass()).prepareTestInstance(this);
 		processEngine = TestHelper.getProcessEngine(activitiRule
 				.getConfigurationResource());
 		activitiRule.setProcessEngine(processEngine);
-		runtimeService = activitiRule.getRuntimeService();
+
 		ActivitiFluentTestHelper.setUpEngineAndServices(activitiRule
 				.getProcessEngine(), activitiRule.getProcessEngine()
 				.getRepositoryService(), activitiRule.getProcessEngine()
@@ -99,13 +94,17 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 	public void startProcessInstance() throws InterruptedException {
 		Map<String, Object> procVars = createStartFormVariables();
 
-		ProcessInstance pi = runtimeService.startProcessInstanceByKey(
-				PROCESS_KEY, procVars);
+		ProcessInstance pi = activitiRule.getProcessEngine()
+				.getRuntimeService()
+				.startProcessInstanceByKey(PROCESS_KEY, procVars);
 
 		assertNotNull(pi);
 
-		runtimeService.deleteProcessInstance(pi.getProcessInstanceId(),
-				"not needed, created only for test");
+		activitiRule
+				.getProcessEngine()
+				.getRuntimeService()
+				.deleteProcessInstance(pi.getProcessInstanceId(),
+						"not needed, created only for test");
 
 	}
 
@@ -114,8 +113,9 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 	public void processRejected() throws InterruptedException {
 		Map<String, Object> procVars = createStartFormVariables();
 
-		ProcessInstance pi = runtimeService.startProcessInstanceByKey(
-				PROCESS_KEY, procVars);
+		ProcessInstance pi = activitiRule.getProcessEngine()
+				.getRuntimeService()
+				.startProcessInstanceByKey(PROCESS_KEY, procVars);
 
 		assertNotNull(pi);
 
@@ -125,7 +125,8 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 
 		Map<String, Object> taskVars = new HashMap<String, Object>();
 		taskVars.put("decide", "reject");
-		processEngine.getTaskService().complete(task.getId(), taskVars);
+		activitiRule.getProcessEngine().getTaskService()
+				.complete(task.getId(), taskVars);
 
 		HistoryService historyService = activitiRule.getHistoryService();
 
@@ -138,7 +139,8 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 		assertEquals(pi.getProcessInstanceId(), historicProcessInstance.getId());
 
 		List<HistoricActivityInstance> activityList = historyService
-				.createHistoricActivityInstanceQuery().list();
+				.createHistoricActivityInstanceQuery()
+				.processInstanceId(pi.getProcessInstanceId()).list();
 
 		JobQuery jquery = activitiRule.getManagementService().createJobQuery();
 
@@ -148,7 +150,8 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 		// and the job is done
 		assertEquals("job is done", 0, jquery.count());
 
-		assertEquals(0, runtimeService.createProcessInstanceQuery().count());
+		assertEquals(0, activitiRule.getProcessEngine().getRuntimeService()
+				.createProcessInstanceQuery().count());
 
 	}
 

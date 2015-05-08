@@ -5,7 +5,6 @@ import org.activiti.engine.impl.test.TestHelper;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.ActivitiRule;
-import org.activiti.engine.test.Deployment;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -52,15 +51,17 @@ public class BusinessProcessesTest extends PluggableActivitiTestCase {
 	}
 
 	@Test
-//	@Deployment
 	public void startProcessInstance() throws InterruptedException {
-		;
+
 		for (ProcessDefinition processDefinition : activitiRule
-				.getRepositoryService().createProcessDefinitionQuery().list()) {
-			System.out.println(processDefinition.getKey());
+				.getProcessEngine().getRepositoryService()
+				.createProcessDefinitionQuery().list()) {
 			ProcessInstance pi = activitiRule.getRuntimeService()
 					.startProcessInstanceByKey(processDefinition.getKey());
-			assertNotNull(pi);
+			assertNotNull(String.format(
+					"process did not start for key:{%s}, resourceName:{%s}",
+					processDefinition.getKey(),
+					processDefinition.getResourceName()), pi);
 
 			activitiRule.getRuntimeService().deleteProcessInstance(
 					pi.getProcessInstanceId(),
