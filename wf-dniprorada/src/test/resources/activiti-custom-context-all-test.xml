@@ -58,6 +58,11 @@
 			<property name="mailServerUseSSL" value="true" />
 			<property name="mailServerUseTLS" value="true" />
 			<property name="history" value="full" />
+			<property name="preBpmnParseHandlers">
+			<list>
+				<bean class="org.activiti.parsing.MailBpmnParseHandler" />
+			</list>
+		</property>
 		</bean>
 <!-- 	</beans> -->
 
