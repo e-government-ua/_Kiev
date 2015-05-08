@@ -143,7 +143,6 @@
 ФИО, адрес проживания, телефон</text>
     </textAnnotation>
     <association id="association3" sourceRef="startevent1" targetRef="textannotation1"></association>
-    <association id="association4" sourceRef="textannotation3" targetRef="servicetask2"></association>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_ivFrank_mvk_1">
     <bpmndi:BPMNPlane bpmnElement="ivFrank_mvk_1" id="BPMNPlane_ivFrank_mvk_1">

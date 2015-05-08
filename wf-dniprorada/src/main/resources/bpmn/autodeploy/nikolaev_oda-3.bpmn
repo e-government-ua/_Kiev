@@ -129,7 +129,6 @@
 
 </text>
     </textAnnotation>
-    <association id="association2" sourceRef="textannotation3" targetRef="usertask1"></association>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_nikolaev_oda_3">
     <bpmndi:BPMNPlane bpmnElement="nikolaev_oda_3" id="BPMNPlane_nikolaev_oda_3">
