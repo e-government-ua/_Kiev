@@ -2,21 +2,18 @@ package org.activiti.rest.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.wf.dp.dniprorada.dao.services.CategoryDao;
 import org.wf.dp.dniprorada.dao.services.PlacesDao;
 import org.wf.dp.dniprorada.dao.services.ServiceDao;
-import org.wf.dp.dniprorada.dao.services.ServicesDao;
 import org.wf.dp.dniprorada.model.Category;
 import org.wf.dp.dniprorada.model.Region;
 import org.wf.dp.dniprorada.model.Service;
 import org.wf.dp.dniprorada.model.ServiceData;
 import org.wf.dp.dniprorada.model.Subcategory;
+import org.wf.dp.dniprorada.util.JsonRestUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,44 +23,50 @@ import java.util.List;
 public class ActivitiRestServicesController {
 
 	@Autowired
-	private ServicesDao serviceDao;
-
-	@Autowired
 	private PlacesDao placesDao;
 
 	@Autowired
-	private ServiceDao servicesDao;
+	private ServiceDao serviceDao;
 
-	@RequestMapping(value = "/getService", method = RequestMethod.POST)
-	public @ResponseBody
-	Service getService(@RequestParam(value = "nID") String nID) {
-		List<Service> res = serviceDao.getAll();
-		// nullify some fields which are not required in response
-		for (Service s : res) {
-			if (s.getId().equals(Integer.valueOf(nID))) {
-				s.setSubcategory(null);
-				for (ServiceData serviceData : s.getServiceDataList()) {
-					serviceData.setService(null);
-				}
-				return s;
-			}
+	@Autowired
+	private CategoryDao categoryDao;
+
+	@RequestMapping(value = "/getService", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity getService(@RequestParam(value = "nID") Integer nID) {
+		Service service = serviceDao.getById(nID);
+		return toJsonResponse(service);
+	}
+
+	@RequestMapping(value = "/setService", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity setService(@RequestBody String jsonData) throws IOException {
+
+		Service service = JsonRestUtils.readObject(jsonData, Service.class);
+
+		serviceDao.saveOrUpdate(service);
+		return toJsonResponse(service);
+	}
+
+	private ResponseEntity toJsonResponse(Service service) {
+		service.setSubcategory(null);
+		for (ServiceData serviceData : service.getServiceDataList()) {
+			serviceData.setService(null);
 		}
-		return null;
+		return JsonRestUtils.toJsonResponse(service);
 	}
 
 	@RequestMapping(value = "/getPlaces", method = RequestMethod.GET)
-	public @ResponseBody
-	List<Region> getPlaces() {
+	public @ResponseBody List<Region> getPlaces() {
 		List<Region> list = placesDao.getAll();
 		return list;
 	}
 
 	@RequestMapping(value = "/getServices", method = RequestMethod.GET)
-	public @ResponseBody
-	List<Category> getServices() {
-		List<Category> list = servicesDao.getAll();
+	public @ResponseBody ResponseEntity getServices() {
+		List<Category> list = categoryDao.getAll();
 		for(Category cat : list){
 			for(Subcategory sub : cat.getSubcategoryList()){
+				sub.setCategory(null);
+
 				for(Service service : sub.getServiceList()){
 					service.setFaq(null);
 					service.setInfo(null);
@@ -73,20 +76,19 @@ public class ActivitiRestServicesController {
 				}
 			}
 		}
-		return list;
+
+		return JsonRestUtils.toJsonResponse(list);
 	}
 
 	@RequestMapping(value = "/setServices", method = RequestMethod.POST)
-	public ResponseEntity setServices(
-			@RequestParam(value = "json_data") String jsonData)
-			throws IOException {
+	public Category[] setServices(@RequestParam(value = "json_data") String jsonData) throws IOException {
 
-		Service[] services = new ObjectMapper().readValue(jsonData,
-				Service[].class);
+		Category[] categories = new ObjectMapper().readValue(jsonData,
+				  Category[].class);
 
-		System.out.println(services);
+		categoryDao.saveOrUpdateAll(categories);
 
-		return new ResponseEntity(HttpStatus.OK);
+		return categories;
 	}
 
 }

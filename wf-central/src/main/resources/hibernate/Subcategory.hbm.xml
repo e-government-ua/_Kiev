@@ -13,5 +13,10 @@
         <property name="name" column="sName" not-null="true"/>
         <many-to-one name="category" column="nID_Category" not-null="true" lazy="false"/>
         <property name="order" column="nOrder" not-null="true"/>
+
+        <bag name="serviceList" inverse="true" lazy="false" fetch="select">
+            <key column="nID_Subcategory"/>
+            <one-to-many class="org.wf.dp.dniprorada.model.Service"/>
+        </bag>
     </class>
 </hibernate-mapping>

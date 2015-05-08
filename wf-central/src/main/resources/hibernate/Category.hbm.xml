@@ -12,5 +12,10 @@
         <property name="code" column="sID" not-null="true"/>
         <property name="name" column="sName" not-null="true"/>
         <property name="order" column="nOrder" not-null="true"/>
+
+        <bag name="subcategoryList"  inverse="true" lazy="false" fetch="select">
+            <key column="nID_Category"/>
+            <one-to-many class="org.wf.dp.dniprorada.model.Subcategory"/>
+        </bag>
     </class>
 </hibernate-mapping>

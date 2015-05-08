@@ -71,9 +71,9 @@
 			<property name="sessionFactory" ref="sessionFactory"/>
 		</bean>
 		
-		<bean id="serviceDao" class="org.wf.dp.dniprorada.dao.services.ServicesDaoImpl" parent="abstractEntityDao"/>
+		<bean id="serviceDao" class="org.wf.dp.dniprorada.dao.services.ServiceDaoImpl" parent="abstractEntityDao"/>
 		<bean id="placesDao" class="org.wf.dp.dniprorada.dao.services.PlacesDaoImpl" parent="abstractEntityDao"/>
-		<bean id="servicesDao" class="org.wf.dp.dniprorada.dao.services.ServiceDaoImpl" parent="abstractEntityDao"/>
+		<bean id="categoryDao" class="org.wf.dp.dniprorada.dao.services.CategoryDaoImpl" parent="abstractEntityDao"/>
 
 		<tx:advice id="txAdvice" transaction-manager="transactionManager">
 
