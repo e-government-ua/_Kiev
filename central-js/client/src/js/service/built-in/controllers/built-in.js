@@ -6,8 +6,8 @@ define('service/built-in/controller', ['angularAMD'], function (angularAMD) {
 });
 
 define('service/built-in/bankid/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceBuiltInBankIDController', ['$state', '$stateParams', '$scope', 'BankIDAccount', 'ActivitiForm',
-		function($state, $stateParams, $scope, BankIDAccount, ActivitiForm) {
+	angularAMD.controller('ServiceBuiltInBankIDController', ['$state', '$stateParams', '$scope', 'ActivitiService', 'BankIDAccount', 'ActivitiForm',
+		function($state, $stateParams, $scope, ActivitiService, BankIDAccount, ActivitiForm) {
 			angular.forEach($scope.places.aRegion, function(value, key) {
 				if($stateParams.region == value.nID) {
 					$scope.data.region = value;
@@ -25,13 +25,21 @@ define('service/built-in/bankid/controller', ['angularAMD'], function (angularAM
 			$scope.ActivitiForm = ActivitiForm;
 			
 			$scope.data = $scope.data || {};
+			$scope.data.fields = {};
 			$scope.data.bankid = {};
 			
 			angular.forEach(BankIDAccount.customer, function(value, key) {
-				$scope.data.bankid['bankId'+key] = value;
+				var field = 'bankId'+key;
+				var data = $scope.data;
+				
+				data.fields[field] = true;
+				data.bankid[field] = value;
 			});
 			
-			console.log($scope.data);
+			$scope.submit = function(form) {
+				form.$setSubmitted();
+				return ActivitiService.submitForm(form);
+			};
 		}
 	]);
 });
