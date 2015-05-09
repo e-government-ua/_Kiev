@@ -70,7 +70,7 @@ class DevBankIdAuth extends \app\components\BankId
                 "scans" => [
                     [
                         "type" => "passport",
-                        "link" => "https://bankid.privatbank.ua/DataAccessService/checked/scan/passport" ,
+                        "link" => "https://bankid.privatbank.ua/ResourceService/checked/scan/passport" ,
                         "dateCreate" => "15.06." . rand(2000, 2015),                         
                     ]
                 ]

@@ -20,7 +20,7 @@ $config = [
                     'clientSecret' => 'NzVmYTI5NGJjMDg3OThlYjljNDY5YjYxYjJiMjJhNA==',
                     'authUrl' => 'https://bankid.privatbank.ua/DataAccessService/das/authorize',
                     'tokenUrl' => 'https://bankid.privatbank.ua/DataAccessService/oauth/token',
-                    'apiBaseUrl' => 'https://bankid.privatbank.ua/DataAccessService/checked',
+                    'apiBaseUrl' => 'https://bankid.privatbank.ua/ResourceService/checked',
                 ],
             ],
         ],
