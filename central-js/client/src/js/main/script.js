@@ -30,7 +30,7 @@ define(['angularAMD', 'templates'], function (angularAMD) {
 	
     app.config(['$urlRouterProvider', function ($urlRouterProvider) {
 		$urlRouterProvider.when('', '/index');
-        $urlRouterProvider.otherwise('/index');
+        $urlRouterProvider.otherwise('/404');
     }]);
 
     angularAMD.bootstrap(app);
