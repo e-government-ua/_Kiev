@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="nikolaev_oda_1" name="Миколаєвська ОДА - Реєстрація громадського об’єднання" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="processName" name="Реєстрація громадського об’єднання" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string"></activiti:formProperty>
+        <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string"></activiti:formProperty>
+        <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string"></activiti:formProperty>
+        <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date"></activiti:formProperty>
+        <activiti:formProperty id="attachedId" name="Архів з документами " type="string"></activiti:formProperty>
+        <activiti:formProperty id="objFounder" name="Додаткова інформація про засновників" type="textArea" default="відомості про засновників громадського об'єднання із зазначенням прізвища, ім'я, по батькові (за наявності), дати народження, адреси місця проживання, а в разі якщо засновником є юридична особа приватного права, - її найменування, місцезнаходження, ідентифікаційного коду"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="usertask1" name="Прийняття рішення про реєстрацію" activiti:candidateGroups="management_clerk_dmr">
+      <extensionElements>
+        <activiti:formProperty id="processName" name="Реєстрація громадського об’єднання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="attachedId" name="Документи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objFounder" name="Засновник громадського об'єднання" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="assignee" name="Виконавець" type="user"></activiti:formProperty>
+        <activiti:formProperty id="decide" name="Рішення про реєстрацію" type="enum" required="true">
+          <activiti:value id="accept" name="Ухвалити"></activiti:value>
+          <activiti:value id="reject" name="Відмовити"></activiti:value>
+        </activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <userTask id="usertask2" name="Підстави для відмови " activiti:assignee="${assignee}">
+      <extensionElements>
+        <activiti:formProperty id="comment" name="Причина відмови в реєстрации " type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow3" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="usertask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="usertask3" name="Внесення відомостей до Реєстру" activiti:assignee="${assignee}">
+      <extensionElements>
+        <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="attachedId" name="Документи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objFounder" name="Засновник громадського об'єднання" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="regChanged" name="Відомості внесені до реєстру?" type="enum" required="true">
+          <activiti:value id="yes" name="Так, внесені"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow4" name="${decide == 'accept'}" sourceRef="exclusivegateway1" targetRef="usertask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="usertask2" targetRef="mailtask1"></sequenceFlow>
+    <serviceTask id="mailtask1" name="Відправлення листа громадянину" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>dniprorada@egov.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Запит: Реєстрація громадського об’єднання</activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+Вам відмовлено в реєстраціі громадського об’єднання
+Підстава: ${comment}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow6" sourceRef="mailtask1" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow7" name="${regChanged == 'yes'}" sourceRef="usertask3" targetRef="servicetask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${regChanged == 'yes'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow8" sourceRef="servicetask1" targetRef="endevent2"></sequenceFlow>
+    <serviceTask id="servicetask1" name="Відправлення листа громадянину" activiti:delegateExpression="#{mailTaskWithAttachment}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string>dniprorada@egov.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Звернення на тему: Реєстрація громадського об’єднання</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний (-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ваше громадянське об'єднання зареєстровано!</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask2" name="отримання додаткових документiв" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <sequenceFlow id="flow9" sourceRef="startevent1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="servicetask2" targetRef="usertask1"></sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask2">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <endEvent id="endevent3" name="End"></endEvent>
+    <sequenceFlow id="flow11" sourceRef="boundaryerror1" targetRef="endevent3"></sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>Выбирается услуга:
+Реєстрація громадського об’єднання</text>
+    </textAnnotation>
+    <association id="association1" sourceRef="textannotation1" targetRef="startevent1"></association>
+    <textAnnotation id="textannotation2">
+      <text>Про заяву
+Зараз:
+Заява підписується засновниками громадського об'єднання або особою (особами), уповноваженою представляти громадське об'єднання, а справжність їх підписів засвідчується нотаріально.
+
+Треба щоб  bankID був замість підпису</text>
+    </textAnnotation>
+    <textAnnotation id="textannotation3">
+      <text>Реєстраційна служба Миколаївського міського управління юстиції
+- - - -
+Спеціаліст реєстраційної служби Миколаївського міського управління юстиції 
+
+</text>
+    </textAnnotation>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_nikolaev_oda_1">
+    <bpmndi:BPMNPlane bpmnElement="nikolaev_oda_1" id="BPMNPlane_nikolaev_oda_1">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="220.0" y="130.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="211.0" x="132.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="436.0" y="267.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="55.0" width="166.0" x="545.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+        <omgdc:Bounds height="55.0" width="166.0" x="545.0" y="380.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="55.0" width="191.0" x="790.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="1070.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="1070.0" y="390.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="191.0" x="790.0" y="380.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="185.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="275.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="350.0" y="208.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="50.0" width="241.0" x="70.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
+        <omgdc:Bounds height="109.0" width="327.0" x="354.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
+        <omgdc:Bounds height="107.0" width="311.0" x="20.0" y="342.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="343.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="436.0" y="287.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="476.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="545.0" y="287.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="95.0" x="445.0" y="248.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="456.0" y="307.0"></omgdi:waypoint>
+        <omgdi:waypoint x="456.0" y="407.0"></omgdi:waypoint>
+        <omgdi:waypoint x="545.0" y="407.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="460.0" y="406.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="711.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="287.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="981.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1070.0" y="287.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="711.0" y="407.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="407.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="709.0" y="407.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="981.0" y="407.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1070.0" y="407.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="237.0" y="165.0"></omgdi:waypoint>
+        <omgdi:waypoint x="237.0" y="190.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="237.0" y="245.0"></omgdi:waypoint>
+        <omgdi:waypoint x="237.0" y="260.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="305.0" y="225.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="225.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
+        <omgdi:waypoint x="190.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="237.0" y="130.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
+        <omgdi:waypoint x="175.0" y="342.0"></omgdi:waypoint>
+        <omgdi:waypoint x="237.0" y="315.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,24 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.egov-ua</groupId>
+        <artifactId>org.egov-ua</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.activiti</groupId>
 	<name>WorkFlows DniproRada UA/</name>
 	<artifactId>wf-dniprorada</artifactId>
+	<version>5.17.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-
-
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<activity.version>5.17.0</activity.version>
+		<guava-version>15.0</guava-version>
 	</properties>
 
 	<repositories>
+            
+                <repository>
+                 <id>iGov_Nexus</id>
+                 <url>http://52.17.32.123:8081/nexus/content/groups/public</url>
+                </repository>
+                
 		<repository>
 			<id>vaadin-addons</id>
 			<url>http://maven.vaadin.com/vaadin-addons</url>
 		</repository>
+                
+                
+                <repository>
+                    <id>repo1</id>
+                    <url>http://repo1.maven.org/maven2</url>
+                </repository>
+                <repository>
+                    <id>Central</id>
+                    <url>http://central.maven.org/maven2</url>
+                </repository>     
+
+                <repository>
+                    <id>Activiti</id>
+                    <url>http://maven.alfresco.com/nexus/content/groups/public</url>
+                </repository>
+                <repository>
+                    <id>Activiti third party</id>
+                    <url>http://maven.alfresco.com/nexus/content/repositories/activiti-thirdparty/</url>
+                </repository>     
+                
+                
 	</repositories>
 
 	<build>
@@ -161,28 +195,38 @@
 
 
 	<dependencies>
-
+		<dependency>
+			<groupId>jmimemagic</groupId>
+			<artifactId>jmimemagic</artifactId>
+			<version>0.1.2</version>
+		</dependency>
 		<!-- Activiti -->
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-engine</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
 
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-spring</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-explorer</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.vaadin.addons</groupId>
+					<artifactId>dcharts-widget</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-modeler</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>xalan</groupId>
@@ -190,15 +234,17 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- <dependency> <groupId>org.vaadin.addons</groupId> <artifactId>dcharts-widget</artifactId> 
+			<version>0.10.0</version> </dependency> -->
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-diagram-rest</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-simple-workflow</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
 		</dependency>
 
 		<dependency>
@@ -212,12 +258,19 @@
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-rest</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-json-converter</artifactId>
-			<version>${project.version}</version>
+			<version>${activity.version}</version>
+		</dependency>
+
+		<!-- REDIS -->
+		<dependency>
+			<groupId>org.activiti.redis</groupId>
+			<artifactId>wf-dniprorada-redis</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<!-- Database -->
@@ -245,29 +298,85 @@
 			<version>2.1.3</version>
 		</dependency>
 
+		<!--Redis -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>1.2.1.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		
+		<dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava-version}</version>
+        </dependency>
+
 		<!-- Testing -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.0.6.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path-assert</artifactId>
+			<version>0.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>0.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
 			<version>2.3.0</version>
 		</dependency>
-
-		<!-- Vaadin addons -->
-		<!-- Must be defined both in activiti-explorer and activiti-webapp-explorer, 
-			as otherwise the gwt compiler won't find it -->
 		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>dcharts-widget</artifactId>
-			<version>0.10.0</version>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>3.0</version>
+			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math</artifactId>
+			<version>2.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.plexiti.activiti</groupId>
+			<artifactId>activiti-fluent-tests</artifactId>
+			<version>0.3</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
@@ -276,5 +385,16 @@
 
 
 	</dependencies>
-	<version>5.17.0</version>
+	<distributionManagement>
+		<repository>
+			<id>localNexus</id>
+			<name>localNexus</name>
+			<url>http://52.17.32.123:8081/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>localNexus</id>
+			<name>localNexus</name>
+			<url>http://52.17.32.123:8081/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
