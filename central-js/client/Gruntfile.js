@@ -19,18 +19,18 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		html2js: {
-			main: {
-				src: [
-					'./src/html/catalog/*.html',
-					'./src/html/service/**/*.html',
-					'./src/html/documents/*.html',
-					'./src/html/journal/*.html',
+        html2js: {
+            main: {
+                src: [
+                    './src/html/catalog/*.html',
+                    './src/html/service/**/*.html',
+                    './src/html/documents/*.html',
+                    './src/html/journal/*.html',
                     './src/html/404/*.html'
-				],
-				dest: './build/js/templates.js'
-			}
-		},
+                ],
+                dest: './build/js/templates.js'
+            }
+        },
 		git_deploy: {
 			your_target: {
 				options: {
