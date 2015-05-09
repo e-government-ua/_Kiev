@@ -1,11 +1,12 @@
 package org.wf.dp.dniprorada.base.model;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -243,5 +244,19 @@ public abstract class AbstractModelTask {
 		return byteArrayOutputStream;
 	}
 
-	
+	/**
+	 * ByteArray To multipartFile
+	 * @param byteFile
+	 * @return
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
+	public static ByteArrayMultipartFile getByteArrayMultipartFileFromRedis(
+			byte[] byteFile) throws IOException, ClassNotFoundException {
+		ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteFile);
+		ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
+		  ByteArrayMultipartFile contentMultipartFile = (ByteArrayMultipartFile) ois.readObject();
+		ois.close();
+		return contentMultipartFile;
+	}
 }

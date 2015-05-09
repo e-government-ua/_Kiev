@@ -66,7 +66,7 @@
 	</beans>
 	
 	
-	<beans profile="default">
+	<beans profile="test,default">
 	<bean id="redisProps"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:redisProps.properties" />

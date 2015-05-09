@@ -136,7 +136,6 @@
 
 </text>
     </textAnnotation>
-    <association id="association2" sourceRef="textannotation3" targetRef="usertask1"></association>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_ivFrank_mvk_2">
     <bpmndi:BPMNPlane bpmnElement="ivFrank_mvk_2" id="BPMNPlane_ivFrank_mvk_2">

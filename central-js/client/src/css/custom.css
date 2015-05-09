@@ -4,7 +4,8 @@ html {
 }
 
 body {
-    font-family: 'pt_sans', sans-serif;
+    font-family: 'PT Sans', sans-serif;
+
     font-size: 160%;
     /* Margin bottom by footer height */
     margin-bottom: 60px;
@@ -13,6 +14,7 @@ body {
 h1 {
     margin-top: 0px;
     margin-bottom: 20px;
+    margin-left: 15px;
 }
 
 h3 {
