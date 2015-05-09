@@ -12,7 +12,7 @@ if(isset($_REQUEST["code"])) {
 	$id = $_REQUEST["id"];
 	$callbackUrl = urlencode(selfUrl.'/auth_proxy.php?id='.$id);
 
-	$url = 'https://bankid.privatbank.ua/DataAccessService/oauth/token?grant_type=authorization_code&client_id=dniprorada&client_secret=NzVmYTI5NGJjMDg3OThlYjljNDY5YjYxYjJiMjJhNA==&code='.$code.'&redirect_uri='.$callbackUrl;
+	$url = 'https://bankid.privatbank.ua/ResourceService/oauth/token?grant_type=authorization_code&client_id=dniprorada&client_secret=NzVmYTI5NGJjMDg3OThlYjljNDY5YjYxYjJiMjJhNA==&code='.$code.'&redirect_uri='.$callbackUrl;
 
 	$headers = array("GET / HTTP/1.1",
 					 "Content-type: text/html;charset=\"utf-8\"",

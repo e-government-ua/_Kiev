@@ -10,12 +10,12 @@ class BankId extends OAuth2
     /**
      * @inheritdoc
      */
-    public $authUrl = 'https://bankid.org.ua/DataAccessService/das/authorize';
+    public $authUrl = 'https://bankid.org.ua/ResourceService/das/authorize';
 
     /**
      * @inheritdoc
      */
-    public $tokenUrl = 'https://bankid.org.ua/DataAccessService/oauth/token';
+    public $tokenUrl = 'https://bankid.org.ua/ResourceService/oauth/token';
 
     /**
      * @inheritdoc

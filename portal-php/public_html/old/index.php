@@ -61,7 +61,7 @@ if(trim($http_status) == "200" && trim($rez) !='') {
 			if(isset($_SESSION["access_token"])) {
 				echo '<li><h4><a href="form.php?id='.$entry->id.'">'.$entry->name.'</a></h4></li>';
 			} else {
-				echo '<li><h4><a href="https://bankid.privatbank.ua/DataAccessService/das/authorize?response_type=code&client_id=dniprorada&redirect_uri='.urlencode($callbackUrl.'?id='.$entry->id).'">'.$entry->name.'</a></h4></li>';
+				echo '<li><h4><a href="https://bankid.privatbank.ua/ResourceService/das/authorize?response_type=code&client_id=dniprorada&redirect_uri='.urlencode($callbackUrl.'?id='.$entry->id).'">'.$entry->name.'</a></h4></li>';
 			}
 		}
 		echo '</ul>';

@@ -22,7 +22,7 @@
 	<div class="list-group-item" ng-if="data.city">
 		<span>Крок 2. Увійдіть в систему через</span>
 		<button class="btn btn-info"><i class="icon-door-lock"></i><span class="btn-text">i.gov.ua</span></button>
-		<a class="btn btn-info" ng-href="https://bankid.privatbank.ua/DataAccessService/das/authorize?response_type=code&client_id=dniprorada&redirect_uri={{$location.protocol()}}://{{$location.host()}}{{$state.href('service.city.built-in.bankid', {'id': service.id, 'region': data.region.id, 'city': data.city.id})}}">
+		<a class="btn btn-info" ng-href="https://bankid.privatbank.ua/ResourceService/das/authorize?response_type=code&client_id=dniprorada&redirect_uri={{$location.protocol()}}://{{$location.host()}}{{$state.href('service.city.built-in.bankid', {'id': service.id, 'region': data.region.id, 'city': data.city.id})}}">
 			<i class="icon-bank-id"></i>
 			<span class="btn-text">BankID</span>
 		</a>
