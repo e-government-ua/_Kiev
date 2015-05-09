@@ -89,7 +89,7 @@
 
 		<aop:config>
 			<aop:pointcut id="dao" expression="execution(* org.wf.dp.dniprorada.dao.*.*(..))"/>
-			<aop:pointcut id="dao.services" expression="execution(* org.wf.dp.dniprorada.dao.services.*.*(..))"/>
+			<aop:pointcut id="dao.services" expression="execution(* org.wf.dp.dniprorada.service.*.*(..))"/>
 
 			<aop:advisor pointcut-ref="dao" advice-ref="txAdvice"/>
 			<aop:advisor pointcut-ref="dao.services" advice-ref="txAdvice"/>

@@ -13,7 +13,7 @@
         <property name="name" column="sName" not-null="true"/>
         <property name="order" column="nOrder" not-null="true"/>
 
-        <bag name="subcategoryList"  inverse="true" lazy="false" fetch="select">
+        <bag name="subcategories" inverse="true" lazy="false" fetch="select" order-by="nOrder asc">
             <key column="nID_Category"/>
             <one-to-many class="org.wf.dp.dniprorada.model.Subcategory"/>
         </bag>

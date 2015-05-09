@@ -19,7 +19,7 @@ public class Category extends Entity {
 	private Integer order;
 	
 	@JsonProperty(value = "aSubcategory")
-	private List<Subcategory> subcategoryList;
+	private List<Subcategory> subcategories;
 
 	public String getCode() {
 		return code;
@@ -45,11 +45,11 @@ public class Category extends Entity {
 		this.order = order;
 	}
 
-	public List<Subcategory> getSubcategoryList() {
-		return subcategoryList;
+	public List<Subcategory> getSubcategories() {
+		return subcategories;
 	}
 
-	public void setSubcategoryList(List<Subcategory> subcategoryList) {
-		this.subcategoryList = subcategoryList;
+	public void setSubcategories(List<Subcategory> subcategories) {
+		this.subcategories = subcategories;
 	}
 }

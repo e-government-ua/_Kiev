@@ -22,7 +22,7 @@ public class Subcategory extends Entity {
 	private Integer order;
 	
 	@JsonProperty(value="aService")
-	private List<Service> serviceList;
+	private List<Service> services;
 	
 	public String getName() {
 		return name;
@@ -56,11 +56,11 @@ public class Subcategory extends Entity {
 		this.order = order;
 	}
 
-	public List<Service> getServiceList() {
-		return serviceList;
+	public List<Service> getServices() {
+		return services;
 	}
 
-	public void setServiceList(List<Service> serviceList) {
-		this.serviceList = serviceList;
+	public void setServices(List<Service> services) {
+		this.services = services;
 	}
 }

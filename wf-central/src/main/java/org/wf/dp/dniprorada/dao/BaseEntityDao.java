@@ -15,7 +15,7 @@ public interface BaseEntityDao {
 
    <T extends Entity> T getById(Class<T> entityType, Serializable id);
 
-   <T extends Entity> List<T> getAll(Class<T> entityType);
+   <T extends Entity> List<T> getAll(Class<T> entityClass);
 
    <T extends Entity> void saveOrUpdate(T entity);
 

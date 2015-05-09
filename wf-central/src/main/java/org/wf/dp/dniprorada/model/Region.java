@@ -13,7 +13,7 @@ public class Region extends Entity {
 	private String name;
 	
 	@JsonProperty(value = "aCity")
-	private List<City> cityList;
+	private List<City> cities;
 
 	public String getName() {
 		return name;
@@ -23,11 +23,11 @@ public class Region extends Entity {
 		this.name = name;
 	}
 
-	public List<City> getCityList() {
-		return cityList;
+	public List<City> getCities() {
+		return cities;
 	}
 
-	public void setCityList(List<City> cityList) {
-		this.cityList = cityList;
+	public void setCities(List<City> cities) {
+		this.cities = cities;
 	}
 }

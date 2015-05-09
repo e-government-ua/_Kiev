@@ -1,11 +1,14 @@
 package org.wf.dp.dniprorada.dao;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Required;
 import org.wf.dp.dniprorada.model.Entity;
 
+import java.beans.PropertyDescriptor;
 import java.io.Serializable;
 import java.util.List;
 
@@ -31,13 +34,34 @@ public class BaseEntityDaoImpl implements BaseEntityDao {
       this.sessionFactory = sessionFactory;
    }
 
-   public <T extends Entity> T getById(Class<T> entityType, Serializable id) {
-      return (T)getSession().get(entityType, id);
+   public <T extends Entity> T getById(Class<T> entityClass, Serializable id) {
+      return (T)getSession().get(entityClass, id);
+   }
+
+   private <T extends Entity> boolean hasOrderField(Class<T> entityClass, String fieldName) {
+      PropertyDescriptor[] propertyDescriptors = PropertyUtils.getPropertyDescriptors(entityClass);
+
+      boolean res = false;
+      for (PropertyDescriptor pd : propertyDescriptors) {
+         if (pd.getName().equals(fieldName)) {
+            res = true;
+            break;
+         }
+      }
+
+      return res;
    }
 
    @Override
-   public <T extends Entity> List<T> getAll(Class<T> entityType) {
-      return DetachedCriteria.forClass(entityType).getExecutableCriteria(getSession()).list();
+   public <T extends Entity> List<T> getAll(Class<T> entityClass) {
+      DetachedCriteria criteria = DetachedCriteria.forClass(entityClass);
+
+      final String orderFieldName = "order";
+      if (hasOrderField(entityClass, orderFieldName)) {
+         criteria.addOrder(Order.asc(orderFieldName));
+      }
+
+      return criteria.getExecutableCriteria(getSession()).list();
    }
 
    @Override
