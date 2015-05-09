@@ -15,6 +15,8 @@ class ProcessDefinitionForm extends Model
     const TYPE_LONG = 'long';
     const TYPE_ENUM = 'enum';
     const TYPE_DATE = 'date';
+    const TYPE_FILE = 'file';
+    const TYPE_TEXTAREA = 'textArea';
 
     /**
      * @var array
@@ -160,11 +162,17 @@ class ProcessDefinitionForm extends Model
                     $range = ArrayHelper::getColumn($field['enumValues'], 'id');
                     $validators[] = [$key, 'in', 'range' => $range];
                     break;
+                case self::TYPE_FILE:
+                    $validators[] = [$key, 'filter', 'filter' => 'trim'];
+                    break;
                 case self::TYPE_STRING:
                     $validators[] = [$key, 'filter', 'filter' => 'trim'];
                     break;
                 case self::TYPE_LONG:
                     $validators[] = [$key, 'number'];
+                    break;
+                case self::TYPE_TEXTAREA:
+                    $validators[] = [$key, 'filter', 'filter' => 'trim'];
                     break;
                 default:
                     $validators[] = [$key, 'safe'];
@@ -213,7 +221,20 @@ class ProcessDefinitionForm extends Model
             case self::TYPE_ENUM:
                 $input = $formField->dropDownList(ArrayHelper::map($field['enumValues'], 'id', 'name'));
                 break;
+            case self::TYPE_TEXTAREA:
+                $input = $formField->textarea(['rows' => 5]);
+                break;
             case self::TYPE_STRING:
+                $input = $formField->textInput();
+                /*if ($key === 'attachedId') {
+                    $input = $formField->hiddenInput(['class' => 'js-attached-id']);
+                } else {
+                    $input = $formField->textInput();
+                }*/
+                break;
+            case self::TYPE_FILE:
+                $input = $formField->hiddenInput(['class' => 'js-attached-id']);
+                break;
             case self::TYPE_LONG:
             default:
                 $input = $formField->textInput();
@@ -251,8 +272,7 @@ class ProcessDefinitionForm extends Model
      */
     public function getAttributeValueFromBankid($attribute)
     {
-        $attributeName = 'bankId' . ucfirst(substr($attribute, 6));
-        //$attributeName = $attribute;
+        $attributeName = lcfirst(substr($attribute, 6));
         return Yii::$app->user->loadUser()->searchUserAttribute($attributeName);
     }
 

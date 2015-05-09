@@ -6,6 +6,7 @@ var url = require('url')
 var parseString = require('xml2js').parseString;
 var config = require('../../config/environment');
 
+request.debug = true;
 //curl -k -H "Authorization: Bearer 44f21a7d-b94a-4800-99ad-b16f012deb18" 
 //https://bankid.privatbank.ua/DataAccessService/checked/fio%3Faccess_token=44f21a7d-b94a-4800-99ad-b16f012deb18
 exports.findUser = function(accessToken, onResult) {
@@ -14,29 +15,30 @@ exports.findUser = function(accessToken, onResult) {
 		hostname: config.bankid.host,
 		pathname: config.bankid.user.path,
 		query: {
-			'access_token': accessToken
+			'client_id': config.bankid.appid
 		}
 	});
+
+	var data = {
+		"type": "physical",
+		"fields": ["firstName", "middleName", "lastName", "phone", "inn", "clId", "clIdText", "birthDay"]
+	};
+
 	var options = {
 		url: userDataUrl,
 		headers: {
 			'Authorization': 'Bearer ' + accessToken
-		}
+		},
+		json: true,
+		body: data
 	};
 
-	request
-		.get(options, function(error, response, body) {
-			console.log(response + ' ' + body);
-			parseString(body, function(err, userString) {
-				var customer = userString.message.customer;
-				var user = {
-					fio: {
-						clfirstName: customer[0].firstName[0],
-						cllastName: customer[0].lastName[0],
-						clmiddleName: customer[0].middleName[0]
-					}
-				}
-				onResult(response.statusCode, user);
-			});
+	request.post(options,
+		function(error, response, result) {
+			if (!error) {
+				onResult(null, response.statusCode, result);
+			} else {
+				onResult(error, null, null);
+			}
 		});
 }

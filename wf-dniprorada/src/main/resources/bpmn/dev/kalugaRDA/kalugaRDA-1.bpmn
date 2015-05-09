@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="myProcess" name="My process" isExecutable="true">
+  <process id="monetaryValuationOfLand" name="Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки" isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
-        <activiti:formProperty id="clLastName" name="Фамилия" type="string" default="Свириденко" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="clFirstName" name="Имя" type="string" default="Евгения" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="clSecondName" name="Отчество" type="string" default="Вадимовна" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clPhone" name="Телефон" type="string" default="+380504206734" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="clAddress" name="Адрес" type="string" default="наб. Победы 32" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="docName" name="Название документа" type="string" default="Постановление № 12345" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="gaol" name="Цель получения документа" type="string" default="для оформления наследства" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваш e-mail" type="string" default="dn290689sev@gmail.com" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="clPassport" name="Копия паспорта" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="clINN" name="Копия ИНН" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="landAddress" name="Местоположение земельного участка" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="landOrder" name="Копія державного акту/ свідоцтва про право власності/ договору оренди на " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="landOwnerDeathCert" name="Копія свідоцтва про смерть попереднього власника" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="request" name="Запит нотаріуса або адвоката" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="processName" name="Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPhone" name="Телефон" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdINN" name="Копия ИНН" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Адрес" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="goal" name="Мета звернення" type="enum" required="true">
+          <activiti:value id="item1" name="визначення розміру земельного податку при  міні  або  даруванні  земельних  ділянок"></activiti:value>
+          <activiti:value id="item2" name="визначення розміру земельного податку при  спадкуванні   земельних  ділянок"></activiti:value>
+          <activiti:value id="item3" name="визначення орендної  плати  за  земельні  ділянки  державної  та  комунальної власності"></activiti:value>
+          <activiti:value id="item4" name="визначення втрат  сільськогосподарського  та  лісогосподарського виробництва"></activiti:value>
+          <activiti:value id="itme5" name="розроблення показників та механізмів економічного  стимулювання  раціонального  використання та охорони земель"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="landOrder" name="Копія державного акту/ свідоцтва про право власності/ договору оренди на земельну ділянку"></activiti:formProperty>
+        <activiti:formProperty id="landOwnerDeathCert" name="Копія свідоцтва про смерть попереднього власника"></activiti:formProperty>
+        <activiti:formProperty id="request" name="Запит нотаріуса або адвоката"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <serviceTask id="mailtask1" name="Уведомление об отказе" activiti:type="mail">
+    <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Обращение на тему: ${goal}</activiti:expression>
+          <activiti:expression>Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -34,27 +40,34 @@
           <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Уважаемый(-ая), ${clFirstName} ${clSecondName}.
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
-К сожалению, вынуждены отклонить Ваш запрос.
-Причина:
+На жаль змушені Вам відмовити в наданні послуги
+Підстава:
 $(reason)</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask4" name="Анализ входящего запроса" activiti:assignee="${initiator}">
+    <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:assignee="${initiator}">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Автор запроса " default="${clLastName} ${clFirstName} ${clSecondName}" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="request" name="Запрашиваемый документ" default="${docType} номер  ${docNumber} от  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="request_goal" name="Цель запроса" type="string" default="${gaol}" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="reason" name="Укажите причину отказа" type="string"></activiti:formProperty>
-        <activiti:formProperty id="decide" name="Резолюция по запросу" type="enum" required="true">
-          <activiti:value id="accept" name="Принять"></activiti:value>
-          <activiti:value id="reject" name="Отказать"></activiti:value>
+        <activiti:formProperty id="clFio" name="Автор звернення " default="${bankIdLastName} ${bankIdFirstName} ${bankIdSecondName}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPhone" name="Телефон" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdINN" name="Копия ИНН" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Адрес" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="request_goal" name="Мета звернення" type="string" default="${goal}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="landOrder" name="Копія державного акту/ свідоцтва про право власності/ договору оренди на земельну ділянку" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="landOwnerDeathCert" name="Копія свідоцтва про смерть попереднього власника" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="request" name="Запит нотаріуса або адвоката" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="reason" name="Підстава для відмови" type="string"></activiti:formProperty>
+        <activiti:formProperty id="decide" name="Рішення" type="enum" required="true">
+          <activiti:value id="accept" name="Прийняти в роботу"></activiti:value>
+          <activiti:value id="reject" name="Відмовити у наданні послуги"></activiti:value>
         </activiti:formProperty>
       </extensionElements>
     </userTask>
-    <serviceTask id="mailtask2" name="Извещение заявителя о том, что документ готов" activiti:type="mail">
+    <serviceTask id="mailtask2" name="Відправка відповіді на запит користувачу: документ готовий" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -63,21 +76,20 @@ $(reason)</activiti:expression>
           <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Обращение на тему: ${docType}</activiti:expression>
+          <activiti:string><![CDATA[Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Уважаемый(-ая), ${clFirstName} ${clSecondName}.
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
-Вы запросили  ${docType} № ${docNumber}  от  ${docDate}
 
-Запрашиваемый документ добавлен в приложение этого письма.</activiti:expression>
+</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask7" name="Подготовка документа" activiti:assignee="${initiator}">
+    <userTask id="usertask7" name="Підготовка відповіді на запит: підготовка документа" activiti:assignee="${initiator}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор запроса " default="${clLastName} ${clFirstName} ${clSecondName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запрашиваемый документ" default="${docType} номер  ${docNumber} от  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
@@ -117,28 +129,28 @@ $(reason)</activiti:expression>
     </textAnnotation>
     <association id="association3" sourceRef="startevent1" targetRef="textannotation1"></association>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
-    <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_monetaryValuationOfLand">
+    <bpmndi:BPMNPlane bpmnElement="monetaryValuationOfLand" id="BPMNPlane_monetaryValuationOfLand">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="200.0" y="140.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
-        <omgdc:Bounds height="67.0" width="105.0" x="410.0" y="172.0"></omgdc:Bounds>
+        <omgdc:Bounds height="67.0" width="151.0" x="460.0" y="172.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
         <omgdc:Bounds height="55.0" width="138.0" x="150.0" y="380.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="71.0" width="175.0" x="670.0" y="170.0"></omgdc:Bounds>
+        <omgdc:Bounds height="71.0" width="175.0" x="670.0" y="371.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask7" id="BPMNShape_usertask7">
-        <omgdc:Bounds height="71.0" width="105.0" x="470.0" y="372.0"></omgdc:Bounds>
+        <omgdc:Bounds height="71.0" width="151.0" x="460.0" y="372.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
-        <omgdc:Bounds height="35.0" width="35.0" x="880.0" y="188.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="930.0" y="389.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent5" id="BPMNShape_endevent5">
-        <omgdc:Bounds height="35.0" width="35.0" x="540.0" y="188.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="670.0" y="188.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
         <omgdc:Bounds height="40.0" width="40.0" x="330.0" y="387.0"></omgdc:Bounds>
@@ -153,12 +165,12 @@ $(reason)</activiti:expression>
         <omgdc:Bounds height="112.0" width="152.0" x="60.0" y="190.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
-        <omgdi:waypoint x="515.0" y="205.0"></omgdi:waypoint>
-        <omgdi:waypoint x="540.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="611.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="205.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
-        <omgdi:waypoint x="845.0" y="205.0"></omgdi:waypoint>
-        <omgdi:waypoint x="880.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="845.0" y="406.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="406.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
         <omgdi:waypoint x="288.0" y="407.0"></omgdi:waypoint>
@@ -167,14 +179,14 @@ $(reason)</activiti:expression>
       <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
         <omgdi:waypoint x="350.0" y="387.0"></omgdi:waypoint>
         <omgdi:waypoint x="350.0" y="205.0"></omgdi:waypoint>
-        <omgdi:waypoint x="410.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="460.0" y="205.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="14.0" width="81.0" x="310.0" y="271.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
         <omgdi:waypoint x="370.0" y="407.0"></omgdi:waypoint>
-        <omgdi:waypoint x="470.0" y="407.0"></omgdi:waypoint>
+        <omgdi:waypoint x="460.0" y="407.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="14.0" width="87.0" x="369.0" y="414.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
@@ -184,10 +196,9 @@ $(reason)</activiti:expression>
         <omgdi:waypoint x="219.0" y="380.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow43" id="BPMNEdge_flow43">
-        <omgdi:waypoint x="575.0" y="407.0"></omgdi:waypoint>
+        <omgdi:waypoint x="611.0" y="407.0"></omgdi:waypoint>
         <omgdi:waypoint x="609.0" y="406.0"></omgdi:waypoint>
-        <omgdi:waypoint x="609.0" y="204.0"></omgdi:waypoint>
-        <omgdi:waypoint x="670.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="406.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
         <omgdi:waypoint x="219.0" y="435.0"></omgdi:waypoint>

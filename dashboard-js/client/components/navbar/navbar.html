@@ -9,16 +9,22 @@
       </button>
       <a href="/" class="navbar-brand">egov.ua</a>
     </div>
+
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+
       <ul class="nav navbar-nav">
-        <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
-            <a ng-href="{{item.link}}">{{item.title}}</a>
+        <li ng-repeat="menu in menus"
+            ng-show="isLoggedIn()"
+            ng-class="{active: isTaskFilterActive(menu.type)}">
+          <a ng-click="applyTaskFilter(menu.type)">{{menu.title}}
+            <span class="label label-info">{{menu.count}}</span>
+          </a>
         </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}"><a href="/login">Увійти</a></li>
-        <li ng-show="isLoggedIn()"><p class="navbar-text">{{ getCurrentUserName()}}</p> </li>
+        <li ng-show="isLoggedIn()"><a href="" ng-click="goToTasks()">{{ getCurrentUserName()}}</a></li>
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Вийти</a></li>
       </ul>
     </div>

@@ -1,0 +1,33 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{ISO8601} %-5p [%c{1}/%t]: %m%n</pattern>
+        </encoder>
+    </appender>
+
+	<appender name="FILEOUT" class="ch.qos.logback.core.FileAppender">
+    	<file>target/log/systests.log</file>
+        <encoder>
+            <pattern>%date{HH:mm:ss.SSS} %-5p [%X{transactionId}/%t/%logger{0}]]: %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger level="info"  name="groovyx.net.http"/>
+    <logger level="info"  name="groovyx.net.http.HttpURLClient"/>
+    <logger level="info"  name="javax.ws.rs.client"/>
+    <logger level="info"  name="org.apache.http"/>
+    <logger level="info"  name="org.apache.http.headers"/>
+    <logger level="debug"  name="org.apache.http.wire"/>
+    <logger level="debug"  name="ua.org.egov"/>
+    <logger level="debug"  name="ua.org.bankid"/>
+
+    <logger level="debug"  name="ua.org.bankid" additivity="false">
+    	<appender-ref ref="FILEOUT"/>
+    </logger>
+    
+    <root level="debug">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

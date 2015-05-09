@@ -11,9 +11,14 @@ angular.module('dashboardJsApp')
     url: "https://52.17.126.64:8080/wf-dniprorada/service/identity/users/kermit"
     **/
     var currentUser = {};
+    var sessionSettings;
 
-    if ($cookieStore.get('auth') && $cookieStore.get('user')) {
+    if ($cookieStore.get('user')) {
       currentUser = $cookieStore.get('user');
+    }
+
+    if ($cookieStore.get('sessionSettings')) {
+      sessionSettings = $cookieStore.get('sessionSettings');
     }
 
     return {
@@ -27,14 +32,10 @@ angular.module('dashboardJsApp')
       login: function(user, callback) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();
-        var creds = 'Basic ' + Base64.encode(user.login + ':' + user.password);
 
         var req = {
           method: 'POST',
           url: '/auth/activiti',
-          headers: {
-            'Authorization': creds
-          },
           data: {
             login: user.login,
             password: user.password
@@ -43,9 +44,7 @@ angular.module('dashboardJsApp')
 
         $http(req).
         success(function(data) {
-          $cookieStore.put('auth', creds);
-          $cookieStore.put('user', data);
-          currentUser = data;
+          currentUser = JSON.parse(data);
           deferred.resolve(data);
           return cb();
         }).
@@ -58,15 +57,59 @@ angular.module('dashboardJsApp')
         return deferred.promise;
       },
 
+      pingSession: function(callback) {
+        var cb = callback || angular.noop;
+        var deferred = $q.defer();
+
+        var req = {
+          method: 'POST',
+          url: '/auth/activiti/ping',
+        }
+
+        $http(req).
+        success(function(data) {
+          deferred.resolve(data);
+          return cb();
+        }).
+        error(function(err) {
+          this.logout();
+          deferred.reject(err);
+          return cb(err);
+        }.bind(this));
+
+        return deferred.promise;
+      },
       /**
        * Delete access token and user info
        *
        * @param  {Function}
        */
-      logout: function() {
-        $cookieStore.remove('auth');
+      logout: function(callback) {
         $cookieStore.remove('user');
+        $cookieStore.remove('sessionSettings');
+        $cookieStore.remove('JSESSIONID');
         currentUser = {};
+        sessionSettings = undefined;
+
+        var cb = callback || angular.noop;
+        var deferred = $q.defer();
+
+        var req = {
+          method: 'POST',
+          url: '/auth/activiti/logout',
+        }
+
+        $http(req).
+        success(function(data) {
+          deferred.resolve(data);
+          return cb();
+        }).
+        error(function(err) {
+          deferred.reject(err);
+          return cb(err);
+        }.bind(this));
+
+        return deferred.promise;
       },
 
       /**
@@ -76,6 +119,10 @@ angular.module('dashboardJsApp')
        */
       getCurrentUser: function() {
         return currentUser;
+      },
+
+      getSessionSettings: function() {
+        return sessionSettings;
       },
 
       /**

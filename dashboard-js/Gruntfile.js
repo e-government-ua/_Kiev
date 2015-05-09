@@ -55,6 +55,9 @@ module.exports = function (grunt) {
       }
     },
     watch: {
+      options: {
+        livereload: 1337
+      },
       injectJS: {
         files: [
           '<%= yeoman.client %>/{app,components}/**/*.js',
@@ -93,7 +96,7 @@ module.exports = function (grunt) {
           '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
         options: {
-          livereload: true
+          livereload: 1337
         }
       },
       express: {
@@ -102,7 +105,7 @@ module.exports = function (grunt) {
         ],
         tasks: ['express:dev', 'wait'],
         options: {
-          livereload: true,
+          livereload: 1337,
           nospawn: true //Without this option specified express won't be reloaded
         }
       }
@@ -357,6 +360,7 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>',
           src: [
             'package.json',
+            'process.json',
             'server/**/*'
           ]
         }]
@@ -513,7 +517,15 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
+      return grunt.task.run([
+        'build',
+        'test:client',
+        'env:all',
+        'env:prod',
+        'express:prod',
+        'wait',
+        'open',
+        'express-keepalive']);
     }
 
     if (target === 'debug') {

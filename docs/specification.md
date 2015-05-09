@@ -1,6 +1,6 @@
 ### Custom Activiti RESTfull APi Specification
 
-##### Baic Headers
+##### Mandatory HTTP Headers
 
 | Name        | Value           |
 | ------------- |:-------------:|
@@ -8,11 +8,57 @@
 | Accept | application/json |
 | Authorization | Basic ... |
 
-#### 1. Start process
+#### 1. Login user
+
+**HTTP Metod: POST**
+
+**HTTP Context: https://seriver:port/wf-dniprorada/serivce/auth/login**
+
+| Name        | Value           |
+| ------------- |:-------------:|
+| Content-Type | application/x-www-form-urlencoded |
+
+sLogin - Логин пользователя
+sPassword - Пароль пользователя
+
+**Request**
+
+```text
+    sLogin=user&sPassword=password
+```
+
+**Response**
+
+```json
+	{"session":"true"} //[1..1]
+```
+
+true - Пользователь авторизирован
+false - Имя пользователя или пароль не корректны
+
+#### 2. Logout user
+
+**HTTP Metod: POST/DELETE**
+
+**HTTP Context: https://seriver:port/wf-dniprorada/serivce/auth/logout**
+
+Наличие cookie JSESSIONID
+
+**Response**
+
+```json
+	{"session":"97AE7CA414A5DA85749FE379CC843796"}
+```
+
+true - Пользователь авторизирован
+false - Имя пользователя или пароль не корректны
+
+
+#### 3. Start process
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/rest/start-process/{key}**
+**HTTP Context: https://seriver:port/wf-dniprorada/serivce/rest/start-process/{key}**
 
 {key} - Ключ процесса
 
@@ -24,11 +70,11 @@
 	}
 ```
 
-#### 2. Get tasks
+#### 4. Get tasks
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/rest/tasks/{assignee}**
+**HTTP Context: https://seriver:port/wf-dniprorada/serivce/rest/tasks/{assignee}**
 
 {assignee} - Владелец
 
@@ -59,11 +105,11 @@
 	]
 ```
 
-#### 3. Process definitions
+#### 5. Process definitions
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/rest/process-definitions**
+**HTTP Context: https://seriver:port/wf-dniprorada/serivce/rest/process-definitions**
 
 **Response**
 
@@ -83,4 +129,88 @@
 		    "suspended": true                                                 //[1..1]
 	  }
 	]
+```
+#### 6. Download file from DB
+Сервис загрузки прикрепленного к заявке файла из постоянной базы:
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://seriver:port/wf-dniprorada/service/rest/download_file_from_db?taskId=XXX&attachmentId=XXX&nFile=XXX**
+
+{taskId} - ид задачи
+{attachmentID} - ID прикрепленного файла
+{nFile} - порядковый номер прикрепленного файла
+
+https://52.17.126.64:8080/wf-dniprorada/service/rest/file/download_file_from_db?taskId=82596&attachmentId=6726532&nFile=7
+
+#### 7. Merchants
+Сервис работы с мерчантами
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://seriver:port/wf-dniprorada/service/merchant/getMerchants** - весь список мерчантов
+
+**Response**
+
+```json					
+	[				        //[0..N]
+	{"idOwner":"14360570"   //[1..1]
+	 "ownerName":"ПриватБанк" //[1..1]
+	 "id":"1" 				//[1..1]
+	}  
+	]
+```
+
+
+**HTTP Metod: DELETE**
+
+**HTTP Context: http://seriver:port/wf-dniprorada/service/merchant/removeMerchant** - удалить мерчанта
+
+| Name        | Value           |
+| ------------- |:-------------:|
+| Content-Type | application/x-www-form-urlencoded |
+
+idOwner - ОКПО
+id - id мерчанта
+
+**Request**
+
+```text
+    idOwner=idOwner&id=id
+```
+
+**HTTP Metod: POST**
+
+**HTTP Context: http://seriver:port/wf-dniprorada/service/merchant/setMerchant** - обновить информацию мерчанта
+
+| Name        | Value           |
+| ------------- |:-------------:|
+| Content-Type | application/x-www-form-urlencoded |
+
+idOwner - ОКПО
+ownerName - название организации
+id - id мерчанта
+
+**Request**
+
+```text
+    idOwner=idOwner&ownerName=ownerName&id=id
+```
+
+**HTTP Metod: PUT**
+
+**HTTP Context: http://seriver:port/wf-dniprorada/service/merchant/addMerchant** - добавить мерчанта
+
+| Name        | Value           |
+| ------------- |:-------------:|
+| Content-Type | application/x-www-form-urlencoded |
+
+idOwner - ОКПО
+ownerName - название организации
+id - id мерчанта
+
+**Request**
+
+```text
+    idOwner=idOwner&ownerName=ownerName&id=id
 ```

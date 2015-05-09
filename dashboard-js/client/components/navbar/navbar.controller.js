@@ -4,7 +4,7 @@ angular.module('dashboardJsApp')
   .controller('NavbarCtrl', function($scope, $location, Auth) {
     $scope.menu = [{
       'title': 'Задачі',
-      'link': '/'
+      'link': '/tasks'
     }];
 
     $scope.isCollapsed = true;
@@ -15,6 +15,10 @@ angular.module('dashboardJsApp')
       var user = Auth.getCurrentUser();
       return user.firstName + ' ' + user.lastName;
     };
+
+    $scope.goToTasks = function(){
+      $location.path('/tasks');
+    }
 
     $scope.logout = function() {
       Auth.logout();
