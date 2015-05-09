@@ -41,10 +41,10 @@
 							<div class="col-md-5">{{property.name}}:</div>
 							
 							<div class="col-md-3" ng-class="{'has-error': form[property.id].$invalid}" ng-if="!data.fields[property.id]">
-								<input type="text" name="{{property.id}}" ng-model="data.bankid[property.id]" ng-required="property.required" class="form-control" value="">
+								<input type="text" name="{{property.id}}" ng-model="data.formData.params[property.id]" ng-required="property.required" class="form-control" value="">
 							</div>
-							<div class="col-md-3" ng-if="data.fields[property.id]" ng-bind="data.bankid[property.id]">
-								<input type="hidden" name="{{property.id}}" ng-model="data.bankid[property.id]" ng-required="property.required" class="form-control" value="">
+							<div class="col-md-3" ng-if="data.fields[property.id]" ng-bind="data.formData.params[property.id]">
+								<input type="hidden" name="{{property.id}}" ng-model="data.formData.params[property.id]" ng-required="property.required" class="form-control" value="">
 							</div>
 							
 							<div class="col-md-4"></div>

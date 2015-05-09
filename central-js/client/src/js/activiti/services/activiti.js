@@ -13,8 +13,15 @@ define('activiti/service', ['angularAMD'], function (angularAMD) {
 			});
 		};
 		
-		this.submitForm = function(form) {
-			console.log('submitForm', form);
+		this.submitForm = function(oServiceData, formData) {
+			var url = oServiceData.sURL + oServiceData.oData.sPath;
+			var data = {
+				'url': url
+			};
+			return $http.post('./api/process-form', angular.extend(data, formData), {
+			}).then(function(response) {
+				return response.data;
+			});
 		};
 	}]);
 });
