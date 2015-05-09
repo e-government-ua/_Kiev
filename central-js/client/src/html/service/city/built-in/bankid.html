@@ -42,7 +42,7 @@
 							
 							<div class="col-md-3" ng-class="{'has-error': form.$submitted && form[property.id].$invalid}" ng-if="!data.fields[property.id]" ng-switch on="property.type">
 								<input ng-switch-when="string" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id]" ng-required="property.required" class="form-control" value="">
-								<input ng-switch-when="long" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id]" ng-required="property.required" class="form-control" value="">
+								<input ng-switch-when="long" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id]" ng-pattern="/^\d+$/" ng-required="property.required" class="form-control" value="">
 								<input ng-switch-when="date" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id]" ng-required="property.required" class="form-control" value="">
 								<select ng-switch-when="enum" name="{{property.id}}" ng-model="data.formData.params[property.id]" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in property.enumValues" ng-required="property.required" class="form-control"></select>
 							</div>
@@ -50,7 +50,10 @@
 								<input type="hidden" name="{{property.id}}" ng-model="data.formData.params[property.id]" ng-required="property.required" class="form-control" value="">
 							</div>
 							
-							<div class="col-md-4"></div>
+							<div class="col-md-4" style="color:#a94442" ng-if="form.$submitted" ng-messages="form[property.id].$error">
+								<div ng-message="required">Необхідно заповнити.</div>
+								<div ng-message="pattern">Значення має бути числом.</div>
+							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-5"></div>
