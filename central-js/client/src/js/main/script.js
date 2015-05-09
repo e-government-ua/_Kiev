@@ -29,7 +29,7 @@ define(['angularAMD', 'templates'], function (angularAMD) {
     }]);
 	
     app.config(['$urlRouterProvider', function ($urlRouterProvider) {
-		$urlRouterProvider.when('', '/index');
+		$urlRouterProvider.when('/', '/index');
         $urlRouterProvider.otherwise('/404');
     }]);
 
