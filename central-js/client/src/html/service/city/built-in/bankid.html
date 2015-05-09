@@ -36,18 +36,23 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="highlight">
-					<form>
-						<div class="row" ng-repeat="property in ActivitiForm.formProperties track by property.id">
+					<form name="form" novalidate>
+						<div class="row" ng-repeat="property in ActivitiForm.formProperties track by property.id" ng-if="property.id != 'processName'">
 							<div class="col-md-5">{{property.name}}:</div>
-							<div class="col-md-3">
-								<input type="text" ng-model="data.bankid[property.id]" class="form-control" value="">
+							
+							<div class="col-md-3" ng-class="{'has-error': form.$submitted && form[property.id].$invalid}" ng-if="!data.fields[property.id]">
+								<input type="text" name="{{property.id}}" ng-model="data.formData.params[property.id]" ng-required="property.required" class="form-control" value="">
 							</div>
+							<div class="col-md-3" ng-if="data.fields[property.id]" ng-bind="data.formData.params[property.id]">
+								<input type="hidden" name="{{property.id}}" ng-model="data.formData.params[property.id]" ng-required="property.required" class="form-control" value="">
+							</div>
+							
 							<div class="col-md-4"></div>
 						</div>
 						<div class="row">
 							<div class="col-md-5"></div>
 							<div class="col-md-3">
-								<button class="btn btn-info">Замовити довідку</button>
+								<button class="btn btn-info" ng-click="submit(form)">Замовити довідку</button>
 							</div>
 							<div class="col-md-4"></div>
 						</div>

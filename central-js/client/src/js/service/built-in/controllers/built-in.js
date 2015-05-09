@@ -6,8 +6,9 @@ define('service/built-in/controller', ['angularAMD'], function (angularAMD) {
 });
 
 define('service/built-in/bankid/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceBuiltInBankIDController', ['$state', '$stateParams', '$scope', 'BankIDAccount', 'ActivitiForm',
-		function($state, $stateParams, $scope, BankIDAccount, ActivitiForm) {
+	angularAMD.controller('ServiceBuiltInBankIDController', [
+		'$state', '$stateParams', '$scope', 'ActivitiService', 'oServiceData', 'BankIDAccount', 'ActivitiForm',
+		function($state, $stateParams, $scope, ActivitiService, oServiceData, BankIDAccount, ActivitiForm) {
 			angular.forEach($scope.places.aRegion, function(value, key) {
 				if($stateParams.region == value.nID) {
 					$scope.data.region = value;
@@ -25,13 +26,26 @@ define('service/built-in/bankid/controller', ['angularAMD'], function (angularAM
 			$scope.ActivitiForm = ActivitiForm;
 			
 			$scope.data = $scope.data || {};
-			$scope.data.bankid = {};
+			$scope.data.fields = {};
+			$scope.data.formData = {};
+			$scope.data.formData.params = {};
+			$scope.data.formData.params.processName = '';
+			$scope.data.formData.processDefinitionId = ActivitiForm.processDefinitionId;
 			
 			angular.forEach(BankIDAccount.customer, function(value, key) {
-				$scope.data.bankid['bankId'+key] = value;
+				var field = 'bankId'+key;
+				var data = $scope.data;
+				
+				data.fields[field] = true;
+				data.formData.params[field] = value;
 			});
 			
-			console.log($scope.data);
+			$scope.submit = function(form) {
+				form.$setSubmitted();
+				return form.$valid ?
+					ActivitiService.submitForm(oServiceData, $scope.data.formData):
+					false;
+			};
 		}
 	]);
 });

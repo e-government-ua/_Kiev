@@ -19,17 +19,18 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		html2js: {
-			main: {
-				src: [
-					'./src/html/catalog/*.html',
-					'./src/html/service/**/*.html',
-					'./src/html/documents/*.html',
-					'./src/html/journal/*.html'
-				],
-				dest: './build/js/templates.js'
-			}
-		},
+        html2js: {
+            main: {
+                src: [
+                    './src/html/catalog/*.html',
+                    './src/html/service/**/*.html',
+                    './src/html/documents/*.html',
+                    './src/html/journal/*.html',
+                    './src/html/404/*.html'
+                ],
+                dest: './build/js/templates.js'
+            }
+        },
 		git_deploy: {
 			your_target: {
 				options: {
@@ -118,6 +119,10 @@ module.exports = function(grunt) {
 						src: ['./src/js/journal/**/*.js'],
 						dest: './tmp/js/concat/app/journal.js'
 					},
+                    {
+                        src: ['./src/js/404/**/*.js'],
+                        dest: './tmp/js/concat/app/404.js'
+                    },
 					{
 						src: [
 							'./src/js/bankid/**/*.js',
@@ -169,6 +174,10 @@ module.exports = function(grunt) {
 						src: ['./src/js/journal/**/*.js'],
 						dest: './tmp/js/concat/app/journal.js'
 					},
+                    {
+                        src: ['./src/js/404/**/*.js'],
+                        dest: './tmp/js/concat/app/404.js'
+                    },
 					{
 						src: [
 							'./src/js/bankid/**/*.js',

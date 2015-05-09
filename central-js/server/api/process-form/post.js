@@ -3,20 +3,19 @@ var router = express.Router();
 
 router.use(function(req, res, next) {
 	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-	var account = require('./account.controller');
+	var processForm = require('./form.controller');
 	
 	var config = require('../../config.js');
-	var bankid = config.bankid;
+	var activiti = config.activiti;
 	
 	var options = {
-		protocol: bankid.protocol,
-		hostname: bankid.hostname,
-		path: '/ResourceService',
-		params: {
-			client_id: bankid.client_id,
-			client_secret: bankid.client_secret,
-			access_token: req.query.access_token || null
-		}
+		protocol: activiti.protocol,
+		hostname: activiti.hostname,
+		port: activiti.port,
+		path: activiti.path,
+		username: activiti.username,
+		password: activiti.password,
+		formData: req.body
 	};
 	
 	var callback = function(error, response, body) {
@@ -24,7 +23,7 @@ router.use(function(req, res, next) {
 		res.end();
 	}
 	
-	account.index(options, callback);
+	processForm.post(options, callback);
 });
 
 module.exports = router;
