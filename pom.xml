@@ -50,6 +50,7 @@
 		<easymock.version>3.0</easymock.version>
 		<hibernate.version>4.3.9.Final</hibernate.version>
 		<liquibase.version>3.3.3</liquibase.version>
+		<java.object.merger.version.version>0.8.5.1</java.object.merger.version.version>
 	</properties>
 
 	<distributionManagement>
@@ -253,6 +254,14 @@
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-core</artifactId>
 				<version>${liquibase.version}</version>
+			</dependency>
+
+			<!-- Other -->
+
+			<dependency>
+				<groupId>net.sf.brunneng.jom</groupId>
+				<artifactId>java-object-merger</artifactId>
+				<version>${java.object.merger.version.version}</version>
 			</dependency>
 
 			<!-- Dependencies for tests -->

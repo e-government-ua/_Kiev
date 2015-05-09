@@ -15,6 +15,8 @@
             </column>
         </createTable>
 
+        <addAutoIncrement columnName="nID" tableName="Region" columnDataType="int" incrementBy="1" startWith="1000"/>
+
         <loadData encoding="UTF-8" file="data/Region.csv" tableName="Region" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sName" type="STRING"/>
@@ -59,6 +61,8 @@
             </column>
         </createTable>
 
+        <addAutoIncrement columnName="nID" tableName="Category" columnDataType="int" incrementBy="1" startWith="1000"/>
+
         <loadData encoding="UTF-8" file="data/Category.csv" tableName="Category" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sID" type="STRING"/>
@@ -88,6 +92,8 @@
             </column>
         </createTable>
 
+        <addAutoIncrement columnName="nID" tableName="Subcategory" columnDataType="int" incrementBy="1" startWith="1000"/>
+
         <loadData encoding="UTF-8" file="data/Subcategory.csv" tableName="Subcategory" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sID" type="STRING"/>
@@ -109,6 +115,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
+        <addAutoIncrement columnName="nID" tableName="ServiceType" columnDataType="int" incrementBy="1" startWith="1000"/>
 
         <loadData encoding="UTF-8" file="data/ServiceType.csv" tableName="ServiceType" separator=";">
             <column name="nID" type="NUMERIC"/>
@@ -143,6 +151,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
+        <addAutoIncrement columnName="nID" tableName="Service" columnDataType="int"  incrementBy="1" startWith="1000"/>
 
         <loadData encoding="UTF-8" file="data/Service.csv" tableName="Service" separator=";">
             <column name="nID" type="NUMERIC"/>
@@ -185,6 +195,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
+        <addAutoIncrement columnName="nID" tableName="ServiceData" columnDataType="int"  incrementBy="1" startWith="1000"/>
 
         <loadData encoding="UTF-8" file="data/ServiceData.csv" tableName="ServiceData" separator=";">
             <column name="nID" type="NUMERIC"/>

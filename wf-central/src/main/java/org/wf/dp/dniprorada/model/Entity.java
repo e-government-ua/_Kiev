@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import net.sf.brunneng.jom.annotations.Identifier;
 
 /**
  * User: goodg_000
@@ -12,6 +13,7 @@ public abstract class Entity {
    @JsonProperty(value="nID")
    private Integer id;
 
+   @Identifier
    public Integer getId() {
       return id;
    }

@@ -70,10 +70,14 @@
 		<bean id="abstractEntityDao" class="org.wf.dp.dniprorada.dao.AbstractEntityDao"  abstract="true">
 			<property name="sessionFactory" ref="sessionFactory"/>
 		</bean>
-		
-		<bean id="serviceDao" class="org.wf.dp.dniprorada.dao.services.ServiceDaoImpl" parent="abstractEntityDao"/>
-		<bean id="placesDao" class="org.wf.dp.dniprorada.dao.services.PlacesDaoImpl" parent="abstractEntityDao"/>
-		<bean id="categoryDao" class="org.wf.dp.dniprorada.dao.services.CategoryDaoImpl" parent="abstractEntityDao"/>
+
+		<bean id="baseEntityDao" class="org.wf.dp.dniprorada.dao.BaseEntityDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+
+		<bean id="entityService" class="org.wf.dp.dniprorada.service.EntityService">
+			<property name="baseEntityDao" ref="baseEntityDao"/>
+		</bean>
 
 		<tx:advice id="txAdvice" transaction-manager="transactionManager">
 

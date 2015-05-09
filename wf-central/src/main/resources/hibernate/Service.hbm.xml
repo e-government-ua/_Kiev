@@ -17,8 +17,8 @@
         <property name="faq" column="sFAQ" not-null="true"/>
         <property name="law" column="sLaw" not-null="true"/>
 
-        <bag name="serviceDataList" inverse="true" lazy="false" fetch="select">
-            <key column="nID_Service"/>
+        <bag name="serviceDataList" inverse="false" lazy="false" fetch="select" cascade="all-delete-orphan">
+            <key column="nID_Service" not-null="true"/>
             <one-to-many class="org.wf.dp.dniprorada.model.ServiceData"/>
         </bag>
 

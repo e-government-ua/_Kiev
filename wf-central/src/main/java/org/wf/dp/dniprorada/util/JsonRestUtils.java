@@ -35,7 +35,7 @@ public final class JsonRestUtils {
 
    public static ResponseEntity toJsonResponse(Object res) {
       ObjectMapper mapper = new ObjectMapper();
-      mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+      mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
       String json;
       try {

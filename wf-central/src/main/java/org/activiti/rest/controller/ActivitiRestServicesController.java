@@ -1,21 +1,20 @@
 package org.activiti.rest.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.sf.brunneng.jom.MergingContext;
+import net.sf.brunneng.jom.diff.ChangeType;
+import net.sf.brunneng.jom.diff.apply.IBeanFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.wf.dp.dniprorada.dao.services.CategoryDao;
-import org.wf.dp.dniprorada.dao.services.PlacesDao;
-import org.wf.dp.dniprorada.dao.services.ServiceDao;
-import org.wf.dp.dniprorada.model.Category;
-import org.wf.dp.dniprorada.model.Region;
-import org.wf.dp.dniprorada.model.Service;
-import org.wf.dp.dniprorada.model.ServiceData;
-import org.wf.dp.dniprorada.model.Subcategory;
+import org.wf.dp.dniprorada.dao.BaseEntityDao;
+import org.wf.dp.dniprorada.model.*;
+import org.wf.dp.dniprorada.service.EntityService;
 import org.wf.dp.dniprorada.util.JsonRestUtils;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 
 @Controller
@@ -23,17 +22,14 @@ import java.util.List;
 public class ActivitiRestServicesController {
 
 	@Autowired
-	private PlacesDao placesDao;
+	private BaseEntityDao baseEntityDao;
 
 	@Autowired
-	private ServiceDao serviceDao;
-
-	@Autowired
-	private CategoryDao categoryDao;
+	private EntityService entityService;
 
 	@RequestMapping(value = "/getService", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity getService(@RequestParam(value = "nID") Integer nID) {
-		Service service = serviceDao.getById(nID);
+		Service service = baseEntityDao.getById(Service.class, nID);
 		return toJsonResponse(service);
 	}
 
@@ -42,8 +38,8 @@ public class ActivitiRestServicesController {
 
 		Service service = JsonRestUtils.readObject(jsonData, Service.class);
 
-		serviceDao.saveOrUpdate(service);
-		return toJsonResponse(service);
+		Service updatedService = entityService.update(service);
+		return toJsonResponse(updatedService);
 	}
 
 	private ResponseEntity toJsonResponse(Service service) {
@@ -56,13 +52,13 @@ public class ActivitiRestServicesController {
 
 	@RequestMapping(value = "/getPlaces", method = RequestMethod.GET)
 	public @ResponseBody List<Region> getPlaces() {
-		List<Region> list = placesDao.getAll();
+		List<Region> list = baseEntityDao.getAll(Region.class);
 		return list;
 	}
 
 	@RequestMapping(value = "/getServices", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity getServices() {
-		List<Category> list = categoryDao.getAll();
+		List<Category> list = baseEntityDao.getAll(Category.class);
 		for(Category cat : list){
 			for(Subcategory sub : cat.getSubcategoryList()){
 				sub.setCategory(null);
@@ -81,12 +77,11 @@ public class ActivitiRestServicesController {
 	}
 
 	@RequestMapping(value = "/setServices", method = RequestMethod.POST)
-	public Category[] setServices(@RequestParam(value = "json_data") String jsonData) throws IOException {
+	public Category[] setServices(@RequestBody String jsonData) throws IOException {
 
-		Category[] categories = new ObjectMapper().readValue(jsonData,
-				  Category[].class);
+		Category[] categories = new ObjectMapper().readValue(jsonData, Category[].class);
 
-		categoryDao.saveOrUpdateAll(categories);
+		baseEntityDao.saveOrUpdateAll(categories);
 
 		return categories;
 	}
