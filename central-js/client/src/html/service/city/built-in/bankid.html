@@ -39,15 +39,20 @@
 					<form name="form" novalidate>
 						<div class="row" ng-repeat="property in ActivitiForm.formProperties track by property.id" ng-if="property.id != 'processName'">
 							<div class="col-md-5">{{property.name}}:</div>
-							
-							<div class="col-md-3" ng-class="{'has-error': form.$submitted && form[property.id].$invalid}" ng-if="!data.fields[property.id]" ng-switch on="property.type">
-								<input ng-switch-when="string" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id]" ng-required="property.required" class="form-control" value="">
-								<input ng-switch-when="long" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id]" ng-pattern="/^\d+$/" ng-required="property.required" class="form-control" value="">
-								<input ng-switch-when="date" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id]" ng-required="property.required" class="form-control" value="">
-								<select ng-switch-when="enum" name="{{property.id}}" ng-model="data.formData.params[property.id]" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in property.enumValues" ng-required="property.required" class="form-control"></select>
+
+							<div class="col-md-3" ng-class="{'has-error': form.$submitted && form[property.id].$invalid}" ng-if="!data.formData.fields[property.id]" ng-switch on="property.type">
+								<input ng-switch-when="string" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required" class="form-control" value="">
+								<input ng-switch-when="long" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-pattern="/^\d+$/" ng-required="property.required" class="form-control" value="">
+								<p class="input-group" ng-switch-when="date">
+									<input type="text" name="{{property.id}}" datepicker-popup="{{data.formData.params[property.id].format}}" is-open="data.formData.params[property.id].opened" datepicker-options="data.formData.params[property.id].options" ng-model="data.formData.params[property.id].value" ng-required="property.required" ng-readonly="true" close-text="Close" class="form-control" value="">	
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default" ng-click="data.formData.params[property.id].open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+									</span>
+								</p>
+								<select ng-switch-when="enum" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in property.enumValues" ng-required="property.required" class="form-control"></select>
 							</div>
-							<div class="col-md-3" ng-if="data.fields[property.id]" ng-bind="data.formData.params[property.id]">
-								<input type="hidden" name="{{property.id}}" ng-model="data.formData.params[property.id]" ng-required="property.required" class="form-control" value="">
+							<div class="col-md-3" ng-if="data.formData.fields[property.id]" ng-bind="data.formData.params[property.id].value">
+								<input type="hidden" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required" class="form-control" value="">
 							</div>
 							
 							<div class="col-md-4" style="color:#a94442" ng-if="form.$submitted" ng-messages="form[property.id].$error">
