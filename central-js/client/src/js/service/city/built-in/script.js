@@ -58,6 +58,24 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
 					})
 				}
 			})
+			.state('service.general.city.built-in.bankid.submitted', {
+				url: null,
+				data: { id: null },
+				onExit:['$state', function($state) {
+					var state = $state.get('service.general.city.built-in.bankid.submitted');
+					state.data = { id: null };
+				}],
+				views: {
+					'content@service.general.city': angularAMD.route({
+                        templateProvider: ['$templateCache', function($templateCache) {
+							return $templateCache.get('html/service/city/built-in/bankid.submitted.html');
+						}],
+						controller: ['$state', '$scope', function($state, $scope) {
+							$scope.state = $state.get('service.general.city.built-in.bankid.submitted');
+						}]
+					})
+				}
+			});
     }]);	
     return app;
 });
