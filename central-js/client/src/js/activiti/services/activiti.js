@@ -18,7 +18,7 @@ define('activiti/service', ['angularAMD'], function (angularAMD) {
 			var data = {
 				'url': url
 			};
-			return $http.post('./api/process-form', angular.extend(data, formData), {
+			return $http.post('./api/process-form', angular.extend(data, formData.getRequestObject()), {
 			}).then(function(response) {
 				return response.data;
 			});

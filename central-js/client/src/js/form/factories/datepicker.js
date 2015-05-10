@@ -1,5 +1,5 @@
 define('datepicker/factory', ['angularAMD'], function (angularAMD) {
-    angularAMD.factory('DatepickerFactory', function () {
+    angularAMD.factory('DatepickerFactory', ['$filter', function ($filter) {
         var datepicker = function () {
             this.value = null;
             this.format = 'dd/MM/yyyy';
@@ -21,7 +21,11 @@ define('datepicker/factory', ['angularAMD'], function (angularAMD) {
 
             this.opened = true;
         };
+		
+		datepicker.prototype.get = function() {
+			return $filter('date')(this.value, this.format);
+		};
 
         return datepicker;
-    });
+    }]);
 });

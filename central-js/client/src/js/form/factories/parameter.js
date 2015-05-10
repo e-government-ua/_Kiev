@@ -3,6 +3,10 @@ define('parameter/factory', ['angularAMD'], function (angularAMD) {
         var parameter = function () {
             this.value = null;
         };
+		
+		parameter.prototype.get = function() {
+			return this.value;
+		};
 
         return parameter;
     });

@@ -41,6 +41,18 @@ define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/facto
 				}, this);
 			};
 			
+			FormDataFactory.prototype.getRequestObject = function() {
+				var data = {
+					processDefinitionId: this.processDefinitionId,
+					params: {}
+				};
+				for(var key in this.params) {
+					var param = this.params[key];
+					data.params[key] = param.get();
+				}
+				return data;
+			};
+			
 			return FormDataFactory;
 		}
 	]);
