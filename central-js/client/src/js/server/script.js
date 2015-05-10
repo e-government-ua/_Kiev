@@ -885,6 +885,7 @@ define('server', ['angularAMD'], function (angularAMD) {
 		$httpBackend.whenGET('./data.json').passThrough();
 		$httpBackend.whenGET(/\/api\/bankid/).passThrough();
 		$httpBackend.whenGET(/\/api\/process-form/).passThrough();
+		$httpBackend.whenPOST(/\/api\/process-form/).passThrough();
 	}]);
 	
     return app;

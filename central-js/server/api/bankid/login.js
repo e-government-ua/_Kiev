@@ -11,7 +11,7 @@ router.use(function(req, res, next) {
 	var options = {
 		protocol: bankid.protocol,
 		hostname: bankid.hostname,
-		path: bankid.path,
+		path: '/DataAccessService',
 		params: {
 			client_id: bankid.client_id,
 			client_secret: bankid.client_secret,

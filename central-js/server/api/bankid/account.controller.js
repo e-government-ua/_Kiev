@@ -6,11 +6,8 @@ module.exports.index = function(options, callback) {
 		'url': url,
 		'headers': {
 			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + options.params.access_token,
+			'Authorization': 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id,
 			'Accept': 'application/json'
-		},
-		'qs': {
-			'client_id': options.params.client_id
 		},
 		json: true,
 		body: {

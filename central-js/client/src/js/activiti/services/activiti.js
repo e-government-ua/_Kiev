@@ -12,5 +12,16 @@ define('activiti/service', ['angularAMD'], function (angularAMD) {
 				return response.data;
 			});
 		};
+		
+		this.submitForm = function(oServiceData, formData) {
+			var url = oServiceData.sURL + oServiceData.oData.sPath;
+			var data = {
+				'url': url
+			};
+			return $http.post('./api/process-form', angular.extend(data, formData.getRequestObject()), {
+			}).then(function(response) {
+				return response.data;
+			});
+		};
 	}]);
 });

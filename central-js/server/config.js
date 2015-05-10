@@ -1,4 +1,7 @@
 'use strict';
+
+// use local_config.js if you need to locally change some of the settings
+// as described in README
 module.exports = {
 	'server': {
 		'protocol': 'https',
@@ -18,7 +21,6 @@ module.exports = {
 		'protocol': 'https',
 		'hostname': 'bankid.privatbank.ua',
 		'port': null,
-		'path': '/DataAccessService',
 		'client_id': 'dniprorada',
 		'client_secret': 'NzVmYTI5NGJjMDg3OThlYjljNDY5YjYxYjJiMjJhNA=='
 	}

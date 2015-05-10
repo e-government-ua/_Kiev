@@ -21,7 +21,7 @@
 	</div>
 	<div class="list-group-item disabled">
 		<div class="row no-margin-bottom">
-			<div class="col-md-11">Крок 2. Ви увійшли як {{account.customer.firstName}} {{account.customer.middleName}} {{account.customer.lastName}}</div>
+			<div class="col-md-11">Крок 2. Ви увійшли як {{data.formData.params.bankIdfirstName.value}} {{data.formData.params.bankIdmiddleName.value}} {{data.formData.params.bankIdlastName.value}}</div>
 			<div class="col-md-1">
 				<div class="link-button">
 					<a ng-click="step2()">Змінити</a>
@@ -36,18 +36,34 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="highlight">
-					<form>
-						<div class="row" ng-repeat="property in ActivitiForm.formProperties track by property.id">
+					<form name="form" novalidate>
+						<div class="row" ng-repeat="property in ActivitiForm.formProperties track by property.id" ng-if="property.id != 'processName'">
 							<div class="col-md-5">{{property.name}}:</div>
-							<div class="col-md-3">
-								<input type="text" ng-model="data.bankid[property.id]" class="form-control" value="">
+
+							<div class="col-md-3" ng-class="{'has-error': form.$submitted && form[property.id].$invalid}" ng-if="!data.formData.fields[property.id]" ng-switch on="property.type">
+								<input ng-switch-when="string" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required" class="form-control" value="">
+								<input ng-switch-when="long" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-pattern="/^\d+$/" ng-required="property.required" class="form-control" value="">
+								<p class="input-group" ng-switch-when="date">
+									<input type="text" name="{{property.id}}" datepicker-popup="{{data.formData.params[property.id].format}}" is-open="data.formData.params[property.id].opened" datepicker-options="data.formData.params[property.id].options" ng-model="data.formData.params[property.id].value" ng-required="property.required" ng-readonly="true" close-text="Close" class="form-control" value="">	
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default" ng-click="data.formData.params[property.id].open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+									</span>
+								</p>
+								<select ng-switch-when="enum" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in property.enumValues" ng-required="property.required" class="form-control"></select>
 							</div>
-							<div class="col-md-4"></div>
+							<div class="col-md-3" ng-if="data.formData.fields[property.id]" ng-bind="data.formData.params[property.id].value">
+								<input type="hidden" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required" class="form-control" value="">
+							</div>
+							
+							<div class="col-md-4" style="color:#a94442" ng-if="form.$submitted" ng-messages="form[property.id].$error">
+								<div ng-message="required">Необхідно заповнити.</div>
+								<div ng-message="pattern">Значення має бути числом.</div>
+							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-5"></div>
 							<div class="col-md-3">
-								<button class="btn btn-info">Замовити довідку</button>
+								<button class="btn btn-info" ng-click="submit(form)">Замовити довідку</button>
 							</div>
 							<div class="col-md-4"></div>
 						</div>

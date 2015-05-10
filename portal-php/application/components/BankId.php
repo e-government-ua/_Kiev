@@ -20,7 +20,7 @@ class BankId extends OAuth2
     /**
      * @inheritdoc
      */
-    public $apiBaseUrl = 'https://bankid.org.ua/DataAccessService/checked';
+    public $apiBaseUrl = 'https://bankid.org.ua/ResourceService/checked';
 
     /**
      *
