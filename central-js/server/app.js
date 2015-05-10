@@ -1,5 +1,7 @@
 var express = require('express');
 var ejs = require('ejs');
+var bodyParser = require('body-parser');
+var multer = require('multer'); 
 var fs = require('fs');
 
 var config = require('./config');
@@ -16,6 +18,11 @@ catch( e ) {
 
 var app = express();
 app.engine('html', ejs.renderFile);
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(multer()); // for parsing multipart/form-data
+
 app.use(require('./routes'));
 
 var server = null;

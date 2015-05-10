@@ -21,7 +21,6 @@ module.exports = {
 		'protocol': 'https',
 		'hostname': 'bankid.privatbank.ua',
 		'port': null,
-		'path': '/DataAccessService',
 		'client_id': 'dniprorada',
 		'client_secret': 'NzVmYTI5NGJjMDg3OThlYjljNDY5YjYxYjJiMjJhNA=='
 	}
