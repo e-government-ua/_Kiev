@@ -1,4 +1,7 @@
 'use strict';
+
+// use local_config.js if you need to locally change some of the settings
+// as described in README
 module.exports = {
 	'server': {
 		'protocol': 'https',
