@@ -80,7 +80,6 @@
 		</bean>
 
 		<tx:advice id="txAdvice" transaction-manager="transactionManager">
-
 			<tx:attributes>
 				<tx:method name="get*" read-only="true"/>
 				<tx:method name="*"/>
@@ -117,9 +116,10 @@
 				</list>
 			</property>
 			<property name="hibernateProperties">
-				<value>
-					hibernate.dialect=org.hibernate.dialect.HSQLDialect
-				</value>
+				<props>
+					<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+					<prop key="hibernate.globally_quoted_identifiers">${hibernate.globally_quoted_identifiers}</prop>
+				</props>
 			</property>
 		</bean>
 
