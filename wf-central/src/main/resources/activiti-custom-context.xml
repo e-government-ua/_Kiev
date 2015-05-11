@@ -167,11 +167,11 @@
 			<property name="mailServerUseSSL" value="true" />
 			<property name="mailServerUseTLS" value="true" />
 
-
-
 			<property name="history" value="full" />
+		</bean>
 
-
+		<bean id="logExceptionResolver" class="org.wf.dp.dniprorada.logging.LogExceptionsResolver">
+			<property name="order" value="-1000"/>
 		</bean>
 
 		<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean"
