@@ -44,6 +44,13 @@ public class ActivitiRestServicesController {
 		service.setSubcategory(null);
 		for (ServiceData serviceData : service.getServiceDataList()) {
 			serviceData.setService(null);
+			if (serviceData.getCity() != null) {
+				serviceData.getCity().setRegion(null);
+			}
+			if (serviceData.getRegion() != null) {
+				serviceData.getRegion().setCities(null);
+			}
+
 		}
 		return JsonRestUtils.toJsonResponse(service);
 	}
