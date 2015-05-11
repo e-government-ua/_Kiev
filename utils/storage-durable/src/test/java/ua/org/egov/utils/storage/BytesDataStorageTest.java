@@ -1,5 +1,6 @@
 package ua.org.egov.utils.storage;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.org.egov.utils.storage.durable.impl.GridFSFileStorage;
 import ua.org.egov.utils.storage.exceptions.RecordNotFoundException;
 
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 		"/META-INF/spring/ua-org-egov-utils-storage-context.xml",
