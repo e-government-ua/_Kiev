@@ -37,7 +37,6 @@ public class JsonpCallbackFilter implements Filter {
     || sRequestURL.endsWith("/startForm")
     || sRequestURL.endsWith("/startedProcess")){
         String sPath = "service/";
-        log.info();
         int nAt=sRequestURL.indexOf(sPath);
         log.info("Before_sRequestURL {}",sRequestURL);
 //        System.out.println("Before_sRequestURL="+sRequestURL);
