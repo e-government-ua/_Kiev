@@ -69,11 +69,11 @@ public class FileTaskUploadListener implements TaskListener {
 			}
 
 		} catch (MagicParseException e) {
-			LOG.info("MagicParseException" + e.getMessage());
+			LOG.warn("MagicParseException", e);
 		} catch (MagicMatchNotFoundException e) {
-			LOG.info("MagicMatchNotFoundException" + e.getMessage());
+			LOG.warn("MagicMatchNotFoundException", e);
 		} catch (MagicException e) {
-			LOG.info("MagicException" + e.getMessage());
+			LOG.warn("MagicException", e);
 		}
 		return mimiTypeModel;
 	}
