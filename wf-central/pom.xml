@@ -20,6 +20,7 @@
 		<activity.version>5.17.0</activity.version>
 	</properties>
 
+
 	<repositories>
 		<repository>
 			<id>vaadin-addons</id>
@@ -280,6 +281,11 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
 		</dependency>
 
 		<dependency>
