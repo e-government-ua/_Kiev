@@ -430,4 +430,6 @@ a {
 
 .nav-tabs > li > a {
     padding: 0px 55px;
+    line-height: 2.42857143;
+    margin-top: 10px;
 }
