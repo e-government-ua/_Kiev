@@ -426,3 +426,8 @@ a {
     font-weight: bold;
     width: 90px;
 }
+
+
+.nav-tabs > li > a {
+    padding: 0px 55px;
+}
