@@ -101,6 +101,7 @@
 			<modules>
 				<module>auth</module>
 				<module>redis</module>
+				<module>utils</module>
 				<module>wf-base</module>
 				<module>wf-dniprorada</module>
 				<module>wf-central</module>
