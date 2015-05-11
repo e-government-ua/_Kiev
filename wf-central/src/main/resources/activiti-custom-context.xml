@@ -120,7 +120,7 @@
 			<property name="hibernateProperties">
 				<props>
 					<prop key="hibernate.dialect">${hibernate.dialect}</prop>
-					<prop key="hibernate.globally_quoted_identifiers">${hibernate.globally_quoted_identifiers</prop>
+					<prop key="hibernate.globally_quoted_identifiers">${hibernate.globally_quoted_identifiers}</prop>
 				</props>
 			</property>
 		</bean>
