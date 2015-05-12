@@ -272,13 +272,6 @@
 			<artifactId>wf-dniprorada-redis</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
-		<!-- Durable key-value storage -->
-		<dependency>
-			<groupId>org.egov-ua</groupId>
-			<artifactId>org.egov-ua.utils.storage.durable</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
 
 		<!-- Database -->
 		<dependency>
