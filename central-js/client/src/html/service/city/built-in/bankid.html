@@ -39,7 +39,7 @@
 					<form name="form" novalidate>
 						<div class="row" ng-repeat="property in ActivitiForm.formProperties track by property.id" ng-if="property.id != 'processName'">
 							<!--div class="col-md-5">{{property.name}}:</div-->
-							<div class="col-md-5">{{sFieldLabel(property.name)}}:</div>
+							<div class="col-md-5">{{ sFieldLabel(property.name) }}:</div>
                                                         
 
 							<div class="col-md-3" ng-class="{'has-error': form.$submitted && form[property.id].$invalid}" ng-if="!data.formData.fields[property.id]" ng-switch on="property.type">
@@ -59,7 +59,7 @@
 							</div>
 							
 							<div class="col-md-3" style="color:#aaaaaa;width:600px" ng-if="sFieldNotes(property.name)!=null">
-								{{sFieldNotes(property.name)}}
+								{{ sFieldNotes(property.name) }}
 							</div>
                                                         
 							<div class="col-md-4" style="color:#a94442" ng-if="form.$submitted" ng-messages="form[property.id].$error">

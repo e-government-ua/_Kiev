@@ -2,6 +2,28 @@ define('service/built-in/controller', ['angularAMD'], function (angularAMD) {
 	angularAMD.controller('ServiceBuiltInController', ['$location', '$state', '$rootScope', '$scope', function ($location, $state, $rootScope, $scope) {
 		$scope.$location = $location;
 		$scope.$state = $state;
+                
+                        $scope.sFieldLabel = function(sField) {
+                          var s="";
+                          if (sField !== null) {
+                            var a=sField.split(";");
+                            s=a[1].trim();
+                          }
+                          return s;
+                        };
+                        $scope.sFieldNotes = function(sField) {
+                          var s=null;
+                          if (sField !== null) {
+                            var a=sField.split(";");
+                            if(a.length>1){
+                              s=a[1].trim();
+                              if(s==""){
+                                  s=null;
+                              }
+                            }
+                          }
+                          return s;
+                        };                             
     }]);
 });
 
