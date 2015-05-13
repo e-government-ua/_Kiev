@@ -8,28 +8,28 @@
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPhone" name="Телефон" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="objName" name="повна назва об`єкта " type="string"></activiti:formProperty>
-        <activiti:formProperty id="objType" name="тип об`єкта" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objOwn" name="належність об`єкта" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objAddress" name="місце знаходження об`єкта" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objOwnerAddress" name="юридична адреса власника" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objMFO" name="МФО" type="long"></activiti:formProperty>
-        <activiti:formProperty id="objBill" name="розрахунковий рахунок" type="long"></activiti:formProperty>
-        <activiti:formProperty id="objEDRPOU" name="ЄДРПОУ" type="long"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail; на цей e-mail Ви отримаєте результат обробки Вашего звернення" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objName" name="повна назва об`єкта " type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objType" name="тип об`єкта" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objOwn" name="належність об`єкта" type="string"  required="true"></activiti:formProperty>
+        <activiti:formProperty id="objAddress" name="місце знаходження об`єкта" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objOwnerAddress" name="юридична адреса власника" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objMFO" name="МФО" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objBill" name="розрахунковий рахунок" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objEDRPOU" name="ЄДРПОУ" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="objBank" name="Назва банку" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objRegAddress" name="місце державної реєстрації суб`єкта господарювання" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objRegDate" name="дата державної реєстрації суб`єкта господарювання" type="date"></activiti:formProperty>
-        <activiti:formProperty id="objOwnerFio" name="прізвище, ім`я, по батькові керівника" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objActivity" name="вид діяльності" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objSpec" name="спеціалізація об`єкта" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objDocs" name="перелік документів, що підтверджують правомірність зайняття приміщення" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objHealthStandart" name="висновок санітарно-епідеміологічної станції щодо відповідності об`єкта санітарним нормам, дата, номер, термін дії" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objMode" name="режим роботи об`єкта" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objEmployees" name="проектна кількість працюючих, робочих місць" type="long"></activiti:formProperty>
-        <activiti:formProperty id="objArea" name="загальна площа об`єкта, у т.ч. торговельна, виробнича (кв.м)" type="long"></activiti:formProperty>
-        <activiti:formProperty id="objSpecConditions" name="особливі умови здійснення діяльності" type="string"></activiti:formProperty>
-        <activiti:formProperty id="processName" name="Видача картки обліку об’єкта торговельного призначення, сфери послугта з виробництва продуктів харчування" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objRegAddress" name="місце державної реєстрації суб`єкта господарювання" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objRegDate" name="дата державної реєстрації суб`єкта господарювання" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objOwnerFio" name="прізвище, ім`я, по батькові керівника" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objActivity" name="вид діяльності" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objSpec" name="спеціалізація об`єкта" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objDocs" name="перелік документів, що підтверджують правомірність зайняття приміщення" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objHealthStandart" name="висновок санітарно-епідеміологічної станції щодо відповідності об`єкта санітарним нормам, дата, номер, термін дії" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objMode" name="режим роботи об`єкта" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objEmployees" name="проектна кількість працюючих, робочих місць" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objArea" name="загальна площа об`єкта, у т.ч. торговельна, виробнича (кв.м)" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objSpecConditions" name="особливі умови здійснення діяльності" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="processName" name="Видача картки обліку об’єкта торговельного призначення, сфери послугта з виробництва продуктів харчування" type="string" required="false"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
@@ -56,7 +56,6 @@
     </serviceTask>
     <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="management_trade_service_dmr">
       <extensionElements>
-        <activiti:formProperty id="topic" name="Запит" type="string" default="Видача картки обліку об’єкта торговельного призначення, сфери послуг та з виробництва продуктів харчування" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="view_Fio" name="Автор запиту" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="view_objName" name="повна назва об`єкта " type="string" default="${objName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objType" name="тип об`єкта" type="string" default="${objType}" writable="false"></activiti:formProperty>
@@ -72,7 +71,7 @@
         <activiti:formProperty id="view_objOwnerFio" name="прізвище, ім`я, по батькові керівника" type="string" default="${objOwnerFio}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objActivity" name="вид діяльності" type="string" default="${objActivity}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objSpec" name="спеціалізація об`єкта" type="string" default="${objSpec}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="view_objDocs" name="перелік документів, що підтверджують правомірність зайняття приміщення" type="string" default="${objDocs}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="view_objDocs" name="перелік документів, що підтверджують правомірність зайняття приміщення" type="textArea" default="${objDocs}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objHealthStandart" name="висновок санітарно-епідеміологічної станції щодо відповідності об`єкта санітарним нормам, дата, номер, термін дії" type="string" default="${objHealthStandart}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objMode" name="режим роботи об`єкта" type="string" default="${objMode}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objEmployees" name="проектна кількість працюючих, робочих місць" type="long" default="${objEmployees}" writable="false"></activiti:formProperty>
