@@ -7,12 +7,12 @@ module.exports = {
 		'protocol': 'https',
 		'key': '/sybase/cert/server.key',
 		'cert': '/sybase/cert/server.crt',
-		'port': '8443'
+		'port': '443'
 	},
 	'activiti': {
 		'protocol': 'https',
 		'hostname': 'e-gov.org.ua',
-		'port': '8443',
+		'port': '443',
 		'path': '/wf-central/service',
 		'username': 'activiti-master',
 		'password': 'UjhtJnEvf!'
