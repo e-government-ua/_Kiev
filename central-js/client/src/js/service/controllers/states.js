@@ -12,7 +12,7 @@ define('state/service/general/controller', ['angularAMD'], function (angularAMD)
 		
 		var isCity = false;
 		angular.forEach(aServiceData, function(value, key) {
-			if(angular.isNumber(value.nID_City)) {
+			if(value.hasOwnProperty('nID_City')) {
 				isCity = true;
 			}
 		});
@@ -22,7 +22,7 @@ define('state/service/general/controller', ['angularAMD'], function (angularAMD)
 		
 		var isRegion = false;
 		angular.forEach(aServiceData, function(value, key) {
-			if(angular.isNumber(value.nID_Region)) {
+			if(value.hasOwnProperty('nID_Region')) {
 				isRegion = true;
 			}
 		});

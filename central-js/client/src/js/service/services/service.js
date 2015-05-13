@@ -2,11 +2,26 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 	angularAMD.service('ServiceService', ['$http', function($http) {
 		this.get = function(id) {
 			var data = {
-				'id': id
+				'nID': id
 			};
 			return $http.get('./api/service', {
 				params: data,
-				data: data
+				data: data,
+				transformResponse: [function (rawData, headersGetter) {
+					var data = angular.fromJson(rawData);
+					angular.forEach(data.aServiceData, function(oServiceData) {
+						try {
+							oServiceData.oData = angular.fromJson(oServiceData.oData
+								.replace(new RegExp("'",'g'),'"')
+								.replace(new RegExp('sPath','g'), '"sPath"')
+								.replace(new RegExp('oParams','g'), '"oParams"')
+								.replace(new RegExp('processDefinitionId','g'), '"processDefinitionId"'));
+						} catch(e) {
+							oServiceData.oData = {};
+						}
+					});
+					return data;
+				}]
 			}).then(function(response) {
 				return response.data;
 			});

@@ -5,7 +5,7 @@
 				<span>Крок 1. Оберіть свій регіон </span>
 				<div style="display:inline-block">
 					<span>Область</span>
-					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.sName for region in places.aRegion track by region.nID" ng-disabled="data.region"></select>
+					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.sName for region in places track by region.nID" ng-disabled="data.region"></select>
 				</div>
 			</div>
 			<div class="col-md-1" ng-if="data.region">

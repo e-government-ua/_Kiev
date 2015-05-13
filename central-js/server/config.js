@@ -11,9 +11,9 @@ module.exports = {
 	},
 	'activiti': {
 		'protocol': 'https',
-		'hostname': '52.17.126.64',
-		'port': '8080',
-		'path': '/wf-dniprorada/service',
+		'hostname': 'e-gov.org.ua',
+		'port': '8443',
+		'path': '/wf-central/service',
 		'username': 'activiti-master',
 		'password': 'UjhtJnEvf!'
 	},

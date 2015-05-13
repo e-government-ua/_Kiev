@@ -1,7 +1,7 @@
 define('activiti/service', ['angularAMD'], function (angularAMD) {
 	angularAMD.service('ActivitiService', ['$http', function($http) {
 		this.getForm = function(oServiceData) {
-			var url = oServiceData.sURL + oServiceData.oData.sPath + '?processDefinitionId=' + oServiceData.oData.oParams.processDefinitionId;
+			var url = oServiceData.sUrl + oServiceData.oData.sPath + '?processDefinitionId=' + oServiceData.oData.oParams.processDefinitionId;
 			var data = {
 				'url': url
 			};
@@ -14,7 +14,7 @@ define('activiti/service', ['angularAMD'], function (angularAMD) {
 		};
 		
 		this.submitForm = function(oServiceData, formData) {
-			var url = oServiceData.sURL + oServiceData.oData.sPath;
+			var url = oServiceData.sUrl + oServiceData.oData.sPath;
 			var data = {
 				'url': url
 			};

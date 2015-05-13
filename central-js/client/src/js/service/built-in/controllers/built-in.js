@@ -31,7 +31,7 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
 	angularAMD.controller('ServiceBuiltInBankIDController', [
 		'$state', '$stateParams', '$scope', 'FormDataFactory', 'ActivitiService', 'oServiceData', 'BankIDAccount', 'ActivitiForm',
 		function($state, $stateParams, $scope, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm) {
-			angular.forEach($scope.places.aRegion, function(value, key) {
+			angular.forEach($scope.places, function(value, key) {
 				if($stateParams.region == value.nID) {
 					$scope.data.region = value;
 				}
