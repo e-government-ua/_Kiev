@@ -10,7 +10,7 @@ import org.wf.dp.dniprorada.model.Merchant;
 
 public class MerchantDaoImpl implements MerchantDao{
 	
-    private JdbcTemplate jdbcTemplate ;
+    private JdbcTemplate jdbcTemplate;
     
     public void setDataSource(DataSource dataSource){
     	this.jdbcTemplate = new JdbcTemplate(dataSource);

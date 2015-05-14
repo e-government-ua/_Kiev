@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.wf.dp.dniprorada">
+    <class name="org.wf.dp.dniprorada.model.Category" table="Category">
+        <id name="id" column="nID">
+            <generator class="native"/>
+        </id>
+
+        <property name="code" column="sID" not-null="true"/>
+        <property name="name" column="sName" not-null="true"/>
+        <property name="order" column="nOrder" not-null="true"/>
+
+        <bag name="subcategories" inverse="true" lazy="false" fetch="select" order-by="order asc">
+            <key column="nID_Category"/>
+            <one-to-many class="org.wf.dp.dniprorada.model.Subcategory"/>
+        </bag>
+    </class>
+</hibernate-mapping>

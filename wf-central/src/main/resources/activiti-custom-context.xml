@@ -3,15 +3,16 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
+	<!-- Central -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
-		<context:component-scan base-package="org.wf.dp.dniprorada" />
+	<context:component-scan base-package="org.wf.dp.dniprorada" />
 
 	<beans profile="prod">
 
@@ -59,6 +60,42 @@
 
 	<beans>
 
+		<bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
+			<property name="dataSource" ref="dataSource" />
+			<property name="changeLog" value="classpath:liquibase/db.changelog-master.xml" />
+		</bean>
+
+		<bean id="merchantDao" class="org.wf.dp.dniprorada.dao.MerchantDaoImpl" >
+			<property name="dataSource" ref="dataSource"/>
+		</bean>
+
+		<bean id="abstractEntityDao" class="org.wf.dp.dniprorada.dao.AbstractEntityDao"  abstract="true">
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+
+		<bean id="baseEntityDao" class="org.wf.dp.dniprorada.dao.BaseEntityDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+
+		<bean id="entityService" class="org.wf.dp.dniprorada.service.EntityService">
+			<property name="baseEntityDao" ref="baseEntityDao"/>
+		</bean>
+
+		<tx:advice id="txAdvice" transaction-manager="transactionManager">
+			<tx:attributes>
+				<tx:method name="get*" read-only="true"/>
+				<tx:method name="*"/>
+			</tx:attributes>
+		</tx:advice>
+
+		<aop:config>
+			<aop:pointcut id="dao" expression="execution(* org.wf.dp.dniprorada.dao.*.*(..))"/>
+			<aop:pointcut id="dao.services" expression="execution(* org.wf.dp.dniprorada.service.*.*(..))"/>
+
+			<aop:advisor pointcut-ref="dao" advice-ref="txAdvice"/>
+			<aop:advisor pointcut-ref="dao.services" advice-ref="txAdvice"/>
+		</aop:config>
+
 		<bean id="dataSource"
 			  class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 			<property name="driverClass" value="${jdbc.driver}" />
@@ -66,14 +103,31 @@
 			<property name="username" value="${jdbc.username}" />
 			<property name="password" value="${jdbc.password}" />
 		</bean>
-    	
-    	 <bean id="merchantDao" class="org.wf.dp.dniprorada.dao.MerchantDaoImpl" >
-    	 	<property name="dataSource" ref="dataSource"/>
-    	 </bean>
+
+		<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+			<property name="dataSource" ref="dataSource"/>
+			<property name="mappingResources">
+				<list>
+					<value>hibernate/Region.hbm.xml</value>
+					<value>hibernate/City.hbm.xml</value>
+					<value>hibernate/Category.hbm.xml</value>
+					<value>hibernate/Subcategory.hbm.xml</value>
+					<value>hibernate/ServiceType.hbm.xml</value>
+					<value>hibernate/Service.hbm.xml</value>
+					<value>hibernate/ServiceData.hbm.xml</value>
+				</list>
+			</property>
+			<property name="hibernateProperties">
+				<props>
+					<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+					<prop key="hibernate.globally_quoted_identifiers">${hibernate.globally_quoted_identifiers}</prop>
+				</props>
+			</property>
+		</bean>
 
 		<bean id="transactionManager"
-			  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-			<property name="dataSource" ref="dataSource" />
+			  class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+			<property name="sessionFactory" ref="sessionFactory"/>
 		</bean>
 
 		<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
@@ -113,11 +167,11 @@
 			<property name="mailServerUseSSL" value="true" />
 			<property name="mailServerUseTLS" value="true" />
 
-
-
 			<property name="history" value="full" />
+		</bean>
 
-
+		<bean id="logExceptionResolver" class="org.wf.dp.dniprorada.logging.LogExceptionsResolver">
+			<property name="order" value="-1000"/>
 		</bean>
 
 		<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean"

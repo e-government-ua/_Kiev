@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.wf.dp.dniprorada">
+    <class name="org.wf.dp.dniprorada.model.ServiceData" table="ServiceData">
+        <id name="id" column="nID">
+            <generator class="native"/>
+        </id>
+
+        <many-to-one name="service" column="nID_Service" not-null="true" lazy="false" insert="false" update="false"/>
+        <many-to-one name="city" column="nID_City" lazy="false"/>
+        <many-to-one name="region" column="nID_Region" lazy="false"/>
+        <many-to-one name="serviceType" column="nID_ServiceType" not-null="true" lazy="false" cascade="save-update"/>
+        <property name="data" column="oData" not-null="true"/>
+        <property name="url" column="sURL" not-null="true"/>
+
+    </class>
+</hibernate-mapping>

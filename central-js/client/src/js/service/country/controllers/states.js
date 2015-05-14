@@ -11,12 +11,12 @@ define('state/service/country/controller', ['angularAMD'], function (angularAMD)
 			
 			$scope.step1 = function() {
 				var aServiceData = $scope.service.aServiceData;
-				var serviceType = null;
+				var serviceType = { nID: 0 };
 				angular.forEach(aServiceData, function(value, key) {
 					serviceType = value.nID_ServiceType;
 				});
 					
-				switch(serviceType) {
+				switch(serviceType.nID) {
 					case 1:
 						return $state.go('service.general.country.link', {id: $scope.service.nID});
 					case 4:

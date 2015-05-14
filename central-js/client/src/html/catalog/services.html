@@ -4,11 +4,11 @@
            <div class="big-inner-addon">
               <span class="glyphicon glyphicon-search al-left" aria-hidden="true"></span>
               <input type="text" class="form-control input-lg" placeholder="Пошук послуги">
-              <a href="#"><span class="glyphicon glyphicon-triangle-bottom al-right" aria-hidden="true"></span></a>
+              <a style="display: none;" href="#"><span class="glyphicon glyphicon-triangle-bottom al-right" aria-hidden="true"></span></a>
            </div>
         </div>
     </div>
-	<div class="row" ng-repeat="category in catalog.aCategory">
+	<div class="row" ng-repeat="category in catalog">
 		<h1>{{category.sName}}</h1>
 		
 			<div class="col-md-4" ng-repeat-start="subcategory in category.aSubcategory">

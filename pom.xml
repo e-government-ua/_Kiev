@@ -48,6 +48,10 @@
 		<jsonassert.version>1.2.3</jsonassert.version>
 		<guava.version>15.0</guava.version>
 		<easymock.version>3.0</easymock.version>
+		<hibernate.version>4.3.9.Final</hibernate.version>
+		<log4j.version>1.2.17</log4j.version>
+		<liquibase.version>3.3.3</liquibase.version>
+		<java.object.merger.version.version>0.8.5.1</java.object.merger.version.version>
 	</properties>
 
 	<distributionManagement>
@@ -218,6 +222,54 @@
 				<artifactId>spring-context</artifactId>
 				<version>${springframework.version}</version>
 				<scope>compile</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${springframework.version}</version>
+				<scope>compile</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aspects</artifactId>
+				<version>${springframework.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${springframework.version}</version>
+			</dependency>
+
+			<!-- Database -->
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+
+			<!-- WARNING! Last version of log4j is needed for hibernate!-->
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-core</artifactId>
+				<version>${liquibase.version}</version>
+			</dependency>
+
+			<!-- Other -->
+
+			<dependency>
+				<groupId>net.sf.brunneng.jom</groupId>
+				<artifactId>java-object-merger</artifactId>
+				<version>${java.object.merger.version.version}</version>
 			</dependency>
 
 			<!-- Dependencies for tests -->

@@ -60,6 +60,7 @@ a {
     float: left;
     position: absolute;
     top: 50px;
+    margin-left: 40px;
 }
 
 .navbar-default {
@@ -425,4 +426,11 @@ a {
 .notification-button-group > button.btn.btn-danger {
     font-weight: bold;
     width: 90px;
+}
+
+
+.nav-tabs > li > a {
+    padding: 0px 55px;
+    line-height: 2.42857143;
+    margin-top: 10px;
 }

@@ -2,13 +2,36 @@ define('service/built-in/controller', ['angularAMD'], function (angularAMD) {
 	angularAMD.controller('ServiceBuiltInController', ['$location', '$state', '$rootScope', '$scope', function ($location, $state, $rootScope, $scope) {
 		$scope.$location = $location;
 		$scope.$state = $state;
+                
+                        $scope.sFieldLabel = function(sField) {
+                          var s="";
+                          if (sField !== null) {
+                            var a=sField.split(";");
+                            s=a[1].trim();
+                          }
+                          return s;
+                        };
+                        $scope.sFieldNotes = function(sField) {
+                          var s=null;
+                          if (sField !== null) {
+                            var a=sField.split(";");
+                            if(a.length>1){
+                              s=a[1].trim();
+                              if(s==""){
+                                  s=null;
+                              }
+                            }
+                          }
+                          return s;
+                        };                             
     }]);
 });
 
-define('service/built-in/bankid/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceBuiltInBankIDController', ['$state', '$stateParams', '$scope', 'BankIDAccount', 'ActivitiForm',
-		function($state, $stateParams, $scope, BankIDAccount, ActivitiForm) {
-			angular.forEach($scope.places.aRegion, function(value, key) {
+define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'], function (angularAMD) {
+	angularAMD.controller('ServiceBuiltInBankIDController', [
+		'$state', '$stateParams', '$scope', 'FormDataFactory', 'ActivitiService', 'oServiceData', 'BankIDAccount', 'ActivitiForm',
+		function($state, $stateParams, $scope, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm) {
+			angular.forEach($scope.places, function(value, key) {
 				if($stateParams.region == value.nID) {
 					$scope.data.region = value;
 				}
@@ -25,13 +48,47 @@ define('service/built-in/bankid/controller', ['angularAMD'], function (angularAM
 			$scope.ActivitiForm = ActivitiForm;
 			
 			$scope.data = $scope.data || {};
-			$scope.data.bankid = {};
-			
-			angular.forEach(BankIDAccount.customer, function(value, key) {
-				$scope.data.bankid['bankId'+key] = value;
-			});
-			
-			console.log($scope.data);
+			$scope.data.formData = new FormDataFactory();
+			$scope.data.formData.initialize(ActivitiForm);
+			$scope.data.formData.setBankIDAccount(BankIDAccount);
+
+                        $scope.sFieldLabel = function(sField) {
+                          var s="";
+                          if (sField !== null) {
+                            var a=sField.split(";");
+                            s=a[1].trim();
+                          }
+                          return s;
+                        };
+                        $scope.sFieldNotes = function(sField) {
+                          var s=null;
+                          if (sField !== null) {
+                            var a=sField.split(";");
+                            if(a.length>1){
+                              s=a[1].trim();
+                              if(s==""){
+                                  s=null;
+                              }
+                            }
+                          }
+                          return s;
+                        };                    
+                    
+			$scope.submit = function(form) {
+				form.$setSubmitted();
+				return form.$valid ?
+					ActivitiService
+						.submitForm(oServiceData, $scope.data.formData)
+						.then(function(result) {
+							var state = $state.$current;
+							
+							var submitted = $state.get(state.name + '.submitted');
+							submitted.data.id = result.id;
+							
+							return $state.go(submitted, $stateParams);
+						}):
+					false;
+			};
 		}
 	]);
 });
