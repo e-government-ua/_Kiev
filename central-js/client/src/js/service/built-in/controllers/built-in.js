@@ -32,45 +32,27 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
                         
                         
                         angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {
-                        //angular.forEach($scope.data.formData.params, function(value, key) {
-                                /*if($stateParams.city == value.nID) {
-                                        $scope.data.city = value;
-                                }*/
-                                //property.name
                                 var sField = value.name;
                                 var s;
                                 if (sField == null) {
                                   sField="";
                                 }
                                 var a=sField.split(";");
-                                //$scope.data.formData.params[property.id].value
-                                
-                                //$scope.data.city = value;
-                                //$scope.sFieldLabel = function(sField) {
-                                  s="";
-                                  s=a[0].trim();
-                                  //return s;
-                                //};
-                                //$scope.data.formData.params[value.id].sFieldLabel=s;
-                                //$scope.ActivitiForm.formProperties[value.id].sFieldLabel=s+"_"+sField;
-                                value.sFieldLabel=s+"_"+sField;
-                                
-                                //$scope.sFieldNotes = function(sField) {
-                                  s=null;
-                                    if(a.length>1){
-                                      s=a[1].trim();
-                                      if(s==""){
-                                          s=null;
-                                      }
-                                    }
-                                  //return s;
-                                //};                                
+                                s=a[0].trim();
+                                value.sFieldLabel=s;
+                                s=null;
+                                if(a.length>1){
+                                  s=a[1].trim();
+                                  if(s==""){
+                                      s=null;
+                                  }
+                                }
                                 //$scope.data.formData.params[value.id].sFieldNotes=s;
                                 //$scope.ActivitiForm.formProperties[value.id].sFieldNotes=s+"_"+sField;
-                                value.sFieldNotes=s+"_"+sField;
+                                value.sFieldNotes=s;
                         });
                         
-                        $scope.sFieldLabel = function(sField) {
+                        /*$scope.sFieldLabel = function(sField) {
                           var s="";
                           if (sField !== null) {
                             var a=sField.split(";");
@@ -90,7 +72,7 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
                             }
                           }
                           return s;
-                        };                    
+                        };*/                    
                         
 			$scope.submit = function(form) {
 				form.$setSubmitted();

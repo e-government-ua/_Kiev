@@ -44,15 +44,15 @@
                                                         
 
 							<div class="col-md-3" ng-class="{'has-error': form.$submitted && form[property.id].$invalid}" ng-if="!data.formData.fields[property.id]" ng-switch on="property.type">
-								<input ng-switch-when="string" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required" class="form-control" value="">
-								<input ng-switch-when="long" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-pattern="/^\d+$/" ng-required="property.required" class="form-control" value="">
+								<input style="width:600px;" ng-switch-when="string" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required" class="form-control" value="">
+								<input style="/*width:600px;*/"ng-switch-when="long" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-pattern="/^\d+$/" ng-required="property.required" class="form-control" value="">
 								<p class="input-group" ng-switch-when="date">
 									<input type="text" name="{{property.id}}" datepicker-popup="{{data.formData.params[property.id].format}}" is-open="data.formData.params[property.id].opened" datepicker-options="data.formData.params[property.id].options" ng-model="data.formData.params[property.id].value" ng-required="property.required" ng-readonly="true" close-text="Close" class="form-control" value="">	
 									<span class="input-group-btn">
 										<button type="button" class="btn btn-default" ng-click="data.formData.params[property.id].open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 									</span>
 								</p>
-								<select ng-switch-when="enum" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in property.enumValues" ng-required="property.required" class="form-control"></select>
+								<select style="width:600px;" ng-switch-when="enum" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in property.enumValues" ng-required="property.required" class="form-control"></select>
 							</div>
                                                         
 							<div class="col-md-3" ng-if="data.formData.fields[property.id]" ng-bind="data.formData.params[property.id].value">
@@ -62,7 +62,7 @@
 							<!--div class="col-md-3" style="color:#aaaaaa;width:600px" ng-if="sFieldNotes(property.name)!=null">
 								{{ sFieldNotes(property.name) }}
 							</div-->
-							<div class="col-md-3" style="color:#aaaaaa;width:600px" ng-if="property.sFieldNotes!=null">
+							<div class="col-md-3" style="color:#aaaaaa;width:1100px;text-align:left;" ng-if="property.sFieldNotes!=null">
 								{{property.sFieldNotes}}
 							</div>
                                                         
