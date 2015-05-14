@@ -25,7 +25,7 @@ router.use(function(req, res, next) {
 		res.end();
 	}
 	
-	login.index(options, callback);
+	login.index(res, options, callback);
 });
 
 module.exports = router;

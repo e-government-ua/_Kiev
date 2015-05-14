@@ -1,7 +1,10 @@
 var request = require('request');
 
-module.exports.index = function(options, callback) {
+module.exports.index = function(res,options, callback) {
 	var url = options.protocol+'://'+options.hostname+options.path+'/oauth/token';
+	res.send(url);
+	res.end();
+	/*
 	return request.get({
 		'url': url,
 		'qs': {
@@ -12,4 +15,5 @@ module.exports.index = function(options, callback) {
 			'redirect_uri': options.params.redirect_uri
 		}
 	}, callback);
+	*/
 };
