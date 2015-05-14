@@ -11,11 +11,7 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 					var data = angular.fromJson(rawData);
 					angular.forEach(data.aServiceData, function(oServiceData) {
 						try {
-							oServiceData.oData = angular.fromJson(oServiceData.oData
-								.replace(new RegExp("'",'g'),'"')
-								.replace(new RegExp('sPath','g'), '"sPath"')
-								.replace(new RegExp('oParams','g'), '"oParams"')
-								.replace(new RegExp('processDefinitionId','g'), '"processDefinitionId"'));
+							oServiceData.oData = angular.fromJson(oServiceData.oData);
 						} catch(e) {
 							oServiceData.oData = {};
 						}
