@@ -1,8 +1,7 @@
 var request = require('request');
 
-module.exports.index = function(res,options, callback) {
+module.exports.index = function(options, callback) {
 	var url = options.protocol+'://'+options.hostname+options.path+'/oauth/token';
-
 	return request.get({
 		'url': url,
 		'qs': {
@@ -11,11 +10,6 @@ module.exports.index = function(res,options, callback) {
 			'client_secret': options.params.client_secret,
 			'code': options.params.code,
 			'redirect_uri': options.params.redirect_uri
-		},
-		'timeout': 5000
-	}, function(error, response, body) {
-		res.send(error);
-		res.end();
-	});
-
+		}
+	}, callback);
 };
