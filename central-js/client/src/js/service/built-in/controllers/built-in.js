@@ -39,33 +39,33 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
                                 //property.name
                                 var sField = value.name;
                                 var s;
+                                var a=[""]
+                                if (sField !== null) {
+                                  a=sField.split(";");
+                                }
                                 //$scope.data.formData.params[property.id].value
                                 
-                                $scope.data.city = value;
+                                //$scope.data.city = value;
                                 //$scope.sFieldLabel = function(sField) {
                                   s="";
-                                  if (sField !== null) {
-                                    var a=sField.split(";");
-                                    s=a[0].trim();
-                                  }
+                                  s=a[0].trim();
                                   //return s;
                                 //};
-                                $scope.data.formData.params[value.id].sFieldLabel=s;
+                                //$scope.data.formData.params[value.id].sFieldLabel=s;
+                                $scope.ActivitiForm.formProperties[value.id].sFieldLabel=s+"_"+sField;
                                 
                                 //$scope.sFieldNotes = function(sField) {
                                   s=null;
-                                  if (sField !== null) {
-                                    var a=sField.split(";");
                                     if(a.length>1){
                                       s=a[1].trim();
                                       if(s==""){
                                           s=null;
                                       }
                                     }
-                                  }
                                   //return s;
                                 //};                                
-                                $scope.data.formData.params[value.id].sFieldNotes=s;
+                                //$scope.data.formData.params[value.id].sFieldNotes=s;
+                                $scope.ActivitiForm.formProperties[value.id].sFieldNotes=s+"_"+sField;
                         });
                         
                         $scope.sFieldLabel = function(sField) {
