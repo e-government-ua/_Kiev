@@ -2,28 +2,6 @@ define('service/built-in/controller', ['angularAMD'], function (angularAMD) {
 	angularAMD.controller('ServiceBuiltInController', ['$location', '$state', '$rootScope', '$scope', function ($location, $state, $rootScope, $scope) {
 		$scope.$location = $location;
 		$scope.$state = $state;
-                
-                        $scope.sFieldLabel = function(sField) {
-                          var s="";
-                          if (sField !== null) {
-                            var a=sField.split(";");
-                            s=a[1].trim();
-                          }
-                          return s;
-                        };
-                        $scope.sFieldNotes = function(sField) {
-                          var s=null;
-                          if (sField !== null) {
-                            var a=sField.split(";");
-                            if(a.length>1){
-                              s=a[1].trim();
-                              if(s==""){
-                                  s=null;
-                              }
-                            }
-                          }
-                          return s;
-                        };                             
     }]);
 });
 
@@ -51,12 +29,50 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
 			$scope.data.formData = new FormDataFactory();
 			$scope.data.formData.initialize(ActivitiForm);
 			$scope.data.formData.setBankIDAccount(BankIDAccount);
-
+                        
+                        
+                        angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {
+                        //angular.forEach($scope.data.formData.params, function(value, key) {
+                                /*if($stateParams.city == value.nID) {
+                                        $scope.data.city = value;
+                                }*/
+                                //property.name
+                                var sField = value.name;
+                                var s;
+                                //$scope.data.formData.params[property.id].value
+                                
+                                $scope.data.city = value;
+                                //$scope.sFieldLabel = function(sField) {
+                                  s="";
+                                  if (sField !== null) {
+                                    var a=sField.split(";");
+                                    s=a[0].trim();
+                                  }
+                                  //return s;
+                                //};
+                                $scope.data.formData.params[value.id].sFieldLabel=s;
+                                
+                                //$scope.sFieldNotes = function(sField) {
+                                  s=null;
+                                  if (sField !== null) {
+                                    var a=sField.split(";");
+                                    if(a.length>1){
+                                      s=a[1].trim();
+                                      if(s==""){
+                                          s=null;
+                                      }
+                                    }
+                                  }
+                                  //return s;
+                                //};                                
+                                $scope.data.formData.params[value.id].sFieldNotes=s;
+                        });
+                        
                         $scope.sFieldLabel = function(sField) {
                           var s="";
                           if (sField !== null) {
                             var a=sField.split(";");
-                            s=a[1].trim();
+                            s=a[0].trim();
                           }
                           return s;
                         };
@@ -73,7 +89,7 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
                           }
                           return s;
                         };                    
-                    
+                        
 			$scope.submit = function(form) {
 				form.$setSubmitted();
 				return form.$valid ?
