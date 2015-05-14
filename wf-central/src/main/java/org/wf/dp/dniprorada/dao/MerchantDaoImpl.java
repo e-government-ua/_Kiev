@@ -17,7 +17,7 @@ public class MerchantDaoImpl implements MerchantDao{
     }
 	
 	public List<Merchant> getMerchants() {
-		return jdbcTemplate.query("SELECT sIdOwner, sOwnerName, sId FROM merchants", new MerchantRowMapper());
+		return jdbcTemplate.query("SELECT sIdOwner, sOwnerName, sId FROM MERCHANTS", new MerchantRowMapper());
 	}
 
 	public void removeMerchant(String idOwner, String id) {
@@ -37,4 +37,5 @@ public class MerchantDaoImpl implements MerchantDao{
 		jdbcTemplate.update("INSERT INTO merchants (sIdOwner, sOwnerName, sId) VALUES (?,?,?)",
 				merchant.getIdOwner(), merchant.getOwnerName(), merchant.getId());
 	}
+
 }
