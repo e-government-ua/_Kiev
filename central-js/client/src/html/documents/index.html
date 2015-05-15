@@ -58,10 +58,11 @@
                             {{doc.sName}}
                         </td>
                         <td>
-                            {{doc.sDate_Upload}}
+                            {{doc.sDate_Upload | date:'yyyy-MM-dd'}}
+
                         </td>
                         <td>
-                            {{doc.sID_Subject_Upload}}
+                            {{doc.sSubjectName_Upload}}
                         </td>
                         <td>
                             <input type="hidden" value="{{doc.nID}}">
