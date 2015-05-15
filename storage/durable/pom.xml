@@ -1,37 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<parent>
-		<groupId>org.egov-ua</groupId>
-		<artifactId>org.egov-ua.storage</artifactId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
+    <parent>
+        <groupId>org.egov-ua</groupId>
+        <artifactId>org.egov-ua.storage</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-	<modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-	<name>E-Government-UA Long-Term Storage</name>
+    <name>E-Government-UA Long-Term Storage</name>
 
-	<artifactId>org.egov-ua.storage.durable</artifactId>
-	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
+    <artifactId>org.egov-ua.storage.durable</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
 
     <properties>
         <spring.data.mongodb.version>1.7.0.RELEASE</spring.data.mongodb.version>
     </properties>
 
     <dependencies>
-        <!-- MongoDB dependencies -->	
+        <!-- MongoDB dependencies -->    
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
             <version>3.0.1</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.springframework.data</groupId>
-	    <artifactId>spring-data-mongodb</artifactId>
-	    <version>${spring.data.mongodb.version}</version>
-    	</dependency>
+        </dependency>
+        <dependency>
+            <!-- XXX should have been added transitively, but fails at Jenkins -->
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+            <version>1.10.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>${spring.data.mongodb.version}</version>
+        </dependency>
 
         <!-- Spring dependencies -->
 
@@ -48,11 +54,11 @@
             <artifactId>spring-context</artifactId>
         </dependency>
 
-		<!-- Misc dependencies -->
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-		</dependency>
+        <!-- Misc dependencies -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
 
         <!-- Test dependencies -->
         <dependency>
@@ -65,20 +71,20 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-	</dependencies>
-	
-	<build>
-		<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>${maven-compiler-plugin.version}</version>
-					<configuration>
-						<source>${source.version}</source>
-						<target>${target.version}</target>
-						<encoding>${encoding}</encoding>
-					</configuration>
-				</plugin>
-		</plugins>
-	</build>
+    </dependencies>
+    
+    <build>
+        <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${source.version}</source>
+                        <target>${target.version}</target>
+                        <encoding>${encoding}</encoding>
+                    </configuration>
+                </plugin>
+        </plugins>
+    </build>
 </project>
