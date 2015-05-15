@@ -33,13 +33,17 @@ public final class JsonRestUtils {
       return res;
    }
 
-   public static ResponseEntity toJsonResponse(Object res) {
+   public static String toJson(Object res) throws JsonProcessingException {
       ObjectMapper mapper = new ObjectMapper();
       mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
+      return mapper.writeValueAsString(res);
+   }
+
+   public static ResponseEntity toJsonResponse(Object res) {
       String json;
       try {
-         json = mapper.writeValueAsString(res);
+         json = toJson(res);
       } catch (JsonProcessingException e) {
          return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
       }
