@@ -55,15 +55,16 @@
 	</properties>
 
 	<distributionManagement>
+	    <!-- XXX Replace localNexus to iGov_Nexus or something like that. And reconfigure Jenkins -->
 		<repository>
-			<id>localNexus</id>
+			<id>eGovUa_Nexus</id>
 			<name>Internal Releases</name>
-			<url>http://52.17.32.123:8081/nexus/content/repositories/releases</url>
+			<url>https://nexus.e-gov.org.ua/nexus/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
-			<id>localNexus</id>
+			<id>eGovUa_Nexus</id>
 			<name>Internal Snapshots</name>
-			<url>http://52.17.32.123:8081/nexus/content/repositories/snapshots</url>
+			<url>https://nexus.e-gov.org.ua/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -81,8 +82,8 @@
             <url>http://central.maven.org/maven2</url>
         </repository>
         <repository>
-            <id>iGov_Nexus</id>
-            <url>http://52.17.32.123:8081/nexus/content/groups/public</url>
+            <id>eGovUa_Nexus</id>
+            <url>https://nexus.e-gov.org.ua/nexus/content/groups/public</url>
         </repository>
         <repository>
             <id>Activiti</id>
