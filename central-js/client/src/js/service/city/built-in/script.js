@@ -23,7 +23,7 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
 						var aServiceData = service.aServiceData;
 						var oServiceData = null;
 						angular.forEach(aServiceData, function(value, key) {
-							if(value.nID_City == $stateParams.city) {
+							if(value.nID_City.nID == $stateParams.city) {
 								oServiceData = value;
 							}
 						});
@@ -72,29 +72,6 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
 						}],
 						controller: ['$state', '$scope', function($state, $scope) {
 							$scope.state = $state.get('service.general.city.built-in.bankid.submitted');
-                                                        
-                                                        $scope.sFieldLabel = function(sField) {
-                                                          var s="";
-                                                          if (sField !== null) {
-                                                            var a=sField.split(";");
-                                                            s=a[1].trim();
-                                                          }
-                                                          return s;
-                                                        };
-                                                        $scope.sFieldNotes = function(sField) {
-                                                          var s=null;
-                                                          if (sField !== null) {
-                                                            var a=sField.split(";");
-                                                            if(a.length>1){
-                                                              s=a[1].trim();
-                                                              if(s==""){
-                                                                  s=null;
-                                                              }
-                                                            }
-                                                          }
-                                                          return s;
-                                                        };                                                                     
-                                                        
 						}]
 					})
 				}

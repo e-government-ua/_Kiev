@@ -11,6 +11,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 var express = require('express');
 var fs = require('fs');
 var config = require('./config/environment');
+var logger = require('./components/logger').setup();
 // Setup server
 var app = express();
 var server;
@@ -34,7 +35,7 @@ require('./routes')(app);
 
 // Start server
 server.listen(config.port, config.ip, function() {
-	console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
+	logger.info('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
 
 // Expose app

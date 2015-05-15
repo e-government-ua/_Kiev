@@ -3,29 +3,6 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 		function ($state, $rootScope, $scope, service, places) {
 			$scope.service = service;
 			$scope.places = places;
-			
-                        $scope.sFieldLabel = function(sField) {
-                          var s="";
-                          if (sField !== null) {
-                            var a=sField.split(";");
-                            s=a[1].trim();
-                          }
-                          return s;
-                        };
-                        $scope.sFieldNotes = function(sField) {
-                          var s=null;
-                          if (sField !== null) {
-                            var a=sField.split(";");
-                            if(a.length>1){
-                              s=a[1].trim();
-                              if(s==""){
-                                  s=null;
-                              }
-                            }
-                          }
-                          return s;
-                        };                    
-                        
 			$scope.data = {
 				region: null,
 				city: null
@@ -41,14 +18,14 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 			
 			$scope.step2 = function() {
 				var aServiceData = $scope.service.aServiceData;
-				var serviceType = null;
+				var serviceType = { nID: 0 };
 				angular.forEach(aServiceData, function(value, key) {
-					if(value.nID_City == $scope.data.city.nID) {
+					if(value.nID_City.nID == $scope.data.city.nID) {
 						serviceType = value.nID_ServiceType;
 					}
 				});
 				
-				switch(serviceType) {
+				switch(serviceType.nID) {
 					case 1:
 						return $state.go('service.general.city.link', {id: $scope.service.nID});
 					case 4:

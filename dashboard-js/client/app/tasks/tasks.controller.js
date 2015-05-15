@@ -133,6 +133,29 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
       return o.getFullYear() + '-' + o.getMonth() + '-' + o.getDate() + ' ' + o.getHours() + ':' + o.getMinutes();
     }
   };
+  
+  $scope.sFieldLabel = function(sField) {
+    var s="";
+    if (sField !== null) {
+      var a=sField.split(";");
+      s=a[0].trim();
+    }
+    return s;
+  };
+  $scope.sFieldNotes = function(sField) {
+    var s=null;
+    if (sField !== null) {
+      var a=sField.split(";");
+      if(a.length>1){
+        s=a[1].trim();
+        if(s==""){
+            s=null;
+        }
+      }
+    }
+    return s;
+  };  
+  
 
   $scope.getProcessName = function(processDefinitionId) {
     return processes.getProcessName(processDefinitionId);

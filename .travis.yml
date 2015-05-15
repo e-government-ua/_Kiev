@@ -1,0 +1,6 @@
+language: java
+jdk:
+- openjdk7
+notifications:
+  slack:
+    secure: hC7ogO0nNSGIuOIqdCVPe8Z4rWjEpeC+szdrQwzjRn+nwDfXxygnOd0iBehL+MV6wzTJ7rkJ3OmkOeOwvreCR+8Kw9WnCNJupwtgtkcGGd8GEFLsHpVlRvPybEelWY3hfQwoaJhrONNaei0AKOu4deWgQ9g4zq40Ha5F7VyyCL4=
