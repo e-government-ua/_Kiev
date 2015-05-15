@@ -22,9 +22,9 @@
         <activiti:formProperty id="file1" name="Копія паспорта" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Копія ідентифікаційного номеру" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file3" name="Копія державного акту/ свідоцтва про право власності/ договору оренди на земельну ділянку" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Запит нотаріуса або адвоката; потрібно лише в разі оформлення спадщини" type="file" required="false"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копія свідоцтва про смерть попереднього власника; потрібно лише в разі оформлення спадщини" type="file" required="false"></activiti:formProperty>
-       </extensionElements>
+        <activiti:formProperty id="file4" name="Запит нотаріуса або адвоката; потрібно лише в разі оформлення спадщини" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Копія свідоцтва про смерть попереднього власника; потрібно лише в разі оформлення спадщини" type="file"></activiti:formProperty>
+      </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
       <extensionElements>
@@ -51,23 +51,22 @@ ${reason}</activiti:expression>
     </serviceTask>
     <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="management_clerk_dmr">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Автор звернення " default="${bankIdLastName} ${bankIdFirstName} ${bankIdSecondName}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdLastName} ${bankIdFirstName} ${bankIdSecondName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPhone" name="Телефон" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адрес" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета звернення" type="string" default="${goal}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false" required="true"></activiti:formProperty>
- 		<activiti:formProperty id="file1" name="Копія паспорта" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Копія паспорта" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Копія ідентифікаційного номеру" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file3" name="Копія державного акту/ свідоцтва про право власності/ договору оренди на земельну ділянку" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Запит нотаріуса або адвоката; потрібно лише в разі оформлення спадщини" type="file" required="false"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копія свідоцтва про смерть попереднього власника; потрібно лише в разі оформлення спадщини" type="file" required="false"></activiti:formProperty>
-       
-        <activiti:formProperty id="reason" name="Підстава для відмови" type="string"></activiti:formProperty>
+        <activiti:formProperty id="file4" name="Запит нотаріуса або адвоката; потрібно лише в разі оформлення спадщини" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Копія свідоцтва про смерть попереднього власника; потрібно лише в разі оформлення спадщини" type="file"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення" type="enum" required="true">
           <activiti:value id="accept" name="Прийняти в роботу"></activiti:value>
           <activiti:value id="reject" name="Відмовити у наданні послуги"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="reason" name="Підстава для відмови" type="string"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -101,12 +100,11 @@ ${reason}</activiti:expression>
         <activiti:formProperty id="bankIdAddress" name="Адрес" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета звернення" type="string" default="${goal}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false" required="true"></activiti:formProperty>
- 		<activiti:formProperty id="file1" name="Копія паспорта" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Копія паспорта" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Копія ідентифікаційного номеру" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file3" name="Копія державного акту/ свідоцтва про право власності/ договору оренди на земельну ділянку" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Запит нотаріуса або адвоката; потрібно лише в разі оформлення спадщини" type="file" required="false"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копія свідоцтва про смерть попереднього власника; потрібно лише в разі оформлення спадщини" type="file" required="false"></activiti:formProperty>
-       
+        <activiti:formProperty id="file4" name="Запит нотаріуса або адвоката; потрібно лише в разі оформлення спадщини" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Копія свідоцтва про смерть попереднього власника; потрібно лише в разі оформлення спадщини" type="file"></activiti:formProperty>
         <activiti:formProperty id="searchResult" name="Витяг готовий?" type="enum" required="true">
           <activiti:value id="found" name="Так, витяг готовий"></activiti:value>
         </activiti:formProperty>

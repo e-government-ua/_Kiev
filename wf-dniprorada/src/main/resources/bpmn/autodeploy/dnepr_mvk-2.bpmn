@@ -11,7 +11,7 @@
         <activiti:formProperty id="email" name="Ваш e-mail; на цей e-mail Ви отримаєте результат обробки Вашего звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="objName" name="повна назва об`єкта " type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="objType" name="тип об`єкта" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="objOwn" name="належність об`єкта" type="string"  required="true"></activiti:formProperty>
+        <activiti:formProperty id="objOwn" name="належність об`єкта" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місце знаходження об`єкта" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="objOwnerAddress" name="юридична адреса власника" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="objMFO" name="МФО" type="long" required="true"></activiti:formProperty>
@@ -29,7 +29,7 @@
         <activiti:formProperty id="objEmployees" name="проектна кількість працюючих, робочих місць" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="objArea" name="загальна площа об`єкта, у т.ч. торговельна, виробнича (кв.м)" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="objSpecConditions" name="особливі умови здійснення діяльності" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="processName" name="Видача картки обліку об’єкта торговельного призначення, сфери послугта з виробництва продуктів харчування" type="string" required="false"></activiti:formProperty>
+        <activiti:formProperty id="processName" name="Видача картки обліку об’єкта торговельного призначення, сфери послугта з виробництва продуктів харчування" type="string"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">

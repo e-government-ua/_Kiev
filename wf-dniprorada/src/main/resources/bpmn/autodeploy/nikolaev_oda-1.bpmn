@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="nikolaev_oda_1" name="Миколаєвська ОДА - Реєстрація громадського об’єднання" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="processName" name="Реєстрація громадського об’єднання" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string"></activiti:formProperty>
-        <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date"></activiti:formProperty>
-        <activiti:formProperty id="attachedId" name="Архів з документами " type="string"></activiti:formProperty>
-        <activiti:formProperty id="objFounder" name="Додаткова інформація про засновників" type="textArea" default="відомості про засновників громадського об'єднання із зазначенням прізвища, ім'я, по батькові (за наявності), дати народження, адреси місця проживання, а в разі якщо засновником є юридична особа приватного права, - її найменування, місцезнаходження, ідентифікаційного коду"></activiti:formProperty>
+        <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Копія протоколу установчих зборів; файл в форматі PDF повинен мати ЕЦП нотаріуса" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objFounder" name="Додаткова інформація про засновників; відомості про засновників громадського об'єднання із зазначенням прізвища, ім'я, по батькові (за наявності), дати народження, адреси місця проживання, а в разі якщо засновником є юридична особа приватного права, - її найменування, місцезнаходження, ідентифікаційного коду" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -26,9 +26,8 @@
         <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="attachedId" name="Документи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="objFounder" name="Засновник громадського об'єднання" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="assignee" name="Виконавець" type="user"></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Копія протоколу установчих зборів; файл в форматі PDF повинен мати ЕЦП нотаріуса" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objFounder" name="Засновник громадського об'єднання" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про реєстрацію" type="enum" required="true">
           <activiti:value id="accept" name="Ухвалити"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
@@ -38,7 +37,7 @@
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="usertask2" name="Підстави для відмови " activiti:assignee="${assignee}">
+    <userTask id="usertask2" name="Підстави для відмови ">
       <extensionElements>
         <activiti:formProperty id="comment" name="Причина відмови в реєстрации " type="string" required="true"></activiti:formProperty>
       </extensionElements>
@@ -46,7 +45,7 @@
     <sequenceFlow id="flow3" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="usertask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask3" name="Внесення відомостей до Реєстру" activiti:assignee="${assignee}">
+    <userTask id="usertask3" name="Внесення відомостей до Реєстру">
       <extensionElements>
         <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -55,7 +54,7 @@
         <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="attachedId" name="Документи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Копія протоколу установчих зборів; файл в форматі PDF повинен мати ЕЦП нотаріуса" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objFounder" name="Засновник громадського об'єднання" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="regChanged" name="Відомості внесені до реєстру?" type="enum" required="true">
           <activiti:value id="yes" name="Так, внесені"></activiti:value>
@@ -72,13 +71,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>dniprorada@egov.ua</activiti:string>
+          <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Запит: Реєстрація громадського об’єднання</activiti:string>
+          <activiti:string><![CDATA[Запит: Реєстрація громадського об’єднання]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
@@ -98,7 +97,7 @@
     <serviceTask id="servicetask1" name="Відправлення листа громадянину" activiti:delegateExpression="#{mailTaskWithAttachment}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>dniprorada@egov.ua</activiti:string>
+          <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
@@ -241,10 +240,6 @@
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
         <omgdi:waypoint x="190.0" y="110.0"></omgdi:waypoint>
         <omgdi:waypoint x="237.0" y="130.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
-        <omgdi:waypoint x="175.0" y="342.0"></omgdi:waypoint>
-        <omgdi:waypoint x="237.0" y="315.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
