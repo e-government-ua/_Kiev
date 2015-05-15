@@ -3,4 +3,4 @@ jdk:
 - openjdk7
 notifications:
   slack:
-    secure: hC7ogO0nNSGIuOIqdCVPe8Z4rWjEpeC+szdrQwzjRn+nwDfXxygnOd0iBehL+MV6wzTJ7rkJ3OmkOeOwvreCR+8Kw9WnCNJupwtgtkcGGd8GEFLsHpVlRvPybEelWY3hfQwoaJhrONNaei0AKOu4deWgQ9g4zq40Ha5F7VyyCL4=
+    secure: FNQYq5rdi1/HWA+CY+/of+OxybQlruhZRso5ECNHcVmsGusxG5ZgYIfXVg659JfltsBEojlFmFytWlV2u7gZUHb4aoq9tuUQ6D9o84oP0zW/WDfLmlccCjbrNBCb+8837SCsCmBTOp2R5pjgH9oB6SughYmtrZM1J3LbelYrGTk=
