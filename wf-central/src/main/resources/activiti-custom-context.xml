@@ -110,12 +110,17 @@
 
 		<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 			<property name="dataSource" ref="dataSource"/>
-			<property name="packagesToScan">
-				<array>
-					<value>org.wf.dp.dniprorada.model</value>
-				</array>
+			<property name="mappingResources">
+				<list>
+					<value>hibernate/Region.hbm.xml</value>
+					<value>hibernate/City.hbm.xml</value>
+					<value>hibernate/Category.hbm.xml</value>
+					<value>hibernate/Subcategory.hbm.xml</value>
+					<value>hibernate/ServiceType.hbm.xml</value>
+					<value>hibernate/Service.hbm.xml</value>
+					<value>hibernate/ServiceData.hbm.xml</value>
+				</list>
 			</property>
-
 			<property name="hibernateProperties">
 				<props>
 					<prop key="hibernate.dialect">${hibernate.dialect}</prop>
