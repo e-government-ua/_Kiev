@@ -30,7 +30,7 @@ define('service.general.region', ['angularAMD', 'service.general.region.link', '
                 views: {
 					'content@service.general.region': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
-							return $templateCache.get('html/service/region/error.html');
+							return $templateCache.get('html/service/region/absent.html');
 						}]
                     })
                 }

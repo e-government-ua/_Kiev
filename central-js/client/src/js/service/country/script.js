@@ -25,7 +25,7 @@ define('service.general.country', ['angularAMD', 'service.general.country.link',
                 views: {
                     'content@service.general.country': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
-							return $templateCache.get('html/service/country/error.html');
+							return $templateCache.get('html/service/country/absent.html');
 						}]
                     })
                 }
