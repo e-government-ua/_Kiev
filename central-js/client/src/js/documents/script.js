@@ -1,4 +1,4 @@
-define('documents', ['angularAMD', 'bankid/service'], function (angularAMD) {
+define('documents', ['angularAMD', 'service'], function (angularAMD) {
     var app = angular.module('Documents', []);
 
     app.config(['$stateProvider', function ($stateProvider) {

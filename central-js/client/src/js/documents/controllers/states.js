@@ -1,5 +1,5 @@
 define('state/documents/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('DocumentsController', ['$rootScope', '$state', function ($rootScope, $state) {
+	angularAMD.controller('DocumentsController', ['$rootScope', '$state', '$window', '$location', function ($rootScope, $state, $window, $location) {
 		console.log('$rootScope');
 		var documents = [
 			{
@@ -66,7 +66,12 @@ define('state/documents/controller', ['angularAMD'], function (angularAMD) {
         console.log($state.current);
         if ($state.is('documents.bankid') && !!$state.params.code) {
             console.log('documents.content');
-            $state.go('documents.content', {code: $state.params.code});
+            $window.location.href = $location.protocol()
+                + '://'
+                + $location.host()
+                + ':'
+                + $location.port()
+                + $state.href('documents.content', {code: $state.params.code});
         }
         else {
             console.log('documents.bankid');
