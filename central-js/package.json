@@ -9,7 +9,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-express": "^1.4.1",
     "grunt-express-server": "^0.5.1",
-    "request": "^2.55.0"
+    "request": "^2.55.0",
     "multer": "^0.1.8",
     "request": "^2.55.0",
     "lodash": "~3.8.0"
