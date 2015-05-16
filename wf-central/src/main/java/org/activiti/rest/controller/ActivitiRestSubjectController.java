@@ -3,6 +3,7 @@ package org.activiti.rest.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +19,7 @@ public class ActivitiRestSubjectController {
 	@Qualifier(value = "subjectDao")
 	private SubjectDao subjectDao;
 
-	@RequestMapping(value = "/getSubject", method = RequestMethod.GET)
+	@RequestMapping(value = "/syncSubject", method = RequestMethod.GET, headers = {"Accept=application/json"})
 	public @ResponseBody
 	Subject getSubject(@RequestParam(value = "sINN") String inn) {
 		Subject subj = null;
@@ -32,5 +33,10 @@ public class ActivitiRestSubjectController {
 			}
 		}
 		return subj;
+	}
+	
+	@RequestMapping(value="/setSubject", method = RequestMethod.POST, headers = {"Accept=application/json"})
+	public @ResponseBody Subject setSubject(@RequestBody Subject subject){
+		return subjectDao.updateSubject(subject);
 	}
 }

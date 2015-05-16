@@ -18,6 +18,8 @@ public class SubjectExtractor implements ResultSetExtractor<Subject>{
 		subject.setsINN(rs.getString("sINN"));
 		subject.setsPassport(rs.getString("sPassport"));
 		subject.setsSB(rs.getString("sSB"));
+		subject.setsOKPO(rs.getString("sOKPO"));
+		subject.setsName(rs.getString("sName"));
 		return null;
 	}
 
