@@ -21,7 +21,7 @@ server {
         ssl_certificate     /etc/nginx/ssl/dev_ssl.crt;
         ssl_certificate_key /etc/nginx/ssl/dev_ssl.key;
 
-# wouldn't work properly till proxied demon through http
+# wouldn't work properly till proxied demon work through http
 #        location /wf-dniprorada/ {
 #            proxy_pass http://192.168.10.10:8080/wf-dniprorada/;
 #        }
