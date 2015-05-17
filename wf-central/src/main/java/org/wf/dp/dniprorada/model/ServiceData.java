@@ -40,8 +40,8 @@ public class ServiceData extends Entity {
 	@Column(name = "oData", nullable = false)
 	private String data;
 	
-	@JsonProperty(value = "sUrl")
-	@Column(name = "sUrl", nullable = false)
+	@JsonProperty(value = "sURL")
+	@Column(name = "sURL", nullable = false)
 	private String url;
 
 	public Service getService() {
