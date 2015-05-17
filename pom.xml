@@ -48,7 +48,7 @@
 		<jsonassert.version>1.2.3</jsonassert.version>
 		<guava.version>15.0</guava.version>
 		<easymock.version>3.0</easymock.version>
-		<hibernate.version>4.3.9.Final</hibernate.version>
+		<hibernate.version>4.3.10.Final-fixed</hibernate.version>
 		<log4j.version>1.2.17</log4j.version>
 		<liquibase.version>3.3.3</liquibase.version>
 		<java.object.merger.version.version>0.8.5.1</java.object.merger.version.version>
@@ -377,9 +377,12 @@
 					</configuration>
 				</plugin>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>${maven-compiler-plugin.version}</version>
 					<configuration>
+						<source>${source.version}</source>
+						<target>${target.version}</target>
 						<encoding>${encoding}</encoding>
 					</configuration>
 				</plugin>
@@ -407,17 +410,7 @@
 						</archive>
 					</configuration>
 				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>${maven-compiler-plugin.version}</version>
-					<configuration>
-						<source>${source.version}</source>
-						<target>${target.version}</target>
-						<encoding>${encoding}</encoding>
-					</configuration>
-				</plugin>
+				
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
