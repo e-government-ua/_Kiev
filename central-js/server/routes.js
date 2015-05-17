@@ -15,6 +15,7 @@ router.get('/api/process-form', require('./api/process-form/get'));
 router.post('/api/process-form', require('./api/process-form/post'));
 router.get('/api/service', require('./api/service/index'));
 router.get('/api/services', require('./api/services/index'));
+router.post('/api/uploadfile', require('./api/uploadfile/post'));
 
 router.use('/', function (req, res, next) {
 	res.render('../client/build/index.html');

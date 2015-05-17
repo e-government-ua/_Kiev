@@ -56,6 +56,14 @@
 									</span>
 								</p>
 								<select style="width:600px;" ng-switch-when="enum" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in property.enumValues" ng-required="property.required" class="form-control"></select>
+								<p class="fileinput-button" ng-switch-when="file">
+									<input type="file" name="{{property.id}}" ui-event="{change:'addFile($event)'}"/>
+                                	<button type="button" class="btn btn-success js-upload-btn" data-loading-text="Завантаження..." class="btn btn-primary" autocomplete="off"
+                                	ng-click="uploadFile()">
+                                    <span class="glyphicon glyphicon-file" aria-hidden="true"></span> Завантажити файл
+                                	</button>
+                                	<div class="filename js-filename"></div>
+                            	</p>								
 							</div>
                                                         
 							<div class="col-md-3" ng-if="data.formData.fields[property.id]" ng-bind="data.formData.params[property.id].value">
