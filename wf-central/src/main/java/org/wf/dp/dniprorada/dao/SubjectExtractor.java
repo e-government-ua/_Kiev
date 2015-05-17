@@ -25,7 +25,7 @@ public class SubjectExtractor implements ResultSetExtractor<Subject>{
 		subject.setsName(rs.getString("sName"));
                 log.error("sID"+subject.getsID());
                 log.error("nID"+subject.getnID());
-		return null;
+		return subject;
 	}
 
 }
