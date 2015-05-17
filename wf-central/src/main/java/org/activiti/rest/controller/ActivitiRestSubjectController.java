@@ -25,15 +25,18 @@ public class ActivitiRestSubjectController {
 		Subject subj = null;
 		try {
 			subj = subjectDao.getSubject(inn);
-                        if(subj==null){
+                        /*if(subj==null){
                             throw new Exception("Subject not found: inn="+inn);
-                        }
+                        }*/
 		} catch (Exception ex) {
-			try {
-				subj = subjectDao.insertSubject(inn);
-			} catch (Exception e) {
-				throw e;
-			}
+                        System.err.println(ex.getMessage());
+                        if(subj==null){
+                            try {
+                                    subj = subjectDao.insertSubject(inn);
+                            } catch (Exception e) {
+                                    throw e;
+                            }
+                        }
 		}
 		return subj;
 	}
