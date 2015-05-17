@@ -16,7 +16,7 @@ public class SubjectDaoImpl implements SubjectDao {
 	@Override
 	public Subject getSubject(String inn) {
 		return jdbcTemplate
-				.query("SELECT nID, sID, sINN, sPassport, sSB, sOKPO, sName FROM subjects WHERE sINN = ?",
+				.query("SELECT nID, sID, sINN, sPassport, sSB, sOKPO, sName FROM subjects WHERE sID = ?",
 						new SubjectRowMapper(), inn).get(0);
 	}
 
