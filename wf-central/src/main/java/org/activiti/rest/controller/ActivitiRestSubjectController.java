@@ -1,5 +1,7 @@
 package org.activiti.rest.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,8 @@ import org.wf.dp.dniprorada.model.Subject;
 @RequestMapping(value = "/subject")
 public class ActivitiRestSubjectController {
 
+        private final Logger log = LoggerFactory.getLogger(ActivitiRestSubjectController.class);
+  
 	@Autowired
 	@Qualifier(value = "subjectDao")
 	private SubjectDao subjectDao;
@@ -30,6 +34,7 @@ public class ActivitiRestSubjectController {
                         }*/
 		} catch (Exception ex) {
                         System.err.println(ex.getMessage());
+                        log.error("syncSubject_sID_Error:"+ex.getMessage());
                         if(subj==null){
                             try {
                                     subj = subjectDao.insertSubject(inn);
