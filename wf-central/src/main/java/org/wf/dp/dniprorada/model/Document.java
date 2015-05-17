@@ -1,9 +1,12 @@
 package org.wf.dp.dniprorada.model;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Column;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +22,7 @@ import org.hibernate.annotations.CascadeType;
 public class Document {
 
 	@JsonProperty(value = "nID")
-	@Id
+	@Id //@GeneratedValue
 	@Column(name = "nID")
 	private Long id;
 
@@ -47,12 +50,9 @@ public class Document {
 	@Column(name = "sFile", nullable = true)
 	private String file;
 
-	/*
-	 * @JsonProperty(value="sDate_Upload") //подумать о типе поля
-	 * 
-	 * @Column(name = "sDate_Upload", nullable = false) private String
-	 * date_Upload;
-	 */
+	@JsonProperty(value="oDate_Upload")
+	@Column(name = "oDate_Upload", nullable = false) 
+	private Date date_Upload;
 
 	@JsonProperty(value = "sID_Subject_Upload")
 	@Column(name = "sID_Subject_Upload", nullable = false)
@@ -95,13 +95,13 @@ public class Document {
 		this.file = file;
 	}
 
-	public String getDate_Upload() {
-		return "2015-05-05";
-		// return date_Upload;
+	public Date getDate_Upload() {
+		//return "2015-05-05";
+		return date_Upload;
 	}
 
-	public void setDate_Upload(String date_Upload) {
-		// this.date_Upload = date_Upload;
+	public void setDate_Upload(Date date_Upload) {
+		 this.date_Upload = date_Upload;
 	}
 
 	public String getSubject_Upload() {

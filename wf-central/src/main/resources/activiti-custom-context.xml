@@ -86,7 +86,7 @@
 		</bean>
 		
 		<bean id="documentDao" class="org.wf.dp.dniprorada.dao.DocumentDaoImpl" >
-			<property name="dataSource" ref="dataSource"/>
+			<property name="sessionFactory" ref="sessionFactory"/>
 		</bean>
 
 		<tx:advice id="txAdvice" transaction-manager="transactionManager">

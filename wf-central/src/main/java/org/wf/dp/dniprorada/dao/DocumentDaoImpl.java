@@ -1,9 +1,11 @@
 package org.wf.dp.dniprorada.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Required;
 import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.DocumentContentType;
@@ -30,8 +32,7 @@ public class DocumentDaoImpl implements DocumentDao {
 
 	@Override
 	public List<Document> getDocuments(String subject_Upload) {
-		// TODO Auto-generated method stub
-		return null;
+		return (List<Document>)getSession().createCriteria(Document.class).add(Restrictions.eq("sID_Subject_Upload", subject_Upload)).list();
 	}
 
 	@Override
@@ -66,7 +67,7 @@ public class DocumentDaoImpl implements DocumentDao {
 		document.setDocumentContentType(documentContentType);
 		document.setСontentKey(new GridFSBytesDataStorage().saveData(content));
 		document.setFile(file);
-		// document.setDate_Upload(date_Upload);(date);
+		document.setDate_Upload(new Date());
 		getSession().saveOrUpdate(document);
 
 	}
