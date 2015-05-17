@@ -14,7 +14,7 @@ public class SubjectExtractor implements ResultSetExtractor<Subject>{
 			DataAccessException {
 		Subject subject = new Subject();
 		subject.setnID(rs.getInt("nID"));
-		subject.setsID(rs.getInt("sID"));
+		subject.setsID(rs.getString("sID"));
 		subject.setsINN(rs.getString("sINN"));
 		subject.setsPassport(rs.getString("sPassport"));
 		subject.setsSB(rs.getString("sSB"));
