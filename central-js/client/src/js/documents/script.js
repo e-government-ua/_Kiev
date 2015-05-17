@@ -48,14 +48,14 @@ define('documents', ['angularAMD', 'service'], function (angularAMD) {
                         return BankIDService.account(BankIDLogin.access_token);
                     }],
                     customer: ['BankIDAccount', function (BankIDAccount) {
-                       return BankIDAccount.customer;
+                        return BankIDAccount.customer;
                     }],
-                    documents: ['$q', 'customer', function($q, customer) {
+                    documents: ['$q', '$state', 'customer', function($q, $state, customer) {
                         var deferred = $q.defer();
 
                         try {
-
-                            // TODO: missing function
+                            $state.customer = customer;
+                            // TODO: impl syncSubject function
                             /*
                              syncSubject(customer.inn).then(function (data) {
                              if (data.hasOwnProperty('error')) { return deferred.reject(null); }
@@ -65,7 +65,7 @@ define('documents', ['angularAMD', 'service'], function (angularAMD) {
                              })
                              })
                              */
-
+                            // TODO: switch to DocumentService.getDocuments
                             var documents = [
                                 {
                                     nID : "1",
