@@ -59,6 +59,66 @@ fi
 cp /project/scripts/config/redis.conf $REDIS_CONF
 service redis-server restart
 
+
+
+echo ******************************************************************
+echo ** Setting up central-js                                        **
+echo ******************************************************************
+if ! dpkg --list nodejs | egrep -q ^ii; 
+then
+    echo installing node js  ...
+    curl -sL https://deb.nodesource.com/setup | sudo bash -
+    apt-get install -y nodejs git
+    npm install -g bower --allow-root
+    npm install -g grunt-cli 
+else
+    echo node js already installed
+fi
+
+echo "copy dev ssl certificate/key to /sybase/cert/ folder "
+mkdir -p /sybase/cert/
+cp /project/scripts/config/dev_ssl.crt /sybase/cert/server.crt
+cp /project/scripts/config/dev_ssl.key /sybase/cert/server.key
+echo "*************************************************"
+echo     
+
+
+echo "***** SETTING UP nginx     **********************"
+if ! dpkg --list nginx | egrep -q ^ii; 
+then
+    echo installing nginx  ...
+    apt-get install -y nginx    
+else
+   echo nginx already installed
+fi
+
+echo "copy dev ssl certificate/key to /etc/nginx/ssl/ folder "
+mkdir -p /etc/nginx/ssl/
+cp /project/scripts/config/dev_ssl.crt /etc/nginx/ssl/dev_ssl.crt
+cp /project/scripts/config/dev_ssl.key /etc/nginx/ssl/dev_ssl.key
+
+echo "Add new Vhost to local hosts file"
+if grep -Fxq "127.0.1.1     e-gov-ua.dev" /etc/hosts
+then
+   echo "e-gov-ua.dev already added"
+else
+    echo "127.0.1.1     e-gov-ua.dev" >> /etc/hosts
+    echo "e-gov-ua.dev added"
+fi
+
+
+echo "Add new Vhost to nginx"
+rm /etc/nginx/sites-enabled/e-gov-ua.dev
+
+cp /project/scripts/config/e-gov-ua.dev /etc/nginx/sites-available/e-gov-ua.dev
+ln -s /etc/nginx/sites-available/e-gov-ua.dev /etc/nginx/sites-enabled/
+
+service nginx restart
+echo "e-gov-ua.dev now avaliable !" 
+echo "*************************************************"
+echo    
+
+
 echo ******************************************************************
 echo ** Setting up tools for dashboard-js: TODO                      **
 echo ******************************************************************

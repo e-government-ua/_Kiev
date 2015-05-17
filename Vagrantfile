@@ -1,6 +1,11 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+required_plugins = %w( vagrant-hostsupdater )
+required_plugins.each do |plugin|
+  system "vagrant plugin install #{plugin}" unless Vagrant.has_plugin? plugin
+end
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -26,10 +31,12 @@ Vagrant.configure(2) do |config|
   # config.vm.network "forwarded_port", guest: 80, host: 80
   # workflow
   # config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.network "forwarded_port", guest: 8443, host: 8443, auto_correct: true
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network "private_network", ip: "192.168.10.10"
+  config.hostsupdater.aliases = ["e-gov-ua.dev"]
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -74,6 +81,13 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision :shell, path: "scripts/prepare_machine.sh"
   config.vm.provision :shell, privileged: false, path: "scripts/update_wf_full.sh"
-  config.vm.provision :shell, privileged: false, path: "scripts/update_wf_fast.sh"
+  config.vm.provision :shell, privileged: false, run: "always", path: "scripts/update_wf_fast.sh"
+  config.vm.provision :shell, privileged: false, run: "always", path: "scripts/up_central_js.sh"
+
+  config.vm.post_up_message = 
+"*****************   Application stated                        *********************
+*****************   You can use VHOSTS                          ********************
+http(s)://e-gov-ua.dev                =>   https://192.168.10.10:8443/                 
+http://e-gov-ua.dev/wf-dniprorada/ =>   http://192.168.10.10:8080/wf-dniprorada/  " 
 
 end
