@@ -84,6 +84,10 @@
 		<bean id="entityService" class="org.wf.dp.dniprorada.service.EntityService">
 			<property name="baseEntityDao" ref="baseEntityDao"/>
 		</bean>
+		
+		<bean id="documentDao" class="org.wf.dp.dniprorada.dao.DocumentDaoImpl" >
+			<property name="dataSource" ref="dataSource"/>
+		</bean>
 
 		<tx:advice id="txAdvice" transaction-manager="transactionManager">
 			<tx:attributes>
