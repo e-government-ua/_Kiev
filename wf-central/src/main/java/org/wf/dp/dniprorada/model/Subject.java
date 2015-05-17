@@ -2,7 +2,7 @@ package org.wf.dp.dniprorada.model;
 
 public class Subject {
 	private Integer nID;
-	private Integer sID;
+	private String sID;
 	private String sINN;
 	private String sPassport;
 	private String sSB;
@@ -14,10 +14,10 @@ public class Subject {
 	public void setnID(Integer nID) {
 		this.nID = nID;
 	}
-	public Integer getsID() {
+	public String getsID() {
 		return sID;
 	}
-	public void setsID(Integer sID) {
+	public void setsID(String sID) {
 		this.sID = sID;
 	}
 	public String getsINN() {

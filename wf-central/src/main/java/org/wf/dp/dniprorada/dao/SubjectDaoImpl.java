@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.dao;
 
+import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,9 +16,17 @@ public class SubjectDaoImpl implements SubjectDao {
 
 	@Override
 	public Subject getSubject(String inn) {
-		return jdbcTemplate
+		/*return jdbcTemplate
 				.query("SELECT nID, sID, sINN, sPassport, sSB, sOKPO, sName FROM subjects WHERE sID = ?",
-						new SubjectRowMapper(), inn).get(0);
+						new SubjectRowMapper(), inn).get(0);*/
+		List<Subject> a = jdbcTemplate
+				.query("SELECT nID, sID, sINN, sPassport, sSB, sOKPO, sName FROM subjects WHERE sID = ?",
+						new SubjectRowMapper(), inn);
+                if(a.size()>0){
+                    return a.get(0);
+                }else{
+                    return null;
+                }
 	}
 
 	@Override
