@@ -12,10 +12,6 @@ define('state/documents/controller', ['angularAMD'], function (angularAMD) {
                 + $location.port()
                 + $state.href('documents.content', {code: $state.params.code});
         }
-        else {
-            console.log('documents.bankid');
-            $state.go('documents.bankid', {});
-        }
     }]);
 });
 define('state/documents/bankid/controller', ['angularAMD'], function (angularAMD) {
