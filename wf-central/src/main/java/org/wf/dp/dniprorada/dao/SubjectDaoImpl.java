@@ -22,7 +22,8 @@ public class SubjectDaoImpl implements SubjectDao {
 
 	@Override
 	public Subject insertSubject(String inn) {
-		jdbcTemplate.update("INSERT INTO subjects (sINN) VALUES (?)", inn);
+		//jdbcTemplate.update("INSERT INTO subjects (sINN) VALUES (?)", inn);
+		jdbcTemplate.update("INSERT INTO subjects (sID, sINN) VALUES (?, ?)", inn, inn);
 		return getSubject(inn);
 	}
 
