@@ -55,7 +55,7 @@ define('documents', ['angularAMD', 'service'], function (angularAMD) {
 
                         try {
                             $state.customer = customer;
-                            ServiceService.syncSubject(customer.inn).then(function(data) {
+                            return ServiceService.syncSubject(customer.inn).then(function(data) {
                                 if (data.hasOwnProperty('error')) { return $q.reject(null); }
                                 $state.nID_Subject = data.nID;
                                 // TODO: switch to DocumentService.getDocuments
