@@ -14,6 +14,7 @@ router.use('/api/process-definitions', require('./api/process-definitions/index'
 router.get('/api/process-form', require('./api/process-form/get'));
 router.post('/api/process-form', require('./api/process-form/post'));
 router.get('/api/service', require('./api/service/index'));
+router.get('/api/service/syncSubject', require('./api/service/syncSubject'));
 router.get('/api/services', require('./api/services/index'));
 
 router.use('/', function (req, res, next) {
