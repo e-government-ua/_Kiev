@@ -32,7 +32,7 @@ public class DocumentDaoImpl implements DocumentDao {
 
 	@Override
 	public List<Document> getDocuments(String subject_Upload) {
-		return (List<Document>)getSession().createCriteria(Document.class).add(Restrictions.eq("sID_Subject_Upload", subject_Upload)).list();
+		return (List<Document>)getSession().createCriteria(Document.class).add(Restrictions.eq("subject_Upload", subject_Upload)).list();
 	}
 
 	@Override
