@@ -51,7 +51,7 @@ public class Document {
 	private String file;
 
 	@JsonProperty(value="oDate_Upload")
-	@Column(name = "oDate_Upload", nullable = false) 
+	@Column(name = "sDate_Upload", nullable = true) 
 	private Date date_Upload;
 
 	@JsonProperty(value = "sID_Subject_Upload")
