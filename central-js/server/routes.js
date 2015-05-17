@@ -17,7 +17,7 @@ router.get('/api/service', require('./api/service/index'));
 router.get('/api/services', require('./api/services/index'));
 
 router.use('/', function (req, res, next) {
-	res.render('../client/build/index.html');
+	res.render(__dirname + '../../client/build/index.html');
 	next();
 });
 
