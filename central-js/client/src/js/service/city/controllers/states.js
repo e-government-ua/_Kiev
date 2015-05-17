@@ -27,11 +27,11 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 				
 				switch(serviceType.nID) {
 					case 1:
-						return $state.go('service.general.city.link', {id: $scope.service.nID});
+						return $state.go('service.general.city.link', {id: $scope.service.nID}, { location: false });
 					case 4:
-						return $state.go('service.general.city.built-in', {id: $scope.service.nID});
+						return $state.go('service.general.city.built-in', {id: $scope.service.nID}, { location: false });
 					default:
-						return $state.go('service.general.city.error', {id: $scope.service.nID});
+						return $state.go('service.general.city.error', {id: $scope.service.nID}, { location: false });
 				}
 			};
 			
