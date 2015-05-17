@@ -53,6 +53,7 @@ module.exports = function(grunt) {
 					'angular-boostrap': 'angular',
 					'angular-ui-router': 'angular',
 					'ui-router-extras': 'angular-ui-router',
+					'angular-ui-utils':'angular'
 				},
 				bowerOptions: {
 					relative: false
@@ -69,6 +70,7 @@ module.exports = function(grunt) {
 					'angular-boostrap': 'angular',
 					'angular-ui-router': 'angular',
 					'ui-router-extras': 'angular-ui-router',
+					'angular-ui-utils':'angular'
 				},
 				bowerOptions: {
 					relative: false

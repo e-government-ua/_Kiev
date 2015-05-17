@@ -7,7 +7,8 @@ module.exports = {
 		'protocol': 'https',
 		'key': '/sybase/cert/server.key',
 		'cert': '/sybase/cert/server.crt',
-		'port': '8443'
+		'port': '8443',
+		'debug': 'false'
 	},
 	'activiti': {
 		'protocol': 'https',
@@ -24,5 +25,5 @@ module.exports = {
 		'client_id': 'dniprorada',
 		'client_secret': 'NzVmYTI5NGJjMDg3OThlYjljNDY5YjYxYjJiMjJhNA=='
 	}
- }
+ };
 

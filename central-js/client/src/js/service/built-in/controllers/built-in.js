@@ -7,8 +7,12 @@ define('service/built-in/controller', ['angularAMD'], function (angularAMD) {
 
 define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'], function (angularAMD) {
 	angularAMD.controller('ServiceBuiltInBankIDController', [
-		'$state', '$stateParams', '$scope', 'FormDataFactory', 'ActivitiService', 'oServiceData', 'BankIDAccount', 'ActivitiForm',
-		function($state, $stateParams, $scope, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm) {
+		'$state', '$stateParams', '$scope', 
+		'FormDataFactory', 'ActivitiService', 'oServiceData', 
+		'BankIDAccount', 'ActivitiForm', 'uiUploader',
+		function($state, $stateParams, $scope, FormDataFactory, 
+			ActivitiService, oServiceData, BankIDAccount, ActivitiForm, 
+			uiUploader) {
 			angular.forEach($scope.places, function(value, key) {
 				if($stateParams.region == value.nID) {
 					$scope.data.region = value;
@@ -34,7 +38,7 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
                         angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {
                                 var sField = value.name;
                                 var s;
-                                if (sField == null) {
+                                if (sField === null) {
                                   sField="";
                                 }
                                 var a=sField.split(";");
@@ -43,36 +47,12 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
                                 s=null;
                                 if(a.length>1){
                                   s=a[1].trim();
-                                  if(s==""){
+                                  if(s===""){
                                       s=null;
                                   }
                                 }
-                                //$scope.data.formData.params[value.id].sFieldNotes=s;
-                                //$scope.ActivitiForm.formProperties[value.id].sFieldNotes=s+"_"+sField;
                                 value.sFieldNotes=s;
-                        });
-                        
-                        /*$scope.sFieldLabel = function(sField) {
-                          var s="";
-                          if (sField !== null) {
-                            var a=sField.split(";");
-                            s=a[0].trim();
-                          }
-                          return s;
-                        };
-                        $scope.sFieldNotes = function(sField) {
-                          var s=null;
-                          if (sField !== null) {
-                            var a=sField.split(";");
-                            if(a.length>1){
-                              s=a[1].trim();
-                              if(s==""){
-                                  s=null;
-                              }
-                            }
-                          }
-                          return s;
-                        };*/                    
+                        });               
                         
 			$scope.submit = function(form) {
 				form.$setSubmitted();
@@ -89,6 +69,30 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
 						}):
 					false;
 			};
+
+			$scope.uploadFile = function() {
+            	uiUploader.startUpload({
+                	url: './api/uploadfile?url=' + 
+                			oServiceData.sURL + 'service/rest/file/upload_file_to_redis',
+                	concurrency: 2,
+                	onProgress: function(file) {                   	
+                    	$scope.$apply();
+                	},
+                	onCompleted: function(file, response) {
+                    	if(response){
+
+                    	}
+                	}
+           		});
+        	};
+
+			$scope.files = [];
+        	$scope.addFile = function(event){
+				var files = event.target.files;
+            	uiUploader.addFiles(files);
+            	$scope.files = uiUploader.getFiles();
+            	$scope.$apply();
+        	};		
 		}
 	]);
 });
