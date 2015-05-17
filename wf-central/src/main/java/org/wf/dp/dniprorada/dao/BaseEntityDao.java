@@ -1,6 +1,5 @@
 package org.wf.dp.dniprorada.dao;
 
-import org.wf.dp.dniprorada.model.Category;
 import org.wf.dp.dniprorada.model.Entity;
 
 import java.io.Serializable;

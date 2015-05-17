@@ -14,11 +14,12 @@ router.use('/api/process-definitions', require('./api/process-definitions/index'
 router.get('/api/process-form', require('./api/process-form/get'));
 router.post('/api/process-form', require('./api/process-form/post'));
 router.get('/api/service', require('./api/service/index'));
+router.get('/api/service/syncSubject', require('./api/service/syncSubject'));
 router.get('/api/services', require('./api/services/index'));
 router.post('/api/uploadfile', require('./api/uploadfile/post'));
 
 router.use('/', function (req, res, next) {
-	res.render('../client/build/index.html');
+	res.render(__dirname + '../../client/build/index.html');
 	next();
 });
 

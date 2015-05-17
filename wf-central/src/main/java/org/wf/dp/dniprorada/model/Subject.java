@@ -1,21 +1,23 @@
 package org.wf.dp.dniprorada.model;
 
 public class Subject {
-	private int nID;
-	private int sID;
+	private Integer nID;
+	private String sID;
 	private String sINN;
 	private String sPassport;
 	private String sSB;
-	public int getnID() {
+	private String sOKPO;
+	private String sName;
+	public Integer getnID() {
 		return nID;
 	}
-	public void setnID(int nID) {
+	public void setnID(Integer nID) {
 		this.nID = nID;
 	}
-	public int getsID() {
+	public String getsID() {
 		return sID;
 	}
-	public void setsID(int sID) {
+	public void setsID(String sID) {
 		this.sID = sID;
 	}
 	public String getsINN() {
@@ -35,5 +37,17 @@ public class Subject {
 	}
 	public void setsPassport(String sPassport) {
 		this.sPassport = sPassport;
+	}
+	public String getsOKPO() {
+		return sOKPO;
+	}
+	public void setsOKPO(String sOKPO) {
+		this.sOKPO = sOKPO;
+	}
+	public String getsName() {
+		return sName;
+	}
+	public void setsName(String sName) {
+		this.sName = sName;
 	}
 }

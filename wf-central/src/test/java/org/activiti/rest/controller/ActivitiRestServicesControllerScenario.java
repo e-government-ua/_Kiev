@@ -46,22 +46,24 @@ public class ActivitiRestServicesControllerScenario {
               andReturn().getResponse().getContentAsString();
       Category[] categoriesBeforeChange = JsonRestUtils.readObject(jsonData, Category[].class);
 
-      String testName = "CategoryName438";
-      Assert.assertNotEquals(categoriesBeforeChange[0].getName(), testName);
-      categoriesBeforeChange[0].setName(testName);
+      String categoryName = "CategoryName438";
+      String subcategoryName = "SubcategoryName9873";
+      categoriesBeforeChange[0].setName(categoryName);
+      categoriesBeforeChange[0].getSubcategories().get(0).setName(subcategoryName);
 
       mockMvc.perform(post("/services/setServicesTree").content(JsonRestUtils.toJson(categoriesBeforeChange)).
               accept(MediaType.APPLICATION_JSON)).
               andExpect(status().isOk()).
               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
-              andExpect(jsonPath("$[0].sName", is(testName)));
+              andExpect(jsonPath("$[0].sName", is(categoryName)));
 
       jsonData = mockMvc.perform(get("/services/getServicesTree")).
               andExpect(status().isOk()).
               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
               andReturn().getResponse().getContentAsString();
       Category[] categoriesAfterChange = JsonRestUtils.readObject(jsonData, Category[].class);
-      Assert.assertEquals(categoriesAfterChange[0].getName(), testName);
+      Assert.assertEquals(categoryName, categoriesAfterChange[0].getName());
+      Assert.assertEquals(subcategoryName, categoriesAfterChange[0].getSubcategories().get(0).getName());
    }
 
 
@@ -76,16 +78,17 @@ public class ActivitiRestServicesControllerScenario {
               andReturn().getResponse().getContentAsString();
       Service serviceBeforeChange = JsonRestUtils.readObject(jsonData, Service.class);
 
-      String testName = "ServiceName123";
-      Assert.assertNotEquals(serviceBeforeChange.getName(), testName);
-      serviceBeforeChange.setName(testName);
+      String serviceName = "ServiceName123";
+      String serviceUrl = "ServiceDataUrl7483";
+      serviceBeforeChange.setName(serviceName);
+      serviceBeforeChange.getServiceDataList().get(0).setUrl(serviceUrl);
 
       mockMvc.perform(post("/services/setService").content(JsonRestUtils.toJson(serviceBeforeChange)).
               accept(MediaType.APPLICATION_JSON)).
               andExpect(status().isOk()).
               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
               andExpect(jsonPath("$.nID", is(1))).
-              andExpect(jsonPath("$.sName", is(testName)));
+              andExpect(jsonPath("$.sName", is(serviceName)));
 
       jsonData = mockMvc.perform(get("/services/getService").
               param("nID", "1")).
@@ -93,7 +96,8 @@ public class ActivitiRestServicesControllerScenario {
               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
               andReturn().getResponse().getContentAsString();
       Service serviceAfterChange = JsonRestUtils.readObject(jsonData, Service.class);
-      Assert.assertEquals(serviceAfterChange.getName(), testName);
+      Assert.assertEquals(serviceName, serviceAfterChange.getName());
+      Assert.assertEquals(serviceUrl, serviceAfterChange.getServiceDataList().get(0).getUrl());
    }
 
    @Test
@@ -106,8 +110,9 @@ public class ActivitiRestServicesControllerScenario {
       Region[] regionsBeforeChange = JsonRestUtils.readObject(jsonData, Region[].class);
 
       String testName = "Place4378";
-      Assert.assertNotEquals(regionsBeforeChange[0], testName);
+      String cityName = "City438";
       regionsBeforeChange[0].setName(testName);
+      regionsBeforeChange[0].getCities().get(0).setName(cityName);
 
       mockMvc.perform(post("/services/setPlaces").content(JsonRestUtils.toJson(regionsBeforeChange)).
               accept(MediaType.APPLICATION_JSON)).
@@ -120,7 +125,8 @@ public class ActivitiRestServicesControllerScenario {
               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
               andReturn().getResponse().getContentAsString();
       Region[] placesAfterChange = JsonRestUtils.readObject(jsonData, Region[].class);
-      Assert.assertEquals(placesAfterChange[0].getName(), testName);
+      Assert.assertEquals(testName, placesAfterChange[0].getName());
+      Assert.assertEquals(cityName, placesAfterChange[0].getCities().get(0).getName());
    }
 
 

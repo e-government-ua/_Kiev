@@ -23,7 +23,7 @@ router.use(function(req, res, next) {
 	var r = request.post(options);
 
 	request.debug = config.server.debug;
-	req.pipe(r).pipe(res)
+	req.pipe(r).pipe(res);
 });
 
 module.exports = router;

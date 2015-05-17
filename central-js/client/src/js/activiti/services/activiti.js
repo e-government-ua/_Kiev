@@ -17,7 +17,7 @@ define('activiti/service', ['angularAMD'], function(angularAMD) {
 		};
 
 		this.submitForm = function(oServiceData, formData) {
-			var url = oServiceData.sUrl + oServiceData.oData.sPath;
+			var url = oServiceData.sURL + oServiceData.oData.sPath;
 			var data = {
 				'url': url
 			};

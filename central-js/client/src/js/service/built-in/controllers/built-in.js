@@ -73,7 +73,7 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
 			$scope.uploadFile = function() {
             	uiUploader.startUpload({
                 	url: './api/uploadfile?url=' + 
-                			oServiceData.sURL + 'rest/file/upload_file_to_redis',
+                			oServiceData.sURL + 'service/rest/file/upload_file_to_redis',
                 	concurrency: 2,
                 	onProgress: function(file) {                   	
                     	$scope.$apply();
