@@ -37,6 +37,17 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 			}).then(function(response) {
 				return response.data;
 			});
-		}
+		};
+		this.getDocuments = function(sID_Subject) {
+			var data = {
+				'sID_Subject': sID_Subject
+			};
+			return $http.get('./api/service/documents', {
+				params: data,
+				data: data
+			}).then(function(response) {
+				return response.data;
+			});
+		};
 	}]);
 });
