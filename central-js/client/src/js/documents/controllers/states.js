@@ -34,6 +34,11 @@ define('state/documents/content/controller', ['angularAMD'], function (angularAM
         console.log('DocumentsContentController');
         console.log($state);
         console.log(documents);
+        angular.forEach(documents, function (item) {
+            if (item.oDate_Upload === null) {
+                item.oDate_Upload = new Date();
+            }
+        });
         $scope.documents = documents;
     }]);
 });
