@@ -15,7 +15,8 @@
         "external-ip": "0.2.3",
         "xml2js": "0.4.6",
         "caller-id": "0.1.0",
-        "form-data": "0.2.0"
+        "http-proxy":"1.11.1",
+        "base64":"2.1.0"
     },
     "devDependencies": {
         "grunt": "^0.4.5",
