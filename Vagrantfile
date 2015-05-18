@@ -85,9 +85,9 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell, privileged: false, run: "always", path: "scripts/up_central_js.sh"
 
   config.vm.post_up_message = 
-"*****************   Application stated                        *********************
-*****************   You can use VHOSTS                          ********************
-http(s)://e-gov-ua.dev                =>   https://192.168.10.10:8443/                 
+"******  Application stated    *********************
+*******  You can use VHOSTS    ********************
+http(s)://e-gov-ua.dev  =>   https://192.168.10.10:8443/                 
 http://e-gov-ua.dev/wf-dniprorada/ =>   http://192.168.10.10:8080/wf-dniprorada/  " 
 
 end

@@ -66,14 +66,24 @@ echo ** Setting up central-js                                        **
 echo ******************************************************************
 if ! dpkg --list nodejs | egrep -q ^ii; 
 then
-    echo installing node js  ...
-    curl -sL https://deb.nodesource.com/setup | sudo bash -
-    apt-get install -y nodejs git g++
-    npm install -g bower --allow-root
-    npm install -g grunt-cli 
-else
-    echo node js already installed
+    echo add node js PPA  ...
+    curl -sL https://deb.nodesource.com/setup | sudo bash -      
 fi
+
+apt-get install -y nodejs git g++ 
+
+echo updating npm
+npm install npm -g
+npm --version
+echo updating npm global modules
+npm update -g
+echo npm installing bower
+npm install -g bower
+echo npm installing grunt
+npm install -g grunt-cli
+echo npm installing grunt-contrib-imagemin
+npm install -g grunt-contrib-imagemin
+
 
 echo "copy dev ssl certificate/key to /sybase/cert/ folder "
 mkdir -p /sybase/cert/
