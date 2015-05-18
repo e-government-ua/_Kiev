@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 router.use('/', express.static(__dirname + '../../client/build/'));
-
 router.use('/api/account', require('./api/account/index'));
 router.get('/api/bankid/login', require('./api/bankid/login'));
 router.use('/api/bankid/account', require('./api/bankid/account'));
@@ -18,7 +17,7 @@ router.get('/api/service/syncSubject', require('./api/service/syncSubject'));
 router.get('/api/services', require('./api/services/index'));
 router.post('/api/uploadfile', require('./api/uploadfile/post'));
 
-router.use('/', function (req, res, next) {
+router.use('/', function(req, res, next) {
 	res.render(__dirname + '../../client/build/index.html');
 	next();
 });
