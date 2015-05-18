@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import net.sf.brunneng.jom.annotations.Identifier;
 
@@ -53,6 +55,10 @@ public class Document {
 	@JsonProperty(value="oDate_Upload")
 	@Column(name = "sDate_Upload", nullable = true) 
 	private Date date_Upload;
+	
+	@JsonProperty(value="sDate_Upload")
+	@Transient
+	private String sDate_Upload;
 
 	@JsonProperty(value = "sID_Subject_Upload")
 	@Column(name = "sID_Subject_Upload", nullable = false)
@@ -96,7 +102,6 @@ public class Document {
 	}
 
 	public Date getDate_Upload() {
-		//return "2015-05-05";
 		return date_Upload;
 	}
 
@@ -106,6 +111,15 @@ public class Document {
 
 	public String getSubject_Upload() {
 		return subject_Upload;
+	}
+	
+    @Transient
+	public String getsDate_Upload() {
+		return new SimpleDateFormat("yyyy-MM-dd").format(date_Upload);
+	}
+
+	public void setsDate_Upload(String sDate_Upload) {
+		this.sDate_Upload = sDate_Upload;
 	}
 
 	public void setSubject_Upload(String subject_Upload) {

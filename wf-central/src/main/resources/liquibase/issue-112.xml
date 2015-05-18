@@ -195,7 +195,7 @@
                              foreignKeyName="FK_Document_DocumentType"
                              referencedTableName="DocumentType" referencedColumnNames="nID" deleteCascade="true"/>
             </column>
-                <column name="sID_Content" type="varchar(1500)">
+                <column name="sID_Content" type="varchar(150)">
                 <constraints nullable="false"/>
             </column>
             <column name="nID_ContentType" type="int">
@@ -206,7 +206,7 @@
                 <constraints nullable="true"/>
             </column>
             <column name="sDate_Upload" type="timestamp">
-                <constraints nullable="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="sID_Subject_Upload" type="varchar(150)">
                 <constraints nullable="false"/>
@@ -280,7 +280,8 @@
             <column name="nID_ContentType" type="NUMERIC"/>
             <column name="sFile" type="STRING"/>
             <column name="sID_Subject_Upload" type="STRING"/>
-            <column name="sSubjectName_Upload" type="STRING"/>  
+            <column name="sSubjectName_Upload" type="STRING"/>
+            <column name="sDate_Upload" type="STRING"/>  
         </loadData>
         
     </changeSet>
