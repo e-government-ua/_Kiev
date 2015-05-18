@@ -68,7 +68,7 @@ if ! dpkg --list nodejs | egrep -q ^ii;
 then
     echo installing node js  ...
     curl -sL https://deb.nodesource.com/setup | sudo bash -
-    apt-get install -y nodejs git
+    apt-get install -y nodejs git g++
     npm install -g bower --allow-root
     npm install -g grunt-cli 
 else
