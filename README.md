@@ -1,5 +1,9 @@
-# i.gov.ua
+# dniprorada
+Портал для ....
 
-Строим Электронное Правительство Украины вместе!
+## Полезные материалы
 
-Вся информация в [wiki проекта](https://github.com/e-government-ua/i/wiki)
+ - [Рабочий процесс](./CONTRIBUTING.md)
+ - [Стек технологий](./docs/technology_stack.md)
+ - [Инфраструктура](./docs/infrastructure.md)
+ - [Спецификация API](./docs/specification.md)

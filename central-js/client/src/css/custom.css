@@ -44,7 +44,7 @@ label {
 }
 
 a {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .row {
@@ -60,6 +60,7 @@ a {
     float: left;
     position: absolute;
     top: 50px;
+    margin-left: 40px;
 }
 
 .navbar-default {
@@ -100,6 +101,17 @@ a {
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
     color: #ffffff
+}
+
+.menu-item {
+    /*background-color: #8FD3F7;*/
+    /*background-color: red;*/
+}
+
+.menu-item.selected {
+    /*background-color: #8FD3F7;*/
+    background-color: #77bae0;
+    /*background-color: violet;*/
 }
 
 .navbar-default .navbar-nav > .active > a,
@@ -383,9 +395,11 @@ a {
     padding-top: 0;
     padding-bottom: 0;
 }
+
 .i-btn-badge > span {
     display: inline-block;
 }
+
 .i-btn-badge > span > div:first-child {
     margin-bottom: -6px;
 }
@@ -405,9 +419,7 @@ a {
     background-color: #FCF7E3;
     padding: 15px 10px 15px 10px;
     margin: 20px 0px 20px 0px;
-
     vertical-align: middle;
-
 }
 
 .notification-header {
@@ -425,4 +437,45 @@ a {
 .notification-button-group > button.btn.btn-danger {
     font-weight: bold;
     width: 90px;
+}
+
+.nav-tabs > li > a {
+    padding: 0px 55px;
+    line-height: 2.42857143;
+    margin-top: 10px;
+}
+
+.form-signin-bankid {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin-bankid .form-signin-bankid-heading,
+.form-signin-bankid .checkbox {
+    margin-bottom: 10px;
+}
+.form-signin-bankid .checkbox {
+    font-weight: normal;
+}
+.form-signin-bankid .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-signin-bankid .form-control:focus {
+    z-index: 2;
+}
+.form-signin-bankid input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signin-bankid input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }

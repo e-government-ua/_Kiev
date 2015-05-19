@@ -1,5 +1,8 @@
 define(['angularAMD', 'templates'], function (angularAMD) {
-    var app = angular.module("main", ['ct.ui.router.extras', 'templates-main']);
+    var app = angular.module("main", 
+        ['ct.ui.router.extras', 'templates-main', 'ngMessages', 'ui.bootstrap',
+         'ui.uploader', 'ui.event'
+        ]);
 
     app.config(['$locationProvider', function ($locationProvider) {
 		$locationProvider.html5Mode(true);
@@ -29,8 +32,8 @@ define(['angularAMD', 'templates'], function (angularAMD) {
     }]);
 	
     app.config(['$urlRouterProvider', function ($urlRouterProvider) {
-		$urlRouterProvider.when('', '/index');
-        $urlRouterProvider.otherwise('/index');
+		$urlRouterProvider.when('/', '/index');
+        $urlRouterProvider.otherwise('/404');
     }]);
 
     angularAMD.bootstrap(app);

@@ -38,7 +38,7 @@ define('service.general.region.built-in', ['angularAMD'], function (angularAMD) 
 						var aServiceData = service.aServiceData;
 						var oServiceData = null;
 						angular.forEach(aServiceData, function(value, key) {
-							if(value.nID_Region == $stateParams.region) {
+							if(value.nID_Region.nID == $stateParams.region) {
 								oServiceData = value;
 							}
 						});

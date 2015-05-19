@@ -1,7 +1,10 @@
 'use strict';
-angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks, processes, Modal, Auth) {
+angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks, processes, Modal, Auth, $localStorage) {
   $scope.tasks = [];
   $scope.selectedTasks = {};
+  $scope.$storage = $localStorage.$default({
+    menuType: tasks.filterTypes.selfAssigned
+  });
   $scope.menus = [{
     title: 'В роботі',
     type: tasks.filterTypes.selfAssigned,
@@ -28,7 +31,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
   };
 
   $scope.isTaskFilterActive = function(taskType) {
-    return $scope.tasksFilter === taskType;
+    return $scope.$storage.menuType === taskType;
   };
 
   $scope.isTaskSelected = function(task) {
@@ -43,14 +46,14 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
     tasks.downloadDocument($scope.selectedTask.id);
   };
 
-  $scope.applyTaskFilter = function(taskFilter) {
-    $scope.selectedTask = $scope.selectedTasks[taskFilter];
+  $scope.applyTaskFilter = function(menuType) {
+    $scope.selectedTask = $scope.selectedTasks[menuType];
+    $scope.$storage.menuType = menuType;
     $scope.taskForm = null;
-    $scope.tasksFilter = taskFilter;
     $scope.tasks = [];
 
     tasks
-      .list($scope.tasksFilter)
+      .list(menuType)
       .then(function(result) {
         result = JSON.parse(result);
         $scope.tasks = result.data;
@@ -63,7 +66,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
 
   $scope.selectTask = function(task) {
     $scope.selectedTask = task;
-    $scope.selectedTasks[$scope.tasksFilter] = task;
+    $scope.selectedTasks[$scope.$storage.menuType] = task;
     $scope.taskForm = null;
     $scope.taskId = task.id;
     $scope.attachments = null;
@@ -106,7 +109,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
       tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm)
         .then(function(result) {
           Modal.inform.success(function(event) {
-            $scope.applyTaskFilter($scope.tasksFilter);
+            $scope.applyTaskFilter($scope.$storage.menuType);
           })('Форма відправлена : ' + result);
 
         })
@@ -119,7 +122,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
   $scope.assignTask = function() {
     tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id).then(function(result) {
       Modal.inform.success(function(event) {
-        $scope.applyTaskFilter($scope.tasksFilter);
+        $scope.applyTaskFilter($scope.$storage.menuType);
       })('Задача у вас в роботі');
     })
       .catch(function(err) {
@@ -132,6 +135,28 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
       var o = new Date('2015-04-27T13:19:44.098+03:00');
       return o.getFullYear() + '-' + o.getMonth() + '-' + o.getDate() + ' ' + o.getHours() + ':' + o.getMinutes();
     }
+  };
+
+  $scope.sFieldLabel = function(sField) {
+    var s = "";
+    if (sField !== null) {
+      var a = sField.split(";");
+      s = a[0].trim();
+    }
+    return s;
+  };
+  $scope.sFieldNotes = function(sField) {
+    var s = null;
+    if (sField !== null) {
+      var a = sField.split(";");
+      if (a.length > 1) {
+        s = a[1].trim();
+        if (s == "") {
+          s = null;
+        }
+      }
+    }
+    return s;
   };
 
   $scope.getProcessName = function(processDefinitionId) {
@@ -155,7 +180,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
 
   function loadSelfAssignedTasks () {
     processes.list().then(function(processesDefinitions) {
-      $scope.applyTaskFilter(tasks.filterTypes.selfAssigned);
+      $scope.applyTaskFilter($scope.$storage.menuType);
     }).catch(function(err) {
       err = JSON.parse(err);
       $scope.error = err;

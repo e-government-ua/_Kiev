@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="nikolaev_oda_2" name="Миколаєвська ОДА - Взяття на облік громадян, які потребують поліпшення житлових умов" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -9,7 +9,17 @@
         <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string"></activiti:formProperty>
-        <activiti:formProperty id="attachedId" name="Архів з документами" type="string"></activiti:formProperty>
+      
+
+ 		<activiti:formProperty id="file2" name="Копія довідки по формі-3" type="file" required="true"></activiti:formProperty>
+ 		<activiti:formProperty id="file3" name="Копія довідки із реєстраційної служби речових прав на нерухоме майно про наявність або відсутність власності у всіх членів сім’ї" type="file" required="true"></activiti:formProperty>
+ 		<activiti:formProperty id="file4" name="Копія довідки з місця роботи або про перебування на обліку в Центрі зайнятості з інформацією про перебування на квартирному обліку." type="file" required="true"></activiti:formProperty>
+ 		<activiti:formProperty id="file5" name="Копія довідки про пільги (при наявності)" type="file" required="false"></activiti:formProperty>
+ 		<activiti:formProperty id="file6" name="Копії свідоцтв про народження дітей; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"></activiti:formProperty>
+ 		<activiti:formProperty id="file7" name="Копія свідоцтв про шлюб або розірвання шлюбу;при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"></activiti:formProperty>
+ 		<activiti:formProperty id="file8" name="Копії карток фізичної особи – платника податків заявника та членів сім'ї; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"></activiti:formProperty>
+ 		<activiti:formProperty id="file1" name="Копії паспорта громадянина України заявника та повнолітніх членів сім'ї 1, 2, 10, 11 сторінок.; файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"></activiti:formProperty>
+ 		
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -20,8 +30,16 @@
         <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="attachedId" name="Архів з документами" type="string"></activiti:formProperty>
-        <activiti:formProperty id="assignee" name="Виконавець" type="user"></activiti:formProperty>
+
+ 		<activiti:formProperty id="file2" name="Копія довідки по формі-3" type="file" required="true"  writable="false"></activiti:formProperty>
+ 		<activiti:formProperty id="file3" name="Копія довідки із реєстраційної служби речових прав на нерухоме майно про наявність або відсутність власності у всіх членів сім’ї" type="file" required="true"  writable="false"></activiti:formProperty>
+ 		<activiti:formProperty id="file4" name="Копія довідки з місця роботи або про перебування на обліку в Центрі зайнятості з інформацією про перебування на квартирному обліку." type="file" required="true"  writable="false"></activiti:formProperty>
+ 		<activiti:formProperty id="file5" name="Копія довідки про пільги (при наявності)" type="file" required="false"  writable="false"></activiti:formProperty>
+ 		<activiti:formProperty id="file6" name="Копії свідоцтв про народження дітей; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"  writable="false"></activiti:formProperty>
+ 		<activiti:formProperty id="file7" name="Копія свідоцтв про шлюб або розірвання шлюбу;при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"  writable="false"></activiti:formProperty>
+ 		<activiti:formProperty id="file8" name="Копії карток фізичної особи – платника податків заявника та членів сім'ї; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"  writable="false"></activiti:formProperty>
+ 		<activiti:formProperty id="file1" name="Копії паспорта громадянина України заявника та повнолітніх членів сім'ї 1, 2, 10, 11 сторінок.; файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"  writable="false"></activiti:formProperty>
+ 
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
@@ -31,7 +49,7 @@
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="usertask2" name="Підстави для відмови " activiti:assignee="${assignee}">
+    <userTask id="usertask2" name="Підстави для відмови ">
       <extensionElements>
         <activiti:formProperty id="comment" name="Причина відмови " type="string" required="true"></activiti:formProperty>
       </extensionElements>
@@ -39,14 +57,23 @@
     <sequenceFlow id="flow3" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="usertask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask3" name="Підготовка витягу з рішення виконавчого комітету Ммр щодо взяття на квартирний облік" activiti:assignee="${assignee}">
+    <userTask id="usertask3" name="Підготовка витягу з рішення виконавчого комітету Ммр щодо взяття на квартирний облік">
       <extensionElements>
         <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="attachedId" name="Архів з документами" type="string"></activiti:formProperty>
+
+ 		<activiti:formProperty id="file2" name="Копія довідки по формі-3" type="file" required="true"  writable="false"></activiti:formProperty>
+ 		<activiti:formProperty id="file3" name="Копія довідки із реєстраційної служби речових прав на нерухоме майно про наявність або відсутність власності у всіх членів сім’ї" type="file" required="true"  writable="false"></activiti:formProperty>
+ 		<activiti:formProperty id="file4" name="Копія довідки з місця роботи або про перебування на обліку в Центрі зайнятості з інформацією про перебування на квартирному обліку." type="file" required="true"  writable="false"></activiti:formProperty>
+ 		<activiti:formProperty id="file5" name="Копія довідки про пільги (при наявності)" type="file" required="false"  writable="false"></activiti:formProperty>
+ 		<activiti:formProperty id="file6" name="Копії свідоцтв про народження дітей; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"  writable="false"></activiti:formProperty>
+ 		<activiti:formProperty id="file7" name="Копія свідоцтв про шлюб або розірвання шлюбу;при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"  writable="false"></activiti:formProperty>
+ 		<activiti:formProperty id="file8" name="Копії карток фізичної особи – платника податків заявника та членів сім'ї; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"  writable="false"></activiti:formProperty>
+ 		<activiti:formProperty id="file1" name="Копії паспорта громадянина України заявника та повнолітніх членів сім'ї 1, 2, 10, 11 сторінок.; файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"  writable="false"></activiti:formProperty>
+ 
         <activiti:formProperty id="regChanged" name="Витяг готовий?" type="enum" required="true">
           <activiti:value id="yes" name="Так, готовий"></activiti:value>
         </activiti:formProperty>
@@ -62,13 +89,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>dniprorada@egov.ua</activiti:string>
+          <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Взяття на облік громадян, які потребують поліпшення житлових умов</activiti:string>
+          <activiti:string><![CDATA[Взяття на облік громадян, які потребують поліпшення житлових умов]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
@@ -91,13 +118,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>dniprorada@egov.ua</activiti:string>
+          <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Взяття на облік громадян, які потребують поліпшення житлових умов</activiti:string>
+          <activiti:string><![CDATA[Взяття на облік громадян, які потребують поліпшення житлових умов]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
@@ -224,10 +251,6 @@
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
         <omgdi:waypoint x="295.0" y="110.0"></omgdi:waypoint>
         <omgdi:waypoint x="237.0" y="130.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
-        <omgdi:waypoint x="175.0" y="342.0"></omgdi:waypoint>
-        <omgdi:waypoint x="237.0" y="315.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

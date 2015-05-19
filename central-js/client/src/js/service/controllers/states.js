@@ -12,24 +12,24 @@ define('state/service/general/controller', ['angularAMD'], function (angularAMD)
 		
 		var isCity = false;
 		angular.forEach(aServiceData, function(value, key) {
-			if(angular.isNumber(value.nID_City)) {
+			if(value.hasOwnProperty('nID_City')) {
 				isCity = true;
 			}
 		});
 		if(isCity) {
-			return $state.go('service.general.city', {id: service.nID}, { location: true });
+			return $state.go('service.general.city', {id: service.nID}, { location: false });
 		}
 		
 		var isRegion = false;
 		angular.forEach(aServiceData, function(value, key) {
-			if(angular.isNumber(value.nID_Region)) {
+			if(value.hasOwnProperty('nID_Region')) {
 				isRegion = true;
 			}
 		});
 		if(isRegion) {
-			return $state.go('service.general.region', {id: service.nID}, { location: true });
+			return $state.go('service.general.region', {id: service.nID}, { location: false });
 		}
 		
-		return $state.go('service.general.country', {id: service.nID}, { location: true });
+		return $state.go('service.general.country', {id: service.nID}, { location: false });
     }]);
 });
