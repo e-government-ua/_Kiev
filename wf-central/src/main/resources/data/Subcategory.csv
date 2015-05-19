@@ -10,9 +10,9 @@ nID;sName;sID;nID_Category;nOrder
 9;Митниця;Customs;2;5
 10;Транспорт;Transport;2;4
 11;Земля та екологія;Ecology;2;3
-12;Юриспруденция физлиц;JusticeCitizen;1;7
-13;Разрешения;Permission;1;8
+12;Юриспруденція фізосіб;JusticeCitizen;1;7
+13;Дозволи;Permission;1;8
 14;Приписка;Registration;1;9
 15;Земля;Earth;1;10
-16;Юриспруденция юрлиц;JusticeBusiness;2;6
-17;Помощь;Help;1;11
+16;Юриспруденція юросіб;JusticeBusiness;2;6
+17;Допомога;Help;1;11
