@@ -5,7 +5,7 @@ var request = require('request');
 var httpProxy = require('http-proxy');
 var config = require('../../config.js');
 
-var base64Encode = require('base64').encode;
+//var base64Encode = require('base64').encode;
 var Buffer = require('buffer').Buffer;
 var authBase = 'Basic ' + 'YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=';
 	/*base64Encode(new Buffer(
