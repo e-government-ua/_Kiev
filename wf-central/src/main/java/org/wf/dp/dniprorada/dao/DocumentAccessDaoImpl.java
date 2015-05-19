@@ -85,7 +85,9 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		DocumentAccess da = null;
 		try{
 		da = jdbcTemplate
-				.query("SELECT nID FROM DocumentAccess order by nID desc limit 1",
+				.query("nID, nID_Document,"
+						+ " sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret"
+						+ " FROM DocumentAccess order by nID desc limit 1",
 						new DocumentAccessRowMapper()).get(0);
 		} catch(Exception e){
 			da.setnID(0);
