@@ -1,8 +1,6 @@
-'use strict';
+var _ = require('lodash');
 
-// use local_config.js if you need to locally change some of the settings
-// as described in README
-module.exports = {
+var config = {
 	'server': {
 		'protocol': 'https',
 		'key': '/sybase/cert/server.key',
@@ -25,5 +23,18 @@ module.exports = {
 		'client_id': 'dniprorada',
 		'client_secret': 'NzVmYTI5NGJjMDg3OThlYjljNDY5YjYxYjJiMjJhNA=='
 	}
- };
+};
 
+
+try {
+	var local_config = require('../local_config');
+	_.extend(config, local_config);
+} catch (e) {
+	if (e.code === 'MODULE_NOT_FOUND') {
+		// do nothing
+	}
+}
+
+// use local_config.js if you need to locally change some of the settings
+// as described in README
+module.exports = config;   

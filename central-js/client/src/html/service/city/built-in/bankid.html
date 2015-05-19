@@ -59,7 +59,7 @@
 								<p class="fileinput-button" ng-switch-when="file">
 									<input type="file" name="{{property.id}}" ui-event="{change:'addFile($event)'}"/>
                                 	<button type="button" class="btn btn-success js-upload-btn" data-loading-text="Завантаження..." class="btn btn-primary" autocomplete="off"
-                                	ng-click="uploadFile()">
+                                	ng-click="uploadFile(property.id)">
                                     <span class="glyphicon glyphicon-file" aria-hidden="true"></span> Завантажити файл
                                 	</button>
                                 	<div class="filename js-filename"></div>

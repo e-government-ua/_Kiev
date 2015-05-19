@@ -70,17 +70,22 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
           false;
       };
 
-      $scope.uploadFile = function() {
+      $scope.uploadFile = function(propertyID) {
         uiUploader.startUpload({
-          url: './api/uploadfile?url=' +
-            oServiceData.sURL + 'service/rest/file/upload_file_to_redis',
+          url: ActivitiService.getUploadFileURL(oServiceData),
           concurrency: 2,
           onProgress: function(file) {
             $scope.$apply();
           },
           onCompleted: function(file, response) {
             if (response) {
-
+              try {
+                JSON.parse(response);
+                alert(response);
+              } catch (e) {
+                ActivitiService.updateFileField(oServiceData,
+                  $scope.data.formData, propertyID, response);
+              }
             }
           }
         });
