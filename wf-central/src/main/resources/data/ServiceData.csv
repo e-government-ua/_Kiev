@@ -6,7 +6,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL
 5;5;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"CivilCopyDocRequest:1:65"}};https://test.e-gov.org.ua/wf-dniprorada/
 6;6;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo14:1:60059"}};https://test.e-gov.org.ua/wf-dniprorada/
 7;7;4;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ivFrank_mvk_2:1:67"}};https://test.e-gov.org.ua/wf-dniprorada/
-8;8;4;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ivFrank_mvk_1:1:57"}};https://test.e-gov.org.ua/wf-dniprorada/
+8;5;4;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ivFrank_mvk_1:1:57"}};https://test.e-gov.org.ua/wf-dniprorada/
 9;9;4;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo3:1:60045"}};https://test.e-gov.org.ua/wf-dniprorada/
 10;10;4;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo4:1:60055"}};https://test.e-gov.org.ua/wf-dniprorada/
 11;11;5;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"monetaryValuationOfLand:1:69"}};https://test.e-gov.org.ua/wf-dniprorada/
@@ -24,3 +24,5 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL
 23;23;NULL;6;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo11:1:60051"}};https://test.e-gov.org.ua/wf-dniprorada/
 24;24;NULL;6;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo10:1:60060"}};https://test.e-gov.org.ua/wf-dniprorada/
 25;25;8;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk-1:1:62"}};https://test.e-gov.org.ua/wf-dniprorada/
+26;5;3;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"lviv_mvk-1:1:50"}};https://test.e-gov.org.ua/wf-dniprorada/
+27;9;3;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"lviv_mvk-2:1:71"}};https://test.e-gov.org.ua/wf-dniprorada/
