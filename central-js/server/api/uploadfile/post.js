@@ -7,11 +7,11 @@ var config = require('../../config.js');
 
 var base64Encode = require('base64').encode;
 var Buffer = require('buffer').Buffer;
-var authBase = 'Basic ' +
-	base64Encode(new Buffer(
+var authBase = 'Basic ' + 'YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=';
+	/*base64Encode(new Buffer(
 		config.activiti.username +
 		':' +
-		config.activiti.password));
+		config.activiti.password));*/
 
 var proxy = httpProxy.createProxyServer({});
 
