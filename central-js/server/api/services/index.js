@@ -5,7 +5,7 @@ router.use(function(req, res, next) {
 	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 	var services = require('./index.controller');
 	
-	var config = require('../../config.js');
+	var config = require('../../config');
 	var activiti = config.activiti;
 	
 	var options = {
@@ -14,7 +14,10 @@ router.use(function(req, res, next) {
 		port: activiti.port,
 		path: activiti.path,
 		username: activiti.username,
-		password: activiti.password
+		password: activiti.password,
+		params: {
+			sFind: req.query.sFind || null
+		}
 	};
 	
 	var callback = function(error, response, body) {

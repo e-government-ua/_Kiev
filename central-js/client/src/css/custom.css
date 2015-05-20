@@ -419,9 +419,7 @@ a {
     background-color: #FCF7E3;
     padding: 15px 10px 15px 10px;
     margin: 20px 0px 20px 0px;
-
     vertical-align: middle;
-
 }
 
 .notification-header {
@@ -445,4 +443,39 @@ a {
     padding: 0px 55px;
     line-height: 2.42857143;
     margin-top: 10px;
+}
+
+.form-signin-bankid {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin-bankid .form-signin-bankid-heading,
+.form-signin-bankid .checkbox {
+    margin-bottom: 10px;
+}
+.form-signin-bankid .checkbox {
+    font-weight: normal;
+}
+.form-signin-bankid .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-signin-bankid .form-control:focus {
+    z-index: 2;
+}
+.form-signin-bankid input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signin-bankid input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }

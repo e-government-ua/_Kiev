@@ -68,10 +68,16 @@
 		<bean id="merchantDao" class="org.wf.dp.dniprorada.dao.MerchantDaoImpl" >
 			<property name="dataSource" ref="dataSource"/>
 		</bean>
-		
+
 		<bean id="subjectDao" class="org.wf.dp.dniprorada.dao.SubjectDaoImpl" >
 			<property name="dataSource" ref="dataSource"/>
 		</bean>
+		
+		<bean id="documentAccessDao" class="org.wf.dp.dniprorada.dao.DocumentAccessDaoImpl">
+			<property name="dataSource" ref="dataSource"/>
+		</bean>
+
+		
 
 		<bean id="abstractEntityDao" class="org.wf.dp.dniprorada.dao.AbstractEntityDao"  abstract="true">
 			<property name="sessionFactory" ref="sessionFactory"/>
@@ -83,6 +89,14 @@
 
 		<bean id="entityService" class="org.wf.dp.dniprorada.service.EntityService">
 			<property name="baseEntityDao" ref="baseEntityDao"/>
+		</bean>
+
+		<bean id="documentDao" class="org.wf.dp.dniprorada.dao.DocumentDaoImpl" >
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+
+        <bean id="subjectMessageDao" class="org.wf.dp.dniprorada.dao.SubjectMessagesDaoImpl" >
+			<property name="sessionFactory" ref="sessionFactory"/>
 		</bean>
 
 		<tx:advice id="txAdvice" transaction-manager="transactionManager">

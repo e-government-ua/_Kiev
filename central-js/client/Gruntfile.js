@@ -24,7 +24,7 @@ module.exports = function(grunt) {
                 src: [
                     './src/html/catalog/*.html',
                     './src/html/service/**/*.html',
-                    './src/html/documents/*.html',
+                    './src/html/documents/**/*.html',
                     './src/html/journal/*.html',
                     './src/html/404/*.html'
                 ],
@@ -53,6 +53,7 @@ module.exports = function(grunt) {
 					'angular-boostrap': 'angular',
 					'angular-ui-router': 'angular',
 					'ui-router-extras': 'angular-ui-router',
+					'angular-ui-utils':'angular'
 				},
 				bowerOptions: {
 					relative: false
@@ -69,6 +70,7 @@ module.exports = function(grunt) {
 					'angular-boostrap': 'angular',
 					'angular-ui-router': 'angular',
 					'ui-router-extras': 'angular-ui-router',
+					'angular-ui-utils':'angular'
 				},
 				bowerOptions: {
 					relative: false

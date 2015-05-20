@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="kuznetsovsk_mvk-1" name="Кузнецовський МВК - Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ ятості" isExecutable="true">
+  <process id="kuznetsovsk_mvk-1" name="Кузнецовський МВК - Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ" isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -20,7 +20,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ ]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -84,12 +84,11 @@ ${comment}</activiti:expression>
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ </activiti:expression>
+          <activiti:expression>Звернення на тему: Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний (-а), ${bankIdfirstName} ${bankIdmiddleName}. Вы запросили   довідку про відсутність земельних ділянок для ведення ОСГ.
-Запитуваний документ доданий в додаток цього листа.
-</activiti:expression>
+Запитуваний документ доданий в додаток цього листа.</activiti:expression>
         </activiti:field>
         <activiti:field name="docName">
           <activiti:expression>${docName}</activiti:expression>

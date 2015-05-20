@@ -8,6 +8,9 @@ module.exports.index = function(options, callback) {
 		'auth': {
 			'username': options.username,
 			'password': options.password
+		},
+		'qs': {
+			'sFind': options.params.sFind
 		}
 	}, callback);
 };

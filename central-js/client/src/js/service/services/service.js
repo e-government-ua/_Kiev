@@ -27,5 +27,27 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 				return response.data;
 			});
 		};
+		this.syncSubject = function (sInn) {
+			var data = {
+				'sINN': sInn
+			};
+			return $http.get('./api/service/syncSubject', {
+				params: data,
+				data: data
+			}).then(function(response) {
+				return response.data;
+			});
+		};
+		this.getDocuments = function(sID_Subject) {
+			var data = {
+				'sID_Subject': sID_Subject
+			};
+			return $http.get('./api/service/documents', {
+				params: data,
+				data: data
+			}).then(function(response) {
+				return response.data;
+			});
+		};
 	}]);
 });
