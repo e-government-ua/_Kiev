@@ -421,14 +421,7 @@
 						</includes>
 					</configuration>
 				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<configuration>
-						<encoding>${encoding}</encoding>
-					</configuration>
-				</plugin>
-
+				
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
@@ -449,17 +442,6 @@
 							</goals>
 						</execution>
 					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-assembly-plugin</artifactId>
-					<configuration>
-						<archive>
-							<manifestEntries>
-								<PluginVersion>${project.version}</PluginVersion>
-							</manifestEntries>
-						</archive>
-					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
