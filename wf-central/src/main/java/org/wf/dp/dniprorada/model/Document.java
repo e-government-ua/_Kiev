@@ -3,8 +3,6 @@ package org.wf.dp.dniprorada.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,16 +13,17 @@ import javax.persistence.Transient;
 
 import net.sf.brunneng.jom.annotations.Identifier;
 
-import org.wf.dp.dniprorada.model.DocumentType;
-import org.wf.dp.dniprorada.model.DocumentContentType;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @javax.persistence.Entity
 public class Document {
 
 	@JsonProperty(value = "nID")
 	@Id //@GeneratedValue
+	@GeneratedValue
 	@Column(name = "nID")
 	private Long id;
 
@@ -34,7 +33,7 @@ public class Document {
 
 	@JsonProperty(value = "oDocumentType")
 	@ManyToOne(fetch = FetchType.EAGER)
-	@Cascade({ CascadeType.SAVE_UPDATE })
+	//@Cascade({ CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = "nID_DocumentType", nullable = false)
 	private DocumentType documentType;
 
@@ -44,7 +43,7 @@ public class Document {
 
 	@JsonProperty(value = "oDocumentContentType")
 	@ManyToOne(fetch = FetchType.EAGER)
-	@Cascade({ CascadeType.SAVE_UPDATE })
+	//@Cascade({ CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = "nID_ContentType", nullable = false)
 	private DocumentContentType documentContentType;
 

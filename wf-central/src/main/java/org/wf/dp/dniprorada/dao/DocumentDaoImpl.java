@@ -6,7 +6,9 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.DocumentContentType;
 import org.wf.dp.dniprorada.model.DocumentType;
@@ -16,6 +18,10 @@ import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 public class DocumentDaoImpl implements DocumentDao {
 
 	private SessionFactory sessionFactory;
+	
+	//@Autowired
+	private GridFSBytesDataStorage gridFSBytesDataStorage;
+	
 
 	@Required
 	public SessionFactory getSessionFactory() {
@@ -43,16 +49,16 @@ public class DocumentDaoImpl implements DocumentDao {
 	@Override
 	public byte[] getDocumentContent(Long id) {
 		Document document = (Document) getSession().get(Document.class, id);
-		return new GridFSBytesDataStorage().getData(document.getСontentKey());
+		return gridFSBytesDataStorage.getData(document.getСontentKey());
 	}
 
 	@Override
 	public byte[] getDocumentContent(String contentKey) {
-		return new GridFSBytesDataStorage().getData(contentKey);
+		return gridFSBytesDataStorage.getData(contentKey);
 	}
 
 	@Override
-	public void setDocument(String subject_Upload, String subjectName_Upload,
+	public Long setDocument(String subject_Upload, String subjectName_Upload,
 			String name, String file, Integer documentTypeId,
 			Integer documentContentTypeId, byte[] content) {
 		Document document = new Document();
@@ -65,10 +71,12 @@ public class DocumentDaoImpl implements DocumentDao {
 		DocumentContentType documentContentType = new DocumentContentType();
 		documentContentType.setId(documentContentTypeId);
 		document.setDocumentContentType(documentContentType);
-		document.setСontentKey(new GridFSBytesDataStorage().saveData(content));
+		//document.setСontentKey(gridFSBytesDataStorage.saveData(content));
+		document.setСontentKey("ff");
 		document.setFile(file);
 		document.setDate_Upload(new Date());
 		getSession().saveOrUpdate(document);
+		return document.getId();
 
 	}
 }
