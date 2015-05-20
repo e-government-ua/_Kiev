@@ -18,7 +18,7 @@
             DROP TABLE IF EXISTS "DocumentType" CASCADE;
             DROP TABLE IF EXISTS "DocumentContentType" CASCADE;
             DROP TABLE IF EXISTS "Document" CASCADE;
-            DROP TABLE IF EXISTS "Subjectmessage" CASCADE;
+            DROP TABLE IF EXISTS "SubjectMessage" CASCADE;
         </sql>
 
         <!-- ####################################################################################################### -->
@@ -219,7 +219,7 @@
         <addAutoIncrement columnName="nID" tableName="Document" columnDataType="bigint"  incrementBy="1" startWith="1"/>
 
         <!-- ####################################################################################################### -->
-        <createTable tableName="Subjectmessage">
+        <createTable tableName="SubjectMessage">
             <column name="nID" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -239,7 +239,7 @@
             <column name="sContacts" type="varchar(200)"/>
             <column name="sData" type="varchar"/>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="Subjectmessage" columnDataType="bigint"  incrementBy="1" startWith="1"/>
+        <addAutoIncrement columnName="nID" tableName="SubjectMessage" columnDataType="bigint"  incrementBy="1" startWith="1"/>
 
 
 
