@@ -26,11 +26,11 @@ define('service.general.city', ['angularAMD', 'service.general.city.link', 'serv
                 }
             })
             .state('service.general.city.error', {
-                url: '/error',
+                url: '/absent',
                 views: {
 					'content@service.general.city': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
-							return $templateCache.get('html/service/city/error.html');
+							return $templateCache.get('html/service/city/absent.html');
 						}]
                     })
                 }

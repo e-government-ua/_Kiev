@@ -3,7 +3,6 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 		function ($state, $rootScope, $scope, service, places) {
 			$scope.service = service;
 			$scope.places = places;
-			
 			$scope.data = {
 				region: null,
 				city: null
@@ -19,20 +18,20 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 			
 			$scope.step2 = function() {
 				var aServiceData = $scope.service.aServiceData;
-				var serviceType = null;
+				var serviceType = { nID: 0 };
 				angular.forEach(aServiceData, function(value, key) {
-					if(value.nID_City == $scope.data.city.nID) {
+					if(value.nID_City.nID == $scope.data.city.nID) {
 						serviceType = value.nID_ServiceType;
 					}
 				});
 				
-				switch(serviceType) {
+				switch(serviceType.nID) {
 					case 1:
-						return $state.go('service.general.city.link', {id: $scope.service.nID});
+						return $state.go('service.general.city.link', {id: $scope.service.nID}, { location: false });
 					case 4:
-						return $state.go('service.general.city.built-in', {id: $scope.service.nID});
+						return $state.go('service.general.city.built-in', {id: $scope.service.nID}, { location: false });
 					default:
-						return $state.go('service.general.city.error', {id: $scope.service.nID});
+						return $state.go('service.general.city.error', {id: $scope.service.nID}, { location: false });
 				}
 			};
 			

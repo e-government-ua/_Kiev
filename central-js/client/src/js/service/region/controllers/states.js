@@ -19,20 +19,20 @@ define('state/service/region/controller', ['angularAMD'], function (angularAMD) 
 			
 			$scope.step2 = function() {
 				var aServiceData = $scope.service.aServiceData;
-				var serviceType = null;
+				var serviceType = { nID: 0 };
 				angular.forEach(aServiceData, function(value, key) {
-					if(value.nID_Region == $scope.data.region.nID) {
+					if(value.nID_Region.nID == $scope.data.region.nID) {
 						serviceType = value.nID_ServiceType;
 					}
 				});
 				
-				switch(serviceType) {
+				switch(serviceType.nID) {
 					case 1:
-						return $state.go('service.general.region.link', {id: $scope.service.nID});
+						return $state.go('service.general.region.link', {id: $scope.service.nID}, { location: false });
 					case 4:
-						return $state.go('service.general.region.built-in', {id: $scope.service.nID});
+						return $state.go('service.general.region.built-in', {id: $scope.service.nID}, { location: false });
 					default:
-						return $state.go('service.general.region.error', {id: $scope.service.nID});
+						return $state.go('service.general.region.error', {id: $scope.service.nID}, { location: false });
 				}
 			};
 			

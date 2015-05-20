@@ -9,7 +9,9 @@ import org.activiti.engine.ActivitiIllegalArgumentException;
 import com.vaadin.ui.Upload.FinishedEvent;
 import com.vaadin.ui.Upload.FinishedListener;
 import com.vaadin.ui.Upload.Receiver;
- 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * 
@@ -29,6 +31,8 @@ public class FileUploadReceiver implements Receiver, FinishedListener
  
   // Form field.
   protected SelectFileField   field;
+
+  private static Logger log = LoggerFactory.getLogger(FileUploadReceiver.class);
  
   public FileUploadReceiver(SelectFileField field)
   {
@@ -58,7 +62,8 @@ public class FileUploadReceiver implements Receiver, FinishedListener
  
   public void uploadFinished(FinishedEvent event)
   {
-    System.out.println("Upload of " + UPLOAD_DIR + File.separator + fileName);
+//    System.out.println("Upload of " + UPLOAD_DIR + File.separator + fileName);
+    log.info("Upload of {}", UPLOAD_DIR + File.separator + fileName);
     field.setValue(fileName);
   }
  

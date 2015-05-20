@@ -19,6 +19,16 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
 				url: '/built-in/region/{region:int}/city/{city:int}/?code',
 				parent: 'service.general.city',
 				resolve: {
+					oServiceData: ['$stateParams', 'service', 'places', function($stateParams, service, places) {
+						var aServiceData = service.aServiceData;
+						var oServiceData = null;
+						angular.forEach(aServiceData, function(value, key) {
+							if(value.nID_City.nID == $stateParams.city) {
+								oServiceData = value;
+							}
+						});
+						return oServiceData;
+					}],
 					BankIDLogin: ['$q', '$state', '$location', '$stateParams', 'BankIDService', function($q, $state, $location, $stateParams, BankIDService) {
 						var url = $location.protocol()
 							+'://'
@@ -34,14 +44,7 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
 					BankIDAccount: ['BankIDService', 'BankIDLogin', function(BankIDService, BankIDLogin) {
 						return BankIDService.account(BankIDLogin.access_token);
 					}],
-					ActivitiForm: ['$stateParams', 'ActivitiService', 'service', 'places', function($stateParams, ActivitiService, service, places) {
-						var aServiceData = service.aServiceData;
-						var oServiceData = null;
-						angular.forEach(aServiceData, function(value, key) {
-							if(value.nID_City == $stateParams.city) {
-								oServiceData = value;
-							}
-						});
+					ActivitiForm: ['ActivitiService', 'oServiceData', function(ActivitiService, oServiceData) {
 						return ActivitiService.getForm(oServiceData);
 					}]
 				},
@@ -55,6 +58,24 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
 					})
 				}
 			})
+			.state('service.general.city.built-in.bankid.submitted', {
+				url: null,
+				data: { id: null },
+				onExit:['$state', function($state) {
+					var state = $state.get('service.general.city.built-in.bankid.submitted');
+					state.data = { id: null };
+				}],
+				views: {
+					'content@service.general.city': angularAMD.route({
+                        templateProvider: ['$templateCache', function($templateCache) {
+							return $templateCache.get('html/service/city/built-in/bankid.submitted.html');
+						}],
+						controller: ['$state', '$scope', function($state, $scope) {
+							$scope.state = $state.get('service.general.city.built-in.bankid.submitted');
+						}]
+					})
+				}
+			});
     }]);	
     return app;
 });

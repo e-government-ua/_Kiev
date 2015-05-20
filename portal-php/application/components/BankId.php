@@ -20,7 +20,7 @@ class BankId extends OAuth2
     /**
      * @inheritdoc
      */
-    public $apiBaseUrl = 'https://bankid.org.ua/DataAccessService/checked';
+    public $apiBaseUrl = 'https://bankid.org.ua/ResourceService/checked';
 
     /**
      *
@@ -59,6 +59,29 @@ class BankId extends OAuth2
         ];
 
         return $this->api('data', 'CUSTOM_POST', $params, $headers);
+    }
+
+    /**
+     * Fetches access token from authorization code.
+     * @param string $authCode authorization code, usually comes at $_GET['code'].
+     * @param array $params additional request params.
+     * @return OAuthToken access token.
+     */
+    public function fetchAccessToken($authCode, array $params = [])
+    {
+        $secret = sha1($this->clientId . $this->clientSecret . $authCode);
+        $defaultParams = [
+            'client_id' => $this->clientId,
+            'client_secret' => $secret,
+            'code' => $authCode,
+            'grant_type' => 'authorization_code',
+            'redirect_uri' => $this->getReturnUrl(),
+        ];
+        $response = $this->sendRequest('POST', $this->tokenUrl, array_merge($defaultParams, $params));
+        $token = $this->createToken(['params' => $response]);
+        $this->setAccessToken($token);
+
+        return $token;
     }
 
     /**
