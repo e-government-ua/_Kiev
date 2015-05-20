@@ -9,15 +9,14 @@
         <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string"></activiti:formProperty>
-        
         <activiti:formProperty id="file1" name="Копія довідки по формі-2; Довідка  про склад сім’ї та реєстрацію,видана підприємством-балансоутримувачем житлового будинку (дійсна один місяць з моменту видачі)" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Копія Довідки з місця праці всіх повнолітніх членів сім’ї, які перебувають на обліку, із зазначенням інформації про перебування (неперебування) на обліку за місцем праці; файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копія пенсійного посвідчення (при наявності)" type="file" required="false"></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Копія документа, який підтверджує право власності на житло (якщо квартира у приватній власності);" type="file" required="false"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копії свідоцтв про народження (дітей); файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="false"></activiti:formProperty>
-        <activiti:formProperty id="file6" name="Копії свідоцтв про одруження (розлучення); файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="false"></activiti:formProperty>
-        <activiti:formProperty id="file7" name="Копія довідки про пільги (при наявності)" type="file" required="false"></activiti:formProperty>
-        <activiti:formProperty id="file8" name="Копія медичного висновку ЛКК для хворих на тяжкі форми хронічних захворювань (за наявності, форма №3)." type="file" required="false"></activiti:formProperty>
+        <activiti:formProperty id="file3" name="Копія пенсійного посвідчення (при наявності)" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file4" name="Копія документа, який підтверджує право власності на житло (якщо квартира у приватній власності);" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Копії свідоцтв про народження (дітей); файли можуть бути завантажені у вигляді ZIP-архіву" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file6" name="Копії свідоцтв про одруження (розлучення); файли можуть бути завантажені у вигляді ZIP-архіву" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file7" name="Копія довідки про пільги (при наявності)" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file8" name="Копія медичного висновку ЛКК для хворих на тяжкі форми хронічних захворювань (за наявності, форма №3)." type="file"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -28,16 +27,14 @@
         <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
-        
-        <activiti:formProperty id="file1" name="Копія довідки по формі-2; Довідка  про склад сім’ї та реєстрацію,видана підприємством-балансоутримувачем житлового будинку (дійсна один місяць з моменту видачі)" type="file" required="true" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Копія Довідки з місця праці всіх повнолітніх членів сім’ї, які перебувають на обліку, із зазначенням інформації про перебування (неперебування) на обліку за місцем праці; файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копія пенсійного посвідчення (при наявності)" type="file" required="false" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Копія документа, який підтверджує право власності на житло (якщо квартира у приватній власності);" type="file" required="false" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копії свідоцтв про народження (дітей); файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="false" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file6" name="Копії свідоцтв про одруження (розлучення); файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="false" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file7" name="Копія довідки про пільги (при наявності)" type="file" required="false" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file8" name="Копія медичного висновку ЛКК для хворих на тяжкі форми хронічних захворювань (за наявності, форма №3)." type="file" required="false" writable="false"></activiti:formProperty>
-         
+        <activiti:formProperty id="file1" name="Копія довідки по формі-2; Довідка  про склад сім’ї та реєстрацію,видана підприємством-балансоутримувачем житлового будинку (дійсна один місяць з моменту видачі)" type="file" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file2" name="Копія Довідки з місця праці всіх повнолітніх членів сім’ї, які перебувають на обліку, із зазначенням інформації про перебування (неперебування) на обліку за місцем праці; файли можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file3" name="Копія пенсійного посвідчення (при наявності)" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file4" name="Копія документа, який підтверджує право власності на житло (якщо квартира у приватній власності);" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Копії свідоцтв про народження (дітей); файли можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file6" name="Копії свідоцтв про одруження (розлучення); файли можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file7" name="Копія довідки про пільги (при наявності)" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file8" name="Копія медичного висновку ЛКК для хворих на тяжкі форми хронічних захворювань (за наявності, форма №3)." type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
@@ -62,17 +59,15 @@
         <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
-        
-        <activiti:formProperty id="file1" name="Копія довідки по формі-2; Довідка  про склад сім’ї та реєстрацію,видана підприємством-балансоутримувачем житлового будинку (дійсна один місяць з моменту видачі)" type="file" required="true" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Копія Довідки з місця праці всіх повнолітніх членів сім’ї, які перебувають на обліку, із зазначенням інформації про перебування (неперебування) на обліку за місцем праці; файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копія пенсійного посвідчення (при наявності)" type="file" required="false" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Копія документа, який підтверджує право власності на житло (якщо квартира у приватній власності);" type="file" required="false" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копії свідоцтв про народження (дітей); файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="false" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file6" name="Копії свідоцтв про одруження (розлучення); файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="false" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file7" name="Копія довідки про пільги (при наявності)" type="file" required="false" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file8" name="Копія медичного висновку ЛКК для хворих на тяжкі форми хронічних захворювань (за наявності, форма №3)." type="file" required="false" writable="false"></activiti:formProperty>
-   
-   		<activiti:formProperty id="regChanged" name="Довідка готова?" type="enum" required="true">
+        <activiti:formProperty id="file1" name="Копія довідки по формі-2; Довідка  про склад сім’ї та реєстрацію,видана підприємством-балансоутримувачем житлового будинку (дійсна один місяць з моменту видачі)" type="file" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file2" name="Копія Довідки з місця праці всіх повнолітніх членів сім’ї, які перебувають на обліку, із зазначенням інформації про перебування (неперебування) на обліку за місцем праці; файли можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file3" name="Копія пенсійного посвідчення (при наявності)" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file4" name="Копія документа, який підтверджує право власності на житло (якщо квартира у приватній власності);" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Копії свідоцтв про народження (дітей); файли можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file6" name="Копії свідоцтв про одруження (розлучення); файли можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file7" name="Копія довідки про пільги (при наявності)" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file8" name="Копія медичного висновку ЛКК для хворих на тяжкі форми хронічних захворювань (за наявності, форма №3)." type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="regChanged" name="Довідка готова?" type="enum" required="true">
           <activiti:value id="yes" name="Так, готова"></activiti:value>
         </activiti:formProperty>
       </extensionElements>
