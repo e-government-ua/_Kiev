@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,7 +59,7 @@ public class ActivitiRestDocumentController {
 
 	@RequestMapping(value = "/setDocumentContent", method = RequestMethod.GET)
 	public @ResponseBody
-	void setDocument(
+	Long setDocument(
 			@RequestParam(value = "sID_SubjectUpload") String subject_Upload,
 			@RequestParam(value = "sSubjectName_Upload") String subjectName_Upload,
 			@RequestParam(value = "sName") String documentName,
@@ -67,26 +68,25 @@ public class ActivitiRestDocumentController {
 			@RequestParam(value = "nID_DocumentContentType") Integer documentContentType,
 			@RequestParam(value = "soDocumentContent") String content,
 			HttpServletRequest request, HttpServletResponse httpResponse) {
-
-		documentDao.setDocument(subject_Upload, subjectName_Upload,
-				documentName, fileName == null ? request.getHeader("filename")
-						: fileName, documentType, documentContentType, content
-						.getBytes());
-
+		
+		return documentDao.setDocument(subject_Upload, subjectName_Upload,
+				documentName, fileName == null ? request.getHeader("filename"): fileName, 
+						documentType, documentContentType, content.getBytes());
 	}
 
-	@RequestMapping(value = "/setDocument", method = RequestMethod.GET)
+	@RequestMapping(value = "/setDocument", method = RequestMethod.POST)
 	public @ResponseBody
-	void setDocument(
+	Long setDocument(
 			@RequestParam(value = "sID_SubjectUpload") String subject_Upload,
 			@RequestParam(value = "sSubjectName_Upload") String subjectName_Upload,
 			@RequestParam(value = "sName") String documentName,
 			@RequestParam(value = "sFile", required = false) String fileName,
 			@RequestParam(value = "nID_DocumentType") Integer documentType,
 			@RequestParam(value = "nID_DocumentContentType", required = false) Integer documentContentType,
-			@RequestParam(value = "soDocumentContent") byte[] content,
+			@RequestBody byte[] content,
 			HttpServletRequest request, HttpServletResponse httpResponse) {
-		documentDao
+		
+		return documentDao
 				.setDocument(
 						subject_Upload,
 						subjectName_Upload,

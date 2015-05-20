@@ -216,7 +216,7 @@
                 <constraints nullable="false"/>
             </column>  
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="Document" columnDataType="int"  incrementBy="1" startWith="1"/>
+        <addAutoIncrement columnName="nID" tableName="Document" columnDataType="bigint"  incrementBy="1" startWith="1"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="Subjectmessage">
