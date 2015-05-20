@@ -10,9 +10,6 @@
         <fileSet>
             <directory>src/main/webapp</directory>
             <outputDirectory></outputDirectory>
-            <excludes>
-                <exclude>**/context.xml</exclude>
-            </excludes>
         </fileSet>
     </fileSets>
     <!--<id>java-jar</id>-->

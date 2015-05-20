@@ -20,10 +20,7 @@ define('index', ['angularAMD', 'catalog/service'], function (angularAMD) {
                     })
                 }
             })
-    }]).run(function($rootScope, $state) {
-        $rootScope.state = $state;
-    });
-
+    }]);
     return app;
 });
 

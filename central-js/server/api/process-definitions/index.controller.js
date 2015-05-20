@@ -1,7 +1,7 @@
 var request = require('request');
 
 module.exports.index = function(options, callback) {
-	var url = options.protocol+'://'+options.hostname+':'+options.port+options.path+'/rest/process-definitions';
+	var url = options.protocol+'://'+options.hostname+':'+options.port+options.path+'/repository/process-definitions';
 	return request.get({
 		'url': url,
 		'auth': {

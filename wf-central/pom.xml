@@ -3,14 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.egov-ua</groupId>
-		<artifactId>org.egov-ua</artifactId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
-
+	<groupId>org.activiti</groupId>
 	<name>WorkFlows Central UA/</name>
 	<artifactId>wf-central</artifactId>
+	<version>5.17.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<properties>
@@ -18,24 +14,12 @@
 		<activity.version>5.17.0</activity.version>
 	</properties>
 
-	<!-- distributionManagement>
-		<repository>
-			<id>localNexus</id>
-			<name>localNexus</name>
-			<url>http://52.17.32.123:8081/nexus/content/repositories/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>localNexus</id>
-			<name>localNexus</name>
-			<url>http://52.17.32.123:8081/nexus/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
 	<repositories>
 		<repository>
 			<id>vaadin-addons</id>
 			<url>http://maven.vaadin.com/vaadin-addons</url>
 		</repository>
-	</repositories-->
+	</repositories>
 
 	<build>
 		<plugins>
@@ -250,13 +234,6 @@
 
 		<!-- REDIS -->
 		<dependency>
-			<groupId>org.egov-ua</groupId>
-			<artifactId>org.egov-ua.storage.durable</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		
-		<!-- REDIS -->
-		<dependency>
 			<groupId>org.activiti.redis</groupId>
 			<artifactId>wf-dniprorada-redis</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -279,41 +256,6 @@
 			<version>9.4-1201-jdbc41</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aspects</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-core</artifactId>
-		</dependency>
-
-		<!-- Other -->
-		<dependency>
-			<groupId>net.sf.brunneng.jom</groupId>
-			<artifactId>java-object-merger</artifactId>
-		</dependency>
 
 		<!-- Running example processes -->
 		<dependency>
@@ -386,5 +328,16 @@
 
 
 	</dependencies>
-
+	<distributionManagement>
+		<repository>
+			<id>localNexus</id>
+			<name>localNexus</name>
+			<url>http://52.17.32.123:8081/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>localNexus</id>
+			<name>localNexus</name>
+			<url>http://52.17.32.123:8081/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>

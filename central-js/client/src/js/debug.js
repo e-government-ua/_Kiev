@@ -10,8 +10,7 @@ requirejs.config({
 		'documents': './app/documents',
 		'journal': './app/journal',
 		'service': './app/service',
-		'server': './app/server',
-        '404': './app/404'
+		'server': './app/server'
     },
     shim: {
         'angularAMD': ['bower'],

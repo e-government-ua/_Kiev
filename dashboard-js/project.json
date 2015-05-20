@@ -51,15 +51,6 @@
 		"folder_exclude_patterns": [
 
 		],
-		"name": "Dist",
-		"path": "dist"
-	}, {
-		"file_exclude_patterns": [
-
-		],
-		"folder_exclude_patterns": [
-
-		],
 		"name": "Root",
 		"path": "../"
 	}],

@@ -20,14 +20,13 @@ $config = [
                     'clientSecret' => 'NzVmYTI5NGJjMDg3OThlYjljNDY5YjYxYjJiMjJhNA==',
                     'authUrl' => 'https://bankid.privatbank.ua/DataAccessService/das/authorize',
                     'tokenUrl' => 'https://bankid.privatbank.ua/DataAccessService/oauth/token',
-                    'apiBaseUrl' => 'https://bankid.privatbank.ua/ResourceService/checked',
+                    'apiBaseUrl' => 'https://bankid.privatbank.ua/DataAccessService/checked',
                 ],
             ],
         ],
         'apiClient'            => [
             'class'  => 'app\components\ApiClient',
-            //'apiUrl' => 'https://52.17.126.64:8080/wf-dniprorada/service/',
-            'apiUrl' => 'https://localhost/wf-dniprorada/service/',
+            'apiUrl' => 'https://52.17.126.64:8080/wf-dniprorada/service/',
             'login' => 'activiti-master',
             'password' => 'UjhtJnEvf!'
         ],

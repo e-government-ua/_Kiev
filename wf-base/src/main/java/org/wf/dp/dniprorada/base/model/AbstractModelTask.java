@@ -98,11 +98,11 @@ public abstract class AbstractModelTask {
 			}
 
 		} catch (MagicParseException e) {
-			LOG.warn("MagicParseException ", e);
+			LOG.info("MagicParseException" + e.getMessage());
 		} catch (MagicMatchNotFoundException e) {
-			LOG.warn("MagicMatchNotFoundException", e);
+			LOG.info("MagicMatchNotFoundException" + e.getMessage());
 		} catch (MagicException e) {
-			LOG.warn("MagicException", e);
+			LOG.info("MagicException" + e.getMessage());
 		}
 		return mimiTypeModel;
 	}

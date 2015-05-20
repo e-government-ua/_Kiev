@@ -5,13 +5,13 @@ router.use(function(req, res, next) {
 	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 	var account = require('./account.controller');
 	
-	var config = require('../../config');
+	var config = require('../../config.js');
 	var bankid = config.bankid;
 	
 	var options = {
 		protocol: bankid.protocol,
 		hostname: bankid.hostname,
-		path: '/ResourceService',
+		path: bankid.path,
 		params: {
 			client_id: bankid.client_id,
 			client_secret: bankid.client_secret,

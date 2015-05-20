@@ -90,7 +90,17 @@ exports.getAttachmentContent = function(req, res) {
       'nFile': req.params.nFile
     }
   };
-  activiti.pipe(req, res, options);
+
+  activiti.get(options, function(error, statusCode, result) {
+    res.statusCode = statusCode;
+    if (error) {
+      res.send(error);
+    } else if (res.statusCode >=400 && res.statusCode <=600 ) {
+      res.send(result);
+    } else {
+      res.end(result, 'binary');
+    }
+  });
 };
 
 exports.submitForm = function(req, res) {

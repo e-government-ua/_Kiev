@@ -1,20 +1,16 @@
 'use strict';
-
-// use local_config.js if you need to locally change some of the settings
-// as described in README
 module.exports = {
 	'server': {
 		'protocol': 'https',
 		'key': '/sybase/cert/server.key',
 		'cert': '/sybase/cert/server.crt',
-		'port': '8443',
-		'debug': 'false'
+		'port': '8443'
 	},
 	'activiti': {
 		'protocol': 'https',
-		'hostname': 'e-gov.org.ua',
-		'port': '8443',
-		'path': '/wf-central/service',
+		'hostname': '52.17.126.64',
+		'port': '8080',
+		'path': '/wf-dniprorada/service',
 		'username': 'activiti-master',
 		'password': 'UjhtJnEvf!'
 	},
@@ -22,8 +18,9 @@ module.exports = {
 		'protocol': 'https',
 		'hostname': 'bankid.privatbank.ua',
 		'port': null,
+		'path': '/DataAccessService',
 		'client_id': 'dniprorada',
 		'client_secret': 'NzVmYTI5NGJjMDg3OThlYjljNDY5YjYxYjJiMjJhNA=='
 	}
- };
+ }
 

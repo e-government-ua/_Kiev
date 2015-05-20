@@ -2,7 +2,6 @@
   "name": "dashboard-js",
   "script": "./server/app.js",
   "args": "",
-  "log_date_format" : "YYYY-MM-DD_HH:mm:ss.SSS",
   "env": {
     "NODE_ENV": "production",
     "DOMAIN": "",

@@ -1,31 +1,11 @@
 var express = require('express');
 var ejs = require('ejs');
-var bodyParser = require('body-parser');
-var multer = require('multer'); 
 var fs = require('fs');
-var morgan = require('morgan');
+
 var config = require('./config');
 
-try {
-    var local_config = require('./local_config');
-    var _ = require('lodash');
-    _.extend(config, local_config);
-}
-catch( e ) {
-    if ( e.code === 'MODULE_NOT_FOUND' ) {
-        // do nothing
-    }
-}
-
 var app = express();
-
 app.engine('html', ejs.renderFile);
-app.use(morgan(
-	config.server.debug ? 
-		'dev' : 
-		':method :url :status :response-time ms - :res[content-length]'));
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(require('./routes'));
 
 var server = null;
@@ -40,7 +20,7 @@ switch(config.server.protocol) {
 		break;
 	case 'http':
 	default:
-		server = require('http').createServer(app); 
+		server = require('http').createServer(app);
 }
 
 server.listen(config.server.port, function() {

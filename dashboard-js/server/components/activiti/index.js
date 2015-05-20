@@ -46,23 +46,6 @@ exports.get = function(options, onResult) {
 		});
 }
 
-exports.pipe = function(req, res, options, data) {
-	var r = null;
-	if (req.method === 'POST') {
-		r = request.post(_.merge(getRequestOptions(options),
-			data ? {
-				json: true,
-				body: data
-			} : {
-				json: true,
-				body: req.body
-			}));
-	} else {
-		r = request(getRequestOptions(options));
-	}
-	req.pipe(r).pipe(res);
-}
-
 exports.post = function(options, onResult, data) {
 	request.post(_.merge(getRequestOptions(options), data ? {
 			json: true,

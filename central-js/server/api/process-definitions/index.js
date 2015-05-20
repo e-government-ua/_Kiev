@@ -5,7 +5,7 @@ router.use(function(req, res, next) {
 	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 	var processDefinitions = require('./index.controller');
 	
-	var config = require('../../config');
+	var config = require('../../config.js');
 	var activiti = config.activiti;
 	
 	var options = {
