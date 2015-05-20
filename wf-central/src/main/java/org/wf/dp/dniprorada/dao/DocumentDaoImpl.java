@@ -71,8 +71,9 @@ public class DocumentDaoImpl implements DocumentDao {
 		DocumentContentType documentContentType = new DocumentContentType();
 		documentContentType.setId(documentContentTypeId);
 		document.setDocumentContentType(documentContentType);
-		//document.setСontentKey(gridFSBytesDataStorage.saveData(content));
-		document.setСontentKey("ff");
+		document.setСontentKey(gridFSBytesDataStorage.saveData(content));
+		document.setСontentKey(new GridFSBytesDataStorage().saveData(content));
+		//document.setСontentKey("ff");
 		document.setFile(file);
 		document.setDate_Upload(new Date());
 		getSession().saveOrUpdate(document);
