@@ -32,7 +32,7 @@ define('activiti/service', ['angularAMD'], function(angularAMD) {
 		}
 
 		this.updateFileField = function(oServiceData, formData, propertyID, fileUUID) {
-			
+			formData.params[propertyID].value = fileUUID;
 		}
 	}]);
 });
