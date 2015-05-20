@@ -6,6 +6,17 @@ var fs = require('fs');
 var morgan = require('morgan');
 var config = require('./config');
 
+try {
+    var local_config = require('./local_config');
+    var _ = require('lodash');
+    _.extend(config, local_config);
+}
+catch( e ) {
+    if ( e.code === 'MODULE_NOT_FOUND' ) {
+        // do nothing
+    }
+}
+
 var app = express();
 
 app.engine('html', ejs.renderFile);
