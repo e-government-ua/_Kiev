@@ -1,7 +1,7 @@
 var request = require('request');
 
 module.exports.index = function(options, callback) {
-	var url = options.protocol+'://'+options.hostname+options.path+'/checked/data';
+	var url = options.protocol + '://' + options.hostname + options.path + '/checked/data';
 	return request.post({
 		'url': url,
 		'headers': {
@@ -12,7 +12,11 @@ module.exports.index = function(options, callback) {
 		json: true,
 		body: {
 			"type": "physical",
-			"fields": ["firstName", "middleName", "lastName", "phone", "inn", "clId", "clIdText", "birthDay"]
+			"fields": ["firstName", "middleName", "lastName", "phone", "inn", "clId", "clIdText", "birthDay"],
+			"documents": [{
+				"type": "passport",
+				"fields": ["series", "number", "issue", "dateIssue", "dateExpiration", "issueCountryIso2"]
+			}]
 		}
 	}, callback);
 };

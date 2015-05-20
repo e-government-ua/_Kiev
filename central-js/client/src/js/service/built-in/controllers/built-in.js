@@ -70,32 +70,49 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
           false;
       };
 
-      $scope.uploadFile = function(propertyID) {
+      $scope.cantSubmit = function(form) {
+        return $scope.isUploading && !form.$valid;
+      };
+
+      $scope.isUploading = false;
+
+      var fileKey = function(file){
+        return file.name + file.size;
+      };
+
+      $scope.uploadFile = function() {
         uiUploader.startUpload({
           url: ActivitiService.getUploadFileURL(oServiceData),
           concurrency: 2,
           onProgress: function(file) {
+            $scope.isUploading = true;
             $scope.$apply();
           },
           onCompleted: function(file, response) {
+            $scope.isUploading = false;
             if (response) {
               try {
                 JSON.parse(response);
                 alert(response);
               } catch (e) {
                 ActivitiService.updateFileField(oServiceData,
-                  $scope.data.formData, propertyID, response);
+                  $scope.data.formData, $scope.files[fileKey(file)], response);
               }
             }
+            $scope.$apply();
           }
         });
       };
 
-      $scope.files = [];
-      $scope.addFile = function(event) {
+      $scope.files = {};
+      $scope.addFile = function(propertyId, event) {
         var files = event.target.files;
-        uiUploader.addFiles(files);
-        $scope.files = uiUploader.getFiles();
+        if (files && files.length === 1) {
+          uiUploader.addFiles(files);
+          if (uiUploader.getFiles()[0]) {
+            $scope.files[fileKey(event.target.files[0])] = propertyId;
+          }
+        }
         $scope.$apply();
       };
     }

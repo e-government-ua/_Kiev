@@ -1,12 +1,12 @@
 define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/factory'], function(angularAMD) {
 	angularAMD.factory('FormDataFactory', ['ParameterFactory', 'DatepickerFactory',
 		function(ParameterFactory, DatepickerFactory) {
-			var capitalizeFirst = function(input) {			
-				if(input){
+			var capitalizeFirst = function(input) {
+				if (input) {
 					return input.substring(0, 1).toUpperCase() + input.substring(1);
 				}
 				return input;
-			}
+			};
 
 			var FormDataFactory = function() {
 				this.processDefinitionId = null;
@@ -37,14 +37,30 @@ define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/facto
 			};
 
 			FormDataFactory.prototype.setBankIDAccount = function(BankIDAccount) {
-
-
 				return angular.forEach(BankIDAccount.customer, function(value, key) {
-					var field = 'bankId' + capitalizeFirst(key);
+					var field;
+					var finalValue;
+					if (key === 'documents') {
+						if (value && value.length === 1 && value[0]) {
+							var documentObject = value[0];
+							if (documentObject.type === 'passport') {
+								finalValue =
+									documentObject.series +
+									documentObject.number + ' ' +
+									documentObject.issue + ' ' +
+									documentObject.dateIssue;
+
+								field = 'bankId' + capitalizeFirst(documentObject.type);								
+							}
+						}
+					} else {
+						field = 'bankId' + capitalizeFirst(key);
+						finalValue = value;
+					}
 
 					if (this.hasParam(field)) {
 						this.fields[field] = true;
-						this.params[field].value = value;
+						this.params[field].value = finalValue;
 					}
 				}, this);
 			};
