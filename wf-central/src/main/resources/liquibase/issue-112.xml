@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="Create/Update tables" author="brunneng" runOnChange="true">
+
+        <sql splitStatements="true">
+            DROP TABLE IF EXISTS "Region" CASCADE;
+            DROP TABLE IF EXISTS "City" CASCADE;
+            DROP TABLE IF EXISTS "Category" CASCADE;
+            DROP TABLE IF EXISTS "Subcategory" CASCADE;
+            DROP TABLE IF EXISTS "ServiceType" CASCADE;
+            DROP TABLE IF EXISTS "Service" CASCADE;
+            DROP TABLE IF EXISTS "ServiceData" CASCADE;
+            DROP TABLE IF EXISTS "DocumentType" CASCADE;
+            DROP TABLE IF EXISTS "DocumentContentType" CASCADE;
+            DROP TABLE IF EXISTS "Document" CASCADE;
+            DROP TABLE IF EXISTS "Subjectmessage" CASCADE;
+        </sql>
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="Region">
+            <column name="nID" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="Region" columnDataType="int" incrementBy="1" startWith="1000"/>
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="City">
+            <column name="nID" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_Region" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_Region_City"
+                             referencedTableName="Region" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="City" columnDataType="int" incrementBy="1" startWith="1000"/>
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="Category">
+            <column name="nID" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sID" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nOrder" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="Category" columnDataType="int" incrementBy="1" startWith="1000"/>
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="Subcategory">
+            <column name="nID" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sID" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_Category" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_Subcategory_Category"
+                             referencedTableName="Category" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+            <column name="nOrder" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="Subcategory" columnDataType="int" incrementBy="1" startWith="1000"/>
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="ServiceType">
+            <column name="nID" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sNote" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="ServiceType" columnDataType="int" incrementBy="1" startWith="1000"/>
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="Service">
+            <column name="nID" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nOrder" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_Subcategory" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_Service_Subcategory"
+                             referencedTableName="Subcategory" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+            <column name="sInfo" type="clob">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sFAQ" type="clob">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sLaw" type="clob">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="Service" columnDataType="int"  incrementBy="1" startWith="1000"/>
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="ServiceData">
+            <column name="nID" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nID_Service" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_ServiceData_Service"
+                             referencedTableName="Service" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+            <column name="nID_City" type="int">
+                <constraints foreignKeyName="FK_ServiceData_City"
+                             referencedTableName="City" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+            <column name="nID_Region" type="int">
+                <constraints foreignKeyName="FK_ServiceData_Region"
+                             referencedTableName="Region" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+            <column name="nID_ServiceType" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_ServiceData_ServiceType"
+                             referencedTableName="ServiceType" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+            <column name="oData" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sURL" type="varchar(300)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="ServiceData" columnDataType="int"  incrementBy="1" startWith="1000"/>
+        
+                <!-- ####################################################################################################### -->
+        <createTable tableName="DocumentType">
+            <column name="nID" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="DocumentType" columnDataType="int" incrementBy="1" startWith="0"/>
+        
+        <!-- ####################################################################################################### -->
+        <createTable tableName="DocumentContentType">
+            <column name="nID" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="DocumentContentType" columnDataType="int" incrementBy="1" startWith="0"/>
+        
+        <!-- ####################################################################################################### -->
+        <createTable tableName="Document">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_DocumentType" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_Document_DocumentType"
+                             referencedTableName="DocumentType" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+                <column name="sID_Content" type="varchar(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_ContentType" type="int">
+                <constraints foreignKeyName="FK_Document_DocumentContentType"
+                             referencedTableName="DocumentContentType" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+            <column name="sFile" type="varchar(150)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sDate_Upload" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sID_Subject_Upload" type="varchar(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sSubjectName_Upload" type="varchar(150)">
+                <constraints nullable="false"/>
+            </column>  
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="Document" columnDataType="int"  incrementBy="1" startWith="1"/>
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="Subjectmessage">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sHead" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sBody" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sDate" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_Subject" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sMail" type="varchar(100)"/>
+            <column name="sContacts" type="varchar(200)"/>
+            <column name="sData" type="varchar"/>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="Subjectmessage" columnDataType="bigint"  incrementBy="1" startWith="1"/>
+
+
+
+        <!-- Loading of Data ####################################################################################### -->
+        <loadData encoding="UTF-8" file="data/Region.csv" tableName="Region" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/City.csv" tableName="City" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="nID_Region" type="NUMERIC"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/Category.csv" tableName="Category" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sID" type="STRING"/>
+            <column name="sName" type="STRING"/>
+            <column name="nOrder" type="NUMERIC"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/Subcategory.csv" tableName="Subcategory" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sID" type="STRING"/>
+            <column name="sName" type="STRING"/>
+            <column name="nID_Category" type="NUMERIC"/>
+            <column name="nOrder" type="NUMERIC"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/ServiceType.csv" tableName="ServiceType" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="sNote" type="STRING"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/Service.csv" tableName="Service" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="nOrder" type="NUMERIC"/>
+            <column name="nID_Subcategory" type="NUMERIC"/>
+            <column name="sInfo" type="STRING"/>
+            <column name="sFAQ" type="STRING"/>
+            <column name="sLaw" type="STRING"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/ServiceData.csv" tableName="ServiceData" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_Service" type="NUMERIC"/>
+            <column name="nID_City" type="NUMERIC"/>
+            <column name="nID_Region" type="NUMERIC"/>
+            <column name="nID_ServiceType" type="NUMERIC"/>
+            <column name="oData" type="STRING"/>
+            <column name="sURL" type="STRING"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/DocumentType.csv" tableName="DocumentType" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/DocumentContentType.csv" tableName="DocumentContentType" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/Document.csv" tableName="Document" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="nID_DocumentType" type="NUMERIC"/>
+            <column name="sID_Content" type="STRING"/>
+            <column name="nID_ContentType" type="NUMERIC"/>
+            <column name="sFile" type="STRING"/>
+            <column name="sID_Subject_Upload" type="STRING"/>
+            <column name="sSubjectName_Upload" type="STRING"/>
+            <column name="sDate_Upload" type="STRING"/>  
+        </loadData>
+        
+    </changeSet>
+
+
+</databaseChangeLog>

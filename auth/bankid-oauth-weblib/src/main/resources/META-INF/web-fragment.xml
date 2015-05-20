@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-fragment id="bankid-oauth-weblib"
+              version="3.0"
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                        http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd">
+
+    <display-name>bankID oauth weblib</display-name>
+    <distributable/>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+
+	<!-- OAuth2 Managed Endpoints -->
+	<servlet>
+		<servlet-name>oauth2</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<description>turn off auto-scanning for exception handlers</description>
+            <param-name>detectAllHandlerExceptionResolvers</param-name>
+            <param-value>false</param-value>
+        </init-param>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+    
+	<servlet-mapping>
+		<servlet-name>oauth2</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+
+    <!-- Filters -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <async-supported>true</async-supported>
+        <init-param>
+            <param-name>contextAttribute</param-name>
+            <param-value>org.springframework.web.servlet.FrameworkServlet.CONTEXT.oauth2</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Set up passing session id through cookie-->
+    <session-config>
+      <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+</web-fragment>

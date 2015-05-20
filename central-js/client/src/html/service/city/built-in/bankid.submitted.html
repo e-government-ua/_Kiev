@@ -1,0 +1,39 @@
+<div class="list-group">
+	<div class="list-group-item" ng-class="{'disabled': data.city}">
+		<div class="row no-margin-bottom">
+			<div class="col-md-11 form-inline">
+				<span>Крок 1. Оберіть свій регіон </span>
+				<div style="display:inline-block">
+					<span>Область</span>
+					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.sName for region in places track by region.nID" ng-disabled="data.city"></select>
+				</div>
+				<div style="display:inline-block" ng-if="data.region">
+					<span>Місто</span>
+					<select class="form-control" name="city" ng-model="data.city" ng-options="city as city.sName for city in data.region.aCity track by city.nID" ng-disabled="data.city"></select>
+				</div>
+			</div>
+			<div class="col-md-1" ng-if="data.city">
+				<div class="link-button">
+					<a ng-click="step1()">Змінити</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="list-group-item disabled">
+		<div class="row no-margin-bottom">
+			<div class="col-md-11">Крок 2. Ви увійшли як {{data.formData.params.bankIdfirstName.value}} {{data.formData.params.bankIdmiddleName.value}} {{data.formData.params.bankIdlastName.value}}</div>
+			<div class="col-md-1">
+				<div class="link-button">
+					<a ng-click="step2()">Змінити</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="list-group-item">
+		<div class="row no-margin-bottom">
+			<h3 class="text-center">Шановний {{data.formData.params.bankIdfirstName.value}} {{data.formData.params.bankIdmiddleName.value}} {{data.formData.params.bankIdlastName.value}}!</h3>
+			<div class="text-center">Ваше звернення №{{state.data.id}} успішно зареєстровано</div>
+			<div class="text-center">Результаты будуть спрямовані на Ваш {{data.formData.params.email.value}}</div>
+		</div>
+	</div>
+</div>

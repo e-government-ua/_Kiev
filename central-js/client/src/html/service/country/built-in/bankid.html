@@ -1,0 +1,39 @@
+<div class="list-group">
+	<div class="list-group-item disabled">
+		<div class="row no-margin-bottom">
+			<div class="col-md-11">Крок 1. Ви увійшли як {{account.customer.firstName}} {{account.customer.middleName}} {{account.customer.lastName}}</div>
+			<div class="col-md-1">
+				<div class="link-button">
+					<a ng-click="step1()">Змінити</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="list-group-item">
+		<div class="row">
+			<div class="col-md-12">Крок 2. Ви зможете отримати довідку про несудимість у ГУМВС м.Львова, С.Бандери, 1, м. Львів через 2 тижні. Ви отримаєте повідомлення через SMS та Email, коли довідка буде готова.</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="highlight">
+					<form>
+						<div class="row" ng-repeat="property in ActivitiForm.formProperties track by property.id">
+							<div class="col-md-5">{{property.name}}:</div>
+							<div class="col-md-3">
+								<input type="text" class="form-control" value="">
+							</div>
+							<div class="col-md-4"></div>
+						</div>
+						<div class="row">
+							<div class="col-md-5"></div>
+							<div class="col-md-3">
+								<button class="btn btn-info">Замовити довідку</button>
+							</div>
+							<div class="col-md-4"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

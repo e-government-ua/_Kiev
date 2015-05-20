@@ -9,23 +9,59 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
+	<!-- Dniprorada -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+		<context:component-scan base-package="org.wf.dp.dniprorada" />
+
 	<beans profile="prod">
 
-		<bean id="dbProperties"
-			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-			<property name="location" value="file:${catalina.home}/conf/db.properties" />
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="locations">
+				<list>
+					<value>file:${catalina.home}/conf/db.properties</value>
+					<value>file:${catalina.home}/conf/email.properties</value>
+					<value>file:${catalina.home}/conf/bankID.properties</value>
+				</list>
+			</property>
 			<property name="ignoreUnresolvablePlaceholders" value="true" />
+
+			<property name="properties">
+				<map>
+					<entry key="processEngineConfiguration.databaseSchemaUpdate" value="true"/>
+				</map>
+			</property>
 		</bean>
 
-		<bean id="emailProperties"
-			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-			<property name="location" value="file:${catalina.home}/conf/email.properties" />
+	</beans>
+
+	<!-- profile="test" - тестовый запуск, все настройки боевые, указанные в
+	db.properties. Установить в catalina.bat переменную -Dspring.profiles.active=test" -->
+	<beans profile="test,default">
+
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="locations">
+				<list>
+					<value>classpath:db.properties</value>
+					<value>classpath:email.properties</value>
+					<value>classpath:bankID.properties</value>
+				</list>
+			</property>
 			<property name="ignoreUnresolvablePlaceholders" value="true" />
+
+			<property name="properties">
+				<map>
+					<entry key="processEngineConfiguration.databaseSchemaUpdate" value="true"/>
+				</map>
+			</property>
 		</bean>
 
+	</beans>
+
+	<beans>
 
 		<bean id="dataSource"
-			class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+			  class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 			<property name="driverClass" value="${jdbc.driver}" />
 			<property name="url" value="${jdbc.url}" />
 			<property name="username" value="${jdbc.username}" />
@@ -34,14 +70,14 @@
 
 
 		<bean id="transactionManager"
-			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 			<property name="dataSource" ref="dataSource" />
 		</bean>
 
 		<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 			<property name="dataSource" ref="dataSource" />
 			<property name="transactionManager" ref="transactionManager" />
-			<property name="databaseSchemaUpdate" value="false" />
+			<property name="databaseSchemaUpdate" value="${processEngineConfiguration.databaseSchemaUpdate}" />
 			<property name="jobExecutorActivate" value="true" />
 			<property name="enableDatabaseEventLogging" value="true" />
 			<property name="deploymentResources" value="classpath*:bpmn/autodeploy/*.bpmn" />
@@ -61,6 +97,9 @@
 							</map>
 						</constructor-arg>
 					</bean>
+					<bean class="org.wf.dp.dniprorada.form.FormFileType" />
+					<bean class="org.wf.dp.dniprorada.form.TextAreaFormType" />
+					<bean class="org.wf.dp.dniprorada.form.LabelFormType" />
 				</list>
 			</property>
 
@@ -81,229 +120,26 @@
 		</bean>
 
 		<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean"
-			destroy-method="destroy">
+			  destroy-method="destroy">
 			<property name="processEngineConfiguration" ref="processEngineConfiguration" />
 		</bean>
 
 		<bean id="repositoryService" factory-bean="processEngine"
-			factory-method="getRepositoryService" />
+			  factory-method="getRepositoryService" />
 		<bean id="runtimeService" factory-bean="processEngine"
-			factory-method="getRuntimeService" />
+			  factory-method="getRuntimeService" />
 		<bean id="taskService" factory-bean="processEngine"
-			factory-method="getTaskService" />
+			  factory-method="getTaskService" />
 		<bean id="formService" factory-bean="processEngine"
-			factory-method="getFormService" />
+			  factory-method="getFormService" />
 		<bean id="historyService" factory-bean="processEngine"
-			factory-method="getHistoryService" />
+			  factory-method="getHistoryService" />
 		<bean id="managementService" factory-bean="processEngine"
-			factory-method="getManagementService" />
+			  factory-method="getManagementService" />
 		<bean id="identityService" factory-bean="processEngine"
-			factory-method="getIdentityService" />
+			  factory-method="getIdentityService" />
 
-		<bean id="banckIDProperties"
-			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-			<property name="location"
-				value="file:${catalina.home}/conf/bankID.properties" />
-			<property name="ignoreUnresolvablePlaceholders" value="true" />
-		</bean>
+		<import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml" />
 	</beans>
 
-	<!-- profile="test" - тестовый запуск, все настройки боевые, указанные в 
-		db.properties. Установить в catalina.bat переменную -Dspring.profiles.active=test" -->
-	<beans profile="test">
-		<bean id="dbProperties"
-			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-			<property name="location" value="classpath:db.properties" />
-			<property name="ignoreUnresolvablePlaceholders" value="true" />
-		</bean>
-
-		<bean id="emailProperties"
-			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-			<property name="location" value="classpath:email.properties" />
-			<property name="ignoreUnresolvablePlaceholders" value="true" />
-		</bean>
-
-
-		<bean id="dataSource"
-			class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-			<property name="driverClass" value="${jdbc.driver}" />
-			<property name="url" value="${jdbc.url}" />
-			<property name="username" value="${jdbc.username}" />
-			<property name="password" value="${jdbc.password}" />
-		</bean>
-
-
-		<bean id="transactionManager"
-			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-			<property name="dataSource" ref="dataSource" />
-		</bean>
-
-		<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
-			<property name="dataSource" ref="dataSource" />
-			<property name="transactionManager" ref="transactionManager" />
-			<property name="databaseSchemaUpdate" value="true" />
-			<property name="jobExecutorActivate" value="true" />
-			<property name="enableDatabaseEventLogging" value="true" />
-			<property name="deploymentResources" value="classpath*:bpmn/autodeploy/*.bpmn" />
-
-			<property name="customFormTypes">
-				<list>
-					<bean class="org.activiti.explorer.form.UserFormType" />
-					<bean class="org.activiti.explorer.form.ProcessDefinitionFormType" />
-					<bean class="org.activiti.explorer.form.MonthFormType" />
-					<bean class="org.activiti.engine.impl.form.DateFormType">
-						<constructor-arg value="dd/MM/yyyy" />
-					</bean>
-					<bean class="org.activiti.engine.impl.form.EnumFormType">
-						<constructor-arg>
-							<map>
-								<entry key="DEF" value="def" />
-							</map>
-						</constructor-arg>
-					</bean>
-				</list>
-			</property>
-
-			<!-- mail server configurations -->
-			<property name="mailServerHost" value="${mailServerHost}" />
-			<property name="mailServerPort" value="${mailServerPort}" />
-			<property name="mailServerDefaultFrom" value="${mailServerDefaultFrom}" />
-			<property name="mailServerUsername" value="${mailServerUsername}" />
-			<property name="mailServerPassword" value="${mailServerPassword}" />
-			<property name="mailServerUseSSL" value="true" />
-			<property name="mailServerUseTLS" value="true" />
-
-
-
-			<property name="history" value="full" />
-
-
-		</bean>
-
-		<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean"
-			destroy-method="destroy">
-			<property name="processEngineConfiguration" ref="processEngineConfiguration" />
-		</bean>
-
-		<bean id="repositoryService" factory-bean="processEngine"
-			factory-method="getRepositoryService" />
-		<bean id="runtimeService" factory-bean="processEngine"
-			factory-method="getRuntimeService" />
-		<bean id="taskService" factory-bean="processEngine"
-			factory-method="getTaskService" />
-		<bean id="formService" factory-bean="processEngine"
-			factory-method="getFormService" />
-		<bean id="historyService" factory-bean="processEngine"
-			factory-method="getHistoryService" />
-		<bean id="managementService" factory-bean="processEngine"
-			factory-method="getManagementService" />
-		<bean id="identityService" factory-bean="processEngine"
-			factory-method="getIdentityService" />
-
-		<bean id="banckIDProperties"
-			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-			<property name="location"
-				value="classpath:bankID.properties" />
-			<property name="ignoreUnresolvablePlaceholders" value="true" />
-		</bean>
-
-	</beans>
-
-	<beans profile="default">
-		<bean id="dbProperties"
-			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-			<property name="location" value="classpath:db.properties" />
-			<property name="ignoreUnresolvablePlaceholders" value="true" />
-		</bean>
-
-		<bean id="emailProperties"
-			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-			<property name="location" value="classpath:email.properties" />
-			<property name="ignoreUnresolvablePlaceholders" value="true" />
-		</bean>
-
-
-		<bean id="dataSource"
-			class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-			<property name="driverClass" value="${jdbc.driver}" />
-			<property name="url" value="${jdbc.url}" />
-			<property name="username" value="${jdbc.username}" />
-			<property name="password" value="${jdbc.password}" />
-		</bean>
-
-
-		<bean id="transactionManager"
-			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-			<property name="dataSource" ref="dataSource" />
-		</bean>
-
-		<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
-			<property name="dataSource" ref="dataSource" />
-			<property name="transactionManager" ref="transactionManager" />
-			<property name="databaseSchemaUpdate" value="true" />
-			<property name="jobExecutorActivate" value="true" />
-			<property name="enableDatabaseEventLogging" value="true" />
-			<property name="deploymentResources" value="classpath*:bpmn/autodeploy/*.bpmn" />
-
-			<property name="customFormTypes">
-				<list>
-					<bean class="org.activiti.explorer.form.UserFormType" />
-					<bean class="org.activiti.explorer.form.ProcessDefinitionFormType" />
-					<bean class="org.activiti.explorer.form.MonthFormType" />
-					<bean class="org.activiti.engine.impl.form.DateFormType">
-						<constructor-arg value="dd/MM/yyyy" />
-					</bean>
-					<bean class="org.activiti.engine.impl.form.EnumFormType">
-						<constructor-arg>
-							<map>
-								<entry key="DEF" value="def" />
-							</map>
-						</constructor-arg>
-					</bean>
-				</list>
-			</property>
-
-			<!-- mail server configurations - при тестовом запуске не подтягиваем -->
-			<property name="mailServerHost" value="${mailServerHost}" />
-			<property name="mailServerPort" value="${mailServerPort}" />
-			<property name="mailServerDefaultFrom" value="${mailServerDefaultFrom}" />
-			<property name="mailServerUsername" value="${mailServerUsername}" />
-			<property name="mailServerPassword" value="${mailServerPassword}" />
-			<property name="mailServerUseSSL" value="true" />
-			<property name="mailServerUseTLS" value="true" />
-
-
-
-			<property name="history" value="full" />
-
-
-		</bean>
-
-		<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean"
-			destroy-method="destroy">
-			<property name="processEngineConfiguration" ref="processEngineConfiguration" />
-		</bean>
-
-		<bean id="repositoryService" factory-bean="processEngine"
-			factory-method="getRepositoryService" />
-		<bean id="runtimeService" factory-bean="processEngine"
-			factory-method="getRuntimeService" />
-		<bean id="taskService" factory-bean="processEngine"
-			factory-method="getTaskService" />
-		<bean id="formService" factory-bean="processEngine"
-			factory-method="getFormService" />
-		<bean id="historyService" factory-bean="processEngine"
-			factory-method="getHistoryService" />
-		<bean id="managementService" factory-bean="processEngine"
-			factory-method="getManagementService" />
-		<bean id="identityService" factory-bean="processEngine"
-			factory-method="getIdentityService" />
-
-		<bean id="banckIDProperties"
-			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-			<property name="location"
-				value="classpath:bankID.properties" />
-			<property name="ignoreUnresolvablePlaceholders" value="true" />
-		</bean>
-	</beans>
 </beans>

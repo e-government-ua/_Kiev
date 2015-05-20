@@ -1,0 +1,18 @@
+nID;sName;sID;nID_Category;nOrder
+1;Родина;Family;1;2
+2;Транспорт;Transport;1;6
+3;Довкілля;Nature;1;5
+4;Освіта та наука;Study;1;4
+5;Праця;Work;1;3
+6;Міліція;Policy;1;1
+7;Податки;Tax;2;2
+8;Ліцензиї та реєстрації;License;2;1
+9;Митниця;Customs;2;5
+10;Транспорт;Transport;2;4
+11;Земля та екологія;Ecology;2;3
+12;Юриспруденція фізосіб;JusticeCitizen;1;7
+13;Дозволи;Permission;1;8
+14;Приписка;Registration;1;9
+15;Земля;Earth;1;10
+16;Юриспруденція юросіб;JusticeBusiness;2;6
+17;Допомога;Help;1;11

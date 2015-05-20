@@ -1,0 +1,32 @@
+server {
+	listen   80; 
+	server_name e-gov-ua.dev;
+        include /etc/nginx/proxy_params;
+
+        location /wf-dniprorada/ {
+            proxy_pass http://192.168.10.10:8080/wf-dniprorada/;
+        }
+
+        location / {
+            proxy_pass https://192.168.10.10:8443/;
+        }
+}
+
+server {
+        listen              443 ssl;
+        server_name e-gov-ua.dev;
+        include /etc/nginx/proxy_params;
+
+        keepalive_timeout   70;
+        ssl_certificate     /etc/nginx/ssl/dev_ssl.crt;
+        ssl_certificate_key /etc/nginx/ssl/dev_ssl.key;
+
+# wouldn't work properly till proxied demon work through http
+#        location /wf-dniprorada/ {
+#            proxy_pass http://192.168.10.10:8080/wf-dniprorada/;
+#        }
+
+        location / {
+            proxy_pass https://192.168.10.10:8443/;
+        }
+}
