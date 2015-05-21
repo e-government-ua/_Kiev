@@ -38,7 +38,7 @@ define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/facto
 
 			FormDataFactory.prototype.setBankIDAccount = function(BankIDAccount) {
 				return angular.forEach(BankIDAccount.customer, function(value, key) {
-					var field;
+					var field = 'bankId'+key;
 					var finalValue = value;
 					if (key === 'documents') {
 						if (value && value.length === 1 && value[0]) {
