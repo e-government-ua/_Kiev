@@ -10,7 +10,7 @@ var config = {
 	},
 	'activiti': {
 		'protocol': 'https',
-		'hostname': 'e-gov.org.ua',
+		'hostname': 'igov.org.ua',
 		'port': '8443',
 		'path': '/wf-central/service',
 		'username': 'activiti-master',
