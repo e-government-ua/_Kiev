@@ -45,7 +45,7 @@ public class Service extends Entity {
    @Column(name = "sLaw", nullable = false)
    private String law;
 
-   transient public int nSubservices = 0;
+   transient private int nSub = 0;
    
    public String getName() {
       return name;
@@ -55,15 +55,12 @@ public class Service extends Entity {
    }
 
    
-    /*public boolean isServiceDataExist() {
-        return serviceDataList.size() > 0;
-    }*/
-   @JsonProperty(value="nSubservices")
-    public int nSubservices() {
-        return nSubservices;
+   @JsonProperty(value="nSub")
+    public int nSub() {
+        return nSub;
     }
-    public void setSubservices(int n) {
-        nSubservices = n;
+    public void setSub(int n) {
+        nSub = n;
     }
 
     
