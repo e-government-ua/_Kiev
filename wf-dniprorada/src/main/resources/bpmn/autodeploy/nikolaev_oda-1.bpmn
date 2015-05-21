@@ -16,7 +16,7 @@
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask1" name="Прийняття рішення про реєстрацію" activiti:candidateGroups="management_clerk_dmr">
+    <userTask id="usertask1" name="Прийняття рішення про реєстрацію" activiti:candidateGroups="sales">
       <extensionElements>
         <activiti:formProperty id="processName" name="Реєстрація громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
