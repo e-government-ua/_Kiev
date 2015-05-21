@@ -14,5 +14,5 @@ echo "run grunt (client) ..."
 grunt --debug
 
 cd ..
-echo "run grunt in screen, to restore type 'screen -r' " 
+echo "run grunt in screen, to restore type 'screen -r central-js' " 
 screen -S central-js -d -m grunt -w

@@ -62,7 +62,7 @@ service redis-server restart
 
 
 echo ******************************************************************
-echo ** Setting up central-js                                        **
+echo ** Setting up central-js  and dashboard-js  components          **
 echo ******************************************************************
 if ! dpkg --list nodejs | egrep -q ^ii; 
 then
@@ -70,7 +70,7 @@ then
     curl -sL https://deb.nodesource.com/setup | sudo bash -      
 fi
 
-apt-get install -y nodejs git g++ 
+apt-get install -y nodejs git g++ screen
 
 echo updating npm
 npm install npm -g
@@ -81,6 +81,11 @@ echo npm installing bower
 npm install -g bower
 echo npm installing grunt
 npm install -g grunt-cli
+echo npm installing yo
+npm install -g yo
+echo npm installing yo
+npm install -g gulp
+
 echo npm installing grunt-contrib-imagemin
 npm install -g grunt-contrib-imagemin
 
@@ -89,6 +94,12 @@ echo "copy dev ssl certificate/key to /sybase/cert/ folder "
 mkdir -p /sybase/cert/
 cp /project/scripts/config/dev_ssl.crt /sybase/cert/server.crt
 cp /project/scripts/config/dev_ssl.key /sybase/cert/server.key
+
+
+echo ** Setting up dashboard-js:  **
+echo creating local config 
+cp /project/dashboard-js/server/config/local.env.sample.js /project/dashboard-js/server/config/local.env.js
+
 echo "*************************************************"
 echo     
 
@@ -116,23 +127,32 @@ else
     echo "e-gov-ua.dev added"
 fi
 
+if grep -Fxq "127.0.1.1     admin.e-gov-ua.dev" /etc/hosts
+then
+   echo "admin.e-gov-ua.dev already added"
+else
+    echo "127.0.1.1     admin.e-gov-ua.dev" >> /etc/hosts
+    echo "admin.e-gov-ua.dev added"
+fi
 
-echo "Add new Vhost to nginx"
+echo "Add new Vhost(e-gov-ua.dev) to nginx"
 rm /etc/nginx/sites-enabled/e-gov-ua.dev
 
 cp /project/scripts/config/e-gov-ua.dev /etc/nginx/sites-available/e-gov-ua.dev
 ln -s /etc/nginx/sites-available/e-gov-ua.dev /etc/nginx/sites-enabled/
 
+echo "Add new Vhost(admin.e-gov-ua.dev) to nginx"
+rm /etc/nginx/sites-enabled/admin.e-gov-ua.dev
+
+cp /project/scripts/config/admin.e-gov-ua.dev /etc/nginx/sites-available/admin.e-gov-ua.dev
+ln -s /etc/nginx/sites-available/admin.e-gov-ua.dev /etc/nginx/sites-enabled/
+
 service nginx restart
-echo "e-gov-ua.dev now avaliable !" 
+echo "e-gov-ua.dev , admin.e-gov-ua.dev now avaliable !" 
 echo "*************************************************"
 echo    
 
 
-echo ******************************************************************
-echo ** Setting up tools for dashboard-js: TODO                      **
-echo ******************************************************************
-echo
 
 echo ******************************************************************
 echo ** Finalizing setup                                             **
