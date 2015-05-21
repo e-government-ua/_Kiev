@@ -11,7 +11,7 @@ import org.wf.dp.dniprorada.model.DocumentAccess;
 
 
 public class DocumentAccessDaoImpl implements DocumentAccessDao {
-	private final String url = "https://igov.org.ua/index#";
+	private final String url = "https://e-gov.org.ua/index#";
 	private JdbcTemplate jdbcTemplate;
 	private DataSource dataSource;
 

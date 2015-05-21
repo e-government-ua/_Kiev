@@ -23,12 +23,12 @@
 		<repository>
 			<id>localNexus</id>
 			<name>localNexus</name>
-			<url>https://nexus.igov.org.ua/nexus/content/repositories/releases</url>
+			<url>https://nexus.e-gov.org.ua/nexus/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>localNexus</id>
 			<name>localNexus</name>
-			<url>https://nexus.igov.org.ua/nexus/content/repositories/snapshots</url>
+			<url>https://nexus.e-gov.org.ua/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
