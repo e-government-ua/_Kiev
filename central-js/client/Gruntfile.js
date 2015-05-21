@@ -372,11 +372,15 @@ module.exports = function(grunt) {
 		},
 		// watch for dev files to change and re-build the script files
 		// NOTE: check if all tasks are really required
-		// TODO: add css/html watcher if necessary
+		// TODO: add css watcher if necessary
 		watch: {
 			scripts: {
 				files: './src/js/**/*.js',
 				tasks: ['concat:debug', 'copy:concat', 'htmlbuild', 'html2js'] 
+			},
+			templates: {
+				files: './src/html/**/*.html',
+				tasks: ['htmlbuild', 'html2js']
 			}
 		}
     });
