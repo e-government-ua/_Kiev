@@ -39,7 +39,7 @@ define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/facto
 			FormDataFactory.prototype.setBankIDAccount = function(BankIDAccount) {
 				return angular.forEach(BankIDAccount.customer, function(value, key) {
 					var field;
-					var finalValue;
+					var finalValue = value;
 					if (key === 'documents') {
 						if (value && value.length === 1 && value[0]) {
 							var documentObject = value[0];
@@ -53,6 +53,22 @@ define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/facto
 								field = 'bankId' + capitalizeFirst(documentObject.type);								
 							}
 						}
+					/*} else if (key === 'addresses') {
+						if (value && value.length === 1 && value[0]) {
+							var oAddress = value[0];
+							if (oAddress.type === 'factual') {
+								finalValue =
+									oAddress.country
+                                                                        + ' ' + oAddress.state
+                                                                        + ', ' + oAddress.area
+                                                                        + ', ' + oAddress.city
+                                                                        + ', ' + oAddress.street
+                                                                        + ', ' + oAddress.houseNo
+                                                                        + ', к.' + oAddress.flatNo
+                                                                ;
+								field = 'bankId' + capitalizeFirst(oAddress.type);								
+							}
+						}*/
 					} else {
 						field = 'bankId' + capitalizeFirst(key);
 						finalValue = value;
