@@ -26,3 +26,6 @@ hs_err_pid*
 # virtual environment
 .vagrant
 .bpmn
+/central-js/nbproject/private/
+/portal-js/nbproject/private/
+/dashboard-js/nbproject/private/
