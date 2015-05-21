@@ -45,6 +45,8 @@ public class Service extends Entity {
    @Column(name = "sLaw", nullable = false)
    private String law;
 
+   transient public boolean bContain = false;
+   
    public String getName() {
       return name;
    }
@@ -52,6 +54,12 @@ public class Service extends Entity {
       this.name = name;
    }
 
+   
+    /*public boolean isServiceDataExist() {
+        return serviceDataList.size() > 0;
+    }*/
+
+    
    public Integer getOrder() {
       return order;
    }
