@@ -3,6 +3,9 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 		function ($state, $rootScope, $scope, service, places) {
 			$scope.service = service;
 			$scope.places = places;
+			$scope.onSelectCity = function(item) {
+				$scope.data.city = item.nID;
+			}
 			$scope.data = {
 				region: null,
 				city: null
