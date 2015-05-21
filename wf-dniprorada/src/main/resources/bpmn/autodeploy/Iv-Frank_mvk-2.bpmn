@@ -4,9 +4,9 @@
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="processName" name="Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою." type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdInn" name="ІПН" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string"></activiti:formProperty>
@@ -21,9 +21,9 @@
     <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="management_clerk_dmr">
       <extensionElements>
         <activiti:formProperty id="processName" name="Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою." type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdInn" name="ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
@@ -52,9 +52,9 @@
     <userTask id="usertask3" name="підготовка документів">
       <extensionElements>
         <activiti:formProperty id="processName" name="Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою." type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdInn" name="ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>

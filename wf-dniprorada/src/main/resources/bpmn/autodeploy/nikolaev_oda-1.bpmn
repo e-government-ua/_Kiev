@@ -4,9 +4,9 @@
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="processName" name="Реєстрація громадського об’єднання" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string" required="true"></activiti:formProperty>
@@ -19,9 +19,9 @@
     <userTask id="usertask1" name="Прийняття рішення про реєстрацію" activiti:candidateGroups="sales">
       <extensionElements>
         <activiti:formProperty id="processName" name="Реєстрація громадського об’єднання" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string" writable="false"></activiti:formProperty>
@@ -47,9 +47,9 @@
     </sequenceFlow>
     <userTask id="usertask3" name="Внесення відомостей до Реєстру">
       <extensionElements>
-        <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdMiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string" writable="false"></activiti:formProperty>
