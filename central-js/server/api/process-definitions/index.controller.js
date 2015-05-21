@@ -1,7 +1,7 @@
 var request = require('request');
 
 module.exports.index = function(options, callback) {
-	var url = options.params.url+'/repository/process-definitions';
+	var url = options.params.url+'service/repository/process-definitions';
 	console.log(url);
 	return request.get({
 		'url': url,
