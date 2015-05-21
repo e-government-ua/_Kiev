@@ -45,7 +45,7 @@ public class Service extends Entity {
    @Column(name = "sLaw", nullable = false)
    private String law;
 
-   transient public boolean bContain = false;
+   transient public boolean isContain = false;
    
    public String getName() {
       return name;
@@ -58,8 +58,12 @@ public class Service extends Entity {
     /*public boolean isServiceDataExist() {
         return serviceDataList.size() > 0;
     }*/
-    public boolean bContain() {
-        return bContain;
+   @JsonProperty(value="isContain")
+    public boolean isContain() {
+        return isContain;
+    }
+    public boolean setContain(boolean b) {
+        return isContain = b;
     }
 
     
