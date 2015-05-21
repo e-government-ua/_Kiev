@@ -30,7 +30,7 @@
     </boundaryEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow2" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="management_clerk_dmr">
+    <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="sales">
       <extensionElements>
         <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdLastName" name="Прізвище" type="string" writable="false" required="true"></activiti:formProperty>

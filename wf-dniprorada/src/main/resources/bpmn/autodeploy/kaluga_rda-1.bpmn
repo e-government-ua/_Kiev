@@ -49,7 +49,7 @@ ${reason}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="management_clerk_dmr">
+    <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="sales">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdLastName} ${bankIdFirstName} ${bankIdSecondName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false" required="true"></activiti:formProperty>
