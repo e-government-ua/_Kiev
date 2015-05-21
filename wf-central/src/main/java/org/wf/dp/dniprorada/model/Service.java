@@ -58,6 +58,9 @@ public class Service extends Entity {
     /*public boolean isServiceDataExist() {
         return serviceDataList.size() > 0;
     }*/
+    public boolean bContain() {
+        return bContain;
+    }
 
     
    public Integer getOrder() {
