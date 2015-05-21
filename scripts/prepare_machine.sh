@@ -96,6 +96,9 @@ cp /project/scripts/config/dev_ssl.crt /sybase/cert/server.crt
 cp /project/scripts/config/dev_ssl.key /sybase/cert/server.key
 
 
+echo creating local config for central-js
+cp /project/central-js/server/config/index.js /project/central-js/server/local_config.js
+
 echo ** Setting up dashboard-js:  **
 echo creating local config 
 cp /project/dashboard-js/server/config/local.env.sample.js /project/dashboard-js/server/config/local.env.js

@@ -8,7 +8,7 @@ echo "bower install ..."
 bower install
 
 echo "grunt build ..."
-grunt build
+grunt build --force
 
 
 cd dist
