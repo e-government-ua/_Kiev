@@ -53,7 +53,11 @@ module.exports = function(grunt) {
 					'angular-boostrap': 'angular',
 					'angular-ui-router': 'angular',
 					'ui-router-extras': 'angular-ui-router',
-					'angular-ui-utils':'angular'
+					'angular-ui-utils':'angular',
+					'angular-ui': 'angular'
+				},
+				mainFiles: {
+					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css']
 				},
 				bowerOptions: {
 					relative: false
@@ -70,7 +74,11 @@ module.exports = function(grunt) {
 					'angular-boostrap': 'angular',
 					'angular-ui-router': 'angular',
 					'ui-router-extras': 'angular-ui-router',
-					'angular-ui-utils':'angular'
+					'angular-ui-utils':'angular',
+					'angular-ui': 'angular'
+				},
+				mainFiles: {
+					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css']
 				},
 				bowerOptions: {
 					relative: false
@@ -361,6 +369,15 @@ module.exports = function(grunt) {
 					{expand: false, src: ['./src/js/main/data.json'], dest: './build/data.json', filter: 'isFile'}
 				]
 			}
+		},
+		// watch for dev files to change and re-build the script files
+		// NOTE: check if all tasks are really required
+		// TODO: add css/html watcher if necessary
+		watch: {
+			scripts: {
+				files: './src/js/**/*.js',
+				tasks: ['concat:debug', 'copy:concat', 'htmlbuild', 'html2js'] 
+			}
 		}
     });
 
@@ -374,8 +391,13 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-git-deploy');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
     // default task
     grunt.registerTask('default', ['bower_concat:main', 'bower_concat:require', 'concat:main', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild', 'html2js']);
-	grunt.registerTask('debug', ['bower_concat:debug', 'bower_concat:require', 'concat:debug', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild', 'html2js']);
+    // debug task: ommit compressing
+    // TODO: ensure that omit compressing does not affect correctness of build
+	grunt.registerTask('debug', ['bower_concat:debug', 'bower_concat:require', 'concat:debug', 'copy:concat', 'htmlbuild', 'html2js']);
+	// dev task: debug + watch for js files change to automatically rebuild project
+	grunt.registerTask('dev', ['bower_concat:debug', 'bower_concat:require', 'concat:debug', 'copy:concat', 'htmlbuild', 'html2js', 'watch']);
 };
