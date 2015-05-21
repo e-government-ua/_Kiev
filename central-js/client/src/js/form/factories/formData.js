@@ -70,7 +70,8 @@ define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/facto
 							}
 						}*/
 					} else {
-						field = 'bankId' + capitalizeFirst(key);
+						//field = 'bankId' + capitalizeFirst(key);
+						field = 'bankId' + key;
 						finalValue = value;
 					}
 
