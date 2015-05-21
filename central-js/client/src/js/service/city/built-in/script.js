@@ -44,8 +44,24 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
 					BankIDAccount: ['BankIDService', 'BankIDLogin', function(BankIDService, BankIDLogin) {
 						return BankIDService.account(BankIDLogin.access_token);
 					}],
-					ActivitiForm: ['ActivitiService', 'oServiceData', function(ActivitiService, oServiceData) {
-						return ActivitiService.getForm(oServiceData);
+					processDefinitions: ['ServiceService', 'oServiceData', function(ServiceService, oServiceData) {
+						return ServiceService.getProcessDefinitions(oServiceData, true);
+					}],
+					processDefinitionId: ['oServiceData', 'processDefinitions', function(oServiceData, processDefinitions) {
+						var rawProcessDefinitionId = oServiceData.oData.oParams.processDefinitionId;
+						var processDefinitionKey = rawProcessDefinitionId.split(':')[0];
+						
+						var result = rawProcessDefinitionId;
+						angular.forEach(processDefinitions.data, function(value, key) {
+							if(value.key == processDefinitionKey) {
+								result = value.id;
+							}
+						});
+
+						return result;
+					}],
+					ActivitiForm: ['ActivitiService', 'oServiceData', 'processDefinitionId', function(ActivitiService, oServiceData, processDefinitionId) {
+						return ActivitiService.getForm(oServiceData, processDefinitionId);
 					}]
 				},
 				views: {

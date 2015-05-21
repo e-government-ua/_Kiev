@@ -14,7 +14,11 @@ router.use(function(req, res, next) {
 		port: activiti.port,
 		path: activiti.path,
 		username: activiti.username,
-		password: activiti.password
+		password: activiti.password,
+		params: {
+			url: req.query.url || null,
+			latest: req.query.latest || null
+		}
 	};
 	
 	var callback = function(error, response, body) {

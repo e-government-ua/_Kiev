@@ -38,6 +38,18 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 				return response.data;
 			});
 		};
+		this.getProcessDefinitions = function(oServiceData, latest) {
+			var data = {
+				'url': oServiceData.sURL,
+				'latest': latest || null
+			};
+			return $http.get('./api/process-definitions', {
+				'params': data,
+				'data': data
+			}).then(function(response) {
+				return response.data;
+			});
+		};
 		this.getDocuments = function(sID_Subject) {
 			var data = {
 				'sID_Subject': sID_Subject
