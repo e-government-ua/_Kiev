@@ -137,7 +137,7 @@ public class ActivitiRestServicesController {
 					service.setFaq(null);
 					service.setInfo(null);
 					service.setLaw(null);
-                                        service.setContain(service.getServiceDataList().size()>0);
+                                        service.setSubservices(service.getServiceDataList().size());
 					service.setServiceDataList(null);
 					service.setSubcategory(null);
 				}
