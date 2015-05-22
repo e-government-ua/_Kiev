@@ -79,7 +79,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
+          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Запит: Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою.]]></activiti:string>
@@ -105,7 +105,7 @@
     <serviceTask id="servicetask1" name="Відправлення листа громадянину" activiti:delegateExpression="#{mailTaskWithAttachment}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[dniprorada@egov.ua]]></activiti:string>
+          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>

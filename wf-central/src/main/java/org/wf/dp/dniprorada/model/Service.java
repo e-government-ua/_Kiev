@@ -45,6 +45,8 @@ public class Service extends Entity {
    @Column(name = "sLaw", nullable = false)
    private String law;
 
+   transient private int nSub = 0;
+   
    public String getName() {
       return name;
    }
@@ -52,6 +54,16 @@ public class Service extends Entity {
       this.name = name;
    }
 
+   
+   @JsonProperty(value="nSub")
+    public int nSub() {
+        return nSub;
+    }
+    public void setSub(int n) {
+        nSub = n;
+    }
+
+    
    public Integer getOrder() {
       return order;
    }

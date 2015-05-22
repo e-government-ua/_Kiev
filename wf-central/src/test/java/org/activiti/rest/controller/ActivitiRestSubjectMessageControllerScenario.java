@@ -62,8 +62,6 @@ public class ActivitiRestSubjectMessageControllerScenario {
                 contentType(MediaType.APPLICATION_JSON).
                 param("sHead", "expect").
                 param("sBody", "XXX").
-                param("sContacts", "093").
-                param("sData", "some data").
                 param("sMail", "ukr.net")).
                 andExpect(status().isOk());
     }
