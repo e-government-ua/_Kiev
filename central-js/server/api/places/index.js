@@ -1,45 +1,38 @@
 var express = require('express');
 var router = express.Router();
-var NodeCache = require( "node-cache" );
-var myCache = new NodeCache();
+var arrayQuery = require('array-query');
 
-router.use(function(req, res, next) {
-
-	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+// api/places/regions/{nID} - return list of cities that belong to region nID
+// optional query parameter: ?sFind=STRING - filter cities by name
+router.get('/regions/:id', function(req, res, next) {
 	var places = require('./index.controller');
-	var config = require('../../config');
-	var activiti = config.activiti;
-	
-	var options = {
-		protocol: activiti.protocol,
-		hostname: activiti.hostname,
-		port: activiti.port,
-		path: activiti.path,
-		username: activiti.username,
-		password: activiti.password
-	};
 
-	var cacheKey = 'api/places';
-	
-	var callback = function(error, response, body) {
-		// cache successful answer for 1 day (86400 seconds)
-		if (error === null) {
-			myCache.set(cacheKey, body, 86400);
-		} else {
-			// clear cache in case of error
-			myCache.del(cacheKey);
+	function callback() {
+		var cities = places.getRegionCities(req.params.id);
+		if (req.query['sFind']) {
+			var regexp = new RegExp(req.query['sFind'], 'i');
+			var filtered = arrayQuery('sName').regex(regexp).limit(10).on(cities);
+			res.send(filtered);
+			res.end();
+			return;
 		}
-		res.send(body);
+
+		res.send(cities);
+		res.end();
+		return;
+	}
+
+	places.init(callback);
+});
+
+// api/places/regions - return list of regions (w/o cities)
+router.get('/regions', function(req, res, next) {
+	var places = require('./index.controller');
+	function callback() {
+		res.send(places.getRegions());
 		res.end();
 	}
-	// use cached value if available, otherwise make an index call
-	if (myCache.get(cacheKey) !== undefined) {
-		res.send(myCache.get(cacheKey));
-		res.end();
-	} else {
-		places.index(options, callback);
-	}
-	
+	places.init(callback);
 });
 
 module.exports = router;
