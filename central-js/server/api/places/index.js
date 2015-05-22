@@ -9,14 +9,20 @@ router.get('/regions/:id', function(req, res, next) {
 
 	function callback() {
 		var cities = places.getRegionCities(req.params.id);
-		if (req.query['sFind']) {
-			var regexp = new RegExp(req.query['sFind'].trim(), 'i');
+                var sFind=req.query['sFind'];
+		if (sFind) {
+                    sFind=sFind.trim();
+                    if (sFind!="") {
+			var regexp = new RegExp(sFind, 'i');
 			var filtered = arrayQuery('sName').regex(regexp).limit(10).on(cities);
+                        res.send(filtered);
+                    }else{
+			var filtered = arrayQuery('sName').limit(10).on(cities);
 			res.send(filtered);
-			res.end();
-			return;
+                    }
+                    res.end();
+                    return;
 		}
-
 		res.send(cities);
 		res.end();
 		return;
