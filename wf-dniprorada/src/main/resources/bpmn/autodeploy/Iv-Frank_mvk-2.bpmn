@@ -19,6 +19,7 @@
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="sales">
+      <documentation>test1:marker1,test2:marker2,test3:marker3</documentation>
       <extensionElements>
         <activiti:formProperty id="processName" name="Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою." type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
