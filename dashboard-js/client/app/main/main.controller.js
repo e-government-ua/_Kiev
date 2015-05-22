@@ -3,8 +3,8 @@
 angular.module('dashboardJsApp')
 	.controller('MainCtrl', function($scope) {
 		$scope.weblinks = [{
-			name: 'Дніпровська міська рада',
-			link: 'https://dniprorada.egov.dp.ua',
-			info: 'Дніпровська міська рада (портал громадян)'
+			name: 'Центральний портал громадян',
+			link: 'https://igov.org.ua',
+			info: 'Портал громадян'
 		}];
 	});
