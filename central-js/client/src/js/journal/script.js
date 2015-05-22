@@ -79,6 +79,7 @@ define('journal', ['angularAMD', 'service'], function (angularAMD) {
                     }],
                     journal: ['$q', '$state', 'subject', 'ServiceService', function($q, $state, subject, ServiceService) {
                         $state.nID_Subject = subject.nID;
+                        return [];
                         /*return ServiceService.getDocuments($state.nID_Subject).then(function(data) {
                             return data.hasOwnProperty('error') ? $q.reject(null) : data;
                         });*/
