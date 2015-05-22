@@ -26,7 +26,8 @@ module.exports = function(grunt) {
                     './src/html/catalog/*.html',
                     './src/html/service/**/*.html',
                     './src/html/documents/**/*.html',
-                    './src/html/journal/*.html',
+                    './src/html/journal/**/*.html',
+                    //'./src/html/journal/*.html',
                     './src/html/404/*.html'
                 ],
                 dest: './build/js/templates.js'
