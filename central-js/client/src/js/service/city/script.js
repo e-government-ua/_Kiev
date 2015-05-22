@@ -6,9 +6,9 @@ define('service.general.city', ['angularAMD', 'service.general.city.link', 'serv
             .state('service.general.city', {
                 url: '/city',
 				resolve: {
-					places: ['$stateParams', 'ServiceService', function($stateParams, ServiceService) {
-						return ServiceService.getPlaces();
-					}]
+					regions: ['$stateParams', 'ServiceService', function($stateParams, ServiceService) {
+						return ServiceService.getRegions();
+					}],
 				},
                 views: {
                     '@service': angularAMD.route({
@@ -28,7 +28,7 @@ define('service.general.city', ['angularAMD', 'service.general.city.link', 'serv
             .state('service.general.city.error', {
                 url: '/absent',
                 views: {
-					'content@service.general.city': angularAMD.route({
+					'status@service.general.city': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/city/absent.html');
 						}]
