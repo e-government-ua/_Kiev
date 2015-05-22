@@ -9,7 +9,7 @@
 				</div>
 				<div style="display:inline-block" ng-if="data.region">
 					<span>Місто</span>
-					<input class="form-control" name="city" type="text" ng-model="model.city" typeahead="city as city.sName for city in getCities($viewValue)" typeahead-editable="false" typeahead-wait-ms="200" typeahead-min-length="1" typeahead-on-select="onSelectCity($item)" ng-disabled="data.city"/>
+					<input class="form-control" name="city" type="text" ng-model="model.city" typeahead="city as city.sName for city in getCities($viewValue)" typeahead-editable="false" typeahead-wait-ms="200" typeahead-min-length="0" typeahead-on-select="onSelectCity($item)" ng-disabled="data.city"/>
 				</div>
 			</div>
 			<div class="col-md-1" ng-if="data.city">
