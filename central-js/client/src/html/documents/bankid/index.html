@@ -1,8 +1,14 @@
 <div class="row">
     <div class="col-md-12">
         <form class="form-signin-bankid">
-            <h2 class="form-signin-bankid-heading">Увійти в систему за допомоги</h2>
-            <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="loginWithBankId()">BankID</button>
+            <h4 class="form-signin-bankid-heading_">Щоб почати користуватись сервісом “Мои документы”, 
+                <a class="btn btn-lg btn-primary btn-block" href="#" ng-click="loginWithBankId()">"увійдіть через BankID"</a>
+                або через 
+                <a href="#" onclick="alert('Працюватиме незабаром');">"електронно-ціфровий підпис"</a>
+            </h4>
+            <div style="display: none;">
+                <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="loginWithBankId()">BankID</button>
+            </div>
         </form>
     </div>
 </div>
