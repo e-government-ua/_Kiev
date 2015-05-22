@@ -6,9 +6,9 @@ define('service.general.city', ['angularAMD', 'service.general.city.link', 'serv
             .state('service.general.city', {
                 url: '/city',
 				resolve: {
-					places: ['$stateParams', 'ServiceService', function($stateParams, ServiceService) {
-						return ServiceService.getPlaces();
-					}]
+					regions: ['$stateParams', 'ServiceService', function($stateParams, ServiceService) {
+						return ServiceService.getRegions();
+					}],
 				},
                 views: {
                     '@service': angularAMD.route({

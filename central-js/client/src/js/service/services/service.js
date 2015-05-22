@@ -22,11 +22,20 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 				return response.data;
 			});
 		};
-		this.getPlaces = function() {
-			return $http.get('./api/places').then(function(response) {
+		this.getRegions = function() {
+			return $http.get('./api/places/regions').then(function(response) {
 				return response.data;
 			});
 		};
+		this.getRegionCities = function(nID, search) {
+			var url = './api/places/regions/'+nID;
+			if (search) {
+				url += '?sFind='+search;
+			}
+			return $http.get(url).then(function(response) {
+				return response.data;
+			});
+		}
 		this.syncSubject = function (sInn) {
 			var data = {
 				'sINN': sInn
