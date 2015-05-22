@@ -1,4 +1,4 @@
-define('journal', ['angularAMD'], function (angularAMD) {
+/*define('journal', ['angularAMD'], function (angularAMD) {
     var app = angular.module('journal', []);
 
     app.config(['$stateProvider', function ($stateProvider) {
@@ -17,7 +17,7 @@ define('journal', ['angularAMD'], function (angularAMD) {
             })
     }]);
     return app;
-});
+});*/
 
 define('journal', ['angularAMD', 'service'], function (angularAMD) {
     var app = angular.module('journal', []);

@@ -6,6 +6,7 @@ router.use('/api/account', require('./api/account/index'));
 router.get('/api/bankid/login', require('./api/bankid/login'));
 router.use('/api/bankid/account', require('./api/bankid/account'));
 router.use('/api/documents', require('./api/documents/index'));
+router.use('/api/journal', require('./api/journal/index'));
 router.use('/api/login', require('./api/login/index'));
 router.use('/api/logout', require('./api/logout/index'));
 router.use('/api/places', require('./api/places/index'));
