@@ -14,7 +14,7 @@
 			<div class="col-md-4" ng-repeat-start="subcategory in category.aSubcategory">
 				<h3>{{subcategory.sName}}</h3>
 				<ul class="list-unstyled">
-					<li ng-repeat="service in subcategory.aService">
+					<li ng-repeat="service in subcategory.aService | orderBy: '-nSub'">
 						<a ui-sref="service.general({'id': service.nID })" ng-href="/service/{{service.nID}}/general">({{service.nSub}}) {{service.sName}}</a>
 					</li>
 				</ul>

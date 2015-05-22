@@ -59,12 +59,12 @@
 		<repository>
 			<id>eGovUa_Nexus</id>
 			<name>Internal Releases</name>
-			<url>https://nexus.e-gov.org.ua/nexus/content/repositories/releases</url>
+			<url>https://nexus.igov.org.ua/nexus/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>eGovUa_Nexus</id>
 			<name>Internal Snapshots</name>
-			<url>https://nexus.e-gov.org.ua/nexus/content/repositories/snapshots</url>
+			<url>https://nexus.igov.org.ua/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -83,7 +83,7 @@
         </repository>
         <repository>
             <id>eGovUa_Nexus</id>
-            <url>https://nexus.e-gov.org.ua/nexus/content/groups/public</url>
+            <url>https://nexus.igov.org.ua/nexus/content/groups/public</url>
         </repository>
         <repository>
             <id>Activiti</id>
@@ -267,6 +267,25 @@
 				<artifactId>liquibase-core</artifactId>
 				<version>${liquibase.version}</version>
 			</dependency>
+
+                        <!-- your own standard logging dependencies -->  
+                        <dependency>  
+                            <groupId>org.slf4j</groupId>  
+                            <artifactId>slf4j-api</artifactId>  
+                            <version>1.7.5</version>  
+                        </dependency>  
+                        <dependency>  
+                            <groupId>org.slf4j</groupId>  
+                            <artifactId>slf4j-log4j12</artifactId>  
+                            <version>1.7.5</version>  
+                        </dependency>
+                        
+                        <!-- special dependency to fix liquibase's logging fetish -->  
+                        <dependency>  
+                            <groupId>com.mattbertolini</groupId>  
+                            <artifactId>liquibase-slf4j</artifactId>  
+                            <version>1.2.1</version>  
+                        </dependency>  
 
 			<!-- Other -->
 
