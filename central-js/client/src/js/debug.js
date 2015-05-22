@@ -9,6 +9,7 @@ requirejs.config({
 		'index': './app/index',
 		'documents': './app/documents',
 		'journal': './app/journal',
+		'about': './app/about',
 		'service': './app/service',
 		'server': './app/server',
         '404': './app/404'

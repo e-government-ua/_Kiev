@@ -22,6 +22,7 @@ module.exports = function(grunt) {
         html2js: {
             main: {
                 src: [
+                    './src/html/about/*.html',
                     './src/html/catalog/*.html',
                     './src/html/service/**/*.html',
                     './src/html/documents/**/*.html',
@@ -129,6 +130,10 @@ module.exports = function(grunt) {
 						src: ['./src/js/journal/**/*.js'],
 						dest: './tmp/js/concat/app/journal.js'
 					},
+					{
+						src: ['./src/js/about/**/*.js'],
+						dest: './tmp/js/concat/app/about.js'
+					},
                     {
                         src: ['./src/js/404/**/*.js'],
                         dest: './tmp/js/concat/app/404.js'
@@ -185,6 +190,10 @@ module.exports = function(grunt) {
 						src: ['./src/js/journal/**/*.js'],
 						dest: './tmp/js/concat/app/journal.js'
 					},
+					{
+						src: ['./src/js/about/**/*.js'],
+						dest: './tmp/js/concat/app/about.js'
+					},
                     {
                         src: ['./src/js/404/**/*.js'],
                         dest: './tmp/js/concat/app/404.js'
@@ -224,6 +233,7 @@ module.exports = function(grunt) {
 					'./tmp/js/uglify/app/index.js': ['./tmp/js/concat/app/index.js'],
 					'./tmp/js/uglify/app/documents.js': ['./tmp/js/concat/app/documents.js'],
 					'./tmp/js/uglify/app/journal.js': ['./tmp/js/concat/app/journal.js'],
+					'./tmp/js/uglify/app/about.js': ['./tmp/js/concat/app/about.js'],
 					'./tmp/js/uglify/app/service.js': ['./tmp/js/concat/app/service.js']
 				}
 			}
@@ -281,7 +291,8 @@ module.exports = function(grunt) {
 							'index.js',
 							'documents.js',
 							'journal.js',
-							'service.js',
+							'about.js',
+							'service.js'
 						],
 						cwd: './tmp/js/concat/app',
 						dest: './tmp/js/compress/app',
@@ -329,7 +340,8 @@ module.exports = function(grunt) {
 							'index.js',
 							'documents.js',
 							'journal.js',
-							'service.js',
+							'about.js',
+							'service.js'
 						],
 						cwd: './tmp/js/uglify/app',
 						dest: './tmp/js/compress/app',
