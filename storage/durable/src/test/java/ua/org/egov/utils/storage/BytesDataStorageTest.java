@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.org.egov.utils.storage.durable.impl.GridFSFileStorage;
 import ua.org.egov.utils.storage.exceptions.RecordNotFoundException;
 
-@Ignore
+//@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 		"/META-INF/spring/ua-org-egov-utils-storage-context.xml",
@@ -24,12 +24,12 @@ public class BytesDataStorageTest {
 	public void openStreamShouldThrowOnInexistentKey() throws RecordNotFoundException {
 		storage.openDataStream("inexistent_key");
 	}
-	
+        
         @Test
 	public void getDataShouldReturnNullOnInexistentKey()  {
 		Assert.assertNull(storage.getData("inexistent_key"));
 	}
-	
+
 	@Test
 	public void shouldSaveReadDeleteRecord() {
 		byte[] data1 = new byte[] {1, 2, 3};
