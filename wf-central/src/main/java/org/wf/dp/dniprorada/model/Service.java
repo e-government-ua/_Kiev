@@ -79,6 +79,16 @@ public class Service extends Entity {
       this.subcategory = subcategory;
    }
 
+   public List<ServiceData> aServiceDataFiltered() {
+      List<ServiceData> aServiceDataFiltered = new LinkedList();
+      for(ServiceData oServiceData : serviceDataList){
+            if(!oServiceData.isHidden()){
+                aServiceDataFiltered.add(oServiceData);
+            }
+      }
+      return aServiceDataFiltered;
+   }
+   
    public List<ServiceData> getServiceDataList() {
 /*       
       List<ServiceData> aServiceData = new LinkedList(serviceDataList);
