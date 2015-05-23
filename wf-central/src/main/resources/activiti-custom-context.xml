@@ -209,6 +209,7 @@
 			  factory-method="getIdentityService" />
 
 		<import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml" />
+		<import resource="classpath:/META-INF/spring/ua-org-egov-utils-storage-context.xml" />
 	</beans>
 
 
