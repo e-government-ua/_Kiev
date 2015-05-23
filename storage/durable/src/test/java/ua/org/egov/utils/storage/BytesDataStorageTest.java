@@ -25,7 +25,7 @@ public class BytesDataStorageTest {
 		storage.openDataStream("inexistent_key");
 	}
 	
-	@Test
+        @Test
 	public void getDataShouldReturnNullOnInexistentKey()  {
 		Assert.assertNull(storage.getData("inexistent_key"));
 	}
