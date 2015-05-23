@@ -105,4 +105,10 @@ public class ServiceData extends Entity {
 		this.bHidden = b;
 	}
 
+        /*@Override
+        public boolean equals(Object o) {
+            return super.equals(o); //To change body of generated methods, choose Tools | Templates.
+        }*/
+
+
 }
