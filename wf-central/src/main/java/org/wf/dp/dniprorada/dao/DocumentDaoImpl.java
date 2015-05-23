@@ -22,7 +22,7 @@ public class DocumentDaoImpl implements DocumentDao {
 	
 	private String mokeContentDocument = "123456789";
 	
-	//@Autowired
+	@Autowired
 	private GridFSBytesDataStorage durableBytesDataStorage;
 	
 
@@ -52,14 +52,14 @@ public class DocumentDaoImpl implements DocumentDao {
 	@Override
 	public byte[] getDocumentContent(Long id) {
 		Document document = (Document) getSession().get(Document.class, id);
-		//return durableBytesDataStorage.getData(document.getСontentKey());
-		return Util.contentStringToByte(mokeContentDocument);
+		return durableBytesDataStorage.getData(document.getСontentKey());
+		//return Util.contentStringToByte(mokeContentDocument);
 	}
 
 	@Override
 	public byte[] getDocumentContent(String contentKey) {
-		//return durableBytesDataStorage.getData(contentKey);
-		return Util.contentStringToByte(mokeContentDocument);
+		return durableBytesDataStorage.getData(contentKey);
+		//return Util.contentStringToByte(mokeContentDocument);
 	}
 
 	@Override
@@ -76,9 +76,9 @@ public class DocumentDaoImpl implements DocumentDao {
 		DocumentContentType documentContentType = new DocumentContentType();
 		documentContentType.setId(documentContentTypeId);
 		document.setDocumentContentType(documentContentType);
-		//document.setСontentKey(durableBytesDataStorage.saveData(content));
+		document.setСontentKey(durableBytesDataStorage.saveData(content));
 		//document.setСontentKey(new GridFSBytesDataStorage().saveData(content));
-		document.setСontentKey("ff");
+		//document.setСontentKey("ff");
 		document.setFile(file);
 		document.setDate_Upload(new Date());
 		getSession().saveOrUpdate(document);
