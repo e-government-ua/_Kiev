@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -42,16 +43,43 @@ public class ActivitiRestServicesController {
 
 	private ResponseEntity regionsToJsonResponse(Service service) {
 		service.setSubcategory(null);
-		for (ServiceData serviceData : service.getServiceDataList()) {
-			serviceData.setService(null);
-			if (serviceData.getCity() != null) {
-				serviceData.getCity().setRegion(null);
+                int n = 0;
+                List<ServiceData> aServiceData = service.getServiceDataList();
+		for (ServiceData oServiceData : aServiceData) {
+			oServiceData.setService(null);
+			if (oServiceData.getCity() != null) {
+				oServiceData.getCity().setRegion(null);
 			}
-			if (serviceData.getRegion() != null) {
-				serviceData.getRegion().setCities(null);
+			if (oServiceData.getRegion() != null) {
+				oServiceData.getRegion().setCities(null);
 			}
 
+                        if(oServiceData.isHidden()){
+                            aServiceData.remove(n);
+                        }else{
+                            n++;
+                        }
 		}
+                /*
+                List<ServiceData> aServiceData = new LinkedList(service.getServiceDataList());
+                List<ServiceData> aServiceDataFiltered = new LinkedList();
+                int n = 0;
+                for(ServiceData oServiceData : serviceDataList){
+          //          if(!oServiceData.isHidden()){
+          //            aServiceDataFiltered.add(oServiceData);
+          //          }
+          //          if(oServiceData.isHidden()){
+          //            //aServiceData.remove(oServiceData);
+          //            //aServiceData.remove(oServiceData);
+          //            aServiceData.remove(n);
+          //          }
+                    if(oServiceData.isHidden()){
+                        serviceDataList.remove(n);
+                    }
+                    n++;
+                }
+                */
+                
 		return JsonRestUtils.toJsonResponse(service);
 	}
 
