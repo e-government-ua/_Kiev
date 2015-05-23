@@ -43,26 +43,28 @@ public class ActivitiRestServicesController {
 
 	private ResponseEntity regionsToJsonResponse(Service service) {
 		service.setSubcategory(null);
-                int n = 0;
+                //int n = 0;
                 List<ServiceData> aServiceData = service.getServiceDataList();
+                List<ServiceData> aServiceDataFiltered = new LinkedList();
 		for (ServiceData oServiceData : aServiceData) {
-			oServiceData.setService(null);
-			if (oServiceData.getCity() != null) {
-				oServiceData.getCity().setRegion(null);
-			}
-			if (oServiceData.getRegion() != null) {
-				oServiceData.getRegion().setCities(null);
-			}
-
+                        if(!oServiceData.isHidden()){
+                            oServiceData.setService(null);
+                            if (oServiceData.getCity() != null) {
+                                    oServiceData.getCity().setRegion(null);
+                            }
+                            if (oServiceData.getRegion() != null) {
+                                    oServiceData.getRegion().setCities(null);
+                            }
+                            aServiceDataFiltered.add(oServiceData);
+                        }
                         /*if(oServiceData.isHidden()){
                             aServiceData.remove(n);
                         }else{
                             n++;
                         }*/
 		}
-                
+/*                
                 //List<ServiceData> aServiceData = new LinkedList(service.getServiceDataList());
-                List<ServiceData> aServiceDataFiltered = new LinkedList();
                 //int n = 0;
                 for(ServiceData oServiceData : aServiceData){
                     if(!oServiceData.isHidden()){
@@ -73,11 +75,12 @@ public class ActivitiRestServicesController {
           //            //aServiceData.remove(oServiceData);
           //            aServiceData.remove(n);
           //          }
-                    /*if(oServiceData.isHidden()){
-                        serviceDataList.remove(n);
-                    }*/
+//                    if(oServiceData.isHidden()){
+//                        serviceDataList.remove(n);
+//                    }
                     n++;
                 }
+*/
                 service.setServiceDataList(aServiceDataFiltered);
                 
                 
