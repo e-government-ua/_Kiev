@@ -80,9 +80,6 @@ public class Service extends Entity {
    }
 
    public List<ServiceData> getServiceDataList() {
-      return serviceDataList;
-   }
-   public void setServiceDataList(List<ServiceData> serviceDataList) {
       List<ServiceData> aServiceData = new LinkedList(serviceDataList);
       //List<ServiceData> aServiceDataFiltered = new LinkedList();
       int n = 0;
@@ -97,9 +94,13 @@ public class Service extends Entity {
           }
           n++;
       }
-      this.serviceDataList = aServiceData;
+//      this.serviceDataList = aServiceData;
+      return aServiceData;
       //this.serviceDataList = aServiceDataFiltered;
-      //this.serviceDataList = serviceDataList;
+      //return serviceDataList;
+   }
+   public void setServiceDataList(List<ServiceData> serviceDataList) {
+      this.serviceDataList = serviceDataList;
    }
 
    public String getInfo() {
