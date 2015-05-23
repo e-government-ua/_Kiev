@@ -54,11 +54,11 @@ public class ActivitiRestServicesController {
 				oServiceData.getRegion().setCities(null);
 			}
 
-                        if(oServiceData.isHidden()){
+                        /*if(oServiceData.isHidden()){
                             aServiceData.remove(n);
                         }else{
                             n++;
-                        }
+                        }*/
 		}
                 /*
                 List<ServiceData> aServiceData = new LinkedList(service.getServiceDataList());
