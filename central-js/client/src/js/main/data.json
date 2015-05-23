@@ -24,6 +24,12 @@
         "src": "journal"
     },
     {
+        "stateName": "about",
+        "urlPrefix": "/about",
+        "type": "ngload",
+        "src": "about"
+    },
+    {
         "stateName": "service",
         "urlPrefix": "/service",
         "type": "ngload",

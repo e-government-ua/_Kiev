@@ -30,7 +30,6 @@ router.get('/regions', function(req, res, next) {
 	res.send(aRegion);
 	res.end();
 });
-
 // api/places/region/{region} - return region (w/o cities)
 router.get('/region/:region([0-9]+)', function(req, res, next) {
 	var places = require('./index.controller');

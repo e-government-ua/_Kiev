@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -40,19 +41,23 @@ public class ActivitiRestServicesController {
 		return regionsToJsonResponse(updatedService);
 	}
 
-	private ResponseEntity regionsToJsonResponse(Service service) {
-		service.setSubcategory(null);
-		for (ServiceData serviceData : service.getServiceDataList()) {
-			serviceData.setService(null);
-			if (serviceData.getCity() != null) {
-				serviceData.getCity().setRegion(null);
-			}
-			if (serviceData.getRegion() != null) {
-				serviceData.getRegion().setCities(null);
-			}
-
+	private ResponseEntity regionsToJsonResponse(Service oService) {
+		oService.setSubcategory(null);
+                //List<ServiceData> aServiceDataFiltered = new LinkedList();
+		for (ServiceData oServiceData : oService.getServiceDataList()) {
+                        //if(!oServiceData.isHidden()){
+                            oServiceData.setService(null);
+                            if (oServiceData.getCity() != null) {
+                                    oServiceData.getCity().setRegion(null);
+                            }
+                            if (oServiceData.getRegion() != null) {
+                                    oServiceData.getRegion().setCities(null);
+                            }
+                            //aServiceDataFiltered.add(oServiceData);
+                        //}
 		}
-		return JsonRestUtils.toJsonResponse(service);
+                oService.setServiceDataList(oService.aServiceDataFiltered());
+		return JsonRestUtils.toJsonResponse(oService);
 	}
 
 	@RequestMapping(value = "/getPlaces", method = RequestMethod.GET)
@@ -90,30 +95,30 @@ public class ActivitiRestServicesController {
 		return categoriesToJsonResponse(categories);
 	}
 
-	private void filterCategories(List<Category> categories, @RequestParam(value = "sFind", required = false) String partOfName) {
-		for (Iterator<Category> i1 = categories.iterator(); i1.hasNext(); ) {
-         Category c = i1.next();
+        private void filterCategories(List<Category> categories, @RequestParam(value = "sFind", required = false) String sFind) {
+            for (Iterator<Category> aCategory = categories.iterator(); aCategory.hasNext();) {
+                Category oCategory = aCategory.next();
 
-         for (Iterator<Subcategory> i2 = c.getSubcategories().iterator(); i2.hasNext(); ) {
-            Subcategory sc = i2.next();
+                for (Iterator<Subcategory> aSubcategory = oCategory.getSubcategories().iterator(); aSubcategory.hasNext();) {
+                    Subcategory oSubcategory = aSubcategory.next();
 
-            for (Iterator<Service> i3 = sc.getServices().iterator(); i3.hasNext(); ) {
-               Service s = i3.next();
-               if (!isNameMatched(s.getName(), partOfName)) {
-                  i3.remove();
-               }
+                    for (Iterator<Service> aService = oSubcategory.getServices().iterator(); aService.hasNext();) {
+                        Service oService = aService.next();
+                        if (!isTextMatched(oService.getName(), sFind)) {
+                            aService.remove();
+                        }
+                    }
+
+                    if (oSubcategory.getServices().isEmpty()) {
+                        aSubcategory.remove();
+                    }
+                }
+
+                if (oCategory.getSubcategories().isEmpty()) {
+                    aCategory.remove();
+                }
             }
-
-            if (sc.getServices().isEmpty()) {
-               i2.remove();
-            }
-         }
-
-         if (c.getSubcategories().isEmpty()) {
-            i1.remove();
-         }
-      }
-	}
+        }
 
 	@RequestMapping(value = "/setServicesTree", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity setServicesTree(@RequestBody String jsonData) {
@@ -124,8 +129,8 @@ public class ActivitiRestServicesController {
 		return categoriesToJsonResponse(updatedCategories);
 	}
 
-	private boolean isNameMatched(String name, String partOfName) {
-		return name.toLowerCase().contains(partOfName.toLowerCase());
+	private boolean isTextMatched(String sWhere, String sFind) {
+		return sWhere.toLowerCase().contains(sFind.toLowerCase());
 	}
 
 	private ResponseEntity categoriesToJsonResponse(List<Category> categories) {
@@ -138,6 +143,7 @@ public class ActivitiRestServicesController {
 					service.setInfo(null);
 					service.setLaw(null);
                                         service.setSub(service.getServiceDataList().size());
+                                        service.setSub(service.aServiceDataFiltered().size());
 					service.setServiceDataList(null);
 					service.setSubcategory(null);
 				}

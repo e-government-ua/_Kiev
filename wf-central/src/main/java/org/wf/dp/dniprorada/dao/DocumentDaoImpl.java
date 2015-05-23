@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.DocumentContentType;
 import org.wf.dp.dniprorada.model.DocumentType;
+import org.wf.dp.dniprorada.util.Util;
 
 import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 
@@ -19,8 +20,10 @@ public class DocumentDaoImpl implements DocumentDao {
 
 	private SessionFactory sessionFactory;
 	
+	private String mokeContentDocument = "123456789";
+	
 	//@Autowired
-	private GridFSBytesDataStorage gridFSBytesDataStorage;
+	private GridFSBytesDataStorage durableBytesDataStorage;
 	
 
 	@Required
@@ -49,12 +52,14 @@ public class DocumentDaoImpl implements DocumentDao {
 	@Override
 	public byte[] getDocumentContent(Long id) {
 		Document document = (Document) getSession().get(Document.class, id);
-		return gridFSBytesDataStorage.getData(document.getСontentKey());
+		//return durableBytesDataStorage.getData(document.getСontentKey());
+		return Util.contentStringToByte(mokeContentDocument);
 	}
 
 	@Override
 	public byte[] getDocumentContent(String contentKey) {
-		return gridFSBytesDataStorage.getData(contentKey);
+		//return durableBytesDataStorage.getData(contentKey);
+		return Util.contentStringToByte(mokeContentDocument);
 	}
 
 	@Override
@@ -71,9 +76,9 @@ public class DocumentDaoImpl implements DocumentDao {
 		DocumentContentType documentContentType = new DocumentContentType();
 		documentContentType.setId(documentContentTypeId);
 		document.setDocumentContentType(documentContentType);
-		document.setСontentKey(gridFSBytesDataStorage.saveData(content));
-		document.setСontentKey(new GridFSBytesDataStorage().saveData(content));
-		//document.setСontentKey("ff");
+		//document.setСontentKey(durableBytesDataStorage.saveData(content));
+		//document.setСontentKey(new GridFSBytesDataStorage().saveData(content));
+		document.setСontentKey("ff");
 		document.setFile(file);
 		document.setDate_Upload(new Date());
 		getSession().saveOrUpdate(document);

@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ua.org.egov.utils.storage.exceptions.RecordNotFoundException;
 import ua.org.egov.utils.storage.model.UploadedFile;
 
-@Ignore
+//@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 		"/META-INF/spring/ua-org-egov-utils-storage-context.xml",
@@ -55,13 +55,13 @@ public class FileStorageTest {
 		Assert.assertArrayEquals(mf1.getBytes(), readFile1.getContent());
 		Assert.assertEquals(mf1.getContentType(), readFile1.getMetadata().getContentType());
 		Assert.assertEquals(mf1.getOriginalFilename(), readFile1.getMetadata().getOriginalFilename());
-		
+                
 		Assert.assertTrue(storage.saveFile(id, mf2));
 		UploadedFile readFile2 = storage.getFile(id);
 		Assert.assertArrayEquals(mf2.getBytes(), readFile2.getContent());
 		Assert.assertEquals(mf2.getContentType(), readFile2.getMetadata().getContentType());
 		Assert.assertEquals(mf2.getOriginalFilename(), readFile2.getMetadata().getOriginalFilename());
-		
+                
 		
 		Assert.assertTrue(storage.remove(id));
 		Assert.assertFalse(storage.keyExists(id));

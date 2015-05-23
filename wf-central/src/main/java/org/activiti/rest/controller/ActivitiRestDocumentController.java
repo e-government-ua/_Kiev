@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wf.dp.dniprorada.dao.DocumentDao; 
 import org.wf.dp.dniprorada.model.Document;
+import org.wf.dp.dniprorada.util.Util;
 
 @Controller
 @RequestMapping(value = "/services")
@@ -32,7 +33,7 @@ public class ActivitiRestDocumentController {
 	@RequestMapping(value = "/getDocumentContent", method = RequestMethod.GET)
 	public @ResponseBody
 	String getDocumentContent(@RequestParam(value = "nID") Long id) {
-		return String.valueOf(documentDao.getDocumentContent(id)); // ????
+		return Util.contentByteToString(documentDao.getDocumentContent(id)); // ????
 	}
 
 	@RequestMapping(value = "/getDocumentFile", method = RequestMethod.GET)
@@ -57,7 +58,7 @@ public class ActivitiRestDocumentController {
 		return documentDao.getDocuments(subject_Upload);
 	}
 
-	@RequestMapping(value = "/setDocumentContent", method = RequestMethod.POST)
+	@RequestMapping(value = "/setDocumentContent", method = RequestMethod.GET)
 	public @ResponseBody
 	Long setDocument(
 			@RequestParam(value = "sID_SubjectUpload") String subject_Upload,
@@ -71,10 +72,10 @@ public class ActivitiRestDocumentController {
 		
 		return documentDao.setDocument(subject_Upload, subjectName_Upload,
 				documentName, fileName == null ? request.getHeader("filename"): fileName, 
-						documentType, documentContentType, content.getBytes());
+						documentType, documentContentType, Util.contentStringToByte(content));
 	}
 
-	@RequestMapping(value = "/setDocument", method = RequestMethod.POST)
+	@RequestMapping(value = "/setDocument", method = RequestMethod.GET)
 	public @ResponseBody
 	Long setDocumentFile(
 			@RequestParam(value = "sID_SubjectUpload") String subject_Upload,
