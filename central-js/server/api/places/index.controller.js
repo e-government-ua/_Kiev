@@ -1,77 +1,169 @@
 var request = require('request');
-var NodeCache = require( "node-cache" );
-var myCache = new NodeCache();
-var cacheKey = 'api/places';
-var _ = require('lodash');
+var NodeCache = require("node-cache" );
+var arrayQuery = require('array-query');
 
-var config = require('../../config');
-var activiti = config.activiti;
+var placesCache = new NodeCache();
 
-var options = {
-    protocol: activiti.protocol,
-    hostname: activiti.hostname,
-    port: activiti.port,
-    path: activiti.path,
-    username: activiti.username,
-    password: activiti.password
+function getStructure() {
+	var structureKey = 'api/places';
+	return placesCache.get(structureKey) || null;
 };
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-function updateCache (body) {
-    //cache reply for 1 day (86400 seconds)
-    myCache.set(cacheKey, body, 86400);
+function findRegions() {
+	var regionsKey = 'api/places/regions';
+	var regionsValue = placesCache.get(regionsKey);
+	
+	if(regionsValue) {
+		return regionsValue;
+	}
+	
+	var structureValue = getStructure();
+	return structureValue;
+};
 
-    var regionsAndCities = JSON.parse(body);
-    var regions = [];
-    for (var i = 0, len = regionsAndCities.length; i < len; ++i) {
-        var item = regionsAndCities[i];
-        //cache region (with cities)
-        myCache.set(cacheKey+'/regions/'+item['nID'], item);
-
-        // delete city information from region befor adding it to regions
-        if (item['aCity'] !== undefined) {
-            item = _.cloneDeep(item);
-            delete item['aCity'];
-        }
-        regions.push(item);
-    }
-    // cache regions for 1 day (86400 seconds)
-    myCache.set(cacheKey+'/regions', regions);
-}
-
-module.exports.init = function(callback) {
-    // if cache is up to date - just execute callback
-    if (myCache.get(cacheKey)) {
-        callback();
-        return;
-    }
-    // if cache is missing, then query activity
-	var url = options.protocol+'://'+options.hostname+options.path+'/services/getPlaces';
-	console.log(url);
-	return request.get({
-		'url': url,
-		'auth': {
-			'username': options.username,
-			'password': options.password
+function findRegion(region) {
+	var regionKey = 'api/places/region/' + region;
+	var cacheValue = placesCache.get(regionKey);
+	
+	if(cacheValue) {
+		return cacheValue;
+	};
+	
+	var structureValue = getStructure();
+	if(structureValue == null) {
+		return null;
+	}
+	
+	for(var key in structureValue) {
+		var oRegion = structureValue[key];
+		if(oRegion.nID == region) {
+			placesCache.set(regionKey, oRegion);
+			return oRegion;
 		}
-	}, function(error, response, body) {
-        if (error === null && body) {
-            updateCache(body);
-        } else {
-            console.warn('Got error or empty reply from', url);
-            console.warn('Error', error, 'response', response);
-        }
-        callback();
-    });
+	};
+	
+	return null;
 };
 
-module.exports.getRegions = function () {
-    return myCache.get(cacheKey+'/regions');
-}
+function findCity(region, city) {
+	var cityKey = 'api/places/region/' + region + '/city/' + city;
+	var cacheValue = placesCache.get(cityKey);
+	
+	if(cacheValue) {
+		return cacheValue;
+	}
+	
+	var oRegion = findRegion(region);
+	if(oRegion == null) {
+		return null;
+	}
+	
+	var aCity = oRegion.aCity;
+	for(var key in aCity)	{
+		var oCity = aCity[key];
+		if(oCity.nID == city) {
+			placesCache.set(cityKey, oCity);
+			return oCity;
+		}
+	};
+	
+	return null;
+};
 
-module.exports.getRegionCities = function (regionId)  {
-    var regions = myCache.get(cacheKey + '/regions/' + regionId);
-    if (regions && regions['aCity']) {
-        return regions['aCity'];
-    }
-}
+function findCities(region, search) {
+	var citiesKey = 'api/places/region/' + region + '/cities?sFind=' + search;
+	var cacheValue = placesCache.get(citiesKey);
+	
+	if(cacheValue) {
+		return cacheValue;
+	}
+	
+	var oRegion = findRegion(region);
+	if(oRegion == null) {
+		return null;
+	}
+	
+	return (search == null) ?
+		oRegion.aCity:
+		arrayQuery('sName').regex(new RegExp(search, 'i')).limit(10).on(oRegion.aCity);
+};
+
+module.exports = {
+	getPlaces: function(options, next) {
+		var structureValue = getStructure();
+
+		if(structureValue) {
+			next();
+			return;
+		}
+	
+		var url = options.protocol+'://'+options.hostname+options.path+'/services/getPlaces';
+		return request.get({
+			'url': url,
+			'auth': {
+				'username': options.username,
+				'password': options.password
+			}
+		}, function(error, response, body) {
+			placesCache.set('api/places', JSON.parse(body), 86400);
+			next();
+			return;
+		});
+	},
+	getRegions: function() {
+		var aRegion = findRegions();
+		
+		if(aRegion == null) {
+			return null;
+		}
+		
+		var result = [];
+		for(var i = 0; i < aRegion.length; i++) {
+			var oRegion = aRegion[i];
+			result.push({
+				nID: oRegion.nID,
+				sName: oRegion.sName
+			});
+		};
+		
+		return result;
+	},
+	getRegion: function(region) {
+		var oRegion = findRegion(region);
+		
+		if(oRegion == null) {
+			return null;
+		}
+		
+		return {
+			nID: oRegion.nID,
+			sName: oRegion.sName
+		}
+	},
+	getCities: function(region, search) {
+		var aCity = findCities(region, search);
+		
+		var result = [];
+		for(var i = 0; i < aCity.length; i++) {
+			var oCity = aCity[i];
+			result.push({
+				nID: oCity.nID,
+				sName: oCity.sName
+			});
+		}
+		
+		return result;
+	},
+	getCity: function(region, city) {
+		var oCity = findCity(region, city);
+		
+		if(oCity == null) {
+			return null;
+		}
+		
+		return {
+			nID: oCity.nID,
+			sName: oCity.sName
+		}
+	}
+};

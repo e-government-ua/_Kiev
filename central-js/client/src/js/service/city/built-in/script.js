@@ -18,8 +18,26 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
 			.state('service.general.city.built-in.bankid', {
 				url: '/built-in/region/{region:int}/city/{city:int}/?code',
 				parent: 'service.general.city',
+				data: {
+					region: null,
+					city: null
+				},
 				resolve: {
-					oServiceData: ['$stateParams', 'service', 'places', function($stateParams, service, places) {
+					region: ['$state', '$stateParams', 'PlacesService', function($state, $stateParams, PlacesService) {
+						return PlacesService.getRegion($stateParams.region).then(function(response) {
+							var currentState = $state.get('service.general.city.built-in.bankid');
+							currentState.data.region = response.data;
+							return response.data;
+						});
+					}],
+					city: ['$state', '$stateParams', 'PlacesService', function($state, $stateParams, PlacesService) {
+						return PlacesService.getCity($stateParams.region, $stateParams.city).then(function(response) {
+							var currentState = $state.get('service.general.city.built-in.bankid');
+							currentState.data.city = response.data;
+							return response.data;
+						});
+					}],
+					oServiceData: ['$stateParams', 'service', function($stateParams, service) {
 						var aServiceData = service.aServiceData;
 						var oServiceData = null;
 						angular.forEach(aServiceData, function(value, key) {

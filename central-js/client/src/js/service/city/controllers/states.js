@@ -1,18 +1,23 @@
 define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceCityController', ['$state', '$rootScope', '$scope', 'service', 'regions', 'ServiceService',
-		function ($state, $rootScope, $scope, service, regions, ServiceService) {
+	angularAMD.controller('ServiceCityController', ['$state', '$rootScope', '$scope', 'PlacesService', 'ServiceService', 'service', 'regions',
+		function ($state, $rootScope, $scope, PlacesService, ServiceService, service, regions) {
 			$scope.service = service;
 			$scope.regions = regions;
-			$scope.onSelectCity = function(item) {
-				$scope.data.city = item.nID;
+			
+			$scope.onSelectCity = function($item, $model, $label) {
+				$scope.data.city = $item;
 			}
+			
+			$scope.getCities = function(search) {
+				return PlacesService.getCities($scope.data.region.nID, search).then(function(response) {
+					return response.data;
+				});
+			};
+			
 			$scope.data = {
 				region: null,
 				city: null
 			};
-			$scope.getCities = function(val) {
-				return ServiceService.getRegionCities($scope.data.region['nID'], val);
-			}
 			
 			$scope.step1 = function() {
 				$scope.data = {

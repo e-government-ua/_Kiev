@@ -6,33 +6,21 @@ define('service/built-in/controller', ['angularAMD'], function(angularAMD) {
 });
 
 define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'], function(angularAMD) {
-  angularAMD.controller('ServiceBuiltInBankIDController', [
-    '$state', '$stateParams', '$scope',
-    'FormDataFactory', 'ActivitiService', 'oServiceData',
-    'BankIDAccount', 'ActivitiForm', 'uiUploader',
-    function($state, $stateParams, $scope, FormDataFactory,
-      ActivitiService, oServiceData, BankIDAccount, ActivitiForm,
-      uiUploader) {
-      angular.forEach($scope.places, function(value, key) {
-        if ($stateParams.region == value.nID) {
-          $scope.data.region = value;
-        }
-      });
-      if ($scope.data.region) {
-        angular.forEach($scope.data.region.aCity, function(value, key) {
-          if ($stateParams.city == value.nID) {
-            $scope.data.city = value;
-          }
-        });
-      }
-
-      $scope.account = BankIDAccount;
-      $scope.ActivitiForm = ActivitiForm;
-
-      $scope.data = $scope.data || {};
-      $scope.data.formData = new FormDataFactory();
-      $scope.data.formData.initialize(ActivitiForm);
-      $scope.data.formData.setBankIDAccount(BankIDAccount);
+	angularAMD.controller('ServiceBuiltInBankIDController', [
+		'$state', '$stateParams', '$scope', 'FormDataFactory', 'ActivitiService', 'oServiceData', 'BankIDAccount', 'ActivitiForm', 'uiUploader',
+		function($state, $stateParams, $scope, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
+		
+		$scope.account = BankIDAccount;
+		$scope.ActivitiForm = ActivitiForm;
+		
+		$scope.data = $scope.data || {};
+		$scope.data.formData = new FormDataFactory();
+		$scope.data.formData.initialize(ActivitiForm);
+		$scope.data.formData.setBankIDAccount(BankIDAccount);
+		
+		var currentState = $state.$current;
+		$scope.data.region = currentState.data.region;
+		$scope.data.city = currentState.data.city;
 
 
       angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {

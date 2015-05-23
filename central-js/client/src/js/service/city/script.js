@@ -6,8 +6,10 @@ define('service.general.city', ['angularAMD', 'service.general.city.link', 'serv
             .state('service.general.city', {
                 url: '/city',
 				resolve: {
-					regions: ['$stateParams', 'ServiceService', function($stateParams, ServiceService) {
-						return ServiceService.getRegions();
+					regions: ['$stateParams', 'PlacesService', function($stateParams, PlacesService) {
+						return PlacesService.getRegions().then(function(response) {
+							return response.data;
+						});
 					}],
 				},
                 views: {

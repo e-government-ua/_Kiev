@@ -2,37 +2,61 @@ var express = require('express');
 var router = express.Router();
 var arrayQuery = require('array-query');
 
-// api/places/regions/{nID} - return list of cities that belong to region nID
-// optional query parameter: ?sFind=STRING - filter cities by name
-router.get('/regions/:id', function(req, res, next) {
-	var places = require('./index.controller');
+router.use(function(req, res, next) {
 
-	function callback() {
-		var cities = places.getRegionCities(req.params.id);
-		if (req.query['sFind']) {
-			var regexp = new RegExp(req.query['sFind'], 'i');
-			var filtered = arrayQuery('sName').regex(regexp).limit(10).on(cities);
-			res.send(filtered);
-			res.end();
-			return;
-		}
+	var config = require('../../config');
+	var activiti = config.activiti;
 
-		res.send(cities);
-		res.end();
-		return;
-	}
-
-	places.init(callback);
-});
+	var options = {
+		protocol: activiti.protocol,
+		hostname: activiti.hostname,
+		port: activiti.port,
+		path: activiti.path,
+		username: activiti.username,
+		password: activiti.password
+	};
+	
+	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+	
+	var controller = require('./index.controller.js');
+	controller.getPlaces(options, next);
+})
 
 // api/places/regions - return list of regions (w/o cities)
 router.get('/regions', function(req, res, next) {
 	var places = require('./index.controller');
-	function callback() {
-		res.send(places.getRegions());
-		res.end();
-	}
-	places.init(callback);
+	var aRegion = places.getRegions();
+
+	res.send(aRegion);
+	res.end();
+});
+
+// api/places/region/{region} - return region (w/o cities)
+router.get('/region/:region([0-9]+)', function(req, res, next) {
+	var places = require('./index.controller');
+	var oRegion = places.getRegion(req.params.region);
+
+	res.send(oRegion);
+	res.end();
+});
+
+// api/places/region/{region}/cities - return list of cities
+// optional query parameter: ?sFind=STRING - filter cities by name
+router.get('/region/:region([0-9]+)/cities', function(req, res, next) {
+	var places = require('./index.controller');
+	var aCity = places.getCities(req.params.region, req.query.sFind || null);
+
+	res.send(aCity);
+	res.end();
+});
+
+// api/places/region/{region}/city/{city} - return city
+router.get('/region/:region([0-9]+)/city/:city([0-9]+)', function(req, res, next) {
+	var places = require('./index.controller');
+	var oCity = places.getCity(req.params.region, req.params.city);
+
+	res.send(oCity);
+	res.end();
 });
 
 module.exports = router;

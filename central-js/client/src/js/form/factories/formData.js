@@ -1,6 +1,6 @@
-define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/factory'], function(angularAMD) {
-	angularAMD.factory('FormDataFactory', ['ParameterFactory', 'DatepickerFactory',
-		function(ParameterFactory, DatepickerFactory) {
+define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/factory', 'file/factory'], function(angularAMD) {
+	angularAMD.factory('FormDataFactory', ['ParameterFactory', 'DatepickerFactory', 'FileFactory',
+		function(ParameterFactory, DatepickerFactory, FileFactory) {
 			var capitalizeFirst = function(input) {
 				if (input) {
 					return input.substring(0, 1).toUpperCase() + input.substring(1);
@@ -22,6 +22,10 @@ define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/facto
 					switch (property.type) {
 						case 'date':
 							this.params[property.id] = new DatepickerFactory();
+							this.params[property.id].value = property.value;
+							break;
+						case 'file':
+							this.params[property.id] = new FileFactory();
 							this.params[property.id].value = property.value;
 							break;
 						default:
@@ -80,6 +84,28 @@ define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/facto
 						this.params[field].value = finalValue;
 					}
 				}, this);
+			};
+			
+			FormDataFactory.prototype.setFile = function(name, file) {
+				var parameter = this.params[name];
+				parameter.remove(file);
+				parameter.addFiles(file);
+			};
+			
+			FormDataFactory.prototype.setFiles = function(name, files) {
+				var parameter = this.params[name];
+				parameter.removeAll();
+				parameter.addFiles(files);
+			};
+			
+			FormDataFactory.prototype.addFile = function(name, file) {
+				var parameter = this.params[name];
+				parameter.addFiles(file);
+			};
+			
+			FormDataFactory.prototype.addFiles = function(name, files) {
+				var parameter = this.params[name];
+				parameter.addFiles(files);
 			};
 
 			FormDataFactory.prototype.getRequestObject = function() {
