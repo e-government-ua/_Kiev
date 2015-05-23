@@ -58,7 +58,7 @@
 		<bean id="gridTemplate" class="org.springframework.data.mongodb.gridfs.GridFsTemplate">
 		  <constructor-arg ref="mongoDbFactory"/>
 		  <constructor-arg ref="converter"/>
-		  <constructor-arg name="bucket" value="${mongodb.bucket}" />
+		  <!--constructor-arg name="bucket" value="${mongodb.bucket}" /-->
 		</bean>
 	
 		<bean id="durableBytesDataStorage" class="ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage">
