@@ -60,25 +60,26 @@ public class ActivitiRestServicesController {
                             n++;
                         }*/
 		}
-                /*
-                List<ServiceData> aServiceData = new LinkedList(service.getServiceDataList());
+                
+                //List<ServiceData> aServiceData = new LinkedList(service.getServiceDataList());
                 List<ServiceData> aServiceDataFiltered = new LinkedList();
-                int n = 0;
-                for(ServiceData oServiceData : serviceDataList){
-          //          if(!oServiceData.isHidden()){
-          //            aServiceDataFiltered.add(oServiceData);
-          //          }
+                //int n = 0;
+                for(ServiceData oServiceData : aServiceData){
+                    if(!oServiceData.isHidden()){
+                      aServiceDataFiltered.add(oServiceData);
+                    }
           //          if(oServiceData.isHidden()){
           //            //aServiceData.remove(oServiceData);
           //            //aServiceData.remove(oServiceData);
           //            aServiceData.remove(n);
           //          }
-                    if(oServiceData.isHidden()){
+                    /*if(oServiceData.isHidden()){
                         serviceDataList.remove(n);
-                    }
+                    }*/
                     n++;
                 }
-                */
+                service.setServiceDataList(aServiceDataFiltered);
+                
                 
 		return JsonRestUtils.toJsonResponse(service);
 	}
