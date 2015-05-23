@@ -44,6 +44,11 @@ public class ServiceData extends Entity {
 	@Column(name = "sURL", nullable = false)
 	private String url;
 
+	@JsonProperty(value = "bHidden")
+	@Column(name = "bHidden", nullable = false)
+	private boolean bHidden;
+	
+        
 	public Service getService() {
 		return service;
 	}
@@ -91,4 +96,13 @@ public class ServiceData extends Entity {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+        
+	public boolean isHidden() {
+		return bHidden;
+	}
+
+	public void setHidden(boolean b) {
+		this.bHidden = b;
+	}
+
 }
