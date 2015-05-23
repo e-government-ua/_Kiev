@@ -19,8 +19,10 @@ public class DocumentDaoImpl implements DocumentDao {
 
 	private SessionFactory sessionFactory;
 	
+	private String mokeContentDocument = "We still can't save content of file :( That why you have got wrong content. We are trying to find mistake!";
+	
 	//@Autowired
-	private GridFSBytesDataStorage gridFSBytesDataStorage;
+	private GridFSBytesDataStorage durableBytesDataStorage;
 	
 
 	@Required
@@ -49,12 +51,14 @@ public class DocumentDaoImpl implements DocumentDao {
 	@Override
 	public byte[] getDocumentContent(Long id) {
 		Document document = (Document) getSession().get(Document.class, id);
-		return gridFSBytesDataStorage.getData(document.getСontentKey());
+		//return durableBytesDataStorage.getData(document.getСontentKey());
+		return mokeContentDocument.getBytes();
 	}
 
 	@Override
 	public byte[] getDocumentContent(String contentKey) {
-		return gridFSBytesDataStorage.getData(contentKey);
+		//return durableBytesDataStorage.getData(contentKey);
+		return mokeContentDocument.getBytes();
 	}
 
 	@Override
@@ -71,9 +75,9 @@ public class DocumentDaoImpl implements DocumentDao {
 		DocumentContentType documentContentType = new DocumentContentType();
 		documentContentType.setId(documentContentTypeId);
 		document.setDocumentContentType(documentContentType);
-		document.setСontentKey(gridFSBytesDataStorage.saveData(content));
-		document.setСontentKey(new GridFSBytesDataStorage().saveData(content));
-		//document.setСontentKey("ff");
+		//document.setСontentKey(durableBytesDataStorage.saveData(content));
+		//document.setСontentKey(new GridFSBytesDataStorage().saveData(content));
+		document.setСontentKey("ff");
 		document.setFile(file);
 		document.setDate_Upload(new Date());
 		getSession().saveOrUpdate(document);
