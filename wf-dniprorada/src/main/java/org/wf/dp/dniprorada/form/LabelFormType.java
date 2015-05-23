@@ -16,7 +16,7 @@ public class LabelFormType extends AbstractFormType{
 
     @Override
     public String convertModelValueToFormValue(Object modelValue) {
-        return (String)modelValue;
+        return modelValue.toString();
     }
 
     @Override

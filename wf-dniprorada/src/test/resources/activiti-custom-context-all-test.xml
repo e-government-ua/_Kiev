@@ -48,6 +48,7 @@
 					<bean class="org.wf.dp.dniprorada.form.FormFileType" />
 					<bean class="org.wf.dp.dniprorada.form.TextAreaFormType" />
 					<bean class="org.wf.dp.dniprorada.form.LabelFormType" />
+					<bean class="org.wf.dp.dniprorada.form.MarkersFormType" />
 				</list>
 			</property>
 	
