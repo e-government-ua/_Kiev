@@ -70,7 +70,7 @@ public class ActivitiRestDocumentController {
 		return documentDao.getDocuments(sID_Subject);
 	}
 
-	@RequestMapping(value = "/setDocument", method = RequestMethod.GET)
+	@RequestMapping(value = "/setDocument", method = RequestMethod.POST)
 	public @ResponseBody
 	Long setDocument(
 			@RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
@@ -114,7 +114,7 @@ public class ActivitiRestDocumentController {
                                                 
 	}
         
-	@RequestMapping(value = "/setDocumentFile", method = RequestMethod.GET)
+	@RequestMapping(value = "/setDocumentFile", method = RequestMethod.POST)
 	public @ResponseBody
 	Long setDocumentFile(
 			@RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
