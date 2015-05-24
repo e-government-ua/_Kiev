@@ -93,6 +93,7 @@
 
 		<bean id="documentDao" class="org.wf.dp.dniprorada.dao.DocumentDaoImpl" >
 			<property name="sessionFactory" ref="sessionFactory"/>
+			<!--property name="durableBytesDataStorage" ref="durableBytesDataStorage"/-->
 		</bean>
 
         <bean id="subjectMessageDao" class="org.wf.dp.dniprorada.dao.SubjectMessagesDaoImpl" >
@@ -208,6 +209,7 @@
 			  factory-method="getIdentityService" />
 
 		<import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml" />
+		<import resource="classpath:/META-INF/spring/ua-org-egov-utils-storage-context.xml" />
 	</beans>
 
 

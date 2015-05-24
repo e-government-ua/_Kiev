@@ -1,6 +1,6 @@
-define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/factory'], function(angularAMD) {
-	angularAMD.factory('FormDataFactory', ['ParameterFactory', 'DatepickerFactory',
-		function(ParameterFactory, DatepickerFactory) {
+define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/factory', 'file/factory'], function(angularAMD) {
+	angularAMD.factory('FormDataFactory', ['ParameterFactory', 'DatepickerFactory', 'FileFactory',
+		function(ParameterFactory, DatepickerFactory, FileFactory) {
 			var capitalizeFirst = function(input) {
 				if (input) {
 					return input.substring(0, 1).toUpperCase() + input.substring(1);
@@ -24,6 +24,10 @@ define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/facto
 							this.params[property.id] = new DatepickerFactory();
 							this.params[property.id].value = property.value;
 							break;
+						case 'file':
+							this.params[property.id] = new FileFactory();
+							this.params[property.id].value = property.value;
+							break;
 						default:
 							this.params[property.id] = new ParameterFactory();
 							this.params[property.id].value = property.value;
@@ -38,8 +42,8 @@ define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/facto
 
 			FormDataFactory.prototype.setBankIDAccount = function(BankIDAccount) {
 				return angular.forEach(BankIDAccount.customer, function(value, key) {
-					var field;
-					var finalValue;
+					var field = 'bankId'+key;
+					var finalValue = value;
 					if (key === 'documents') {
 						if (value && value.length === 1 && value[0]) {
 							var documentObject = value[0];
@@ -53,8 +57,25 @@ define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/facto
 								field = 'bankId' + capitalizeFirst(documentObject.type);								
 							}
 						}
+					/*} else if (key === 'addresses') {
+						if (value && value.length === 1 && value[0]) {
+							var oAddress = value[0];
+							if (oAddress.type === 'factual') {
+								finalValue =
+									oAddress.country
+                                                                        + ' ' + oAddress.state
+                                                                        + ', ' + oAddress.area
+                                                                        + ', ' + oAddress.city
+                                                                        + ', ' + oAddress.street
+                                                                        + ', ' + oAddress.houseNo
+                                                                        + ', к.' + oAddress.flatNo
+                                                                ;
+								field = 'bankId' + capitalizeFirst(oAddress.type);								
+							}
+						}*/
 					} else {
-						field = 'bankId' + capitalizeFirst(key);
+						//field = 'bankId' + capitalizeFirst(key);
+						field = 'bankId' + key;
 						finalValue = value;
 					}
 
@@ -63,6 +84,28 @@ define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/facto
 						this.params[field].value = finalValue;
 					}
 				}, this);
+			};
+			
+			FormDataFactory.prototype.setFile = function(name, file) {
+				var parameter = this.params[name];
+				parameter.remove(file);
+				parameter.addFiles(file);
+			};
+			
+			FormDataFactory.prototype.setFiles = function(name, files) {
+				var parameter = this.params[name];
+				parameter.removeAll();
+				parameter.addFiles(files);
+			};
+			
+			FormDataFactory.prototype.addFile = function(name, file) {
+				var parameter = this.params[name];
+				parameter.addFiles(file);
+			};
+			
+			FormDataFactory.prototype.addFiles = function(name, files) {
+				var parameter = this.params[name];
+				parameter.addFiles(files);
 			};
 
 			FormDataFactory.prototype.getRequestObject = function() {

@@ -5,11 +5,11 @@
 				<span>Крок 1. Оберіть свій регіон </span>
 				<div style="display:inline-block">
 					<span>Область</span>
-					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.sName for region in places track by region.nID" ng-disabled="data.city"></select>
+					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.sName for region in [data.region] track by region.nID" ng-disabled="data.city"></select>
 				</div>
 				<div style="display:inline-block" ng-if="data.region">
 					<span>Місто</span>
-					<select class="form-control" name="city" ng-model="data.city" ng-options="city as city.sName for city in data.region.aCity track by city.nID" ng-disabled="data.city"></select>
+					<select class="form-control" name="city" ng-model="data.city" ng-options="city as city.sName for city in [data.city] track by city.nID" ng-disabled="data.city"></select>
 				</div>
 			</div>
 			<div class="col-md-1" ng-if="data.city">
@@ -21,7 +21,7 @@
 	</div>
 	<div class="list-group-item" ng-if="data.city">
 		<span>Крок 2. Увійдіть в систему через</span>
-                <button style="display: none;" class="btn btn-info"><i class="icon-door-lock"></i><span class="btn-text">e-gov.org.ua</span></button>
+                <button style="display: none;" class="btn btn-info"><i class="icon-door-lock"></i><span class="btn-text">igov.org.ua</span></button>
 		<a class="btn btn-info" ng-href="https://bankid.privatbank.ua/DataAccessService/das/authorize?response_type=code&client_id=dniprorada&redirect_uri={{$location.protocol()}}://{{$location.host()}}:{{$location.port()}}{{$state.href('service.general.city.built-in.bankid', {'id': service.nID, 'region': data.region.nID, 'city': data.city.nID})}}">
 			<i class="icon-bank-id"></i>
 			<span class="btn-text">BankID</span>

@@ -5,18 +5,19 @@
 				<span>Крок 1. Оберіть свій регіон </span>
 				<div style="display:inline-block">
 					<span>Область</span>
-					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.sName for region in places track by region.nID" ng-disabled="data.city"></select>
+					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.sName for region in regions track by region.nID" ng-disabled="data.city"></select>
 				</div>
 				<div style="display:inline-block" ng-if="data.region">
 					<span>Місто</span>
-					<select class="form-control" name="city" ng-model="data.city" ng-options="city as city.sName for city in data.region.aCity track by city.nID" ng-disabled="data.city"></select>
+					<input autocomplete="off" class="form-control" name="city" type="text" ng-model="model.city" typeahead="city as city.sName for city in getCities($viewValue)" typeahead-editable="false" typeahead-wait-ms="200" typeahead-min-length="0" typeahead-on-select="onSelectCity($item)" ng-disabled="data.city"/>
 				</div>
 			</div>
 			<div class="col-md-1" ng-if="data.city">
 				<div class="link-button">
-					<a href="#">Змінити</a>
+					<a href="#" ng-click="step1()">Змінити</a>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="list-group-item" ng-show="data.city" ui-view="status"></div>
 </div>

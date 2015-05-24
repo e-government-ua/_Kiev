@@ -9,8 +9,8 @@
 .settings/*
 
 # IntelliJ Idea
-.idea
-.iml
+*.idea
+*.iml
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -26,3 +26,11 @@ hs_err_pid*
 # virtual environment
 .vagrant
 .bpmn
+/central-js/nbproject/private/
+/portal-js/nbproject/private/
+/dashboard-js/nbproject/private/
+
+#test bpmn definitions (Tsapko Dmytro)
+wf-dniprorada/src/main/resources/bpmn/autodeploy/test.bpmn
+wf-dniprorada/src/main/resources/bpmn/autodeploy/citizens_request_test_tsapko.bpmn
+wf-dniprorada/src/main/resources/bpmn/autodeploy/citizens_request_test_tsapko.bpmn.xml

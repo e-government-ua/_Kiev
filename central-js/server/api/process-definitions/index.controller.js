@@ -1,12 +1,16 @@
 var request = require('request');
 
 module.exports.index = function(options, callback) {
-	var url = options.protocol+'://'+options.hostname+':'+options.port+options.path+'/rest/process-definitions';
+	var url = options.params.url+'service/repository/process-definitions';
+	console.log(url);
 	return request.get({
 		'url': url,
 		'auth': {
 			'username': options.username,
 			'password': options.password
+		},
+		'qs': {
+			'latest': options.params.latest
 		}
 	}, callback);
 };

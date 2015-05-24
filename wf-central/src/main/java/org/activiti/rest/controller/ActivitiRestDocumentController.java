@@ -1,5 +1,6 @@
 package org.activiti.rest.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.dao.DocumentDao; 
 import org.wf.dp.dniprorada.model.Document;
+import org.wf.dp.dniprorada.util.Util;
+
+//import org.springframework.mock.web.MockMultipartFile;
+
 
 @Controller
 @RequestMapping(value = "/services")
@@ -32,7 +38,7 @@ public class ActivitiRestDocumentController {
 	@RequestMapping(value = "/getDocumentContent", method = RequestMethod.GET)
 	public @ResponseBody
 	String getDocumentContent(@RequestParam(value = "nID") Long id) {
-		return String.valueOf(documentDao.getDocumentContent(id)); // ????
+		return Util.contentByteToString(documentDao.getDocumentContent(id)); // ????
 	}
 
 	@RequestMapping(value = "/getDocumentFile", method = RequestMethod.GET)
@@ -44,8 +50,9 @@ public class ActivitiRestDocumentController {
 				.getСontentKey());
 		httpResponse.setHeader("Content-disposition", "attachment; filename="
 				+ document.getFile());
-		httpResponse.setHeader("Content-Type", document.getDocumentType()
-				.getName() + ";charset=UTF-8");
+		//httpResponse.setHeader("Content-Type", document.getDocumentContentType()
+		//		.getName() + ";charset=UTF-8");
+		httpResponse.setHeader("Content-Type", document.getContentType() + ";charset=UTF-8");
 		httpResponse.setContentLength(content.length);
 		return content;
 	}
@@ -53,47 +60,76 @@ public class ActivitiRestDocumentController {
 	@RequestMapping(value = "/getDocuments", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Document> getDocuments(
-			@RequestParam(value = "sID_Subject") String subject_Upload) {
-		return documentDao.getDocuments(subject_Upload);
+			@RequestParam(value = "sID_Subject") String sID_Subject) {
+		return documentDao.getDocuments(sID_Subject);
 	}
 
-	@RequestMapping(value = "/setDocumentContent", method = RequestMethod.POST)
+	@RequestMapping(value = "/setDocument", method = RequestMethod.GET)
 	public @ResponseBody
 	Long setDocument(
-			@RequestParam(value = "sID_SubjectUpload") String subject_Upload,
-			@RequestParam(value = "sSubjectName_Upload") String subjectName_Upload,
-			@RequestParam(value = "sName") String documentName,
-			@RequestParam(value = "sFile", required = false) String fileName,// defaultValue															
-			@RequestParam(value = "nID_DocumentType") Integer documentType,
-			@RequestParam(value = "nID_DocumentContentType") Integer documentContentType,
-			@RequestParam(value = "soDocumentContent") String content,
-			HttpServletRequest request, HttpServletResponse httpResponse) {
-		
-		return documentDao.setDocument(subject_Upload, subjectName_Upload,
-				documentName, fileName == null ? request.getHeader("filename"): fileName, 
-						documentType, documentContentType, content.getBytes());
+			@RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
+			@RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
+			@RequestParam(value = "sName") String sName,
+			//@RequestParam(value = "sFile", required = false) String fileName,
+			@RequestParam(value = "nID_DocumentType") Integer nID_DocumentType,
+			@RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
+			@RequestParam(value = "soDocumentContent") String sContent,
+                        //@RequestParam(value = "oFile", required = false) MultipartFile oFile,
+			//@RequestBody byte[] content,
+			HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
+            
+                        //MultipartFile oFile = new MockMultipartFile("filename.txt", "fullfilename.txt", "text/plain", sContent.getBytes());
+                        String sFileName = "filename.txt";
+                        String sFileContentType = "text/plain";
+                        byte[] aoContent = sContent.getBytes();
+            
+                        return documentDao
+				.setDocument(
+						sID_Subject_Upload,
+						sSubjectName_Upload,
+						sName,
+						nID_DocumentType,
+						nID_DocumentContentType,
+                                                sFileName,
+                                                sFileContentType,
+						aoContent
+						//oFile
+						//fileName == null ? request.getHeader("filename"): fileName,
+						//documentContentType == null ? 2 : documentContentType, content);
+                                                );
 	}
-
-	@RequestMapping(value = "/setDocument", method = RequestMethod.POST)
+        
+	@RequestMapping(value = "/setDocumentFile", method = RequestMethod.GET)
 	public @ResponseBody
 	Long setDocumentFile(
-			@RequestParam(value = "sID_SubjectUpload") String subject_Upload,
-			@RequestParam(value = "sSubjectName_Upload") String subjectName_Upload,
-			@RequestParam(value = "sName") String documentName,
-			@RequestParam(value = "sFile", required = false) String fileName,
-			@RequestParam(value = "nID_DocumentType") Integer documentType,
-			@RequestParam(value = "nID_DocumentContentType", required = false) Integer documentContentType,
-			@RequestBody byte[] content,
-			HttpServletRequest request, HttpServletResponse httpResponse) {
-		
-		return documentDao
+			@RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
+			@RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
+			@RequestParam(value = "sName") String sName,
+			//@RequestParam(value = "sFile", required = false) String fileName,
+			@RequestParam(value = "nID_DocumentType") Integer nID_DocumentType,
+			@RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
+                        @RequestParam(value = "oFile", required = false) MultipartFile oFile,
+			//@RequestBody byte[] content,
+			HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
+            
+                        String sFileName = oFile.getName();
+                        String sFileContentType = oFile.getContentType();
+                        byte[] aoContent = oFile.getBytes();
+            
+                        return documentDao
 				.setDocument(
-						subject_Upload,
-						subjectName_Upload,
-						documentName,
-						fileName == null ? request.getHeader("filename"): fileName,
-						documentType,
-						documentContentType == null ? 2 : documentContentType, content);
+						sID_Subject_Upload,
+						sSubjectName_Upload,
+						sName,
+						nID_DocumentType,
+						nID_DocumentContentType,
+                                                sFileName,
+                                                sFileContentType,
+						aoContent
+						//oFile
+						//fileName == null ? request.getHeader("filename"): fileName,
+						//documentContentType == null ? 2 : documentContentType, content);
+                                                );
 	}
 
 }

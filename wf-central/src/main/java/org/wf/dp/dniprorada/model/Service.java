@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.LinkedList;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -45,6 +46,8 @@ public class Service extends Entity {
    @Column(name = "sLaw", nullable = false)
    private String law;
 
+   transient private int nSub = 0;
+   
    public String getName() {
       return name;
    }
@@ -52,6 +55,16 @@ public class Service extends Entity {
       this.name = name;
    }
 
+   
+   @JsonProperty(value="nSub")
+    public int nSub() {
+        return nSub;
+    }
+    public void setSub(int n) {
+        nSub = n;
+    }
+
+    
    public Integer getOrder() {
       return order;
    }
@@ -66,7 +79,40 @@ public class Service extends Entity {
       this.subcategory = subcategory;
    }
 
+   public List<ServiceData> aServiceDataFiltered() {
+      List<ServiceData> aServiceDataFiltered = new LinkedList();
+      for(ServiceData oServiceData : serviceDataList){
+            if(!oServiceData.isHidden()){
+                aServiceDataFiltered.add(oServiceData);
+            }
+      }
+      return aServiceDataFiltered;
+   }
+   
    public List<ServiceData> getServiceDataList() {
+/*       
+      List<ServiceData> aServiceData = new LinkedList(serviceDataList);
+      List<ServiceData> aServiceDataFiltered = new LinkedList();
+      int n = 0;
+      for(ServiceData oServiceData : serviceDataList){
+//          if(!oServiceData.isHidden()){
+//            aServiceDataFiltered.add(oServiceData);
+//          }
+//          if(oServiceData.isHidden()){
+//            //aServiceData.remove(oServiceData);
+//            //aServiceData.remove(oServiceData);
+//            aServiceData.remove(n);
+//          }
+          if(oServiceData.isHidden()){
+            serviceDataList.remove(n);
+          }
+          n++;
+      }
+//      this.serviceDataList = aServiceData;
+//      return aServiceData;
+//      return aServiceDataFiltered;
+      //this.serviceDataList = aServiceDataFiltered;
+*/        
       return serviceDataList;
    }
    public void setServiceDataList(List<ServiceData> serviceDataList) {

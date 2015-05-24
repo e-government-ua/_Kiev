@@ -6,7 +6,7 @@
 			<span class="icon-bar"></span>
 		</button>
 		<div class="navbar-header">
-			<a class="navbar-brand" href="/">e-gov.org.ua</a>
+			<a class="navbar-brand" href="/">igov.org.ua</a>
 			<br>
 			<p class="sitename">портал державних послуг</p>
 		</div>
@@ -15,7 +15,7 @@
 				<li class="menu-item"
                     ng-class="{selected: state.is('index')}">
 					<a ui-sref="index">
-						<h4>Про портал</h4>
+						<h4>Послуги</h4>
 					</a>
 				</li>
 				<li class="menu-item"
@@ -25,9 +25,15 @@
 					</a>
 				</li>
 				<li class="menu-item"
-                    ng-class="{selected: state.is('journal')}">
-					<a ui-sref="journal">
+                    ng-class="{selected: state.is('journal.bankid')}">
+					<a ui-sref="journal.bankid">
 						<h4>Мій журнал</h4>
+					</a>
+				</li>
+				<li class="menu-item"
+                    ng-class="{selected: state.is('about')}">
+					<a ui-sref="about">
+						<h4>Про портал</h4>
 					</a>
 				</li>
 			</ul>

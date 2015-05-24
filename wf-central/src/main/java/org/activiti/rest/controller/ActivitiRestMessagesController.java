@@ -12,6 +12,7 @@ import org.wf.dp.dniprorada.dao.SubjectMessagesDao;
 import org.wf.dp.dniprorada.model.SubjectMessage;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -55,16 +56,11 @@ public class ActivitiRestMessagesController {
         SubjectMessage message = new SubjectMessage();
         message.setHead(sHead);
         message.setBody(sBody);
-        if (nID_subject == null) {
-            message.setId_subject(0);
-        } else {
-            message.setId_subject(nID_subject);
-        }
-        message.setMail(sMail);
-        message.setContacts(sContacts);
-        message.setData(sData);
-        Timestamp date = new Timestamp(new java.util.Date().getTime());
-        message.setDate(date);
+        message.setId_subject((nID_subject == null) ? 0 : nID_subject);
+        message.setMail((sMail == null) ? "" : sMail);
+        message.setContacts((sContacts == null) ? "" : sContacts);
+        message.setData((sData == null) ? "" : sData);
+        message.setDate(new Timestamp(new Date().getTime()));
         return message;
     }
 }

@@ -5,6 +5,7 @@ define('server', ['angularAMD'], function (angularAMD) {
 		$httpBackend.whenGET(/\/api\/services/).passThrough();
 		$httpBackend.whenGET(/\/api\/service/).passThrough();
 		$httpBackend.whenGET(/\/api\/places/).passThrough();
+		$httpBackend.whenGET(/\/api\/process-definitions/).passThrough();
 		
 		$httpBackend.whenGET('./data.json').passThrough();
 		$httpBackend.whenGET(/\/api\/bankid/).passThrough();

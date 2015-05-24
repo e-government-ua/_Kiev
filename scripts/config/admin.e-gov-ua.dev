@@ -1,0 +1,27 @@
+server {
+	listen   80; 
+	server_name admin.e-gov-ua.dev;
+        include /etc/nginx/proxy_params;
+
+
+        location / {
+            proxy_pass http://192.168.10.10:9000/;
+        }
+
+}
+
+server {
+        listen              443 ssl;
+        server_name admin.e-gov-ua.dev;
+        include /etc/nginx/proxy_params;
+
+        keepalive_timeout   70;
+        ssl_certificate     /etc/nginx/ssl/dev_ssl.crt;
+        ssl_certificate_key /etc/nginx/ssl/dev_ssl.key;
+
+
+        location / {
+            proxy_pass http://192.168.10.10:9000/;
+        }
+
+}

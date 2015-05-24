@@ -1,8 +1,19 @@
 define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceCityController', ['$state', '$rootScope', '$scope', 'service', 'places',
-		function ($state, $rootScope, $scope, service, places) {
+	angularAMD.controller('ServiceCityController', ['$state', '$rootScope', '$scope', 'PlacesService', 'ServiceService', 'service', 'regions',
+		function ($state, $rootScope, $scope, PlacesService, ServiceService, service, regions) {
 			$scope.service = service;
-			$scope.places = places;
+			$scope.regions = regions;
+			
+			$scope.onSelectCity = function($item, $model, $label) {
+				$scope.data.city = $item;
+			}
+			
+			$scope.getCities = function(search) {
+				return PlacesService.getCities($scope.data.region.nID, search).then(function(response) {
+					return response.data;
+				});
+			};
+			
 			$scope.data = {
 				region: null,
 				city: null
@@ -42,7 +53,6 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 			$scope.$watchCollection('data.city', function(newValue, oldValue) {
 				return (newValue == null) ? null: $scope.step2();
 			});
-
 		}
 	]);
 });

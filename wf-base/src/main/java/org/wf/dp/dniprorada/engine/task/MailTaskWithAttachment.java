@@ -87,8 +87,8 @@ public class MailTaskWithAttachment implements JavaDelegate {
 				execution);
 		MultiPartEmail email = new MultiPartEmail();
 		email.setHostName(mailServerHost);
-		email.addTo(toStr, "dniprorada");
-		email.setFrom(fromStr, "dniprorada@egov.ua");
+		email.addTo(toStr, "reciver");
+		email.setFrom(fromStr, "admin@igov.org.ua");
 		email.setSubject(subjectStr);
 		email.setMsg(textStr);
 		email.setAuthentication(mailServerUsername, mailServerPassword);

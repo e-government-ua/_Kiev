@@ -1,5 +1,8 @@
 package ua.org.egov.utils.storage.durable.impl;
 
+import com.mongodb.MongoClient;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,12 +22,57 @@ import ua.org.egov.utils.storage.exceptions.RecordNotFoundException;
 
 import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSFile;
+/*import java.util.Arrays;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.SimpleMongoDbFactory;*/
 
 public class GridFSBytesDataStorage implements BytesDataStorage {
 
 	@Autowired
 	private GridFsTemplate gfsTemplate;
 	
+        /*private mongoTemplate
+        
+        String mongoUser="";
+        String databaseName="";
+        String mongoPass="";
+        String mongoHost="";
+        Integer mongoPort=0*/
+        /**
+        * DB connection Factory
+        * 
+        * @return a ready to use MongoDbFactory
+        */
+       /*@Bean
+       public MongoDbFactory mongoDbFactory() throws Exception {
+
+           // Set credentials      
+           MongoCredential credential = MongoCredential.createCredential(mongoUser, databaseName, mongoPass.toCharArray());
+           ServerAddress serverAddress = new ServerAddress(mongoHost, mongoPort);
+
+           // Mongo Client
+           MongoClient mongoClient = new MongoClient(serverAddress,Arrays.asList(credential)); 
+
+           // Mongo DB Factory
+           SimpleMongoDbFactory simpleMongoDbFactory = new SimpleMongoDbFactory(
+                   mongoClient, databaseName);
+
+           return simpleMongoDbFactory;
+       }*/
+
+       /**
+        * Template ready to use to operate on the database
+        * 
+        * @return Mongo Template ready to use
+        */
+       /*@Bean
+       public MongoTemplate mongoTemplate() throws Exception {
+           return new MongoTemplate(mongoDbFactory());
+       }*/       
+        
+        
 	@Override
 	public String saveData(byte[] data) {
 		
