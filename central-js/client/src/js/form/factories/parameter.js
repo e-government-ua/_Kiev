@@ -8,6 +8,7 @@ define('parameter/factory', ['angularAMD'], function (angularAMD) {
 			return this.value;
 		};
 
+$("[name=city]").val("д").chapress();
         return parameter;
     });
 });
