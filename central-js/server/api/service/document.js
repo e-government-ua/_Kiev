@@ -22,7 +22,7 @@ router.get('/documents/:nID', function(req, res, next) {
 
   console.log('hello2');
   var documents = require('./documents.controller');
-  documents.getDocument(getOptions(req), req.params.nID, callback);
+  documents.getDocument(req.params.nID, getOptions(req), callback);
 });
 
 function getOptions (req) {

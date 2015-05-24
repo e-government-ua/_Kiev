@@ -22,7 +22,7 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 				return response.data;
 			});
 		};
-		
+
 		this.syncSubject = function (sInn) {
 			var data = {
 				'sINN': sInn
@@ -34,7 +34,7 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 				return response.data;
 			});
 		};
-		
+
 		this.getProcessDefinitions = function(oServiceData, latest) {
 			var data = {
 				'url': oServiceData.sURL,
@@ -47,12 +47,26 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 				return response.data;
 			});
 		};
-		
+
 		this.getDocuments = function(sID_Subject) {
 			var data = {
 				'sID_Subject': sID_Subject
 			};
 			return $http.get('./api/service/documents', {
+				params: data,
+				data: data
+			}).then(function(response) {
+				return response.data;
+			});
+		};
+
+		this.getDocument = function(sID_Subject, nID) {
+			console.log('nID', nID);
+			console.log('sID_Subject', nID);
+			var data = {
+				'sID_Subject': sID_Subject
+			};
+			return $http.get('./api/service/documents/' + nID, {
 				params: data,
 				data: data
 			}).then(function(response) {
