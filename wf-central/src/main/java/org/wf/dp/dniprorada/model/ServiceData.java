@@ -46,7 +46,7 @@ public class ServiceData extends Entity {
 
 	@JsonProperty(value = "bHidden")
 	@Column(name = "bHidden", nullable = false)
-	private boolean bHidden;
+	private boolean hidden;
 	
         
 	public Service getService() {
@@ -98,11 +98,11 @@ public class ServiceData extends Entity {
 	}
         
 	public boolean isHidden() {
-		return bHidden;
+		return hidden;
 	}
 
 	public void setHidden(boolean b) {
-		this.bHidden = b;
+		this.hidden = b;
 	}
 
         /*@Override
