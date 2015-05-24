@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.activiti.engine.ActivitiObjectNotFoundException;
+import org.activiti.engine.task.Attachment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.wf.dp.dniprorada.dao.DocumentContentTypeDao;
 import org.wf.dp.dniprorada.dao.DocumentDao; 
 import org.wf.dp.dniprorada.model.Document;
+import org.wf.dp.dniprorada.model.DocumentContentType;
 import org.wf.dp.dniprorada.util.Util;
 
 //import org.springframework.mock.web.MockMultipartFile;
@@ -26,8 +30,10 @@ import org.wf.dp.dniprorada.util.Util;
 public class ActivitiRestDocumentController {
 
 	@Autowired
-	//@Qualifier(value = "documentDao")
 	private DocumentDao documentDao;
+	
+	@Autowired
+	private DocumentContentTypeDao documentContentTypeDao;
 
 	@RequestMapping(value = "/getDocument", method = RequestMethod.GET)
 	public @ResponseBody
@@ -72,7 +78,8 @@ public class ActivitiRestDocumentController {
 			@RequestParam(value = "sName") String sName,
 			//@RequestParam(value = "sFile", required = false) String fileName,
 			@RequestParam(value = "nID_DocumentType") Integer nID_DocumentType,
-			@RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
+			//@RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
+			@RequestParam(value = "sDocumentContentType", required = false) String documentContentTypeName,
 			@RequestParam(value = "soDocumentContent") String sContent,
                         //@RequestParam(value = "oFile", required = false) MultipartFile oFile,
 			//@RequestBody byte[] content,
@@ -82,21 +89,29 @@ public class ActivitiRestDocumentController {
                         String sFileName = "filename.txt";
                         String sFileContentType = "text/plain";
                         byte[] aoContent = sContent.getBytes();
-            
-                        return documentDao
-				.setDocument(
-						sID_Subject_Upload,
-						sSubjectName_Upload,
-						sName,
-						nID_DocumentType,
-						nID_DocumentContentType,
-                                                sFileName,
-                                                sFileContentType,
-						aoContent
+                        
+                        Integer nID_DocumentContentType;
+                        documentContentTypeName = request.getHeader("Content-Type") != null ? request.getHeader("filename") :  documentContentTypeName; 
+                        if(documentContentTypeName != null){
+                        	nID_DocumentContentType = documentContentTypeDao.getDocumentContentType(documentContentTypeName).getId();
+                        } else{
+                        	throw new ActivitiObjectNotFoundException(
+                                    "RequestParam 'nID_DocumentContentType' not found!", DocumentContentType.class);
+                        } 
+                        
+                        return documentDao.setDocument(
+                        		sID_Subject_Upload,
+                        		sSubjectName_Upload,
+                        		sName,
+                        		nID_DocumentType,
+                        		nID_DocumentContentType,
+                                sFileName,
+                                sFileContentType,
+		                        aoContent);
 						//oFile
 						//fileName == null ? request.getHeader("filename"): fileName,
 						//documentContentType == null ? 2 : documentContentType, content);
-                                                );
+                                                
 	}
         
 	@RequestMapping(value = "/setDocumentFile", method = RequestMethod.GET)

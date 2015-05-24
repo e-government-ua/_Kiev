@@ -93,7 +93,10 @@
 
 		<bean id="documentDao" class="org.wf.dp.dniprorada.dao.DocumentDaoImpl" >
 			<property name="sessionFactory" ref="sessionFactory"/>
-			<!--property name="durableBytesDataStorage" ref="durableBytesDataStorage"/-->
+		</bean>
+		
+		<bean id="documentContentTypeDao" class="org.wf.dp.dniprorada.dao.DocumentContentTypeDaoImpl" >
+			<property name="sessionFactory" ref="sessionFactory"/>
 		</bean>
 
         <bean id="subjectMessageDao" class="org.wf.dp.dniprorada.dao.SubjectMessagesDaoImpl" >

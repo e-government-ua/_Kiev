@@ -22,7 +22,7 @@ public class DocumentDaoImpl implements DocumentDao {
 
 	private SessionFactory sessionFactory;
 	
-	private String mokeContentDocument = "123456789";
+	//private String mokeContentDocument = "123456789";
 	
 	@Autowired
 	private GridFSBytesDataStorage durableBytesDataStorage;
@@ -79,16 +79,17 @@ public class DocumentDaoImpl implements DocumentDao {
 		document.setSubject_Upload(sID_Subject_Upload);
 		document.setSubjectName_Upload(sSubjectName_Upload);
 		document.setName(sName);
+		
 		DocumentType oDocumentType = new DocumentType();
 		oDocumentType.setId(nID_DocumentType);
 		document.setDocumentType(oDocumentType);
+		
 		DocumentContentType documentContentType = new DocumentContentType();
 		documentContentType.setId(nID_DocumentContentType==null?2:nID_DocumentContentType);//TODO определять/генерить реальный ИД, по Контенттайп с oFile
 		document.setDocumentContentType(documentContentType);
+		
 		document.setСontentKey(durableBytesDataStorage.saveData(aoContent));
 		//document.setСontentKey(durableBytesDataStorage.saveData(content));
-		//document.setСontentKey(new GridFSBytesDataStorage().saveData(content));
-		//document.setСontentKey("ff");
 		document.setContentType(sFileContentType);
 		document.setFile(sFileName);
 		//document.setFile(file);
