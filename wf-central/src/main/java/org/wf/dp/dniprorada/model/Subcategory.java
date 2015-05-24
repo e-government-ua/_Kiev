@@ -33,7 +33,7 @@ public class Subcategory extends Entity {
 	private Integer order;
 	
 	@JsonProperty(value="aService")
-	@OneToMany(mappedBy = "subcategory")
+	@OneToMany(mappedBy = "subcategory", cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OrderBy("order asc")
 	private List<Service> services = new ArrayList<>();

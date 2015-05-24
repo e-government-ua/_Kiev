@@ -70,6 +70,11 @@ public class BaseEntityDaoImpl implements BaseEntityDao {
    }
 
    @Override
+   public <T extends Entity> void remove(T entity) {
+      getSession().delete(entity);
+   }
+
+   @Override
    public <T extends Entity> void saveOrUpdateAll(T[] entities) {
       for (T e : entities) {
          saveOrUpdate(e);

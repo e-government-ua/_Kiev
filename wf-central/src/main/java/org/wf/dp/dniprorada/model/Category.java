@@ -27,7 +27,7 @@ public class Category extends Entity {
 	private Integer order;
 	
 	@JsonProperty(value = "aSubcategory")
-	@OneToMany(mappedBy = "category")
+	@OneToMany(mappedBy = "category",cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OrderBy("order asc")
 	private List<Subcategory> subcategories;
