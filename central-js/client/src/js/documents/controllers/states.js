@@ -46,12 +46,12 @@ define('state/documents/content/controller', ['angularAMD'], function (angularAM
             ServiceService.getDocument($state.nID_Subject, document.nID).then(function(data) {
               console.log(data);
               console.log(encodeURI(data));
-              //var element = angular.element('<a/>');
-              //element.attr({
-              //  href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
-              //  target: '_blank',
-              //  download: 'filename.csv'
-              //})[0].click();
+              var element = angular.element('<a/>');
+              element.attr({
+                href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
+                target: '_blank',
+                download: 'filename.csv'
+              })[0].click();
             })
           };
     }]);
