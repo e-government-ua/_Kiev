@@ -51,7 +51,9 @@
 		<!--mongo:db-factory host="mongo.igov.org.ua" port="27017" dbname="test" /-->
 		<!--mongo:db-factory host="54.76.209.57" port="27017" dbname="test" />
 		<mongo:mapping-converter id="converter" db-factory-ref="mongoDbFactory"/-->
-		<mongo:db-factory host="${mongodb.host}" port="${mongodb.port}" dbname="${mongodb.database}" />
+		<mongo:db-factory host="${mongodb.host}" port="${mongodb.port}" dbname="${mongodb.database}"
+                 username="${mongodb.login}" password="${mongodb.password}" authentication-dbname="${mongodb.database}"/>
+                 
 		<mongo:mapping-converter id="converter" db-factory-ref="mongoDbFactory"/>
 		 
 		<!-- MongoDB GridFS Template -->
@@ -59,6 +61,9 @@
 		  <constructor-arg ref="mongoDbFactory"/>
 		  <constructor-arg ref="converter"/>
 		  <!--constructor-arg name="bucket" value="${mongodb.bucket}" /-->
+		  <!--constructor-arg name="login" value="${mongodb.login}" />
+		  <constructor-arg name="password" value="${mongodb.password}" /-->
+                  
 		</bean>
 	
 		<bean id="durableBytesDataStorage" class="ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage">

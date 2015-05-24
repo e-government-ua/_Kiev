@@ -217,7 +217,10 @@
             </column>
             <column name="sSubjectName_Upload" type="varchar(150)">
                 <constraints nullable="false"/>
-            </column>  
+            </column>
+            <column name="sContentType" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
         <addAutoIncrement columnName="nID" tableName="Document" columnDataType="bigint"  incrementBy="1" startWith="1"/>
 
@@ -311,6 +314,7 @@
             <column name="sID_Subject_Upload" type="STRING"/>
             <column name="sSubjectName_Upload" type="STRING"/>
             <column name="sDate_Upload" type="STRING"/>  
+            <column name="sContentType" type="STRING"/>  
         </loadData>
         
     </changeSet>

@@ -3,14 +3,14 @@ package org.wf.dp.dniprorada.form;
 import org.activiti.engine.form.AbstractFormType;
 
 /**
- * Created by Dmytro Tsapko on 5/17/2015.
+ * Created by Dmytro Tsapko on 5/24/2015.
  */
-public class LabelFormType extends AbstractFormType{
+public class MarkersFormType extends AbstractFormType {
 
-    public static final String TYPE_NAME = "label";
+    public static final String TYPE_NAME = "markers";
 
     @Override
-    public String convertFormValueToModelValue(String propertyValue) {
+    public Object convertFormValueToModelValue(String propertyValue) {
         return propertyValue;
     }
 

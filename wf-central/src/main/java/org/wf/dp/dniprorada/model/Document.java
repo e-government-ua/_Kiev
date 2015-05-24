@@ -67,6 +67,11 @@ public class Document {
 	@Column(name = "sSubjectName_Upload", nullable = false)
 	private String subjectName_Upload;
 
+	@JsonProperty(value = "sContentType")
+	@Column(name = "sContentType", nullable = false)
+	private String sContentType;
+        
+        
 	@Identifier
 	public Long getId() {
 		return id;
@@ -160,7 +165,15 @@ public class Document {
 	 * @Cascade({CascadeType.SAVE_UPDATE})
 	 * 
 	 * @JoinColumn(name = "nID_ContentType", nullable = false) private Subject
-	 * subject_Upload;
+	 * nID_Subject_Upload;
 	 */
+
+	public String getContentType() {
+		return sContentType ;
+	}
+
+	public void setContentType(String s) {
+		this.sContentType  = s;
+	}
 
 }
