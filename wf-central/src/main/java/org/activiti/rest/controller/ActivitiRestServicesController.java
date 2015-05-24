@@ -13,144 +13,150 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 @Controller
 @RequestMapping(value = "/services")
 public class ActivitiRestServicesController {
 
-	@Autowired
-	private BaseEntityDao baseEntityDao;
+   @Autowired
+   private BaseEntityDao baseEntityDao;
 
-	@Autowired
-	private EntityService entityService;
+   @Autowired
+   private EntityService entityService;
 
-	@RequestMapping(value = "/getService", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity getService(@RequestParam(value = "nID") Integer nID) {
-		Service service = baseEntityDao.getById(Service.class, nID);
-		return regionsToJsonResponse(service);
-	}
+   @RequestMapping(value = "/getService", method = RequestMethod.GET)
+   public
+   @ResponseBody
+   ResponseEntity getService(@RequestParam(value = "nID") Integer nID) {
+      Service service = baseEntityDao.getById(Service.class, nID);
+      return regionsToJsonResponse(service);
+   }
 
-	@RequestMapping(value = "/setService", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity setService(@RequestBody String jsonData) throws IOException {
+   @RequestMapping(value = "/setService", method = RequestMethod.POST)
+   public
+   @ResponseBody
+   ResponseEntity setService(@RequestBody String jsonData) throws IOException {
 
-		Service service = JsonRestUtils.readObject(jsonData, Service.class);
+      Service service = JsonRestUtils.readObject(jsonData, Service.class);
 
-		Service updatedService = entityService.update(service);
-		return regionsToJsonResponse(updatedService);
-	}
+      Service updatedService = entityService.update(service);
+      return regionsToJsonResponse(updatedService);
+   }
 
-	private ResponseEntity regionsToJsonResponse(Service oService) {
-		oService.setSubcategory(null);
-                //List<ServiceData> aServiceDataFiltered = new LinkedList();
-		for (ServiceData oServiceData : oService.getServiceDataList()) {
-                        //if(!oServiceData.isHidden()){
-                            oServiceData.setService(null);
-                            if (oServiceData.getCity() != null) {
-                                    oServiceData.getCity().setRegion(null);
-                            }
-                            if (oServiceData.getRegion() != null) {
-                                    oServiceData.getRegion().setCities(null);
-                            }
-                            //aServiceDataFiltered.add(oServiceData);
-                        //}
-		}
-                oService.setServiceDataList(oService.aServiceDataFiltered());
-		return JsonRestUtils.toJsonResponse(oService);
-	}
+   private ResponseEntity regionsToJsonResponse(Service oService) {
+      oService.setSubcategory(null);
+      for (ServiceData oServiceData : oService.getServiceDataList()) {
+         oServiceData.setService(null);
+         if (oServiceData.getCity() != null) {
+            oServiceData.getCity().setRegion(null);
+         }
+         if (oServiceData.getRegion() != null) {
+            oServiceData.getRegion().setCities(null);
+         }
+      }
+      return JsonRestUtils.toJsonResponse(oService);
+   }
 
-	@RequestMapping(value = "/getPlaces", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity getPlaces() {
-		List<Region> regions = baseEntityDao.getAll(Region.class);
-		return regionsToJsonResponse(regions);
-	}
+   @RequestMapping(value = "/getPlaces", method = RequestMethod.GET)
+   public
+   @ResponseBody
+   ResponseEntity getPlaces() {
+      List<Region> regions = baseEntityDao.getAll(Region.class);
+      return regionsToJsonResponse(regions);
+   }
 
-	@RequestMapping(value = "/setPlaces", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity setPlaces(@RequestBody String jsonData) {
+   @RequestMapping(value = "/setPlaces", method = RequestMethod.POST)
+   public
+   @ResponseBody
+   ResponseEntity setPlaces(@RequestBody String jsonData) {
 
-		List<Region> regions = Arrays.asList(JsonRestUtils.readObject(jsonData, Region[].class));
-		List<Region> updatedRegions = entityService.update(regions);
-		return regionsToJsonResponse(updatedRegions);
-	}
+      List<Region> regions = Arrays.asList(JsonRestUtils.readObject(jsonData, Region[].class));
+      List<Region> updatedRegions = entityService.update(regions);
+      return regionsToJsonResponse(updatedRegions);
+   }
 
-	private ResponseEntity regionsToJsonResponse(List<Region> regions) {
-		for (Region r : regions) {
-			for (City c : r.getCities()) {
-				c.setRegion(null);
-			}
-		}
+   private ResponseEntity regionsToJsonResponse(List<Region> regions) {
+      for (Region r : regions) {
+         for (City c : r.getCities()) {
+            c.setRegion(null);
+         }
+      }
 
-		return JsonRestUtils.toJsonResponse(regions);
-	}
+      return JsonRestUtils.toJsonResponse(regions);
+   }
 
-	@RequestMapping(value = "/getServicesTree", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity getServicesTree(@RequestParam(value = "sFind", required = false) String partOfName) {
-		List<Category> categories = new ArrayList<>(baseEntityDao.getAll(Category.class));
+   @RequestMapping(value = "/getServicesTree", method = RequestMethod.GET)
+   public
+   @ResponseBody
+   ResponseEntity getServicesTree(@RequestParam(value = "sFind", required = false) String partOfName) {
+      List<Category> categories = new ArrayList<>(baseEntityDao.getAll(Category.class));
 
-		if (partOfName != null) {
-			filterCategories(categories, partOfName);
-		}
+      if (partOfName != null) {
+         filterCategories(categories, partOfName);
+      }
 
-		return categoriesToJsonResponse(categories);
-	}
+      return categoriesToJsonResponse(categories);
+   }
 
-        private void filterCategories(List<Category> categories, @RequestParam(value = "sFind", required = false) String sFind) {
-            for (Iterator<Category> aCategory = categories.iterator(); aCategory.hasNext();) {
-                Category oCategory = aCategory.next();
+   private void filterCategories(List<Category> categories, @RequestParam(value = "sFind", required = false) String sFind) {
+      for (Iterator<Category> aCategory = categories.iterator(); aCategory.hasNext(); ) {
+         Category oCategory = aCategory.next();
 
-                for (Iterator<Subcategory> aSubcategory = oCategory.getSubcategories().iterator(); aSubcategory.hasNext();) {
-                    Subcategory oSubcategory = aSubcategory.next();
+         for (Iterator<Subcategory> aSubcategory = oCategory.getSubcategories().iterator(); aSubcategory.hasNext(); ) {
+            Subcategory oSubcategory = aSubcategory.next();
 
-                    for (Iterator<Service> aService = oSubcategory.getServices().iterator(); aService.hasNext();) {
-                        Service oService = aService.next();
-                        if (!isTextMatched(oService.getName(), sFind)) {
-                            aService.remove();
-                        }
-                    }
-
-                    if (oSubcategory.getServices().isEmpty()) {
-                        aSubcategory.remove();
-                    }
-                }
-
-                if (oCategory.getSubcategories().isEmpty()) {
-                    aCategory.remove();
-                }
+            for (Iterator<Service> aService = oSubcategory.getServices().iterator(); aService.hasNext(); ) {
+               Service oService = aService.next();
+               if (!isTextMatched(oService.getName(), sFind)) {
+                  aService.remove();
+               }
             }
-        }
 
-	@RequestMapping(value = "/setServicesTree", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity setServicesTree(@RequestBody String jsonData) {
+            if (oSubcategory.getServices().isEmpty()) {
+               aSubcategory.remove();
+            }
+         }
 
-		List<Category> categories = Arrays.asList(JsonRestUtils.readObject(jsonData, Category[].class));
-		List<Category> updatedCategories = entityService.update(categories);
+         if (oCategory.getSubcategories().isEmpty()) {
+            aCategory.remove();
+         }
+      }
+   }
 
-		return categoriesToJsonResponse(updatedCategories);
-	}
+   @RequestMapping(value = "/setServicesTree", method = RequestMethod.POST)
+   public
+   @ResponseBody
+   ResponseEntity setServicesTree(@RequestBody String jsonData) {
 
-	private boolean isTextMatched(String sWhere, String sFind) {
-		return sWhere.toLowerCase().contains(sFind.toLowerCase());
-	}
+      List<Category> categories = Arrays.asList(JsonRestUtils.readObject(jsonData, Category[].class));
+      List<Category> updatedCategories = entityService.update(categories);
 
-	private ResponseEntity categoriesToJsonResponse(List<Category> categories) {
-		for(Category c : categories){
-			for(Subcategory sc : c.getSubcategories()){
-				sc.setCategory(null);
+      return categoriesToJsonResponse(updatedCategories);
+   }
 
-				for(Service service : sc.getServices()){
-					service.setFaq(null);
-					service.setInfo(null);
-					service.setLaw(null);
-                                        service.setSub(service.getServiceDataList().size());
-                                        service.setSub(service.aServiceDataFiltered().size());
-					service.setServiceDataList(null);
-					service.setSubcategory(null);
-				}
-			}
-		}
+   private boolean isTextMatched(String sWhere, String sFind) {
+      return sWhere.toLowerCase().contains(sFind.toLowerCase());
+   }
 
-		return JsonRestUtils.toJsonResponse(categories);
-	}
+   private ResponseEntity categoriesToJsonResponse(List<Category> categories) {
+      for (Category c : categories) {
+         for (Subcategory sc : c.getSubcategories()) {
+            sc.setCategory(null);
+
+            for (Service service : sc.getServices()) {
+               service.setFaq(null);
+               service.setInfo(null);
+               service.setLaw(null);
+               service.setSub(service.getServiceDataList().size());
+               service.setSub(service.getServiceDataFiltered().size());
+               service.setServiceDataList(null);
+               service.setSubcategory(null);
+            }
+         }
+      }
+
+      return JsonRestUtils.toJsonResponse(categories);
+   }
 
 }

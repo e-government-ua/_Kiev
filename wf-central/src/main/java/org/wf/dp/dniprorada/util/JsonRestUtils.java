@@ -3,6 +3,8 @@ package org.wf.dp.dniprorada.util;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +20,8 @@ import java.nio.charset.Charset;
  * Time: 0:40
  */
 public final class JsonRestUtils {
+
+   private static final Log LOG = LogFactory.getLog(JsonRestUtils.class);
 
    private JsonRestUtils() {
    }
@@ -45,6 +49,7 @@ public final class JsonRestUtils {
       try {
          json = toJson(res);
       } catch (JsonProcessingException e) {
+         LOG.error("Exception happen during convert object " + res + " to json.", e);
          return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
       }
 
