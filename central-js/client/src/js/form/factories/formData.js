@@ -1,4 +1,4 @@
-define('formData/factory', ['angularAMD', 'parameter/factory', 'datepicker/factory', 'file/factory'], function(angularAMD) {
+define('formData/factory', ['angularAMD', 'file/directive', 'parameter/factory', 'datepicker/factory', 'file/factory'], function(angularAMD) {
 	angularAMD.factory('FormDataFactory', ['ParameterFactory', 'DatepickerFactory', 'FileFactory',
 		function(ParameterFactory, DatepickerFactory, FileFactory) {
 			var capitalizeFirst = function(input) {
