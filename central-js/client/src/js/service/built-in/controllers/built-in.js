@@ -21,7 +21,9 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
 		var currentState = $state.$current;
 		$scope.data.region = currentState.data.region;
 		$scope.data.city = currentState.data.city;
-		$scope.data.sProcessDefinitionName = currentState.data.sProcessDefinitionName;
+		$scope.data.sProcessDefinitionName = currentState.sProcessDefinitionName;
+		$scope.data.sProcessDefinitionName2 = currentState.sProcessDefinitionName2;
+                
 
 
       angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {

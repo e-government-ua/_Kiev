@@ -70,10 +70,14 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
 						var sProcessDefinitionKey = sProcessDefinitionKeyWithVersion.split(':')[0];
 						
 						var sProcessDefinitionName = "";
+                                                sProcessDefinitionName = "name2";
+                                                var currentState = $state.get('service.general.city.built-in.bankid');
+                                                currentState.data.sProcessDefinitionName2 = "name3";
+                                                
 						angular.forEach(processDefinitions.data, function(value, key) {
 							if(value.key == sProcessDefinitionKey) {
 								sProcessDefinitionKeyWithVersion = value.id;
-                                                                sProcessDefinitionName = value.name;
+                                                                //sProcessDefinitionName = value.name;
 							}
 						});
 
