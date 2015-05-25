@@ -76,6 +76,7 @@ public class FileTaskUploadListener extends AbstractModelTask implements
                 //System.out.println("32filedName="+filedName.toString());
 		
 		if (!listValueKeys.isEmpty()) {
+                        int n=0;
 			for (String keyRedis : listValueKeys) {
                                 LOG.info("keyRedis="+keyRedis);
 				if (keyRedis != null && !keyRedis.isEmpty()) {
@@ -101,8 +102,9 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 						} catch (java.io.UnsupportedEncodingException e) {
 							throw new ActivitiException(e.getMessage(), e);
 						}
-						if (!filedName.isEmpty()) {
-							for (String name : filedName) {
+						if (!filedName.isEmpty()&&n<filedName.size()) {
+                                                        String name = filedName.get(n);
+							//for (String name : filedName) {
                                                             LOG.info("name="+name); 
                                                             
                                                             
@@ -117,7 +119,7 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 										execution.getProcessInstanceId(),
 										outFilename,
 										name, is);
-							}
+							//}
 						}
 					}
 				}
