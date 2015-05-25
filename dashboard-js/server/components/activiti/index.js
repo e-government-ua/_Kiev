@@ -4,6 +4,7 @@ var _ = require('lodash');
 var config = require('../../config/environment');
 var request = require('request');
 var url = require('url');
+var httpProxy = require('http-proxy');
 
 request.debug = config.request.debug;
 
@@ -44,6 +45,29 @@ exports.get = function(options, onResult) {
 				onResult(error, null, null);
 			}
 		});
+}
+
+var proxyDownload = httpProxy.createProxyServer({});
+
+proxyDownload.on('proxyReq', function(proxyReq, req, res, options) {
+	proxyReq.path = options.target.href;
+	proxyReq.setHeader('Authorization', config.activiti.auth.basic);
+});
+
+proxyDownload.on('proxyRes', function(proxyRes, req, res) {
+	proxyRes.headers['content-type'] = 'application/octet-stream';
+});
+
+exports.filedownload = function(req, res, options) {
+	var r = request(getRequestOptions(options));
+	proxyDownload.web(req, res, {
+		target: r.uri.href,
+		secure: false
+	}, function(e) {
+		if (e) {
+
+		}
+	});
 }
 
 exports.pipe = function(req, res, options, data) {
