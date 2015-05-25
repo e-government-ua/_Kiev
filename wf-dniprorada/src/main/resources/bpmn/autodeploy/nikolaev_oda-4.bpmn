@@ -3,7 +3,6 @@
   <process id="nikolaev_oda_4" name="Миколаєвська ОДА - Видача дозволу на переоформлення договору найму жилого приміщення державного / комунального житлового фонду" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="processName" name="Видача дозволу на переоформлення договору найму жилого приміщення державного/комунального житлового фонду" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>

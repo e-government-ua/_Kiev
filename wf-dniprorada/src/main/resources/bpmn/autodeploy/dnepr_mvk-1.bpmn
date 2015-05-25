@@ -17,8 +17,7 @@
         <activiti:formProperty id="docName" name="Назва документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="processName" name="Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом." type="string"></activiti:formProperty>
-      </extensionElements>
+          </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
       <extensionElements>
