@@ -66,17 +66,18 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 
 		List<String> filedTypeFile = getListFieldCastomTypeFile(startformData);
                 LOG.info("11filedTypeFile="+filedTypeFile.toString());
-                System.out.println("12filedTypeFile="+filedTypeFile.toString());
+                //System.out.println("12filedTypeFile="+filedTypeFile.toString());
 		List<String> listValueKeys = getValueFieldWithCastomTypeFile(execution,
 				filedTypeFile);
-                LOG.info("21listValueKeys="+filedTypeFile.toString());
-                System.out.println("22listValueKeys="+filedTypeFile.toString());
+                LOG.info("21listValueKeys="+listValueKeys.toString());
+                //System.out.println("22listValueKeys="+listValueKeys.toString());
 		List<String> filedName = getListCastomFieldName(startformData);
-                LOG.info("31filedName="+filedTypeFile.toString());
-                System.out.println("32filedName="+filedTypeFile.toString());
+                LOG.info("31filedName="+filedName.toString());
+                //System.out.println("32filedName="+filedName.toString());
 		
 		if (!listValueKeys.isEmpty()) {
 			for (String keyRedis : listValueKeys) {
+                                LOG.info("keyRedis="+keyRedis);
 				if (keyRedis != null && !keyRedis.isEmpty()) {
 					byte[] byteFile = getRedisService().getAttachments(keyRedis);
 					ByteArrayMultipartFile contentMultipartFile = null;
@@ -102,6 +103,9 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 						}
 						if (!filedName.isEmpty()) {
 							for (String name : filedName) {
+                                                            LOG.info("name="+name); 
+                                                            
+                                                            
 						execution
 								.getEngineServices()
 								.getTaskService()
