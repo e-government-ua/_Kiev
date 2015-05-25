@@ -28,8 +28,9 @@ import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 @Component("fileTaskUploadListener")
 public class FileTaskUploadListener extends AbstractModelTask implements
 		TaskListener {
-	static final transient Logger LOG = LoggerFactory
-			.getLogger(FileTaskUploadListener.class);
+	static final transient Logger LOG = LoggerFactory.getLogger(FileTaskUploadListener.class);
+        //private final Logger log = LoggerFactory.getLogger(FileTaskUploadListener.class);
+                        //log.error("inn(0):"+inn);
 
 	@Autowired
 	RedisService redisService;
@@ -64,12 +65,15 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 				.getStartFormData(execution.getProcessDefinitionId());
 
 		List<String> filedTypeFile = getListFieldCastomTypeFile(startformData);
-                LOG.info("filedTypeFile="+filedTypeFile.toString());
+                //LOG.info("filedTypeFile="+filedTypeFile.toString());
+                System.out.println("filedTypeFile="+filedTypeFile.toString());
 		List<String> listValueKeys = getValueFieldWithCastomTypeFile(execution,
 				filedTypeFile);
-                LOG.info("listValueKeys="+filedTypeFile.toString());
+                //LOG.info("listValueKeys="+filedTypeFile.toString());
+                System.out.println("listValueKeys="+filedTypeFile.toString());
 		List<String> filedName = getListCastomFieldName(startformData);
-                LOG.info("filedName="+filedTypeFile.toString());
+                //LOG.info("filedName="+filedTypeFile.toString());
+                System.out.println("filedName="+filedTypeFile.toString());
 		
 		if (!listValueKeys.isEmpty()) {
 			for (String keyRedis : listValueKeys) {
