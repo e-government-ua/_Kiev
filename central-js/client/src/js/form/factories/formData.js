@@ -16,12 +16,7 @@ define('formData/factory', ['angularAMD', 'file/directive', 'parameter/factory',
 			};
 
 			FormDataFactory.prototype.initialize = function(ActivitiForm) {
-				this.processDefinitionId = ActivitiForm.processDefinitionId.sProcessDefinitionKeyWithVersion;
-				//this.sProcessDefinitionName = ActivitiForm.processDefinitionId.sProcessDefinitionName + this.processDefinitionId;
-				this.sProcessDefinitionName1 = "тест0";
-				this.sProcessDefinitionName2 = ActivitiForm.processDefinitionId.sProcessDefinitionKeyWithVersion;
-				this.sProcessDefinitionName3 = ActivitiForm.processDefinitionId.sProcessDefinitionName;
-				//this.sProcessDefinitionName = "тест";
+				this.processDefinitionId = ActivitiForm.processDefinitionId;
 				for (var key in ActivitiForm.formProperties) {
 					var property = ActivitiForm.formProperties[key];
 					switch (property.type) {

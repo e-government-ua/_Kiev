@@ -8,7 +8,7 @@
  */
 
 define('file/directive', ['angularAMD'], function (angularAMD) {
-	angularAMD.directive('fileField', function() {
+	angularAMD.directive('fileField', ['uiUploader', function() {
 		return {
 			require:'ngModel',
 			restrict: 'E',
@@ -23,22 +23,14 @@ define('file/directive', ['angularAMD'], function (angularAMD) {
 
 				var fileField = element.find('input');
 
-				/*
 				fileField.bind('change', function(event){
-					scope.$evalAsync(function () {
-					  ngModel.$setViewValue(event.target.files[0]);
-					  if(attrs.preview){
-						var reader = new FileReader();
-						reader.onload = function (e) {
-							scope.$evalAsync(function(){
-								scope[attrs.preview]=e.target.result;
-							});
-						};
-						reader.readAsDataURL(event.target.files[0]);
-					  }
+					scope.$apply(function() {
+						var oFile = scope.data.formData.params[ngModel.$name];
+						oFile.setFiles(event.target.files);
+						oFile.upload(scope.oServiceData);
 					});
 				});
-				*/
+
 				fileField.bind('click',function(e){
 					e.stopPropagation();
 				});
@@ -51,5 +43,5 @@ define('file/directive', ['angularAMD'], function (angularAMD) {
 			replace:true,
 			transclude:true
 		};
-	});
+	}]);
 });

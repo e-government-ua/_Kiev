@@ -10,6 +10,7 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
 		'$state', '$stateParams', '$scope', 'FormDataFactory', 'ActivitiService', 'oServiceData', 'BankIDAccount', 'ActivitiForm', 'uiUploader',
 		function($state, $stateParams, $scope, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
 		
+		$scope.oServiceData = oServiceData;
 		$scope.account = BankIDAccount;
 		$scope.ActivitiForm = ActivitiForm;
 		

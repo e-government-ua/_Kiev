@@ -26,8 +26,7 @@ define('activiti/service', ['angularAMD'], function(angularAMD) {
 		};
 
 		this.getUploadFileURL = function(oServiceData) {
-			return './api/uploadfile?url=' +
-				oServiceData.sURL + 'service/rest/file/upload_file_to_redis';
+			return './api/uploadfile?url=' + oServiceData.sURL + 'service/rest/file/upload_file_to_redis';
 		}
 
 		this.updateFileField = function(oServiceData, formData, propertyID, fileUUID) {
