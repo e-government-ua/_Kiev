@@ -64,9 +64,12 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 				.getStartFormData(execution.getProcessDefinitionId());
 
 		List<String> filedTypeFile = getListFieldCastomTypeFile(startformData);
+                LOG.info("filedTypeFile="+filedTypeFile.toString());
 		List<String> listValueKeys = getValueFieldWithCastomTypeFile(execution,
 				filedTypeFile);
+                LOG.info("listValueKeys="+filedTypeFile.toString());
 		List<String> filedName = getListCastomFieldName(startformData);
+                LOG.info("filedName="+filedTypeFile.toString());
 		
 		if (!listValueKeys.isEmpty()) {
 			for (String keyRedis : listValueKeys) {
