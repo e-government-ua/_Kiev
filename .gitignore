@@ -29,7 +29,7 @@ hs_err_pid*
 /central-js/nbproject/private/
 /portal-js/nbproject/private/
 /dashboard-js/nbproject/private/
-
+/dashboard-js/npm-debug.log
 #test bpmn definitions (Tsapko Dmytro)
 wf-dniprorada/src/main/resources/bpmn/autodeploy/test.bpmn
 wf-dniprorada/src/main/resources/bpmn/autodeploy/citizens_request_test_tsapko.bpmn
