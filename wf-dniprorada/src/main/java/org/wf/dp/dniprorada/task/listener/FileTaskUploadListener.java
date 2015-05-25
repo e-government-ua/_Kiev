@@ -103,7 +103,8 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 							throw new ActivitiException(e.getMessage(), e);
 						}
 						if (!filedName.isEmpty()&&n<filedName.size()) {
-                                                        String name = filedName.get(n);
+                                                        //String name = filedName.get(n);
+                                                        String name = filedName.get((filedName.size()-1)-n);
 							//for (String name : filedName) {
                                                             LOG.info("name="+name); 
                                                             
@@ -123,6 +124,7 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 						}
 					}
 				}
+                                n++;
 			}
 		}
 		}
