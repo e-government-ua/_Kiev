@@ -123,6 +123,7 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 						}
 					}
 				}
+                                n++;
 			}
 		}
 		}
