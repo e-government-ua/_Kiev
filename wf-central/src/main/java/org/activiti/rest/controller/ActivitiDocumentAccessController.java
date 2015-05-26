@@ -28,12 +28,17 @@ public class ActivitiDocumentAccessController {
 			@RequestParam(value = "sFIO") String sFIO,
 			@RequestParam(value = "sTarget") String sTarget,
 			@RequestParam(value = "sTelephone") String sTelephone,
-			@RequestParam(value = "nDays") Long nDays,
-			@RequestParam(value = "sMail") String sMail) {
+			@RequestParam(value = "nDays") String nDays,
+			@RequestParam(value = "sMail") String sMail, HttpServletResponse response) {
 		SURL url = new SURL();
+		try{
 		url.setValue(documentAccessDao.setDocumentLink(nID_Document, sFIO,
-				sTarget, sTelephone, nDays, sMail));
+				sTarget, sTelephone, Long.parseLong(nDays), sMail));
 		url.setName("sURL");
+		} catch (Exception e){
+			response.setStatus(400);
+			response.setHeader("Reason", e.getMessage());
+		}
 		return url;
 	}
 
@@ -62,4 +67,5 @@ public class ActivitiDocumentAccessController {
 		}
 		return da;
 	}
+
 }

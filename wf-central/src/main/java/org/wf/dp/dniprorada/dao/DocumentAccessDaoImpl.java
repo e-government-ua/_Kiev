@@ -21,7 +21,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 
 	@Override
 	public String setDocumentLink(Integer nID_Document, String sFIO,
-			String sTarget, String sTelephone, Long nDays, String sMail) {
+			String sTarget, String sTelephone, Long nDays, String sMail) throws Exception{
 		DocumentAccess da = new DocumentAccess();
 		da.setnID_Document(nID_Document);
 		da.setsDateCreate(new Date());
@@ -31,11 +31,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		da.setsTarget(sTarget);
 		da.setsTelephone(sTelephone);
 		da.setsSecret(generateSecret());
-		try {
-			createRecord(da);
-		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
-		}
+		createRecord(da);
 		StringBuilder sURL = new StringBuilder(url);
 		sURL.append("nID_Document=" + nID_Document + "&");
 		sURL.append("nID_Access=" + getIdAccess() + "&");
@@ -80,18 +76,14 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 						da.getsTelephone(), da.getsMail(), da.getsSecret());
 	}
 
-	private Integer getIdAccess() {
+	private Integer getIdAccess() throws Exception{
 		jdbcTemplate = new JdbcTemplate(dataSource);
 		DocumentAccess da = null;
-		try{
 		da = jdbcTemplate
-				.query("nID, nID_Document,"
+				.query("Select nID, nID_Document,"
 						+ " sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret"
 						+ " FROM DocumentAccess order by nID desc limit 1",
 						new DocumentAccessRowMapper()).get(0);
-		} catch(Exception e){
-			da.setnID(0);
-		}
 		return da.getnID();
 	}
 
