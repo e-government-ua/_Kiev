@@ -50,6 +50,13 @@ public class Service extends Entity {
    @Column(name = "sLaw", nullable = false)
    private String law;
 
+   
+	@JsonProperty(value="sSubjectOperatorName")
+   @Column(name = "sSubjectOperatorName", nullable = false)
+   private String sSubjectOperatorName;
+   
+   
+   
    @Transient
    private int sub = 0;
 
@@ -61,6 +68,15 @@ public class Service extends Entity {
       this.name = name;
    }
 
+
+   public String getSubjectOperatorName() {
+      return sSubjectOperatorName;
+   }
+
+   public void setSubjectOperatorName(String s) {
+      this.sSubjectOperatorName = s;
+   }
+   
 
    @JsonProperty(value = "nSub")
    public int getSub() {
