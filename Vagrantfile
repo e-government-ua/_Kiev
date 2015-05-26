@@ -71,7 +71,7 @@ Vagrant.configure(2) do |config|
 			v.customize ["sharedfolder", "add", :id, "--name", "projectshare", "--hostpath", (("//?/" + File.dirname(__FILE__)).gsub("/","\\"))]
 			v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/projectshare", "1"]
 		else
-			override.vm.synced_folder "projectshare", "/project"
+			override.vm.synced_folder ".", "/project"
 		end
 	end
   # Define a Vagrant Push strategy for pushing to Atlas. Other push strategies
@@ -88,8 +88,10 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get update
   #   sudo apt-get install -y apache2
   # SHELL
-  config.vm.provision :shell, inline: "mkdir -p /project"
-  config.vm.provision :shell, inline: "mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` projectshare /project", run: "always"
+  if Vagrant::Util::Platform.windows?
+    config.vm.provision :shell, inline: "mkdir -p /project"
+    config.vm.provision :shell, inline: "mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` projectshare /project", run: "always"
+  end
   config.vm.provision :shell, path: "scripts/prepare_machine.sh"
   config.vm.provision :shell, privileged: false, path: "scripts/update_wf_full.sh"
   config.vm.provision :shell, privileged: false, run: "always", path: "scripts/update_wf_fast.sh"
