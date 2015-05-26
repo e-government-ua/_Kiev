@@ -49,13 +49,11 @@ public class ActivitiDocumentAccessController {
 			HttpServletResponse response) {
 		DocumentAccess da;
 		try{
-		da = documentAccessDao.getDocumentLink(nID_Access, sSecret);
+			da = documentAccessDao.getDocumentLink(nID_Access, sSecret);
 		} catch (Exception e){
 			response.setStatus(403);
-			//response.setHeader("Reason", "Access not found");
-			response.setHeader("Reason", e.getMessage());
-			da = null;
-			return da;
+			response.setHeader("Reason", "Access not found");
+			return null;
 		}				
 		
 		if(da.getsDays()+da.getsDateCreate().getTime() < new Date().getTime()){
