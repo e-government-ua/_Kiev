@@ -5,6 +5,5 @@ rem cd central-js
  npm install -g grunt
  npm install grunt-cli -g
  npm install grunt --save-dev
-
-pm2 start process.json --name central-js
-pm2 info central-js
+npm install pm2 --save-dev
+npm install pm2 -cli -g
