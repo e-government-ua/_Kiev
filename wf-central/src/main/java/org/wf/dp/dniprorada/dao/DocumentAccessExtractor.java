@@ -16,7 +16,7 @@ public class DocumentAccessExtractor implements ResultSetExtractor<DocumentAcces
 		da.setnID(rs.getInt("nID"));
 		da.setnID_Document(rs.getInt("nID_Document"));
 		da.setsDateCreate(rs.getDate("sDateCreate"));
-		da.setsDays(rs.getLong("nMS"));
+		da.setsDays(rs.getLong("sMS"));
 		da.setsFIO(rs.getString("sFIO"));
 		da.setsMail(rs.getString("sMail"));
 		da.setsSecret(rs.getString("sSecret"));

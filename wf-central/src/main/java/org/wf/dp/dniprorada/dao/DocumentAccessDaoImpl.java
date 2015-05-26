@@ -69,7 +69,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate
 				.update("INSERT INTO DocumentAccess"
-						+ " (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, "
+						+ " (nID_Document, sDateCreate, sMS, sFIO, sTarget, sTelephone, sMail, "
 						+ "sSecret) VALUES (?,?,?,?,?,?,?,?)",
 						da.getnID_Document(), da.getsDateCreate(),
 						da.getsDays(), da.getsFIO(), da.getsTarget(),
@@ -81,7 +81,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		DocumentAccess da = null;
 		da = jdbcTemplate
 				.query("Select nID, nID_Document,"
-						+ " sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret"
+						+ " sDateCreate, sMS, sFIO, sTarget, sTelephone, sMail, sSecret"
 						+ " FROM DocumentAccess order by nID desc limit 1",
 						new DocumentAccessRowMapper()).get(0);
 		return da.getnID();
@@ -92,7 +92,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 		List <DocumentAccess> listDa = jdbcTemplate
 				.query("SELECT nID, nID_Document, "
-						+ "sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret "
+						+ "sDateCreate, sMS, sFIO, sTarget, sTelephone, sMail, sSecret "
 						+ "FROM DocumentAccess "
 						+ "WHERE nID=? AND sSecret=?",
 						new DocumentAccessRowMapper(), nID_Access, sSecret);
