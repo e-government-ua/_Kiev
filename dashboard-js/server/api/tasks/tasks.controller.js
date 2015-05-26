@@ -90,7 +90,7 @@ exports.getAttachmentContent = function(req, res) {
       'nFile': req.params.nFile
     }
   };
-  activiti.pipe(req, res, options);
+  activiti.filedownload(req, res, options);
 };
 
 exports.submitForm = function(req, res) {
