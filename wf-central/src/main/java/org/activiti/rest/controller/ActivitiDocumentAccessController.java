@@ -52,7 +52,8 @@ public class ActivitiDocumentAccessController {
 		da = documentAccessDao.getDocumentLink(nID_Access, sSecret);
 		} catch (Exception e){
 			response.setStatus(403);
-			response.setHeader("Reason", "Access not found");
+			//response.setHeader("Reason", "Access not found");
+			response.setHeader("Reason", e.getMessage());
 			da = null;
 			return da;
 		}				
