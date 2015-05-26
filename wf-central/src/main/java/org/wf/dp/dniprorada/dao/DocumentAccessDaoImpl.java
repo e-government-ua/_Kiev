@@ -95,7 +95,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 						+ "sDateCreate, sMS, sFIO, sTarget, sTelephone, sMail, sSecret "
 						+ "FROM DocumentAccess "
 						+ "WHERE nID_Document=? AND sSecret=?",
-						new DocumentAccessRowMapper(), nID_Access, sSecret);
+						new DocumentAccessRowMapper(), Integer.parseInt(nID_Access), sSecret);
 		DocumentAccess da = listDa.get(0);
 		return da;
 	}
