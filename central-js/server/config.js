@@ -27,7 +27,7 @@ var config = {
 
 
 try {
-	var local_config = require('./local_config');
+	var local_config = require('../local_config');
 	_.extend(config, local_config);
 } catch (e) {
 	if (e.code === 'MODULE_NOT_FOUND') {
