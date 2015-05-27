@@ -15,6 +15,25 @@ function getOptions(req) {
     };
 }
 
+module.exports.getDocumentFile = function(req, res) {
+    var options = getOptions(req);
+    var url = options.protocol + '://' + options.hostname + options.path + '/services/getDocumentFile';
+    var r = request({
+        'url': url,
+        'auth': {
+            'username': options.username,
+            'password': options.password
+        },
+        'qs': {
+            'nID': req.params.nID
+        }
+    });
+    req.pipe(r).on('response', function(response) {
+        response.headers['content-type'] = 'application/octet-stream';
+    }).pipe(res);
+}
+
+
 module.exports.getDocument = function(req, res) {
     var options = getOptions(req);
     var url = options.protocol + '://' + options.hostname + options.path + '/services/getDocument';
