@@ -33,6 +33,23 @@ var getRequestOptions = function(options) {
 	};
 };
 
+var prepareRequest = function(req, options, data) {
+	var r = null;
+	if (req.method === 'POST') {
+		r = request.post(_.merge(getRequestOptions(options),
+			data ? {
+				json: true,
+				body: data
+			} : {
+				json: true,
+				body: req.body
+			}));
+	} else {
+		r = request(getRequestOptions(options));
+	}
+	return r;
+}
+
 exports.getRequestURL = getRequestURL;
 exports.getRequestOptions = getRequestOptions;
 
@@ -47,27 +64,11 @@ exports.get = function(options, onResult) {
 		});
 }
 
-var proxyDownload = httpProxy.createProxyServer({});
-
-proxyDownload.on('proxyReq', function(proxyReq, req, res, options) {
-	proxyReq.path = options.target.href;
-	proxyReq.setHeader('Authorization', config.activiti.auth.basic);
-});
-
-proxyDownload.on('proxyRes', function(proxyRes, req, res) {
-	proxyRes.headers['content-type'] = 'application/octet-stream';
-});
-
 exports.filedownload = function(req, res, options) {
-	var r = request(getRequestOptions(options));
-	proxyDownload.web(req, res, {
-		target: r.uri.href,
-		secure: false
-	}, function(e) {
-		if (e) {
-
-		}
-	});
+	var r = prepareRequest(req, options);
+	req.pipe(r).on('response', function(response) {
+		response.headers['content-type'] = 'application/octet-stream';
+	}).pipe(res);
 }
 
 exports.pipe = function(req, res, options, data) {
