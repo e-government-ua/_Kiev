@@ -13,13 +13,13 @@ public class DocumentAccess {
 	@Id
 	@GeneratedValue
 	@Column(name="nID")
-	private Integer nID;
+	private Long nID;
 	@Column(name="nID_Document")
-	private Integer nID_Document;
+	private Long nID_Document;
 	@Column(name="sDateCreate")
 	private Date sDateCreate;
 	@Column(name="nMS")
-	private Long sDays;
+	private Long nMS;
 	@Column(name="sFIO")
 	private String sFIO;
 	@Column(name="sTarget")
@@ -30,76 +30,100 @@ public class DocumentAccess {
 	private String sMail;
 	@Column(name="sSecret")
 	private String sSecret;
+	@Column(name="sAnswer")
+	private String sAnswer;
+	@Column(name="sDateAnswerExpire")
+	private Date sDateAnswerExpire;
+        
 
-	public Integer getnID_Document() {
+	public Long getID_Document() {
 		return nID_Document;
 	}
 
-	public void setnID_Document(Integer nID_Document) {
+	public void setID_Document(Long nID_Document) {
 		this.nID_Document = nID_Document;
 	}
 
-	public Date getsDateCreate() {
+	public Date getDateCreate() {
 		return sDateCreate;
 	}
 
-	public void setsDateCreate(Date sDateCreate) {
+	public void setDateCreate(Date sDateCreate) {
 		this.sDateCreate = sDateCreate;
 	}
 
-	public Long getsDays() {
-		return sDays;
+	public Long getMS() {
+		return nMS;
 	}
 
-	public void setsDays(Long sDays) {
-		this.sDays = sDays;
+	public void setMS(Long n) {
+		this.nMS = n;
 	}
 
-	public String getsFIO() {
+	public String getFIO() {
 		return sFIO;
 	}
 
-	public void setsFIO(String sFIO) {
+	public void setFIO(String sFIO) {
 		this.sFIO = sFIO;
 	}
 
-	public String getsTarget() {
+	public String getTarget() {
 		return sTarget;
 	}
 
-	public void setsTarget(String sTarget) {
+	public void setTarget(String sTarget) {
 		this.sTarget = sTarget;
 	}
 
-	public String getsTelephone() {
+	public String getTelephone() {
 		return sTelephone;
 	}
 
-	public void setsTelephone(String sTelephone) {
+	public void setTelephone(String sTelephone) {
 		this.sTelephone = sTelephone;
 	}
 
-	public String getsMail() {
+	public String getMail() {
 		return sMail;
 	}
 
-	public void setsMail(String sMail) {
+	public void setMail(String sMail) {
 		this.sMail = sMail;
 	}
 
-	public String getsSecret() {
+	public String getSecret() {
 		return sSecret;
 	}
 
-	public void setsSecret(String sSecret) {
+	public void setSecret(String sSecret) {
 		this.sSecret = sSecret;
 	}
+
+	public String getAnswer() {
+		return sAnswer;
+	}
+
+	public void setAnswer(String s) {
+		this.sAnswer = s;
+	}
 	
-	public Integer getnID() {
+
+	public Date getDateAnswerExpire() {
+		return sDateAnswerExpire;
+	}
+
+	public void setDateAnswerExpire(Date o) {
+		this.sDateAnswerExpire = o;
+	}
+        
+        
+        
+	public Long getID() {
 		return nID;
 	}
 
-	public void setnID(Integer nID) {
-		this.nID = nID;
+	public void setID(Long n) {
+		this.nID = n;
 	}
 }

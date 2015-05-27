@@ -1,6 +1,6 @@
 package org.wf.dp.dniprorada.model;
 
-public class SURL {
+public class AccessURL {
 	private String name;
 	private String value;
 	public String getValue() {

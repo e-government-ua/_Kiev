@@ -20,7 +20,7 @@
             DROP TABLE IF EXISTS "Document" CASCADE;
             DROP TABLE IF EXISTS "Subjectmessage" CASCADE;
             DROP TABLE IF EXISTS "SubjectMessage" CASCADE;
-            <!--DROP TABLE IF EXISTS "DocumentAccess" CASCADE;-->
+            DROP TABLE IF EXISTS "DocumentAccess" CASCADE;
         </sql>
 
         <!-- ####################################################################################################### -->
@@ -253,6 +253,43 @@
         <addAutoIncrement columnName="nID" tableName="SubjectMessage" columnDataType="bigint"  incrementBy="1" startWith="1"/>
 
 
+        <!-- ####################################################################################################### -->
+        <createTable tableName="DocumentAccess">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nID_Document" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sDateCreate" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nMS" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sFIO" type="varchar(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sTarget" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sTelephone" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sMail" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sSecret" type="varchar(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sAnswer" type="varchar(30)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sDateAnswerExpire" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="DocumentAccess" columnDataType="bigint"  incrementBy="1" startWith="1"/>
 
         <!-- Loading of Data ####################################################################################### -->
         <loadData encoding="UTF-8" file="data/Region.csv" tableName="Region" separator=";">
@@ -322,7 +359,7 @@
             <column name="sDate_Upload" type="STRING"/>  
             <column name="sContentType" type="STRING"/>  
         </loadData>
-        <!--loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
+        <loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
             <column name="nID" type="NUMERIC" />
             <column name="nID_Document" type="NUMERIC"/>
             <column name="sDateCreate" type="DATE"/>
@@ -332,7 +369,9 @@
             <column name="sTelephone" type="STRING" />
             <column name="sMail" type="STRING" />
             <column name="sSecret" type="STRING"/>    
-        </loadData-->
+            <column name="sAnswer" type="STRING"/>
+            <column name="sDateAnswerExpire" type="DATE"/>
+        </loadData>
         
     </changeSet>
 </databaseChangeLog>
