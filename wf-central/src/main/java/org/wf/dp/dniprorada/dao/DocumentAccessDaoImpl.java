@@ -1,27 +1,32 @@
 package org.wf.dp.dniprorada.dao;
 
+
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import javax.sql.DataSource;
 
-import org.springframework.jdbc.core.JdbcTemplate;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.wf.dp.dniprorada.model.DocumentAccess;
 
-
+@Repository
 public class DocumentAccessDaoImpl implements DocumentAccessDao {
-	private final String url = "https://igov.org.ua/index#";
-	private JdbcTemplate jdbcTemplate;
-	private DataSource dataSource;
-
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
+	private final String url = "https://igov.org.ua/index#";	
+	private SessionFactory sessionFactory;
+	
+	@Autowired
+	public DocumentAccessDaoImpl(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 	@Override
 	public String setDocumentLink(Integer nID_Document, String sFIO,
-			String sTarget, String sTelephone, Long nDays, String sMail) {
+			String sTarget, String sTelephone, Long nDays, String sMail) throws Exception{
 		DocumentAccess da = new DocumentAccess();
 		da.setnID_Document(nID_Document);
 		da.setsDateCreate(new Date());
@@ -31,11 +36,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		da.setsTarget(sTarget);
 		da.setsTelephone(sTelephone);
 		da.setsSecret(generateSecret());
-		try {
-			createRecord(da);
-		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
-		}
+		createRecord(da);
 		StringBuilder sURL = new StringBuilder(url);
 		sURL.append("nID_Document=" + nID_Document + "&");
 		sURL.append("nID_Access=" + getIdAccess() + "&");
@@ -70,41 +71,54 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	}
 
 	private void createRecord(DocumentAccess da) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
-		jdbcTemplate
-				.update("INSERT INTO DocumentAccess"
-						+ " (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, "
-						+ "sSecret) VALUES (?,?,?,?,?,?,?,?)",
-						da.getnID_Document(), da.getsDateCreate(),
-						da.getsDays(), da.getsFIO(), da.getsTarget(),
-						da.getsTelephone(), da.getsMail(), da.getsSecret());
+		Transaction t = null;
+		Session s = getSession();
+		try{
+			t = s.beginTransaction();
+			getSession().saveOrUpdate(da);
+			t.commit();
+		} catch(Exception e){
+			t.rollback();
+			throw e;
+		} finally {
+			s.close();
+		}
 	}
 
-	private Integer getIdAccess() {
-		jdbcTemplate = new JdbcTemplate(dataSource);
-		DocumentAccess da = null;
+	private Integer getIdAccess() throws Exception{
+		Session s = getSession();
+		List <DocumentAccess> list = null;
 		try{
-		da = jdbcTemplate
-				.query("nID, nID_Document,"
-						+ " sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret"
-						+ " FROM DocumentAccess order by nID desc limit 1",
-						new DocumentAccessRowMapper()).get(0);
+			list = getSession().createCriteria(DocumentAccess.class).list();
 		} catch(Exception e){
-			da.setnID(0);
+			throw e;
+		} finally{
+			s.close();
 		}
-		return da.getnID();
+		return list.get(0).getnID();
 	}
 
 	@Override
 	public DocumentAccess getDocumentLink(String nID_Access, String sSecret) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
-		List <DocumentAccess> listDa = jdbcTemplate
-				.query("SELECT nID, nID_Document, "
-						+ "sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret "
-						+ "FROM DocumentAccess "
-						+ "WHERE nID=? AND sSecret=?",
-						new DocumentAccessRowMapper(), nID_Access, sSecret);
-		DocumentAccess da = listDa.get(0);
-		return da;
+		Session s = getSession();
+		List <DocumentAccess> list = null;
+		try{
+		list = s.createSQLQuery("FROM DocumentAccess WHERE nID=? AND sSecret=?").list();
+		} catch(Exception e){
+			throw e;
+		} finally{
+			s.close();
+		}
+		return list.get(0);
+	}
+		
+	private Session getSession(){
+		return sessionFactory.openSession();
+	}
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
 	}
 }

@@ -17,7 +17,6 @@
         <activiti:formProperty id="docName" name="Назва документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="processName" name="Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом." type="string"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
@@ -41,7 +40,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="management_clerk_dmr">
+    <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="dn_mvk_1">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="clPassport" name="Паспортні дані" type="string" default="${bankIdPassport}" writable="false" required="true"></activiti:formProperty>
@@ -62,7 +61,7 @@
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
-Ви запросили ${docType} № ${docNumber} від ${docDate}
+Ви запитали ${docType} № ${docNumber} від ${docDate}
 
 На жаль документ не був знайдений.</activiti:expression>
         </activiti:field>
@@ -104,31 +103,57 @@
     <sequenceFlow id="flow40" name="decide == 'accept'" sourceRef="exclusivegateway3" targetRef="usertask7">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask1" name="Відправка відповіді на запит користувачу" activiti:delegateExpression="#{mailTaskWithAttachment}">
+    <endEvent id="endevent6" name="End"></endEvent>
+    <sequenceFlow id="flow44" sourceRef="mailtask4" targetRef="endevent6"></sequenceFlow>
+    <sequenceFlow id="flow47" name="searchResult == 'found'" sourceRef="exclusivegateway2" targetRef="mailtask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult == 'found'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="mailtask4" name="Відправка відповіді на запит користувачу" activiti:type="mail">
       <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
         </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Шановний (-а), ${bankIdfirstName} ${bankIdmiddleName}. Вы запросили  ${docType} № ${docNumber}  від  ${docDate}.  Запитуваний документ доданий в додаток цього листа.</activiti:expression>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
-        <activiti:field name="docName">
-          <activiti:expression>${docName}</activiti:expression>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ви запросили ${docType} № ${docNumber} від ${docDate}
+Ваш</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <endEvent id="endevent6" name="End"></endEvent>
-    <sequenceFlow id="flow44" sourceRef="servicetask1" targetRef="endevent6"></sequenceFlow>
-    <sequenceFlow id="flow47" name="searchResult == 'found'" sourceRef="exclusivegateway2" targetRef="servicetask1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult == 'found'}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow48" sourceRef="startevent1" targetRef="usertask4"></sequenceFlow>
+    <serviceTask id="mailtask5" name="Повідомлення про  подання звернення" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ваш запит на отримання  ${docType} № ${docNumber} від ${docDate} успішно зареєстровано.
+Ви отримаєте відповідь протягом п'яти діб.</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow49" sourceRef="startevent1" targetRef="mailtask5"></sequenceFlow>
+    <sequenceFlow id="flow50" sourceRef="mailtask5" targetRef="usertask4"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Пользователь портала  отправляет выбирает услугу:
 Надання копій рішень міської ради та її виконкому, розпоряджень міського голови за зверненням юридичних та фізичних осіб, правоохоронних органів,адвокатів</text>
@@ -172,11 +197,14 @@
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
         <omgdc:Bounds height="40.0" width="40.0" x="536.0" y="446.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
-        <omgdc:Bounds height="71.0" width="105.0" x="1114.0" y="430.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent6" id="BPMNShape_endevent6">
         <omgdc:Bounds height="35.0" width="35.0" x="1240.0" y="448.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
+        <omgdc:Bounds height="71.0" width="105.0" x="1114.0" y="430.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="380.0" y="287.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="50.0" width="299.0" x="-40.0" y="90.0"></omgdc:Bounds>
@@ -239,8 +267,12 @@
           <omgdc:Bounds height="42.0" width="100.0" x="1020.0" y="465.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow48" id="BPMNEdge_flow48">
+      <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
         <omgdi:waypoint x="432.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="432.0" y="287.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
+        <omgdi:waypoint x="432.0" y="342.0"></omgdi:waypoint>
         <omgdi:waypoint x="432.0" y="438.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">

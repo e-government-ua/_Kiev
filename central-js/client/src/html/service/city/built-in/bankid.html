@@ -32,7 +32,10 @@
 	<div class="list-group-item">
 		<div class="row">
 			<!--div class="col-md-12">Крок 3. Ви зможете отримати довідку про несудимість у ГУМВС м.Львова, С.Бандери, 1, м. Львів через 2 тижні. Ви отримаєте повідомлення через SMS та Email, коли довідка буде готова.</div-->
-			<div class="col-md-12">Крок 3. {{data.formData.params["processName"].name==null?"":data.formData.params["processName"].name}}</div>
+                        <div style="display: none;">1{{data.formData.sProcessDefinitionName1}} 2{{data.formData.sProcessDefinitionName2}} 3{{data.formData.sProcessDefinitionName3}} </div>
+			<div class="col-md-12">Крок 3. {{data.formData.params["processName"].name==null?"":data.formData.params["processName"].name}} </div>
+			<!--div class="col-md-12">Крок 3. 1{{data.formData.sProcessDefinitionName}} 11{{data.formData.sProcessDefinitionName1}} 2{{data.sProcessDefinitionName}} 3{{ActivitiForm.sProcessDefinitionName}} 4{{ActivitiForm.processDefinitionId.sProcessDefinitionName}} 5{{data.sProcessDefinitionName}} 6{{data.sProcessDefinitionName2}} </div-->
+                        
                         <!-- Запит  {{data.formData.params["processName"].name}}-->
                         
 		</div>
@@ -47,17 +50,17 @@
                                                         
 
 							<div class="col-md-3" ng-class="{'has-error': form.$submitted && form[property.id].$invalid}" ng-if="!data.formData.fields[property.id]" ng-switch on="property.type">
-								<input style="width:600px;" ng-switch-when="string" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required" class="form-control" value="">
-								<input style="/*width:600px;*/"ng-switch-when="long" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-pattern="/^\d+$/" ng-required="property.required" class="form-control" value="">
+								<input ng-switch-when="string" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required" class="form-control" value="">
+								<input ng-switch-when="long" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-pattern="/^\d+$/" ng-required="property.required" class="form-control" value="">
 								<p class="input-group" ng-switch-when="date">
 									<input type="text" name="{{property.id}}" datepicker-popup="{{data.formData.params[property.id].format}}" is-open="data.formData.params[property.id].opened" datepicker-options="data.formData.params[property.id].options" ng-model="data.formData.params[property.id].value" ng-required="property.required" ng-readonly="true" close-text="Close" class="form-control" value="">	
 									<span class="input-group-btn">
 										<button type="button" class="btn btn-default" ng-click="data.formData.params[property.id].open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 									</span>
 								</p>
-								<select style="width:600px;" ng-switch-when="enum" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in property.enumValues" ng-required="property.required" class="form-control"></select>
+								<select ng-switch-when="enum" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in property.enumValues" ng-required="property.required" class="form-control"></select>
 								<p class="input-group" ng-switch-when="file">
-									<file-field ng-model="data.formData.params[property.id].value">Add File</file-field>
+									<file-field name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required">Add File</file-field>
 									<!--
                                 	<button type="button" class="btn btn-success js-upload-btn" data-loading-text="Завантаження..." class="btn btn-primary" autocomplete="off" ng-click="uploadFile(property.id)" ng-disabled="isUploading">
 										<input style="display:none" type="file" name="{{property.id}}" ui-event="{change:'addFile(property.id, $event)'}" ng-required="property.required"/>

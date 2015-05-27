@@ -4,6 +4,7 @@ var _ = require('lodash');
 var config = require('../../config/environment');
 var request = require('request');
 var url = require('url');
+var httpProxy = require('http-proxy');
 
 request.debug = config.request.debug;
 
@@ -32,6 +33,23 @@ var getRequestOptions = function(options) {
 	};
 };
 
+var prepareRequest = function(req, options, data) {
+	var r = null;
+	if (req.method === 'POST') {
+		r = request.post(_.merge(getRequestOptions(options),
+			data ? {
+				json: true,
+				body: data
+			} : {
+				json: true,
+				body: req.body
+			}));
+	} else {
+		r = request(getRequestOptions(options));
+	}
+	return r;
+}
+
 exports.getRequestURL = getRequestURL;
 exports.getRequestOptions = getRequestOptions;
 
@@ -44,6 +62,13 @@ exports.get = function(options, onResult) {
 				onResult(error, null, null);
 			}
 		});
+}
+
+exports.filedownload = function(req, res, options) {
+	var r = prepareRequest(req, options);
+	req.pipe(r).on('response', function(response) {
+		response.headers['content-type'] = 'application/octet-stream';
+	}).pipe(res);
 }
 
 exports.pipe = function(req, res, options, data) {

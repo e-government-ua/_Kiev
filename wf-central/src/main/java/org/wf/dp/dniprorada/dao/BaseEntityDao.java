@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.dao;
 
 import org.wf.dp.dniprorada.model.Entity;
+import org.wf.dp.dniprorada.model.Service;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,4 +20,6 @@ public interface BaseEntityDao {
    <T extends Entity> void saveOrUpdate(T entity);
 
    <T extends Entity> void saveOrUpdateAll(T[] entities);
+
+   <T extends Entity> void remove(T entity);
 }

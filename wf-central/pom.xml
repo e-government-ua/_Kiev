@@ -248,7 +248,7 @@
 			<version>${activity.version}</version>
 		</dependency>
 
-		<!-- REDIS -->
+		<!-- MONGO -->
 		<dependency>
 			<groupId>org.egov-ua</groupId>
 			<artifactId>org.egov-ua.storage.durable</artifactId>

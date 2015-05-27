@@ -11,7 +11,7 @@
                tooltip="{{task.description}}"
                ng-click="selectTask(task)"
                ng-class="{'active': isTaskSelected(task)}">
-              {{ getProcessName(task.processDefinitionId) }} | {{ task.name }} {{ sDateShort(task.createTime) }}
+              {{ getProcessName(task.processDefinitionId) }} | {{task.id}} {{ task.name }} {{ sDateShort(task.createTime) }}
             </a>
           </div>
         </div>
@@ -57,7 +57,7 @@
         </div>
         <div ng-show="attachments">
           <p ng-repeat="item in attachments">
-            Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content/{{$index}}" target="_blank"><b>{{item.name}}</b> {{item.description}}</a>
+            Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content/{{($index+1)}}" target="_blank"><b>{{item.name}}</b> {{item.description}}</a>
           </p>
         </div>
         <p ng-if="selectedTask"> <!--taskForm != null    -->

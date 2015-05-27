@@ -20,6 +20,7 @@
             DROP TABLE IF EXISTS "Document" CASCADE;
             DROP TABLE IF EXISTS "Subjectmessage" CASCADE;
             DROP TABLE IF EXISTS "SubjectMessage" CASCADE;
+            <!--DROP TABLE IF EXISTS "DocumentAccess" CASCADE;-->
         </sql>
 
         <!-- ####################################################################################################### -->
@@ -125,6 +126,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="sLaw" type="clob">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sSubjectOperatorName" type="varchar(500)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -286,6 +290,7 @@
             <column name="sInfo" type="STRING"/>
             <column name="sFAQ" type="STRING"/>
             <column name="sLaw" type="STRING"/>
+            <column name="sSubjectOperatorName" type="STRING"/>
         </loadData>
         <loadData encoding="UTF-8" file="data/ServiceData.csv" tableName="ServiceData" separator=";">
             <column name="nID" type="NUMERIC"/>
@@ -317,8 +322,17 @@
             <column name="sDate_Upload" type="STRING"/>  
             <column name="sContentType" type="STRING"/>  
         </loadData>
+        <!--loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
+            <column name="nID" type="NUMERIC" />
+            <column name="nID_Document" type="NUMERIC"/>
+            <column name="sDateCreate" type="DATE"/>
+            <column name="nMS" type="NUMERIC"/>
+            <column name="sFIO" type="STRING" />
+            <column name="sTarget" type="STRING" />
+            <column name="sTelephone" type="STRING" />
+            <column name="sMail" type="STRING" />
+            <column name="sSecret" type="STRING"/>    
+        </loadData-->
         
     </changeSet>
-
-
 </databaseChangeLog>

@@ -218,9 +218,11 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 				attachmentStream, attachmentRequested.getDescription(),
 				attachmentRequested.getName(), attachmentRequested.getType());
 
-        httpResponse.setHeader("Content-disposition", 
-        		"attachment; filename=" + composeFileName(multipartFile));
-        httpResponse.setHeader("Content-Type", multipartFile.getContentType() + ";charset=UTF-8");
+        //httpResponse.setHeader("Content-disposition", "attachment; filename=" + composeFileName(multipartFile));
+        //httpResponse.setHeader("Content-Type", multipartFile.getContentType() + ";charset=UTF-8");
+        httpResponse.setHeader("Content-disposition", "attachment; filename=" + attachmentRequested.getName());
+        httpResponse.setHeader("Content-Type","application/octet-stream");
+        
         httpResponse.setContentLength(multipartFile.getBytes().length);
       
         return multipartFile.getBytes();

@@ -10,6 +10,7 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
 		'$state', '$stateParams', '$scope', 'FormDataFactory', 'ActivitiService', 'oServiceData', 'BankIDAccount', 'ActivitiForm', 'uiUploader',
 		function($state, $stateParams, $scope, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
 		
+		$scope.oServiceData = oServiceData;
 		$scope.account = BankIDAccount;
 		$scope.ActivitiForm = ActivitiForm;
 		
@@ -21,7 +22,9 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
 		var currentState = $state.$current;
 		$scope.data.region = currentState.data.region;
 		$scope.data.city = currentState.data.city;
-
+		//$scope.data.sProcessDefinitionName = currentState.sProcessDefinitionName;
+		//$scope.data.sProcessDefinitionName2 = currentState.sProcessDefinitionName2;
+                
 
       angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {
         var sField = value.name;

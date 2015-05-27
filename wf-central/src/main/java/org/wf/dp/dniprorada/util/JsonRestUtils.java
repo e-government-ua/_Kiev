@@ -9,7 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.wf.dp.dniprorada.model.Service;
+import org.wf.dp.dniprorada.model.ResultMessage;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -60,5 +60,20 @@ public final class JsonRestUtils {
       headers.setContentType(mediaType);
 
       return new ResponseEntity<>(json, headers, HttpStatus.OK);
+   }
+
+   public static ResponseEntity toJsonResponse(HttpStatus httpStatus, ResultMessage resultMessage) {
+      String json;
+      try {
+         json = toJson(resultMessage);
+      } catch (JsonProcessingException e) {
+         return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+      HttpHeaders headers = new HttpHeaders();
+
+      // UTF-8 needed for correctly encode ukrainian letters.
+      MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
+      headers.setContentType(mediaType);
+      return new ResponseEntity<>(json, headers, httpStatus);
    }
 }

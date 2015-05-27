@@ -66,17 +66,23 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
 						return ServiceService.getProcessDefinitions(oServiceData, true);
 					}],
 					processDefinitionId: ['oServiceData', 'processDefinitions', function(oServiceData, processDefinitions) {
-						var rawProcessDefinitionId = oServiceData.oData.oParams.processDefinitionId;
-						var processDefinitionKey = rawProcessDefinitionId.split(':')[0];
+						var sProcessDefinitionKeyWithVersion = oServiceData.oData.oParams.processDefinitionId;
+						var sProcessDefinitionKey = sProcessDefinitionKeyWithVersion.split(':')[0];
 						
-						var result = rawProcessDefinitionId;
+						var sProcessDefinitionName = "тест";
+                                                //sProcessDefinitionName = "name2";
+                                                //var currentState = $state.get('service.general.city.built-in.bankid');
+                                                //currentState.data.sProcessDefinitionName2 = "name3";
+                                                
 						angular.forEach(processDefinitions.data, function(value, key) {
-							if(value.key == processDefinitionKey) {
-								result = value.id;
+							if(value.key == sProcessDefinitionKey) {
+								sProcessDefinitionKeyWithVersion = value.id;
+                                                                sProcessDefinitionName = "("+value.name+")";
 							}
 						});
 
-						return result;
+						//return processDefinitionKeyWithVersion;
+						return {sProcessDefinitionKeyWithVersion:sProcessDefinitionKeyWithVersion,sProcessDefinitionName:sProcessDefinitionName};
 					}],
 					ActivitiForm: ['ActivitiService', 'oServiceData', 'processDefinitionId', function(ActivitiService, oServiceData, processDefinitionId) {
 						return ActivitiService.getForm(oServiceData, processDefinitionId);

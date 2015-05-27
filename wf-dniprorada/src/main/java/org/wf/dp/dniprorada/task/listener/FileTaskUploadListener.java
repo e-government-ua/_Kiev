@@ -28,8 +28,9 @@ import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 @Component("fileTaskUploadListener")
 public class FileTaskUploadListener extends AbstractModelTask implements
 		TaskListener {
-	static final transient Logger LOG = LoggerFactory
-			.getLogger(FileTaskUploadListener.class);
+	static final transient Logger LOG = LoggerFactory.getLogger(FileTaskUploadListener.class);
+        //private final Logger log = LoggerFactory.getLogger(FileTaskUploadListener.class);
+                        //log.error("inn(0):"+inn);
 
 	@Autowired
 	RedisService redisService;
@@ -64,12 +65,20 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 				.getStartFormData(execution.getProcessDefinitionId());
 
 		List<String> filedTypeFile = getListFieldCastomTypeFile(startformData);
+                LOG.info("11filedTypeFile="+filedTypeFile.toString());
+                //System.out.println("12filedTypeFile="+filedTypeFile.toString());
 		List<String> listValueKeys = getValueFieldWithCastomTypeFile(execution,
 				filedTypeFile);
+                LOG.info("21listValueKeys="+listValueKeys.toString());
+                //System.out.println("22listValueKeys="+listValueKeys.toString());
 		List<String> filedName = getListCastomFieldName(startformData);
+                LOG.info("31filedName="+filedName.toString());
+                //System.out.println("32filedName="+filedName.toString());
 		
 		if (!listValueKeys.isEmpty()) {
+                        int n=0;
 			for (String keyRedis : listValueKeys) {
+                                LOG.info("keyRedis="+keyRedis);
 				if (keyRedis != null && !keyRedis.isEmpty()) {
 					byte[] byteFile = getRedisService().getAttachments(keyRedis);
 					ByteArrayMultipartFile contentMultipartFile = null;
@@ -93,8 +102,13 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 						} catch (java.io.UnsupportedEncodingException e) {
 							throw new ActivitiException(e.getMessage(), e);
 						}
-						if (!filedName.isEmpty()) {
-							for (String name : filedName) {
+						if (!filedName.isEmpty()&&n<filedName.size()) {
+                                                        //String name = filedName.get(n);
+                                                        String name = filedName.get((filedName.size()-1)-n);
+							//for (String name : filedName) {
+                                                            LOG.info("name="+name); 
+                                                            
+                                                            
 						execution
 								.getEngineServices()
 								.getTaskService()
@@ -106,10 +120,11 @@ public class FileTaskUploadListener extends AbstractModelTask implements
 										execution.getProcessInstanceId(),
 										outFilename,
 										name, is);
-							}
+							//}
 						}
 					}
 				}
+                                n++;
 			}
 		}
 		}

@@ -12,11 +12,17 @@ define('file/factory', ['angularAMD'], function (angularAMD) {
 			uiUploader.removeAll();
 		};
 		
+		file.prototype.setFiles = function(files) {
+			uiUploader.removeAll();
+			uiUploader.addFiles(files);
+		};
+		
 		file.prototype.addFiles = function(files) {
 			uiUploader.addFiles(files);
 		};
 		
 		file.prototype.upload = function(oServiceData) {
+			var self = this;
 			var scope = $rootScope.$new(true, $rootScope);
 			
             uiUploader.startUpload({
@@ -24,12 +30,13 @@ define('file/factory', ['angularAMD'], function (angularAMD) {
                 concurrency: 1,
                 onProgress: function(file) {
 					scope.$apply(function() {
-						console.log('onProgress', file);
+						//console.log('onProgress', file);
 					});
 				},
                 onCompleted: function(file, response) {
 					scope.$apply(function() {
-						console.log('onCompleted', file);
+						//console.log('onCompleted', file, response);
+						self.value = response;
 					});
 				}
             });
