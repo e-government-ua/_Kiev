@@ -20,7 +20,7 @@
             DROP TABLE IF EXISTS "Document" CASCADE;
             DROP TABLE IF EXISTS "Subjectmessage" CASCADE;
             DROP TABLE IF EXISTS "SubjectMessage" CASCADE;
-            DROP TABLE IF EXISTS "DocumentAccess" CASCADE;
+            <!--DROP TABLE IF EXISTS "DocumentAccess" CASCADE;-->
         </sql>
 
         <!-- ####################################################################################################### -->
@@ -322,7 +322,7 @@
             <column name="sDate_Upload" type="STRING"/>  
             <column name="sContentType" type="STRING"/>  
         </loadData>
-        <loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
+        <!--loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
             <column name="nID" type="NUMERIC" />
             <column name="nID_Document" type="NUMERIC"/>
             <column name="sDateCreate" type="DATE"/>
@@ -332,7 +332,7 @@
             <column name="sTelephone" type="STRING" />
             <column name="sMail" type="STRING" />
             <column name="sSecret" type="STRING"/>    
-        </loadData>
+        </loadData-->
         
     </changeSet>
 </databaseChangeLog>
