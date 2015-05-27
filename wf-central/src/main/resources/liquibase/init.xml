@@ -324,9 +324,9 @@
         </loadData>
         <loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
             <column name="nID" type="NUMERIC" />
-            <column name="nID_Document" type="int"/>
-            <column name="sDateCreate" type="date"/>
-            <column name="nMS" type="int"/>
+            <column name="nID_Document" type="NUMERIC"/>
+            <column name="sDateCreate" type="DATE"/>
+            <column name="nMS" type="NUMERIC"/>
             <column name="sFIO" type="STRING" />
             <column name="sTarget" type="STRING" />
             <column name="sTelephone" type="STRING" />
