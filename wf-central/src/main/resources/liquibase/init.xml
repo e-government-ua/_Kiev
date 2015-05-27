@@ -323,24 +323,14 @@
             <column name="sContentType" type="STRING"/>  
         </loadData>
         <loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
-            <column name="nID" type="serial">
-            	<constraints primaryKey="true"/>
-            </column>
+            <column name="nID" type="NUMERIC" />
             <column name="nID_Document" type="int"/>
             <column name="sDateCreate" type="date"/>
             <column name="nMS" type="int"/>
-            <column name="sFIO" type="STRING">
-            	<constraints nullable="true"/>
-            </column>
-            <column name="sTarget" type="STRING">
-            	<constraints nullable="true"/>
-            </column>
-            <column name="sTelephone" type="STRING">
-            	<constraints nullable="true"/>
-            </column>
-            <column name="sMail" type="STRING">
-            	<constraints nullable="true"/>
-            </column>
+            <column name="sFIO" type="STRING" />
+            <column name="sTarget" type="STRING" />
+            <column name="sTelephone" type="STRING" />
+            <column name="sMail" type="STRING" />
             <column name="sSecret" type="STRING"/>    
         </loadData>
         
