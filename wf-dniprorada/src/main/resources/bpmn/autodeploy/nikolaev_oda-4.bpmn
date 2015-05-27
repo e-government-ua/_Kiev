@@ -20,7 +20,7 @@
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="management_clerk_dmr">
+    <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="myk_mr_0">
       <extensionElements>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -87,7 +87,7 @@
           <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Видача дозволу на переоформлення договору найму жилого приміщення державного / комунального житлового фонду]]></activiti:string>
+          <activiti:string><![CDATA[Звернення: Видача дозволу на переоформлення договору найму жилого приміщення державного / комунального житлового фонду]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -129,13 +129,35 @@
       </extensionElements>
     </serviceTask>
     <serviceTask id="servicetask1" name="отримання додаткових документiв" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <sequenceFlow id="flow9" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <sequenceFlow id="flow10" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
     <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
       <errorEventDefinition></errorEventDefinition>
     </boundaryEvent>
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow11" sourceRef="boundaryerror1" targetRef="endevent3"></sequenceFlow>
+    <serviceTask id="mailtask3" name="Повідомлення про  подання звернення" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ваше звернення про реєстрацію громадського об’єднання успішно зареєстровано і буде оброблено протягом ?? діб</activiti:expression>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення: Видача дозволу на переоформлення договору найму жилого приміщення державного / комунального житлового фонду]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow12" sourceRef="startevent1" targetRef="mailtask3"></sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="mailtask3" targetRef="servicetask1"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Выбирается услуга:
 Видача дозволу на переоформлення договору найму жилого приміщення державного / комунального житлового фонду</text>
@@ -151,7 +173,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_nikolaev_oda_4">
     <bpmndi:BPMNPlane bpmnElement="nikolaev_oda_4" id="BPMNPlane_nikolaev_oda_4">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="220.0" y="130.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="223.0" y="70.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="55.0" width="211.0" x="132.0" y="260.0"></omgdc:Bounds>
@@ -186,8 +208,11 @@
       <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
         <omgdc:Bounds height="35.0" width="35.0" x="337.0" y="165.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="188.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
-        <omgdc:Bounds height="50.0" width="341.0" x="70.0" y="60.0"></omgdc:Bounds>
+        <omgdc:Bounds height="50.0" width="341.0" x="-3.0" y="10.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
         <omgdc:Bounds height="107.0" width="311.0" x="20.0" y="342.0"></omgdc:Bounds>
@@ -230,10 +255,6 @@
         <omgdi:waypoint x="981.0" y="407.0"></omgdi:waypoint>
         <omgdi:waypoint x="1070.0" y="407.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
-        <omgdi:waypoint x="237.0" y="165.0"></omgdi:waypoint>
-        <omgdi:waypoint x="240.0" y="190.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
         <omgdi:waypoint x="240.0" y="245.0"></omgdi:waypoint>
         <omgdi:waypoint x="237.0" y="260.0"></omgdi:waypoint>
@@ -242,9 +263,17 @@
         <omgdi:waypoint x="300.0" y="203.0"></omgdi:waypoint>
         <omgdi:waypoint x="337.0" y="182.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="240.0" y="105.0"></omgdi:waypoint>
+        <omgdi:waypoint x="240.0" y="120.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="240.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="240.0" y="190.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
-        <omgdi:waypoint x="240.0" y="110.0"></omgdi:waypoint>
-        <omgdi:waypoint x="237.0" y="130.0"></omgdi:waypoint>
+        <omgdi:waypoint x="338.0" y="35.0"></omgdi:waypoint>
+        <omgdi:waypoint x="240.0" y="70.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
