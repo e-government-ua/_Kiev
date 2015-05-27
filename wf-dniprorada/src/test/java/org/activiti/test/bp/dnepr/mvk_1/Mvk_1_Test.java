@@ -145,7 +145,7 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 		JobQuery jquery = activitiRule.getManagementService().createJobQuery();
 
 		// check how many tasks must be done
-		assertEquals("done task count", 5, activityList.size());
+		assertEquals("done task count", 6, activityList.size());
 
 		// and the job is done
 		assertEquals("job is done", 0, jquery.count());
