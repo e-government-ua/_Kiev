@@ -128,6 +128,9 @@
             <column name="sLaw" type="clob">
                 <constraints nullable="false"/>
             </column>
+            <column name="sSubjectOperatorName" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
         <addAutoIncrement columnName="nID" tableName="Service" columnDataType="int"  incrementBy="1" startWith="1000"/>
 
@@ -287,6 +290,7 @@
             <column name="sInfo" type="STRING"/>
             <column name="sFAQ" type="STRING"/>
             <column name="sLaw" type="STRING"/>
+            <column name="sSubjectOperatorName" type="STRING"/>
         </loadData>
         <loadData encoding="UTF-8" file="data/ServiceData.csv" tableName="ServiceData" separator=";">
             <column name="nID" type="NUMERIC"/>
