@@ -74,7 +74,7 @@
 		</bean>
 		
 		<bean id="documentAccessDao" class="org.wf.dp.dniprorada.dao.DocumentAccessDaoImpl">
-			<property name="dataSource" ref="dataSource"/>
+			<property name="sessionFactory" ref="sessionFactory"/>
 		</bean>
 
 		
