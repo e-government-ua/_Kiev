@@ -100,7 +100,6 @@
 			<id>wf-all</id>
 
 			<modules>
-				<module>auth</module>
 				<module>storage</module>
 				<module>redis</module>
 				<module>wf-base</module>
@@ -128,7 +127,6 @@
 			<id>wf-central</id>
 
 			<modules>
-				<module>auth</module>
 				<module>storage</module>
 				<module>redis</module>
 				<module>wf-base</module>
