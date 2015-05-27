@@ -1,22 +1,27 @@
 package org.wf.dp.dniprorada.dao;
 
+
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import javax.sql.DataSource;
 
-import org.springframework.jdbc.core.JdbcTemplate;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.wf.dp.dniprorada.model.DocumentAccess;
 
-
+@Repository
 public class DocumentAccessDaoImpl implements DocumentAccessDao {
-	private final String url = "https://igov.org.ua/index#";
-	private JdbcTemplate jdbcTemplate;
-	private DataSource dataSource;
-
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
+	private final String url = "https://igov.org.ua/index#";	
+	private SessionFactory sessionFactory;
+	
+	@Autowired
+	public DocumentAccessDaoImpl(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 	@Override
@@ -66,37 +71,54 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	}
 
 	private void createRecord(DocumentAccess da) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
-		jdbcTemplate
-				.update("INSERT INTO DocumentAccess"
-						+ " (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, "
-						+ "sSecret) VALUES (?,?,?,?,?,?,?,?)",
-						da.getnID_Document(), da.getsDateCreate(),
-						da.getsDays(), da.getsFIO(), da.getsTarget(),
-						da.getsTelephone(), da.getsMail(), da.getsSecret());
+		Transaction t = null;
+		Session s = getSession();
+		try{
+			t = s.beginTransaction();
+			getSession().saveOrUpdate(da);
+			t.commit();
+		} catch(Exception e){
+			t.rollback();
+			throw e;
+		} finally {
+			s.close();
+		}
 	}
 
 	private Integer getIdAccess() throws Exception{
-		jdbcTemplate = new JdbcTemplate(dataSource);
-		DocumentAccess da = null;
-		da = jdbcTemplate
-				.query("Select nID, nID_Document,"
-						+ " sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret"
-						+ " FROM DocumentAccess order by nID desc limit 1",
-						new DocumentAccessRowMapper()).get(0);
-		return da.getnID();
+		Session s = getSession();
+		List <DocumentAccess> list = null;
+		try{
+			list = getSession().createCriteria(DocumentAccess.class).list();
+		} catch(Exception e){
+			throw e;
+		} finally{
+			s.close();
+		}
+		return list.get(0).getnID();
 	}
 
 	@Override
 	public DocumentAccess getDocumentLink(String nID_Access, String sSecret) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
-		List <DocumentAccess> listDa = jdbcTemplate
-				.query("SELECT nID, nID_Document, "
-						+ "sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret "
-						+ "FROM DocumentAccess "
-						+ "WHERE nID=? AND sSecret=?",
-						new DocumentAccessRowMapper(), Integer.parseInt(nID_Access), sSecret);
-		DocumentAccess da = listDa.get(0);
-		return da;
+		Session s = getSession();
+		List <DocumentAccess> list = null;
+		try{
+		list = s.createSQLQuery("FROM DocumentAccess WHERE nID=? AND sSecret=?").list();
+		} catch(Exception e){
+			throw e;
+		} finally{
+			s.close();
+		}
+		return list.get(0);
+	}
+		
+	private Session getSession(){
+		return sessionFactory.openSession();
+	}
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
 	}
 }
