@@ -22,14 +22,13 @@
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <serviceTask id="servicetask1" name="отримання додаткових документiв" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
       <errorEventDefinition></errorEventDefinition>
     </boundaryEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow2" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="sales">
+    <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="kiev_mr_0">
       <extensionElements>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false" required="true"></activiti:formProperty>
@@ -126,6 +125,30 @@
     <sequenceFlow id="flow9" sourceRef="usertask2" targetRef="mailtask2"></sequenceFlow>
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow10" sourceRef="mailtask2" targetRef="endevent3"></sequenceFlow>
+    <serviceTask id="mailtask3" name="Повідомлення про  подання звернення" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Запит: Присвоєння поштової адреси об’єкту нерухомого майна]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ваш запит на отримання картки обліку  успішно зареєстровано.
+Ви отримаєте відповідь протягом десяти діб.</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow11" sourceRef="startevent1" targetRef="mailtask3"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="mailtask3" targetRef="servicetask1"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Київ МДА - Присвоєння поштової адреси об’єкту нерухомого майна</text>
     </textAnnotation>
@@ -169,13 +192,12 @@
       <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
         <omgdc:Bounds height="35.0" width="35.0" x="1130.0" y="470.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="185.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="50.0" width="321.0" x="70.0" y="50.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="237.0" y="155.0"></omgdi:waypoint>
-        <omgdi:waypoint x="237.0" y="240.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
         <omgdi:waypoint x="291.0" y="264.0"></omgdi:waypoint>
         <omgdi:waypoint x="321.0" y="205.0"></omgdi:waypoint>
@@ -219,6 +241,14 @@
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
         <omgdi:waypoint x="1061.0" y="487.0"></omgdi:waypoint>
         <omgdi:waypoint x="1130.0" y="487.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="237.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="237.0" y="170.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="237.0" y="225.0"></omgdi:waypoint>
+        <omgdi:waypoint x="237.0" y="240.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
         <omgdi:waypoint x="230.0" y="100.0"></omgdi:waypoint>
