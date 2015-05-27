@@ -2,7 +2,7 @@ var _ = require('lodash');
 
 var config = {
 	'server': {
-		'protocol': 'https',
+		'protocol': 'http',
 		'key': '/sybase/cert/server.key',
 		'cert': '/sybase/cert/server.crt',
 		'port': '8443',

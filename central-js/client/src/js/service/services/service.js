@@ -59,5 +59,23 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 				return response.data;
 			});
 		};
+
+		this.shareLink = function(nID_Subject, nID_Document, sFIO, sTarget, sTelephone, nDays) {
+			var data = {
+				'nID_Subject': nID_Subject,
+				'nID_Document': nID_Document,
+				'sFIO': sFIO,
+				'sTarget': sTarget,
+				'sTelephone': sTelephone,
+				'nDays': nDays.day
+			};
+			console.log(data);
+			return $http.get('./api/service/documents/share', {
+				params: data,
+				data: data
+			}).then(function(response) {
+				return response.data;
+			});
+		};
 	}]);
 });
