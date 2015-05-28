@@ -13,14 +13,6 @@ define('file/directive', ['angularAMD'], function (angularAMD) {
 			require:'ngModel',
 			restrict: 'E',
 			link: function (scope, element, attrs, ngModel) {
-				console.log(scope);
-				/*
-				//set default bootstrap class
-				if(!attrs.class && !attrs.ngClass){
-					element.addClass('btn');
-				}
-				*/
-
 				var fileField = element.find('input');
 
 				fileField.bind('change', function(event){
