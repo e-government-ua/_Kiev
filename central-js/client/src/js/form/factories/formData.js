@@ -88,8 +88,8 @@ define('formData/factory', ['angularAMD', 'file/directive', 'parameter/factory',
 			
 			FormDataFactory.prototype.setFile = function(name, file) {
 				var parameter = this.params[name];
-				parameter.remove(file);
-				parameter.addFiles(file);
+				parameter.removeAll();
+				parameter.addFiles([file]);
 			};
 			
 			FormDataFactory.prototype.setFiles = function(name, files) {
@@ -100,7 +100,7 @@ define('formData/factory', ['angularAMD', 'file/directive', 'parameter/factory',
 			
 			FormDataFactory.prototype.addFile = function(name, file) {
 				var parameter = this.params[name];
-				parameter.addFiles(file);
+				parameter.addFiles([file]);
 			};
 			
 			FormDataFactory.prototype.addFiles = function(name, files) {

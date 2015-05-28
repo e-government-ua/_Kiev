@@ -1,6 +1,7 @@
 define('file/factory', ['angularAMD'], function (angularAMD) {
     angularAMD.factory('FileFactory', ['$q', '$rootScope', 'ActivitiService', 'uiUploader', function ($q, $rootScope, ActivitiService, uiUploader) {
         var file = function () {
+			this.fileName = null;
             this.value = null;
         };
 		
@@ -15,10 +16,14 @@ define('file/factory', ['angularAMD'], function (angularAMD) {
 		file.prototype.setFiles = function(files) {
 			uiUploader.removeAll();
 			uiUploader.addFiles(files);
+			
+			this.fileName = files[0].name;
 		};
 		
 		file.prototype.addFiles = function(files) {
 			uiUploader.addFiles(files);
+			
+			this.fileName = files[0].name;
 		};
 		
 		file.prototype.upload = function(oServiceData) {
