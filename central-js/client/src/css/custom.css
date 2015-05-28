@@ -390,6 +390,16 @@ a {
     height: 21px;
 }
 
+.icon-e-service {
+    vertical-align: middle;
+    display: inline-block;
+    background-image: url(/img/icons/e-icon_small.png);
+    background-repeat: no-repeat !important;
+    background-position: 0px 0px;
+    width: 15px;
+    height: 15px;
+}
+
 .i-btn-badge {
     text-align: left;
     padding-top: 0;
