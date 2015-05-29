@@ -17,7 +17,7 @@ public class DocumentAccess {
 	@Column(name="nID_Document")
 	private Long nID_Document;
 	@Column(name="sDateCreate")
-	private Date sDateCreate;
+	private String sDateCreate;
 	@Column(name="nMS")
 	private Long nMS;
 	@Column(name="sFIO")
@@ -44,11 +44,11 @@ public class DocumentAccess {
 		this.nID_Document = nID_Document;
 	}
 
-	public Date getDateCreate() {
+	public String getDateCreate() {
 		return sDateCreate;
 	}
 
-	public void setDateCreate(Date sDateCreate) {
+	public void setDateCreate(String sDateCreate) {
 		this.sDateCreate = sDateCreate;
 	}
 

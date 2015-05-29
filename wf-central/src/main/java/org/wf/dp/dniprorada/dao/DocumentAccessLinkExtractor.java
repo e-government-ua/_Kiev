@@ -15,7 +15,7 @@ public class DocumentAccessLinkExtractor implements ResultSetExtractor<DocumentA
 		DocumentAccess da = new DocumentAccess();
 		da.setID(rs.getLong("nID"));
 		da.setID_Document(rs.getLong("nID_Document"));
-		da.setDateCreate(rs.getDate("sDateCreate"));
+		da.setDateCreate(rs.getString("sDateCreate"));
 		da.setMS(rs.getLong("nMS"));
 		da.setFIO(rs.getString("sFIO"));
 		da.setMail(rs.getString("sMail"));

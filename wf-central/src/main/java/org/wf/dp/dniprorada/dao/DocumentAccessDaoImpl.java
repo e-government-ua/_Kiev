@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.dao;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -27,9 +28,10 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	@Override
 	public String setDocumentLink(Long nID_Document, String sFIO,
 			String sTarget, String sTelephone, Long nMS, String sMail) throws Exception{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		DocumentAccess oDocumentAccess = new DocumentAccess();
 		oDocumentAccess.setID_Document(nID_Document);
-		oDocumentAccess.setDateCreate(new Date());
+		oDocumentAccess.setDateCreate(sdf.format(new Date()));
 		oDocumentAccess.setMS(nMS);
 		oDocumentAccess.setFIO(sFIO);
 		oDocumentAccess.setMail(sMail);
@@ -38,18 +40,16 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		oDocumentAccess.setSecret(generateSecret());
 		writeRow(oDocumentAccess);
 		StringBuilder osURL = new StringBuilder(sURL);
-		//sURL.append("nID_Document=" + nID_Document + "&");
 		osURL.append("nID_Access=");
-		osURL.append(getIdAccess());
-		osURL.append("&");
+		osURL.append(getIdAccess()+"&");
 		osURL.append("sSecret=");
 		osURL.append(oDocumentAccess.getSecret());
 		return osURL.toString();
 	}
 
 	private String generateSecret() {
-		// 97-122 small
-		// 65-90 big
+		// 97-122 small character
+		// 65-90 big character
 		// 48-57 number
 		StringBuilder os = new StringBuilder();
 		Random ran = new Random();
@@ -78,7 +78,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		StringBuilder os = new StringBuilder();
 		Random ran = new Random();
 		for (int i = 1; i <= 4; i++) {
-                    int big = ran.nextInt((90 - 65) + 1) + 65;
+                    int big = ran.nextInt((57 - 48) + 1) + 48;
                     os.append((char) big);
                     break;
 		}
@@ -90,7 +90,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		Session s = getSession();
 		try{
 			t = s.beginTransaction();
-			getSession().saveOrUpdate(o);
+			s.saveOrUpdate(o);
 			t.commit();
 		} catch(Exception e){
 			t.rollback();
@@ -104,7 +104,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		Session oSession = getSession();
 		List <DocumentAccess> list = null;
 		try{
-			list = getSession().createCriteria(DocumentAccess.class).list();
+			list = oSession.createCriteria(DocumentAccess.class).list();
 		} catch(Exception e){
 			throw e;
 		} finally{
@@ -117,8 +117,13 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	public DocumentAccess getDocumentLink(Long nID_Access, String sSecret) {
 		Session oSession = getSession();
 		List <DocumentAccess> list = null;
+		System.out.println("getDocumentLink");
 		try{
-                    list = oSession.createSQLQuery("FROM DocumentAccess WHERE nID=? AND sSecret=?").list();
+                    list = oSession.createSQLQuery("FROM DocumentAccess WHERE nID="+nID_Access+" AND sSecret="+sSecret).list();
+                    System.out.println("getDocumentLink");
+                    for(DocumentAccess da : list){
+                    	System.out.println(da.getSecret());
+                    }
 		} catch(Exception e){
 			throw e;
 		} finally{
@@ -134,14 +139,14 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		List <DocumentAccess> a = null;
 		try{
                     //TODO убедиться что все проверяется по этим WHERE
-                    a = oSession.createSQLQuery("FROM DocumentAccess WHERE nID=? AND sSecret=?").list();
+                    a = oSession.createSQLQuery("FROM DocumentAccess WHERE nID="+nID_Access+" AND sSecret="+sSecret).list();
                     if(a == null || a.isEmpty()){
                         throw new Exception("Access not accepted!");
                     }
                     DocumentAccess o = a.get(0);
                     String sTelephone = o.getTelephone();
                     //TODO Generate random 4xDigits answercode
-                    String sAnswer = "1234"; //generateAnswer();
+                    String sAnswer = generateAnswer();
                     //TODO SEND SMS with this code
                     //
                     
@@ -163,7 +168,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		List <DocumentAccess> a = null;
 		try{
                     //TODO убедиться что все проверяется по этим WHERE
-                    a = oSession.createSQLQuery("FROM DocumentAccess WHERE nID=? AND sSecret=? AND sAnswer=?").list();
+                    a = oSession.createSQLQuery("Select * FROM DocumentAccess WHERE nID="+nID_Access+" AND sSecret="+sSecret+" AND sAnswer="+sAnswer).list();
                     if(a == null || a.isEmpty()){
                         throw new Exception("Access not accepted!");
                     }

@@ -1,8 +1,9 @@
 package org.activiti.rest.controller;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,11 +53,18 @@ public class ActivitiDocumentAccessController {
 			da = documentAccessDao.getDocumentLink(nID_Access, sSecret);
 		} catch (Exception e){
 			response.setStatus(403);
-			response.setHeader("Reason", "Access not found");
+			response.setHeader("Reason", "Access not found\n"+e.getMessage());
 			return null;
 		}				
-		
-		if(da.getMS()+da.getDateCreate().getTime() < new Date().getTime()){
+		SimpleDateFormat sdf = new SimpleDateFormat();
+		Date d = null;
+		try {
+			d = sdf.parse(da.getDateCreate());
+		} catch (ParseException e) {
+			response.setStatus(400);
+			response.setHeader("Reason", e.getMessage());
+		}
+		if(da.getMS()+ d.getTime() < new Date().getTime()){
 			response.setStatus(403);
 			response.setHeader("Reason", "Access expired");
 		}		
@@ -99,7 +107,5 @@ public class ActivitiDocumentAccessController {
 			response.setHeader("Reason", e.getMessage());
 		}
 		return oAccessURL;
-	}
-        
-
+	}    
 }
