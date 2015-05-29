@@ -254,7 +254,7 @@
 
 
         <!-- ####################################################################################################### -->
-        <createTable tableName="DocumentAccess">
+        <!--createTable tableName="DocumentAccess">
             <column name="nID" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -288,7 +288,7 @@
             <column name="sDateAnswerExpire" type="timestamp">
                 <constraints nullable="true"/>
             </column>
-        </createTable>
+        </createTable-->
         <!--addAutoIncrement columnName="nID" tableName="DocumentAccess" columnDataType="bigint"  incrementBy="1" startWith="1"/-->
 
         <!-- Loading of Data ####################################################################################### -->
@@ -359,7 +359,7 @@
             <column name="sDate_Upload" type="STRING"/>  
             <column name="sContentType" type="STRING"/>  
         </loadData>
-        <loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
+        <!--loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
             <column name="nID" type="NUMERIC" />
             <column name="nID_Document" type="NUMERIC"/>
             <column name="sDateCreate" type="STRING"/>
@@ -371,7 +371,7 @@
             <column name="sSecret" type="STRING"/>    
             <column name="sAnswer" type="STRING"/>
             <column name="sDateAnswerExpire" type="STRING"/>
-        </loadData>
+        </loadData-->
         
     </changeSet>
 </databaseChangeLog>
