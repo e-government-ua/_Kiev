@@ -132,8 +132,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
 
   $scope.sDateShort = function(sDateLong) {
     if (sDateLong !== null) {
-      var o = new Date('2015-04-27T13:19:44.098+03:00');
+      var o = new Date(sDateLong);//'2015-04-27T13:19:44.098+03:00'
       return o.getFullYear() + '-' + o.getMonth() + '-' + o.getDate() + ' ' + o.getHours() + ':' + o.getMinutes();
+      //"2015-05-21T00:40:28.801+03:00\"
     }
   };
 
