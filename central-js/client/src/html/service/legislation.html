@@ -1,3 +1,12 @@
-<div>
-    {{serviсe.sLaw}}
+<div class="list-group">
+	<div class="list-group-item">
+		<div class="row no-margin-bottom">
+			<div class="col-md-1" ng-if="data.serviсe.sLaw!=null">
+                            {{data.serviсe.sLaw}}
+			</div>
+			<div class="col-md-1" ng-if="data.serviсe.sLaw==null">
+                            Розділ у процесі наповнення
+			</div>
+		</div>
+	</div>
 </div>
