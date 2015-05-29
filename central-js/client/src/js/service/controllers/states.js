@@ -33,3 +33,33 @@ define('state/service/general/controller', ['angularAMD'], function (angularAMD)
 		return $state.go('service.general.country', {id: service.nID}, { location: false });
     }]);
 });
+
+
+
+define('state/service/instruction/controller', ['angularAMD'], function (angularAMD) {
+	angularAMD.controller('ServiceInstructionController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
+		$scope.service = service;
+		return $state.go('service.instruction', {id: service.nID}, { location: false });
+    }]);
+});
+
+define('state/service/legislation/controller', ['angularAMD'], function (angularAMD) {
+	angularAMD.controller('ServiceLegislationController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
+		$scope.service = service;
+		return $state.go('service.legislation', {id: service.nID}, { location: false });
+    }]);
+});
+
+define('state/service/questions/controller', ['angularAMD'], function (angularAMD) {
+	angularAMD.controller('ServiceQuestionsController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
+		$scope.service = service;
+		return $state.go('service.questions', {id: service.nID}, { location: false });
+    }]);
+});
+
+define('state/service/discussion/controller', ['angularAMD'], function (angularAMD) {
+	angularAMD.controller('ServiceDiscussionController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
+		$scope.service = service;
+		return $state.go('service.discussion', {id: service.nID}, { location: false });
+    }]);
+});
