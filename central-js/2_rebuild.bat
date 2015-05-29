@@ -5,7 +5,7 @@ rem pm2 delete central-js
 
 rem cd central-js
 
-rem npm install
+npm install
 cd client
 bower install
 bower-update

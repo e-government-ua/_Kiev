@@ -5,7 +5,7 @@ rem cd central-js
 echo started
 npm install -g bower
 npm install -g grunt
-npm install -g bower-update
+rem npm install -g bower-update
 npm install grunt-cli -g
 npm install grunt --save-dev
 npm install pm2 --save-dev
