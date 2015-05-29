@@ -1,3 +1,12 @@
-<div>
-    {{serviсe.sInfo}}
+<div class="list-group">
+	<div class="list-group-item">
+		<div class="row no-margin-bottom">
+			<div class="col-md-1" ng-if="serviсe.sInfo!=null">
+                            {{serviсe.sInfo}}
+			</div>
+			<div class="col-md-1" ng-if="serviсe.sInfo==null">
+                            Розділ у процесі наповнення
+			</div>
+		</div>
+	</div>
 </div>
