@@ -1,13 +1,12 @@
-rem cd /sybase && pm2 stop central-js && pm2 delete central-js
+call npm install -g grunt-cli
+call npm install -g bower
+call npm install -g grunt
+call npm install
 
-rem cd central-js
+cd client
+call npm install
+call bower install
+cd ..
 
-echo started
-npm install -g bower
-npm install -g grunt
-rem npm install -g bower-update
-npm install grunt-cli -g
-npm install grunt --save-dev
-npm install pm2 --save-dev
-npm install pm2 -cli -g
-echo finished
+call 2_build.bat
+call 3_start.bat
