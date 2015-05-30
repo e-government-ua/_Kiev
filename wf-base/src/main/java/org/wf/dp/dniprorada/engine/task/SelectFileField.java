@@ -197,7 +197,7 @@ public class SelectFileField extends HorizontalLayout implements Field
     wrappedField.removeListener(listener);
   }
  
-  public void valueChange(com.vaadin.data.Property.ValueChangeEvent event)
+  public void valueChange(Property.ValueChangeEvent event)
   {
     wrappedField.valueChange(event);
   }

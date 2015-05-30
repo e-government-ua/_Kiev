@@ -13,14 +13,6 @@ define('file/directive', ['angularAMD'], function (angularAMD) {
 			require:'ngModel',
 			restrict: 'E',
 			link: function (scope, element, attrs, ngModel) {
-				console.log(scope);
-				/*
-				//set default bootstrap class
-				if(!attrs.class && !attrs.ngClass){
-					element.addClass('btn');
-				}
-				*/
-
 				var fileField = element.find('input');
 
 				fileField.bind('change', function(event){
@@ -39,7 +31,7 @@ define('file/directive', ['angularAMD'], function (angularAMD) {
 					fileField[0].click();
 				});        
 			},
-			template:'<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-file" aria-hidden="true"></span><span>Завантажити файл</span><input type="file" style="display:none"></button>',
+			template:'<form><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-file" aria-hidden="true"></span><span>Завантажити файл</span><input type="file" style="display:none"></button><div ng-if="data.formData.params[property.id].value">Файл: {{data.formData.params[property.id].fileName}}</div></form>',
 			replace:true,
 			transclude:true
 		};

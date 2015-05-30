@@ -10,6 +10,7 @@ create table DocumentAccess(
  sTelephone varchar (13) null,
  sMail varchar (50) null,
  sSecret varchar (40)
+ sAnswer varchar (40)
 );
 
 /*test*/

@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.dao;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -16,7 +17,7 @@ import org.wf.dp.dniprorada.model.DocumentAccess;
 
 @Repository
 public class DocumentAccessDaoImpl implements DocumentAccessDao {
-	private final String url = "https://igov.org.ua/index#";	
+	private final String sURL = "https://igov.org.ua/index#";	
 	private SessionFactory sessionFactory;
 	
 	@Autowired
@@ -25,57 +26,71 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	}
 
 	@Override
-	public String setDocumentLink(Integer nID_Document, String sFIO,
-			String sTarget, String sTelephone, Long nDays, String sMail) throws Exception{
-		DocumentAccess da = new DocumentAccess();
-		da.setnID_Document(nID_Document);
-		da.setsDateCreate(new Date());
-		da.setsDays(nDays);
-		da.setsFIO(sFIO);
-		da.setsMail(sMail);
-		da.setsTarget(sTarget);
-		da.setsTelephone(sTelephone);
-		da.setsSecret(generateSecret());
-		createRecord(da);
-		StringBuilder sURL = new StringBuilder(url);
-		sURL.append("nID_Document=" + nID_Document + "&");
-		sURL.append("nID_Access=" + getIdAccess() + "&");
-		sURL.append("sSecret=" + da.getsSecret());
-		return sURL.toString();
+	public String setDocumentLink(Long nID_Document, String sFIO,
+			String sTarget, String sTelephone, Long nMS, String sMail) throws Exception{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		DocumentAccess oDocumentAccess = new DocumentAccess();
+		oDocumentAccess.setID_Document(nID_Document);
+		oDocumentAccess.setDateCreate(sdf.format(new Date()));
+		oDocumentAccess.setMS(nMS);
+		oDocumentAccess.setFIO(sFIO);
+		oDocumentAccess.setMail(sMail);
+		oDocumentAccess.setTarget(sTarget);
+		oDocumentAccess.setTelephone(sTelephone);
+		oDocumentAccess.setSecret(generateSecret());
+		writeRow(oDocumentAccess);
+		StringBuilder osURL = new StringBuilder(sURL);
+		osURL.append("nID_Access=");
+		osURL.append(getIdAccess()+"&");
+		osURL.append("sSecret=");
+		osURL.append(oDocumentAccess.getSecret());
+		return osURL.toString();
 	}
 
 	private String generateSecret() {
-		// 97-122 small
-		// 65-90 big
+		// 97-122 small character
+		// 65-90 big character
 		// 48-57 number
-		StringBuilder sb = new StringBuilder();
+		StringBuilder os = new StringBuilder();
 		Random ran = new Random();
 		for (int i = 1; i <= 20; i++) {
 			int a = ran.nextInt(3) + 1;
 			switch (a) {
 			case 1:
 				int num = ran.nextInt((57 - 48) + 1) + 48;
-				sb.append((char) num);
+				os.append((char) num);
 				break;
 			case 2:
 				int small = ran.nextInt((122 - 97) + 1) + 97;
-				sb.append((char) small);
+				os.append((char) small);
 				break;
 			case 3:
 				int big = ran.nextInt((90 - 65) + 1) + 65;
-				sb.append((char) big);
+				os.append((char) big);
 				break;
 			}
 		}
-		return sb.toString();
+		return os.toString();
 	}
+        
+	private String generateAnswer() {
+		// 48-57 number
+		StringBuilder os = new StringBuilder();
+		Random ran = new Random();
+		for (int i = 1; i <= 4; i++) {
+                    int big = ran.nextInt((57 - 48) + 1) + 48;
+                    os.append((char) big);
+                    break;
+		}
+		return os.toString();
+	}        
 
-	private void createRecord(DocumentAccess da) {
+	private void writeRow(DocumentAccess o) {
 		Transaction t = null;
 		Session s = getSession();
 		try{
 			t = s.beginTransaction();
-			getSession().saveOrUpdate(da);
+			s.saveOrUpdate(o);
 			t.commit();
 		} catch(Exception e){
 			t.rollback();
@@ -85,33 +100,93 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		}
 	}
 
-	private Integer getIdAccess() throws Exception{
-		Session s = getSession();
+	private Long getIdAccess() throws Exception{
+		Session oSession = getSession();
 		List <DocumentAccess> list = null;
 		try{
-			list = getSession().createCriteria(DocumentAccess.class).list();
+			list = oSession.createCriteria(DocumentAccess.class).list();
 		} catch(Exception e){
 			throw e;
 		} finally{
-			s.close();
+			oSession.close();
 		}
-		return list.get(0).getnID();
+		return list.get(0).getID();
 	}
 
 	@Override
-	public DocumentAccess getDocumentLink(String nID_Access, String sSecret) {
-		Session s = getSession();
+	public DocumentAccess getDocumentLink(Long nID_Access, String sSecret) {
+		Session oSession = getSession();
 		List <DocumentAccess> list = null;
+		System.out.println("getDocumentLink");
 		try{
-		list = s.createSQLQuery("FROM DocumentAccess WHERE nID=? AND sSecret=?").list();
+                    list = oSession.createSQLQuery("FROM DocumentAccess WHERE nID="+nID_Access+" AND sSecret="+sSecret).list();
+                    System.out.println("getDocumentLink");
+                    for(DocumentAccess da : list){
+                    	System.out.println(da.getSecret());
+                    }
 		} catch(Exception e){
 			throw e;
 		} finally{
-			s.close();
+			oSession.close();
 		}
 		return list.get(0);
 	}
-		
+
+        
+	@Override
+	public String getDocumentAccess(Long nID_Access, String sSecret) throws Exception {
+		Session oSession = getSession();
+		List <DocumentAccess> a = null;
+		try{
+                    //TODO убедиться что все проверяется по этим WHERE
+                    a = oSession.createSQLQuery("FROM DocumentAccess WHERE nID="+nID_Access+" AND sSecret="+sSecret).list();
+                    if(a == null || a.isEmpty()){
+                        throw new Exception("Access not accepted!");
+                    }
+                    DocumentAccess o = a.get(0);
+                    String sTelephone = o.getTelephone();
+                    //TODO Generate random 4xDigits answercode
+                    String sAnswer = generateAnswer();
+                    //TODO SEND SMS with this code
+                    //
+                    
+                    //o.setDateAnswerExpire(null);
+                    o.setAnswer(sAnswer);
+                    writeRow(o);
+		} catch(Exception e){
+			throw e;
+		} finally{
+			oSession.close();
+		}
+		return "/";
+	}
+
+        
+	@Override
+	public String setDocumentAccess(Long nID_Access, String sSecret, String sAnswer) throws Exception {
+		Session oSession = getSession();
+		List <DocumentAccess> a = null;
+		try{
+                    //TODO убедиться что все проверяется по этим WHERE
+                    a = oSession.createSQLQuery("Select * FROM DocumentAccess WHERE nID="+nID_Access+" AND sSecret="+sSecret+" AND sAnswer="+sAnswer).list();
+                    if(a == null || a.isEmpty()){
+                        throw new Exception("Access not accepted!");
+                    }
+                    //DocumentAccess o = a.get(0);
+                    //o.setAnswer(null);
+                    //writeRow(o);
+		} catch(Exception e){
+			throw e;
+		} finally{
+			oSession.close();
+		}
+		return "/";
+	}
+        
+	//public String setDocumentAccess(Integer nID_Access, String sSecret, String sAnswer) throws Exception;
+	//public String getDocumentAccess(Integer nID_Access, String sSecret) throws Exception;
+        
+        
 	private Session getSession(){
 		return sessionFactory.openSession();
 	}

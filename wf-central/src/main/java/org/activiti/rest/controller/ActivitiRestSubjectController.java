@@ -30,9 +30,9 @@ public class ActivitiRestSubjectController {
 	Subject getSubject(@RequestParam(value = "sINN") String inn) {
 		Subject subj = null;
 		try {
-                        log.error("inn(0):"+inn);
+                        //log.error("inn(0):"+inn);
 			subj = subjectDao.getSubject(inn);
-                        log.error("inn(2):"+inn);
+                        //log.error("inn(2):"+inn);
                         /*if(subj==null){
                             throw new Exception("Subject not found: inn="+inn);
                         }*/
