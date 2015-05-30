@@ -91,6 +91,11 @@
 			<property name="baseEntityDao" ref="baseEntityDao"/>
 		</bean>
 
+		<bean id="tableDataService" class="org.wf.dp.dniprorada.service.TableDataService">
+			<property name="dataSource" ref="dataSource"/>
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+
 		<bean id="documentDao" class="org.wf.dp.dniprorada.dao.DocumentDaoImpl" >
 			<property name="sessionFactory" ref="sessionFactory"/>
 		</bean>
