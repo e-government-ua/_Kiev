@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="demo1" name="* Дніпропетровскька МДА - Легалізація об’єднань громадян шляхом повідомлення " isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="firstName" name="Имя" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="lastName" name="Фамилия" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Телефон" type="string" default="380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="mail" name="email" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="type" name="Тип" type="enum" required="true">
+          <activiti:value id="statement" name="заявление"></activiti:value>
+          <activiti:value id="offer" name="предложение"></activiti:value>
+          <activiti:value id="entreaty" name="просьба"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="topic" name="Тема" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="inTask" name="Входящие" activiti:candidateGroups="sales">
+      <extensionElements>
+        <activiti:formProperty id="department" name="отдел" type="enum" required="true">
+          <activiti:value id="engineering" name="инженерный"></activiti:value>
+          <activiti:value id="management" name="управленческий"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="inTask"></sequenceFlow>
+    <userTask id="processTask" name="Обработка" activiti:candidateGroups="${department}">
+      <extensionElements>
+        <activiti:formProperty id="text" name="Обращение" expression="${firstName} на тему ${topic}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="decision" name="решение" type="enum" required="true">
+          <activiti:value id="accept" name="принять"></activiti:value>
+          <activiti:value id="decline" name="отказать"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="duedate" name="срок" type="date" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow2" sourceRef="inTask" targetRef="processTask"></sequenceFlow>
+    <serviceTask id="mailtask1" name="Mail Task" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${mail}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Обращение на тему: ${topic}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Уважаемый, ${firstName} ${lastName}.
+
+тема Вашего обращения - ${topic}.
+статус  - ${decision == 'accept' ? 'в работе' : 'отказ'}
+отдел - ${department == 'managment' ? 'управленческий' : 'инженерный'}
+срок - ${duedate}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[utf8]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow3" sourceRef="processTask" targetRef="mailtask1"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_demo1">
+    <bpmndi:BPMNPlane bpmnElement="demo1" id="BPMNPlane_demo1">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="50.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="inTask" id="BPMNShape_inTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="130.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="processTask" id="BPMNShape_processTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="290.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="460.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="620.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="85.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="130.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="235.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="290.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="395.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="460.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="565.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="620.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
