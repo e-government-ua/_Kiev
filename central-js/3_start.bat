@@ -1,1 +1,1 @@
-call grunt
+grunt
