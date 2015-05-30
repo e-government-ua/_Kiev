@@ -2,7 +2,7 @@ var _ = require('lodash');
 
 var config = {
 	'server': {
-		'protocol': 'https',
+		'protocol': 'http',
 		'key': '/sybase/cert/server.key',
 		'cert': '/sybase/cert/server.crt',
 		'port': '8443',
@@ -26,14 +26,14 @@ var config = {
 };
 
 
-try {
-	var local_config = require('./local_config');
-	_.extend(config, local_config);
-} catch (e) {
-	if (e.code === 'MODULE_NOT_FOUND') {
-		// do nothing
-	}
-}
+//try {
+//	var local_config = require('local_config');
+//	_.extend(config, local_config);
+//} catch (e) {
+//	if (e.code === 'MODULE_NOT_FOUND') {
+//		// do nothing
+//	}
+//}
 
 // use local_config.js if you need to locally change some of the settings
 // as described in README
