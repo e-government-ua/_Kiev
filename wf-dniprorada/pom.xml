@@ -9,7 +9,7 @@
     </parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<name>WorkFlows DniproRada UA/</name>
+	<name>WorkFlows Demo UA/</name>
 	<artifactId>wf-dniprorada</artifactId>
 	<packaging>war</packaging>
 
