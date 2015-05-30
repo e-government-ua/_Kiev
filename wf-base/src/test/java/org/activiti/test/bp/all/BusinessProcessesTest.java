@@ -1,22 +1,16 @@
 package org.activiti.test.bp.all;
 
-import org.activiti.engine.impl.test.PluggableActivitiTestCase;
-import org.activiti.engine.impl.test.TestHelper;
-import org.activiti.engine.repository.ProcessDefinition;
-import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.test.ActivitiRule;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestContextManager;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.plexiti.activiti.test.fluent.ActivitiFluentTestHelper;
-import com.plexiti.activiti.test.fluent.mocking.Mockitos;
+import com.plexiti.activiti.test.fluent.*;
+import com.plexiti.activiti.test.fluent.mocking.*;
+import org.activiti.engine.impl.test.*;
+import org.activiti.engine.repository.*;
+import org.activiti.engine.runtime.*;
+import org.activiti.engine.test.*;
+import org.junit.*;
+import org.junit.runner.*;
+import org.mockito.*;
+import org.springframework.test.context.*;
+import org.springframework.test.context.junit4.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("default")

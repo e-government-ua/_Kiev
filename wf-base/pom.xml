@@ -22,6 +22,7 @@
     </repositories>
     <properties>
         <activity.version>5.17.0</activity.version>
+        <guava-version>15.0</guava-version>
     </properties>
 
     <build>
@@ -55,19 +56,19 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.zeroturnaround</groupId>
-                <artifactId>jrebel-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>generate-rebel-xml</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.zeroturnaround</groupId>-->
+                <!--<artifactId>jrebel-maven-plugin</artifactId>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>generate-rebel-xml</id>-->
+                        <!--<phase>process-resources</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>generate</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.2.1</version>
@@ -86,18 +87,18 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <configuration>
-                    <port>8080</port>
-                    <path>/wf-dniprorada</path>
-                    <systemProperties>
-                        <com.sun.management.jmxremote.port>4000</com.sun.management.jmxremote.port>
-                        <spring.profiles.active>test</spring.profiles.active>
-                    </systemProperties>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.tomcat.maven</groupId>-->
+                <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<port>8080</port>-->
+                    <!--<path>/wf-dniprorada</path>-->
+                    <!--<systemProperties>-->
+                        <!--<com.sun.management.jmxremote.port>4000</com.sun.management.jmxremote.port>-->
+                        <!--<spring.profiles.active>test</spring.profiles.active>-->
+                    <!--</systemProperties>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
         <pluginManagement>
             <plugins>
@@ -137,6 +138,11 @@
         </pluginManagement>
     </build>
     <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava-version}</version>
+        </dependency>
         <dependency>
             <groupId>jmimemagic</groupId>
             <artifactId>jmimemagic</artifactId>
@@ -214,12 +220,12 @@
             <artifactId>wf-dniprorada-redis</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.egov-ua</groupId>
-		    <artifactId>org.egov-ua.storage.durable</artifactId>
-		    <version>1.0-SNAPSHOT</version>
-		</dependency>
+            <artifactId>org.egov-ua.storage.durable</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
         <!-- Database -->
         <dependency>
@@ -288,7 +294,12 @@
             <artifactId>gwt-servlet</artifactId>
             <version>2.3.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.plexiti.activiti</groupId>
+            <artifactId>activiti-fluent-tests</artifactId>
+            <version>0.3</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
