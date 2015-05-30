@@ -1,43 +1,19 @@
 package org.activiti.test.bp.all;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
-import org.activiti.bpmn.model.Artifact;
-import org.activiti.bpmn.model.Association;
-import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.CallActivity;
-import org.activiti.bpmn.model.ExclusiveGateway;
-import org.activiti.bpmn.model.FlowElement;
+import com.google.common.base.*;
+import com.google.common.collect.*;
+import com.plexiti.activiti.test.fluent.*;
+import org.activiti.bpmn.model.*;
 import org.activiti.bpmn.model.Process;
-import org.activiti.bpmn.model.ServiceTask;
-import org.activiti.bpmn.model.StartEvent;
-import org.activiti.engine.impl.test.PluggableActivitiTestCase;
-import org.activiti.engine.impl.test.TestHelper;
-import org.activiti.engine.repository.ProcessDefinition;
-import org.activiti.engine.test.ActivitiRule;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestContextManager;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.activiti.engine.impl.test.*;
+import org.activiti.engine.repository.*;
+import org.activiti.engine.test.*;
+import org.junit.*;
+import org.junit.runner.*;
+import org.springframework.test.context.*;
+import org.springframework.test.context.junit4.*;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.plexiti.activiti.test.fluent.ActivitiFluentTestHelper;
+import java.util.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("default")
