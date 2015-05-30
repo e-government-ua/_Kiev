@@ -29,9 +29,9 @@
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Inn" name="ІПН; власника (землекористувача) земельної ділянки або уповноваженої ним особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження земельної ділянки" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file1" name="Запит нотаріуса " type="file" required="true"></activiti:formProperty>
+        <!--activiti:formProperty id="file1" name="Запит нотаріуса " type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Копия паспорта (перша сторінка) " type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копия паспорта (друга сторінка) " type="file" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file3" name="Копия паспорта (друга сторінка) " type="file" writable="false" required="true"></activiti:formProperty-->
         <activiti:formProperty id="decide" name="Рішення про реєстрацію" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
@@ -60,9 +60,9 @@
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Inn" name="ІПН; власника (землекористувача) земельної ділянки або уповноваженої ним особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження земельної ділянки" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file1" name="Запит нотаріуса " type="file" required="true"></activiti:formProperty>
+        <!--activiti:formProperty id="file1" name="Запит нотаріуса " type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Копия паспорта (перша сторінка) " type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копия паспорта (друга сторінка) " type="file" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file3" name="Копия паспорта (друга сторінка) " type="file" writable="false" required="true"></activiti:formProperty-->
         <activiti:formProperty id="regChanged" name="Документи готові?" type="enum" required="true">
           <activiti:value id="yes" name="Так, готові"></activiti:value>
         </activiti:formProperty>
