@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <name>E-Government-UA Long-Term Storage</name>
+    <name>iGov-UA Storage Static</name>
 
     <artifactId>org.egov-ua.storage.durable</artifactId>
     <packaging>jar</packaging>

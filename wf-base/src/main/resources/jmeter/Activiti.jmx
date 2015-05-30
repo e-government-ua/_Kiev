@@ -597,7 +597,7 @@ vars.put(&quot;formDataJson&quot;, formDataJson);</stringProp>
           </elementProp>
           <elementProp name="context" elementType="Argument">
             <stringProp name="Argument.name">context</stringProp>
-            <stringProp name="Argument.value">${__P(context,wf-dniprorada)}</stringProp>
+            <stringProp name="Argument.value">${__P(context,wf-region)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="login" elementType="Argument">

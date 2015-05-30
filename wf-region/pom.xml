@@ -9,8 +9,8 @@
     </parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<name>WorkFlows Region-Demo UA/</name>
-	<artifactId>wf-dniprorada</artifactId>
+	<name>iGov-UA WF-Region/</name>
+	<artifactId>wf-region</artifactId>
 	<packaging>war</packaging>
 
 	<properties>
@@ -114,7 +114,7 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<configuration>
 					<port>8080</port>
-					<path>/wf-dniprorada</path>
+					<path>/wf-region</path>
 					<systemProperties>
 						<com.sun.management.jmxremote.port>4000</com.sun.management.jmxremote.port>
 						<spring.profiles.active>test</spring.profiles.active>
@@ -321,7 +321,7 @@
 		<!-- REDIS -->
 		<dependency>
 			<groupId>org.activiti.redis</groupId>
-			<artifactId>wf-dniprorada-redis</artifactId>
+			<artifactId>wf-region-redis</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

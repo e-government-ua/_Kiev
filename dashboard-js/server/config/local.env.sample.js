@@ -12,7 +12,7 @@ module.exports = {
 	ACTIVITI_PROT: 'https',
 	ACTIVITI_HOST: 'test.igov.org.ua',
 	ACTIVITI_PORT: 8080,
-	ACTIVITI_REST: 'wf-dniprorada/service',
+	ACTIVITI_REST: 'wf-region/service',
 	ACTIVITI_AUTH_BASIC: 'Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=',
 	ACTIVITI_SESSION_IDLE: 3000,
 	ACTIVITI_SESSION_TIMEOUT: 3000,

@@ -30,8 +30,8 @@ public class JsonpCallbackFilter implements Filter {
     
     
     String sRequestURL = httpRequest.getRequestURL().toString();
-    //String sPath = "wf-dniprorada/";
-    //String sPath = "wf-dniprorada/";
+    //String sPath = "wf-region/";
+    //String sPath = "wf-region/";
     //"*/index","*/startForm","*/startedProcess"
     if(sRequestURL.endsWith("/index")
     || sRequestURL.endsWith("/startForm")
