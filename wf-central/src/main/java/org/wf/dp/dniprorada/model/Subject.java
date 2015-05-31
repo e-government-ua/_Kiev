@@ -2,6 +2,7 @@ package org.wf.dp.dniprorada.model;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import net.sf.brunneng.jom.annotations.Identifier;
@@ -14,7 +15,7 @@ public class Subject {
 	
 	@JsonProperty(value = "nID")
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "nID")
 	private Long nID;
 	
