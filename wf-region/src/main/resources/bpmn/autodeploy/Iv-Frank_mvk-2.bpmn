@@ -66,6 +66,7 @@
         <activiti:formProperty id="regChanged" name="Документи готові?" type="enum" required="true">
           <activiti:value id="yes" name="Так, готові"></activiti:value>
         </activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${addAttachmentFromCurrentTaskListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow4" name="${decide == 'accept'}" sourceRef="exclusivegateway1" targetRef="usertask3">
