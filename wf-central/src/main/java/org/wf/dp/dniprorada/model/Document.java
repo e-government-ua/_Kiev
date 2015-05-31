@@ -70,13 +70,14 @@ public class Document {
 	private String subjectName_Upload;
 
 	@JsonProperty(value = "oSubject_Upload")
-	@ManyToOne(fetch = FetchType.EAGER)
+	//@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = Subject.class, fetch = FetchType.EAGER, optional = true)
 	@JoinColumn(name = "nID_Subject_Upload", nullable = true)
 	private Subject subject_Upload;
         
         
 	@Identifier
-	public Long getId() {
+	public Long getId() { 
 		return id;
 	}
 

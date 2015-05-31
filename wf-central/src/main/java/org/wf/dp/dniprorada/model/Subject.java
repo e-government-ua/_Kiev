@@ -3,8 +3,6 @@ package org.wf.dp.dniprorada.model;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 
 import net.sf.brunneng.jom.annotations.Identifier;
 
