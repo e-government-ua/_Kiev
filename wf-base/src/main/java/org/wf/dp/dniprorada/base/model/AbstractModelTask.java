@@ -291,6 +291,7 @@ public abstract class AbstractModelTask {
         for(Attachment item: processInstanceAttachments){
             attachentsNames.add(item.getName());
         }
+        System.out.println(attachentsNames);
 
         if (!listValueKeys.isEmpty()) {
             int n = 0;
@@ -322,8 +323,9 @@ public abstract class AbstractModelTask {
                         if (!filedName.isEmpty() && n < filedName.size()) {
                             String name = filedName.get((filedName.size() - 1) - n);
                             LOG.info("name=" + name);
-
+                            System.out.println("outFilename + keyRedis" + outFilename + keyRedis);
                             if (!attachentsNames.contains(outFilename + keyRedis)) {
+                                System.out.println("proceed task.getId():" + task.getId() + " execution.getProcessInstanceId()");
                                 execution
                                         .getEngineServices()
                                         .getTaskService()
@@ -331,7 +333,7 @@ public abstract class AbstractModelTask {
                                                 contentMultipartFile.getContentType()
                                                         + ";"
                                                         + contentMultipartFile.getExp(),
-                                                /*task.getId()*/ null,
+                                                task.getId(),
                                                 execution.getProcessInstanceId(),
                                                 outFilename + keyRedis,
                                                 name, is);
