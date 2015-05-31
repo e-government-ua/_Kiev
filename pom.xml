@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<name>iGov-UA</name>
-
+ 
 	<groupId>org.egov-ua</groupId>
 	<artifactId>org.egov-ua</artifactId>
 	<packaging>pom</packaging>
@@ -100,8 +100,8 @@
 			<id>wf-all</id>
 
 			<modules>
-				<module>storage</module>
-				<module>redis</module>
+				<module>storage-static</module>
+				<module>storage-temp</module>
 				<module>wf-base</module>
 				<module>wf-region</module>
 				<module>wf-central</module>
@@ -116,8 +116,8 @@
 			<id>wf-region</id>
 
 			<modules>
-				<module>storage</module>
-				<module>redis</module>
+				<module>storage-static</module>
+				<module>storage-temp</module>
 				<module>wf-base</module>
 				<module>wf-region</module>
 			</modules>
@@ -127,8 +127,8 @@
 			<id>wf-central</id>
 
 			<modules>
-				<module>storage</module>
-				<module>redis</module>
+				<module>storage-static</module>
+				<module>storage-temp</module>
 				<module>wf-base</module>
 				<module>wf-central</module>
 			</modules>
