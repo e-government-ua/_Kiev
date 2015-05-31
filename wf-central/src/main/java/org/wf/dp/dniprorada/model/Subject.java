@@ -1,53 +1,69 @@
 package org.wf.dp.dniprorada.model;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+import net.sf.brunneng.jom.annotations.Identifier;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@javax.persistence.Entity
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Subject {
-	private Integer nID;
+	
+	@JsonProperty(value = "nID")
+	@Id
+	@GeneratedValue
+	@Column(name = "nID")
+	private Long nID;
+	
+	@JsonProperty(value = "sID")
+	@Column(name = "sID", nullable = true)
 	private String sID;
-	private String sINN;
-	private String sPassport;
-	private String sSB;
-	private String sOKPO;
-	private String sName;
-	public Integer getnID() {
+	
+	@JsonProperty(value = "sLabel")
+	@Column(name = "sLabel", nullable = true)
+	private String sLabel;
+	
+	@JsonProperty(value = "sLabelShort")
+	@Column(name = "sLabelShort", nullable = true)
+	private String sLabelShort;
+	
+	
+	@Identifier
+	public Long getnID() {
 		return nID;
 	}
-	public void setnID(Integer nID) {
+	
+	public void setnID(Long nID) {
 		this.nID = nID;
 	}
+
 	public String getsID() {
 		return sID;
 	}
+
 	public void setsID(String sID) {
 		this.sID = sID;
 	}
-	public String getsINN() {
-		return sINN;
+
+	public String getsLabel() {
+		return sLabel;
 	}
-	public void setsINN(String sINN) {
-		this.sINN = sINN;
+
+	public void setsLabel(String sLabel) {
+		this.sLabel = sLabel;
 	}
-	public String getsSB() {
-		return sSB;
+
+	public String getsLabelShort() {
+		return sLabelShort;
 	}
-	public void setsSB(String sSB) {
-		this.sSB = sSB;
+
+	public void setsLabelShort(String sLabelShort) {
+		this.sLabelShort = sLabelShort;
 	}
-	public String getsPassport() {
-		return sPassport;
-	}
-	public void setsPassport(String sPassport) {
-		this.sPassport = sPassport;
-	}
-	public String getsOKPO() {
-		return sOKPO;
-	}
-	public void setsOKPO(String sOKPO) {
-		this.sOKPO = sOKPO;
-	}
-	public String getsName() {
-		return sName;
-	}
-	public void setsName(String sName) {
-		this.sName = sName;
-	}
+
 }

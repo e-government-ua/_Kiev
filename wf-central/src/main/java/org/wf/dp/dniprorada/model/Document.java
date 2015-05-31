@@ -59,17 +59,23 @@ public class Document {
 	@Transient
 	private String sDate_Upload;
 
+	@JsonProperty(value = "sContentType")
+	@Column(name = "sContentType", nullable = false)
+	private String sContentType;
+	
+	//Todo: убрать поля, когда клиент отцепится от них
 	@JsonProperty(value = "sID_Subject_Upload")
 	@Column(name = "sID_Subject_Upload", nullable = false)
-	private String subject_Upload;
+	private String sID_subject_Upload;
 
 	@JsonProperty(value = "sSubjectName_Upload")
 	@Column(name = "sSubjectName_Upload", nullable = false)
 	private String subjectName_Upload;
 
-	@JsonProperty(value = "sContentType")
-	@Column(name = "sContentType", nullable = false)
-	private String sContentType;
+	@JsonProperty(value = "oSubject_Upload")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "nID_Subject_Upload", nullable = true)
+	private Subject subject_Upload;
         
         
 	@Identifier
@@ -113,9 +119,6 @@ public class Document {
 		 this.date_Upload = date_Upload;
 	}
 
-	public String getSubject_Upload() {
-		return subject_Upload;
-	}
 	
     @Transient
 	public String getsDate_Upload() {
@@ -124,10 +127,6 @@ public class Document {
 
 	public void setsDate_Upload(String sDate_Upload) {
 		this.sDate_Upload = sDate_Upload;
-	}
-
-	public void setSubject_Upload(String subject_Upload) {
-		this.subject_Upload = subject_Upload;
 	}
 
 	public DocumentType getDocumentType() {
@@ -154,19 +153,21 @@ public class Document {
 		this.subjectName_Upload = subjectName_Upload;
 	}
 
-	/*
-	 * Todo: Later we are going to change the sID_Subject_Upload and
-	 * sSubjectName_Upload to oSubject_Upload
-	 * 
-	 * @JsonProperty(value="oSubject_Upload")
-	 * 
-	 * @ManyToOne(fetch = FetchType.EAGER)
-	 * 
-	 * @Cascade({CascadeType.SAVE_UPDATE})
-	 * 
-	 * @JoinColumn(name = "nID_ContentType", nullable = false) private Subject
-	 * nID_Subject_Upload;
-	 */
+	public String getsID_subject_Upload() {
+		return sID_subject_Upload;
+	}
+
+	public void setsID_subject_Upload(String sID_subject_Upload) {
+		this.sID_subject_Upload = sID_subject_Upload;
+	}
+
+	public Subject getSubject_Upload() {
+		return subject_Upload;
+	}
+
+	public void setSubject_Upload(Subject subject_Upload) {
+		this.subject_Upload = subject_Upload;
+	}
 
 	public String getContentType() {
 		return sContentType ;

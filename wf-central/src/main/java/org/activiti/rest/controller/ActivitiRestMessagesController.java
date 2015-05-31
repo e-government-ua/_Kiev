@@ -27,7 +27,7 @@ public class ActivitiRestMessagesController {
     @ResponseBody
     HttpStatus setMessage(@RequestParam(value = "sHead") String sHead,
                           @RequestParam(value = "sBody") String sBody,
-                          @RequestParam(value = "nID_Subject", required = false) Integer nID_Subject,
+                          @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
                           @RequestParam(value = "sMail", required = false) String sMail,
                           @RequestParam(value = "sContacts", required = false) String sContacts,
                           @RequestParam(value = "sData", required = false) String sData) {
@@ -52,7 +52,7 @@ public class ActivitiRestMessagesController {
         return message;
     }
 
-    private SubjectMessage createSubjectMessage(String sHead, String sBody, Integer nID_subject, String sMail, String sContacts, String sData) {
+    private SubjectMessage createSubjectMessage(String sHead, String sBody, Long nID_subject, String sMail, String sContacts, String sData) {
         SubjectMessage message = new SubjectMessage();
         message.setHead(sHead);
         message.setBody(sBody);

@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.DocumentContentType;
 import org.wf.dp.dniprorada.model.DocumentType;
+import org.wf.dp.dniprorada.model.Subject;
 import org.wf.dp.dniprorada.util.Util;
 
 import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
@@ -21,8 +22,6 @@ import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 public class DocumentDaoImpl implements DocumentDao {
 
 	private SessionFactory sessionFactory;
-	
-	//private String mokeContentDocument = "123456789";
 	
 	@Autowired
 	private GridFSBytesDataStorage durableBytesDataStorage;
@@ -55,28 +54,19 @@ public class DocumentDaoImpl implements DocumentDao {
 	public byte[] getDocumentContent(Long id) {
 		Document document = (Document) getSession().get(Document.class, id);
 		return durableBytesDataStorage.getData(document.getСontentKey());
-		//return Util.contentStringToByte(mokeContentDocument);
 	}
 
 	@Override
 	public byte[] getDocumentContent(String contentKey) {
 		return durableBytesDataStorage.getData(contentKey);
-		//return Util.contentStringToByte(mokeContentDocument);
 	}
 
-	@Override
-	//public Long setDocument(String subject_Upload, String subjectName_Upload,
-	//		String name, String file, Integer documentTypeId,
-	//		Integer documentContentTypeId, byte[] content) {
-	//public Long setDocument(String sID_Subject_Upload, String sSubjectName_Upload,
-	//		String sName, Integer nID_DocumentType,
-	//		Integer nID_DocumentContentType, MultipartFile oFile) throws IOException {
-	public Long setDocument(String sID_Subject_Upload, String sSubjectName_Upload,
+	public Long setDocument(Long nID_Subject_Upload, String sID_Subject_Upload, String sSubjectName_Upload,
 			String sName, Integer nID_DocumentType,
 			Integer nID_DocumentContentType, String sFileName, String sFileContentType, byte[] aoContent) throws IOException {
             
 		Document document = new Document();
-		document.setSubject_Upload(sID_Subject_Upload);
+		document.setsID_subject_Upload(sID_Subject_Upload);
 		document.setSubjectName_Upload(sSubjectName_Upload);
 		document.setName(sName);
 		
@@ -88,11 +78,15 @@ public class DocumentDaoImpl implements DocumentDao {
 		documentContentType.setId(nID_DocumentContentType==null?2:nID_DocumentContentType);//TODO определять/генерить реальный ИД, по Контенттайп с oFile
 		document.setDocumentContentType(documentContentType);
 		
+		if(nID_Subject_Upload != null){
+			Subject subject_Upload = new Subject();
+			subject_Upload.setnID(nID_Subject_Upload);
+			document.setSubject_Upload(subject_Upload);
+		}
+		
 		document.setСontentKey(durableBytesDataStorage.saveData(aoContent));
-		//document.setСontentKey(durableBytesDataStorage.saveData(content));
 		document.setContentType(sFileContentType);
 		document.setFile(sFileName);
-		//document.setFile(file);
 		document.setDate_Upload(new Date());
 		getSession().saveOrUpdate(document);
 		return document.getId();

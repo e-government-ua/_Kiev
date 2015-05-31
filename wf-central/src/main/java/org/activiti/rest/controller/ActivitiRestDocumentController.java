@@ -7,17 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.engine.ActivitiObjectNotFoundException;
-import org.activiti.engine.task.Attachment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.dao.DocumentContentTypeDao;
-import org.wf.dp.dniprorada.dao.DocumentDao; 
+import org.wf.dp.dniprorada.dao.DocumentDao;
 import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.DocumentContentType;
 import org.wf.dp.dniprorada.util.Util;
@@ -73,6 +71,8 @@ public class ActivitiRestDocumentController {
 	@RequestMapping(value = "/setDocument", method = RequestMethod.POST)
 	public @ResponseBody
 	Long setDocument(
+			@RequestParam(value = "nID_Subject_Upload", required = false) Long nID_Subject_Upload,
+			//Todo: убрать, когда клиент отцепится
 			@RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
 			@RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
 			@RequestParam(value = "sName") String sName,
@@ -100,6 +100,7 @@ public class ActivitiRestDocumentController {
                         } 
                         
                         return documentDao.setDocument(
+                        		nID_Subject_Upload,
                         		sID_Subject_Upload,
                         		sSubjectName_Upload,
                         		sName,
@@ -108,22 +109,21 @@ public class ActivitiRestDocumentController {
                                 sFileName,
                                 sFileContentType,
 		                        aoContent);
-						//oFile
-						//fileName == null ? request.getHeader("filename"): fileName,
-						//documentContentType == null ? 2 : documentContentType, content);
                                                 
 	}
         
 	@RequestMapping(value = "/setDocumentFile", method = RequestMethod.POST)
 	public @ResponseBody
 	Long setDocumentFile(
+			@RequestParam(value = "nID_Subject_Upload", required = false) Long nID_Subject_Upload,
+			//Todo: убрать, когда клиент отцепится
 			@RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
 			@RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
 			@RequestParam(value = "sName") String sName,
 			//@RequestParam(value = "sFile", required = false) String fileName,
 			@RequestParam(value = "nID_DocumentType") Integer nID_DocumentType,
 			@RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
-                        @RequestParam(value = "oFile", required = false) MultipartFile oFile,
+            @RequestParam(value = "oFile", required = false) MultipartFile oFile,
 			//@RequestBody byte[] content,
 			HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
             
@@ -133,18 +133,15 @@ public class ActivitiRestDocumentController {
             
                         return documentDao
 				.setDocument(
+						nID_Subject_Upload,
 						sID_Subject_Upload,
 						sSubjectName_Upload,
 						sName,
 						nID_DocumentType,
 						nID_DocumentContentType,
-                                                sFileName,
-                                                sFileContentType,
-						aoContent
-						//oFile
-						//fileName == null ? request.getHeader("filename"): fileName,
-						//documentContentType == null ? 2 : documentContentType, content);
-                                                );
+                        sFileName,
+                        sFileContentType,
+						aoContent);
 	}
 
 }
