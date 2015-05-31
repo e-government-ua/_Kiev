@@ -60,6 +60,20 @@ define('state/service/questions/controller', ['angularAMD'], function (angularAM
 define('state/service/discussion/controller', ['angularAMD'], function (angularAMD) {
 	angularAMD.controller('ServiceDiscussionController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
 		$scope.service = service;
+
+		// TODO:Refactoring Consider way to introduce a wrapper directive to keep HC logic and settings
+		var HC_LOAD_INIT = false;
+		window._hcwp = window._hcwp || [];
+		window._hcwp.push({widget: 'Stream', widget_id: 60115});
+		if ('HC_LOAD_INIT' in window) return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage ||  'en').substr(0, 2).toLowerCase();
+		var hcc = document.createElement('script');
+		hcc.type = 'text/javascript';
+		hcc.async = true;
+		hcc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://w.hypercomments.com/widget/hc/60115/' + lang + '/widget.js';
+		angular.element(document.querySelector('#hypercomments_widget')).append(hcc);
+
 		return $state.go('service.discussion', {id: service.nID, service: service}, { location: false });
     }]);
 });
