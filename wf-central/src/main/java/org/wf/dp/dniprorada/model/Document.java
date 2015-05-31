@@ -13,9 +13,6 @@ import javax.persistence.Transient;
 
 import net.sf.brunneng.jom.annotations.Identifier;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @javax.persistence.Entity
