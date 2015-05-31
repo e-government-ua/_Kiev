@@ -36,6 +36,11 @@ public class ServiceData extends Entity {
 	@JoinColumn(name = "nID_ServiceType", nullable = false)
 	private ServiceType serviceType;
 	
+	@JsonProperty(value = "oSubject_Operator")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "nID_Subject_Operator", nullable = true)
+	private SubjectOrgan subject_Operator;
+	
 	@JsonProperty(value = "oData")
 	@Column(name = "oData", nullable = false)
 	private String data;

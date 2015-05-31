@@ -1,10 +1,6 @@
 package org.wf.dp.dniprorada.base.model;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,13 +11,19 @@ import net.sf.jmimemagic.MagicException;
 import net.sf.jmimemagic.MagicMatchNotFoundException;
 import net.sf.jmimemagic.MagicParseException;
 
+import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
+import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.Expression;
+import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.StartFormData;
+import org.activiti.engine.task.Attachment;
 import org.activiti.redis.model.ByteArrayMultipartFile;
+import org.activiti.redis.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.form.FormFileType;
 import org.wf.dp.dniprorada.model.MimiTypeModel;
@@ -36,6 +38,10 @@ public abstract class AbstractModelTask {
 	
 	public static final String LIST_KEY_PREFIX = "lst";
 	public static final String LIST_KEY_DELIM = ":";
+
+	@Autowired
+	RedisService redisService;
+
 	/**
 	 * Получить список по ключу списка из execution
 	 * @param listKey
@@ -129,8 +135,8 @@ public abstract class AbstractModelTask {
 	}
 	
 	/**
-	 * Конверт Byte To String 
-	 * @param contentbyte
+	 * Конверт String to Byte
+	 * @param contentString
 	 * @return
 	 * @throws java.io.IOException
 	 */
@@ -173,8 +179,7 @@ public abstract class AbstractModelTask {
 	 * @param filedTypeFile
 	 * @return
 	 */
-	public static List<String> getValueFieldWithCastomTypeFile(
-			DelegateExecution execution, List<String> filedTypeFile) {
+	public static List<String> getValueFieldWithCastomTypeFile(DelegateExecution execution, List<String> filedTypeFile) {
 		List<String> listValueKeys = new ArrayList<String>();
 		if (!filedTypeFile.isEmpty()) {
 			Map<String, Object> variables = execution.getEngineServices()
@@ -194,7 +199,7 @@ public abstract class AbstractModelTask {
 	 * @param startformData
 	 * @return
 	 */
-	public static List<String> getListFieldCastomTypeFile(StartFormData startformData) {
+	public static List<String> getListFieldCastomTypeFile(FormData startformData) {
 		List<String>filedTypeFile = new ArrayList<String>();
 		List<FormProperty> startformDataList = startformData.getFormProperties();
 		if(!startformDataList.isEmpty()){
@@ -212,7 +217,7 @@ public abstract class AbstractModelTask {
 	 * @param startformData
 	 * @return
 	 */
-	public static List<String> getListCastomFieldName(StartFormData startformData) {
+	public static List<String> getListCastomFieldName(FormData startformData) {
 		List<String>filedName = new ArrayList<String>();
 		List<FormProperty> startformDataList = startformData.getFormProperties();
 		if(!startformDataList.isEmpty()){
@@ -258,5 +263,90 @@ public abstract class AbstractModelTask {
 		  ByteArrayMultipartFile contentMultipartFile = (ByteArrayMultipartFile) ois.readObject();
 		ois.close();
 		return contentMultipartFile;
+	}
+
+
+    /**
+     * Adds Attachemnts based on formData to task.
+     * @param formData FormData from task where we search file fields.
+     * @param task where we add Attachments.
+     */
+
+    public void addAttachmentsToTask(FormData formData, DelegateTask task) {
+
+        DelegateExecution execution = task.getExecution();
+        List<String> filedTypeFile = getListFieldCastomTypeFile(formData);
+        LOG.info("11filedTypeFile="+filedTypeFile.toString());
+
+        List<String> listValueKeys = getValueFieldWithCastomTypeFile(execution,
+                filedTypeFile);
+        LOG.info("21listValueKeys="+listValueKeys.toString());
+
+        List<String> filedName = getListCastomFieldName(formData);
+        LOG.info("31filedName="+filedName.toString());
+
+        List<Attachment> processInstanceAttachments = execution.getEngineServices().
+                getTaskService().getProcessInstanceAttachments(task.getProcessInstanceId());
+        List<String> attachentsNames = new ArrayList<>();
+        for(Attachment item: processInstanceAttachments){
+            attachentsNames.add(item.getName());
+        }
+        System.out.println(attachentsNames);
+
+        if (!listValueKeys.isEmpty()) {
+            int n = 0;
+            for (String keyRedis : listValueKeys) {
+                LOG.info("keyRedis=" + keyRedis);
+                if (keyRedis != null && !keyRedis.isEmpty()) {
+                    byte[] byteFile = getRedisService().getAttachments(keyRedis);
+                    ByteArrayMultipartFile contentMultipartFile = null;
+                    try {
+                        contentMultipartFile = getByteArrayMultipartFileFromRedis(byteFile);
+                    } catch (ClassNotFoundException | IOException e1) {
+                        throw new ActivitiException(e1.getMessage(), e1);
+                    }
+                    InputStream is = null;
+                    try {
+                        is = contentMultipartFile.getInputStream();
+                    } catch (Exception e) {
+                        throw new ActivitiException(e.getMessage(), e);
+                    }
+                    if (contentMultipartFile != null) {
+                        String outFilename = null;
+                        try {
+                            outFilename = new String(contentMultipartFile
+                                    .getOriginalFilename().getBytes(
+                                            "ISO-8859-1"), "UTF-8");
+                        } catch (java.io.UnsupportedEncodingException e) {
+                            throw new ActivitiException(e.getMessage(), e);
+                        }
+                        if (!filedName.isEmpty() && n < filedName.size()) {
+                            String name = filedName.get((filedName.size() - 1) - n);
+                            LOG.info("name=" + name);
+                            System.out.println("outFilename + keyRedis" + outFilename + keyRedis);
+                            if (!attachentsNames.contains(outFilename + keyRedis)) {
+                                System.out.println("proceed task.getId():" + task.getId() + " execution.getProcessInstanceId()");
+                                execution
+                                        .getEngineServices()
+                                        .getTaskService()
+                                        .createAttachment(
+                                                contentMultipartFile.getContentType()
+                                                        + ";"
+                                                        + contentMultipartFile.getExp(),
+                                                task.getId(),
+                                                execution.getProcessInstanceId(),
+                                                outFilename + keyRedis,
+                                                name, is);
+                            }
+                        }
+                    }
+                }
+                n++;
+            }
+        }
+    }
+
+	public RedisService getRedisService() {
+		return redisService;
 	}
 }

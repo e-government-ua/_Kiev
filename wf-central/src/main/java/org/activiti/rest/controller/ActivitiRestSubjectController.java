@@ -1,9 +1,12 @@
 package org.activiti.rest.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,48 +14,72 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wf.dp.dniprorada.dao.SubjectDao;
-import org.wf.dp.dniprorada.dao.SubjectExtractor;
+import org.wf.dp.dniprorada.dao.SubjectHumanDao;
+import org.wf.dp.dniprorada.dao.SubjectOrganDao;
 import org.wf.dp.dniprorada.model.Subject;
+import org.wf.dp.dniprorada.model.SubjectHuman;
+import org.wf.dp.dniprorada.model.SubjectOrgan;
+import org.wf.dp.dniprorada.util.Util;
+
 
 @Controller
 @RequestMapping(value = "/subject")
 public class ActivitiRestSubjectController {
 
-        //private final Logger log = LoggerFactory.getLogger(ActivitiRestSubjectController.class);
-        private final Logger log = LoggerFactory.getLogger(SubjectExtractor.class);
-  
+    private final Logger log = LoggerFactory.getLogger(Subject.class);
+ 
 	@Autowired
-	@Qualifier(value = "subjectDao")
 	private SubjectDao subjectDao;
+	
+	@Autowired
+	private SubjectHumanDao subjectHumanDao;
+	
+	@Autowired
+	private SubjectOrganDao subjectOrganDao;
 
 	@RequestMapping(value = "/syncSubject", method = RequestMethod.GET, headers = {"Accept=application/json"})
 	public @ResponseBody
-	Subject getSubject(@RequestParam(value = "sINN") String inn) {
-		Subject subj = null;
-		try {
-                        //log.error("inn(0):"+inn);
-			subj = subjectDao.getSubject(inn);
-                        //log.error("inn(2):"+inn);
-                        /*if(subj==null){
-                            throw new Exception("Subject not found: inn="+inn);
-                        }*/
-		} catch (Exception ex) {
-                        //System.err.println(ex.getMessage());
-                        log.error("syncSubject_sID_Error(1):"+ex.toString());
-                        log.error("syncSubject_sID_Error(2):"+ex.getMessage());
-                        if(subj==null){
-                            try {
-                                    subj = subjectDao.insertSubject(inn);
-                            } catch (Exception e) {
-                                    throw e;
-                            }
-                        }
-		}
-		return subj;
+	Subject syncSubject(@RequestParam(value = "nID", required = false) Long nID,
+			@RequestParam(required = false) String sINN,
+			@RequestParam(required = false) String sOKPO,
+			HttpServletRequest request, HttpServletResponse httpResponse) {
+		log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		   Subject subject = null;
+			if(nID != null){
+				subject = subjectDao.getSubject(nID);
+			} else if(Util.isNotEmpty(sINN)){
+				SubjectHuman subjectHuman = subjectHumanDao.getSubjectHuman(sINN);
+				if(subjectHuman == null){
+					subjectHuman = subjectHumanDao.setSubjectHuman(sINN);
+				} 
+				subject = subjectHuman.getoSubject();
+			} else if(Util.isNotEmpty(sOKPO)){
+				SubjectOrgan subjectOrgan = subjectOrganDao.getSubjectOrgan(sOKPO);
+				if(subjectOrgan == null){
+					subjectOrgan = subjectOrganDao.setSubjectOrgan(sOKPO);
+				} 
+				subject = subjectOrgan.getoSubject();
+			} else{
+				throw new ActivitiObjectNotFoundException(
+						String.format("RequestParam not found! You should add %s or %s or sOKPO param!", nID, sINN, sOKPO),
+						Subject.class);	
+			}
+			if(subject == null){
+				throw new ActivitiObjectNotFoundException(
+						String.format("Subject not found! nID = %s sINN = %s sOKPO = %s", nID, sINN, sOKPO),
+						Subject.class);	
+			}
+			httpResponse.setHeader("Content-Type", "application/json;charset=UTF-8");
+		return subject;
 	}
 	
-	@RequestMapping(value="/setSubject", method = RequestMethod.POST, headers = {"Accept=application/json"})
-	public @ResponseBody Subject setSubject(@RequestBody Subject subject){
-		return subjectDao.updateSubject(subject);
+	@RequestMapping(value="/setSubjectHuman", method = RequestMethod.POST, headers = {"Accept=application/json"})
+	public @ResponseBody SubjectHuman setSubject(@RequestBody SubjectHuman subjectHuman){
+		return subjectHumanDao.saveOrUpdateHuman(subjectHuman);
+	}
+	
+	@RequestMapping(value="/setSubjectOrgan", method = RequestMethod.POST, headers = {"Accept=application/json"})
+	public @ResponseBody SubjectOrgan setSubject(@RequestBody SubjectOrgan subjectOrgan){
+		return subjectOrganDao.saveOrUpdateSubjectOrgan(subjectOrgan);
 	}
 }

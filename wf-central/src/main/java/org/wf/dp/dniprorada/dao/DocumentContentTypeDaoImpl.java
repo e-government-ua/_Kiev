@@ -33,6 +33,7 @@ public class DocumentContentTypeDaoImpl implements DocumentContentTypeDao {
 		this.sessionFactory = sessionFactory;
 	}
 
+	@Override
 	@Transactional
 	public DocumentContentType getDocumentContentType(String name) {
 		DocumentContentType documentContentType;
@@ -49,6 +50,7 @@ public class DocumentContentTypeDaoImpl implements DocumentContentTypeDao {
 		return documentContentType;
 	}
 
+	@Override
 	public Integer setDocumentContent(DocumentContentType documentContentType) {
 		getSession().save(documentContentType);
 		return documentContentType.getId();

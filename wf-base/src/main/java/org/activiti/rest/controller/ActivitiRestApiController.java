@@ -48,9 +48,9 @@ import org.wf.dp.dniprorada.model.BuilderAtachModel;
 import org.wf.dp.dniprorada.model.ByteArrayMultipartFileOld;
 
 /**
- * ...wf-dniprorada/service/...
+ * ...wf-region/service/...
  * Example:
- * .../wf-dniprorada/service/rest/startProcessByKey/citizensRequest
+ * .../wf-region/service/rest/startProcessByKey/citizensRequest
  *
  * @author Tereshchenko
  */

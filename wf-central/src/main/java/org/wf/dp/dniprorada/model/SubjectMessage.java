@@ -36,7 +36,7 @@ public class SubjectMessage implements Serializable {
 
     @JsonProperty(value = "nID_Subject")
     @Column(name = "nID_Subject",nullable = false, columnDefinition = "int default 0")
-    private Integer id_subject;
+    private Long id_subject;
 
     @JsonProperty(value = "sMail")
     @Column(name = "sMail", length = 100)
@@ -82,11 +82,11 @@ public class SubjectMessage implements Serializable {
         this.date = date;
     }
 
-    public Integer getId_subject() {
+    public Long getId_subject() {
         return id_subject;
     }
 
-    public void setId_subject(Integer id_subject) {
+    public void setId_subject(Long id_subject) {
         this.id_subject = id_subject;
     }
 

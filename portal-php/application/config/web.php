@@ -26,8 +26,8 @@ $config = [
         ],
         'apiClient'            => [
             'class'  => 'app\components\ApiClient',
-            //'apiUrl' => 'https://52.17.126.64:8080/wf-dniprorada/service/',
-            'apiUrl' => 'https://localhost/wf-dniprorada/service/',
+            //'apiUrl' => 'https://52.17.126.64:8080/wf-region/service/',
+            'apiUrl' => 'https://localhost/wf-region/service/',
             'login' => 'activiti-master',
             'password' => 'UjhtJnEvf!'
         ],
