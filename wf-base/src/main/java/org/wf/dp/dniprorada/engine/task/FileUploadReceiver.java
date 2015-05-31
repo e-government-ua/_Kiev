@@ -62,7 +62,7 @@ public class FileUploadReceiver implements Receiver, FinishedListener
  
   public void uploadFinished(FinishedEvent event)
   {
-    log.info("Upload of {} ", UPLOAD_DIR + File.separator + fileName);
+    log.info("Upload of {}", UPLOAD_DIR + File.separator + fileName);
 //    System.out.println("Upload of " + UPLOAD_DIR + File.separator + fileName);
     field.setValue(fileName);
   }

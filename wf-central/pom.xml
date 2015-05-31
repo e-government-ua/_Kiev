@@ -9,7 +9,7 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<name>WorkFlows Central UA/</name>
+	<name>iGov-UA WF-Central</name>
 	<artifactId>wf-central</artifactId>
 	<packaging>war</packaging>
 
@@ -258,7 +258,7 @@
 		<!-- REDIS -->
 		<dependency>
 			<groupId>org.activiti.redis</groupId>
-			<artifactId>wf-dniprorada-redis</artifactId>
+			<artifactId>wf-region-redis</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

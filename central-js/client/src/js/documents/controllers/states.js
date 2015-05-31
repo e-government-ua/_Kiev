@@ -28,8 +28,8 @@ define('state/documents/bankid/controller', ['angularAMD'], function (angularAMD
 });
 define('state/documents/content/controller', ['angularAMD'], function (angularAMD) {
 	angularAMD.controller('DocumentsContentController', [
-        '$rootScope', '$scope', '$state', 'documents',
-        function ($rootScope, $scope, $state, documents) {
+        '$rootScope', '$scope', '$state', 'documents', 'ServiceService',
+        function ($rootScope, $scope, $state, documents, ServiceService) {
 		console.log('$rootScope');
         console.log('DocumentsContentController');
         console.log($state);
@@ -40,5 +40,19 @@ define('state/documents/content/controller', ['angularAMD'], function (angularAM
             }
         });
         $scope.documents = documents;
+
+          $scope.getDocument = function(document) {
+            console.log(document);
+            ServiceService.getDocument($state.nID_Subject, document.nID).then(function(data) {
+              console.log(data);
+              console.log(encodeURI(data));
+              var element = angular.element('<a/>');
+              element.attr({
+                href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
+                target: '_blank',
+                download: 'filename.csv'
+              })[0].click();
+            })
+          };
     }]);
 });

@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-	<!-- Core -->
+	<!-- Dniprorada -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 		<context:component-scan base-package="org.wf.dp.dniprorada" />
@@ -99,6 +99,8 @@
 					</bean>
 					<bean class="org.wf.dp.dniprorada.form.FormFileType" />
 					<bean class="org.wf.dp.dniprorada.form.TextAreaFormType" />
+					<bean class="org.wf.dp.dniprorada.form.LabelFormType" />
+					<bean class="org.wf.dp.dniprorada.form.MarkersFormType" />
 				</list>
 			</property>
 
@@ -139,6 +141,7 @@
 			  factory-method="getIdentityService" />
 
 		<import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml" />
+		<import resource="classpath:/META-INF/spring/ua-org-egov-utils-storage-context.xml" />
 	</beans>
 
 </beans>
