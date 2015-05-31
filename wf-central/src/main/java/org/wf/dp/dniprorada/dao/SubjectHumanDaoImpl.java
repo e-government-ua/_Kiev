@@ -29,7 +29,8 @@ public class SubjectHumanDaoImpl implements SubjectHumanDao{
 	@Override
 	public SubjectHuman getSubjectHuman(String sINN) {
 		SubjectHuman subjectHuman = null;
-		List<SubjectHuman> subjects = (List<SubjectHuman>)getSession().createCriteria(SubjectHuman.class).add(Restrictions.eq("sINN", sINN)).list();
+		List<SubjectHuman> subjects = (List<SubjectHuman>)getSession().createCriteria(SubjectHuman.class)
+				.add(Restrictions.eq("sINN", sINN)).list();
 		if(subjects != null && !subjects.isEmpty()){
 			subjectHuman = subjects.get(0);
 		}

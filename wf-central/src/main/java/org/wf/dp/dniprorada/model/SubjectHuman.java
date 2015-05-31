@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -24,7 +25,7 @@ public class SubjectHuman {
 	private Long nID;
 	
 	@JsonProperty(value = "oSubject")
-	@ManyToOne(fetch = FetchType.EAGER)
+	@OneToOne
 	@Cascade({ CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = "nID_Subject", nullable = false)
 	private Subject oSubject;
