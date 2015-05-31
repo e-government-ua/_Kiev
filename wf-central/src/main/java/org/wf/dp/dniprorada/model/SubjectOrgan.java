@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import net.sf.brunneng.jom.annotations.Identifier;
 
@@ -21,9 +22,10 @@ public class SubjectOrgan {
 	
 	@JsonProperty(value = "nID")
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="subjectOrgan_id_seq")
+    @SequenceGenerator(name="subjectOrgan_id_seq", sequenceName="subjectOrgan_id_seq", allocationSize=1)
 	@Column(name = "nID")
-	private Long nID;
+	private Long nID; 
 	 
 	@JsonProperty(value = "oSubject")
 	@OneToOne

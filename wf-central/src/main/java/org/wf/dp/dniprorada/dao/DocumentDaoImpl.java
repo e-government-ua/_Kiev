@@ -21,17 +21,18 @@ import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 
 public class DocumentDaoImpl implements DocumentDao {
 
+	private static final String contentMock = "No content!!!";
+
 	private SessionFactory sessionFactory;
-	
+
 	@Autowired
 	private GridFSBytesDataStorage durableBytesDataStorage;
-	
 
 	@Required
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-	
+
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
@@ -42,8 +43,9 @@ public class DocumentDaoImpl implements DocumentDao {
 
 	@Override
 	public List<Document> getDocuments(String sID_subject_Upload) {
-		return (List<Document>)getSession().createCriteria(Document.class)
-				.add(Restrictions.eq("sID_subject_Upload", sID_subject_Upload)).list();
+		return (List<Document>) getSession().createCriteria(Document.class)
+				.add(Restrictions.eq("sID_subject_Upload", sID_subject_Upload))
+				.list();
 	}
 
 	@Override
@@ -54,37 +56,43 @@ public class DocumentDaoImpl implements DocumentDao {
 	@Override
 	public byte[] getDocumentContent(Long id) {
 		Document document = (Document) getSession().get(Document.class, id);
-		return durableBytesDataStorage.getData(document.getСontentKey());
+		byte[] contentByte = durableBytesDataStorage.getData(document
+				.getСontentKey());
+		return contentByte != null ? contentByte : contentMock.getBytes();
 	}
 
 	@Override
 	public byte[] getDocumentContent(String contentKey) {
-		return durableBytesDataStorage.getData(contentKey);
+		byte[] contentByte = durableBytesDataStorage.getData(contentKey);
+		return contentByte != null ? contentByte : contentMock.getBytes();
 	}
 
-	public Long setDocument(Long nID_Subject_Upload, String sID_Subject_Upload, String sSubjectName_Upload,
-			String sName, Integer nID_DocumentType,
-			Integer nID_DocumentContentType, String sFileName, String sFileContentType, byte[] aoContent) throws IOException {
-            
+	public Long setDocument(Long nID_Subject_Upload, String sID_Subject_Upload,
+			String sSubjectName_Upload, String sName, Integer nID_DocumentType,
+			Integer nID_DocumentContentType, String sFileName,
+			String sFileContentType, byte[] aoContent) throws IOException {
+
 		Document document = new Document();
 		document.setsID_subject_Upload(sID_Subject_Upload);
 		document.setSubjectName_Upload(sSubjectName_Upload);
 		document.setName(sName);
-		
+
 		DocumentType oDocumentType = new DocumentType();
 		oDocumentType.setId(nID_DocumentType);
 		document.setDocumentType(oDocumentType);
-		
+
 		DocumentContentType documentContentType = new DocumentContentType();
-		documentContentType.setId(nID_DocumentContentType==null?2:nID_DocumentContentType);//TODO определять/генерить реальный ИД, по Контенттайп с oFile
+		documentContentType.setId(nID_DocumentContentType == null ? 2
+				: nID_DocumentContentType);// TODO определять/генерить реальный
+											// ИД, по Контенттайп с oFile
 		document.setDocumentContentType(documentContentType);
-		
-		if(nID_Subject_Upload != null){
+
+		if (nID_Subject_Upload != null) {
 			Subject subject_Upload = new Subject();
 			subject_Upload.setnID(nID_Subject_Upload);
 			document.setSubject_Upload(subject_Upload);
 		}
-		
+
 		document.setСontentKey(durableBytesDataStorage.saveData(aoContent));
 		document.setContentType(sFileContentType);
 		document.setFile(sFileName);

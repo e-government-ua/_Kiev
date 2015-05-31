@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -21,7 +22,8 @@ public class SubjectHuman {
 	
 	@JsonProperty(value = "nID")
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="subjectHuman_id_seq")
+    @SequenceGenerator(name="subjectHuman_id_seq", sequenceName="subjectHuman_id_seq", allocationSize=1)
 	@Column(name = "nID")
 	private Long nID;
 	
