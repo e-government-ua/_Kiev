@@ -58,18 +58,8 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 });
 
 define('state/service/city/absent/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceCityAbsentController', ['$state', '$rootScope', '$scope', function ($state, $rootScope, $scope) {
-		var socialTitle = "Закликаю владу перевести цю послугу в електронну форму!";
-		var socialDescription = $scope.data.city.sName + "–" + $scope.service.sName;
-		$scope.socialTitle = socialTitle;
-		$scope.socialDescription = socialDescription;
-
-		$('head').append('<meta name="title" content="'+socialTitle+'" />');
-		$('head').append('<meta name="description" content="'+socialDescription+'" />');
-		$('head').append('<meta name="og:title" content="'+socialTitle+'" />');
-		$('head').append('<meta name="og:description" content="'+socialDescription+'" />');
-
-
+	angularAMD.controller('ServiceCityAbsentController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
+		$scope.service = service;
 		(function() {
 			if (window.pluso)if (typeof window.pluso.start == "function") return;
 			if (window.ifpluso==undefined) { window.ifpluso = 1;

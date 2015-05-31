@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/data/mongo
+       http://www.springframework.org/schema/data/mongo/spring-mongo.xsd ">
+
+	<!-- Central -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	<context:component-scan base-package="org.wf.dp.dniprorada" />
+	<context:component-scan base-package="ua.org.egov.utils.storage.durable" />
+
+	<beans profile="prod">
+
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="locations">
+				<list>
+					<value>file:${catalina.home}/conf/db.properties</value>
+					<value>file:${catalina.home}/conf/email.properties</value>
+					<value>file:${catalina.home}/conf/bankID.properties</value>
+				</list>
+			</property>
+			<property name="ignoreUnresolvablePlaceholders" value="true" />
+
+			<property name="properties">
+				<map>
+					<entry key="processEngineConfiguration.databaseSchemaUpdate" value="true"/>
+				</map>
+			</property>
+		</bean>
+
+	</beans>
+
+	<!-- profile="test" - тестовый запуск, все настройки боевые, указанные в
+	db.properties. Установить в catalina.bat переменную -Dspring.profiles.active=test" -->
+	<beans profile="test,default">
+
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="locations">
+				<list>
+					<value>classpath:db.properties</value>
+					<value>classpath:email.properties</value>
+					<value>classpath:bankID.properties</value>
+				</list>
+			</property>
+			<property name="ignoreUnresolvablePlaceholders" value="true" />
+
+			<property name="properties">
+				<map>
+					<entry key="processEngineConfiguration.databaseSchemaUpdate" value="true"/>
+				</map>
+			</property>
+		</bean>
+
+	</beans>
+
+	<beans>
+	
+	
+	
+	      <bean id="mongoProps"
+			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="location" value="classpath:storage-mongodb.properties" />
+			<property name="ignoreUnresolvablePlaceholders" value="true" />
+		</bean>
+	
+		<!-- Connection to MongoDB server -->
+		<mongo:db-factory host="${mongodb.host}" port="${mongodb.port}" dbname="${mongodb.database}" />
+		<mongo:mapping-converter id="converter" db-factory-ref="mongoDbFactory"/>
+		 
+		<!-- MongoDB GridFS Template -->
+		<bean id="gridTemplate" class="org.springframework.data.mongodb.gridfs.GridFsTemplate">
+		  <constructor-arg ref="mongoDbFactory"/>
+		  <constructor-arg ref="converter"/>
+		  <constructor-arg name="bucket" value="${mongodb.bucket}" />
+		</bean>
+		
+	<bean id="durableBytesDataStorage" class="ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage">
+		</bean>
+		<bean id="durableFileStorage" class="ua.org.egov.utils.storage.durable.impl.GridFSFileStorage">
+		</bean>
+	
+	
+	
+	
+	
+		<bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
+			<property name="dataSource" ref="dataSource" />
+			<property name="changeLog" value="classpath:liquibase/db.changelog-master.xml" />
+		</bean>
+
+		<bean id="merchantDao" class="org.wf.dp.dniprorada.dao.MerchantDaoImpl" >
+			<property name="dataSource" ref="dataSource"/>
+		</bean>
+
+		<bean id="subjectDao" class="org.wf.dp.dniprorada.dao.SubjectDaoImpl" >
+			<property name="dataSource" ref="dataSource"/>
+		</bean>
+		
+		<bean id="documentAccessDao" class="org.wf.dp.dniprorada.dao.DocumentAccessDaoImpl">
+			<property name="dataSource" ref="dataSource"/>
+		</bean>
+
+		
+
+		<bean id="abstractEntityDao" class="org.wf.dp.dniprorada.dao.AbstractEntityDao"  abstract="true">
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+
+		<bean id="baseEntityDao" class="org.wf.dp.dniprorada.dao.BaseEntityDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+
+		<bean id="entityService" class="org.wf.dp.dniprorada.service.EntityService">
+			<property name="baseEntityDao" ref="baseEntityDao"/>
+		</bean>
+
+		<bean id="documentDao" class="org.wf.dp.dniprorada.dao.DocumentDaoImpl" >
+			<property name="sessionFactory" ref="sessionFactory"/>
+			<property name="durableBytesDataStorage" ref="durableBytesDataStorage"/>
+		</bean>
+
+        <bean id="subjectMessageDao" class="org.wf.dp.dniprorada.dao.SubjectMessagesDaoImpl" >
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+
+		<tx:advice id="txAdvice" transaction-manager="transactionManager">
+			<tx:attributes>
+				<tx:method name="get*" read-only="true"/>
+				<tx:method name="*"/>
+			</tx:attributes>
+		</tx:advice>
+
+		<aop:config>
+			<aop:pointcut id="dao" expression="execution(* org.wf.dp.dniprorada.dao.*.*(..))"/>
+			<aop:pointcut id="dao.services" expression="execution(* org.wf.dp.dniprorada.service.*.*(..))"/>
+
+			<aop:advisor pointcut-ref="dao" advice-ref="txAdvice"/>
+			<aop:advisor pointcut-ref="dao.services" advice-ref="txAdvice"/>
+		</aop:config>
+
+		<bean id="dataSource"
+			  class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+			<property name="driverClass" value="${jdbc.driver}" />
+			<property name="url" value="${jdbc.url}" />
+			<property name="username" value="${jdbc.username}" />
+			<property name="password" value="${jdbc.password}" />
+		</bean>
+
+		<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+			<property name="dataSource" ref="dataSource"/>
+			<property name="packagesToScan">
+				<array>
+					<value>org.wf.dp.dniprorada.model</value>
+				</array>
+			</property>
+
+			<property name="hibernateProperties">
+				<props>
+					<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+					<prop key="hibernate.globally_quoted_identifiers">${hibernate.globally_quoted_identifiers}</prop>
+				</props>
+			</property>
+		</bean>
+
+		<bean id="transactionManager"
+			  class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+
+		<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+			<property name="dataSource" ref="dataSource" />
+			<property name="transactionManager" ref="transactionManager" />
+			<property name="databaseSchemaUpdate" value="${processEngineConfiguration.databaseSchemaUpdate}" />
+			<property name="jobExecutorActivate" value="true" />
+			<property name="enableDatabaseEventLogging" value="true" />
+			<property name="deploymentResources" value="classpath*:bpmn/autodeploy/*.bpmn" />
+
+			<property name="customFormTypes">
+				<list>
+					<bean class="org.activiti.explorer.form.UserFormType" />
+					<bean class="org.activiti.explorer.form.ProcessDefinitionFormType" />
+					<bean class="org.activiti.explorer.form.MonthFormType" />
+					<bean class="org.activiti.engine.impl.form.DateFormType">
+						<constructor-arg value="dd/MM/yyyy" />
+					</bean>
+					<bean class="org.activiti.engine.impl.form.EnumFormType">
+						<constructor-arg>
+							<map>
+								<entry key="DEF" value="def" />
+							</map>
+						</constructor-arg>
+					</bean>
+					<bean class="org.wf.dp.dniprorada.form.FormFileType" />
+					<bean class="org.wf.dp.dniprorada.form.TextAreaFormType" />
+				</list>
+			</property>
+
+			<!-- mail server configurations -->
+			<property name="mailServerHost" value="${mailServerHost}" />
+			<property name="mailServerPort" value="${mailServerPort}" />
+			<property name="mailServerDefaultFrom" value="${mailServerDefaultFrom}" />
+			<property name="mailServerUsername" value="${mailServerUsername}" />
+			<property name="mailServerPassword" value="${mailServerPassword}" />
+			<property name="mailServerUseSSL" value="true" />
+			<property name="mailServerUseTLS" value="true" />
+
+			<property name="history" value="full" />
+		</bean>
+
+		<bean id="logExceptionResolver" class="org.wf.dp.dniprorada.logging.LogExceptionsResolver">
+			<property name="order" value="-1000"/>
+		</bean>
+
+		<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean"
+			  destroy-method="destroy">
+			<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+		</bean>
+
+		<bean id="repositoryService" factory-bean="processEngine"
+			  factory-method="getRepositoryService" />
+		<bean id="runtimeService" factory-bean="processEngine"
+			  factory-method="getRuntimeService" />
+		<bean id="taskService" factory-bean="processEngine"
+			  factory-method="getTaskService" />
+		<bean id="formService" factory-bean="processEngine"
+			  factory-method="getFormService" />
+		<bean id="historyService" factory-bean="processEngine"
+			  factory-method="getHistoryService" />
+		<bean id="managementService" factory-bean="processEngine"
+			  factory-method="getManagementService" />
+		<bean id="identityService" factory-bean="processEngine"
+			  factory-method="getIdentityService" />
+
+		<import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml" />
+		<import resource="classpath:/META-INF/spring/ua-org-egov-utils-storage-context.xml" />
+	</beans>
+
+
+</beans>
