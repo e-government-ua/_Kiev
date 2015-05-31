@@ -324,7 +324,7 @@ public abstract class AbstractModelTask {
                             String name = filedName.get((filedName.size() - 1) - n);
                             LOG.info("name=" + name);
                             System.out.println("outFilename + keyRedis" + outFilename + keyRedis);
-                            if (!attachentsNames.contains(outFilename + keyRedis)) {
+                            if (!attachentsNames.contains(outFilename + "__" + keyRedis)) {
                                 System.out.println("proceed task.getId():" + task.getId() + " execution.getProcessInstanceId()");
                                 execution
                                         .getEngineServices()
@@ -335,7 +335,7 @@ public abstract class AbstractModelTask {
                                                         + contentMultipartFile.getExp(),
                                                 task.getId(),
                                                 execution.getProcessInstanceId(),
-                                                outFilename + keyRedis,
+                                                outFilename + "__" + keyRedis,
                                                 name, is);
                             }
                         }
