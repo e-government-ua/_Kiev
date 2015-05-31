@@ -65,8 +65,12 @@ public class addAttachmentFromCurrentTaskListener extends AbstractModelTask impl
 			if (taskInstanceList != null && !taskInstanceList.isEmpty()) {
 				formData = processEngine.getFormService().getTaskFormData(taskInstanceList.get(0).getId());
 			}
-//			System.out.println("formData: " + formData);
-			addAttachmentsToTask(formData, task);
+
+			FormData startformData = execution.getEngineServices()
+					.getFormService()
+					.getStartFormData(execution.getProcessDefinitionId());
+			System.out.println("formData: " + formData);
+			addAttachmentsToTask(startformData, task);
 		}
 	}
 }
