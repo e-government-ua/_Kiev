@@ -18,6 +18,7 @@ import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.StartFormData;
+import org.activiti.engine.task.Attachment;
 import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.activiti.redis.service.RedisService;
 import org.slf4j.Logger;
@@ -284,6 +285,13 @@ public abstract class AbstractModelTask {
         List<String> filedName = getListCastomFieldName(formData);
         LOG.info("31filedName="+filedName.toString());
 
+        List<Attachment> processInstanceAttachments = execution.getEngineServices().
+                getTaskService().getProcessInstanceAttachments(task.getProcessInstanceId());
+        List<String> attachentsNames = new ArrayList<>();
+        for(Attachment item: processInstanceAttachments){
+            attachentsNames.add(item.getName());
+        }
+
         if (!listValueKeys.isEmpty()) {
             int n = 0;
             for (String keyRedis : listValueKeys) {
@@ -315,17 +323,19 @@ public abstract class AbstractModelTask {
                             String name = filedName.get((filedName.size() - 1) - n);
                             LOG.info("name=" + name);
 
-                            execution
-                                    .getEngineServices()
-                                    .getTaskService()
-                                    .createAttachment(
-                                            contentMultipartFile.getContentType()
-                                                    + ";"
-                                                    + contentMultipartFile.getExp(),
-                                            task.getId(),
-                                            execution.getProcessInstanceId(),
-                                            outFilename,
-                                            name, is);
+                            if (!attachentsNames.contains(outFilename + keyRedis)) {
+                                execution
+                                        .getEngineServices()
+                                        .getTaskService()
+                                        .createAttachment(
+                                                contentMultipartFile.getContentType()
+                                                        + ";"
+                                                        + contentMultipartFile.getExp(),
+                                                /*task.getId()*/ null,
+                                                execution.getProcessInstanceId(),
+                                                outFilename + keyRedis,
+                                                name, is);
+                            }
                         }
                     }
                 }
