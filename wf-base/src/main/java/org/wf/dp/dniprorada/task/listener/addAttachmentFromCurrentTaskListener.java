@@ -21,7 +21,7 @@ import java.util.Set;
 
 /**
  * This is twin of fileTaskUploadListener (addAttachmentFromStartFormListener)
- * This listener takes previous task form.
+ * This listener takes previous task form. DID NOT FINISHED YET.
  * @author Dmytro Tsapko
  */
 @Component("addAttachmentFromCurrentTaskListener")
