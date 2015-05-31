@@ -92,6 +92,25 @@
 					</systemProperties>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-ui-zip</id>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+                            <includeGroupIds>${project.groupId}</includeGroupIds>
+                            <includeArtifactIds>wf-base</includeArtifactIds>
+                            <includeClassifiers>ui-zip</includeClassifiers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -177,6 +196,21 @@
 
 
 	<dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>wf-base</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <classifier>lib</classifier>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>wf-base</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <classifier>ui-zip</classifier>
+            <type>zip</type>
+            <scope>provided</scope>
+        </dependency>
 		<dependency>
 			<groupId>jmimemagic</groupId>
 			<artifactId>jmimemagic</artifactId>
