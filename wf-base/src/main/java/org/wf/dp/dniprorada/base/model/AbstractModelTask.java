@@ -285,14 +285,6 @@ public abstract class AbstractModelTask {
         List<String> filedName = getListCastomFieldName(formData);
         LOG.info("31filedName="+filedName.toString());
 
-        List<Attachment> processInstanceAttachments = execution.getEngineServices().
-                getTaskService().getProcessInstanceAttachments(task.getProcessInstanceId());
-        List<String> attachentsNames = new ArrayList<>();
-        for(Attachment item: processInstanceAttachments){
-            attachentsNames.add(item.getName());
-        }
-        System.out.println(attachentsNames);
-
         if (!listValueKeys.isEmpty()) {
             int n = 0;
             for (String keyRedis : listValueKeys) {
@@ -323,9 +315,6 @@ public abstract class AbstractModelTask {
                         if (!filedName.isEmpty() && n < filedName.size()) {
                             String name = filedName.get((filedName.size() - 1) - n);
                             LOG.info("name=" + name);
-                            System.out.println("outFilename + keyRedis" + outFilename + keyRedis);
-                            if (!attachentsNames.contains(outFilename + "__" + keyRedis)) {
-                                System.out.println("proceed task.getId():" + task.getId() + " execution.getProcessInstanceId()");
                                 execution
                                         .getEngineServices()
                                         .getTaskService()
@@ -335,9 +324,8 @@ public abstract class AbstractModelTask {
                                                         + contentMultipartFile.getExp(),
                                                 task.getId(),
                                                 execution.getProcessInstanceId(),
-                                                outFilename + "__" + keyRedis,
+                                                outFilename,
                                                 name, is);
-                            }
                         }
                     }
                 }
