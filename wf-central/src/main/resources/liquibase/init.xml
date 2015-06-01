@@ -9,11 +9,11 @@
 
         <sql splitStatements="true">
             DROP SEQUENCE IF EXISTS "Subject_id_seq";
-            DROP SEQUENCE IF EXISTS "SubjectHuman_ID_SEQ";
-            DROP SEQUENCE IF EXISTS "SubjectOrgan_ID_SEQ";
-            DROP SEQUENCE IF EXISTS "Document_ID_SEQ";
-            DROP SEQUENCE IF EXISTS "DocumentType_ID_SEQ";
-            DROP SEQUENCE IF EXISTS "DocumentContentType_ID_SEQ";
+            DROP SEQUENCE IF EXISTS "SubjectHuman_id_seq";
+            DROP SEQUENCE IF EXISTS "SubjectOrgan_id_seq";
+            DROP SEQUENCE IF EXISTS "Document_id_seq";
+            DROP SEQUENCE IF EXISTS "DocumentType_id_seq";
+            DROP SEQUENCE IF EXISTS "DocumentContentType_id_seq";
             DROP TABLE IF EXISTS "Region" CASCADE;
             DROP TABLE IF EXISTS "City" CASCADE;
             DROP TABLE IF EXISTS "Category" CASCADE;
