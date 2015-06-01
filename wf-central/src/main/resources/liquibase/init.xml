@@ -14,6 +14,7 @@
             DROP SEQUENCE IF EXISTS "Document_id_seq";
             DROP SEQUENCE IF EXISTS "DocumentType_id_seq";
             DROP SEQUENCE IF EXISTS "DocumentContentType_id_seq";
+            DROP SEQUENCE IF EXISTS "DocumentAccess_id_seq";
             DROP TABLE IF EXISTS "Region" CASCADE;
             DROP TABLE IF EXISTS "City" CASCADE;
             DROP TABLE IF EXISTS "Category" CASCADE;
@@ -403,6 +404,11 @@
         <createSequence catalogName="Document"
             incrementBy="1"
             sequenceName="Document_id_seq"
+            startValue="1"/>
+            
+            <createSequence catalogName="DocumentAccess"
+            incrementBy="1"
+            sequenceName="DocumentAccess_id_seq"
             startValue="1"/>
         
         
