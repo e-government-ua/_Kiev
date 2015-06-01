@@ -214,3 +214,26 @@ id - id мерчанта
 ```text
     idOwner=idOwner&ownerName=ownerName&id=id
 ```
+
+
+
+
+Функциональность бэкапа данных таблиц сервисов и мест:
+Скачать данные в виде json: /wf-central/service/services/getServicesAndPlacesTables
+Скачать данные в json файле: /wf-central/service/services/downloadServicesAndPlacesTables
+Загрузить в виде json (в теле POST запроса): /wf-central/service/services/setServicesAndPlacesTables
+Загрузить в из json файла: /wf-central/service/services/uploadServicesAndPlacesTables
+Пример страницы формы загрузки из файла:
+`
+<html>
+<body>
+<form method="POST" enctype="multipart/form-data"
+action="http://localhost:8080/wf-central/service/services/uploadServicesAndPlacesTables">
+File to upload: <input type="file" name="file"><br /> <input type="submit"
+value="Upload"> Press here to upload the file!
+</form>
+</body>
+</html>
+`
+
+`&lt;html&gt;<br/>&lt;body&gt;<br/>	&lt;form method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;<br/>		action=&quot;http://localhost:8080/wf-central/service/services/uploadServicesAndPlacesTables&quot;&gt;<br/>		File to upload: &lt;input type=&quot;file&quot; name=&quot;file&quot;&gt;&lt;br /&gt; &lt;input type=&quot;submit&quot;<br/>			value=&quot;Upload&quot;&gt; Press here to upload the file!<br/>	&lt;/form&gt;<br/>&lt;/body&gt;<br/>&lt;/html&gt;`

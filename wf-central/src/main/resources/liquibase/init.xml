@@ -8,6 +8,12 @@
     <changeSet id="Create/Update tables" author="brunneng" runOnChange="true">
 
         <sql splitStatements="true">
+            DROP SEQUENCE IF EXISTS "Subject_id_seq";
+            DROP SEQUENCE IF EXISTS "SubjectHuman_id_seq";
+            DROP SEQUENCE IF EXISTS "SubjectOrgan_id_seq";
+            DROP SEQUENCE IF EXISTS "Document_id_seq";
+            DROP SEQUENCE IF EXISTS "DocumentType_id_seq";
+            DROP SEQUENCE IF EXISTS "DocumentContentType_id_seq";
             DROP TABLE IF EXISTS "Region" CASCADE;
             DROP TABLE IF EXISTS "City" CASCADE;
             DROP TABLE IF EXISTS "Category" CASCADE;
@@ -43,6 +49,12 @@
         </createTable>
         <addAutoIncrement columnName="nID" tableName="Subject" columnDataType="bigint"  incrementBy="1" startWith="1"/>
         
+         <createSequence catalogName="Subject"
+            incrementBy="1"
+            sequenceName="Subject_id_seq"
+            startValue="1"/>
+         
+        
         <!-- ####################################################################################################### -->
         <createTable tableName="SubjectHuman">
             <column name="nID" type="bigint">
@@ -77,6 +89,12 @@
         </createTable>
         <addAutoIncrement columnName="nID" tableName="SubjectHuman" columnDataType="bigint"  incrementBy="1" startWith="1"/>
         
+         <createSequence catalogName="SubjectHuman"
+            incrementBy="1"
+            sequenceName="SubjectHuman_id_seq"
+            startValue="1"/>
+            
+        
         <!-- ####################################################################################################### -->
         <createTable tableName="SubjectOrgan">
             <column name="nID" type="bigint">
@@ -101,6 +119,12 @@
             </column>
         </createTable>
         <addAutoIncrement columnName="nID" tableName="SubjectOrgan" columnDataType="bigint"  incrementBy="1" startWith="1"/>
+        
+        <createSequence catalogName="SubjectOrgan"
+            incrementBy="1"
+            sequenceName="SubjectOrgan_id_seq"
+            startValue="1"/>
+            
 
         <!-- ####################################################################################################### -->
         <createTable tableName="Region">
@@ -287,6 +311,11 @@
         </createTable>
         <addAutoIncrement columnName="nID" tableName="DocumentType" columnDataType="int" incrementBy="1" startWith="0"/>
         
+        <createSequence catalogName="DocumentType"
+            incrementBy="1"
+            sequenceName="DocumentType_id_seq"
+            startValue="1"/>
+        
         <!-- ####################################################################################################### -->
         <createTable tableName="DocumentContentType">
             <column name="nID" type="int">
@@ -297,6 +326,11 @@
             </column>
         </createTable>
         <addAutoIncrement columnName="nID" tableName="DocumentContentType" columnDataType="int" incrementBy="1" startWith="0"/>
+        
+        <createSequence catalogName="DocumentContentType"
+            incrementBy="1"
+            sequenceName="DocumentContentType_id_seq"
+            startValue="1"/>
         
         <!-- ####################################################################################################### -->
         <createTable tableName="Document">
@@ -339,6 +373,12 @@
             </column>
         </createTable>
         <addAutoIncrement columnName="nID" tableName="Document" columnDataType="bigint"  incrementBy="1" startWith="1"/>
+        
+        <createSequence catalogName="Document"
+            incrementBy="1"
+            sequenceName="Document_id_seq"
+            startValue="1"/>
+        
         
         <!-- ####################################################################################################### -->
         <!--createTable tableName="DocumentAccess">
