@@ -60,9 +60,10 @@
                 </th>
             </tr>
             </thead>
-            
-            <tbody ng-repeat="doc in documents" >
-            <tr>
+
+            <tbody ng-repeat="doc in documents">
+
+            <tr id="document">
                 <td>
                     {{doc.sName}}
                 </td>
@@ -77,10 +78,15 @@
                            value="{{doc.sName}}">
                 </td>
                 <td>
-                    <a href="/api/service/documents/download/{{doc.nID}}" target="_blank"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></a>
-                    <a href="#accordion{{doc.nID}}" data-parent="#accordion" data-toggle="collapse" class="accordion-toggle"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+                    <a href="/api/service/documents/download/{{doc.nID}}"
+                       target="_blank"><span class="glyphicon glyphicon-duplicate"
+                                             aria-hidden="true"></span></a>
+                    <a href="#accordion{{doc.nID}}"
+                       data-parent="#accordion"
+                       data-toggle="collapse"
+                       class="accordion-toggle"><span class="glyphicon glyphicon-link"
+                                                      aria-hidden="true"></span></a>
                 </td>
-
             </tr>
 
             <tr id="accordion{{doc.nID}}"
@@ -97,9 +103,8 @@
                         <br>
 
                         <div class="panel panel-default">
-                            {{sFIO}}
                             <form role="form"
-                                  ng-submit="shareLink(doc)">
+                                  ng-submit="shareLink(doc, sFIO, sTarget, sTelephone, sMail, nDays)">
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="name">Введіть ПІБ персони, якій надається доступ:</label>
@@ -132,6 +137,17 @@
                                 </div>
 
                                 <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="email">Введіть електронну пошту, через яку ця людина
+                                                           верифікується:</label>
+                                        <input type="text"
+                                               ng-model="sMail"
+                                               class="form-control"
+                                               id="email">
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <div class="form-group col-md-2">
                                         <label for="valid-days">Введіть строк дії доступу:</label>
                                         <select class="form-control"
@@ -152,8 +168,24 @@
                     </div>
                 </td>
             </tr>
+
             </tbody>
         </table>
 
     </div>
 </div>
+
+<script type="text/ng-template"
+        id="urlmodal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Доступ надано</h3>
+    </div>
+    <div class="modal-body">
+        Посилання: <b>{{url.value}}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary"
+                ng-click="close()">OK
+        </button>
+    </div>
+</script>
