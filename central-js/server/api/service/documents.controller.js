@@ -89,6 +89,7 @@ module.exports.initialUpload = function(req, res) {
         res.status(400);
         res.send('both accessToken and sID_Subject are needed');
         res.end();
+        return;
     }
 
     var config = require('../../config');
@@ -164,6 +165,7 @@ module.exports.initialUpload = function(req, res) {
                         .pipe(res);
                 }
             }
+            res.status(response.statusCode);            
             res.end();
         });
 };

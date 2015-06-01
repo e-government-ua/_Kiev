@@ -65,7 +65,7 @@ define('service/service', ['angularAMD'], function(angularAMD) {
 				'access_token': accessToken,
 				'sID_Subject': sID_Subject
 			};
-			return $http.post('./api/service/documents/initialupload', {
+			return $http.post('./api/service/documents/initialupload', {}, {
 				params: data
 			}).then(function(response) {
 				return response.data;
