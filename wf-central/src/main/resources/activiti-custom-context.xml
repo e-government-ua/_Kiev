@@ -95,7 +95,11 @@
 		<bean id="documentDao" class="org.wf.dp.dniprorada.dao.DocumentDaoImpl" >
 			<property name="sessionFactory" ref="sessionFactory"/>
 		</bean>
-		
+
+		<bean id="historyEventDao" class="org.wf.dp.dniprorada.dao.HistoryEventDaoImpl" >
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+
 		<bean id="documentContentTypeDao" class="org.wf.dp.dniprorada.dao.DocumentContentTypeDaoImpl" >
 			<property name="sessionFactory" ref="sessionFactory"/>
 		</bean>
