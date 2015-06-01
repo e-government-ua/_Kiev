@@ -490,6 +490,18 @@ a {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+.controls-admin {
+    visibility: visible;
+}
+.cat-icon {
+    
+}
+.subcat-icon {
+    
+}
+.serv-icon {
+    
+}    
 
 a.pluso-more {
     display: none !important;
