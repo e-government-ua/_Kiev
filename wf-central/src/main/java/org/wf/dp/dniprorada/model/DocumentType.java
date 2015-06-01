@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import net.sf.brunneng.jom.annotations.Identifier;
@@ -13,7 +14,7 @@ public class DocumentType {
 
 	@JsonProperty(value = "nID")
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "nID")
 	private Integer id;
 
