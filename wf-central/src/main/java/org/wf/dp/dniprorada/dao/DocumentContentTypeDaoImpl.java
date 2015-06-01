@@ -34,9 +34,8 @@ public class DocumentContentTypeDaoImpl implements DocumentContentTypeDao {
 	}
 
 	@Override
-	//@Transactional(readOnly=false) 
 	public DocumentContentType getDocumentContentType(String name) {
-		DocumentContentType documentContentType;
+		/*DocumentContentType documentContentType;
 		List<DocumentContentType> documentsContentType = (List<DocumentContentType>) getSession()
 				.createCriteria(DocumentContentType.class)
 				.add(Restrictions.eq("name", name)).list();
@@ -47,11 +46,18 @@ public class DocumentContentTypeDaoImpl implements DocumentContentTypeDao {
 		} else{
 			documentContentType = documentsContentType.get(0);
 		}
+		return documentContentType;*/
+		DocumentContentType documentContentType = null;
+		List<DocumentContentType> documentsContentType = (List<DocumentContentType>) getSession()
+				.createCriteria(DocumentContentType.class)
+				.add(Restrictions.eq("name", name)).list();
+		if (documentsContentType != null && !documentsContentType.isEmpty()) {
+			documentContentType = documentsContentType.get(0);
+		}
 		return documentContentType;
 	}
 
 	@Override
-	//@Transactional(readOnly=false) 
 	public Integer setDocumentContent(DocumentContentType documentContentType) {
 		getSession().save(documentContentType);
 		return documentContentType.getId();

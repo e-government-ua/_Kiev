@@ -90,10 +90,16 @@ public class ActivitiRestDocumentController {
                         String sFileContentType = "text/plain";
                         byte[] aoContent = sContent.getBytes();
                         
-                        Integer nID_DocumentContentType;
+                      
                         documentContentTypeName = request.getHeader("Content-Type") != null ? request.getHeader("filename") :  documentContentTypeName; 
+                        DocumentContentType documentContentType = null;
                         if(documentContentTypeName != null){
-                        	nID_DocumentContentType = documentContentTypeDao.getDocumentContentType(documentContentTypeName).getId();
+                            documentContentType = documentContentTypeDao.getDocumentContentType(documentContentTypeName);
+                        	if(documentContentType == null){
+                        		documentContentType = new DocumentContentType();
+                    			documentContentType.setName(documentContentTypeName);
+                    			documentContentType.setId(documentContentTypeDao.setDocumentContent(documentContentType));
+                        	}	
                         } else{
                         	throw new ActivitiObjectNotFoundException(
                                     "RequestParam 'nID_DocumentContentType' not found!", DocumentContentType.class);
@@ -105,7 +111,7 @@ public class ActivitiRestDocumentController {
                         		sSubjectName_Upload,
                         		sName,
                         		nID_DocumentType,
-                        		nID_DocumentContentType,
+                        		documentContentType.getId(),
                                 sFileName,
                                 sFileContentType,
 		                        aoContent);
