@@ -163,7 +163,7 @@ module.exports.initialUpload = function(req, res) {
                         .pipe(optionsForUploadContent)
                         .pipe(res);
                 }
-
             }
+            res.end();
         });
 };

@@ -41,7 +41,7 @@ module.exports.prepareScansRequest = function(options) {
 	});
 };
 
-module.exports.prepareScanContentRequest = function.(options) {
+module.exports.prepareScanContentRequest = function(options) {
 	var o = {
 		'url': options.url,
 		'headers': {
