@@ -1,10 +1,14 @@
 package org.activiti.rest.controller;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.service.EntityService;
@@ -12,6 +16,7 @@ import org.wf.dp.dniprorada.service.TableDataService;
 import org.wf.dp.dniprorada.util.JsonRestUtils;
 import org.wf.dp.dniprorada.viewobject.TableData;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -271,6 +276,36 @@ public class ActivitiRestServicesController {
    public @ResponseBody ResponseEntity getServicesAndPlacesTables() {
       List<TableData> tableDataList = tableDataService.exportData(TableDataService.TablesSet.ServicesAndPlaces);
       return JsonRestUtils.toJsonResponse(tableDataList);
+   }
+
+   @RequestMapping(value = "/setServicesAndPlacesTables", method = RequestMethod.POST)
+   public @ResponseBody ResponseEntity setServicesAndPlacesTables(@RequestBody String jsonData) {
+      List<TableData> tableDataList = Arrays.asList(JsonRestUtils.readObject(jsonData, TableData[].class));
+
+      tableDataService.importData(TableDataService.TablesSet.ServicesAndPlaces, tableDataList);
+      return JsonRestUtils.toJsonResponse(HttpStatus.OK,
+              new ResultMessage("success", "Data successfully imported."));
+   }
+
+   @RequestMapping(value = "/downloadServicesAndPlacesTables", method = RequestMethod.GET)
+   public @ResponseBody void downloadServicesAndPlacesTables(HttpServletResponse response) throws IOException {
+      List<TableData> tableDataList = tableDataService.exportData(TableDataService.TablesSet.ServicesAndPlaces);
+
+      String dateTimeString = DateTimeFormat.forPattern("yyyy-MM-dd_HH-mm-ss").print(new DateTime());
+
+      String fileName = "igov.ua.catalog_" + dateTimeString + ".json";
+      response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+      JsonRestUtils.writeJsonToOutputStream(tableDataList, response.getOutputStream());
+   }
+
+   @RequestMapping(value = "/uploadServicesAndPlacesTables", method = RequestMethod.POST)
+   public @ResponseBody ResponseEntity uploadServicesAndPlacesTables(@RequestParam("file") MultipartFile file)
+           throws IOException {
+      List<TableData> tableDataList = Arrays.asList(JsonRestUtils.readObject(file.getInputStream(), TableData[].class));
+
+      tableDataService.importData(TableDataService.TablesSet.ServicesAndPlaces, tableDataList);
+      return JsonRestUtils.toJsonResponse(HttpStatus.OK,
+              new ResultMessage("success", "Data successfully imported."));
    }
 
    private boolean isTextMatched(String sWhere, String sFind) {

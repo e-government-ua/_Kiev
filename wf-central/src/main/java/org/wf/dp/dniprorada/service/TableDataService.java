@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.util.Assert;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.viewobject.TableData;
 
@@ -23,6 +24,14 @@ import java.util.*;
  * Time: 20:44
  */
 public class TableDataService {
+
+   private final static String DELIMITER = ",";
+
+
+   private static void removeLastDelimiter(StringBuilder sb) {
+      sb.delete(sb.length() - DELIMITER.length(), sb.length());
+   }
+
 
    private static Map<Class, EntityMetadata> entityMetadataMap = new HashMap<>();
 
@@ -72,7 +81,7 @@ public class TableDataService {
 
       res.setTableName(entityPersister.getTableName());
 
-      SortedSet<String> propertyNames = new TreeSet<>();
+      LinkedHashSet<String> propertyNames = new LinkedHashSet<>();
       propertyNames.add(entityPersister.getIdentifierPropertyName());
       propertyNames.addAll(Arrays.asList(entityPersister.getPropertyNames()));
 
@@ -84,7 +93,7 @@ public class TableDataService {
             continue;
          }
 
-         if (Entity.class.isAssignableFrom(propertyType)) {
+         if (sessionFactory.getClassMetadata(propertyType) != null) {
             propertyType = Integer.class; // foreign key of associated entity
          }
 
@@ -106,7 +115,6 @@ public class TableDataService {
 
       final String[] columnNames = new String[entityMetadata.getProperties().size()];
 
-      final String DELIMITER = ", ";
       StringBuilder selectQuery = new StringBuilder("SELECT ");
       final List<PropertyMetadata> properties = entityMetadata.getProperties();
       for (int i = 0; i < properties.size(); i++) {
@@ -116,7 +124,7 @@ public class TableDataService {
          columnNames[i] = removeQuotes(columnName);
          selectQuery.append(columnName).append(DELIMITER);
       }
-      selectQuery.delete(selectQuery.length() - DELIMITER.length(), selectQuery.length());
+      removeLastDelimiter(selectQuery);
       selectQuery.append(" FROM ").append(entityMetadata.getTableName());
 
       List<String[]> rows = jdbcTemplate.query(
@@ -143,18 +151,27 @@ public class TableDataService {
    }
 
    private Object readValue(PropertyMetadata propertyMetadata, ResultSet rs) {
-      Object value = null;
 
       Class propertyType = propertyMetadata.getPropertyType();
 
       String columnName = removeQuotes(propertyMetadata.getColumnName());
 
+      Object value;
       try {
+         value = rs.getObject(columnName);
+
+         if (value == null) {
+            return null;
+         }
+
          if (Integer.class.isAssignableFrom(propertyType)) {
             value = rs.getInt(columnName);
          }
          else if (String.class.isAssignableFrom(propertyType)) {
             value = rs.getString(columnName);
+         }
+         else if (Boolean.class.isAssignableFrom(propertyType)) {
+            value = rs.getBoolean(columnName);
          }
          else if (DateTime.class.isAssignableFrom(propertyType)) {
             value = new DateTime(rs.getDate(columnName));
@@ -183,7 +200,99 @@ public class TableDataService {
    }
 
    public void importData(TablesSet tablesSet, List<TableData> tableDataList) {
+      deleteAllData(tablesSet);
 
+      Map<String, TableData> tableDataMap = new HashMap<>();
+      for (TableData tableData : tableDataList) {
+         tableDataMap.put(tableData.getTableName(), tableData);
+      }
+
+      for (Class entityClass : tablesSet.getEntityClasses()) {
+         final EntityMetadata entityMetadata = getEntityMetadata(entityClass);
+
+         String tableNameWithoutQuotes = removeQuotes(entityMetadata.getTableName());
+         TableData tableData = tableDataMap.get(tableNameWithoutQuotes);
+         Assert.notNull(tableData, "TableData for table " + tableNameWithoutQuotes + " is not specified!");
+
+         importDataInternal(entityMetadata, tableData);
+      }
+   }
+
+   private void importDataInternal(EntityMetadata entityMetadata, TableData tableData) {
+
+      Map<String, PropertyMetadata> columnNameToPropertyMetadataMap = new HashMap<>();
+      for (PropertyMetadata propertyMetadata : entityMetadata.getProperties()) {
+         columnNameToPropertyMetadataMap.put(removeQuotes(propertyMetadata.getColumnName()), propertyMetadata);
+      }
+
+      StringBuilder insertQuery = new StringBuilder();
+      insertQuery.append("INSERT INTO ").append(entityMetadata.getTableName()).append(" (");
+      String[] columnNames = tableData.getColumnNames();
+
+      for (String columnName : columnNames) {
+         PropertyMetadata propertyMetadata = columnNameToPropertyMetadataMap.get(columnName);
+         insertQuery.append(propertyMetadata.getColumnName()).append(DELIMITER);
+      }
+      removeLastDelimiter(insertQuery);
+
+      insertQuery.append(") VALUES (");
+      for (int i = 0; i < columnNames.length; ++i) {
+         insertQuery.append("?").append(DELIMITER);
+      }
+      removeLastDelimiter(insertQuery);
+      insertQuery.append(")");
+
+      String query = insertQuery.toString();
+      for (String[] values : tableData.getRows()) {
+
+         Object[] parsedValues = new Object[values.length];
+
+         for (int i = 0; i < values.length; ++i) {
+            String columnNameWithoutQuotes = columnNames[i];
+            PropertyMetadata propertyMetadata = columnNameToPropertyMetadataMap.get(columnNameWithoutQuotes);
+
+            parsedValues[i] = parseValue(values[i], propertyMetadata.getPropertyType());
+         }
+
+         jdbcTemplate.update(query, parsedValues);
+      }
+   }
+
+   private Object parseValue(String value, Class requiredType) {
+      if (value == null) {
+         return null;
+      }
+
+      Object res = null;
+
+      if (requiredType.equals(String.class)) {
+         res = value;
+      }
+      else if (requiredType.equals(Integer.class)) {
+         res = Integer.parseInt(value);
+      }
+      else if (requiredType.equals(Boolean.class)) {
+         res = Boolean.parseBoolean(value);
+      }
+      else {
+         throw new IllegalArgumentException("Type " + requiredType + " is not supported!");
+      }
+
+      return res;
+   }
+
+   private void deleteAllData(TablesSet tablesSet) {
+
+      // Reverse order because entities are sorted from more to less independent
+      // (independent - no references to other entities).
+      // Less independent should be removed first to prevent failing foreign key constraints.
+      Class[] entityClasses = tablesSet.getEntityClasses();
+      for (int i = entityClasses.length - 1; i >= 0; i--) {
+         Class entityClass = entityClasses[i];
+         final EntityMetadata entityMetadata = getEntityMetadata(entityClass);
+
+         jdbcTemplate.update("DELETE FROM " + entityMetadata.getTableName());
+      }
    }
 
    /**

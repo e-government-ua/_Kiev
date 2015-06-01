@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.wf.dp.dniprorada.model.ResultMessage;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.charset.Charset;
 
 /**
@@ -37,11 +39,33 @@ public final class JsonRestUtils {
       return res;
    }
 
+   public static <T> T readObject(InputStream is, Class<T> clazz) {
+      T res = null;
+      try {
+         res = new ObjectMapper().readValue(is, clazz);
+      } catch (IOException e) {
+         throw new RuntimeException(e);
+      }
+
+      return res;
+   }
+
    public static String toJson(Object res) throws JsonProcessingException {
       ObjectMapper mapper = new ObjectMapper();
-      mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+      prepareMapperForOutput(mapper);
 
       return mapper.writeValueAsString(res);
+   }
+
+   public static void writeJsonToOutputStream(Object res, OutputStream os) throws IOException {
+      ObjectMapper mapper = new ObjectMapper();
+      prepareMapperForOutput(mapper);
+
+      mapper.writeValue(os, res);
+   }
+
+   private static void prepareMapperForOutput(ObjectMapper mapper) {
+      mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
    }
 
    public static ResponseEntity toJsonResponse(Object res) {
