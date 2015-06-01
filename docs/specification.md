@@ -235,3 +235,6 @@ value="Upload"> Press here to upload the file!
 </body>
 </html>
 </code>
+
+
+`&lt;html&gt;<br/>&lt;body&gt;<br/>	&lt;form method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;<br/>		action=&quot;http://localhost:8080/wf-central/service/services/uploadServicesAndPlacesTables&quot;&gt;<br/>		File to upload: &lt;input type=&quot;file&quot; name=&quot;file&quot;&gt;&lt;br /&gt; &lt;input type=&quot;submit&quot;<br/>			value=&quot;Upload&quot;&gt; Press here to upload the file!<br/>	&lt;/form&gt;<br/>&lt;/body&gt;<br/>&lt;/html&gt;`
