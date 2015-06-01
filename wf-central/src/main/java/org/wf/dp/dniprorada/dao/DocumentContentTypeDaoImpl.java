@@ -34,7 +34,6 @@ public class DocumentContentTypeDaoImpl implements DocumentContentTypeDao {
 	}
 
 	@Override
-	@Transactional
 	public DocumentContentType getDocumentContentType(String name) {
 		DocumentContentType documentContentType;
 		List<DocumentContentType> documentsContentType = (List<DocumentContentType>) getSession()
