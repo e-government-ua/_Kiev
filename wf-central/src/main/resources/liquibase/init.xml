@@ -8,6 +8,12 @@
     <changeSet id="Create/Update tables" author="brunneng" runOnChange="true">
 
         <sql splitStatements="true">
+            DROP SEQUENCE IF EXISTS "Subject_id_seq";
+            DROP SEQUENCE IF EXISTS "SubjectHuman_ID_SEQ";
+            DROP SEQUENCE IF EXISTS "SubjectOrgan_ID_SEQ";
+            DROP SEQUENCE IF EXISTS "Document_ID_SEQ";
+            DROP SEQUENCE IF EXISTS "DocumentType_ID_SEQ";
+            DROP SEQUENCE IF EXISTS "DocumentContentType_ID_SEQ";
             DROP TABLE IF EXISTS "Region" CASCADE;
             DROP TABLE IF EXISTS "City" CASCADE;
             DROP TABLE IF EXISTS "Category" CASCADE;
