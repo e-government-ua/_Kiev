@@ -8,12 +8,12 @@
            </div>
         </div>
     </div>
-        <button type="button" class="btn btn-default btn-lg btn-admin"><span class="glyphicon glyphicon-plus"></span> Додати категорію</button>
+        <button type="button" class="btn btn-default btn-lg ctrls-admin"><span class="glyphicon glyphicon-plus"></span> Додати категорію</button>
 	<div class="row" ng-repeat="category in catalog">
-            <h1 style="margin-bottom:-10px;margin-top:20px;">{{category.sName}}  <button type="button" class="btn btn-default btn-lg btn-admin"><span class="glyphicon glyphicon-pencil"></span> Редагувати категорію</button> <button type="button" class="btn btn-default btn-lg btn-andmin"><span class="glyphicon glyphicon-remove"></span> Видатити категорію</button></h1>
-                        <button type="button" class="btn btn-default btn-admin"><span class="glyphicon glyphicon-plus"></span> Додати підкатегорію</button>
+            <h1 style="margin-bottom:-10px;margin-top:20px;">{{category.sName}}  <a class="ctrls-admin" href="" title="Редагувати категорію"><span class="glyphicon glyphicon-pencil"></span></a> <a class="ctrls-admin" href="" title="Видалити категорію"><span class="glyphicon glyphicon-remove"></span></a></h1>
+                        <button type="button" class="btn btn-default ctrls-admin"><span class="glyphicon glyphicon-plus"></span> Додати підкатегорію</button>
 			<div class="col-md-4" ng-repeat-start="subcategory in category.aSubcategory">
-				<h3>{{subcategory.sName}} <button type="button" class="btn btn-default btn-admin"><span class="glyphicon glyphicon-pencil"></span> Редагувати категорію</button> <button type="button" class="btn btn-default btn-andmin"><span class="glyphicon glyphicon-remove"></span> Видатити категорію</button></h3>
+				<h3>{{subcategory.sName}} <a class="ctrls-admin" href="" title="Редагувати категорію"><span class="glyphicon glyphicon-pencil"></span></a> <a class="ctrls-admin" href="" title="Видалити категорію"><span class="glyphicon glyphicon-remove"></span></a></h3>
 				<ul class="list-unstyled">
 					<li ng-repeat="service in subcategory.aService | orderBy: '-nSub' | limitTo: limit as services">
 						<!--a ui-sref="service.general({'id': service.nID })" ng-href="/service/{{service.nID}}/general">({{service.nSub}}) {{service.sName}}</a-->
