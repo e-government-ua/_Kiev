@@ -490,19 +490,18 @@ a {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
-.controls-admin {
-    visibility: visible;
-}
-.cat-icon {
+.btn-admin {
     
 }
-.subcat-icon {
-    
+.glyphicon-plus {
+    color: #65abd0;
 }
-.serv-icon {
-    
-}    
-
+.glyphicon-pencil {
+    color: #65abd0;
+}
+.glyphicon-remove {
+    color: red; 
+}
 a.pluso-more {
     display: none !important;
 }
