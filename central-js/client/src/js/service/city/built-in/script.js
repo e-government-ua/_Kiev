@@ -37,22 +37,6 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
 							return response.data;
 						});
 					}],
-					/*oService: ['$state', '$stateParams', 'ServiceService', function($state, $stateParams, PlacesService) {
-						return PlacesService.getCity($stateParams.region, $stateParams.city).then(function(response) {
-							var currentState = $state.get('service.general.city.built-in.bankid');
-							currentState.data.city = response.data;
-							return response.data;
-						});
-					}],*/
-					/*oService: ['$stateParams', 'service', function($stateParams, service) {
-						return service;
-					}],*/
-					/*sSubjectOperatorName: ['$stateParams', 'service', function($stateParams, service) {
-						return service.sSubjectOperatorName;
-					}],
-					sName: ['$stateParams', 'service', function($stateParams, service) {
-						return service.sName;
-					}],*/
 					oService: ['$stateParams', 'service', function($stateParams, service) {
 						return service;
 					}],
