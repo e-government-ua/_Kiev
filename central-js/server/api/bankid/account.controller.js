@@ -33,6 +33,7 @@ module.exports.prepareScansRequest = function(options) {
 		json: true,
 		body: {
 			"type": "physical",
+			"fields": ["firstName", "middleName", "lastName", "phone", "inn", "clId", "clIdText", "birthDay"],
 			"scans": [{
 				"type": "passport",
 				"fields": ["link", "dateCreate"]
@@ -49,7 +50,7 @@ module.exports.prepareScanContentRequest = function(options) {
 			'Authorization': 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id,
 			'Accept': 'application/json'
 		},
-		json: true		
+		json: true
 	};
 	return request.get(o);
 };

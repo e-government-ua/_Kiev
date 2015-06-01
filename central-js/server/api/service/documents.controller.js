@@ -118,40 +118,33 @@ module.exports.initialUpload = function(req, res) {
             'password': options.password
         },
         'qs': {
-            'nID_Subject_Upload': req.params.nID_Subject_Upload,
-            'sID_Subject_Upload': req.params.sID_Subject_Upload,
-            'sSubjectName_Upload': req.params.sSubjectName_Upload,
-            'sName': req.params.sName,
-            'nID_DocumentType': req.params.nID_DocumentType,
-            'nID_DocumentContentType': req.params.nID_DocumentContentType
+            'nID_Subject_Upload': 1,
+            'sID_Subject_Upload': 1,
+            'sSubjectName_Upload': 'Приватбанк',
+            'sName': 'Паспорт',
+            'nID_DocumentType': 1
         }
     };
 
     var scansRequest = account.prepareScansRequest(optionsForScans);
-    // "scans": [
+    
+    // result: Object
+    // customer: Object
+    // clId: "93f71a3963ecc87f5fd63ee1bce067dc0df62d7f"
+    // clIdText: "Передана інформація є достовірною і підтверджена BankID 02.06.2015 00:59"
+    // scans: Array[1]
+    // 0: Object
+    // dateCreate: "10.05.2015"
+    // link: "https://bankid.privatbank.ua/ResourceService/checked/scan/passport"
+    // type: "passport"
 
-    //     {
-    //         "type": "passport",
-
-    //         "link": "http://10.0.0.15:29932/DataAccessService/checked/scan/pasport",
-
-    //         "dateCreate": "09.04.2015"
-    //     },
-
-    //     {
-    //         "type": "zpassport",
-
-    //         "link": "http://10.0.0.15:29932/DataAccessService/checked/scan/zpasport",
-
-    //         "dateCreate": "09.04.2015"
-    //     }
-    // ]
     request
         .post(scansRequest, function(error, response, body) {
             if (!error && body) {
                 var result = body;
                 if (!result.error) {
-                    var passport = result[0];
+                    var customer = result.customer;
+                    var passport = customer.scans[0];
 
                     var scanContentRequest = account.prepareScanContentRequest(
                         _.merge(options, {
@@ -165,7 +158,7 @@ module.exports.initialUpload = function(req, res) {
                         .pipe(res);
                 }
             }
-            res.status(response.statusCode);            
+            res.status(response.statusCode);
             res.end();
         });
 };
