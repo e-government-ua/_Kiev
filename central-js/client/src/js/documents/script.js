@@ -33,12 +33,12 @@ define('documents', ['angularAMD', 'service'], function (angularAMD) {
                 parent: 'documents',
                 resolve: {
                     BankIDLogin: ['$q', '$state', '$location', '$stateParams', 'BankIDService', function($q, $state, $location, $stateParams, BankIDService) {
-                        var url = $location.protocol()
-                            +'://'
-                            +$location.host()
-                            +':'
-                            +$location.port()
-                            +$state.href('documents.bankid');
+                        var url = $location.protocol() + 
+                            '://' + 
+                            $location.host() + 
+                            ':' + 
+                            $location.port() + 
+                            $state.href('documents.bankid');
 
                         return BankIDService.login($stateParams.code, url).then(function(data) {
                             return data.hasOwnProperty('error') ? $q.reject(null): data;
@@ -56,11 +56,26 @@ define('documents', ['angularAMD', 'service'], function (angularAMD) {
                             return data.hasOwnProperty('error') ? $q.reject(null): data;
                         });
                     }],
-                    documents: ['$q', '$state', 'subject', 'ServiceService', function($q, $state, subject, ServiceService) {
-                        $state.nID_Subject = subject.nID;
-                        return ServiceService.getDocuments($state.nID_Subject).then(function(data) {
-                            return data.hasOwnProperty('error') ? $q.reject(null) : data;
-                        });
+                    documents: ['$q', '$state', 'subject', 'ServiceService', 'BankIDLogin', 
+                        function($q, $state, subject, ServiceService, BankIDLogin) {
+                            $state.nID_Subject = subject.nID;
+                            return ServiceService.getDocuments($state.nID_Subject).then(function(data) {
+                                if(data.hasOwnProperty('error')){
+                                    return $q.reject(null);
+                                } else if (data.length === 0){
+                                    ServiceService.initialUpload(BankIDLogin.access_token, 
+                                            $state.nID_Subject)
+                                    .then(function(data) {
+                                        if(!data.hasOwnProperty('error')){
+                                            ServiceService.getDocuments($state.nID_Subject).then(function(data) {
+                                                return data.hasOwnProperty('error') ? $q.reject(null) : data;
+                                            });
+                                        }                                    
+                                    });
+                                } else {
+                                    return data;
+                                }                               
+                            });
                     }]
                 },
                 views: {
@@ -72,7 +87,7 @@ define('documents', ['angularAMD', 'service'], function (angularAMD) {
                         controllerUrl: 'state/documents/content/controller'
                     })
                 }
-            })
+            });
     }]);
     return app;
 });

@@ -1,4 +1,4 @@
-define('service/service', ['angularAMD'], function (angularAMD) {
+define('service/service', ['angularAMD'], function(angularAMD) {
 	angularAMD.service('ServiceService', ['$http', function($http) {
 		this.get = function(id) {
 			var data = {
@@ -7,12 +7,12 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 			return $http.get('./api/service', {
 				params: data,
 				data: data,
-				transformResponse: [function (rawData, headersGetter) {
+				transformResponse: [function(rawData, headersGetter) {
 					var data = angular.fromJson(rawData);
 					angular.forEach(data.aServiceData, function(oServiceData) {
 						try {
 							oServiceData.oData = angular.fromJson(oServiceData.oData);
-						} catch(e) {
+						} catch (e) {
 							oServiceData.oData = {};
 						}
 					});
@@ -23,7 +23,7 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 			});
 		};
 
-		this.syncSubject = function (sInn) {
+		this.syncSubject = function(sInn) {
 			var data = {
 				'sINN': sInn
 			};
@@ -59,6 +59,18 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 				return response.data;
 			});
 		};
+
+		this.initialUpload = function(accessToken, sID_Subject) {
+			var data = {
+				'access_token': accessToken,
+				'sID_Subject': sID_Subject
+			};
+			return $http.post('./api/service/documents/initialupload', {
+				params: data
+			}).then(function(response) {
+				return response.data;
+			});
+		}
 
 		this.getDocument = function(sID_Subject, nID) {
 			console.log('nID', nID);

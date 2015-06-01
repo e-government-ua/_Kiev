@@ -5,5 +5,6 @@ var documents = require('./documents.controller');
 router.get('/', documents.index);
 router.get('/:nID', documents.getDocument);
 router.get('/download/:nID', documents.getDocumentFile);
+router.post('/initialupload', documents.initialUpload);
 
 module.exports = router;
