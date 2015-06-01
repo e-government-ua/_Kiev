@@ -34,6 +34,7 @@ public class DocumentContentTypeDaoImpl implements DocumentContentTypeDao {
 	}
 
 	@Override
+	//@Transactional(readOnly=false) 
 	public DocumentContentType getDocumentContentType(String name) {
 		DocumentContentType documentContentType;
 		List<DocumentContentType> documentsContentType = (List<DocumentContentType>) getSession()
@@ -50,6 +51,7 @@ public class DocumentContentTypeDaoImpl implements DocumentContentTypeDao {
 	}
 
 	@Override
+	@Transactional(readOnly=false) 
 	public Integer setDocumentContent(DocumentContentType documentContentType) {
 		getSession().save(documentContentType);
 		return documentContentType.getId();
