@@ -33,7 +33,9 @@ define('service.general.city', ['angularAMD', 'service.general.city.link', 'serv
 					'status@service.general.city': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/city/absent.html');
-						}]
+						}],
+                        controller: 'ServiceCityAbsentController',
+                        controllerUrl: 'state/service/city/absent/controller'
                     })
                 }
             })

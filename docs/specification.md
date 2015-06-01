@@ -12,7 +12,7 @@
 
 **HTTP Metod: POST**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/serivce/auth/login**
+**HTTP Context: https://seriver:port/wf-region/serivce/auth/login**
 
 | Name        | Value           |
 | ------------- |:-------------:|
@@ -40,7 +40,7 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: POST/DELETE**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/serivce/auth/logout**
+**HTTP Context: https://seriver:port/wf-region/serivce/auth/logout**
 
 Наличие cookie JSESSIONID
 
@@ -58,7 +58,7 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/serivce/rest/start-process/{key}**
+**HTTP Context: https://seriver:port/wf-region/serivce/rest/start-process/{key}**
 
 {key} - Ключ процесса
 
@@ -74,7 +74,7 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/serivce/rest/tasks/{assignee}**
+**HTTP Context: https://seriver:port/wf-region/serivce/rest/tasks/{assignee}**
 
 {assignee} - Владелец
 
@@ -109,7 +109,7 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/serivce/rest/process-definitions**
+**HTTP Context: https://seriver:port/wf-region/serivce/rest/process-definitions**
 
 **Response**
 
@@ -135,20 +135,20 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-dniprorada/service/rest/download_file_from_db?taskId=XXX&attachmentId=XXX&nFile=XXX**
+**HTTP Context: https://seriver:port/wf-region/service/rest/download_file_from_db?taskId=XXX&attachmentId=XXX&nFile=XXX**
 
 {taskId} - ид задачи
 {attachmentID} - ID прикрепленного файла
 {nFile} - порядковый номер прикрепленного файла
 
-https://52.17.126.64:8080/wf-dniprorada/service/rest/file/download_file_from_db?taskId=82596&attachmentId=6726532&nFile=7
+https://52.17.126.64:8080/wf-region/service/rest/file/download_file_from_db?taskId=82596&attachmentId=6726532&nFile=7
 
 #### 7. Merchants
 Сервис работы с мерчантами
 
 **HTTP Metod: GET**
 
-**HTTP Context: http://seriver:port/wf-dniprorada/service/merchant/getMerchants** - весь список мерчантов
+**HTTP Context: http://seriver:port/wf-region/service/merchant/getMerchants** - весь список мерчантов
 
 **Response**
 
@@ -164,7 +164,7 @@ https://52.17.126.64:8080/wf-dniprorada/service/rest/file/download_file_from_db?
 
 **HTTP Metod: DELETE**
 
-**HTTP Context: http://seriver:port/wf-dniprorada/service/merchant/removeMerchant** - удалить мерчанта
+**HTTP Context: http://seriver:port/wf-region/service/merchant/removeMerchant** - удалить мерчанта
 
 | Name        | Value           |
 | ------------- |:-------------:|
@@ -181,7 +181,7 @@ id - id мерчанта
 
 **HTTP Metod: POST**
 
-**HTTP Context: http://seriver:port/wf-dniprorada/service/merchant/setMerchant** - обновить информацию мерчанта
+**HTTP Context: http://seriver:port/wf-region/service/merchant/setMerchant** - обновить информацию мерчанта
 
 | Name        | Value           |
 | ------------- |:-------------:|
@@ -199,7 +199,7 @@ id - id мерчанта
 
 **HTTP Metod: PUT**
 
-**HTTP Context: http://seriver:port/wf-dniprorada/service/merchant/addMerchant** - добавить мерчанта
+**HTTP Context: http://seriver:port/wf-region/service/merchant/addMerchant** - добавить мерчанта
 
 | Name        | Value           |
 | ------------- |:-------------:|

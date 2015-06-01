@@ -1,21 +1,18 @@
 package org.wf.dp.dniprorada.task.listener;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.List;
+import java.util.Set;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.DelegateTask;
-import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.TaskListener;
+import org.activiti.engine.form.FormData;
 import org.activiti.engine.identity.User;
-import org.activiti.redis.service.RedisService;
+import org.activiti.engine.task.IdentityLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
-import org.wf.dp.dniprorada.model.MimiTypeModel;
 
 /**
  * 
@@ -24,49 +21,37 @@ import org.wf.dp.dniprorada.model.MimiTypeModel;
  */
 @Component("fileTaskUploadListener")
 public class FileTaskUploadListener extends AbstractModelTask implements TaskListener {
-	static final transient Logger LOG = LoggerFactory
-			.getLogger(FileTaskUploadListener.class);
-	@Autowired
-	RedisService redisService;
-	
-	private Expression assignee;
-	
-	/**
-	 * 
-	 */
+
+	static final transient Logger LOG = LoggerFactory.getLogger(FileTaskUploadListener.class);
+
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	public void notify(DelegateTask task) {
 		DelegateExecution execution = task.getExecution();
-		List<User> user = execution.getEngineServices().getIdentityService().createUserQuery().memberOfGroup("management_clerk_dmr").list();
-		execution.getEngineServices().getIdentityService().setAuthenticatedUserId(user.get(0).getId());
-		//task.setAssignee(getStringFromFieldExpression(this.assignee, execution));
+		// получить группу бп
+		Set<IdentityLink> identityLink = task.getCandidates();
+		// получить User группы
+		List<User> users = execution.getEngineServices().getIdentityService()
+				.createUserQuery()
+				.memberOfGroup(identityLink.iterator().next().getGroupId())
+				.list();
 
-		List<String> listKeys = getListKeysRedis(execution.getVariable("attachedId").toString());
-		if (!listKeys.isEmpty()) {
-			for (String keyRedis : listKeys) {
-				 byte[] contentbyte = getRedisService().getAttachments(keyRedis);
-				if (contentbyte != null) {
 
-			InputStream content = new ByteArrayInputStream(contentbyte);
-			MimiTypeModel mimiType = getMimiType(contentbyte);
-			execution
-					.getEngineServices()
-					.getTaskService()
-					.createAttachment(mimiType.getMimiType()+";"+mimiType.getExtension(), task.getId(),
-							execution.getProcessInstanceId(),
-							keyRedis, "attached", content);
+		if(users == null || users.size()==0|| users.get(0)==null || users.get(0).getId() == null){
+			//TODO  what to do if no user?
+		} else {
+		// setAuthenticatedUserId первого попавщегося
+        //TODO Shall we implement some logic for user selection.
+		execution.getEngineServices().getIdentityService()
+				.setAuthenticatedUserId(users.get(0).getId());
+
+		// получить информацию по стартовой форме бп
+		FormData startformData = execution.getEngineServices()
+				.getFormService()
+				.getStartFormData(execution.getProcessDefinitionId());
+
+			addAttachmentsToTask(startformData, task);
 		}
-			}
-		}
-		
 	}
-
-	public RedisService getRedisService() {
-		return redisService;
-	}
-
-	
-	
 }

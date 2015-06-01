@@ -1,7 +1,7 @@
 define('state/index/controller', ['angularAMD'], function (angularAMD) {
 	angularAMD.controller('IndexController', ['$scope', 'CatalogService', 'catalog', function ($scope, CatalogService, catalog) {
 		$scope.catalog = catalog;
-		
+		$scope.limit = 10;
 		$scope.sSearch = null;
 		
 		$scope.search = function() {

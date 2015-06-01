@@ -28,4 +28,7 @@ public final class Util {
 		return contentByte;
 	}
 
+	public static boolean isNotEmpty(String str){
+		return str != null && !str.isEmpty();
+	}
 }

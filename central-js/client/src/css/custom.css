@@ -390,6 +390,17 @@ a {
     height: 21px;
 }
 
+.icon-e-service {
+    vertical-align: middle;
+    display: inline-block;
+    background-image: url(/img/icons/e-icon_small.png);
+    background-repeat: no-repeat !important;
+    background-position: 0px 0px;
+    width: 15px;
+    height: 15px;
+   margin-right: 5px;
+}
+
 .i-btn-badge {
     text-align: left;
     padding-top: 0;
@@ -478,4 +489,8 @@ a {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+a.pluso-more {
+    display: none !important;
 }

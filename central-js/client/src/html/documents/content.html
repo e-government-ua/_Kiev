@@ -60,8 +60,8 @@
                 </th>
             </tr>
             </thead>
-
-            <tbody ng-repeat="doc in documents">
+            
+            <tbody ng-repeat="doc in documents" >
             <tr>
                 <td>
                     {{doc.sName}}
@@ -77,13 +77,8 @@
                            value="{{doc.sName}}">
                 </td>
                 <td>
-                    <a href="#"><span class="glyphicon glyphicon-duplicate"
-                                      aria-hidden="true"></span></a>
-                    <a href="#accordion{{doc.nID}}"
-                       data-parent="#accordion"
-                       data-toggle="collapse"
-                       class="accordion-toggle"><span class="glyphicon glyphicon-link"
-                                                      aria-hidden="true"></span></a>
+                    <a href="/api/service/documents/download/{{doc.nID}}" target="_blank"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></a>
+                    <a href="#accordion{{doc.nID}}" data-parent="#accordion" data-toggle="collapse" class="accordion-toggle"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
                 </td>
 
             </tr>

@@ -7,8 +7,8 @@ angular.module('dashboardJsApp')
     firstName: "Kermit"
     id: "kermit"
     lastName: "The Frog"
-    pictureUrl: "https://52.17.126.64:8080/wf-dniprorada/service/identity/users/kermit/picture"
-    url: "https://52.17.126.64:8080/wf-dniprorada/service/identity/users/kermit"
+    pictureUrl: "https://52.17.126.64:8080/wf-region/service/identity/users/kermit/picture"
+    url: "https://52.17.126.64:8080/wf-region/service/identity/users/kermit"
     **/
     var currentUser = {};
     var sessionSettings;

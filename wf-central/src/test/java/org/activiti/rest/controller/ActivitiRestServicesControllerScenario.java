@@ -15,7 +15,9 @@ import org.springframework.web.context.WebApplicationContext;
 import org.wf.dp.dniprorada.model.Category;
 import org.wf.dp.dniprorada.model.Region;
 import org.wf.dp.dniprorada.model.Service;
+import org.wf.dp.dniprorada.service.TableDataService;
 import org.wf.dp.dniprorada.util.JsonRestUtils;
+import org.wf.dp.dniprorada.viewobject.TableData;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -35,6 +37,17 @@ public class ActivitiRestServicesControllerScenario {
     public void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
+
+   @Test
+   public void shouldSuccessfullyGetServicesAndPlacesTables() throws Exception {
+      String jsonData = mockMvc.perform(get("/services/getServicesAndPlacesTables")).
+              andExpect(status().isOk()).
+              andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
+              andExpect(jsonPath("$", not(empty()))).
+              andReturn().getResponse().getContentAsString();
+      TableData[] tableDataList = JsonRestUtils.readObject(jsonData, TableData[].class);
+      Assert.assertEquals(TableDataService.TablesSet.ServicesAndPlaces.getEntityClasses().length, tableDataList.length);
+   }
 
     @Test
     public void shouldSuccessfullyGetAndSetServicesTree() throws Exception {
@@ -130,11 +143,13 @@ public class ActivitiRestServicesControllerScenario {
 
     @Test
     public void recursiveCompletelyDeletedService() throws Exception {
+
+        int serviceId = 4;
         String jsonData = mockMvc.perform(get("/services/getService").
-                param("nID", "2")).
+                param("nID", ""+serviceId)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
-                andExpect(jsonPath("$.nID", is(2))).
+                andExpect(jsonPath("$.nID", is(serviceId))).
                 andExpect(jsonPath("$.aServiceData", not(empty()))).
                 andExpect(jsonPath("$.sName", not(empty()))).
                 andReturn().getResponse().getContentAsString();
@@ -159,10 +174,10 @@ public class ActivitiRestServicesControllerScenario {
     @Test
     public void deletedServiceById() throws Exception {
         String jsonData = mockMvc.perform(get("/services/getService").
-                param("nID", "8")).
+                param("nID", "7")).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
-                andExpect(jsonPath("$.nID", is(8))).
+                andExpect(jsonPath("$.nID", is(7))).
                 andExpect(jsonPath("$.aServiceData", is(empty()))).
                 andExpect(jsonPath("$.sName", not(empty()))).
                 andReturn().getResponse().getContentAsString();
@@ -196,19 +211,21 @@ public class ActivitiRestServicesControllerScenario {
 
     @Test
     public void deletedSubcategoryById() throws Exception {
-        String jsonData = mockMvc.perform(delete("/services/removeSubcategory").
-                param("nID", "2")).
-                andExpect(status().isOk()).
-                andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
-                andReturn().getResponse().getContentAsString();
-        Assert.assertTrue(jsonData.contains("success"));
-
-        jsonData = mockMvc.perform(delete("/services/removeSubcategory").
+       String jsonData = mockMvc.perform(delete("/services/removeSubcategory").
                 param("nID", "6")).
                 andExpect(status().isNotModified()).
                 andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
                 andReturn().getResponse().getContentAsString();
-        Assert.assertTrue(jsonData.contains("error"));
+       Assert.assertTrue(jsonData.contains("error"));
+
+       // currently no subcategory without services
+
+//       jsonData = mockMvc.perform(delete("/services/removeSubcategory").
+//               param("nID", "6").param("bRecursive", "true")).
+//               andExpect(status().isOk()).
+//               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
+//               andReturn().getResponse().getContentAsString();
+//       Assert.assertTrue(jsonData.contains("success"));
     }
 
     @Test

@@ -1,13 +1,6 @@
-define('formData/factory', ['angularAMD', 'file/directive', 'parameter/factory', 'datepicker/factory', 'file/factory'], function(angularAMD) {
-	angularAMD.factory('FormDataFactory', ['ParameterFactory', 'DatepickerFactory', 'FileFactory',
-		function(ParameterFactory, DatepickerFactory, FileFactory) {
-			var capitalizeFirst = function(input) {
-				if (input) {
-					return input.substring(0, 1).toUpperCase() + input.substring(1);
-				}
-				return input;
-			};
-
+define('formData/factory', ['angularAMD', 'file/directive', 'parameter/factory', 'datepicker/factory', 'file/factory', 'bankid/documents/factory'], function(angularAMD) {
+	angularAMD.factory('FormDataFactory', ['ParameterFactory', 'DatepickerFactory', 'FileFactory', 'BankIDDocumentsFactory',
+		function(ParameterFactory, DatepickerFactory, FileFactory, DocumentsFactory) {
 			var FormDataFactory = function() {
 				this.processDefinitionId = null;
 
@@ -42,54 +35,42 @@ define('formData/factory', ['angularAMD', 'file/directive', 'parameter/factory',
 
 			FormDataFactory.prototype.setBankIDAccount = function(BankIDAccount) {
 				return angular.forEach(BankIDAccount.customer, function(value, key) {
-					var field = 'bankId'+key;
-					var finalValue = value;
-					if (key === 'documents') {
-						if (value && value.length === 1 && value[0]) {
-							var documentObject = value[0];
-							if (documentObject.type === 'passport') {
-								finalValue =
-									documentObject.series +
-									documentObject.number + ' ' +
-									documentObject.issue + ' ' +
-									documentObject.dateIssue;
-
-								field = 'bankId' + capitalizeFirst(documentObject.type);								
+					switch(key) {
+						case 'documents':
+							var documents = new DocumentsFactory();
+							documents.initialize(value);
+							
+							angular.forEach(documents.list, function(document) {
+								var field = null;
+								switch(document.type) {
+									case 'passport':
+										field = 'bankIdPassport';
+								}
+								if(field == null) {
+									return;
+								}
+								if (this.hasParam(field)) {
+									this.fields[field] = true;
+									this.params[field].value = documents.getPassport();
+								}
+							}, this);
+							break;
+						default:
+							var field = 'bankId'+key;
+							
+							if (this.hasParam(field)) {
+								this.fields[field] = true;
+								this.params[field].value = value;
 							}
-						}
-					/*} else if (key === 'addresses') {
-						if (value && value.length === 1 && value[0]) {
-							var oAddress = value[0];
-							if (oAddress.type === 'factual') {
-								finalValue =
-									oAddress.country
-                                                                        + ' ' + oAddress.state
-                                                                        + ', ' + oAddress.area
-                                                                        + ', ' + oAddress.city
-                                                                        + ', ' + oAddress.street
-                                                                        + ', ' + oAddress.houseNo
-                                                                        + ', к.' + oAddress.flatNo
-                                                                ;
-								field = 'bankId' + capitalizeFirst(oAddress.type);								
-							}
-						}*/
-					} else {
-						//field = 'bankId' + capitalizeFirst(key);
-						field = 'bankId' + key;
-						finalValue = value;
-					}
-
-					if (this.hasParam(field)) {
-						this.fields[field] = true;
-						this.params[field].value = finalValue;
+							break;
 					}
 				}, this);
 			};
 			
 			FormDataFactory.prototype.setFile = function(name, file) {
 				var parameter = this.params[name];
-				parameter.remove(file);
-				parameter.addFiles(file);
+				parameter.removeAll();
+				parameter.addFiles([file]);
 			};
 			
 			FormDataFactory.prototype.setFiles = function(name, files) {
@@ -100,7 +81,7 @@ define('formData/factory', ['angularAMD', 'file/directive', 'parameter/factory',
 			
 			FormDataFactory.prototype.addFile = function(name, file) {
 				var parameter = this.params[name];
-				parameter.addFiles(file);
+				parameter.addFiles([file]);
 			};
 			
 			FormDataFactory.prototype.addFiles = function(name, files) {

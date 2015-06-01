@@ -14,25 +14,25 @@ import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.DocumentContentType;
 import org.wf.dp.dniprorada.model.DocumentType;
+import org.wf.dp.dniprorada.model.Subject;
 import org.wf.dp.dniprorada.util.Util;
 
 import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 
 public class DocumentDaoImpl implements DocumentDao {
 
+	private static final String contentMock = "No content!!!";
+
 	private SessionFactory sessionFactory;
-	
-	//private String mokeContentDocument = "123456789";
-	
+
 	@Autowired
 	private GridFSBytesDataStorage durableBytesDataStorage;
-	
 
 	@Required
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-	
+
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
@@ -42,8 +42,10 @@ public class DocumentDaoImpl implements DocumentDao {
 	}
 
 	@Override
-	public List<Document> getDocuments(String subject_Upload) {
-		return (List<Document>)getSession().createCriteria(Document.class).add(Restrictions.eq("subject_Upload", subject_Upload)).list();
+	public List<Document> getDocuments(String sID_subject_Upload) {
+		return (List<Document>) getSession().createCriteria(Document.class)
+				.add(Restrictions.eq("sID_subject_Upload", sID_subject_Upload))
+				.list();
 	}
 
 	@Override
@@ -54,45 +56,46 @@ public class DocumentDaoImpl implements DocumentDao {
 	@Override
 	public byte[] getDocumentContent(Long id) {
 		Document document = (Document) getSession().get(Document.class, id);
-		return durableBytesDataStorage.getData(document.getСontentKey());
-		//return Util.contentStringToByte(mokeContentDocument);
+		byte[] contentByte = durableBytesDataStorage.getData(document
+				.getСontentKey());
+		return contentByte != null ? contentByte : contentMock.getBytes();
 	}
 
 	@Override
 	public byte[] getDocumentContent(String contentKey) {
-		return durableBytesDataStorage.getData(contentKey);
-		//return Util.contentStringToByte(mokeContentDocument);
+		byte[] contentByte = durableBytesDataStorage.getData(contentKey);
+		return contentByte != null ? contentByte : contentMock.getBytes();
 	}
 
-	@Override
-	//public Long setDocument(String subject_Upload, String subjectName_Upload,
-	//		String name, String file, Integer documentTypeId,
-	//		Integer documentContentTypeId, byte[] content) {
-	//public Long setDocument(String sID_Subject_Upload, String sSubjectName_Upload,
-	//		String sName, Integer nID_DocumentType,
-	//		Integer nID_DocumentContentType, MultipartFile oFile) throws IOException {
-	public Long setDocument(String sID_Subject_Upload, String sSubjectName_Upload,
-			String sName, Integer nID_DocumentType,
-			Integer nID_DocumentContentType, String sFileName, String sFileContentType, byte[] aoContent) throws IOException {
-            
+	public Long setDocument(Long nID_Subject_Upload, String sID_Subject_Upload,
+			String sSubjectName_Upload, String sName, Integer nID_DocumentType,
+			Integer nID_DocumentContentType, String sFileName,
+			String sFileContentType, byte[] aoContent) throws IOException {
+
 		Document document = new Document();
-		document.setSubject_Upload(sID_Subject_Upload);
+		document.setsID_subject_Upload(sID_Subject_Upload);
 		document.setSubjectName_Upload(sSubjectName_Upload);
 		document.setName(sName);
-		
+
 		DocumentType oDocumentType = new DocumentType();
 		oDocumentType.setId(nID_DocumentType);
 		document.setDocumentType(oDocumentType);
-		
+
 		DocumentContentType documentContentType = new DocumentContentType();
-		documentContentType.setId(nID_DocumentContentType==null?2:nID_DocumentContentType);//TODO определять/генерить реальный ИД, по Контенттайп с oFile
+		documentContentType.setId(nID_DocumentContentType == null ? 2
+				: nID_DocumentContentType);// TODO определять/генерить реальный
+											// ИД, по Контенттайп с oFile
 		document.setDocumentContentType(documentContentType);
-		
+
+		if (nID_Subject_Upload != null) {
+			Subject subject_Upload = new Subject();
+			subject_Upload.setnID(nID_Subject_Upload);
+			document.setSubject_Upload(subject_Upload);
+		}
+
 		document.setСontentKey(durableBytesDataStorage.saveData(aoContent));
-		//document.setСontentKey(durableBytesDataStorage.saveData(content));
 		document.setContentType(sFileContentType);
 		document.setFile(sFileName);
-		//document.setFile(file);
 		document.setDate_Upload(new Date());
 		getSession().saveOrUpdate(document);
 		return document.getId();

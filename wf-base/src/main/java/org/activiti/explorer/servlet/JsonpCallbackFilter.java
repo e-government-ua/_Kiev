@@ -30,22 +30,22 @@ public class JsonpCallbackFilter implements Filter {
     
     
     String sRequestURL = httpRequest.getRequestURL().toString();
-    //String sPath = "wf-dniprorada/";
-    //String sPath = "wf-dniprorada/";
+    //String sPath = "wf-region/";
+    //String sPath = "wf-region/";
     //"*/index","*/startForm","*/startedProcess"
     if(sRequestURL.endsWith("/index")
     || sRequestURL.endsWith("/startForm")
     || sRequestURL.endsWith("/startedProcess")){
         String sPath = "service/";
         int nAt=sRequestURL.indexOf(sPath);
-        log.info("Before_sRequestURL {}",sRequestURL);
+        log.info("Before_sRequestURL {} ", sRequestURL);
 //        System.out.println("Before_sRequestURL="+sRequestURL);
         if(nAt>=0){
             //sRequestURL = ((sRequestURL.replaceAll(sPath, "/"+sPath+"WEB-INF/jsp"))+".jsp").substring(nAt);
             //sRequestURL = ((sRequestURL.replaceAll(sPath, "/WEB-INF/jsp"+sPath+""))+".jsp").substring(nAt);
             sRequestURL = ((sRequestURL.replaceAll("service/rest/", "WEB-INF/jsp/"))+".jsp");
 //            System.out.println("After_sRequestURL="+sRequestURL);
-            log.info("After_sRequestURL {}", sRequestURL);
+            log.info("After_sRequestURL {} ", sRequestURL);
             ((HttpServletResponse) response).sendRedirect(sRequestURL);//"/index.jsp"
         /*}else{
             chain.doFilter(request, response);*/

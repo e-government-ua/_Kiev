@@ -11,6 +11,6 @@ public class DocumentAccessRowMapper implements RowMapper<DocumentAccess> {
 
 	@Override
 	public DocumentAccess mapRow(ResultSet rs, int rowNum) throws SQLException {
-		return new DocumentAccessExtractor().extractData(rs);
+		return new DocumentAccessLinkExtractor().extractData(rs);
 	}
 }

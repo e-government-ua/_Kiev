@@ -26,26 +26,46 @@ define('state/documents/bankid/controller', ['angularAMD'], function(angularAMD)
     }
   }]);
 });
-define('state/documents/content/controller', ['angularAMD'], function(angularAMD) {
-  angularAMD.controller('DocumentsContentController',
-    function($rootScope, $scope, $state, documents, ServiceService) {
-      angular.forEach(documents, function(item) {
-        if (item.oDate_Upload === null) {
-          item.oDate_Upload = new Date();
-        }
-      });
-      $scope.documents = documents;
-      $scope.sFIO = '';
-      $scope.sTarget = '';
-      $scope.sTelephone = '';
-      $scope.nDaysOptions = [{day: 1, title: '1 день'}, {day: 2, title: '2 дня'}, {day: 3, title: '3 дні'}, {day: 4, title: '4 дні'}];
-      $scope.nDays = $scope.nDaysOptions[1];
+define('state/documents/content/controller', ['angularAMD'], function (angularAMD) {
+	angularAMD.controller('DocumentsContentController', [
+        '$rootScope', '$scope', '$state', 'documents', 'ServiceService',
+        function ($rootScope, $scope, $state, documents, ServiceService) {
+		console.log('$rootScope');
+        console.log('DocumentsContentController');
+        console.log($state);
+        console.log(documents);
+        angular.forEach(documents, function (item) {
+            if (item.oDate_Upload === null) {
+                item.oDate_Upload = new Date();
+            }
+        });
+        $scope.documents = documents;
+          $scope.sFIO = '';
+          $scope.sTarget = '';
+          $scope.sTelephone = '';
+          $scope.nDaysOptions = [{day: 1, title: '1 день'}, {day: 2, title: '2 дня'}, {day: 3, title: '3 дні'}, {
+            day: 4,
+            title: '4 дні'
+          }];
+          $scope.nDays = $scope.nDaysOptions[1];
 
-      $scope.shareLink = function(document) {
-        console.log('sFIO', $scope.sFIO);
-        ServiceService.shareLink($state.nID_Subject, document.nID, $scope.sFIO,
-          $scope.sTarget, $scope.sTelephone, $scope.nDays);
-      }
+          $scope.getDocument = function(document) {
+            console.log(document);
+            ServiceService.getDocument($state.nID_Subject, document.nID).then(function(data) {
+              console.log(data);
+              console.log(encodeURI(data));
+              var element = angular.element('<a/>');
+              element.attr({
+                href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
+                target: '_blank',
+                download: 'filename.csv'
+              })[0].click();
+            })
+          };
+          $scope.shareLink = function(document) {
+            console.log('sFIO', $scope.sFIO);
+            ServiceService.shareLink($state.nID_Subject, document.nID, $scope.sFIO,
+              $scope.sTarget, $scope.sTelephone, $scope.nDays);}
 
-    });
+        }]);
 });

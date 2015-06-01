@@ -41,9 +41,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.model.ByteArrayMultipartFile;
 
 /**
- * ...wf-dniprorada/service/...
+ * ...wf-region/service/...
  * Example:
- * .../wf-dniprorada/service/rest/startProcessByKey/citizensRequest
+ * .../wf-region/service/rest/startProcessByKey/citizensRequest
  *
  * @author Tereshchenko
  */

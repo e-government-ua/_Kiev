@@ -1,3 +1,4 @@
-nID;nID_Document;sDateCreate;nMS;sFIO;sTarget;sTelephone;sMail;sSecret
-;1;May 27 2015  9:55AM;111;LEO;secret;96;ya@ya.ru;1232456
-;3;May 27 2015  9:55AM;112;LEO;secret;97;ya@ya.ru;1232457
+nID;nID_Document;sDateCreate;nMS;sFIO;sTarget;sTelephone;sMail;sSecret;sAnswer;sDateAnswerExpire
+1;1;2015-05-27 23:25:43.002;111;Пупкин Иван1;secret;96;ya@ya.ru;1232456;NULL;2016-05-27 23:25:43.002
+2;2;2015-05-27 23:25:43.003;111;Пупкин Иван2;secret;96;ya@ya.ru;1232456;123;2016-05-27 23:25:43.002
+3;3;2015-05-27 23:25:43.004;112;Пупкин Иван3;secret;97;ya@ya.ru;1232457;NULL;2016-05-27 23:25:43.002
