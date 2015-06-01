@@ -16,9 +16,10 @@ public class Subject {
 	
 	@JsonProperty(value = "nID")
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="subject_id_seq")
-    @SequenceGenerator(name="subject_id_seq", sequenceName="subject_id_seq", allocationSize=1)
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="subject_id_seq")
+    //@SequenceGenerator(name="subject_id_seq", sequenceName="subject_id_seq", allocationSize=1)
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "nID")
 	
     

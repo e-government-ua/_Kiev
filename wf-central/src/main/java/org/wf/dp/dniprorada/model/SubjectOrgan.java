@@ -22,8 +22,9 @@ public class SubjectOrgan {
 	
 	@JsonProperty(value = "nID")
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="subjectOrgan_id_seq")
-    @SequenceGenerator(name="subjectOrgan_id_seq", sequenceName="subjectOrgan_id_seq", allocationSize=1)
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="subjectOrgan_id_seq")
+    //@SequenceGenerator(name="subjectOrgan_id_seq", sequenceName="subjectOrgan_id_seq", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "nID")
 	private Long nID; 
 	 

@@ -340,6 +340,21 @@
         </createTable>
         <addAutoIncrement columnName="nID" tableName="Document" columnDataType="bigint"  incrementBy="1" startWith="1"/>
         
+        <createSequence catalogName="Subject"
+            incrementBy="1"
+            sequenceName="Subject_id_seq"
+            startValue="1"/>
+            
+        <createSequence catalogName="SubjectHuman"
+            incrementBy="1"
+            sequenceName="SubjectHuman_id_seq"
+            startValue="1"/>
+            
+        <createSequence catalogName="SubjectOrgan"
+            incrementBy="1"
+            sequenceName="SubjectOrgan_id_seq"
+            startValue="1"/>
+        
         <!-- ####################################################################################################### -->
         <!--createTable tableName="DocumentAccess">
             <column name="nID" type="bigint">
