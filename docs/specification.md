@@ -224,7 +224,7 @@ id - id мерчанта
 Загрузить в виде json (в теле POST запроса): /wf-central/service/services/setServicesAndPlacesTables
 Загрузить в из json файла: /wf-central/service/services/uploadServicesAndPlacesTables
 Пример страницы формы загрузки из файла:
-<code>
+`
 <html>
 <body>
 <form method="POST" enctype="multipart/form-data"
@@ -234,7 +234,6 @@ value="Upload"> Press here to upload the file!
 </form>
 </body>
 </html>
-</code>
-
+`
 
 `&lt;html&gt;<br/>&lt;body&gt;<br/>	&lt;form method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;<br/>		action=&quot;http://localhost:8080/wf-central/service/services/uploadServicesAndPlacesTables&quot;&gt;<br/>		File to upload: &lt;input type=&quot;file&quot; name=&quot;file&quot;&gt;&lt;br /&gt; &lt;input type=&quot;submit&quot;<br/>			value=&quot;Upload&quot;&gt; Press here to upload the file!<br/>	&lt;/form&gt;<br/>&lt;/body&gt;<br/>&lt;/html&gt;`
