@@ -491,7 +491,7 @@ a {
     border-top-right-radius: 0;
 }
 .ctrls-admin {
-    
+    display: none;
 }
 .glyphicon-plus {
     color: #65abd0;
