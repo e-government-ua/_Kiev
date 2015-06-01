@@ -10,7 +10,7 @@ define('service.general.city', ['angularAMD', 'service.general.city.link', 'serv
 						return PlacesService.getRegions().then(function(response) {
 							return response.data;
 						});
-					}],
+					}]
 				},
                 views: {
                     '@service': angularAMD.route({
