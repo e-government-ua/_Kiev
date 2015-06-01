@@ -491,7 +491,7 @@ a {
     border-top-right-radius: 0;
 }
 .controls-admin {
-    visibility: hidden;
+    visibility: visible;
 }
 .cat-icon {
     
@@ -501,6 +501,7 @@ a {
 }
 .serv-icon {
     
+}    
 
 a.pluso-more {
     display: none !important;
