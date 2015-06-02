@@ -179,7 +179,7 @@ public class ActivitiRestDocumentController {
             //@RequestParam(value = "sFile", required = false) String fileName,
             @RequestParam(value = "nID_DocumentType") Integer nID_DocumentType,
             @RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
-            @RequestParam(value = "oFile", required = false) MultipartFile oFile,
+            @RequestParam(value = "oFile", required = true) MultipartFile oFile,
             //@RequestBody byte[] content,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
 
