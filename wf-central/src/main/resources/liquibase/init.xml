@@ -30,6 +30,8 @@
             DROP TABLE IF EXISTS "DocumentType" CASCADE;
             DROP TABLE IF EXISTS "DocumentContentType" CASCADE;
             DROP TABLE IF EXISTS "Document" CASCADE;
+            DROP TABLE IF EXISTS "HistoryEvent" CASCADE;
+
             <!-- DROP TABLE IF EXISTS "DocumentAccess" CASCADE; -->
         </sql>
         
@@ -544,6 +546,14 @@
             <column name="sDate_Upload" type="STRING"/>  
             <column name="sContentType" type="STRING"/> 
             <column name="nID_Subject_Upload" type="NUMERIC"/> 
+        </loadData>
+        <loadData encoding="UTF-8" file="data/HistoryEvent.csv" tableName="HistoryEvent" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_Subject" type="NUMERIC"/>
+            <column name="nID_HistoryEventType" type="NUMERIC"/>
+            <column name="sEventName_Custom" type="STRING"/>
+            <column name="sMessage" type="STRING"/>
+            <column name="sDate" type="STRING"/>
         </loadData>
 
         <!--loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
