@@ -299,7 +299,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getDocumentFile?nID=1
 
 sID_Subject - идентификатор субъекта
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/getDocuments?sID_Subject=2
+https://poligon.igov.org.ua/wf-central/service/services/getDocuments?nID_Subject=2
 
  ---------------------------------------------------------------------------------------------------------------------------
 
@@ -314,7 +314,7 @@ sFile - название и расширение файла
 nID_DocumentType - тип документа
 sDocumentContentType - тип контента документа
 soDocumentContent - контект в виде строки
-nID_Subject_Upload - ид субъекта, который загрузил документ
+nID_Subject - ид субъекта владельца документа
 
 --------------------------------------------------------------------------------------------------------------------------
  
@@ -329,7 +329,7 @@ sName - название документа
 nID_DocumentType - тип документа
 sDocumentContentType - тип контента документа
 soDocumentContent - контект в виде строки
-nID_Subject_Upload - ид субъекта, который загрузил документ
+nID_Subject - ид субъекта владельца документа
 oFile - параметры файла (тип MultipartFile)
 
 --------------------------------------------------------------------------------------------------------------------------
