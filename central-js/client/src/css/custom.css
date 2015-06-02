@@ -491,7 +491,7 @@ a {
     border-top-right-radius: 0;
 }
 .ctrls-admin {
-    display: none;
+    /* display: none; */
 }
 .glyphicon-plus {
     color: #65abd0;
@@ -502,6 +502,15 @@ a {
 .glyphicon-remove {
     color: red; 
 }
+.ctrls-cat {
+	font-size: 20px;
+  }
+.ctrls-subcat {
+	font-size: 16px;
+  }  
+.ctrls-srvc {
+	font-size: 16px;
+  }  
 a.pluso-more {
     display: none !important;
 }
