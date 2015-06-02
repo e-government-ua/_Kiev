@@ -124,7 +124,7 @@ public class HistoryEvent {
 
     @Transient
     public String getsDate() {
-        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(date);
+        return new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss.SSS").format(date);
     }
 
     public void setsDate(String sDate) {
