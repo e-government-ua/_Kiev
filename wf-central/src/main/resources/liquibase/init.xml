@@ -401,7 +401,7 @@
             <column name="sContentType" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="nID_Subject_Upload" type="bigint">
+            <column name="nID_Subject" type="bigint">
                 <constraints nullable="true" foreignKeyName="FK_Document_Subject"
                              referencedTableName="Subject" referencedColumnNames="nID" deleteCascade="true"/>
             </column>
@@ -550,7 +550,7 @@
             <column name="sSubjectName_Upload" type="STRING"/>
             <column name="sDate_Upload" type="STRING"/>  
             <column name="sContentType" type="STRING"/> 
-            <column name="nID_Subject_Upload" type="NUMERIC"/> 
+            <column name="nID_Subject" type="NUMERIC"/> 
         </loadData>
         <!--<loadData encoding="UTF-8" file="data/HistoryEvent.csv" tableName="HistoryEvent" separator=";">-->
             <!--<column name="nID" type="NUMERIC"/>-->
