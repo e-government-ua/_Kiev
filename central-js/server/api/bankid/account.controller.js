@@ -46,11 +46,8 @@ module.exports.prepareScanContentRequest = function(options) {
 	var o = {
 		'url': options.url,
 		'headers': {
-			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id,
-			'Accept': 'application/json'
-		},
-		json: true
+			'Authorization': 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id
+		}
 	};
 	return request.get(o);
 };

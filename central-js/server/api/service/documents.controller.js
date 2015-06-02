@@ -1,6 +1,8 @@
 var request = require('request');
 var account = require('../bankid/account.controller');
 var _ = require('lodash');
+var FormData = require('form-data');
+
 request.debug = true;
 
 function getOptions(req) {
@@ -114,11 +116,11 @@ module.exports.initialUpload = function(req, res) {
     var optionsForUploadContent = {
         'url': url,
         'auth': {
-            'username': options.username,
-            'password': options.password
+            'username': activiti.username,
+            'password': activiti.password
         },
         'qs': {
-            'nID_Subject_Upload': 1,
+            'nID_Subject_Upload': sID_Subject,
             'sID_Subject_Upload': 1,
             'sSubjectName_Upload': 'Приватбанк',
             'sName': 'Паспорт',
@@ -127,16 +129,6 @@ module.exports.initialUpload = function(req, res) {
     };
 
     var scansRequest = account.prepareScansRequest(optionsForScans);
-    
-    // result: Object
-    // customer: Object
-    // clId: "93f71a3963ecc87f5fd63ee1bce067dc0df62d7f"
-    // clIdText: "Передана інформація є достовірною і підтверджена BankID 02.06.2015 00:59"
-    // scans: Array[1]
-    // 0: Object
-    // dateCreate: "10.05.2015"
-    // link: "https://bankid.privatbank.ua/ResourceService/checked/scan/passport"
-    // type: "passport"
 
     request
         .post(scansRequest, function(error, response, body) {
@@ -152,13 +144,16 @@ module.exports.initialUpload = function(req, res) {
                         })
                     );
 
-                    request
-                        .get(scanContentRequest)
-                        .pipe(optionsForUploadContent)
-                        .pipe(res);
+                    var form = new FormData();
+                    form.append('oFile', scanContentRequest);
+                    form.pipe(request.post(
+                        _.merge(optionsForUploadContent, {
+                            headers: form.getHeaders()
+                        }))).pipe(res);
                 }
+            } else {
+                res.status(response.statusCode);
+                res.end();
             }
-            res.status(response.statusCode);
-            res.end();
         });
 };
