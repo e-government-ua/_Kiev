@@ -48,9 +48,9 @@ define('service/service', ['angularAMD'], function(angularAMD) {
       });
     };
 
-    this.getDocuments = function(sID_Subject) {
+    this.getDocuments = function(nID_Subject) {
       var data = {
-        'sID_Subject': sID_Subject
+        'nID_Subject': nID_Subject
       };
       return $http.get('./api/service/documents', {
         params: data,
