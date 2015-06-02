@@ -34,7 +34,6 @@ define('documents', ['angularAMD', 'service'], function(angularAMD) {
         views: {
           'view': angularAMD.route({
             templateProvider: function($templateCache) {
-              console.log("Событие срабатывает");
               return $templateCache.get('html/documents/view.html');
             }
           })
