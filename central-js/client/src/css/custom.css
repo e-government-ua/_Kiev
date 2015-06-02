@@ -491,16 +491,31 @@ a {
     border-top-right-radius: 0;
 }
 .ctrls-admin {
-    display: none;
+    /* display: none; */
 }
 .glyphicon-plus {
-    color: #65abd0;
+    
 }
 .glyphicon-pencil {
-    color: #65abd0;
+    color: #b8a927;
 }
 .glyphicon-remove {
-    color: red; 
+    color: #ff8080; 
+}
+.ctrls-cat {
+    font-size: 20px;
+}
+.ctrls-subcat {
+    font-size: 16px;
+}  
+.ctrls-srvc {
+    font-size: 14px;
+}
+.add0-cat, .add0-subcat, .add0-srvc {
+    color: #b8a927;
+}
+.add0-subcat {
+      left: 0px;
 }
 a.pluso-more {
     display: none !important;
