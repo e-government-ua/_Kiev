@@ -112,15 +112,15 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     List<Document> getDocuments(
-            @RequestParam(value = "sID_Subject") String sID_Subject) {
-        return documentDao.getDocuments(sID_Subject);
+            @RequestParam(value = "nID_Subject") Long nID_Subject) {
+        return documentDao.getDocuments(nID_Subject);
     }
 
     @RequestMapping(value = "/setDocument", method = RequestMethod.GET)
     public
     @ResponseBody
     Long setDocument(
-            @RequestParam(value = "nID_Subject_Upload", required = false) Long nID_Subject_Upload,
+            @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
             //Todo: убрать, когда клиент отцепится
             @RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
             @RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
@@ -155,7 +155,7 @@ public class ActivitiRestDocumentController {
         }
 
         return documentDao.setDocument(
-                nID_Subject_Upload,
+                nID_Subject,
                 sID_Subject_Upload,
                 sSubjectName_Upload,
                 sName,
@@ -171,7 +171,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     Long setDocumentFile(
-            @RequestParam(value = "nID_Subject_Upload", required = false) Long nID_Subject_Upload,
+            @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
             //Todo: убрать, когда клиент отцепится
             @RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
             @RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
@@ -189,7 +189,7 @@ public class ActivitiRestDocumentController {
 
         return documentDao
                 .setDocument(
-                        nID_Subject_Upload,
+                        nID_Subject,
                         sID_Subject_Upload,
                         sSubjectName_Upload,
                         sName,

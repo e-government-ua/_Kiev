@@ -42,9 +42,9 @@ public class DocumentDaoImpl implements DocumentDao {
 	}
 
 	@Override
-	public List<Document> getDocuments(String sID_subject_Upload) {
+	public List<Document> getDocuments(Long nID_Subject) {
 		return (List<Document>) getSession().createCriteria(Document.class)
-				.add(Restrictions.eq("sID_subject_Upload", sID_subject_Upload))
+				.add(Restrictions.eq("nID_Subject", nID_Subject))
 				.list();
 	}
 
