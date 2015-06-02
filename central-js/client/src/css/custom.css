@@ -491,7 +491,7 @@ a {
     border-top-right-radius: 0;
 }
 .ctrls-admin {
-    /* display: none; */
+    display: none;
 }
 .glyphicon-plus {
     
