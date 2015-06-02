@@ -511,7 +511,7 @@ a {
 .ctrls-srvc {
     font-size: 14px;
 }
-.add0-cat, add0-subcat, add0-srvc {
+.add0-cat, .add0-subcat, .add0-srvc {
     color: #b8a927;
 }
 .add0-subcat {
