@@ -28,6 +28,17 @@ define('documents', ['angularAMD', 'service'], function(angularAMD) {
           })
         }
       })
+      .state('documents.view', {
+        url: '/view',
+        parent: 'documents',
+        views: {
+          'view': angularAMD.route({
+            templateProvider: function($templateCache) {
+              return $templateCache.get('html/documents/view.html');
+            }
+          })
+        }       
+      })
       .state('documents.content', {
         url: '/content?code',
         parent: 'documents',
