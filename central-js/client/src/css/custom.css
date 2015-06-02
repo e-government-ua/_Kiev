@@ -494,13 +494,13 @@ a {
     /* display: none; */
 }
 .glyphicon-plus {
-    color: #65abd0;
+    color: #b8a927;
 }
 .glyphicon-pencil {
-    color: #65abd0;
+    color: #b8a927;
 }
 .glyphicon-remove {
-    color: red; 
+    color: #ff8080; 
 }
 .ctrls-cat {
 	font-size: 20px;
@@ -510,7 +510,10 @@ a {
   }  
 .ctrls-srvc {
 	font-size: 14px;
-  }  
+  }
+.add0-subcat {
+      left: 0px;
+  }
 a.pluso-more {
     display: none !important;
 }
