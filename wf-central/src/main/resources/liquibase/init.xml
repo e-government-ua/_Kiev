@@ -15,6 +15,7 @@
             DROP SEQUENCE IF EXISTS "DocumentType_id_seq";
             DROP SEQUENCE IF EXISTS "DocumentContentType_id_seq";
             DROP SEQUENCE IF EXISTS "DocumentAccess_id_seq";
+            DROP SEQUENCE IF EXISTS "HistoryEvent_id_seq";
             DROP TABLE IF EXISTS "Region" CASCADE;
             DROP TABLE IF EXISTS "City" CASCADE;
             DROP TABLE IF EXISTS "Category" CASCADE;
@@ -246,10 +247,10 @@
             <column name="nID" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="nID_Subject" type="varchar(150)">
+            <column name="nID_Subject" type="int">
                 <constraints nullable="true"/>
             </column>
-            <column name="nID_HistoryEventType" type="varchar(150)">
+            <column name="nID_HistoryEventType" type="int">
                 <constraints nullable="true"/>
             </column>
             <column name="sEventName_Custom" type="varchar(200)">
@@ -264,6 +265,10 @@
         </createTable>
         <addAutoIncrement columnName="nID" tableName="HistoryEvent" columnDataType="bigint" incrementBy="1" startWith="1"/>
 
+        <createSequence catalogName="HistoryEvent"
+                        incrementBy="1"
+                        sequenceName="HistoryEvent_id_seq"
+                        startValue="1"/>
 
 
         <!-- ####################################################################################################### -->
@@ -547,14 +552,14 @@
             <column name="sContentType" type="STRING"/> 
             <column name="nID_Subject_Upload" type="NUMERIC"/> 
         </loadData>
-        <!--<loadData encoding="UTF-8" file="data/HistoryEvent.csv" tableName="HistoryEvent" separator=";">-->
-            <!--<column name="nID" type="NUMERIC"/>-->
-            <!--<column name="nID_Subject" type="NUMERIC"/>-->
-            <!--<column name="nID_HistoryEventType" type="NUMERIC"/>-->
-            <!--<column name="sEventName_Custom" type="STRING"/>-->
-            <!--<column name="sMessage" type="STRING"/>-->
-            <!--<column name="sDate" type="STRING"/>-->
-        <!--</loadData>-->
+        <loadData encoding="UTF-8" file="data/HistoryEvent.csv" tableName="HistoryEvent" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_Subject" type="NUMERIC"/>
+            <column name="nID_HistoryEventType" type="NUMERIC"/>
+            <column name="sEventName_Custom" type="STRING"/>
+            <column name="sMessage" type="STRING"/>
+            <column name="sDate" type="STRING"/>
+        </loadData>
 
         <!--loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
             <column name="nID" type="NUMERIC" />
