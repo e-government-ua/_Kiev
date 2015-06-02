@@ -547,14 +547,14 @@
             <column name="sContentType" type="STRING"/> 
             <column name="nID_Subject_Upload" type="NUMERIC"/> 
         </loadData>
-        <!--<loadData encoding="UTF-8" file="data/HistoryEvent.csv" tableName="HistoryEvent" separator=";">-->
-            <!--<column name="nID" type="NUMERIC"/>-->
-            <!--<column name="nID_Subject" type="NUMERIC"/>-->
-            <!--<column name="nID_HistoryEventType" type="NUMERIC"/>-->
-            <!--<column name="sEventName_Custom" type="STRING"/>-->
-            <!--<column name="sMessage" type="STRING"/>-->
-            <!--<column name="sDate" type="STRING"/>-->
-        <!--</loadData>-->
+        <loadData encoding="UTF-8" file="data/HistoryEvent.csv" tableName="HistoryEvent" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_Subject" type="NUMERIC"/>
+            <column name="nID_HistoryEventType" type="NUMERIC"/>
+            <column name="sEventName_Custom" type="STRING"/>
+            <column name="sMessage" type="STRING"/>
+            <column name="sDate" type="STRING"/>
+        </loadData>
 
         <!--loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
             <column name="nID" type="NUMERIC" />
