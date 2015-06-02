@@ -264,3 +264,23 @@ id - id мерчанта
 
 nID - ид документа
 
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/getDocumentContent** - получение контента документа по ид документа
+
+nID - ид документа
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/getDocumentFile** - получение документа в виде файла по ид документа
+
+nID - ид документа
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/getDocuments** - получение списка загруженных субъектом документов
+
+sID_Subject - идентификатор субъекта
+
+
+
