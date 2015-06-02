@@ -349,8 +349,11 @@ sINN - ИНН (субъект - человек)
 sOKPO - ОКПО (субъек - организация)
 
 Примеры:
+
 https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?sINN=34125265377
+
 https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?sOKPO=123
+
 https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 
 --------------------------------------------------------------------------------------------------------------------------
