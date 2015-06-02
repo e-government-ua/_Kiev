@@ -494,7 +494,7 @@ a {
     /* display: none; */
 }
 .glyphicon-plus {
-    color: #b8a927;
+    
 }
 .glyphicon-pencil {
     color: #b8a927;
@@ -503,17 +503,20 @@ a {
     color: #ff8080; 
 }
 .ctrls-cat {
-	font-size: 20px;
-  }
+    font-size: 20px;
+}
 .ctrls-subcat {
-	font-size: 16px;
-  }  
+    font-size: 16px;
+}  
 .ctrls-srvc {
-	font-size: 14px;
-  }
+    font-size: 14px;
+}
+.add0-cat, add0-subcat, add0-srvc {
+    color: #b8a927;
+}
 .add0-subcat {
       left: 0px;
-  }
+}
 a.pluso-more {
     display: none !important;
 }

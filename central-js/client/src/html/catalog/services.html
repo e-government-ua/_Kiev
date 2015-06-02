@@ -8,13 +8,13 @@
            </div>
         </div>
     </div>
-        <a class="ctrls-admin ctrls-cat" href=""><span class="glyphicon glyphicon-plus"></span> Додати категорію</a>
+        <a class="ctrls-admin ctrls-cat add0-cat" href=""><span class="glyphicon glyphicon-plus"></span> Додати категорію</a>
 	<div class="row" ng-repeat="category in catalog">
             <h1 style="margin-bottom:-10px;margin-top:20px;">{{category.sName}}  <a class="ctrls-admin ctrls-cat" href="" title="Редагувати категорію"><span class="glyphicon glyphicon-pencil"></span></a> <a class="ctrls-admin ctrls-cat" href="" title="Видалити категорію"><span class="glyphicon glyphicon-remove"></span></a></h1>
-                        <a class="ctrls-admin ctrls-subcat" id="add0-subcat" href=""><span class="glyphicon glyphicon-plus"></span> Додати підкатегорію</a>
+                        <a class="ctrls-admin ctrls-subcat add0-subcat" href=""><span class="glyphicon glyphicon-plus"></span> Додати підкатегорію</a>
 			<div class="col-md-4" ng-repeat-start="subcategory in category.aSubcategory">
 				<h3>{{subcategory.sName}} <a class="ctrls-admin ctrls-subcat" href="" title="Редагувати категорію"><span class="glyphicon glyphicon-pencil"></span></a> <a class="ctrls-admin ctrls-subcat" href="" title="Видалити категорію"><span class="glyphicon glyphicon-remove"></span></a></h3>
-				<a class="ctrls-admin ctrls-srvc" href=""><span class="glyphicon glyphicon-plus"></span> Додати послугу</a>
+				<a class="ctrls-admin ctrls-srvc add0-srvc" href=""><span class="glyphicon glyphicon-plus"></span> Додати послугу</a>
                                 <ul class="list-unstyled">
 					<li ng-repeat="service in subcategory.aService | orderBy: '-nSub' | limitTo: limit as services">
 						<!--a ui-sref="service.general({'id': service.nID })" ng-href="/service/{{service.nID}}/general">({{service.nSub}}) {{service.sName}}</a-->
