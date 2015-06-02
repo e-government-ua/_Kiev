@@ -255,6 +255,8 @@ id - id мерчанта
 &lt;html&gt;<br/>&lt;body&gt;<br/>&lt;form method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;<br/>action=&quot;http://localhost:8080/wf-central/service/services/uploadServicesAndPlacesTables&quot;&gt;<br/>File to upload: &lt;input type=&quot;file&quot; name=&quot;file&quot;&gt;&lt;br /&gt; &lt;input type=&quot;submit&quot;<br/>value=&quot;Upload&quot;&gt; Press here to upload the file!<br/>&lt;/form&gt;<br/>&lt;/body&gt;<br/>&lt;/html&gt;
 
 
+----------------------------------------------------------------------------------------------------------------------------
+
 #### 8. Документы
 Сервиса работы с документом
 
@@ -264,6 +266,9 @@ id - id мерчанта
 
 nID - ид документа
 
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/getDocument?nID=1
+
 ----------------------------------------------------------------------------------------------------------------------------
 
 **HTTP Metod: GET**
@@ -271,6 +276,9 @@ nID - ид документа
 **HTTP Context: http://server:port/wf-central/service/services/getDocumentContent** - получение контента документа по ид документа
 
 nID - ид документа
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/getDocumentContent?nID=1
 
 ----------------------------------------------------------------------------------------------------------------------------
 
@@ -280,6 +288,9 @@ nID - ид документа
 
 nID - ид документа
 
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/getDocumentFile?nID=1
+
 ----------------------------------------------------------------------------------------------------------------------------
 
 **HTTP Metod: GET**
@@ -287,7 +298,9 @@ nID - ид документа
 **HTTP Context: http://server:port/wf-central/service/services/getDocuments** - получение списка загруженных субъектом документов
 
 sID_Subject - идентификатор субъекта
- 
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/getDocuments?sID_Subject=2
+
  ---------------------------------------------------------------------------------------------------------------------------
 
 **HTTP Metod: POST**
@@ -334,6 +347,11 @@ oFile - параметры файла (тип MultipartFile)
 nID - ид субъекта
 sINN - ИНН (субъект - человек)
 sOKPO - ОКПО (субъек - организация)
+
+Примеры:
+https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?sINN=34125265377
+https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?sOKPO=123
+https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 
 --------------------------------------------------------------------------------------------------------------------------
 
