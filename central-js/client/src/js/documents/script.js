@@ -59,12 +59,13 @@ define('documents', ['angularAMD', 'service'], function (angularAMD) {
                     documents: ['$q', '$state', 'subject', 'ServiceService', 'BankIDLogin', 
                         function($q, $state, subject, ServiceService, BankIDLogin) {
                             $state.nID_Subject = subject.nID;
+                            $state.sID_Subject = subject.sID;
                             return ServiceService.getDocuments($state.nID_Subject).then(function(data) {
                                 if(data.hasOwnProperty('error')){
                                     return $q.reject(null);
                                 } else if (data.length === 0){
                                     ServiceService.initialUpload(BankIDLogin.access_token, 
-                                            $state.nID_Subject)
+                                            $state.nID_Subject, $state.sID_Subject)
                                     .then(function(data) {
                                         if(!data.hasOwnProperty('error')){
                                             ServiceService.getDocuments($state.nID_Subject).then(function(data) {

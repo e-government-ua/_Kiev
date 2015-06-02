@@ -76,7 +76,7 @@ module.exports.index = function(req, res) {
             'password': options.password
         },
         'qs': {
-            'sID_Subject': req.query.sID_Subject
+            'nID_Subject': req.query.nID_Subject
         }
     }, callback);
 };
@@ -85,6 +85,7 @@ module.exports.initialUpload = function(req, res) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
     var accessToken = req.query.access_token;
+    var nID_Subject = req.query.nID_Subject;
     var sID_Subject = req.query.sID_Subject;
 
     if (!accessToken || !sID_Subject) {
@@ -120,8 +121,8 @@ module.exports.initialUpload = function(req, res) {
             'password': activiti.password
         },
         'qs': {
-            'nID_Subject_Upload': sID_Subject,
-            'sID_Subject_Upload': 1,
+            'nID_Subject': nID_Subject,
+            'sID_Subject_Upload': sID_Subject,
             'sSubjectName_Upload': 'Приватбанк',
             'sName': 'Паспорт',
             'nID_DocumentType': 1
@@ -136,16 +137,16 @@ module.exports.initialUpload = function(req, res) {
                 var result = body;
                 if (!result.error) {
                     var customer = result.customer;
-                    var passport = customer.scans[0];
+                    var documentScan = customer.scans[0];
 
                     var scanContentRequest = account.prepareScanContentRequest(
                         _.merge(options, {
-                            url: passport.link
+                            url: documentScan.link
                         })
                     );
 
                     var form = new FormData();
-                    form.append('oFile', scanContentRequest);
+                    form.append(documentScan.type, scanContentRequest);
                     form.pipe(request.post(
                         _.merge(optionsForUploadContent, {
                             headers: form.getHeaders()
