@@ -44,7 +44,7 @@ public class DocumentDaoImpl implements DocumentDao {
 	@Override
 	public List<Document> getDocuments(Long nID_Subject) {
 		return (List<Document>) getSession().createCriteria(Document.class)
-				.add(Restrictions.eq("subjectKey", nID_Subject))
+				.add(Restrictions.eq("subject.nID", nID_Subject))
 				.list();
 	}
 

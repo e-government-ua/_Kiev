@@ -59,7 +59,7 @@ public class HistoryEventDaoImpl implements HistoryEventDao {
     @Override
     public List<HistoryEvent> getHistoryEvents(Long nID_Subject) {
         return (List<HistoryEvent>) getSession().createCriteria(HistoryEvent.class)
-                .add(Restrictions.eq("subject.nID", nID_Subject))
+                .add(Restrictions.eq("subjectKey", nID_Subject))
                 .list();
     }
 
