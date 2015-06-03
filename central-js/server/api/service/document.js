@@ -31,7 +31,7 @@ function getOptions (req) {
     username: activiti.username,
     password: activiti.password,
     params: {
-      sID_Subject: req.query.sID_Subject || null
+      nID_Subject: req.query.nID_Subject || null
     }
   };
 }

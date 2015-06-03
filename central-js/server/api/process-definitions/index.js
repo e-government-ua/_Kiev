@@ -18,6 +18,8 @@ router.use(function(req, res, next) {
 		params: {
 			url: req.query.url || null,
 			latest: req.query.latest || null
+			//size: req.query.size|| null
+			,size: 1000
 		}
 	};
 	

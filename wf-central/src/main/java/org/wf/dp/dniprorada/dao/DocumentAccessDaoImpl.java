@@ -8,6 +8,7 @@ import java.util.Random;
 
 
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -86,14 +87,18 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	}        
 
 	private void writeRow(DocumentAccess o) {
-		Transaction t = null;
+		//Transaction t = null;
 		Session s = getSession();
 		try{
-			t = s.beginTransaction();
-			s.saveOrUpdate(o);
-			t.commit();
+			/*t = s.beginTransaction();
+			s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES ("
+			+ o.getID_Document()+","+ o.getDateCreate()+","+ o.getMS()+","+o.getFIO()+","+o.getTarget()+","+o.getTelephone()+","+"email"+","+o.getSecret()+")").executeUpdate();
+			t.commit();*/
+			/*Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES (1,2014-06-03,222,LEO,secret,097,mail,qwe)");
+			query.executeUpdate();*/
+			s.save(o);
 		} catch(Exception e){
-			t.rollback();
+			//t.rollback();
 			throw e;
 		} finally {
 			s.close();
@@ -119,10 +124,11 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		List <DocumentAccess> list = null;
 		System.out.println("getDocumentLink");
 		try{
-                    list = oSession.createSQLQuery("FROM DocumentAccess WHERE nID="+nID_Access+" AND sSecret="+sSecret).list();
-                    System.out.println("getDocumentLink");
+                    list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
                     for(DocumentAccess da : list){
-                    	System.out.println(da.getSecret());
+                    	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)){
+                    		return da;
+                    	}
                     }
 		} catch(Exception e){
 			throw e;
@@ -136,23 +142,30 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	@Override
 	public String getDocumentAccess(Long nID_Access, String sSecret) throws Exception {
 		Session oSession = getSession();
-		List <DocumentAccess> a = null;
+		List <DocumentAccess> list = null;
+		DocumentAccess docAcc = null;
 		try{
                     //TODO убедиться что все проверяется по этим WHERE
-                    a = oSession.createSQLQuery("FROM DocumentAccess WHERE nID="+nID_Access+" AND sSecret="+sSecret).list();
-                    if(a == null || a.isEmpty()){
+                    list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
+                    if(list == null || list.isEmpty()){
                         throw new Exception("Access not accepted!");
+                    } else {
+                    	 for(DocumentAccess da : list){
+                         	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)){
+                         		docAcc = da;
+                         		break;
+                         	}
+                         }
                     }
-                    DocumentAccess o = a.get(0);
-                    String sTelephone = o.getTelephone();
+                    String sTelephone = docAcc.getTelephone();
                     //TODO Generate random 4xDigits answercode
                     String sAnswer = generateAnswer();
                     //TODO SEND SMS with this code
                     //
                     
                     //o.setDateAnswerExpire(null);
-                    o.setAnswer(sAnswer);
-                    writeRow(o);
+                    docAcc.setAnswer(sAnswer);
+                    writeRow(docAcc);
 		} catch(Exception e){
 			throw e;
 		} finally{
@@ -165,16 +178,22 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	@Override
 	public String setDocumentAccess(Long nID_Access, String sSecret, String sAnswer) throws Exception {
 		Session oSession = getSession();
-		List <DocumentAccess> a = null;
+		List <DocumentAccess> list = null;
+		DocumentAccess docAcc = null;
 		try{
                     //TODO убедиться что все проверяется по этим WHERE
-                    a = oSession.createSQLQuery("Select * FROM DocumentAccess WHERE nID="+nID_Access+" AND sSecret="+sSecret+" AND sAnswer="+sAnswer).list();
-                    if(a == null || a.isEmpty()){
+                    list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
+                    if(list == null || list.isEmpty()){
                         throw new Exception("Access not accepted!");
-                    }
-                    //DocumentAccess o = a.get(0);
-                    //o.setAnswer(null);
-                    //writeRow(o);
+                    }         
+                    else {
+                   	 for(DocumentAccess da : list){
+                        	if(da.getID() == nID_Access && da.getSecret().equals(sSecret) && da.getAnswer().equals(sAnswer)){
+                        		docAcc = da;
+                        		break;
+                        	}
+                        }
+                   }
 		} catch(Exception e){
 			throw e;
 		} finally{

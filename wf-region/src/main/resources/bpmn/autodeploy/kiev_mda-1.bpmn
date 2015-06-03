@@ -23,6 +23,7 @@
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="отримання додаткових документiв" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+	<sequenceFlow id="flow9" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
       <errorEventDefinition></errorEventDefinition>
     </boundaryEvent>
@@ -39,13 +40,13 @@
         <activiti:formProperty id="objName" name="назва об’єкту для присвоєння поштової адреси" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження об’єкта для присвоєння поштової адреси" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="objActivity" name="вид діяльності згідно з КВЕД" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file1" name="Копія документа, що посвідчує право власності на земельну ділянку чи право користування земельною ділянкою" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Копія правовстановлюючого документа на об'єкт нерухомого майна; для новозбудованих об'єктів – зареєстрована декларація про готовність об’єкта до експлуатації або сертифікат, що засвідчує відповідність закінченого будівництвом об’єкта проектній документації та підтверджує його готовність до експлуатації" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копія технічного паспорта об'єкта нерухомого майна" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Копія виконавчого знімання (топографо-геодезичного вишукування масштабу М1:500), зареєстрованого в містобудівному кадастрі міста Києва" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копія паспортаця або документу, що його заміняє ;  тільки для физичних осіб" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file6" name="Копія копія виписки з Єдиного державного реєстру юридичних осіб та фізичних осіб-підприємців; тількт для юридичної особи та фізичної особи-підприємця" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file7" name="Копія довідки Департаменту економіки та інвестицій про сплату пайової участі у створенні соціальної та інженерно-транспортної інфраструктури м. Києва або рішенню Київради про звільнення від сплати пайової участі у створені соціальної та інженерно-транспортної інфраструктури м. Києва " type="file" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Копія документа, що посвідчує право власності на земельну ділянку чи право користування земельною ділянкою" type="file" ></activiti:formProperty>
+        <activiti:formProperty id="file2" name="Копія правовстановлюючого документа на об'єкт нерухомого майна; для новозбудованих об'єктів – зареєстрована декларація про готовність об’єкта до експлуатації або сертифікат, що засвідчує відповідність закінченого будівництвом об’єкта проектній документації та підтверджує його готовність до експлуатації" type="file" ></activiti:formProperty>
+        <activiti:formProperty id="file3" name="Копія технічного паспорта об'єкта нерухомого майна" type="file" ></activiti:formProperty>
+        <activiti:formProperty id="file4" name="Копія виконавчого знімання (топографо-геодезичного вишукування масштабу М1:500), зареєстрованого в містобудівному кадастрі міста Києва" type="file" ></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Копія паспортаця або документу, що його заміняє ;  тільки для физичних осіб" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file6" name="Копія копія виписки з Єдиного державного реєстру юридичних осіб та фізичних осіб-підприємців; тількт для юридичної особи та фізичної особи-підприємця" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file7" name="Копія довідки Департаменту економіки та інвестицій про сплату пайової участі у створенні соціальної та інженерно-транспортної інфраструктури м. Києва або рішенню Київради про звільнення від сплати пайової участі у створені соціальної та інженерно-транспортної інфраструктури м. Києва " type="file" ></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
@@ -54,7 +55,6 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow3" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <userTask id="usertask2" name="Надання послуги:">
@@ -122,7 +122,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow9" sourceRef="usertask2" targetRef="mailtask2"></sequenceFlow>
+    <sequenceFlow id="flow19" sourceRef="usertask2" targetRef="mailtask2"></sequenceFlow>
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow10" sourceRef="mailtask2" targetRef="endevent3"></sequenceFlow>
     <serviceTask id="mailtask3" name="Повідомлення про  подання звернення" activiti:type="mail">
@@ -147,8 +147,8 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow11" sourceRef="startevent1" targetRef="mailtask3"></sequenceFlow>
-    <sequenceFlow id="flow12" sourceRef="mailtask3" targetRef="servicetask1"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="servicetask1" targetRef="mailtask3"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="mailtask3" targetRef="usertask1"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Київ МДА - Присвоєння поштової адреси об’єкту нерухомого майна</text>
     </textAnnotation>
@@ -201,10 +201,6 @@
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
         <omgdi:waypoint x="291.0" y="264.0"></omgdi:waypoint>
         <omgdi:waypoint x="321.0" y="205.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-        <omgdi:waypoint x="237.0" y="321.0"></omgdi:waypoint>
-        <omgdi:waypoint x="238.0" y="380.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
         <omgdi:waypoint x="376.0" y="420.0"></omgdi:waypoint>

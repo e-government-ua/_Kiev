@@ -90,6 +90,15 @@ module.exports.initialUpload = function(req, res) {
         }
     };
 
+
+// nID;sName
+// 0;Другое
+// 1;Справка
+// 2;Паспорт
+// 3;Загранпаспорт
+// 4;Персональное фото
+// 5;Справка о предоставлении ИНН
+
     var scansRequest = account.prepareScansRequest(optionsForScans);
 
     request

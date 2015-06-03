@@ -5,17 +5,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.model.HistoryEvent;
 import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 public class HistoryEventDaoImpl implements HistoryEventDao {
     private SessionFactory sessionFactory;
-
-    //private String mokeContentDocument = "123456789";
 
     @Autowired
     private GridFSBytesDataStorage durableBytesDataStorage;
@@ -37,24 +35,32 @@ public class HistoryEventDaoImpl implements HistoryEventDao {
 
     @Override
     public HistoryEvent getHistoryEvent(Long id) {
-        return (HistoryEvent) getSession().get(HistoryEvent.class, id);
-    }
-
-    @Override
-    public byte[] getHistoryEventSubject(Long id) {
         HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
-        return durableBytesDataStorage.getData(historyEvent.getSubjectKey().toString());
+        if (!historyEvent.getHistoryEventTypeKey().equals(0L)) {
+            historyEvent.setEventNameCustom(HistoryEventType.getById(historyEvent.getHistoryEventTypeKey()).getsName());
+        }
+        return historyEvent;
     }
 
-    @Override
-    public byte[] getHistoryEventType(Long id) {
-        HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
-        return durableBytesDataStorage.getData(historyEvent.getHistoryEventTypeKey().toString());
-    }
+//    @Override
+//    public byte[] getHistoryEventSubject(Long id) {
+//        HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
+//
+//
+//        return durableBytesDataStorage.getData(historyEvent.getSubjectKey().toString());
+//    }
+//
+//    @Override
+//    public byte[] getHistoryEventType(Long id) {
+//        HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
+//        return durableBytesDataStorage.getData(historyEvent.getHistoryEventTypeKey().toString());
+//    }
 
     @Override
-    public List<HistoryEvent> getHistoryEvents(String nID_Subject) {
-        return (List<HistoryEvent>) getSession().createCriteria(HistoryEvent.class, nID_Subject).list();
+    public List<HistoryEvent> getHistoryEvents(Long nID_Subject) {
+        return (List<HistoryEvent>) getSession().createCriteria(HistoryEvent.class)
+                .add(Restrictions.eq("subjectKey", nID_Subject))
+                .list();
     }
 
     @Override

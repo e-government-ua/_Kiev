@@ -100,6 +100,7 @@
 			<id>wf-all</id>
 
 			<modules>
+				<module>auth-custom</module>
 				<module>storage-static</module>
 				<module>storage-temp</module>
 				<module>wf-base</module>
@@ -116,6 +117,7 @@
 			<id>wf-region</id>
 
 			<modules>
+				<module>auth-custom</module>
 				<module>storage-static</module>
 				<module>storage-temp</module>
 				<module>wf-base</module>
@@ -127,6 +129,7 @@
 			<id>wf-central</id>
 
 			<modules>
+				<module>auth-custom</module>
 				<module>storage-static</module>
 				<module>storage-temp</module>
 				<module>wf-base</module>
