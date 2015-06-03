@@ -73,12 +73,12 @@ define('documents', ['angularAMD', 'service'], function(angularAMD) {
               return ServiceService.getDocuments($state.nID_Subject).then(function(data) {
                   if(data.hasOwnProperty('error')){
                       return $q.reject(null);
-                  } else if (data.length === 0){
-                      ServiceService.initialUpload(BankIDLogin.access_token, 
+                  } else if (data.length === 0 || true){
+                      return ServiceService.initialUpload(BankIDLogin.access_token, 
                               $state.nID_Subject, $state.sID_Subject)
                       .then(function(data) {
                           if(!data.hasOwnProperty('error')){
-                              ServiceService.getDocuments($state.nID_Subject).then(function(data) {
+                              return ServiceService.getDocuments($state.nID_Subject).then(function(data) {
                                   return data.hasOwnProperty('error') ? $q.reject(null) : data;
                               });
                           }                                    
