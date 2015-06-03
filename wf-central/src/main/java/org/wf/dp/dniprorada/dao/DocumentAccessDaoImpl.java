@@ -125,9 +125,8 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		System.out.println("getDocumentLink");
 		try{
                     list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
-                    		//createSQLQuery("SELECT * FROM DocumentAccess").list(); //WHERE nID="+nID_Access+" AND sSecret="+sSecret).list();
                     for(DocumentAccess da : list){
-                    	if(da.getID() == nID_Access && da.equals(sSecret)){
+                    	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)){
                     		return da;
                     	}
                     }
@@ -143,23 +142,30 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	@Override
 	public String getDocumentAccess(Long nID_Access, String sSecret) throws Exception {
 		Session oSession = getSession();
-		List <DocumentAccess> a = null;
+		List <DocumentAccess> list = null;
+		DocumentAccess docAcc = null;
 		try{
                     //TODO убедиться что все проверяется по этим WHERE
-                    a = oSession.createSQLQuery("FROM DocumentAccess WHERE nID="+nID_Access+" AND sSecret="+sSecret).list();
-                    if(a == null || a.isEmpty()){
+                    list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
+                    if(list == null || list.isEmpty()){
                         throw new Exception("Access not accepted!");
+                    } else {
+                    	 for(DocumentAccess da : list){
+                         	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)){
+                         		docAcc = da;
+                         		break;
+                         	}
+                         }
                     }
-                    DocumentAccess o = a.get(0);
-                    String sTelephone = o.getTelephone();
+                    String sTelephone = docAcc.getTelephone();
                     //TODO Generate random 4xDigits answercode
                     String sAnswer = generateAnswer();
                     //TODO SEND SMS with this code
                     //
                     
                     //o.setDateAnswerExpire(null);
-                    o.setAnswer(sAnswer);
-                    writeRow(o);
+                    docAcc.setAnswer(sAnswer);
+                    writeRow(docAcc);
 		} catch(Exception e){
 			throw e;
 		} finally{
@@ -172,16 +178,22 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	@Override
 	public String setDocumentAccess(Long nID_Access, String sSecret, String sAnswer) throws Exception {
 		Session oSession = getSession();
-		List <DocumentAccess> a = null;
+		List <DocumentAccess> list = null;
+		DocumentAccess docAcc = null;
 		try{
                     //TODO убедиться что все проверяется по этим WHERE
-                    a = oSession.createSQLQuery("Select * FROM DocumentAccess WHERE nID="+nID_Access+" AND sSecret="+sSecret+" AND sAnswer="+sAnswer).list();
-                    if(a == null || a.isEmpty()){
+                    list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
+                    if(list == null || list.isEmpty()){
                         throw new Exception("Access not accepted!");
-                    }
-                    //DocumentAccess o = a.get(0);
-                    //o.setAnswer(null);
-                    //writeRow(o);
+                    }         
+                    else {
+                   	 for(DocumentAccess da : list){
+                        	if(da.getID() == nID_Access && da.getSecret().equals(sSecret) && da.getAnswer().equals(sAnswer)){
+                        		docAcc = da;
+                        		break;
+                        	}
+                        }
+                   }
 		} catch(Exception e){
 			throw e;
 		} finally{
