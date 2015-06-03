@@ -37,7 +37,7 @@ module.exports.getDocument = function(req, res) {
 
 module.exports.index = function(req, res) {
   var params = {
-    'sID_Subject': req.query.sID_Subject
+    'nID_Subject': req.query.nID_Subject
   };
   return buildGetRequest(req, res, '/services/getDocuments', params);
 };
