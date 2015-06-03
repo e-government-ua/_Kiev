@@ -277,19 +277,20 @@ public abstract class AbstractModelTask {
         DelegateExecution execution = task.getExecution();
         List<String> filedTypeFile = getListFieldCastomTypeFile(formData);
         LOG.info("11filedTypeFile="+filedTypeFile.toString());
-
-        List<String> listValueKeys = getValueFieldWithCastomTypeFile(execution,
+		System.out.println("STEP 1 ___");
+		List<String> listValueKeys = getValueFieldWithCastomTypeFile(execution,
                 filedTypeFile);
         LOG.info("21listValueKeys="+listValueKeys.toString());
 
         List<String> filedName = getListCastomFieldName(formData);
         LOG.info("31filedName="+filedName.toString());
-
+		System.out.println("STEP 2 ___");
         if (!listValueKeys.isEmpty()) {
             int n = 0;
             for (String keyRedis : listValueKeys) {
                 LOG.info("keyRedis=" + keyRedis);
-                if (keyRedis != null && !keyRedis.isEmpty()) {
+				System.out.println("STEP 3 ___ keyRedis=" + keyRedis);
+				if (keyRedis != null && !keyRedis.isEmpty()) {
                     byte[] byteFile = getRedisService().getAttachments(keyRedis);
                     ByteArrayMultipartFile contentMultipartFile = null;
                     try {
@@ -315,6 +316,7 @@ public abstract class AbstractModelTask {
                         if (!filedName.isEmpty() && n < filedName.size()) {
                             String name = filedName.get((filedName.size() - 1) - n);
                             LOG.info("name=" + name);
+							System.out.println("STEP 4 ___" + "name= " + name);
                                 execution
                                         .getEngineServices()
                                         .getTaskService()
