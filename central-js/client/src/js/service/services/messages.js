@@ -9,7 +9,8 @@ define('messages/service', ['angularAMD'], function (angularAMD) {
 
             return $http.post('./api/messages', data).then(function(response) {
                 // @todo Better notification and error processing.
-                alert('Message was sent');
+                //alert('Message was sent');
+                alert('Сообщение отправлено, спасибо!');
 				return response.data;
 			});
 		};
