@@ -98,22 +98,25 @@ module.exports.initialUpload = function(req, res) {
                 var result = body;
                 if (!result.error) {
                     var customer = result.customer;
-                    if(customer.scans && customer.scans.length > 0){
-                    var documentScan = customer.scans[0];
+                    if (customer.scans && customer.scans.length > 0) {
+                        var documentScan = customer.scans[0];
 
-                    var scanContentRequest = account.prepareScanContentRequest(
-                        _.merge(options, {
-                            url: documentScan.link
-                        })
-                    );
-                    
-                    var form = new FormData();
-                    form.append('oFile', scanContentRequest);
-                    form.pipe(request.post(
-                        _.merge(optionsForUploadContent, {
+                        var scanContentRequest = account.prepareScanContentRequest(
+                            _.merge(options, {
+                                url: documentScan.link
+                            })
+                        );
+
+                        var form = new FormData();
+                        form.append('oFile', scanContentRequest);
+
+                        optionsForUploadContent = _.merge(optionsForUploadContent, {
                             headers: form.getHeaders()
-                        }))).pipe(res);
-                    }                    
+                        });
+
+                        form.pipe(request.post(optionsForUploadContent))
+                            .pipe(res);
+                    }
                 }
             } else {
                 res.status(response.statusCode);

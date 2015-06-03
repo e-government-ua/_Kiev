@@ -73,7 +73,7 @@ define('documents', ['angularAMD', 'service'], function(angularAMD) {
               return ServiceService.getDocuments($state.nID_Subject).then(function(data) {
                   if(data.hasOwnProperty('error')){
                       return $q.reject(null);
-                  } else if (data.length === 0 || true){
+                  } else if (data.length === 0){
                       return ServiceService.initialUpload(BankIDLogin.access_token, 
                               $state.nID_Subject, $state.sID_Subject)
                       .then(function(data) {
