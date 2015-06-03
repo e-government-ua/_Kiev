@@ -8,6 +8,7 @@ import java.util.Random;
 
 
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -86,15 +87,18 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	}        
 
 	private void writeRow(DocumentAccess o) {
-		Transaction t = null;
+		//Transaction t = null;
 		Session s = getSession();
 		try{
-			t = s.beginTransaction();
+			/*t = s.beginTransaction();
 			s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES ("
-			+ o.getID_Document()+","+ o.getDateCreate()+","+ o.getMS()+","+o.getFIO()+","+o.getTarget()+","+o.getTelephone()+","+o.getMail()+","+o.getSecret()+")").executeUpdate();
-			t.commit();
+			+ o.getID_Document()+","+ o.getDateCreate()+","+ o.getMS()+","+o.getFIO()+","+o.getTarget()+","+o.getTelephone()+","+"email"+","+o.getSecret()+")").executeUpdate();
+			t.commit();*/
+			/*Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES (1,2014-06-03,222,LEO,secret,097,mail,qwe)");
+			query.executeUpdate();*/
+			s.save(o);
 		} catch(Exception e){
-			t.rollback();
+			//t.rollback();
 			throw e;
 		} finally {
 			s.close();
