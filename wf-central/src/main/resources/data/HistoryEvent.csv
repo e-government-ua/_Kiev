@@ -1,4 +1,4 @@
-nID;nID_Subject;nID_HistoryEventType;sEventName_Custom;sMessage;sDate;
+nID;nID_Subject;nID_HistoryEventType;sEventName_Custom;sMessage;sDate
 1;1;0;Заявка подана;Заявка подана успешно;2015-07-04 12:09:56.235
 2;2;1;Заявка не подана;Заявка подана неуспешно;2015-07-04 12:10:56.235
 3;3;2;Заявка принята;Заявка принята успешно;2015-07-04 12:11:56.235
