@@ -43,6 +43,8 @@ public class HistoryEvent {
     @Column(name = "sDate", nullable = false)
     private String sDate;
 
+    private Date date;
+
     @Identifier
     public Long getId() {
         return id;
@@ -86,10 +88,18 @@ public class HistoryEvent {
 
     @Transient
     public String getsDate() {
-        return new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss.SSS").format(new Date());
+        return new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss.SSS").format(date);
     }
 
     public void setsDate(String sDate) {
         this.sDate = sDate;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
