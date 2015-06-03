@@ -38,12 +38,9 @@ public class HistoryEvent {
     @Column(name = "sMessage", nullable = false)
     private String sMessage;
 
-    @JsonProperty(value="oDate")
-    @Column(name = "sDate", nullable = true)
-    private Date date;
-
     @JsonProperty(value="sDate")
     @Transient
+    @Column(name = "sDate", nullable = false)
     private String sDate;
 
     @Identifier
@@ -87,17 +84,9 @@ public class HistoryEvent {
         this.sMessage = sMessage;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     @Transient
     public String getsDate() {
-        return new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss.SSS").format(date);
+        return new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss.SSS").format(new Date());
     }
 
     public void setsDate(String sDate) {
