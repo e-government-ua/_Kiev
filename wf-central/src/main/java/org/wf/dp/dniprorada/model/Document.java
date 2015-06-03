@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,7 +21,7 @@ public class Document {
 
 	@JsonProperty(value = "nID")
 	@Id //@GeneratedValue
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "nID")
 	private Long id;
 
@@ -69,11 +70,11 @@ public class Document {
 	@Column(name = "sSubjectName_Upload", nullable = false)
 	private String subjectName_Upload;
 
-	@JsonProperty(value = "oSubject_Upload")
+	@JsonProperty(value = "oSubject")
 	//@ManyToOne(fetch = FetchType.EAGER)
 	@ManyToOne(targetEntity = Subject.class, fetch = FetchType.EAGER, optional = true)
-	@JoinColumn(name = "nID_Subject_Upload", nullable = true)
-	private Subject subject_Upload;
+	@JoinColumn(name = "nID_Subject", nullable = true)
+	private Subject subject;
         
         
 	@Identifier
@@ -159,12 +160,12 @@ public class Document {
 		this.sID_subject_Upload = sID_subject_Upload;
 	}
 
-	public Subject getSubject_Upload() {
-		return subject_Upload;
+	public Subject getSubject() {
+		return subject;
 	}
 
-	public void setSubject_Upload(Subject subject_Upload) {
-		this.subject_Upload = subject_Upload;
+	public void setSubject(Subject subject) {
+		this.subject = subject;
 	}
 
 	public String getContentType() {

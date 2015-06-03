@@ -2,6 +2,7 @@ package org.wf.dp.dniprorada.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,7 +12,7 @@ import java.util.Date;
 @Table(name="DocumentAccess")
 public class DocumentAccess {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="nID")
 	private Long nID;
 	@Column(name="nID_Document")
@@ -116,8 +117,6 @@ public class DocumentAccess {
 	public void setDateAnswerExpire(Date o) {
 		this.sDateAnswerExpire = o;
 	}
-        
-        
         
 	public Long getID() {
 		return nID;

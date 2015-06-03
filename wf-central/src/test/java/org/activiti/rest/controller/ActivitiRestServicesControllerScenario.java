@@ -39,7 +39,7 @@ public class ActivitiRestServicesControllerScenario {
     }
 
    @Test
-   public void shouldSuccessfullyGetServicesAndPlacesTables() throws Exception {
+   public void shouldSuccessfullyGetAndSetServicesAndPlacesTables() throws Exception {
       String jsonData = mockMvc.perform(get("/services/getServicesAndPlacesTables")).
               andExpect(status().isOk()).
               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
@@ -47,6 +47,10 @@ public class ActivitiRestServicesControllerScenario {
               andReturn().getResponse().getContentAsString();
       TableData[] tableDataList = JsonRestUtils.readObject(jsonData, TableData[].class);
       Assert.assertEquals(TableDataService.TablesSet.ServicesAndPlaces.getEntityClasses().length, tableDataList.length);
+
+      mockMvc.perform(post("/services/setServicesAndPlacesTables").content(jsonData)).
+              andExpect(status().isOk()).
+              andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8));
    }
 
     @Test

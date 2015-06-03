@@ -1,21 +1,14 @@
-  <div style="margin-top:20px; font-size:25px;">{{service.sName}}</div>
-  <div style="margin-bottom:20px; font-size:18px;color:#cccccc;">{{service.sSubjectOperatorName}}</div>
-
 <div class="list-group">
-	<div class="list-group-item" ng-class="{'disabled': data.city}">
+	<div class="list-group-item" ng-class="{'disabled': data.region}">
 		<div class="row no-margin-bottom">
 			<div class="col-md-11 form-inline">
 				<span>Крок 1. Оберіть свій регіон </span>
 				<div style="display:inline-block">
 					<span>Область</span>
-					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.sName for region in [data.region] track by region.nID" ng-disabled="data.city"></select>
-				</div>
-				<div style="display:inline-block" ng-if="data.region">
-					<span>Місто</span>
-					<select class="form-control" name="city" ng-model="data.city" ng-options="city as city.sName for city in [data.city] track by city.nID" ng-disabled="data.city"></select>
+					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.sName for region in [data.region] track by region.nID" ng-disabled="data.region"></select>
 				</div>
 			</div>
-			<div class="col-md-1" ng-if="data.city">
+			<div class="col-md-1" ng-if="data.region">
 				<div class="link-button">
 					<a ng-click="step1()">Змінити</a>
 				</div>

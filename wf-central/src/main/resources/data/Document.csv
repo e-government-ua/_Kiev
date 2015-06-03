@@ -1,4 +1,4 @@
-nID;sName;nID_DocumentType;sID_Content;nID_ContentType;sFile;sID_Subject_Upload;sSubjectName_Upload;sDate_Upload;sContentType;nID_Subject_Upload
-1;Паспорт;0;1;2;dd.txt;1;ПриватБанк;2015-01-01;text/plain;2
-2;Справка;1;1;2;dd.txt;1;ПриватБанк;2015-01-01;text/plain;2
-3;Справка;1;1;2;dd.txt;2872618515;ВасяПупкин;2015-01-01;text/plain;2
+nID;sName;nID_DocumentType;sID_Content;nID_ContentType;sFile;sID_Subject_Upload;sSubjectName_Upload;sDate_Upload;sContentType;nID_Subject
+1;Паспорт;0;1;2;dd.txt;1;ПриватБанк;2015-01-01;text/plain;1
+2;Справка;1;1;2;dd.txt;2;ПриватБанк;2015-01-01;text/plain;2
+3;Справка;1;1;2;dd.txt;2872618515;ВасяПупкин;2015-01-01;text/plain;3

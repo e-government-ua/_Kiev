@@ -12,7 +12,7 @@
 
 **HTTP Metod: POST**
 
-**HTTP Context: https://seriver:port/wf-region/serivce/auth/login**
+**HTTP Context: https://server:port/wf-region/serivce/auth/login**
 
 | Name        | Value           |
 | ------------- |:-------------:|
@@ -40,7 +40,7 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: POST/DELETE**
 
-**HTTP Context: https://seriver:port/wf-region/serivce/auth/logout**
+**HTTP Context: https://server:port/wf-region/serivce/auth/logout**
 
 Наличие cookie JSESSIONID
 
@@ -58,7 +58,7 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-region/serivce/rest/start-process/{key}**
+**HTTP Context: https://server:port/wf-region/serivce/rest/start-process/{key}**
 
 {key} - Ключ процесса
 
@@ -74,7 +74,7 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-region/serivce/rest/tasks/{assignee}**
+**HTTP Context: https://server:port/wf-region/serivce/rest/tasks/{assignee}**
 
 {assignee} - Владелец
 
@@ -109,7 +109,7 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-region/serivce/rest/process-definitions**
+**HTTP Context: https://server:port/wf-region/serivce/rest/process-definitions**
 
 **Response**
 
@@ -135,7 +135,7 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://seriver:port/wf-region/service/rest/download_file_from_db?taskId=XXX&attachmentId=XXX&nFile=XXX**
+**HTTP Context: https://server:port/wf-region/service/rest/download_file_from_db?taskId=XXX&attachmentId=XXX&nFile=XXX**
 
 {taskId} - ид задачи
 {attachmentID} - ID прикрепленного файла
@@ -148,7 +148,7 @@ https://52.17.126.64:8080/wf-region/service/rest/file/download_file_from_db?task
 
 **HTTP Metod: GET**
 
-**HTTP Context: http://seriver:port/wf-region/service/merchant/getMerchants** - весь список мерчантов
+**HTTP Context: http://server:port/wf-region/service/merchant/getMerchants** - весь список мерчантов
 
 **Response**
 
@@ -164,7 +164,7 @@ https://52.17.126.64:8080/wf-region/service/rest/file/download_file_from_db?task
 
 **HTTP Metod: DELETE**
 
-**HTTP Context: http://seriver:port/wf-region/service/merchant/removeMerchant** - удалить мерчанта
+**HTTP Context: http://server:port/wf-region/service/merchant/removeMerchant** - удалить мерчанта
 
 | Name        | Value           |
 | ------------- |:-------------:|
@@ -181,7 +181,7 @@ id - id мерчанта
 
 **HTTP Metod: POST**
 
-**HTTP Context: http://seriver:port/wf-region/service/merchant/setMerchant** - обновить информацию мерчанта
+**HTTP Context: http://server:port/wf-region/service/merchant/setMerchant** - обновить информацию мерчанта
 
 | Name        | Value           |
 | ------------- |:-------------:|
@@ -199,7 +199,7 @@ id - id мерчанта
 
 **HTTP Metod: PUT**
 
-**HTTP Context: http://seriver:port/wf-region/service/merchant/addMerchant** - добавить мерчанта
+**HTTP Context: http://server:port/wf-region/service/merchant/addMerchant** - добавить мерчанта
 
 | Name        | Value           |
 | ------------- |:-------------:|
@@ -214,3 +214,148 @@ id - id мерчанта
 ```text
     idOwner=idOwner&ownerName=ownerName&id=id
 ```
+
+
+**Функциональность бэкапа данных таблиц сервисов и мест:**
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/getServicesAndPlacesTables** - Скачать данные в виде json
+
+| Name        | Value           |
+| ------------- |:-------------:|
+| Content-Type | application/json |
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/downloadServicesAndPlacesTables** - Скачать данные в json файле
+
+| Name        | Value           |
+| ------------- |:-------------:|
+| Content-Disposition | attachment |
+
+**HTTP Metod: POST**
+
+**HTTP Context: http://server:port/wf-central/service/services/setServicesAndPlacesTables** - Загрузить в виде json (в теле POST запроса)
+
+| Name        | Value           |
+| ------------- |:-------------:|
+| Content-Type | application/json |
+
+**HTTP Metod: POST**
+
+**HTTP Context: http://server:port/wf-central/service/services/uploadServicesAndPlacesTables** - Загрузить из json файла
+
+| Name        | Value           |
+| ------------- |:-------------:|
+| Content-Type | application/json |
+
+Пример страницы формы загрузки из файла:
+
+&lt;html&gt;<br/>&lt;body&gt;<br/>&lt;form method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;<br/>action=&quot;http://localhost:8080/wf-central/service/services/uploadServicesAndPlacesTables&quot;&gt;<br/>File to upload: &lt;input type=&quot;file&quot; name=&quot;file&quot;&gt;&lt;br /&gt; &lt;input type=&quot;submit&quot;<br/>value=&quot;Upload&quot;&gt; Press here to upload the file!<br/>&lt;/form&gt;<br/>&lt;/body&gt;<br/>&lt;/html&gt;
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+#### 8. Документы
+Сервиса работы с документом
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/getDocument** - получение документа по ид документа
+
+nID - ид документа
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/getDocument?nID=1
+
+----------------------------------------------------------------------------------------------------------------------------
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/getDocumentContent** - получение контента документа по ид документа
+
+nID - ид документа
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/getDocumentContent?nID=1
+
+----------------------------------------------------------------------------------------------------------------------------
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/getDocumentFile** - получение документа в виде файла по ид документа
+
+nID - ид документа
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/getDocumentFile?nID=1
+
+----------------------------------------------------------------------------------------------------------------------------
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/getDocuments** - получение списка загруженных субъектом документов
+
+sID_Subject - идентификатор субъекта
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/getDocuments?sID_Subject=2
+
+ ---------------------------------------------------------------------------------------------------------------------------
+
+**HTTP Metod: POST**
+
+**HTTP Context: http://server:port/wf-central/service/services/setDocument** - сохранение документа
+
+sID_Subject_Upload - идентификатор субъекта, который загрузил документ (временный парметр, нужно убрать его)
+sSubjectName_Upload - название субъекта, который загрузил документ (временный парметр, нужно убрать его)
+sName - название документа
+sFile - название и расширение файла
+nID_DocumentType - тип документа
+sDocumentContentType - тип контента документа
+soDocumentContent - контект в виде строки
+nID_Subject_Upload - ид субъекта, который загрузил документ
+
+--------------------------------------------------------------------------------------------------------------------------
+ 
+**HTTP Metod: POST**
+
+**HTTP Context: http://server:port/wf-central/service/services/setDocumentFile** - сохранение документа в виде файла
+(контент файла шлется в теле запроса)
+
+sID_Subject_Upload - идентификатор субъекта, который загрузил документ (временный парметр, нужно убрать его)
+sSubjectName_Upload - название субъекта, который загрузил документ (временный парметр, нужно убрать его)
+sName - название документа
+nID_DocumentType - тип документа
+sDocumentContentType - тип контента документа
+soDocumentContent - контект в виде строки
+nID_Subject_Upload - ид субъекта, который загрузил документ
+oFile - параметры файла (тип MultipartFile)
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+#### 9. Субъект
+Сервиса работы с субъктами
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/subject/syncSubject** - получение субъекта, если таков найден, или добавление субъекта в противном случае
+
+От клиента ожидается ОДИН и только ОДИН параметр из нижеперечисленных
+
+nID - ид субъекта
+sINN - ИНН (субъект - человек)
+sOKPO - ОКПО (субъек - организация)
+
+Примеры:
+
+https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?sINN=34125265377
+
+https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?sOKPO=123
+
+https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
+
+--------------------------------------------------------------------------------------------------------------------------
+
+

@@ -2,7 +2,9 @@ package org.wf.dp.dniprorada.model;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import net.sf.brunneng.jom.annotations.Identifier;
 
@@ -14,8 +16,13 @@ public class Subject {
 	
 	@JsonProperty(value = "nID")
 	@Id
-	@GeneratedValue
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="subject_id_seq")
+    //@SequenceGenerator(name="subject_id_seq", sequenceName="subject_id_seq", allocationSize=1)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "nID")
+	
+    
 	private Long nID;
 	
 	@JsonProperty(value = "sID")

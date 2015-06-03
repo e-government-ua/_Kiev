@@ -3,9 +3,12 @@ package org.wf.dp.dniprorada.model;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import net.sf.brunneng.jom.annotations.Identifier;
 
@@ -19,12 +22,14 @@ public class SubjectOrgan {
 	
 	@JsonProperty(value = "nID")
 	@Id
-	@GeneratedValue
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="subjectOrgan_id_seq")
+    //@SequenceGenerator(name="subjectOrgan_id_seq", sequenceName="subjectOrgan_id_seq", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "nID")
-	private Long nID;
+	private Long nID; 
 	 
 	@JsonProperty(value = "oSubject")
-	@ManyToOne(fetch = FetchType.EAGER)
+	@OneToOne
 	@Cascade({ CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = "nID_Subject", nullable = false)
 	private Subject oSubject;

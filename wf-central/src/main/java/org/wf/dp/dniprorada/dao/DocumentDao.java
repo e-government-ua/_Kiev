@@ -11,7 +11,7 @@ public interface DocumentDao {
 	public Document getDocument(Long id);
 	public byte[] getDocumentContent(Long id);
 	public byte[] getDocumentContent(String contentKey);
-	public List<Document> getDocuments(String subject_Upload);
+	public List<Document> getDocuments(Long nID_Subject);
 	//public Long setDocument(String subject_Upload, String subjectName_Upload,
 	//		String name, String file, Integer documentTypeId, Integer contentTypeId, byte[] content);
 	//public Long setDocument(String sID_Subject_Upload, String sSubjectName_Upload,
