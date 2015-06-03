@@ -532,7 +532,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvent?nID=1
 * nID_Subject - ИД-номер субъекта
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/getDocuments?nID_Subject=3
+https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Subject=3
 
  ---------------------------------------------------------------------------------------------------------------------------
 
