@@ -64,13 +64,13 @@ public class ActivitiRestDocumentController {
         return historyEventDao.getHistoryEvents(nID_Subject);
     }
 
-    @RequestMapping(value = "/setHistoryEvent", method = RequestMethod.GET)
+    @RequestMapping(value = "/setHistoryEvent", method = RequestMethod.POST)
     public
     @ResponseBody
     Long setHistoryEvent(
-            @RequestParam(value = "nID_Subject") Long nID_Subject,
-            @RequestParam(value = "nID_HistoryEventType") Long nID_HistoryEventType,
-            @RequestParam(value = "sEventName") String sEventName_Custom,
+            @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
+            @RequestParam(value = "nID_HistoryEventType", required = false) Long nID_HistoryEventType,
+            @RequestParam(value = "sEventName", required = false) String sEventName_Custom,
             @RequestParam(value = "sMessage") String sMessage,
 
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
