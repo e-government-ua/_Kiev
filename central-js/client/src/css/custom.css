@@ -517,6 +517,9 @@ a {
 .add0-subcat {
       left: 0px;
 }
+#admin-swch {
+    text-decoration: none;
+}
 a.pluso-more {
     display: none !important;
 }
