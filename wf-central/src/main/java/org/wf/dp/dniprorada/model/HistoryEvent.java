@@ -38,12 +38,9 @@ public class HistoryEvent {
     @Column(name = "sMessage", nullable = false)
     private String sMessage;
 
-    @JsonProperty(value="oDate")
-    @Column(name = "sDate", nullable = true)
-    private Date date;
-
     @JsonProperty(value="sDate")
     @Transient
+    @Column(name = "sDate", nullable = false)
     private String sDate;
 
     @Identifier
@@ -74,33 +71,6 @@ public class HistoryEvent {
     public String getEventNameCustom() {
         return (this.eventNameCustom == null) ? "" : eventNameCustom;
     }
-    public String getEventNameCustom(int historyEventTypeKey) {
-        switch (historyEventTypeKey){
-            case(0) : {
-                return this.eventNameCustom;
-            }
-            case(1) : {
-                return HistoryEventType.GET_SERVICE.getsName();
-            }
-            case(2) : {
-                return HistoryEventType.SET_DOCUMENT_INTERNAL.getsName();
-            }
-            case(3) : {
-                return HistoryEventType.SET_DOCUMENT_EXTERNAL.getsName();
-            }
-            case(4) : {
-                return HistoryEventType.SET_DOCUMENT_ACCESS_LINK.getsName();
-            }
-            case(5) : {
-                return HistoryEventType.SET_DOCUMENT_ACCESS.getsName();
-            }
-            case(6) : {
-                return HistoryEventType.ACTIVITY_STATUS_NEW.getsName();
-            }
-        }
-
-        return "";
-    }
 
     public void setEventNameCustom(String eventNameCustom) {
         this.eventNameCustom = eventNameCustom;
@@ -114,17 +84,9 @@ public class HistoryEvent {
         this.sMessage = sMessage;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     @Transient
     public String getsDate() {
-        return new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss.SSS").format(date);
+        return new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss.SSS").format(new Date());
     }
 
     public void setsDate(String sDate) {
