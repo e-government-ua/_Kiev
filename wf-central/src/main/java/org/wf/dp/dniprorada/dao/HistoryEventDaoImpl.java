@@ -35,9 +35,8 @@ public class HistoryEventDaoImpl implements HistoryEventDao {
     @Override
     public HistoryEvent getHistoryEvent(Long id) {
         HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
-        if (historyEvent.getHistoryEventTypeKey() == null ||
-                historyEvent.getHistoryEventTypeKey().equals(0L)) {
-        } else {
+        if (historyEvent.getHistoryEventTypeKey() != null &&
+                !historyEvent.getHistoryEventTypeKey().equals(0)) {
             historyEvent.setEventNameCustom(HistoryEventType.getById(historyEvent.getHistoryEventTypeKey()).getsName());
         }
         return historyEvent;
