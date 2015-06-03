@@ -40,9 +40,10 @@ public class HistoryEvent {
 
     @JsonProperty(value="sDate")
     @Transient
-    @Column(name = "sDate", nullable = false)
     private String sDate;
 
+   // @JsonProperty(value="oDate")
+    @Column(name = "sDate", nullable = false)
     private Date date;
 
     @Identifier
