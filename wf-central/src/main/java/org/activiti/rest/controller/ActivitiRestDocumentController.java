@@ -21,11 +21,6 @@ import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.DocumentContentType;
 import org.wf.dp.dniprorada.model.HistoryEvent;
 import org.wf.dp.dniprorada.util.Util;
-import org.wf.dp.dniprorada.constant.HistoryEventType;
-
-
-//import org.springframework.mock.web.MockMultipartFile;
-
 
 @Controller
 @RequestMapping(value = "/services")
@@ -77,7 +72,6 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "nID_HistoryEventType") Long nID_HistoryEventType,
             @RequestParam(value = "sEventName") String sEventName_Custom,
             @RequestParam(value = "sMessage") String sMessage,
-            @RequestParam(value = "sDate") String sDate,
 
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
 
@@ -86,8 +80,7 @@ public class ActivitiRestDocumentController {
                 nID_Subject,
                 nID_HistoryEventType,
                 sEventName_Custom,
-                sMessage,
-                sDate);
+                sMessage);
 
     }
 

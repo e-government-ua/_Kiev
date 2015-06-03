@@ -51,7 +51,7 @@ public class HistoryEventDaoImpl implements HistoryEventDao {
     }
 
     @Override
-    public Long setHistoryEvent(Long nID_Subject, Long nID_HistoryEventType, String sEventName_Custom, String sMessage, String sDate) throws IOException {
+    public Long setHistoryEvent(Long nID_Subject, Long nID_HistoryEventType, String sEventName_Custom, String sMessage) throws IOException {
         HistoryEvent historyEvent = new HistoryEvent();
         historyEvent.setSubjectKey(nID_Subject);
         historyEvent.setHistoryEventTypeKey(nID_HistoryEventType);
