@@ -56,7 +56,7 @@ public class ActivitiDocumentAccessController {
 			response.setHeader("Reason", "Access not found\n"+e.getMessage());
 			return null;
 		}				
-		SimpleDateFormat sdf = new SimpleDateFormat();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
 		Date d = null;
 		try {
 			d = sdf.parse(da.getDateCreate());

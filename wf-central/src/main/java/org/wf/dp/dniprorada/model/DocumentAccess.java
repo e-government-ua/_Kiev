@@ -34,7 +34,7 @@ public class DocumentAccess {
 	@Column(name="sAnswer")
 	private String sAnswer;
 	@Column(name="sDateAnswerExpire")
-	private Date sDateAnswerExpire;
+	private String sDateAnswerExpire;
         
 
 	public Long getID_Document() {
@@ -110,12 +110,12 @@ public class DocumentAccess {
 	}
 	
 
-	public Date getDateAnswerExpire() {
+	public String getDateAnswerExpire() {
 		return sDateAnswerExpire;
 	}
 
 	public void setDateAnswerExpire(Date o) {
-		this.sDateAnswerExpire = o;
+		this.sDateAnswerExpire = o.toString();
 	}
         
 	public Long getID() {
@@ -124,5 +124,9 @@ public class DocumentAccess {
 
 	public void setID(Long n) {
 		this.nID = n;
+	}
+	@Override
+	public String toString() {
+		return nID+nID_Document+sDateCreate+nMS+sFIO+sTarget+sTelephone+sMail+sSecret+sAnswer+sDateAnswerExpire;
 	}
 }

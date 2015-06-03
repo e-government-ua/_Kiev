@@ -119,10 +119,11 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		List <DocumentAccess> list = null;
 		System.out.println("getDocumentLink");
 		try{
-                    list = oSession.createSQLQuery("FROM DocumentAccess WHERE nID="+nID_Access+" AND sSecret="+sSecret).list();
-                    System.out.println("getDocumentLink");
+                    list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
+                    		//createSQLQuery("SELECT * FROM DocumentAccess").list(); //WHERE nID="+nID_Access+" AND sSecret="+sSecret).list();
+                    System.out.println(list.isEmpty());
                     for(DocumentAccess da : list){
-                    	System.out.println(da.getSecret());
+                    	System.out.println(da.toString());
                     }
 		} catch(Exception e){
 			throw e;
