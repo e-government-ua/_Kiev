@@ -42,19 +42,19 @@ public class HistoryEventDaoImpl implements HistoryEventDao {
         return historyEvent;
     }
 
-//    @Override
-//    public byte[] getHistoryEventSubject(Long id) {
-//        HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
-//
-//
-//        return durableBytesDataStorage.getData(historyEvent.getSubjectKey().toString());
-//    }
-//
-//    @Override
-//    public byte[] getHistoryEventType(Long id) {
-//        HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
-//        return durableBytesDataStorage.getData(historyEvent.getHistoryEventTypeKey().toString());
-//    }
+    @Override
+    public byte[] getHistoryEventSubject(Long id) {
+        HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
+
+
+        return durableBytesDataStorage.getData(historyEvent.getSubjectKey().toString());
+    }
+
+    @Override
+    public byte[] getHistoryEventType(Long id) {
+        HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
+        return durableBytesDataStorage.getData(historyEvent.getHistoryEventTypeKey().toString());
+    }
 
     @Override
     public List<HistoryEvent> getHistoryEvents(Long nID_Subject) {
