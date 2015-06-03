@@ -26,14 +26,13 @@
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Копія довідки по формі-3" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копія довідки із реєстраційної служби речових прав на нерухоме майно про наявність або відсутність власності у всіх членів сім’ї" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Копія довідки з місця роботи або про перебування на обліку в Центрі зайнятості з інформацією про перебування на квартирному обліку." type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копія довідки про пільги (при наявності)" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file6" name="Копії свідоцтв про народження дітей; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file7" name="Копія свідоцтв про шлюб або розірвання шлюбу;при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file8" name="Копії карток фізичної особи – платника податків заявника та членів сім'ї; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file1" name="Копії паспорта громадянина України заявника та повнолітніх членів сім'ї 1, 2, 10, 11 сторінок.; файли можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file2" name="Копія довідки по формі-3" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file3" name="Копія довідки із реєстраційної служби речових прав на нерухоме майно про наявність або відсутність власності у всіх членів сім’ї" type="file" ></activiti:formProperty>
+        <activiti:formProperty id="file4" name="Копія довідки з місця роботи або про перебування на обліку в Центрі зайнятості з інформацією про перебування на квартирному обліку." type="file" ></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Копія довідки про пільги (при наявності)" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file6" name="Копії свідоцтв про народження дітей; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" ></activiti:formProperty>
+        <activiti:formProperty id="file7" name="Копія свідоцтв про шлюб або розірвання шлюбу;при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" ></activiti:formProperty>
+        <activiti:formProperty id="file8" name="Копії карток фізичної особи – платника податків заявника та членів сім'ї; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" ></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
@@ -58,14 +57,13 @@
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Копія довідки по формі-3" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копія довідки із реєстраційної служби речових прав на нерухоме майно про наявність або відсутність власності у всіх членів сім’ї" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Копія довідки з місця роботи або про перебування на обліку в Центрі зайнятості з інформацією про перебування на квартирному обліку." type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копія довідки про пільги (при наявності)" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file6" name="Копії свідоцтв про народження дітей; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file7" name="Копія свідоцтв про шлюб або розірвання шлюбу;при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file8" name="Копії карток фізичної особи – платника податків заявника та членів сім'ї; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file1" name="Копії паспорта громадянина України заявника та повнолітніх членів сім'ї 1, 2, 10, 11 сторінок.; файли можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file2" name="Копія довідки по формі-3" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file3" name="Копія довідки із реєстраційної служби речових прав на нерухоме майно про наявність або відсутність власності у всіх членів сім’ї" type="file" ></activiti:formProperty>
+        <activiti:formProperty id="file4" name="Копія довідки з місця роботи або про перебування на обліку в Центрі зайнятості з інформацією про перебування на квартирному обліку." type="file" ></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Копія довідки про пільги (при наявності)" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file6" name="Копії свідоцтв про народження дітей; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" ></activiti:formProperty>
+        <activiti:formProperty id="file7" name="Копія свідоцтв про шлюб або розірвання шлюбу;при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" ></activiti:formProperty>
+        <activiti:formProperty id="file8" name="Копії карток фізичної особи – платника податків заявника та членів сім'ї; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" ></activiti:formProperty>
         <activiti:formProperty id="regChanged" name="Витяг готовий?" type="enum" required="true">
           <activiti:value id="yes" name="Так, готовий"></activiti:value>
         </activiti:formProperty>
