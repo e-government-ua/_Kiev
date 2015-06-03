@@ -29,7 +29,7 @@
         <activiti:formProperty id="Inn" name="ІПН; власника (землекористувача) земельної ділянки або уповноваженої ним особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Копия паспорта (перша сторінка) " type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копия паспорта (друга сторінка) " type="file" writable="false" required="true"></activiti:formProperty-->
+        <activiti:formProperty id="file3" name="Копия паспорта (друга сторінка) " type="file" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про реєстрацію" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
@@ -59,7 +59,7 @@
         <activiti:formProperty id="Inn" name="ІПН; власника (землекористувача) земельної ділянки або уповноваженої ним особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Копия паспорта (перша сторінка) " type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копия паспорта (друга сторінка) " type="file" writable="false" required="true"></activiti:formProperty-->
+        <activiti:formProperty id="file3" name="Копия паспорта (друга сторінка) " type="file" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="regChanged" name="Документи готові?" type="enum" required="true">
           <activiti:value id="yes" name="Так, готові"></activiti:value>
         </activiti:formProperty>
@@ -139,8 +139,8 @@
 </text>
     </textAnnotation>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_ivFrank_mvk_2">
-    <bpmndi:BPMNPlane bpmnElement="ivFrank_mvk_2" id="BPMNPlane_ivFrank_mvk_2">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_mda_1">
+    <bpmndi:BPMNPlane bpmnElement="kiev_mda_1" id="BPMNPlane_kiev_mda_1">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="220.0" y="130.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
