@@ -12,7 +12,7 @@ public interface HistoryEventDao {
     public List<HistoryEvent> getHistoryEvents(Long nID_Subject);
 
     public Long setHistoryEvent(Long nID_Subject, Long nID_HistoryEventType,
-                                String sEventName_Custom, String sMessage
+                                String sEventName_Custom, String sMessage, String sDate
                                 /*, byte[] aoContent*/) throws IOException;
 
 }

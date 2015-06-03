@@ -3,21 +3,15 @@ package org.wf.dp.dniprorada.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.model.HistoryEvent;
-import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 
 import java.io.IOException;
 import java.util.List;
 
 public class HistoryEventDaoImpl implements HistoryEventDao {
     private SessionFactory sessionFactory;
-
-    @Autowired
-    private GridFSBytesDataStorage durableBytesDataStorage;
-
 
     @Required
     public SessionFactory getSessionFactory() {
@@ -57,12 +51,13 @@ public class HistoryEventDaoImpl implements HistoryEventDao {
     }
 
     @Override
-    public Long setHistoryEvent(Long nID_Subject, Long nID_HistoryEventType, String sEventName_Custom, String sMessage) throws IOException {
+    public Long setHistoryEvent(Long nID_Subject, Long nID_HistoryEventType, String sEventName_Custom, String sMessage, String sDate) throws IOException {
         HistoryEvent historyEvent = new HistoryEvent();
         historyEvent.setSubjectKey(nID_Subject);
         historyEvent.setHistoryEventTypeKey(nID_HistoryEventType);
         historyEvent.setEventNameCustom(sEventName_Custom);
         historyEvent.setsMessage(sMessage);
+        historyEvent.setsDate(sDate);
 
         return historyEvent.getId();
     }

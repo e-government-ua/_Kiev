@@ -31,7 +31,7 @@ public class HistoryEvent {
     @Column(name = "nID_HistoryEventType", nullable = true)
     private Long historyEventTypeKey;
 
-    @JsonProperty(value = "sEventName_Custom")
+    @JsonProperty(value = "sEventName")
     @Column(name = "sEventName_Custom", nullable = true)
     private String eventNameCustom;
 

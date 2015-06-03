@@ -69,15 +69,15 @@ public class ActivitiRestDocumentController {
         return historyEventDao.getHistoryEvents(nID_Subject);
     }
 
-    @RequestMapping(value = "/setHistoryEvent", method = RequestMethod.POST)
+    @RequestMapping(value = "/setHistoryEvent", method = RequestMethod.GET)
     public
     @ResponseBody
     Long setHistoryEvent(
             @RequestParam(value = "nID_Subject") Long nID_Subject,
             @RequestParam(value = "nID_HistoryEventType") Long nID_HistoryEventType,
-            @RequestParam(value = "sEventName_Custom") String sEventName_Custom,
+            @RequestParam(value = "sEventName") String sEventName_Custom,
             @RequestParam(value = "sMessage") String sMessage,
-            @RequestParam(value = "sDate", required = false) String sDate,
+            @RequestParam(value = "sDate") String sDate,
 
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
 
@@ -86,7 +86,8 @@ public class ActivitiRestDocumentController {
                 nID_Subject,
                 nID_HistoryEventType,
                 sEventName_Custom,
-                sMessage);
+                sMessage,
+                sDate);
 
     }
 
