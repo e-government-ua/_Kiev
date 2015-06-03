@@ -372,4 +372,94 @@ https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 
 --------------------------------------------------------------------------------------------------------------------------
 
+#### 11. DocumentAccess
+Cервис предоставления доступа на документ
 
+**HTTP Metod: POST**
+
+**HTTP Context: 
+https://seriver:port/wf-central/service/setDocumentLink - запись на доступ
+
+nID_Document - ИД-номер документа
+sFIO - ФИО, кому доступ
+sTarget - цель получения доступа
+sTelephone - телефон того, кому доступ предоставляется
+nDays - число милисекунд, на которое предоставляется доступ
+sMail - эл. почта того, кому доступ предоставляется
+
+**Response**
+
+```json					
+	[				        //[0..N]
+	{"name":"sURL",   //[1..1]
+	 "value":"https://e-gov.org.ua/index#nID_Access=4345&sSecret=JHg3987JHg3987JHg3987" //[1..1]
+	}  
+	]
+```
+
+**HTTP Metod: POST**
+
+**HTTP Context: 
+https://seriver:port/wf-central/service/getDocumentLink - проверка доступа и получения данных о нем, если доступ есть
+
+nID_Document - ИД-номер документа
+sSecret - секретный ключ
+
+**Response**
+
+HTTP STATUS 200
+```json					
+	[				        //[0..N]
+{	
+	"nID":4355
+	,"nID_Document":53245
+	,"sDateCreate":"2015-05-05 22:32:24.425"
+	,"nMS":3523
+	,"sFIO":"Вася Пупкин"
+	,"sTarget":"По прикколу"
+	,"sTelephone":"001 354 3456"
+	,"sMail":"vasya@i.ua" 
+}
+	]
+```
+Если доступа нет, возвращается HTTP STATUS 403
+Если доступ есть, но секрет не совпадает, возвращается HTTP STATUS 403
+Если доступ просрочен, возвращается HTTP STATUS 403
+Если возникла исключительная ситуация, возвращается HTTP STATUS 400. В заголовок ответа добавляется параметр Reason, в котором описана причина возникновения ситуации.
+
+**HTTP Metod: POST**
+
+**HTTP Context: 
+https://seriver:port/wf-central/service/getDocumentAccess
+
+nID_Document - ИД-номер документа
+sSecret - секретный ключ
+
+**Response**
+
+```json					
+	[				        //[0..N]
+	{"name":"sURL",   //[1..1]
+	 "value":"https://seriver:port/index#nID_Access=4345&sSecret=JHg3987JHg3987JHg3987" //[1..1]
+	}  
+	]
+```
+
+**HTTP Metod: POST**
+
+**HTTP Context: 
+https://seriver:port/wf-central/service/setDocumentAccess
+
+nID_Access - ид доступа
+sSecret - секретный ключ
+sAnswer - ответ
+
+**Response**
+
+```json					
+	[				        //[0..N]
+	{"name":"sURL",   //[1..1]
+	 "value":"https://seriver:port/index#nID_Access=4345&sSecret=JHg3987JHg3987JHg3987" //[1..1]
+	}  
+	]
+```

@@ -23,7 +23,7 @@ public class ActivitiDocumentAccessController {
 	private DocumentAccessDao documentAccessDao;
 	
 	
-	@RequestMapping(value = "/setDocumentLink", method = RequestMethod.GET, headers = {"Accept=application/json"})
+	@RequestMapping(value = "/setDocumentLink", method = RequestMethod.POST, headers = {"Accept=application/json"})
 	public @ResponseBody AccessURL setDocumentAccessLink(
 			@RequestParam(value = "nID_Document") Long nID_Document,
 			@RequestParam(value = "sFIO") String sFIO,
@@ -43,7 +43,7 @@ public class ActivitiDocumentAccessController {
 		return oAccessURL;
 	}
 
-	@RequestMapping(value = "/getDocumentLink", method = RequestMethod.GET, headers = {"Accept=application/json"})
+	@RequestMapping(value = "/getDocumentLink", method = RequestMethod.POST, headers = {"Accept=application/json"})
 	public @ResponseBody DocumentAccess getDocumentAccessLink(
 			@RequestParam(value = "nID_Access") Long nID_Access,
 			@RequestParam(value = "sSecret") String sSecret,
@@ -76,7 +76,7 @@ public class ActivitiDocumentAccessController {
 	}
         
         
-	@RequestMapping(value = "/getDocumentAccess", method = RequestMethod.GET, headers = {"Accept=application/json"})
+	@RequestMapping(value = "/getDocumentAccess", method = RequestMethod.POST, headers = {"Accept=application/json"})
 	public @ResponseBody AccessURL setDocumentAccess(
 			@RequestParam(value = "nID_Access") Long nID_Access,
 			@RequestParam(value = "sSecret") String sSecret,
@@ -92,7 +92,7 @@ public class ActivitiDocumentAccessController {
 		return oAccessURL;
 	}
         
-	@RequestMapping(value = "/setDocumentAccess", method = RequestMethod.GET, headers = {"Accept=application/json"})
+	@RequestMapping(value = "/setDocumentAccess", method = RequestMethod.POST, headers = {"Accept=application/json"})
 	public @ResponseBody AccessURL setDocumentAccess(
 			@RequestParam(value = "nID_Access") Long nID_Access,
 			@RequestParam(value = "sSecret") String sSecret,
