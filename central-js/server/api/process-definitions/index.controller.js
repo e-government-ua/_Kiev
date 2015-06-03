@@ -11,6 +11,7 @@ module.exports.index = function(options, callback) {
 		},
 		'qs': {
 			'latest': options.params.latest
+			,'size': 1000
 		}
 	}, callback);
 };
