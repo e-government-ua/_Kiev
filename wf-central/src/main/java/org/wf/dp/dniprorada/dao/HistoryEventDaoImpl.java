@@ -6,8 +6,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Required;
 import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.model.HistoryEvent;
-
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public class HistoryEventDaoImpl implements HistoryEventDao {
@@ -57,8 +57,8 @@ public class HistoryEventDaoImpl implements HistoryEventDao {
         historyEvent.setHistoryEventTypeKey(nID_HistoryEventType);
         historyEvent.setEventNameCustom(sEventName_Custom);
         historyEvent.setsMessage(sMessage);
-        historyEvent.setsDate(sDate);
-
+        historyEvent.setDate(new Date());
+        getSession().saveOrUpdate(historyEvent);
         return historyEvent.getId();
     }
 }
