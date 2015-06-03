@@ -2,6 +2,7 @@ package org.wf.dp.dniprorada.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.wf.dp.dniprorada.constant.HistoryEventType;
@@ -35,28 +36,31 @@ public class HistoryEventDaoImpl implements HistoryEventDao {
     @Override
     public HistoryEvent getHistoryEvent(Long id) {
         HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
-        if (historyEvent.getHistoryEventTypeKey() != null &&
-                !historyEvent.getHistoryEventTypeKey().equals(0L)) {
+        if (!historyEvent.getHistoryEventTypeKey().equals(0L)) {
             historyEvent.setEventNameCustom(HistoryEventType.getById(historyEvent.getHistoryEventTypeKey()).getsName());
         }
         return historyEvent;
     }
 
-    @Override
-    public byte[] getHistoryEventSubject(Long id) {
-        HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
-        return durableBytesDataStorage.getData(historyEvent.getSubjectKey().toString());
-    }
+//    @Override
+//    public byte[] getHistoryEventSubject(Long id) {
+//        HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
+//
+//
+//        return durableBytesDataStorage.getData(historyEvent.getSubjectKey().toString());
+//    }
+//
+//    @Override
+//    public byte[] getHistoryEventType(Long id) {
+//        HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
+//        return durableBytesDataStorage.getData(historyEvent.getHistoryEventTypeKey().toString());
+//    }
 
     @Override
-    public byte[] getHistoryEventType(Long id) {
-        HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
-        return durableBytesDataStorage.getData(historyEvent.getHistoryEventTypeKey().toString());
-    }
-
-    @Override
-    public List<HistoryEvent> getHistoryEvents(String nID_Subject) {
-        return (List<HistoryEvent>) getSession().createCriteria(HistoryEvent.class, nID_Subject).list();
+    public List<HistoryEvent> getHistoryEvents(Long nID_Subject) {
+        return (List<HistoryEvent>) getSession().createCriteria(HistoryEvent.class)
+                .add(Restrictions.eq("subject.nID", nID_Subject))
+                .list();
     }
 
     @Override

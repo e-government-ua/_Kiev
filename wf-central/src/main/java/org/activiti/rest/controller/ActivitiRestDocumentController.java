@@ -65,7 +65,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     List<HistoryEvent> getHistoryEvents(
-            @RequestParam(value = "nID_Subject") String nID_Subject) {
+            @RequestParam(value = "nID_Subject") Long nID_Subject) {
         return historyEventDao.getHistoryEvents(nID_Subject);
     }
 
