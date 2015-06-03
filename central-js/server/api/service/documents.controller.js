@@ -86,7 +86,7 @@ module.exports.initialUpload = function(req, res) {
             'sID_Subject_Upload': sID_Subject,
             'sSubjectName_Upload': 'Приватбанк',
             'sName': 'Паспорт',
-            'nID_DocumentType': 1
+            'nID_DocumentType': 0
         }
     };
 
