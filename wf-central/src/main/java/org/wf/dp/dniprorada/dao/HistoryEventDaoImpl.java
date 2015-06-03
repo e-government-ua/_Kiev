@@ -1,12 +1,10 @@
 package org.wf.dp.dniprorada.dao;
 
-import com.google.gwt.user.client.History;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
-import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.HistoryEvent;
 import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 
@@ -14,9 +12,6 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by blupashko on 01.06.2015.
- */
 public class HistoryEventDaoImpl implements HistoryEventDao {
     private SessionFactory sessionFactory;
 

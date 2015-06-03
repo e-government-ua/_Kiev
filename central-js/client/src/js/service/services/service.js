@@ -48,9 +48,9 @@ define('service/service', ['angularAMD'], function(angularAMD) {
       });
     };
 
-    this.getDocuments = function(sID_Subject) {
+    this.getDocuments = function(nID_Subject) {
       var data = {
-        'sID_Subject': sID_Subject
+        'nID_Subject': nID_Subject
       };
       return $http.get('./api/service/documents', {
         params: data,
@@ -77,5 +77,18 @@ define('service/service', ['angularAMD'], function(angularAMD) {
         return response.data;
       });
     };
+    
+    this.initialUpload = function(accessToken, nID_Subject, sID_Subject) {
+		var data = {
+			'access_token': accessToken,
+			'nID_Subject': nID_Subject,
+			'sID_Subject': sID_Subject
+		};
+		return $http.post('./api/service/documents/initialupload', {}, {
+			params: data
+		}).then(function(response) {
+			return response.data;
+		});
+	};
   });
 });

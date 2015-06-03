@@ -42,9 +42,9 @@ public class DocumentDaoImpl implements DocumentDao {
 	}
 
 	@Override
-	public List<Document> getDocuments(String sID_subject_Upload) {
+	public List<Document> getDocuments(Long nID_Subject) {
 		return (List<Document>) getSession().createCriteria(Document.class)
-				.add(Restrictions.eq("sID_subject_Upload", sID_subject_Upload))
+				.add(Restrictions.eq("subject.nID", nID_Subject))
 				.list();
 	}
 
@@ -67,7 +67,7 @@ public class DocumentDaoImpl implements DocumentDao {
 		return contentByte != null ? contentByte : contentMock.getBytes();
 	}
 
-	public Long setDocument(Long nID_Subject_Upload, String sID_Subject_Upload,
+	public Long setDocument(Long nID_Subject, String sID_Subject_Upload,
 			String sSubjectName_Upload, String sName, Integer nID_DocumentType,
 			Integer nID_DocumentContentType, String sFileName,
 			String sFileContentType, byte[] aoContent) throws IOException {
@@ -87,10 +87,10 @@ public class DocumentDaoImpl implements DocumentDao {
 											// ИД, по Контенттайп с oFile
 		document.setDocumentContentType(documentContentType);
 
-		if (nID_Subject_Upload != null) {
-			Subject subject_Upload = new Subject();
-			subject_Upload.setnID(nID_Subject_Upload);
-			document.setSubject_Upload(subject_Upload);
+		if (nID_Subject != null) {
+			Subject oSubject = new Subject();
+			oSubject.setnID(nID_Subject);
+			document.setSubject(oSubject);
 		}
 
 		document.setСontentKey(durableBytesDataStorage.saveData(aoContent));
