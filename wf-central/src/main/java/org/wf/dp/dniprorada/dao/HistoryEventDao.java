@@ -9,10 +9,6 @@ public interface HistoryEventDao {
 
     public HistoryEvent getHistoryEvent(Long id);
 
-//    public byte[] getHistoryEventSubject(Long id);
-//
-//    public byte[] getHistoryEventType(Long id);
-
     public List<HistoryEvent> getHistoryEvents(Long nID_Subject);
 
     public Long setHistoryEvent(Long nID_Subject, Long nID_HistoryEventType,
