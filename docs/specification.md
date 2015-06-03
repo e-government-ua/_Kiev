@@ -466,4 +466,48 @@ https://seriver:port/wf-central/service/setDocumentAccess
 
 
 
+----------------------------------------------------------------------------------------------------------------------------
+
+#### 12. SubjectMessage
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/messages/getMessages - получение всех сообщений
+
+Пример:
 https://poligon.igov.org.ua/wf-central/service/messages/getMessages
+
+----------------------------------------------------------------------------------------------------------------------------
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/messages/getMessage?nID=1 - получение контента сообщения по ид сообщения
+
+nID - ИД-номер сообщения
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/messages/getMessage?nID=76
+
+----------------------------------------------------------------------------------------------------------------------------
+
+**HTTP Metod: POST**
+
+**HTTP Context: http://server:port/wf-central/service/messages/setMessage - сохранение сообщения 
+ 
+nID - ид-шник сообщения уникальный, автоинкрементируемый
+
+обязательные поля
+
+sHead - заголовок до 200 символов текста
+sBody - текстовое поле 
+
+не обяззательные поля
+
+nID_Subject - число-ИД субьекта (по умолчанию 0)
+
+по умолчанию пустые строки
+
+sMail - до 100 символов 
+sContacts - до 200 символов
+sData - до 200 символов текста
