@@ -90,7 +90,8 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		Session s = getSession();
 		try{
 			t = s.beginTransaction();
-			s.saveOrUpdate(o);
+			s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES ("
+			+ o.getID_Document()+","+ o.getDateCreate()+","+ o.getMS()+","+o.getFIO()+","+o.getTarget()+","+o.getTelephone()+","+o.getMail()+","+o.getSecret()+")").executeUpdate();
 			t.commit();
 		} catch(Exception e){
 			t.rollback();
@@ -121,9 +122,10 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		try{
                     list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
                     		//createSQLQuery("SELECT * FROM DocumentAccess").list(); //WHERE nID="+nID_Access+" AND sSecret="+sSecret).list();
-                    System.out.println(list.isEmpty());
                     for(DocumentAccess da : list){
-                    	System.out.println(da.toString());
+                    	if(da.getID() == nID_Access && da.equals(sSecret)){
+                    		return da;
+                    	}
                     }
 		} catch(Exception e){
 			throw e;
