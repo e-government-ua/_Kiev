@@ -99,23 +99,16 @@ module.exports.initialUpload = function(req, res) {
                 if (!result.error) {
                     var customer = result.customer;
                     if(customer.scans && customer.scans.length > 0){
-                        var documentScan = customer.scans[0];
+                    var documentScan = customer.scans[0];
 
                     var scanContentRequest = account.prepareScanContentRequest(
                         _.merge(options, {
                             url: documentScan.link
                         })
                     );
-                    scanContentRequest.on('response', function(response){
-                        if(response){
-                            
-                        }
-                    });
-
+                    
                     var form = new FormData();
-                    form.append('oFile', scanContentRequest, {
-                        filename: documentScan.type
-                    });
+                    form.append('oFile', scanContentRequest);
                     form.pipe(request.post(
                         _.merge(optionsForUploadContent, {
                             headers: form.getHeaders()
