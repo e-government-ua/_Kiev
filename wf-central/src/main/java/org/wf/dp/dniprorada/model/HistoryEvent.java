@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.sf.brunneng.jom.annotations.Identifier;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -42,7 +43,7 @@ public class HistoryEvent {
     @Transient
     private String sDate;
 
-   // @JsonProperty(value="oDate")
+    @JsonIgnore
     @Column(name = "sDate", nullable = false)
     private Date date;
 
