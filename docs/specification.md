@@ -450,9 +450,9 @@ sSecret - секретный ключ
 **HTTP Context: 
 https://seriver:port/wf-central/service/setDocumentAccess
 
-*nID_Access - ид доступа
-*sSecret - секретный ключ
-*sAnswer - ответ
+**nID_Access - ид доступа
+**sSecret - секретный ключ
+**sAnswer - ответ
 
 **Response**
 
