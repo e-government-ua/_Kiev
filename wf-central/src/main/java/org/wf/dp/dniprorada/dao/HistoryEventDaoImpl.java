@@ -2,20 +2,17 @@ package org.wf.dp.dniprorada.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.model.HistoryEvent;
 import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 public class HistoryEventDaoImpl implements HistoryEventDao {
     private SessionFactory sessionFactory;
-
-    //private String mokeContentDocument = "123456789";
 
     @Autowired
     private GridFSBytesDataStorage durableBytesDataStorage;
@@ -37,7 +34,13 @@ public class HistoryEventDaoImpl implements HistoryEventDao {
 
     @Override
     public HistoryEvent getHistoryEvent(Long id) {
-        return (HistoryEvent) getSession().get(HistoryEvent.class, id);
+        HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
+        if (historyEvent.getHistoryEventTypeKey() == null ||
+                historyEvent.getHistoryEventTypeKey().equals(0L)) {
+        } else {
+            historyEvent.setEventNameCustom(HistoryEventType.getById(historyEvent.getHistoryEventTypeKey()).getsName());
+        }
+        return historyEvent;
     }
 
     @Override
