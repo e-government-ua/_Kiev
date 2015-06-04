@@ -177,7 +177,8 @@ public class ActivitiRestDocumentController {
             //@RequestBody byte[] content,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
 
-        String sFileName = oFile.getName();
+        //String sFileName = oFile.getName();
+        String sFileName = oFile.getOriginalFilename();
         String sFileContentType = oFile.getContentType();
         byte[] aoContent = oFile.getBytes();
 
