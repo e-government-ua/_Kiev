@@ -508,3 +508,41 @@ https://poligon.igov.org.ua/wf-central/service/messages/setMessage?sHead=name&sB
 
 Ответ:
 Status 200 если Ok
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+#### 13. Работа с историей
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/getHistoryEvent** - получение документа по ид документа
+
+* nID - ИД-номер документа
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvent?nID=1
+
+----------------------------------------------------------------------------------------------------------------------------
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/getHistoryEvents** - получение списка загруженных субъектом документов
+
+* nID_Subject - ИД-номер субъекта
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Subject=3
+
+ ---------------------------------------------------------------------------------------------------------------------------
+
+**HTTP Metod: POST**
+
+**HTTP Context: http://server:port/wf-central/service/services/setHistoryEvent** - сохранение документа
+
+* nID_Subject - ИД-строка субъекта, который загрузил документ ?? (необязательное поле)
+* nID_HistoryEventType - ИД-номер типа документа (необязательное поле)
+* sEventName - строка - кастомное описание документа (необязательное поле)
+* sMessage - строка - сохраняемое содержимое (обязательное поле)
+
+--------------------------------------------------------------------------------------------------------------------------

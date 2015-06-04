@@ -34,47 +34,47 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
 
-//		StartFormData startformData = execution.getEngineServices()
-//				.getFormService()
-//				.getStartFormData(execution.getProcessDefinitionId());
-//		List<String> filedTypeFile = getListFieldCastomTypeFile(startformData);
-//		List<String> listValueKeys = getValueFieldWithCastomTypeFile(execution,
-//				filedTypeFile);
-//		List<BuilderAtachModel> listModel = new ArrayList<BuilderAtachModel>();
-//		if (!listValueKeys.isEmpty()) {
-//			for (String keyRedis : listValueKeys) {
-//				if (keyRedis != null && !keyRedis.isEmpty()) {
-//					byte[] byteFile = getRedisService().getAttachments(keyRedis);
-//					ByteArrayMultipartFile contentMultipartFile = getByteArrayMultipartFileFromRedis(byteFile);
-//					if (contentMultipartFile != null) {
-//						String outFilename = null;
-//				        try {
-//				            outFilename = new String(contentMultipartFile
-//									.getOriginalFilename().getBytes("ISO-8859-1"), "UTF-8");
-//				        } catch (java.io.UnsupportedEncodingException e) {
-//				        	throw new ActivitiException(e.getMessage(), e);
-//				        }
-//						BuilderAtachModel builderAtachModel = new BuilderAtachModel();
-//						builderAtachModel
-//								.setByteToStringContent(contentByteToString(contentMultipartFile
-//										.getBytes()));
-//						builderAtachModel.setContentType(contentMultipartFile
-//								.getContentType());
-//						builderAtachModel.setExp(contentMultipartFile.getExp());
-//						builderAtachModel
-//								.setOriginalFilename(outFilename);
-//						builderAtachModel.setName(contentMultipartFile
-//								.getName());
-//						listModel.add(builderAtachModel);
-//
-//					}
-//				}
-//			}
-//		}
-//
-//		if (!listModel.isEmpty()) {
-//			execution.setVariable(BUILDER_ATACH_MODEL_LIST, listModel);
-//		}
+		StartFormData startformData = execution.getEngineServices()
+				.getFormService()
+				.getStartFormData(execution.getProcessDefinitionId());
+		List<String> filedTypeFile = getListFieldCastomTypeFile(startformData);
+		List<String> listValueKeys = getValueFieldWithCastomTypeFile(execution,
+				filedTypeFile);
+		List<BuilderAtachModel> listModel = new ArrayList<BuilderAtachModel>();
+		if (!listValueKeys.isEmpty()) {
+			for (String keyRedis : listValueKeys) {
+				if (keyRedis != null && !keyRedis.isEmpty()) {
+					byte[] byteFile = getRedisService().getAttachments(keyRedis);
+					ByteArrayMultipartFile contentMultipartFile = getByteArrayMultipartFileFromRedis(byteFile);
+					if (contentMultipartFile != null) {
+						String outFilename = null;
+				        try {
+				            outFilename = new String(contentMultipartFile
+									.getOriginalFilename().getBytes("ISO-8859-1"), "UTF-8");
+				        } catch (java.io.UnsupportedEncodingException e) {
+				        	throw new ActivitiException(e.getMessage(), e);
+				        }
+						BuilderAtachModel builderAtachModel = new BuilderAtachModel();
+						builderAtachModel
+								.setByteToStringContent(contentByteToString(contentMultipartFile
+										.getBytes()));
+						builderAtachModel.setContentType(contentMultipartFile
+								.getContentType());
+						builderAtachModel.setExp(contentMultipartFile.getExp());
+						builderAtachModel
+								.setOriginalFilename(outFilename);
+						builderAtachModel.setName(contentMultipartFile
+								.getName());
+						listModel.add(builderAtachModel);
+
+					}
+				}
+			}
+		}
+
+		if (!listModel.isEmpty()) {
+			execution.setVariable(BUILDER_ATACH_MODEL_LIST, listModel);
+		}
 
 	}
 
