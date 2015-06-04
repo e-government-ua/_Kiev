@@ -3,7 +3,7 @@
   <process id="kiev_mda_1" name="Київ МДА - Присвоєння поштової адреси об’єкту нерухомого майна" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-<activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
+		<activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" required="true"></activiti:formProperty>
