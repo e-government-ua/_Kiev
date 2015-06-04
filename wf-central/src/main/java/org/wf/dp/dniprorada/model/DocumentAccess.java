@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import net.sf.brunneng.jom.annotations.Identifier;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
@@ -13,53 +15,42 @@ import java.util.Date;
 @Entity
 @Table(name="DocumentAccess")
 public class DocumentAccess {
-	@JsonProperty(value = "nID")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="nID")
 	private Long nID;
 	
-	@JsonProperty(value = "nID_Document")
 	@Column(name="nID_Document")
 	private Long nID_Document;
 	
-	@JsonProperty(value = "sDateCreate")
 	@Column(name="sDateCreate")
 	private String sDateCreate;
 	
-	@JsonProperty(value = "nMS")
 	@Column(name="nMS")
 	private Long nMS;
 	
-	@JsonProperty(value = "sFIO")
 	@Column(name="sFIO")
 	private String sFIO;
 	
-	@JsonProperty(value = "sTarget")
 	@Column(name="sTarget")
 	private String sTarget;
 	
-	@JsonProperty(value = "sTelephone")
 	@Column(name="sTelephone")
 	private String sTelephone;
 	
-	@JsonProperty(value = "sMail")
 	@Column(name="sMail")
 	private String sMail;
 	
-	@JsonProperty(value = "sSecret")
 	@Column(name="sSecret")
 	private String sSecret;
 	
-	@JsonProperty(value = "sAnswer")
 	@Column(name="sAnswer")
 	private String sAnswer;
 	
-	@JsonProperty(value = "sDateAnswerExpire")
 	@Column(name="sDateAnswerExpire")
 	private String sDateAnswerExpire;
         
-
+	@Identifier
 	public Long getID_Document() {
 		return nID_Document;
 	}
