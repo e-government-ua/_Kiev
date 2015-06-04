@@ -6,9 +6,26 @@ define('service.general.city', ['angularAMD', 'service.general.city.link', 'serv
             .state('service.general.city', {
                 url: '/city',
 				resolve: {
-					regions: ['$stateParams', 'PlacesService', function($stateParams, PlacesService) {
+					regions: ['$stateParams', 'PlacesService', 'service', function($stateParams, PlacesService, service) {
 						return PlacesService.getRegions().then(function(response) {
-							return response.data;
+							var regions = response.data;
+							var aServiceData = service.aServiceData;
+							
+							angular.forEach(regions, function(region) {
+								var color = 'red';
+								angular.forEach(aServiceData, function(oServiceData) {
+									if(oServiceData.hasOwnProperty('nID_Region') == false) {
+										return;
+									}
+									var oRegion = oServiceData.nID_Region;
+									if(oRegion.nID == region.nID) {
+										color = 'green';
+									}
+								});
+								region.color = color;
+							});
+							
+							return regions;
 						});
 					}]
 				},

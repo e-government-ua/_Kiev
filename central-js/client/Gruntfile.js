@@ -116,7 +116,11 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/angularAMD/ngload.js'
 					},
 					{
-						src: ['./src/js/main/script.js'],
+						src: ['./src/js/components/**/*.js'],
+						dest: './tmp/js/concat/app/components.js'
+					},
+					{
+						src: ['./src/js/main/script.js', './src/js/components/**/*.js'],
 						dest: './tmp/js/concat/script.js'
 					},
 					{
@@ -176,7 +180,11 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/angularAMD/ngload.js'
 					},
 					{
-						src: ['./src/js/main/debug.js'],
+						src: ['./src/js/components/**/*.js'],
+						dest: './tmp/js/concat/app/components.js'
+					},
+					{
+						src: ['./src/js/main/debug.js', './src/js/components/**/*.js'],
 						dest: './tmp/js/concat/script.js'
 					},
 					{
@@ -231,6 +239,7 @@ module.exports = function(grunt) {
 					'./tmp/js/uglify/angularAMD/ngload.js': ['./tmp/js/concat/angularAMD/ngload.js'],
 					'./tmp/js/uglify/bower.js': ['./tmp/js/concat/bower.js'],
 					'./tmp/js/uglify/script.js': ['./tmp/js/concat/script.js'],
+					'./tmp/js/uglify/app/components.js': ['./tmp/js/concat/app/components.js'],
 					'./tmp/js/uglify/app/index.js': ['./tmp/js/concat/app/index.js'],
 					'./tmp/js/uglify/app/documents.js': ['./tmp/js/concat/app/documents.js'],
 					'./tmp/js/uglify/app/journal.js': ['./tmp/js/concat/app/journal.js'],
