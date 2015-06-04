@@ -14,10 +14,11 @@ define('service.general.city', ['angularAMD', 'service.general.city.link', 'serv
 							angular.forEach(regions, function(region) {
 								var color = 'red';
 								angular.forEach(aServiceData, function(oServiceData) {
-									if(oServiceData.hasOwnProperty('nID_Region') == false) {
+									if(oServiceData.hasOwnProperty('nID_City') == false) {
 										return;
 									}
-									var oRegion = oServiceData.nID_Region;
+									var oCity = oServiceData.nID_City;
+									var oRegion = oCity.nID_Region;
 									if(oRegion.nID == region.nID) {
 										color = 'green';
 									}
