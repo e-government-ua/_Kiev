@@ -42,7 +42,7 @@ define('state/documents/content/controller', ['angularAMD'], function(angularAMD
               animation: true,
               templateUrl: 'urlmodal.html',
               controller: 'ModalController',
-              size: 'sm',
+              size: '',
               resolve: {
                 url: url.value
               }
@@ -52,7 +52,8 @@ define('state/documents/content/controller', ['angularAMD'], function(angularAMD
     });
 
   angularAMD.controller('ModalController',
-    function($scope, $modalInstance) {
+    function($scope, $modalInstance, url) {
+      $scope.url = url;
 
       $scope.close = function() {
         $modalInstance.close();
