@@ -53,7 +53,7 @@
     <sequenceFlow id="flow3" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="mailtask1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask3" name="Підготовка відповіді">
+    <userTask id="usertask3" name="Підготовка відповіді про надання послуги">
       <extensionElements>
         <activiti:formProperty id="processName" name="Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою." type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
