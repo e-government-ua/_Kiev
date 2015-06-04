@@ -186,8 +186,10 @@ public class ActivitiRestServicesController {
       for (ServiceData oServiceData : oService.getServiceDataList()) {
          oServiceData.setService(null);
          if (oServiceData.getCity() != null) {
-            oServiceData.setRegion(oServiceData.getCity().getRegion());
-            oServiceData.getCity().setRegion(null);
+            //oServiceData.setRegion(oServiceData.getCity().getRegion());
+            //oServiceData.getCity().setRegion(null);
+            //oServiceData.getRegion().setCities(null);
+            oServiceData.getCity().getRegion().setCities(null);             
          }else if (oServiceData.getRegion() != null) {
             oServiceData.getRegion().setCities(null);
          }
