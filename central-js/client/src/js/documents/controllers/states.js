@@ -39,23 +39,28 @@ define('state/documents/content/controller', ['angularAMD'], function(angularAMD
         ServiceService.shareLink($state.nID_Subject, document.nID, sFIO,
           sTarget, sTelephone, sMail, nDays * 86400000).then(function(url) {
             $modal.open({
-              animation: true,
-              templateUrl: 'urlmodal.html',
-              controller: 'ModalController',
-              size: 'sm',
-              resolve: {
-                url: url.value
+                animation: true,
+                templateUrl: 'urlmodal.html',
+                controller: 'ModalController',
+                size: '',
+                resolve: {
+                  url: function() {
+                    return url.value
+                  }
+                }
               }
-            });
+            );
           });
       }
     });
 
   angularAMD.controller('ModalController',
-    function($scope, $modalInstance) {
+    function($scope, $modalInstance, url) {
+      $scope.url = url;
 
       $scope.close = function() {
         $modalInstance.close();
       };
     });
-});
+})
+;

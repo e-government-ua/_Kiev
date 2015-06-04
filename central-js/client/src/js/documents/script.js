@@ -67,11 +67,27 @@ define('documents', ['angularAMD', 'service'], function(angularAMD) {
               return data.hasOwnProperty('error') ? $q.reject(null) : data;
             });
           },
-          documents: function($q, $state, subject, ServiceService) {
-            $state.nID_Subject = subject.nID;
-            return ServiceService.getDocuments($state.nID_Subject).then(function(data) {
-              return data.hasOwnProperty('error') ? $q.reject(null) : data;
-            });
+          documents: function($q, $state, subject, ServiceService, BankIDLogin) {
+              $state.nID_Subject = subject.nID;
+              $state.sID_Subject = subject.sID;
+              return ServiceService.getDocuments($state.nID_Subject).then(function(data) {
+                  if(data.hasOwnProperty('error')){
+                      return $q.reject(null);
+                  //} else if (data.length === 0){
+                  } else if (!(data.length > 2)){
+                      return ServiceService.initialUpload(BankIDLogin.access_token, 
+                              $state.nID_Subject, $state.sID_Subject)
+                      .then(function(data) {
+                          if(!data.hasOwnProperty('error')){
+                              return ServiceService.getDocuments($state.nID_Subject).then(function(data) {
+                                  return data.hasOwnProperty('error') ? $q.reject(null) : data;
+                              });
+                          }                                    
+                      });
+                  } else {
+                      return data;
+                  }                               
+              });
           }
         },
         views: {
@@ -83,8 +99,7 @@ define('documents', ['angularAMD', 'service'], function(angularAMD) {
             controllerUrl: 'state/documents/content/controller'
           })
         }
-      })
+      });
   });
   return app;
 });
-

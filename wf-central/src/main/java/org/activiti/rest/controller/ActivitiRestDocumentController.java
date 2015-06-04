@@ -21,11 +21,6 @@ import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.DocumentContentType;
 import org.wf.dp.dniprorada.model.HistoryEvent;
 import org.wf.dp.dniprorada.util.Util;
-import org.wf.dp.dniprorada.constant.HistoryEventType;
-
-
-//import org.springframework.mock.web.MockMultipartFile;
-
 
 @Controller
 @RequestMapping(value = "/services")
@@ -65,7 +60,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     List<HistoryEvent> getHistoryEvents(
-            @RequestParam(value = "nID_Subject") String nID_Subject) {
+            @RequestParam(value = "nID_Subject") Long nID_Subject) {
         return historyEventDao.getHistoryEvents(nID_Subject);
     }
 
@@ -73,11 +68,10 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     Long setHistoryEvent(
-            @RequestParam(value = "nID_Subject") Long nID_Subject,
-            @RequestParam(value = "nID_HistoryEventType") Long nID_HistoryEventType,
-            @RequestParam(value = "sEventName_Custom") String sEventName_Custom,
+            @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
+            @RequestParam(value = "nID_HistoryEventType", required = false) Long nID_HistoryEventType,
+            @RequestParam(value = "sEventName", required = false) String sEventName_Custom,
             @RequestParam(value = "sMessage") String sMessage,
-            @RequestParam(value = "sDate", required = false) String sDate,
 
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
 
@@ -183,7 +177,13 @@ public class ActivitiRestDocumentController {
             //@RequestBody byte[] content,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
 
-        String sFileName = oFile.getName();
+        //String sFileName = oFile.getName();
+        //String sFileName = oFile.getOriginalFilename();
+         //Content-Disposition:attachment; filename=passport.zip
+        String sFileName = request.getHeader("filename");
+        if(sFileName==null||"".equals(sFileName.trim())){
+            sFileName = oFile.getOriginalFilename()+".zip";
+        }
         String sFileContentType = oFile.getContentType();
         byte[] aoContent = oFile.getBytes();
 
