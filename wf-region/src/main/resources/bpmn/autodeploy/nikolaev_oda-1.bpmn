@@ -24,25 +24,18 @@
         <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file1" name="Копія протоколу установчих зборів; файл в форматі PDF повинен мати ЕЦП нотаріуса" type="file" ></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Копія протоколу установчих зборів; файл в форматі PDF повинен мати ЕЦП нотаріуса" type="file"></activiti:formProperty>
         <activiti:formProperty id="objFounder" name="Засновник громадського об'єднання" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про реєстрацію" type="enum" required="true">
           <activiti:value id="accept" name="Ухвалити"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="comment" name="В разі відмови в наданні послуги вкажіть підставу для відмови" type="textArea"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="usertask2" name="Підстави для відмови ">
-      <extensionElements>
-        <activiti:formProperty id="comment" name="Причина відмови в реєстрации " type="string" required="true"></activiti:formProperty>
-      </extensionElements>
-    </userTask>
-    <sequenceFlow id="flow3" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="usertask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
-    </sequenceFlow>
     <userTask id="usertask3" name="Внесення відомостей до Реєстру">
       <extensionElements>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -52,7 +45,7 @@
         <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file1" name="Копія протоколу установчих зборів; файл в форматі PDF повинен мати ЕЦП нотаріуса" type="file" ></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Копія протоколу установчих зборів; файл в форматі PDF повинен мати ЕЦП нотаріуса" type="file"></activiti:formProperty>
         <activiti:formProperty id="objFounder" name="Засновник громадського об'єднання" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="regChanged" name="Відомості внесені до реєстру?" type="enum" required="true">
           <activiti:value id="yes" name="Так, внесені"></activiti:value>
@@ -62,7 +55,6 @@
     <sequenceFlow id="flow4" name="${decide == 'accept'}" sourceRef="exclusivegateway1" targetRef="usertask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow5" sourceRef="usertask2" targetRef="mailtask1"></sequenceFlow>
     <serviceTask id="mailtask1" name="Відправлення листа громадянину" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -93,7 +85,6 @@
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
     <serviceTask id="servicetask2" name="отримання додаткових документiв" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <sequenceFlow id="flow10" sourceRef="servicetask2" targetRef="usertask1"></sequenceFlow>
     <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask2">
       <errorEventDefinition></errorEventDefinition>
     </boundaryEvent>
@@ -138,12 +129,14 @@
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
-Ваше звернення про реєстрацію громадського об’єднання успішно зареєстровано і буде оброблено протягом ?? діб</activiti:expression>
+Ваше звернення про реєстрацію громадського об’єднання успішно зареєстровано.</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow12" sourceRef="startevent1" targetRef="mailtask3"></sequenceFlow>
-    <sequenceFlow id="flow13" sourceRef="mailtask3" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="startevent1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="servicetask2" targetRef="mailtask3"></sequenceFlow>
+    <sequenceFlow id="flow14" sourceRef="mailtask3" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow15" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="mailtask1"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Выбирается услуга:
 Реєстрація громадського об’єднання</text>
@@ -175,14 +168,11 @@
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="436.0" y="267.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
-        <omgdc:Bounds height="55.0" width="166.0" x="545.0" y="260.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
         <omgdc:Bounds height="55.0" width="166.0" x="545.0" y="380.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
-        <omgdc:Bounds height="55.0" width="191.0" x="790.0" y="260.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="191.0" x="630.0" y="260.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="1070.0" y="270.0"></omgdc:Bounds>
@@ -191,19 +181,19 @@
         <omgdc:Bounds height="35.0" width="35.0" x="1070.0" y="390.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="55.0" width="105.0" x="185.0" y="290.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="185.0" y="227.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
-        <omgdc:Bounds height="30.0" width="30.0" x="275.0" y="310.0"></omgdc:Bounds>
+        <omgdc:Bounds height="30.0" width="30.0" x="275.0" y="247.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
-        <omgdc:Bounds height="35.0" width="35.0" x="330.0" y="276.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="337.0" y="214.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="55.0" width="191.0" x="790.0" y="380.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="55.0" width="105.0" x="185.0" y="206.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="211.0" x="132.0" y="307.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="50.0" width="241.0" x="70.0" y="60.0"></omgdc:Bounds>
@@ -220,13 +210,6 @@
         <omgdi:waypoint x="391.0" y="287.0"></omgdi:waypoint>
         <omgdi:waypoint x="436.0" y="287.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-        <omgdi:waypoint x="476.0" y="287.0"></omgdi:waypoint>
-        <omgdi:waypoint x="545.0" y="287.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="95.0" x="445.0" y="248.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
         <omgdi:waypoint x="456.0" y="307.0"></omgdi:waypoint>
         <omgdi:waypoint x="456.0" y="407.0"></omgdi:waypoint>
@@ -235,12 +218,8 @@
           <omgdc:Bounds height="42.0" width="100.0" x="460.0" y="406.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="711.0" y="287.0"></omgdi:waypoint>
-        <omgdi:waypoint x="790.0" y="287.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
-        <omgdi:waypoint x="981.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="821.0" y="287.0"></omgdi:waypoint>
         <omgdi:waypoint x="1070.0" y="287.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
@@ -254,21 +233,28 @@
         <omgdi:waypoint x="981.0" y="407.0"></omgdi:waypoint>
         <omgdi:waypoint x="1070.0" y="407.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
-        <omgdi:waypoint x="237.0" y="345.0"></omgdi:waypoint>
-        <omgdi:waypoint x="237.0" y="380.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
-        <omgdi:waypoint x="305.0" y="325.0"></omgdi:waypoint>
-        <omgdi:waypoint x="347.0" y="311.0"></omgdi:waypoint>
+        <omgdi:waypoint x="305.0" y="262.0"></omgdi:waypoint>
+        <omgdi:waypoint x="354.0" y="249.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
         <omgdi:waypoint x="237.0" y="165.0"></omgdi:waypoint>
-        <omgdi:waypoint x="237.0" y="206.0"></omgdi:waypoint>
+        <omgdi:waypoint x="237.0" y="227.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
-        <omgdi:waypoint x="237.0" y="261.0"></omgdi:waypoint>
-        <omgdi:waypoint x="237.0" y="290.0"></omgdi:waypoint>
+        <omgdi:waypoint x="237.0" y="282.0"></omgdi:waypoint>
+        <omgdi:waypoint x="237.0" y="307.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="237.0" y="362.0"></omgdi:waypoint>
+        <omgdi:waypoint x="237.0" y="380.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="476.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="287.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="486.0" y="287.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
         <omgdi:waypoint x="190.0" y="110.0"></omgdi:waypoint>
