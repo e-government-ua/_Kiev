@@ -106,29 +106,6 @@
     </boundaryEvent>
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow11" sourceRef="boundaryerror1" targetRef="endevent3"></sequenceFlow>
-    <serviceTask id="mailtask2" name="Повідомлення про  подання звернення" activiti:type="mail">
-      <extensionElements>
-        <activiti:field name="to">
-          <activiti:expression>${email}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:string><![CDATA[Запит:  Присвоєння поштової адреси об’єкту нерухомого майна]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
-
-Ваше звернення успішно зареєстровано.</activiti:expression>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
-    <sequenceFlow id="flow12" sourceRef="servicetask2" targetRef="mailtask2"></sequenceFlow>
-    <sequenceFlow id="flow13" sourceRef="mailtask2" targetRef="usertask1"></sequenceFlow>
     <serviceTask id="mailtask5" name="Повідомлення про успішне надання послуги" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -156,6 +133,7 @@
     <sequenceFlow id="flow17" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="mailtask1"></sequenceFlow>
     <sequenceFlow id="flow18" sourceRef="usertask3" targetRef="mailtask5"></sequenceFlow>
     <sequenceFlow id="flow19" sourceRef="mailtask1" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow20" sourceRef="servicetask2" targetRef="usertask1"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>
       Київ МДА - Присвоєння поштової адреси об’єкту нерухомого майна
@@ -192,9 +170,6 @@
       <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
         <omgdc:Bounds height="35.0" width="35.0" x="350.0" y="208.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="55.0" width="211.0" x="132.0" y="260.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
         <omgdc:Bounds height="55.0" width="191.0" x="790.0" y="460.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -224,14 +199,6 @@
         <omgdi:waypoint x="305.0" y="225.0"></omgdi:waypoint>
         <omgdi:waypoint x="350.0" y="225.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="237.0" y="245.0"></omgdi:waypoint>
-        <omgdi:waypoint x="237.0" y="260.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
-        <omgdi:waypoint x="237.0" y="315.0"></omgdi:waypoint>
-        <omgdi:waypoint x="237.0" y="340.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
         <omgdi:waypoint x="981.0" y="487.0"></omgdi:waypoint>
         <omgdi:waypoint x="1070.0" y="487.0"></omgdi:waypoint>
@@ -250,6 +217,10 @@
       <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
         <omgdi:waypoint x="841.0" y="367.0"></omgdi:waypoint>
         <omgdi:waypoint x="1070.0" y="367.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="237.0" y="245.0"></omgdi:waypoint>
+        <omgdi:waypoint x="237.0" y="340.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
         <omgdi:waypoint x="190.0" y="110.0"></omgdi:waypoint>
