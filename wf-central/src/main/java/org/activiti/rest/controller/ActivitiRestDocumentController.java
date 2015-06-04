@@ -182,7 +182,7 @@ public class ActivitiRestDocumentController {
          //Content-Disposition:attachment; filename=passport.zip
         String sFileName = request.getHeader("filename");
         if(sFileName==null||"".equals(sFileName.trim())){
-            sFileName = oFile.getOriginalFilename();
+            sFileName = oFile.getOriginalFilename()+".zip";
         }
         String sFileContentType = oFile.getContentType();
         byte[] aoContent = oFile.getBytes();
