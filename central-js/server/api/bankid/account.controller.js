@@ -37,6 +37,9 @@ module.exports.prepareScansRequest = function(options) {
 			"scans": [{
 				"type": "passport",
 				"fields": ["link", "dateCreate"]
+			}, {
+				"type": "zpassport",
+				"fields": ["link", "dateCreate"]
 			}]
 		}
 	});

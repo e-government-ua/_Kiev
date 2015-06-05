@@ -42,62 +42,70 @@ module.exports.index = function(req, res) {
     return buildGetRequest(req, res, '/services/getDocuments', params);
 };
 
+/* 
+ nID;sName
+ 0;Другое
+ 1;Справка
+ 2;Паспорт
+ 3;Загранпаспорт
+ 4;Персональное фото
+ 5;Справка о предоставлении ИНН */
 module.exports.initialUpload = function(req, res) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
     var accessToken = req.query.access_token;
     var nID_Subject = req.query.nID_Subject;
     var sID_Subject = req.query.sID_Subject;
+    var typesToUpload = req.body;
 
     if (!accessToken || !sID_Subject) {
         res.status(400);
-        res.send('both accessToken and sID_Subject are needed');
+        res.send({
+            error: 'both accessToken and sID_Subject are needed'
+        });
         res.end();
         return;
     }
 
-    var config = require('../../config');
-    var bankid = config.bankid;
-    var activiti = config.activiti;
+    if (!typesToUpload || typesToUpload.length === 0) {
+        res.status(400);
+        res.send({
+            error: 'nothing to upload'
+        });
+        res.end();
+    }
 
-    var options = {
-        protocol: bankid.protocol,
-        hostname: bankid.hostname,
-        params: {
-            client_id: bankid.client_id,
-            client_secret: bankid.client_secret,
-            access_token: req.query.access_token
-        }
-    };
+    var options = getBankIDOptions(req.query.access_token);
 
     var optionsForScans = _.merge(options, {
         path: '/ResourceService'
     });
 
-    var url = activiti.protocol + '://' + activiti.hostname + activiti.path + '/services/setDocumentFile';
-    var optionsForUploadContent = {
-        'url': url,
-        'auth': {
-            'username': activiti.username,
-            'password': activiti.password
-        },
-        'qs': {
-            'nID_Subject': nID_Subject,
-            'sID_Subject_Upload': sID_Subject,
-            'sSubjectName_Upload': 'Приватбанк',
-            'sName': 'Паспорт',
-            'nID_DocumentType': 0
-        }
+    var docTypesToBankIDDocTypes = {
+        2: 'passport',
+        3: 'zpassport'
     };
 
-
-// nID;sName
-// 0;Другое
-// 1;Справка
-// 2;Паспорт
-// 3;Загранпаспорт
-// 4;Персональное фото
-// 5;Справка о предоставлении ИНН
+    var optionsForUploadContentList = typesToUpload.map(function(docType) {
+        var o = {
+            'url': getUrl('/services/setDocumentFile'),
+            'auth': getAuth(),
+            'qs': {
+                'nID_Subject': nID_Subject,
+                'sID_Subject_Upload': sID_Subject,
+                'sSubjectName_Upload': 'Приватбанк',
+                'sName': docType.sName,
+                'nID_DocumentType': docType.nID
+            }
+        };
+        var bankIDType = docTypesToBankIDDocTypes[docType.nID];
+        return {
+            scanFilter: function(scan) {
+                return scan.type === bankIDType;
+            },
+            option: o
+        };
+    });
 
     var scansRequest = account.prepareScansRequest(optionsForScans);
 
@@ -108,23 +116,29 @@ module.exports.initialUpload = function(req, res) {
                 if (!result.error) {
                     var customer = result.customer;
                     if (customer.scans && customer.scans.length > 0) {
-                        var documentScan = customer.scans[0];
+                        var scans = customer.scans;
+                        optionsForUploadContentList.forEach(function(optionsForUploadContent) {
+                            var results = scans.filter(optionsForUploadContent.scanFilter);
+                            if (results.length === 1) {
+                                var documentScan = results[0];
+                                var scanContentRequest = account.prepareScanContentRequest(
+                                    _.merge(options, {
+                                        url: documentScan.link
+                                    })
+                                );
 
-                        var scanContentRequest = account.prepareScanContentRequest(
-                            _.merge(options, {
-                                url: documentScan.link
-                            })
-                        );
+                                var form = new FormData();
+                                form.append('oFile', scanContentRequest);
 
-                        var form = new FormData();
-                        form.append('oFile', scanContentRequest);
+                                var requestOptionsForUploadContent =
+                                    _.merge(optionsForUploadContent.option, {
+                                        headers: form.getHeaders()
+                                    });
 
-                        optionsForUploadContent = _.merge(optionsForUploadContent, {
-                            headers: form.getHeaders()
+                                form.pipe(request.post(requestOptionsForUploadContent))
+                                    .pipe(res);
+                            }
                         });
-
-                        form.pipe(request.post(optionsForUploadContent))
-                            .pipe(res);
                     }
                 }
             } else {
@@ -145,6 +159,21 @@ function buildGetRequest(req, res, apiURL, params) {
         'auth': getAuth(),
         'qs': params
     }, callback);
+}
+
+function getBankIDOptions(accessToken) {
+    var config = require('../../config');
+    var bankid = config.bankid;
+
+    return {
+        protocol: bankid.protocol,
+        hostname: bankid.hostname,
+        params: {
+            client_id: bankid.client_id,
+            client_secret: bankid.client_secret,
+            access_token: accessToken
+        }
+    };
 }
 
 function getOptions(req) {
