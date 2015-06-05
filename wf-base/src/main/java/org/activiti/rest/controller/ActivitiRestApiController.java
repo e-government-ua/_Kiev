@@ -18,12 +18,11 @@ import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.Task;
 import org.activiti.redis.exception.RedisException;
 import org.activiti.redis.service.RedisService;
+import org.activiti.rest.controller.adapter.AttachmentEntityAdapter;
 import org.activiti.rest.controller.adapter.ProcDefinitionAdapter;
 import org.activiti.rest.controller.adapter.TaskAssigneeAdapter;
-import org.activiti.rest.controller.entity.ProcDefinitionI;
+import org.activiti.rest.controller.entity.*;
 import org.activiti.rest.controller.entity.Process;
-import org.activiti.rest.controller.entity.ProcessI;
-import org.activiti.rest.controller.entity.TaskAssigneeI;
 import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -293,24 +292,24 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     }
 
     /**
-     * прикрепляем к процессу Attachment.
+     * прикрепляем к таске Attachment.
      * @param file
      * @return
      * @throws org.activiti.rest.controller.ActivitiIOException
      */
-    @RequestMapping(value = "/file/upload_file_as_attachment", method = RequestMethod.POST)
+    @RequestMapping(value = "/file/upload_file_as_attachment", method = RequestMethod.POST, produces = "application/json")
     @Transactional
     public
     @ResponseBody
-    String putAttachmentsToExecution(@RequestParam(value = "taskId") String taskId,
-                                     @RequestParam("file") MultipartFile file,
-                                     @RequestParam(value = "description") String description) throws ActivitiIOException, Exception  {
+    AttachmentEntityI putAttachmentsToExecution(@RequestParam(value = "taskId") String taskId,
+                                                @RequestParam("file") MultipartFile file,
+                                                @RequestParam(value = "description") String description) throws ActivitiIOException, Exception {
 
         String processInstanceId = null;
         String assignee = null;
 
         List<Task> tasks = taskService.createTaskQuery().taskId(taskId).list();
-        if(tasks != null && !tasks.isEmpty()){
+        if (tasks != null && !tasks.isEmpty()) {
             Task task = tasks.iterator().next();
             processInstanceId = task.getProcessInstanceId();
             assignee = task.getAssignee() != null ? task.getAssignee() : "kermit";
@@ -333,17 +332,17 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 file.getOriginalFilename(),
                 description, file.getInputStream());
 
+        AttachmentEntityAdapter adapter = new AttachmentEntityAdapter();
 
-        return attachment.getId();
+        return adapter.apply(attachment);
     }
 
-    private String getFileExtention(MultipartFile file){
+    private String getFileExtention(MultipartFile file) {
 
         String[] parts = file.getOriginalFilename().split("\\.");
-        if(parts.length != 0 ){
+        if (parts.length != 0) {
             return parts[parts.length - 1];
         }
-
         return "";
     }
 }
