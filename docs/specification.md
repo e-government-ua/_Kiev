@@ -373,13 +373,12 @@ https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 
 --------------------------------------------------------------------------------------------------------------------------
 
-#### 11. DocumentAccess
-Cервис предоставления доступа на документ
+#### 11. Предоставление и проверка доступа к документам
 
 **HTTP Metod: POST**
 
 **HTTP Context: 
-https://seriver:port/wf-central/service/setDocumentLink - запись на доступ
+https://seriver:port/wf-central/service/setDocumentLink - запись на доступ, с генерацией и получением уникальной ссылки на него
 
 * nID_Document - ИД-номер документа
 * sFIO - ФИО, кому доступ
@@ -401,7 +400,7 @@ https://seriver:port/wf-central/service/setDocumentLink - запись на до
 **HTTP Metod: POST**
 
 **HTTP Context: 
-https://seriver:port/wf-central/service/getDocumentLink - проверка доступа и получения данных о нем, если доступ есть
+https://seriver:port/wf-central/service/getDocumentLink - проверка доступа к документу и получения данных о нем, если доступ есть
 
 * nID_Document - ИД-номер документа
 * sSecret - секретный ключ
@@ -431,7 +430,7 @@ HTTP STATUS 200
 **HTTP Metod: POST**
 
 **HTTP Context: 
-https://seriver:port/wf-central/service/getDocumentAccess
+https://seriver:port/wf-central/service/getDocumentAccess - Получение подтверждения на доступ к документу(с отсылкой СМС ОТП-паролем на телефон))
 
 * nID_Document - ИД-номер документа
 * sSecret - секретный ключ
@@ -449,11 +448,11 @@ https://seriver:port/wf-central/service/getDocumentAccess
 **HTTP Metod: POST**
 
 **HTTP Context: 
-https://seriver:port/wf-central/service/setDocumentAccess
+https://seriver:port/wf-central/service/setDocumentAccess - Установка подтверждения на доступ к документу, по введенному коду, из СМС-ки(ОТП-паролем), и возвратом уникальной разовой ссылки на докуемнт.
 
 * nID_Access - ид доступа
 * sSecret - секретный ключ
-* sAnswer - ответ
+* sAnswer - ответ (введенный пользователем ОТП-пароль из СМС)
 
 **Response**
 
@@ -466,7 +465,7 @@ https://seriver:port/wf-central/service/setDocumentAccess
 ```
 
 
-#### 12. Messages - Работа с сообщениями
+#### 12. Работа с сообщениями
 
 **HTTP Metod: GET**
 
@@ -512,7 +511,7 @@ Status 200 если Ok
 --------------------------------------------------------------------------------------------------------------------------
 
 
-#### 13. Работа с историей
+#### 13. Работа с историей (Мой журнал)
 
 **HTTP Metod: GET**
 
@@ -546,3 +545,16 @@ https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Sub
 * sMessage - строка - сохраняемое содержимое (обязательное поле)
 
 --------------------------------------------------------------------------------------------------------------------------
+
+#### 14. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti
+
+**HTTP Metod: POST**
+
+**HTTP Context: http://server:port/wf-region/service/rest/file/upload_file_as_attachment** - Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti
+
+* taskId - ИД-номер таски
+* description - описание
+
+Пример:
+http://test.igov.org.ua/wf-region/service/rest/file/upload_file_as_attachment?taskId=68&description=ololo"
+
