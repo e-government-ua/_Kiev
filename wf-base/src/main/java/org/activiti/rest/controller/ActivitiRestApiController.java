@@ -9,11 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.activiti.engine.ActivitiObjectNotFoundException;
-import org.activiti.engine.HistoryService;
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
+import org.activiti.engine.*;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -68,6 +64,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     private RedisService redisService;
     @Autowired
     private HistoryService historyService;
+    @Autowired
+    private IdentityService identityService;
+
 
     @RequestMapping(value = "/start-process/{key}", method = RequestMethod.GET)
     @Transactional
@@ -313,16 +312,17 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         List<Task> tasks = taskService.createTaskQuery().taskId(taskId).list();
         if(tasks != null && !tasks.isEmpty()){
             Task task = tasks.iterator().next();
+            processInstanceId = task.getProcessInstanceId();
             assignee = task.getAssignee() != null ? task.getAssignee() : "kermit";
             System.out.println("processInstanceId: " + processInstanceId + " taskId: " + taskId + "assignee: " + assignee);
         } else {
             System.out.println("There is no tasks at all!");
-            throw new ActivitiObjectNotFoundException(
-                    "Attachment for taskId '" + taskId + "' not found.",
-                    Attachment.class);
+
         }
 
-        System.out.println("FileExtention: " + getFileExtention(file) + " fileContentType: " + file.getContentType() + "fileName: " + file.getName());
+        identityService.setAuthenticatedUserId(assignee);
+
+        System.out.println("FileExtention: " + getFileExtention(file) + " fileContentType: " + file.getContentType() + "fileName: " + file.getOriginalFilename());
         System.out.println("description: " + description);
 
         Attachment attachment = taskService.createAttachment(file.getContentType()
@@ -330,21 +330,20 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                         + getFileExtention(file),
                 taskId,
                 processInstanceId,
-                file.getName(),
+                file.getOriginalFilename(),
                 description, file.getInputStream());
+
 
         return attachment.getId();
     }
 
     private String getFileExtention(MultipartFile file){
 
-        String[] parts = file.getName().split("\\.");
+        String[] parts = file.getOriginalFilename().split("\\.");
         if(parts.length != 0 ){
             return parts[parts.length - 1];
         }
 
         return "";
     }
-    
-    
 }
