@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="kiev_mreo_1" name="Реєстрація авто з пробігом" isExecutable="true">
+  <process id="kiev_mreo_1" name="Реєстрація авто з пробігом в МРЕВ" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -27,7 +27,7 @@
           <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Реєстрація авто]]></activiti:string>
+          <activiti:string><![CDATA[Реєстрація авто]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -45,7 +45,7 @@
     </boundaryEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask1" name="Перевірка наявності обтяжень" activiti:candidateGroups="mreo_bo">
+    <userTask id="usertask1" name="Перевірка наявності обтяжень" activiti:candidateGroups="kiev_mreo_bo">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -97,7 +97,7 @@
     </sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
-    <userTask id="usertask2" name="Огляд авто та перевірка документів" activiti:candidateGroups="mreo_fo">
+    <userTask id="usertask2" name="Огляд авто та перевірка документів" activiti:candidateGroups="kiev_mreo_fo">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -135,7 +135,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask3" name="Друк ТП та бронювання держ.номерів" activiti:candidateGroups="mreo_fo">
+    <userTask id="usertask3" name="Друк ТП та бронювання держ.номерів" activiti:candidateGroups="kiev_mreo_fo">
       <extensionElements>
         <activiti:formProperty id="test" name="trst" type="string"></activiti:formProperty>
       </extensionElements>
@@ -155,7 +155,9 @@
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.</activiti:expression>
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+Оцініть, будь ласка, якість обслуговування під час отримання послуги!</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
