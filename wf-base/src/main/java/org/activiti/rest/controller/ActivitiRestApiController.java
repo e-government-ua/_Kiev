@@ -308,13 +308,13 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                                      @RequestParam(value = "description") String description) throws ActivitiIOException, Exception  {
 
         String processInstanceId = null;
-
+        String assignee = null;
 
         List<Task> tasks = taskService.createTaskQuery().taskId(taskId).list();
         if(tasks != null && !tasks.isEmpty()){
             Task task = tasks.iterator().next();
-            processInstanceId = task.getProcessInstanceId();
-            System.out.println("processInstanceId: " + processInstanceId + " taskId: " + taskId);
+            assignee = task.getAssignee() != null ? task.getAssignee() : "kermit";
+            System.out.println("processInstanceId: " + processInstanceId + " taskId: " + taskId + "assignee: " + assignee);
         } else {
             System.out.println("There is no tasks at all!");
         }

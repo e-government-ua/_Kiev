@@ -210,8 +210,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         if(tasks != null && !tasks.isEmpty()){
             Task task = tasks.iterator().next();
             processInstanceId = task.getProcessInstanceId();
-            assignee = task.getAssignee();
-            System.out.println("processInstanceId: " + processInstanceId + " taskId: " + taskId);
+            assignee = task.getAssignee() != null ? task.getAssignee() : "kermit";
+            System.out.println("processInstanceId: " + processInstanceId + " taskId: " + taskId + "assignee: " + assignee);
         } else {
             System.out.println("There is no tasks at all!");
         }
