@@ -317,6 +317,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             System.out.println("processInstanceId: " + processInstanceId + " taskId: " + taskId + "assignee: " + assignee);
         } else {
             System.out.println("There is no tasks at all!");
+            throw new ActivitiObjectNotFoundException(
+                    "Attachment for taskId '" + taskId + "' not found.",
+                    Attachment.class);
         }
 
         System.out.println("FileExtention: " + getFileExtention(file) + " fileContentType: " + file.getContentType() + "fileName: " + file.getName());
