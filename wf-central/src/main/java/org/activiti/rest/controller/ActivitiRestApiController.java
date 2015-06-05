@@ -3,7 +3,6 @@ package org.activiti.rest.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,13 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.engine.*;
 import org.activiti.engine.history.HistoricTaskInstance;
-import org.activiti.engine.impl.identity.Authentication;
-import org.activiti.engine.impl.persistence.entity.CommentEntity;
-import org.activiti.engine.impl.persistence.entity.CommentEntityManager;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Attachment;
-import org.activiti.engine.task.Event;
 import org.activiti.engine.task.Task;
 import org.activiti.redis.exception.RedisException;
 import org.activiti.redis.service.RedisService;
