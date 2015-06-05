@@ -23,6 +23,7 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.Task;
 import org.activiti.redis.exception.RedisException;
+import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.activiti.redis.service.RedisService;
 import org.activiti.rest.controller.adapter.ProcDefinitionAdapter;
 import org.activiti.rest.controller.adapter.TaskAssigneeAdapter;
@@ -293,6 +294,56 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         httpResponse.setContentLength(atachModel.getByteToStringContent().getBytes().length);
         
         return AbstractModelTask.contentStringToByte(atachModel.getByteToStringContent());
+    }
+
+    /**
+     * прикрепляем к процессу Attachment.
+     * @param file
+     * @return
+     * @throws org.activiti.rest.controller.ActivitiIOException
+     */
+    @RequestMapping(value = "/file/upload_file_as_attachment", method = RequestMethod.POST)
+    @Transactional
+    public
+    @ResponseBody
+    String putAttachmentsToExecution(@RequestParam(value = "taskId") String taskId,
+                                     @RequestParam("file") MultipartFile file,
+                                     @RequestParam(value = "description") String description) throws ActivitiIOException, Exception  {
+
+        String processInstanceId = null;
+
+
+        List<Task> tasks = taskService.createTaskQuery().taskId(taskId).list();
+        if(tasks != null && !tasks.isEmpty()){
+            Task task = tasks.iterator().next();
+            processInstanceId = task.getProcessInstanceId();
+            System.out.println("processInstanceId: " + processInstanceId + " taskId: " + taskId);
+        } else {
+            System.out.println("There is no tasks at all!");
+        }
+
+        System.out.println("FileExtention: " + getFileExtention(file) + " fileContentType: " + file.getContentType() + "fileName: " + file.getName());
+        System.out.println("description: " + description);
+
+        Attachment attachment = taskService.createAttachment(file.getContentType()
+                        + ";"
+                        + getFileExtention(file),
+                taskId,
+                processInstanceId,
+                file.getName(),
+                description, file.getInputStream());
+
+        return attachment.getId();
+    }
+
+    private String getFileExtention(MultipartFile file){
+
+        String[] parts = file.getName().split("\\.");
+        if(parts.length != 0 ){
+            return parts[parts.length - 1];
+        }
+
+        return "";
     }
     
     

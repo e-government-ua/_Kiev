@@ -3,20 +3,21 @@ package org.activiti.rest.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.activiti.engine.ActivitiObjectNotFoundException;
-import org.activiti.engine.HistoryService;
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
+import org.activiti.engine.*;
 import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.impl.identity.Authentication;
+import org.activiti.engine.impl.persistence.entity.CommentEntity;
+import org.activiti.engine.impl.persistence.entity.CommentEntityManager;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Attachment;
+import org.activiti.engine.task.Event;
 import org.activiti.engine.task.Task;
 import org.activiti.redis.exception.RedisException;
 import org.activiti.redis.service.RedisService;
@@ -63,6 +64,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     private RedisService redisService;
     @Autowired
     private HistoryService historyService;
+    @Autowired
+    private IdentityService identityService;
 
     @RequestMapping(value = "/start-process/{key}", method = RequestMethod.GET)
     @Transactional
@@ -185,5 +188,63 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
       
         return multipartFile.getBytes();
 
+    }
+
+    /**
+     * прикрепляем к процессу Attachment.
+     * @param file
+     * @return
+     * @throws org.activiti.rest.controller.ActivitiIOException
+     */
+    @RequestMapping(value = "/file/upload_file_as_attachment", method = RequestMethod.POST)
+    @Transactional
+    public
+    @ResponseBody
+    String putAttachmentsToExecution(@RequestParam(value = "taskId") String taskId,
+                                     @RequestParam("file") MultipartFile file,
+                                     @RequestParam(value = "description") String description) throws ActivitiIOException, Exception  {
+
+        String processInstanceId = null;
+        String assignee = null;
+
+
+
+
+
+        List<Task> tasks = taskService.createTaskQuery().taskId(taskId).list();
+        if(tasks != null && !tasks.isEmpty()){
+            Task task = tasks.iterator().next();
+            processInstanceId = task.getProcessInstanceId();
+            assignee = task.getAssignee();
+            System.out.println("processInstanceId: " + processInstanceId + " taskId: " + taskId);
+        } else {
+            System.out.println("There is no tasks at all!");
+        }
+
+        identityService.setAuthenticatedUserId(assignee);
+
+        System.out.println("FileExtention: " + getFileExtention(file) + " fileContentType: " + file.getContentType() + "fileName: " + file.getOriginalFilename());
+        System.out.println("description: " + description);
+
+        Attachment attachment = taskService.createAttachment(file.getContentType()
+                        + ";"
+                        + getFileExtention(file),
+                taskId,
+                processInstanceId,
+                file.getOriginalFilename(),
+                description, file.getInputStream());
+
+
+        return attachment.getId();
+    }
+
+    private String getFileExtention(MultipartFile file){
+
+        String[] parts = file.getOriginalFilename().split("\\.");
+        if(parts.length != 0 ){
+            return parts[parts.length - 1];
+        }
+
+        return "";
     }
 }
