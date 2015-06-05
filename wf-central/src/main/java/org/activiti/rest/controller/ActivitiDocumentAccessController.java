@@ -91,6 +91,10 @@ public class ActivitiDocumentAccessController {
 			oAccessURL.setValue(documentAccessDao.getDocumentAccess(nID_Access,
 					sSecret));
 			oAccessURL.setName("sURL");
+			if(oAccessURL.getValue().isEmpty() || oAccessURL.getValue() == null){
+				response.setStatus(403);
+				response.setHeader("Reason", "Access not found");
+			}
 		} catch (Exception e) {
 			response.setStatus(400);
 			response.setHeader("Reason", e.getMessage());
@@ -110,6 +114,10 @@ public class ActivitiDocumentAccessController {
 			oAccessURL.setValue(documentAccessDao.setDocumentAccess(nID_Access,
 					sSecret, sAnswer));
 			oAccessURL.setName("sURL");
+			if(oAccessURL.getValue().isEmpty() || oAccessURL.getValue() == null){
+				response.setStatus(403);
+				response.setHeader("Reason", "Access not found");
+			}
 		} catch (Exception e) {
 			response.setStatus(400);
 			response.setHeader("Reason", e.getMessage());
