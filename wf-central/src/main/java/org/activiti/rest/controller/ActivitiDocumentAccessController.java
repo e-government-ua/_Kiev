@@ -82,7 +82,7 @@ public class ActivitiDocumentAccessController {
 
 	@RequestMapping(value = "/getDocumentAccess", method = RequestMethod.GET, headers = { "Accept=application/json" })
 	public @ResponseBody
-	AccessURL setDocumentAccess(
+	AccessURL getDocumentAccess(
 			@RequestParam(value = "nID_Access") Long nID_Access,
 			@RequestParam(value = "sSecret") String sSecret,
 			HttpServletResponse response) {
