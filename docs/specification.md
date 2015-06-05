@@ -554,7 +554,14 @@ https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Sub
 
 * taskId - ИД-номер таски
 * description - описание
+* file - в html это имя элемента input типа file - <input name="file" type="file" />. в HTTP заголовках - Content-Disposition: form-data; name="file" ...
 
 Пример:
 http://test.igov.org.ua/wf-region/service/rest/file/upload_file_as_attachment?taskId=68&description=ololo"
 
+Ответ без ошибок:
+{"taskId":"38","processInstanceId":null,"userId":"kermit","name":"jmt.png","id":"45","type":"image/png;png","description":"SomeDocumentDescription","time":1433539278957,"url":null} 
+ID созданного attachment - "id":"45"
+
+Ответ с ошибкой:
+{"code":"SYSTEM_ERR","message":"Cannot find task with id 384"}
