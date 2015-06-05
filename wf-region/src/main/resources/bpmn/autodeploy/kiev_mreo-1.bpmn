@@ -97,7 +97,7 @@
     </sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
-    <userTask id="usertask2" name="Огляд авто та перевірка документів" activiti:candidateGroups="kiev_mreo_fo">
+    <userTask id="usertask2" name="Надання послуги: Огляд авто та перевірка документів" activiti:candidateGroups="kiev_mreo_fo">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -107,6 +107,7 @@
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="Час / дата проходження огляду авто" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="photo" name="Завантажте фото з огладу авто; Ви можете завантажити всі фото у вигляді єдиного ZIP-архіву" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="bill" name="Завантажте квитанції про сплату мита за реєстрацію авто; громадянин зобов'язаний надати" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат огляду авто та перевірки документів" type="enum" required="true">
