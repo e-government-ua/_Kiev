@@ -598,7 +598,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getService?nID=1
 
 **HTTP Metod: POST**
 
-Вовращает: json представление сервиса после изменения. Чаще всего то же, что было передано в теле POST запроса + сгенерированные id-шники вложенных сущностей, если такие были.
+Вовращает: HTTP STATUS 200 + json представление сервиса после изменения. Чаще всего то же, что было передано в теле POST запроса + сгенерированные id-шники вложенных сущностей, если такие были.
 
 Пример:
 https://poligon.igov.org.ua/wf-central/service/services/setService
@@ -912,6 +912,52 @@ https://poligon.igov.org.ua/wf-central/service/services/getPlaces
             {
                 "nID": 9,
                 "sName": "Луцьк"
+            }
+        ]
+    }
+]
+
+
+**HTTP Context: http://server:port/wf-central/service/services/setPlaces** - Изменение дерева мест (регионов и городов). Можно менять регионы (не добавлять и не удалять) + менять/добавлять города (но не удалять), Передается json в теле POST запроса в том же формате, в котором он был в getPlaces. 
+
+**HTTP Metod: POST**
+
+Возвращает:  TTP STATUS 200 + json представление сервиса после изменения. Чаще всего то же, что было передано в теле POST запроса + сгенерированные id-шники вложенных сущностей, если такие были.
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/setPlaces
+
+[
+    {
+        "nID": 1,
+        "sName": "Дніпропетровська",
+        "aCity": [
+            {
+                "nID": 1,
+                "sName": "Cічеслав"
+            },
+            {
+                "nID": 2,
+                "sName": "Кривий Ріг"
+            }
+        ]
+    }
+]
+
+Ответ: HTTP STATUS 200
+
+[
+    {
+        "nID": 1,
+        "sName": "Дніпропетровська",
+        "aCity": [
+            {
+                "nID": 1,
+                "sName": "Cічеслав"
+            },
+            {
+                "nID": 2,
+                "sName": "Кривий Ріг"
             }
         ]
     }
