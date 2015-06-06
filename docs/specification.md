@@ -922,7 +922,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getPlaces
 
 **HTTP Metod: POST**
 
-Возвращает:  TTP STATUS 200 + json представление сервиса после изменения. Чаще всего то же, что было передано в теле POST запроса + сгенерированные id-шники вложенных сущностей, если такие были.
+Возвращает: HTTP STATUS 200 + json представление сервиса после изменения. Чаще всего то же, что было передано в теле POST запроса + сгенерированные id-шники вложенных сущностей, если такие были.
 
 Пример:
 https://poligon.igov.org.ua/wf-central/service/services/setPlaces
@@ -961,4 +961,74 @@ https://poligon.igov.org.ua/wf-central/service/services/setPlaces
             }
         ]
     }
+]
+
+
+**HTTP Context: http://server:port/wf-central/service/services/setServicesTree** - Изменение дерева категорий (с вложенными подкатегориями и сервисами). Можно менять категории (не добавлять и не удалять) + менять/добавлять (но не удалять) вложенные сущности, Передается json в теле POST запроса в том же формате, в котором он был в getServicesTree. 
+
+**HTTP Metod: POST**
+
+Возвращает: HTTP STATUS 200 + json представление сервиса после изменения. Чаще всего то же, что было передано в теле POST запроса + сгенерированные id-шники вложенных сущностей, если такие были.
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/setServicesTree
+
+[
+    {
+        "nID": 1,
+        "sID": "Citizen",
+        "sName": "Гражданин",
+        "nOrder": 1,
+        "aSubcategory": [
+            {
+                "nID": 5,
+                "sName": "Праця2",
+                "sID": "Work",
+                "nOrder": 3,
+                "aService": [
+                    {
+                        "nID": 3,
+                        "sName": "Видача картки обліку об’єкта торговельного призначення, сфери послуг та з виробництва продуктів харчування",
+                        "nOrder": 3
+                    },
+                    {
+                        "nID": 4,
+                        "sName": "Легалізація об’єднань громадян шляхом повідомлення",
+                        "nOrder": 4
+                    }
+                ]
+            }
+            ]
+         }
+]
+
+Ответ: HTTP STATUS 200
+
+[
+    {
+        "nID": 1,
+        "sID": "Citizen",
+        "sName": "Гражданин",
+        "nOrder": 1,
+        "aSubcategory": [
+            {
+                "nID": 5,
+                "sName": "Праця2",
+                "sID": "Work",
+                "nOrder": 3,
+                "aService": [
+                    {
+                        "nID": 3,
+                        "sName": "Видача картки обліку об’єкта торговельного призначення, сфери послуг та з виробництва продуктів харчування",
+                        "nOrder": 3
+                    },
+                    {
+                        "nID": 4,
+                        "sName": "Легалізація об’єднань громадян шляхом повідомлення",
+                        "nOrder": 4
+                    }
+                ]
+            }
+            ]
+         }
 ]
