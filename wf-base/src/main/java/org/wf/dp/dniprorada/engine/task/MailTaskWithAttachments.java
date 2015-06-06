@@ -97,7 +97,7 @@ public class MailTaskWithAttachments implements JavaDelegate {
 			for (Attachment attachment : attachmentList) {
 				nameFile = attachment.getName();
 				typeFile = attachment.getType().split(";")[0];
-				System.out.println("typeFile: " + typeFile);
+				System.out.println("typeFile:  " + typeFile);
 				description = attachment.getDescription();
 				attachmentStream = execution.getEngineServices().getTaskService()
 						.getAttachmentContent(attachment.getId());
