@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.engine.task;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.activation.DataSource;
@@ -54,37 +55,19 @@ public class MailTaskWithAttachments implements JavaDelegate {
 	private Expression subject;
 	private Expression text;
 	private Expression saAttachmentsForSend;
-        
+
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
-		List<Attachment> attachmentList = execution
-				.getEngineServices()
-				.getTaskService()
-				.getProcessInstanceAttachments(execution.getProcessInstanceId());
-		InputStream attachmentStream = null;
-		String nameFile = "document";
-		String typeFile = "txt";
-		for (Attachment attachment : attachmentList) {
-			nameFile = attachment.getName();
-			typeFile = attachment.getType();
-			attachmentStream = execution.getEngineServices().getTaskService()
-					.getAttachmentContent(attachment.getId());
-			if (attachmentStream == null) {
-				throw new ActivitiObjectNotFoundException(
-						"Attachment with id '" + attachment.getId()
-								+ "' doesn't have content associated with it.",
-						Attachment.class);
-			}
 
-		}
+		System.setProperty("mail.mime.address.strict", "false");
 
 		String fromStr = getStringFromFieldExpression(this.from, execution);
 		String toStr = getStringFromFieldExpression(this.to, execution);
 		String subjectStr = getStringFromFieldExpression(this.subject,
 				execution);
 		String textStr = getStringFromFieldExpression(this.text, execution);
-		String docNameStr = getStringFromFieldExpression(this.saAttachmentsForSend,
-				execution);
+		String sAttachments = "197571,222625" /*getStringFromFieldExpression(this.saAttachmentsForSend, execution)*/;
+
 		MultiPartEmail email = new MultiPartEmail();
 		email.setHostName(mailServerHost);
 		email.addTo(toStr, "reciver");
@@ -95,22 +78,45 @@ public class MailTaskWithAttachments implements JavaDelegate {
 		email.setSmtpPort(Integer.valueOf(mailServerPort));
 		email.setSSL(true);
 		email.setTLS(true);
-		if(attachmentList!=null && !attachmentList.isEmpty()){
-		String exp = "";
-		if (typeFile.startsWith("imag")) {
-			exp = typeFile.substring(11);
-		} else {
-			exp = typeFile.substring(25);
-		}
-		DataSource source = new ByteArrayDataSource(attachmentStream,
-				"application/" + exp);
 
-		// add the attachment
-		email.attach(source, nameFile + "." + exp, docNameStr);
-		}else{
+		List<Attachment> attachmentList = new ArrayList<>();
+		String[] attachmentIds = sAttachments.split(",");
+		for (String attachmentId : attachmentIds) {
+			Attachment attachment = execution.getEngineServices().getTaskService().getAttachment(attachmentId);
+			if (attachment != null) {
+				attachmentList.add(attachment);
+			}
+		}
+
+		if (attachmentList != null && !attachmentList.isEmpty()) {
+			InputStream attachmentStream = null;
+			String nameFile = "document";
+			String typeFile = "txt";
+			String description = "";
+
+			for (Attachment attachment : attachmentList) {
+				nameFile = attachment.getName();
+				typeFile = attachment.getType();
+				System.out.println("typeFile: " + typeFile);
+				description = attachment.getDescription();
+				attachmentStream = execution.getEngineServices().getTaskService()
+						.getAttachmentContent(attachment.getId());
+				if (attachmentStream == null) {
+					throw new ActivitiObjectNotFoundException(
+							"Attachment with id '" + attachment.getId()
+									+ "' doesn't have content associated with it.",
+							Attachment.class);
+				}
+
+				DataSource source = new ByteArrayDataSource(attachmentStream, typeFile);
+				// add the attachment
+				email.attach(source, nameFile, description);
+			}
+		} else {
 			throw new ActivitiObjectNotFoundException(
 					"add the file to send");
 		}
+
 		// send the email
 		email.send();
 	}

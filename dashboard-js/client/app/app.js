@@ -7,6 +7,8 @@ angular.module('dashboardJsApp', [
   'ngIdle',
   'ngStorage',
   'ui.bootstrap',
+  'ui.uploader',
+  'ui.event',
   'angularMoment'
 ]).config(function($routeProvider, $locationProvider) {
   $routeProvider
