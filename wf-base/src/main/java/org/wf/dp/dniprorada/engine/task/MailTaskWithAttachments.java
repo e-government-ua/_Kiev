@@ -59,6 +59,8 @@ public class MailTaskWithAttachments implements JavaDelegate {
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
 
+		System.setProperty("mail.mime.address.strict", "false");
+
 		String fromStr = getStringFromFieldExpression(this.from, execution);
 		String toStr = getStringFromFieldExpression(this.to, execution);
 		String subjectStr = getStringFromFieldExpression(this.subject,
@@ -94,7 +96,8 @@ public class MailTaskWithAttachments implements JavaDelegate {
 
 			for (Attachment attachment : attachmentList) {
 				nameFile = attachment.getName();
-				typeFile = attachment.getType();
+				typeFile = attachment.getType().split(";")[0];
+				System.out.println("typeFile:  " + typeFile);
 				description = attachment.getDescription();
 				attachmentStream = execution.getEngineServices().getTaskService()
 						.getAttachmentContent(attachment.getId());
