@@ -107,6 +107,6 @@ Vagrant.configure(2) do |config|
 *******  You can use VHOSTS    ********************
 http(s)://e-gov-ua.dev  =>   https://192.168.10.10:8443/  
 http(s)://admin.e-gov-ua.dev  =>   http://192.168.10.10:9000/                 
-http://e-gov-ua.dev/wf-dniprorada/ =>   http://192.168.10.10:8080/wf-dniprorada/  "
+http://e-gov-ua.dev/wf-region/ =>   http://192.168.10.10:8080/wf-region/  "
 
 end
