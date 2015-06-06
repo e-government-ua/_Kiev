@@ -594,4 +594,104 @@ https://poligon.igov.org.ua/wf-central/service/services/getService?nID=1
 Ответ:
 {"sSubjectOperatorName":"МВС","subjectOperatorName":"МВС","nID":1,"sName":"Отримати довідку про несудимість","nOrder":1,"aServiceData":[{"nID":1,"nID_City":{"nID":2,"sName":"Кривий Ріг","nID_Region":{"nID":1,"sName":"Дніпропетровська"}},"nID_ServiceType":{"nID":1,"sName":"Внешняя","sNote":"Пользователь переходит по ссылке на услугу, реализованную на сторонней платформе"},"oSubject_Operator":{"nID":1,"oSubject":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк","sLabelShort":"ПриватБанк"},"sOKPO":"093205","sFormPrivacy":"ПАО","sName":"ПриватБанк","sNameFull":"Банк ПриватБанк"},"oData":"{}","sURL":"https://dniprorada.igov.org.ua","bHidden":false}],"sInfo":"","sFAQ":"","sLaw":"","nSub":0}
 
+**HTTP Context: http://server:port/wf-central/service/services/setService** - Сохранение сервиса. Можно менять/добавлять, но не удалять данные внутри сервиса, на разной глубине вложенности. Передается json в теле POST запроса в том же формате, в котором он был в getService. 
 
+Вовращает: json представление сервиса после изменения. Чаще всего то же, что было передано в теле POST запроса + сгенерированные id-шники вложенных сущностей, если такие были.
+
+**HTTP Metod: POST**
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/setService
+
+{
+    "sSubjectOperatorName": "МВС",
+    "subjectOperatorName": "МВС",
+    "nID": 1,
+    "sName": "Отримати довідку про несудимість",
+    "nOrder": 1,
+    "aServiceData": [
+        {
+            "nID": 1,
+            "nID_City": {
+                "nID": 2,
+                "sName": "Кривий Ріг",
+                "nID_Region": {
+                    "nID": 1,
+                    "sName": "Дніпропетровська"
+                }
+            },
+            "nID_ServiceType": {
+                "nID": 1,
+                "sName": "Внешняя",
+                "sNote": "Пользователь переходит по ссылке на услугу, реализованную на сторонней платформе"
+            },
+            "oSubject_Operator": {
+                "nID": 1,
+                "oSubject": {
+                    "nID": 1,
+                    "sID": "ПАО",
+                    "sLabel": "ПАО ПриватБанк",
+                    "sLabelShort": "ПриватБанк"
+                },
+                "sOKPO": "093205",
+                "sFormPrivacy": "ПАО",
+                "sName": "ПриватБанк",
+                "sNameFull": "Банк ПриватБанк"
+            },
+            "oData": "{}",
+            "sURL": "https://dniprorada.igov.org.ua",
+            "bHidden": false
+        }
+    ],
+    "sInfo": "",
+    "sFAQ": "",
+    "sLaw": "",
+    "nSub": 0
+}
+
+Ответ:
+{
+    "sSubjectOperatorName": "МВС",
+    "subjectOperatorName": "МВС",
+    "nID": 1,
+    "sName": "Отримати довідку про несудимість",
+    "nOrder": 1,
+    "aServiceData": [
+        {
+            "nID": 1,
+            "nID_City": {
+                "nID": 2,
+                "sName": "Кривий Ріг",
+                "nID_Region": {
+                    "nID": 1,
+                    "sName": "Дніпропетровська"
+                }
+            },
+            "nID_ServiceType": {
+                "nID": 1,
+                "sName": "Внешняя",
+                "sNote": "Пользователь переходит по ссылке на услугу, реализованную на сторонней платформе"
+            },
+            "oSubject_Operator": {
+                "nID": 1,
+                "oSubject": {
+                    "nID": 1,
+                    "sID": "ПАО",
+                    "sLabel": "ПАО ПриватБанк",
+                    "sLabelShort": "ПриватБанк"
+                },
+                "sOKPO": "093205",
+                "sFormPrivacy": "ПАО",
+                "sName": "ПриватБанк",
+                "sNameFull": "Банк ПриватБанк"
+            },
+            "oData": "{}",
+            "sURL": "https://dniprorada.igov.org.ua",
+            "bHidden": false
+        }
+    ],
+    "sInfo": "",
+    "sFAQ": "",
+    "sLaw": "",
+    "nSub": 0
+}
