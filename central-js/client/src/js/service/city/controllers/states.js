@@ -1,4 +1,5 @@
 define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
+	var secretEmptyKey = '[$empty$]';
 	angularAMD.controller('ServiceCityController', [
 		'$state', '$rootScope', '$scope', 'RegionListFactory', 'LocalityListFactory', 'PlacesService', 'ServiceService', 'service', 'regions',
 		function ($state, $rootScope, $scope, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, service, regions) {
@@ -16,7 +17,10 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 			
 			$scope.onSelectRegionList = function($item, $model, $label) {
 				$scope.data.region = $item;
-				return $scope.regionList.select($item, $model, $label);
+				$scope.regionList.select($item, $model, $label);
+				$scope.localityList.load(service, $item.nID, null).then(function(cities) {
+					$scope.localityList.typeahead.defaultList = cities;
+				});
 			};
 			
 			$scope.loadLocalityList = function(search) {
@@ -25,7 +29,7 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 			
 			$scope.onSelectLocalityList = function($item, $model, $label) {
 				$scope.data.city = $item;
-				return $scope.localityList.select($item, $model, $label);
+				$scope.localityList.select($item, $model, $label);
 			};
 
 			$scope.data = {
