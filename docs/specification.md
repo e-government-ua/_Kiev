@@ -775,7 +775,7 @@ https://poligon.igov.org.ua/wf-central/service/services/removeSubcategory?nID=1&
 }
 
 
-**HTTP Context: http://server:port/wf-central/service/services/removeSubcategory** - Удаление подкатегории.
+**HTTP Context: http://server:port/wf-central/service/services/removeCategory** - Удаление категории.
 
 **HTTP Metod: DELETE**
 
@@ -801,3 +801,23 @@ https://poligon.igov.org.ua/wf-central/service/services/removeCategory?nID=1&bRe
     "code": "success",
     "message": "class org.wf.dp.dniprorada.model.Category id: 1 removed"
 }
+
+
+**HTTP Context: http://server:port/wf-central/service/services/removeServicesTree** - Удаление всего дерева сервисов и категорий.
+
+**HTTP Metod: DELETE**
+
+Вовращает:
+
+HTTP STATUS 200 - удаление успешно.
+
+Пример 1:
+https://poligon.igov.org.ua/wf-central/service/services/removeServicesTree
+
+Ответ 1: HTTP STATUS 200
+
+{
+    "code": "success",
+    "message": "ServicesTree removed"
+}
+
