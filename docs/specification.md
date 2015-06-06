@@ -571,9 +571,11 @@ ID созданного attachment - "id":"45"
 
 #### 15. Работа с каталогом сервисов
 
+**HTTP Context: http://server:port/wf-central/service/services/getServicesTree** - Получение делева сервисов
+
 **HTTP Metod: GET**
 
-**HTTP Context: http://server:port/wf-central/service/services/getServicesTree** - Получение делева сервисов
+* sFind - фильтр по имени сервиса (не обязательный параметр). Если задано, то производится фильтрация данных - возвращаются только сервиса в имени которых встречается значение этого параметра, без учета регистра.
 
 Пример:
 https://poligon.igov.org.ua/wf-central/service/services/getServicesTree
