@@ -709,7 +709,7 @@ HTTP STATUS 200 - удаление успешно.
 HTTP STATUS 304 - не удалено.
 
 Пример 1:
-https://poligon.igov.org.ua/wf-central/service/services/setService?nID=1
+https://poligon.igov.org.ua/wf-central/service/services/removeService?nID=1
 
 Ответ 1: HTTP STATUS 304
 
@@ -721,4 +721,27 @@ https://poligon.igov.org.ua/wf-central/service/services/removeService?nID=1&bRec
 {
     "code": "success",
     "message": "class org.wf.dp.dniprorada.model.Service id: 1 removed"
+}
+
+
+**HTTP Context: http://server:port/wf-central/service/services/removeServiceData** - Удаление сущности ServiceData.
+
+**HTTP Metod: DELETE**
+
+* nID - идентификатор ServiceData
+* bRecursive (не обязательно, по умолчанию false) - Удалять рекурсивно все данные связанные с сервисом. Если false, то при наличии вложенных данных сервис удален не будет.
+
+Вовращает:
+
+HTTP STATUS 200 - удаление успешно.
+HTTP STATUS 304 - не удалено.
+
+Пример 2:
+https://poligon.igov.org.ua/wf-central/service/services/removeServiceData?nID=1&bRecursive=true
+
+Ответ 2: HTTP STATUS 200
+
+{
+    "code": "success",
+    "message": "class org.wf.dp.dniprorada.model.ServiceData id: 1 removed"
 }
