@@ -1,33 +1,33 @@
 define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceCityController', ['$state', '$rootScope', '$scope', 'PlacesService', 'ServiceService', 'service', 'regions',
-		function ($state, $rootScope, $scope, PlacesService, ServiceService, service, regions) {
+	angularAMD.controller('ServiceCityController', [
+		'$state', '$rootScope', '$scope', 'RegionListFactory', 'LocalityListFactory', 'PlacesService', 'ServiceService', 'service', 'regions',
+		function ($state, $rootScope, $scope, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, service, regions) {
 			$scope.service = service;
 			$scope.regions = regions;
 			
-			$scope.onSelectCity = function($item, $model, $label) {
-				$scope.data.city = $item;
-			}
+			$scope.regionList = new RegionListFactory();
+			$scope.regionList.initialize(regions);
 			
-			$scope.getCities = function(search) {
-				return PlacesService.getCities($scope.data.region.nID, search).then(function(response) {
-					var aServiceData = service.aServiceData;
-					angular.forEach(response.data, function(oCity) {
-						var color = 'red';
-						angular.forEach(aServiceData, function(oServiceData) {
-							if(oServiceData.hasOwnProperty('nID_City') == false) {
-								return;
-							}
-							if(oServiceData.nID_City.nID == oCity.nID) {
-								color = 'green';
-							}
-						})
-						oCity.color = color;
-						console.log(color);
-					})
-					return response.data;
-				});
+			$scope.localityList = new LocalityListFactory();
+			
+			$scope.loadRegionList = function(search) {
+				return $scope.regionList.load(service, search);
 			};
 			
+			$scope.onSelectRegionList = function($item, $model, $label) {
+				$scope.data.region = $item;
+				return $scope.regionList.select($item, $model, $label);
+			};
+			
+			$scope.loadLocalityList = function(search) {
+				return $scope.localityList.load(service, $scope.data.region.nID, search);
+			};
+			
+			$scope.onSelectLocalityList = function($item, $model, $label) {
+				$scope.data.city = $item;
+				return $scope.localityList.select($item, $model, $label);
+			};
+
 			$scope.data = {
 				region: null,
 				city: null
@@ -38,6 +38,11 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 					region: null,
 					city: null
 				};
+				
+				$scope.regionList.reset();
+				$scope.regionList.initialize(regions);
+				
+				$scope.localityList.reset();
 				return $state.go('service.general.city', {id: $scope.service.nID});
 			};
 			
