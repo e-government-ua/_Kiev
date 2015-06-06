@@ -110,9 +110,10 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
       tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm)
         .then(function(result) {
           Modal.inform.success(function(event) {
+            $scope.selectedTasks[$scope.$storage.menuType] = null;
+            loadTaskCounters();
             $scope.applyTaskFilter($scope.$storage.menuType);
           })('Форма відправлена : ' + result);
-
         })
         .catch(function(err) {
           Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
@@ -123,6 +124,8 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
   $scope.assignTask = function() {
     tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id).then(function(result) {
         Modal.inform.success(function(event) {
+          $scope.selectedTasks[$scope.$storage.menuType] = null;
+          loadTaskCounters();
           $scope.applyTaskFilter($scope.$storage.menuType);
         })('Задача у вас в роботі');
       })
