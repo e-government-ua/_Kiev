@@ -135,7 +135,7 @@
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>12345</activiti:expression>
+          <activiti:expression>${bill0}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
