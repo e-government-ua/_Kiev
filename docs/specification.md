@@ -594,11 +594,11 @@ https://poligon.igov.org.ua/wf-central/service/services/getService?nID=1
 Ответ:
 {"sSubjectOperatorName":"МВС","subjectOperatorName":"МВС","nID":1,"sName":"Отримати довідку про несудимість","nOrder":1,"aServiceData":[{"nID":1,"nID_City":{"nID":2,"sName":"Кривий Ріг","nID_Region":{"nID":1,"sName":"Дніпропетровська"}},"nID_ServiceType":{"nID":1,"sName":"Внешняя","sNote":"Пользователь переходит по ссылке на услугу, реализованную на сторонней платформе"},"oSubject_Operator":{"nID":1,"oSubject":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк","sLabelShort":"ПриватБанк"},"sOKPO":"093205","sFormPrivacy":"ПАО","sName":"ПриватБанк","sNameFull":"Банк ПриватБанк"},"oData":"{}","sURL":"https://dniprorada.igov.org.ua","bHidden":false}],"sInfo":"","sFAQ":"","sLaw":"","nSub":0}
 
-**HTTP Context: http://server:port/wf-central/service/services/setService** - Сохранение сервиса. Можно менять/добавлять, но не удалять данные внутри сервиса, на разной глубине вложенности. Передается json в теле POST запроса в том же формате, в котором он был в getService. 
-
-Вовращает: json представление сервиса после изменения. Чаще всего то же, что было передано в теле POST запроса + сгенерированные id-шники вложенных сущностей, если такие были.
+**HTTP Context: http://server:port/wf-central/service/services/setService** - Изменение сервиса. Можно менять/добавлять, но не удалять данные внутри сервиса, на разной глубине вложенности. Передается json в теле POST запроса в том же формате, в котором он был в getService. 
 
 **HTTP Metod: POST**
+
+Вовращает: json представление сервиса после изменения. Чаще всего то же, что было передано в теле POST запроса + сгенерированные id-шники вложенных сущностей, если такие были.
 
 Пример:
 https://poligon.igov.org.ua/wf-central/service/services/setService
@@ -694,4 +694,31 @@ https://poligon.igov.org.ua/wf-central/service/services/setService
     "sFAQ": "",
     "sLaw": "",
     "nSub": 0
+}
+
+**HTTP Context: http://server:port/wf-central/service/services/removeService** - Удаление сервиса. 
+
+**HTTP Metod: DELETE**
+
+* nID - ИД-номер сервиса
+* bRecursive (не обязательно, по умолчанию false) - Удалять рекурсивно все данные связанные с сервисом. Если false, то при наличии вложенных данных сервис удален не будет.
+
+Вовращает:
+
+HTTP STATUS 200 - удаление успешно.
+HTTP STATUS 304 - не удалено.
+
+Пример 1:
+https://poligon.igov.org.ua/wf-central/service/services/setService?nID=1
+
+Ответ 1: HTTP STATUS 304
+
+Пример 2:
+https://poligon.igov.org.ua/wf-central/service/services/removeService?nID=1&bRecursive=true
+
+Ответ 2: HTTP STATUS 200
+
+{
+    "code": "success",
+    "message": "class org.wf.dp.dniprorada.model.Service id: 1 removed"
 }
