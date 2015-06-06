@@ -821,3 +821,98 @@ https://poligon.igov.org.ua/wf-central/service/services/removeServicesTree
     "message": "ServicesTree removed"
 }
 
+
+**HTTP Context: http://server:port/wf-central/service/services/getPlaces** - Получения дерева мест (регионов и городов).
+
+**HTTP Metod: GET**
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/getPlaces
+
+Ответ:
+
+[
+    {
+        "nID": 1,
+        "sName": "Дніпропетровська",
+        "aCity": [
+            {
+                "nID": 1,
+                "sName": "Дніпропетровськ"
+            },
+            {
+                "nID": 2,
+                "sName": "Кривий Ріг"
+            }
+        ]
+    },
+    {
+        "nID": 2,
+        "sName": "Львівська",
+        "aCity": [
+            {
+                "nID": 3,
+                "sName": "Львів"
+            }
+        ]
+    },
+    {
+        "nID": 3,
+        "sName": "Івано-Франківська",
+        "aCity": [
+            {
+                "nID": 4,
+                "sName": "Івано-Франківськ"
+            },
+            {
+                "nID": 5,
+                "sName": "Калуш"
+            }
+        ]
+    },
+    {
+        "nID": 4,
+        "sName": "Миколаївська",
+        "aCity": []
+    },
+    {
+        "nID": 5,
+        "sName": "Київська",
+        "aCity": [
+            {
+                "nID": 6,
+                "sName": "Київ"
+            }
+        ]
+    },
+    {
+        "nID": 6,
+        "sName": "Херсонська",
+        "aCity": [
+            {
+                "nID": 7,
+                "sName": "Херсон"
+            }
+        ]
+    },
+    {
+        "nID": 7,
+        "sName": "Рівненська",
+        "aCity": [
+            {
+                "nID": 8,
+                "sName": "Кузнецовськ"
+            }
+        ]
+    },
+    {
+        "nID": 8,
+        "sName": "Волинська",
+        "aCity": [
+            {
+                "nID": 9,
+                "sName": "Луцьк"
+            }
+        ]
+    }
+]
