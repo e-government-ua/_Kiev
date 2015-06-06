@@ -701,7 +701,7 @@ https://poligon.igov.org.ua/wf-central/service/services/setService
 **HTTP Metod: DELETE**
 
 * nID - ИД-номер сервиса
-* bRecursive (не обязательно, по умолчанию false) - Удалять рекурсивно все данные связанные с сервисом. Если false, то при наличии вложенных данных сервис удален не будет.
+* bRecursive (не обязательно, по умолчанию false) - Удалять рекурсивно все данные связанные с сервисом. Если false, то при наличии вложенных сущностей, ссылающихся на эту, сервис удален не будет.
 
 Вовращает:
 
@@ -729,19 +729,47 @@ https://poligon.igov.org.ua/wf-central/service/services/removeService?nID=1&bRec
 **HTTP Metod: DELETE**
 
 * nID - идентификатор ServiceData
-* bRecursive (не обязательно, по умолчанию false) - Удалять рекурсивно все данные связанные с сервисом. Если false, то при наличии вложенных данных сервис удален не будет.
+* bRecursive (не обязательно, по умолчанию false) - Удалять рекурсивно все данные связанные с ServiceData. Если false, то при наличии вложенных сущностей, ссылающихся на эту, ServiceData удалена не будет.
 
 Вовращает:
 
 HTTP STATUS 200 - удаление успешно.
 HTTP STATUS 304 - не удалено.
 
-Пример 2:
+Пример:
 https://poligon.igov.org.ua/wf-central/service/services/removeServiceData?nID=1&bRecursive=true
+
+Ответ: HTTP STATUS 200
+
+{
+    "code": "success",
+    "message": "class org.wf.dp.dniprorada.model.ServiceData id: 1 removed"
+}
+
+
+**HTTP Context: http://server:port/wf-central/service/services/removeSubcategory** - Удаление подкатегории.
+
+**HTTP Metod: DELETE**
+
+* nID - идентификатор подкатегории.
+* bRecursive (не обязательно, по умолчанию false) - Удалять рекурсивно все данные связанные с подкатегорией. Если false, то при наличии вложенных сущностей, ссылающихся на эту, подкатегория удалена не будет.
+
+Вовращает:
+
+HTTP STATUS 200 - удаление успешно.
+HTTP STATUS 304 - не удалено.
+
+Пример 1:
+https://poligon.igov.org.ua/wf-central/service/services/removeSubcategory?nID=1
+
+Ответ 1: HTTP STATUS 304
+
+Пример 2:
+https://poligon.igov.org.ua/wf-central/service/services/removeSubcategory?nID=1&bRecursive=true
 
 Ответ 2: HTTP STATUS 200
 
 {
     "code": "success",
-    "message": "class org.wf.dp.dniprorada.model.ServiceData id: 1 removed"
+    "message": "class org.wf.dp.dniprorada.model.Subcategory id: 1 removed"
 }
