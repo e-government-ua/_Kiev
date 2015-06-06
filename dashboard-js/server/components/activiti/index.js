@@ -4,12 +4,24 @@ var _ = require('lodash');
 var config = require('../../config/environment');
 var request = require('request');
 var url = require('url');
+
 var httpProxy = require('http-proxy');
+var default_headers = {
+	'Authorization': config.activiti.auth.basic
+}
 
 request.debug = config.request.debug;
 
-var default_headers = {
-	'Authorization': config.activiti.auth.basic
+var createUploadProxy = function() {
+	var uploadProxy = httpProxy.createProxyServer({});
+	uploadProxy.on('proxyReq', function(proxyReq, req, res, options) {
+		proxyReq.path = options.target.path;
+		proxyReq.setHeader('Authorization', config.activiti.auth.basic);
+	});
+	uploadProxy.on('proxyRes', function(proxyRes, req, res) {
+
+	});
+	return uploadProxy;
 }
 
 var getRequestURL = function(options) {
@@ -50,6 +62,8 @@ var prepareRequest = function(req, options, data) {
 	return r;
 }
 
+var uploadProxy = createUploadProxy();
+
 exports.getRequestURL = getRequestURL;
 exports.getRequestOptions = getRequestOptions;
 
@@ -69,6 +83,17 @@ exports.filedownload = function(req, res, options) {
 	req.pipe(r).on('response', function(response) {
 		response.headers['content-type'] = 'application/octet-stream';
 	}).pipe(res);
+}
+
+exports.fileupload = function(req, res, options) {
+	uploadProxy.web(req, res, {
+		target: options.url,
+		secure: false
+	}, function(e) {
+		if (e) {
+
+		}
+	});
 }
 
 exports.pipe = function(req, res, options, data) {
