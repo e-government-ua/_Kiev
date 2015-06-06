@@ -401,6 +401,29 @@ a {
    margin-right: 5px;
 }
 
+.icon-e-service-on {
+    vertical-align: middle;
+    display: inline-block;
+    background-image: url(/img/icons/e-icon_on.png);
+    background-repeat: no-repeat !important;
+    background-position: 0px 0px;
+    width: 16px;
+    height: 16px;
+   margin-right: 5px;
+}
+
+.icon-e-service-off {
+    vertical-align: middle;
+    display: inline-block;
+    background-image: url(/img/icons/e-icon_off.png);
+    
+    background-repeat: no-repeat !important;
+    background-position: 0px 0px;
+    width: 16px;
+    height: 16px;
+   margin-right: 5px;
+}
+
 .i-btn-badge {
     text-align: left;
     padding-top: 0;
