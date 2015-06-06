@@ -53,8 +53,8 @@ public class MailTaskWithAttachments implements JavaDelegate {
 	private Expression to;
 	private Expression subject;
 	private Expression text;
-	private Expression docName;
-
+	private Expression saAttachmentsForSend;
+        
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
 		List<Attachment> attachmentList = execution
@@ -83,7 +83,7 @@ public class MailTaskWithAttachments implements JavaDelegate {
 		String subjectStr = getStringFromFieldExpression(this.subject,
 				execution);
 		String textStr = getStringFromFieldExpression(this.text, execution);
-		String docNameStr = getStringFromFieldExpression(this.docName,
+		String docNameStr = getStringFromFieldExpression(this.saAttachmentsForSend,
 				execution);
 		MultiPartEmail email = new MultiPartEmail();
 		email.setHostName(mailServerHost);
