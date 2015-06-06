@@ -37,15 +37,7 @@ define('state/journal/content/controller', ['angularAMD'], function (angularAMD)
 	angularAMD.controller('JournalContentController', [
         '$rootScope', '$scope', '$state', 'journal',
         function ($rootScope, $scope, $state, journal) {
-		console.log('$rootScope');
-        console.log('JournalContentController');
-        console.log($state);
-        console.log(journal);
-        /*angular.forEach(journal, function (item) {
-            if (item.oDate_Upload === null) {
-                item.oDate_Upload = new Date();
-            }
-        });*/
+		console.log('Journal: ', journal);
         $scope.journal = journal;
     }]);
 });
