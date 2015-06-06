@@ -48,7 +48,10 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
     $scope.selectedTask = $scope.selectedTasks[menuType];
     $scope.$storage.menuType = menuType;
     $scope.taskForm = null;
-    $scope.tasks = [];
+    $scope.taskId = null;
+    $scope.attachments = null;
+    $scope.error = null;
+    $scope.taskAttachments = null;
 
     tasks
       .list(menuType)

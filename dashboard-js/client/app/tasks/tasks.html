@@ -47,6 +47,7 @@
                     ng-required="item.required" ng-model="item.value"></select>
           </p>
           <p ng-if="item.type == 'file'">
+            <label>{{sFieldLabel(item.name)}}</label>
             <file-field name="{{item.id}}" ng-model="item.value" ng-required="property.required">Add File</file-field>
           </p>
           <p ng-if="['string', 'long', 'date', 'enum', 'user', 'textArea', 'file'].indexOf(item.type) == -1">
