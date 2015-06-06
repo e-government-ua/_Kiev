@@ -131,7 +131,7 @@
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.</activiti:expression>
         </activiti:field>
-        <activiti:field name="saAttachmentsForSend ">
+        <activiti:field name="saAttachmentsForSend">
           <activiti:expression>${bill}</activiti:expression>
         </activiti:field>
       </extensionElements>
