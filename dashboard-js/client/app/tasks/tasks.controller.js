@@ -20,11 +20,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
   }];
 
   $scope.isFormPropertyDisabled = function(formProperty) {
-    if ($scope.selectedTask && $scope.selectedTask.assignee == null) {
+    if ($scope.selectedTask && $scope.selectedTask.assignee === null) {
       return true;
-    } else if ($scope.selectedTask
-      && $scope.selectedTask.assignee != null
-      && !formProperty.writable) {
+    } else if ($scope.selectedTask && $scope.selectedTask.assignee !== null && !formProperty.writable) {
       return true;
     }
     return false;
@@ -121,27 +119,40 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
 
   $scope.assignTask = function() {
     tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id).then(function(result) {
-      Modal.inform.success(function(event) {
-        $scope.applyTaskFilter($scope.$storage.menuType);
-      })('Задача у вас в роботі');
-    })
+        Modal.inform.success(function(event) {
+          $scope.applyTaskFilter($scope.$storage.menuType);
+        })('Задача у вас в роботі');
+      })
       .catch(function(err) {
         Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
       });
   };
 
+  $scope.upload = function(files, propertyID) {
+    tasks.upload(files, $scope.taskId).then(function(result) {
+      var filterResult = $scope.taskForm.filter(function(property){
+        return property.id === propertyID;
+      });
+      if(filterResult && filterResult.length === 1){
+        filterResult[0].fileName = result.response.name;
+      }
+    }).catch(function(err) {
+      Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
+    });
+  };
+
   $scope.sDateShort = function(sDateLong) {
     if (sDateLong !== null) {
-      var o = new Date(sDateLong);//'2015-04-27T13:19:44.098+03:00'
+      var o = new Date(sDateLong); //'2015-04-27T13:19:44.098+03:00'
       return o.getFullYear() + '-' + (o.getMonth() + 1) + '-' + o.getDate() + ' ' + o.getHours() + ':' + o.getMinutes();
       //"2015-05-21T00:40:28.801+03:00\"
     }
   };
 
   $scope.sFieldLabel = function(sField) {
-    var s = "";
+    var s = '';
     if (sField !== null) {
-      var a = sField.split(";");
+      var a = sField.split(';');
       s = a[0].trim();
     }
     return s;
@@ -149,10 +160,10 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
   $scope.sFieldNotes = function(sField) {
     var s = null;
     if (sField !== null) {
-      var a = sField.split(";");
+      var a = sField.split(';');
       if (a.length > 1) {
         s = a[1].trim();
-        if (s == "") {
+        if (s === '') {
           s = null;
         }
       }
@@ -169,17 +180,17 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
     loadSelfAssignedTasks();
   };
 
-  function loadTaskCounters () {
+  function loadTaskCounters() {
     _.forEach($scope.menus, function(menu) {
       tasks.list(menu.type)
         .then(function(result) {
           result = JSON.parse(result);
           menu.count = result.data.length;
         });
-    })
+    });
   }
 
-  function loadSelfAssignedTasks () {
+  function loadSelfAssignedTasks() {
     processes.list().then(function(processesDefinitions) {
       $scope.applyTaskFilter($scope.$storage.menuType);
     }).catch(function(err) {
@@ -188,10 +199,10 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
     });
   }
 
-  function addIndexForFileItems (val) {
+  function addIndexForFileItems(val) {
     var idx = 0;
     return (val || []).map(function(item) {
-      if (item.type == 'file') {
+      if (item.type === 'file') {
         item.nFileIdx = idx;
         idx++;
       }
@@ -199,7 +210,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
     });
   }
 
-  function updateTaskSelection () {
+  function updateTaskSelection() {
     if ($scope.selectedTask) {
       $scope.selectTask($scope.selectedTask);
     } else if ($scope.tasks[0]) {
