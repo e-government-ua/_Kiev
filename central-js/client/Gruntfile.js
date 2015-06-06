@@ -22,6 +22,7 @@ module.exports = function(grunt) {
         html2js: {
             main: {
                 src: [
+					'./src/html/bootstrap/**/*.html',
                     './src/html/about/*.html',
                     './src/html/catalog/*.html',
                     './src/html/service/**/*.html',

@@ -10,6 +10,20 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 			
 			$scope.getCities = function(search) {
 				return PlacesService.getCities($scope.data.region.nID, search).then(function(response) {
+					var aServiceData = service.aServiceData;
+					angular.forEach(response.data, function(oCity) {
+						var color = 'red';
+						angular.forEach(aServiceData, function(oServiceData) {
+							if(oServiceData.hasOwnProperty('nID_City') == false) {
+								return;
+							}
+							if(oServiceData.nID_City.nID == oCity.nID) {
+								color = 'green';
+							}
+						})
+						oCity.color = color;
+						console.log(color);
+					})
 					return response.data;
 				});
 			};

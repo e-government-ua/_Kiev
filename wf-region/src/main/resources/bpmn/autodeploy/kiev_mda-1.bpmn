@@ -24,7 +24,7 @@
     </startEvent>
     <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="kiev_mr_0">
       <extensionElements>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false" required="true"></activiti:formProperty>

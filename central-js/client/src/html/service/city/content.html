@@ -8,11 +8,11 @@
 				<span>Крок 1. Оберіть свій регіон </span>
 				<div style="display:inline-block">
 					<span>Область</span>
-					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.sName for region in regions track by region.nID" ng-disabled="data.city"></select>
+					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.sName for region in regions track by region.nID" options-class="{'color': color}" ng-disabled="data.city"></select>
 				</div>
 				<div style="display:inline-block" ng-if="data.region">
 					<span>Місто</span>
-					<input autocomplete="off" class="form-control" name="city" type="text" ng-model="model.city" typeahead="city as city.sName for city in getCities($viewValue)" typeahead-editable="false" typeahead-wait-ms="200" typeahead-min-length="0" typeahead-on-select="onSelectCity($item)" ng-disabled="data.city"/>
+					<input autocomplete="off" class="form-control" name="city" type="text" ng-model="model.city" typeahead="city as city.sName for city in getCities($viewValue)" typeahead-editable="false" typeahead-wait-ms="200" typeahead-min-length="0" typeahead-on-select="onSelectCity($item)" typeahead-template-url="html/bootstrap/typeahead/typeahead-match-city.html" ng-disabled="data.city"/>
 				</div>
 			</div>
 			<div class="col-md-1" ng-if="data.city">

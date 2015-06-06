@@ -253,7 +253,7 @@
         <omgdi:waypoint x="476.0" y="287.0"></omgdi:waypoint>
         <omgdi:waypoint x="630.0" y="287.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="486.0" y="287.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="95.0" x="486.0" y="287.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
