@@ -773,3 +773,31 @@ https://poligon.igov.org.ua/wf-central/service/services/removeSubcategory?nID=1&
     "code": "success",
     "message": "class org.wf.dp.dniprorada.model.Subcategory id: 1 removed"
 }
+
+
+**HTTP Context: http://server:port/wf-central/service/services/removeSubcategory** - Удаление подкатегории.
+
+**HTTP Metod: DELETE**
+
+* nID - идентификатор подкатегории.
+* bRecursive (не обязательно, по умолчанию false) - Удалять рекурсивно все данные связанные с категорией. Если false, то при наличии вложенных сущностей, ссылающихся на эту, категория удалена не будет.
+
+Вовращает:
+
+HTTP STATUS 200 - удаление успешно.
+HTTP STATUS 304 - не удалено.
+
+Пример 1:
+https://poligon.igov.org.ua/wf-central/service/services/removeCategory?nID=1
+
+Ответ 1: HTTP STATUS 304
+
+Пример 2:
+https://poligon.igov.org.ua/wf-central/service/services/removeCategory?nID=1&bRecursive=true
+
+Ответ 2: HTTP STATUS 200
+
+{
+    "code": "success",
+    "message": "class org.wf.dp.dniprorada.model.Category id: 1 removed"
+}
