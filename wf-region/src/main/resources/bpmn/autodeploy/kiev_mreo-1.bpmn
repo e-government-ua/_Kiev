@@ -56,6 +56,9 @@
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="date" writable="false"></activiti:formProperty>
+        
+        <activiti:formProperty id="bill0" name="Завантажте" type="file" required="true"></activiti:formProperty>
+        
         <activiti:formProperty id="decide" name="Результат перевірки наявності обтяжень" type="enum" required="true">
           <activiti:value id="accept" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"></activiti:value>
           <activiti:value id="reject" name="Знайдені обтяження.  Відмовити громадянину в наданні послуги."></activiti:value>
