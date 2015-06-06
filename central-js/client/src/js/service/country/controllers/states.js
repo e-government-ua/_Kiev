@@ -14,6 +14,7 @@ define('state/service/country/controller', ['angularAMD'], function (angularAMD)
 				var serviceType = { nID: 0 };
 				angular.forEach(aServiceData, function(value, key) {
 					serviceType = value.nID_ServiceType;
+					$scope.serviceData = value;
 				});
 					
 				switch(serviceType.nID) {

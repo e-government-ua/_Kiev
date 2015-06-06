@@ -33,6 +33,7 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 				angular.forEach(aServiceData, function(value, key) {
 					if(value.nID_City.nID == $scope.data.city.nID) {
 						serviceType = value.nID_ServiceType;
+						$scope.serviceData = value;
 					}
 				});
 				
