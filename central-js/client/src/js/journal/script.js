@@ -38,7 +38,7 @@ define('journal', ['angularAMD', 'service'], function (angularAMD) {
                             +$location.host()
                             +':'
                             +$location.port()
-                            +$state.href('journal.bankid');
+                            +$state.href('journal.bankid', {code: null});
 
                         return BankIDService.login($stateParams.code, url).then(function(data) {
                             return data.hasOwnProperty('error') ? $q.reject(null): data;
