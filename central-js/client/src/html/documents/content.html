@@ -113,7 +113,9 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="name">Введіть ім’я та прізвище людині, якій Ви надаєте
-                                                          доступ</label>
+                                                          доступ
+                                            <em>*</em>
+                                        </label>
                                         <input type="text"
                                                required
                                                ng-model="sFIO"
@@ -122,9 +124,11 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <label for="phone">Введіть номер її мобільного телефону (через нього вона
-                                                           веріфікується через SMS)</label>
+                                    <div class="form-group col-md-6">
+                                        <label for="phone">Введіть номер її мобільного телефону
+                                            <em>*</em>
+                                            <span class="snippet">(через нього вона веріфікується через SMS)</span>
+                                        </label>
                                         <input type="text"
                                                required
                                                ng-model="sTelephone"
@@ -134,9 +138,11 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <label for="email">Введіть електронну пошту, через яку ця людина
-                                                           верифікується</label>
+                                    <div class="form-group col-md-6">
+                                        <label for="email">Введіть електронну пошту
+                                            <em>*</em>
+                                            <span class="snippet">(через нього вона верифікується)</span>
+                                        </label>
                                         <input type="text"
                                                ng-model="sMail"
                                                class="form-control"
@@ -145,7 +151,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <p>Доступ триватиме 5 днів</p>
+                                    <p style="padding-left: 10px">Доступ триватиме 5 днів</p>
                                 </div>
 
                                 <div class="submit-button">
@@ -168,7 +174,7 @@
 <script type="text/ng-template"
         id="urlmodal.html">
     <div class="modal-body">
-        <div class="form-group col-md-6">
+        <div class="link-modal form-group col-md-12">
             <label for="link">Посилання, за яким користувач може отримати доступ (через SMS-пароль)</label>
             <input type="text"
                    ng-model="{{url}}"
@@ -176,6 +182,7 @@
                    id="link">
         </div>
     </div>
+
     <div class="modal-footer">
         <button class="btn btn-primary"
                 ng-click="close()">OK

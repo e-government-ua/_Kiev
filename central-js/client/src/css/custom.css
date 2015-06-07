@@ -399,7 +399,7 @@ a {
     background-position: 0px 0px;
     width: 15px;
     height: 15px;
-   margin-right: 5px;
+    margin-right: 5px;
 }
 
 .icon-e-service-on {
@@ -410,21 +410,21 @@ a {
     background-position: 0px 0px;
     width: 16px;
     height: 16px;
-   margin-right: 5px;
-   margin-bottom: 3px;
+    margin-right: 5px;
+    margin-bottom: 3px;
 }
 
 .icon-e-service-off {
     vertical-align: middle;
     display: inline-block;
     background-image: url(/img/icons/e-icon_off_ss.png);
-    
+
     background-repeat: no-repeat !important;
     background-position: 0px 0px;
     width: 16px;
     height: 16px;
-   margin-right: 5px;
-   margin-bottom: 3px;
+    margin-right: 5px;
+    margin-bottom: 3px;
 }
 
 .i-btn-badge {
@@ -487,13 +487,16 @@ a {
     padding: 15px;
     margin: 0 auto;
 }
+
 .form-signin-bankid .form-signin-bankid-heading,
 .form-signin-bankid .checkbox {
     margin-bottom: 10px;
 }
+
 .form-signin-bankid .checkbox {
     font-weight: normal;
 }
+
 .form-signin-bankid .form-control {
     position: relative;
     height: auto;
@@ -503,62 +506,101 @@ a {
     padding: 10px;
     font-size: 16px;
 }
+
 .form-signin-bankid .form-control:focus {
     z-index: 2;
 }
+
 .form-signin-bankid input[type="email"] {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
+
 .form-signin-bankid input[type="password"] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
 .ctrls-admin {
     display: none;
 }
+
 .glyphicon-plus {
-    
+
 }
+
 .glyphicon-pencil {
     color: #b8a927;
 }
+
 .glyphicon-remove {
-    color: #ff8080; 
+    color: #ff8080;
 }
+
 .ctrls-cat {
     font-size: 20px;
 }
+
 .ctrls-subcat {
     font-size: 16px;
-}  
+}
+
 .ctrls-srvc {
     font-size: 14px;
 }
+
 .add0-cat, .add0-subcat, .add0-srvc {
     color: #b8a927;
 }
+
 .add0-subcat {
-      left: 0px;
+    left: 0px;
 }
+
 #admin-swch {
     text-decoration: none;
 }
+
 a.pluso-more {
     display: none !important;
 }
+
 .color-green {
     color: Green !important;
 }
+
 .active .color-green {
     color: LightGreen !important;
 }
+
 .color-red {
     color: Red !important;
 }
-.dropdown-menu .color-red
-{
+
+.dropdown-menu .color-red {
     color: #333 !important;
+}
+
+.step {
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+label em {
+    font-weight: bold;
+    color: #ee4054;
+}
+
+label .snippet {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: none;
+    display: block;
+    padding: 6px 0;
+}
+
+.link-modal {
+    padding-top: 15px;
 }
