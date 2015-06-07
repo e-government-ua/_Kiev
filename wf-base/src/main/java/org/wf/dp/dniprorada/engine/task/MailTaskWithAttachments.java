@@ -85,7 +85,9 @@ public class MailTaskWithAttachments implements JavaDelegate {
 		for (String attachmentId : attachmentIds) {
                         log.info("attachmentId="+attachmentId);
                     
-			Attachment attachment = execution.getEngineServices().getTaskService().getAttachment(attachmentId);
+			Attachment attachment = taskService.getAttachment(attachmentId);
+
+			log.info("attachmentId.getId()= "+attachment.getId());
 			if (attachment != null) {
 				attachmentList.add(attachment);
 			}
