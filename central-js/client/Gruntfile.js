@@ -60,7 +60,8 @@ module.exports = function(grunt) {
 					'angular-ui': 'angular'
 				},
 				mainFiles: {
-					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css']
+					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css'],
+                    'angular-i18n': ['angular-locale_uk-ua.js']
 				},
 				bowerOptions: {
 					relative: false
@@ -81,7 +82,8 @@ module.exports = function(grunt) {
 					'angular-ui': 'angular'
 				},
 				mainFiles: {
-					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css']
+					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css'],
+					'angular-i18n': ['angular-locale_uk-ua.js']
 				},
 				bowerOptions: {
 					relative: false

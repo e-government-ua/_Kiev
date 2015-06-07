@@ -15,14 +15,8 @@
     <div class="row">
         <div class="col-md-12">
             <table class="table" ng-init="limit = 7">
-                <tr class="active">
-                    <td colspan="2">
-                        <!-- @todo group by month, leave "Березень 2015" as an example of view-->
-                        <p class="text-muted"><strong>Березень 2015</strong></p>
-                    </td>
-                </tr>
                 <tr data-ng-repeat="event in journal | limitTo: limit as results">
-                    <td>{{ event.sDate | date:'fullDate'}}</td>
+                    <td>{{ event.sDate | date: 'mediumDate'}}</td>
                     <td>{{ event.sEventName }}</td>
                 </tr>
             </table>
