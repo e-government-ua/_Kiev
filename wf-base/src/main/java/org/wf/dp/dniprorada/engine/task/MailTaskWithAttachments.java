@@ -2,7 +2,9 @@ package org.wf.dp.dniprorada.engine.task;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.activation.DataSource;
 
@@ -81,21 +83,21 @@ public class MailTaskWithAttachments implements JavaDelegate {
                 log.info("sAttachments="+sAttachments);
 		List<Attachment> attachmentList = new ArrayList<>();
 		String[] attachmentIds = sAttachments.split(",");
+
+//		List<Attachment> porcessInstanceAttachments = execution.getEngineServices().getTaskService()
+//				.getProcessInstanceAttachments(execution.getProcessInstanceId());
+//		Map<String, Attachment> map = new HashMap<>();
+//		for(Attachment item: porcessInstanceAttachments){
+//			map.put(item.getId(), item);
+//		}
+
+//		log.info("attachmentsFROM PROCESS ="+map.keySet());
 		for (String attachmentId : attachmentIds) {
                         log.info("attachmentId="+attachmentId);
+			String attachmentIdTrimmed = attachmentId.replaceAll("^\"|\"$", "");
+			log.info("attachmentIdTrimmed= " + attachmentIdTrimmed);
+			Attachment attachment = taskService.getAttachment(attachmentIdTrimmed);
 
-			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-			execution.getEngineServices().getIdentityService().setAuthenticatedUserId("kermit");
-			log.info("execution.getId()= " + execution.getId());
-			log.info("execution.getProcessInstanceId()= " + execution.getProcessInstanceId());
-//			log.info("execution.getProcessInstanceId()= " + );
-			
-			Attachment attachment = processEngine.getTaskService().getAttachment(attachmentId);
-			long id = processEngine.getTaskService().createNativeTaskQuery().sql("SELECT ID_ from " + "ACT_HI_ATTACHMENT"
-			 + " T1 WHERE T1.ID_ in ( " + attachmentId + " )").count();
-			log.info("id: " + id);
-
-//			log.info("attachmentId.getId()= "+attachment.getId());
 			if (attachment != null) {
 				attachmentList.add(attachment);
 			}
