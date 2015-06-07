@@ -1,6 +1,10 @@
 define('bootstrap/typeahead/factory', ['angularAMD'], function (angularAMD) {
-    angularAMD.factory('TypeaheadFactory', ['$http', function ($http) {
+	var secretEmptyKey = '[$empty$]';
+
+    angularAMD.factory('TypeaheadFactory', ['$q', '$http', '$timeout', function ($q, $http, $timeout) {
 		var typeahead = function() {
+			this.defaultList = null;
+		
 			this.model = null;
 			this.list = null;
 			
@@ -8,17 +12,23 @@ define('bootstrap/typeahead/factory', ['angularAMD'], function (angularAMD) {
 		};
 		
 		typeahead.prototype.initialize = function(list) {
+			this.defaultList = list;
 			this.list = list;
 		};
 		
-		typeahead.prototype.load = function(url, data) {
+		typeahead.prototype.load = function(url, search, data) {
 			var self = this;
+			if(search === "[$empty$]") {
+				var deferred = $q.defer();
+				deferred.resolve(self.defaultList);
+				return deferred.promise;
+			}
 			return $http.get(url, {
 				params: data,
 				data: data
 			}).then(function(response) {
 				self.list = response.data;
-				return response;
+				return response.data;
 			});
 		};
 		

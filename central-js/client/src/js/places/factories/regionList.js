@@ -1,4 +1,4 @@
-define('region/list/factory', ['angularAMD', 'bootstrap/typeahead/factory', 'bootstrap/dropdown/factory'], function (angularAMD) {
+define('region/list/factory', ['angularAMD', 'typeahead/empty/directive', 'bootstrap/typeahead/factory', 'bootstrap/dropdown/factory'], function (angularAMD) {
     angularAMD.factory('RegionListFactory', ['$http', 'TypeaheadFactory', 'DropdownFactory', 'PlacesService', function ($http, TypeaheadFactory, DropdownFactory, PlacesService) {
 		var regionList = function() {
 			this.typeahead = new TypeaheadFactory();
@@ -20,8 +20,7 @@ define('region/list/factory', ['angularAMD', 'bootstrap/typeahead/factory', 'boo
 			var data = {
 				sFind: search
 			};
-			return this.typeahead.load('./api/places/regions', data).then(function(response) {
-				var regions = response.data;
+			return this.typeahead.load('./api/places/regions', search, data).then(function(regions) {
 				var aServiceData = service.aServiceData;
 				
 				angular.forEach(regions, function(region) {

@@ -12,7 +12,7 @@
 				<div style="display:inline-block">
 					<div style="position:relative" dropdown is-open="regionList.dropdown.isOpen">
 						<div class="input-group">
-							<input autocomplete="off" class="form-control" name="city" type="text" ng-model="regionList.typeahead.model" typeahead="city as city.sName for city in loadRegionList($viewValue)" typeahead-editable="false" typeahead-wait-ms="200" typeahead-min-length="0" typeahead-on-select="onSelectRegionList($item)" typeahead-template-url="html/bootstrap/typeahead/typeahead-match-region.html" ng-disabled="data.region"/>
+							<input autocomplete="off" class="form-control" name="region" type="text" ng-model="regionList.typeahead.model" typeahead="region as region.sName for region in loadRegionList($viewValue)" typeahead-on-select="onSelectRegionList($item)" typeahead-template-url="html/bootstrap/typeahead/typeahead-match-region.html" typeahead-empty ng-disabled="data.region"/>
 							<span class="input-group-btn">
 								<button class="btn btn-default" type="button" ng-disabled="data.region" dropdown-toggle>
 									<span class="caret"></span>
@@ -32,7 +32,7 @@
 				<div style="display:inline-block" ng-if="data.region">
 					<div style="position:relative" dropdown is-open="localityList.dropdown.isOpen">
 						<div class="input-group">
-							<input autocomplete="off" class="form-control" name="city" type="text" ng-model="localityList.typeahead.model" typeahead="city as city.sName for city in loadLocalityList($viewValue)" typeahead-editable="false" typeahead-wait-ms="200" typeahead-min-length="0" typeahead-on-select="onSelectLocalityList($item)" typeahead-template-url="html/bootstrap/typeahead/typeahead-match-city.html" ng-disabled="data.city"/>
+							<input autocomplete="off" class="form-control" name="city" type="text" ng-model="localityList.typeahead.model" typeahead="city as city.sName for city in loadLocalityList($viewValue)" typeahead-on-select="onSelectLocalityList($item)" typeahead-template-url="html/bootstrap/typeahead/typeahead-match-city.html" typeahead-empty ng-disabled="data.city"/>
 							<span class="input-group-btn">
 								<button class="btn btn-default" type="button" ng-disabled="data.city" dropdown-toggle>
 									<span class="caret"></span>

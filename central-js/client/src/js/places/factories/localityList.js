@@ -1,4 +1,4 @@
-define('locality/list/factory', ['angularAMD', 'bootstrap/typeahead/factory', 'bootstrap/dropdown/factory'], function (angularAMD) {
+define('locality/list/factory', ['angularAMD', 'typeahead/empty/directive', 'bootstrap/typeahead/factory', 'bootstrap/dropdown/factory'], function (angularAMD) {
     angularAMD.factory('LocalityListFactory', ['$http', 'TypeaheadFactory', 'DropdownFactory', 'PlacesService', function ($http, TypeaheadFactory, DropdownFactory, PlacesService) {
 		var localityList = function() {
 			this.typeahead = new TypeaheadFactory();
@@ -20,8 +20,7 @@ define('locality/list/factory', ['angularAMD', 'bootstrap/typeahead/factory', 'b
 			var data = {
 				sFind: search
 			};
-			return this.typeahead.load('./api/places/region/' + region + '/cities', data).then(function(response) {
-				var cities = response.data;
+			return this.typeahead.load('./api/places/region/' + region + '/cities', search, data).then(function(cities) {
 				var aServiceData = service.aServiceData;
 				angular.forEach(cities, function(oCity) {
 					var color = 'red';
