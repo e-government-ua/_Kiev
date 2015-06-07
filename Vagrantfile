@@ -70,7 +70,7 @@ Vagrant.configure(2) do |config|
    config.vm.provider "virtualbox" do |v, override|
 		if Vagrant::Util::Platform.windows?
 			override.vm.synced_folder ".", "/project", disabled: true
-			v.customize ["sharedfolder", "add", :id, "--name", "projectshare", "--hostpath", (("//?/" + File.dirname(__FILE__)).gsub("/","\\"))]
+			#v.customize ["sharedfolder", "add", :id, "--name", "projectshare", "--hostpath", (("//?/" + File.dirname(__FILE__)).gsub("/","\\"))]
 			v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/projectshare", "1"]
 		else
 			override.vm.synced_folder ".", "/project"

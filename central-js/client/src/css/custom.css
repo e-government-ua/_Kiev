@@ -73,8 +73,6 @@ a {
     webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
     min-height: 80px;
     margin-bottom: 40px;
-    padding-top: 10px;
-    
 }
 
 .nav > li > a {
@@ -407,7 +405,7 @@ a {
 .icon-e-service-on {
     vertical-align: middle;
     display: inline-block;
-    background-image: url(/img/icons/e-icon_on.png);
+    background-image: url(/img/icons/e-icon_on_s.png);
     background-repeat: no-repeat !important;
     background-position: 0px 0px;
     width: 16px;
@@ -419,7 +417,7 @@ a {
 .icon-e-service-off {
     vertical-align: middle;
     display: inline-block;
-    background-image: url(/img/icons/e-icon_off.png);
+    background-image: url(/img/icons/e-icon_off_s.png);
     
     background-repeat: no-repeat !important;
     background-position: 0px 0px;
@@ -550,4 +548,17 @@ a {
 }
 a.pluso-more {
     display: none !important;
+}
+.color-green {
+    color: Green !important;
+}
+.active .color-green {
+    color: LightGreen !important;
+}
+.color-red {
+    color: Red !important;
+}
+.dropdown-menu .color-red
+{
+    color: #333 !important;
 }

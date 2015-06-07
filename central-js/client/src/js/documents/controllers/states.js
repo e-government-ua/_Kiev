@@ -1,13 +1,8 @@
 define('state/documents/controller', ['angularAMD'], function(angularAMD) {
   angularAMD.controller('DocumentsController', function($state, $window, $location) {
-    if ($state.is('documents.bankid') && !!$state.params.code) {
-      $window.location.href = $location.protocol()
-        + '://'
-        + $location.host()
-        + ':'
-        + $location.port()
-        + $state.href('documents.content', {code: $state.params.code});
-    }
+    if ($state.is('documents')) {
+	  return $state.go('documents.bankid');
+	}
   });
 });
 define('state/documents/bankid/controller', ['angularAMD'], function(angularAMD) {
@@ -17,6 +12,10 @@ define('state/documents/bankid/controller', ['angularAMD'], function(angularAMD)
       var stateForRedirect = $state.href('documents.bankid', {});
       var redirectURI = $location.protocol() + '://' + $location.host() + ':' + $location.port() + stateForRedirect;
       $window.location.href = 'https://bankid.privatbank.ua/DataAccessService/das/authorize?response_type=code&client_id=dniprorada&redirect_uri=' + redirectURI;
+    }
+	
+    if ($state.is('documents.bankid') && !!$state.params.code) {
+	  return $state.go('documents.content', {code: $state.params.code});
     }
   });
 });

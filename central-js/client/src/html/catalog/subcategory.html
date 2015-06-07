@@ -6,8 +6,8 @@
         <div class="col-md-4" ng-repeat-start="service in subcategory.aService | orderBy: '-nSub'">
             <ul class="list-unstyled">
                 <li>
-                    <a ng-if="service.nSub>0" ui-sref="service.general({'id': service.nID })" ng-href="/service/{{service.nID}}/general"><i class="icon-e-service"></i>{{service.sName}}</a>
-                    <a ng-if="service.nSub==0" ui-sref="service.general({'id': service.nID })" ng-href="/service/{{service.nID}}/general">{{service.sName}}</a>
+                    <a ng-if="service.nSub>0" ui-sref="service.general({'id': service.nID })" ng-href="/service/{{service.nID}}/general">{{service.sName}}<i class="icon-e-service-on"></i></a>
+                    <a ng-if="service.nSub==0" ui-sref="service.general({'id': service.nID })" ng-href="/service/{{service.nID}}/general">{{service.sName}}<i class="icon-e-service-off"></i></a>
                 </li>
             </ul>
         </div>
