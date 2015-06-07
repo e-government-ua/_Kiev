@@ -69,6 +69,12 @@ public class Document {
 	@JsonProperty(value = "sSubjectName_Upload")
 	@Column(name = "sSubjectName_Upload", nullable = false)
 	private String subjectName_Upload;
+	
+	@JsonProperty(value = "oSubject_Upload")
+	//@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = Subject.class, fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "nID_Subject_Upload", nullable = true)
+	private Subject subject_Upload;
 
 	@JsonProperty(value = "oSubject")
 	//@ManyToOne(fetch = FetchType.EAGER)
@@ -158,6 +164,14 @@ public class Document {
 
 	public void setsID_subject_Upload(String sID_subject_Upload) {
 		this.sID_subject_Upload = sID_subject_Upload;
+	}
+
+	public Subject getSubject_Upload() {
+		return subject_Upload;
+	}
+
+	public void setSubject_Upload(Subject subject_Upload) {
+		this.subject_Upload = subject_Upload;
 	}
 
 	public Subject getSubject() {
