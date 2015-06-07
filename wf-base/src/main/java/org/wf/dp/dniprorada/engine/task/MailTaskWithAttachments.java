@@ -6,8 +6,7 @@ import java.util.List;
 
 import javax.activation.DataSource;
 
-import org.activiti.engine.ActivitiObjectNotFoundException;
-import org.activiti.engine.TaskService;
+import org.activiti.engine.*;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
@@ -84,10 +83,16 @@ public class MailTaskWithAttachments implements JavaDelegate {
 		String[] attachmentIds = sAttachments.split(",");
 		for (String attachmentId : attachmentIds) {
                         log.info("attachmentId="+attachmentId);
+
+			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+			ManagementService managementService = processEngine.getManagementService();
                     
 			Attachment attachment = taskService.getAttachment(attachmentId);
+			long id = taskService.createNativeTaskQuery().sql("SELECT ID_ from " + managementService.getTableName(Attachment.class)
+			 + "T1 WHERE T1.ID_ = " + attachmentId).count();
+			log.info("id: " + id);
 
-			log.info("attachmentId.getId()= "+attachment.getId());
+//			log.info("attachmentId.getId()= "+attachment.getId());
 			if (attachment != null) {
 				attachmentList.add(attachment);
 			}
