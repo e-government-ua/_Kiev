@@ -128,7 +128,7 @@ define('state/service/city/absent/controller', ['angularAMD'], function (angular
                     sHead: "Закликаю владу перевести цю послугу в електронну форму!",
                     sBody: $scope.$parent.$parent.data.city.sName + " - " + service.sName
                 };
-                MessagesService.setMessage(data);
+                MessagesService.setMessage(data, 'Дякуємо! Ви будете поінформовані, коли ця послуга буде доступна через Інтернет');
             }
 	    }
     ]);
