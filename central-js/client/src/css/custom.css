@@ -551,3 +551,16 @@ a {
 a.pluso-more {
     display: none !important;
 }
+.color-green {
+    color: Green !important;
+}
+.active .color-green {
+    color: LightGreen !important;
+}
+.color-red {
+    color: Red !important;
+}
+.dropdown-menu .color-red
+{
+    color: #333 !important;
+}
