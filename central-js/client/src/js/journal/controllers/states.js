@@ -30,7 +30,10 @@ define('state/journal/content/controller', ['angularAMD'], function (angularAMD)
 	angularAMD.controller('JournalContentController', [
         '$rootScope', '$scope', '$state', 'journal',
         function ($rootScope, $scope, $state, journal) {
-		console.log('Journal: ', journal);
-        $scope.journal = journal;
-    }]);
+            $scope.journal = journal;
+            angular.forEach($scope.journal, function(item, index) {
+                $scope.journal[index]['sDate'] = new Date(item.sDate);
+            });
+        }
+    ]);
 });
