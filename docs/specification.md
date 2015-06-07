@@ -283,6 +283,27 @@ https://test.igov.org.ua/wf-region/service/merchant/addMerchant?id=1
 Пример:
 https://poligon.igov.org.ua/wf-central/service/services/getDocument?nID=1
 
+**Response**
+
+{
+	"sDate_Upload":"2015-01-01",
+	"sContentType":"text/plain",
+	"contentType":"text/plain",
+	"nID":1,
+	"sName":"Паспорт",
+	"oDocumentType":{"nID":0,"sName":"Другое"},
+	"sID_Content":"1",
+	"oDocumentContentType":{"nID":2,"sName":"text/plain"},
+	"sFile":"dd.txt",
+	"oDate_Upload":1420063200000,
+	"sID_Subject_Upload":"1",
+	"sSubjectName_Upload":"ПриватБанк",
+	"oSubject_Upload":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк", "sLabelShort":"ПриватБанк"},
+	 "oSubject":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк","sLabelShort":"ПриватБанк"}
+ }
+
+
+
 ----------------------------------------------------------------------------------------------------------------------------
 
 **HTTP Metod: GET**
