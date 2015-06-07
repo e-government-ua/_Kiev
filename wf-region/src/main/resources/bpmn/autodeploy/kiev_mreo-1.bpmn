@@ -61,7 +61,7 @@
           <activiti:value id="accept" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"></activiti:value>
           <activiti:value id="reject" name="Знайдені обтяження.  Відмовити громадянину в наданні послуги."></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment" name="Коментарі; В разі відмови в наданні послуги,  вкажіть причину. В разі надання послуги, вкажіть час/дату, коли  авто може пройти огляд" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="Коментарі" type="textArea" default="В разі відмови в наданні послуги,  вкажіть причину. В разі надання послуги, вкажіть час/дату, коли  авто може пройти огляд" required="true"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -146,15 +146,13 @@
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Час / дата проходження огляду авто" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decide2" name="Результат огляду авто " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decide3" name="Результат перевірки оригіналів документів" type="enum">
+        <activiti:formProperty id="resAuto" name="Результат огляду авто " type="string" expression="${decide2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="decide3" name="Результат перевірки оригіналів документів" type="enum" required="true">
           <activiti:value id="accept3" name="Документи надані в повному обсязі. Зауважень немає"></activiti:value>
           <activiti:value id="reject3" name="Перевірка документів незадовільна"></activiti:value>
         </activiti:formProperty>
       </extensionElements>
     </userTask>
-    <endEvent id="endevent3" name="End"></endEvent>
-    <sequenceFlow id="flow12" sourceRef="usertask4" targetRef="endevent3"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow13" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow14" name="${decide2 == 'accept2'}" sourceRef="exclusivegateway2" targetRef="usertask3">
@@ -171,7 +169,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide3 == 'reject3'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow18" name="${decide3 == 'accept3'}" sourceRef="exclusivegateway3" targetRef="usertask4">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide3 == 'reject3'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide3 == 'accept3'}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="usertask4" name="Друк держ.номерів" activiti:candidateGroups="kiev_mreo_fo3">
       <extensionElements>
@@ -184,11 +182,13 @@
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Час / дата проходження огляду авто" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decide2" name="Результат огляду авто " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decide3" name="Результат перевірки оригіналів документів" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="resAuto" name="Результат огляду авто " type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="resDocs" name="Результат перевірки оригіналів документів" type="string" default="${decide3}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="printedAutoGovNumber" name="Вкажіть роздрукований держ.номер" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
+    <endEvent id="endevent6" name="End"></endEvent>
+    <sequenceFlow id="flow19" sourceRef="usertask4" targetRef="endevent6"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_mreo_1">
     <bpmndi:BPMNPlane bpmnElement="kiev_mreo_1" id="BPMNPlane_kiev_mreo_1">
@@ -228,9 +228,6 @@
       <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
         <omgdc:Bounds height="55.0" width="185.0" x="376.0" y="580.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
-        <omgdc:Bounds height="35.0" width="35.0" x="451.0" y="760.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="670.0" y="459.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -245,6 +242,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
         <omgdc:Bounds height="55.0" width="185.0" x="376.0" y="670.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent6" id="BPMNShape_endevent6">
+        <omgdc:Bounds height="35.0" width="35.0" x="451.0" y="760.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="125.0" y="137.0"></omgdi:waypoint>
@@ -289,10 +289,6 @@
         <omgdi:waypoint x="468.0" y="401.0"></omgdi:waypoint>
         <omgdi:waypoint x="468.0" y="452.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="468.0" y="725.0"></omgdi:waypoint>
-        <omgdi:waypoint x="468.0" y="760.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
         <omgdi:waypoint x="561.0" y="479.0"></omgdi:waypoint>
         <omgdi:waypoint x="670.0" y="479.0"></omgdi:waypoint>
@@ -331,6 +327,10 @@
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="42.0" width="100.0" x="-35.0" y="3.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="468.0" y="725.0"></omgdi:waypoint>
+        <omgdi:waypoint x="468.0" y="760.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
