@@ -78,10 +78,13 @@ public class MailTaskWithAttachments implements JavaDelegate {
 		email.setSmtpPort(Integer.valueOf(mailServerPort));
 		email.setSSL(true);
 		email.setTLS(true);
-
+                
+                log.info("sAttachments="+sAttachments);
 		List<Attachment> attachmentList = new ArrayList<>();
 		String[] attachmentIds = sAttachments.split(",");
 		for (String attachmentId : attachmentIds) {
+                        log.info("attachmentId="+attachmentId);
+                    
 			Attachment attachment = execution.getEngineServices().getTaskService().getAttachment(attachmentId);
 			if (attachment != null) {
 				attachmentList.add(attachment);
@@ -126,6 +129,8 @@ public class MailTaskWithAttachments implements JavaDelegate {
 		if (expression != null) {
 			Object value = expression.getValue(execution);
 			if (value != null) {
+                                log.info("value.toString()="+value.toString());
+                            
 				return value.toString();
 			}
 		}

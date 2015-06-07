@@ -5,11 +5,6 @@ define('service.general.country', ['angularAMD', 'service.general.country.link',
         $stateProvider
             .state('service.general.country', {
                 url: '/country',
-				resolve: {
-					places: ['$stateParams', 'ServiceService', function($stateParams, ServiceService) {
-						return ServiceService.getPlaces();
-					}]
-				},
                 views: {
                     '@service': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {

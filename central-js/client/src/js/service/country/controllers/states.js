@@ -1,8 +1,7 @@
 define('state/service/country/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceCountryController', ['$state', '$rootScope', '$scope', 'service', 'places',
-		function ($state, $rootScope, $scope, service, places) {
+	angularAMD.controller('ServiceCountryController', ['$state', '$rootScope', '$scope', 'service',
+		function ($state, $rootScope, $scope, service) {
 			$scope.service = service;
-			$scope.places = places;
 			
 			$scope.data = {
 				region: null,
