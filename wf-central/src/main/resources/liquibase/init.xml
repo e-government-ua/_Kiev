@@ -405,6 +405,10 @@
                 <constraints nullable="true" foreignKeyName="FK_Document_Subject"
                              referencedTableName="Subject" referencedColumnNames="nID" deleteCascade="true"/>
             </column>
+            <column name="nID_Subject_Upload" type="bigint">
+                <constraints nullable="false" foreignKeyName="FK_Document_Subject_Upload"
+                             referencedTableName="Subject" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
         </createTable>
         <addAutoIncrement columnName="nID" tableName="Document" columnDataType="bigint"  incrementBy="1" startWith="1"/>
         
@@ -550,7 +554,8 @@
             <column name="sSubjectName_Upload" type="STRING"/>
             <column name="sDate_Upload" type="STRING"/>  
             <column name="sContentType" type="STRING"/> 
-            <column name="nID_Subject" type="NUMERIC"/> 
+            <column name="nID_Subject" type="NUMERIC"/>
+            <column name="nID_Subject_Upload" type="NUMERIC"/> 
         </loadData>
         <loadData encoding="UTF-8" file="data/HistoryEvent.csv" tableName="HistoryEvent" separator=";">
             <column name="nID" type="NUMERIC"/>

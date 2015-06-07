@@ -17,9 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.dao.DocumentContentTypeDao;
 import org.wf.dp.dniprorada.dao.DocumentDao;
 import org.wf.dp.dniprorada.dao.HistoryEventDao;
+import org.wf.dp.dniprorada.dao.SubjectDao;
+import org.wf.dp.dniprorada.dao.SubjectOrganDao;
 import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.DocumentContentType;
 import org.wf.dp.dniprorada.model.HistoryEvent;
+import org.wf.dp.dniprorada.model.Subject;
 import org.wf.dp.dniprorada.util.Util;
 
 @Controller
@@ -28,6 +31,12 @@ public class ActivitiRestDocumentController {
 
     @Autowired
     private DocumentDao documentDao;
+    
+    @Autowired
+    private SubjectDao subjectDao;
+    
+    @Autowired
+    private SubjectOrganDao subjectOrganDao;
 
     @Autowired
     private HistoryEventDao historyEventDao;
@@ -115,7 +124,6 @@ public class ActivitiRestDocumentController {
     @ResponseBody
     Long setDocument(
             @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
-            //Todo: убрать, когда клиент отцепится
             @RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
             @RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
             @RequestParam(value = "sName") String sName,
@@ -147,9 +155,12 @@ public class ActivitiRestDocumentController {
             throw new ActivitiObjectNotFoundException(
                     "RequestParam 'nID_DocumentContentType' not found!", DocumentContentType.class);
         }
+        
+        Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
 
         return documentDao.setDocument(
                 nID_Subject,
+                subject_Upload.getnID(),
                 sID_Subject_Upload,
                 sSubjectName_Upload,
                 sName,
@@ -166,7 +177,6 @@ public class ActivitiRestDocumentController {
     @ResponseBody
     Long setDocumentFile(
             @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
-            //Todo: убрать, когда клиент отцепится
             @RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
             @RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
             @RequestParam(value = "sName") String sName,
@@ -187,9 +197,12 @@ public class ActivitiRestDocumentController {
         String sFileContentType = oFile.getContentType();
         byte[] aoContent = oFile.getBytes();
 
+        Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
+        
         return documentDao
                 .setDocument(
                         nID_Subject,
+                        subject_Upload.getnID(),
                         sID_Subject_Upload,
                         sSubjectName_Upload,
                         sName,
@@ -198,6 +211,14 @@ public class ActivitiRestDocumentController {
                         sFileName,
                         sFileContentType,
                         aoContent);
+    }
+    
+    private Subject syncSubject_Upload(String sID_Subject_Upload){
+    	Subject subject_Upload = subjectDao.getSubject(sID_Subject_Upload);
+    	if(subject_Upload == null){
+    		subject_Upload = subjectOrganDao.setSubjectOrgan(sID_Subject_Upload).getoSubject();
+    	}
+    	return subject_Upload;
     }
 
 }

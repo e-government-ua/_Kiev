@@ -1,5 +1,4 @@
 define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
-	var secretEmptyKey = '[$empty$]';
 	angularAMD.controller('ServiceCityController', [
 		'$state', '$rootScope', '$scope', 'RegionListFactory', 'LocalityListFactory', 'PlacesService', 'ServiceService', 'service', 'regions',
 		function ($state, $rootScope, $scope, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, service, regions) {
