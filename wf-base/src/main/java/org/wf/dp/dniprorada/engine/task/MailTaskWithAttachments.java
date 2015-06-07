@@ -85,10 +85,9 @@ public class MailTaskWithAttachments implements JavaDelegate {
                         log.info("attachmentId="+attachmentId);
 
 			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-			ManagementService managementService = processEngine.getManagementService();
-                    
-			Attachment attachment = taskService.getAttachment(attachmentId);
-			long id = taskService.createNativeTaskQuery().sql("SELECT ID_ from " + managementService.getTableName(Attachment.class)
+			log.info("processEngine= " + processEngine);
+			Attachment attachment = processEngine.getTaskService().getAttachment(attachmentId);
+			long id = taskService.createNativeTaskQuery().sql("SELECT ID_ from " + "ACT_HI_ATTACHMENT"
 			 + " T1 WHERE T1.ID_ = " + attachmentId).count();
 			log.info("id: " + id);
 
