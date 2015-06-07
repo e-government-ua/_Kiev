@@ -1,5 +1,5 @@
 define('formData/factory', ['angularAMD', 'file/directive', 'parameter/factory', 'datepicker/factory', 'file/factory', 'bankid/documents/factory'], function(angularAMD) {
-  angularAMD.factory('FormDataFactory',
+  angularAMD.factory('FormDataFactory', ['ParameterFactory', 'DatepickerFactory', 'FileFactory', 'BankIDDocumentsFactory',
     function(ParameterFactory, DatepickerFactory, FileFactory, DocumentsFactory) {
       var FormDataFactory = function() {
         this.processDefinitionId = null;
@@ -102,5 +102,5 @@ define('formData/factory', ['angularAMD', 'file/directive', 'parameter/factory',
       };
 
       return FormDataFactory;
-    });
+    }]);
 });
