@@ -1,19 +1,26 @@
 <div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<ul class="nav nav-tabs">
-				<li ui-sref-active="active" role="presentation"><a ui-sref="service.general({id: service.nID})">Послуга</a></li>
-				<li ui-sref-active="active" role="presentation"><a ui-sref="service.instruction({id: service.nID})">Інструкція</a></li>
-				<li ui-sref-active="active" role="presentation"><a ui-sref="service.legislation({id: service.nID})">Законодавство</a></li>
-				<li ui-sref-active="active" role="presentation"><a ui-sref="service.questions({id: service.nID})">Поширенні питання</a></li>
-				<li ui-sref-active="active" role="presentation"><a ui-sref="service.discussion({id: service.nID})">Обговорення</a></li>
-			</ul>
-		</div>
-	</div>
-	<div ui-view="">
-		<div class="text-center">
-			<!--h2>Зачейкате, будь ласка</h2-->
-			<img class="text-center" src="/img/loading.gif" alt="Loading" />
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li ui-sref-active="active"
+                    role="presentation"><a ui-sref="service.general({id: service.nID})">Послуга</a></li>
+                <li ui-sref-active="active"
+                    role="presentation"><a ui-sref="service.instruction({id: service.nID})">Як працює</a></li>
+                <li ui-sref-active="active"
+                    role="presentation"><a ui-sref="service.legislation({id: service.nID})">Законодавство</a></li>
+                <li ui-sref-active="active"
+                    role="presentation"><a ui-sref="service.questions({id: service.nID})">Поширенні питання</a></li>
+                <li ui-sref-active="active"
+                    role="presentation"><a ui-sref="service.discussion({id: service.nID})">Обговорення</a></li>
+            </ul>
+        </div>
+    </div>
+    <div ui-view="">
+        <div class="text-center">
+            <!--h2>Зачейкате, будь ласка</h2-->
+            <img class="text-center"
+                 src="/img/loading.gif"
+                 alt="Loading"/>
+        </div>
+    </div>
 </div>
