@@ -604,3 +604,7 @@ label .snippet {
 .link-modal {
     padding-top: 15px;
 }
+
+.error {
+    color: red;
+}

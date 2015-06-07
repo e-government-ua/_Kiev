@@ -27,8 +27,12 @@
 <div class="row">
 	<div class="col-md-12 text-center">
         <form name="absentMessageForm">
-            <input type="email" data-ng-model="absentMessage.email" value="Ваш email"/>
-            <input type="button" data-ng-click="sendAbsentMessage(absentMessage)" value="Зберегти" />
+            <input type="email" data-ng-model="absentMessage.email" name="email" placeholder="Ваш email" required ng-keyup="emailKeydown()"/>
+            <input type="button" data-ng-click="sendAbsentMessage(absentMessageForm, absentMessage)" value="Зберегти" />
+            <div role="alert" ng-if="absentMessage.showErrors">
+              <span class="error" ng-if="absentMessageForm.email.$error.required">Введіть Вашу email-адресу</span>
+              <span class="error" ng-if="absentMessageForm.email.$error.email">Введіть коректну email адресу</span>
+            </div>
         </form>
 	</div>
 </div>
