@@ -26,13 +26,20 @@ define('region/list/factory', ['angularAMD', 'typeahead/empty/directive', 'boots
 				angular.forEach(regions, function(region) {
 					var color = 'red';
 					angular.forEach(aServiceData, function(oServiceData) {
-						if(oServiceData.hasOwnProperty('nID_City') == false) {
+						if(oServiceData.hasOwnProperty('nID_Region')) {
+							var oRegion = oServiceData.nID_Region;
+							if(oRegion.nID == region.nID) {
+								color = 'green';
+							}
 							return;
 						}
-						var oCity = oServiceData.nID_City;
-						var oRegion = oCity.nID_Region;
-						if(oRegion.nID == region.nID) {
-							color = 'green';
+						if(oServiceData.hasOwnProperty('nID_City')) {
+							var oCity = oServiceData.nID_City;
+							var oRegion = oCity.nID_Region;
+							if(oRegion.nID == region.nID) {
+								color = 'green';
+							}
+							return;
 						}
 					});
 					region.color = color;
