@@ -146,7 +146,7 @@
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Час / дата проходження огляду авто" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="resAuto" name="Результат огляду авто " type="string" variable="${accept2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="resAuto" name="Результат огляду авто " type="string" default="Перевірка успішна. " writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide3" name="Результат перевірки оригіналів документів" type="enum" required="true">
           <activiti:value id="accept3" name="Документи надані в повному обсязі. Зауважень немає"></activiti:value>
           <activiti:value id="reject3" name="Перевірка документів незадовільна"></activiti:value>
@@ -182,8 +182,8 @@
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Час / дата проходження огляду авто" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="resAuto" name="Результат огляду авто " type="string" variable="accept2" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="resDocs" name="Результат перевірки оригіналів документів" type="string" default="${accept3}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="resAuto" name="Результат огляду авто " type="string" default="Перевірка успішна. " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="resDocs" name="Результат перевірки оригіналів документів" type="string" default="Документи надані в повному обсязі. Зауважень немає" writable="false"></activiti:formProperty>
         <activiti:formProperty id="printedAutoGovNumber" name="Вкажіть роздрукований держ.номер" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
