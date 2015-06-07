@@ -4,7 +4,7 @@ define('index', ['angularAMD', 'catalog/service'], function(angularAMD) {
   app.config(function($stateProvider) {
     $stateProvider
       .state('index', {
-        url: '/index',
+        url: '/',
         resolve: {
           catalog: function(CatalogService) {
             return CatalogService.getServices();
