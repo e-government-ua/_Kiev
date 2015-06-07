@@ -140,6 +140,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
         return property.id === propertyID;
       });
       if(filterResult && filterResult.length === 1){
+        filterResult[0].value = result.response.id;
         filterResult[0].fileName = result.response.name;
       }
     }).catch(function(err) {
