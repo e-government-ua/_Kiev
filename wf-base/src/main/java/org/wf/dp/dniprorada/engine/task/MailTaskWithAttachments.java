@@ -2,12 +2,13 @@ package org.wf.dp.dniprorada.engine.task;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.activation.DataSource;
 
-import org.activiti.engine.ActivitiObjectNotFoundException;
-import org.activiti.engine.TaskService;
+import org.activiti.engine.*;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
@@ -78,11 +79,25 @@ public class MailTaskWithAttachments implements JavaDelegate {
 		email.setSmtpPort(Integer.valueOf(mailServerPort));
 		email.setSSL(true);
 		email.setTLS(true);
-
+                
+                log.info("sAttachments="+sAttachments);
 		List<Attachment> attachmentList = new ArrayList<>();
 		String[] attachmentIds = sAttachments.split(",");
+
+//		List<Attachment> porcessInstanceAttachments = execution.getEngineServices().getTaskService()
+//				.getProcessInstanceAttachments(execution.getProcessInstanceId());
+//		Map<String, Attachment> map = new HashMap<>();
+//		for(Attachment item: porcessInstanceAttachments){
+//			map.put(item.getId(), item);
+//		}
+
+//		log.info("attachmentsFROM PROCESS ="+map.keySet());
 		for (String attachmentId : attachmentIds) {
-			Attachment attachment = execution.getEngineServices().getTaskService().getAttachment(attachmentId);
+                        log.info("attachmentId="+attachmentId);
+			String attachmentIdTrimmed = attachmentId.replaceAll("^\"|\"$", "");
+			log.info("attachmentIdTrimmed= " + attachmentIdTrimmed);
+			Attachment attachment = taskService.getAttachment(attachmentIdTrimmed);
+
 			if (attachment != null) {
 				attachmentList.add(attachment);
 			}
@@ -126,6 +141,8 @@ public class MailTaskWithAttachments implements JavaDelegate {
 		if (expression != null) {
 			Object value = expression.getValue(execution);
 			if (value != null) {
+                                log.info("value.toString()="+value.toString());
+                            
 				return value.toString();
 			}
 		}

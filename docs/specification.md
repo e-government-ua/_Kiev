@@ -283,6 +283,27 @@ https://test.igov.org.ua/wf-region/service/merchant/addMerchant?id=1
 Пример:
 https://poligon.igov.org.ua/wf-central/service/services/getDocument?nID=1
 
+**Response**
+```json
+{
+	"sDate_Upload":"2015-01-01",
+	"sContentType":"text/plain",
+	"contentType":"text/plain",
+	"nID":1,
+	"sName":"Паспорт",
+	"oDocumentType":{"nID":0,"sName":"Другое"},
+	"sID_Content":"1",
+	"oDocumentContentType":{"nID":2,"sName":"text/plain"},
+	"sFile":"dd.txt",
+	"oDate_Upload":1420063200000,
+	"sID_Subject_Upload":"1",
+	"sSubjectName_Upload":"ПриватБанк",
+	"oSubject_Upload":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк", "sLabelShort":"ПриватБанк"},
+	 "oSubject":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк","sLabelShort":"ПриватБанк"}
+ }
+```
+
+
 ----------------------------------------------------------------------------------------------------------------------------
 
 **HTTP Metod: GET**
@@ -293,6 +314,9 @@ https://poligon.igov.org.ua/wf-central/service/services/getDocument?nID=1
 
 Пример:
 https://poligon.igov.org.ua/wf-central/service/services/getDocumentContent?nID=1
+
+**Response**
+КОНТЕНТ ДОКУМЕНТА В ВИДЕ СТРОКИ
 
 ----------------------------------------------------------------------------------------------------------------------------
 
@@ -305,6 +329,9 @@ https://poligon.igov.org.ua/wf-central/service/services/getDocumentContent?nID=1
 Пример:
 https://poligon.igov.org.ua/wf-central/service/services/getDocumentFile?nID=1
 
+**Response**
+ЗАГРУЖЕННЫЙ ФАЙЛ 
+
 ----------------------------------------------------------------------------------------------------------------------------
 
 **HTTP Metod: GET**
@@ -316,6 +343,43 @@ https://poligon.igov.org.ua/wf-central/service/services/getDocumentFile?nID=1
 Пример:
 https://poligon.igov.org.ua/wf-central/service/services/getDocuments?nID_Subject=2
 
+**Response**
+```json
+[
+	{
+	"sDate_Upload":"2015-01-01",
+	"sContentType":"text/plain",
+	"contentType":"text/plain",
+	"nID":1,
+	"sName":"Паспорт",
+	"oDocumentType":{"nID":0,"sName":"Другое"},
+	"sID_Content":"1",
+	"oDocumentContentType":{"nID":2,"sName":"text/plain"},
+	"sFile":"dd.txt",
+	"oDate_Upload":1420063200000,
+	"sID_Subject_Upload":"1",
+	"sSubjectName_Upload":"ПриватБанк",
+	"oSubject_Upload":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк", "sLabelShort":"ПриватБанк"},
+	 "oSubject":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк","sLabelShort":"ПриватБанк"}
+         },
+         {
+	"sDate_Upload":"2015-01-01",
+	"sContentType":"text/plain",
+	"contentType":"text/plain",
+	"nID":2,
+	"sName":"Паспорт",
+	"oDocumentType":{"nID":0,"sName":"Другое"},
+	"sID_Content":"2",
+	"oDocumentContentType":{"nID":2,"sName":"text/plain"},
+	"sFile":"dd.txt",
+	"oDate_Upload":1420063200000,
+	"sID_Subject_Upload":"1",
+	"sSubjectName_Upload":"ПриватБанк",
+	"oSubject_Upload":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк", "sLabelShort":"ПриватБанк"},
+	 "oSubject":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк","sLabelShort":"ПриватБанк"}
+         }
+]
+```
  ---------------------------------------------------------------------------------------------------------------------------
 
 **HTTP Metod: POST**
@@ -330,6 +394,12 @@ https://poligon.igov.org.ua/wf-central/service/services/getDocuments?nID_Subject
 * sDocumentContentType - строка-тип контента документа
 * soDocumentContent - контект в виде строки-обьекта
 * nID_Subject - ИД-номер субъекта докуиента (владельца)
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/setDocument?sID_Subject_Upload=123&sSubjectName_Upload=Vasia&sName=Pasport&sFile=file.txt&nID_DocumentType=1&sDocumentContentType=application/zip&soDocumentContent=ffffffffffffffffff&nID_Subject=1
+
+**Response**
+ИД ДОКУМЕНТА
 
 --------------------------------------------------------------------------------------------------------------------------
  
@@ -346,6 +416,10 @@ https://poligon.igov.org.ua/wf-central/service/services/getDocuments?nID_Subject
 * soDocumentContent - контент в виде строки-обьекта
 * nID_Subject - ИД-номер субъекта документа (владельца)
 * oFile - обьект файла (тип MultipartFile)
+
+
+**Response**
+ИД ДОКУМЕНТА
 
 --------------------------------------------------------------------------------------------------------------------------
 
@@ -371,6 +445,15 @@ https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?sOKPO=123
 
 https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 
+**Response**
+```json
+{
+	"nID":150,
+	"sID":"34125265377",
+	"sLabel":null,
+	"sLabelShort":null
+}
+```
 --------------------------------------------------------------------------------------------------------------------------
 
 #### 11. Предоставление и проверка доступа к документам
