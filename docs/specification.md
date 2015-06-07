@@ -373,13 +373,12 @@ https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 
 --------------------------------------------------------------------------------------------------------------------------
 
-#### 11. DocumentAccess
-Cервис предоставления доступа на документ
+#### 11. Предоставление и проверка доступа к документам
 
 **HTTP Metod: POST**
 
 **HTTP Context: 
-https://seriver:port/wf-central/service/setDocumentLink - запись на доступ
+https://seriver:port/wf-central/service/setDocumentLink - запись на доступ, с генерацией и получением уникальной ссылки на него
 
 * nID_Document - ИД-номер документа
 * sFIO - ФИО, кому доступ
@@ -401,7 +400,7 @@ https://seriver:port/wf-central/service/setDocumentLink - запись на до
 **HTTP Metod: POST**
 
 **HTTP Context: 
-https://seriver:port/wf-central/service/getDocumentLink - проверка доступа и получения данных о нем, если доступ есть
+https://seriver:port/wf-central/service/getDocumentLink - проверка доступа к документу и получения данных о нем, если доступ есть
 
 * nID_Document - ИД-номер документа
 * sSecret - секретный ключ
@@ -431,7 +430,7 @@ HTTP STATUS 200
 **HTTP Metod: POST**
 
 **HTTP Context: 
-https://seriver:port/wf-central/service/getDocumentAccess
+https://seriver:port/wf-central/service/getDocumentAccess - Получение подтверждения на доступ к документу(с отсылкой СМС ОТП-паролем на телефон))
 
 * nID_Document - ИД-номер документа
 * sSecret - секретный ключ
@@ -449,11 +448,11 @@ https://seriver:port/wf-central/service/getDocumentAccess
 **HTTP Metod: POST**
 
 **HTTP Context: 
-https://seriver:port/wf-central/service/setDocumentAccess
+https://seriver:port/wf-central/service/setDocumentAccess - Установка подтверждения на доступ к документу, по введенному коду, из СМС-ки(ОТП-паролем), и возвратом уникальной разовой ссылки на докуемнт.
 
 * nID_Access - ид доступа
 * sSecret - секретный ключ
-* sAnswer - ответ
+* sAnswer - ответ (введенный пользователем ОТП-пароль из СМС)
 
 **Response**
 
@@ -466,7 +465,7 @@ https://seriver:port/wf-central/service/setDocumentAccess
 ```
 
 
-#### 12. Messages - Работа с сообщениями
+#### 12. Работа с сообщениями
 
 **HTTP Metod: GET**
 
@@ -512,7 +511,7 @@ Status 200 если Ok
 --------------------------------------------------------------------------------------------------------------------------
 
 
-#### 13. Работа с историей
+#### 13. Работа с историей (Мой журнал)
 
 **HTTP Metod: GET**
 
@@ -546,3 +545,492 @@ https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Sub
 * sMessage - строка - сохраняемое содержимое (обязательное поле)
 
 --------------------------------------------------------------------------------------------------------------------------
+
+#### 14. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti
+
+**HTTP Metod: POST**
+
+**HTTP Context: http://server:port/wf-region/service/rest/file/upload_file_as_attachment** - Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti
+
+* taskId - ИД-номер таски
+* description - описание
+* file - в html это имя элемента input типа file - <input name="file" type="file" />. в HTTP заголовках - Content-Disposition: form-data; name="file" ...
+
+Пример:
+http://test.igov.org.ua/wf-region/service/rest/file/upload_file_as_attachment?taskId=68&description=ololo"
+
+Ответ без ошибок:
+{"taskId":"38","processInstanceId":null,"userId":"kermit","name":"jmt.png","id":"45","type":"image/png;png","description":"SomeDocumentDescription","time":1433539278957,"url":null} 
+ID созданного attachment - "id":"45"
+
+Ответ с ошибкой:
+{"code":"SYSTEM_ERR","message":"Cannot find task with id 384"}
+
+
+--------------------------------------------------------------------------------------------------------------------------
+
+#### 15. Работа с каталогом сервисов
+
+**HTTP Context: http://server:port/wf-central/service/services/getServicesTree** - Получение делева сервисов
+
+**HTTP Metod: GET**
+
+* sFind - фильтр по имени сервиса (не обязательный параметр). Если задано, то производится фильтрация данных - возвращаются только сервиса в имени которых встречается значение этого параметра, без учета регистра.
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/getServicesTree
+
+Ответ:
+[{"nID":1,"sID":"Citizen","sName":"Громадянам","nOrder":1,"aSubcategory":[{"nID":1,"sName":"Будівництво, нерухомість, земля","sID":"Build","nOrder":1,"aService":[{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":6,"sName":"Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою.","nOrder":6,"nSub":1},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":8,"sName":"Надання довідки про перебування на квартирному обліку при міськвиконкомі за місцем проживання та в житлово-будівельному кооперативі.","nOrder":8,"nSub":1},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":9,"sName":"Надання довідки про перебування на обліку бажаючих отримати земельну ділянку під індивідуальне будівництво","nOrder":9,"nSub":0},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":10,"sName":"Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки","nOrder":10,"nSub":2},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":11,"sName":"Надання відомостей з Державного земельного кадастру у формі витягу з Державного земельного кадастру про земельну ділянку","nOrder":11,"nSub":0},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":12,"sName":"Присвоєння поштової адреси об’єкту нерухомого майна","nOrder":12,"nSub":1},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":13,"sName":"Видача довідок про перебування на квартирному обліку","nOrder":13,"nSub":0}]
+
+
+**HTTP Context: http://server:port/wf-central/service/services/getService** - Получение сервиса
+
+**HTTP Metod: GET**
+
+* nID - ИД-номер сервиса
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/getService?nID=1
+
+Ответ:
+{"sSubjectOperatorName":"МВС","subjectOperatorName":"МВС","nID":1,"sName":"Отримати довідку про несудимість","nOrder":1,"aServiceData":[{"nID":1,"nID_City":{"nID":2,"sName":"Кривий Ріг","nID_Region":{"nID":1,"sName":"Дніпропетровська"}},"nID_ServiceType":{"nID":1,"sName":"Внешняя","sNote":"Пользователь переходит по ссылке на услугу, реализованную на сторонней платформе"},"oSubject_Operator":{"nID":1,"oSubject":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк","sLabelShort":"ПриватБанк"},"sOKPO":"093205","sFormPrivacy":"ПАО","sName":"ПриватБанк","sNameFull":"Банк ПриватБанк"},"oData":"{}","sURL":"https://dniprorada.igov.org.ua","bHidden":false}],"sInfo":"","sFAQ":"","sLaw":"","nSub":0}
+
+**HTTP Context: http://server:port/wf-central/service/services/setService** - Изменение сервиса. Можно менять/добавлять, но не удалять данные внутри сервиса, на разной глубине вложенности. Передается json в теле POST запроса в том же формате, в котором он был в getService. 
+
+**HTTP Metod: POST**
+
+Вовращает: HTTP STATUS 200 + json представление сервиса после изменения. Чаще всего то же, что было передано в теле POST запроса + сгенерированные id-шники вложенных сущностей, если такие были.
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/setService
+
+{
+    "sSubjectOperatorName": "МВС",
+    "subjectOperatorName": "МВС",
+    "nID": 1,
+    "sName": "Отримати довідку про несудимість",
+    "nOrder": 1,
+    "aServiceData": [
+        {
+            "nID": 1,
+            "nID_City": {
+                "nID": 2,
+                "sName": "Кривий Ріг",
+                "nID_Region": {
+                    "nID": 1,
+                    "sName": "Дніпропетровська"
+                }
+            },
+            "nID_ServiceType": {
+                "nID": 1,
+                "sName": "Внешняя",
+                "sNote": "Пользователь переходит по ссылке на услугу, реализованную на сторонней платформе"
+            },
+            "oSubject_Operator": {
+                "nID": 1,
+                "oSubject": {
+                    "nID": 1,
+                    "sID": "ПАО",
+                    "sLabel": "ПАО ПриватБанк",
+                    "sLabelShort": "ПриватБанк"
+                },
+                "sOKPO": "093205",
+                "sFormPrivacy": "ПАО",
+                "sName": "ПриватБанк",
+                "sNameFull": "Банк ПриватБанк"
+            },
+            "oData": "{}",
+            "sURL": "https://dniprorada.igov.org.ua",
+            "bHidden": false
+        }
+    ],
+    "sInfo": "",
+    "sFAQ": "",
+    "sLaw": "",
+    "nSub": 0
+}
+
+Ответ:
+{
+    "sSubjectOperatorName": "МВС",
+    "subjectOperatorName": "МВС",
+    "nID": 1,
+    "sName": "Отримати довідку про несудимість",
+    "nOrder": 1,
+    "aServiceData": [
+        {
+            "nID": 1,
+            "nID_City": {
+                "nID": 2,
+                "sName": "Кривий Ріг",
+                "nID_Region": {
+                    "nID": 1,
+                    "sName": "Дніпропетровська"
+                }
+            },
+            "nID_ServiceType": {
+                "nID": 1,
+                "sName": "Внешняя",
+                "sNote": "Пользователь переходит по ссылке на услугу, реализованную на сторонней платформе"
+            },
+            "oSubject_Operator": {
+                "nID": 1,
+                "oSubject": {
+                    "nID": 1,
+                    "sID": "ПАО",
+                    "sLabel": "ПАО ПриватБанк",
+                    "sLabelShort": "ПриватБанк"
+                },
+                "sOKPO": "093205",
+                "sFormPrivacy": "ПАО",
+                "sName": "ПриватБанк",
+                "sNameFull": "Банк ПриватБанк"
+            },
+            "oData": "{}",
+            "sURL": "https://dniprorada.igov.org.ua",
+            "bHidden": false
+        }
+    ],
+    "sInfo": "",
+    "sFAQ": "",
+    "sLaw": "",
+    "nSub": 0
+}
+
+**HTTP Context: http://server:port/wf-central/service/services/removeService** - Удаление сервиса. 
+
+**HTTP Metod: DELETE**
+
+* nID - ИД-номер сервиса
+* bRecursive (не обязательно, по умолчанию false) - Удалять рекурсивно все данные связанные с сервисом. Если false, то при наличии вложенных сущностей, ссылающихся на эту, сервис удален не будет.
+
+Вовращает:
+
+HTTP STATUS 200 - удаление успешно.
+HTTP STATUS 304 - не удалено.
+
+Пример 1:
+https://poligon.igov.org.ua/wf-central/service/services/removeService?nID=1
+
+Ответ 1: HTTP STATUS 304
+
+Пример 2:
+https://poligon.igov.org.ua/wf-central/service/services/removeService?nID=1&bRecursive=true
+
+Ответ 2: HTTP STATUS 200
+
+{
+    "code": "success",
+    "message": "class org.wf.dp.dniprorada.model.Service id: 1 removed"
+}
+
+
+**HTTP Context: http://server:port/wf-central/service/services/removeServiceData** - Удаление сущности ServiceData.
+
+**HTTP Metod: DELETE**
+
+* nID - идентификатор ServiceData
+* bRecursive (не обязательно, по умолчанию false) - Удалять рекурсивно все данные связанные с ServiceData. Если false, то при наличии вложенных сущностей, ссылающихся на эту, ServiceData удалена не будет.
+
+Вовращает:
+
+HTTP STATUS 200 - удаление успешно.
+HTTP STATUS 304 - не удалено.
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/removeServiceData?nID=1&bRecursive=true
+
+Ответ: HTTP STATUS 200
+
+{
+    "code": "success",
+    "message": "class org.wf.dp.dniprorada.model.ServiceData id: 1 removed"
+}
+
+
+**HTTP Context: http://server:port/wf-central/service/services/removeSubcategory** - Удаление подкатегории.
+
+**HTTP Metod: DELETE**
+
+* nID - идентификатор подкатегории.
+* bRecursive (не обязательно, по умолчанию false) - Удалять рекурсивно все данные связанные с подкатегорией. Если false, то при наличии вложенных сущностей, ссылающихся на эту, подкатегория удалена не будет.
+
+Вовращает:
+
+HTTP STATUS 200 - удаление успешно.
+HTTP STATUS 304 - не удалено.
+
+Пример 1:
+https://poligon.igov.org.ua/wf-central/service/services/removeSubcategory?nID=1
+
+Ответ 1: HTTP STATUS 304
+
+Пример 2:
+https://poligon.igov.org.ua/wf-central/service/services/removeSubcategory?nID=1&bRecursive=true
+
+Ответ 2: HTTP STATUS 200
+
+{
+    "code": "success",
+    "message": "class org.wf.dp.dniprorada.model.Subcategory id: 1 removed"
+}
+
+
+**HTTP Context: http://server:port/wf-central/service/services/removeCategory** - Удаление категории.
+
+**HTTP Metod: DELETE**
+
+* nID - идентификатор подкатегории.
+* bRecursive (не обязательно, по умолчанию false) - Удалять рекурсивно все данные связанные с категорией. Если false, то при наличии вложенных сущностей, ссылающихся на эту, категория удалена не будет.
+
+Вовращает:
+
+HTTP STATUS 200 - удаление успешно.
+HTTP STATUS 304 - не удалено.
+
+Пример 1:
+https://poligon.igov.org.ua/wf-central/service/services/removeCategory?nID=1
+
+Ответ 1: HTTP STATUS 304
+
+Пример 2:
+https://poligon.igov.org.ua/wf-central/service/services/removeCategory?nID=1&bRecursive=true
+
+Ответ 2: HTTP STATUS 200
+
+{
+    "code": "success",
+    "message": "class org.wf.dp.dniprorada.model.Category id: 1 removed"
+}
+
+
+**HTTP Context: http://server:port/wf-central/service/services/removeServicesTree** - Удаление всего дерева сервисов и категорий.
+
+**HTTP Metod: DELETE**
+
+Вовращает:
+
+HTTP STATUS 200 - удаление успешно.
+
+Пример 1:
+https://poligon.igov.org.ua/wf-central/service/services/removeServicesTree
+
+Ответ 1: HTTP STATUS 200
+
+{
+    "code": "success",
+    "message": "ServicesTree removed"
+}
+
+
+**HTTP Context: http://server:port/wf-central/service/services/getPlaces** - Получения дерева мест (регионов и городов).
+
+**HTTP Metod: GET**
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/getPlaces
+
+Ответ:
+
+[
+    {
+        "nID": 1,
+        "sName": "Дніпропетровська",
+        "aCity": [
+            {
+                "nID": 1,
+                "sName": "Дніпропетровськ"
+            },
+            {
+                "nID": 2,
+                "sName": "Кривий Ріг"
+            }
+        ]
+    },
+    {
+        "nID": 2,
+        "sName": "Львівська",
+        "aCity": [
+            {
+                "nID": 3,
+                "sName": "Львів"
+            }
+        ]
+    },
+    {
+        "nID": 3,
+        "sName": "Івано-Франківська",
+        "aCity": [
+            {
+                "nID": 4,
+                "sName": "Івано-Франківськ"
+            },
+            {
+                "nID": 5,
+                "sName": "Калуш"
+            }
+        ]
+    },
+    {
+        "nID": 4,
+        "sName": "Миколаївська",
+        "aCity": []
+    },
+    {
+        "nID": 5,
+        "sName": "Київська",
+        "aCity": [
+            {
+                "nID": 6,
+                "sName": "Київ"
+            }
+        ]
+    },
+    {
+        "nID": 6,
+        "sName": "Херсонська",
+        "aCity": [
+            {
+                "nID": 7,
+                "sName": "Херсон"
+            }
+        ]
+    },
+    {
+        "nID": 7,
+        "sName": "Рівненська",
+        "aCity": [
+            {
+                "nID": 8,
+                "sName": "Кузнецовськ"
+            }
+        ]
+    },
+    {
+        "nID": 8,
+        "sName": "Волинська",
+        "aCity": [
+            {
+                "nID": 9,
+                "sName": "Луцьк"
+            }
+        ]
+    }
+]
+
+
+**HTTP Context: http://server:port/wf-central/service/services/setPlaces** - Изменение дерева мест (регионов и городов). Можно менять регионы (не добавлять и не удалять) + менять/добавлять города (но не удалять), Передается json в теле POST запроса в том же формате, в котором он был в getPlaces. 
+
+**HTTP Metod: POST**
+
+Возвращает: HTTP STATUS 200 + json представление сервиса после изменения. Чаще всего то же, что было передано в теле POST запроса + сгенерированные id-шники вложенных сущностей, если такие были.
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/setPlaces
+
+[
+    {
+        "nID": 1,
+        "sName": "Дніпропетровська",
+        "aCity": [
+            {
+                "nID": 1,
+                "sName": "Cічеслав"
+            },
+            {
+                "nID": 2,
+                "sName": "Кривий Ріг"
+            }
+        ]
+    }
+]
+
+Ответ: HTTP STATUS 200
+
+[
+    {
+        "nID": 1,
+        "sName": "Дніпропетровська",
+        "aCity": [
+            {
+                "nID": 1,
+                "sName": "Cічеслав"
+            },
+            {
+                "nID": 2,
+                "sName": "Кривий Ріг"
+            }
+        ]
+    }
+]
+
+
+**HTTP Context: http://server:port/wf-central/service/services/setServicesTree** - Изменение дерева категорий (с вложенными подкатегориями и сервисами). Можно менять категории (не добавлять и не удалять) + менять/добавлять (но не удалять) вложенные сущности, Передается json в теле POST запроса в том же формате, в котором он был в getServicesTree. 
+
+**HTTP Metod: POST**
+
+Возвращает: HTTP STATUS 200 + json представление сервиса после изменения. Чаще всего то же, что было передано в теле POST запроса + сгенерированные id-шники вложенных сущностей, если такие были.
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/setServicesTree
+
+[
+    {
+        "nID": 1,
+        "sID": "Citizen",
+        "sName": "Гражданин",
+        "nOrder": 1,
+        "aSubcategory": [
+            {
+                "nID": 5,
+                "sName": "Праця2",
+                "sID": "Work",
+                "nOrder": 3,
+                "aService": [
+                    {
+                        "nID": 3,
+                        "sName": "Видача картки обліку об’єкта торговельного призначення, сфери послуг та з виробництва продуктів харчування",
+                        "nOrder": 3
+                    },
+                    {
+                        "nID": 4,
+                        "sName": "Легалізація об’єднань громадян шляхом повідомлення",
+                        "nOrder": 4
+                    }
+                ]
+            }
+            ]
+         }
+]
+
+Ответ: HTTP STATUS 200
+
+[
+    {
+        "nID": 1,
+        "sID": "Citizen",
+        "sName": "Гражданин",
+        "nOrder": 1,
+        "aSubcategory": [
+            {
+                "nID": 5,
+                "sName": "Праця2",
+                "sID": "Work",
+                "nOrder": 3,
+                "aService": [
+                    {
+                        "nID": 3,
+                        "sName": "Видача картки обліку об’єкта торговельного призначення, сфери послуг та з виробництва продуктів харчування",
+                        "nOrder": 3
+                    },
+                    {
+                        "nID": 4,
+                        "sName": "Легалізація об’єднань громадян шляхом повідомлення",
+                        "nOrder": 4
+                    }
+                ]
+            }
+            ]
+         }
+]

@@ -83,7 +83,8 @@ module.exports.initialUpload = function(req, res) {
         },
         'qs': {
             'nID_Subject': nID_Subject,
-            'sID_Subject_Upload': sID_Subject,
+            //TODO Нужно узнать ОКПО Привата и вписывать сюда(sID_Subject_Upload) именно его:
+            'sID_Subject_Upload': sID_Subject, 
             'sSubjectName_Upload': 'Приватбанк',
             'sName': 'Паспорт',
             'nID_DocumentType': 0

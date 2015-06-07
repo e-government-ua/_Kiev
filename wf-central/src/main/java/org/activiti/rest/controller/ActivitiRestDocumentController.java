@@ -178,7 +178,12 @@ public class ActivitiRestDocumentController {
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
 
         //String sFileName = oFile.getName();
-        String sFileName = oFile.getOriginalFilename();
+        //String sFileName = oFile.getOriginalFilename();
+         //Content-Disposition:attachment; filename=passport.zip
+        String sFileName = request.getHeader("filename");
+        if(sFileName==null||"".equals(sFileName.trim())){
+            sFileName = oFile.getOriginalFilename()+".zip";
+        }
         String sFileContentType = oFile.getContentType();
         byte[] aoContent = oFile.getBytes();
 

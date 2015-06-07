@@ -7,7 +7,7 @@
     },
     {
         "stateName": "index",
-        "urlPrefix": "/index",
+        "urlPrefix": "/",
         "type": "ngload",
         "src": "index"
     },

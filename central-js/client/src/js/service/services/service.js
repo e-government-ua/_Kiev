@@ -90,5 +90,17 @@ define('service/service', ['angularAMD'], function(angularAMD) {
 			return response.data;
 		});
 	};
+
+      this.getJournalEvents = function(nID_Subject) {
+          var data = {
+              'nID_Subject': nID_Subject
+          };
+          return $http.get('./api/service/journal', {
+              params: data,
+              data: data
+          }).then(function(response) {
+              return response.data;
+          });
+      };
   });
 });

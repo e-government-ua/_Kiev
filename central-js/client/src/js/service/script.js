@@ -1,4 +1,4 @@
-define('service', ['angularAMD', 'service.general.country', 'service.general.region', 'service.general.city', 'places/service', 'service/service', 'messages/service', 'bankid/service', 'activiti/service'], function (angularAMD) {
+define('service', ['angularAMD', 'service.general.country', 'service.general.region', 'service.general.city', 'region/list/factory', 'locality/list/factory', 'places/service', 'service/service', 'messages/service', 'bankid/service', 'activiti/service', 'options/class/directive'], function (angularAMD) {
     var app = angular.module('service', []);
 
     app.config(['$stateProvider', function ($stateProvider) {

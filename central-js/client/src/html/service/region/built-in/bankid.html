@@ -46,6 +46,9 @@
                                                         
 
 							<div class="col-md-3" ng-class="{'has-error': form.$submitted && form[property.id].$invalid}" ng-if="!data.formData.fields[property.id]" ng-switch on="property.type">
+                                                                <textarea ng-switch-when="textArea" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required" class="form-control"></textarea>
+                                                                <label ng-switch-when="label" name="{{property.id}}" ng-required="property.required" class="form-control_">{{data.formData.params[property.id].value}}</label>
+                                                            
 								<input ng-switch-when="string" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required" class="form-control" value="">
 								<input ng-switch-when="long" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-pattern="/^\d+$/" ng-required="property.required" class="form-control" value="">
 								<p class="input-group" ng-switch-when="date">
@@ -88,7 +91,7 @@
 							<div class="col-md-5"></div>
 							<div class="col-md-3">
 								<button class="btn btn-info" ng-click="submit(form)"
-									ng-disable="cantSubmit(form)">Замовити довідку</button>
+									ng-disable="cantSubmit(form)">Замовити послугу</button>
 							</div>
 							<div class="col-md-4"></div>
 						</div>

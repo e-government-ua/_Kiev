@@ -9,6 +9,9 @@ define('state/journal/controller', ['angularAMD'], function (angularAMD) {
 		console.log('$rootScope');
 		console.log('JournalController');
         console.log($state.current);
+		if ($state.is('journal')) {
+			return $state.go('journal.bankid');
+		}
         if ($state.is('journal.bankid') && !!$state.params.code) {
             console.log('journal.content');
             $window.location.href = $location.protocol()
@@ -37,15 +40,7 @@ define('state/journal/content/controller', ['angularAMD'], function (angularAMD)
 	angularAMD.controller('JournalContentController', [
         '$rootScope', '$scope', '$state', 'journal',
         function ($rootScope, $scope, $state, journal) {
-		console.log('$rootScope');
-        console.log('JournalContentController');
-        console.log($state);
-        console.log(journal);
-        /*angular.forEach(journal, function (item) {
-            if (item.oDate_Upload === null) {
-                item.oDate_Upload = new Date();
-            }
-        });*/
+		console.log('Journal: ', journal);
         $scope.journal = journal;
     }]);
 });
