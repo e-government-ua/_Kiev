@@ -22,6 +22,7 @@ module.exports = function(grunt) {
         html2js: {
             main: {
                 src: [
+					'./src/html/bootstrap/**/*.html',
                     './src/html/about/*.html',
                     './src/html/catalog/*.html',
                     './src/html/service/**/*.html',
@@ -59,7 +60,8 @@ module.exports = function(grunt) {
 					'angular-ui': 'angular'
 				},
 				mainFiles: {
-					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css']
+					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css'],
+                    'angular-i18n': ['angular-locale_uk-ua.js']
 				},
 				bowerOptions: {
 					relative: false
@@ -80,7 +82,8 @@ module.exports = function(grunt) {
 					'angular-ui': 'angular'
 				},
 				mainFiles: {
-					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css']
+					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css'],
+					'angular-i18n': ['angular-locale_uk-ua.js']
 				},
 				bowerOptions: {
 					relative: false
@@ -116,7 +119,11 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/angularAMD/ngload.js'
 					},
 					{
-						src: ['./src/js/main/script.js'],
+						src: ['./src/js/components/**/*.js'],
+						dest: './tmp/js/concat/app/components.js'
+					},
+					{
+						src: ['./src/js/main/script.js', './src/js/components/**/*.js'],
 						dest: './tmp/js/concat/script.js'
 					},
 					{
@@ -144,6 +151,7 @@ module.exports = function(grunt) {
 							'./src/js/bankid/**/*.js',
 							'./src/js/activiti/**/*.js',
 							'./src/js/form/**/*.js',
+							'./src/js/places/**/*.js',
 							'./src/js/service/link/**/*.js',
 							'./src/js/service/built-in/**/*.js',
 							'./src/js/service/country/**/*.js',
@@ -176,7 +184,11 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/angularAMD/ngload.js'
 					},
 					{
-						src: ['./src/js/main/debug.js'],
+						src: ['./src/js/components/**/*.js'],
+						dest: './tmp/js/concat/app/components.js'
+					},
+					{
+						src: ['./src/js/main/debug.js', './src/js/components/**/*.js'],
 						dest: './tmp/js/concat/script.js'
 					},
 					{
@@ -204,6 +216,7 @@ module.exports = function(grunt) {
 							'./src/js/bankid/**/*.js',
 							'./src/js/activiti/**/*.js',
 							'./src/js/form/**/*.js',
+							'./src/js/places/**/*.js',
 							'./src/js/service/link/**/*.js',
 							'./src/js/service/built-in/**/*.js',
 							'./src/js/service/country/**/*.js',
@@ -231,6 +244,7 @@ module.exports = function(grunt) {
 					'./tmp/js/uglify/angularAMD/ngload.js': ['./tmp/js/concat/angularAMD/ngload.js'],
 					'./tmp/js/uglify/bower.js': ['./tmp/js/concat/bower.js'],
 					'./tmp/js/uglify/script.js': ['./tmp/js/concat/script.js'],
+					'./tmp/js/uglify/app/components.js': ['./tmp/js/concat/app/components.js'],
 					'./tmp/js/uglify/app/index.js': ['./tmp/js/concat/app/index.js'],
 					'./tmp/js/uglify/app/documents.js': ['./tmp/js/concat/app/documents.js'],
 					'./tmp/js/uglify/app/journal.js': ['./tmp/js/concat/app/journal.js'],

@@ -9,8 +9,8 @@ function getStructure() {
 	return placesCache.get(structureKey) || null;
 };
 
-function findRegions() {
-	var regionsKey = 'api/places/regions';
+function findRegions(search) {
+	var regionsKey = 'api/places/regions?sFind=' + search;
 	var regionsValue = placesCache.get(regionsKey);
 	
 	if(regionsValue) {
@@ -18,7 +18,9 @@ function findRegions() {
 	}
 	
 	var structureValue = getStructure();
-	return structureValue;
+	return (search == null) ?
+		structureValue:
+		arrayQuery('sName').regex(new RegExp(search, 'i')).limit(10).on(structureValue);
 };
 
 function findRegion(region) {
@@ -110,8 +112,8 @@ module.exports = {
 			return;
 		});
 	},
-	getRegions: function() {
-		var aRegion = findRegions();
+	getRegions: function(search) {
+		var aRegion = findRegions(search);
 		
 		if(aRegion == null) {
 			return null;

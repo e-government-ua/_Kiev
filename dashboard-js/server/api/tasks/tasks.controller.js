@@ -67,10 +67,23 @@ exports.getForm = function(req, res) {
   });
 };
 
+exports.uploadFile = function(req, res) {
+  var options = {
+    url: activiti.getRequestURL({
+      path: 'rest/file/upload_file_as_attachment',
+      query: {
+        taskId: req.params.taskId,
+        description: req.query.description
+      }
+    })
+  }
+
+  activiti.fileupload(req, res, options);
+}
+
 exports.getAttachments = function(req, res) {
   var options = {
     path: 'runtime/tasks/' + req.params.taskId + '/attachments'
-    //path: 'runtime/tasks/32569/attachments'
   };
 
   activiti.get(options, function(error, statusCode, result) {

@@ -1,24 +1,3 @@
-/*define('journal', ['angularAMD'], function (angularAMD) {
-    var app = angular.module('journal', []);
-
-    app.config(['$stateProvider', function ($stateProvider) {
-        $stateProvider
-            .state('journal', {
-                url: '/journal',
-                views: {
-                    '': angularAMD.route({
-                        templateProvider: ['$templateCache', function($templateCache) {
-							return $templateCache.get('html/journal/index.html');
-						}],
-						controller: 'JournalController',
-                        controllerUrl: 'state/journal/controller'
-                    })
-                }
-            })
-    }]);
-    return app;
-});*/
-
 define('journal', ['angularAMD', 'service'], function (angularAMD) {
     var app = angular.module('journal', []);
 
@@ -59,7 +38,7 @@ define('journal', ['angularAMD', 'service'], function (angularAMD) {
                             +$location.host()
                             +':'
                             +$location.port()
-                            +$state.href('journal.bankid');
+                            +$state.href('journal.bankid', {code: null});
 
                         return BankIDService.login($stateParams.code, url).then(function(data) {
                             return data.hasOwnProperty('error') ? $q.reject(null): data;
@@ -79,10 +58,8 @@ define('journal', ['angularAMD', 'service'], function (angularAMD) {
                     }],
                     journal: ['$q', '$state', 'subject', 'ServiceService', function($q, $state, subject, ServiceService) {
                         $state.nID_Subject = subject.nID;
-                        return [];
-                        /*return ServiceService.getDocuments($state.nID_Subject).then(function(data) {
-                            return data.hasOwnProperty('error') ? $q.reject(null) : data;
-                        });*/
+                        // @todo Error processing
+                        return ServiceService.getJournalEvents($state.nID_Subject);
                     }]
                 },
                 views: {

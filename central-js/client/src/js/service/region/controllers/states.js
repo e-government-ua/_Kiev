@@ -1,8 +1,21 @@
 define('state/service/region/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceRegionController', ['$state', '$rootScope', '$scope', 'PlacesService', 'ServiceService', 'service', 'regions',
-		function ($state, $rootScope, $scope, PlacesService, ServiceService, service, regions) {
+	angularAMD.controller('ServiceRegionController', [
+		'$state', '$rootScope', '$scope', 'RegionListFactory', 'PlacesService', 'ServiceService', 'service', 'regions',
+		function ($state, $rootScope, $scope, RegionListFactory, PlacesService, ServiceService, service, regions) {
 			$scope.service = service;
 			$scope.regions = regions;
+			
+			$scope.regionList = new RegionListFactory();
+			$scope.regionList.initialize(regions);
+			
+			$scope.loadRegionList = function(search) {
+				return $scope.regionList.load(service, search);
+			};
+			
+			$scope.onSelectRegionList = function($item, $model, $label) {
+				$scope.data.region = $item;
+				$scope.regionList.select($item, $model, $label);
+			};
 			
 			$scope.data = {
 				region: null,
@@ -23,6 +36,7 @@ define('state/service/region/controller', ['angularAMD'], function (angularAMD) 
 				angular.forEach(aServiceData, function(value, key) {
 					if(value.nID_Region.nID == $scope.data.region.nID) {
 						serviceType = value.nID_ServiceType;
+						$scope.serviceData = value;
 					}
 				});
 				

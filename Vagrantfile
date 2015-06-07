@@ -37,7 +37,9 @@ Vagrant.configure(2) do |config|
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network "private_network", ip: "192.168.10.10"
-  # config.hostsupdater.aliases = ["e-gov-ua.dev", "admin.e-gov-ua.dev"]
+  if Vagrant::Util::Platform.windows? == false
+    config.hostsupdater.aliases = ["e-gov-ua.dev", "admin.e-gov-ua.dev"]
+  end
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -68,7 +70,7 @@ Vagrant.configure(2) do |config|
    config.vm.provider "virtualbox" do |v, override|
 		if Vagrant::Util::Platform.windows?
 			override.vm.synced_folder ".", "/project", disabled: true
-			v.customize ["sharedfolder", "add", :id, "--name", "projectshare", "--hostpath", (("//?/" + File.dirname(__FILE__)).gsub("/","\\"))]
+			#v.customize ["sharedfolder", "add", :id, "--name", "projectshare", "--hostpath", (("//?/" + File.dirname(__FILE__)).gsub("/","\\"))]
 			v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/projectshare", "1"]
 		else
 			override.vm.synced_folder ".", "/project"
@@ -98,13 +100,13 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell, privileged: false, run: "always", path: "scripts/up_central_js.sh"
   config.vm.provision :shell, privileged: false, run: "always", path: "scripts/up_dashboard_js.sh"
 
-  config.vm.post_up_message = 
+    config.vm.post_up_message = 
 "To open grunt output, connect to vagrant 'vagrant ssh' and type 'screen -r central-js'
  or 'screen -r dashboard-js' (detach screen 'ctrl+a+d')
 ******  Application stated    *********************
 *******  You can use VHOSTS    ********************
 http(s)://e-gov-ua.dev  =>   https://192.168.10.10:8443/  
 http(s)://admin.e-gov-ua.dev  =>   http://192.168.10.10:9000/                 
-http://e-gov-ua.dev/wf-dniprorada/ =>   http://192.168.10.10:8080/wf-dniprorada/  " 
+http://e-gov-ua.dev/wf-region/ =>   http://192.168.10.10:8080/wf-region/  "
 
 end

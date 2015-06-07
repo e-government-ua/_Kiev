@@ -25,7 +25,7 @@ router.use(function(req, res, next) {
 // api/places/regions - return list of regions (w/o cities)
 router.get('/regions', function(req, res, next) {
 	var places = require('./index.controller');
-	var aRegion = places.getRegions();
+	var aRegion = places.getRegions(req.query.sFind || null);
 
 	res.send(aRegion);
 	res.end();

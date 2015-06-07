@@ -44,12 +44,13 @@ define('documents', ['angularAMD', 'service'], function(angularAMD) {
         parent: 'documents',
         resolve: {
           BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
-            var url = $location.protocol() + 
-                '://' + 
-                $location.host() + 
-                ':'+ 
-                $location.port() + 
-                $state.href('documents.bankid');
+            var url = $location.protocol()
+              + '://'
+              + $location.host()
+              + ':'
+              + $location.port()
+              + $state.href('documents.bankid', {code: null});
+
             return BankIDService.login($stateParams.code, url).then(function(data) {
               return data.hasOwnProperty('error') ? $q.reject(null) : data;
             });

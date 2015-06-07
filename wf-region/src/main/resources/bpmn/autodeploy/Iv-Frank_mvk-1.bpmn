@@ -17,7 +17,7 @@
         <activiti:formProperty id="docName" name="Назва документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
-          </extensionElements>
+      </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
       <extensionElements>
@@ -36,7 +36,7 @@
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
-На жаль змушені Вам відмовити в наданні інформації у зв'язку з недостатньою аргументацією Вашого запиту</activiti:expression>
+Нажаль змушені Вам відмовити в наданні інформації у зв'язку з недостатньою аргументацією Вашого запиту</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

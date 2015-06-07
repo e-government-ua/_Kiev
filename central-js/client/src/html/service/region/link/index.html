@@ -2,7 +2,7 @@
 	<div class="list-group-item" ng-class="{'disabled': data.region}">
 		<div class="row no-margin-bottom">
 			<div class="col-md-11 form-inline">
-				<span>Крок 1. Оберіть свій регіон </span>
+				<strong><span>Крок 1. Оберіть свій регіон </span></strong>
 				<div style="display:inline-block">
 					<span>Область</span>
 					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.sName for region in places track by region.nID" ng-disabled="data.region"></select>
@@ -17,6 +17,6 @@
 	</div>
 	<div class="list-group-item disabled" ng-if="data.region">
 		<span>Крок 2. Перейдіть за посиланням:</span>
-		<a ng-href="http://localhost/">{{service.sName}}</a>
+		<a ng-href="{{serviceData.sURL}}">{{service.sName}}</a>
 	</div>
 </div>

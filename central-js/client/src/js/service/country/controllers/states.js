@@ -1,8 +1,7 @@
 define('state/service/country/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceCountryController', ['$state', '$rootScope', '$scope', 'service', 'places',
-		function ($state, $rootScope, $scope, service, places) {
+	angularAMD.controller('ServiceCountryController', ['$state', '$rootScope', '$scope', 'service',
+		function ($state, $rootScope, $scope, service) {
 			$scope.service = service;
-			$scope.places = places;
 			
 			$scope.data = {
 				region: null,
@@ -14,6 +13,7 @@ define('state/service/country/controller', ['angularAMD'], function (angularAMD)
 				var serviceType = { nID: 0 };
 				angular.forEach(aServiceData, function(value, key) {
 					serviceType = value.nID_ServiceType;
+					$scope.serviceData = value;
 				});
 					
 				switch(serviceType.nID) {

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dashboardJsApp')
-  .factory('tasks', function tasks($http, $q) {
+  .factory('tasks', function tasks($http, $q, $rootScope, uiUploader) {
 
     return {
       filterTypes: {
@@ -242,6 +242,40 @@ angular.module('dashboardJsApp')
           deferred.reject(err);
           return cb(err);
         }.bind(this));
+
+        return deferred.promise;
+      },
+
+      upload: function(files, taskId) {
+        var deferred = $q.defer();
+
+        var self = this;
+        var scope = $rootScope.$new(true, $rootScope);
+        uiUploader.removeAll();
+        uiUploader.addFiles(files);
+        uiUploader.startUpload({
+          url: '/api/tasks/' + taskId + '/attachments',
+          concurrency: 1,
+          onProgress: function(file) {
+            scope.$apply(function() {
+
+            });
+          },
+          onCompleted: function(file, response) {
+            scope.$apply(function() {
+              try {
+                deferred.resolve({
+                  file: file,
+                  response: JSON.parse(response)
+                });
+              } catch (e) {
+                deferred.reject({
+                  err: response
+                });
+              }
+            });
+          }
+        });
 
         return deferred.promise;
       }

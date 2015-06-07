@@ -1,5 +1,5 @@
 define('places/service', ['angularAMD'], function (angularAMD) {
-    angularAMD.service('PlacesService', ['$http', function ($http) {
+    angularAMD.service('PlacesService', function ($http) {
 		
 		this.getRegions = function() {
 			return $http.get('./api/places/regions');
@@ -22,5 +22,5 @@ define('places/service', ['angularAMD'], function (angularAMD) {
 		this.getCity = function(region, city) {
 			return $http.get('./api/places/region/' + region + '/city/' + city);
 		};
-    }]);
+    });
 });
