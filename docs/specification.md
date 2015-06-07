@@ -284,7 +284,7 @@ https://test.igov.org.ua/wf-region/service/merchant/addMerchant?id=1
 https://poligon.igov.org.ua/wf-central/service/services/getDocument?nID=1
 
 **Response**
-
+```json
 {
 	"sDate_Upload":"2015-01-01",
 	"sContentType":"text/plain",
