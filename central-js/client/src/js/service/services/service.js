@@ -60,15 +60,16 @@ define('service/service', ['angularAMD'], function(angularAMD) {
       });
     };
 
-    this.shareLink = function(nID_Subject, nID_Document, sFIO, sTarget, sTelephone, sMail, nMS) {
+    this.shareLink = function(nID_Subject, nID_Document, sFIO, sTelephone, sMail) {
+      var fiveDays = 5 * 86400000;
       var data = {
         'nID_Subject': nID_Subject,
         'nID_Document': nID_Document,
         'sFIO': sFIO,
-        'sTarget': sTarget,
+        'sTarget': '',
         'sTelephone': sTelephone,
         'sMail': sMail,
-        'nMS': nMS
+        'nMS': fiveDays
       };
       return $http.get('./api/service/documents/' + nID_Document + '/share', {
         params: data,
@@ -77,30 +78,30 @@ define('service/service', ['angularAMD'], function(angularAMD) {
         return response.data;
       });
     };
-    
-    this.initialUpload = function(accessToken, nID_Subject, sID_Subject) {
-		var data = {
-			'access_token': accessToken,
-			'nID_Subject': nID_Subject,
-			'sID_Subject': sID_Subject
-		};
-		return $http.post('./api/service/documents/initialupload', {}, {
-			params: data
-		}).then(function(response) {
-			return response.data;
-		});
-	};
 
-      this.getJournalEvents = function(nID_Subject) {
-          var data = {
-              'nID_Subject': nID_Subject
-          };
-          return $http.get('./api/service/journal', {
-              params: data,
-              data: data
-          }).then(function(response) {
-              return response.data;
-          });
+    this.initialUpload = function(accessToken, nID_Subject, sID_Subject) {
+      var data = {
+        'access_token': accessToken,
+        'nID_Subject': nID_Subject,
+        'sID_Subject': sID_Subject
       };
+      return $http.post('./api/service/documents/initialupload', {}, {
+        params: data
+      }).then(function(response) {
+        return response.data;
+      });
+    };
+
+    this.getJournalEvents = function(nID_Subject) {
+      var data = {
+        'nID_Subject': nID_Subject
+      };
+      return $http.get('./api/service/journal', {
+        params: data,
+        data: data
+      }).then(function(response) {
+        return response.data;
+      });
+    };
   });
 });

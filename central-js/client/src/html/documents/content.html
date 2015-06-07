@@ -79,13 +79,18 @@
                 </td>
                 <td>
                     <a href="/api/service/documents/download/{{doc.nID}}"
-                       target="_blank"><span class="glyphicon glyphicon-duplicate"
-                                             aria-hidden="true"></span></a>
+                       target="_blank">
+                        <span class="glyphicon glyphicon-duplicate"
+                              title="Завантажити копію"
+                              aria-hidden="true"></span></a>
                     <a href="#accordion{{doc.nID}}"
                        data-parent="#accordion"
                        data-toggle="collapse"
-                       class="accordion-toggle"><span class="glyphicon glyphicon-link"
-                                                      aria-hidden="true"></span></a>
+                       class="accordion-toggle">
+                        <span class="glyphicon glyphicon-link"
+                              title="Надати доступ третій особі"
+                              aria-hidden="true"></span>
+                    </a>
                 </td>
             </tr>
 
@@ -104,30 +109,22 @@
 
                         <div class="panel panel-default">
                             <form role="form"
-                                  ng-submit="shareLink(doc, sFIO, sTarget, sTelephone, sMail, nDays)">
+                                  ng-submit="shareLink(doc, sFIO, sTelephone, sMail)">
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="name">Введіть ПІБ персони, якій надається доступ:</label>
+                                        <label for="name">Введіть ім’я та прізвище людині, якій Ви надаєте
+                                                          доступ</label>
                                         <input type="text"
                                                required
                                                ng-model="sFIO"
                                                class="form-control"
                                                id="name">
                                     </div>
-
-                                    <div class="form-group col-md-10">
-                                        <label for="purpose">Введіть для яких цілей Ви надаєте доступ до цього
-                                                             документу:</label>
-                                        <textarea class="form-control"
-                                                  required
-                                                  ng-model="sTarget"
-                                                  id="purpose"></textarea>
-                                    </div>
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="phone">Введіть номер телефону, через який ця людина
-                                                           верифікується:</label>
+                                    <div class="form-group col-md-4">
+                                        <label for="phone">Введіть номер її мобільного телефону (через нього вона
+                                                           веріфікується через SMS)</label>
                                         <input type="text"
                                                required
                                                ng-model="sTelephone"
@@ -137,9 +134,9 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="email">Введіть електронну пошту, через яку ця людина
-                                                           верифікується:</label>
+                                                           верифікується</label>
                                         <input type="text"
                                                ng-model="sMail"
                                                class="form-control"
@@ -148,16 +145,9 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-group col-md-2">
-                                        <label for="valid-days">Введіть строк дії доступу:</label>
-                                        <select class="form-control"
-                                                required
-                                                ng-model="nDays"
-                                                ng-options="item.day as item.title for item in nDaysOptions"
-                                                id="valid-days">
-                                        </select>
-                                    </div>
+                                    <p>Доступ триватиме 5 днів</p>
                                 </div>
+
                                 <div class="submit-button">
                                     <button type="submit"
                                             class="btn btn-primary">Надіслати посилання
@@ -177,11 +167,14 @@
 
 <script type="text/ng-template"
         id="urlmodal.html">
-    <div class="modal-header">
-        <h3 class="modal-title">Доступ надано</h3>
-    </div>
     <div class="modal-body">
-        Посилання: <b>{{url}}</b>
+        <div class="form-group col-md-6">
+            <label for="link">Посилання, за яким користувач може отримати доступ (через SMS-пароль)</label>
+            <input type="text"
+                   ng-model="{{url}}"
+                   class="form-control"
+                   id="link">
+        </div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary"
