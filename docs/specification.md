@@ -301,7 +301,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getDocument?nID=1
 	"oSubject_Upload":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк", "sLabelShort":"ПриватБанк"},
 	 "oSubject":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк","sLabelShort":"ПриватБанк"}
  }
-
+```
 
 
 ----------------------------------------------------------------------------------------------------------------------------
@@ -379,7 +379,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getDocuments?nID_Subject
 	 "oSubject":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк","sLabelShort":"ПриватБанк"}
          }
 ]
-
+```
  ---------------------------------------------------------------------------------------------------------------------------
 
 **HTTP Metod: POST**
@@ -445,6 +445,15 @@ https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?sOKPO=123
 
 https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 
+**Response**
+```json
+{
+	"nID":150,
+	"sID":"34125265377",
+	"sLabel":null,
+	"sLabelShort":null
+}
+```
 --------------------------------------------------------------------------------------------------------------------------
 
 #### 11. Предоставление и проверка доступа к документам
