@@ -9,6 +9,9 @@ define('state/journal/controller', ['angularAMD'], function (angularAMD) {
 		console.log('$rootScope');
 		console.log('JournalController');
         console.log($state.current);
+		if ($state.is('journal')) {
+			return $state.go('journal.bankid');
+		}
         if ($state.is('journal.bankid') && !!$state.params.code) {
             console.log('journal.content');
             $window.location.href = $location.protocol()

@@ -1,5 +1,8 @@
 define('state/documents/controller', ['angularAMD'], function(angularAMD) {
   angularAMD.controller('DocumentsController', function($state, $window, $location) {
+    if ($state.is('documents')) {
+	  return $state.go('documents.bankid');
+	}
     if ($state.is('documents.bankid') && !!$state.params.code) {
       $window.location.href = $location.protocol()
         + '://'
