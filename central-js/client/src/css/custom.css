@@ -405,7 +405,7 @@ a {
 .icon-e-service-on {
     vertical-align: middle;
     display: inline-block;
-    background-image: url(/img/icons/e-icon_on.png);
+    background-image: url(/img/icons/e-icon_on_s.png);
     background-repeat: no-repeat !important;
     background-position: 0px 0px;
     width: 16px;
@@ -417,7 +417,7 @@ a {
 .icon-e-service-off {
     vertical-align: middle;
     display: inline-block;
-    background-image: url(/img/icons/e-icon_off.png);
+    background-image: url(/img/icons/e-icon_off_s.png);
     
     background-repeat: no-repeat !important;
     background-position: 0px 0px;
