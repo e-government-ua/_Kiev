@@ -84,19 +84,19 @@ public class MailTaskWithAttachments implements JavaDelegate {
 		List<Attachment> attachmentList = new ArrayList<>();
 		String[] attachmentIds = sAttachments.split(",");
 
-		List<Attachment> porcessInstanceAttachments = execution.getEngineServices().getTaskService()
-				.getProcessInstanceAttachments(execution.getProcessInstanceId());
-		Map<String, Attachment> map = new HashMap<>();
-		for(Attachment item: porcessInstanceAttachments){
-			map.put(item.getId(), item);
-		}
+//		List<Attachment> porcessInstanceAttachments = execution.getEngineServices().getTaskService()
+//				.getProcessInstanceAttachments(execution.getProcessInstanceId());
+//		Map<String, Attachment> map = new HashMap<>();
+//		for(Attachment item: porcessInstanceAttachments){
+//			map.put(item.getId(), item);
+//		}
 
-		execution.getEngineServices().getIdentityService().setAuthenticatedUserId("kermit");
-		log.info("attachmentsFROM PROCESS ="+map.keySet());
+//		log.info("attachmentsFROM PROCESS ="+map.keySet());
 		for (String attachmentId : attachmentIds) {
                         log.info("attachmentId="+attachmentId);
-
-			Attachment attachment = map.get(attachmentId);
+			String attachmentIdTrimmed = attachmentId.replaceAll("^\"|\"$", "");
+			log.info("attachmentIdTrimmed= " + attachmentIdTrimmed);
+			Attachment attachment = taskService.getAttachment(attachmentIdTrimmed);
 
 			if (attachment != null) {
 				attachmentList.add(attachment);
