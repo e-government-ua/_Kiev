@@ -2,7 +2,9 @@ package org.wf.dp.dniprorada.engine.task;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.activation.DataSource;
 
@@ -81,18 +83,13 @@ public class MailTaskWithAttachments implements JavaDelegate {
                 log.info("sAttachments="+sAttachments);
 		List<Attachment> attachmentList = new ArrayList<>();
 		String[] attachmentIds = sAttachments.split(",");
+
 		for (String attachmentId : attachmentIds) {
                         log.info("attachmentId="+attachmentId);
+			String attachmentIdTrimmed = attachmentId.replaceAll("^\"|\"$", "");
+			log.info("attachmentIdTrimmed= " + attachmentIdTrimmed);
+			Attachment attachment = taskService.getAttachment(attachmentIdTrimmed);
 
-			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-			ManagementService managementService = processEngine.getManagementService();
-                    
-			Attachment attachment = taskService.getAttachment(attachmentId);
-			long id = taskService.createNativeTaskQuery().sql("SELECT ID_ from " + managementService.getTableName(Attachment.class)
-			 + "T1 WHERE T1.ID_ = " + attachmentId).count();
-			log.info("id: " + id);
-
-//			log.info("attachmentId.getId()= "+attachment.getId());
 			if (attachment != null) {
 				attachmentList.add(attachment);
 			}
