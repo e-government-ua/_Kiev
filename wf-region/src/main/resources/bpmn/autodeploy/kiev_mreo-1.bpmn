@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="kiev_mreo_1" name="Реєстрація авто з пробігом в МРЕВ" isExecutable="true">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="kiev_mreo_1" name="Киев - Реєстрація авто з пробігом в МРЕВ" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -10,7 +10,6 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string"></activiti:formProperty>
         <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Відправляючи звернення Ви підтверджуєете достовірність зазначених персональних данних"></activiti:formProperty>
@@ -24,13 +23,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>admin@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Реєстрація авто</activiti:string>
+          <activiti:string><![CDATA[Реєстрація авто]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
@@ -54,14 +53,13 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="billToPay" name="Завантажте бланк квитанції для відправки громадянину" type="file"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Результат перевірки наявності обтяжень" type="enum" required="true">
           <activiti:value id="accept" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"></activiti:value>
           <activiti:value id="reject" name="Знайдені обтяження.  Відмовити громадянину в наданні послуги."></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Коментарі" type="textArea" default="В разі відмови в наданні послуги,  вкажіть причину. В разі надання послуги, вкажіть час/дату, коли  авто може пройти огляд" required="true"></activiti:formProperty>
+        <activiti:formProperty id="billToPay" name="Завантажте бланк квитанції для відправки громадянину в разі надання послуги" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -77,13 +75,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>admin@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Реєстрація авто</activiti:string>
+          <activiti:string><![CDATA[Реєстрація авто]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
@@ -107,7 +105,6 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Час / дата проходження огляду авто" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат огляду авто " type="enum" required="true">
           <activiti:value id="accept2" name="Перевірка успішна. "></activiti:value>
@@ -119,16 +116,20 @@
     <serviceTask id="servicetask2" name="Повідомлення громадянина про дату і час візиту" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>admin@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Реєстрація авто</activiti:string>
+          <activiti:string><![CDATA[Реєстрація авто]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), "${bankIdfirstName}" "${bankIdmiddleName}".</activiti:expression>
+          <activiti:expression>Шановний(-а), "${bankIdfirstName}" "${bankIdmiddleName}".
+
+Для отримання посгули Вам необхідно сплатити державний збір і  надати квитанцію про сплату перед тех.оглядом Вашого авто.
+
+Разунок для сплати знаходиться в додатку до цього листа.</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${billToPay}"</activiti:expression>
@@ -144,9 +145,8 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Час / дата проходження огляду авто" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="resAuto" name="Результат огляду авто " type="string" variable="${accept2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="resAuto" name="Результат огляду авто " type="string" default="Перевірка успішна. " writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide3" name="Результат перевірки оригіналів документів" type="enum" required="true">
           <activiti:value id="accept3" name="Документи надані в повному обсязі. Зауважень немає"></activiti:value>
           <activiti:value id="reject3" name="Перевірка документів незадовільна"></activiti:value>
@@ -180,10 +180,9 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Час / дата проходження огляду авто" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="resAuto" name="Результат огляду авто " type="string" variable="accept2" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="resDocs" name="Результат перевірки оригіналів документів" type="string" default="${accept3}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="resAuto" name="Результат огляду авто " type="string" default="Перевірка успішна. " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="resDocs" name="Результат перевірки оригіналів документів" type="string" default="Документи надані в повному обсязі. Зауважень немає" writable="false"></activiti:formProperty>
         <activiti:formProperty id="printedAutoGovNumber" name="Вкажіть роздрукований держ.номер" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
@@ -317,7 +316,7 @@
         <omgdi:waypoint x="710.0" y="607.0"></omgdi:waypoint>
         <omgdi:waypoint x="826.0" y="607.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="720.0" y="607.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
@@ -325,7 +324,7 @@
         <omgdi:waypoint x="689.0" y="697.0"></omgdi:waypoint>
         <omgdi:waypoint x="561.0" y="697.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="-35.0" y="3.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="655.0" y="630.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">

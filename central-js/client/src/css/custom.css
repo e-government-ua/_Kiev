@@ -524,7 +524,7 @@ a {
 }
 
 .ctrls-admin {
-    display: none;
+    display: inline;
 }
 
 .glyphicon-plus {
@@ -559,8 +559,9 @@ a {
     left: 0px;
 }
 
-#admin-swch {
+#ctrls-swch {
     text-decoration: none;
+    color: white;
 }
 
 a.pluso-more {
@@ -603,4 +604,8 @@ label .snippet {
 
 .link-modal {
     padding-top: 15px;
+}
+
+.error {
+    color: red;
 }
