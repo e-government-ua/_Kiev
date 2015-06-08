@@ -136,10 +136,9 @@ define('service/service', ['angularAMD'], function(angularAMD) {
 				typesToUpload.push(docTypes.passport);					
 			}
 			
-			// don't use for now. Back should have service for recieving multiple files
-			// if(alreadyUploadedTypes.filter(zpassportFilter).length === 0){
-			// 	typesToUpload.push(docTypes.zpassport);
-			// }
+			if(alreadyUploadedTypes.filter(zpassportFilter).length === 0){
+				typesToUpload.push(docTypes.zpassport);
+			}
 
 			if (typesToUpload.length > 0) {
 				return initialUpload(accessToken,
@@ -148,7 +147,7 @@ define('service/service', ['angularAMD'], function(angularAMD) {
 						typesToUpload)
 					.then(function(uploadingResult) {
 						if (!uploadingResult.hasOwnProperty('error')) {
-							return getDocuments($state.nID_Subject).then(function(updatedData) {
+							return getDocuments(nID_Subject).then(function(updatedData) {
 								return updatedData.hasOwnProperty('error') ? $q.reject(null) : updatedData;
 							});
 						} else {

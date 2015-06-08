@@ -3,6 +3,7 @@ var account = require('../bankid/account.controller');
 var _ = require('lodash');
 var FormData = require('form-data');
 var async = require('async');
+var StringDecoder = require('string_decoder').StringDecoder;
 
 module.exports.shareDocument = function(req, res) {
     var params = {
@@ -137,12 +138,17 @@ module.exports.initialUpload = function(req, res) {
                                         headers: form.getHeaders()
                                     });
 
+                                var decoder = new StringDecoder('utf8');
                                 var result = {};
                                 form.pipe(request.post(requestOptionsForUploadContent))
                                     .on('response', function(response) {
                                         result.statusCode = response.statusCode;
                                     }).on('data', function(chunk) {
-                                        result.body += chunk;
+                                        if (result.body) {
+                                            result.body += decoder.write(chunk);
+                                        } else {
+                                            result.body = decoder.write(chunk);
+                                        }
                                     }).on('end', function() {
                                         callback(result);
                                     });
