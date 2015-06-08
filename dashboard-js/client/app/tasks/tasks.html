@@ -46,7 +46,7 @@
                     ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues"
                     ng-required="item.required" ng-model="item.value"></select>
           </p>
-          <p ng-if="item.type == 'file'">
+          <p ng-if="item.type == 'file' && !isFormPropertyDisabled(item)">
             <label>{{sFieldLabel(item.name)}}</label>
             <file-field name="{{item.id}}" ng-disabled="isFormPropertyDisabled(item)" ng-model="item.value" ng-required="property.required">Add File</file-field>
           </p>
