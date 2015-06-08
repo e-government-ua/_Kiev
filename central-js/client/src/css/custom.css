@@ -559,8 +559,9 @@ a {
     left: 0px;
 }
 
-#admin-swch {
+#ctrls-swch {
     text-decoration: none;
+    color: white;
 }
 
 a.pluso-more {
