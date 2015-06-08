@@ -524,7 +524,7 @@ a {
 }
 
 .ctrls-admin {
-    display: none;
+    display: inline;
 }
 
 .glyphicon-plus {
