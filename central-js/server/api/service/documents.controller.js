@@ -2,6 +2,7 @@ var request = require('request');
 var account = require('../bankid/account.controller');
 var _ = require('lodash');
 var FormData = require('form-data');
+var async = require('async');
 
 module.exports.shareDocument = function(req, res) {
     var params = {
@@ -117,7 +118,8 @@ module.exports.initialUpload = function(req, res) {
                     var customer = result.customer;
                     if (customer.scans && customer.scans.length > 0) {
                         var scans = customer.scans;
-                        optionsForUploadContentList.forEach(function(optionsForUploadContent) {
+
+                        async.forEach(optionsForUploadContentList, function(optionsForUploadContent, callback) {
                             var results = scans.filter(optionsForUploadContent.scanFilter);
                             if (results.length === 1) {
                                 var documentScan = results[0];
@@ -135,9 +137,19 @@ module.exports.initialUpload = function(req, res) {
                                         headers: form.getHeaders()
                                     });
 
+                                var result = {};
                                 form.pipe(request.post(requestOptionsForUploadContent))
-                                    .pipe(res);
+                                    .on('response', function(response) {
+                                        result.statusCode = response.statusCode;
+                                    }).on('data', function(chunk) {
+                                        result.body += chunk;
+                                    }).on('end', function() {
+                                        callback(result);
+                                    });
                             }
+                        }, function(result) {
+                            res.send(result);
+                            res.end();
                         });
                     }
                 }
