@@ -10,7 +10,6 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string"></activiti:formProperty>
         <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Відправляючи звернення Ви підтверджуєете достовірність зазначених персональних данних"></activiti:formProperty>
@@ -54,7 +53,6 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Результат перевірки наявності обтяжень" type="enum" required="true">
           <activiti:value id="accept" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"></activiti:value>
@@ -107,7 +105,6 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Час / дата проходження огляду авто" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат огляду авто " type="enum" required="true">
           <activiti:value id="accept2" name="Перевірка успішна. "></activiti:value>
@@ -148,7 +145,6 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Час / дата проходження огляду авто" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="resAuto" name="Результат огляду авто " type="string" default="Перевірка успішна. " writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide3" name="Результат перевірки оригіналів документів" type="enum" required="true">
@@ -184,7 +180,6 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Час / дата проходження огляду авто" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="resAuto" name="Результат огляду авто " type="string" default="Перевірка успішна. " writable="false"></activiti:formProperty>
         <activiti:formProperty id="resDocs" name="Результат перевірки оригіналів документів" type="string" default="Документи надані в повному обсязі. Зауважень немає" writable="false"></activiti:formProperty>
