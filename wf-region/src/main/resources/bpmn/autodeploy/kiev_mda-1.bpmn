@@ -29,10 +29,10 @@
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false" required="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false" required="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false" required="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAdress" name="Адреса реєстрації" type="string" writable="false" required=false></activiti:formProperty>
+        <activiti:formProperty id="bankIdAdress" name="Адреса реєстрації" type="string" writable="false" required="false"></activiti:formProperty>
         <activiti:formProperty id="objName" name="назва об’єкту для присвоєння поштової адреси" type="string" writable="false" required="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження об’єкта для присвоєння поштової адреси" type="string" writable="false" required="false"></activiti:formProperty>
-        <activiti:formProperty id="objActivity" name="вид діяльності згідно з КВЕД" type="string" writable="false" required="false"></activiti:formProperty>
+        <activiti:formProperty id="objActivity" name="вид діяльності згідно з КВЕД" type="string" writable="false" required="true"></activiti:formProperty>
 		<activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
