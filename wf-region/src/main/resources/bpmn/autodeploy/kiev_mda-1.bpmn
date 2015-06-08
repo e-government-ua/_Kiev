@@ -32,7 +32,7 @@
         <activiti:formProperty id="bankIdAdress" name="Адреса реєстрації" type="string" writable="false" required="false"></activiti:formProperty>
         <activiti:formProperty id="objName" name="назва об’єкту для присвоєння поштової адреси" type="string" writable="false" required="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження об’єкта для присвоєння поштової адреси" type="string" writable="false" required="false"></activiti:formProperty>
-        <activiti:formProperty id="objActivity" name="вид діяльності згідно з КВЕД" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objActivity" name="вид діяльності згідно з КВЕД" type="string" writable="false" required="false"></activiti:formProperty>
 		<activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
@@ -56,7 +56,8 @@
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Inn" name="ІПН; власника (землекористувача) земельної ділянки або уповноваженої ним особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження земельної ділянки" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="regChanged" name="Документи готові?" type="enum" required="true">
+        <activiti:formProperty id="objActivity" name="вид діяльності згідно з КВЕД" type="string" writable="false" required="false"></activiti:formProperty>
+		<activiti:formProperty id="regChanged" name="Документи готові?" type="enum" required="true">
           <activiti:value id="yes" name="Так, готові"></activiti:value>
         </activiti:formProperty>
       </extensionElements>
