@@ -56,12 +56,12 @@
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="fio" name="ПІБ довіреної особи; тільки для юридичних осіб" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="billToPay" name="Завантажте бланк квитанції для відправки громадянину" type="file"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Результат перевірки наявності обтяжень" type="enum" required="true">
           <activiti:value id="accept" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"></activiti:value>
           <activiti:value id="reject" name="Знайдені обтяження.  Відмовити громадянину в наданні послуги."></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Коментарі" type="textArea" default="В разі відмови в наданні послуги,  вкажіть причину. В разі надання послуги, вкажіть час/дату, коли  авто може пройти огляд" required="true"></activiti:formProperty>
+        <activiti:formProperty id="billToPay" name="Завантажте бланк квитанції для відправки громадянину в разі надання послуги" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
