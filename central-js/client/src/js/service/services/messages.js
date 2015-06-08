@@ -1,6 +1,6 @@
 define('messages/service', ['angularAMD'], function (angularAMD) {
 	angularAMD.service('MessagesService', ['$http', function($http) {
-		this.setMessage = function(message) {
+		this.setMessage = function(message, userMessage) {
 			var data = {
                 "sMail": message.sMail,
                 "sHead": message.sHead,
@@ -9,8 +9,7 @@ define('messages/service', ['angularAMD'], function (angularAMD) {
 
             return $http.post('./api/messages', data).then(function(response) {
                 // @todo Better notification and error processing.
-                //alert('Message was sent');
-                alert('Сообщение отправлено, спасибо!');
+                alert(userMessage);
 				return response.data;
 			});
 		};

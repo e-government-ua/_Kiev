@@ -107,10 +107,20 @@ define('state/service/city/absent/controller', ['angularAMD'], function (angular
 
             // %Населенный пункт% – %Название услуги%
             $scope.absentMessage = {
-                email: "Ваш email"
+                email: "",
+				showErrors: false
             };
 
-            $scope.sendAbsentMessage = function (absentMessage) {
+			$scope.emailKeydown = function () {
+				$scope.absentMessage.showErrors = false;
+			};
+
+            $scope.sendAbsentMessage = function (absentMessageForm, absentMessage) {
+
+				if (false === absentMessageForm.$valid) {
+					$scope.absentMessage.showErrors = true;
+					return false;
+				}
 
                 // @todo Fix hardcoded city name, we should pass it into state
                 var data = {
@@ -118,7 +128,7 @@ define('state/service/city/absent/controller', ['angularAMD'], function (angular
                     sHead: "Закликаю владу перевести цю послугу в електронну форму!",
                     sBody: $scope.$parent.$parent.data.city.sName + " - " + service.sName
                 };
-                MessagesService.setMessage(data);
+                MessagesService.setMessage(data, 'Дякуємо! Ви будете поінформовані, коли ця послуга буде доступна через Інтернет');
             }
 	    }
     ]);
