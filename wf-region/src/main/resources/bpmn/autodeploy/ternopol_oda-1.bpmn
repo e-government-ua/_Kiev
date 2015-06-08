@@ -193,10 +193,6 @@
         <activiti:formProperty id="param26" name="Уповноважений банк" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param27" name="Підстава для оформлення ліцензії" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param28" name="Особливі умови " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="text4" name="Додатки" type="label" default="  "></activiti:formProperty>
-        <activiti:formProperty id="file1" name="копії контракту, специфікацій, додатків й інших документів, які є невід’ємними частинами контракту; Документи повинні бути в форматі PDF і мати ЕЦП керівника підприємства. Якщо документів  декілька, вони можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="копія виписки або витягу з Єдиного державного реєстру юридичних осіб та фізичних осіб; файл в форматі PDF повинен бути підписаний через ЕЦП" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="копія сертифікату про походження товару або експертний висновок з визначенням країни походження та коду товару відповідно до УКТ ЗЕД (подаються тільки для одержання ліцензій на експорт товарів). Зазначені документи видаються Тернопільською торгово-промисловою" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="dateView1" name="Бажана дата отримання ліцензії" type="date" default="${dateView}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide2" name=" Резудбтат перевірки документів" type="enum" required="true">
           <activiti:value id="accept2" name="Ухвалити оформлення ліцензії"></activiti:value>
