@@ -40,7 +40,8 @@
 		<jaxb2-maven-plugin.version>1.5</jaxb2-maven-plugin.version>
 		<redis.version>2.4.0</redis.version>
 		<tomcat-jdbc.version>7.0.39</tomcat-jdbc.version>
-		<h2.database.version>1.3.172</h2.database.version>
+		<h2.database.version>1.3.176</h2.database.version>
+		<postgresql.version>9.4-1201-jdbc41</postgresql.version>
 		<springframework.version>4.0.6.RELEASE</springframework.version>
 		<cglib.version>2.2.2</cglib.version>
 		<commons.codec.version>1.8</commons.codec.version>
@@ -186,6 +187,13 @@
 				<version>${h2.database.version}</version>
 				<type>jar</type>
 			</dependency>
+
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>${postgresql.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>

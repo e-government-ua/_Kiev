@@ -61,7 +61,9 @@
 
     <beans>
 
-        <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
+        <import resource="db-context.xml"/>
+
+        <bean id="central_liquibase" class="liquibase.integration.spring.SpringLiquibase">
             <property name="dataSource" ref="dataSource"/>
             <property name="changeLog" value="classpath:liquibase/db.changelog-master.xml"/>
         </bean>
@@ -134,35 +136,6 @@
             <aop:advisor pointcut-ref="dao" advice-ref="txAdvice"/>
             <aop:advisor pointcut-ref="dao.services" advice-ref="txAdvice"/>
         </aop:config>
-
-        <bean id="dataSource"
-              class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-            <property name="driverClass" value="${jdbc.driver}"/>
-            <property name="url" value="${jdbc.url}"/>
-            <property name="username" value="${jdbc.username}"/>
-            <property name="password" value="${jdbc.password}"/>
-        </bean>
-
-        <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-            <property name="dataSource" ref="dataSource"/>
-            <property name="packagesToScan">
-                <array>
-                    <value>org.wf.dp.dniprorada.model</value>
-                </array>
-            </property>
-
-            <property name="hibernateProperties">
-                <props>
-                    <prop key="hibernate.dialect">${hibernate.dialect}</prop>
-                    <prop key="hibernate.globally_quoted_identifiers">${hibernate.globally_quoted_identifiers}</prop>
-                </props>
-            </property>
-        </bean>
-
-        <bean id="transactionManager"
-              class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-            <property name="sessionFactory" ref="sessionFactory"/>
-        </bean>
 
         <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
             <property name="dataSource" ref="dataSource"/>
