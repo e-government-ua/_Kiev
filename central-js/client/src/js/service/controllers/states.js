@@ -37,9 +37,11 @@ define('state/service/general/controller', ['angularAMD'], function (angularAMD)
 
 
 define('state/service/instruction/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceInstructionController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
+	angularAMD.controller('ServiceInstructionController', ['$state', '$rootScope', '$scope', 'service', 'hiddenCtrls', function ($state, $rootScope, $scope, service, hiddenCtrls) {
 		$scope.service = service;
 		return $state.go('service.instruction', {id: service.nID, service: service}, { location: false });
+                
+                $scope.hiddenCtrls = hiddenCtrls;
     }]);
 });
 
