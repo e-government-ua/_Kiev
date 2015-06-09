@@ -16,3 +16,4 @@ nID;sName;sID;nID_Category;nOrder
 15;Реєстраційни дані;RegistrationsOrg;2;15
 16;Товари та послуги;GoodsServices;2;16
 17;Транспорт;Transports;2;17
+18;Бази даних;DB;1;18
