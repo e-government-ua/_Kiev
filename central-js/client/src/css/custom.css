@@ -559,6 +559,18 @@ a {
     left: 0px;
 }
 
+.ctrls-srvc-edit {
+    color: #b8a927;
+}
+
+.ctrls-srvc-save {
+    color: green;
+}
+
+.ctrls-srvc-cancel {
+    color: #ff8080;
+}
+
 #ctrls-swch {
     text-decoration: none;
     color: white;
