@@ -215,7 +215,7 @@
             <column name="nID" type="int">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="sName" type="varchar(500)">
+            <column name="sName" type="varchar(1000)">
                 <constraints nullable="false"/>
             </column>
             <column name="nOrder" type="int">
