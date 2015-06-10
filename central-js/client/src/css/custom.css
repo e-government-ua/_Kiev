@@ -563,7 +563,7 @@ a {
     color: #b8a927;
 }
 
-.ctrls-srvc-save {
+.ctrls-srvc-save, .ctrls-srvc-activate {
     color: green;
 }
 
