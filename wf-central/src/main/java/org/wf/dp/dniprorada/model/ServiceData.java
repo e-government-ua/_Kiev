@@ -59,14 +59,10 @@ public class ServiceData extends Entity {
 	private boolean bTest;
 	
         
-        
-	public boolean isTest() {
-		return bTest;
-	}
+	@JsonProperty(value = "sNote")
+	@Column(name = "sNote", nullable = false)
+	private String sNote;
 
-	public void setTest(boolean b) {
-		this.bTest = b;
-	}
         
         
 	public Service getService() {
@@ -125,6 +121,24 @@ public class ServiceData extends Entity {
 		this.hidden = b;
 	}
 
+
+	public boolean isTest() {
+		return bTest;
+	}
+
+	public void setTest(boolean b) {
+		this.bTest = b;
+	}
+        
+
+	public String getNote() {
+		return sNote;
+	}
+
+	public void setNote(String s) {
+		this.sNote = s;
+	}
+        
         /*@Override
         public boolean equals(Object o) {
             return super.equals(o); //To change body of generated methods, choose Tools | Templates.
