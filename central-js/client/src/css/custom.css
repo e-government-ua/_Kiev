@@ -576,11 +576,15 @@ a {
     color: #b8a927;
 }
 
-.ctrls-srvc-save, .ctrls-srvc-activate {
+.ctrls-srvc-save, .ctrls-srvc-add {
     color: green;
 }
 
-.ctrls-srvc-cancel {
+.ctrls-srvc-add {
+    color: #b8a927;
+}
+
+.ctrls-srvc-cancel, .ctrls-srvc-remove {
     color: #ff8080;
 }
 
