@@ -573,7 +573,7 @@ a {
 
 .ctrls-srvc-activate {
     color: green;
-    margin-right: 8px;
+    margin-left: 8px;
 }
 
 .ctrls-srvc-change {
@@ -583,6 +583,14 @@ a {
 .ctrls-srvc-deactivate {
     color: #ff8080;
     margin-right: 8px;
+}
+
+.ctrls-block {
+    display: block;
+}
+
+.ctrls-line {
+    margin-top: 5px;
 }
 
 #ctrls-swch {
