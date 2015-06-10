@@ -73,10 +73,8 @@
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="resident" name="Громадянство" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="text1" name="Якщо змінювались  прізвище, ім'я та по-батькові - вкажіть попередні" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="text4" name="Додаткова інформація" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання паспорту" type="enum" writable="false">
           <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки(піклування), створення прийомної сім'ї або дитячого будинку"></activiti:value>
           <activiti:value id="attr2" name="Оформлення візи для виїзду за кордон"></activiti:value>
@@ -90,13 +88,12 @@
           <activiti:value id="attr10" name="Для участі в тендері"></activiti:value>
           <activiti:value id="attr11" name="Інша"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="text3" name="Контактні данні" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Результат обробки звернення" type="enum" required="true">
           <activiti:value id="accept" name="Сповістити громадянина, що довідка підготовлена до надання"></activiti:value>
           <activiti:value id="reject" name="Сповістити громадянина, що довідка не може бути надана"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment" name="Комментарі" type="textArea" default="Зазначте де і кои громадянин зможе отримати довідку (час/дата/адреса). В разі  неможливості надання послуги вкажіть причину." required="true"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="Комментарі" type="textArea" default="Де і коли громадянин зможе отримати довідку (час/дата/адреса)?  В разі  неможливості надання послуги вкажіть причину." required="true"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
