@@ -11,6 +11,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 
 /**
  * User: goodg_000
@@ -55,10 +56,26 @@ public class Service extends Entity {
    @Column(name = "sSubjectOperatorName", nullable = false)
    private String sSubjectOperatorName;
    
-   
+    @JsonProperty(value = "bTest")
+    @Column(name = "bTest", nullable = false)
+    private boolean bTest;
+
+
+    public boolean isTest() {
+            return bTest;
+    }
+
+    public void setTest(boolean b) {
+            this.bTest = b;
+    }
+
    
    @Transient
    private int sub = 0;
+   
+   @Transient
+   private int nStatus = 0;
+   
 
    public String getName() {
       return name;
@@ -87,7 +104,14 @@ public class Service extends Entity {
       sub = n;
    }
 
-    
+   @JsonProperty(value = "nStatus")
+   public int getStatus() {
+      return nStatus;
+   }
+   public void setStatus(int n) {
+      nStatus = n;
+   }
+   
    public Integer getOrder() {
       return order;
    }
@@ -108,15 +132,43 @@ public class Service extends Entity {
          return null;
       }
 
+      boolean bTest = new GeneralConfig().bTest();
       List<ServiceData> res = new ArrayList<>();
       for (ServiceData oServiceData : serviceDataList) {
-         if (!oServiceData.isHidden()) {
+         if (!oServiceData.isHidden()&&(bTest||!oServiceData.isTest())) {
             res.add(oServiceData);
          }
       }
       return res;
    }
 
+   //0 - none
+   //1 - test
+   //2 - prod
+   @JsonGetter("nID_Status")
+   public int getStatusID() {
+      if (serviceDataList == null) {
+         return 0;
+      }
+       
+      if(getSub()==0){
+        for (ServiceData oServiceData : serviceDataList) {
+           if (oServiceData.isTest()&&!oServiceData.isHidden()) {
+              return 1;
+           }
+        }
+        return 0;
+      }else{
+        for (ServiceData oServiceData : serviceDataList) {
+           if (!oServiceData.isTest()&&!oServiceData.isHidden()) {
+              return 2;
+           }
+        }
+        return 1;
+      }
+   }
+   
+   
    @JsonIgnore
    public List<ServiceData> getServiceDataList() {
       return serviceDataList;
