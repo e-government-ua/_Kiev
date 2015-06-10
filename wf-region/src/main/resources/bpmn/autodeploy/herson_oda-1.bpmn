@@ -7,16 +7,15 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Поштова адреса" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPhone" name="Телефон" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; на цей e-mail Ви отримаєте результат обробки Вашего звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="requestData" name="Вкажіть загальний опис запитуваної інформації або вид, назва,реквізити чи зміст документа" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="resultWay" name="Спосіб отримання відповіді" type="enum" required="true">
           <activiti:value id="На електронну адресу" name="На електронну адресу"></activiti:value>
           <activiti:value id="На поштову адресу" name="На поштову адресу"></activiti:value>
-          <activiti:value id="Телефаксом" name="Телефаксом"></activiti:value>
           <activiti:value id="За телефоном" name="За телефоном"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="resInfo" name="Данні для надання відповіді відповідно обраного вище способу; номер телефону /e-mail / факс / поштова адреса" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="warningMessage" name="Увага!" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних."></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -38,7 +37,13 @@
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
 Ваш запит на отримання публічної інформації успішно зареєстровано.
-Ви отримаєте відповідь протягом десяти діб.</activiti:expression>
+Ви отримаєте відповідь у визначений законодавством термін.
+
+Згідно Статті 20 Закону України "Про доступ до публічної інформації":
+1. Розпорядник інформації має надати відповідь на запит на інформацію не пізніше п'яти робочих днів з дня отримання запиту. 
+2. У разі якщо запит на інформацію стосується інформації, необхідної для захисту життя чи свободи особи, щодо стану довкілля, якості харчових продуктів і предметів побуту, аварій, катастроф, небезпечних природних явищ та інших надзвичайних подій, що сталися або можуть статись і загрожують безпеці громадян, відповідь має бути надана не пізніше 48 годин з дня отримання запиту. 
+3. Клопотання про термінове опрацювання запиту має бути обґрунтованим. 
+4. У разі якщо запит стосується надання великого обсягу інформації або потребує пошуку інформації серед значної кількості даних, розпорядник інформації може продовжити строк розгляду запиту до 20 робочих днів з обґрунтуванням такого продовження. Про продовження строку розпорядник інформації повідомляє запитувача в письмовій формі не пізніше п'яти робочих днів з дня отримання запиту.</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -52,32 +57,23 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення: Запит на публічну інформацію]]></activiti:string>
+          <activiti:string><![CDATA[Звернення громадянина: Запит на публічну інформацію]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[kyrbatsky@gmail.com]]></activiti:string>
+          <activiti:string><![CDATA[kyrbatsky@gmail.com,m.shlapak.ua@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Данні громадянина:
-${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}
+          <activiti:expression>Данні громадянина: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}
+Паспортні дані: ${bankIdPassport}
+Поштова адреса: ${bankIdAddress}
+Контактний телефон: ${bankIdPhone}
+Адреса електронної пошти: ${email}
+Спосіб отримання відповіді: ${resultWay}
 
-Паспортні дані:
-${bankIdPassport}
-
-Загальний опис запитуваної інформації або вид, назва,реквізити чи зміст документа:
-${requestData}
-
-Спосіб отримання відповіді:
-${resultWay}
-
-Данні для надання відповіді відповідно обраного вище способу; номер телефону /e-mail / факс / поштова адреса:
-${resInfo}
-
-Контактний телефон:
-${bankIdPhone}</activiti:expression>
+Загальний опис запитуваної інформації або вид, назва,реквізити чи зміст документа: ${requestData}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

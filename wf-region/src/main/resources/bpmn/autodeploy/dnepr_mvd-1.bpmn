@@ -66,7 +66,7 @@
     <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
     <userTask id="usertask1" name="Надання послуги" activiti:candidateGroups="dnepr_mvd_fo1">
       <extensionElements>
-        <activiti:formProperty id="fioActual" name="ПІБ заявника" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fioActual" name="ПІБ заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
@@ -91,7 +91,7 @@
           <activiti:value id="accept" name="Сповістити громадянина, що довідка підготовлена до надання"></activiti:value>
           <activiti:value id="reject" name="Сповістити громадянина, що довідка не може бути надана"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment" name="Комментарі" type="textArea" default="Де і коли громадянин зможе отримати довідку (час/дата/адреса)?  В разі  неможливості надання послуги вкажіть причину." required="true"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="Де і коли громадянин зможе отримати довідку (час/дата/адреса)?  В разі  неможливості надання послуги вкажіть причину." type="textArea" required="true"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
