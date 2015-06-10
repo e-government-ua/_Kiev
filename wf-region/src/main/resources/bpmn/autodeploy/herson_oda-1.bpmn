@@ -37,6 +37,7 @@
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
 Ваш запит на отримання публічної інформації успішно зареєстровано.
+
 Ви отримаєте відповідь у визначений законодавством термін.
 
 Згідно Статті 20 Закону України "Про доступ до публічної інформації":
@@ -54,7 +55,7 @@
     <serviceTask id="mailtask4" name="Відправка  запиту до канцелярії" activiti:type="mail">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:expression>${email}</activiti:expression>
+          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення громадянина: Запит на публічну інформацію]]></activiti:string>
