@@ -565,7 +565,7 @@ a {
 }
 
 .add0-cat, .add0-subcat, .add0-srvc {
-    color: #b8a927;
+    color: green;
 }
 
 .add0-subcat {
@@ -578,10 +578,6 @@ a {
 
 .ctrls-srvc-save, .ctrls-srvc-add {
     color: green;
-}
-
-.ctrls-srvc-add {
-    color: #b8a927;
 }
 
 .ctrls-srvc-cancel, .ctrls-srvc-remove {
