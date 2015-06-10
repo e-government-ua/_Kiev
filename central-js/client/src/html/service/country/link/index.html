@@ -1,6 +1,9 @@
 <div class="list-group">
 	<div class="list-group-item disabled">
-		<span>Крок 1. Перейдіть за посиланням:</span>
-		<a ng-href="{{serviceData.sURL}}">{{service.sName}}</a>
+		<span>Крок 1.</span>
+		<p class="service-description" ng-bind-html="serviceData.sNote" ng-if="serviceData.sNote"></p>
+		<div class="service-button-go">
+			<a ng-href="{{serviceData.sURL}}" class="btn btn-primary" target="_blank">Перейти</a>
+		</div>
 	</div>
 </div>

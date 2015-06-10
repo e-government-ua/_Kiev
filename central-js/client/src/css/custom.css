@@ -1280,3 +1280,11 @@ label .snippet {
 .error {
     color: red;
 }
+
+.service-description {
+    margin-top: 10px;
+}
+
+.service-button-go {
+    margin-top: 10px;
+}

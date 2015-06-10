@@ -1,7 +1,7 @@
 define('state/service/region/controller', ['angularAMD'], function (angularAMD) {
 	angularAMD.controller('ServiceRegionController', [
-		'$state', '$rootScope', '$scope', 'RegionListFactory', 'PlacesService', 'ServiceService', 'service', 'regions',
-		function ($state, $rootScope, $scope, RegionListFactory, PlacesService, ServiceService, service, regions) {
+		'$state', '$rootScope', '$scope', '$sce', 'RegionListFactory', 'PlacesService', 'ServiceService', 'service', 'regions',
+		function ($state, $rootScope, $scope, $sce, RegionListFactory, PlacesService, ServiceService, service, regions) {
 			$scope.service = service;
 			$scope.regions = regions;
 			
@@ -37,6 +37,7 @@ define('state/service/region/controller', ['angularAMD'], function (angularAMD) 
 					if(value.nID_Region.nID == $scope.data.region.nID) {
 						serviceType = value.nID_ServiceType;
 						$scope.serviceData = value;
+						$scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
 					}
 				});
 				
