@@ -66,15 +66,13 @@
     <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
     <userTask id="usertask1" name="Надання послуги" activiti:candidateGroups="dnepr_mvd_fo1">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fioActual" name="ПІБ заявника" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="resident" name="Громадянство" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання паспорту" type="enum" writable="false">
           <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки(піклування), створення прийомної сім'ї або дитячого будинку"></activiti:value>
           <activiti:value id="attr2" name="Оформлення візи для виїзду за кордон"></activiti:value>
