@@ -56,7 +56,7 @@ public class Service extends Entity {
    @Column(name = "sSubjectOperatorName", nullable = false)
    private String sSubjectOperatorName;
    
-    @JsonProperty(value = "bTest")
+    /*@JsonProperty(value = "bTest")
     @Column(name = "bTest", nullable = false)
     private boolean bTest;
 
@@ -67,7 +67,7 @@ public class Service extends Entity {
 
     public void setTest(boolean b) {
             this.bTest = b;
-    }
+    }*/
 
    
    @Transient
