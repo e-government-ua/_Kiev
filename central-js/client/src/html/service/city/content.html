@@ -81,7 +81,10 @@
                                    ng-class="{'color-green': (city.color == 'green'), 'color-red': (city.color == 'red')}">{{city.sName}}</a>
                             </li>
                         </ul>
-                    </div>
+                    </div>  
+                </div>
+                <div style="display:inline-block"
+                     ng-if="data.region">
                     <a class="ctrls-admin ctrls-srvc-edit" href="" ng-hide="hiddenCtrls" title="Редагувати послугу в цьому регіоні"><span class="glyphicon glyphicon-pencil"></span> Редагувати</a>
                     <a class="ctrls-admin ctrls-srvc-remove" href="" ng-hide="hiddenCtrls" title="Видалити послугу в цьому регіоні"><span class="glyphicon glyphicon-remove"></span> Видалити</a>    
                 </div>
