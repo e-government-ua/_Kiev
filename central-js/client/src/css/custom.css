@@ -586,11 +586,12 @@ a {
 }
 
 .ctrls-block {
-    display: block;
+    display: inline-block;   
+    width: 280px;
 }
 
 .ctrls-line {
-    margin-top: 5px;
+    margin-top: 8px;
 }
 
 #ctrls-swch {
