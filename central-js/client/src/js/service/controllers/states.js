@@ -41,7 +41,12 @@ define('state/service/instruction/controller', ['angularAMD'], function (angular
 		$scope.service = service;
 		return $state.go('service.instruction', {id: service.nID, service: service}, { location: false });
                 
-                $scope.hiddenCtrls = hiddenCtrls;
+                //Admin buttons visibility handling
+                //$scope.hiddenCtrls = hiddenCtrls;
+                $scope.hiddenCtrls = false;
+                $scope.hiddenEdit = false;
+                $scope.hiddenSave = !$scope.hiddenEdit;
+                $scope.hiddenCancel = !$scope.hiddenEdit;
     }]);
 });
 
@@ -49,6 +54,12 @@ define('state/service/legislation/controller', ['angularAMD'], function (angular
 	angularAMD.controller('ServiceLegislationController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
 		$scope.service = service;
 		return $state.go('service.legislation', {id: service.nID, service: service}, { location: false });
+                
+                //Admin buttons visibility handling
+                $scope.hiddenCtrls = false;
+                $scope.hiddenEdit = false;
+                $scope.hiddenSave = !$scope.hiddenEdit;
+                $scope.hiddenCancel = !$scope.hiddenEdit;
     }]);
 });
 
@@ -56,6 +67,12 @@ define('state/service/questions/controller', ['angularAMD'], function (angularAM
 	angularAMD.controller('ServiceQuestionsController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
 		$scope.service = service;
 		return $state.go('service.questions', {id: service.nID, service: service}, { location: false });
+                
+                //Admin buttons visibility handling
+                $scope.hiddenCtrls = false;
+                $scope.hiddenEdit = false;
+                $scope.hiddenSave = !$scope.hiddenEdit;
+                $scope.hiddenCancel = !$scope.hiddenEdit;               
     }]);
 });
 
