@@ -49,7 +49,7 @@ define('documents', ['angularAMD', 'service'], function(angularAMD) {
               + $location.host()
               + ':'
               + $location.port()
-              + $state.href('documents.bankid', {code: null});
+              + $state.href('documents.bankid', {code: ''});
 
             return BankIDService.login($stateParams.code, url).then(function(data) {
               return data.hasOwnProperty('error') ? $q.reject(null) : data;
@@ -68,26 +68,15 @@ define('documents', ['angularAMD', 'service'], function(angularAMD) {
             });
           },
           documents: function($q, $state, subject, ServiceService, BankIDLogin) {
-              $state.nID_Subject = subject.nID;
-              $state.sID_Subject = subject.sID;
-              return ServiceService.getDocuments($state.nID_Subject).then(function(data) {
-                  if(data.hasOwnProperty('error')){
-                      return $q.reject(null);
-                  //} else if (data.length === 0){
-                  } else if (!(data.length > 2)){
-                      return ServiceService.initialUpload(BankIDLogin.access_token, 
-                              $state.nID_Subject, $state.sID_Subject)
-                      .then(function(data) {
-                          if(!data.hasOwnProperty('error')){
-                              return ServiceService.getDocuments($state.nID_Subject).then(function(data) {
-                                  return data.hasOwnProperty('error') ? $q.reject(null) : data;
-                              });
-                          }                                    
-                      });
-                  } else {
-                      return data;
-                  }                               
-              });
+            $state.nID_Subject = subject.nID;
+            $state.sID_Subject = subject.sID;
+            return ServiceService.getOrUploadDocuments(
+                            BankIDLogin.access_token,
+                            $state.nID_Subject,
+                            $state.sID_Subject)
+                        .then(function(data) {
+                            return data;
+                        });
           }
         },
         views: {

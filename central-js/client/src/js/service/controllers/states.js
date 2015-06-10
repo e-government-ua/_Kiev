@@ -37,9 +37,16 @@ define('state/service/general/controller', ['angularAMD'], function (angularAMD)
 
 
 define('state/service/instruction/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceInstructionController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
+	angularAMD.controller('ServiceInstructionController', ['$state', '$rootScope', '$scope', 'service', 'hiddenCtrls', function ($state, $rootScope, $scope, service, hiddenCtrls) {
 		$scope.service = service;
 		return $state.go('service.instruction', {id: service.nID, service: service}, { location: false });
+                
+                //Admin buttons visibility handling
+                //$scope.hiddenCtrls = hiddenCtrls;
+                $scope.hiddenCtrls = false;
+                $scope.hiddenEdit = false;
+                $scope.hiddenSave = !$scope.hiddenEdit;
+                $scope.hiddenCancel = !$scope.hiddenEdit;
     }]);
 });
 
@@ -47,6 +54,12 @@ define('state/service/legislation/controller', ['angularAMD'], function (angular
 	angularAMD.controller('ServiceLegislationController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
 		$scope.service = service;
 		return $state.go('service.legislation', {id: service.nID, service: service}, { location: false });
+                
+                //Admin buttons visibility handling
+                $scope.hiddenCtrls = false;
+                $scope.hiddenEdit = false;
+                $scope.hiddenSave = !$scope.hiddenEdit;
+                $scope.hiddenCancel = !$scope.hiddenEdit;
     }]);
 });
 
@@ -54,6 +67,12 @@ define('state/service/questions/controller', ['angularAMD'], function (angularAM
 	angularAMD.controller('ServiceQuestionsController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
 		$scope.service = service;
 		return $state.go('service.questions', {id: service.nID, service: service}, { location: false });
+                
+                //Admin buttons visibility handling
+                $scope.hiddenCtrls = false;
+                $scope.hiddenEdit = false;
+                $scope.hiddenSave = !$scope.hiddenEdit;
+                $scope.hiddenCancel = !$scope.hiddenEdit;               
     }]);
 });
 

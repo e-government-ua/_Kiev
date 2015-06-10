@@ -1160,7 +1160,7 @@ a {
 }
 
 .ctrls-admin {
-    display: none;
+    display: inline;
 }
 
 .glyphicon-plus {
@@ -1195,8 +1195,44 @@ a {
     left: 0px;
 }
 
-#admin-swch {
+.ctrls-srvc-edit {
+    color: #b8a927;
+}
+
+.ctrls-srvc-save {
+    color: green;
+}
+
+.ctrls-srvc-cancel {
+    color: #ff8080;
+}
+
+.ctrls-srvc-activate {
+    color: green;
+    margin-left: 8px;
+}
+
+.ctrls-srvc-change {
+    color: #b8a927;
+}
+
+.ctrls-srvc-deactivate {
+    color: #ff8080;
+    margin-right: 8px;
+}
+
+.ctrls-block {
+    display: inline-block;   
+    width: 280px;
+}
+
+.ctrls-line {
+    margin-top: 8px;
+}
+
+#ctrls-swch {
     text-decoration: none;
+    color: white;
 }
 
 a.pluso-more {

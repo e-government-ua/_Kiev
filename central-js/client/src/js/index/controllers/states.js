@@ -8,7 +8,12 @@ define('state/index/controller', ['angularAMD'], function(angularAMD) {
       return CatalogService.getServices($scope.sSearch).then(function(result) {
         $scope.catalog = result;
       });
-    }
+    };
+    
+    $scope.hiddenCtrls = true;
+    $scope.toggle = function() {
+        $scope.hiddenCtrls = !$scope.hiddenCtrls;
+    };
   });
 });
 

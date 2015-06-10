@@ -11,7 +11,7 @@
         <activiti:formProperty id="phone" name="Ваш контактний  телефон" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="string" required="true"></activiti:formProperty>
-           </extensionElements>
+      </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
       <extensionElements>
@@ -40,7 +40,6 @@ ${comment}</activiti:expression>
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="clPassport" name="Паспортні дані" type="string" default="${bankIdPassport}" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file1" name="Копії паспорта громадянина України заявника 1, 2, 10, 11 сторінок.; файли можуть бути завантажені у вигляді ZIP-архіву" type="file" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="контактний  телефон" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
@@ -64,6 +63,7 @@ ${comment}</activiti:expression>
           <activiti:value id="found" name="Довідку піготовлено. Відправити  заявнику  повідомлення на e-mail"></activiti:value>
           <activiti:value id="notFound" name="Довідка не може бути надана. Повідомити заявника"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="fileToSend" name="Завантажте довідку у PDF форматі з накладеним ЕЦП для відправлення громадянину" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <endEvent id="endevent5" name="End"></endEvent>
@@ -74,7 +74,7 @@ ${comment}</activiti:expression>
     <sequenceFlow id="flow40" name="decide == 'accept'" sourceRef="exclusivegateway3" targetRef="usertask7">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask1" name="Відправка відповіді на запит користувачу" activiti:delegateExpression="#{mailTaskWithAttachment}">
+    <serviceTask id="servicetask1" name="Відправка відповіді на запит користувачу" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
@@ -86,11 +86,11 @@ ${comment}</activiti:expression>
           <activiti:expression>Звернення на тему: Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний (-а), ${bankIdfirstName} ${bankIdmiddleName}. Вы запросили   довідку про відсутність земельних ділянок для ведення ОСГ.
+          <activiti:expression>Шановний (-а), "${bankIdfirstName}" "${bankIdmiddleName}". Вы запросили   довідку про відсутність земельних ділянок для ведення ОСГ.
 Запитуваний документ доданий в додаток цього листа.</activiti:expression>
         </activiti:field>
-        <activiti:field name="docName">
-          <activiti:expression>${docName}</activiti:expression>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${fileToSend}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -142,7 +142,7 @@ ${comment}</activiti:expression>
         <omgdc:Bounds height="40.0" width="40.0" x="536.0" y="446.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
-        <omgdc:Bounds height="71.0" width="105.0" x="1114.0" y="430.0"></omgdc:Bounds>
+        <omgdc:Bounds height="71.0" width="149.0" x="1070.0" y="430.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent6" id="BPMNShape_endevent6">
         <omgdc:Bounds height="35.0" width="35.0" x="1240.0" y="448.0"></omgdc:Bounds>
@@ -191,9 +191,9 @@ ${comment}</activiti:expression>
       <bpmndi:BPMNEdge bpmnElement="flow47" id="BPMNEdge_flow47">
         <omgdi:waypoint x="980.0" y="465.0"></omgdi:waypoint>
         <omgdi:waypoint x="972.0" y="465.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1114.0" y="465.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1070.0" y="465.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="1020.0" y="465.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="1000.0" y="465.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow48" id="BPMNEdge_flow48">

@@ -48,7 +48,8 @@ public class ActivitiRestServicesControllerScenario {
       TableData[] tableDataList = JsonRestUtils.readObject(jsonData, TableData[].class);
       Assert.assertEquals(TableDataService.TablesSet.ServicesAndPlaces.getEntityClasses().length, tableDataList.length);
 
-      mockMvc.perform(post("/services/setServicesAndPlacesTables").content(jsonData)).
+      mockMvc.perform(post("/services/setServicesAndPlacesTables").content(jsonData).
+              contentType(APPLICATION_JSON_CHARSET_UTF_8)).
               andExpect(status().isOk()).
               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8));
    }
@@ -68,12 +69,14 @@ public class ActivitiRestServicesControllerScenario {
         categoriesBeforeChange[0].getSubcategories().get(0).setName(subcategoryName);
 
         mockMvc.perform(post("/services/setServicesTree").content(JsonRestUtils.toJson(categoriesBeforeChange)).
+                contentType(APPLICATION_JSON_CHARSET_UTF_8).
                 accept(MediaType.APPLICATION_JSON)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
                 andExpect(jsonPath("$[0].sName", is(categoryName)));
 
-        jsonData = mockMvc.perform(get("/services/getServicesTree")).
+        jsonData = mockMvc.perform(get("/services/getServicesTree").
+                contentType(APPLICATION_JSON_CHARSET_UTF_8)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
                 andReturn().getResponse().getContentAsString();
@@ -100,6 +103,7 @@ public class ActivitiRestServicesControllerScenario {
         serviceBeforeChange.getServiceDataList().get(0).setUrl(serviceUrl);
 
         mockMvc.perform(post("/services/setService").content(JsonRestUtils.toJson(serviceBeforeChange)).
+                contentType(APPLICATION_JSON_CHARSET_UTF_8).
                 accept(MediaType.APPLICATION_JSON)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
@@ -107,7 +111,8 @@ public class ActivitiRestServicesControllerScenario {
                 andExpect(jsonPath("$.sName", is(serviceName)));
 
         jsonData = mockMvc.perform(get("/services/getService").
-                param("nID", "1")).
+                param("nID", "1").
+                contentType(APPLICATION_JSON_CHARSET_UTF_8)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
                 andReturn().getResponse().getContentAsString();
@@ -118,7 +123,8 @@ public class ActivitiRestServicesControllerScenario {
 
     @Test
     public void shouldSuccessfullyGetAndSetPlaces() throws Exception {
-        String jsonData = mockMvc.perform(get("/services/getPlaces")).
+        String jsonData = mockMvc.perform(get("/services/getPlaces").
+                contentType(APPLICATION_JSON_CHARSET_UTF_8)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
                 andExpect(jsonPath("$", not(empty()))).
@@ -131,6 +137,7 @@ public class ActivitiRestServicesControllerScenario {
         regionsBeforeChange[0].getCities().get(0).setName(cityName);
 
         mockMvc.perform(post("/services/setPlaces").content(JsonRestUtils.toJson(regionsBeforeChange)).
+                contentType(APPLICATION_JSON_CHARSET_UTF_8).
                 accept(MediaType.APPLICATION_JSON)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).

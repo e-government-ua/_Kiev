@@ -25,22 +25,15 @@
     <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="kiev_mr_0">
       <extensionElements>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAdress" name="Адреса реєстрації" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="objName" name="назва об’єкту для присвоєння поштової адреси" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="objAddress" name="місцезнаходження об’єкта для присвоєння поштової адреси" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="objActivity" name="вид діяльності згідно з КВЕД" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file1" name="Копія документа, що посвідчує право власності на земельну ділянку чи право користування земельною ділянкою" type="file"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Копія правовстановлюючого документа на об'єкт нерухомого майна; для новозбудованих об'єктів – зареєстрована декларація про готовність об’єкта до експлуатації або сертифікат, що засвідчує відповідність закінченого будівництвом об’єкта проектній документації та підтверджує його готовність до експлуатації" type="file"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копія технічного паспорта об'єкта нерухомого майна" type="file"></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Копія виконавчого знімання (топографо-геодезичного вишукування масштабу М1:500), зареєстрованого в містобудівному кадастрі міста Києва" type="file"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копія паспортаця або документу, що його заміняє ;  тільки для физичних осіб" type="file"></activiti:formProperty>
-        <activiti:formProperty id="file6" name="Копія копія виписки з Єдиного державного реєстру юридичних осіб та фізичних осіб-підприємців; тількт для юридичної особи та фізичної особи-підприємця" type="file"></activiti:formProperty>
-        <activiti:formProperty id="file7" name="Копія довідки Департаменту економіки та інвестицій про сплату пайової участі у створенні соціальної та інженерно-транспортної інфраструктури м. Києва або рішенню Київради про звільнення від сплати пайової участі у створені соціальної та інженерно-транспортної інфраструктури м. Києва " type="file"></activiti:formProperty>
-        <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false" ></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false" required="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false" required="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false" required="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAdress" name="Адреса реєстрації" type="string" writable="false" required="false"></activiti:formProperty>
+        <activiti:formProperty id="objName" name="назва об’єкту для присвоєння поштової адреси" type="string" writable="false" required="false"></activiti:formProperty>
+        <activiti:formProperty id="objAddress" name="місцезнаходження об’єкта для присвоєння поштової адреси" type="string" writable="false" required="false"></activiti:formProperty>
+        <activiti:formProperty id="objActivity" name="вид діяльності згідно з КВЕД" type="string" writable="false" required="false"></activiti:formProperty>
+		<activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
@@ -55,7 +48,6 @@
     </sequenceFlow>
     <userTask id="usertask3" name="Підготовка відповіді про надання послуги">
       <extensionElements>
-        <activiti:formProperty id="processName" name="Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою." type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
@@ -64,9 +56,8 @@
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Inn" name="ІПН; власника (землекористувача) земельної ділянки або уповноваженої ним особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження земельної ділянки" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Копия паспорта (перша сторінка) " type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копия паспорта (друга сторінка) " type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="regChanged" name="Документи готові?" type="enum" required="true">
+        <activiti:formProperty id="objActivity" name="вид діяльності згідно з КВЕД" type="string" writable="false" required="false"></activiti:formProperty>
+		<activiti:formProperty id="regChanged" name="Документи готові?" type="enum" required="true">
           <activiti:value id="yes" name="Так, готові"></activiti:value>
         </activiti:formProperty>
       </extensionElements>
