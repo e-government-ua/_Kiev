@@ -323,8 +323,11 @@ public class ActivitiRestServicesController {
                service.setFaq(null);
                service.setInfo(null);
                service.setLaw(null);
-               service.setSub(service.getServiceDataList().size());
+               //service.setSub(service.getServiceDataList().size());
                service.setSub(service.getServiceDataFiltered().size());
+               //service.setTests(service.getTestsCount());
+               //service.setStatus(service.getTests(); service.getTestsCount());
+               service.setStatus(service.getStatusID());
                service.setServiceDataList(null);
                service.setSubcategory(null);
             }

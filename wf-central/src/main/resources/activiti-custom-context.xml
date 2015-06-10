@@ -23,6 +23,7 @@
                     <value>file:${catalina.home}/conf/db.properties</value>
                     <value>file:${catalina.home}/conf/email.properties</value>
                     <value>file:${catalina.home}/conf/bankID.properties</value>
+                    <value>file:${catalina.home}/conf/AS.properties</value>
                 </list>
             </property>
             <property name="ignoreUnresolvablePlaceholders" value="true"/>
@@ -46,6 +47,7 @@
                     <value>classpath:db.properties</value>
                     <value>classpath:email.properties</value>
                     <value>classpath:bankID.properties</value>
+                    <value>classpath:AS.properties</value>
                 </list>
             </property>
             <property name="ignoreUnresolvablePlaceholders" value="true"/>

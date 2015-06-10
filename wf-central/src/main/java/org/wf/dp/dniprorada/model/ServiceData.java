@@ -54,6 +54,21 @@ public class ServiceData extends Entity {
 	private boolean hidden;
 	
         
+	@JsonProperty(value = "bTest")
+	@Column(name = "bTest", nullable = false)
+	private boolean bTest;
+	
+        
+        
+	public boolean isTest() {
+		return bTest;
+	}
+
+	public void setTest(boolean b) {
+		this.bTest = b;
+	}
+        
+        
 	public Service getService() {
 		return service;
 	}
