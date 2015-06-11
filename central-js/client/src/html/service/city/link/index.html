@@ -1,5 +1,7 @@
 <span>Крок 2.</span>
-<p class="service-description" ng-bind-html="serviceData.sNote" ng-if="serviceData.sNote"></p>
-<div class="service-button-go">
-	<a ng-href="{{serviceData.sURL}}" class="btn btn-primary" target="_blank">Перейти</a>
+<div class="service-description">
+	<p class="service-description-text" ng-bind-html="serviceData.sNote" ng-if="serviceData.sNote"></p>
+	<div class="service-button-go">
+		<a ng-href="{{serviceData.sURL}}" class="btn btn-primary" target="_blank">Перейти</a>
+	</div>
 </div>
