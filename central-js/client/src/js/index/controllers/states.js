@@ -1,6 +1,7 @@
 define('state/index/controller', ['angularAMD'], function(angularAMD) {
-  angularAMD.controller('IndexController', function($scope, CatalogService, catalog) {
+  angularAMD.controller('IndexController', function($scope, $timeout, CatalogService, catalog) {
     $scope.catalog = catalog;
+      $scope.catalogCounts = {0:0,1:0,2:0};
     $scope.limit = 7;//limit of services
     $scope.sSearch = null;
 
@@ -14,6 +15,24 @@ define('state/index/controller', ['angularAMD'], function(angularAMD) {
     $scope.toggle = function() {
         $scope.hiddenCtrls = !$scope.hiddenCtrls;
     };
+
+     $scope.$watch('catalog', function(newValue)
+     {
+         $timeout(function()
+         {
+             $scope.catalogCounts = {0:0,1:0,2:0};
+             angular.forEach(newValue, function(item)
+             {
+                 angular.forEach(item.aSubcategory, function(subItem)
+                 {
+                     angular.forEach(subItem.aService, function(aServiceItem)
+                     {
+                         $scope.catalogCounts[aServiceItem.nStatus] ++ ;
+                     })
+                 });
+             });
+         });
+     });
   });
 });
 

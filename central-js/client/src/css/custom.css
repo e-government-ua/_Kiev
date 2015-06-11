@@ -1294,3 +1294,16 @@ label .snippet {
 .service-button-go {
     margin-top: 10px;
 }
+
+.index-services-count {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.index-services-count .index-services-count-item {
+    margin-right: 30px;
+}
+
+.index-services-count .index-services-count-item:last-child {
+    margin-right: 0;
+}

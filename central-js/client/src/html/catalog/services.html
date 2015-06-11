@@ -6,6 +6,17 @@
               <input ng-model="sSearch" ng-model-options="{ updateOn: 'default', debounce: {'default': 500} }" ng-change="search()"type="text" class="form-control input-lg" placeholder="Пошук послуги">
               <a style="display: none;" href="#"><span class="glyphicon glyphicon-triangle-bottom al-right" aria-hidden="true"></span></a>
            </div>
+            <div class="index-services-count">
+                <span class="index-services-count-item">
+                    <span class="icon-e-service-on"></span>{{catalogCounts[2]}} послуг доступно онлайн
+                </span>
+                <span class="index-services-count-item">
+                    <span class="icon-e-service-test"></span>{{catalogCounts[1]}} - дуже скоро
+                </span>
+                <span class="index-services-count-item">
+                    <span class="icon-e-service-off"></span>{{catalogCounts[0]}} - в роботі
+                </span>
+            </div>
         </div>
     </div>
         <a class="ctrls-admin ctrls-cat add0-cat" href="" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-plus"></span> Додати категорію</a>
