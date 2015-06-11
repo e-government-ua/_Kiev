@@ -93,6 +93,7 @@
           <activiti:value id="reject" name="Сповістити громадянина, що довідка не може бути надана"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Де і коли громадянин зможе отримати довідку (час/дата/адреса)?  В разі  неможливості надання послуги вкажіть причину." type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="footer" name="footer" type="label" default="test" readable="false" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
