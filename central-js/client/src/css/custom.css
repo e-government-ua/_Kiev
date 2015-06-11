@@ -564,6 +564,11 @@ a {
     font-size: 14px;
 }
 
+.ctrls-about {
+    font-size: 14px;
+}
+
+
 .add0-cat, .add0-subcat, .add0-srvc {
     color: green;
 }
