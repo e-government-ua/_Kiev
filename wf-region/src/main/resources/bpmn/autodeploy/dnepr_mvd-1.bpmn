@@ -3,17 +3,16 @@
   <process id="dnepr_mvd_1" name="Надання довідки про відсутність або наявніть судимості" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="text2" name="Персональні данні" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта; Ви можете вікористати копію паспорту, що розташована на порталі в розділі &quot;Мої документи&quot;" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="resident" name="Громадянство" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text1" name="Якщо змінювались  прізвище, ім'я та по-батькові - вкажіть попередні" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта; Ви можете вікористати копію паспорту, що розташована на порталі в розділі &quot;Мої документи&quot;" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string"></activiti:formProperty>
         <activiti:formProperty id="text4" name="Додаткова інформація" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання паспорту" type="enum" required="true">
@@ -218,7 +217,7 @@ ${comment}</activiti:expression>
         <omgdi:waypoint x="500.0" y="270.0"></omgdi:waypoint>
         <omgdi:waypoint x="625.0" y="300.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="15.0" y="-26.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="81.0" x="15.0" y="-26.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
