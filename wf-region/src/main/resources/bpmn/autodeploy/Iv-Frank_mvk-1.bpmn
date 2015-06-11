@@ -40,7 +40,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="management_clerk_dmr">
+    <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="ivfrank_cnap">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="clPassport" name="Паспортні дані" type="string" default="${bankIdPassport}" writable="false" required="true"></activiti:formProperty>
@@ -81,15 +81,16 @@
     </serviceTask>
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow16" sourceRef="mailtask3" targetRef="endevent3"></sequenceFlow>
-    <userTask id="usertask7" name="Підготовка відповіді на запит: пошук документа" activiti:candidateGroups="management_clerk_dmr">
+    <userTask id="usertask7" name="Підготовка відповіді на запит: пошук документа" activiti:candidateGroups="ivfrank_cnap">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запитуваній документ" type="string" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="searchResult" name="Результат пошуку" type="enum" required="true">
           <activiti:value id="found" name="Документ знайдено"></activiti:value>
           <activiti:value id="notFound" name="Документ не знайдено"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="docToSend" name="Електрона копія запитуваного документу" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <endEvent id="endevent5" name="End"></endEvent>
@@ -103,7 +104,7 @@
     <sequenceFlow id="flow40" name="decide == 'accept'" sourceRef="exclusivegateway3" targetRef="usertask7">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask1" name="Відправка відповіді на запит користувачу" activiti:delegateExpression="#{mailTaskWithAttachment}">
+    <serviceTask id="servicetask1" name="Відправка відповіді на запит користувачу" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
@@ -117,8 +118,8 @@
         <activiti:field name="text">
           <activiti:expression>Шановний (-а), ${bankIdfirstName} ${bankIdmiddleName}. Вы запросили  ${docType} № ${docNumber}  від  ${docDate}.  Запитуваний документ доданий в додаток цього листа.</activiti:expression>
         </activiti:field>
-        <activiti:field name="docName">
-          <activiti:expression>${docName}</activiti:expression>
+        <activiti:field name="saAttachmentsForSend ">
+          <activiti:expression>${docToSend}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

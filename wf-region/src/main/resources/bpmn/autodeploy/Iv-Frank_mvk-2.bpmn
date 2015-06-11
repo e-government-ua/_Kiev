@@ -3,7 +3,7 @@
   <process id="ivFrank_mvk_2" name="Івано-Франківський МВК - Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою." isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string"></activiti:formProperty>
@@ -17,7 +17,7 @@
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="sales">
+    <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="ivfrank_cnap">
       <documentation>test1:marker1,test2:marker2,test3:marker3</documentation>
       <extensionElements>
         <activiti:formProperty id="processName" name="Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою." type="string" writable="false"></activiti:formProperty>
@@ -29,9 +29,6 @@
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Inn" name="ІПН; власника (землекористувача) земельної ділянки або уповноваженої ним особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження земельної ділянки" type="string" writable="false"></activiti:formProperty>
-        <!--activiti:formProperty id="file1" name="Запит нотаріуса " type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Копия паспорта (перша сторінка) " type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копия паспорта (друга сторінка) " type="file" writable="false" required="true"></activiti:formProperty-->
         <activiti:formProperty id="decide" name="Рішення про реєстрацію" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
@@ -60,9 +57,6 @@
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Inn" name="ІПН; власника (землекористувача) земельної ділянки або уповноваженої ним особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження земельної ділянки" type="string" writable="false"></activiti:formProperty>
-        <!--activiti:formProperty id="file1" name="Запит нотаріуса " type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Копия паспорта (перша сторінка) " type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копия паспорта (друга сторінка) " type="file" writable="false" required="true"></activiti:formProperty-->
         <activiti:formProperty id="regChanged" name="Документи готові?" type="enum" required="true">
           <activiti:value id="yes" name="Так, готові"></activiti:value>
         </activiti:formProperty>
