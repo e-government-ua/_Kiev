@@ -12,15 +12,13 @@
         <activiti:formProperty id="Inn" name="ІПН; власника (землекористувача) земельної ділянки або уповноваженої ним особи" type="string"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження земельної ділянки" type="string"></activiti:formProperty>
         <activiti:formProperty id="file1" name="Запит нотаріуса " type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Копия паспорта (перша сторінка) " type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копия паспорта (друга сторінка) " type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Копія паспорта; Ви можете вікористати копію паспорту, що розташована на порталі в розділі &quot;Мої документи&quot;" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="ivfrank_cnap">
       <documentation>test1:marker1,test2:marker2,test3:marker3</documentation>
       <extensionElements>
-        <activiti:formProperty id="processName" name="Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою." type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
@@ -38,7 +36,7 @@
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="usertask2" name="Підстави для відмови ">
+    <userTask id="usertask2" name="Підстави для відмови " activiti:candidateGroups="ivfrank_cnap">
       <extensionElements>
         <activiti:formProperty id="comment" name="Підстава для відмови в наданні послуги " type="string" required="true"></activiti:formProperty>
       </extensionElements>
@@ -46,7 +44,7 @@
     <sequenceFlow id="flow3" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="usertask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask3" name="підготовка документів">
+    <userTask id="usertask3" name="підготовка документів" activiti:candidateGroups="ivfrank_cnap">
       <extensionElements>
         <activiti:formProperty id="processName" name="Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою." type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -60,6 +58,7 @@
         <activiti:formProperty id="regChanged" name="Документи готові?" type="enum" required="true">
           <activiti:value id="yes" name="Так, готові"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="docToSend" name="Завантажте  документ для надання відповіді на запит" type="file" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow4" name="${decide == 'accept'}" sourceRef="exclusivegateway1" targetRef="usertask3">
@@ -95,7 +94,7 @@
     </sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow8" sourceRef="servicetask1" targetRef="endevent2"></sequenceFlow>
-    <serviceTask id="servicetask1" name="Відправлення листа громадянину" activiti:delegateExpression="#{mailTaskWithAttachment}">
+    <serviceTask id="servicetask1" name="Відправлення листа громадянину" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
@@ -111,6 +110,9 @@
 
 Ваше звернення розглянуто. 
 Єлектронні копії документів знаходяться в додатку до цього листа.</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend ">
+          <activiti:expression>${docToSend}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

@@ -13,6 +13,7 @@
         <activiti:formProperty id="resident" name="Громадянство" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text1" name="Якщо змінювались  прізвище, ім'я та по-батькові - вкажіть попередні" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Копія паспорта; Ви можете вікористати копію паспорту, що розташована на порталі в розділі &quot;Мої документи&quot;" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string"></activiti:formProperty>
         <activiti:formProperty id="text4" name="Додаткова інформація" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання паспорту" type="enum" required="true">
