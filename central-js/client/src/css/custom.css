@@ -1282,6 +1282,12 @@ label .snippet {
 }
 
 .service-description {
+    border-top: 1px solid #ddd;
+    margin: 10px -15px;
+    padding: 0 15px;
+}
+
+.service-description-text {
     margin-top: 10px;
 }
 
