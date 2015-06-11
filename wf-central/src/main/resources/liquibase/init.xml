@@ -310,6 +310,9 @@
             <column name="bTest" type="boolean">
                 <constraints nullable="false"/>
             </column>
+            <column name="sNote" type="varchar(1000)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
         <addAutoIncrement columnName="nID" tableName="ServiceData" columnDataType="int"  incrementBy="1" startWith="1000"/>
         
@@ -538,6 +541,7 @@
             <column name="bHidden" type="BOOLEAN"/>
             <column name="nID_Subject_Operator" type="NUMERIC"/> 
             <column name="bTest" type="BOOLEAN"/>
+            <column name="sNote" type="STRING"/>
         </loadData>
         <loadData encoding="UTF-8" file="data/DocumentType.csv" tableName="DocumentType" separator=";">
             <column name="nID" type="NUMERIC"/>

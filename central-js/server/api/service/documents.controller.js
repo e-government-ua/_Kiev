@@ -109,61 +109,65 @@ module.exports.initialUpload = function(req, res) {
         };
     });
 
-    var scansRequest = account.prepareScansRequest(optionsForScans);
+    var uploadScan = function(documentScan, optionsForUploadContent, callback) {
+        var scanContentRequest = account.prepareScanContentRequest(
+            _.merge(options, {
+                url: documentScan.link
+            })
+        );
 
-    request
-        .post(scansRequest, function(error, response, body) {
-            if (!error && body) {
-                var result = body;
-                if (!result.error) {
-                    var customer = result.customer;
-                    if (customer.scans && customer.scans.length > 0) {
-                        var scans = customer.scans;
+        var form = new FormData();
+        form.append('oFile', scanContentRequest);
 
-                        async.forEach(optionsForUploadContentList, function(optionsForUploadContent, callback) {
-                            var results = scans.filter(optionsForUploadContent.scanFilter);
-                            if (results.length === 1) {
-                                var documentScan = results[0];
-                                var scanContentRequest = account.prepareScanContentRequest(
-                                    _.merge(options, {
-                                        url: documentScan.link
-                                    })
-                                );
+        var requestOptionsForUploadContent =
+            _.merge(optionsForUploadContent.option, {
+                headers: form.getHeaders()
+            });
 
-                                var form = new FormData();
-                                form.append('oFile', scanContentRequest);
-
-                                var requestOptionsForUploadContent =
-                                    _.merge(optionsForUploadContent.option, {
-                                        headers: form.getHeaders()
-                                    });
-
-                                var decoder = new StringDecoder('utf8');
-                                var result = {};
-                                form.pipe(request.post(requestOptionsForUploadContent))
-                                    .on('response', function(response) {
-                                        result.statusCode = response.statusCode;
-                                    }).on('data', function(chunk) {
-                                        if (result.body) {
-                                            result.body += decoder.write(chunk);
-                                        } else {
-                                            result.body = decoder.write(chunk);
-                                        }
-                                    }).on('end', function() {
-                                        callback(result);
-                                    });
-                            }
-                        }, function(result) {
-                            res.send(result);
-                            res.end();
-                        });
-                    }
+        var decoder = new StringDecoder('utf8');
+        var result = {};
+        form.pipe(request.post(requestOptionsForUploadContent))
+            .on('response', function(response) {
+                result.statusCode = response.statusCode;
+            }).on('data', function(chunk) {
+                if (result.body) {
+                    result.body += decoder.write(chunk);
+                } else {
+                    result.body = decoder.write(chunk);
                 }
-            } else {
-                res.status(response.statusCode);
-                res.end();
+            }).on('end', function() {
+                callback(result);
+            });
+    };
+
+    var doAsyncScansUpload = function(scans) {
+        async.forEach(optionsForUploadContentList, function(optionsForUploadContent, callback) {
+            var results = scans.filter(optionsForUploadContent.scanFilter);
+            if (results.length === 1) {
+                uploadScan(results[0], optionsForUploadContent, callback);
             }
+        }, function(result) {
+            res.send(result);
+            res.end();
         });
+    };
+
+    var scansCallback = function(error, response, body) {
+        if (!error && body) {
+            var result = body;
+            if (!result.error) {
+                var customer = result.customer;
+                if (customer.scans && customer.scans.length > 0) {
+                    doAsyncScansUpload(customer.scans);
+                }
+            }
+        } else {
+            res.status(response.statusCode);
+            res.end();
+        }
+    };
+
+    account.scansRequest(optionsForScans, scansCallback);
 };
 
 function buildGetRequest(req, res, apiURL, params) {

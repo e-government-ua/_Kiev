@@ -21,7 +21,7 @@ module.exports.index = function(options, callback) {
 	}, callback);
 };
 
-module.exports.prepareScansRequest = function(options) {
+module.exports.scansRequest = function(options, callback) {
 	var url = options.protocol + '://' + options.hostname + options.path + '/checked/data';
 	return request.post({
 		'url': url,
@@ -42,7 +42,7 @@ module.exports.prepareScansRequest = function(options) {
 				"fields": ["link", "dateCreate"]
 			}]
 		}
-	});
+	}, callback);
 };
 
 module.exports.prepareScanContentRequest = function(options) {

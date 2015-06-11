@@ -58,7 +58,8 @@ module.exports = function(grunt) {
 				options: {
 					nodeArgs: ['--debug-brk'],
 					env: {
-
+						'DEBUG': 'false',
+						'NODE_DEBUG' : 'false'
 					},
 					callback: function(nodemon) {
 						nodemon.on('log', function(event) {
