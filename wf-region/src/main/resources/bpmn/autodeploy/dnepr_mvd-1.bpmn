@@ -218,7 +218,7 @@ ${comment}</activiti:expression>
         <omgdi:waypoint x="500.0" y="270.0"></omgdi:waypoint>
         <omgdi:waypoint x="625.0" y="300.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="81.0" x="15.0" y="-26.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="15.0" y="-26.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
