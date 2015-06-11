@@ -6,7 +6,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 5;4;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"CivilCopyDocRequest:4:12565"}};https://test.igov.org.ua/wf-region/;false;1;true;
 6;5;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo14:4:12561"}};https://test.igov.org.ua/wf-region/;true;1;true;
 7;6;4;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ivFrank_mvk_2:4:12566"}};https://test.igov.org.ua/wf-region/;false;1;true;
-8;4;4;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ivFrank_mvk_1:4:12556"}};https://test.igov.org.ua/wf-region/;true;1;true;
+8;4;4;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ivFrank_mvk_1:4:12556"}};https://test.igov.org.ua/wf-region/;false;1;true;
 9;8;4;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo3:4:12548"}};https://test.igov.org.ua/wf-region/;true;1;true;
 10;9;4;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo4:4:12557"}};https://test.igov.org.ua/wf-region/;true;1;true;
 11;10;5;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"monetaryValuationOfLand:4:12568"}};https://test.igov.org.ua/wf-region/;false;1;true;

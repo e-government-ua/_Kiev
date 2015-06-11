@@ -3,11 +3,11 @@
   <process id="dnepr_mvd_1" name="Надання довідки про відсутність або наявніть судимості" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="text2" name="Персональні данні" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта; Ви можете вікористати копію паспорту, що розташована на порталі в розділі &quot;Мої документи&quot;" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="resident" name="Громадянство" type="string" required="true"></activiti:formProperty>
@@ -92,6 +92,7 @@
           <activiti:value id="reject" name="Сповістити громадянина, що довідка не може бути надана"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Де і коли громадянин зможе отримати довідку (час/дата/адреса)?  В разі  неможливості надання послуги вкажіть причину." type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="footer" name="footer" type="label" default="test" readable="false" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
