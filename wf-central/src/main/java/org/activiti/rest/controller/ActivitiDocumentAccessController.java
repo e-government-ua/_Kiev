@@ -99,7 +99,7 @@ public class ActivitiDocumentAccessController {
 				response.setHeader("Reason", "Access not found");
 			}
 		} catch (Exception e) {
-			response.setStatus(400);
+			response.setStatus(500);
 			response.setHeader("Reason", e.getMessage());
 			response.setHeader("OTP", str);
 		}
