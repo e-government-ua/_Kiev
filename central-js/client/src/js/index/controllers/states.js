@@ -12,11 +12,11 @@ define('state/index/controller', ['angularAMD'], function(angularAMD) {
     };
     
     //Admin buttons visibility handling
-    $rootScope.hiddenCtrls = true;
+    $rootScope.hiddenCtrlsGlobal = true;
     $scope.toggle = function() {
-        $rootScope.hiddenCtrls = !$rootScope.hiddenCtrls;
+        $rootScope.hiddenCtrlsGlobal = !$rootScope.hiddenCtrlsGlobal;
     };
-    $scope.hiddenCtrls = $rootScope.hiddenCtrls;
+    $scope.hiddenCtrls = $rootScope.hiddenCtrlsGlobal;
 
      $scope.$watch('catalog', function(newValue)
      {

@@ -42,7 +42,7 @@ define('state/service/instruction/controller', ['angularAMD'], function (angular
 		return $state.go('service.instruction', {id: service.nID, service: service}, { location: false });
                 
                 //Admin buttons visibility handling
-                $scope.hiddenCtrls = $rootScope.hiddenCtrls;
+                $scope.hiddenCtrls = true; //$rootScope.hiddenCtrls;
                 //$scope.hiddenEdit = false;
                 //$scope.hiddenSave = !$scope.hiddenEdit;
                 //$scope.hiddenCancel = !$scope.hiddenEdit;
@@ -55,7 +55,7 @@ define('state/service/legislation/controller', ['angularAMD'], function (angular
 		return $state.go('service.legislation', {id: service.nID, service: service}, { location: false });
                 
                 //Admin buttons visibility handling
-                $scope.hiddenCtrls = $rootScope.hiddenCtrls;
+                $scope.hiddenCtrls = true; //$rootScope.hiddenCtrls;
                 //$scope.hiddenEdit = false;
                 //$scope.hiddenSave = !$scope.hiddenEdit;
                 //$scope.hiddenCancel = !$scope.hiddenEdit;
@@ -68,7 +68,7 @@ define('state/service/questions/controller', ['angularAMD'], function (angularAM
 		return $state.go('service.questions', {id: service.nID, service: service}, { location: false });
                 
                 //Admin buttons visibility handling
-                $scope.hiddenCtrls = $rootScope.hiddenCtrls;
+                $scope.hiddenCtrls = true; //$rootScope.hiddenCtrls;
                 //$scope.hiddenEdit = false;
                 //$scope.hiddenSave = !$scope.hiddenEdit;
                 //$scope.hiddenCancel = !$scope.hiddenEdit;               
