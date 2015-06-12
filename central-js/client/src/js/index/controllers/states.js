@@ -1,5 +1,5 @@
 define('state/index/controller', ['angularAMD'], function(angularAMD) {
-  angularAMD.controller('IndexController', function($scope, $timeout, CatalogService, catalog) {
+  angularAMD.controller('IndexController', function($scope, $rootScope, $timeout, CatalogService, catalog) {
     $scope.catalog = catalog;
       $scope.catalogCounts = {0:0,1:0,2:0};
     $scope.limit = 7;//limit of services
@@ -11,10 +11,12 @@ define('state/index/controller', ['angularAMD'], function(angularAMD) {
       });
     };
     
-    $scope.hiddenCtrls = true;
+    //Admin buttons visibility handling
+    $rootScope.hiddenCtrls = true;
     $scope.toggle = function() {
-        $scope.hiddenCtrls = !$scope.hiddenCtrls;
+        $rootScope.hiddenCtrls = !$rootScope.hiddenCtrls;
     };
+    $scope.hiddenCtrls = $rootScope.hiddenCtrls;
 
      $scope.$watch('catalog', function(newValue)
      {

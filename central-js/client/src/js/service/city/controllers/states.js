@@ -96,6 +96,7 @@ define('state/service/city/absent/controller', ['angularAMD'], function (angular
             MessagesService
         ) {
             $scope.service = service;
+            $scope.hiddenCtrls = $rootScope.hiddenCtrls; //Admin buttons visibility handling
             (function() {
                 if (window.pluso)if (typeof window.pluso.start == "function") return;
                 if (window.ifpluso==undefined) { window.ifpluso = 1;
