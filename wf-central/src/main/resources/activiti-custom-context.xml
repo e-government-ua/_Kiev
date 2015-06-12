@@ -48,6 +48,7 @@
                     <value>classpath:email.properties</value>
                     <value>classpath:bankID.properties</value>
                     <value>classpath:AS.properties</value>
+                    <value>classpath:merch.properties</value>
                 </list>
             </property>
             <property name="ignoreUnresolvablePlaceholders" value="true"/>

@@ -1,9 +1,15 @@
 package org.wf.dp.dniprorada.dao;
 
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 
 
@@ -20,6 +26,7 @@ import org.wf.dp.dniprorada.model.DocumentAccess;
 public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	private final String sURL = "https://igov.org.ua/index#";	
 	private SessionFactory sessionFactory;
+	private final String urlConn = "https://sms-inner.siteheart.com/api/otp_create_api.cgi";
 	
 	@Autowired
 	public DocumentAccessDaoImpl(SessionFactory sessionFactory) {
@@ -163,7 +170,6 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     String sAnswer = generateAnswer();
                     //TODO SEND SMS with this code
                     //
-                    
                     //o.setDateAnswerExpire(null);
                     docAcc.setAnswer(sAnswer);
                     writeRow(docAcc);
@@ -172,7 +178,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		} finally{
 			oSession.close();
 		}
-		return "/";
+		return  getOtpPassword(docAcc);
 	}
 
         
@@ -218,5 +224,31 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	}
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
+	}
+	private String getOtpPassword(DocumentAccess docAcc) throws Exception{
+		URL url = new URL(urlConn);
+		HttpURLConnection con = (HttpURLConnection)url.openConnection();
+		con.setRequestMethod("POST");
+		con.setRequestProperty("content-type", "application/json;charset=UTF-8");
+		con.setDoOutput(true);
+		Properties prop = new Properties();
+		prop.load(getClass().getClassLoader().getResourceAsStream("merch.properties"));
+		String merchant_id = prop.getProperty("merchant_id");
+		String merchant_password = prop.getProperty("merchant_password");
+		String jsonObj = "{\"merchant_id\":\""+merchant_id+"\", \"merchant_password\":\""+merchant_password+"\", \"otp_create\":[" +
+				"{\"from\":\"10060\", \"phone\":\"+380962731045\", \"category\":\"qwerty\", \"sms_template\":[" +
+				"{\"text\":\"Parol: \"}, {\"password\":\"2\"}, {\"text\":\"-\"}, {\"password\":\"2\"}, {\"text\":\"-\"}, {\"password\":\"2\"}, {\"text\":\"-\"}, {\"password\":\"2\"}]}]}";
+		DataOutputStream dos = new DataOutputStream(con.getOutputStream());
+		dos.writeBytes(jsonObj);
+		dos.flush();
+		dos.close();
+		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		StringBuilder sb = new StringBuilder();
+		String inputLine;
+		while((inputLine = br.readLine()) != null){
+			sb.append(inputLine);
+		}
+		br.close();
+		return sb.toString();
 	}
 }
