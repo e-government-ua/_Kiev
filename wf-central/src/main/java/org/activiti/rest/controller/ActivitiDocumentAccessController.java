@@ -101,7 +101,9 @@ public class ActivitiDocumentAccessController {
 		} catch (Exception e) {
 			response.setStatus(500);
 			response.setHeader("Reason", e.getMessage());
-			response.setHeader("OTP", str);
+			oAccessURL.setName("sURL");
+			oAccessURL.setValue(e.getMessage());
+			//response.setHeader("OTP", str);
 		}
 		return oAccessURL;
 	}
