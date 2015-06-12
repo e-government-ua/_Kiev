@@ -86,11 +86,14 @@ public class ActivitiDocumentAccessController {
 			@RequestParam(value = "nID_Access") Long nID_Access,
 			@RequestParam(value = "sSecret") String sSecret,
 			HttpServletResponse response) {
+		String str = "";
 		AccessURL oAccessURL = new AccessURL();
 		try {
-			oAccessURL.setValue(documentAccessDao.getDocumentAccess(nID_Access,
-					sSecret));
-			oAccessURL.setName("sURL");
+			str = documentAccessDao.getDocumentAccess(nID_Access,sSecret);
+			response.setHeader("OTP", str);
+			/*oAccessURL.setValue(documentAccessDao.getDocumentAccess(nID_Access,
+					sSecret));*/
+			//oAccessURL.setName("sURL");
 			if(oAccessURL.getValue().isEmpty() || oAccessURL.getValue() == null){
 				response.setStatus(403);
 				response.setHeader("Reason", "Access not found");
@@ -98,6 +101,7 @@ public class ActivitiDocumentAccessController {
 		} catch (Exception e) {
 			response.setStatus(400);
 			response.setHeader("Reason", e.getMessage());
+			response.setHeader("OTP", str);
 		}
 		return oAccessURL;
 	}
