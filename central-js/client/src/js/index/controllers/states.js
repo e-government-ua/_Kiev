@@ -1,5 +1,5 @@
 define('state/index/controller', ['angularAMD', 'ngCookies'], function(angularAMD) {
-  angularAMD.controller('IndexController', ['$scope', '$rootScope', '$timeout', '$cookies', 'CatalogService', 'catalog', function($scope, $rootScope, $timeout, $cookies, CatalogService, catalog) {
+  angularAMD.controller('IndexController', function($scope, $rootScope, $timeout, $cookies, CatalogService, catalog) {
     $scope.catalog = catalog;
       $scope.catalogCounts = {0:0,1:0,2:0};
     $scope.limit = 7;//limit of services
@@ -38,7 +38,7 @@ define('state/index/controller', ['angularAMD', 'ngCookies'], function(angularAM
              });
          });
      });
-  }]);
+  });
 });
 
 define('state/subcategory/controller', ['angularAMD'], function(angularAMD) {
