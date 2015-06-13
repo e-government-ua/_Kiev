@@ -5,5 +5,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <include file="liquibase/init.xml"/>
+    <changeSet id="Create/Update tables" author="brunneng" runOnChange="true">
+
+
+        
+    </changeSet>
 </databaseChangeLog>

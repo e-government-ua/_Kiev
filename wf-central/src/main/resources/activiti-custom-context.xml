@@ -48,7 +48,6 @@
                     <value>classpath:email.properties</value>
                     <value>classpath:bankID.properties</value>
                     <value>classpath:AS.properties</value>
-                    <value>classpath:merch.properties</value>
                 </list>
             </property>
             <property name="ignoreUnresolvablePlaceholders" value="true"/>
@@ -65,11 +64,6 @@
     <beans>
 
         <import resource="db-context.xml"/>
-
-        <bean id="central_liquibase" class="liquibase.integration.spring.SpringLiquibase">
-            <property name="dataSource" ref="dataSource"/>
-            <property name="changeLog" value="classpath:liquibase/db.changelog-master.xml"/>
-        </bean>
 
         <bean id="merchantDao" class="org.wf.dp.dniprorada.dao.MerchantDaoImpl">
             <property name="dataSource" ref="dataSource"/>
