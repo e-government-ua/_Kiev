@@ -7,7 +7,7 @@ import net.sf.brunneng.jom.diff.apply.IBeanFinder;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Required;
 import org.wf.dp.dniprorada.dao.BaseEntityDao;
-import org.wf.dp.dniprorada.model.Entity;
+import org.wf.dp.dniprorada.base.model.Entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;

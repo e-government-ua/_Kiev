@@ -123,7 +123,13 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/app/components.js'
 					},
 					{
-						src: ['./src/js/main/script.js', './src/js/components/**/*.js'],
+						src: [
+							'./src/js/main/script.js',
+							'./src/js/components/**/*.js',
+							'./src/js/bankid/**/*.js',
+							'./src/js/activiti/**/*.js',
+							'./src/js/form/**/*.js',
+						],
 						dest: './tmp/js/concat/script.js'
 					},
 					{
@@ -148,9 +154,6 @@ module.exports = function(grunt) {
                     },
 					{
 						src: [
-							'./src/js/bankid/**/*.js',
-							'./src/js/activiti/**/*.js',
-							'./src/js/form/**/*.js',
 							'./src/js/places/**/*.js',
 							'./src/js/service/link/**/*.js',
 							'./src/js/service/built-in/**/*.js',
@@ -188,7 +191,13 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/app/components.js'
 					},
 					{
-						src: ['./src/js/main/debug.js', './src/js/components/**/*.js'],
+						src: [
+							'./src/js/main/debug.js',
+							'./src/js/components/**/*.js',
+							'./src/js/bankid/**/*.js',
+							'./src/js/activiti/**/*.js',
+							'./src/js/form/**/*.js',
+						],
 						dest: './tmp/js/concat/script.js'
 					},
 					{
@@ -213,9 +222,6 @@ module.exports = function(grunt) {
                     },
 					{
 						src: [
-							'./src/js/bankid/**/*.js',
-							'./src/js/activiti/**/*.js',
-							'./src/js/form/**/*.js',
 							'./src/js/places/**/*.js',
 							'./src/js/service/link/**/*.js',
 							'./src/js/service/built-in/**/*.js',

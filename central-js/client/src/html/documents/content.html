@@ -42,6 +42,26 @@
 <div class="row">
     <div class="col-md-12"
          id="accordion">
+		 
+		<div class="row">
+			<div class="row">
+                            <center>
+				<button type="button" class="btn btn-success" file-upload-a>
+					<span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+					<span>Добавить документ</span>
+					<input type="file" style="display:none">
+				</button>
+				<button type="button" class="btn btn-success" ng-click="file.uploadDocument()" ng-if="file.fileName">
+					<span>Завантажити</span>
+				</button>
+                            </center>
+			</div>
+			<div class="row">
+                            <center>
+				<label ng-if="file.fileName">Файл: {{file.fileName}}</label>
+                            </center>
+			</div>
+		</div>
 
         <table class="table table-striped">
             <thead>

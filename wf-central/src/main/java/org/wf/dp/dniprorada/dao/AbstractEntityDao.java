@@ -4,7 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Required;
-import org.wf.dp.dniprorada.model.Entity;
+import org.wf.dp.dniprorada.base.model.Entity;
 
 import java.util.List;
 

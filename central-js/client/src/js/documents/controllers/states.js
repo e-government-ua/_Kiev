@@ -21,7 +21,10 @@ define('state/documents/bankid/controller', ['angularAMD'], function(angularAMD)
 });
 define('state/documents/content/controller', ['angularAMD'], function(angularAMD) {
   angularAMD.controller('DocumentsContentController',
-    function($scope, $state, documents, ServiceService, $modal) {
+    function($scope, $state, documents, FileFactory, ServiceService, $modal) {
+	  var file = new FileFactory();
+	  $scope.file = file;
+	  
       angular.forEach(documents, function(item) {
         if (item.oDate_Upload === null) {
           item.oDate_Upload = new Date();

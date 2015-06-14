@@ -3,6 +3,7 @@ package org.wf.dp.dniprorada.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.wf.dp.dniprorada.base.model.Entity;
 
 import javax.persistence.Column;
 import javax.persistence.FetchType;
