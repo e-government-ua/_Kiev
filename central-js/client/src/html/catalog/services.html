@@ -8,13 +8,13 @@
            </div>
             <div class="index-services-count">
                 <span class="index-services-count-item">
-                    <span class="icon-e-service-on"></span>{{catalogCounts[2]}} послуг доступно онлайн
+                    <span class="icon-e-service-on"></span>{{catalogCounts[2]}} &mdash; послуга доступна онлайн
                 </span>
                 <span class="index-services-count-item">
-                    <span class="icon-e-service-test"></span>{{catalogCounts[1]}} - дуже скоро
+                    <span class="icon-e-service-test"></span>{{catalogCounts[1]}} &mdash; дуже скоро
                 </span>
                 <span class="index-services-count-item">
-                    <span class="icon-e-service-off"></span>{{catalogCounts[0]}} - в роботі
+                    <span class="icon-e-service-off"></span>{{catalogCounts[0]}} &mdash; в роботі
                 </span>
             </div>
         </div>
@@ -34,7 +34,7 @@
                                                 <!--p ng-if="service.nSub>0"><a ui-sref="service.general({'id': service.nID })" ng-href="/service/{{service.nID}}/general"><i class="icon-e-service-on" title="Ця послуга доступна в електронній формі для одного, кількох або всіх регіонів"></i>{{service.sName}}</a> <a class="ctrls-admin ctrls-srvc" href="" title="Редагувати послугу" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-pencil"></span></a> <a class="ctrls-admin ctrls-srvc" href="" title="Видалити послугу" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-remove"></span></a></p>
                                                 <p ng-if="service.nSub==0"><a ui-sref="service.general({'id': service.nID })" ng-href="/service/{{service.nID}}/general"><i class="icon-e-service-off" title="Ця послуга поки не доступна онлайн. Зайдіть у послугу та залиште свій email, щоб дізнатися, коли стане доступна."></i>{{service.sName}}</a> <a class="ctrls-admin ctrls-srvc" href="" title="Редагувати послугу" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-pencil"></span></a> <a class="ctrls-admin ctrls-srvc" href="" title="Видалити послугу" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-remove"></span></a></p-->
                                                 <p ng-if="service.nStatus==2"><a ui-sref="service.general({'id': service.nID })" ng-href="/service/{{service.nID}}/general"><i class="icon-e-service-on" title="Ця послуга доступна в електронній формі для одного, кількох або всіх регіонів"></i>{{service.sName}}</a> <a class="ctrls-admin ctrls-srvc" href="" title="Редагувати послугу" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-pencil"></span></a> <a class="ctrls-admin ctrls-srvc" href="" title="Видалити послугу" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-remove"></span></a></p>
-                                                <p ng-if="service.nStatus==1"><a ui-sref="service.general({'id': service.nID })" ng-href="/service/{{service.nID}}/general"><i class="icon-e-service-test" title="Ця послуга поки не доступна онлайн. Зайдіть у послугу та залиште свій email, щоб дізнатися, коли стане доступна."></i>{{service.sName}}</a> <a class="ctrls-admin ctrls-srvc" href="" title="Редагувати послугу" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-pencil"></span></a> <a class="ctrls-admin ctrls-srvc" href="" title="Видалити послугу" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-remove"></span></a></p>
+                                                <p ng-if="service.nStatus==1"><a ui-sref="service.general({'id': service.nID })" ng-href="/service/{{service.nID}}/general"><i class="icon-e-service-test" title="Ця послуга буде доступна онлайн дуже скоро. Зайдіть у послугу та залиште свій email, щоб дізнатися, коли стане доступна."></i>{{service.sName}}</a> <a class="ctrls-admin ctrls-srvc" href="" title="Редагувати послугу" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-pencil"></span></a> <a class="ctrls-admin ctrls-srvc" href="" title="Видалити послугу" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-remove"></span></a></p>
                                                 <p ng-if="service.nStatus==0"><a ui-sref="service.general({'id': service.nID })" ng-href="/service/{{service.nID}}/general"><i class="icon-e-service-off" title="Ця послуга поки не доступна онлайн. Зайдіть у послугу та залиште свій email, щоб дізнатися, коли стане доступна."></i>{{service.sName}}</a> <a class="ctrls-admin ctrls-srvc" href="" title="Редагувати послугу" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-pencil"></span></a> <a class="ctrls-admin ctrls-srvc" href="" title="Видалити послугу" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-remove"></span></a></p>
 					</li>
 				</ul>                        
