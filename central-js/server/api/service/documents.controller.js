@@ -145,7 +145,9 @@ module.exports.initialUpload = function(req, res) {
             var results = scans.filter(optionsForUploadContent.scanFilter);
             if (results.length === 1) {
                 uploadScan(results[0], optionsForUploadContent, callback);
-            }
+            } else {
+				res.end();
+			}
         }, function(result) {
             res.send(result);
             res.end();
