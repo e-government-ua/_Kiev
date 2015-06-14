@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -154,6 +155,11 @@ public class Service extends org.wf.dp.dniprorada.base.model.NamedEntity {
         }
         return 1;
       }
+   }
+
+   @JsonSetter("nID_Status")
+   public void setStatusID(int id) {
+      // need to avoid exception in tests.
    }
    
    
