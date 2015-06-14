@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.model;
+package org.wf.dp.dniprorada.base.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import net.sf.brunneng.jom.annotations.Identifier;
@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 /**
+ * Abstract entity.
+ *
  * User: goodg_000
  * Date: 04.05.2015
  * Time: 21:51
@@ -19,13 +21,13 @@ public abstract class Entity {
    @JsonProperty(value="nID")
    @Id
    @Column(name="nID")
-   private Integer id;
+   private Long id;
 
    @Identifier
-   public Integer getId() {
+   public Long getId() {
       return id;
    }
-   public void setId(Integer id) {
+   public void setId(Long id) {
       this.id = id;
    }
 }
