@@ -39,7 +39,7 @@
                             role="menu">
                             <li ng-repeat="region in regionList.dropdown.list track by $index">
                                 <a ng-click="onSelectRegionList(region, null, null)"
-                                   ng-class="{'color-green': (region.color == 'green'), 'color-red': (region.color == 'red')}">{{region.sName}}</a>
+                                   ng-class="{'color-green': (region.color == 'green')}">{{region.sName}}</a>
                             </li>
                         </ul>
                     </div>
@@ -78,7 +78,7 @@
                             ng-show="localityList.dropdown.list.length > 0">
                             <li ng-repeat="city in localityList.dropdown.list track by $index">
                                 <a ng-click="onSelectLocalityList(city, null, null)"
-                                   ng-class="{'color-green': (city.color == 'green'), 'color-red': (city.color == 'red')}">{{city.sName}}</a>
+                                   ng-class="{'color-green': (city.color == 'green')}">{{city.sName}}</a>
                             </li>
                         </ul>
                     </div>  
