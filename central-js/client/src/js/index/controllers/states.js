@@ -1,5 +1,5 @@
 define('state/index/controller', ['angularAMD'], function(angularAMD) {
-  angularAMD.controller('IndexController', function($scope, $rootScope, $timeout, CatalogService, catalog) {
+  angularAMD.controller('IndexController', function($scope, $rootScope, $timeout, $cookies, CatalogService, catalog) {
     $scope.catalog = catalog;
       $scope.catalogCounts = {0:0,1:0,2:0};
     $scope.limit = 7;//limit of services
