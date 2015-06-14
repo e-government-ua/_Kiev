@@ -143,11 +143,12 @@ module.exports.initialUpload = function(req, res) {
     var doAsyncScansUpload = function(scans) {
         async.forEach(optionsForUploadContentList, function(optionsForUploadContent, callback) {
             var results = scans.filter(optionsForUploadContent.scanFilter);
-            if (results.length === 1) {
-                uploadScan(results[0], optionsForUploadContent, callback);
+            //if (results.length === 1) {
+            if (results === null || results.length === 0) {
+                res.end();
             } else {
-				res.end();
-			}
+                uploadScan(results[0], optionsForUploadContent, callback);
+            }
         }, function(result) {
             res.send(result);
             res.end();
