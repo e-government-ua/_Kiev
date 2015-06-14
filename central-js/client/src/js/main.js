@@ -5,7 +5,7 @@ requirejs.config({
     'bower': './bower',
     'angularAMD': './angularAMD/angularAMD',
     'ngload': './angularAMD/ngload',
-    'ngCookies': './cookies/ngCookies',
+    //'ngCookies': './cookies/ngCookies',
     'script': './script',
     'index': './app/index',
     'documents': './app/documents',

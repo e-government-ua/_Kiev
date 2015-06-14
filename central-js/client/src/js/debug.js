@@ -5,7 +5,7 @@ requirejs.config({
     'bower': './bower',
     'angularAMD': 'https://cdn.jsdelivr.net/angular.amd/0.2/angularAMD.min',
     'ngload': 'https://cdn.jsdelivr.net/angular.amd/0.2/ngload.min',
-    'ngCookies': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.16/angular-cookies.min.js',
+    //'ngCookies': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.16/angular-cookies.min.js',
     'script': './script',
     'index': './app/index',
     'documents': './app/documents',
