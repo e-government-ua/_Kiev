@@ -1,6 +1,6 @@
 define(['angularAMD', 'templates', 'server'], function (angularAMD) {
     var app = angular.module("main", ['ct.ui.router.extras', 
-        'templates-main', 'ngMessages', 'ui.bootstrap', 'ui.utils', 'ui.uploader', 'ui.event', 'server' ]);
+        'templates-main', 'ngMessages', 'ui.bootstrap', 'ui.utils', 'ui.uploader', 'ui.event', 'server']);
 
     app.config(['$locationProvider', function ($locationProvider) {
 		$locationProvider.html5Mode(true);
