@@ -2,8 +2,8 @@ nID;sName;sID;nID_Category;nOrder
 1;Будівництво, нерухомість, земля;Build;1;1
 2;Взаємодія з державнимі органами;Government;1;2
 3;Міліція;Police;1;3
-4;Особисті документи;PrivatDocuments;1;4
-5;Проживання;Living;1;5
+4;Посвідчення особи, Громадянство, Місце проживання;Registrations;1;18
+5;Ліцензії;License;2;9
 6;Реєстраційни дані;Registrations;1;6
 7;Будівництво, нерухомість, земля;BuildOrg;2;7
 8;Гірнича промисловість;Mounts;2;8
@@ -12,8 +12,9 @@ nID;sName;sID;nID_Category;nOrder
 11;Культура, мистецтво, релігія;Culture;2;11
 12;Медицина;Medic;2;12
 13;Освіта;Education;2;13
-14;Охорона праці;WorkSafe;2;14
+14;Мито;Tamognya;2;11
 15;Реєстраційни дані;RegistrationsOrg;2;15
-16;Товари та послуги;GoodsServices;2;16
-17;Транспорт;Transports;2;17
-18;Бази даних;DB;1;18
+16;Податки;Tax;1;16
+17;Транспорт;Transports_B;2;17
+18;Транспорт;Transports_P;1;16
+19;Торгівля;Trade;2;14

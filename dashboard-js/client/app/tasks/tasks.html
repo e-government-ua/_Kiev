@@ -104,5 +104,30 @@
                 </p>
             </div>
         </div>
+        <div ng-show="attachments">
+          <p ng-repeat="item in attachments">
+            Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content/{{($index+1)}}" target="_blank"><b>{{item.name}}</b> {{item.description}}</a>
+          </p>
+        </div>
+        <p ng-if="selectedTask"> <!--taskForm ! = null    -->
+          <button ng-hide="selectedTask.assignee != null" ng-click="assignTask()" class="btn btn-success">Взяти в роботу</button>
+          <!-- <button ng-hide="taskForm == null" ng-disabled="selectedTask.assignee != null && hasAttachment()" ng-click="downloadAttachment()" class="btn btn-success">Загрузити документ</button> -->
+          <button ng-hide="selectedTask.assignee == null" ng-click="submitTask()" class="btn btn-success">Опрацювати</button>
+          <button ng-hide="selectedTask.assignee == null" ng-click="print()" class="btn btn-success">Роздрукувати</button>
+        </p>
+      </div>
     </div>
+  </div>
+  <print-modal show='showPrintModal' info='showPrintModal'>
+    <div class="col-md-12">
+      <p>Звернення: {{getProcessName(printObj.task.processDefinitionId)}}</p>
+      <p>джерело: igov.org.ua</p>
+      <p>№: {{printObj.task.id}}</p>
+      <p>від: {{ sDateShort(printObj.task.createTime) }}</p>
+      <p ng-repeat='item in printObj.form'>{{sFieldLabel(item.name)}} <b>{{item.value}}</b></p>
+      <p>----------------------------------------------------------------------------------------------------------------------------</p>
+      <p>Довідку№ _________________________ Отримав (ПІБ)_________________________</p>
+      <p>Дата _________________________ Підпис _________________________</p>
+    </div>
+  </print-modal>
 </div>

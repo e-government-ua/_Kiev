@@ -1,5 +1,5 @@
 'use strict';
-angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks, processes, Modal, Auth, $localStorage) {
+angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, $window, tasks, processes, Modal, Auth, $localStorage) {
   $scope.tasks = [];
   $scope.selectedTasks = {};
   $scope.$storage = $localStorage.$default({
@@ -18,6 +18,13 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, tasks,
     type: tasks.filterTypes.finished,
     count: 0
   }];
+
+  $scope.print = function (){
+    if ($scope.selectedTask && $scope.taskForm) {
+      $scope.printObj = {task : $scope.selectedTask, form: $scope.taskForm};
+      $scope.showPrintModal = !$scope.showPrintModal;
+    }
+  }
 
   $scope.isFormPropertyDisabled = function(formProperty) {
     if ($scope.selectedTask && $scope.selectedTask.assignee === null) {

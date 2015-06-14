@@ -598,22 +598,6 @@ a.pluso-more {
     display: none !important;
 }
 
-.color-green {
-    color: Green !important;
-}
-
-.active .color-green {
-    color: LightGreen !important;
-}
-
-.color-red {
-    color: Red !important;
-}
-
-.dropdown-menu .color-red {
-    color: #333 !important;
-}
-
 .step {
     font-weight: bold;
     padding-right: 10px;
@@ -1245,15 +1229,15 @@ a.pluso-more {
 }
 
 .color-green {
-    color: Green !important;
+    color: #008800 !important;
 }
 
 .active .color-green {
-    color: LightGreen !important;
+    color: #90ee90 !important;
 }
 
 .color-red {
-    color: Red !important;
+    color: #ff0000 !important;
 }
 
 .dropdown-menu .color-red {
