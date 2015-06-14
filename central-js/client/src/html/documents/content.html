@@ -42,6 +42,26 @@
 <div class="row">
     <div class="col-md-12"
          id="accordion">
+		 
+                    <div class="row" style="display: none;">
+			<div class="row">
+                            <center>
+				<button type="button" class="btn btn-success" file-upload-a>
+					<span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+					<span>Добавить документ</span>
+					<input type="file" style="display:none">
+				</button>
+				<button type="button" class="btn btn-success" ng-click="file.uploadDocument()" ng-if="file.fileName">
+					<span>Завантажити</span>
+				</button>
+                            </center>
+			</div>
+			<div class="row">
+                            <center>
+				<label ng-if="file.fileName">Файл: {{file.fileName}}</label>
+                            </center>
+			</div>
+		</div>
 
         <table class="table table-striped">
             <thead>
@@ -108,44 +128,54 @@
                         <br>
 
                         <div class="panel panel-default">
-                            <form role="form"
-                                  ng-submit="shareLink(doc, sFIO, sTelephone, sMail)">
+                         <div class="row">
+                          <div class="col-md-6">
+                            <form name="shareLinkForm" role="form"
+                                  ng-submit="shareLinkForm.$valid && shareLink(doc, sFIO, sTelephone, sMail)">
                                 <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="name">Введіть ім’я та прізвище людині, якій Ви надаєте
-                                                          доступ
+                                    <div class="form-group">
+                                        <label for="name">Введіть ім’я та прізвище людини, якій Ви надаєте доступ
                                             <em>*</em>
                                         </label>
                                         <input type="text"
                                                required
                                                ng-model="sFIO"
                                                class="form-control"
-                                               id="name">
+                                               id="name"
+                                               autofocus />
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group" ng-class="{'has-success': shareLinkForm.phone.$valid}">
                                         <label for="phone">Введіть номер її мобільного телефону
                                             <em>*</em>
                                             <span class="snippet">(через нього вона веріфікується через SMS)</span>
-                                        </label>
-                                        <input type="text"
+                                        </label><br/>
+                                        <div class="alert alert-danger" ng-show="shareLinkForm.phone.$error.maxlength">Забагато цифр у номері, перевірте його правильність</div>
+                                        <div class="alert alert-danger" ng-show="shareLinkForm.phone.$error.pattern">У номері мають бути лише цифри та + на початку</div>
+                                        <input type="tel"
+                                               class="form-control"
+                                               style="width: auto;"
+                                               id="phone"
+                                               name="phone"
                                                required
                                                ng-model="sTelephone"
-                                               class="form-control"
-                                               id="phone">
+                                               ng-pattern="/^\+[0-9]{1,}$/"
+                                               ng-minlength="13"
+                                               ng-maxlength="13" />
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="email">Введіть електронну пошту
-                                            <em>*</em>
-                                            <span class="snippet">(через нього вона верифікується)</span>
+                                    <div class="form-group" ng-class="{'has-success': shareLinkForm.email.$valid && shareLinkForm.email.$touched}">
+
+                                        <label for="email">Введіть електронну пошту (за бажанням)
+                                            <span class="snippet">(на вказаний адрес буде надіслано посилання на документ)</span>
                                         </label>
-                                        <input type="text"
+                                        <input type="email"
                                                ng-model="sMail"
                                                class="form-control"
+                                               name="email"
                                                id="email">
                                     </div>
                                 </div>
@@ -156,10 +186,12 @@
 
                                 <div class="submit-button">
                                     <button type="submit"
-                                            class="btn btn-primary">Надіслати посилання
+                                            class="btn btn-primary" ng-disabled="shareLinkForm.$invalid">Надати доступ
                                     </button>
                                 </div>
                             </form>
+                          </div>
+                         </div>
                         </div>
                     </div>
                 </td>
@@ -177,9 +209,10 @@
         <div class="link-modal form-group col-md-12">
             <label for="link">Посилання, за яким користувач може отримати доступ (через SMS-пароль)</label>
             <input type="text"
-                   ng-model="{{url}}"
+                   ng-model="url"
+                   readonly
                    class="form-control"
-                   id="link">
+                   id="link" />
         </div>
     </div>
 

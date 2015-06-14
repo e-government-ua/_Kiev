@@ -1296,3 +1296,7 @@ label .snippet {
 .index-services-count .index-services-count-item:last-child {
     margin-right: 0;
 }
+
+.pluso-counter {
+    left:-20px;
+}

@@ -44,6 +44,10 @@ define('file/factory', ['angularAMD'], function(angularAMD) {
         }
       });
     };
+	
+	file.prototype.uploadDocument = function() {
+		console.log('test');
+	};
 
     file.prototype.get = function() {
       return this.value;
