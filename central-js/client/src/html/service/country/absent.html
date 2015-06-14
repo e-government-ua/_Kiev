@@ -10,7 +10,7 @@
 			<!--div class="col-md-12 text-center">Ознайомитись, як можна скористатися цією послугою, можна в <a ui-sref="service.instruction({ id: service.nID })">Інструкції</a></div-->
                         <!--<div class="col-md-12 text-center">Ознайомитись, як можна скористатися цією послугою, можна в <a ui-sref="service.instruction({ id: service.nID })">Інструкції</a></div>-->
                         <div class="col-md-12">
-                            <center><b><span class="text-center">Ви можете допомогти пришвидчити процес переведння послуги в електронний вигляд:</span></b></center>
+                            <center style="margin-bottom:10px;"><b><span class="text-center">Ви можете допомогти пришвидчити процес переведння послуги в електронний вигляд:</span></b></center>
                                 <!--ol>
                                         <li-->
                                                 <table style="vertical-align:top;">
@@ -19,7 +19,7 @@
                                                             Поділіться посиланням на цю сторінку в соціальних мережах із закликом підтримати ініціативу по переводу послуги в електронний вигляд.
                                                             <br>
                                                             <center>
-                                                                <div class="pluso"
+                                                                <div class="pluso" style="margin-top:10px;"
                                                                          data-background="transparent"
                                                                          data-options="big,round,line,horizontal,counter,theme=04"
                                                                          data-title="Закликаю владу перевести цю послугу в електронну форму! {{data.city.sName}} – {{service.sName}}"
@@ -30,7 +30,7 @@
                                                         </td>
                                                         <td style="vertical-align:top;width:50%;">
                                                             Залиште свій email. Ми Вас поінформуємо, як тільки ця послуга буде доступна в електронному вигляді.
-                                                            <div class="col-md-12 text-center">
+                                                            <div style="margin-top:10px;" class="col-md-12 text-center">
                                                             <form name="absentMessageForm">
                                                                 <input type="email" data-ng-model="absentMessage.email" name="email" placeholder="Ваш email" required ng-keyup="emailKeydown()"/>
                                                                 <input type="button" data-ng-click="sendAbsentMessage(absentMessageForm, absentMessage)" value="Зберегти" />
