@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
+
 import org.wf.dp.dniprorada.util.GeneralConfig;
 
 /**
@@ -19,11 +20,7 @@ import org.wf.dp.dniprorada.util.GeneralConfig;
  * Time: 23:10
  */
 @javax.persistence.Entity
-public class Service extends Entity {
-
-	@JsonProperty(value="sName")
-   @Column(name = "sName", nullable = false)
-   private String name;
+public class Service extends org.wf.dp.dniprorada.base.model.NamedEntity {
 
 	@JsonProperty(value="nOrder")
    @Column(name = "nOrder", nullable = false)
@@ -75,15 +72,6 @@ public class Service extends Entity {
    
    @Transient
    private int nStatus = 0;
-   
-
-   public String getName() {
-      return name;
-   }
-
-   public void setName(String name) {
-      this.name = name;
-   }
 
 
    public String getSubjectOperatorName() {

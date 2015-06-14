@@ -6,8 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Required;
-import org.wf.dp.dniprorada.model.Entity;
-import org.wf.dp.dniprorada.model.Service;
+import org.wf.dp.dniprorada.base.model.Entity;
 
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;

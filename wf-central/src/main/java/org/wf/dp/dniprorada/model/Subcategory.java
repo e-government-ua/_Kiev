@@ -13,11 +13,7 @@ import javax.persistence.*;
  * User: goodg_000 Date: 04.05.2015 Time: 22:24
  */
 @javax.persistence.Entity
-public class Subcategory extends Entity {
-
-	@JsonProperty(value = "sName")
-	@Column(name = "sName", nullable = false)
-	private String name;
+public class Subcategory extends org.wf.dp.dniprorada.base.model.NamedEntity {
 	
 	@JsonProperty(value = "sID")
 	@Column(name = "sID", nullable = false)
@@ -38,14 +34,6 @@ public class Subcategory extends Entity {
 	@OrderBy("order asc")
 	private List<Service> services = new ArrayList<>();
 	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getCode() {
 		return code;
 	}

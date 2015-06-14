@@ -7,7 +7,134 @@
 
     <changeSet id="Create/Update tables" author="brunneng" runOnChange="true">
 
+        <sql splitStatements="true">
+            DROP TABLE IF EXISTS "ServiceOperator_SubjectOrgan" CASCADE;
+            DROP TABLE IF EXISTS "Flow_ServiceData" CASCADE;
+            DROP TABLE IF EXISTS "FlowPropertyClass" CASCADE;
+            DROP TABLE IF EXISTS "FlowProperty" CASCADE;
+            DROP TABLE IF EXISTS "FlowSlot" CASCADE;
+            DROP TABLE IF EXISTS "SubjectTicket" CASCADE;
+        </sql>
 
-        
+        <!-- ####################################################################################################### -->
+        <createTable tableName="ServiceOperator_SubjectOrgan">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(300)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_SubjectOrgan" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="ServiceOperator_SubjectOrgan" columnDataType="bigint" incrementBy="1" startWith="1000"/>
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="Flow_ServiceData">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(300)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_ServiceData" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="nID_SubjectOrganDepartment" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="Flow_ServiceData" columnDataType="bigint" incrementBy="1" startWith="1000"/>
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="FlowPropertyClass">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sPath" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="FlowPropertyClass" columnDataType="bigint" incrementBy="1" startWith="1000"/>
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="FlowProperty">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nID_FlowPropertyClass" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="FK_FlowProperty_FlowPropertyClass"
+                             referencedTableName="FlowPropertyClass" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+            <column name="sData" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_Flow_ServiceData" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="FK_FlowProperty_Flow_ServiceData"
+                             referencedTableName="Flow_ServiceData" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="FlowProperty" columnDataType="bigint" incrementBy="1" startWith="1000"/>
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="FlowSlot">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sDate" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sData" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_Flow_ServiceData" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="FK_FlowSlot_Flow_ServiceData"
+                             referencedTableName="Flow_ServiceData" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="FlowSlot" columnDataType="bigint" incrementBy="1" startWith="1000"/>
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="SubjectTicket">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nID_FlowSlot" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="FK_SubjectTicket_FlowSlot"
+                             referencedTableName="FlowSlot" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+            <column name="nID_Subject" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_Task_Activiti" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sDate" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="SubjectTicket" columnDataType="bigint" incrementBy="1" startWith="1000"/>
+
+        <!-- Loading of Data ####################################################################################### -->
+        <!--
+        <loadData encoding="UTF-8" file="data/Subject.csv" tableName="Subject" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sID" type="STRING"/>
+            <column name="sLabel" type="STRING"/>
+            <column name="sLabelShort" type="STRING"/>
+        </loadData>
+        -->
+
     </changeSet>
 </databaseChangeLog>
