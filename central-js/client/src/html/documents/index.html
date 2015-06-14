@@ -1,6 +1,16 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li ui-sref-active="active"
+                    role="presentation"><a ui-sref="documents.user">Мої документи</a></li>
+                <li ui-sref-active="active"
+                    role="presentation"><a ui-sref="documents.search">Пошук документу за кодом</a></li>
+                <li ui-sref-active="active"
+                    role="presentation"><a ui-sref="documents.notary">Нотаріусам</a></li>
+            </ul>
+        </div>
+        <div class="col-md-12">
             <div ui-view="bankid"></div>
             <div ui-view="content"></div>
             <div ui-view="view"></div>

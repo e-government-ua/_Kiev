@@ -15,11 +15,21 @@ define('documents', ['angularAMD', 'service', 'file2/directive', 'file/factory']
           })
         }
       })
+	  .state('documents.user', {
+		url: '/user',
+        views: {
+          'content': angularAMD.route({
+            templateProvider: function($templateCache) {
+              return $templateCache.get('html/documents/user/index.html');
+            },
+          })
+        }
+	  })
       .state('documents.bankid', {
         url: '/bankid?code',
-        parent: 'documents',
+        parent: 'documents.user',
         views: {
-          'bankid': angularAMD.route({
+          'content': angularAMD.route({
             templateProvider: function($templateCache) {
               return $templateCache.get('html/documents/bankid/index.html');
             },
@@ -30,9 +40,9 @@ define('documents', ['angularAMD', 'service', 'file2/directive', 'file/factory']
       })
       .state('documents.view', {
         url: '/view',
-        parent: 'documents',
+        parent: 'documents.user',
         views: {
-          'view': angularAMD.route({
+          'content': angularAMD.route({
             templateProvider: function($templateCache) {
               return $templateCache.get('html/documents/view.html');
             }
@@ -41,7 +51,7 @@ define('documents', ['angularAMD', 'service', 'file2/directive', 'file/factory']
       })
       .state('documents.content', {
         url: '/content?code',
-        parent: 'documents',
+        parent: 'documents.user',
         resolve: {
           BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
             var url = $location.protocol()
@@ -88,7 +98,13 @@ define('documents', ['angularAMD', 'service', 'file2/directive', 'file/factory']
             controllerUrl: 'state/documents/content/controller'
           })
         }
-      });
+      })
+	  .state('documents.search', {
+		url: '/search'
+	  })
+	  .state('documents.notary', {
+		url: '/notary'
+	  })
   });
   return app;
 });
