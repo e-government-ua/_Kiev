@@ -28,10 +28,23 @@ define('state/documents/content/controller', ['angularAMD'], function(angularAMD
         }
       });
       $scope.documents = documents;
+      $scope.sTelephone = '+380';
 
       $scope.shareLink = function(document, sFIO, sTelephone, sMail) {
         ServiceService.shareLink($state.nID_Subject, document.nID, sFIO,
-          sTelephone, sMail).then(showConfirmationModal);
+          sTelephone, sMail).then(function(reply) {
+            if (reply.code) {
+              switch (reply.code) {
+                case 'BUSINESS_ERR':
+                  alert("Сталася помилка\n" + reply.code + ': ' + reply.message);
+                break;
+                default:
+                  alert("Сталася помилка\n" + reply.code + ': ' + reply.message);
+              }
+              return; //stop here in case of error reply from server
+            }
+            showConfirmationModal(reply)
+          });
       };
 
       function showConfirmationModal (url) {
