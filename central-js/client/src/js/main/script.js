@@ -1,7 +1,7 @@
 define(['angularAMD', 'templates'], function (angularAMD) {
     var app = angular.module("main", 
         ['ct.ui.router.extras', 'templates-main', 'ngMessages', 'ui.bootstrap',
-         'ui.uploader', 'ui.event'
+         'ui.uploader', 'ui.event', 'ngCookies'
         ]);
 
     app.config(['$locationProvider', function ($locationProvider) {
