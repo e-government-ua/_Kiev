@@ -1,4 +1,4 @@
-define('documents', ['angularAMD', 'service'], function(angularAMD) {
+define('documents', ['angularAMD', 'service', 'file2/directive', 'file/factory'], function(angularAMD) {
   var app = angular.module('Documents', []);
 
   app.config(function($stateProvider) {
