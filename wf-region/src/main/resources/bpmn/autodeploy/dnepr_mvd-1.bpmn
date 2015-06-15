@@ -28,7 +28,7 @@
           <activiti:value id="attr11" name="Інша"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="text3" name="Контактні данні" type="label" default="-------------------"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warningMessage" name="Увага!" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
       </extensionElements>
@@ -52,8 +52,8 @@
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
-Ваш запит на отримання довідки про наявність або відсутніть судимості успішно зареєстровано.
-Довідка буде надана Вам в продовж 10 діб.</activiti:expression>
+Ваш запит на отримання довідки про наявність або відсутніть судимості успішно зареєстрований.
+Довідка буде надана Вам в продовж 20 діб.</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -145,8 +145,7 @@
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
 Ваш запит успішно оброблено.
-
-${comment}</activiti:expression>
+Ви можете отримати Вашу довідку ${comment}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -168,8 +167,7 @@ ${comment}</activiti:expression>
           <activiti:expression>Предоставить сканы паспорта по гражданину:
 
 Данні громадянина: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}
-Паспортні дані: ${bankIdPassport}
-</activiti:expression>
+Паспортні дані: ${bankIdPassport}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
