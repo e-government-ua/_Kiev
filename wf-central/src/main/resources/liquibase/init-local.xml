@@ -26,7 +26,8 @@
             DROP TABLE IF EXISTS "Subject" CASCADE;
             DROP TABLE IF EXISTS "SubjectHuman" CASCADE;
             DROP TABLE IF EXISTS "SubjectOrgan" CASCADE;
-            DROP TABLE IF EXISTS "Subjectmessage" CASCADE;
+            DROP TABLE IF EXISTS "SubjectOrganType" CASCADE;
+            DROP TABLE IF EXISTS "SubjectOrganDepartment" CASCADE;
             DROP TABLE IF EXISTS "SubjectMessage" CASCADE;
             DROP TABLE IF EXISTS "DocumentType" CASCADE;
             DROP TABLE IF EXISTS "DocumentContentType" CASCADE;
@@ -128,7 +129,36 @@
             incrementBy="1"
             sequenceName="SubjectOrgan_id_seq"
             startValue="1"/>
-            
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="SubjectOrganType">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="SubjectOrganType" columnDataType="bigint"  incrementBy="1" startWith="1000"/>
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="SubjectOrganDepartment">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(300)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sGroup_Activiti" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_SubjectOrgan" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="FK_SubjectOrganDepartment_SubjectOrgan"
+                             referencedTableName="SubjectOrgan" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="nID" tableName="SubjectOrganDepartment" columnDataType="bigint"  incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="Region">

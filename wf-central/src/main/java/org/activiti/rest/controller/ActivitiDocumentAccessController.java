@@ -90,17 +90,12 @@ public class ActivitiDocumentAccessController {
 		AccessURL oAccessURL = new AccessURL();
 		try {
 			str = documentAccessDao.getDocumentAccess(nID_Access,sSecret);
-			response.setHeader("OTP", str);
-			/*oAccessURL.setValue(documentAccessDao.getDocumentAccess(nID_Access,
-					sSecret));*/
-			//oAccessURL.setName("sURL");
-			if(oAccessURL.getValue().isEmpty() || oAccessURL.getValue() == null){
-				response.setStatus(403);
-				response.setHeader("Reason", "Access not found");
-			}
+			oAccessURL.setValue(documentAccessDao.getDocumentAccess(nID_Access,
+					sSecret));
+			oAccessURL.setName("sURL");
 		} catch (Exception e) {
-			response.setStatus(500);
-			response.setHeader("Reason", e.getMessage());
+			response.setStatus(403);
+			response.setHeader("Reason", "Access not found");
 			oAccessURL.setName("sURL");
 			oAccessURL.setValue(e.getMessage());
 			//response.setHeader("OTP", str);

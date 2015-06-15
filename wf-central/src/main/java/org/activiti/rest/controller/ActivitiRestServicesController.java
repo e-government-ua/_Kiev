@@ -2,13 +2,13 @@ package org.activiti.rest.controller;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.wf.dp.dniprorada.base.model.Entity;
 import org.wf.dp.dniprorada.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.service.EntityService;
@@ -39,7 +39,7 @@ public class ActivitiRestServicesController {
    @RequestMapping(value = "/getService", method = RequestMethod.GET)
    public
    @ResponseBody
-   ResponseEntity getService(@RequestParam(value = "nID") Integer nID) {
+   ResponseEntity getService(@RequestParam(value = "nID") Long nID) {
       Service service = baseEntityDao.getById(Service.class, nID);
       return regionsToJsonResponse(service);
    }
@@ -58,7 +58,7 @@ public class ActivitiRestServicesController {
    @RequestMapping(value = "/removeService", method = RequestMethod.DELETE)
    public
    @ResponseBody
-   ResponseEntity removeService(@RequestParam(value = "nID") Integer nID,
+   ResponseEntity removeService(@RequestParam(value = "nID") Long nID,
                                 @RequestParam(value = "bRecursive", required = false) Boolean bRecursive) {
       bRecursive = (bRecursive == null) ? false : bRecursive;
       ResponseEntity response;
@@ -72,7 +72,7 @@ public class ActivitiRestServicesController {
    @RequestMapping(value = "/removeServiceData", method = RequestMethod.DELETE)
    public
    @ResponseBody
-   ResponseEntity removeServiceData(@RequestParam(value = "nID") Integer nID,
+   ResponseEntity removeServiceData(@RequestParam(value = "nID") Long nID,
                                     @RequestParam(value = "bRecursive", required = false) Boolean bRecursive) {
       bRecursive = (bRecursive == null) ? false : bRecursive;
       ResponseEntity response;
@@ -86,7 +86,7 @@ public class ActivitiRestServicesController {
    @RequestMapping(value = "/removeSubcategory", method = RequestMethod.DELETE)
    public
    @ResponseBody
-   ResponseEntity removeSubcategory(@RequestParam(value = "nID") Integer nID,
+   ResponseEntity removeSubcategory(@RequestParam(value = "nID") Long nID,
                                     @RequestParam(value = "bRecursive", required = false) Boolean bRecursive) {
       bRecursive = (bRecursive == null) ? false : bRecursive;
       ResponseEntity response;
@@ -100,7 +100,7 @@ public class ActivitiRestServicesController {
    @RequestMapping(value = "/removeCategory", method = RequestMethod.DELETE)
    public
    @ResponseBody
-   ResponseEntity removeCategory(@RequestParam(value = "nID") Integer nID,
+   ResponseEntity removeCategory(@RequestParam(value = "nID") Long nID,
                                  @RequestParam(value = "bRecursive", required = false) Boolean bRecursive) {
       bRecursive = (bRecursive == null) ? false : bRecursive;
       ResponseEntity response;
@@ -111,7 +111,7 @@ public class ActivitiRestServicesController {
       return response;
    }
 
-   private <T extends Entity> ResponseEntity deleteEmptyContentEntity(Class<T> entityClass, Integer nID) {
+   private <T extends Entity> ResponseEntity deleteEmptyContentEntity(Class<T> entityClass, Long nID) {
       T entity = baseEntityDao.getById(entityClass, nID);
       if (entity.getClass() == Service.class) {
          if (((Service) entity).getServiceDataList().isEmpty()) {
@@ -151,7 +151,7 @@ public class ActivitiRestServicesController {
               new ResultMessage("success", entity.getClass() + " id: " + entity.getId() + " removed"));
    }
 
-   private <T extends Entity> ResponseEntity recursiveForceServiceDelete(Class<T> entityClass, Integer nID) {
+   private <T extends Entity> ResponseEntity recursiveForceServiceDelete(Class<T> entityClass, Long nID) {
       T entity = baseEntityDao.getById(entityClass, nID);
       if (entity.getClass() == Service.class) {
          List<ServiceData> serviceDataList = ((Service) entity).getServiceDataList();

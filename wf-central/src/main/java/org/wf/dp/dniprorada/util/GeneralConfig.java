@@ -44,7 +44,9 @@ public class GeneralConfig {
         boolean b = true;
         try {
             //getProfileProperty("")
-            b = (sbTest == null ? b : sbTest.trim().length()>0 ? "false".equalsIgnoreCase(sbTest.trim()) : true);
+            b = (sbTest == null ? b : sbTest.trim().length()>0 ? !"false".equalsIgnoreCase(sbTest.trim()) : true);
+            oLog.info("[bTest]:sbTest=" + sbTest);
+            b = true;
         } catch (Exception oException) {
             oLog.error("[bTest]:sbTest=" + sbTest, oException);
         }

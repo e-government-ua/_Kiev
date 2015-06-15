@@ -15,6 +15,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan">
             <array>
+                <value>org.wf.dp.dniprorada.base.model</value>
                 <value>org.wf.dp.dniprorada.model</value>
             </array>
         </property>
@@ -32,9 +33,9 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="base_liquibase" class="liquibase.integration.spring.SpringLiquibase">
+    <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
         <property name="dataSource" ref="dataSource"/>
-        <property name="changeLog" value="classpath:base/liquibase/db.changelog-master.xml"/>
+        <property name="changeLog" value="classpath:liquibase/db.changelog-master.xml"/>
     </bean>
 
 </beans>

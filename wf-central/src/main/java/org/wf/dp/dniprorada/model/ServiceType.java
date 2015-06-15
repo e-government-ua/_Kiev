@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.wf.dp.dniprorada.base.model.Entity;
 
 import javax.persistence.Column;
 
