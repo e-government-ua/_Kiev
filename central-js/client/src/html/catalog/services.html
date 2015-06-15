@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-7 col-md-offset-3">
+        <div style="/*width: 600px;margin-left: 0;alignment-adjust: central;*/" class="col-md-7 col-md-offset-3">
            <div class="big-inner-addon">
               <span class="glyphicon glyphicon-search al-left" aria-hidden="true"></span>
               <input ng-model="sSearch" ng-model-options="{ updateOn: 'default', debounce: {'default': 500} }" ng-change="search()"type="text" class="form-control input-lg" placeholder="Пошук послуги">
@@ -8,13 +8,19 @@
            </div>
             <div class="index-services-count">
                 <span class="index-services-count-item">
+                    <nobr>
                     <span class="icon-e-service-on"></span>{{catalogCounts[2]}} &mdash; послуг доступно онлайн
+                    </nobr>
                 </span>
                 <span class="index-services-count-item">
+                    <nobr>
                     <span class="icon-e-service-test"></span>{{catalogCounts[1]}} &mdash; дуже скоро
+                    </nobr>
                 </span>
                 <span class="index-services-count-item">
+                    <nobr>
                     <span class="icon-e-service-off"></span>{{catalogCounts[0]}} &mdash; в роботі
+                    </nobr>
                 </span>
             </div>
         </div>
