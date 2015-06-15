@@ -143,28 +143,34 @@ module.exports.initialUpload = function(req, res) {
     var doAsyncScansUpload = function(scans) {
         async.forEach(optionsForUploadContentList, function(optionsForUploadContent, callback) {
             var results = scans.filter(optionsForUploadContent.scanFilter);
-            //if (results.length === 1) {
-            if (results === null || results.length === 0) {
-                res.end();
-            } else {
+            if (results.length === 1) {
                 uploadScan(results[0], optionsForUploadContent, callback);
+            } else {
+                async.setImmediate(function() {
+                    callback(null);
+                });
             }
+            //don't do end here, it will be executed after all async
         }, function(result) {
+            //here
             res.send(result);
             res.end();
         });
     };
 
     var scansCallback = function(error, response, body) {
+        var ifDoUpload = false;
         if (!error && body) {
             var result = body;
             if (!result.error) {
                 var customer = result.customer;
                 if (customer.scans && customer.scans.length > 0) {
+                    ifDoUpload = true;
                     doAsyncScansUpload(customer.scans);
                 }
             }
-        } else {
+        }
+        if (!ifDoUpload) {
             res.status(response.statusCode);
             res.end();
         }
