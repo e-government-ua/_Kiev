@@ -100,10 +100,24 @@ define('documents', ['angularAMD', 'service', 'file2/directive', 'file/factory']
         }
       })
 	  .state('documents.search', {
-		url: '/search'
+		url: '/search',
+        views: {
+          'content': angularAMD.route({
+            templateProvider: function($templateCache) {
+              return $templateCache.get('html/documents/search/index.html');
+            },
+          })
+        }
 	  })
 	  .state('documents.notary', {
-		url: '/notary'
+		url: '/notary',
+        views: {
+          'content': angularAMD.route({
+            templateProvider: function($templateCache) {
+              return $templateCache.get('html/documents/notary/index.html');
+            },
+          })
+        }
 	  })
   });
   return app;
