@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="list-group-item">
+    <div class="list-group-item" ng-hide="authProcess">
         <span>Крок 1. Увійдіть в систему через</span>
         <button style="display: none;" class="btn btn-info"><i class="icon-door-lock"></i><span class="btn-text">igov.org.ua</span></button>
         <a class="btn btn-info" href="#" ng-click="loginWithBankId()">
@@ -11,5 +11,8 @@
             <i class="icon-badge"></i>
             <span class="btn-text"><div>Сертифікат електронно-</div><div>цифрового підпису</div></span>
         </button>
+    </div>
+    <div class="text-center" ng-show="authProcess">
+        <img class="text-center" src="/img/loading.gif" alt="Loading" />
     </div>
 </div>
