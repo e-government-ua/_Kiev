@@ -1,9 +1,10 @@
-define('state/index/controller', ['angularAMD'], function(angularAMD) {
-  angularAMD.controller('IndexController', function($scope, $rootScope, $timeout, CatalogService, catalog) {
+define('state/index/controller', ['angularAMD', 'service'], function(angularAMD) {
+  angularAMD.controller('IndexController', function($scope, $rootScope, $timeout, CatalogService, catalog, AdminService) {
     $scope.catalog = catalog;
       $scope.catalogCounts = {0:0,1:0,2:0};
     $scope.limit = 7;//limit of services
     $scope.sSearch = null;
+    $scope.bAdmin = AdminService.isAdmin();
 
     $scope.search = function() {
       return CatalogService.getServices($scope.sSearch).then(function(result) {

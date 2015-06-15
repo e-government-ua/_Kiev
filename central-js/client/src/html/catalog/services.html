@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-        <a class="ctrls-admin ctrls-cat add0-cat" href="" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-plus"></span> Додати категорію</a>
+        <a class="ctrls-admin ctrls-cat add0-cat" href="" ng-if="bAdmin"><span class="glyphicon glyphicon-plus"></span> Додати категорію</a>
 	<div class="row" ng-repeat="category in catalog">
             <hr ng-if="category.nID>1">
             <h1 style="margin-bottom:0px;margin-top:20px;">{{category.sName}}  <a class="ctrls-admin ctrls-cat" href="" title="Редагувати категорію" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-pencil"></span></a> <a class="ctrls-admin ctrls-cat" href="" title="Видалити категорію" ng-hide="hiddenCtrls"><span class="glyphicon glyphicon-remove"></span></a></h1>
