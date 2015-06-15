@@ -85,7 +85,7 @@
           <activiti:value id="attr10" name="Для участі в тендері"></activiti:value>
           <activiti:value id="attr11" name="Інша"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Результат обробки звернення" type="enum" required="true">
           <activiti:value id="accept" name="Сповістити громадянина, що довідка підготовлена до надання"></activiti:value>
           <activiti:value id="reject" name="Сповістити громадянина, що довідка не може бути надана"></activiti:value>
