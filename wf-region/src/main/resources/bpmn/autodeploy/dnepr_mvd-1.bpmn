@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="dnepr_mvd_1" name="Надання довідки про відсутність або наявніть судимості" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -41,19 +41,28 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string>admin@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання довідки про відсутність або наявніть судимості]]></activiti:string>
+          <activiti:string>Звернення на тему: Надання довідки про відсутність або наявніть судимості</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
 
-Ваш запит на отримання довідки про наявність або відсутніть судимості успішно зареєстрований.
-Довідка буде надана Вам в продовж 20 діб.</activiti:expression>
+Дякуємо, що скористалися Інтернет-сервісом замовлення довідки про наявність або відсутніть судимості! Ваш запит успішно зареєстровано.
+
+Ви зможете забрати Вашу довідку приблизно за 10 робочих днів за адресою вул.Ворошилова 21.
+
+Підкреслюємо, що поки що забрати довідку Ви можете лише в паперовому вигляді.
+
+З повагою,
+Міністерство Внутрішніх Справ Дніпропетровської області,
+Команда Порталу державних послу iGov.org.ua
+
+</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -109,19 +118,22 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string>admin@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання довідки про відсутність або наявніть судимості]]></activiti:string>
+          <activiti:string>Звернення на тему: Надання довідки про відсутність або наявніть судимості</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
+Нажаль, неможливо обробити Ваш запит щодо замовлення довідки про наявність або відсутніть судимості.
+Підстава: ${comment}
 
-Нажаль  ми не можемо надати Вам запитувану довідку.
-Підстава: ${comment}</activiti:expression>
+З повагою,
+Міністерство Внутрішніх Справ Дніпропетровської області,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -133,19 +145,23 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string>admin@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання довідки про відсутність або наявніть судимості]]></activiti:string>
+          <activiti:string>Звернення на тему: Надання довідки про відсутність або наявніть судимості</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
 Ваш запит успішно оброблено.
-Ви можете отримати Вашу довідку ${comment}</activiti:expression>
+Ви можете отримати Вашу довідку за адресою вул.Ворошилова 21.
+
+З повагою,
+Міністерство Внутрішніх Справ Дніпропетровської області,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -155,13 +171,13 @@
     <serviceTask id="mailtask4" name="User Task" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[kyrbatsky@gmail.com]]></activiti:string>
+          <activiti:string>kyrbatsky@gmail.com</activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string>admin@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання довідки про відсутність або наявніть судимості]]></activiti:string>
+          <activiti:string>Звернення на тему: Надання довідки про відсутність або наявніть судимості</activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Предоставить сканы паспорта по гражданину:
@@ -170,7 +186,7 @@
 Паспортні дані: ${bankIdPassport}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>

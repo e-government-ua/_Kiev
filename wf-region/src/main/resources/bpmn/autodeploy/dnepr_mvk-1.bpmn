@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="CivilCopyDocRequest" name="Дніпропетровська МДА - Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом." isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
@@ -28,15 +28,17 @@
           <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string>admin@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+На жаль, змушені відмовити Вам у наданні інформації у зв'язку з недостатньою аргументацією Вашого запиту.
 
-На жаль змушені Вам відмовити в наданні інформації у зв'язку з недостатньою аргументацією Вашого запиту</activiti:expression>
+З повагою,
+Міська рада міста Дніпропетровськ,</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -59,22 +61,24 @@
     <serviceTask id="mailtask3" name="Повідомлення про те, що документ не знайдений" activiti:type="mail">
       <extensionElements>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
+Щодо Вашого запиту на отримання ${docType} №${docNumber} від ${docDate}.
+На жаль, документ не було знайдено.
 
-Ви запитали ${docType} № ${docNumber} від ${docDate}
-На жаль документ не був знайдений.</activiti:expression>
+З повагою,
+Міська рада міста Дніпропетровськ,</activiti:expression>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string>admin@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -114,19 +118,21 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string>admin@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
+Ваш запит на отримання ${docType} №${docNumber} від ${docDate} успішно зареєстровано. Ви отримаєте відповідь протягом п'яти робочих днів на цю email-адресу.
 
-Ваш запит на отримання  ${docType} № ${docNumber} від ${docDate} успішно зареєстрований.
-Ви отримаєте відповідь протягом п'яти діб.</activiti:expression>
+З повагою,
+Міська рада міста Дніпропетровськ,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -135,7 +141,7 @@
     <serviceTask id="servicetask1" name="Відправка відповіді на запит користувачу" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string>admin@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
@@ -144,9 +150,13 @@
           <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
-Ви запросили ${docType} № ${docNumber} від ${docDate}
-Запитуваний документ знаходиться в додатку до цього листа.</activiti:expression>
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
+Щодо Вашого запиту на отримання ${docType} №${docNumber} від ${docDate}.
+Документ знаходиться у додатку до цього листа.
+
+З повагою,
+Міська рада міста Дніпропетровськ,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${docToSend}"</activiti:expression>
