@@ -106,7 +106,11 @@ define('state/service/city/absent/controller', ['angularAMD'], function (angular
                     var h=d[g]('body')[0];
                     h.appendChild(s);
                 }})();
-            
+
+			if (!!window.pluso){
+				window.pluso.build(document.getElementsByClassName("pluso")[0], false);
+			}
+
             /*(function() {
                 if (window.pluso)if (typeof window.pluso.start == "function") return;
                 if (window.ifpluso==undefined) { window.ifpluso = 1;
