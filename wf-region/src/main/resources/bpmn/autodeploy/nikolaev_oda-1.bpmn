@@ -9,7 +9,7 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date" datePattern="dd-MM-yyyy" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="file1" name="Копія протоколу установчих зборів; файл в форматі PDF повинен мати ЕЦП нотаріуса" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="objFounder" name="Додаткова інформація про засновників; відомості про засновників громадського об'єднання із зазначенням прізвища, ім'я, по батькові (за наявності), дати народження, адреси місця проживання, а в разі якщо засновником є юридична особа приватного права, - її найменування, місцезнаходження, ідентифікаційного коду" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
@@ -23,7 +23,7 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date" datePattern="dd-MM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objFounder" name="Засновник громадського об'єднання" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про реєстрацію" type="enum" required="true">
           <activiti:value id="accept" name="Ухвалити"></activiti:value>
@@ -43,7 +43,7 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date" datePattern="dd-MM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objFounder" name="Засновник громадського об'єднання" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="regChanged" name="Відомості внесені до реєстру?" type="enum" required="true">
           <activiti:value id="yes" name="Так, внесені"></activiti:value>

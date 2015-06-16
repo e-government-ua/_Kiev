@@ -7,7 +7,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="birthDate" name="Дата народження" type="date" datePattern="dd-MM-yyyy" required="true"></activiti:formProperty>
+        <activiti:formProperty id="birthDate" name="Дата народження" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="resident" name="Громадянство" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text1" name="Якщо змінювались  прізвище, ім'я та по-батькові - вкажіть попередні" type="label" default="-------------------"></activiti:formProperty>
@@ -78,7 +78,7 @@
         <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="birthDate" name="Дата народження" type="date" datePattern="dd-MM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="birthDate" name="Дата народження" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="resident" name="Громадянство" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="enum" writable="false">

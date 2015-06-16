@@ -7,7 +7,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="birthDate" name="Дата народження" type="date" datePattern="dd-MM-yyyy" required="true"></activiti:formProperty>
+        <activiti:formProperty id="birthDate" name="Дата народження" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
@@ -47,7 +47,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="birthDate" name="Дата народження" type="date" datePattern="dd-MM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="birthDate" name="Дата народження" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide1" name="Результат" type="enum" required="true">
           <activiti:value id="accept" name="Ухвалити / Надати послугу"></activiti:value>
@@ -67,7 +67,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="birthDate" name="Дата народження" type="date" datePattern="dd-MM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="birthDate" name="Дата народження" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат" type="enum" required="true">
           <activiti:value id="accept" name="Ухвалити"></activiti:value>
