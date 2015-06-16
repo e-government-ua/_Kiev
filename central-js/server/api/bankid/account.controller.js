@@ -1,45 +1,14 @@
 var request = require('request');
-var NodeCache = require("node-cache" );
-var uuid = require("uuid");
+var Admin = require('../../components/admin');
 
 module.exports.index = function(options, callback) {
 	var url = options.protocol + '://' + options.hostname + options.path + '/checked/data';
-
-	// проверка доступа админа
+	
 	var adminCheckCallback = function(error, response, body){
-
-		var adminKeysCache = new NodeCache();
-		var cacheKey = 'admin-keys-map';
-
-		var getAdminKeys = function () {
-			var result = adminKeysCache.get(cacheKey);
-			if (!result) {
-				result = {};
-				setAdminKeys(result);
-			}
-			return result;
-		};
-
-		var setAdminKeys = function (value) {
-			adminKeysCache.set(cacheKey, value);
-		};
-
-		var generateAdminToken = function (inn) {
-			var result = uuid.v1();
-			var keys = getAdminKeys();
-			keys[inn] = result;
-			setAdminKeys(keys);
-			return result;
-		};
-
-		// ИНН админов
-		var aAdminInn = [
-			'3119325858'
-		];
-		if (body.customer && aAdminInn.indexOf(body.customer.inn) > -1) {
+		if (body.customer && Admin.isAdminInn(body.customer.inn)) {
 			body.admin = {
 				inn: body.customer.inn,
-				token: generateAdminToken(body.customer.inn)
+				token: Admin.generateAdminToken()
 			};
 		}
 		callback(error, response, body);
