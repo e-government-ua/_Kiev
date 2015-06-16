@@ -12,12 +12,12 @@
           <activiti:value id="копія рішення Львівської міської ради" name="копія рішення Львівської міської ради"></activiti:value>
           <activiti:value id="копія розпорядження міського голови" name="копія розпорядження міського голови"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="docDate" name="Дата прийняття документа" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="docDate" name="Дата прийняття документа" type="date" datePattern="dd-MM-yyyy" required="true"></activiti:formProperty>
         <activiti:formProperty id="docNumber" name="Номер документа" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="docName" name="Назва документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-         </extensionElements>
+      </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
       <extensionElements>
@@ -44,7 +44,7 @@
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="clPassport" name="Паспортні дані" type="string" default="${bankIdPassport}" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="request" name="Запитуваний документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="request" name="Запитуваний документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" datePattern="dd-MM-yyyy" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Перейти до надання послуги"></activiti:value>
@@ -84,7 +84,7 @@
     <userTask id="usertask7" name="Підготовка відповіді на запит: пошук документа" activiti:candidateGroups="management_clerk_dmr">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="request" name="Запитуваній документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="request" name="Запитуваній документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" datePattern="dd-MM-yyyy" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="searchResult" name="Результат обробки запиту" type="enum" required="true">
           <activiti:value id="found" name="Документ знайдено"></activiti:value>
