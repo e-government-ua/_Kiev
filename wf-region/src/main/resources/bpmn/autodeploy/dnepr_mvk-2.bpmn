@@ -67,7 +67,7 @@
         <activiti:formProperty id="view_objEDRPOU" name="ЄДРПОУ" type="long" default="${objEDRPOU}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objBank" name="Назва банку" type="string" default="${objBank}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objRegAddress" name="місце державної реєстрації суб`єкта господарювання" type="string" default="${objRegAddress}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="objRegDate" name="дата державної реєстрації суб`єкта господарювання" type="date" datePattern="dd-MM-yyyy" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objRegDate" name="дата державної реєстрації суб`єкта господарювання" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objOwnerFio" name="прізвище, ім`я, по батькові керівника" type="string" default="${objOwnerFio}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objActivity" name="вид діяльності" type="string" default="${objActivity}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="view_objSpec" name="спеціалізація об`єкта" type="string" default="${objSpec}" writable="false"></activiti:formProperty>
