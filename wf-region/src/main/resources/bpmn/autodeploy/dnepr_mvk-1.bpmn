@@ -12,7 +12,7 @@
           <activiti:value id="копія рішення Дніпропетровської міської ради" name="копія рішення Дніпропетровської міської ради"></activiti:value>
           <activiti:value id="копія розпорядження міського голови" name="копія розпорядження міського голови"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="docDate" name="Дата прийняття документа" type="date" datePattern="dd-MM-yyyy" required="true"></activiti:formProperty>
+        <activiti:formProperty id="docDate" name="Дата прийняття документа" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="docNumber" name="Номер документа" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="docName" name="Назва документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання документа" type="string" required="true"></activiti:formProperty>
