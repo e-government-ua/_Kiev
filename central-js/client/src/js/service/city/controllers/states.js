@@ -88,15 +88,17 @@ define('state/service/city/absent/controller', ['angularAMD'], function (angular
         '$scope',
         'service',
         'MessagesService',
+		'AdminService',
         function (
             $state,
             $rootScope,
             $scope,
             service,
-            MessagesService
+            MessagesService,
+			AdminService
         ) {
             $scope.service = service;
-            $scope.hiddenCtrls = true; // $rootScope.hiddenCtrls; //Admin buttons visibility handling
+			$scope.bAdmin = AdminService.isAdmin();
             (function() {
                 if (window.pluso)if (typeof window.pluso.start == "function") return;
                 if (window.ifpluso==undefined) { window.ifpluso = 1;

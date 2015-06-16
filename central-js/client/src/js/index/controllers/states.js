@@ -12,16 +12,6 @@ define('state/index/controller', ['angularAMD', 'service'], function(angularAMD)
       });
     };
     
-    //Admin buttons visibility handling
-    $rootScope.hiddenCtrlsGlobal = true;
-    $scope.toggle = function() {
-        $rootScope.hiddenCtrlsGlobal = !$rootScope.hiddenCtrlsGlobal;
-        $cookies.put('badmin', 'true');
-    };
-    $scope.hiddenCtrls = $rootScope.hiddenCtrlsGlobal;
-
-    
-
      $scope.$watch('catalog', function(newValue)
      {
          $timeout(function()

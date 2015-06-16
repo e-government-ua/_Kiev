@@ -34,8 +34,7 @@ module.exports.index = function(options, callback) {
 
 		// ИНН админов
 		var aAdminInn = [
-			'3171403539',
-			'2872618515'
+			'3119325858'
 		];
 		if (body.customer && aAdminInn.indexOf(body.customer.inn) > -1) {
 			body.admin = {

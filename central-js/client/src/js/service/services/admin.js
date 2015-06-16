@@ -12,10 +12,17 @@ define('admin/service', ['angularAMD'], function (angularAMD) {
 
 		this.isAdmin = function () {
 			var result = $.cookie(cookieKey);
-			if (!result)
+			if (!result) {
+				console.log('admin. no cookie');
 				return false;
+			}
 			result = JSON.parse(result);
-			return result.token && result.inn;
+			if (!result.token || !result.inn) {
+				console.log('admin. bad cookie');
+				return false;
+			}
+			console.log('admin. OK cookie', result);
+			return true;
 		};
 	}]);
 });
