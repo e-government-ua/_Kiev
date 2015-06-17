@@ -104,7 +104,11 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 			t.commit();*/
 			/*Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES (1,2014-06-03,222,LEO,secret,097,mail,qwe)");
 			query.executeUpdate();*/
-			s.save(o);
+			Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES ("+o.getID_Document()+","+o.getDateCreate()+
+					","+o.getMS()+","+o.getFIO()+","+o.getTarget()+","+o.getTelephone()+","+o.getMail()+","+o.getSecret()+")");
+			query.executeUpdate();
+			//s.save(o);
+			
 		} catch(Exception e){
 			//t.rollback();
 			throw e;
