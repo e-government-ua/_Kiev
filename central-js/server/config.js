@@ -21,7 +21,7 @@ var config = {
 		'hostname': 'bankid.privatbank.ua',
 		'port': null,
 		'client_id': 'dniprorada',
-		'client_secret': 'NzVmYTI5NGJjMDg3OThlYjljNDY5YjYxYjJiMjJhNA=='
+		'client_secret': ''
 	}
 };
 
