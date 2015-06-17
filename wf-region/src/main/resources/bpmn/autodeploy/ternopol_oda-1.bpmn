@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="ternopol_oda_1" name="Тернопіль ОДА - Ліцензування експортно-імпортних операцій (видача разових індивідуальних ліцензій), в межах делегованих повноважень" isExecutable="true">
+  <process id="ternopol_oda_1" name="Тернопіль ОДА - Отримання разової (індивідуальної) ліцензії на зовнішньоекономічну операцію" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -58,7 +58,7 @@
           <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Ліцензування експортно-імпортних операцій (видача разових індивідуальних ліцензій), в межах делегованих повноважень]]></activiti:string>
+          <activiti:string><![CDATA[Отримання разової (індивідуальної) ліцензії на зовнішньоекономічну операцію]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -66,7 +66,41 @@
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
-Ваша заява успішно зареєстрована.</activiti:expression>
+Ваша заява успішно зареєстрована.
+Нагадуємо Вам, що  заявка містить наступну інформацію:
+Данні організації-заявника
+Найменування:${param1}
+Місцезнаходження:${param2}
+Код ЄДРПОУ:${param3}
+Телефон:${param4}
+Факс:${param5}
+Поточний рахунок у національній валюті:${param6}
+Рахунок в іноземній валюті:${param7}
+ПІБ керівника організації:${param8}
+
+Данні іноземного суб'єкту зовнішньоекономічної діяльності:
+Найменування:${param9}
+Місцезнаходження:${param10}
+Банківський рахунок:${param11}
+
+Данні операції
+Код експортного /імпортного товару (УКТ ЗЕД):${param12}
+Одиниця виміру:${param13}
+Кількість:${param14}
+Вартість (тис. дол. США):${param15}
+Вартість (в тис.одиницях валюти контракту):${param16}
+Додаткове найменування:${param17}
+Країна призначення:${param18}
+Країна імпортера/експортера:${param19}
+Країна походження:${param20}
+Базис поставки:${param21}
+Валюта контракту:${param22}
+Валюта платежу:${param23}
+Митниця:${param24}
+Характер угоди:${param25}
+Уповноважений банк:${param26}
+Підстава для оформлення ліцензії:${param27}
+Особливі умови:${param28}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -82,7 +116,6 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="text1" name="Данні організації-заявника" type="label" default="    -----------------------------------------" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param1" name="Найменування" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param2" name="Місцезнаходження " type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param3" name="Код ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
@@ -91,11 +124,9 @@
         <activiti:formProperty id="param6" name="Поточний рахунок у національній валюті" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param7" name="Рахунок в іноземній валюті" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param8" name="ПІБ керівника організації" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="text2" name="Данні іноземного суб'єкту зовнішньоекономічної діяльності" type="label" default="    -----------------------------------------"></activiti:formProperty>
         <activiti:formProperty id="param9" name="Найменування" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param10" name=" Місцезнаходження" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param11" name="Банківський рахунок" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="text3" name="Данні операції" type="label" default="    -----------------------------------------"></activiti:formProperty>
         <activiti:formProperty id="param12" name="Код експортного /імпортного товару (УКТ ЗЕД)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param13" name="Одиниця виміру" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param14" name="Кількість" type="string" writable="false"></activiti:formProperty>
@@ -138,7 +169,7 @@
           <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Ліцензування експортно-імпортних операцій (видача разових індивідуальних ліцензій), в межах делегованих повноважень]]></activiti:string>
+          <activiti:string><![CDATA[Отримання разової (індивідуальної) ліцензії на зовнішньоекономічну операцію]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -342,7 +373,7 @@
           <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Ліцензування експортно-імпортних операцій (видача разових індивідуальних ліцензій), в межах делегованих повноважень]]></activiti:string>
+          <activiti:string><![CDATA[Отримання разової (індивідуальної) ліцензії на зовнішньоекономічну операцію]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
