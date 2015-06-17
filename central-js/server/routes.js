@@ -20,6 +20,8 @@ router.use('/api/service/journal', require('./api/service/journal'));
 router.use('/api/messages', require('./api/messages/index'));
 router.get('/api/services', require('./api/services/index'));
 router.post('/api/uploadfile', require('./api/uploadfile/post'));
+router.get('/api/messages', require('./api/service/messages/get'));
+router.post('/api/messages', require('./api/service/messages/set'));
 
 router.use('/', function(req, res, next) {
 	res.render(__dirname + '../../client/build/index.html');
