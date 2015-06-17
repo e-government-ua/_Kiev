@@ -13,7 +13,7 @@ define('state/documents/bankid/controller', ['angularAMD'], function(angularAMD)
       var stateForRedirect = $state.href('documents.bankid', {});
       var redirectURI = $location.protocol() + '://' + $location.host() + ':' + $location.port() + stateForRedirect;
       $scope.authProcess = true;
-      $window.location.href = 'https://bankid.privatbank.ua/DataAccessService/das/authorize?response_type=code&client_id=dniprorada&redirect_uri=' + redirectURI;
+      $window.location.href = 'https://bankid.privatbank.ua/DataAccessService/das/authorize?response_type=code&client_id=' + $location.client_id() + '&redirect_uri=' + redirectURI;
     }
 
     if ($state.is('documents.bankid') && !!$state.params.code) {
