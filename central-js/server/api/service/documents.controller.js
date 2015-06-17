@@ -37,6 +37,13 @@ module.exports.getDocument = function(req, res) {
     return buildGetRequest(req, res, '/services/getDocument', params);
 };
 
+module.exports.getDocumentInternal = function(req, res, callback) {
+    var params = {
+        'nID': req.params.nID
+    };
+    buildGetRequest(req, res, '/services/getDocument', params, callback);
+};
+
 module.exports.index = function(req, res) {
     var params = {
         'nID_Subject': req.query.nID_Subject
@@ -179,13 +186,21 @@ module.exports.initialUpload = function(req, res) {
     account.scansRequest(optionsForScans, scansCallback);
 };
 
-function buildGetRequest(req, res, apiURL, params) {
-    var callback = function(error, response, body) {
+function buildGetRequest(req, res, apiURL, params, callback) {
+    var _callback = callback ? callback : function(error, response, body) {
         res.send(body);
         res.end();
     };
 
     return request({
+        'url': getUrl(apiURL),
+        'auth': getAuth(),
+        'qs': params
+    }, _callback);
+}
+
+function sendGETRequest(req, res, apiURL, params, callback) {
+    request({
         'url': getUrl(apiURL),
         'auth': getAuth(),
         'qs': params
