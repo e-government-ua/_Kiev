@@ -3,6 +3,7 @@ package org.wf.dp.dniprorada.dao;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -173,12 +174,10 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     //o.setDateAnswerExpire(null);
                     docAcc.setAnswer(sAnswer);
                     writeRow(docAcc);
-		} catch(Exception e){
-			throw e;
 		} finally{
 			oSession.close();
 		}
-		return  getOtpPassword(docAcc);
+		return  "/";//getOtpPassword(docAcc);
 	}
 
         
