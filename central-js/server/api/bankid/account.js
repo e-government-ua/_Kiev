@@ -9,8 +9,8 @@ router.use(function(req, res, next) {
 	var bankid = config.bankid;
 	
 	var options = {
-		protocol: bankid.protocol,
-		hostname: bankid.hostname,
+		protocol: bankid.sProtocol_ResourceService_BankID,
+		hostname: bankid.sHost_ResourceService_BankID,
 		path: '/ResourceService',
 		params: {
 			client_id: bankid.client_id,
