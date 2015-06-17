@@ -53,7 +53,7 @@ module.exports = function(grunt) {
 				],
 				dependencies: {
 					'angular-mocks': 'angular',
-					'angular-boostrap': 'angular',
+					'angular-boostrap': ['angular', 'bootstrap'],
 					'angular-ui-router': 'angular',
 					'ui-router-extras': 'angular-ui-router',
 					'angular-ui-utils':'angular',
@@ -61,6 +61,7 @@ module.exports = function(grunt) {
 				},
 				mainFiles: {
 					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css'],
+                    'bootstrap': ['dist/css/bootstrap.css'],
                     'angular-i18n': ['angular-locale_uk-ua.js']
 				},
 				bowerOptions: {
