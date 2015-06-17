@@ -7,7 +7,6 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта; Ви можете вікористати копію паспорту, що розташована на порталі в розділі &quot;Мої документи&quot;" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="resident" name="Громадянство" type="string" required="true"></activiti:formProperty>
@@ -15,7 +14,7 @@
         <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string"></activiti:formProperty>
         <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string"></activiti:formProperty>
         <activiti:formProperty id="text4" name="Додаткова інформація" type="label" default="-------------------"></activiti:formProperty>
-        <activiti:formProperty id="goal" name="Мета отримання паспорту" type="enum" required="true">
+        <activiti:formProperty id="goal" name="Мета отримання довідки" type="enum" required="true">
           <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки(піклування), створення прийомної сім'ї або дитячого будинку"></activiti:value>
           <activiti:value id="attr2" name="Оформлення візи для виїзду за кордон"></activiti:value>
           <activiti:value id="attr3" name="Оформлення дозволу на зброю, оформлення ліцензії на роботу с вибуховими речовинами"></activiti:value>
@@ -29,7 +28,7 @@
           <activiti:value id="attr11" name="Інша"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="text3" name="Контактні данні" type="label" default="-------------------"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warningMessage" name="Увага!" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
       </extensionElements>
@@ -73,7 +72,7 @@
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="resident" name="Громадянство" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="goal" name="Мета отримання паспорту" type="enum" writable="false">
+        <activiti:formProperty id="goal" name="Мета отримання довідки" type="enum" writable="false">
           <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки(піклування), створення прийомної сім'ї або дитячого будинку"></activiti:value>
           <activiti:value id="attr2" name="Оформлення візи для виїзду за кордон"></activiti:value>
           <activiti:value id="attr3" name="Оформлення дозволу на зброю, оформлення ліцензії на роботу с вибуховими речовинами"></activiti:value>
@@ -86,7 +85,7 @@
           <activiti:value id="attr10" name="Для участі в тендері"></activiti:value>
           <activiti:value id="attr11" name="Інша"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Результат обробки звернення" type="enum" required="true">
           <activiti:value id="accept" name="Сповістити громадянина, що довідка підготовлена до надання"></activiti:value>
           <activiti:value id="reject" name="Сповістити громадянина, що довідка не може бути надана"></activiti:value>
@@ -96,7 +95,6 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow5" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow6" name="decide == 'accept'" sourceRef="exclusivegateway1" targetRef="mailtask3">
@@ -153,11 +151,36 @@ ${comment}</activiti:expression>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow9" sourceRef="mailtask3" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="mailtask1" targetRef="mailtask4"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="mailtask4" targetRef="usertask1"></sequenceFlow>
+    <serviceTask id="mailtask4" name="User Task" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:string><![CDATA[kyrbatsky@gmail.com]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему: Надання довідки про відсутність або наявніть судимості]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Предоставить сканы паспорта по гражданину:
+
+Данні громадянина: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}
+Паспортні дані: ${bankIdPassport}
+</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_mvd_1">
     <bpmndi:BPMNPlane bpmnElement="dnepr_mvd_1" id="BPMNPlane_dnepr_mvd_1">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="140.0" y="80.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="110.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="55.0" width="149.0" x="212.0" y="70.0"></omgdc:Bounds>
@@ -181,13 +204,16 @@ ${comment}</activiti:expression>
         <omgdc:Bounds height="55.0" width="171.0" x="540.0" y="300.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="463.0" y="390.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="463.0" y="440.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
         <omgdc:Bounds height="55.0" width="158.0" x="269.0" y="300.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
+        <omgdc:Bounds height="55.0" width="105.0" x="606.0" y="70.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="175.0" y="97.0"></omgdi:waypoint>
+        <omgdi:waypoint x="145.0" y="97.0"></omgdi:waypoint>
         <omgdi:waypoint x="212.0" y="97.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
@@ -197,10 +223,6 @@ ${comment}</activiti:expression>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
         <omgdi:waypoint x="320.0" y="66.0"></omgdi:waypoint>
         <omgdi:waypoint x="286.0" y="48.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="480.0" y="125.0"></omgdi:waypoint>
-        <omgdi:waypoint x="480.0" y="170.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="480.0" y="225.0"></omgdi:waypoint>
@@ -222,11 +244,21 @@ ${comment}</activiti:expression>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
         <omgdi:waypoint x="625.0" y="355.0"></omgdi:waypoint>
-        <omgdi:waypoint x="480.0" y="390.0"></omgdi:waypoint>
+        <omgdi:waypoint x="625.0" y="457.0"></omgdi:waypoint>
+        <omgdi:waypoint x="498.0" y="457.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
         <omgdi:waypoint x="348.0" y="355.0"></omgdi:waypoint>
-        <omgdi:waypoint x="480.0" y="390.0"></omgdi:waypoint>
+        <omgdi:waypoint x="347.0" y="457.0"></omgdi:waypoint>
+        <omgdi:waypoint x="463.0" y="457.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="561.0" y="97.0"></omgdi:waypoint>
+        <omgdi:waypoint x="606.0" y="97.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="658.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="170.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

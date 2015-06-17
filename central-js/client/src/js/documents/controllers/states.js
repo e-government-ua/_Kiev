@@ -7,6 +7,7 @@ define('state/documents/controller', ['angularAMD'], function(angularAMD) {
 });
 define('state/documents/bankid/controller', ['angularAMD'], function(angularAMD) {
   angularAMD.controller('DocumentsBankIdController', function($scope, $state, $location, $window) {
+    $scope.authProcess = false;
 
     $scope.loginWithBankId = function() {
       var stateForRedirect = $state.href('documents.bankid', {});
@@ -15,6 +16,7 @@ define('state/documents/bankid/controller', ['angularAMD'], function(angularAMD)
     }
 
     if ($state.is('documents.bankid') && !!$state.params.code) {
+      $scope.authProcess = true;
       return $state.go('documents.content', {code: $state.params.code});
     }
   });

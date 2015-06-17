@@ -8,7 +8,7 @@ exports.index = function(req, res) {
   var user = JSON.parse(req.cookies.user);
   var query = {};
   //https://test.igov.org.ua/wf-region/service/runtime/tasks?size=20
-  query.size = 100;
+  query.size = 500;
 
   if (req.query.filterType === 'selfAssigned') {
     query.assignee = user.id;
