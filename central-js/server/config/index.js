@@ -6,7 +6,12 @@ var config = {
 		'key': '/sybase/cert/server.key',
 		'cert': '/sybase/cert/server.crt',
 		'port': '8443',
-		'debug': 'false'
+		'debug': 'false',
+		'session':{
+			'secret':'put yor session secret here',
+			'key': ['solt for session 1', 'solt for session 2'],
+			'secure': true
+		}                
 	},
 	'activiti': {
 		'protocol': 'https',
