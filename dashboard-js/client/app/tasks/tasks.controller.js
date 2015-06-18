@@ -171,7 +171,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, $windo
     }
     return s;
   };
-  /*
+
   $scope.sEnumValue = function(aItem,sID) {
     var s=sID;
     _.forEach(aItem, function(oItem) {
@@ -181,7 +181,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, $windo
     });
     return s;
   };
-  */
+
   
   $scope.sFieldNotes = function(sField) {
     var s = null;
