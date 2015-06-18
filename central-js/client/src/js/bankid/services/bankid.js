@@ -1,5 +1,5 @@
 define('bankid/service', ['angularAMD'], function (angularAMD) {
-	angularAMD.service('BankIDService', ['$http', 'AdminService', function($http, AdminService) {
+	angularAMD.service('BankIDService', ['$http', function($http) {
 		this.login = function(code, redirect_uri) {
 			var data = {
 				'code': code,
@@ -21,7 +21,6 @@ define('bankid/service', ['angularAMD'], function (angularAMD) {
 				params: data,
 				data: data
 			}).then(function(response) {
-				AdminService.processAccountResponse(response);
 				return response.data;
 			});
 		}

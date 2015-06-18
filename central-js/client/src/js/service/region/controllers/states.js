@@ -1,12 +1,10 @@
 define('state/service/region/controller', ['angularAMD'], function (angularAMD) {
 	angularAMD.controller('ServiceRegionController', [
-		'$state', '$rootScope', '$scope', '$sce', 'RegionListFactory', 'PlacesService', 'ServiceService', 'service', 'regions', 'AdminService',
-		function ($state, $rootScope, $scope, $sce, RegionListFactory, PlacesService, ServiceService, service, regions, AdminService) {
+		'$state', '$rootScope', '$scope', '$sce', 'RegionListFactory', 'PlacesService', 'ServiceService', 'service', 'regions',
+		function ($state, $rootScope, $scope, $sce, RegionListFactory, PlacesService, ServiceService, service, regions) {
 			$scope.service = service;
 			$scope.regions = regions;
-
-			$scope.bAdmin = AdminService.isAdmin();
-
+			
 			$scope.regionList = new RegionListFactory();
 			$scope.regionList.initialize(regions);
 			
