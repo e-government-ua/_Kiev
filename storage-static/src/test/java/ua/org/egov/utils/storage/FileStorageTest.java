@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ua.org.egov.utils.storage.exceptions.RecordNotFoundException;
 import ua.org.egov.utils.storage.model.UploadedFile;
 
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 		"/META-INF/spring/ua-org-egov-utils-storage-context.xml",
