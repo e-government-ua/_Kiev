@@ -121,7 +121,7 @@
             <p ng-repeat='item in printObj.form'>
                 {{sFieldLabel(item.name)}}
                 <b ng-if="item.type == 'enum'">{{sEnumValue(item.enumValues,item.value)}}</b>
-                <b ng-if="item.type == '!enum'">{{item.value}}</b>
+                <b ng-if="item.type != 'enum'">{{item.value}}</b>
             </p>
 
             <p>
