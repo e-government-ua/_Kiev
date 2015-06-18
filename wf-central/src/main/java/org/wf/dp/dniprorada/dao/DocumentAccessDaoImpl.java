@@ -3,6 +3,7 @@ package org.wf.dp.dniprorada.dao;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -93,7 +94,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		return os.toString();
 	}        
 
-	private void writeRow(DocumentAccess o) {
+	private void writeRow(DocumentAccess o) throws Exception{
 		//Transaction t = null;
 		Session s = getSession();
 		try{
@@ -103,7 +104,11 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 			t.commit();*/
 			/*Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES (1,2014-06-03,222,LEO,secret,097,mail,qwe)");
 			query.executeUpdate();*/
-			s.save(o);
+			Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES ("+o.getID_Document()+","+o.getDateCreate()+
+					","+o.getMS()+","+o.getFIO()+","+o.getTarget()+","+o.getTelephone()+","+o.getMail()+","+o.getSecret()+")");
+			query.executeUpdate();
+			//s.save(o);
+			
 		} catch(Exception e){
 			//t.rollback();
 			throw e;
@@ -173,12 +178,12 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     //o.setDateAnswerExpire(null);
                     docAcc.setAnswer(sAnswer);
                     writeRow(docAcc);
-		} catch(Exception e){
+		} catch(Exception e) {
 			throw e;
-		} finally{
+		}finally{
 			oSession.close();
 		}
-		return  getOtpPassword(docAcc);
+		return  "/";//getOtpPassword(docAcc);
 	}
 
         

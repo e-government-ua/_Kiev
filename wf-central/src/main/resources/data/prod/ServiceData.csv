@@ -79,5 +79,5 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 78;632;NULL;NULL;1;{};http://geoinf.kiev.ua/zayavy-na-otrymannya-spedozvoliv-na-korystuvannya-nadramy/;FALSE;1;FALSE;Перевірка статусу заяви на отримання спедозволів на користування надрами за різноманітними атрибутами. Веріфікація не потрібна
 79;647;NULL;NULL;1;{};https://e-dabi.gov.ua/;FALSE;1;FALSE;Для заявки Вам знадобиться електронно-ціфровий підпис
 80;56;NULL;NULL;1;{};https://e-dabi.gov.ua/;FALSE;1;FALSE;Для заявки Вам знадобиться електронно-ціфровий підпис
-81;648;NULL;NULL;1;{};https://e-dabi.gov.ua/;FALSE;1;FALSE;Для заявки Вам знадобиться електронно-ціфровий підпис
+81;499;NULL;NULL;1;{};https://e-dabi.gov.ua/;FALSE;1;FALSE;Для заявки Вам знадобиться електронно-ціфровий підпис
 82;55;NULL;NULL;1;{};https://e-dabi.gov.ua/;FALSE;1;FALSE;Для заявки Вам знадобиться електронно-ціфровий підпис

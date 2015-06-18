@@ -100,8 +100,10 @@ public class ActivitiRestDocumentController {
     byte[] getDocumentFile(@RequestParam(value = "nID") Long id,
                            HttpServletRequest request, HttpServletResponse httpResponse) {
         Document document = documentDao.getDocument(id);
-        byte[] content = documentDao.getDocumentContent(document
-                .getСontentKey());
+        //byte[] content = documentDao.getDocumentContent(document
+        //        .getСontentKey());
+        byte[] content = "".getBytes();
+        
         httpResponse.setHeader("Content-disposition", "attachment; filename="
                 + document.getFile());
         //httpResponse.setHeader("Content-Type", document.getDocumentContentType()

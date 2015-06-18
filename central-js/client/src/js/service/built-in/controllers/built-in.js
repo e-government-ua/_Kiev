@@ -1,7 +1,9 @@
 define('service/built-in/controller', ['angularAMD'], function(angularAMD) {
-  angularAMD.controller('ServiceBuiltInController', ['$location', '$state', '$rootScope', '$scope', function($location, $state, $rootScope, $scope) {
+  angularAMD.controller('ServiceBuiltInController', ['$location', '$state', '$rootScope', '$scope', 'config', function($location, $state, $rootScope, $scope, config) {
     $scope.$location = $location;
     $scope.$state = $state;
+	
+	$scope.config = config;
   }]);
 });
 

@@ -67,6 +67,7 @@ public class ActivitiRestServicesControllerScenario {
         String subcategoryName = "SubcategoryName9873";
         categoriesBeforeChange[0].setName(categoryName);
         categoriesBeforeChange[0].getSubcategories().get(0).setName(subcategoryName);
+        String serviceName = categoriesBeforeChange[0].getSubcategories().get(0).getServices().get(0).getName();
 
         mockMvc.perform(post("/services/setServicesTree").content(JsonRestUtils.toJson(categoriesBeforeChange)).
                 contentType(APPLICATION_JSON_CHARSET_UTF_8).
@@ -76,6 +77,7 @@ public class ActivitiRestServicesControllerScenario {
                 andExpect(jsonPath("$[0].sName", is(categoryName)));
 
         jsonData = mockMvc.perform(get("/services/getServicesTree").
+                param("sFind", serviceName).
                 contentType(APPLICATION_JSON_CHARSET_UTF_8)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
@@ -185,10 +187,10 @@ public class ActivitiRestServicesControllerScenario {
     @Test
     public void deletedServiceById() throws Exception {
         String jsonData = mockMvc.perform(get("/services/getService").
-                param("nID", "7")).
+                param("nID", "215")).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
-                andExpect(jsonPath("$.nID", is(7))).
+                andExpect(jsonPath("$.nID", is(215))).
                 andExpect(jsonPath("$.aServiceData", is(empty()))).
                 andExpect(jsonPath("$.sName", not(empty()))).
                 andReturn().getResponse().getContentAsString();

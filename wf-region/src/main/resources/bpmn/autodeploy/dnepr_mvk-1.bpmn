@@ -35,8 +35,10 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+На жаль, змушені відмовити Вам у наданні інформації у зв'язку з недостатньою аргументацією Вашого запиту.
 
-На жаль змушені Вам відмовити в наданні інформації у зв'язку з недостатньою аргументацією Вашого запиту</activiti:expression>
+З повагою,
+Міська рада міста Дніпропетровськ,</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -59,10 +61,12 @@
     <serviceTask id="mailtask3" name="Повідомлення про те, що документ не знайдений" activiti:type="mail">
       <extensionElements>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
+Щодо Вашого запиту на отримання ${docType} №${docNumber} від ${docDate}.
+На жаль, документ не було знайдено.
 
-Ви запитали ${docType} № ${docNumber} від ${docDate}
-На жаль документ не був знайдений.</activiti:expression>
+З повагою,
+Міська рада міста Дніпропетровськ,</activiti:expression>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -123,10 +127,12 @@
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
+Ваш запит на отримання ${docType} №${docNumber} від ${docDate} успішно зареєстровано. Ви отримаєте відповідь протягом п'яти робочих днів на цю email-адресу.
 
-Ваш запит на отримання  ${docType} № ${docNumber} від ${docDate} успішно зареєстрований.
-Ви отримаєте відповідь протягом п'яти діб.</activiti:expression>
+З повагою,
+Міська рада міста Дніпропетровськ,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -144,9 +150,13 @@
           <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
-Ви запросили ${docType} № ${docNumber} від ${docDate}
-Запитуваний документ знаходиться в додатку до цього листа.</activiti:expression>
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
+Щодо Вашого запиту на отримання ${docType} №${docNumber} від ${docDate}.
+Документ знаходиться у додатку до цього листа.
+
+З повагою,
+Міська рада міста Дніпропетровськ,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${docToSend}"</activiti:expression>

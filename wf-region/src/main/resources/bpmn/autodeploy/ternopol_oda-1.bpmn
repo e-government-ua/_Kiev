@@ -100,8 +100,7 @@
 Характер угоди:${param25}
 Уповноважений банк:${param26}
 Підстава для оформлення ліцензії:${param27}
-Особливі умови:${param28}
-</activiti:expression>
+Особливі умови:${param28}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -117,7 +116,6 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="text1" name="Данні організації-заявника" type="label" default="    -----------------------------------------" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param1" name="Найменування" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param2" name="Місцезнаходження " type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param3" name="Код ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
@@ -126,11 +124,9 @@
         <activiti:formProperty id="param6" name="Поточний рахунок у національній валюті" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param7" name="Рахунок в іноземній валюті" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param8" name="ПІБ керівника організації" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="text2" name="Данні іноземного суб'єкту зовнішньоекономічної діяльності" type="label" default="    -----------------------------------------"></activiti:formProperty>
         <activiti:formProperty id="param9" name="Найменування" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param10" name=" Місцезнаходження" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param11" name="Банківський рахунок" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="text3" name="Данні операції" type="label" default="    -----------------------------------------"></activiti:formProperty>
         <activiti:formProperty id="param12" name="Код експортного /імпортного товару (УКТ ЗЕД)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param13" name="Одиниця виміру" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param14" name="Кількість" type="string" writable="false"></activiti:formProperty>
