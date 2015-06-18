@@ -11,7 +11,7 @@ var config = {
 			'secret':'put yor session secret here',
 			'key': ['solt for session 1', 'solt for session 2'],
 			'secure': true
-		}		
+		}
 	},
 	'activiti': {
 		'protocol': 'https',
