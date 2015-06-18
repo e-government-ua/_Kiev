@@ -354,6 +354,21 @@
 			<artifactId>log4j</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>jboss</groupId>
+			<artifactId>jboss-serialization</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>trove</groupId>
+			<artifactId>trove</artifactId>
+		</dependency>
+
 		<!-- Other -->
 		<dependency>
 			<groupId>net.sf.brunneng.jom</groupId>
