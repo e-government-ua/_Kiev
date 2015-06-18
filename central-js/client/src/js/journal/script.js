@@ -48,11 +48,18 @@ define('journal', ['angularAMD', 'service'], function (angularAMD) {
                         return BankIDService.account(BankIDLogin.access_token);
                     }],
                     customer: ['BankIDAccount', function (BankIDAccount) {
-                        $state.customer =  BankIDAccount.customer;
-                        return $state.customer;
+                        return BankIDAccount.customer;
                     }],
-                    journal: ['$q', '$state', 'ServiceService', function($q, $state, ServiceService) {
-                        return ServiceService.getJournalEvents();
+                    subject: ['$q', '$state', 'ServiceService', 'customer', function($q, $state, ServiceService, customer) {
+                        $state.customer = customer;
+                        return ServiceService.syncSubject(customer.inn).then(function(data) {
+                            return data.hasOwnProperty('error') ? $q.reject(null): data;
+                        });
+                    }],
+                    journal: ['$q', '$state', 'subject', 'ServiceService', function($q, $state, subject, ServiceService) {
+                        $state.nID_Subject = subject.nID;
+                        // @todo Error processing
+                        return ServiceService.getJournalEvents($state.nID_Subject);
                     }]
                 },
                 views: {
