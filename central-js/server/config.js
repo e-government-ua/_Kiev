@@ -6,7 +6,12 @@ var config = {
 		'key': '/sybase/cert/server.key',
 		'cert': '/sybase/cert/server.crt',
 		'port': '8443',
-		'debug': 'false'
+		'debug': 'false',
+		'session':{
+			'secret':'put yor session secret here',
+			'key': ['solt for session 1', 'solt for session 2'],
+			'secure': true
+		}
 	},
 	'activiti': {
 		'protocol': 'https',
@@ -23,7 +28,7 @@ var config = {
 		'sProtocol_AccessService_BankID': 'https', //Test
 		'sHost_AccessService_BankID': 'bankid.privatbank.ua', //Test
 		'sProtocol_ResourceService_BankID': 'https', //Test
-                'sHost_ResourceService_BankID': 'bankid.privatbank.ua', //Test
+		'sHost_ResourceService_BankID': 'bankid.privatbank.ua', //Test
 		//'sProtocol_AccessService_BankID': 'https', //Prod
 		//'sHost_AccessService_BankID': 'bankid.org.ua', //Prod
 		//'sProtocol_ResourceService_BankID': 'https', //Prod
