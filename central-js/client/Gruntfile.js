@@ -130,6 +130,7 @@ module.exports = function(grunt) {
 							'./src/js/bankid/**/*.js',
 							'./src/js/activiti/**/*.js',
 							'./src/js/form/**/*.js',
+							'./src/js/config.js'
 						],
 						dest: './tmp/js/concat/script.js'
 					},
@@ -198,6 +199,7 @@ module.exports = function(grunt) {
 							'./src/js/bankid/**/*.js',
 							'./src/js/activiti/**/*.js',
 							'./src/js/form/**/*.js',
+							'./src/js/config.js'
 						],
 						dest: './tmp/js/concat/script.js'
 					},

@@ -197,8 +197,8 @@ function getBankIDOptions(accessToken) {
     var bankid = config.bankid;
 
     return {
-        protocol: bankid.protocol,
-        hostname: bankid.hostname,
+        protocol: bankid.sProtocol_AccessService_BankID,
+        hostname: bankid.sHost_ResourceService_BankID,
         params: {
             client_id: bankid.client_id,
             client_secret: bankid.client_secret,

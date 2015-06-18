@@ -14,6 +14,9 @@ import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.service.EntityService;
 import org.wf.dp.dniprorada.service.TableDataService;
 import org.wf.dp.dniprorada.util.JsonRestUtils;
+import org.wf.dp.dniprorada.util.SerializableResponseEntity;
+import org.wf.dp.dniprorada.util.caching.CachedInvocationBean;
+import org.wf.dp.dniprorada.util.caching.EnableCaching;
 import org.wf.dp.dniprorada.viewobject.TableData;
 
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +38,9 @@ public class ActivitiRestServicesController {
 
    @Autowired
    private TableDataService tableDataService;
+
+   @Autowired
+   private CachedInvocationBean cachedInvocationBean;
 
    @RequestMapping(value = "/getService", method = RequestMethod.GET)
    public
@@ -228,14 +234,22 @@ public class ActivitiRestServicesController {
    @RequestMapping(value = "/getServicesTree", method = RequestMethod.GET)
    public
    @ResponseBody
-   ResponseEntity getServicesTree(@RequestParam(value = "sFind", required = false) String partOfName) {
-      List<Category> categories = new ArrayList<>(baseEntityDao.getAll(Category.class));
+   ResponseEntity getServicesTree(@RequestParam(value = "sFind", required = false) final String partOfName) {
+      SerializableResponseEntity entity = cachedInvocationBean.invokeUsingCache(
+              new CachedInvocationBean.Callback<SerializableResponseEntity>("getServicesTree", partOfName) {
+         @Override
+         public SerializableResponseEntity execute() {
+            List<Category> categories = new ArrayList<>(baseEntityDao.getAll(Category.class));
 
-      if (partOfName != null) {
-         filterCategories(categories, partOfName);
-      }
+            if (partOfName != null) {
+               filterCategories(categories, partOfName);
+            }
 
-      return categoriesToJsonResponse(categories);
+            return categoriesToJsonResponse(categories);
+         }
+      });
+
+      return entity.toResponseEntity();
    }
 
    private void filterCategories(List<Category> categories, @RequestParam(value = "sFind", required = false) String sFind) {
@@ -271,7 +285,7 @@ public class ActivitiRestServicesController {
       List<Category> categories = Arrays.asList(JsonRestUtils.readObject(jsonData, Category[].class));
       List<Category> updatedCategories = entityService.update(categories);
 
-      return categoriesToJsonResponse(updatedCategories);
+      return categoriesToJsonResponse(updatedCategories).toResponseEntity();
    }
 
    @RequestMapping(value = "/getServicesAndPlacesTables", method = RequestMethod.GET)
@@ -314,7 +328,7 @@ public class ActivitiRestServicesController {
       return sWhere.toLowerCase().contains(sFind.toLowerCase());
    }
 
-   private ResponseEntity categoriesToJsonResponse(List<Category> categories) {
+   private SerializableResponseEntity categoriesToJsonResponse(List<Category> categories) {
       for (Category c : categories) {
          for (Subcategory sc : c.getSubcategories()) {
             sc.setCategory(null);
@@ -334,7 +348,7 @@ public class ActivitiRestServicesController {
          }
       }
 
-      return JsonRestUtils.toJsonResponse(categories);
+      return new SerializableResponseEntity(JsonRestUtils.toJsonResponse(categories));
    }
 
 }
