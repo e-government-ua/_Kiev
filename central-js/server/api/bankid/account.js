@@ -8,8 +8,8 @@ var createError = function(error, response) {
 	return {
 		code: response ? response.statusCode : 500,
 		error: error
-	}
-}
+	};
+};
 
 router.use(function(req, res, next) {
 	var config = require('../../config');
