@@ -1,10 +1,8 @@
 define('state/service/country/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceCountryController', ['$state', '$rootScope', '$scope', '$sce', 'service', 'AdminService',
-		function ($state, $rootScope, $scope, $sce, service, AdminService) {
+	angularAMD.controller('ServiceCountryController', ['$state', '$rootScope', '$scope', '$sce', 'service',
+		function ($state, $rootScope, $scope, $sce, service) {
 			$scope.service = service;
-
-			$scope.bAdmin = AdminService.isAdmin();
-
+			
 			$scope.data = {
 				region: null,
 				city: null

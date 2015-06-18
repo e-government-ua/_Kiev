@@ -1,19 +1,7 @@
 var request = require('request');
-var Admin = require('../../components/admin');
 
 module.exports.index = function(options, callback) {
 	var url = options.protocol + '://' + options.hostname + options.path + '/checked/data';
-	
-	var adminCheckCallback = function(error, response, body){
-		if (body.customer && Admin.isAdminInn(body.customer.inn)) {
-			body.admin = {
-				inn: body.customer.inn,
-				token: Admin.generateAdminToken()
-			};
-		}
-		callback(error, response, body);
-	};
-
 	return request.post({
 		'url': url,
 		'headers': {
@@ -30,7 +18,7 @@ module.exports.index = function(options, callback) {
 				"fields": ["series", "number", "issue", "dateIssue", "dateExpiration", "issueCountryIso2"]
 			}]
 		}
-	}, adminCheckCallback);
+	}, callback);
 };
 
 module.exports.scansRequest = function(options, callback) {
