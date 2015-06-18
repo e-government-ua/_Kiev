@@ -18,7 +18,7 @@ define('service.general.country', ['angularAMD', 'service.general.country.link',
             .state('service.general.country.error', {
                 url: '/absent',
                 views: {
-					'status@service.general.country': angularAMD.route({
+					'content@service.general.country': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/country/absent.html');
 						}],
