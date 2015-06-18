@@ -46,7 +46,7 @@ module.exports.getDocumentInternal = function(req, res, callback) {
 
 module.exports.index = function(req, res) {
     var params = {
-        'nID_Subject': req.query.nID_Subject
+        'nID_Subject': req.session.subject.nID
     };
     return buildGetRequest(req, res, '/services/getDocuments', params);
 };
@@ -63,8 +63,8 @@ module.exports.initialUpload = function(req, res) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
     var accessToken = req.query.access_token;
-    var nID_Subject = req.query.nID_Subject;
-    var sID_Subject = req.query.sID_Subject;
+    var nID_Subject = req.session.subject.nID;
+    var sID_Subject = req.session.subject.sID;
     var typesToUpload = req.body;
 
     if (!accessToken || !sID_Subject) {
@@ -76,7 +76,7 @@ module.exports.initialUpload = function(req, res) {
         return;
     }
 
-    if (!typesToUpload || typesToUpload.length === 0) {
+    if (!typesToUpload || !typesToUpload.length || typesToUpload.length === 0) {
         res.status(400);
         res.send({
             error: 'nothing to upload'

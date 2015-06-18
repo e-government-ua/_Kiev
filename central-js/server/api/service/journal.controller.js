@@ -35,7 +35,7 @@ module.exports.getHistoryEvents = function(req, res) {
             'password': options.password
         },
         'qs': {
-            'nID_Subject': req.query.nID_Subject
+            'nID_Subject': req.session.subject.nID
         }
     }, callback);
 };

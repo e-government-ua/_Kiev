@@ -18,18 +18,25 @@ function isDocumentOwner() {
 		documents.getDocumentInternal(req, res,
 			function(error, response, body) {
 				if (error) {
-					res.code(response.statusCode);
+					res.status(response.statusCode);
 					res.send(error);
 					res.end();
 				} else {
-					var document = body.document;
-					if (document.oSubject.nID === req.session.subject.nID) {
-						next();
-					} else {
-						res.code(401);
-						res.send("Not your document");
+					try {
+						var document = JSON.parse(body);
+						if (document.oSubject && document.oSubject.nID === req.session.subject.nID) {
+							next();
+						} else {
+							res.status(401);
+							res.send("Not your document");
+							res.end();
+						}
+					} catch (e) {
+						res.status(404);
+						res.send("There is no such document");
 						res.end();
-					}					
+					}
+
 				}
 			});
 	});
