@@ -9,7 +9,7 @@ router.use(function(req, res, next) {
 	var bankid = config.bankid;
 	
 	var options = {
-		protocol: bankid.sProtocol_ResourceService_BankID,
+		protocol: bankid.sProtocol_AccessService_BankID,
 		hostname: bankid.sHost_ResourceService_BankID,
 		path: '/ResourceService',
 		params: {
