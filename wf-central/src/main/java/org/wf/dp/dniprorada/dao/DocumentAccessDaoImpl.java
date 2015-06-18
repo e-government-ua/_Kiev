@@ -94,7 +94,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		return os.toString();
 	}        
 
-	private void writeRow(DocumentAccess o) {
+	private void writeRow(DocumentAccess o) throws Exception{
 		//Transaction t = null;
 		Session s = getSession();
 		try{
@@ -178,7 +178,9 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     //o.setDateAnswerExpire(null);
                     docAcc.setAnswer(sAnswer);
                     writeRow(docAcc);
-		} finally{
+		} catch(Exception e) {
+			throw e;
+		}finally{
 			oSession.close();
 		}
 		return  "/";//getOtpPassword(docAcc);
