@@ -171,6 +171,18 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, $windo
     }
     return s;
   };
+  
+  $scope.sEnumValue = function(aItem,sID) {
+    var s=sID;
+    _.forEach(aItem, function(oItem) {
+        if(oItem.id==sID){
+            s=oItem.name;
+        }
+    });
+    return s;
+  };
+  
+  
   $scope.sFieldNotes = function(sField) {
     var s = null;
     if (sField !== null) {
