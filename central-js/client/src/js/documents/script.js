@@ -71,19 +71,9 @@ define('documents', ['angularAMD', 'service', 'file2/directive', 'file/factory']
           customer: function(BankIDAccount) {
             return BankIDAccount.customer;
           },
-          subject: function($q, $state, ServiceService, customer) {
-            $state.customer = customer;
-            return ServiceService.syncSubject(customer.inn).then(function(data) {
-              return data.hasOwnProperty('error') ? $q.reject(null) : data;
-            });
-          },
-          documents: function($q, $state, subject, ServiceService, BankIDLogin) {
-            $state.nID_Subject = subject.nID;
-            $state.sID_Subject = subject.sID;
+          documents: function($q, $state, ServiceService, BankIDLogin) {
             return ServiceService.getOrUploadDocuments(
-                            BankIDLogin.access_token,
-                            $state.nID_Subject,
-                            $state.sID_Subject)
+                            BankIDLogin.access_token)
                         .then(function(data) {
                             return data;
                         });

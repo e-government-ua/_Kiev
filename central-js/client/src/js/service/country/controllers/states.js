@@ -36,7 +36,6 @@ define('state/service/country/controller', ['angularAMD'], function (angularAMD)
 	]);
 });
 
-
 define('state/service/country/absent/controller', ['angularAMD'], function (angularAMD) {
 	angularAMD.controller('ServiceCountryAbsentController', [
         '$state',

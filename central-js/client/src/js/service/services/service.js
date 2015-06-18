@@ -33,18 +33,6 @@ define('service/service', ['angularAMD'], function(angularAMD) {
       });
     };
 
-    this.syncSubject = function(sInn) {
-      var data = {
-        'sINN': sInn
-      };
-      return $http.get('./api/service/syncSubject', {
-        params: data,
-        data: data
-      }).then(function(response) {
-        return response.data;
-      });
-    };
-
     this.getProcessDefinitions = function(oServiceData, latest) {
       var data = {
         'url': oServiceData.sURL,
@@ -58,10 +46,8 @@ define('service/service', ['angularAMD'], function(angularAMD) {
       });
     };
 
-    this.getDocuments = function(nID_Subject) {
-      var data = {
-        'nID_Subject': nID_Subject
-      };
+    this.getDocuments = function() {
+      var data = {};
       return $http.get('./api/service/documents', {
         params: data,
         data: data
@@ -89,10 +75,8 @@ define('service/service', ['angularAMD'], function(angularAMD) {
       });
     };
 
-    this.getJournalEvents = function(nID_Subject) {
-      var data = {
-        'nID_Subject': nID_Subject
-      };
+    this.getJournalEvents = function() {
+      var data = {};
       return $http.get('./api/service/journal', {
         params: data,
         data: data
@@ -101,11 +85,9 @@ define('service/service', ['angularAMD'], function(angularAMD) {
       });
     };
     
-   this.initialUpload = function(accessToken, nID_Subject, sID_Subject, typesToUpload) {
+   this.initialUpload = function(accessToken, typesToUpload) {
 		var data = {
-			'access_token': accessToken,
-			'nID_Subject': nID_Subject,
-			'sID_Subject': sID_Subject
+			'access_token': accessToken
 		};
 		return $http.post('./api/service/documents/initialupload', typesToUpload, {
 			params: data
@@ -114,10 +96,10 @@ define('service/service', ['angularAMD'], function(angularAMD) {
 		});
 	};
 
-	this.getOrUploadDocuments = function(accessToken, nID_Subject, sID_Subject) {
+	this.getOrUploadDocuments = function(accessToken) {
 		var initialUpload = this.initialUpload;
 		var getDocuments = this.getDocuments;
-		return this.getDocuments(nID_Subject).then(function(data) {
+		return this.getDocuments().then(function(data) {
 			if (data.hasOwnProperty('error')) {
 				return $q.reject(null);
 			}
@@ -141,13 +123,10 @@ define('service/service', ['angularAMD'], function(angularAMD) {
 			}
 
 			if (typesToUpload.length > 0) {
-				return initialUpload(accessToken,
-						nID_Subject,
-						sID_Subject,
-						typesToUpload)
+				return initialUpload(accessToken, typesToUpload)
 					.then(function(uploadingResult) {
 						if (!uploadingResult.hasOwnProperty('error')) {
-							return getDocuments(nID_Subject).then(function(updatedData) {
+							return getDocuments().then(function(updatedData) {
 								return updatedData.hasOwnProperty('error') ? $q.reject(null) : updatedData;
 							});
 						} else {
