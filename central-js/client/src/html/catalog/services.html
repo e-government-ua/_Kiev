@@ -4,7 +4,38 @@
            <div class="big-inner-addon">
               <span class="glyphicon glyphicon-search al-left" aria-hidden="true"></span>
               <input ng-model="sSearch" ng-model-options="{ updateOn: 'default', debounce: {'default': 500} }" ng-change="search()"type="text" class="form-control input-lg" placeholder="Пошук послуги">
-              <a style="display: none;" href="#"><span class="glyphicon glyphicon-triangle-bottom al-right" aria-hidden="true"></span></a>
+              <a href="#" ng-click="onExtSearchClick()"><span class="glyphicon glyphicon-triangle-bottom al-right" aria-hidden="true"></span></a>
+               <div class="panel panel-default" ng-show="bShowExtSearch">
+                   <div class="row clearfix">
+                       <div class="col-md-12 column">
+                           <div class="checkbox">
+                                <label><input type="checkbox" value="">Показати тільки послуги, що доступні через Інтернет</label>
+                           </div>
+
+                           <div class="btn-group">
+                               <button class="btn btn-default">Action</button> <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
+                               <ul class="dropdown-menu">
+                                   <li>
+                                       <a href="#">Action</a>
+                                   </li>
+                                   <li class="disabled">
+                                       <a href="#">Another action</a>
+                                   </li>
+                                   <li class="divider">
+                                   </li>
+                                   <li>
+                                       <a href="#">Something else here</a>
+                                   </li>
+                               </ul>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="row clearfix">
+                       <div class="col-md-12 column">
+                           <button type="button" class="btn btn-primary pull-right">Знайти</button>
+                       </div>
+                   </div>
+               </div>
            </div>
             <div class="index-services-count">
                 <span class="index-services-count-item">

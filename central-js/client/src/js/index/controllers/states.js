@@ -4,11 +4,20 @@ define('state/index/controller', ['angularAMD'], function(angularAMD) {
       $scope.catalogCounts = {0:0,1:0,2:0};
     $scope.limit = 4;//7//10//limit of services
     $scope.sSearch = null;
+    $scope.bShowExtSearch = false;
 
     $scope.search = function() {
       return CatalogService.getServices($scope.sSearch).then(function(result) {
         $scope.catalog = result;
       });
+    };
+
+    $scope.onExtSearchClick = function(){
+        $scope.bShowExtSearch = !$scope.bShowExtSearch;
+    };
+
+    $scope.hideExtSearchPanel = function(){
+        $scope.bShowExtSearch = false;
     };
     
     //Admin buttons visibility handling
