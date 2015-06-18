@@ -9,17 +9,17 @@ router.use(function(req, res, next) {
 
 	async.waterfall([
 		function(callback) {
-			var bankid = config.bankid;
-			var options = {
-				protocol: bankid.protocol,
-				hostname: bankid.hostname,
-				path: '/ResourceService',
-				params: {
-					client_id: bankid.client_id,
-					client_secret: bankid.client_secret,
-					access_token: req.query.access_token || null
-				}
-			};
+				var bankid = config.bankid;
+				
+				var options = {
+					protocol: bankid.sProtocol_ResourceService_BankID,
+					hostname: bankid.sHost_ResourceService_BankID,
+					path: '/ResourceService',
+					params: {
+						client_id: bankid.client_id,
+						client_secret: bankid.client_secret,
+						access_token: req.query.access_token || null
+					}
 
 			account.index(options, function(error, response, body) {
 				if (error) {
