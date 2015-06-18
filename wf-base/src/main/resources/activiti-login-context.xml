@@ -18,10 +18,6 @@
 
     <security:http create-session="stateless" realm="Activiti REST API">
         <security:intercept-url pattern="/service/**" access="ROLE_USER"/>
-        <security:intercept-url pattern="/services/**" access="ROLE_USER"/>
-        <security:intercept-url pattern="/merchant/**" access="ROLE_USER"/>
-        <security:intercept-url pattern="/messages/**" access="ROLE_USER"/>
-        <security:intercept-url pattern="/subject/**" access="ROLE_USER"/>
         <security:http-basic/>
     </security:http>
 
