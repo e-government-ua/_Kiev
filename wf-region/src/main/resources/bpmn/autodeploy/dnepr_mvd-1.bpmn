@@ -7,10 +7,10 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="birthDate" name="Дата народження" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="birthLoc" name="Місце народження" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="birthDate" name="Дата народження; у форматі ДД.ММ.ГГГГ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="birthLoc" name="Місце народження; країна, область/регіон, населений пункт" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="resident" name="Громадянство" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text1" name="Якщо змінювались  прізвище, ім'я та по-батькові - вкажіть попередні" type="label" default="-------------------"></activiti:formProperty>
+        <activiti:formProperty id="text1" name="Якщо змінювались  прізвище, ім'я та по-батькові, обов'язково вкажіть попередні ПІБ  на обох мовах (укр. та рос.)" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string"></activiti:formProperty>
         <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string"></activiti:formProperty>
         <activiti:formProperty id="text4" name="Додаткова інформація" type="label" default="-------------------"></activiti:formProperty>
@@ -28,7 +28,7 @@
           <activiti:value id="attr11" name="Інша"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="text3" name="Контактні данні" type="label" default="-------------------"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон; у форматі 380...." type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warningMessage" name="Увага!" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
       </extensionElements>
@@ -78,7 +78,7 @@
         <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="birthDate" name="Дата народження" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="birthDate" name="Дата народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="resident" name="Громадянство" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="enum" writable="false">
@@ -99,7 +99,7 @@
           <activiti:value id="accept" name="Сповістити громадянина, що довідка підготовлена до надання"></activiti:value>
           <activiti:value id="reject" name="Сповістити громадянина, що довідка не може бути надана"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment" name="Де і коли громадянин зможе отримати довідку (час/дата/адреса)?  В разі  неможливості надання послуги вкажіть причину." type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="Коли громадянин зможе отримати довідку (час/дата)?  В разі  неможливості надання послуги вкажіть причину. Ця інформація буде відправлена на e-mail заявника" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="footer" name="footerToPrint" type="label" default="&lt;p dir=&quot;ltr&quot; id=&quot;docs-internal-guid-a39915a5-e7ca-0f06-b3d2-dea92937c812&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt;&lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;---------------------------------------------------------------------------------------------------------------------------------------&lt;/span&gt;&lt;/p&gt;&lt;p dir=&quot;ltr&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt; &lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;Довідку№ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримав (ПІБ)_________________________&lt;/span&gt;&lt;/p&gt;&lt;br /&gt;&lt;p dir=&quot;tr&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt;&lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;Дата &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Підпис &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________&lt;/span&gt;&lt;/p&gt;" readable="false" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
@@ -157,7 +157,12 @@
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
 Ваш запит успішно оброблено.
-Ви можете отримати Вашу довідку за адресою вул.Ворошилова 21.
+
+Де можна отримати?
+За адресою: Дніпропетровськ  вул.Ворошилова 21.
+
+Коли можна отримати довідку?
+${comment}
 
 З повагою,
 Міністерство Внутрішніх Справ Дніпропетровської області,
