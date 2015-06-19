@@ -50,16 +50,8 @@ define('journal', ['angularAMD', 'service'], function (angularAMD) {
                     customer: ['BankIDAccount', function (BankIDAccount) {
                         return BankIDAccount.customer;
                     }],
-                    subject: ['$q', '$state', 'ServiceService', 'customer', function($q, $state, ServiceService, customer) {
-                        $state.customer = customer;
-                        return ServiceService.syncSubject(customer.inn).then(function(data) {
-                            return data.hasOwnProperty('error') ? $q.reject(null): data;
-                        });
-                    }],
-                    journal: ['$q', '$state', 'subject', 'ServiceService', function($q, $state, subject, ServiceService) {
-                        $state.nID_Subject = subject.nID;
-                        // @todo Error processing
-                        return ServiceService.getJournalEvents($state.nID_Subject);
+                    journal: ['$q', '$state', 'ServiceService', function($q, $state, ServiceService) {
+                        return ServiceService.getJournalEvents();
                     }]
                 },
                 views: {
