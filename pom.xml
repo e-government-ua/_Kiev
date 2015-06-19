@@ -53,6 +53,9 @@
 		<log4j.version>1.2.17</log4j.version>
 		<liquibase.version>3.3.3</liquibase.version>
 		<java.object.merger.version.version>0.8.5.1</java.object.merger.version.version>
+		<jboss.serialization.version>4.2.2.GA</jboss.serialization.version>
+		<trove.version>1.0.2</trove.version>
+		<ehcache.version>2.10.0</ehcache.version>
 	</properties>
 
 	<distributionManagement>
@@ -261,6 +264,24 @@
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
 				<version>${hibernate.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache</artifactId>
+				<version>${ehcache.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>jboss</groupId>
+				<artifactId>jboss-serialization</artifactId>
+				<version>${jboss.serialization.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>trove</groupId>
+				<artifactId>trove</artifactId>
+				<version>${trove.version}</version>
 			</dependency>
 
 			<!-- WARNING! Last version of log4j is needed for hibernate!-->

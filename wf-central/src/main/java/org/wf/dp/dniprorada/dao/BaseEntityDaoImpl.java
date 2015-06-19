@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.dao;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.hibernate.CacheMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
