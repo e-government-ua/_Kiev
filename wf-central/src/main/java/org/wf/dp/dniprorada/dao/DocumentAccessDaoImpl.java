@@ -192,7 +192,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		}
 		String otpPassword = "-";
 		try{
-			otpPassword += getOtpPassword(docAcc);
+			otpPassword += "Password OTP";//getOtpPassword(docAcc);
 		} catch(Exception e){
 			otpPassword = "OTP is NULL";
 		}
