@@ -190,7 +190,13 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		}finally{
 			oSession.close();
 		}
-		return  getOtpPassword(docAcc);
+		String otpPassword = "-";
+		try{
+			otpPassword += getOtpPassword(docAcc);
+		} catch(Exception e){
+			otpPassword = "OTP is NULL";
+		}
+		return  "/"+ otpPassword;
 	}
 
         
