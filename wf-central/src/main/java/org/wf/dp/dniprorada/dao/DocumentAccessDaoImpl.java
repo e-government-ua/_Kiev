@@ -3,6 +3,7 @@ package org.wf.dp.dniprorada.dao;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -93,7 +94,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		return os.toString();
 	}        
 
-	private void writeRow(DocumentAccess o) {
+	private void writeRow(DocumentAccess o) throws Exception{
 		//Transaction t = null;
 		Session s = getSession();
 		try{
@@ -103,7 +104,11 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 			t.commit();*/
 			/*Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES (1,2014-06-03,222,LEO,secret,097,mail,qwe)");
 			query.executeUpdate();*/
-			s.save(o);
+			Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES ("+o.getID_Document()+","+o.getDateCreate()+
+					","+o.getMS()+","+o.getFIO()+","+o.getTarget()+","+o.getTelephone()+","+o.getMail()+","+o.getSecret()+")");
+			query.executeUpdate();
+			//s.save(o);
+			
 		} catch(Exception e){
 			//t.rollback();
 			throw e;
@@ -151,10 +156,15 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	public String getDocumentAccess(Long nID_Access, String sSecret) throws Exception {
 		Session oSession = getSession();
 		List <DocumentAccess> list = null;
-		DocumentAccess docAcc = null;
+		String sTelephone = "";
+		String sAnswer = "";
+		DocumentAccess docAcc = new DocumentAccess();
 		try{
                     //TODO убедиться что все проверяется по этим WHERE
                     list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
+                    /*for(DocumentAccess da : list){
+                    	System.out.println(da.toString());
+                    }*/
                     if(list == null || list.isEmpty()){
                         throw new Exception("Access not accepted!");
                     } else {
@@ -165,17 +175,19 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                          	}
                          }
                     }
-                    String sTelephone = docAcc.getTelephone();
+                    if(docAcc.getTelephone() != null){
+                     sTelephone = docAcc.getTelephone();
+                    }
                     //TODO Generate random 4xDigits answercode
-                    String sAnswer = generateAnswer();
+                    sAnswer = generateAnswer();
                     //TODO SEND SMS with this code
                     //
                     //o.setDateAnswerExpire(null);
                     docAcc.setAnswer(sAnswer);
-                    writeRow(docAcc);
-		} catch(Exception e){
+                   // writeRow(docAcc);
+		} catch(Exception e) {
 			throw e;
-		} finally{
+		}finally{
 			oSession.close();
 		}
 		return  getOtpPassword(docAcc);

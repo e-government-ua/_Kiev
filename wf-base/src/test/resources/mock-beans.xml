@@ -9,6 +9,8 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
+    <context:component-scan base-package="org.activiti.redis"/>
+
     <bean id="repositoryService" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg value="org.activiti.engine.RepositoryService" />
     </bean>

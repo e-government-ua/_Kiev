@@ -25,7 +25,11 @@
 		<mongo:mapping-converter id="converter" db-factory-ref="mongoDbFactory"/-->
 		<!--mongo:db-factory host="54.76.209.57" port="27017" dbname="test" />
 		<mongo:mapping-converter id="converter" db-factory-ref="mongoDbFactory"/-->
-		<mongo:db-factory host="${mongodb.host}" port="${mongodb.port}" dbname="${mongodb.database}" />
+                
+		<!--mongo:db-factory host="${mongodb.host}" port="${mongodb.port}" dbname="${mongodb.database}" /-->
+		<mongo:db-factory host="${mongodb.host}" port="${mongodb.port}" dbname="${mongodb.database}"
+                 username="${mongodb.login}" password="${mongodb.password}" authentication-dbname="${mongodb.database}"/>
+                
 		<mongo:mapping-converter id="converter" db-factory-ref="mongoDbFactory"/>
 		 
 		<!-- MongoDB GridFS Template -->
