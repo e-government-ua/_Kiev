@@ -93,6 +93,7 @@ public class ActivitiDocumentAccessController {
 			str = documentAccessDao.getDocumentAccess(nID_Access,sSecret);
 			/*oAccessURL.setValue(documentAccessDao.getDocumentAccess(nID_Access,
 					sSecret));*/
+			//System.out.println("oAccessURL.getValue()="+str);
 			oAccessURL.setValue(str);
 		} catch (Exception e) {
 			response.setStatus(403);

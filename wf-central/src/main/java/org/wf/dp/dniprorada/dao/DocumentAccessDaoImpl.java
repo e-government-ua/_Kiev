@@ -156,10 +156,15 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	public String getDocumentAccess(Long nID_Access, String sSecret) throws Exception {
 		Session oSession = getSession();
 		List <DocumentAccess> list = null;
-		DocumentAccess docAcc = null;
+		String sTelephone = "";
+		String sAnswer = "";
+		DocumentAccess docAcc = new DocumentAccess();
 		try{
                     //TODO убедиться что все проверяется по этим WHERE
                     list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
+                    /*for(DocumentAccess da : list){
+                    	System.out.println(da.toString());
+                    }*/
                     if(list == null || list.isEmpty()){
                         throw new Exception("Access not accepted!");
                     } else {
@@ -170,20 +175,22 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                          	}
                          }
                     }
-                    String sTelephone = docAcc.getTelephone();
+                    if(docAcc.getTelephone() != null){
+                     sTelephone = docAcc.getTelephone();
+                    }
                     //TODO Generate random 4xDigits answercode
-                    String sAnswer = generateAnswer();
+                    sAnswer = generateAnswer();
                     //TODO SEND SMS with this code
                     //
                     //o.setDateAnswerExpire(null);
                     docAcc.setAnswer(sAnswer);
-                    writeRow(docAcc);
+                   // writeRow(docAcc);
 		} catch(Exception e) {
 			throw e;
 		}finally{
 			oSession.close();
 		}
-		return  "/";//getOtpPassword(docAcc);
+		return  getOtpPassword(docAcc);
 	}
 
         

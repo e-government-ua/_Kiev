@@ -141,6 +141,6 @@ public class DocumentAccess {
 	}
 	@Override
 	public String toString() {
-		return nID+nID_Document+sDateCreate+nMS+sFIO+sTarget+sTelephone+sMail+sSecret+sAnswer+sDateAnswerExpire;
+		return "{\n"+"nID:"+nID+"\nnID_Document:"+nID_Document+"sDateCreate:"+sDateCreate+"\nnMS:"+nMS+"\nsFIO:"+sFIO+"\nsTarget:"+sTarget+"\nsTelephone:"+sTelephone+"\nsMail:"+sMail+"\nsSecret:"+sSecret+"\nsAnswer:"+sAnswer+"\nsDateAnswerExpire:"+sDateAnswerExpire+"\n}";
 	}
 }
