@@ -158,6 +158,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		List <DocumentAccess> list = null;
 		String sTelephone = "";
 		String sAnswer = "";
+		String otpPassword = "-";
 		DocumentAccess docAcc = new DocumentAccess();
 		try{
                     //TODO убедиться что все проверяется по этим WHERE
@@ -171,6 +172,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     	 for(DocumentAccess da : list){
                          	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)){
                          		docAcc = da;
+                         		otpPassword+=da.toString();                         		
                          		break;
                          	}
                          }
@@ -190,7 +192,13 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		}finally{
 			oSession.close();
 		}
-		return  getOtpPassword(docAcc);
+		
+		/*try{
+			otpPassword += "Password OTP";//getOtpPassword(docAcc);
+		} catch(Exception e){
+			otpPassword = "OTP is NULL";
+		}*/
+		return  "/"+ otpPassword;
 	}
 
         
