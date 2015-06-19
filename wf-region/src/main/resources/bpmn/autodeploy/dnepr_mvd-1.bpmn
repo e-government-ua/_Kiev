@@ -7,7 +7,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="birthDate" name="Дата народження; у форматі ДД.ММ.ГГГГ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="birthDate" name="Дата народження; у форматі ДД.ММ.РРРР" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження; країна, область/регіон, населений пункт" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="resident" name="Громадянство" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text1" name="Якщо змінювались  прізвище, ім'я та по-батькові, обов'язково вкажіть попередні ПІБ  на обох мовах (укр. та рос.)" type="label" default="-------------------"></activiti:formProperty>
