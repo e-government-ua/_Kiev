@@ -50,7 +50,7 @@ define('journal', ['angularAMD', 'service'], function (angularAMD) {
                     customer: ['BankIDAccount', function (BankIDAccount) {
                         return BankIDAccount.customer;
                     }],
-                    journal: ['$q', '$state', 'ServiceService', function($q, $state, ServiceService) {
+                    journal: ['$q', '$state', 'ServiceService', function($q, $state, ServiceService, customer) {
                         return ServiceService.getJournalEvents();
                     }]
                 },
