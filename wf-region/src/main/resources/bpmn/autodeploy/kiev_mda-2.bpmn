@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="kiev_mda-2" name=" Київ МДА - Надання довідки про перебування на обліку громадян, які потребують відповідно до законодавства поліпшення житлових умов" isExecutable="true">
+  <process id="kiev_mda_2" name=" Київ МДА - Надання довідки про перебування на обліку громадян, які потребують відповідно до законодавства поліпшення житлових умов" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -51,13 +51,12 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="Взяття в роботу ЦНАП" activiti:candidateGroups="kiev_mr_0">
+    <userTask id="usertask1" name="Взяття в роботу ЦНАП">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
           <activiti:value id="kiev_rda1" name="rda1"></activiti:value>
@@ -79,13 +78,12 @@
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="usertask3" name="Формування пакету документів в ЦНАП" activiti:candidateGroups="kiev_mr_0">
+    <userTask id="usertask3" name="Формування пакету документів в ЦНАП">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
           <activiti:value id="kiev_rda1" name="rda1"></activiti:value>
@@ -141,7 +139,7 @@
     </boundaryEvent>
     <endEvent id="endevent4" name="End"></endEvent>
     <sequenceFlow id="flow17" sourceRef="boundaryerror1" targetRef="endevent4"></sequenceFlow>
-    <userTask id="usertask4" name="Перевірка пакету документів в РДА" activiti:candidateGroups="sales">
+    <userTask id="usertask4" name="Перевірка пакету документів в РДА">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -170,7 +168,7 @@
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow18" sourceRef="usertask3" targetRef="usertask4"></sequenceFlow>
-    <userTask id="usertask5" name="Підтвердження отримання ЦНАПом оригіналу довідки" activiti:candidateGroups="sales">
+    <userTask id="usertask5" name="Підтвердження отримання ЦНАПом оригіналу довідки">
       <extensionElements>
         <activiti:formProperty id="confirm" name="ЦНАП отримав документи выд РДА?" type="enum" required="true">
           <activiti:value id="accept" name="Підтверджую отримання докуметіи від РДА. Сповістити громадянина, що довідка підготовлена до отримання"></activiti:value>
@@ -203,7 +201,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow22" sourceRef="usertask5" targetRef="mailtask3"></sequenceFlow>
-    <userTask id="usertask6" name="Надання довідки громадянину та перевірка оригіналів документів" activiti:candidateGroups="kiev_mr_0">
+    <userTask id="usertask6" name="Надання довідки громадянину та перевірка оригіналів документів">
       <extensionElements>
         <activiti:formProperty id="confirm_cnap" name="Громадянин отримав довідку?" type="enum" required="true">
           <activiti:value id="accept" name="Підтвердити, що громадянин отримав довідку"></activiti:value>
@@ -216,7 +214,7 @@
     <sequenceFlow id="flow23" name="${attr2=='type2'}" sourceRef="exclusivegateway3" targetRef="usertask6">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${attr2=='type2'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask7" name="Підтвердження  отримання оригіналів документів в РДА" activiti:candidateGroups="sales">
+    <userTask id="usertask7" name="Підтвердження  отримання оригіналів документів в РДА">
       <extensionElements>
         <activiti:formProperty id="confirm_rda" name="Оригінал довідки з місця правцевлаштування громадянина  отримано з ЦНАПу?" type="enam">
           <activiti:value id="accept" name="Підтвердити, що оригінал довідки отриманий"></activiti:value>
@@ -261,7 +259,7 @@
     </sequenceFlow>
     <endEvent id="endevent6" name="End"></endEvent>
     <sequenceFlow id="flow32" sourceRef="mailtask7" targetRef="endevent6"></sequenceFlow>
-    <userTask id="usertask8" name="Формування довідки в РДА" activiti:candidateGroups="sales">
+    <userTask id="usertask8" name="Формування довідки в РДА">
       <extensionElements>
         <activiti:formProperty id="result_file" name="Завантажте копію довідки про перебування на квартирному обліку для передачі в ЦНАП" type="file" required="true"></activiti:formProperty>
       </extensionElements>
@@ -269,7 +267,7 @@
     <sequenceFlow id="flow33" sourceRef="usertask8" targetRef="usertask5"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow34" sourceRef="mailtask3" targetRef="exclusivegateway3"></sequenceFlow>
-    <userTask id="usertask9" name="Надання довідки громадянину " activiti:candidateGroups="kiev_mr_0">
+    <userTask id="usertask9" name="Надання довідки громадянину ">
       <extensionElements>
         <activiti:formProperty id="confirm_cnap" name="Громадянин отримав довідку?" type="enum">
           <activiti:value id="accept" name="Підтвердити, що громадянин отримав довідку."></activiti:value>
@@ -282,16 +280,13 @@
     <endEvent id="endevent7" name="End"></endEvent>
     <sequenceFlow id="flow36" sourceRef="usertask9" targetRef="endevent7"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_mda-2">
-    <bpmndi:BPMNPlane bpmnElement="kiev_mda-2" id="BPMNPlane_kiev_mda-2">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_mda_2">
+    <bpmndi:BPMNPlane bpmnElement="kiev_mda_2" id="BPMNPlane_kiev_mda_2">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="50.0" y="37.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="69.0" width="171.0" x="170.0" y="20.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
-        <omgdc:Bounds height="30.0" width="30.0" x="312.0" y="24.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="69.0" width="191.0" x="380.0" y="20.0"></omgdc:Bounds>
@@ -310,6 +305,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="887.0" y="-30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="312.0" y="24.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
         <omgdc:Bounds height="35.0" width="35.0" x="250.0" y="-30.0"></omgdc:Bounds>
