@@ -172,7 +172,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     	 for(DocumentAccess da : list){
                          	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)){
                          		docAcc = da;
-                         		otpPassword+=da.getID() + ":" + da.getSecret();                         		
+                         		otpPassword+=da.toString();                         		
                          		break;
                          	}
                          }
@@ -193,11 +193,11 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 			oSession.close();
 		}
 		
-		try{
+		/*try{
 			otpPassword += "Password OTP";//getOtpPassword(docAcc);
 		} catch(Exception e){
 			otpPassword = "OTP is NULL";
-		}
+		}*/
 		return  "/"+ otpPassword;
 	}
 
