@@ -5,6 +5,9 @@ define('state/index/controller', ['angularAMD'], function(angularAMD) {
     $scope.limit = 4;//7//10//limit of services
     $scope.sSearch = null;
     $scope.bShowExtSearch = false;
+    $scope.operators = [];
+
+    console.log($scope.catalog);
 
     $scope.search = function() {
       return CatalogService.getServices($scope.sSearch).then(function(result) {
@@ -35,6 +38,7 @@ define('state/index/controller', ['angularAMD'], function(angularAMD) {
          $timeout(function()
          {
              $scope.catalogCounts = {0:0,1:0,2:0};
+             $scope.operators = [];
              angular.forEach(newValue, function(item)
              {
                  angular.forEach(item.aSubcategory, function(subItem)
@@ -42,6 +46,7 @@ define('state/index/controller', ['angularAMD'], function(angularAMD) {
                      angular.forEach(subItem.aService, function(aServiceItem)
                      {
                          $scope.catalogCounts[aServiceItem.nStatus] ++ ;
+                         $scope.operators.push(aServiceItem);
                      })
                  });
              });
