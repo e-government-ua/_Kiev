@@ -4,16 +4,18 @@ var syncSubject = require('../service/syncSubject.controller');
 var account = require('./account.controller');
 var async = require('async');
 
-var createError = function(error, response) {
+var createError = function(error, error_description, response) {
 	return {
 		code: response ? response.statusCode : 500,
-		error: error
+		err: {
+			error: error,
+			error_description: error_description
+		}
 	};
 };
 
 router.use(function(req, res, next) {
 	var config = require('../../config');
-
 	async.waterfall([
 		function(callback) {
 			var bankid = config.bankid;
@@ -30,16 +32,17 @@ router.use(function(req, res, next) {
 			};
 
 			account.index(options, function(error, response, body) {
-				if (error) {
-					callback(createError(error, response), null);
+				if (error || body.error) {
+					callback(createError(error || body.error, body.error_description, response), null);
 				} else {
-					var customer = body.customer;
-					callback(null, customer);
+					callback(null, {
+						customer: body.customer
+					});
 				}
 			});
 		},
 
-		function(customer, callback) {
+		function(result, callback) {
 			var activiti = config.activiti;
 
 			var syncSubjectOptions = {
@@ -50,7 +53,7 @@ router.use(function(req, res, next) {
 				username: activiti.username,
 				password: activiti.password,
 				params: {
-					sINN: customer.inn || null
+					sINN: result.customer.inn || null
 				}
 			};
 
@@ -58,19 +61,21 @@ router.use(function(req, res, next) {
 				if (error) {
 					callback(createError(error, response), null);
 				} else {
-					var subject = JSON.parse(body);
-					callback(null, subject);
+					result.subject = JSON.parse(body);
+					callback(null, result);
 				}
 			});
 		}
 	], function(err, result) {
 		if (err) {
 			res.status(err.code);
-			res.send(err.error);
+			res.send(err);
 			res.end();
 		} else {
-			req.session.subject = result;
-			res.send(result);
+			req.session.subject = result.subject;
+			res.send({
+				customer: result.customer
+			});
 			res.end();
 		}
 	});
