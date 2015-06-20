@@ -13,11 +13,14 @@ import org.wf.dp.dniprorada.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.service.EntityService;
 import org.wf.dp.dniprorada.service.TableDataService;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.JsonRestUtils;
 import org.wf.dp.dniprorada.util.SerializableResponseEntity;
 import org.wf.dp.dniprorada.util.caching.CachedInvocationBean;
 import org.wf.dp.dniprorada.util.caching.EnableCaching;
 import org.wf.dp.dniprorada.viewobject.TableData;
+
+import com.fasterxml.jackson.annotation.JsonGetter;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -41,6 +44,8 @@ public class ActivitiRestServicesController {
 
    @Autowired
    private CachedInvocationBean cachedInvocationBean;
+   @Autowired
+   GeneralConfig generalConfig;
 
    @RequestMapping(value = "/getService", method = RequestMethod.GET)
    public
@@ -338,7 +343,7 @@ public class ActivitiRestServicesController {
                service.setInfo(null);
                service.setLaw(null);
                //service.setSub(service.getServiceDataList().size());
-               service.setSub(service.getServiceDataFiltered().size());
+               service.setSub(service.getServiceDataFiltered(generalConfig.bTest()).size());
                //service.setTests(service.getTestsCount());
                //service.setStatus(service.getTests(); service.getTestsCount());
                service.setStatus(service.getStatusID());
@@ -350,5 +355,5 @@ public class ActivitiRestServicesController {
 
       return new SerializableResponseEntity(JsonRestUtils.toJsonResponse(categories));
    }
-
+   
 }
