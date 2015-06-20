@@ -89,10 +89,30 @@ module.exports = function(grunt) {
 					logConcurrentOutput: true
 				}
 			}
+		},
+
+		run_grunt: {
+			options: {
+				minimumFiles: 1
+			},
+			build_client: {
+				options: {
+					task: ['debug'],
+					log: true,
+					process: function(res){
+						if (res.fail){
+							res.output = 'fail'
+							grunt.log.writeln('res.fail');
+						}
+					}
+				},
+				src: ['./client/Gruntfile.js']
+			},
 		}
 	});
 
 	grunt.registerTask('debug', [
+		'run_grunt:build_client',
 		'concurrent:server',
 		'concurrent:debug'
 	]);
