@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
  *
  * @author bw
  */
-@Component("generalConfig")
+//@Component("generalConfig")
 public class GeneralConfig {
 
     private final static Logger oLog = LoggerFactory.getLogger(GeneralConfig.class);
