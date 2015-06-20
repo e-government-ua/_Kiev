@@ -1,21 +1,7 @@
 package org.wf.dp.dniprorada.util;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
-
-
-import java.io.InputStream;
-import java.util.List;
-
-import javax.activation.DataSource;
-import org.activiti.engine.TaskService;
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
