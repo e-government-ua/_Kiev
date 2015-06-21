@@ -108,6 +108,21 @@ module.exports = function(grunt) {
 				},
 				src: ['./client/Gruntfile.js']
 			},
+		},
+
+		mochaTest: {
+			options: {
+				reporter: 'spec'
+			},
+			src: ['server/**/*.spec.js']
+		}
+	});
+
+	grunt.registerTask('test', function(target) {
+		if (target === 'server') {
+			return grunt.task.run([
+				'mochaTest'
+			]);
 		}
 	});
 
