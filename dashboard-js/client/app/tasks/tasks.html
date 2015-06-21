@@ -36,20 +36,31 @@
                                    ng-required="item.required"
                                    ng-model="item.value"/>
                             <span class="input-group-addon"
-                                  ng-if="isFormPropertyDisabled(item)"
                                   clip-copy="item.value">
                                 <i class="glyphicon glyphicon-copy"></i>
                             </span>
                         </div>
                     </div>
 
-                    <p ng-if="item.type == 'textArea'">
+
+                    <div ng-if="item.type == 'textArea'">
+
                         <label>{{sFieldLabel(item.name)}}</label>
-                        <textarea class="form-control"
-                                  ng-disabled="isFormPropertyDisabled(item)"
-                                  ng-required="item.required"
-                                  ng-model="item.value"></textarea>
-                    </p>
+
+                        <div class="form-group">
+                            <div class="col-md-12 input-group">
+
+                            <textarea class="form-control"
+                                      ng-disabled="isFormPropertyDisabled(item)"
+                                      ng-required="item.required"
+                                      ng-model="item.value"></textarea>
+                            <span class="input-group-addon"
+                                  clip-copy="item.value">
+                                    <i class="glyphicon glyphicon-copy"></i>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
 
                     <p ng-if="item.type == 'user'">
                         <label>{{sFieldLabel(item.name)}}</label>
@@ -59,14 +70,21 @@
                                ng-model="item.value"/>
                     </p>
 
-                    <p ng-if="item.type == 'enum'">
+                    <div ng-if="item.type == 'enum'">
                         <label>{{sFieldLabel(item.name)}}</label>
-                        <select class="form-control"
-                                ng-disabled="isFormPropertyDisabled(item)"
-                                ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues"
-                                ng-required="item.required"
-                                ng-model="item.value"></select>
-                    </p>
+
+                        <div class="input-group">
+                            <select class="form-control"
+                                    ng-disabled="isFormPropertyDisabled(item)"
+                                    ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues"
+                                    ng-required="item.required"
+                                    ng-model="item.value"></select>
+                             <span class="input-group-addon"
+                                   clip-copy="item.name">
+                                    <i class="glyphicon glyphicon-copy"></i>
+                            </span>
+                        </div>
+                    </div>
 
                     <p ng-if="item.type == 'file' && !isFormPropertyDisabled(item)">
                         <label>{{sFieldLabel(item.name)}}</label>
