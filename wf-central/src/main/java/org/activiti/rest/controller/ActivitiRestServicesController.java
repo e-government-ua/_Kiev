@@ -162,22 +162,8 @@ public class ActivitiRestServicesController {
 
    private <T extends Entity> ResponseEntity recursiveForceServiceDelete(Class<T> entityClass, Long nID) {
       T entity = baseEntityDao.getById(entityClass, nID);
-      if (entity.getClass() == Service.class) {
-         List<ServiceData> serviceDataList = ((Service) entity).getServiceDataList();
-         deleteApropriateEntity(serviceDataList);
-
-      } else if (entity.getClass() == Subcategory.class) {
-         List<Service> services = ((Subcategory) entity).getServices();
-         deleteApropriateEntity(services);
-
-      } else if (entity.getClass() == Category.class) {
-         List<Subcategory> subcategoryList = ((Category) entity).getSubcategories();
-         deleteApropriateEntity(subcategoryList);
-
-      } else if (entity.getClass() == ServiceData.class) {
-         return deleteApropriateEntity(entity);
-      }
-
+      // hibernate will handle recursive deletion of all child entities
+      // because of annotation: @OneToMany(mappedBy = "category",cascade = CascadeType.ALL, orphanRemoval = true)
       baseEntityDao.remove(entity);
       return JsonRestUtils.toJsonResponse(HttpStatus.OK,
               new ResultMessage("success", entityClass + " id: " + nID + " removed"));
