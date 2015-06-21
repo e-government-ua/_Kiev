@@ -9,18 +9,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.base.model.Entity;
-import org.wf.dp.dniprorada.dao.BaseEntityDao;
+import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
+import org.wf.dp.dniprorada.base.viewobject.ResultMessage;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.service.EntityService;
 import org.wf.dp.dniprorada.service.TableDataService;
 import org.wf.dp.dniprorada.util.GeneralConfig;
-import org.wf.dp.dniprorada.util.JsonRestUtils;
+import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.util.SerializableResponseEntity;
 import org.wf.dp.dniprorada.util.caching.CachedInvocationBean;
-import org.wf.dp.dniprorada.util.caching.EnableCaching;
 import org.wf.dp.dniprorada.viewobject.TableData;
-
-import com.fasterxml.jackson.annotation.JsonGetter;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

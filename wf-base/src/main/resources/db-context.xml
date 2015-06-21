@@ -38,4 +38,14 @@
         <property name="changeLog" value="classpath:liquibase/db.changelog-master.xml"/>
     </bean>
 
+    <!-- ==============================   DAO   ============================= -->
+
+    <bean id="flowSlotDao" class="org.wf.dp.dniprorada.base.dao.FlowSlotDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="subjectTicketDao" class="org.wf.dp.dniprorada.base.dao.SubjectTicketDaoImp">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
 </beans>
