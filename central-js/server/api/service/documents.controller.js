@@ -4,7 +4,6 @@ var _ = require('lodash');
 var FormData = require('form-data');
 var async = require('async');
 var StringDecoder = require('string_decoder').StringDecoder;
-require('request').debug = true;
 
 module.exports.shareDocument = function (req, res) {
     var params = {
