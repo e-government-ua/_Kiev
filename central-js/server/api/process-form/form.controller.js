@@ -19,7 +19,7 @@ module.exports.index = function(req, res) {
 	var callback = function(error, response, body) {
 		res.send(body);
 		res.end();
-	}
+	};
 
 	return request.get({
 		'url': options.params.url,
@@ -47,7 +47,7 @@ module.exports.submit = function(req, res) {
 	var callback = function(error, response, body) {
 		res.send(body);
 		res.end();
-	}
+	};
 
 	var properties = [];
 	for(var i in options.formData.params) {
