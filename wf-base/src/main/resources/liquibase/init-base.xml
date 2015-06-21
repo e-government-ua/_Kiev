@@ -118,7 +118,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="nID_Task_Activiti" type="bigint">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="sDate" type="datetime">
                 <constraints nullable="false"/>
@@ -127,14 +127,48 @@
         <addAutoIncrement columnName="nID" tableName="SubjectTicket" columnDataType="bigint" incrementBy="1" startWith="1000"/>
 
         <!-- Loading of Data ####################################################################################### -->
-        <!--
-        <loadData encoding="UTF-8" file="data/Subject.csv" tableName="Subject" separator=";">
+
+        <loadData encoding="UTF-8" file="data/ServiceOperator_SubjectOrgan.csv" tableName="ServiceOperator_SubjectOrgan" separator=";">
             <column name="nID" type="NUMERIC"/>
-            <column name="sID" type="STRING"/>
-            <column name="sLabel" type="STRING"/>
-            <column name="sLabelShort" type="STRING"/>
+            <column name="sName" type="STRING"/>
+            <column name="nID_SubjectOrgan" type="NUMERIC"/>
         </loadData>
-        -->
+
+        <loadData encoding="UTF-8" file="data/Flow_ServiceData.csv" tableName="Flow_ServiceData" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="nID_ServiceData" type="NUMERIC"/>
+            <column name="nID_SubjectOrganDepartment" type="NUMERIC"/>
+        </loadData>
+
+        <loadData encoding="UTF-8" file="data/FlowPropertyClass.csv" tableName="FlowPropertyClass" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="sPath" type="STRING"/>
+        </loadData>
+
+        <loadData encoding="UTF-8" file="data/FlowProperty.csv" tableName="FlowProperty" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_FlowPropertyClass" type="NUMERIC"/>
+            <column name="sData" type="STRING"/>
+            <column name="nID_Flow_ServiceData" type="NUMERIC"/>
+        </loadData>
+
+        <loadData encoding="UTF-8" file="data/FlowSlot.csv" tableName="FlowSlot" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="sDate" type="DATETIME"/>
+            <column name="sData" type="STRING"/>
+            <column name="nID_Flow_ServiceData" type="NUMERIC"/>
+        </loadData>
+
+        <loadData encoding="UTF-8" file="data/SubjectTicket.csv" tableName="SubjectTicket" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_FlowSlot" type="NUMERIC"/>
+            <column name="nID_Subject" type="NUMERIC"/>
+            <column name="nID_Task_Activiti" type="NUMERIC"/>
+            <column name="sDate" type="DATETIME"/>
+        </loadData>
 
     </changeSet>
 </databaseChangeLog>
