@@ -29,8 +29,12 @@
 						<div class="row" ng-repeat="property in ActivitiForm.formProperties track by property.id" ng-if="property.id != 'processName'">
 							<!--div class="col-md-5">{{property.name}}:</div-->
 							<!--div class="col-md-5">{{ sFieldLabel(property.name) }}:</div-->
-							<div class="col-md-5">{{property.sFieldLabel}}:</div>
                                                         
+							<!--div class="col-md-5">{{property.sFieldLabel}}:</div-->
+                                                        <div class="col-md-5">
+                                                            <label style="color: red;" ng-if="data.formData.params[property.id].required">* </label>
+                                                            {{property.sFieldLabel}}:
+                                                        </div>
 
 							<div class="col-md-3" ng-class="{'has-error': form.$submitted && form[property.id].$invalid}" ng-if="!data.formData.fields[property.id]" ng-switch on="property.type">
                                                                 <textarea ng-switch-when="textArea" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required" class="form-control"></textarea>
