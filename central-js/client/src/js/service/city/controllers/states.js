@@ -53,7 +53,7 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 				var aServiceData = $scope.service.aServiceData;
 				var serviceType = { nID: 0 };
 				angular.forEach(aServiceData, function(value, key) {
-					if(value.nID_City.nID == $scope.data.city.nID) {
+					if(value.nID_City && value.nID_City.nID == $scope.data.city.nID) {
 						serviceType = value.nID_ServiceType;
 						$scope.serviceData = value;
 						$scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);

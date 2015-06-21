@@ -1,12 +1,7 @@
 package org.activiti.rest.controller;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.activiti.engine.ActivitiObjectNotFoundException;
+import org.activiti.redis.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,16 +9,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.wf.dp.dniprorada.dao.DocumentContentTypeDao;
-import org.wf.dp.dniprorada.dao.DocumentDao;
-import org.wf.dp.dniprorada.dao.HistoryEventDao;
-import org.wf.dp.dniprorada.dao.SubjectDao;
-import org.wf.dp.dniprorada.dao.SubjectOrganDao;
+import org.wf.dp.dniprorada.dao.*;
 import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.DocumentContentType;
 import org.wf.dp.dniprorada.model.HistoryEvent;
 import org.wf.dp.dniprorada.model.Subject;
 import org.wf.dp.dniprorada.util.Util;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/services")
@@ -194,7 +190,10 @@ public class ActivitiRestDocumentController {
          //Content-Disposition:attachment; filename=passport.zip
         String sFileName = request.getHeader("filename");
         if(sFileName==null||"".equals(sFileName.trim())){
-            sFileName = oFile.getOriginalFilename()+".zip";
+            String originalFilename = oFile.getOriginalFilename();
+            String fileExp = RedisUtil.getFileExp(originalFilename);
+            fileExp = fileExp != null ? fileExp : ".zip.zip";
+            sFileName = originalFilename + fileExp;
         }
         String sFileContentType = oFile.getContentType();
         byte[] aoContent = oFile.getBytes();
