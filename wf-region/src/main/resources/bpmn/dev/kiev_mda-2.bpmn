@@ -51,7 +51,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="Взяття в роботу ЦНАП">
+    <userTask id="usertask1" name="Взяття в роботу ЦНАП" activiti:assignee="dn130483kpa">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -216,7 +216,7 @@
     </sequenceFlow>
     <userTask id="usertask7" name="Підтвердження  отримання оригіналів документів в РДА">
       <extensionElements>
-        <activiti:formProperty id="confirm_rda" name="Оригінал довідки з місця правцевлаштування громадянина  отримано з ЦНАПу?" type="enam">
+        <activiti:formProperty id="confirm_rda" name="Оригінал довідки з місця правцевлаштування громадянина  отримано з ЦНАПу?" type="enum">
           <activiti:value id="accept" name="Підтвердити, що оригінал довідки отриманий"></activiti:value>
         </activiti:formProperty>
       </extensionElements>
