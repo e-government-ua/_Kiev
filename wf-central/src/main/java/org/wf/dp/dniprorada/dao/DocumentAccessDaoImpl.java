@@ -183,6 +183,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     //o.setDateAnswerExpire(null);
                     docAcc.setAnswer(sAnswer);
                    // writeRow(docAcc);
+                    
                     otpPassword+=getOtpPassword(docAcc);
 		} catch(Exception e) {
 			throw e;
@@ -252,6 +253,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		dos.flush();
 		dos.close();
 		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	Thread.currentThread().sleep(15000);
 		StringBuilder sb = new StringBuilder();
 		String inputLine;
 		while((inputLine = br.readLine()) != null){
