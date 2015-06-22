@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.dao;
+package org.wf.dp.dniprorada.base.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -49,5 +49,9 @@ public abstract class AbstractEntityDao<T extends Entity> implements EntityDao<T
    @Override
    public T getById(Integer identification) {
       return (T) getSession().get(entityClass, identification);
+   }
+
+   public Class<T> getEntityClass() {
+      return entityClass;
    }
 }

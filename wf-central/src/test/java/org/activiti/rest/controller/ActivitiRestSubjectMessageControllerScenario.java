@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.wf.dp.dniprorada.model.SubjectMessage;
-import org.wf.dp.dniprorada.util.JsonRestUtils;
+import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 
 import java.util.List;
 

@@ -53,7 +53,7 @@ define('state/service/city/controller', ['angularAMD'], function (angularAMD) {
 				var aServiceData = $scope.service.aServiceData;
 				var serviceType = { nID: 0 };
 				angular.forEach(aServiceData, function(value, key) {
-					if(value.nID_City.nID == $scope.data.city.nID) {
+					if(value.nID_City && value.nID_City.nID == $scope.data.city.nID) {
 						serviceType = value.nID_ServiceType;
 						$scope.serviceData = value;
 						$scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
@@ -88,15 +88,17 @@ define('state/service/city/absent/controller', ['angularAMD'], function (angular
         '$scope',
         'service',
         'MessagesService',
+		'AdminService',
         function (
             $state,
             $rootScope,
             $scope,
             service,
-            MessagesService
+            MessagesService,
+			AdminService
         ) {
             $scope.service = service;
-            $scope.hiddenCtrls = true; // $rootScope.hiddenCtrls; //Admin buttons visibility handling
+			$scope.bAdmin = AdminService.isAdmin();
             (function() {
                 if (window.pluso)if (typeof window.pluso.start == "function") return;
                 if (window.ifpluso==undefined) { window.ifpluso = 1;
