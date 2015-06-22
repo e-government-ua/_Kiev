@@ -73,7 +73,6 @@
 
 
 
-<!--
                 <bean id="abstractEntityDao" class="org.wf.dp.dniprorada.base.dao.AbstractEntityDao" abstract="true">
                     <property name="sessionFactory" ref="sessionFactory"/>
                 </bean>
@@ -102,6 +101,7 @@
                     <aop:advisor pointcut-ref="dao.services" advice-ref="txAdvice"/>
                 </aop:config>
 
+<!--
 -->
 
 
