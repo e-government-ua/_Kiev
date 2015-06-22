@@ -6,7 +6,12 @@ var config = {
 		'key': '/sybase/cert/server.key',
 		'cert': '/sybase/cert/server.crt',
 		'port': '8443',
-		'debug': 'false'
+		'debug': 'false',
+		'session': {
+			'secret': 'put yor session secret here',
+			'key': ['solt for session 1', 'solt for session 2'],
+			'secure': true
+		}
 	},
 	'activiti': {
 		'protocol': 'https',
@@ -36,7 +41,7 @@ var config = {
 
 try {
 	var local_config = require('./local_config');
-	_.extend(config, local_config);
+	_.merge(config, local_config);
 } catch (e) {
 	if (e.code === 'MODULE_NOT_FOUND') {
 		// do nothing

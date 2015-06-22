@@ -98,11 +98,11 @@
             <property name="sessionFactory" ref="sessionFactory"/>
         </bean>
 
-        <bean id="abstractEntityDao" class="org.wf.dp.dniprorada.dao.AbstractEntityDao" abstract="true">
+        <bean id="abstractEntityDao" class="org.wf.dp.dniprorada.base.dao.AbstractEntityDao" abstract="true">
             <property name="sessionFactory" ref="sessionFactory"/>
         </bean>
 
-        <bean id="baseEntityDao" class="org.wf.dp.dniprorada.dao.BaseEntityDaoImpl">
+        <bean id="baseEntityDao" class="org.wf.dp.dniprorada.base.dao.BaseEntityDaoImpl">
             <property name="sessionFactory" ref="sessionFactory"/>
         </bean>
 
@@ -151,9 +151,11 @@
         </tx:advice>
 
         <aop:config>
+            <aop:pointcut id="base.dao" expression="execution(* org.wf.dp.dniprorada.base.dao.*.*(..))"/>
             <aop:pointcut id="dao" expression="execution(* org.wf.dp.dniprorada.dao.*.*(..))"/>
             <aop:pointcut id="dao.services" expression="execution(* org.wf.dp.dniprorada.service.*.*(..))"/>
 
+            <aop:advisor pointcut-ref="base.dao" advice-ref="txAdvice"/>
             <aop:advisor pointcut-ref="dao" advice-ref="txAdvice"/>
             <aop:advisor pointcut-ref="dao.services" advice-ref="txAdvice"/>
         </aop:config>
