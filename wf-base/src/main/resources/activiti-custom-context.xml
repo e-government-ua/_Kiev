@@ -62,7 +62,6 @@
 
 	<beans>
 
-		<import resource="db-context.xml"/>
 
 		<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 			<property name="dataSource" ref="dataSource" />
@@ -132,6 +131,7 @@
 
 		<import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml" />
 		<import resource="classpath:/META-INF/spring/ua-org-egov-utils-storage-context.xml" />
+		<import resource="db-context.xml"/>
 	</beans>
 
 </beans>
