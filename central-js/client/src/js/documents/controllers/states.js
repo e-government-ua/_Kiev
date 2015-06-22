@@ -47,14 +47,14 @@ define('state/documents/content/controller', ['angularAMD'], function(angularAMD
 
       function getTelephone (sTelephone) {
         if (sTelephone == '+380') {
-          return ''
+          return ' '
         }
         return sTelephone;
       }
 
       function getDaysInMilliseconds (nDays) {
         if (isNaN(nDays.day * 86400000)) {
-          return 86400000;
+          return 7 * 86400000;
         }
         return nDays * 86400000;
       }
