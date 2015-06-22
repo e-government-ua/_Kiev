@@ -43,8 +43,14 @@ public class ActivitiRestDocumentController {
     @RequestMapping(value = "/getDocument", method = RequestMethod.GET)
     public
     @ResponseBody
-    Document getDocument(@RequestParam(value = "nID") Long id) {
-        return documentDao.getDocument(id);
+    Document getDocument(@RequestParam(value = "nID") Long id,
+            @RequestParam(value = "nID_Subject") Long nID_Subject) throws ActivitiRestException{
+        Document document = documentDao.getDocument(id);
+        if(nID_Subject != document.getSubject().getnID()){
+            throw new ActivitiRestException("401", "You don't have access!");
+        } else{
+            return  document;
+        }
     }
 
     @RequestMapping(value = "/getHistoryEvent", method = RequestMethod.GET)
@@ -94,8 +100,13 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     byte[] getDocumentFile(@RequestParam(value = "nID") Long id,
-                           HttpServletRequest request, HttpServletResponse httpResponse) {
+            @RequestParam(value = "nID_Subject") Long nID_Subject,
+                           HttpServletRequest request, HttpServletResponse httpResponse) 
+                           throws ActivitiRestException{
         Document document = documentDao.getDocument(id);
+        if(nID_Subject != document.getSubject().getnID()){
+            throw new ActivitiRestException("401", "You don't have access!");
+        } 
         //byte[] content = documentDao.getDocumentContent(document
         //        .getСontentKey());
         byte[] content = "".getBytes();
