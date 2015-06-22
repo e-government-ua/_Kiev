@@ -21,6 +21,12 @@ router.use(function(req, res, next) {
 	};
 	
 	var callback = function(error, response, body) {
+		if(body){
+			var result = JSON.parse(body)
+			if(result.hasOwnProperty('access_token')){
+				req.session.access = result;
+			}
+		}
 		res.send(body);
 		res.end();
 	}

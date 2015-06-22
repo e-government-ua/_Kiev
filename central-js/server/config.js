@@ -10,7 +10,8 @@ var config = {
 		'session': {
 			'secret': 'put yor session secret here',
 			'key': ['solt for session 1', 'solt for session 2'],
-			'secure': true
+			'secure': true,
+			'maxAge': 180000 // 3 * 60 * 1000 = 3 min
 		}
 	},
 	'activiti': {

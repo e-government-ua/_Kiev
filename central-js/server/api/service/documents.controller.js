@@ -59,7 +59,7 @@ module.exports.index = function (req, res) {
 module.exports.initialUpload = function (req, res) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-    var accessToken = req.query.access_token;
+    var accessToken = req.session.access.access_token;
     var nID_Subject = req.session.subject.nID;
     var sID_Subject = req.session.subject.sID;
     var typesToUpload = req.body;
@@ -81,7 +81,7 @@ module.exports.initialUpload = function (req, res) {
         res.end();
     }
 
-    var options = getBankIDOptions(req.query.access_token);
+    var options = getBankIDOptions(accessToken);
 
     var optionsForScans = _.merge(options, {
         path: '/ResourceService'
