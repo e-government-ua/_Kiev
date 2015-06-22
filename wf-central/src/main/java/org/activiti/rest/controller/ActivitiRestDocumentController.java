@@ -63,8 +63,14 @@ public class ActivitiRestDocumentController {
     @RequestMapping(value = "/getDocumentContent", method = RequestMethod.GET)
     public
     @ResponseBody
-    String getDocumentContent(@RequestParam(value = "nID") Long id) {
-        return Util.contentByteToString(documentDao.getDocumentContent(id)); // ????
+    String getDocumentContent(@RequestParam(value = "nID") Long id, 
+            @RequestParam(value = "nID_Subject") Long nID_Subject) throws ActivitiRestException {
+        Document document = documentDao.getDocument(id);
+        if(nID_Subject != document.getSubject().getnID()){
+            throw new ActivitiRestException("401", "You don't have access!");
+        } else{
+            return Util.contentByteToString(documentDao.getDocumentContent(document.getСontentKey())); // ????
+        }
     }
 
     @RequestMapping(value = "/getHistoryEvents", method = RequestMethod.GET)
