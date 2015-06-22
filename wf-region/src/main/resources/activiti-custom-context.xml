@@ -81,6 +81,13 @@
                     <property name="sessionFactory" ref="sessionFactory"/>
                 </bean>
 
+                <tx:advice id="txAdvice" transaction-manager="transactionManager">
+                    <tx:attributes>
+                        <tx:method name="get*" read-only="true"/>
+                        <tx:method name="*"/>
+                    </tx:attributes>
+                </tx:advice>
+
                 <aop:config>
                     <aop:pointcut id="base.dao" expression="execution(* org.wf.dp.dniprorada.base.dao.*.*(..))"/>
                     <aop:pointcut id="dao" expression="execution(* org.wf.dp.dniprorada.dao.*.*(..))"/>
