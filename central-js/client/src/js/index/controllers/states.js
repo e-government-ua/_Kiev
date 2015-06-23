@@ -80,8 +80,16 @@ define('state/index/controller', ['angularAMD', 'service'], function(angularAMD)
                                  $scope.operators.push(aServiceItem);
                              }
                          }
-                     })
+                     });
                  });
+
+                 item.aSubcategory = jQuery.grep(item.aSubcategory, function( sc ) {
+                    return sc.aService.length > 0;
+                 });
+
+                 if (item.aSubcategory.length == 0){
+                    item.sName = "";
+                 }
              });
          });
      });
