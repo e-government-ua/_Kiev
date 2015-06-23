@@ -4,7 +4,27 @@
            <div class="big-inner-addon">
               <span class="glyphicon glyphicon-search al-left" aria-hidden="true"></span>
               <input ng-model="sSearch" ng-model-options="{ updateOn: 'default', debounce: {'default': 500} }" ng-change="search()"type="text" class="form-control input-lg" placeholder="Пошук послуги">
-              <a style="display: none;" href="#"><span class="glyphicon glyphicon-triangle-bottom al-right" aria-hidden="true"></span></a>
+              <a href="#" ng-click="onExtSearchClick()"><span class="glyphicon glyphicon-triangle-bottom al-right" aria-hidden="true"></span></a>
+               <div class="panel panel-default" ng-show="bShowExtSearch">
+                   <div class="row clearfix">
+                       <div class="col-md-12 column">
+                           <div class="form-group">
+                               <select class="form-control" id="oplist" ng-model="operator" ng-change="filterByExtSearch()">
+                                   <option value="-1">Оберiть установу</option>
+                                   <option ng-repeat="operator in operators">{{operator.sSubjectOperatorName}}</option>
+                               </select>
+                           </div>
+
+                           <div class="form-group">
+                               <select ng-model="selectedStatus" class="form-control" ng-change="filterByExtSearch()">
+                                   <option value="-1">Всі послуги</option>
+                                   <option value="2">Доступні онлайн</option>
+                                   <option value="1">Послуги, що запустяться незабаром</option>
+                               </select>
+                           </div>
+                       </div>
+                   </div>
+               </div>
            </div>
             <div class="index-services-count">
                 <span class="index-services-count-item">
