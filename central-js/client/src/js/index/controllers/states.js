@@ -7,8 +7,8 @@ define('state/index/controller', ['angularAMD', 'service'], function(angularAMD)
     $scope.bAdmin = AdminService.isAdmin();
     $scope.bShowExtSearch = false;
     $scope.operators = [];
-    $scope.showOnlyOnline = false;
     $scope.selectedStatus = -1;//select all services
+    $scope.operator = "Оберiть установу";
     console.log($scope.catalog);
 
     $scope.search = function() {
@@ -25,26 +25,27 @@ define('state/index/controller', ['angularAMD', 'service'], function(angularAMD)
         $scope.bShowExtSearch = false;
     };
 
-    $scope.filterByServiceStatus = function (status){
-        console.log(status);
-        if (!!catalog && !!status){
-            $scope.catalog = catalog;
-            if (status == -1) {
-                return;
-            }
-
-            var ctlg = jQuery.extend(true, {}, $scope.catalog);
-            angular.forEach(ctlg, function(item)
-            {
-                angular.forEach(item.aSubcategory, function(subItem)
-                {
-                    subItem.aService = $filter('filter')(subItem.aService, {nStatus: status});
-                });
-            });
-            $scope.catalog = ctlg;
-        }
+    $scope.filterByExtSearch = function(){
+      if (!!catalog){
+          $scope.catalog = catalog;
+          var filterCriteria = {};
+          if ($scope.selectedStatus !=-1){
+              filterCriteria.nStatus = $scope.selectedStatus;
+          }
+          if ($scope.operator != "Оберiть установу"){
+              filterCriteria.sSubjectOperatorName = $scope.operator;
+          }
+          var ctlg = jQuery.extend(true, {}, $scope.catalog);
+          angular.forEach(ctlg, function(item)
+          {
+              angular.forEach(item.aSubcategory, function(subItem)
+              {
+                  subItem.aService = $filter('filter')(subItem.aService, filterCriteria);
+              });
+          });
+          $scope.catalog = ctlg;
+      }
     };
-
 
      $scope.$watch('catalog', function(newValue)
      {
@@ -63,7 +64,17 @@ define('state/index/controller', ['angularAMD', 'service'], function(angularAMD)
                          if ($scope.bShowExtSearch == false){
                              $scope.catalogCounts[aServiceItem.nStatus] ++ ;
                          }
-                         $scope.operators.push(aServiceItem);
+
+                         var found = false;
+                         for (var i = 0 ; i < $scope.operators.length ; i++){
+                             if ($scope.operators[i].sSubjectOperatorName === aServiceItem.sSubjectOperatorName){
+                                 found = true;
+                                 break;
+                             }
+                         }
+                         if (!found){
+                             $scope.operators.push(aServiceItem);
+                         }
                      })
                  });
              });

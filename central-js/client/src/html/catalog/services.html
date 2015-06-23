@@ -8,19 +8,15 @@
                <div class="panel panel-default" ng-show="bShowExtSearch">
                    <div class="row clearfix">
                        <div class="col-md-12 column">
-                           <div class="checkbox">
-                                <label><input type="checkbox" ng-change="filterByServiceStatus(showOnlyOnline==true?2 :-1)" ng-model="showOnlyOnline" value="">Показати тільки послуги, що доступні через Інтернет</label>
-                           </div>
-
                            <div class="form-group">
-                               <select class="form-control" id="oplist">
-                                   <option>Оберiть установу</option>
+                               <select class="form-control" id="oplist" ng-model="operator" ng-change="filterByExtSearch()">
+                                   <option value="Оберiть установу">Оберiть установу</option>
                                    <option ng-repeat="operator in operators">{{operator.sSubjectOperatorName}}</option>
                                </select>
                            </div>
 
                            <div class="form-group">
-                               <select ng-disabled="showOnlyOnline" ng-model="selectedStatus" class="form-control" ng-change="filterByServiceStatus(selectedStatus)">
+                               <select ng-model="selectedStatus" class="form-control" ng-change="filterByExtSearch()">
                                    <option value="-1">Всі послуги</option>
                                    <option value="2">Доступні онлайн</option>
                                    <option value="1">Послуги, що запустяться незабаром</option>
