@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.model;
+package org.wf.dp.dniprorada.base.viewobject;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.util;
+package org.wf.dp.dniprorada.base.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -9,7 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.wf.dp.dniprorada.model.ResultMessage;
+import org.wf.dp.dniprorada.base.viewobject.ResultMessage;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -59,7 +59,8 @@ module.exports = function(grunt) {
 					nodeArgs: ['--debug-brk'],
 					env: {
 						'DEBUG': 'false',
-						'NODE_DEBUG' : 'false'
+						'NODE_DEBUG' : 'false',
+						'NODE_TLS_REJECT_UNAUTHORIZED':0
 					},
 					callback: function(nodemon) {
 						nodemon.on('log', function(event) {
@@ -89,10 +90,45 @@ module.exports = function(grunt) {
 					logConcurrentOutput: true
 				}
 			}
+		},
+
+		run_grunt: {
+			options: {
+				minimumFiles: 1
+			},
+			build_client: {
+				options: {
+					task: ['debug'],
+					log: true,
+					process: function(res){
+						if (res.fail){
+							res.output = 'fail'
+							grunt.log.writeln('res.fail');
+						}
+					}
+				},
+				src: ['./client/Gruntfile.js']
+			},
+		},
+
+		mochaTest: {
+			options: {
+				reporter: 'spec'
+			},
+			src: ['server/**/*.spec.js']
+		}
+	});
+
+	grunt.registerTask('test', function(target) {
+		if (target === 'server') {
+			return grunt.task.run([
+				'mochaTest'
+			]);
 		}
 	});
 
 	grunt.registerTask('debug', [
+		'run_grunt:build_client',
 		'concurrent:server',
 		'concurrent:debug'
 	]);

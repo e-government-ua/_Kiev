@@ -1,12 +1,7 @@
 package org.activiti.rest.controller;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.activiti.engine.ActivitiObjectNotFoundException;
+import org.activiti.redis.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,16 +9,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.wf.dp.dniprorada.dao.DocumentContentTypeDao;
-import org.wf.dp.dniprorada.dao.DocumentDao;
-import org.wf.dp.dniprorada.dao.HistoryEventDao;
-import org.wf.dp.dniprorada.dao.SubjectDao;
-import org.wf.dp.dniprorada.dao.SubjectOrganDao;
+import org.wf.dp.dniprorada.dao.*;
 import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.DocumentContentType;
 import org.wf.dp.dniprorada.model.HistoryEvent;
 import org.wf.dp.dniprorada.model.Subject;
 import org.wf.dp.dniprorada.util.Util;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/services")
@@ -47,8 +43,14 @@ public class ActivitiRestDocumentController {
     @RequestMapping(value = "/getDocument", method = RequestMethod.GET)
     public
     @ResponseBody
-    Document getDocument(@RequestParam(value = "nID") Long id) {
-        return documentDao.getDocument(id);
+    Document getDocument(@RequestParam(value = "nID") Long id,
+            @RequestParam(value = "nID_Subject") Long nID_Subject) throws ActivitiRestException{
+        Document document = documentDao.getDocument(id);
+        if(nID_Subject != document.getSubject().getnID()){
+            throw new ActivitiRestException("401", "You don't have access!");
+        } else{
+            return  document;
+        }
     }
 
     @RequestMapping(value = "/getHistoryEvent", method = RequestMethod.GET)
@@ -61,8 +63,14 @@ public class ActivitiRestDocumentController {
     @RequestMapping(value = "/getDocumentContent", method = RequestMethod.GET)
     public
     @ResponseBody
-    String getDocumentContent(@RequestParam(value = "nID") Long id) {
-        return Util.contentByteToString(documentDao.getDocumentContent(id)); // ????
+    String getDocumentContent(@RequestParam(value = "nID") Long id, 
+            @RequestParam(value = "nID_Subject") Long nID_Subject) throws ActivitiRestException {
+        Document document = documentDao.getDocument(id);
+        if(nID_Subject != document.getSubject().getnID()){
+            throw new ActivitiRestException("401", "You don't have access!");
+        } else{
+            return Util.contentByteToString(documentDao.getDocumentContent(document.getСontentKey())); // ????
+        }
     }
 
     @RequestMapping(value = "/getHistoryEvents", method = RequestMethod.GET)
@@ -98,8 +106,13 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     byte[] getDocumentFile(@RequestParam(value = "nID") Long id,
-                           HttpServletRequest request, HttpServletResponse httpResponse) {
+            @RequestParam(value = "nID_Subject") Long nID_Subject,
+                           HttpServletRequest request, HttpServletResponse httpResponse) 
+                           throws ActivitiRestException{
         Document document = documentDao.getDocument(id);
+        if(nID_Subject != document.getSubject().getnID()){
+            throw new ActivitiRestException("401", "You don't have access!");
+        } 
         //byte[] content = documentDao.getDocumentContent(document
         //        .getСontentKey());
         byte[] content = "".getBytes();
@@ -194,7 +207,10 @@ public class ActivitiRestDocumentController {
          //Content-Disposition:attachment; filename=passport.zip
         String sFileName = request.getHeader("filename");
         if(sFileName==null||"".equals(sFileName.trim())){
-            sFileName = oFile.getOriginalFilename()+".zip";
+            String originalFilename = oFile.getOriginalFilename();
+            String fileExp = RedisUtil.getFileExp(originalFilename);
+            fileExp = fileExp != null ? fileExp : ".zip.zip";
+            sFileName = originalFilename + fileExp;
         }
         String sFileContentType = oFile.getContentType();
         byte[] aoContent = oFile.getBytes();

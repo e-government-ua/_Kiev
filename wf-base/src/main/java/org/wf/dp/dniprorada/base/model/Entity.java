@@ -3,10 +3,7 @@ package org.wf.dp.dniprorada.base.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import net.sf.brunneng.jom.annotations.Identifier;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 /**
  * Abstract entity.
@@ -18,8 +15,11 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class Entity {
 
+   protected static final String DATETIME_TYPE = "org.jadira.usertype.dateandtime.joda.PersistentDateTime";
+
    @JsonProperty(value="nID")
    @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
    @Column(name="nID")
    private Long id;
 

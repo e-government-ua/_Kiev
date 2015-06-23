@@ -30,7 +30,7 @@
 
 **HTTP Metod: POST**
 
-**HTTP Context: https://server:port/wf-region/serivce/auth/login**
+**HTTP Context: https://server:port/wf-region/service/auth/login**
 
 | Name        | Value           |
 | ------------- |:-------------:|
@@ -60,7 +60,7 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: POST/DELETE**
 
-**HTTP Context: https://server:port/wf-region/serivce/auth/logout**
+**HTTP Context: https://server:port/wf-region/service/auth/logout**
 
 Наличие cookie JSESSIONID
 
@@ -79,7 +79,7 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://server:port/wf-region/serivce/rest/start-process/{key}**
+**HTTP Context: https://server:port/wf-region/service/rest/start-process/{key}**
 
 * {key} - Ключ процесса
 
@@ -96,7 +96,7 @@ false - Имя пользователя или пароль не коррект�
 </a><a href="#0_contents">↑Up</a><br/>
 **HTTP Metod: GET**
 
-**HTTP Context: https://server:port/wf-region/serivce/rest/tasks/{assignee}**
+**HTTP Context: https://server:port/wf-region/service/rest/tasks/{assignee}**
 
 * {assignee} - Владелец
 
@@ -132,7 +132,7 @@ false - Имя пользователя или пароль не коррект�
 </a><a href="#0_contents">↑Up</a><br/>
 **HTTP Metod: GET**
 
-**HTTP Context: https://server:port/wf-region/serivce/rest/process-definitions**
+**HTTP Context: https://server:port/wf-region/service/rest/process-definitions**
 
 **Response**
 

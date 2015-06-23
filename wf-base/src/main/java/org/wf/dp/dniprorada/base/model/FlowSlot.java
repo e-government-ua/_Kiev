@@ -1,8 +1,12 @@
 package org.wf.dp.dniprorada.base.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
-import javax.persistence.Column;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Slot of the Flow. Stored in regional server.
@@ -15,10 +19,22 @@ import javax.persistence.Column;
 public class FlowSlot extends NamedEntity {
 
    @Column
-   private String sData;
+   @Type(type= DATETIME_TYPE)
+   private DateTime sDate;
 
    @Column
-   private DateTime sDate;
+   private String sDuration;
+
+   @Column
+   private String sData;
+
+   @ManyToOne(targetEntity = Flow_ServiceData.class)
+   @JoinColumn(name = "nID_Flow_ServiceData")
+   private Flow_ServiceData flow;
+
+   @OneToMany(mappedBy = "oFlowSlot", cascade = CascadeType.ALL, orphanRemoval = true)
+   @LazyCollection(LazyCollectionOption.FALSE)
+   private List<SubjectTicket> subjectTickets;
 
    public String getsData() {
       return sData;
@@ -27,10 +43,34 @@ public class FlowSlot extends NamedEntity {
       this.sData = sData;
    }
 
+   public List<SubjectTicket> getSubjectTickets() {
+      return subjectTickets;
+   }
+
+   public void setSubjectTickets(List<SubjectTicket> subjectTickets) {
+      this.subjectTickets = subjectTickets;
+   }
+
    public DateTime getsDate() {
       return sDate;
    }
    public void setsDate(DateTime sDate) {
       this.sDate = sDate;
    }
+
+   public String getsDuration() {
+      return sDuration;
+   }
+
+   public void setsDuration(String sDuration) {
+      this.sDuration = sDuration;
+   }
+
+   public Flow_ServiceData getFlow() {
+      return flow;
+   }
+   public void setFlow(Flow_ServiceData flow) {
+      this.flow = flow;
+   }
+
 }

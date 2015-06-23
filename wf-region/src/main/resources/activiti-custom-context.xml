@@ -22,6 +22,7 @@
 					<value>file:${catalina.home}/conf/db.properties</value>
 					<value>file:${catalina.home}/conf/email.properties</value>
 					<value>file:${catalina.home}/conf/bankID.properties</value>
+                                        <value>file:${catalina.home}/conf/AS.properties</value>
 				</list>
 			</property>
 			<property name="ignoreUnresolvablePlaceholders" value="true" />
@@ -45,6 +46,7 @@
 					<value>classpath:db.properties</value>
 					<value>classpath:email.properties</value>
 					<value>classpath:bankID.properties</value>
+                                        <value>classpath:AS.properties</value>
 				</list>
 			</property>
 			<property name="ignoreUnresolvablePlaceholders" value="true" />
@@ -67,6 +69,38 @@
 			<property name="username" value="${jdbc.username}" />
 			<property name="password" value="${jdbc.password}" />
 		</bean>
+
+
+
+
+                <bean id="abstractEntityDao" class="org.wf.dp.dniprorada.base.dao.AbstractEntityDao" abstract="true">
+                    <property name="sessionFactory" ref="sessionFactory"/>
+                </bean>
+
+                <bean id="baseEntityDao" class="org.wf.dp.dniprorada.base.dao.BaseEntityDaoImpl">
+                    <property name="sessionFactory" ref="sessionFactory"/>
+                </bean>
+
+                <tx:advice id="txAdvice" transaction-manager="transactionManager">
+                    <tx:attributes>
+                        <tx:method name="get*" read-only="true"/>
+                        <tx:method name="*"/>
+                    </tx:attributes>
+                </tx:advice>
+
+                <aop:config>
+                    <aop:pointcut id="base.dao" expression="execution(* org.wf.dp.dniprorada.base.dao.*.*(..))"/>
+                    <aop:pointcut id="dao" expression="execution(* org.wf.dp.dniprorada.dao.*.*(..))"/>
+                    <aop:pointcut id="dao.services" expression="execution(* org.wf.dp.dniprorada.service.*.*(..))"/>
+
+                    <aop:advisor pointcut-ref="base.dao" advice-ref="txAdvice"/>
+                    <aop:advisor pointcut-ref="dao" advice-ref="txAdvice"/>
+                    <aop:advisor pointcut-ref="dao.services" advice-ref="txAdvice"/>
+                </aop:config>
+
+<!--
+-->
+
 
 
 		<bean id="transactionManager"
@@ -142,6 +176,7 @@
 
 		<import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml" />
 		<import resource="classpath:/META-INF/spring/ua-org-egov-utils-storage-context.xml" />
+		<import resource="db-context.xml"/>
 	</beans>
 
 </beans>

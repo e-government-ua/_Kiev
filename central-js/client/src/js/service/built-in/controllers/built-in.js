@@ -48,8 +48,27 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
       });
 
       $scope.submit = function(form) {
+        $scope.isSending = true;
         form.$setSubmitted();
-        return form.$valid ?
+        if(form.$valid){
+          ActivitiService
+          .submitForm(oServiceData, $scope.data.formData)
+          .then(function(result) {
+            $scope.isSending = false;
+            var state = $state.$current;
+
+            var submitted = $state.get(state.name + '.submitted');
+            submitted.data.id = result.id;
+
+            $scope.isSending = false;
+            return $state.go(submitted, $stateParams);
+          })            
+        }else{
+            $scope.isSending = false;
+            return false;
+        }
+        
+        /*return form.$valid ?
           ActivitiService
           .submitForm(oServiceData, $scope.data.formData)
           .then(function(result) {
@@ -60,14 +79,20 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
 
             return $state.go(submitted, $stateParams);
           }) :
-          false;
+          false;*/
       };
 
       $scope.cantSubmit = function(form) {
-        return $scope.isUploading && !form.$valid;
+        return $scope.isSending || ($scope.isUploading && !form.$valid);
+      };
+      
+      $scope.bSending = function(form) {
+        return $scope.isSending;
       };
 
+
       $scope.isUploading = false;
+      $scope.isSending = false;
 
       var fileKey = function(file){
         return file.name + file.size;
