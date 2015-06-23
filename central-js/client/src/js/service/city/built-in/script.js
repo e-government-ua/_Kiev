@@ -44,7 +44,7 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
 						var aServiceData = service.aServiceData;
 						var oServiceData = null;
 						angular.forEach(aServiceData, function(value, key) {
-							if(value.nID_City.nID == $stateParams.city) {
+							if(value.nID_City && value.nID_City.nID === $stateParams.city) {
 								oServiceData = value;
 							}
 						});

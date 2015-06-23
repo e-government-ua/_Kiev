@@ -1,20 +1,7 @@
 package org.wf.dp.dniprorada.util;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
-
-
-import java.io.InputStream;
-import java.util.List;
-
-import javax.activation.DataSource;
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -26,9 +13,6 @@ import org.springframework.stereotype.Component;
 public class GeneralConfig {
 
     private final static Logger oLog = LoggerFactory.getLogger(GeneralConfig.class);
-
-    /*@Autowired
-    TaskService taskService;*/
 
     @Value("${general.bTest}")
     private String sbTest;
@@ -43,6 +27,11 @@ public class GeneralConfig {
         }
         boolean b = true;
         try {
+            
+            //Properties oProperties = new Properties();
+            //oProperties.load(getClass().getClassLoader().getResourceAsStream("AS.properties"));
+            //String sbTest = oProperties.getProperty("general.bTest");
+            
             //getProfileProperty("")
             b = (sbTest == null ? b : sbTest.trim().length()>0 ? !"false".equalsIgnoreCase(sbTest.trim()) : true);
             oLog.info("[bTest]:sbTest=" + sbTest);

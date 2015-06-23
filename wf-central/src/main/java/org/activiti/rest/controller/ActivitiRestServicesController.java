@@ -9,14 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.base.model.Entity;
-import org.wf.dp.dniprorada.dao.BaseEntityDao;
+import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
+import org.wf.dp.dniprorada.base.viewobject.ResultMessage;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.service.EntityService;
 import org.wf.dp.dniprorada.service.TableDataService;
-import org.wf.dp.dniprorada.util.JsonRestUtils;
+import org.wf.dp.dniprorada.util.GeneralConfig;
+import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.util.SerializableResponseEntity;
 import org.wf.dp.dniprorada.util.caching.CachedInvocationBean;
-import org.wf.dp.dniprorada.util.caching.EnableCaching;
 import org.wf.dp.dniprorada.viewobject.TableData;
 
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +42,8 @@ public class ActivitiRestServicesController {
 
    @Autowired
    private CachedInvocationBean cachedInvocationBean;
+   @Autowired
+   GeneralConfig generalConfig;
 
    @RequestMapping(value = "/getService", method = RequestMethod.GET)
    public
@@ -159,22 +162,8 @@ public class ActivitiRestServicesController {
 
    private <T extends Entity> ResponseEntity recursiveForceServiceDelete(Class<T> entityClass, Long nID) {
       T entity = baseEntityDao.getById(entityClass, nID);
-      if (entity.getClass() == Service.class) {
-         List<ServiceData> serviceDataList = ((Service) entity).getServiceDataList();
-         deleteApropriateEntity(serviceDataList);
-
-      } else if (entity.getClass() == Subcategory.class) {
-         List<Service> services = ((Subcategory) entity).getServices();
-         deleteApropriateEntity(services);
-
-      } else if (entity.getClass() == Category.class) {
-         List<Subcategory> subcategoryList = ((Category) entity).getSubcategories();
-         deleteApropriateEntity(subcategoryList);
-
-      } else if (entity.getClass() == ServiceData.class) {
-         return deleteApropriateEntity(entity);
-      }
-
+      // hibernate will handle recursive deletion of all child entities
+      // because of annotation: @OneToMany(mappedBy = "category",cascade = CascadeType.ALL, orphanRemoval = true)
       baseEntityDao.remove(entity);
       return JsonRestUtils.toJsonResponse(HttpStatus.OK,
               new ResultMessage("success", entityClass + " id: " + nID + " removed"));
@@ -338,7 +327,7 @@ public class ActivitiRestServicesController {
                service.setInfo(null);
                service.setLaw(null);
                //service.setSub(service.getServiceDataList().size());
-               service.setSub(service.getServiceDataFiltered().size());
+               service.setSub(service.getServiceDataFiltered(generalConfig.bTest()).size());
                //service.setTests(service.getTestsCount());
                //service.setStatus(service.getTests(); service.getTestsCount());
                service.setStatus(service.getStatusID());
@@ -350,5 +339,5 @@ public class ActivitiRestServicesController {
 
       return new SerializableResponseEntity(JsonRestUtils.toJsonResponse(categories));
    }
-
+   
 }

@@ -25,11 +25,11 @@ public class ActivitiDocumentAccessController {
 	public @ResponseBody
 	AccessURL setDocumentAccessLink(
 			@RequestParam(value = "nID_Document") Long nID_Document,
-			@RequestParam(value = "sFIO") String sFIO,
-			@RequestParam(value = "sTarget") String sTarget,
-			@RequestParam(value = "sTelephone") String sTelephone,
+			@RequestParam(value = "sFIO", required = false) String sFIO,
+			@RequestParam(value = "sTarget", required = false) String sTarget,
+			@RequestParam(value = "sTelephone", required = false) String sTelephone,
 			@RequestParam(value = "nMS") Long nMS,
-			@RequestParam(value = "sMail") String sMail,
+			@RequestParam(value = "sMail", required = false) String sMail,
 			HttpServletResponse response) {
 		AccessURL oAccessURL = new AccessURL();
 		try {
@@ -93,6 +93,7 @@ public class ActivitiDocumentAccessController {
 			str = documentAccessDao.getDocumentAccess(nID_Access,sSecret);
 			/*oAccessURL.setValue(documentAccessDao.getDocumentAccess(nID_Access,
 					sSecret));*/
+			//System.out.println("oAccessURL.getValue()="+str);
 			oAccessURL.setValue(str);
 		} catch (Exception e) {
 			response.setStatus(403);

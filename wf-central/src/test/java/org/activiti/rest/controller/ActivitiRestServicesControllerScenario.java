@@ -16,7 +16,7 @@ import org.wf.dp.dniprorada.model.Category;
 import org.wf.dp.dniprorada.model.Region;
 import org.wf.dp.dniprorada.model.Service;
 import org.wf.dp.dniprorada.service.TableDataService;
-import org.wf.dp.dniprorada.util.JsonRestUtils;
+import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.viewobject.TableData;
 
 import static org.hamcrest.Matchers.*;

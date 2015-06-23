@@ -12,25 +12,52 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-    <bean id="activitiLoginHandler" class="org.activiti.explorer.ui.login.DefaultLoginHandler">
-        <property name="identityService" ref="identityService"/>
-    </bean>
+    <beans profile="test,default">
+        <bean id="authProp" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <property name="location" value="classpath:AS.properties" />
+            <property name="ignoreUnresolvablePlaceholders" value="true" />
+        </bean>
 
-    <security:http create-session="stateless" realm="Activiti REST API">
-        <security:intercept-url pattern="/service/**" access="ROLE_USER"/>
-        <security:intercept-url pattern="/services/**" access="ROLE_USER"/>
-        <security:intercept-url pattern="/merchant/**" access="ROLE_USER"/>
-        <security:intercept-url pattern="/messages/**" access="ROLE_USER"/>
-        <security:intercept-url pattern="/subject/**" access="ROLE_USER"/>
-        <security:http-basic/>
-    </security:http>
+        <bean id="activitiLoginHandler" class="org.activiti.explorer.ui.login.DefaultLoginHandler">
+            <property name="identityService" ref="identityService"/>
+        </bean>
 
-    <security:authentication-manager>
-        <security:authentication-provider>
-            <security:user-service>
-                <security:user name="activiti-master" password="UjhtJnEvf!" authorities="ROLE_USER"/>
-            </security:user-service>
-        </security:authentication-provider>
-    </security:authentication-manager>
+        <security:http create-session="stateless" realm="Activiti REST API">
+            <security:intercept-url pattern="/service/**" access="ROLE_USER"/>
+            <security:http-basic/>
+        </security:http>
+
+        <security:authentication-manager>
+            <security:authentication-provider>
+                <security:user-service>
+                    <security:user name="${general.auth.login}" password="${general.auth.password}" authorities="ROLE_USER"/>
+                </security:user-service>
+            </security:authentication-provider>
+        </security:authentication-manager>
+    </beans>
+
+    <beans profile="prod">
+        <bean id="authProp" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <property name="location" value="file:${catalina.home}/conf/AS.properties" />
+            <property name="ignoreUnresolvablePlaceholders" value="true" />
+        </bean>
+
+        <bean id="activitiLoginHandler" class="org.activiti.explorer.ui.login.DefaultLoginHandler">
+            <property name="identityService" ref="identityService"/>
+        </bean>
+
+        <security:http create-session="stateless" realm="Activiti REST API">
+            <security:intercept-url pattern="/service/**" access="ROLE_USER"/>
+            <security:http-basic/>
+        </security:http>
+
+        <security:authentication-manager>
+            <security:authentication-provider>
+                <security:user-service>
+                    <security:user name="${general.auth.login}" password="${general.auth.password}" authorities="ROLE_USER"/>
+                </security:user-service>
+            </security:authentication-provider>
+        </security:authentication-manager>
+    </beans>
 
 </beans>

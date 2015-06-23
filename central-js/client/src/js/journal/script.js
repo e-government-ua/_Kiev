@@ -1,4 +1,4 @@
-define('journal', ['angularAMD', 'service'], function (angularAMD) {
+define('journal', ['angularAMD', 'config', 'service'], function (angularAMD) {
     var app = angular.module('journal', []);
 
     app.config(['$stateProvider', function ($stateProvider) {
@@ -38,7 +38,7 @@ define('journal', ['angularAMD', 'service'], function (angularAMD) {
                             +$location.host()
                             +':'
                             +$location.port()
-                            +$state.href('journal.bankid', {code: null});
+                            +$state.href('journal.bankid', {code: ''});
 
                         return BankIDService.login($stateParams.code, url).then(function(data) {
                             return data.hasOwnProperty('error') ? $q.reject(null): data;
@@ -50,16 +50,8 @@ define('journal', ['angularAMD', 'service'], function (angularAMD) {
                     customer: ['BankIDAccount', function (BankIDAccount) {
                         return BankIDAccount.customer;
                     }],
-                    subject: ['$q', '$state', 'ServiceService', 'customer', function($q, $state, ServiceService, customer) {
-                        $state.customer = customer;
-                        return ServiceService.syncSubject(customer.inn).then(function(data) {
-                            return data.hasOwnProperty('error') ? $q.reject(null): data;
-                        });
-                    }],
-                    journal: ['$q', '$state', 'subject', 'ServiceService', function($q, $state, subject, ServiceService) {
-                        $state.nID_Subject = subject.nID;
-                        // @todo Error processing
-                        return ServiceService.getJournalEvents($state.nID_Subject);
+                    journal: ['$q', '$state', 'ServiceService', 'customer', function($q, $state, ServiceService, customer) {
+                        return ServiceService.getJournalEvents();
                     }]
                 },
                 views: {

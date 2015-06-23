@@ -28,30 +28,15 @@
       <link rel="stylesheet" href="components/print/print.modal.css">
       <!-- endinjector -->
     <!-- endbuild -->
-    <script>
-          dataLayer = [];
-    </script>
   </head>
   <body ng-app="dashboardJsApp">
- <!-- Google Tag Manager -->
-     <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M6NLDF"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe>
-     </noscript>
-     <script>
-        (function (w, d, s, l, i) {w[l] = w[l] || []; w[l].push({'gtm.start':
-        new Date().getTime(), event: 'gtm.js'}); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-        '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-M6NLDF');
-     </script>
-<!-- End Google Tag Manager -->
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
     <div ng-view=""></div>
+
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
@@ -71,8 +56,8 @@
       <script src="bower_components/angular-moment/angular-moment.js"></script>
       <script src="bower_components/ngstorage/ngStorage.js"></script>
       <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
-      <script src="bower_components/ng-clip/dest/ng-clip.min.js"></script>
-      <script src="bower_components/zeroclipboard/dist/ZeroClipboard.min.js"></script>
+      <script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
+      <script src="bower_components/ng-clip/src/ngClip.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
     <script src="bower_components/moment/locale/uk.js"></script>

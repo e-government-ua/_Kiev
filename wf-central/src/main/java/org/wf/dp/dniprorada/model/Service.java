@@ -116,12 +116,12 @@ public class Service extends org.wf.dp.dniprorada.base.model.NamedEntity {
    }
 
    @JsonGetter("aServiceData")
-   public List<ServiceData> getServiceDataFiltered() {
+   public List<ServiceData> getServiceDataFiltered(boolean flag) {
       if (serviceDataList == null) {
          return null;
       }
 
-      boolean bTest = new GeneralConfig().bTest();
+      boolean bTest = flag;
       List<ServiceData> res = new ArrayList<>();
       for (ServiceData oServiceData : serviceDataList) {
          if (!oServiceData.isHidden()&&(bTest||!oServiceData.isTest())) {
