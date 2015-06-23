@@ -63,7 +63,6 @@
 
     <beans>
 
-        <import resource="db-context.xml"/>
 
         <!-- ==============================   CACHE   ============================= -->
 
@@ -226,6 +225,7 @@
 
         <import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml"/>
         <import resource="classpath:/META-INF/spring/ua-org-egov-utils-storage-context.xml"/>
+        <import resource="db-context.xml"/>
     </beans>
 
 
