@@ -68,7 +68,7 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
             return false;
         }
         
-        return form.$valid ?
+        /*return form.$valid ?
           ActivitiService
           .submitForm(oServiceData, $scope.data.formData)
           .then(function(result) {
@@ -79,7 +79,7 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
 
             return $state.go(submitted, $stateParams);
           }) :
-          false;
+          false;*/
       };
 
       $scope.cantSubmit = function(form) {
