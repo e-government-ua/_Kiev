@@ -178,7 +178,9 @@ public class ActivitiRestServicesController {
 
    private ResponseEntity regionsToJsonResponse(Service oService) {
       oService.setSubcategory(null);
-      for (ServiceData oServiceData : oService.getServiceDataList()) {
+      //for (ServiceData oServiceData : oService.getServiceDataList()) {
+      List<ServiceData> aServiceData = oService.getServiceDataFiltered(generalConfig.bTest());
+      for (ServiceData oServiceData : aServiceData) {
          oServiceData.setService(null);
          if (oServiceData.getCity() != null) {
             //oServiceData.setRegion(oServiceData.getCity().getRegion());
@@ -189,6 +191,8 @@ public class ActivitiRestServicesController {
             oServiceData.getRegion().setCities(null);
          }
       }
+      
+    oService.setServiceDataList(aServiceData);
       return JsonRestUtils.toJsonResponse(oService);
    }
 
