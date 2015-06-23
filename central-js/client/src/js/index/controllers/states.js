@@ -1,5 +1,5 @@
 define('state/index/controller', ['angularAMD', 'service'], function(angularAMD) {
-  angularAMD.controller('IndexController', function($scope, $rootScope, $timeout, CatalogService, catalog, AdminService) {
+  angularAMD.controller('IndexController', function($scope, $rootScope, $timeout, CatalogService, catalog, AdminService, $filter) {
     $scope.catalog = catalog;
       $scope.catalogCounts = {0:0,1:0,2:0};
     $scope.limit = 4;//7//10//limit of services
@@ -7,7 +7,8 @@ define('state/index/controller', ['angularAMD', 'service'], function(angularAMD)
     $scope.bAdmin = AdminService.isAdmin();
     $scope.bShowExtSearch = false;
     $scope.operators = [];
-
+    $scope.showOnlyOnline = false;
+    $scope.selectedStatus = -1;//select all services
     console.log($scope.catalog);
 
     $scope.search = function() {
@@ -23,12 +24,35 @@ define('state/index/controller', ['angularAMD', 'service'], function(angularAMD)
     $scope.hideExtSearchPanel = function(){
         $scope.bShowExtSearch = false;
     };
-    
+
+    $scope.filterByServiceStatus = function (status){
+        console.log(status);
+        if (!!catalog && !!status){
+            $scope.catalog = catalog;
+            if (status == -1) {
+                return;
+            }
+
+            var ctlg = jQuery.extend(true, {}, $scope.catalog);
+            angular.forEach(ctlg, function(item)
+            {
+                angular.forEach(item.aSubcategory, function(subItem)
+                {
+                    subItem.aService = $filter('filter')(subItem.aService, {nStatus: status});
+                });
+            });
+            $scope.catalog = ctlg;
+        }
+    };
+
+
      $scope.$watch('catalog', function(newValue)
      {
          $timeout(function()
          {
-             $scope.catalogCounts = {0:0,1:0,2:0};
+             if ($scope.bShowExtSearch == false) {
+                 $scope.catalogCounts = {0:0,1:0,2:0};
+             }
              $scope.operators = [];
              angular.forEach(newValue, function(item)
              {
@@ -36,7 +60,9 @@ define('state/index/controller', ['angularAMD', 'service'], function(angularAMD)
                  {
                      angular.forEach(subItem.aService, function(aServiceItem)
                      {
-                         $scope.catalogCounts[aServiceItem.nStatus] ++ ;
+                         if ($scope.bShowExtSearch == false){
+                             $scope.catalogCounts[aServiceItem.nStatus] ++ ;
+                         }
                          $scope.operators.push(aServiceItem);
                      })
                  });
