@@ -83,7 +83,7 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
       };
 
       $scope.cantSubmit = function(form) {
-        return $scope.isUploading && !form.$valid;
+        return $scope.isSending || ($scope.isUploading && !form.$valid);
       };
       
       $scope.bSending = function(form) {
