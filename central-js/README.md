@@ -1,19 +1,12 @@
 **Initial configuration**:
 
-    npm install
-    cd client
-    bower install
-    npm install
-    grunt debug
-    cd ..
-    grunt
+`./0_install_build_start.sh` on Linux or 
+`0_install_build_start.bat` on Windows
 
 **After source changes**:
 
-    cd client
-    grunt debug
-    cd ..
-    grunt
+`./1_build_start.sh` on Linux or
+`./1_build_start.bat` on Windows
 
 OR
 
