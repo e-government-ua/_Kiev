@@ -57,8 +57,7 @@ define('service/service', ['angularAMD'], function(angularAMD) {
       });
     };
 
-    this.shareLink = function(nID_Subject, nID_Document, sFIO, sTelephone, sMail) {
-      var fiveDays = 5 * 86400000;
+    this.shareLink = function(nID_Subject, nID_Document, sFIO, sTelephone, sMail, nMS) {
       var data = {
         'nID_Subject': nID_Subject,
         'nID_Document': nID_Document,
@@ -66,7 +65,7 @@ define('service/service', ['angularAMD'], function(angularAMD) {
         'sTarget': '',
         'sTelephone': sTelephone,
         'sMail': sMail,
-        'nMS': fiveDays
+        'nMS': nMS
       };
       return $http.get('./api/service/documents/' + nID_Document + '/share', {
         params: data,

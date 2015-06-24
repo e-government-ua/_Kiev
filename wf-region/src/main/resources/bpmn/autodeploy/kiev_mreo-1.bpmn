@@ -10,9 +10,10 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="queueData"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Відправляючи звернення Ви підтверджуєете достовірність зазначених персональних данних"></activiti:formProperty>
+        <activiti:formProperty id="response" name="thank_you_page_text" type="string" default="&lt;strong&gt;Дякуемо, що скористались нашим сервісом!&lt;/strong&gt;"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -23,7 +24,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Реєстрація авто]]></activiti:string>
@@ -53,7 +54,7 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="queueData" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Результат перевірки наявності обтяжень" type="enum" required="true">
           <activiti:value id="accept" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"></activiti:value>
           <activiti:value id="reject" name="Знайдені обтяження.  Відмовити громадянину в наданні послуги."></activiti:value>
@@ -75,7 +76,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Реєстрація авто]]></activiti:string>
@@ -116,7 +117,7 @@
     <serviceTask id="servicetask2" name="Повідомлення громадянина про дату і час візиту" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>

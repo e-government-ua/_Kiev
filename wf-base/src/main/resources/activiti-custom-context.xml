@@ -62,7 +62,6 @@
 
 	<beans>
 
-		<import resource="db-context.xml"/>
 
 		<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 			<property name="dataSource" ref="dataSource" />
@@ -91,6 +90,7 @@
 					<bean class="org.wf.dp.dniprorada.form.TextAreaFormType" />
 					<bean class="org.wf.dp.dniprorada.form.LabelFormType" />
 					<bean class="org.wf.dp.dniprorada.form.MarkersFormType" />
+					<bean class="org.wf.dp.dniprorada.form.QueueDataFormType" />
 				</list>
 			</property>
 
@@ -102,6 +102,7 @@
 			<property name="mailServerPassword" value="${mailServerPassword}" />
 			<property name="mailServerUseSSL" value="true" />
 			<property name="mailServerUseTLS" value="true" />
+                        <!--property name="mailAddressNoreply" value="${mail.address.noreply}"/-->
 
 
 
@@ -132,6 +133,7 @@
 
 		<import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml" />
 		<import resource="classpath:/META-INF/spring/ua-org-egov-utils-storage-context.xml" />
+		<import resource="db-context.xml"/>
 	</beans>
 
 </beans>

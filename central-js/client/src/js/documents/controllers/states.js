@@ -40,7 +40,7 @@ define('state/documents/content/controller', ['angularAMD'], function(angularAMD
     function($scope, $state, documents, FileFactory, ServiceService, $modal) {
 	  var file = new FileFactory();
 	  $scope.file = file;
-
+      
       angular.forEach(documents, function(item) {
         if (item.oDate_Upload === null) {
           item.oDate_Upload = new Date();
@@ -48,37 +48,59 @@ define('state/documents/content/controller', ['angularAMD'], function(angularAMD
       });
       $scope.documents = documents;
       $scope.sTelephone = '+380';
+      $scope.nDaysOptions = [{day: 1, title: '1 день'}, {day: 7, title: '1 тиждень'}, {day: 365, title: '1 рік'}];
+      $scope.nDays = $scope.nDaysOptions[1];
 
-      $scope.shareLink = function(document, sFIO, sTelephone, sMail) {
+      $scope.shareLink = function(document, sFIO, sTelephone, sMail, nDays) {
         ServiceService.shareLink($state.nID_Subject, document.nID, sFIO,
-          sTelephone, sMail).then(function(reply) {
-            if (reply.code) {
-              switch (reply.code) {
-                case 'BUSINESS_ERR':
-                  alert("Сталася помилка\n" + reply.code + ': ' + reply.message);
-                break;
-                default:
-                  alert("Сталася помилка\n" + reply.code + ': ' + reply.message);
-              }
-              return; //stop here in case of error reply from server
-            }
-            showConfirmationModal(reply)
-          });
+          getTelephone(sTelephone), sMail, getDaysInMilliseconds(nDays))
+          .then(showConfirmationModal);
       };
 
-      function showConfirmationModal (url) {
+      function getTelephone (sTelephone) {
+        if (sTelephone == '+380') {
+          return ' '
+        }
+        return sTelephone;
+      }
+
+      function getDaysInMilliseconds (nDays) {
+        if (isNaN(nDays.day * 86400000)) {
+          return 7 * 86400000;
+        }
+        return nDays * 86400000;
+      }
+
+      function showConfirmationModal (reply) {
+        if (reply.code) {
+          showShareLinkError(reply);
+          return;
+        }
+        showShareLinkSuccess(reply);
+      }
+
+      function showShareLinkSuccess (reply) {
         $modal.open({
-            animation: true,
-            templateUrl: 'urlmodal.html',
-            controller: 'ModalController',
-            size: '',
-            resolve: {
-              url: function() {
-                return url.value
-              }
+          animation: true,
+          templateUrl: 'urlmodal.html',
+          controller: 'ModalController',
+          size: '',
+          resolve: {
+            url: function() {
+              return reply.value
             }
           }
-        );
+        });
+      }
+
+      function showShareLinkError (reply) {
+        switch (reply.code) {
+          case 'BUSINESS_ERR':
+            alert("Сталася помилка\n" + reply.code + ': ' + reply.message);
+            break;
+          default:
+            alert("Сталася помилка\n" + reply.code + ': ' + reply.message);
+        }
       }
     });
 

@@ -63,7 +63,6 @@
 
     <beans>
 
-        <import resource="db-context.xml"/>
 
         <!-- ==============================   CACHE   ============================= -->
 
@@ -98,11 +97,11 @@
             <property name="sessionFactory" ref="sessionFactory"/>
         </bean>
 
-        <bean id="abstractEntityDao" class="org.wf.dp.dniprorada.dao.AbstractEntityDao" abstract="true">
+        <bean id="abstractEntityDao" class="org.wf.dp.dniprorada.base.dao.AbstractEntityDao" abstract="true">
             <property name="sessionFactory" ref="sessionFactory"/>
         </bean>
 
-        <bean id="baseEntityDao" class="org.wf.dp.dniprorada.dao.BaseEntityDaoImpl">
+        <bean id="baseEntityDao" class="org.wf.dp.dniprorada.base.dao.BaseEntityDaoImpl">
             <property name="sessionFactory" ref="sessionFactory"/>
         </bean>
 
@@ -151,9 +150,11 @@
         </tx:advice>
 
         <aop:config>
+            <aop:pointcut id="base.dao" expression="execution(* org.wf.dp.dniprorada.base.dao.*.*(..))"/>
             <aop:pointcut id="dao" expression="execution(* org.wf.dp.dniprorada.dao.*.*(..))"/>
             <aop:pointcut id="dao.services" expression="execution(* org.wf.dp.dniprorada.service.*.*(..))"/>
 
+            <aop:advisor pointcut-ref="base.dao" advice-ref="txAdvice"/>
             <aop:advisor pointcut-ref="dao" advice-ref="txAdvice"/>
             <aop:advisor pointcut-ref="dao.services" advice-ref="txAdvice"/>
         </aop:config>
@@ -183,6 +184,7 @@
                     </bean>
                     <bean class="org.wf.dp.dniprorada.form.FormFileType"/>
                     <bean class="org.wf.dp.dniprorada.form.TextAreaFormType"/>
+                    <bean class="org.wf.dp.dniprorada.form.QueueDataFormType" />
                 </list>
             </property>
 
@@ -192,8 +194,9 @@
             <property name="mailServerDefaultFrom" value="${mailServerDefaultFrom}"/>
             <property name="mailServerUsername" value="${mailServerUsername}"/>
             <property name="mailServerPassword" value="${mailServerPassword}"/>
-            <property name="mailServerUseSSL" value="true"/>
-            <property name="mailServerUseTLS" value="true"/>
+            <property name="mailServerUseSSL" value="${mailServerUseSSL}"/>
+            <property name="mailServerUseTLS" value="${mailServerUseTLS}"/>
+            <!--property name="mailAddressNoreply" value="${mail.address.noreply}"/-->
 
             <property name="history" value="full"/>
         </bean>
@@ -224,6 +227,7 @@
 
         <import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml"/>
         <import resource="classpath:/META-INF/spring/ua-org-egov-utils-storage-context.xml"/>
+        <import resource="db-context.xml"/>
     </beans>
 
 

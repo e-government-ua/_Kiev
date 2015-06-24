@@ -24,6 +24,7 @@
             <props>
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
                 <prop key="hibernate.globally_quoted_identifiers">${hibernate.globally_quoted_identifiers}</prop>
+                <!--<prop key="hibernate.show_sql">true</prop>-->
             </props>
         </property>
     </bean>
@@ -36,6 +37,16 @@
     <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
         <property name="dataSource" ref="dataSource"/>
         <property name="changeLog" value="classpath:liquibase/db.changelog-master.xml"/>
+    </bean>
+
+    <!-- ==============================   DAO   ============================= -->
+
+    <bean id="flowSlotDao" class="org.wf.dp.dniprorada.base.dao.FlowSlotDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="subjectTicketDao" class="org.wf.dp.dniprorada.base.dao.SubjectTicketDaoImp">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
 </beans>

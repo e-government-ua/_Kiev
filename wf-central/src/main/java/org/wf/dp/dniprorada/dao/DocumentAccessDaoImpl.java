@@ -163,16 +163,12 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		try{
                     //TODO убедиться что все проверяется по этим WHERE
                     list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
-                    /*for(DocumentAccess da : list){
-                    	System.out.println(da.toString());
-                    }*/
                     if(list == null || list.isEmpty()){
                         throw new Exception("Access not accepted!");
                     } else {
                     	 for(DocumentAccess da : list){
                          	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)){
-                         		docAcc = da;
-                         		otpPassword+=da.toString();                         		
+                         		docAcc = da;                      		
                          		break;
                          	}
                          }
@@ -187,17 +183,13 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     //o.setDateAnswerExpire(null);
                     docAcc.setAnswer(sAnswer);
                    // writeRow(docAcc);
+                    
+                    otpPassword+=getOtpPassword(docAcc);
 		} catch(Exception e) {
 			throw e;
 		}finally{
 			oSession.close();
 		}
-		
-		/*try{
-			otpPassword += "Password OTP";//getOtpPassword(docAcc);
-		} catch(Exception e){
-			otpPassword = "OTP is NULL";
-		}*/
 		return  "/"+ otpPassword;
 	}
 
@@ -216,9 +208,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     else {
                    	 for(DocumentAccess da : list){
                         	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)
-                                        && ( da.getAnswer().equals(sAnswer) || "1234".equals(sAnswer) ) //TODO убрать бэкдур, после окончательной отладки, в т.ч. фронта
-                                        
-                                        ){
+                                        && ( da.getAnswer().equals(sAnswer) || "1234".equals(sAnswer) )){  //TODO убрать бэкдур, после окончательной отладки, в т.ч. фронта
                         		docAcc = da;
                         		break;
                         	}
@@ -263,6 +253,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		dos.flush();
 		dos.close();
 		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	Thread.currentThread().sleep(15000);
 		StringBuilder sb = new StringBuilder();
 		String inputLine;
 		while((inputLine = br.readLine()) != null){
