@@ -3,6 +3,7 @@
   <process id="dnepr_subsidies" name="Отримання субсидії на оплату житлово-комунальних послуг" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
+      
         <activiti:formProperty id="bankIdlastName" name="Фамилия" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Имя" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="Отчество" type="string" required="true"></activiti:formProperty>
