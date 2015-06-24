@@ -67,13 +67,17 @@ public class ActivitiRestFlowController {
 
       for (FlowSlot flowSlot : flowSlots) {
          DateTime currDate = flowSlot.getsDate().withTimeAtStartOfDay();
+         FlowSlotVO flowSlotVO = new FlowSlotVO(flowSlot);
+         if (!bAll && !flowSlotVO.isbFree()) {
+            continue;
+         }
+
          Day day = daysMap.get(currDate);
          if (day == null) {
             day = new Day(currDate);
             daysMap.put(currDate, day);
          }
 
-         FlowSlotVO flowSlotVO = new FlowSlotVO(flowSlot);
          day.getaSlot().add(flowSlotVO);
 
          if (!day.isbHasFree() && flowSlotVO.isbFree()) {
@@ -83,7 +87,10 @@ public class ActivitiRestFlowController {
 
       Days res = new Days();
       for (Map.Entry<DateTime, Day> entry : daysMap.entrySet()) {
-         res.getaDay().add(entry.getValue());
+         Day day = entry.getValue();
+         if (bAll || day.isbHasFree()) {
+            res.getaDay().add(day);
+         }
       }
 
       return JsonRestUtils.toJsonResponse(res);
