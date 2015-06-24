@@ -124,7 +124,7 @@
         <activiti:formProperty id="person4" name="4" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
         <activiti:formProperty id="person5" name="5" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
         <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені протягом 12 місяців перед зверненням за призначенням житлової субсидії; перерахуйте з нового рядка ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг" type="textArea" default="ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг" required="true"></activiti:formProperty>
-        <activiti:formProperty id="comment" name="Пометки" type="textarea"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="Пометки" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="selection" name="состояние" type="enum" required="true">
           <activiti:value id="attr1" name="отправлены запросы, ожидают ответа"></activiti:value>
           <activiti:value id="attr2" name="ответ получен, вынесен вердикт, оповестить гражданина"></activiti:value>
