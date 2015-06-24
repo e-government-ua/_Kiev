@@ -5,7 +5,7 @@ define('formData/factory', ['angularAMD', 'file/directive', 'parameter/factory',
 
       this.fields = {};
       this.params = {};
-      this.responce = null;
+      this.response = null;
     };
 
     FormDataFactory.prototype.initialize = function(ActivitiForm) {
@@ -29,8 +29,8 @@ define('formData/factory', ['angularAMD', 'file/directive', 'parameter/factory',
       }
     };
 
-    FormDataFactory.prototype.setResponce = function(data){
-      return this.responce = data;
+    FormDataFactory.prototype.setResponse = function(data){
+      return this.response = data;
     };
 
     FormDataFactory.prototype.hasParam = function(param) {
