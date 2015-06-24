@@ -24,15 +24,12 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
 		var currentState = $state.$current;
 		$scope.data.region = currentState.data.region;
 		$scope.data.city = currentState.data.city;
-        //$scope.data.formData.setResponce('');
 		//$scope.data.sProcessDefinitionName = currentState.sProcessDefinitionName;
 		//$scope.data.sProcessDefinitionName2 = currentState.sProcessDefinitionName2;
-
 
         $scope.getHtml = function(html){
             return $sce.trustAsHtml(html);
         };
-
       angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {
         var sField = value.name;
         var s;
