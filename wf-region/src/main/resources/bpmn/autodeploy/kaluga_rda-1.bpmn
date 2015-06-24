@@ -7,7 +7,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPhone" name="Телефон" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPhone" name="Телефон; в форматі 380..." type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адрес" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета звернення" type="enum" required="true">
           <activiti:value id="item1" name="визначення розміру земельного податку при  міні  або  даруванні  земельних  ділянок"></activiti:value>
@@ -50,12 +50,18 @@ ${reason}</activiti:expression>
     </serviceTask>
     <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="kalush_cnap1">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" ></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false" ></activiti:formProperty>
-        <activiti:formProperty id="bankIdPhone" name="Телефон" type="long" writable="false" ></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPhone" name="Телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адрес" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="request_goal" name="Мета звернення" type="string" default="${goal}" writable="false" ></activiti:formProperty>
-        <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false" ></activiti:formProperty>
+        <activiti:formProperty id="goal" name="Мета звернення" type="enum" writable="false">
+          <activiti:value id="item1" name="визначення розміру земельного податку при  міні  або  даруванні  земельних  ділянок"></activiti:value>
+          <activiti:value id="item2" name="визначення розміру земельного податку при  спадкуванні   земельних  ділянок"></activiti:value>
+          <activiti:value id="item3" name="визначення орендної  плати  за  земельні  ділянки  державної  та  комунальної власності"></activiti:value>
+          <activiti:value id="item4" name="визначення втрат  сільськогосподарського  та  лісогосподарського виробництва"></activiti:value>
+          <activiti:value id="itme5" name="розроблення показників та механізмів економічного  стимулювання  раціонального  використання та охорони земель"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення" type="enum" required="true">
           <activiti:value id="accept" name="Прийняти в роботу"></activiti:value>
           <activiti:value id="reject" name="Відмовити у наданні послуги"></activiti:value>
@@ -89,12 +95,17 @@ ${reason}</activiti:expression>
     <userTask id="usertask7" name="Підготовка відповіді на запит: підготовка витягу" activiti:candidateGroups="kalush_cnap1">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false" ></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPhone" name="Телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адрес" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="request_goal" name="Мета звернення" type="string" default="${goal}" writable="false" ></activiti:formProperty>
-        <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false" ></activiti:formProperty>
-
+        <activiti:formProperty id="goal" name="Мета звернення" type="enum" writable="false">
+          <activiti:value id="item1" name="визначення розміру земельного податку при  міні  або  даруванні  земельних  ділянок"></activiti:value>
+          <activiti:value id="item2" name="визначення розміру земельного податку при  спадкуванні   земельних  ділянок"></activiti:value>
+          <activiti:value id="item3" name="визначення орендної  плати  за  земельні  ділянки  державної  та  комунальної власності"></activiti:value>
+          <activiti:value id="item4" name="визначення втрат  сільськогосподарського  та  лісогосподарського виробництва"></activiti:value>
+          <activiti:value id="itme5" name="розроблення показників та механізмів економічного  стимулювання  раціонального  використання та охорони земель"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="searchResult" name="Витяг готовий?" type="enum" required="true">
           <activiti:value id="found" name="Так, витяг готовий"></activiti:value>
         </activiti:formProperty>
