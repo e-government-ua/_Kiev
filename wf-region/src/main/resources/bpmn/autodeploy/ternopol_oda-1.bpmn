@@ -187,7 +187,7 @@
     </sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
-    <userTask id="usertask2" name="Прийняття рішення про оформлення ліцензії" activiti:candidateGroups="ternopol_oda1">
+    <userTask id="usertask2" name="Прийняття рішення про оформлення ліцензії" activiti:candidateGroups="ternopol_oda2">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
