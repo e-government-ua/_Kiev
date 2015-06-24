@@ -9,24 +9,29 @@ define('service/built-in/controller', ['angularAMD'], function(angularAMD) {
 
 define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'], function(angularAMD) {
 	angularAMD.controller('ServiceBuiltInBankIDController', [
-		'$state', '$stateParams', '$scope', 'FormDataFactory', 'ActivitiService', 'oServiceData', 'BankIDAccount', 'ActivitiForm', 'uiUploader',
-		function($state, $stateParams, $scope, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
-		
+		'$state', '$stateParams', '$scope', 'FormDataFactory', 'ActivitiService', 'oServiceData', 'BankIDAccount', 'ActivitiForm', 'uiUploader', '$sce',
+		function($state, $stateParams, $scope, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader, $sce) {
+
 		$scope.oServiceData = oServiceData;
 		$scope.account = BankIDAccount;
 		$scope.ActivitiForm = ActivitiForm;
-		
+
 		$scope.data = $scope.data || {};
 		$scope.data.formData = new FormDataFactory();
 		$scope.data.formData.initialize(ActivitiForm);
 		$scope.data.formData.setBankIDAccount(BankIDAccount);
-		
+
 		var currentState = $state.$current;
 		$scope.data.region = currentState.data.region;
 		$scope.data.city = currentState.data.city;
+        //$scope.data.formData.setResponce('');
 		//$scope.data.sProcessDefinitionName = currentState.sProcessDefinitionName;
 		//$scope.data.sProcessDefinitionName2 = currentState.sProcessDefinitionName2;
-                
+
+
+        $scope.getHtml = function(html){
+            return $sce.trustAsHtml(html);
+        };
 
       angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {
         var sField = value.name;
@@ -62,12 +67,12 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
 
             $scope.isSending = false;
             return $state.go(submitted, $stateParams);
-          })            
+          })
         }else{
             $scope.isSending = false;
             return false;
         }
-        
+
         /*return form.$valid ?
           ActivitiService
           .submitForm(oServiceData, $scope.data.formData)
@@ -85,7 +90,7 @@ define('service/built-in/bankid/controller', ['angularAMD', 'formData/factory'],
       $scope.cantSubmit = function(form) {
         return $scope.isSending || ($scope.isUploading && !form.$valid);
       };
-      
+
       $scope.bSending = function(form) {
         return $scope.isSending;
       };

@@ -91,7 +91,8 @@ public class ActivitiRestSubjectMessageControllerScenario {
 
     @Test
     public void shouldSuccessfullyGetMessages() throws Exception {
-        String jsonData = mockMvc.perform(get("/messages/getMessages")).
+        String jsonData = mockMvc.perform(get("/messages/getMessages").
+                param("nID", "null")).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(APPLICATION_JSON_VALUE)).
                 andExpect(jsonPath("$[0].nID", is(1))).
