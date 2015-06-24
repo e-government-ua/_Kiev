@@ -37,7 +37,7 @@
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
@@ -75,7 +75,7 @@ ${reason}</activiti:expression>
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки]]></activiti:string>

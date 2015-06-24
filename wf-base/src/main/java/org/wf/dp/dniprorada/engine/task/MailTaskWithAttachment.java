@@ -49,10 +49,6 @@ public class MailTaskWithAttachment implements JavaDelegate {
 	@Value("${mailServerPassword}")
 	private String mailServerPassword;
 
-	@Value("${mail.address.noreply}")
-	private String mailAddressNoreplay;
-
-       
 	private Expression from;
 	private Expression to;
 	private Expression subject;
@@ -92,7 +88,7 @@ public class MailTaskWithAttachment implements JavaDelegate {
 		MultiPartEmail email = new MultiPartEmail();
 		email.setHostName(mailServerHost);
 		email.addTo(toStr, "reciver");
-		email.setFrom(fromStr, mailAddressNoreplay);
+		email.setFrom(fromStr, "admin@igov.org.ua");
 		email.setSubject(subjectStr);
 		email.setMsg(textStr);
 		email.setAuthentication(mailServerUsername, mailServerPassword);
