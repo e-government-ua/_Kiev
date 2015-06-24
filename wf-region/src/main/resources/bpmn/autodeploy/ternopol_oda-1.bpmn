@@ -149,7 +149,7 @@
           <activiti:value id="accept" name="Документи надані в повному обсязі. "></activiti:value>
           <activiti:value id="reject" name="Пакет документів неповний. Відмовити в наданні послуги."></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment" name="Коментарі" type="textArea" default="В разі відмови в наданні послуги,  вкажіть підставу"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="В разі відмови в наданні послуги,  вкажіть підставу. Ця інформація буде спрямована заявнику на е-мейл." type="textArea"></activiti:formProperty>
         <activiti:formProperty id="billToPay" name="В разі, якщо документи надані в повному обсязі, завантажте квитанцію для сплати збору за отримання ліцензії" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
@@ -224,12 +224,12 @@
         <activiti:formProperty id="param26" name="Уповноважений банк" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param27" name="Підстава для оформлення ліцензії" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param28" name="Особливі умови " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="dateView1" name="Бажана дата отримання ліцензії" type="date" default="${dateView}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="dateView1" name="Бажана дата отримання ліцензії" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат перевірки документів" type="enum" required="true">
           <activiti:value id="accept2" name="Ухвалити оформлення ліцензії"></activiti:value>
           <activiti:value id="reject2" name="Відмовити в оформленні ліцензії"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment2" name="Коментарі" type="textArea" default="Зазначте дату оформлення ліцензії або підставу для відмови в наданні послуги" required="true"></activiti:formProperty>
+        <activiti:formProperty id="comment2" name="В разі відмови в наданні послуги,  вкажіть підставу. Ця інформація буде спрямована заявнику на е-мейл." type="textArea"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow9" sourceRef="servicetask2" targetRef="usertask2"></sequenceFlow>
@@ -299,7 +299,7 @@
           <activiti:value id="accept3" name="Ліцензія оформлена"></activiti:value>
           <activiti:value id="reject3" name="Ліцензія не може буде оформлена. Повідомити громадянина"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment2" name="Коментарі" default="Зазначте дату оформлення ліцензії або підставу для відмови в наданні послуги"></activiti:formProperty>
+        <activiti:formProperty id="comment2" name="В разі відмови в наданні послуги,  вкажіть підставу. Ця інформація буде спрямована заявнику на е-мейл." required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
