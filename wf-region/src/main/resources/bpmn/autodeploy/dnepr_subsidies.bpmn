@@ -3,11 +3,11 @@
   <process id="dnepr_subsidies" name="Отримання субсидії на оплату житлово-комунальних послуг" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="form_name" name="Заявление на получение субсидии" type="label" default="---------------------------------------------------------------------------------------------------------------------"></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName " name="Фамилия" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName " name="Имя" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName " name="Отчество" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport " name="Паспортные данные" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="form_name" name="Заявление на получение субсидии" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Фамилия" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Имя" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="Отчество" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортные данные" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="chapter1" name="Детали" type="label" default="---------------------------------------------------------------------"></activiti:formProperty>
         <activiti:formProperty id="place_of_living" name="Место жительства" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактный телефон" type="string" default="+38" required="true"></activiti:formProperty>
