@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="dnepr_subsidies" name="Отримання субсидії на оплату житлово-комунальних послуг" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="form_name" name="Заявление на получение субсидии" type="label" default="---------------------------------------------------------------------------------------------------------------------" ></activiti:formProperty>
+        <activiti:formProperty id="bankidlastName " name="Фамилия" type="string"  required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankidfirstName " name="Имя" type="string"  required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankidmiddleName " name="Отчество" type="string"  required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankidPassport " name="Паспортные данные" type="string"  required="true"></activiti:formProperty>
+        <activiti:formProperty id="chapter1" name="Детали" type="label" default="---------------------------------------------------------------------" ></activiti:formProperty>
+        <activiti:formProperty id="place_of_living" name="Место жительства" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактный телефон" type="string" default="+38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Е-мейл" type="stirng" default="email@email.com" required="true"></activiti:formProperty>
+        <activiti:formProperty id="book" name="Номер учетной карты" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="subsidy" name="Тип субсидии" type="enum">
+          <activiti:value id="1" name="Оплата жилищно-коммунальных услуг"></activiti:value>
+          <activiti:value id="2" name="Оплата сжиженного газа"></activiti:value>
+          <activiti:value id="3" name="Оплата твердого/жидкого топлива"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="name_services" name="Наименования услуг" type="label" default="--------------------------------------------------------------------" ></activiti:formProperty>
+        <activiti:formProperty id="houses" name="Содержание дома и придомовой территории " type="label" default="--------------------------------------------------------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="house_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="house_name" name="Название организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="gas" name="Газ" type="label" default="-------------------------------------------------------------------" ></activiti:formProperty>
+        <activiti:formProperty id="gas_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="gas_name" name="Наименование организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="coolwater" name="Холодная вода" type="label" default="--------------------------------------------------------------------" ></activiti:formProperty>
+        <activiti:formProperty id="coolwater_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="coolwater_name" name="Наименование организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="hotwater" name="Горячая вода" type="label" default="--------------------------------------------------------------------" ></activiti:formProperty>
+        <activiti:formProperty id="hotwater_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="hotwater_name" name="Наименование организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="waterback" name="Водоотведение" type="label" default="--------------------------------------------------------------------" ></activiti:formProperty>
+        <activiti:formProperty id="waterback_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="waterback_name" name="Название организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="warming" name="Отопление" type="label" default="--------------------------------------------------------------------" ></activiti:formProperty>
+        <activiti:formProperty id="warming_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="warming_name" name="Наименование организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="electricity" name="Электроэнергия" type="label" default="-------------------------------------------------------------------"></activiti:formProperty>
+        <activiti:formProperty id="electricity_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="electricity_name" name="Наименование организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="garbage" name="Вывоз мусора" type="label" default="---------------------------------------------------------------------" ></activiti:formProperty>
+        <activiti:formProperty id="garbage_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="garbage_name" name="Наименование организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="notice" name="У разі коли прийняття рішення щодо моєї заяви потребує окремого рішення місцевих органів виконавчої влади/місцевого самоврядування або утвореної їми комісії, прошу розглянути мою заяву відповідними органами або утвореною ними комісією" type="enum" required="true">
+          <activiti:value id="1" name="так"></activiti:value>
+          <activiti:value id="2" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="notice2" name="Примітки" type="label" default="Я та особи, які зареєстровані (фактично проживають) у житловому приміщенні/будинку, даємо згоду на обробку персональних даних про сім’ю, доходи, майно, що необхідні для призначення житлової субсидії, та оприлюднення відомостей щодо її призначення. " ></activiti:formProperty>
+        <activiti:formProperty id="declaration" name="Данные для декларации" type="label" default="--------------------------------------------------------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="place_type" name="Тип дома" type="enum" required="true">
+          <activiti:value id="1" name="отдельный дом"></activiti:value>
+          <activiti:value id="2" name="многоквартирный дом"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="floors" name="Количество этажей" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="total_place" name="Общая площадь" type="string" default="кв. м." required="true"></activiti:formProperty>
+        <activiti:formProperty id="notice3" name="Примітка" type="label" default="Особи, які зареєстровані (для орендарів — особи, які фактично проживають) у житловому приміщенні/будинку ті їх прибутки (перерахуйте з нового рядка: ПІБ, ДР, Номер облікової книжки, Вид прибутку, Сума прибутку без урахування податку з доходів фізичних осіб, Джерело прибутку)" ></activiti:formProperty>
+        <activiti:formProperty id="person1" name="1" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
+        <activiti:formProperty id="person2" name="2" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
+        <activiti:formProperty id="person3" name="3" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
+        <activiti:formProperty id="person4" name="4" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
+        <activiti:formProperty id="person5" name="5" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
+        <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені протягом 12 місяців перед зверненням за призначенням житлової субсидії; перерахуйте з нового рядка ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг" type="textArea" default="ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="usertask1" name="Взять в работу" activiti:candidateGroups="sales">
+      <extensionElements>
+        <activiti:formProperty id="form_name" name="Заявление на получение субсидии" type="label" default="---------------------------------------------------------------------------------------------------------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankidlastName " name="Фамилия" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankidfirstName " name="Имя" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankidmiddleName " name="Отчество" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankidPassport " name="Паспортные данные" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="chapter1" name="Детали" type="label" default="---------------------------------------------------------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="place_of_living" name="Место жительства" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактный телефон" type="string" default="+38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="book" name="Номер учетной карты" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="subsidy" name="Тип субсидии" type="enum">
+          <activiti:value id="1" name="Оплата жилищно-коммунальных услуг"></activiti:value>
+          <activiti:value id="2" name="Оплата сжиженного газа"></activiti:value>
+          <activiti:value id="3" name="Оплата твердого/жидкого топлива"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="name_services" name="Наименования услуг" type="label" default="--------------------------------------------------------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="houses" name="Содержание дома и придомовой территории " type="label" default="--------------------------------------------------------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="house_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="house_name" name="Название организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="gas" name="Газ" type="label" default="-------------------------------------------------------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="gas_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="gas_name" name="Наименование организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="coolwater" name="Холодная вода" type="label" default="--------------------------------------------------------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="coolwater_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="coolwater_name" name="Наименование организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="hotwater" name="Горячая вода" type="label" default="--------------------------------------------------------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="hotwater_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="hotwater_name" name="Наименование организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="waterback" name="Водоотведение" type="label" default="--------------------------------------------------------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="waterback_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="waterback_name" name="Название организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="warming" name="Отопление" type="label" default="--------------------------------------------------------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="warming_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="warming_name" name="Наименование организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="electricity" name="Электроэнергия" type="label" default="-------------------------------------------------------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="electricity_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="electricity_name" name="Наименование организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="garbage" name="Вывоз мусора" type="label" default="---------------------------------------------------------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="garbage_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="garbage_name" name="Наименование организации" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="notice" name="У разі коли прийняття рішення щодо моєї заяви потребує окремого рішення місцевих органів виконавчої влади/місцевого самоврядування або утвореної їми комісії, прошу розглянути мою заяву відповідними органами або утвореною ними комісією" type="enum" required="true">
+          <activiti:value id="1" name="так"></activiti:value>
+          <activiti:value id="2" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="notice2" name="Примітки" type="label" default="Я та особи, які зареєстровані (фактично проживають) у житловому приміщенні/будинку, даємо згоду на обробку персональних даних про сім’ю, доходи, майно, що необхідні для призначення житлової субсидії, та оприлюднення відомостей щодо її призначення. " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="declaration" name="Данные для декларации" type="label" default="--------------------------------------------------------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="place_type" name="Тип дома" type="enum" required="true">
+          <activiti:value id="1" name="отдельный дом"></activiti:value>
+          <activiti:value id="2" name="многоквартирный дом"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="floors" name="Количество этажей" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="total_place" name="Общая площадь" type="string" default="кв. м." required="true"></activiti:formProperty>
+        <activiti:formProperty id="notice3" name="Примітка" type="label" default="Особи, які зареєстровані (для орендарів — особи, які фактично проживають) у житловому приміщенні/будинку ті їх прибутки (перерахуйте з нового рядка: ПІБ, ДР, Номер облікової книжки, Вид прибутку, Сума прибутку без урахування податку з доходів фізичних осіб, Джерело прибутку)" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="person1" name="1" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
+        <activiti:formProperty id="person2" name="2" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
+        <activiti:formProperty id="person3" name="3" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
+        <activiti:formProperty id="person4" name="4" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
+        <activiti:formProperty id="person5" name="5" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
+        <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені протягом 12 місяців перед зверненням за призначенням житлової субсидії; перерахуйте з нового рядка ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг" type="textArea" default="ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг" required="true"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="Пометки" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="selection" name="состояние" type="enum" required="true">
+          <activiti:value id="attr1" name="отправлены запросы, ожидают ответа"></activiti:value>
+          <activiti:value id="attr2" name="ответ получен, вынесен вердикт, оповестить гражданина"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow3" name="${selection=='attr2'}" sourceRef="exclusivegateway1" targetRef="mailtask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr2'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="mailtask1" name="Отправка " activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>admin@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Звернення на тему "Отримання субсидії"</activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:string>Шановний {bankidfirstname}</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow5" sourceRef="mailtask1" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow6" name="${selection=='attr1'}" sourceRef="exclusivegateway1" targetRef="usertask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr1'}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_subsidies">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_subsidies" id="BPMNPlane_dnepr_subsidies">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="80.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="10.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="565.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="320.0" y="17.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="405.0" y="10.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="115.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="37.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="265.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="37.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="340.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="378.0" y="101.0"></omgdi:waypoint>
+        <omgdi:waypoint x="457.0" y="65.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="95.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="510.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="565.0" y="37.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="340.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="279.0" y="168.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="65.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="95.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

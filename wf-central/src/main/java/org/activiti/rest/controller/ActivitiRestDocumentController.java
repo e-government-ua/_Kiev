@@ -1,5 +1,9 @@
 package org.activiti.rest.controller;
 
+import java.io.IOException;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.redis.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +19,6 @@ import org.wf.dp.dniprorada.model.DocumentContentType;
 import org.wf.dp.dniprorada.model.HistoryEvent;
 import org.wf.dp.dniprorada.model.Subject;
 import org.wf.dp.dniprorada.util.Util;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/services")
@@ -44,10 +43,10 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     Document getDocument(@RequestParam(value = "nID") Long id,
-            @RequestParam(value = "nID_Subject") Long nID_Subject) throws ActivitiRestException{
+            @RequestParam(value = "nID_Subject") long nID_Subject) throws ActivitiRestException{
         Document document = documentDao.getDocument(id);
-        if(nID_Subject != document.getSubject().getnID()){
-            throw new ActivitiRestException("401", "You don't have access!");
+        if(nID_Subject != document.getSubject().getnID()){  
+            throw new ActivitiRestException("401", "You don't have access! Yuor nID = " + nID_Subject + " Document's Subject's nID = " + document.getSubject().getnID());
         } else{
             return  document;
         }
@@ -64,7 +63,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     String getDocumentContent(@RequestParam(value = "nID") Long id, 
-            @RequestParam(value = "nID_Subject") Long nID_Subject) throws ActivitiRestException {
+            @RequestParam(value = "nID_Subject") long nID_Subject) throws ActivitiRestException {
         Document document = documentDao.getDocument(id);
         if(nID_Subject != document.getSubject().getnID()){
             throw new ActivitiRestException("401", "You don't have access!");
@@ -77,7 +76,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     List<HistoryEvent> getHistoryEvents(
-            @RequestParam(value = "nID_Subject") Long nID_Subject) {
+            @RequestParam(value = "nID_Subject") long nID_Subject) {
         return historyEventDao.getHistoryEvents(nID_Subject);
     }
 
@@ -85,7 +84,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     Long setHistoryEvent(
-            @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
+            @RequestParam(value = "nID_Subject", required = false) long nID_Subject,
             @RequestParam(value = "nID_HistoryEventType", required = false) Long nID_HistoryEventType,
             @RequestParam(value = "sEventName", required = false) String sEventName_Custom,
             @RequestParam(value = "sMessage") String sMessage,
@@ -106,7 +105,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     byte[] getDocumentFile(@RequestParam(value = "nID") Long id,
-            @RequestParam(value = "nID_Subject") Long nID_Subject,
+            @RequestParam(value = "nID_Subject") long nID_Subject,
                            HttpServletRequest request, HttpServletResponse httpResponse) 
                            throws ActivitiRestException{
         Document document = documentDao.getDocument(id);
@@ -130,7 +129,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     List<Document> getDocuments(
-            @RequestParam(value = "nID_Subject") Long nID_Subject) {
+            @RequestParam(value = "nID_Subject") long nID_Subject) {
         return documentDao.getDocuments(nID_Subject);
     }
 
@@ -138,7 +137,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     Long setDocument(
-            @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
+            @RequestParam(value = "nID_Subject", required = false) long nID_Subject,
             @RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
             @RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
             @RequestParam(value = "sName") String sName,
@@ -191,7 +190,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     Long setDocumentFile(
-            @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
+            @RequestParam(value = "nID_Subject", required = false) long nID_Subject,
             @RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
             @RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
             @RequestParam(value = "sName") String sName,

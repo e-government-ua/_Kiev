@@ -135,6 +135,7 @@
 					<bean class="org.wf.dp.dniprorada.form.TextAreaFormType" />
 					<bean class="org.wf.dp.dniprorada.form.LabelFormType" />
 					<bean class="org.wf.dp.dniprorada.form.MarkersFormType" />
+					<bean class="org.wf.dp.dniprorada.form.QueueDataFormType" />
 				</list>
 			</property>
 
@@ -146,6 +147,7 @@
 			<property name="mailServerPassword" value="${mailServerPassword}" />
 			<property name="mailServerUseSSL" value="true" />
 			<property name="mailServerUseTLS" value="true" />
+                        <!--property name="mailAddressNoreply" value="${mail.address.noreply}"/-->
 
 
 
