@@ -1,5 +1,5 @@
 var request = require('request');
-var account = require('../bankid/account.controller');
+var accountService = require('../bankid/account.service.js');
 var _ = require('lodash');
 var FormData = require('form-data');
 var async = require('async');
@@ -114,7 +114,7 @@ module.exports.initialUpload = function (req, res) {
     });
 
     var uploadScan = function (documentScan, optionsForUploadContent, callback) {
-        var scanContentRequest = account.prepareScanContentRequest(
+        var scanContentRequest = accountService.prepareScanContentRequest(
             _.merge(options, {
                 url: documentScan.link
             })
@@ -180,7 +180,7 @@ module.exports.initialUpload = function (req, res) {
         }
     };
 
-    account.scansRequest(optionsForScans, scansCallback);
+    accountService.scansRequest(optionsForScans, scansCallback);
 };
 
 function buildGetRequest(req, apiURL, params) {
