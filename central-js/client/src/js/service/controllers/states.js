@@ -1,6 +1,7 @@
 define('state/service/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
+	angularAMD.controller('ServiceController', ['$state', '$rootScope', '$scope', 'service', 'AdminService', function ($state, $rootScope, $scope, service, AdminService) {
 		$scope.service = service;
+		$scope.bAdmin = AdminService.isAdmin();
 	}]);
 });
 
@@ -37,41 +38,26 @@ define('state/service/general/controller', ['angularAMD'], function (angularAMD)
 
 
 define('state/service/instruction/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceInstructionController', ['$state', '$rootScope', '$scope', 'service', 'hiddenCtrls', function ($state, $rootScope, $scope, service, hiddenCtrls) {
+	angularAMD.controller('ServiceInstructionController', ['$state', '$rootScope', '$scope', 'service', 'AdminService', function ($state, $rootScope, $scope, service, AdminService) {
 		$scope.service = service;
+		$scope.bAdmin = AdminService.isAdmin();
 		return $state.go('service.instruction', {id: service.nID, service: service}, { location: false });
-                
-                //Admin buttons visibility handling
-                $scope.hiddenCtrls = true; //$rootScope.hiddenCtrls;
-                //$scope.hiddenEdit = false;
-                //$scope.hiddenSave = !$scope.hiddenEdit;
-                //$scope.hiddenCancel = !$scope.hiddenEdit;
     }]);
 });
 
 define('state/service/legislation/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceLegislationController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
+	angularAMD.controller('ServiceLegislationController', ['$state', '$rootScope', '$scope', 'service', 'AdminService', function ($state, $rootScope, $scope, service, AdminService) {
 		$scope.service = service;
+		$scope.bAdmin = AdminService.isAdmin();
 		return $state.go('service.legislation', {id: service.nID, service: service}, { location: false });
-                
-                //Admin buttons visibility handling
-                $scope.hiddenCtrls = true; //$rootScope.hiddenCtrls;
-                //$scope.hiddenEdit = false;
-                //$scope.hiddenSave = !$scope.hiddenEdit;
-                //$scope.hiddenCancel = !$scope.hiddenEdit;
     }]);
 });
 
 define('state/service/questions/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('ServiceQuestionsController', ['$state', '$rootScope', '$scope', 'service', function ($state, $rootScope, $scope, service) {
+	angularAMD.controller('ServiceQuestionsController', ['$state', '$rootScope', '$scope', 'service', 'AdminService', function ($state, $rootScope, $scope, service, AdminService) {
 		$scope.service = service;
+		$scope.bAdmin = AdminService.isAdmin();
 		return $state.go('service.questions', {id: service.nID, service: service}, { location: false });
-                
-                //Admin buttons visibility handling
-                $scope.hiddenCtrls = true; //$rootScope.hiddenCtrls;
-                //$scope.hiddenEdit = false;
-                //$scope.hiddenSave = !$scope.hiddenEdit;
-                //$scope.hiddenCancel = !$scope.hiddenEdit;               
     }]);
 });
 

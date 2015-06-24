@@ -25,15 +25,15 @@
     <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="kiev_mr_0">
       <extensionElements>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false" ></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false" required="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false" required="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false" required="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAdress" name="Адреса реєстрації" type="string" writable="false" required="false"></activiti:formProperty>
-        <activiti:formProperty id="objName" name="назва об’єкту для присвоєння поштової адреси" type="string" writable="false" required="false"></activiti:formProperty>
-        <activiti:formProperty id="objAddress" name="місцезнаходження об’єкта для присвоєння поштової адреси" type="string" writable="false" required="false"></activiti:formProperty>
-        <activiti:formProperty id="objActivity" name="вид діяльності згідно з КВЕД" type="string" writable="false" required="false"></activiti:formProperty>
-		<activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAdress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objName" name="назва об’єкту для присвоєння поштової адреси" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objAddress" name="місцезнаходження об’єкта для присвоєння поштової адреси" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objActivity" name="вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
@@ -56,8 +56,8 @@
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Inn" name="ІПН; власника (землекористувача) земельної ділянки або уповноваженої ним особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження земельної ділянки" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="objActivity" name="вид діяльності згідно з КВЕД" type="string" writable="false" required="false"></activiti:formProperty>
-		<activiti:formProperty id="regChanged" name="Документи готові?" type="enum" required="true">
+        <activiti:formProperty id="objActivity" name="вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="regChanged" name="Документи готові?" type="enum" required="true">
           <activiti:value id="yes" name="Так, готові"></activiti:value>
         </activiti:formProperty>
       </extensionElements>
@@ -71,7 +71,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Запит: Присвоєння поштової адреси об’єкту нерухомого майна]]></activiti:string>
@@ -114,7 +114,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Запит: Присвоєння поштової адреси об’єкту нерухомого майна]]></activiti:string>
@@ -130,7 +130,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Запит: Присвоєння поштової адреси об’єкту нерухомого майна]]></activiti:string>

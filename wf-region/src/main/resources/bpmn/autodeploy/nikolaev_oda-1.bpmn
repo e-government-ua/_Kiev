@@ -24,7 +24,6 @@
         <activiti:formProperty id="objName" name="найменування громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAddress" name="місцезнаходження громадського об’єднання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objRegDate" name="Дата прийняття рішення про утворення громадського об’єднання та затвердження статуту" type="date" writable="false"></activiti:formProperty>
-
         <activiti:formProperty id="objFounder" name="Засновник громадського об'єднання" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про реєстрацію" type="enum" required="true">
           <activiti:value id="accept" name="Ухвалити"></activiti:value>
@@ -60,7 +59,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Запит: Реєстрація громадського об’єднання]]></activiti:string>
@@ -95,7 +94,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Запит: Реєстрація громадського об’єднання]]></activiti:string>
@@ -117,7 +116,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Запит: Реєстрація громадського об’єднання]]></activiti:string>

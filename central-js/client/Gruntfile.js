@@ -28,7 +28,6 @@ module.exports = function(grunt) {
                     './src/html/service/**/*.html',
                     './src/html/documents/**/*.html',
                     './src/html/journal/**/*.html',
-                    //'./src/html/journal/*.html',
                     './src/html/404/*.html'
                 ],
                 dest: './build/js/templates.js'
@@ -53,14 +52,16 @@ module.exports = function(grunt) {
 				],
 				dependencies: {
 					'angular-mocks': 'angular',
-					'angular-boostrap': 'angular',
+					'angular-boostrap': ['angular', 'bootstrap'],
 					'angular-ui-router': 'angular',
 					'ui-router-extras': 'angular-ui-router',
 					'angular-ui-utils':'angular',
-					'angular-ui': 'angular'
+					'angular-ui': 'angular',
+					'ngClip': 'angular'
 				},
 				mainFiles: {
 					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css'],
+                    'bootstrap': ['dist/css/bootstrap.css'],
                     'angular-i18n': ['angular-locale_uk-ua.js']
 				},
 				bowerOptions: {
@@ -79,7 +80,8 @@ module.exports = function(grunt) {
 					'angular-ui-router': 'angular',
 					'ui-router-extras': 'angular-ui-router',
 					'angular-ui-utils':'angular',
-					'angular-ui': 'angular'
+					'angular-ui': 'angular',
+					'ngClip': 'angular'
 				},
 				mainFiles: {
 					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css'],
@@ -123,7 +125,14 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/app/components.js'
 					},
 					{
-						src: ['./src/js/main/script.js', './src/js/components/**/*.js'],
+						src: [
+							'./src/js/main/script.js',
+							'./src/js/components/**/*.js',
+							'./src/js/bankid/**/*.js',
+							'./src/js/activiti/**/*.js',
+							'./src/js/form/**/*.js',
+							'./src/js/config.js'
+						],
 						dest: './tmp/js/concat/script.js'
 					},
 					{
@@ -148,9 +157,6 @@ module.exports = function(grunt) {
                     },
 					{
 						src: [
-							'./src/js/bankid/**/*.js',
-							'./src/js/activiti/**/*.js',
-							'./src/js/form/**/*.js',
 							'./src/js/places/**/*.js',
 							'./src/js/service/link/**/*.js',
 							'./src/js/service/built-in/**/*.js',
@@ -188,7 +194,14 @@ module.exports = function(grunt) {
 						dest: './tmp/js/concat/app/components.js'
 					},
 					{
-						src: ['./src/js/main/debug.js', './src/js/components/**/*.js'],
+						src: [
+							'./src/js/main/debug.js',
+							'./src/js/components/**/*.js',
+							'./src/js/bankid/**/*.js',
+							'./src/js/activiti/**/*.js',
+							'./src/js/form/**/*.js',
+							'./src/js/config.js'
+						],
 						dest: './tmp/js/concat/script.js'
 					},
 					{
@@ -213,9 +226,6 @@ module.exports = function(grunt) {
                     },
 					{
 						src: [
-							'./src/js/bankid/**/*.js',
-							'./src/js/activiti/**/*.js',
-							'./src/js/form/**/*.js',
 							'./src/js/places/**/*.js',
 							'./src/js/service/link/**/*.js',
 							'./src/js/service/built-in/**/*.js',

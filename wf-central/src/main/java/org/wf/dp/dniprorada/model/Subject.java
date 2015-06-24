@@ -23,7 +23,7 @@ public class Subject {
 	@Column(name = "nID")
 	
     
-	private Long nID;
+	private long nID;
 	
 	@JsonProperty(value = "sID")
 	@Column(name = "sID", nullable = true)

@@ -34,3 +34,7 @@ hs_err_pid*
 wf-region/src/main/resources/bpmn/autodeploy/test.bpmn
 wf-region/src/main/resources/bpmn/autodeploy/citizens_request_test_tsapko.bpmn
 wf-region/src/main/resources/bpmn/autodeploy/citizens_request_test_tsapko.bpmn.xml
+*.orig
+
+#sublime
+project.sublime-workspace

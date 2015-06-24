@@ -1,4 +1,4 @@
-define('documents', ['angularAMD', 'service'], function(angularAMD) {
+define('documents', ['angularAMD', 'config', 'service', 'file2/directive', 'file/factory'], function(angularAMD) {
   var app = angular.module('Documents', []);
 
   app.config(function($stateProvider) {
@@ -15,11 +15,21 @@ define('documents', ['angularAMD', 'service'], function(angularAMD) {
           })
         }
       })
+	  .state('documents.user', {
+		url: '/user',
+        views: {
+          'content': angularAMD.route({
+            templateProvider: function($templateCache) {
+              return $templateCache.get('html/documents/user/index.html');
+            },
+          })
+        }
+	  })
       .state('documents.bankid', {
         url: '/bankid?code',
-        parent: 'documents',
+        parent: 'documents.user',
         views: {
-          'bankid': angularAMD.route({
+          'content': angularAMD.route({
             templateProvider: function($templateCache) {
               return $templateCache.get('html/documents/bankid/index.html');
             },
@@ -30,9 +40,9 @@ define('documents', ['angularAMD', 'service'], function(angularAMD) {
       })
       .state('documents.view', {
         url: '/view',
-        parent: 'documents',
+        parent: 'documents.user',
         views: {
-          'view': angularAMD.route({
+          'content': angularAMD.route({
             templateProvider: function($templateCache) {
               return $templateCache.get('html/documents/view.html');
             }
@@ -41,7 +51,7 @@ define('documents', ['angularAMD', 'service'], function(angularAMD) {
       })
       .state('documents.content', {
         url: '/content?code',
-        parent: 'documents',
+        parent: 'documents.user',
         resolve: {
           BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
             var url = $location.protocol()
@@ -61,19 +71,9 @@ define('documents', ['angularAMD', 'service'], function(angularAMD) {
           customer: function(BankIDAccount) {
             return BankIDAccount.customer;
           },
-          subject: function($q, $state, ServiceService, customer) {
-            $state.customer = customer;
-            return ServiceService.syncSubject(customer.inn).then(function(data) {
-              return data.hasOwnProperty('error') ? $q.reject(null) : data;
-            });
-          },
-          documents: function($q, $state, subject, ServiceService, BankIDLogin) {
-            $state.nID_Subject = subject.nID;
-            $state.sID_Subject = subject.sID;
+          documents: function($q, $state, ServiceService, BankIDLogin, customer) {
             return ServiceService.getOrUploadDocuments(
-                            BankIDLogin.access_token,
-                            $state.nID_Subject,
-                            $state.sID_Subject)
+                            BankIDLogin.access_token)
                         .then(function(data) {
                             return data;
                         });
@@ -88,7 +88,27 @@ define('documents', ['angularAMD', 'service'], function(angularAMD) {
             controllerUrl: 'state/documents/content/controller'
           })
         }
-      });
+      })
+	  .state('documents.search', {
+		url: '/search',
+        views: {
+          'content': angularAMD.route({
+            templateProvider: function($templateCache) {
+              return $templateCache.get('html/documents/search/index.html');
+            },
+          })
+        }
+	  })
+	  .state('documents.notary', {
+		url: '/notary',
+        views: {
+          'content': angularAMD.route({
+            templateProvider: function($templateCache) {
+              return $templateCache.get('html/documents/notary/index.html');
+            },
+          })
+        }
+	  })
   });
   return app;
 });

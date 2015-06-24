@@ -6,7 +6,7 @@ var activiti = require('../../components/activiti');
 exports.index = function(req, res) {
     
         var query = {};
-        query.size = 100;
+        query.size = 500;
     
 	var options = {
 		path: 'repository/process-definitions'

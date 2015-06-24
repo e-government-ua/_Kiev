@@ -248,8 +248,18 @@
             <artifactId>hibernate-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
+        </dependency>
+
+        <!-- Other -->
+        <dependency>
+            <groupId>net.sf.brunneng.jom</groupId>
+            <artifactId>java-object-merger</artifactId>
         </dependency>
 
         <!-- Running example processes -->

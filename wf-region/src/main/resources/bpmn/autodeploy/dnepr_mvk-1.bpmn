@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="CivilCopyDocRequest" name="Дніпропетровська МДА - Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом." isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
@@ -12,7 +12,7 @@
           <activiti:value id="копія рішення Дніпропетровської міської ради" name="копія рішення Дніпропетровської міської ради"></activiti:value>
           <activiti:value id="копія розпорядження міського голови" name="копія розпорядження міського голови"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="docDate" name="Дата прийняття документа" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="docDate" name="Дата прийняття документа; в форматі ДД.ММ.РРРР" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="docNumber" name="Номер документа" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="docName" name="Назва документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання документа" type="string" required="true"></activiti:formProperty>
@@ -28,28 +28,31 @@
           <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>admin@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+На жаль, змушені відмовити Вам у наданні інформації у зв'язку з недостатньою аргументацією Вашого запиту.
 
-На жаль змушені Вам відмовити в наданні інформації у зв'язку з недостатньою аргументацією Вашого запиту</activiti:expression>
+З повагою,
+Міська рада міста Дніпропетровськ,</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
     <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="dn_mvk_1">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="clPassport" name="Паспортні дані" type="string" default="${bankIdPassport}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clPassport" name="Паспортні дані" type="string" default="${bankIdPassport}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запитуваний документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Перейти до надання послуги"></activiti:value>
           <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="footer" name="footerToPrint" type="label" readable="false" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
@@ -59,37 +62,40 @@
     <serviceTask id="mailtask3" name="Повідомлення про те, що документ не знайдений" activiti:type="mail">
       <extensionElements>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
+Щодо Вашого запиту на отримання ${docType} №${docNumber}.
+На жаль, документ не було знайдено.
 
-Ви запитали ${docType} № ${docNumber} від ${docDate}
-
-На жаль документ не був знайдений.</activiti:expression>
+З повагою,
+Міська рада міста Дніпропетровськ,</activiti:expression>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>admin@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow16" sourceRef="mailtask3" targetRef="endevent3"></sequenceFlow>
-    <userTask id="usertask7" name="Підготовка відповіді на запит: пошук документа" activiti:candidateGroups="management_clerk_dmr">
+    <userTask id="usertask7" name="Підготовка відповіді на запит: пошук документа" activiti:candidateGroups="dn_mvk_1">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запитуваній документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="searchResult" name="Результат обробки запиту" type="enum" required="true">
           <activiti:value id="found" name="Документ знайдено"></activiti:value>
           <activiti:value id="notFound" name="Документ не знайдено"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="docToSend" name="Завантажте  копію документа для відправлення заявнику" type="file"></activiti:formProperty>
+        <activiti:formProperty id="footer" name="footerToPrint" type="label" readable="false" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <endEvent id="endevent5" name="End"></endEvent>
@@ -104,56 +110,61 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent6" name="End"></endEvent>
-    <sequenceFlow id="flow44" sourceRef="mailtask4" targetRef="endevent6"></sequenceFlow>
-    <sequenceFlow id="flow47" name="searchResult == 'found'" sourceRef="exclusivegateway2" targetRef="mailtask4">
+    <sequenceFlow id="flow44" sourceRef="servicetask1" targetRef="endevent6"></sequenceFlow>
+    <sequenceFlow id="flow47" name="searchResult == 'found'" sourceRef="exclusivegateway2" targetRef="servicetask1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult == 'found'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask4" name="Відправка відповіді на запит користувачу" activiti:type="mail">
-      <extensionElements>
-        <activiti:field name="to">
-          <activiti:expression>${email}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="from">
-          <activiti:string>admin@igov.org.ua</activiti:string>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
-        </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
-
-Ви запросили ${docType} № ${docNumber} від ${docDate}
-Ваш</activiti:expression>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
     <serviceTask id="mailtask5" name="Повідомлення про  подання звернення" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>admin@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
+Ваш запит на отримання ${docType} №${docNumber} від ${docDate} успішно зареєстровано. Ви отримаєте відповідь протягом п'яти робочих днів на цю email-адресу.
 
-Ваш запит на отримання  ${docType} № ${docNumber} від ${docDate} успішно зареєстровано.
-Ви отримаєте відповідь протягом п'яти діб.</activiti:expression>
+З повагою,
+Міська рада міста Дніпропетровськ,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow49" sourceRef="startevent1" targetRef="mailtask5"></sequenceFlow>
     <sequenceFlow id="flow50" sourceRef="mailtask5" targetRef="usertask4"></sequenceFlow>
+    <serviceTask id="servicetask1" name="Відправка відповіді на запит користувачу" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
+Щодо Вашого запиту на отримання ${docType} №${docNumber} від  ${docDate}
+Документ знаходиться у додатку до цього листа.
+
+З повагою,
+Міська рада міста Дніпропетровськ,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${docToSend}"</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
     <textAnnotation id="textannotation1">
       <text>Пользователь портала  отправляет выбирает услугу:
 Надання копій рішень міської ради та її виконкому, розпоряджень міського голови за зверненням юридичних та фізичних осіб, правоохоронних органів,адвокатів</text>
@@ -200,11 +211,11 @@
       <bpmndi:BPMNShape bpmnElement="endevent6" id="BPMNShape_endevent6">
         <omgdc:Bounds height="35.0" width="35.0" x="1240.0" y="448.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
-        <omgdc:Bounds height="71.0" width="105.0" x="1114.0" y="430.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
         <omgdc:Bounds height="55.0" width="105.0" x="380.0" y="287.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="71.0" width="105.0" x="1114.0" y="430.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="50.0" width="299.0" x="-40.0" y="90.0"></omgdc:Bounds>

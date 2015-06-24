@@ -3,6 +3,7 @@ package org.wf.dp.dniprorada.dao;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -93,7 +94,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		return os.toString();
 	}        
 
-	private void writeRow(DocumentAccess o) {
+	private void writeRow(DocumentAccess o) throws Exception{
 		//Transaction t = null;
 		Session s = getSession();
 		try{
@@ -103,7 +104,11 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 			t.commit();*/
 			/*Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES (1,2014-06-03,222,LEO,secret,097,mail,qwe)");
 			query.executeUpdate();*/
-			s.save(o);
+			Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES ("+o.getID_Document()+","+o.getDateCreate()+
+					","+o.getMS()+","+o.getFIO()+","+o.getTarget()+","+o.getTelephone()+","+o.getMail()+","+o.getSecret()+")");
+			query.executeUpdate();
+			//s.save(o);
+			
 		} catch(Exception e){
 			//t.rollback();
 			throw e;
@@ -151,7 +156,10 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	public String getDocumentAccess(Long nID_Access, String sSecret) throws Exception {
 		Session oSession = getSession();
 		List <DocumentAccess> list = null;
-		DocumentAccess docAcc = null;
+		String sTelephone = "";
+		String sAnswer = "";
+		String otpPassword = "-";
+		DocumentAccess docAcc = new DocumentAccess();
 		try{
                     //TODO убедиться что все проверяется по этим WHERE
                     list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
@@ -160,25 +168,29 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     } else {
                     	 for(DocumentAccess da : list){
                          	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)){
-                         		docAcc = da;
+                         		docAcc = da;                      		
                          		break;
                          	}
                          }
                     }
-                    String sTelephone = docAcc.getTelephone();
+                    if(docAcc.getTelephone() != null){
+                     sTelephone = docAcc.getTelephone();
+                    }
                     //TODO Generate random 4xDigits answercode
-                    String sAnswer = generateAnswer();
+                    sAnswer = generateAnswer();
                     //TODO SEND SMS with this code
                     //
                     //o.setDateAnswerExpire(null);
                     docAcc.setAnswer(sAnswer);
-                    writeRow(docAcc);
-		} catch(Exception e){
+                   // writeRow(docAcc);
+                    
+                    otpPassword+=getOtpPassword(docAcc);
+		} catch(Exception e) {
 			throw e;
-		} finally{
+		}finally{
 			oSession.close();
 		}
-		return  getOtpPassword(docAcc);
+		return  "/"+ otpPassword;
 	}
 
         
@@ -196,9 +208,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     else {
                    	 for(DocumentAccess da : list){
                         	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)
-                                        && ( da.getAnswer().equals(sAnswer) || "1234".equals(sAnswer) ) //TODO убрать бэкдур, после окончательной отладки, в т.ч. фронта
-                                        
-                                        ){
+                                        && ( da.getAnswer().equals(sAnswer) || "1234".equals(sAnswer) )){  //TODO убрать бэкдур, после окончательной отладки, в т.ч. фронта
                         		docAcc = da;
                         		break;
                         	}
@@ -243,6 +253,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		dos.flush();
 		dos.close();
 		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	Thread.currentThread().sleep(15000);
 		StringBuilder sb = new StringBuilder();
 		String inputLine;
 		while((inputLine = br.readLine()) != null){

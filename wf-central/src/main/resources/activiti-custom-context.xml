@@ -48,7 +48,6 @@
                     <value>classpath:email.properties</value>
                     <value>classpath:bankID.properties</value>
                     <value>classpath:AS.properties</value>
-                    <value>classpath:merch.properties</value>
                 </list>
             </property>
             <property name="ignoreUnresolvablePlaceholders" value="true"/>
@@ -64,12 +63,31 @@
 
     <beans>
 
-        <import resource="db-context.xml"/>
 
-        <bean id="central_liquibase" class="liquibase.integration.spring.SpringLiquibase">
-            <property name="dataSource" ref="dataSource"/>
-            <property name="changeLog" value="classpath:liquibase/db.changelog-master.xml"/>
+        <!-- ==============================   CACHE   ============================= -->
+
+        <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+            <property name="configLocation">
+                <value>classpath:ehcache.xml</value>
+            </property>
         </bean>
+
+        <bean id="methodCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+            <property name="cacheManager" ref="cacheManager"/>
+            <property name="cacheName" value="org.sample.cache.METHOD_CACHE"/>
+        </bean>
+
+        <bean id="methodCacheInterceptor" class="org.wf.dp.dniprorada.util.caching.MethodCacheInterceptor">
+            <property name="cache" ref="methodCache"/>
+        </bean>
+
+        <bean id="methodCacheAdvisor" class="org.wf.dp.dniprorada.util.caching.MethodCacheAdvisor">
+            <property name="interceptor" ref="methodCacheInterceptor"/>
+        </bean>
+
+        <bean id="cachedInvocationBean" class="org.wf.dp.dniprorada.util.caching.CachedInvocationBean"/>
+
+        <!-- ==============================   DAO   ============================= -->
 
         <bean id="merchantDao" class="org.wf.dp.dniprorada.dao.MerchantDaoImpl">
             <property name="dataSource" ref="dataSource"/>
@@ -79,12 +97,11 @@
             <property name="sessionFactory" ref="sessionFactory"/>
         </bean>
 
-
-        <bean id="abstractEntityDao" class="org.wf.dp.dniprorada.dao.AbstractEntityDao" abstract="true">
+        <bean id="abstractEntityDao" class="org.wf.dp.dniprorada.base.dao.AbstractEntityDao" abstract="true">
             <property name="sessionFactory" ref="sessionFactory"/>
         </bean>
 
-        <bean id="baseEntityDao" class="org.wf.dp.dniprorada.dao.BaseEntityDaoImpl">
+        <bean id="baseEntityDao" class="org.wf.dp.dniprorada.base.dao.BaseEntityDaoImpl">
             <property name="sessionFactory" ref="sessionFactory"/>
         </bean>
 
@@ -133,9 +150,11 @@
         </tx:advice>
 
         <aop:config>
+            <aop:pointcut id="base.dao" expression="execution(* org.wf.dp.dniprorada.base.dao.*.*(..))"/>
             <aop:pointcut id="dao" expression="execution(* org.wf.dp.dniprorada.dao.*.*(..))"/>
             <aop:pointcut id="dao.services" expression="execution(* org.wf.dp.dniprorada.service.*.*(..))"/>
 
+            <aop:advisor pointcut-ref="base.dao" advice-ref="txAdvice"/>
             <aop:advisor pointcut-ref="dao" advice-ref="txAdvice"/>
             <aop:advisor pointcut-ref="dao.services" advice-ref="txAdvice"/>
         </aop:config>
@@ -174,8 +193,9 @@
             <property name="mailServerDefaultFrom" value="${mailServerDefaultFrom}"/>
             <property name="mailServerUsername" value="${mailServerUsername}"/>
             <property name="mailServerPassword" value="${mailServerPassword}"/>
-            <property name="mailServerUseSSL" value="true"/>
-            <property name="mailServerUseTLS" value="true"/>
+            <property name="mailServerUseSSL" value="${mailServerUseSSL}"/>
+            <property name="mailServerUseTLS" value="${mailServerUseTLS}"/>
+            <!--property name="mailAddressNoreply" value="${mail.address.noreply}"/-->
 
             <property name="history" value="full"/>
         </bean>
@@ -206,6 +226,7 @@
 
         <import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml"/>
         <import resource="classpath:/META-INF/spring/ua-org-egov-utils-storage-context.xml"/>
+        <import resource="db-context.xml"/>
     </beans>
 
 

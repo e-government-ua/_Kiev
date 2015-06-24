@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="ternopol_oda_1" name="Тернопіль ОДА - Ліцензування експортно-імпортних операцій (видача разових індивідуальних ліцензій), в межах делегованих повноважень" isExecutable="true">
+  <process id="ternopol_oda_1" name="Тернопіль ОДА - Отримання разової (індивідуальної) ліцензії на зовнішньоекономічну операцію" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -41,7 +41,7 @@
         <activiti:formProperty id="text4" name="Додатки" type="label" default="    -----------------------------------------"></activiti:formProperty>
         <activiti:formProperty id="file1" name="копії контракту, специфікацій, додатків й інших документів, які є невід’ємними частинами контракту; Документи повинні бути в форматі PDF і мати ЕЦП керівника підприємства. Якщо документів  декілька, вони можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="копія виписки або витягу з Єдиного державного реєстру юридичних осіб та фізичних осіб; файл в форматі PDF повинен бути підписаний через ЕЦП" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="копія сертифікату про походження товару або експертний висновок з визначенням країни походження та коду товару відповідно до УКТ ЗЕД (подаються тільки для одержання ліцензій на експорт товарів). Зазначені документи видаються Тернопільською торгово-промисловою" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file3" name="копія сертифікату про походження товару або експертний висновок з визначенням країни походження та коду товару відповідно до УКТ ЗЕД (подаються тільки для одержання ліцензій на експорт товарів). " type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dateView" name="Бажана дата отримання ліцензії" type="date"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Відправляючи звернення Ви підтверджуєете достовірність зазначених персональних данних"></activiti:formProperty>
@@ -55,10 +55,10 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Ліцензування експортно-імпортних операцій (видача разових індивідуальних ліцензій), в межах делегованих повноважень]]></activiti:string>
+          <activiti:string><![CDATA[Отримання разової (індивідуальної) ліцензії на зовнішньоекономічну операцію]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -66,7 +66,41 @@
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
-Ваша заява успішно зареєстрована.</activiti:expression>
+Ваша заява успішно зареєстрована.
+Нагадуємо Вам, що  заявка містить наступну інформацію:
+Данні організації-заявника
+Найменування:${param1}
+Місцезнаходження:${param2}
+Код ЄДРПОУ:${param3}
+Телефон:${param4}
+Факс:${param5}
+Поточний рахунок у національній валюті:${param6}
+Рахунок в іноземній валюті:${param7}
+ПІБ керівника організації:${param8}
+
+Данні іноземного суб'єкту зовнішньоекономічної діяльності:
+Найменування:${param9}
+Місцезнаходження:${param10}
+Банківський рахунок:${param11}
+
+Данні операції
+Код експортного /імпортного товару (УКТ ЗЕД):${param12}
+Одиниця виміру:${param13}
+Кількість:${param14}
+Вартість (тис. дол. США):${param15}
+Вартість (в тис.одиницях валюти контракту):${param16}
+Додаткове найменування:${param17}
+Країна призначення:${param18}
+Країна імпортера/експортера:${param19}
+Країна походження:${param20}
+Базис поставки:${param21}
+Валюта контракту:${param22}
+Валюта платежу:${param23}
+Митниця:${param24}
+Характер угоди:${param25}
+Уповноважений банк:${param26}
+Підстава для оформлення ліцензії:${param27}
+Особливі умови:${param28}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -76,13 +110,12 @@
     </boundaryEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask1" name="Перевірка відповідності документів" activiti:candidateGroups="sales">
+    <userTask id="usertask1" name="Перевірка відповідності документів" activiti:candidateGroups="ternopol_oda1">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="text1" name="Данні організації-заявника" type="label" default="    -----------------------------------------" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param1" name="Найменування" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param2" name="Місцезнаходження " type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param3" name="Код ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
@@ -91,11 +124,9 @@
         <activiti:formProperty id="param6" name="Поточний рахунок у національній валюті" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param7" name="Рахунок в іноземній валюті" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param8" name="ПІБ керівника організації" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="text2" name="Данні іноземного суб'єкту зовнішньоекономічної діяльності" type="label" default="    -----------------------------------------"></activiti:formProperty>
         <activiti:formProperty id="param9" name="Найменування" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param10" name=" Місцезнаходження" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param11" name="Банківський рахунок" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="text3" name="Данні операції" type="label" default="    -----------------------------------------"></activiti:formProperty>
         <activiti:formProperty id="param12" name="Код експортного /імпортного товару (УКТ ЗЕД)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param13" name="Одиниця виміру" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param14" name="Кількість" type="string" writable="false"></activiti:formProperty>
@@ -135,10 +166,10 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Ліцензування експортно-імпортних операцій (видача разових індивідуальних ліцензій), в межах делегованих повноважень]]></activiti:string>
+          <activiti:string><![CDATA[Отримання разової (індивідуальної) ліцензії на зовнішньоекономічну операцію]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -156,7 +187,7 @@
     </sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
-    <userTask id="usertask2" name="Прийняття рішення про оформлення ліцензії" activiti:candidateGroups="sales">
+    <userTask id="usertask2" name="Прийняття рішення про оформлення ліцензії" activiti:candidateGroups="ternopol_oda1">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -194,18 +225,18 @@
         <activiti:formProperty id="param27" name="Підстава для оформлення ліцензії" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="param28" name="Особливі умови " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="dateView1" name="Бажана дата отримання ліцензії" type="date" default="${dateView}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decide2" name=" Резудбтат перевірки документів" type="enum" required="true">
+        <activiti:formProperty id="decide2" name="Результат перевірки документів" type="enum" required="true">
           <activiti:value id="accept2" name="Ухвалити оформлення ліцензії"></activiti:value>
           <activiti:value id="reject2" name="Відмовити в оформленні ліцензії"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment2" name="Коментары" type="textArea" default="Зазначте дату оформлення ліцензії або підставу для відмови в наданні послуги" required="true"></activiti:formProperty>
+        <activiti:formProperty id="comment2" name="Коментарі" type="textArea" default="Зазначте дату оформлення ліцензії або підставу для відмови в наданні послуги" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow9" sourceRef="servicetask2" targetRef="usertask2"></sequenceFlow>
     <serviceTask id="servicetask2" name="Повідомлення громадянина про дату і час візиту" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
@@ -224,7 +255,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask3" name="Оформлення ліцензії" activiti:candidateGroups="sales">
+    <userTask id="usertask3" name="Оформлення ліцензії" activiti:candidateGroups="ternopol_oda1">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -287,7 +318,7 @@
     <sequenceFlow id="flow18" name="${decide3 == 'accept3'}" sourceRef="exclusivegateway3" targetRef="usertask4">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide3 == 'accept3'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask4" name="Видача ліцензії" activiti:candidateGroups="sales">
+    <userTask id="usertask4" name="Видача ліцензії" activiti:candidateGroups="ternopol_oda1">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -328,7 +359,6 @@
         <activiti:formProperty id="file1" name="копії контракту, специфікацій, додатків й інших документів, які є невід’ємними частинами контракту; Документи повинні бути в форматі PDF і мати ЕЦП керівника підприємства. Якщо документів  декілька, вони можуть бути завантажені у вигляді ZIP-архіву" type="file"></activiti:formProperty>
         <activiti:formProperty id="file2" name="копія виписки або витягу з Єдиного державного реєстру юридичних осіб та фізичних осіб; файл в форматі PDF повинен бути підписаний через ЕЦП" type="file"></activiti:formProperty>
         <activiti:formProperty id="file3" name="копія сертифікату про походження товару або експертний висновок з визначенням країни походження та коду товару відповідно до УКТ ЗЕД (подаються тільки для одержання ліцензій на експорт товарів). Зазначені документи видаються Тернопільською торгово-промисловою" type="file"></activiti:formProperty>
-        <activiti:formProperty id="printedAutoGovNumber" name="Вкажіть роздрукований держ.номер" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <endEvent id="endevent6" name="End"></endEvent>
@@ -339,10 +369,10 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Ліцензування експортно-імпортних операцій (видача разових індивідуальних ліцензій), в межах делегованих повноважень]]></activiti:string>
+          <activiti:string><![CDATA[Отримання разової (індивідуальної) ліцензії на зовнішньоекономічну операцію]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.

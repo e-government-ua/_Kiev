@@ -12,16 +12,12 @@ import javax.persistence.*;
  * User: goodg_000 Date: 04.05.2015 Time: 22:10
  */
 @javax.persistence.Entity
-public class Category extends Entity {
+public class Category extends org.wf.dp.dniprorada.base.model.NamedEntity {
 
 	@JsonProperty(value = "sID")
 	@Column(name = "sID", nullable = false)
 	private String code;
-	
-	@JsonProperty(value = "sName")
-	@Column(name = "sName", nullable = false)
-	private String name;
-	
+
 	@JsonProperty(value = "nOrder")
 	@Column(name = "nOrder", nullable = false)
 	private Integer order;
@@ -38,14 +34,6 @@ public class Category extends Entity {
 
 	public void setCode(String code) {
 		this.code = code;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Integer getOrder() {

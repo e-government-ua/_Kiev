@@ -271,6 +271,9 @@ public class TableDataService {
       else if (requiredType.equals(Integer.class)) {
          res = Integer.parseInt(value);
       }
+      else if (requiredType.equals(Long.class)) {
+         res = Long.parseLong(value);
+      }
       else if (requiredType.equals(Boolean.class)) {
          res = Boolean.parseBoolean(value);
       }

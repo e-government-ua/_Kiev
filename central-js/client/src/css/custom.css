@@ -1290,9 +1290,19 @@ label .snippet {
 }
 
 .index-services-count .index-services-count-item {
-    margin-right: 30px;
+    /*margin-right: 30px;*/
+    margin-right: 5px;
 }
 
 .index-services-count .index-services-count-item:last-child {
     margin-right: 0;
+}
+
+.pluso-counter {
+    left:-20px;
+}
+
+.s-field-notes {
+    color: #aaaaaa;
+    text-align: left;
 }
