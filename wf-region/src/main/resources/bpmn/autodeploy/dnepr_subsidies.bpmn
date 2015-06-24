@@ -42,7 +42,7 @@
         <activiti:formProperty id="garbage" name="Вывоз мусора" type="label" default="--------------------"></activiti:formProperty>
         <activiti:formProperty id="garbage_number" name="Номер лицевого счета" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="garbage_name" name="Наименование организации" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="notice" name="У разі коли прийняття рішення щодо моєї заяви потребує окремого рішення місцевих органів виконавчої влади/місцевого самоврядування або утвореної їми комісії, прошу розглянути мою заяву відповідними органами або утвореною ними комісією" type="enum" required="true">
+        <activiti:formProperty id="notice" name="Розглянути цю заяву відповідними органами або утвореною ними комісією?;У разі коли прийняття рішення щодо моєї заяви потребує окремого рішення місцевих органів виконавчої влади/місцевого самоврядування або утвореної їми комісії, прошу " type="enum" required="true">
           <activiti:value id="1" name="так"></activiti:value>
           <activiti:value id="2" name="ні"></activiti:value>
         </activiti:formProperty>
@@ -55,11 +55,11 @@
         <activiti:formProperty id="floors" name="Количество этажей" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="total_place" name="Общая площадь" type="string" default="кв. м." required="true"></activiti:formProperty>
         <activiti:formProperty id="notice3" name="Примітка" type="label" default="Особи, які зареєстровані (для орендарів — особи, які фактично проживають) у житловому приміщенні/будинку ті їх прибутки (перерахуйте з нового рядка: ПІБ, ДР, Номер облікової книжки, Вид прибутку, Сума прибутку без урахування податку з доходів фізичних осіб, Джерело прибутку)"></activiti:formProperty>
-        <activiti:formProperty id="person1" name="1" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
-        <activiti:formProperty id="person2" name="2" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
-        <activiti:formProperty id="person3" name="3" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
-        <activiti:formProperty id="person4" name="4" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
-        <activiti:formProperty id="person5" name="5" type="textArea" default="ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" required="true"></activiti:formProperty>
+        <activiti:formProperty id="person1" name="Особа 1;ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" type="textArea" ></activiti:formProperty>
+        <activiti:formProperty id="person2" name="Особа 2;ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" type="textArea"  ></activiti:formProperty>
+        <activiti:formProperty id="person3" name="Особа 3;ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" type="textArea"  ></activiti:formProperty>
+        <activiti:formProperty id="person4" name="Особа 4;ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" type="textArea"  ></activiti:formProperty>
+        <activiti:formProperty id="person5" name="Особа 5;ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" type="textArea"  ></activiti:formProperty>
         <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені протягом 12 місяців перед зверненням за призначенням житлової субсидії; перерахуйте з нового рядка ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг" type="textArea" default="ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
