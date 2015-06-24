@@ -195,7 +195,7 @@
             <property name="mailServerPassword" value="${mailServerPassword}"/>
             <property name="mailServerUseSSL" value="${mailServerUseSSL}"/>
             <property name="mailServerUseTLS" value="${mailServerUseTLS}"/>
-            <property name="mailAddressNoreply" value="${mail.address.noreply}"/>
+            <!--property name="mailAddressNoreply" value="${mail.address.noreply}"/-->
 
             <property name="history" value="full"/>
         </bean>
