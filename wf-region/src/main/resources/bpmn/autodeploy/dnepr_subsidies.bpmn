@@ -67,10 +67,10 @@
     <userTask id="usertask1" name="Взять в работу" activiti:candidateGroups="sales">
       <extensionElements>
         <activiti:formProperty id="form_name" name="Заявление на получение субсидии" type="label" default="---------------------------------------------------------------------------------------------------------------------" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName " name="Фамилия" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName " name="Имя" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName " name="Отчество" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport " name="Паспортные данные" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Фамилия" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Имя" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="Отчество" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортные данные" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="chapter1" name="Детали" type="label" default="---------------------------------------------------------------------" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_living" name="Место жительства" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактный телефон" type="string" default="+38" required="true"></activiti:formProperty>
