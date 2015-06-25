@@ -47,7 +47,7 @@ define('service.general.region', ['angularAMD', 'service.general.region.link', '
             .state('service.general.region.error', {
                 url: '/absent',
                 views: {
-					'status@service.general.region': angularAMD.route({
+					'content@service.general.region': angularAMD.route({
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/region/absent.html');
 						}],
