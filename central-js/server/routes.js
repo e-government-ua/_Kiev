@@ -3,9 +3,9 @@ var express = require('express');
 
 module.exports = function(app) {
 	app.use('/', express.static(__dirname + '../../client/build/'));
+	app.use('/api/auth', require('./api/auth'));
 	app.use('/api/account', require('./api/account/index'));
-	app.get('/api/bankid/login', require('./api/bankid/login'));
-	app.use('/api/bankid/account', require('./api/bankid/account'));
+	app.use('/api/bankid', require('./api/bankid'));
 	app.use('/api/documents', require('./api/documents/index'));
 	app.use('/api/journal', require('./api/journal/index'));
 	app.use('/api/login', require('./api/login/index'));
@@ -17,7 +17,7 @@ module.exports = function(app) {
 	app.use('/api/service/documents', require('./api/service/documents'));
 	app.use('/api/service/journal', require('./api/service/journal'));
 	app.use('/api/messages', require('./api/messages/index'));
-	app.get('/api/services', require('./api/services/index'));
+	app.use('/api/services', require('./api/services'));
 	app.post('/api/uploadfile', require('./api/uploadfile/post'));
 
 	app.use('/', function(req, res, next) {
