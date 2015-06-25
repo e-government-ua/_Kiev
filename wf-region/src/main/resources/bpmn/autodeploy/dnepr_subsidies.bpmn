@@ -19,28 +19,28 @@
         </activiti:formProperty>
         <activiti:formProperty id="name_services" name="Наіменування послуг" type="label" default="--------------------"></activiti:formProperty>
         <activiti:formProperty id="houses" name="Утримання дому та придомової території" type="label" default="--------------------" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="house_number" name="Номер особового рахунка" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="house_number" name="Номер особового рахунка" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="house_name" name="Назваорганізації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="gas" name="Газ" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="gas_number" name="Номер особового рахунка" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="gas_number" name="Номер особового рахунка" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="gas_name" name="Назва організації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="coolwater" name="Холодна вода" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="coolwater_number" name="Номер особового рахунка" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="coolwater_number" name="Номер особового рахунка" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="coolwater_name" name="Назва організації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="hotwater" name="Гаряча вода" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="hotwater_number" name="Номер особого рахунка" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="hotwater_number" name="Номер особого рахунка" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="hotwater_name" name="Назва організації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="waterback" name="Водовідведення" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="waterback_number" name="Номер особового рахунка" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="waterback_number" name="Номер особового рахунка" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="waterback_name" name="Назва організації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warming" name="Опалення" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="warming_number" name="Номер особового рахунка" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="warming_number" name="Номер особового рахунка" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="warming_name" name="Назва організації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="electricity" name="Електроенергія" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="electricity_number" name="Номер особового рахунка" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="electricity_number" name="Номер особового рахунка" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="electricity_name" name="Назва організації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="garbage" name="Вивіз побутових відходів" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="garbage_number" name="Номер особового рахунка" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="garbage_number" name="Номер особового рахунка" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="garbage_name" name="Назва організації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="notice" name="Розглянути цю заяву відповідними органами або утвореною ними комісією?;У разі коли прийняття рішення щодо моєї заяви потребує окремого рішення місцевих органів виконавчої влади/місцевого самоврядування або утвореної їми комісії, прошу " type="enum" required="true">
           <activiti:value id="1" name="так"></activiti:value>
