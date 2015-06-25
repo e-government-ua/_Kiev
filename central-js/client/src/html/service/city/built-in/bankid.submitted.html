@@ -54,8 +54,8 @@
                 {{data.formData.params.bankIdlastName.value}}!</h3>
 
             <div class="text-center">Ваше звернення №{{state.data.id}} успішно зареєстровано</div>
-            <div class="text-center" ng-bind-html="getHtml(data.formData.response)" ng-if="data.formData.response"></div>
-            <div class="text-center" ng-if="!data.formData.response">Результати будуть спрямовані на Ваш {{data.formData.params.email.value}}</div>
+            <div class="text-center" ng-bind-html="getHtml(data.formData.params.response.value)" ng-if="data.formData.params.response.value"></div>
+            <div class="text-center" ng-if="!data.formData.params.response.value">Результати будуть спрямовані на Ваш {{data.formData.params.email.value}}</div>
         </div>
     </div>
 </div>
