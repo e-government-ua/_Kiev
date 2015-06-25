@@ -224,6 +224,7 @@ public class ActivitiRestDocumentController {
             }
             String fileExp = RedisUtil.getFileExp(sOriginalFileName);
             fileExp = fileExp != null ? fileExp : ".zip.zip";
+            fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? ".zip" : fileExp;
             sFileName = sOriginalFileName + fileExp;
         }
         String sFileContentType = oFile.getContentType();
