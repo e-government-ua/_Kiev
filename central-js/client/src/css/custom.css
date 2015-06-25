@@ -1306,3 +1306,16 @@ label .snippet {
     color: #aaaaaa;
     text-align: left;
 }
+
+.slot-picker .slot-day,
+.slot-picker .slot-time {
+    display: inline-block;
+}
+
+.slot-picker .slot-day {
+    min-width: 125px;
+}
+
+.slot-picker .slot-time {
+    min-width: 85px;
+}
