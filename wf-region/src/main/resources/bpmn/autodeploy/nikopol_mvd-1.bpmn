@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_mvd_1" name="Надання довідки про відсутність або наявніть судимості" isExecutable="true">
+  <process id="nikopol_mvd_1" name="Надання довідки про відсутність або наявніть судимості" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -54,7 +54,7 @@
 
 Дякуємо, що скористалися Інтернет-сервісом замовлення довідки про наявність або відсутніть судимості! Ваш запит успішно зареєстровано.
 
-Ви зможете забрати Вашу довідку приблизно за 20 робочих днів за адресою вул.Ворошилова 21.
+Ви зможете забрати Вашу довідку приблизно за 20 робочих днів за адресою _____________
 
 Підкреслюємо, що поки що забрати довідку Ви можете лише в паперовому вигляді.
 
@@ -70,7 +70,7 @@
     </boundaryEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask1" name="Надання послуги" activiti:candidateGroups="dnepr_mvd_fo1">
+    <userTask id="usertask1" name="Надання послуги" activiti:candidateGroups="nikopol_mvd_fo1">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я " type="string" writable="false"></activiti:formProperty>
@@ -159,8 +159,8 @@
 
 Ваш запит успішно оброблено.
 
-Ви можете отримати довідку за адресою м.Дніпропетровськ  вул.Ворошилова 21. 
-Графік прийому: з 15:00 до 17: 00 (крім вихідних)
+Ви можете отримати довідку за адресою м._______
+Графік прийому: _____
 
 З повагою,
 Міністерство Внутрішніх Справ Дніпропетровської області,
@@ -194,8 +194,8 @@
       </extensionElements>
     </serviceTask>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_mvd_1">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_mvd_1" id="BPMNPlane_dnepr_mvd_1">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_nikopol_mvd_1">
+    <bpmndi:BPMNPlane bpmnElement="nikopol_mvd_1" id="BPMNPlane_nikopol_mvd_1">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="110.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
