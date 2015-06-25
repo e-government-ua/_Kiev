@@ -1,6 +1,7 @@
 package org.activiti.rest.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -216,8 +217,9 @@ public class ActivitiRestDocumentController {
             log.info("sOriginalFileName="+sOriginalFileName);
             log.info("sOriginalContentType="+sOriginalContentType);
             //for(String s : request.getHeaderNames()){
-            for(int n=0;request.getHeaderNames().hasMoreElements();n++){
-                String s = request.getHeaderNames().nextElement();
+            Enumeration<String> a =  request.getHeaderNames();
+            for(int n=0;a.hasMoreElements()&&n<100;n++){
+                String s = a.nextElement();
                 log.info("n="+n+", s="+s+", value="+request.getHeader(s));
             }
             String fileExp = RedisUtil.getFileExp(sOriginalFileName);
