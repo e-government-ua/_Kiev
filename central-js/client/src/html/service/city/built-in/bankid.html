@@ -163,6 +163,13 @@
                                     <div class="filename js-filename"></div>
                                     -->
                                 </p>
+
+                                <slot-picker ng-switch-when="queueData"
+                                             name="{{property.id}}"
+                                             service-id="oServiceData.nID"
+                                             ng-model="data.formData.params[property.id].value"
+                                             ng-required="property.required"></slot-picker>
+
                             </div>
 
                             <div class="col-md-3"

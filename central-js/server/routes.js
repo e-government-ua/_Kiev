@@ -16,6 +16,7 @@ module.exports = function(app) {
 	app.get('/api/service', require('./api/service/index'));
 	app.use('/api/service/documents', require('./api/service/documents'));
 	app.use('/api/service/journal', require('./api/service/journal'));
+	app.use('/api/service/flow', require('./api/service/flow'));
 	app.use('/api/messages', require('./api/messages/index'));
 	app.get('/api/services', require('./api/services/index'));
 	app.post('/api/uploadfile', require('./api/uploadfile/post'));
