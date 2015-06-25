@@ -199,6 +199,7 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
             @RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
             @RequestParam(value = "sName") String sName,
+            @RequestParam(value = "sFileExtension", required = false) String sFileExtension,
             //@RequestParam(value = "sFile", required = false) String fileName,
             @RequestParam(value = "nID_DocumentType") Integer nID_DocumentType,
             @RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
@@ -214,6 +215,7 @@ public class ActivitiRestDocumentController {
             //sFileName = oFile.getOriginalFilename()+".zip";
             String sOriginalFileName = oFile.getOriginalFilename();
             String sOriginalContentType = oFile.getContentType();
+            log.info("sFileExtension="+sFileExtension);
             log.info("sOriginalFileName="+sOriginalFileName);
             log.info("sOriginalContentType="+sOriginalContentType);
             //for(String s : request.getHeaderNames()){
@@ -224,8 +226,11 @@ public class ActivitiRestDocumentController {
             }
             String fileExp = RedisUtil.getFileExp(sOriginalFileName);
             fileExp = fileExp != null ? fileExp : ".zip.zip";
-            fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? ".zip" : fileExp;
+            //fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? ".zip" : fileExp;
+            fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? sFileExtension : fileExp;
+            fileExp = fileExp != null ? fileExp : ".zip";
             sFileName = sOriginalFileName + fileExp;
+            log.info("sFileName="+sFileName);
         }
         String sFileContentType = oFile.getContentType();
         byte[] aoContent = oFile.getBytes();
