@@ -182,7 +182,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_nikopol_mvk_1">
     <bpmndi:BPMNPlane bpmnElement="nikopol_mvk_1" id="BPMNPlane_nikopol_mvk_1">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="180.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="150.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="67.0" width="105.0" x="620.0" y="243.0"></omgdc:Bounds>
@@ -279,7 +279,7 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
-        <omgdi:waypoint x="432.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="432.0" y="185.0"></omgdi:waypoint>
         <omgdi:waypoint x="432.0" y="287.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
@@ -291,7 +291,7 @@
         <omgdi:waypoint x="240.0" y="510.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
-        <omgdi:waypoint x="432.0" y="180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="415.0" y="167.0"></omgdi:waypoint>
         <omgdi:waypoint x="109.0" y="140.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
