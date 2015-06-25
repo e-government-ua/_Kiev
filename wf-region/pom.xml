@@ -335,7 +335,7 @@
 		<!-- MONGO -->
 		<dependency>
 			<groupId>org.egov-ua</groupId>
-			<artifactId>org.egov-ua.storage.durable</artifactId>
+			<artifactId>org.egov-ua.storage-static</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 
