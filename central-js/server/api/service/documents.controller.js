@@ -101,7 +101,7 @@ module.exports.initialUpload = function (req, res) {
                 'sID_Subject_Upload': sID_Subject,
                 'sSubjectName_Upload': 'Приватбанк',
                 'sName': docType.sName,
-                'nID_DocumentType': docType.nID
+                'nID_DocumentType': docType.nID,
             }
         };
         var bankIDType = docTypesToBankIDDocTypes[docType.nID];
@@ -125,7 +125,10 @@ module.exports.initialUpload = function (req, res) {
 
         var requestOptionsForUploadContent =
             _.merge(optionsForUploadContent.option, {
-                headers: form.getHeaders()
+                headers: form.getHeaders(),
+                'qs': {
+                    'sFileExtension': documentScan.extension
+                }
             });
 
         var decoder = new StringDecoder('utf8');
