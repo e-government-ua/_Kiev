@@ -27,21 +27,27 @@
                </div>
            </div>
             <div class="index-services-count">
-                <span class="index-services-count-item">
-                    <nobr>
-                    <span class="icon-e-service-on"></span>{{catalogCounts[2]}} &mdash; послуга доступна онлайн
-                    </nobr>
-                </span>
-                <span class="index-services-count-item">
-                    <nobr>
-                    <span class="icon-e-service-test"></span>{{catalogCounts[1]}} &mdash; дуже скоро
-                    </nobr>
-                </span>
-                <span class="index-services-count-item">
-                    <nobr>
-                    <span class="icon-e-service-off"></span>{{catalogCounts[0]}} &mdash; в роботі
-                    </nobr>
-                </span>
+                <a href="#" ng-click="filterByStatus(2)">
+                    <span class="index-services-count-item" ng-click="filterByState(2)">
+                        <nobr>
+                        <span class="icon-e-service-on"></span>{{catalogCounts[2]}} &mdash; послуги доступно онлайн
+                        </nobr>
+                    </span>
+                </a>
+                <a href="#" ng-click="filterByStatus(1)">
+                    <span class="index-services-count-item" >
+                        <nobr>
+                        <span class="icon-e-service-test"></span>{{catalogCounts[1]}} &mdash; дуже скоро
+                        </nobr>
+                    </span>
+                </a>
+                <a href="#" ng-click="filterByStatus(0)">
+                    <span class="index-services-count-item">
+                        <nobr>
+                        <span class="icon-e-service-off"></span>{{catalogCounts[0]}} &mdash; в роботі
+                        </nobr>
+                    </span>
+                </a>
             </div>
         </div>
     </div>

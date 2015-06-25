@@ -95,7 +95,7 @@ public class ActivitiRestFlowControllerScenario {
       days = JsonRestUtils.readObject(getJsonData, Days.class);
 
       FlowSlotVO slotAfterModification1 = findSlot(days, freeSlot.getnID());
-      Assert.assertFalse(slotAfterModification1.isbFree());
+      Assert.assertTrue(slotAfterModification1 == null); // slot is no more free, therefor it doesn't returned
 
       // save second time and make sure that Id is not changed
       setJsonData = mockMvc.perform(post("/flow/setFlowSlot_ServiceData").

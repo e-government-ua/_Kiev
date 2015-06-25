@@ -201,6 +201,7 @@
 					</bean>
 					<bean class="org.wf.dp.dniprorada.form.FormFileType" />
 					<bean class="org.wf.dp.dniprorada.form.TextAreaFormType" />
+					<bean class="org.wf.dp.dniprorada.form.QueueDataFormType" />
 				</list>
 			</property>
 
@@ -212,6 +213,7 @@
 			<property name="mailServerPassword" value="${mailServerPassword}" />
 			<property name="mailServerUseSSL" value="true" />
 			<property name="mailServerUseTLS" value="true" />
+			<property name="mail.address.noreply" value="${mail.address.noreply}"/>
 
 			<property name="history" value="full" />
 		</bean>

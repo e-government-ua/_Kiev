@@ -9,7 +9,7 @@ import ua.org.egov.utils.storage.model.UploadedFile;
 import ua.org.egov.utils.storage.model.UploadedFileMetadata;
 
 /**
- * @author vbolshutkin
+ * @author vbolshutkin & BW
  */
 public interface FileStorage {
 	

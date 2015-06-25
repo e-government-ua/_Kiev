@@ -9,8 +9,8 @@ exports.index = function(req, res) {
         query.size = 500;
     
 	var options = {
-		path: 'repository/process-definitions'
-                , query: query
+		path: 'repository/process-definitions', 
+		query: query
 	};
 
 	activiti.get(options, function(error, statusCode, result) {
