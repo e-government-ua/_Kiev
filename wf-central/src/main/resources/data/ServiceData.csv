@@ -16,7 +16,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 15;14;3;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo7:1:60063"}};https://test.igov.org.ua/wf-region/;true;1;true;
 16;15;3;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo8:4:12553"}};https://test.igov.org.ua/wf-region/;true;1;true;
 17;16;3;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo9:4:12551"}};https://test.igov.org.ua/wf-region/;true;1;true;
-18;17;NULL;20;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"nikolaev_oda_2:4:12567"}};https://test.igov.org.ua/wf-region/;false;1;true;
+18;17;NULL;20;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"nikolaev_oda_2:4:12567"}};https://test.igov.org.ua/wf-region/;false;1;false;
 19;18;NULL;20;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"nikolaev_oda_3:4:12552"}};https://test.igov.org.ua/wf-region/;false;1;true;
 20;19;NULL;20;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"nikolaev_oda_4:4:12558"}};https://test.igov.org.ua/wf-region/;false;1;true;
 21;20;NULL;20;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"nikolaev_oda_1:4:12549"}};https://test.igov.org.ua/wf-region/;false;1;true;
@@ -96,3 +96,4 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 95;654;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_subsidies:1:1"}};https://test.igov.org.ua/wf-region/;false;1;true;
 96;1;37;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"nikopol_mvd_1:1:1"}};https://test.igov.org.ua/wf-region/;false;1;true;
 97;4;37;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"nikopol_mvk_1:1:1"}};https://test.igov.org.ua/wf-region/;false;1;true;
+98;4;109;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"voznesensk_mvk_1:1:1"}};https://test.igov.org.ua/wf-region/;false;1;true;
