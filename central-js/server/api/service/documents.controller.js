@@ -125,7 +125,10 @@ module.exports.initialUpload = function (req, res) {
 
         var requestOptionsForUploadContent =
             _.merge(optionsForUploadContent.option, {
-                headers: form.getHeaders()
+                headers: form.getHeaders(),
+                'qs': {
+                    'sFileExtension': documentScan.extension
+                }
             });
 
         var decoder = new StringDecoder('utf8');

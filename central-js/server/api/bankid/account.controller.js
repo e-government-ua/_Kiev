@@ -48,10 +48,10 @@ module.exports.scansRequest = function(options, callback) {
 			"fields": ["firstName", "middleName", "lastName", "phone", "inn", "clId", "clIdText", "birthDay"],
 			"scans": [{
 				"type": "passport",
-				"fields": ["link", "dateCreate"]
+				"fields": ["link", "dateCreate", "extension"]
 			}, {
 				"type": "zpassport",
-				"fields": ["link", "dateCreate"]
+				"fields": ["link", "dateCreate", "extension"]
 			}]
 		}
 	}, callback);
