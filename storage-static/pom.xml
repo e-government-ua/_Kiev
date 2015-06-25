@@ -56,6 +56,21 @@
         <spring.data.mongodb.version>1.7.0.RELEASE</spring.data.mongodb.version>
     </properties>
 
+	<distributionManagement>
+	    <!-- XXX Replace localNexus to iGov_Nexus or something like that. And reconfigure Jenkins -->
+		<repository>
+			<id>eGovUa_Nexus</id>
+			<name>Internal Releases</name>
+			<url>https://nexus.igov.org.ua/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>eGovUa_Nexus</id>
+			<name>Internal Snapshots</name>
+			<url>https://nexus.igov.org.ua/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+
     <dependencies>
         <!-- MongoDB dependencies -->    
         <dependency>
