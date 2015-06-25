@@ -473,6 +473,7 @@
 					<configuration>
 						<includes>
 							<include>**/*Test.java</include>
+							<include>**/*Scenario.java</include>
 						</includes>
 					</configuration>
 				</plugin>
