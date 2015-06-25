@@ -228,8 +228,8 @@ public class ActivitiRestDocumentController {
             fileExp = fileExp != null ? fileExp : ".zip.zip";
             //fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? ".zip" : fileExp;
             fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? sFileExtension : fileExp;
-            fileExp = fileExp != null ? fileExp : ".zip";
-            sFileName = sOriginalFileName + fileExp;
+            fileExp = fileExp != null ? fileExp.toLowerCase() : ".zip";
+            sFileName = sOriginalFileName + (fileExp.startsWith(".")?"":".") + fileExp;
             log.info("sFileName="+sFileName);
         }
         String sFileContentType = oFile.getContentType();
