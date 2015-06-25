@@ -97,3 +97,4 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 96;1;37;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"nikopol_mvd_1:1:1"}};https://test.igov.org.ua/wf-region/;false;1;true;
 97;4;37;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"nikopol_mvk_1:1:1"}};https://test.igov.org.ua/wf-region/;false;1;true;
 98;4;109;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"voznesensk_mvk_1:1:1"}};https://test.igov.org.ua/wf-region/;false;1;true;
+99;1;11;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"harkov_mvd_1:1:1"}};https://test.igov.org.ua/wf-region/;false;1;true;
