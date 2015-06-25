@@ -3,8 +3,8 @@
   <process id="nikolaev_oda_4" name="Миколаєвська ОДА - Видача дозволу на переоформлення договору найму жилого приміщення державного / комунального житлового фонду" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
@@ -27,7 +27,7 @@
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
-		<activiti:formProperty id="goal" name="Яка мета або причина одержання дозволу?" type="string" writable="false" ></activiti:formProperty>
+        <activiti:formProperty id="goal" name="Яка мета або причина одержання дозволу?" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
@@ -52,7 +52,7 @@
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
-		<activiti:formProperty id="goal" name="Яка мета або причина одержання дозволу?" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="goal" name="Яка мета або причина одержання дозволу?" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="regChanged" name="Витяг готовий?" type="enum" required="true">
           <activiti:value id="yes" name="Так, готовий"></activiti:value>
         </activiti:formProperty>
