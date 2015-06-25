@@ -87,18 +87,16 @@ define('service/service', ['angularAMD'], function(angularAMD) {
       });
     };
     
-   this.initialUpload = function(accessToken, typesToUpload) {
-		var data = {
-			'access_token': accessToken
-		};
-		return $http.post('./api/service/documents/initialupload', typesToUpload, {
+   this.initialUpload = function(typesToUpload) {
+		var data = {};
+		return $http.post('./api/service/documents/initialUpload', typesToUpload, {
 			params: data
 		}).then(function(response) {
 			return response.data;
 		});
 	};
 
-	this.getOrUploadDocuments = function(accessToken) {
+	this.getOrUploadDocuments = function() {
 		var initialUpload = this.initialUpload;
 		var getDocuments = this.getDocuments;
 		return this.getDocuments().then(function(data) {
@@ -125,8 +123,7 @@ define('service/service', ['angularAMD'], function(angularAMD) {
 			}
 
 			if (typesToUpload.length > 0) {
-				return initialUpload(accessToken, 
-						typesToUpload)
+				return initialUpload(typesToUpload)
 					.then(function(uploadingResult) {
 						if (!uploadingResult.hasOwnProperty('error')) {
 							return getDocuments().then(function(updatedData) {

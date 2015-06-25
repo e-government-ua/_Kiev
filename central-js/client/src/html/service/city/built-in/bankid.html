@@ -194,9 +194,10 @@
                         <div class="row">
                             <div class="col-md-5"></div>
                             <div class="col-md-3">
-                                <button class="btn btn-info"
-                                        ng-click="submit(form)"
-                                        ng-disable="cantSubmit(form) || bSending(form)">Замовити послугу
+                                <button class="btn btn-info" ng-click="submit(form)"
+                                        ng-disable="cantSubmit(form)"
+                                        ng-hide="bSending(form)"
+                                        >Замовити послугу
                                 </button>
                                 <br><label ng-show="bSending(form)">зачекайте...</label>
                             </div>

@@ -28,12 +28,10 @@ public class FilterServletOutputStream extends ServletOutputStream {
     stream.write(b, off, len);
   }
   
-  @Override
   public void setWriteListener(WriteListener writeListener) {
     this.writeListener =  writeListener;
   }
 
-  @Override
   public boolean isReady() {
     return true;
   }

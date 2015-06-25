@@ -72,8 +72,7 @@ define('documents', ['angularAMD', 'config', 'service', 'file2/directive', 'file
             return BankIDAccount.customer;
           },
           documents: function($q, $state, ServiceService, BankIDLogin, customer) {
-            return ServiceService.getOrUploadDocuments(
-                            BankIDLogin.access_token)
+            return ServiceService.getOrUploadDocuments()
                         .then(function(data) {
                             return data;
                         });

@@ -1,68 +1,83 @@
-var request = require('request');
-var Admin = require('../../components/admin');
+var express = require('express');
+var router = express.Router();
+var syncSubject = require('../service/syncSubject.controller');
+var accountService = require('./account.service.js');
+var async = require('async');
 
-module.exports.index = function(options, callback) {
-	var url = options.protocol + '://' + options.hostname + options.path + '/checked/data';
-	
-	var adminCheckCallback = function(error, response, body){
-		if (body.customer && Admin.isAdminInn(body.customer.inn)) {
-			body.admin = {
-				inn: body.customer.inn,
-				token: Admin.generateAdminToken()
-			};
-		}
-		callback(error, response, body);
-	};
-
-	return request.post({
-		'url': url,
-		'headers': {
-			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id,
-			'Accept': 'application/json'
-		},
-		json: true,
-		body: {
-			"type": "physical",
-			"fields": ["firstName", "middleName", "lastName", "phone", "inn", "clId", "clIdText", "birthDay"],
-			"documents": [{
-				"type": "passport",
-				"fields": ["series", "number", "issue", "dateIssue", "dateExpiration", "issueCountryIso2"]
-			}]
-		}
-	}, adminCheckCallback);
+var createError = function (error, error_description, response) {
+    return {
+        code: response ? response.statusCode : 500,
+        err: {
+            error: error,
+            error_description: error_description
+        }
+    };
 };
 
-module.exports.scansRequest = function(options, callback) {
-	var url = options.protocol + '://' + options.hostname + options.path + '/checked/data';
-	return request.post({
-		'url': url,
-		'headers': {
-			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id,
-			'Accept': 'application/json'
-		},
-		json: true,
-		body: {
-			"type": "physical",
-			"fields": ["firstName", "middleName", "lastName", "phone", "inn", "clId", "clIdText", "birthDay"],
-			"scans": [{
-				"type": "passport",
-				"fields": ["link", "dateCreate"]
-			}, {
-				"type": "zpassport",
-				"fields": ["link", "dateCreate"]
-			}]
-		}
-	}, callback);
-};
+module.exports.index = function (req, res, next) {
+    var config = require('../../config');
+    async.waterfall([
+        function (callback) {
+            var bankid = config.bankid;
 
-module.exports.prepareScanContentRequest = function(options) {
-	var o = {
-		'url': options.url,
-		'headers': {
-			'Authorization': 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id
-		}
-	};
-	return request.get(o);
+            var options = {
+                protocol: bankid.sProtocol_ResourceService_BankID,
+                hostname: bankid.sHost_ResourceService_BankID,
+                path: '/ResourceService',
+                params: {
+                    client_id: bankid.client_id,
+                    client_secret: bankid.client_secret,
+                    access_token: req.query.access_token || null
+                }
+            };
+
+            accountService.index(options, function (error, response, body) {
+                if (error || body.error) {
+                    callback(createError(error || body.error, body.error_description, response), null);
+                } else {
+                    callback(null, {
+                        customer: body.customer
+                    });
+                }
+            });
+        },
+
+        function (result, callback) {
+            var activiti = config.activiti;
+
+            var syncSubjectOptions = {
+                protocol: activiti.protocol,
+                hostname: activiti.hostname,
+                port: activiti.port,
+                path: activiti.path,
+                username: activiti.username,
+                password: activiti.password,
+                params: {
+                    sINN: result.customer.inn || null
+                }
+            };
+
+            syncSubject.index(syncSubjectOptions, function (error, response, body) {
+                if (error) {
+                    callback(createError(error, response), null);
+                } else {
+                    result.subject = JSON.parse(body);
+                    callback(null, result);
+                }
+            });
+        }
+    ], function (err, result) {
+        if (err) {
+            res.status(err.code);
+            res.send(err);
+            res.end();
+        } else {
+            req.session.subject = result.subject;
+            res.send({
+                customer: result.customer
+            });
+            res.end();
+        }
+    });
+
 };

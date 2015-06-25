@@ -1,7 +1,14 @@
 package org.activiti.rest.controller;
 
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.redis.util.RedisUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,15 +23,12 @@ import org.wf.dp.dniprorada.model.HistoryEvent;
 import org.wf.dp.dniprorada.model.Subject;
 import org.wf.dp.dniprorada.util.Util;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
-
 @Controller
 @RequestMapping(value = "/services")
 public class ActivitiRestDocumentController {
 
+    private final Logger log = LoggerFactory.getLogger(ActivitiRestDocumentController.class);
+    
     @Autowired
     private DocumentDao documentDao;
     
@@ -44,10 +48,10 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     Document getDocument(@RequestParam(value = "nID") Long id,
-            @RequestParam(value = "nID_Subject") Long nID_Subject) throws ActivitiRestException{
+            @RequestParam(value = "nID_Subject") long nID_Subject) throws ActivitiRestException{
         Document document = documentDao.getDocument(id);
-        if(nID_Subject != document.getSubject().getnID()){
-            throw new ActivitiRestException("401", "You don't have access!");
+        if(nID_Subject != document.getSubject().getnID()){  
+            throw new ActivitiRestException("401", "You don't have access! Yuor nID = " + nID_Subject + " Document's Subject's nID = " + document.getSubject().getnID());
         } else{
             return  document;
         }
@@ -64,7 +68,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     String getDocumentContent(@RequestParam(value = "nID") Long id, 
-            @RequestParam(value = "nID_Subject") Long nID_Subject) throws ActivitiRestException {
+            @RequestParam(value = "nID_Subject") long nID_Subject) throws ActivitiRestException {
         Document document = documentDao.getDocument(id);
         if(nID_Subject != document.getSubject().getnID()){
             throw new ActivitiRestException("401", "You don't have access!");
@@ -77,7 +81,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     List<HistoryEvent> getHistoryEvents(
-            @RequestParam(value = "nID_Subject") Long nID_Subject) {
+            @RequestParam(value = "nID_Subject") long nID_Subject) {
         return historyEventDao.getHistoryEvents(nID_Subject);
     }
 
@@ -85,7 +89,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     Long setHistoryEvent(
-            @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
+            @RequestParam(value = "nID_Subject", required = false) long nID_Subject,
             @RequestParam(value = "nID_HistoryEventType", required = false) Long nID_HistoryEventType,
             @RequestParam(value = "sEventName", required = false) String sEventName_Custom,
             @RequestParam(value = "sMessage") String sMessage,
@@ -106,16 +110,16 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     byte[] getDocumentFile(@RequestParam(value = "nID") Long id,
-            @RequestParam(value = "nID_Subject") Long nID_Subject,
+            @RequestParam(value = "nID_Subject") long nID_Subject,
                            HttpServletRequest request, HttpServletResponse httpResponse) 
                            throws ActivitiRestException{
         Document document = documentDao.getDocument(id);
         if(nID_Subject != document.getSubject().getnID()){
             throw new ActivitiRestException("401", "You don't have access!");
         } 
-        //byte[] content = documentDao.getDocumentContent(document
-        //        .getСontentKey());
-        byte[] content = "".getBytes();
+        byte[] content = documentDao.getDocumentContent(document
+                .getСontentKey());
+        //byte[] content = "".getBytes();
         
         httpResponse.setHeader("Content-disposition", "attachment; filename="
                 + document.getFile());
@@ -130,7 +134,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     List<Document> getDocuments(
-            @RequestParam(value = "nID_Subject") Long nID_Subject) {
+            @RequestParam(value = "nID_Subject") long nID_Subject) {
         return documentDao.getDocuments(nID_Subject);
     }
 
@@ -138,7 +142,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     Long setDocument(
-            @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
+            @RequestParam(value = "nID_Subject", required = false) long nID_Subject,
             @RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
             @RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
             @RequestParam(value = "sName") String sName,
@@ -191,7 +195,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     Long setDocumentFile(
-            @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
+            @RequestParam(value = "nID_Subject", required = false) long nID_Subject,
             @RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
             @RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
             @RequestParam(value = "sName") String sName,
@@ -207,10 +211,21 @@ public class ActivitiRestDocumentController {
          //Content-Disposition:attachment; filename=passport.zip
         String sFileName = request.getHeader("filename");
         if(sFileName==null||"".equals(sFileName.trim())){
-            String originalFilename = oFile.getOriginalFilename();
-            String fileExp = RedisUtil.getFileExp(originalFilename);
+            //sFileName = oFile.getOriginalFilename()+".zip";
+            String sOriginalFileName = oFile.getOriginalFilename();
+            String sOriginalContentType = oFile.getContentType();
+            log.info("sOriginalFileName="+sOriginalFileName);
+            log.info("sOriginalContentType="+sOriginalContentType);
+            //for(String s : request.getHeaderNames()){
+            Enumeration<String> a =  request.getHeaderNames();
+            for(int n=0;a.hasMoreElements()&&n<100;n++){
+                String s = a.nextElement();
+                log.info("n="+n+", s="+s+", value="+request.getHeader(s));
+            }
+            String fileExp = RedisUtil.getFileExp(sOriginalFileName);
             fileExp = fileExp != null ? fileExp : ".zip.zip";
-            sFileName = originalFilename + fileExp;
+            fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? ".zip" : fileExp;
+            sFileName = sOriginalFileName + fileExp;
         }
         String sFileContentType = oFile.getContentType();
         byte[] aoContent = oFile.getBytes();

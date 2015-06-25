@@ -29,12 +29,13 @@ public class FlowSlotVO {
       sTime = timeFormatter.print(flowSlot.getsDate());
 
       nMinutes = DurationUtil.parseDuration(flowSlot.getsDuration()).getMinutes();
-
+      int nMinutesReserving = 5;
+      
       DateTime now = DateTime.now();
 
       bFree = true;
       for (SubjectTicket ticket : flowSlot.getSubjectTickets()) {
-         if (ticket.getnID_Task_Activiti() != null || flowSlot.getsDate().compareTo(now.minusMinutes(nMinutes)) >= 0) {
+         if (ticket.getnID_Task_Activiti() != null || ticket.getsDateEdit().compareTo(now.minusMinutes(nMinutesReserving)) >= 0) {
             bFree = false;
             break;
          }
