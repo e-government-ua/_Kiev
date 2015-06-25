@@ -64,14 +64,12 @@ public class ServiceData extends Entity {
 	@Column(name = "sNote", nullable = false)
 	private String sNote;
 
-	@JsonProperty(value = "asAuth")
-	@Column(name = "asAuth", nullable = false)
-	private String asAuth;
-
-
+        
+        
 	public Service getService() {
 		return service;
 	}
+
 	public void setService(Service service) {
 		this.service = service;
 	}
@@ -79,6 +77,7 @@ public class ServiceData extends Entity {
 	public City getCity() {
 		return city;
 	}
+
 	public void setCity(City city) {
 		this.city = city;
 	}
@@ -86,6 +85,7 @@ public class ServiceData extends Entity {
 	public Region getRegion() {
 		return region;
 	}
+
 	public void setRegion(Region region) {
 		this.region = region;
 	}
@@ -93,6 +93,7 @@ public class ServiceData extends Entity {
 	public ServiceType getServiceType() {
 		return serviceType;
 	}
+
 	public void setServiceType(ServiceType serviceType) {
 		this.serviceType = serviceType;
 	}
@@ -100,6 +101,7 @@ public class ServiceData extends Entity {
 	public String getData() {
 		return data;
 	}
+
 	public void setData(String data) {
 		this.data = data;
 	}
@@ -107,6 +109,7 @@ public class ServiceData extends Entity {
 	public String getUrl() {
 		return url;
 	}
+
 	public void setUrl(String url) {
 		this.url = url;
 	}
@@ -114,6 +117,7 @@ public class ServiceData extends Entity {
 	public boolean isHidden() {
 		return hidden;
 	}
+
 	public void setHidden(boolean b) {
 		this.hidden = b;
 	}
@@ -122,6 +126,7 @@ public class ServiceData extends Entity {
 	public boolean isTest() {
 		return bTest;
 	}
+
 	public void setTest(boolean b) {
 		this.bTest = b;
 	}
@@ -130,15 +135,15 @@ public class ServiceData extends Entity {
 	public String getNote() {
 		return sNote;
 	}
+
 	public void setNote(String s) {
 		this.sNote = s;
 	}
+        
+        /*@Override
+        public boolean equals(Object o) {
+            return super.equals(o); //To change body of generated methods, choose Tools | Templates.
+        }*/
 
 
-	public String getAsAuth() {
-		return asAuth;
-	}
-	public void setAsAuth(String asAuth) {
-		this.asAuth = asAuth;
-	}
 }
