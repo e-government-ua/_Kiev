@@ -1,4 +1,20 @@
 ### iGov.ua APIs
+ <a name="0_contents">*Contents*</a><br/>
+<a href="#1_userLogin">1. Логин пользователя</a><br/>
+<a href="#2_userLogout">2. Логаут пользователя</a><br/>
+<a href="#3_activitiRun">3. Запуск процесса Activiti</a><br/>
+<a href="#4_activitiRunTasks">4. Загрузка задач из Activiti</a><br/>
+<a href="#5_activitiRunServices">5. Загрузка каталога сервисов из Activiti</a><br/>
+<a href="#6_loadFileFromDb">6. Загрузки прикрепленного к заявке файла из постоянной базы</a><br/>
+<a href="#7_workWithMerchants">7. Работа с мерчантами</a><br/>
+<a href="#8_workWithTables">8. Бэкап/восстановление данных таблиц сервисов и мест</a><br/>
+<a href="#9_workWithDocuments">9. Работа с документами</a><br/>
+<a href="#10_workWithSubjects">10. Работа с субъектами</a><br/>
+<a href="#11_accessDocuments">11. Предоставление и проверка доступа к документам</a><br/>
+<a href="#12_workWithMessages">12. Работа с сообщениями</a><br/>
+<a href="#13_workWithHistoryEvents">13. Работа с историей (Мой журнал)</a><br/>
+<a href="#14_uploadFileToDb">14. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti</a><br/>
+<a href="#15_workWithServices">15. Работа с каталогом сервисов</a><br/>
 
 ##### Mandatory HTTP Headers
 
@@ -8,7 +24,9 @@
 | Accept | application/json |
 | Authorization | Basic ... |
 
-#### 1. Логин пользователя:
+<a name="1_userLogin">
+####1. Логин пользователя:
+</a><a href="#0_contents">↑Up</a>
 
 **HTTP Metod: POST**
 
@@ -33,10 +51,12 @@
 	{"session":"true"} //[1..1]
 ```
 
-true - Пользователь авторизирован
+true - Пользователь авторизирован   
 false - Имя пользователя или пароль не корректны
 
+<a name="2_userLogout">
 #### 2. Логаут пользователя:
+</a><a href="#0_contents">↑Up</a>
 
 **HTTP Metod: POST/DELETE**
 
@@ -53,8 +73,9 @@ false - Имя пользователя или пароль не коррект�
 true - Пользователь авторизирован
 false - Имя пользователя или пароль не корректны
 
-
+<a name="3_activitiRun">
 #### 3. Запуск процесса Activiti:
+</a><a href="#0_contents">↑Up</a>
 
 **HTTP Metod: GET**
 
@@ -70,8 +91,9 @@ false - Имя пользователя или пароль не коррект�
 	}
 ```
 
-#### 4. Загрузка задач из Activiti:
-
+<a name="4_activitiRunTasks">
+####4. Загрузка задач из Activiti
+</a><a href="#0_contents">↑Up</a><br/>
 **HTTP Metod: GET**
 
 **HTTP Context: https://server:port/wf-region/service/rest/tasks/{assignee}**
@@ -105,8 +127,9 @@ false - Имя пользователя или пароль не коррект�
 	]
 ```
 
-#### 5. Загрузка каталога сервисов из Activiti:
-
+<a name="5_activitiRunServices">
+####5. Загрузка каталога сервисов из Activiti
+</a><a href="#0_contents">↑Up</a><br/>
 **HTTP Metod: GET**
 
 **HTTP Context: https://server:port/wf-region/service/rest/process-definitions**
@@ -130,7 +153,9 @@ false - Имя пользователя или пароль не коррект�
 	  }
 	]
 ```
-#### 6. Загрузки прикрепленного к заявке файла из постоянной базы:
+<a name="6_loadFileFromDb">
+####6. Загрузки прикрепленного к заявке файла из постоянной базы
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
@@ -144,7 +169,9 @@ false - Имя пользователя или пароль не коррект�
 https://test.igov.org.ua/wf-region/service/rest/file/download_file_from_db?taskId=82596&attachmentId=6726532&nFile=7
 
 
-#### 7. Работа с мерчантами:
+<a name="7_workWithMerchants">
+####7. Работа с мерчантами
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
@@ -230,7 +257,9 @@ https://test.igov.org.ua/wf-region/service/merchant/setMerchant?id=1&ownerName=S
 https://test.igov.org.ua/wf-region/service/merchant/addMerchant?id=1
 
 
-#### 8. Бэкап/восстановление данных таблиц сервисов и мест:
+<a name="8_workWithTables">
+####8. Бэкап/восстановление данных таблиц сервисов и мест
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
@@ -271,8 +300,9 @@ https://test.igov.org.ua/wf-region/service/merchant/addMerchant?id=1
 
 ----------------------------------------------------------------------------------------------------------------------------
 
-#### 9. Работа с документами
-
+<a name="9_workWithDocuments">
+####9. Работа с документами
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
@@ -423,9 +453,9 @@ https://poligon.igov.org.ua/wf-central/service/services/setDocument?sID_Subject_
 
 --------------------------------------------------------------------------------------------------------------------------
 
-
-#### 10. Работа с субъктами
-
+<a name="10_workWithSubjects">
+####10. Работа с субъектами
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
@@ -456,7 +486,9 @@ https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 ```
 --------------------------------------------------------------------------------------------------------------------------
 
-#### 11. Предоставление и проверка доступа к документам
+<a name="11_accessDocuments">
+####11. Предоставление и проверка доступа к документам
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: POST**
 
@@ -548,7 +580,9 @@ https://seriver:port/wf-central/service/setDocumentAccess - Установка �
 ```
 
 
-#### 12. Работа с сообщениями
+<a name="12_workWithMessages">
+####12. Работа с сообщениями
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
@@ -558,9 +592,10 @@ https://seriver:port/wf-central/service/setDocumentAccess - Установка �
 
 https://poligon.igov.org.ua/wf-central/service/messages/getMessages
 
-Ответ:
+Response:
+```json
 [{"nID":76,"sHead":"Закликаю владу перевести цю послугу в електронну форму!","sBody":"Дніпропетровськ - Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки","sDate":"2015-06-03 22:09:16.536","nID_Subject":0,"sMail":"bvv4ik@gmail.com","sContacts":"","sData":""}]
-
+```
 
 **HTTP Metod: GET**
 
@@ -572,8 +607,9 @@ https://poligon.igov.org.ua/wf-central/service/messages/getMessages
 https://poligon.igov.org.ua/wf-central/service/messages/getMessage?nID=76
 
 Ответ:
+```json
 {"nID":76,"sHead":"Закликаю владу перевести цю послугу в електронну форму!","sBody":"Дніпропетровськ - Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки","sDate":"2015-06-03 22:09:16.536","nID_Subject":0,"sMail":"bvv4ik@gmail.com","sContacts":"","sData":""}
-
+```
 **HTTP Metod: POST**
 
 **HTTP Context: http://server:port/wf-central/service/messages/setMessage** - сохранение сообщения
@@ -589,12 +625,14 @@ https://poligon.igov.org.ua/wf-central/service/messages/getMessage?nID=76
 https://poligon.igov.org.ua/wf-central/service/messages/setMessage?sHead=name&sBody=body&sMail=a@a.a
 
 Ответ:
-Status 200 если Ok
+ Status 200 если Ok
 
 --------------------------------------------------------------------------------------------------------------------------
 
 
-#### 13. Работа с историей (Мой журнал)
+<a name="13_workWithHistoryEvents">
+####13. Работа с историей (Мой журнал)
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
@@ -629,7 +667,9 @@ https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Sub
 
 --------------------------------------------------------------------------------------------------------------------------
 
-#### 14. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti
+<a name="14_uploadFileToDb">
+####14. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: POST**
 
@@ -643,16 +683,20 @@ https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Sub
 http://test.igov.org.ua/wf-region/service/rest/file/upload_file_as_attachment?taskId=68&description=ololo"
 
 Ответ без ошибок:
+```json
 {"taskId":"38","processInstanceId":null,"userId":"kermit","name":"jmt.png","id":"45","type":"image/png;png","description":"SomeDocumentDescription","time":1433539278957,"url":null} 
 ID созданного attachment - "id":"45"
-
+```
 Ответ с ошибкой:
+```json
 {"code":"SYSTEM_ERR","message":"Cannot find task with id 384"}
-
+```
 
 --------------------------------------------------------------------------------------------------------------------------
 
-#### 15. Работа с каталогом сервисов
+<a name="15_workWithServices">
+####15. Работа с каталогом сервисов
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Context: http://server:port/wf-central/service/services/getServicesTree** - Получение делева сервисов
 
@@ -664,8 +708,9 @@ ID созданного attachment - "id":"45"
 https://poligon.igov.org.ua/wf-central/service/services/getServicesTree
 
 Ответ:
+```json
 [{"nID":1,"sID":"Citizen","sName":"Громадянам","nOrder":1,"aSubcategory":[{"nID":1,"sName":"Будівництво, нерухомість, земля","sID":"Build","nOrder":1,"aService":[{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":6,"sName":"Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою.","nOrder":6,"nSub":1},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":8,"sName":"Надання довідки про перебування на квартирному обліку при міськвиконкомі за місцем проживання та в житлово-будівельному кооперативі.","nOrder":8,"nSub":1},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":9,"sName":"Надання довідки про перебування на обліку бажаючих отримати земельну ділянку під індивідуальне будівництво","nOrder":9,"nSub":0},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":10,"sName":"Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки","nOrder":10,"nSub":2},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":11,"sName":"Надання відомостей з Державного земельного кадастру у формі витягу з Державного земельного кадастру про земельну ділянку","nOrder":11,"nSub":0},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":12,"sName":"Присвоєння поштової адреси об’єкту нерухомого майна","nOrder":12,"nSub":1},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":13,"sName":"Видача довідок про перебування на квартирному обліку","nOrder":13,"nSub":0}]
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/getService** - Получение сервиса
 
@@ -677,7 +722,9 @@ https://poligon.igov.org.ua/wf-central/service/services/getServicesTree
 https://poligon.igov.org.ua/wf-central/service/services/getService?nID=1
 
 Ответ:
+```json
 {"sSubjectOperatorName":"МВС","subjectOperatorName":"МВС","nID":1,"sName":"Отримати довідку про несудимість","nOrder":1,"aServiceData":[{"nID":1,"nID_City":{"nID":2,"sName":"Кривий Ріг","nID_Region":{"nID":1,"sName":"Дніпропетровська"}},"nID_ServiceType":{"nID":1,"sName":"Внешняя","sNote":"Пользователь переходит по ссылке на услугу, реализованную на сторонней платформе"},"oSubject_Operator":{"nID":1,"oSubject":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк","sLabelShort":"ПриватБанк"},"sOKPO":"093205","sFormPrivacy":"ПАО","sName":"ПриватБанк","sNameFull":"Банк ПриватБанк"},"oData":"{}","sURL":"https://dniprorada.igov.org.ua","bHidden":false}],"sInfo":"","sFAQ":"","sLaw":"","nSub":0}
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/setService** - Изменение сервиса. Можно менять/добавлять, но не удалять данные внутри сервиса, на разной глубине вложенности. Передается json в теле POST запроса в том же формате, в котором он был в getService. 
 
@@ -687,7 +734,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getService?nID=1
 
 Пример:
 https://poligon.igov.org.ua/wf-central/service/services/setService
-
+```json
 {
     "sSubjectOperatorName": "МВС",
     "subjectOperatorName": "МВС",
@@ -733,8 +780,9 @@ https://poligon.igov.org.ua/wf-central/service/services/setService
     "sLaw": "",
     "nSub": 0
 }
-
+```
 Ответ:
+```json
 {
     "sSubjectOperatorName": "МВС",
     "subjectOperatorName": "МВС",
@@ -780,7 +828,7 @@ https://poligon.igov.org.ua/wf-central/service/services/setService
     "sLaw": "",
     "nSub": 0
 }
-
+```
 **HTTP Context: http://server:port/wf-central/service/services/removeService** - Удаление сервиса. 
 
 **HTTP Metod: DELETE**
@@ -802,12 +850,12 @@ https://poligon.igov.org.ua/wf-central/service/services/removeService?nID=1
 https://poligon.igov.org.ua/wf-central/service/services/removeService?nID=1&bRecursive=true
 
 Ответ 2: HTTP STATUS 200
-
+```json
 {
     "code": "success",
     "message": "class org.wf.dp.dniprorada.model.Service id: 1 removed"
 }
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/removeServiceData** - Удаление сущности ServiceData.
 
@@ -825,12 +873,12 @@ HTTP STATUS 304 - не удалено.
 https://poligon.igov.org.ua/wf-central/service/services/removeServiceData?nID=1&bRecursive=true
 
 Ответ: HTTP STATUS 200
-
+```json
 {
     "code": "success",
     "message": "class org.wf.dp.dniprorada.model.ServiceData id: 1 removed"
 }
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/removeSubcategory** - Удаление подкатегории.
 
@@ -853,12 +901,12 @@ https://poligon.igov.org.ua/wf-central/service/services/removeSubcategory?nID=1
 https://poligon.igov.org.ua/wf-central/service/services/removeSubcategory?nID=1&bRecursive=true
 
 Ответ 2: HTTP STATUS 200
-
+```json
 {
     "code": "success",
     "message": "class org.wf.dp.dniprorada.model.Subcategory id: 1 removed"
 }
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/removeCategory** - Удаление категории.
 
@@ -881,12 +929,12 @@ https://poligon.igov.org.ua/wf-central/service/services/removeCategory?nID=1
 https://poligon.igov.org.ua/wf-central/service/services/removeCategory?nID=1&bRecursive=true
 
 Ответ 2: HTTP STATUS 200
-
+```json
 {
     "code": "success",
     "message": "class org.wf.dp.dniprorada.model.Category id: 1 removed"
 }
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/removeServicesTree** - Удаление всего дерева сервисов и категорий.
 
@@ -900,12 +948,12 @@ HTTP STATUS 200 - удаление успешно.
 https://poligon.igov.org.ua/wf-central/service/services/removeServicesTree
 
 Ответ 1: HTTP STATUS 200
-
+```json
 {
     "code": "success",
     "message": "ServicesTree removed"
 }
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/getPlaces** - Получения дерева мест (регионов и городов).
 
@@ -915,7 +963,7 @@ https://poligon.igov.org.ua/wf-central/service/services/removeServicesTree
 https://poligon.igov.org.ua/wf-central/service/services/getPlaces
 
 Ответ:
-
+```json
 [
     {
         "nID": 1,
@@ -1001,7 +1049,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getPlaces
         ]
     }
 ]
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/setPlaces** - Изменение дерева мест (регионов и городов). Можно менять регионы (не добавлять и не удалять) + менять/добавлять города (но не удалять), Передается json в теле POST запроса в том же формате, в котором он был в getPlaces. 
 
@@ -1011,7 +1059,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getPlaces
 
 Пример:
 https://poligon.igov.org.ua/wf-central/service/services/setPlaces
-
+```json
 [
     {
         "nID": 1,
@@ -1028,9 +1076,9 @@ https://poligon.igov.org.ua/wf-central/service/services/setPlaces
         ]
     }
 ]
-
+```
 Ответ: HTTP STATUS 200
-
+```json
 [
     {
         "nID": 1,
@@ -1047,7 +1095,7 @@ https://poligon.igov.org.ua/wf-central/service/services/setPlaces
         ]
     }
 ]
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/setServicesTree** - Изменение дерева категорий (с вложенными подкатегориями и сервисами). Можно менять категории (не добавлять и не удалять) + менять/добавлять (но не удалять) вложенные сущности, Передается json в теле POST запроса в том же формате, в котором он был в getServicesTree. 
 
@@ -1057,7 +1105,7 @@ https://poligon.igov.org.ua/wf-central/service/services/setPlaces
 
 Пример:
 https://poligon.igov.org.ua/wf-central/service/services/setServicesTree
-
+```json
 [
     {
         "nID": 1,
@@ -1086,9 +1134,9 @@ https://poligon.igov.org.ua/wf-central/service/services/setServicesTree
             ]
          }
 ]
-
+```
 Ответ: HTTP STATUS 200
-
+```json
 [
     {
         "nID": 1,
@@ -1117,3 +1165,4 @@ https://poligon.igov.org.ua/wf-central/service/services/setServicesTree
             ]
          }
 ]
+```
