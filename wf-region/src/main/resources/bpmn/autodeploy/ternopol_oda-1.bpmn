@@ -315,50 +315,7 @@
     <sequenceFlow id="flow18" name="${decide3 == 'accept3'}" sourceRef="exclusivegateway3" targetRef="mailtask4">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide3 == 'accept3'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask4" name="Видача ліцензії" activiti:candidateGroups="ternopol_oda1">
-      <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="text1" name="Данні організації-заявника" type="label" default="  " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param1" name="Найменування" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param2" name="Місцезнаходження " type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param3" name="Код ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param4" name="Телефон" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param5" name="Факс " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param6" name="Поточний рахунок у національній валюті" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param7" name="Рахунок в іноземній валюті" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param8" name="ПІБ керівника організації" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="text2" name="Данні іноземного суб'єкту зовнішньоекономічної діяльності" type="label" default="  "></activiti:formProperty>
-        <activiti:formProperty id="param9" name="Найменування" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param10" name=" Місцезнаходження" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param11" name="Банківський рахунок" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="text3" name="Данні операції" type="label" default="  "></activiti:formProperty>
-        <activiti:formProperty id="param12" name="Код експортного /імпортного товару (УКТ ЗЕД)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param13" name="Одиниця виміру" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param14" name="Кількість" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param15" name="Вартість (тис. дол. США)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param16" name="Вартість (в тис.одиницях валюти контракту)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param17" name="Додаткове найменування" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param18" name="Країна призначення" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param19" name="Країна імпортера/експортера" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param20" name="Країна походження" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param21" name="Базис поставки" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param22" name="Валюта контракту" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param23" name="Валюта платежу" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param24" name="Митниця" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param25" name="Характер угоди" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param26" name="Уповноважений банк" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param27" name="Підстава для оформлення ліцензії" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="param28" name="Особливі умови " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="сщташкь" name="Підтверждення отримання громадянином  ліцензії" type="enum" required="true">
-          <activiti:value id="yes" name="Я підтверджую, що оригінал ліцензії був наданий заявнику."></activiti:value>
-        </activiti:formProperty>
-      </extensionElements>
-    </userTask>
     <endEvent id="endevent6" name="End"></endEvent>
-    <sequenceFlow id="flow19" sourceRef="usertask4" targetRef="endevent6"></sequenceFlow>
     <serviceTask id="mailtask3" name="Повідомлення про відмову в наданні послуги" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -405,7 +362,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow21" sourceRef="mailtask4" targetRef="usertask4"></sequenceFlow>
+    <sequenceFlow id="flow21" sourceRef="mailtask4" targetRef="endevent6"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>ternopol_oda1</text>
     </textAnnotation>
@@ -415,11 +372,7 @@
     <textAnnotation id="textannotation3">
       <text>ternopol_oda1</text>
     </textAnnotation>
-    <textAnnotation id="textannotation4">
-      <text>ternopol_oda1</text>
-    </textAnnotation>
     <association id="association1" sourceRef="textannotation3" targetRef="usertask3"></association>
-    <association id="association2" sourceRef="textannotation4" targetRef="usertask4"></association>
     <association id="association3" sourceRef="textannotation2" targetRef="usertask2"></association>
     <association id="association4" sourceRef="textannotation1" targetRef="usertask1"></association>
   </process>
@@ -467,11 +420,8 @@
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
         <omgdc:Bounds height="40.0" width="40.0" x="670.0" y="587.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
-        <omgdc:Bounds height="55.0" width="185.0" x="376.0" y="770.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent6" id="BPMNShape_endevent6">
-        <omgdc:Bounds height="35.0" width="35.0" x="451.0" y="860.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="451.0" y="800.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
         <omgdc:Bounds height="55.0" width="181.0" x="753.0" y="452.0"></omgdc:Bounds>
@@ -490,9 +440,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
         <omgdc:Bounds height="50.0" width="100.0" x="196.0" y="583.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation4" id="BPMNShape_textannotation4">
-        <omgdc:Bounds height="50.0" width="100.0" x="188.0" y="773.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="125.0" y="137.0"></omgdi:waypoint>
@@ -577,25 +524,17 @@
           <omgdc:Bounds height="42.0" width="100.0" x="655.0" y="630.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
-        <omgdi:waypoint x="468.0" y="825.0"></omgdi:waypoint>
-        <omgdi:waypoint x="468.0" y="860.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
         <omgdi:waypoint x="934.0" y="479.0"></omgdi:waypoint>
         <omgdi:waypoint x="980.0" y="479.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
         <omgdi:waypoint x="468.0" y="745.0"></omgdi:waypoint>
-        <omgdi:waypoint x="468.0" y="770.0"></omgdi:waypoint>
+        <omgdi:waypoint x="468.0" y="800.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
         <omgdi:waypoint x="296.0" y="608.0"></omgdi:waypoint>
         <omgdi:waypoint x="376.0" y="607.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
-        <omgdi:waypoint x="288.0" y="798.0"></omgdi:waypoint>
-        <omgdi:waypoint x="376.0" y="797.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
         <omgdi:waypoint x="296.0" y="480.0"></omgdi:waypoint>
