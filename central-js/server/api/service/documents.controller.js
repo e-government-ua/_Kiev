@@ -101,7 +101,7 @@ module.exports.initialUpload = function (req, res) {
                 'sID_Subject_Upload': sID_Subject,
                 'sSubjectName_Upload': 'Приватбанк',
                 'sName': docType.sName,
-                'nID_DocumentType': docType.nID,
+                'nID_DocumentType': docType.nID
             }
         };
         var bankIDType = docTypesToBankIDDocTypes[docType.nID];
