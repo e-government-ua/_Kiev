@@ -184,6 +184,7 @@
                     </bean>
                     <bean class="org.wf.dp.dniprorada.form.FormFileType"/>
                     <bean class="org.wf.dp.dniprorada.form.TextAreaFormType"/>
+                    <bean class="org.wf.dp.dniprorada.form.QueueDataFormType" />
                 </list>
             </property>
 
@@ -193,8 +194,9 @@
             <property name="mailServerDefaultFrom" value="${mailServerDefaultFrom}"/>
             <property name="mailServerUsername" value="${mailServerUsername}"/>
             <property name="mailServerPassword" value="${mailServerPassword}"/>
-            <property name="mailServerUseSSL" value="true"/>
-            <property name="mailServerUseTLS" value="true"/>
+            <property name="mailServerUseSSL" value="${mailServerUseSSL}"/>
+            <property name="mailServerUseTLS" value="${mailServerUseTLS}"/>
+            <!--property name="mailAddressNoreply" value="${mailAddressNoreply}"/-->
 
             <property name="history" value="full"/>
         </bean>

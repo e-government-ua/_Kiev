@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="CivilCopyDocRequest" name="Дніпропетровська МДА - Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом." isExecutable="true">
+  <process id="nikopol_mvk_1" name="Нікополь МДА - Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом." isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -38,11 +38,11 @@
 На жаль, змушені відмовити Вам у наданні інформації у зв'язку з недостатньою аргументацією Вашого запиту.
 
 З повагою,
-Міська рада міста Дніпропетровськ,</activiti:expression>
+Міська рада міста Нікополь,</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="dn_mvk_1">
+    <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="nikopol_mvk_1">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clPassport" name="Паспортні дані" type="string" default="${bankIdPassport}" writable="false"></activiti:formProperty>
@@ -67,7 +67,7 @@
 На жаль, документ не було знайдено.
 
 З повагою,
-Міська рада міста Дніпропетровськ,</activiti:expression>
+Міська рада міста Нікополь,</activiti:expression>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -85,7 +85,7 @@
     </serviceTask>
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow16" sourceRef="mailtask3" targetRef="endevent3"></sequenceFlow>
-    <userTask id="usertask7" name="Підготовка відповіді на запит: пошук документа" activiti:candidateGroups="dn_mvk_1">
+    <userTask id="usertask7" name="Підготовка відповіді на запит: пошук документа" activiti:candidateGroups="nikopol_mvk_1">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запитуваній документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
@@ -133,7 +133,7 @@
 Ваш запит на отримання ${docType} №${docNumber} від ${docDate} успішно зареєстровано. Ви отримаєте відповідь протягом п'яти робочих днів на цю email-адресу.
 
 З повагою,
-Міська рада міста Дніпропетровськ,
+Міська рада міста Нікополь,
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
@@ -157,7 +157,7 @@
 Документ знаходиться у додатку до цього листа.
 
 З повагою,
-Міська рада міста Дніпропетровськ,
+Міська рада міста Нікополь,
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
@@ -179,10 +179,10 @@
     </textAnnotation>
     <association id="association3" sourceRef="startevent1" targetRef="textannotation1"></association>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_CivilCopyDocRequest">
-    <bpmndi:BPMNPlane bpmnElement="CivilCopyDocRequest" id="BPMNPlane_CivilCopyDocRequest">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_nikopol_mvk_1">
+    <bpmndi:BPMNPlane bpmnElement="nikopol_mvk_1" id="BPMNPlane_nikopol_mvk_1">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="180.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="150.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="67.0" width="105.0" x="620.0" y="243.0"></omgdc:Bounds>
@@ -279,7 +279,7 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
-        <omgdi:waypoint x="432.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="432.0" y="185.0"></omgdi:waypoint>
         <omgdi:waypoint x="432.0" y="287.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
@@ -291,7 +291,7 @@
         <omgdi:waypoint x="240.0" y="510.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
-        <omgdi:waypoint x="432.0" y="180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="415.0" y="167.0"></omgdi:waypoint>
         <omgdi:waypoint x="109.0" y="140.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
