@@ -71,7 +71,7 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="chapter1" name="Деталі" type="label" default="--------------------" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_living" name="Місце проживання" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="book" name="Номер облікової картки" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="subsidy" name="Тип субсидії" type="enum">
           <activiti:value id="1" name="Оплата житлово-комунальних послуг"></activiti:value>
