@@ -114,15 +114,11 @@ public class ActivitiDocumentAccessController {
 		try {
 			oAccessURL.setName("sURL");
 			str = documentAccessDao.getDocumentAccess(nID_Access,sSecret);
-			/*oAccessURL.setValue(documentAccessDao.getDocumentAccess(nID_Access,
-					sSecret));*/
-			//System.out.println("oAccessURL.getValue()="+str);
 			oAccessURL.setValue(str);
 		} catch (Exception e) {
 			response.setStatus(403);
 			response.setHeader("Reason", "Access not found");
 			oAccessURL.setValue(e.getMessage());
-			//response.setHeader("OTP", str);
 		}
 		return oAccessURL;
 	}
@@ -171,7 +167,7 @@ public class ActivitiDocumentAccessController {
                     .replaceAll("%Назва документу%", sDocumentName);
 
             historyEventDao.setHistoryEvent(nID_Document, nID_HistoryEventType,
-                    eventType.getsName(), eventMessage);
+                    eventMessage, eventMessage);
         } catch (IOException e) {
             log.error("error during creating HistoryEvent", e);
         } catch (Throwable e) {
