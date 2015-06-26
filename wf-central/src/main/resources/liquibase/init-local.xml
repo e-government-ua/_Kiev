@@ -343,10 +343,12 @@
             <column name="sNote" type="varchar(1000)">
                 <constraints nullable="false"/>
             </column>
+            <column name="asAuth" type="varchar(20)">
+                <constraints nullable = "false"/>
+            </column>
         </createTable>
         <addAutoIncrement columnName="nID" tableName="ServiceData" columnDataType="int"  incrementBy="1" startWith="1000"/>
-        
-               
+
         <!-- ####################################################################################################### -->
         <createTable tableName="SubjectMessage">
             <column name="nID" type="bigint">
@@ -523,6 +525,12 @@
             <column name="sName" type="STRING"/>
             <column name="sNameFull" type="STRING"/>
         </loadData>
+        <loadData encoding="UTF-8" file="data/SubjectOrganDepartment.csv" tableName="SubjectOrganDepartment" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="sGroup_Activiti" type="STRING"/>
+            <column name="nID_SubjectOrgan" type="NUMERIC"/>
+        </loadData>
         <loadData encoding="UTF-8" file="data/Region.csv" tableName="Region" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sName" type="STRING"/>
@@ -572,6 +580,7 @@
             <column name="nID_Subject_Operator" type="NUMERIC"/> 
             <column name="bTest" type="BOOLEAN"/>
             <column name="sNote" type="STRING"/>
+            <column name="asAuth" type="STRING"/>
         </loadData>
         <loadData encoding="UTF-8" file="data/DocumentType.csv" tableName="DocumentType" separator=";">
             <column name="nID" type="NUMERIC"/>

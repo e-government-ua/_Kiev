@@ -44,7 +44,7 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
 						var aServiceData = service.aServiceData;
 						var oServiceData = null;
 						angular.forEach(aServiceData, function(value, key) {
-							if(value.nID_City.nID == $stateParams.city) {
+							if(value.nID_City && value.nID_City.nID === $stateParams.city) {
 								oServiceData = value;
 							}
 						});
@@ -113,8 +113,11 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/city/built-in/bankid.submitted.html');
 						}],
-						controller: ['$state', '$scope', function($state, $scope) {
+						controller: ['$state', '$scope', '$sce', function($state, $scope, $sce) {
 							$scope.state = $state.get('service.general.city.built-in.bankid.submitted');
+							$scope.getHtml = function(html){
+								return $sce.trustAsHtml(html);
+							};
 						}]
 					})
 				}

@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.base.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.Column;
@@ -33,7 +34,8 @@ public class SubjectTicket extends Entity {
    private Long nID_Task_Activiti;
 
    @Column
-   private DateTime sDate;
+   @Type(type= DATETIME_TYPE)
+   private DateTime sDateEdit;
 
    public FlowSlot getoFlowSlot() {
       return oFlowSlot;
@@ -56,10 +58,10 @@ public class SubjectTicket extends Entity {
       this.nID_Task_Activiti = nID_Task_Activiti;
    }
 
-   public DateTime getsDate() {
-      return sDate;
+   public DateTime getsDateEdit() {
+      return sDateEdit;
    }
-   public void setsDate(DateTime sDate) {
-      this.sDate = sDate;
+   public void setsDateEdit(DateTime sDateEdit) {
+      this.sDateEdit = sDateEdit;
    }
 }

@@ -1,11 +1,11 @@
 var request = require('request');
-var account = require('../bankid/account.controller');
+var accountService = require('../bankid/account.service.js');
 var _ = require('lodash');
 var FormData = require('form-data');
 var async = require('async');
 var StringDecoder = require('string_decoder').StringDecoder;
 
-module.exports.shareDocument = function(req, res) {
+module.exports.shareDocument = function (req, res) {
     var params = {
         'nID_Document': req.query.nID_Document,
         'sFIO': req.query.sFIO,
@@ -14,41 +14,38 @@ module.exports.shareDocument = function(req, res) {
         'nMS': req.query.nMS,
         'sMail': req.query.sMail
     };
-    return buildGetRequest(req, res, '/setDocumentLink', params);
+    return sendGetRequest(req, res, '/setDocumentLink', params);
 };
 
-module.exports.getDocumentFile = function(req, res) {
-    var r = request({
-        'url': getUrl('/services/getDocumentFile'),
-        'auth': getAuth(),
-        'qs': {
-            'nID': req.params.nID
-        }
-    });
-    req.pipe(r).on('response', function(response) {
+module.exports.getDocumentFile = function (req, res) {
+    var r = request(buildGetRequest(req, '/services/getDocumentFile', {
+        'nID': req.params.nID
+    }));
+
+    req.pipe(r).on('response', function (response) {
         response.headers['content-type'] = 'application/octet-stream';
     }).pipe(res);
 };
 
-module.exports.getDocument = function(req, res) {
+module.exports.getDocument = function (req, res) {
     var params = {
         'nID': req.params.nID
     };
-    return buildGetRequest(req, res, '/services/getDocument', params);
+    return sendGetRequest(req, res, '/services/getDocument', params);
 };
 
-module.exports.getDocumentInternal = function(req, res, callback) {
+module.exports.getDocumentInternal = function (req, res, callback) {
     var params = {
         'nID': req.params.nID
     };
-    buildGetRequest(req, res, '/services/getDocument', params, callback);
+    sendGetRequest(req, res, '/services/getDocument', params, callback);
 };
 
-module.exports.index = function(req, res) {
+module.exports.index = function (req, res) {
     var params = {
         'nID_Subject': req.session.subject.nID
     };
-    return buildGetRequest(req, res, '/services/getDocuments', params);
+    return sendGetRequest(req, res, '/services/getDocuments', params);
 };
 
 /* 
@@ -59,10 +56,10 @@ module.exports.index = function(req, res) {
  3;Загранпаспорт
  4;Персональное фото
  5;Справка о предоставлении ИНН */
-module.exports.initialUpload = function(req, res) {
+module.exports.initialUpload = function (req, res) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-    var accessToken = req.query.access_token;
+    var accessToken = req.session.access.access_token;
     var nID_Subject = req.session.subject.nID;
     var sID_Subject = req.session.subject.sID;
     var typesToUpload = req.body;
@@ -84,7 +81,7 @@ module.exports.initialUpload = function(req, res) {
         res.end();
     }
 
-    var options = getBankIDOptions(req.query.access_token);
+    var options = getBankIDOptions(accessToken);
 
     var optionsForScans = _.merge(options, {
         path: '/ResourceService'
@@ -95,7 +92,7 @@ module.exports.initialUpload = function(req, res) {
         3: 'zpassport'
     };
 
-    var optionsForUploadContentList = typesToUpload.map(function(docType) {
+    var optionsForUploadContentList = typesToUpload.map(function (docType) {
         var o = {
             'url': getUrl('/services/setDocumentFile'),
             'auth': getAuth(),
@@ -109,15 +106,15 @@ module.exports.initialUpload = function(req, res) {
         };
         var bankIDType = docTypesToBankIDDocTypes[docType.nID];
         return {
-            scanFilter: function(scan) {
+            scanFilter: function (scan) {
                 return scan.type === bankIDType;
             },
             option: o
         };
     });
 
-    var uploadScan = function(documentScan, optionsForUploadContent, callback) {
-        var scanContentRequest = account.prepareScanContentRequest(
+    var uploadScan = function (documentScan, optionsForUploadContent, callback) {
+        var scanContentRequest = accountService.prepareScanContentRequest(
             _.merge(options, {
                 url: documentScan.link
             })
@@ -128,44 +125,47 @@ module.exports.initialUpload = function(req, res) {
 
         var requestOptionsForUploadContent =
             _.merge(optionsForUploadContent.option, {
-                headers: form.getHeaders()
+                headers: form.getHeaders(),
+                'qs': {
+                    'sFileExtension': documentScan.extension
+                }
             });
 
         var decoder = new StringDecoder('utf8');
         var result = {};
         form.pipe(request.post(requestOptionsForUploadContent))
-            .on('response', function(response) {
+            .on('response', function (response) {
                 result.statusCode = response.statusCode;
-            }).on('data', function(chunk) {
+            }).on('data', function (chunk) {
                 if (result.body) {
                     result.body += decoder.write(chunk);
                 } else {
                     result.body = decoder.write(chunk);
                 }
-            }).on('end', function() {
+            }).on('end', function () {
                 callback(result);
             });
     };
 
-    var doAsyncScansUpload = function(scans) {
-        async.forEach(optionsForUploadContentList, function(optionsForUploadContent, callback) {
+    var doAsyncScansUpload = function (scans) {
+        async.forEach(optionsForUploadContentList, function (optionsForUploadContent, callback) {
             var results = scans.filter(optionsForUploadContent.scanFilter);
             if (results.length === 1) {
                 uploadScan(results[0], optionsForUploadContent, callback);
             } else {
-                async.setImmediate(function() {
+                async.setImmediate(function () {
                     callback(null);
                 });
             }
             //don't do end here, it will be executed after all async
-        }, function(result) {
+        }, function (result) {
             //here
             res.send(result);
             res.end();
         });
     };
 
-    var scansCallback = function(error, response, body) {
+    var scansCallback = function (error, response, body) {
         var ifDoUpload = false;
         if (!error && body) {
             var result = body;
@@ -183,28 +183,24 @@ module.exports.initialUpload = function(req, res) {
         }
     };
 
-    account.scansRequest(optionsForScans, scansCallback);
+    accountService.scansRequest(optionsForScans, scansCallback);
 };
 
-function buildGetRequest(req, res, apiURL, params, callback) {
-    var _callback = callback ? callback : function(error, response, body) {
+function buildGetRequest(req, apiURL, params) {
+    return {
+        'url': getUrl(apiURL),
+        'auth': getAuth(),
+        'qs': _.extend(params, {nID_Subject: req.session.subject.nID})
+    };
+}
+
+function sendGetRequest(req, res, apiURL, params, callback) {
+    var _callback = callback ? callback : function (error, response, body) {
         res.send(body);
         res.end();
     };
 
-    return request({
-        'url': getUrl(apiURL),
-        'auth': getAuth(),
-        'qs': params
-    }, _callback);
-}
-
-function sendGETRequest(req, res, apiURL, params, callback) {
-    request({
-        'url': getUrl(apiURL),
-        'auth': getAuth(),
-        'qs': params
-    }, callback);
+    return request(buildGetRequest(req, apiURL, params), _callback);
 }
 
 function getBankIDOptions(accessToken) {
@@ -219,20 +215,6 @@ function getBankIDOptions(accessToken) {
             client_secret: bankid.client_secret,
             access_token: accessToken
         }
-    };
-}
-
-function getOptions(req) {
-    var config = require('../../config');
-    var activiti = config.activiti;
-
-    return {
-        protocol: activiti.protocol,
-        hostname: activiti.hostname,
-        port: activiti.port,
-        path: activiti.path,
-        username: activiti.username,
-        password: activiti.password
     };
 }
 

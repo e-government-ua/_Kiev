@@ -4,7 +4,7 @@ var documents = require('../service/documents.controller');
 
 function isAuthenticated() {
 	return compose().use(function(req, res, next) {
-		if (req.session && req.session.subject) {
+		if (req.session && req.session.access && req.session.subject) {
 			next();
 		} else {
 			res.status(401);

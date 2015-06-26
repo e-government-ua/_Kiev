@@ -28,7 +28,7 @@ module.exports = function(grunt) {
                     './src/html/service/**/*.html',
                     './src/html/documents/**/*.html',
                     './src/html/journal/**/*.html',
-                    //'./src/html/journal/*.html',
+                    './src/html/form/**/*.html',
                     './src/html/404/*.html'
                 ],
                 dest: './build/js/templates.js'
@@ -57,7 +57,8 @@ module.exports = function(grunt) {
 					'angular-ui-router': 'angular',
 					'ui-router-extras': 'angular-ui-router',
 					'angular-ui-utils':'angular',
-					'angular-ui': 'angular'
+					'angular-ui': 'angular',
+					'ngClip': 'angular'
 				},
 				mainFiles: {
 					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css'],
@@ -80,7 +81,8 @@ module.exports = function(grunt) {
 					'angular-ui-router': 'angular',
 					'ui-router-extras': 'angular-ui-router',
 					'angular-ui-utils':'angular',
-					'angular-ui': 'angular'
+					'angular-ui': 'angular',
+					'ngClip': 'angular'
 				},
 				mainFiles: {
 					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css'],

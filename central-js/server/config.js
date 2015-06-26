@@ -10,7 +10,8 @@ var config = {
 		'session': {
 			'secret': 'put yor session secret here',
 			'key': ['solt for session 1', 'solt for session 2'],
-			'secure': true
+			'secure': true,
+			'maxAge': 180000 // 3 * 60 * 1000 = 3 min
 		}
 	},
 	'activiti': {
@@ -33,15 +34,15 @@ var config = {
 		//'sHost_AccessService_BankID': 'bankid.org.ua', //Prod
 		//'sProtocol_ResourceService_BankID': 'https', //Prod
                 //'sHost_ResourceService_BankID': 'biprocessing.org.ua', //Prod
-		'client_id': '9b0e5c63-9fcb-4b11-84ff-31fc2cea8801',
-		'client_secret': ''
+		'client_id': 'testIgov',
+		'client_secret': 'testIgovSecret'
 	}
 };
 
 
 try {
 	var local_config = require('./local_config');
-	_.extend(config, local_config);
+	_.merge(config, local_config);
 } catch (e) {
 	if (e.code === 'MODULE_NOT_FOUND') {
 		// do nothing

@@ -22,6 +22,7 @@
 					<value>file:${catalina.home}/conf/db.properties</value>
 					<value>file:${catalina.home}/conf/email.properties</value>
 					<value>file:${catalina.home}/conf/bankID.properties</value>
+                                        <value>file:${catalina.home}/conf/AS.properties</value>
 				</list>
 			</property>
 			<property name="ignoreUnresolvablePlaceholders" value="true" />
@@ -45,6 +46,7 @@
 					<value>classpath:db.properties</value>
 					<value>classpath:email.properties</value>
 					<value>classpath:bankID.properties</value>
+                                        <value>classpath:AS.properties</value>
 				</list>
 			</property>
 			<property name="ignoreUnresolvablePlaceholders" value="true" />
@@ -60,7 +62,6 @@
 
 	<beans>
 
-		<import resource="db-context.xml"/>
 
 		<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 			<property name="dataSource" ref="dataSource" />
@@ -89,6 +90,7 @@
 					<bean class="org.wf.dp.dniprorada.form.TextAreaFormType" />
 					<bean class="org.wf.dp.dniprorada.form.LabelFormType" />
 					<bean class="org.wf.dp.dniprorada.form.MarkersFormType" />
+					<bean class="org.wf.dp.dniprorada.form.QueueDataFormType" />
 				</list>
 			</property>
 
@@ -100,6 +102,7 @@
 			<property name="mailServerPassword" value="${mailServerPassword}" />
 			<property name="mailServerUseSSL" value="true" />
 			<property name="mailServerUseTLS" value="true" />
+                        <!--property name="mailAddressNoreply" value="${mail.address.noreply}"/-->
 
 
 
@@ -130,6 +133,7 @@
 
 		<import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml" />
 		<import resource="classpath:/META-INF/spring/ua-org-egov-utils-storage-context.xml" />
+		<import resource="db-context.xml"/>
 	</beans>
 
 </beans>

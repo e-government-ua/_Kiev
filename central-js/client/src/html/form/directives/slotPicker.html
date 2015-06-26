@@ -1,0 +1,13 @@
+<div class="slot-picker">
+    <div class="slot-day">
+        <select class="form-control"
+                ng-model="selected.date"
+                ng-options="slotDate.sDate for slotDate in slotsData.aDay"></select>
+    </div>
+    <div class="slot-time">
+        <select class="form-control"
+                ng-disabled="!selected.date"
+                ng-model="selected.slot"
+                ng-options="slot.sTime for slot in selected.date.aSlot"></select>
+    </div>
+</div>
