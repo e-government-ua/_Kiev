@@ -266,6 +266,6 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 			sb.append(inputLine);
 		}
 		br.close();
-		return sb.toString();
+		return jsonObj; //sb.toString();
 	}
 }
