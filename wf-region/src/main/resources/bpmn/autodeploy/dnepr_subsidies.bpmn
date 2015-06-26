@@ -150,7 +150,7 @@
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний ${bankidfirstName}</activiti:expression>
+          <activiti:expression>Шановний ${bankIdfirstName}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
