@@ -252,9 +252,9 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		prop.load(getClass().getClassLoader().getResourceAsStream("merch.properties"));
 		String merchant_id = prop.getProperty("merchant_id");
 		String merchant_password = prop.getProperty("merchant_password");
-		String jsonObj = "{merchant_id:"+"\""+merchant_id+"\""+", "+"merchant_password"+":"+"\""+merchant_password+"\""+", otp_create:[" +
-				"{from:10060, phone:+380962731045, category:qwerty, sms_template:[" +
-				"{text:Parol:}, {password:2}, {text:-}, {password:2}, {text:-}, {password:2}, {text:-}, {password:2}]}]}";
+		String jsonObj = "{\"merchant_id\":"+merchant_id+","+merchant_password+":"+merchant_password+", otp_create:[" +
+				"{\"from:10060\", \"phone:\"+380962731045\", \"category\":\"qwerty\", \"sms_template\":[" +
+				"{\"text\":\"Parol:\"}, {\"password\":\"2\"}, {\"text\":\"-\"}, {\"password\":\"2\"}, {\"text\":\"-\"}, {\"password\":\"2\"}, {\"text\":\"-\"}, {\"password\":\"2\"}]}]}";
 		DataOutputStream dos = new DataOutputStream(con.getOutputStream());
 		dos.writeBytes(jsonObj);
 		dos.flush();
