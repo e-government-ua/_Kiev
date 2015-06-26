@@ -13,8 +13,7 @@ import ua.org.egov.utils.storage.exceptions.RecordNotFoundException;
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-		"/META-INF/spring/ua-org-egov-utils-storage-context.xml",
-		"/META-INF/spring/storage-test-context.xml" })
+		"/META-INF/spring/ua-org-egov-utils-storage-context.xml"})
 public class BytesDataStorageTest {
 
 	@Autowired

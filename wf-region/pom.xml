@@ -335,7 +335,7 @@
 		<!-- MONGO -->
 		<dependency>
 			<groupId>org.egov-ua</groupId>
-			<artifactId>org.egov-ua.storage.durable</artifactId>
+			<artifactId>org.egov-ua.storage-static</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 
@@ -455,49 +455,15 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-                
-                
-	 <dependency>
-	  <groupId>org.springframework</groupId>
-	  <artifactId>spring-test</artifactId>
-	  <version>4.1.4.RELEASE</version>
-	  <type>jar</type>
-	 </dependency>                
-                
-                
-
-		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>jboss</groupId>
-			<artifactId>jboss-serialization</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>trove</groupId>
-			<artifactId>trove</artifactId>
-		</dependency>
 
 
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId>
+			<artifactId>spring-test</artifactId>
+			<version>4.1.4.RELEASE</version>
+			<type>jar</type>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aspects</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-		</dependency>
-
-                
 	</dependencies>
 
 </project>

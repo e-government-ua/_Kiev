@@ -2,9 +2,8 @@
 
 var activiti = require('../../components/activiti');
 
-// Get list of processs
 exports.index = function(req, res) {
-
+	
   var query = {};
   query.size = 500;
 

@@ -1,10 +1,22 @@
-define('state/documents/controller', ['angularAMD'], function(angularAMD) {
-  angularAMD.controller('DocumentsController', ['$state', '$scope', 'config', function($state, $scope, config) {
-    $scope.config = config;
-    if ($state.is('documents')) {
-      return $state.go('documents.bankid');
-    }
-  }]);
+define('state/documents/controller', ['angularAMD'], function (angularAMD) {
+    angularAMD.controller('DocumentsController', ['$state', '$scope', 'config', 'BankIDService', function ($state, $scope, config, BankIDService) {
+        $scope.config = config;
+
+        $scope.loading = false;
+        BankIDService.isLoggedIn().then(function () {
+            if ($state.is('documents')) {
+                $scope.loading = true;
+                return $state.go('documents.content').finally(function () {
+                    $scope.loading = false;
+                });
+            }
+        }).catch(function () {
+            if ($state.is('documents')) {
+                return $state.go('documents.bankid');
+            }
+        });
+
+    }]);
 });
 define('state/documents/bankid/controller', ['angularAMD'], function(angularAMD) {
   angularAMD.controller('DocumentsBankIdController', function($scope, $state, $location, $window) {
@@ -26,9 +38,9 @@ define('state/documents/bankid/controller', ['angularAMD'], function(angularAMD)
 define('state/documents/content/controller', ['angularAMD'], function(angularAMD) {
   angularAMD.controller('DocumentsContentController',
     function($scope, $state, documents, FileFactory, ServiceService, $modal) {
-      var file = new FileFactory();
-      $scope.file = file;
-
+	  var file = new FileFactory();
+	  $scope.file = file;
+      
       angular.forEach(documents, function(item) {
         if (item.oDate_Upload === null) {
           item.oDate_Upload = new Date();

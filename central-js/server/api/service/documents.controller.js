@@ -1,5 +1,5 @@
 var request = require('request');
-var account = require('../bankid/account.controller');
+var accountService = require('../bankid/account.service.js');
 var _ = require('lodash');
 var FormData = require('form-data');
 var async = require('async');
@@ -59,7 +59,7 @@ module.exports.index = function (req, res) {
 module.exports.initialUpload = function (req, res) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-    var accessToken = req.query.access_token;
+    var accessToken = req.session.access.access_token;
     var nID_Subject = req.session.subject.nID;
     var sID_Subject = req.session.subject.sID;
     var typesToUpload = req.body;
@@ -81,7 +81,7 @@ module.exports.initialUpload = function (req, res) {
         res.end();
     }
 
-    var options = getBankIDOptions(req.query.access_token);
+    var options = getBankIDOptions(accessToken);
 
     var optionsForScans = _.merge(options, {
         path: '/ResourceService'
@@ -114,7 +114,7 @@ module.exports.initialUpload = function (req, res) {
     });
 
     var uploadScan = function (documentScan, optionsForUploadContent, callback) {
-        var scanContentRequest = account.prepareScanContentRequest(
+        var scanContentRequest = accountService.prepareScanContentRequest(
             _.merge(options, {
                 url: documentScan.link
             })
@@ -125,7 +125,10 @@ module.exports.initialUpload = function (req, res) {
 
         var requestOptionsForUploadContent =
             _.merge(optionsForUploadContent.option, {
-                headers: form.getHeaders()
+                headers: form.getHeaders(),
+                'qs': {
+                    'sFileExtension': documentScan.extension
+                }
             });
 
         var decoder = new StringDecoder('utf8');
@@ -180,7 +183,7 @@ module.exports.initialUpload = function (req, res) {
         }
     };
 
-    account.scansRequest(optionsForScans, scansCallback);
+    accountService.scansRequest(optionsForScans, scansCallback);
 };
 
 function buildGetRequest(req, apiURL, params) {

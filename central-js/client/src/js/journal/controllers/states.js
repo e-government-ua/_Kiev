@@ -1,15 +1,16 @@
-/*define('state/journal/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('JournalController', ['$rootScope', function ($rootScope) {
-		console.log('$rootScope');
-    }]);
-});*/
-
 define('state/journal/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('JournalController', ['$scope', '$state', 'config', function ($scope, $state, config) {
+	angularAMD.controller('JournalController', ['$scope', '$state', 'config', 'BankIDService', function ($scope, $state, config, BankIDService) {
 		$scope.config = config;
-		if ($state.is('journal')) {
-			return $state.go('journal.bankid');
-		}
+
+        BankIDService.isLoggedIn().then(function() {
+            if ($state.is('journal')) {
+                return $state.go('journal.content');
+            }
+        }).catch(function() {
+            if ($state.is('journal')) {
+                return $state.go('journal.bankid');
+            }
+        });
     }]);
 });
 

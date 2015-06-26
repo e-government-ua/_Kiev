@@ -3,15 +3,14 @@
   <process id="nikolaev_oda_2" name="Миколаєвська ОДА - Взяття на облік громадян, які потребують поліпшення житлових умов" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні данні" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Копія довідки по формі-3" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file3" name="Копія довідки із реєстраційної служби речових прав на нерухоме майно про наявність або відсутність власності у всіх членів сім’ї" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file4" name="Копія довідки з місця роботи або про перебування на обліку в Центрі зайнятості з інформацією про перебування на квартирному обліку." type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копія довідки про пільги (при наявності)" type="file"></activiti:formProperty>
         <activiti:formProperty id="file6" name="Копії свідоцтв про народження дітей; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file7" name="Копія свідоцтв про шлюб або розірвання шлюбу;при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file8" name="Копії карток фізичної особи – платника податків заявника та членів сім'ї; при наявності більш ніж однієї копії, файли можуть бути завантажені у вигляді ZIP-архіву" type="file" required="true"></activiti:formProperty>
@@ -30,17 +29,13 @@
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="comment" name="В разі відмови в наданні послуги зазначте підставу для відмови" type="textArea"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="usertask2" name="Підстави для відмови ">
-      <extensionElements>
-        <activiti:formProperty id="comment" name="Причина відмови " type="string" required="true"></activiti:formProperty>
-      </extensionElements>
-    </userTask>
-    <sequenceFlow id="flow3" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="usertask2">
+    <sequenceFlow id="flow3" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="mailtask1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="usertask3" name="Підготовка витягу з рішення виконавчого комітету Ммр щодо взяття на квартирний облік">
@@ -58,7 +53,6 @@
     <sequenceFlow id="flow4" name="${decide == 'accept'}" sourceRef="exclusivegateway1" targetRef="usertask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow5" sourceRef="usertask2" targetRef="mailtask1"></sequenceFlow>
     <serviceTask id="mailtask1" name="Відправлення листа громадянину" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -76,8 +70,11 @@
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
-Вам відмовлено в наданні послуги.
-Підстава: ${comment}</activiti:expression>
+Нажаль Вам відмовлено в наданні послуги.
+Підстава: ${comment}
+
+З повагою,
+Міська рада м. Миколаїв,</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -106,7 +103,12 @@
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
 Ваше звернення оброблено.
-Ви можете отримати витяг</activiti:expression>
+Ви можете отримати витяг за адресою:  м. Миколаїв, вул. Адміральська, 20 (перший поверх)
+Графік роботи: Понеділок-п’ятниця: з 08:00 до 20:00 (без перерви на обід), субота: з 10:00 до 16:00 (без перерви на обід)
+
+З повагою,
+Міська рада м. Миколаїв,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -132,9 +134,15 @@
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
 
-Ваше звернення про взяття на облік громадян, які потребують поліпшення житлових умов, успішно зареєстровано і буде оброблено протягом ?? діб</activiti:expression>
+Дякуємо, що скористалися Інтернет-сервісом взяття на облік громадян, які потребують поліпшення житлових умов. Ваш запит успішно зареєстрований і буде оброблений протягом 10 робочих днів.
+
+Підкреслюємо, що поки що забрати витяг Ви можете лише в паперовому вигляді.
+
+З повагою,
+Міська рада м. Миколаїв,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -162,9 +170,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="436.0" y="267.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
-        <omgdc:Bounds height="55.0" width="166.0" x="545.0" y="260.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
         <omgdc:Bounds height="55.0" width="166.0" x="545.0" y="380.0"></omgdc:Bounds>
@@ -205,7 +210,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
         <omgdi:waypoint x="476.0" y="287.0"></omgdi:waypoint>
-        <omgdi:waypoint x="545.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="287.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="14.0" width="95.0" x="445.0" y="248.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
@@ -217,10 +222,6 @@
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="42.0" width="100.0" x="460.0" y="406.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="711.0" y="287.0"></omgdi:waypoint>
-        <omgdi:waypoint x="790.0" y="287.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
         <omgdi:waypoint x="981.0" y="287.0"></omgdi:waypoint>

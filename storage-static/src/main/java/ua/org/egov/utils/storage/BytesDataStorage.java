@@ -5,7 +5,7 @@ import java.io.InputStream;
 import ua.org.egov.utils.storage.exceptions.RecordNotFoundException;
 
 /**
- * @author vbolshutkin
+ * @author vbolshutkin & BW
  */
 public interface BytesDataStorage {
 	
