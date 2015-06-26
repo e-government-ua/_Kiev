@@ -21,10 +21,10 @@ define('slotPicker/directive', ['angularAMD'], function (angularAMD) {
 						scope.$watch('selected.slot', function (newValue) {
 							if (newValue) {
 								$http.post('/api/service/flow/set/' + newValue.nID).then(function (response) {
-									scope.ngModel = {
+									scope.ngModel = JSON.stringify({
 										nID_SubjectTicket: response.data.nID_Ticket,
 										sDate: scope.selected.date.sDate + ' ' + scope.selected.slot.sTime + ':00.00'
-									};
+									});
 								});
 							}
 							else
