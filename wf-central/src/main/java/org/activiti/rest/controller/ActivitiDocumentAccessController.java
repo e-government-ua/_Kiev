@@ -114,15 +114,11 @@ public class ActivitiDocumentAccessController {
 		try {
 			oAccessURL.setName("sURL");
 			str = documentAccessDao.getDocumentAccess(nID_Access,sSecret);
-			/*oAccessURL.setValue(documentAccessDao.getDocumentAccess(nID_Access,
-					sSecret));*/
-			//System.out.println("oAccessURL.getValue()="+str);
 			oAccessURL.setValue(str);
 		} catch (Exception e) {
 			response.setStatus(403);
 			response.setHeader("Reason", "Access not found");
 			oAccessURL.setValue(e.getMessage());
-			//response.setHeader("OTP", str);
 		}
 		return oAccessURL;
 	}
