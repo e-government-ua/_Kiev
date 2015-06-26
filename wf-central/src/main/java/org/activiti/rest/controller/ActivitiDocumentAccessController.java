@@ -171,7 +171,7 @@ public class ActivitiDocumentAccessController {
                     .replaceAll("%Назва документу%", sDocumentName);
 
             historyEventDao.setHistoryEvent(nID_Document, nID_HistoryEventType,
-                    eventType.getsName(), eventMessage);
+                    eventMessage, eventMessage);
         } catch (IOException e) {
             log.error("error during creating HistoryEvent", e);
         } catch (Throwable e) {
