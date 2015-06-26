@@ -279,7 +279,7 @@ public class ActivitiRestDocumentController {
                     .replaceAll("%Назва документу%", sDocumentName);
 
             historyEventDao.setHistoryEvent(nID_Subject,
-                    nID_HistoryEventType, eventType.getsName(), eventMessage);
+                    nID_HistoryEventType, eventMessage, eventMessage);
         } catch (IOException e) {
             log.error("error during creating HistoryEvent", e);
         } catch (Throwable e) {
