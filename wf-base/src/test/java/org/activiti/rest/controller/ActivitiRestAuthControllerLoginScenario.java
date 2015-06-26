@@ -59,6 +59,6 @@ public class ActivitiRestAuthControllerLoginScenario {
                 andExpect(content().contentType("application/json;charset=UTF-8")).
                 andExpect(jsonPath("$.*", hasSize(2))).
                 andExpect(jsonPath("$.code", is("LI_0001"))).
-                andExpect(jsonPath("$.message", is("User or password not valid")));
+                andExpect(jsonPath("$.message", is("Login or password invalid")));
     }
 }

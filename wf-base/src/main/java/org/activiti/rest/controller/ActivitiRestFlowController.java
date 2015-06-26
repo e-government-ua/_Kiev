@@ -119,7 +119,7 @@ public class ActivitiRestFlowController {
       }
 
       subjectTicket.setoFlowSlot(flowSlot);
-      subjectTicket.setsDateEdit(flowSlot.getsDate());
+      subjectTicket.setsDateEdit(DateTime.now());
 
       baseEntityDao.saveOrUpdate(subjectTicket);
 
