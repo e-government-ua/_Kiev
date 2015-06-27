@@ -58,7 +58,8 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
 		String username = authentication.getName();
 		String password = authentication.getCredentials().toString();
 		if (username.equals(generalUsername) && password.equals(generalPassword)) {
-			return createBasicAuthUsernameAndPasswordToken(generalUsername, generalPassword);
+                        log.info("generalUsername!!!test: tech_mvd,getIdentityService="+getIdentityService().getUserInfo("tech_mvd", "tech_mvd"));
+			return createBasicAuthUsernameAndPasswordToken(username, password);
 		} else {
 			if (getIdentityService().checkPassword(username, password)) {
                                 log.info("username="+username+",getIdentityService="+getIdentityService().getUserInfo(username, password));
