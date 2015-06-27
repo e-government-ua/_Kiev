@@ -642,7 +642,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvent?nID=1
 
 **HTTP Metod: GET**
 
-**HTTP Context: http://server:port/wf-central/service/services/getHistoryEvents** - получение списка загруженных субъектом документов
+**HTTP Context: http://server:port/wf-central/service/services/getHistoryEvents** - загрузка событий
 
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)????????
 
@@ -653,7 +653,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Sub
 
 **HTTP Metod: POST**
 
-**HTTP Context: http://server:port/wf-central/service/services/setHistoryEvent** - сохранение документа
+**HTTP Context: http://server:port/wf-central/service/services/setHistoryEvent** - сохранение события
 
 * nID_Subject - ИД-строка субъекта, который загрузил документ (необязательное поле)???????????????????????????????????
 * nID_HistoryEventType - ИД-номер типа документа (необязательное поле)
