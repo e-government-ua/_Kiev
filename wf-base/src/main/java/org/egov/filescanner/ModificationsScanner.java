@@ -20,104 +20,95 @@ public class ModificationsScanner {
 
 	private static final String DATE_NAME_SEPARATOR = ";";
 	private static final String DATE_FORMAT_FOR_MODIFIED_FILE = "yyyy-MM-dd_HH:mm:ss.SSS";
-	private final static Logger log = LoggerFactory
-			.getLogger(ModificationsScanner.class);
+	private final static Logger log = LoggerFactory.getLogger(ModificationsScanner.class);
 	private static String MODIFICAITONS_FILE_EXTENSITON = ".modify.lst";
 
-	public static boolean hasModifiedfiles(String scanDirectoryPath) {
+	public static boolean hasModifiedfiles(String sPathScan) {
 		try {
-			Map<String, String> modifiedFiles = new HashMap<String, String>();
+			Map<String, String> mFileModified = new HashMap<String, String>();
 
-			File directoryToScan = new File(scanDirectoryPath);
-			if (!directoryToScan.exists() || !directoryToScan.isDirectory()) {
-				log.info("Path to check is not a directory");
+			File oFilePathScan = new File(sPathScan);
+			if (!oFilePathScan.exists() || !oFilePathScan.isDirectory()) {
+				log.info("Path to check is not a directory. Skip scaning...");
 				return false;
 			}
 
-			File fileWithModifications = getFileToSaveModifications(scanDirectoryPath);
+			File oFileHistory = getFileHistory(sPathScan);
 
-			if (fileWithModifications.exists()) {
-				long timeOfLastRun = fileWithModifications.lastModified();
-				getModifiedFiles(modifiedFiles, directoryToScan, timeOfLastRun);
+			if (oFileHistory.exists()) {
+				long nDateTimeLastRun = oFileHistory.lastModified();
+				getFilesModified(mFileModified, oFilePathScan, nDateTimeLastRun);
 			} else {
-				log.debug("Technical file from previous launch doesn't exist. Exiting.");
-				fileWithModifications.createNewFile();
-				return false;
+				log.debug("Technical file from previous launch doesn't exist. All modified!");
+				oFileHistory.createNewFile();
+				return true;
 			}
 			
-			if (!modifiedFiles.isEmpty()) {
-				saveModifiedFilesToFile(fileWithModifications, modifiedFiles);
-				modifiedFiles.clear();
+			if (!mFileModified.isEmpty()) {
+				saveFileHistory(oFileHistory, mFileModified);
+				mFileModified.clear();
 				return true;
 			} else {
 				// overwriting file
-				FileOutputStream fileStream = new FileOutputStream(fileWithModifications, false);
-				fileStream.close();
+				FileOutputStream oFileOutputStreamWithModifications = new FileOutputStream(oFileHistory, false);
+				oFileOutputStreamWithModifications.close();
 			}
-		} catch (IOException e) {
-			log.error("Error while checking directory for modifications", e);
-			e.printStackTrace();
+		} catch (IOException oException) {
+			log.error("Error while checking directory for modifications!", oException);
+			oException.printStackTrace();
 		}
 
 		return false;
 	}
 
-	private static File getFileToSaveModifications(String scanDirectoryPath)
+	private static File getFileHistory(String sPathScan)
 			throws IOException {
-		File directoryToSaveFile = new File(scanDirectoryPath + File.separator + ".." + File.separator + "..");
+		File oFilePathHistory = new File(sPathScan + File.separator + ".." + File.separator + "..");
 		log.debug("Folder to save file with modifications: "
-				+ directoryToSaveFile.getCanonicalPath());
+				+ oFilePathHistory.getCanonicalPath());
 
-		String fileNameToSaveModification = StringUtils.substringAfter(
-				scanDirectoryPath, directoryToSaveFile.getCanonicalPath()
+		String sHistoryFileName = StringUtils.substringAfter(
+				sPathScan, oFilePathHistory.getCanonicalPath()
 						+ File.separator);
-		fileNameToSaveModification = fileNameToSaveModification
+		sHistoryFileName = sHistoryFileName
 				.replace(File.separator, ".");
 
-		File fileWithModifications = new File(directoryToSaveFile,
-				fileNameToSaveModification + MODIFICAITONS_FILE_EXTENSITON);
-		log.debug("File for saving modified files: " + fileWithModifications.getCanonicalPath());
-		return fileWithModifications;
+		File oFileHistory = new File(oFilePathHistory,
+				sHistoryFileName + MODIFICAITONS_FILE_EXTENSITON);
+		log.debug("File for saving modified files: " + oFileHistory.getCanonicalPath());
+		return oFileHistory;
 	}
 
-	private static void getModifiedFiles(Map<String, String> modifiedFiles,
-			File directoryToScan, long lastRun) throws IOException {
+	private static void getFilesModified(Map<String, String> mFileModified, File oFilePathScan, long nDateTimeLastRun) throws IOException {
 		@SuppressWarnings("unchecked")
-		Collection<File> files = FileUtils.listFiles(directoryToScan, null,
-				true);
-		SimpleDateFormat formatter = new SimpleDateFormat(
-				DATE_FORMAT_FOR_MODIFIED_FILE);
-		for (File currFile : files) {
-			long currModificationDate = currFile.lastModified();
-			if (currModificationDate > lastRun) {
-				modifiedFiles.put(currFile.getCanonicalPath(),
-						formatter.format(new Date(currModificationDate)));
+		Collection<File> aFile = FileUtils.listFiles(oFilePathScan, null, true);
+		SimpleDateFormat oSimpleDateFormat = new SimpleDateFormat(DATE_FORMAT_FOR_MODIFIED_FILE);
+		for (File oFile : aFile) {
+			long nDateTimeFileModify = oFile.lastModified();
+			if (nDateTimeFileModify > nDateTimeLastRun) {
+				mFileModified.put(oFile.getCanonicalPath(), oSimpleDateFormat.format(new Date(nDateTimeFileModify)));
 			}
 		}
 	}
 
-	private static void saveModifiedFilesToFile(File fileWithModifications,
-			Map<String, String> modifiedFiles) {
-		if (!modifiedFiles.isEmpty()) {
-			PrintWriter printWriter = null;
+	private static void saveFileHistory(File oFileHistory, Map<String, String> mFileModified) {
+		if (!mFileModified.isEmpty()) {
+			PrintWriter oPrintWriter = null;
 			try {
-				fileWithModifications.createNewFile();
-				printWriter = new PrintWriter(fileWithModifications);
-
-				for (Map.Entry<String, String> currElem : modifiedFiles
-						.entrySet()) {
-					printWriter.println(currElem.getValue() + DATE_NAME_SEPARATOR
-							+ currElem.getKey());
+				oFileHistory.createNewFile();
+				oPrintWriter = new PrintWriter(oFileHistory);
+				for (Map.Entry<String, String> oFileParam : mFileModified.entrySet()) {
+					oPrintWriter.println(oFileParam.getValue() + DATE_NAME_SEPARATOR + oFileParam.getKey());
 				}
-			} catch (FileNotFoundException e) {
-				log.error("Unable to save file with modifications. ", e);
-				e.printStackTrace();
-			} catch (IOException e) {
-				log.error("Unable to save file with modifications. ", e);
-				e.printStackTrace();
+			} catch (FileNotFoundException oException) {
+				log.error("Unable to save file with modifications. ", oException);
+				oException.printStackTrace();
+			} catch (IOException oException) {
+				log.error("Unable to save file with modifications. ", oException);
+				oException.printStackTrace();
 			} 
-			if (printWriter != null)
-				printWriter.close();	
+			if (oPrintWriter != null)
+				oPrintWriter.close();	
 		}
 
 	}
