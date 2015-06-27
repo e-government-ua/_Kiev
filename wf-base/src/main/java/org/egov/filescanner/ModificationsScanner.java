@@ -22,7 +22,13 @@ public class ModificationsScanner {
 	private static final String DATE_FORMAT_FOR_MODIFIED_FILE = "yyyy-MM-dd_HH:mm:ss.SSS";
 	private final static Logger log = LoggerFactory.getLogger(ModificationsScanner.class);
 	private static String MODIFICAITONS_FILE_EXTENSITON = ".modify.lst";
-
+        
+        public static void main(String asArgument[]) throws Exception{
+            if(!hasModifiedfiles(asArgument[0])){
+                throw new Exception("Modifications is absant!");
+            }
+        }
+                
 	public static boolean hasModifiedfiles(String sPathScan) {
 		try {
 			Map<String, String> mFileModified = new HashMap<String, String>();
