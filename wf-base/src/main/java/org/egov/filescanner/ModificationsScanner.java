@@ -13,14 +13,14 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 public class ModificationsScanner {
 
 	private static final String DATE_NAME_SEPARATOR = ";";
 	private static final String DATE_FORMAT_FOR_MODIFIED_FILE = "yyyy-MM-dd_HH:mm:ss.SSS";
-	private final static Logger log = LoggerFactory.getLogger(ModificationsScanner.class);
+	//private final static Logger log = LoggerFactory.getLogger(ModificationsScanner.class);
 	private static String MODIFICAITONS_FILE_EXTENSITON = ".modify.lst";
         
         public static void main(String asArgument[]) throws Exception{
@@ -35,7 +35,8 @@ public class ModificationsScanner {
 
 			File oFilePathScan = new File(sPathScan);
 			if (!oFilePathScan.exists() || !oFilePathScan.isDirectory()) {
-				log.info("Path to check is not a directory. Skip scaning...");
+				//log.info("Path to check is not a directory. Skip scaning...");
+				System.out.println("Path to check is not a directory. Skip scaning...");
 				return false;
 			}
 
@@ -45,7 +46,8 @@ public class ModificationsScanner {
 				long nDateTimeLastRun = oFileHistory.lastModified();
 				getFilesModified(mFileModified, oFilePathScan, nDateTimeLastRun);
 			} else {
-				log.debug("Technical file from previous launch doesn't exist. All modified!");
+				//log.debug("Technical file from previous launch doesn't exist. All modified!");
+                                System.out.println("Technical file from previous launch doesn't exist. All modified!");
 				oFileHistory.createNewFile();
 				return true;
 			}
@@ -60,7 +62,8 @@ public class ModificationsScanner {
 				oFileOutputStreamWithModifications.close();
 			}
 		} catch (IOException oException) {
-			log.error("Error while checking directory for modifications!", oException);
+			//log.error("Error while checking directory for modifications!", oException);
+                        System.err.println("Error while checking directory for modifications!");
 			oException.printStackTrace();
 		}
 
@@ -70,18 +73,16 @@ public class ModificationsScanner {
 	private static File getFileHistory(String sPathScan)
 			throws IOException {
 		File oFilePathHistory = new File(sPathScan + File.separator + ".." + File.separator + "..");
-		log.debug("Folder to save file with modifications: "
-				+ oFilePathHistory.getCanonicalPath());
+		//log.debug("Folder to save file with modifications: " + oFilePathHistory.getCanonicalPath());
+                System.out.println("Folder to save file with modifications: " + oFilePathHistory.getCanonicalPath());
 
-		String sHistoryFileName = StringUtils.substringAfter(
-				sPathScan, oFilePathHistory.getCanonicalPath()
-						+ File.separator);
-		sHistoryFileName = sHistoryFileName
-				.replace(File.separator, ".");
+		String sHistoryFileName = StringUtils.substringAfter(sPathScan, oFilePathHistory.getCanonicalPath()+ File.separator);
+		sHistoryFileName = sHistoryFileName.replace(File.separator, ".");
 
 		File oFileHistory = new File(oFilePathHistory,
 				sHistoryFileName + MODIFICAITONS_FILE_EXTENSITON);
-		log.debug("File for saving modified files: " + oFileHistory.getCanonicalPath());
+		//log.debug("File for saving modified files: " + oFileHistory.getCanonicalPath());
+                System.out.println("File for saving modified files: " + oFileHistory.getCanonicalPath());
 		return oFileHistory;
 	}
 
@@ -107,10 +108,12 @@ public class ModificationsScanner {
 					oPrintWriter.println(oFileParam.getValue() + DATE_NAME_SEPARATOR + oFileParam.getKey());
 				}
 			} catch (FileNotFoundException oException) {
-				log.error("Unable to save file with modifications. ", oException);
+				//log.error("Unable to save file with modifications. ", oException);
+                                System.err.println("Unable to save file with modifications. " + oException);
 				oException.printStackTrace();
 			} catch (IOException oException) {
-				log.error("Unable to save file with modifications. ", oException);
+				//log.error("Unable to save file with modifications. ", oException);
+                                System.err.println("Unable to save file with modifications. " + oException);
 				oException.printStackTrace();
 			} 
 			if (oPrintWriter != null)
