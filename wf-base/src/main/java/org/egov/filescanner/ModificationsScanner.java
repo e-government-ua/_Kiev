@@ -78,7 +78,8 @@ public class ModificationsScanner {
 		//log.debug("Folder to save file with modifications: " + oFilePathHistory.getCanonicalPath());
                 System.out.println("Folder to save file with modifications: " + oFilePathHistory.getCanonicalPath());
 
-		String sHistoryPathDiff = StringUtils.substringBefore(sPathScan, oFilePathHistory.getCanonicalPath() + File.separator);
+		//String sHistoryPathDiff = StringUtils.substringBefore(sPathScan, oFilePathHistory.getCanonicalPath() + File.separator);
+		String sHistoryPathDiff = sPathScan.substring(oFilePathHistory.getCanonicalPath().length());
                 System.out.println("sHistoryPathDiff=" + sHistoryPathDiff);
 		String sHistoryFileName = sHistoryPathDiff.replace(File.separator, ".");
                 System.out.println("sHistoryFileName=" + sHistoryFileName);
