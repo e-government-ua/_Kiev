@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by diver on 6/26/15.
@@ -22,6 +24,9 @@ import java.util.List;
 @Component
 public class ActivitiRestAuthProvider implements AuthenticationProvider {
 
+	private final Logger log = LoggerFactory
+			.getLogger(ActivitiRestAuthProvider.class);
+    
 	private static final String GENERAL_ROLE = "ROLE_USER";
 
 	@Value("${general.auth.login}")
@@ -56,6 +61,7 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
 			return createBasicAuthUsernameAndPasswordToken(generalUsername, generalPassword);
 		} else {
 			if (getIdentityService().checkPassword(username, password)) {
+                                log.info("getIdentityService="+getIdentityService().getUserInfo(username, password));
 				return createBasicAuthUsernameAndPasswordToken(username, password);
 			} else {
 				return null;
