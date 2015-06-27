@@ -1,10 +1,5 @@
 package org.activiti.rest.controller;
 
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.redis.util.RedisUtil;
 import org.slf4j.Logger;
@@ -16,12 +11,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.dao.*;
 import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.DocumentContentType;
 import org.wf.dp.dniprorada.model.HistoryEvent;
 import org.wf.dp.dniprorada.model.Subject;
 import org.wf.dp.dniprorada.util.Util;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/services")
@@ -199,6 +201,7 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "sID_Subject_Upload") String sID_Subject_Upload,
             @RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
             @RequestParam(value = "sName") String sName,
+            @RequestParam(value = "sFileExtension", required = false) String sFileExtension,
             //@RequestParam(value = "sFile", required = false) String fileName,
             @RequestParam(value = "nID_DocumentType") Integer nID_DocumentType,
             @RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
@@ -214,6 +217,7 @@ public class ActivitiRestDocumentController {
             //sFileName = oFile.getOriginalFilename()+".zip";
             String sOriginalFileName = oFile.getOriginalFilename();
             String sOriginalContentType = oFile.getContentType();
+            log.info("sFileExtension="+sFileExtension);
             log.info("sOriginalFileName="+sOriginalFileName);
             log.info("sOriginalContentType="+sOriginalContentType);
             //for(String s : request.getHeaderNames()){
@@ -224,16 +228,17 @@ public class ActivitiRestDocumentController {
             }
             String fileExp = RedisUtil.getFileExp(sOriginalFileName);
             fileExp = fileExp != null ? fileExp : ".zip.zip";
-            fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? ".zip" : fileExp;
-            sFileName = sOriginalFileName + fileExp;
+            //fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? ".zip" : fileExp;
+            fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? sFileExtension : fileExp;
+            fileExp = fileExp != null ? fileExp.toLowerCase() : ".zip";
+            sFileName = sOriginalFileName + (fileExp.startsWith(".")?"":".") + fileExp;
+            log.info("sFileName="+sFileName);
         }
         String sFileContentType = oFile.getContentType();
         byte[] aoContent = oFile.getBytes();
 
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
-        
-        return documentDao
-                .setDocument(
+        Long nID_Document = documentDao.setDocument(
                         nID_Subject,
                         subject_Upload.getnID(),
                         sID_Subject_Upload,
@@ -244,8 +249,10 @@ public class ActivitiRestDocumentController {
                         sFileName,
                         sFileContentType,
                         aoContent);
+        createHistoryEvent(2L, nID_Subject, sSubjectName_Upload, sName, nID_Document);
+        return nID_Document;
     }
-    
+
     private Subject syncSubject_Upload(String sID_Subject_Upload){
     	Subject subject_Upload = subjectDao.getSubject(sID_Subject_Upload);
     	if(subject_Upload == null){
@@ -254,4 +261,29 @@ public class ActivitiRestDocumentController {
     	return subject_Upload;
     }
 
+    private void createHistoryEvent(Long nID_HistoryEventType, Long nID_Subject,
+                                    String sSubjectName_Upload,
+                                    String sDocumentName, Long nID_Document) {
+        String sDocumentType = "";
+        try {
+            Document oDocument = documentDao.getDocument(nID_Document);
+            sDocumentType = oDocument.getDocumentType().getName();
+        } catch (Throwable e) {
+            log.error("can't get document info!", e);
+        }
+        try {
+            HistoryEventType eventType = HistoryEventType.getById(nID_HistoryEventType);
+            String eventMessage = eventType.getsTemplate();//"%Назва органу% завантажує %Тип документу% %Назва документу% у Ваш розділ Мої документи"
+            eventMessage = eventMessage.replaceAll("%Назва органу%", sSubjectName_Upload)
+                    .replaceAll("%Тип документу%", sDocumentType)
+                    .replaceAll("%Назва документу%", sDocumentName);
+
+            historyEventDao.setHistoryEvent(nID_Subject,
+                    nID_HistoryEventType, eventMessage, eventMessage);
+        } catch (IOException e) {
+            log.error("error during creating HistoryEvent", e);
+        } catch (Throwable e) {
+            log.warn(e.getMessage());//???
+        }
+    }
 }

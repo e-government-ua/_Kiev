@@ -24,6 +24,8 @@
 
   background-color: #fff;
   box-shadow: 4px 4px 80px #000;
+  max-height: 90%;
+  overflow-y: auto;
 }
 .ng-modal-dialog-content {
   padding:10px;
