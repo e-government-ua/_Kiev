@@ -36,12 +36,11 @@ public class ModificationsScanner {
 			File oFilePathScan = new File(sPathScan);
 			if (!oFilePathScan.exists() || !oFilePathScan.isDirectory()) {
 				//log.info("Path to check is not a directory. Skip scaning...");
-				System.out.println("Path to check is not a directory. Skip scaning...");
-				return false;
+				System.out.println("Path to check is not a directory. Skip scaning... Default is modified!");
+				return true;
 			}
 
 			File oFileHistory = getFileHistory(sPathScan);
-
 			if (oFileHistory.exists()) {
 				long nDateTimeLastRun = oFileHistory.lastModified();
 				getFilesModified(mFileModified, oFilePathScan, nDateTimeLastRun);
@@ -60,14 +59,16 @@ public class ModificationsScanner {
 				// overwriting file
 				FileOutputStream oFileOutputStreamWithModifications = new FileOutputStream(oFileHistory, false);
 				oFileOutputStreamWithModifications.close();
+				return false;
 			}
 		} catch (IOException oException) {
 			//log.error("Error while checking directory for modifications!", oException);
                         System.err.println("Error while checking directory for modifications!");
 			oException.printStackTrace();
+                        return true;
 		}
 
-		return false;
+		//return false;
 	}
 
 	private static File getFileHistory(String sPathScan)
