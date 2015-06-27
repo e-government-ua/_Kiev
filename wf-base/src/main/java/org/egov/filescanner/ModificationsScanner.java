@@ -72,15 +72,17 @@ public class ModificationsScanner {
 
 	private static File getFileHistory(String sPathScan)
 			throws IOException {
+                System.out.println("sPathScan: " + sPathScan);
 		File oFilePathHistory = new File(sPathScan + File.separator + ".." + File.separator + "..");
 		//log.debug("Folder to save file with modifications: " + oFilePathHistory.getCanonicalPath());
                 System.out.println("Folder to save file with modifications: " + oFilePathHistory.getCanonicalPath());
 
-		String sHistoryFileName = StringUtils.substringAfter(sPathScan, oFilePathHistory.getCanonicalPath()+ File.separator);
-		sHistoryFileName = sHistoryFileName.replace(File.separator, ".");
+		String sHistoryPathDiff = StringUtils.substringBefore(sPathScan, oFilePathHistory.getCanonicalPath() + File.separator);
+                System.out.println("sHistoryPathDiff=" + sHistoryPathDiff);
+		String sHistoryFileName = sHistoryPathDiff.replace(File.separator, ".");
+                System.out.println("sHistoryFileName=" + sHistoryFileName);
 
-		File oFileHistory = new File(oFilePathHistory,
-				sHistoryFileName + MODIFICAITONS_FILE_EXTENSITON);
+		File oFileHistory = new File(oFilePathHistory, sHistoryFileName + MODIFICAITONS_FILE_EXTENSITON);
 		//log.debug("File for saving modified files: " + oFileHistory.getCanonicalPath());
                 System.out.println("File for saving modified files: " + oFileHistory.getCanonicalPath());
 		return oFileHistory;
