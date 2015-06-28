@@ -10,6 +10,7 @@ define('about', ['angularAMD'], function(angularAMD) {
             templateProvider: function($templateCache) {
               return $templateCache.get('html/about/index.html');
             },
+            controller: 'AboutController',
             controllerUrl: 'state/about/controller'
           })
         }
