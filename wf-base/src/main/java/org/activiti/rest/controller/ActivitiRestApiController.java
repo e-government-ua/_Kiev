@@ -344,10 +344,12 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     }
     
     /**
-     * Получение статистики бизнеес процесса за заданный период
+     * Получение статистики по бизнес процессу за указанные период
      * @param sID_BP_Name - ИД бизнес процесса
-     * @param sDateAt - дата начала выборки статистики
-     * @param sDateTo - дата окончания выборки статистики
+     * @param sDateAt - дата начала периода выборки
+     * @param sDateTo - дата окончания периода выборки
+     * @param nRowStart - позиция начальной строки для возврата (0 по умолчанию)
+     * @param nRowsMax - количество записей для возврата (1000 по умолчанию)
      * @param request
      * @param httpResponse
      * @return
@@ -358,6 +360,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     public void getTimingForBusinessProcess(@RequestParam(value = "sID_BP_Name") String sID_BP_Name,
     		@RequestParam(value = "sDateAt") @DateTimeFormat(pattern="yyyy-MM-dd") Date dateAt,
     		@RequestParam(value = "sDateTo", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dateTo,
+    		@RequestParam(value = "nRowStart", required = false, defaultValue = "0") Integer nRowStart, 
+    		@RequestParam(value = "nRowsMax", required = false, defaultValue = "1000") Integer nRowsMax,
     		             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
 
     	if (sID_BP_Name == null || sID_BP_Name.isEmpty()) {
@@ -371,7 +375,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     			.taskCreatedAfter(dateAt)
     			.taskCompletedBefore(dateTo)
     			.processDefinitionId(sID_BP_Name)
-    			.list(); 
+    			.listPage(nRowStart, nRowsMax); 
 
     	String nameofBP = sID_BP_Name;
     	if (foundResults != null && !foundResults.isEmpty()){
@@ -383,7 +387,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         log.error("File name to return statistics : " + fileName);
         
-		httpResponse.setContentType("text/csv;charset=utf-8");
+		httpResponse.setContentType("text/csv;charset=UTF-8");
         httpResponse.setHeader("Content-disposition", "attachment; filename=" + fileName);
 
     	CSVWriter csvWriter = new CSVWriter(httpResponse.getWriter());
@@ -408,6 +412,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 	            csvWriter.writeNext(line);
 	        }
     	}
+
         csvWriter.close();
     }
 
