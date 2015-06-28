@@ -1215,3 +1215,28 @@ https://poligon.igov.org.ua/wf-central/service/flow/getFlowSlots_ServiceData?nID
 флаг "bFree" - является ли слот свободным? Слот считается свободным если на него нету тикетов у которых nID_Task_Activiti равен null, а у тех у которых nID_Task_Activiti = null - время создания тикета (sDateEdit) не позднее чем текущее время минус 5 минут (предопределенная константа)
 
 флаг "bHasFree" равен true , если данных день содержит хотя бы один свободный слот.
+
+
+**HTTP Context: http://server:port/wf-central/service/flow/setFlowSlots_ServiceData** - Создание или обновление тикета в указанном слоте.
+
+**HTTP Metod: POST**
+
+Параметры:
+* nID_FlowSlot - ID сущности FlowSlot (обязательный)
+* nID_Subject - ID сущнсоти Subject - субьект пользователь услуги, который подписывается на слот (обязательный)
+* nID_Task_Activiti - ID таски активити процесса предоставления услуги (не обязательный - вначале он null, а потом засчивается после подтверждения тикета, и создания процесса)
+
+Пример:
+http://poligon.igov.org.ua/wf-central/service/flow/setFlowSlot_ServiceData
+* nID_FlowSlot=1
+* nID_Subject=2
+
+Ответ:  HTTP STATUS 200
+
+{
+    "nID_Ticket": 1000
+}
+
+Поля в ответе:
+
+поле "nID_Ticket" - ID созданной/измененной сущности SubjectTicket.
