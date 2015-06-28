@@ -25,7 +25,8 @@ public class ModificationsScanner {
         
         public static void main(String asArgument[]) throws Exception{
             if(!hasModifiedfiles(asArgument[0])){
-                throw new Exception("Modifications is absant!");
+                //throw new Exception("Modifications is absant!");
+                System.out.println("Modifications is absant!");
                 System.exit(0);
             }
         }
