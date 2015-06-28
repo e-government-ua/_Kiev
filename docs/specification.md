@@ -1165,3 +1165,53 @@ https://poligon.igov.org.ua/wf-central/service/services/setServicesTree
             ]
          }
 ]
+
+
+**HTTP Context: http://server:port/wf-central/service/flow/getFlowSlots_ServiceData** - Получение слотов по сервису сгруппированных по дням.
+
+**HTTP Metod: GET**
+
+Параметры:
+* nID_ServiceData - ID сущности ServiceData (обязательный)
+* bAll - если false то из возвращаемого объекта исключаются элементы, содержащие "bHasFree":false "bFree":false (опциональный, по умолчанию false)
+* nDays - колличество дней от сегодняшего включительно, до nDays в будующее за который нужно вернуть слоты (опциональный, по умолчанию 60)
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/flow/getFlowSlots_ServiceData?nID_ServiceData=1
+
+Ответ:  HTTP STATUS 200
+
+{
+    "aDay": [
+        {
+            "sDate": "2015-07-19",
+            "bHasFree": true,
+            "aSlot": [
+                {
+                    "nID": 1,
+                    "sTime": "18:00",
+                    "nMinutes": 15,
+                    "bFree": true
+                }
+            ]
+        },
+        {
+            "sDate": "2015-07-20",
+            "bHasFree": true,
+            "aSlot": [
+                {
+                    "nID": 3,
+                    "sTime": "18:15",
+                    "nMinutes": 15,
+                    "bFree": true
+                }
+            ]
+        }
+    ]
+}
+
+Калькулируемые поля в ответе:
+
+флаг "bFree" - является ли слот свободным? Слот считается свободным если на него нету тикетов у которых nID_Task_Activiti равен null, а у тех у которых nID_Task_Activiti = null - время создания тикета (sDateEdit) не позднее чем текущее время минус 5 минут (предопределенная константа)
+
+флаг "bHasFree" равен true , если данных день содержит хотя бы один свободный слот.
