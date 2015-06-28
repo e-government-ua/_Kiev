@@ -13,7 +13,7 @@
                     <select class="form-control"
                             name="region"
                             ng-model="data.region"
-                            ng-options="region as region.sName for region in [data.region] track by region.nID"
+                            ng-options="region as region.sName for region in [data.region] | orderBy:'sName'"
                             ng-disabled="data.city"></select>
                 </div>
                 <div style="display:inline-block"
@@ -22,7 +22,7 @@
                     <select class="form-control"
                             name="city"
                             ng-model="data.city"
-                            ng-options="city as city.sName for city in [data.city] track by city.nID"
+                            ng-options="city as city.sName for city in [data.city] | orderBy:'sName'"
                             ng-disabled="data.city"></select>
                 </div>
             </div>
