@@ -24,10 +24,15 @@ public class ModificationsScanner {
 	private static String MODIFICAITONS_FILE_EXTENSITON = ".modify.lst";
         
         public static void main(String asArgument[]) throws Exception{
-            if(!hasModifiedfiles(asArgument[0])){
+            if(hasModifiedfiles(asArgument[0])){
+                System.out.println("Modifications is present!");
+            }else{
                 //throw new Exception("Modifications is absant!");
                 System.out.println("Modifications is absant!");
+                //System.exit(0);
+                Runtime.getRuntime().exit(0);
                 System.exit(0);
+                throw new RuntimeException("Modifications is absant!");
             }
         }
                 
