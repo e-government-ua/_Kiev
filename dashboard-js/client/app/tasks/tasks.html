@@ -1,6 +1,7 @@
 <div ng-include="'components/navbar/navbar.html'"
      class="navbar-fixed-top"></div>
 <div class="container"
+     ng-style="showPrintModal && {'overflow-y':'hidden'}"
      ng-init="init()">
     <div class="container__in">
         <div class="row">
@@ -125,30 +126,30 @@
             </div>
         </div>
     </div>
-    <print-modal show='showPrintModal'
-                 info='showPrintModal'>
-        <div class="col-md-12">
-            <p>Звернення: {{getProcessName(printObj.task.processDefinitionId)}}</p>
-
-            <p>джерело: igov.org.ua</p>
-
-            <p>№: {{printObj.task.id}}</p>
-
-            <p>від: {{ sDateShort(printObj.task.createTime) }}</p>
-
-            <!--p ng-repeat='item in printObj.form'>{{sFieldLabel(item.name)}}<b>{{item.value}}</b-->
-            <p ng-repeat='item in printObj.form'>
-                {{sFieldLabel(item.name)}}
-                <b ng-if="item.type == 'enum'">{{sEnumValue(item.enumValues,item.value)}}</b>
-                <b ng-if="item.type != 'enum'">{{item.value}}</b>
-            </p>
-
-            <p>
-                ----------------------------------------------------------------------------------------------------------------------------</p>
-
-            <p>Довідку№ _________________________ Отримав (ПІБ)_________________________</p>
-
-            <p>Дата _________________________ Підпис _________________________</p>
-        </div>
-    </print-modal>
 </div>
+
+<print-modal show='showPrintModal'
+             info='showPrintModal'>
+    <div class="col-md-12">
+        <p>Звернення: {{getProcessName(printObj.task.processDefinitionId)}}</p>
+
+        <p>джерело: igov.org.ua</p>
+
+        <p>№: {{printObj.task.id}}</p>
+
+        <p>від: {{ sDateShort(printObj.task.createTime) }}</p>
+
+        <p ng-repeat='item in printObj.form'>
+            {{sFieldLabel(item.name)}}
+            <b ng-if="item.type == 'enum'">{{sEnumValue(item.enumValues,item.value)}}</b>
+            <b ng-if="item.type != 'enum'">{{item.value}}</b>
+        </p>
+
+        <p>
+            ----------------------------------------------------------------------------------------------------------------------------</p>
+
+        <p>Довідку№ _________________________ Отримав (ПІБ)_________________________</p>
+
+        <p>Дата _________________________ Підпис _________________________</p>
+    </div>
+</print-modal>

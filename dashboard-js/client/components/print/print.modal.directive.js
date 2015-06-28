@@ -20,7 +20,7 @@ angular.module('dashboardJsApp').directive('printModal', ['$window', function($w
 				var elementToPrint = element[0].getElementsByClassName('ng-modal-dialog-content')[0];
 				var printContents = elementToPrint.innerHTML;
 				var popupWin = window.open('', '_blank');
-				popupWin.document.open()
+				popupWin.document.open();
 				popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + printContents + '</html>');
 				popupWin.document.close();
 			}
