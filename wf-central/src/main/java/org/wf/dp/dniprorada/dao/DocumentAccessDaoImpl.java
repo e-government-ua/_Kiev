@@ -1,29 +1,12 @@
 package org.wf.dp.dniprorada.dao;
 
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
-import java.util.Random;
-
-
-
-import org.apache.commons.logging.impl.Log4JLogger;
-import org.apache.log4j.Level;
+import com.google.gson.Gson;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.wf.dp.dniprorada.model.DocumentAccess;
@@ -31,7 +14,13 @@ import org.wf.dp.dniprorada.model.OtpCreate;
 import org.wf.dp.dniprorada.model.OtpPassword;
 import org.wf.dp.dniprorada.model.SmsTemplate;
 
-import com.google.gson.Gson;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Repository
 public class DocumentAccessDaoImpl implements DocumentAccessDao {
@@ -204,7 +193,15 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		return  otpPassword;
 	}
 
-        
+	@Override
+	public DocumentAccess getDocumentAccess(String accessCode) {
+		return (DocumentAccess) getSession()
+				.createCriteria(DocumentAccess.class)
+				.add(Restrictions.eq("sCode", accessCode))
+				.uniqueResult();
+	}
+
+
 	@Override
 	public String setDocumentAccess(Long nID_Access, String sSecret, String sAnswer) throws Exception {
 		Session oSession = getSession();

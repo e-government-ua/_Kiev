@@ -7,13 +7,22 @@
 
     <changeSet id="Create/Update tables" author="brunneng" runOnChange="true">
 
-        <sql splitStatements="true">
+        <sql splitStatements="true" dbms="postgresql">
             DROP TABLE IF EXISTS "ServiceOperator_SubjectOrgan" CASCADE;
             DROP TABLE IF EXISTS "Flow_ServiceData" CASCADE;
             DROP TABLE IF EXISTS "FlowPropertyClass" CASCADE;
             DROP TABLE IF EXISTS "FlowProperty" CASCADE;
             DROP TABLE IF EXISTS "FlowSlot" CASCADE;
             DROP TABLE IF EXISTS "SubjectTicket" CASCADE;
+        </sql>
+
+        <sql splitStatements="true" dbms="h2">
+            DROP TABLE IF EXISTS ServiceOperator_SubjectOrgan CASCADE;
+            DROP TABLE IF EXISTS Flow_ServiceData CASCADE;
+            DROP TABLE IF EXISTS FlowPropertyClass CASCADE;
+            DROP TABLE IF EXISTS FlowProperty CASCADE;
+            DROP TABLE IF EXISTS FlowSlot CASCADE;
+            DROP TABLE IF EXISTS SubjectTicket CASCADE;
         </sql>
 
         <!-- ####################################################################################################### -->
