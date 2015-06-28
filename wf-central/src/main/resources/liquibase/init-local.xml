@@ -7,7 +7,7 @@
 
     <changeSet id="Create/Update tables" author="brunneng" runOnChange="true">
 
-        <sql splitStatements="true">
+        <sql splitStatements="true" dbms="postgresql">
             DROP SEQUENCE IF EXISTS "Subject_id_seq";
             DROP SEQUENCE IF EXISTS "SubjectHuman_id_seq";
             DROP SEQUENCE IF EXISTS "SubjectOrgan_id_seq";
@@ -35,6 +35,36 @@
             DROP TABLE IF EXISTS "HistoryEvent" CASCADE;
 
             DROP TABLE IF EXISTS "DocumentAccess" CASCADE;
+        </sql>
+
+        <sql splitStatements="true" dbms="h2">
+            DROP SEQUENCE IF EXISTS Subject_id_seq;
+            DROP SEQUENCE IF EXISTS SubjectHuman_id_seq;
+            DROP SEQUENCE IF EXISTS SubjectOrgan_id_seq;
+            DROP SEQUENCE IF EXISTS Document_id_seq;
+            DROP SEQUENCE IF EXISTS DocumentType_id_seq;
+            DROP SEQUENCE IF EXISTS DocumentContentType_id_seq;
+            DROP SEQUENCE IF EXISTS DocumentAccess_id_seq;
+            DROP SEQUENCE IF EXISTS HistoryEvent_id_seq;
+            DROP TABLE IF EXISTS Region CASCADE;
+            DROP TABLE IF EXISTS City CASCADE;
+            DROP TABLE IF EXISTS Category CASCADE;
+            DROP TABLE IF EXISTS Subcategory CASCADE;
+            DROP TABLE IF EXISTS ServiceType CASCADE;
+            DROP TABLE IF EXISTS Service CASCADE;
+            DROP TABLE IF EXISTS ServiceData CASCADE;
+            DROP TABLE IF EXISTS Subject CASCADE;
+            DROP TABLE IF EXISTS SubjectHuman CASCADE;
+            DROP TABLE IF EXISTS SubjectOrgan CASCADE;
+            DROP TABLE IF EXISTS SubjectOrganType CASCADE;
+            DROP TABLE IF EXISTS SubjectOrganDepartment CASCADE;
+            DROP TABLE IF EXISTS SubjectMessage CASCADE;
+            DROP TABLE IF EXISTS DocumentType CASCADE;
+            DROP TABLE IF EXISTS DocumentContentType CASCADE;
+            DROP TABLE IF EXISTS Document CASCADE;
+            DROP TABLE IF EXISTS HistoryEvent CASCADE;
+
+            DROP TABLE IF EXISTS DocumentAccess CASCADE;
         </sql>
         
         <!-- ####################################################################################################### -->
