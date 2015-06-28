@@ -1,10 +1,10 @@
 package org.wf.dp.dniprorada.dao;
 
+import org.wf.dp.dniprorada.model.Document;
+import org.wf.dp.dniprorada.model.DocumentOperator_SubjectOrgan;
+
 import java.io.IOException;
 import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
-import org.wf.dp.dniprorada.model.Document;
 
 public interface DocumentDao {
 	
@@ -21,4 +21,6 @@ public interface DocumentDao {
 			String sName, Integer nID_DocumentType,
 			Integer nID_DocumentContentType, String sFileName, String sFileContentType, byte[] aoContent) throws IOException;
 
+	DocumentOperator_SubjectOrgan getOperator(Long organID);
+	List<DocumentOperator_SubjectOrgan> getAllOperators();
 }

@@ -1,23 +1,16 @@
 package org.wf.dp.dniprorada.dao;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
-import org.springframework.data.mongodb.gridfs.GridFsTemplate;
-import org.springframework.web.multipart.MultipartFile;
-import org.wf.dp.dniprorada.model.Document;
-import org.wf.dp.dniprorada.model.DocumentContentType;
-import org.wf.dp.dniprorada.model.DocumentType;
-import org.wf.dp.dniprorada.model.Subject;
-import org.wf.dp.dniprorada.util.Util;
-
+import org.wf.dp.dniprorada.model.*;
 import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
+
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 public class DocumentDaoImpl implements DocumentDao {
 
@@ -104,5 +97,22 @@ public class DocumentDaoImpl implements DocumentDao {
 		getSession().saveOrUpdate(document);
 		return document.getId();
 
+	}
+
+
+	@Override
+	public DocumentOperator_SubjectOrgan getOperator(Long operatorId) {
+		return (DocumentOperator_SubjectOrgan) getSession()
+				.createCriteria(DocumentOperator_SubjectOrgan.class)
+				.add(Restrictions.eq("nID_SubjectOrgan", operatorId))
+				.uniqueResult();
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<DocumentOperator_SubjectOrgan> getAllOperators() {
+		return (List<DocumentOperator_SubjectOrgan>) getSession()
+				.createCriteria(DocumentOperator_SubjectOrgan.class)
+				.list();
 	}
 }

@@ -49,7 +49,13 @@ public class DocumentAccess {
 	
 	@Column(name="sDateAnswerExpire")
 	private String sDateAnswerExpire;
-        
+
+	@Column(name="sCode")
+	private String sCode;
+
+	@Column(name="sCodeType")
+	private String sCodeType;
+
 	@Identifier
 	public Long getID_Document() {
 		return nID_Document;
@@ -142,5 +148,21 @@ public class DocumentAccess {
 	@Override
 	public String toString() {
 		return "{\n"+"nID:"+nID+"\nnID_Document:"+nID_Document+"sDateCreate:"+sDateCreate+"\nnMS:"+nMS+"\nsFIO:"+sFIO+"\nsTarget:"+sTarget+"\nsTelephone:"+sTelephone+"\nsMail:"+sMail+"\nsSecret:"+sSecret+"\nsAnswer:"+sAnswer+"\nsDateAnswerExpire:"+sDateAnswerExpire+"\n}";
+	}
+
+	public String getsCode() {
+		return sCode;
+	}
+
+	public void setsCode(String sCode) {
+		this.sCode = sCode;
+	}
+
+	public String getsCodeType() {
+		return sCodeType;
+	}
+
+	public void setsCodeType(String sCodeType) {
+		this.sCodeType = sCodeType;
 	}
 }

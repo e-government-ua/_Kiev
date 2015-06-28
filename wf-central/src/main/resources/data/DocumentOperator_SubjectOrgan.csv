@@ -1,0 +1,2 @@
+nID;sName;nID_SubjectOrgan;sHandlerClass
+1;iGov;2;org.wf.dp.dniprorada.model.document.DocumentAccessHandler_IGov
