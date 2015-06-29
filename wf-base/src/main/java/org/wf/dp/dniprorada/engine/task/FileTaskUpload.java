@@ -37,17 +37,16 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 		StartFormData startformData = execution.getEngineServices()
 				.getFormService()
 				.getStartFormData(execution.getProcessDefinitionId());
-		List<String> filedTypeFile = getListFieldCastomTypeFile(startformData);
-                LOG.info("filedTypeFile="+filedTypeFile);
-		List<String> listValueKeys = getValueFieldWithCastomTypeFile(execution,
-				filedTypeFile);
-                LOG.info("listValueKeys="+listValueKeys);
+		List<String> asFiledTypeFile = getListFieldCastomTypeFile(startformData);
+                LOG.info("asFiledTypeFile="+asFiledTypeFile);
+		List<String> asValueKey = getValueFieldWithCastomTypeFile(execution, asFiledTypeFile);
+                LOG.info("asValueKey="+asValueKey);
 		List<BuilderAtachModel> listModel = new ArrayList<BuilderAtachModel>();
-		if (!listValueKeys.isEmpty()) {
-			for (String keyRedis : listValueKeys) {
-                                LOG.info("_keyRedis="+keyRedis);
-				if (keyRedis != null && !keyRedis.isEmpty() && !"".equals(keyRedis.trim())) {
-					byte[] byteFile = getRedisService().getAttachments(keyRedis);
+		if (!asValueKey.isEmpty()) {
+			for (String sKeyRedis : asValueKey) {
+                                LOG.info("_sKeyRedis="+sKeyRedis);
+				if (sKeyRedis != null && !sKeyRedis.isEmpty() && !"".equals(sKeyRedis.trim()) && !"null".equals(sKeyRedis.trim())) {
+					byte[] byteFile = getRedisService().getAttachments(sKeyRedis);
 					ByteArrayMultipartFile contentMultipartFile = getByteArrayMultipartFileFromRedis(byteFile);
 					if (contentMultipartFile != null) {
 						String outFilename = null;
