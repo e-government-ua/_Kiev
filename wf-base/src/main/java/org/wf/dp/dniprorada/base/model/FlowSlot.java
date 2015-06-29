@@ -1,11 +1,16 @@
 package org.wf.dp.dniprorada.base.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.wf.dp.dniprorada.base.util.JsonDateTimeDeserializer;
+import org.wf.dp.dniprorada.base.util.JsonDateTimeSerializer;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,11 +25,16 @@ public class FlowSlot extends NamedEntity {
 
    @Column
    @Type(type= DATETIME_TYPE)
+   @JsonSerialize(using = JsonDateTimeSerializer.class)
+   @JsonDeserialize(using = JsonDateTimeDeserializer.class)
    private DateTime sDate;
 
    @Column
    private String sDuration;
 
+   /**
+    * not used now, just in case, will hold some json.
+    */
    @Column
    private String sData;
 
@@ -34,7 +44,7 @@ public class FlowSlot extends NamedEntity {
 
    @OneToMany(mappedBy = "oFlowSlot", cascade = CascadeType.ALL, orphanRemoval = true)
    @LazyCollection(LazyCollectionOption.FALSE)
-   private List<SubjectTicket> subjectTickets;
+   private List<SubjectTicket> subjectTickets = new ArrayList<>();
 
    public String getsData() {
       return sData;

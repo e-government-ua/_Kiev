@@ -2,27 +2,22 @@ package org.activiti.rest.controller;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
-import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
-import org.wf.dp.dniprorada.base.dao.SubjectTicketDao;
 import org.wf.dp.dniprorada.base.model.FlowSlot;
 import org.wf.dp.dniprorada.base.model.SubjectTicket;
+import org.wf.dp.dniprorada.base.service.flow.FlowService;
+import org.wf.dp.dniprorada.base.util.JsonDateSerializer;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
-import org.wf.dp.dniprorada.base.viewobject.flow.Day;
 import org.wf.dp.dniprorada.base.viewobject.flow.Days;
 import org.wf.dp.dniprorada.base.viewobject.flow.FlowSlotVO;
 import org.wf.dp.dniprorada.base.viewobject.flow.SaveSubjectTicketResponse;
 
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * User: goodg_000
@@ -34,13 +29,7 @@ import java.util.TreeMap;
 public class ActivitiRestFlowController {
 
    @Autowired
-   private FlowSlotDao flowSlotDao;
-
-   @Autowired
-   private SubjectTicketDao subjectTicketDao;
-
-   @Autowired
-   private BaseEntityDao baseEntityDao;
+   private FlowService flowService;
 
    @RequestMapping(value = "/getFlowSlots_ServiceData", method = RequestMethod.GET)
    public
@@ -53,45 +42,7 @@ public class ActivitiRestFlowController {
       DateTime startDate = DateTime.now().withTimeAtStartOfDay();
       DateTime endDate = startDate.plusDays(nDays);
 
-      List<FlowSlot> flowSlots = flowSlotDao.getFlowSlotsOrderByDateAsc(nID_ServiceData, startDate, endDate);
-
-      Map<DateTime, Day> daysMap = new TreeMap<>();
-      if (bAll) {
-         DateTime currDate = startDate;
-         while (currDate.isBefore(endDate)) {
-            Day day = new Day(currDate);
-            daysMap.put(currDate, day);
-            currDate = currDate.plusDays(1);
-         }
-      }
-
-      for (FlowSlot flowSlot : flowSlots) {
-         DateTime currDate = flowSlot.getsDate().withTimeAtStartOfDay();
-         FlowSlotVO flowSlotVO = new FlowSlotVO(flowSlot);
-         if (!bAll && !flowSlotVO.isbFree()) {
-            continue;
-         }
-
-         Day day = daysMap.get(currDate);
-         if (day == null) {
-            day = new Day(currDate);
-            daysMap.put(currDate, day);
-         }
-
-         day.getaSlot().add(flowSlotVO);
-
-         if (!day.isbHasFree() && flowSlotVO.isbFree()) {
-            day.setbHasFree(true);
-         }
-      }
-
-      Days res = new Days();
-      for (Map.Entry<DateTime, Day> entry : daysMap.entrySet()) {
-         Day day = entry.getValue();
-         if (bAll || day.isbHasFree()) {
-            res.getaDay().add(day);
-         }
-      }
+      Days res = flowService.getFlowSlots(nID_ServiceData, startDate, endDate, bAll);
 
       return JsonRestUtils.toJsonResponse(res);
    }
@@ -103,27 +54,31 @@ public class ActivitiRestFlowController {
                                @RequestParam(value = "nID_Subject") Long nID_Subject,
                                @RequestParam(value = "nID_Task_Activiti", required = false) Long nID_Task_Activiti) {
 
-      SubjectTicket subjectTicket = subjectTicketDao.findSubjectTicket(nID_FlowSlot);
-      if (subjectTicket == null) {
-         subjectTicket = new SubjectTicket();
-      }
-
-      subjectTicket.setnID_Subject(nID_Subject);
-      subjectTicket.setnID_Task_Activiti(nID_Task_Activiti);
-
-      FlowSlot flowSlot = baseEntityDao.getById(FlowSlot.class, nID_FlowSlot);
-
-      if (flowSlot == null) {
-         return new ResponseEntity<>("FlowSlot with id=" + nID_FlowSlot + " is not found!",
-                 HttpStatus.INTERNAL_SERVER_ERROR);
-      }
-
-      subjectTicket.setoFlowSlot(flowSlot);
-      subjectTicket.setsDateEdit(DateTime.now());
-
-      baseEntityDao.saveOrUpdate(subjectTicket);
+      SubjectTicket subjectTicket = flowService.saveSubjectTicket(nID_FlowSlot, nID_Subject, nID_Task_Activiti);
 
       return JsonRestUtils.toJsonResponse(new SaveSubjectTicketResponse(subjectTicket.getId()));
+   }
+
+   @RequestMapping(value = "/buildFlowSlots", method = RequestMethod.POST)
+   public
+   @ResponseBody
+   ResponseEntity buildFlowSlots(@RequestParam(value = "nID_Flow_ServiceData") Long nID_Flow_ServiceData,
+                                    @RequestParam(value = "sDateStart", required = false) String sDateStart,
+                                    @RequestParam(value = "sDateStop", required = false) String sDateStop) {
+
+      DateTime startDate = null;
+      if (sDateStart != null) {
+         startDate = JsonDateSerializer.DATE_FORMATTER.parseDateTime(sDateStart);
+      }
+
+      DateTime stopDate = null;
+      if (sDateStop != null) {
+         stopDate = JsonDateSerializer.DATE_FORMATTER.parseDateTime(sDateStop);
+      }
+
+      List<FlowSlotVO> res = flowService.buildFlowSlots(nID_Flow_ServiceData, startDate, stopDate);
+
+      return JsonRestUtils.toJsonResponse(res);
    }
 
 }

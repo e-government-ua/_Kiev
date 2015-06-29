@@ -14,12 +14,15 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.wf.dp.dniprorada.base.model.FlowSlot;
 import org.wf.dp.dniprorada.base.util.JsonDateTimeSerializer;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.base.viewobject.flow.Day;
 import org.wf.dp.dniprorada.base.viewobject.flow.Days;
 import org.wf.dp.dniprorada.base.viewobject.flow.FlowSlotVO;
 import org.wf.dp.dniprorada.base.viewobject.flow.SaveSubjectTicketResponse;
+
+import java.util.List;
 
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
@@ -108,6 +111,19 @@ public class ActivitiRestFlowControllerScenario {
               andReturn().getResponse().getContentAsString();
       response = JsonRestUtils.readObject(setJsonData, SaveSubjectTicketResponse.class);
       Assert.assertEquals(ticketId, response.getnID_Ticket());
+   }
+
+   @Test
+   public void shouldGenerateSlots() throws Exception {
+      String setJsonData = mockMvc.perform(post("/flow/buildFlowSlots").
+              param("nID_Flow_ServiceData", "1").
+              param("sDateStart", "2015-06-01").
+              param("sDateStop", "2015-06-07")).
+              andExpect(status().isOk()).
+              andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
+              andReturn().getResponse().getContentAsString();
+      FlowSlotVO[] generatedSlots = JsonRestUtils.readObject(setJsonData, FlowSlotVO[].class);
+      Assert.assertTrue(generatedSlots.length == 32*5); // 32 every day.
    }
 
    private FlowSlotVO findSlot(Days days, Long slotId) {

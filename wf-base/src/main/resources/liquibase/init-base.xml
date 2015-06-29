@@ -70,6 +70,9 @@
             <column name="sPath" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
+            <column name="sBeanName" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
         <addAutoIncrement columnName="nID" tableName="FlowPropertyClass" columnDataType="bigint" incrementBy="1" startWith="1000"/>
 
@@ -166,6 +169,7 @@
             <column name="nID" type="NUMERIC"/>
             <column name="sName" type="STRING"/>
             <column name="sPath" type="STRING"/>
+            <column name="sBeanName" type="STRING"/>
         </loadData>
 
         <loadData encoding="UTF-8" file="data/FlowProperty.csv" tableName="FlowProperty" separator=";">

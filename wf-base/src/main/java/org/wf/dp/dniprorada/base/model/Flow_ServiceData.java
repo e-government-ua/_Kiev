@@ -1,6 +1,12 @@
 package org.wf.dp.dniprorada.base.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 /**
  * Flow (stored in regional server) related to ServiceData (stored in central server).
@@ -30,6 +36,10 @@ public class Flow_ServiceData extends NamedEntity {
    @Column
    private String sID_BP;
 
+   @OneToMany(mappedBy = "oFlow_ServiceData", cascade = CascadeType.ALL, orphanRemoval = true)
+   @LazyCollection(LazyCollectionOption.FALSE)
+   private List<FlowProperty> flowProperties;
+
    public Long getnID_ServiceData() {
       return nID_ServiceData;
    }
@@ -49,5 +59,12 @@ public class Flow_ServiceData extends NamedEntity {
    }
    public void setsID_BP(String sID_BP) {
       this.sID_BP = sID_BP;
+   }
+
+   public List<FlowProperty> getFlowProperties() {
+      return flowProperties;
+   }
+   public void setFlowProperties(List<FlowProperty> flowProperties) {
+      this.flowProperties = flowProperties;
    }
 }
