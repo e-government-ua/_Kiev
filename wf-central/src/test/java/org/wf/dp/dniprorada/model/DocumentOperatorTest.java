@@ -1,16 +1,14 @@
 package org.wf.dp.dniprorada.model;
 
-import org.activiti.rest.controller.IntegrationTestsApplicationConfiguration;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.wf.dp.dniprorada.dao.DocumentDao;
 import org.wf.dp.dniprorada.model.document.DocumentAccessHandler;
+import org.wf.dp.dniprorada.model.document.DocumentAccessHandler_IGov;
 import org.wf.dp.dniprorada.model.document.HandlerFactory;
 import org.wf.dp.dniprorada.model.document.HandlerNotFoundException;
 
@@ -48,9 +46,14 @@ public class DocumentOperatorTest {
 
         DocumentAccessHandler handler = handlerFactory.buildHandlerFor(operator);
         assertNotNull("Unable to build handler", handler);
-        assertTrue("Incorrect handler type", handler instanceof DocumentAccessHandler);
+        assertTrue("Incorrect handler type", handler instanceof DocumentAccessHandler_IGov);
 
-        handler.setAccessCode("1").getAccess();
+        DocumentAccess access = handler.setAccessCode("1").getAccess();
+        assertNotNull("DocumentAccess not found", access);
+
+        Document doc = documentDao.getDocument( access.getID() );
+        assertNotNull("Document not found", doc);
+        assertEquals("Паспорт", doc.getName());
     }
 
     @Test(expected = HandlerNotFoundException.class)
