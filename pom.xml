@@ -55,6 +55,7 @@
 		<java.object.merger.version.version>0.8.5.1</java.object.merger.version.version>
 		<jboss.serialization.version>4.2.2.GA</jboss.serialization.version>
 		<trove.version>1.0.2</trove.version>
+		<quartz.version>1.6.1</quartz.version>
 		<ehcache.version>2.10.0</ehcache.version>
 	</properties>
                 <!--igov.storage-static.version>1.0.0${parameter.sRevision}-SNAPSHOT</igov.storage-static.version>
@@ -306,6 +307,12 @@
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
 				<version>${commons.codec.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.opensymphony.quartz</groupId>
+				<artifactId>quartz</artifactId>
+				<version>${quartz.version}</version>
 			</dependency>
 
 			<!-- required for @Configuration annotation -->
