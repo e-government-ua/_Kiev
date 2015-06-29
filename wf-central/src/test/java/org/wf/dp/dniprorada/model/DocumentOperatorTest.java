@@ -1,8 +1,14 @@
 package org.wf.dp.dniprorada.model;
 
+import org.activiti.rest.controller.IntegrationTestsApplicationConfiguration;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.wf.dp.dniprorada.dao.DocumentDao;
 import org.wf.dp.dniprorada.model.document.DocumentAccessHandler;
 import org.wf.dp.dniprorada.model.document.HandlerFactory;
@@ -15,11 +21,10 @@ import static org.junit.Assert.*;
  * @author dgroup
  * @since 28.06.15
  */
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ActiveProfiles("test")
-//@ContextConfiguration(locations = {
-//        "classpath:activiti-custom-context.xml",
-//        "classpath:activiti-ui-context.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+@ActiveProfiles("test")
+@ContextConfiguration(locations = {
+        "classpath:activiti-custom-context.xml"})
 public class DocumentOperatorTest {
     public static final Long DUMMY_OPERATOR_ID = 2L;
 
@@ -29,12 +34,12 @@ public class DocumentOperatorTest {
     @Autowired
     private HandlerFactory handlerFactory;
 
-    @Test @Ignore
+    @Test
     public void notNull(){
         assertNotNull(documentDao); // just test that Spring DI is working :)
     }
 
-    @Test @Ignore
+    @Test
     public void buildHandlerForDummyOperator() throws Exception{
         DocumentOperator_SubjectOrgan operator =
             documentDao.getOperator(DUMMY_OPERATOR_ID);
@@ -48,7 +53,7 @@ public class DocumentOperatorTest {
         handler.setAccessCode("1").getAccess();
     }
 
-    @Test(expected = HandlerNotFoundException.class) @Ignore
+    @Test(expected = HandlerNotFoundException.class)
     public void tryToBuildNonExistentHandler(){
         DocumentOperator_SubjectOrgan operator = documentDao.getOperator(DUMMY_OPERATOR_ID);
         operator.setsHandlerClass("non existent class name");
@@ -56,7 +61,7 @@ public class DocumentOperatorTest {
         fail("Expected exception was missing");
     }
 
-    @Test @Ignore
+    @Test
     public void oneOperatorShouldBePresent(){
         assertTrue(1 <= documentDao.getAllOperators().size());
     }

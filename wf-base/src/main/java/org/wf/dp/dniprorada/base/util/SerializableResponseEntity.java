@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.util;
+package org.wf.dp.dniprorada.base.util;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

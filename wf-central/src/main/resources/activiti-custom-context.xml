@@ -74,29 +74,6 @@
             <aop:advisor pointcut-ref="dao.services" advice-ref="txAdvice"/>
         </aop:config>
 
-        <!-- ==============================   CACHE   ============================= -->
-
-        <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-            <property name="configLocation">
-                <value>classpath:ehcache.xml</value>
-            </property>
-        </bean>
-
-        <bean id="methodCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
-            <property name="cacheManager" ref="cacheManager"/>
-            <property name="cacheName" value="org.sample.cache.METHOD_CACHE"/>
-        </bean>
-
-        <bean id="methodCacheInterceptor" class="org.wf.dp.dniprorada.util.caching.MethodCacheInterceptor">
-            <property name="cache" ref="methodCache"/>
-        </bean>
-
-        <bean id="methodCacheAdvisor" class="org.wf.dp.dniprorada.util.caching.MethodCacheAdvisor">
-            <property name="interceptor" ref="methodCacheInterceptor"/>
-        </bean>
-
-        <bean id="cachedInvocationBean" class="org.wf.dp.dniprorada.util.caching.CachedInvocationBean"/>
-
         <!-- ==============================   DAO   ============================= -->
 
         <bean id="merchantDao" class="org.wf.dp.dniprorada.dao.MerchantDaoImpl">
@@ -213,6 +190,7 @@
         <import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml"/>
         <import resource="classpath:/META-INF/spring/ua-org-egov-utils-storage-context.xml"/>
         <import resource="db-context.xml"/>
+        <import resource="cache-context.xml"/>
     </beans>
 
 

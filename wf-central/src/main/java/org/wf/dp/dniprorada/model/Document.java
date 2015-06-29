@@ -100,7 +100,7 @@ public class Document {
 		this.name = name;
 	}
 
-	public String getСontentKey() {
+	public String getContentKey() {
 		return сontentKey;
 	}
 
