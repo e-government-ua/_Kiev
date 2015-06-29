@@ -102,6 +102,17 @@
                                ng-required="item.required"
                                ng-model="item.value"/>
                     </p>
+                    
+                    <p style="display: none;" ng-if="['invisible'].indexOf(item.type) == -1">
+                        <label>{{sFieldLabel(item.name)}}</label>
+                    </p>
+                    
+                    <p ng-if="['label'].indexOf(item.type) == -1">
+                        <label>{{sFieldLabel(item.name)}}</label>
+                        <label>{{item.value}}</label>
+                    </p>
+                    
+                    
                 </div>
                 <div ng-show="attachments">
                     <p ng-repeat="item in attachments">

@@ -16,6 +16,8 @@ import org.wf.dp.dniprorada.model.SmsTemplate;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -245,10 +247,15 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	}
 	private String getOtpPassword(DocumentAccess docAcc) throws Exception{
 		Properties prop = new Properties();
-		prop.load(getClass().getClassLoader().getResourceAsStream("merch.properties"));
+		File file = new File("$CATALINA_HOME/conf/merch.properties");
+		FileInputStream fis = new FileInputStream(file);
+		prop.load(fis);
+		log.info(file.getCanonicalPath());
+		log.info(prop.getProperty("merchant_password"));
 		OtpPassword otp = new OtpPassword();
 		otp.setMerchant_id(prop.getProperty("merchant_id"));
 		otp.setMerchant_password(prop.getProperty("merchant_password"));
+		fis.close();
 		OtpCreate otpCreate = new OtpCreate();
 		otpCreate.setCategory("qwerty");
 		otpCreate.setFrom("10060");

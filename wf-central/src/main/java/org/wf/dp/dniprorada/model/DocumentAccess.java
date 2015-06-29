@@ -1,15 +1,8 @@
 package org.wf.dp.dniprorada.model;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 import net.sf.brunneng.jom.annotations.Identifier;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -17,43 +10,43 @@ import java.util.Date;
 public class DocumentAccess {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="nID")
+	@Column(name = "nID")
 	private Long nID;
-	
-	@Column(name="nID_Document")
+
+	@Column(name = "nID_Document")
 	private Long nID_Document;
-	
-	@Column(name="sDateCreate")
+
+	@Column(name = "sDateCreate")
 	private String sDateCreate;
-	
-	@Column(name="nMS")
+
+	@Column(name = "nMS")
 	private Long nMS;
-	
-	@Column(name="sFIO")
+
+	@Column(name = "sFIO")
 	private String sFIO;
-	
-	@Column(name="sTarget")
+
+	@Column(name = "sTarget")
 	private String sTarget;
-	
-	@Column(name="sTelephone")
+
+	@Column(name = "sTelephone")
 	private String sTelephone;
-	
-	@Column(name="sMail")
+
+	@Column(name = "sMail")
 	private String sMail;
-	
-	@Column(name="sSecret")
+
+	@Column(name = "sSecret")
 	private String sSecret;
-	
-	@Column(name="sAnswer")
+
+	@Column(name = "sAnswer")
 	private String sAnswer;
-	
-	@Column(name="sDateAnswerExpire")
+
+	@Column(name = "sDateAnswerExpire")
 	private String sDateAnswerExpire;
 
-	@Column(name="sCode")
+	@Column(name = "sCode")
 	private String sCode;
 
-	@Column(name="sCodeType")
+	@Column(name = "sCodeType")
 	private String sCodeType;
 
 	@Identifier
@@ -128,7 +121,7 @@ public class DocumentAccess {
 	public void setAnswer(String s) {
 		this.sAnswer = s;
 	}
-	
+
 
 	public String getDateAnswerExpire() {
 		return sDateAnswerExpire;
@@ -137,17 +130,13 @@ public class DocumentAccess {
 	public void setDateAnswerExpire(Date o) {
 		this.sDateAnswerExpire = o.toString();
 	}
-        
+
 	public Long getID() {
 		return nID;
 	}
 
 	public void setID(Long n) {
 		this.nID = n;
-	}
-	@Override
-	public String toString() {
-		return "{\n"+"nID:"+nID+"\nnID_Document:"+nID_Document+"sDateCreate:"+sDateCreate+"\nnMS:"+nMS+"\nsFIO:"+sFIO+"\nsTarget:"+sTarget+"\nsTelephone:"+sTelephone+"\nsMail:"+sMail+"\nsSecret:"+sSecret+"\nsAnswer:"+sAnswer+"\nsDateAnswerExpire:"+sDateAnswerExpire+"\n}";
 	}
 
 	public String getsCode() {
@@ -164,5 +153,14 @@ public class DocumentAccess {
 
 	public void setsCodeType(String sCodeType) {
 		this.sCodeType = sCodeType;
+	}
+
+	@Override
+	public String toString() {
+		return "{\n" + "nID:" + nID + "\nnID_Document:" + nID_Document + "sDateCreate:" + sDateCreate +
+				"\nnMS:" + nMS + "\nsFIO:" + sFIO + "\nsTarget:" + sTarget + "\nsTelephone:" + sTelephone +
+				"\nsMail:" + sMail + "\nsSecret:" + sSecret + "\nsAnswer:" + sAnswer + "" +
+				"\nsDateAnswerExpire:" + sDateAnswerExpire +
+				"\nsCode:" + sCode + "\nsCodeType:" + sCodeType + "}";
 	}
 }

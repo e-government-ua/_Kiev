@@ -6,6 +6,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.wf.dp.dniprorada.model.*;
+import org.wf.dp.dniprorada.model.document.DocumentOrganNotFoundException;
 import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 
 import java.io.IOException;
@@ -101,10 +102,17 @@ public class DocumentDaoImpl implements DocumentDao {
 
 	@Override
 	public DocumentOperator_SubjectOrgan getOperator(Long operatorId) {
-		return (DocumentOperator_SubjectOrgan) getSession()
-				.createCriteria(DocumentOperator_SubjectOrgan.class)
-				.add(Restrictions.eq("nID_SubjectOrgan", operatorId))
-				.uniqueResult();
+		DocumentOperator_SubjectOrgan organ =
+			(DocumentOperator_SubjectOrgan) getSession()
+			.createCriteria(DocumentOperator_SubjectOrgan.class)
+			.add(Restrictions.eq("nID_SubjectOrgan", operatorId))
+			.uniqueResult();
+
+		if (organ == null)
+			throw new DocumentOrganNotFoundException(
+				"Organ with ID:" + operatorId +" not found");
+
+		return organ;
 	}
 
 	@Override

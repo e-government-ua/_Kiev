@@ -113,6 +113,13 @@
                                        ng-required="property.required"
                                        class="form-control"
                                        value="">
+                                
+                                <label style="display: none;"
+                                       ng-switch-when="invisible"
+                                       name="{{property.id}}"
+                                       ng-required="property.required"
+                                       class="form-control_">{{data.formData.params[property.id].value}}</label>
+                                
                                 <input ng-switch-when="long"
                                        type="text"
                                        name="{{property.id}}"

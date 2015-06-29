@@ -1,7 +1,6 @@
 package org.wf.dp.dniprorada.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.wf.dp.dniprorada.model.document.DocumentAccessHandler;
 
 import javax.persistence.Column;
 
@@ -15,16 +14,17 @@ public class DocumentOperator_SubjectOrgan extends org.wf.dp.dniprorada.base.mod
 
     // Sorry about variables prefixes, but it's project convention.
     @JsonProperty(value="nID_SubjectOrgan")
-    @Column(name="nID_SubjectOrgan", nullable = false)
-    private Long    nID_SubjectOrgan;
+    @Column(nullable = false)
+    private Long nID_SubjectOrgan;
 
     /**
      * It represents a handler's full class name.
-     * Each handler is a instance of {@link DocumentAccessHandler}.
+     * Each handler is an instance of
+     * {@link org.wf.dp.dniprorada.model.document.DocumentAccessHandler}.
      **/
     @JsonProperty(value="sHandlerClass")
-    @Column(name = "sHandlerClass", nullable = false)
-    private String  sHandlerClass;
+    @Column(nullable = false)
+    private String sHandlerClass;
 
 
     public Long getnID_SubjectOrgan() {
