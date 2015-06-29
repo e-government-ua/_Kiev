@@ -372,7 +372,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         }
 
     	List<HistoricTaskInstance> foundResults = historyService.createHistoricTaskInstanceQuery()
-    			.taskCreatedAfter(dateAt)
+    			.taskCompletedAfter(dateAt)
     			.taskCompletedBefore(dateTo)
     			.processDefinitionId(sID_BP_Name)
     			.listPage(nRowStart, nRowsMax); 
