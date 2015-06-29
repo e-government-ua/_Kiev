@@ -18,7 +18,7 @@ import org.wf.dp.dniprorada.model.BuilderAtachModel;
 
 /**
  * 
- * @author inna
+ * @author inna & BW
  * 
  */
 @Component("fileTaskUpload")
@@ -38,12 +38,15 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 				.getFormService()
 				.getStartFormData(execution.getProcessDefinitionId());
 		List<String> filedTypeFile = getListFieldCastomTypeFile(startformData);
+                LOG.info("filedTypeFile="+filedTypeFile);
 		List<String> listValueKeys = getValueFieldWithCastomTypeFile(execution,
 				filedTypeFile);
+                LOG.info("listValueKeys="+listValueKeys);
 		List<BuilderAtachModel> listModel = new ArrayList<BuilderAtachModel>();
 		if (!listValueKeys.isEmpty()) {
 			for (String keyRedis : listValueKeys) {
-				if (keyRedis != null && !keyRedis.isEmpty()) {
+                                LOG.info("_keyRedis="+keyRedis);
+				if (keyRedis != null && !keyRedis.isEmpty() && !"".equals(keyRedis.trim())) {
 					byte[] byteFile = getRedisService().getAttachments(keyRedis);
 					ByteArrayMultipartFile contentMultipartFile = getByteArrayMultipartFileFromRedis(byteFile);
 					if (contentMultipartFile != null) {
