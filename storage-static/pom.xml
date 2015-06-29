@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-    <!--parent>
-        <groupId>org.egov-ua</groupId>
-        <artifactId>org.egov-ua.storage</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent-->
-
+    <parent>
+            <groupId>org.egov-ua</groupId>
+            <artifactId>org.egov-ua</artifactId>
+            <!--version>1.0-SNAPSHOT</version-->
+            <version>${igov.wf-base.version}</version>
+    </parent>
 
     <name>iGov-UA Storage Static</name>
-    
-    <modelVersion>4.0.0</modelVersion>
-    
     <groupId>org.egov-ua</groupId>
     <artifactId>org.egov-ua.storage-static</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <!--version>1.0-SNAPSHOT</version-->
+    <!--version>1.0.0${parameter.sRevision}-SNAPSHOT</version-->
+    <version>${igov.storage-static.version}</version>
     <packaging>jar</packaging>
 
+    <properties>
+        <spring.data.mongodb.version>1.7.0.RELEASE</spring.data.mongodb.version>
+    </properties>
 
-	<parent>
-		<groupId>org.egov-ua</groupId>
-		<artifactId>org.egov-ua</artifactId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
 
 	<!--modelVersion>4.0.0</modelVersion>
 
@@ -40,21 +38,6 @@
 	<!--modules>
 		<module>storage-static</module>
 	</modules-->
-
-
-
-
-
-
-
-
-
-
-
-
-    <properties>
-        <spring.data.mongodb.version>1.7.0.RELEASE</spring.data.mongodb.version>
-    </properties>
 
     <dependencies>
         <!-- MongoDB dependencies -->    

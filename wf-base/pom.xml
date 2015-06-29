@@ -2,18 +2,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <artifactId>org.egov-ua</artifactId>
         <groupId>org.egov-ua</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <!--version>1.0-SNAPSHOT</version-->
+        <version>${igov.wf-base.version}</version>
     </parent>
 
     <name>iGov-UA WF-Base</name>
-    <modelVersion>4.0.0</modelVersion>
     <artifactId>wf-base</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <!--version>1.0-SNAPSHOT</version-->
+    <!--version>1.0.0${parameter.sRevision}-SNAPSHOT</version-->
+    <version>${igov.wf-base.version}</version>
     <packaging>war</packaging>
+
+    <properties>
+        <activity.version>5.17.0</activity.version>
+        <guava-version>15.0</guava-version>
+    </properties>
 
     <repositories>
         <repository>
@@ -21,10 +29,6 @@
             <url>http://maven.vaadin.com/vaadin-addons</url>
         </repository>
     </repositories>
-    <properties>
-        <activity.version>5.17.0</activity.version>
-        <guava-version>15.0</guava-version>
-    </properties>
 
     <build>
         <plugins>
@@ -219,13 +223,15 @@
         <dependency>
             <groupId>org.activiti.redis</groupId>
             <artifactId>wf-region-redis</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <!--version>0.0.1-SNAPSHOT</version-->
+            <version>${igov.storage-temp.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.egov-ua</groupId>
             <artifactId>org.egov-ua.storage-static</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <!--version>1.0-SNAPSHOT</version-->
+            <version>${igov.storage-static.version}</version>
         </dependency>
 
         <!-- Database -->
