@@ -1264,7 +1264,7 @@ Name of Task - Название задачи
 
 Пример:
 ```
-https://test.igov.org.ua/wf-region/service/rest/file/download_bp_timing?sID_BP_Name=lviv_mvk-1:35:512570&sDateAt=2015-06-28&sDateTo=2015-07-01
+https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?sID_BP_Name=lviv_mvk-1&sDateAt=2015-06-28&sDateTo=2015-07-01
 ```
 
 Пример выходного файла
