@@ -374,7 +374,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	List<HistoricTaskInstance> foundResults = historyService.createHistoricTaskInstanceQuery()
     			.taskCompletedAfter(dateAt)
     			.taskCompletedBefore(dateTo)
-    			.processDefinitionId(sID_BP_Name)
+    			.processDefinitionKey(sID_BP_Name)
     			.listPage(nRowStart, nRowsMax); 
 
     	SimpleDateFormat sdfFileName = new SimpleDateFormat("yyyy-MM-ddHH-mm-ss");

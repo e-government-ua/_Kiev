@@ -61,7 +61,7 @@ public class ActivitiRestApiControllerDownloadTimingScenario {
     	HistoricTaskInstanceQuery historicTaskInstance = Mockito.mock(HistoricTaskInstanceQuery.class);
     	Mockito.when(historicTaskInstance.taskCompletedAfter((Date) Mockito.anyObject())).thenReturn(historicTaskInstance);
     	Mockito.when(historicTaskInstance.taskCompletedBefore((Date) Mockito.anyObject())).thenReturn(historicTaskInstance);
-    	Mockito.when(historicTaskInstance.processDefinitionId(Mockito.anyString())).thenReturn(historicTaskInstance);
+    	Mockito.when(historicTaskInstance.processDefinitionKey(Mockito.anyString())).thenReturn(historicTaskInstance);
     	Mockito.when(historicTaskInstance.listPage(Mockito.anyInt(), Mockito.anyInt())).thenReturn(historicTasks);
     	
     	Mockito.when(historyService.createHistoricTaskInstanceQuery()).thenReturn(historicTaskInstance);
