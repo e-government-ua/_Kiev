@@ -7,8 +7,8 @@
     <parent>
         <artifactId>org.egov-ua</artifactId>
         <groupId>org.egov-ua</groupId>
-        <!--version>1.0-SNAPSHOT</version-->
-        <version>${igov.wf-base.version}</version>
+	<version>1.0-SNAPSHOT</version>
+	<!--version>${igov.wf-base.version}</version-->
     </parent>
 
     <name>iGov-UA WF-Base</name>
@@ -225,6 +225,7 @@
             <artifactId>wf-region-redis</artifactId>
             <!--version>0.0.1-SNAPSHOT</version-->
             <version>${igov.storage-temp.version}</version>
+            
         </dependency>
 
         <dependency>
