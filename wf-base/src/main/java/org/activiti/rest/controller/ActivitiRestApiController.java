@@ -372,20 +372,15 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         }
 
     	List<HistoricTaskInstance> foundResults = historyService.createHistoricTaskInstanceQuery()
-    			.taskCreatedAfter(dateAt)
+    			.taskCompletedAfter(dateAt)
     			.taskCompletedBefore(dateTo)
     			.processDefinitionId(sID_BP_Name)
     			.listPage(nRowStart, nRowsMax); 
 
-    	String nameofBP = sID_BP_Name;
-    	if (foundResults != null && !foundResults.isEmpty()){
-    		HistoricTaskInstance firstElem = foundResults.get(0);
-    		nameofBP = firstElem.getName();
-    	}
-    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddHH-mm-ss");
-        String fileName = nameofBP + sdf.format(Calendar.getInstance().getTime());
+    	SimpleDateFormat sdfFileName = new SimpleDateFormat("yyyy-MM-ddHH-mm-ss");
+        String fileName = sID_BP_Name + "_" + sdfFileName.format(Calendar.getInstance().getTime()) + ".csv";
 
-        log.error("File name to return statistics : " + fileName);
+        log.debug("File name to return statistics : " + fileName);
         
 		httpResponse.setContentType("text/csv;charset=UTF-8");
         httpResponse.setHeader("Content-disposition", "attachment; filename=" + fileName);
@@ -396,14 +391,15 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 "Name of Task" };
     	csvWriter.writeNext(header);
     	
+    	SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
     	if (foundResults != null && foundResults.size() > 0){
-	    	log.debug(String.format("Found {0} completed tasks for business process {1} for date period {2} - {3}", foundResults.size(), sID_BP_Name, sdf.format(dateAt), 
-	    			sdf.format(dateTo)));
+	    	log.debug(String.format("Found {0} completed tasks for business process {1} for date period {2} - {3}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt), 
+	    			sdfDate.format(dateTo)));
 	        for (HistoricTaskInstance currTask : foundResults) {
 	        	String[] line = new String[5];
 	        	line[0] = currTask.getAssignee();
 	            Date startDate = currTask.getStartTime();
-	            line[1] = sdf.format(startDate);
+	            line[1] = sdfDate.format(startDate);
 	            line[2] = String.valueOf(currTask.getDurationInMillis());
 	            long durationInHours = currTask.getDurationInMillis() / (1000 * 60 * 60);
 	            line[3] = String.valueOf(durationInHours);
@@ -411,6 +407,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 	            
 	            csvWriter.writeNext(line);
 	        }
+    	} else {
+    		log.debug(String.format("No completed tasks found for business process {0} for date period {1} - {2}", sID_BP_Name, sdfDate.format(dateAt), 
+    				sdfDate.format(dateTo)));
     	}
 
         csvWriter.close();

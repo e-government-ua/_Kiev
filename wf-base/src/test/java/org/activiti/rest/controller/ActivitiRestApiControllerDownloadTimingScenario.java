@@ -1,8 +1,7 @@
 package org.activiti.rest.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -61,7 +59,7 @@ public class ActivitiRestApiControllerDownloadTimingScenario {
     	historicTasks.add(historicTask);
 
     	HistoricTaskInstanceQuery historicTaskInstance = Mockito.mock(HistoricTaskInstanceQuery.class);
-    	Mockito.when(historicTaskInstance.taskCreatedAfter((Date) Mockito.anyObject())).thenReturn(historicTaskInstance);
+    	Mockito.when(historicTaskInstance.taskCompletedAfter((Date) Mockito.anyObject())).thenReturn(historicTaskInstance);
     	Mockito.when(historicTaskInstance.taskCompletedBefore((Date) Mockito.anyObject())).thenReturn(historicTaskInstance);
     	Mockito.when(historicTaskInstance.processDefinitionId(Mockito.anyString())).thenReturn(historicTaskInstance);
     	Mockito.when(historicTaskInstance.listPage(Mockito.anyInt(), Mockito.anyInt())).thenReturn(historicTasks);

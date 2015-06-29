@@ -52,7 +52,7 @@
           <activiti:value id="accept" name="Перейти до надання послуги"></activiti:value>
           <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="footer" name="footerToPrint" type="label" readable="false" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="footer" name="footerToPrint" type="invisible" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
@@ -95,7 +95,7 @@
           <activiti:value id="notFound" name="Документ не знайдено"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="docToSend" name="Завантажте  копію документа для відправлення заявнику" type="file"></activiti:formProperty>
-        <activiti:formProperty id="footer" name="footerToPrint" type="label" readable="false" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="footer" name="footerToPrint" type="invisible" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <endEvent id="endevent5" name="End"></endEvent>

@@ -147,6 +147,7 @@
                     <bean class="org.wf.dp.dniprorada.form.FormFileType"/>
                     <bean class="org.wf.dp.dniprorada.form.TextAreaFormType"/>
                     <bean class="org.wf.dp.dniprorada.form.QueueDataFormType" />
+                    <bean class="org.wf.dp.dniprorada.form.InvisibleFormType"/>
                 </list>
             </property>
 
@@ -189,8 +190,8 @@
 
         <import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml"/>
         <import resource="classpath:/META-INF/spring/ua-org-egov-utils-storage-context.xml"/>
-        <import resource="db-context.xml"/>
-        <import resource="cache-context.xml"/>
+        <import resource="classpath:db-context.xml"/>
+        <import resource="classpath:cache-context.xml"/>
     </beans>
 
 
