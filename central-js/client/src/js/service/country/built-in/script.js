@@ -30,20 +30,15 @@ define('service.general.country.built-in', ['angularAMD'], function (angularAMD)
 						var aServiceData = service.aServiceData;
 						return aServiceData[0];
 					}],
-					BankIDLogin: ['$q', '$state', '$location', '$stateParams', 'BankIDService', function($q, $state, $location, $stateParams, BankIDService) {
-						var url = $location.protocol()
-							+'://'
-							+$location.host()
-							+':'
-							+$location.port()
-							+$state.href('service.general.country.built-in.bankid', { id: $stateParams.id });
-						
-						return BankIDService.login($stateParams.code, url).then(function(data) {
-							return data.hasOwnProperty('error') ? $q.reject(null): data;
+					BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
+						return BankIDService.isLoggedIn().then(function () {
+							return {loggedIn: true};
+						}).catch(function() {
+							return $q.reject(null);
 						});
-					}],
+					},
 					BankIDAccount: ['BankIDService', 'BankIDLogin', function(BankIDService, BankIDLogin) {
-						return BankIDService.account(BankIDLogin.access_token);
+						return BankIDService.account();
 					}],
 					processDefinitions: ['ServiceService', 'oServiceData', function(ServiceService, oServiceData) {
 						return ServiceService.getProcessDefinitions(oServiceData, true);

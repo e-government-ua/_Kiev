@@ -1,7 +1,7 @@
 <div class="list-group-item">
     <span>Крок {{nStep}}. Увійдіть в систему через</span>
     <button style="display: none;" class="btn btn-info"><i class="icon-door-lock"></i><span class="btn-text">igov.org.ua</span></button>
-    <a class="btn btn-info" ng-href="{{config.sProtocol_AccessService_BankID}}://{{config.sHost_AccessService_BankID}}/DataAccessService/das/authorize?response_type=code&client_id={{config.client_id}}&redirect_uri={{$location.protocol()}}://{{$location.host()}}:{{$location.port()}}{{redirectUri}}"
+    <a class="btn btn-info" target="_self" ng-href="{{$location.protocol()}}://{{$location.host()}}:{{$location.port()}}/auth/bankID?link={{$location.protocol()}}://{{$location.host()}}:{{$location.port()}}{{redirectUri}}"
             ng-if="!authMethods || authMethods.indexOf('BankID') > -1">
         <i class="icon-bank-id"></i>
         <span class="btn-text">BankID</span>
