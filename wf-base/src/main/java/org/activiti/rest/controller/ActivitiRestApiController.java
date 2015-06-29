@@ -383,9 +383,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     		nameofBP = firstElem.getName();
     	}
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddHH-mm-ss");
-        String fileName = nameofBP + sdf.format(Calendar.getInstance().getTime());
+        String fileName = nameofBP + "_" + sdf.format(Calendar.getInstance().getTime()) + ".csv";
 
-        log.error("File name to return statistics : " + fileName);
+        log.debug("File name to return statistics : " + fileName);
         
 		httpResponse.setContentType("text/csv;charset=UTF-8");
         httpResponse.setHeader("Content-disposition", "attachment; filename=" + fileName);
@@ -411,6 +411,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 	            
 	            csvWriter.writeNext(line);
 	        }
+    	} else {
+    		log.debug(String.format("No completed tasks found for business process {0} for date period {1} - {2}", sID_BP_Name, sdf.format(dateAt), 
+	    			sdf.format(dateTo)));
     	}
 
         csvWriter.close();
