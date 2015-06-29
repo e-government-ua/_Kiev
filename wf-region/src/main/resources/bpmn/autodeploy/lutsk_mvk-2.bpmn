@@ -22,7 +22,7 @@
         <activiti:formProperty id="file2" name="Копія ідентифікаційного номеру" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file3" name="Копія з кадастрового плану(з нанесеними межами) земельної ділянки." type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file4" name="Копія правових документів, що підтверджують право власності (користування) земельною ділянкою; свідоцтво про право власності, державний акт на право власності, витяг з державного реєстру речових прав на нерухоме майно, рішення міської ради" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копія довіреності (доручення); тільки для уповноваженої особи" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Копія довіреності (доручення); тільки для уповноваженої особи" type="file" default=""></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
