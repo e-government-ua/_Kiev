@@ -24,21 +24,18 @@ define('state/documents/bankid/controller', ['angularAMD'], function (angularAMD
 
         $scope.loginWithBankId = function () {
             var stateForRedirect = $state.href('documents.bankid', {});
-            var redirectURI = $location.protocol() + '://' + $location.host() + ':' + $location.port() + stateForRedirect;
-            //$window.location.href = 'https://bankid.org.ua/DataAccessService/das/authorize?response_type=code&client_id=9b0e5c63-9fcb-4b11-84ff-31fc2cea8801&redirect_uri=' + redirectURI;
-            $window.location.href = $scope.config.sProtocol_AccessService_BankID + '://' + $scope.config.sHost_AccessService_BankID + '/DataAccessService/das/authorize?response_type=code&client_id=' + $scope.config.client_id + '&redirect_uri=' + redirectURI;
-        }
+            var redirectURI = $location.protocol() +
+                '://' + $location.host() + ':'
+                + $location.port()
+                + stateForRedirect;
+            $window.location.href = './auth/bankID?link=' + redirectURI;
+        };
 
         if ($state.is('documents.bankid')) {
-            if (!!$state.params.code) {
+            BankIDService.isLoggedIn().then(function () {
                 $scope.authProcess = true;
                 return $state.go('documents.content', {code: $state.params.code});
-            } else {
-                return BankIDService.isLoggedIn().then(function () {
-                    $scope.authProcess = true;
-                    return $state.go('documents.content', {code: $state.params.code});
-                });
-            }
+            });
         }
     });
 });

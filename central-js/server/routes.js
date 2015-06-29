@@ -3,7 +3,7 @@ var express = require('express');
 
 module.exports = function(app) {
 	app.use('/', express.static(__dirname + '../../client/build/'));
-	app.use('/api/auth', require('./api/auth'));
+	app.use('/auth', require('./auth'));
 	app.use('/api/account', require('./api/account/index'));
 	app.use('/api/bankid', require('./api/bankid'));
 	app.use('/api/documents', require('./api/documents/index'));
