@@ -16,7 +16,7 @@ define('journal', ['angularAMD', 'config', 'service'], function (angularAMD) {
                 }
             })
             .state('journal.bankid', {
-                url: '/bankid?code',
+                url: '/bankid?code&error',
                 parent: 'journal',
                 views: {
                     'bankid': angularAMD.route({
