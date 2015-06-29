@@ -53,11 +53,11 @@ public abstract class AbstractModelTask {
 	RedisService redisService;
 
         
-   @Autowired
-   private FlowSlotDao flowSlotDao;
+   //@Autowired
+   //private FlowSlotDao flowSlotDao;
 
-   @Autowired
-   private SubjectTicketDao subjectTicketDao;
+   //@Autowired
+   //private SubjectTicketDao subjectTicketDao;
 
    @Autowired
    private BaseEntityDao baseEntityDao;
@@ -407,7 +407,7 @@ public abstract class AbstractModelTask {
                     long nID_Task_Activiti = 1; //TODO set real ID!!!
                     oSubjectTicket.setnID_Task_Activiti(nID_Task_Activiti);
                     baseEntityDao.saveOrUpdate(oSubjectTicket);
-                    LOG.info("SubjectTicket with id=" + JsonRestUtils.toJsonResponse(new SaveSubjectTicketResponse(oSubjectTicket.getId())));
+                    LOG.info("JSON:" + JsonRestUtils.toJsonResponse(new SaveSubjectTicketResponse(oSubjectTicket.getId())));
                 }
             }catch(Exception oException){
                 LOG.error(oException.getMessage());
