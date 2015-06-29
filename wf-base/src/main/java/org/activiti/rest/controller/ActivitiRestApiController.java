@@ -377,13 +377,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     			.processDefinitionId(sID_BP_Name)
     			.listPage(nRowStart, nRowsMax); 
 
-    	String nameofBP = sID_BP_Name;
-    	if (foundResults != null && !foundResults.isEmpty()){
-    		HistoricTaskInstance firstElem = foundResults.get(0);
-    		nameofBP = firstElem.getName();
-    	}
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddHH-mm-ss");
-        String fileName = nameofBP + "_" + sdf.format(Calendar.getInstance().getTime()) + ".csv";
+        String fileName = sID_BP_Name + "_" + sdf.format(Calendar.getInstance().getTime()) + ".csv";
 
         log.debug("File name to return statistics : " + fileName);
         
