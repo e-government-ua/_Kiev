@@ -7,8 +7,6 @@ module.exports = function(app) {
 	app.use('/api/bankid', require('./api/bankid'));
 	app.use('/api/documents', require('./api/documents/index'));
 	app.use('/api/journal', require('./api/journal/index'));
-	app.use('/api/login', require('./api/login/index'));
-	app.use('/api/logout', require('./api/logout/index'));
 	app.use('/api/places', require('./api/places/index'));
 	app.use('/api/process-definitions', require('./api/process-definitions/index'));
 	app.use('/api/process-form', require('./api/process-form'));
