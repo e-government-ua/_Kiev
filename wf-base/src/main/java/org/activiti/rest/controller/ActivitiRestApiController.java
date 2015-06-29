@@ -387,8 +387,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     	CSVWriter csvWriter = new CSVWriter(httpResponse.getWriter());
     	
-    	String[] header = { "Assignee", "Start Time", "Duration in millis", "Duration in hours",
-                "Name of Task" };
+    	String[] header = { "Assignee", "Start Time", "Duration in millis", "Duration in hours", "Name of Task" };
     	csvWriter.writeNext(header);
     	
     	SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
