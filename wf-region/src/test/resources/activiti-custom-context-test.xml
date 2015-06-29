@@ -51,6 +51,8 @@
 				<bean class="org.wf.dp.dniprorada.form.TextAreaFormType" />
 				<bean class="org.wf.dp.dniprorada.form.LabelFormType" />
 				<bean class="org.wf.dp.dniprorada.form.MarkersFormType" />
+                                <bean class="org.wf.dp.dniprorada.form.QueueDataFormType" />
+                                <bean class="org.wf.dp.dniprorada.form.InvisibleFormType"/>
 			</list>
 		</property>
 
