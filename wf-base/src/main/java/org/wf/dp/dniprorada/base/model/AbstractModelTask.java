@@ -325,7 +325,7 @@ public abstract class AbstractModelTask {
         if (!asFieldValue.isEmpty()) {
             int n = 0;
             for (String sKeyRedis : asFieldValue) {
-                LOG.info("keyRedis=" + sKeyRedis);
+                LOG.info("sKeyRedis=" + sKeyRedis);
                 if (sKeyRedis != null && !sKeyRedis.isEmpty() && !"".equals(sKeyRedis.trim()) && !"null".equals(sKeyRedis.trim())) {
                     byte[] byteFile = getRedisService().getAttachments(sKeyRedis);
                     ByteArrayMultipartFile contentMultipartFile = null;
