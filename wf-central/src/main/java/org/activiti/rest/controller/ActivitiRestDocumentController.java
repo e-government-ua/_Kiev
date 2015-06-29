@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.dao.*;
 import org.wf.dp.dniprorada.model.*;
-import org.wf.dp.dniprorada.model.document.DocumentNotFoundException;
 import org.wf.dp.dniprorada.model.document.HandlerFactory;
 import org.wf.dp.dniprorada.util.Util;
 
@@ -66,7 +65,7 @@ public class ActivitiRestDocumentController {
     /**
      * @param accessCode    - строковой код доступа к документу
      * @param organID	    - номер-ИД субьекта-органа оператора документа
-     * @param docTypeID	    - номер-ИД типа документа
+     * @param docTypeID	    - номер-ИД типа документа (опционально)
      * @param password	    - строка-пароль (опционально)
      * */
     @RequestMapping(value 	= "/getDocumentAccessByHandler",
@@ -80,18 +79,11 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "sPass", required = false)		    String 	password,
             HttpServletResponse resp) {
 
-        DocumentAccess docAccess = handlerFactory
-            .buildHandlerFor(documentDao.getOperator(organID))
+        return handlerFactory.buildHandlerFor( documentDao.getOperator(organID) )
+            .setDocumentType(docTypeID)
             .setAccessCode(accessCode)
             .setPassword(password)
-            .getAccess();
-
-        Document doc = documentDao.getDocument( docAccess.getID() );
-
-        if (docTypeID != null && !doc.getDocumentType().getId().equals(docTypeID))
-            throw new DocumentNotFoundException("Access code " + accessCode + ", type " + docTypeID);
-
-        return doc;
+            .getDocument();
     }
 
 

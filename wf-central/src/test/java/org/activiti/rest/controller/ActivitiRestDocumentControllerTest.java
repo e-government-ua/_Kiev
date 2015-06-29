@@ -90,6 +90,7 @@ public class ActivitiRestDocumentControllerTest {
         Document doc = JsonRestUtils.readObject(jsonData, Document.class);
         assertNotNull("Document not found", doc);
         assertEquals("ID aren't match", 1L, doc.getId().longValue());
+        assertNotNull("Document name is empty", doc.getName());
         assertEquals("Document types aren't match", 0, doc.getDocumentType().getId().intValue());
         assertEquals("Content keys aren't match", "1", doc.getContentKey());
     }
