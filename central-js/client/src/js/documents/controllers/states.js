@@ -21,6 +21,7 @@ define('state/documents/controller', ['angularAMD'], function (angularAMD) {
 define('state/documents/bankid/controller', ['angularAMD'], function (angularAMD) {
     angularAMD.controller('DocumentsBankIdController', function ($scope, $state, $location, $window, BankIDService) {
         $scope.authProcess = false;
+        $scope.error = undefined;
 
         $scope.loginWithBankId = function () {
             var stateForRedirect = $state.href('documents.bankid', {});
@@ -32,10 +33,14 @@ define('state/documents/bankid/controller', ['angularAMD'], function (angularAMD
         };
 
         if ($state.is('documents.bankid')) {
-            BankIDService.isLoggedIn().then(function () {
-                $scope.authProcess = true;
-                return $state.go('documents.content', {code: $state.params.code});
-            });
+            if($state.params.error){
+                $scope.error = JSON.parse($state.params.error).error;
+            } else {
+                BankIDService.isLoggedIn().then(function () {
+                    $scope.authProcess = true;
+                    return $state.go('documents.content', {code: $state.params.code});
+                });
+            }
         }
     });
 });

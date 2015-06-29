@@ -1240,3 +1240,37 @@ http://poligon.igov.org.ua/wf-central/service/flow/setFlowSlot_ServiceData
 Поля в ответе:
 
 поле "nID_Ticket" - ID созданной/измененной сущности SubjectTicket.
+
+#### 16. Получение статистики по задачам в рамках бизнес процесса:
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://server:port/wf-region/service/rest/download_bp_timing?sID_BP_Name=XXX&sDateAt=XXX8&sDateTo=XXX**
+
+* {sID_BP_Name} - ID бизнес процесса
+* {sDateAt} - Дата начала периода для выборки в формате yyyy-MM-dd
+* {sDateTo} - Дата окончания периода для выборки в формате yyyy-MM-dd
+* {nRowsMax} - необязательный параметр. Максимальное значение завершенных задач для возврата. По умолчанию 1000.
+* {nRowStart} - Необязательный параметр. Порядковый номер завершенной задачи в списке для возврата. По умолчанию 0.
+
+Метод возвращает .csv файл со информацией о завершенных задачах в указанном бизнес процессе за период.
+Формат выходного файла
+Assignee - кто выполнял задачу
+Start Time - Дата и время начала
+Duration in millis - Длительность выполнения задачи в миллисекундах
+Duration in hours - Длительность выполнения задачи в часах
+Name of Task - Название задачи
+
+
+Пример:
+```
+https://test.igov.org.ua/wf-region/service/rest/file/download_bp_timing?sID_BP_Name=lviv_mvk-1:35:512570&sDateAt=2015-06-28&sDateTo=2015-07-01
+```
+
+Пример выходного файла
+
+```
+"Assignee","Start Time","Duration in millis","Duration in hours","Name of Task"
+"kermit","2015-06-21:09-20-40","711231882","197","Підготовка відповіді на запит: пошук документа"
+```
+

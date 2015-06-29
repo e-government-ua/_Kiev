@@ -15,7 +15,7 @@ define('state/journal/controller', ['angularAMD'], function (angularAMD) {
 });
 
 define('state/journal/bankid/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('JournalBankIdController', ['$rootScope', '$scope', '$location', '$state', '$window', function ($rootScope, $scope, $location, $state, $window) {
+	angularAMD.controller('JournalBankIdController', ['$rootScope', '$scope', '$location', '$state', '$window', 'BankIDService', function ($rootScope, $scope, $location, $state, $window, BankIDService) {
 
         $scope.loginWithBankId = function () {
             var stateForRedirect = $state.href('journal.bankid', {});
@@ -27,9 +27,13 @@ define('state/journal/bankid/controller', ['angularAMD'], function (angularAMD) 
         }
 		
         if ($state.is('journal.bankid')) {
-            BankIDService.isLoggedIn().then(function () {
-                return $state.go('journal.content', {code: $state.params.code});
-            });
+            if($state.params.error){
+                $scope.error = JSON.parse($state.params.error).error;
+            } else {
+                BankIDService.isLoggedIn().then(function () {
+                    return $state.go('journal.content', {code: $state.params.code});
+                });
+            };
         }
     }]);
 });

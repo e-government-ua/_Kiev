@@ -26,7 +26,7 @@ define('documents', ['angularAMD', 'config', 'service', 'file2/directive', 'file
         }
 	  })
       .state('documents.bankid', {
-        url: '/bankid?code',
+        url: '/bankid?code&error',
         parent: 'documents.user',
         views: {
           'content': angularAMD.route({

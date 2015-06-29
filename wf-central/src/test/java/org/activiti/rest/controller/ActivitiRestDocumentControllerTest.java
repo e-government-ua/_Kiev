@@ -2,7 +2,6 @@ package org.activiti.rest.controller;
 
 import org.apache.commons.collections.Predicate;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
+import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.DocumentOperator_SubjectOrgan;
 
 import java.util.Arrays;
@@ -30,9 +30,9 @@ import static org.wf.dp.dniprorada.model.DocumentOperatorTest.DUMMY_OPERATOR_ID;
  * @author dgroup
  * @since 28.06.15
  */
-//@WebAppConfiguration
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(classes = IntegrationTestsApplicationConfiguration.class)
+@WebAppConfiguration
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = IntegrationTestsApplicationConfiguration.class)
 public class ActivitiRestDocumentControllerTest {
 
     @Autowired
@@ -46,7 +46,7 @@ public class ActivitiRestDocumentControllerTest {
             .build();
     }
 
-    @Test @Ignore
+    @Test
     public void getAvailableOperators() throws Exception {
         String jsonData = mockMvc
             .perform    (get("/services/getDocumentOperators"))
@@ -72,7 +72,7 @@ public class ActivitiRestDocumentControllerTest {
         assertEquals("ID aren't match", 1L, iGov.getId().longValue()); // Long vs Object = compiler error
     }
 
-    @Test @Ignore
+    @Test
     public void getAccessByHandlersWithoutPassword() throws Exception {
         String jsonData = mockMvc
             .perform(get("/services/getDocumentAccessByHandler")
@@ -86,11 +86,16 @@ public class ActivitiRestDocumentControllerTest {
             .getContentAsString();
 
         assertNotNull(jsonData);
-        // TODO add object checking
+
+        Document doc = JsonRestUtils.readObject(jsonData, Document.class);
+        assertNotNull("Document not found", doc);
+        assertEquals("ID aren't match", 1L, doc.getId().longValue());
+        assertEquals("Document types aren't match", 0, doc.getDocumentType().getId().intValue());
+        assertEquals("Content keys aren't match", "1", doc.getContentKey());
     }
 
 
-    @Test @Ignore
+    @Test
     public void getAccessByHandlersWithPassword() throws Exception {
         String jsonData = mockMvc
             .perform(get("/services/getDocumentAccessByHandler")
@@ -103,7 +108,8 @@ public class ActivitiRestDocumentControllerTest {
             .andReturn()
             .getResponse()
             .getContentAsString();
+
         assertNotNull(jsonData);
-        // TODO add object checking
+        assertNotNull("Document not found", JsonRestUtils.readObject(jsonData, Document.class));
     }
 }
