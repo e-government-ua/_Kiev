@@ -1241,7 +1241,7 @@ http://poligon.igov.org.ua/wf-central/service/flow/setFlowSlot_ServiceData
 
 поле "nID_Ticket" - ID созданной/измененной сущности SubjectTicket.
 
-#### 6. Получение статистики по задачам в рамках бизнес процесса:
+#### 16. Получение статистики по задачам в рамках бизнес процесса:
 
 **HTTP Metod: GET**
 
