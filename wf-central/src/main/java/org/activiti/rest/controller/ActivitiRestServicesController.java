@@ -16,8 +16,8 @@ import org.wf.dp.dniprorada.service.EntityService;
 import org.wf.dp.dniprorada.service.TableDataService;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
-import org.wf.dp.dniprorada.util.SerializableResponseEntity;
-import org.wf.dp.dniprorada.util.caching.CachedInvocationBean;
+import org.wf.dp.dniprorada.base.util.SerializableResponseEntity;
+import org.wf.dp.dniprorada.base.util.caching.CachedInvocationBean;
 import org.wf.dp.dniprorada.viewobject.TableData;
 
 import javax.servlet.http.HttpServletResponse;

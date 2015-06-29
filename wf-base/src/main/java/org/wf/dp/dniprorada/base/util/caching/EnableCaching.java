@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.util.caching;
+package org.wf.dp.dniprorada.base.util.caching;
 
 import java.lang.annotation.*;
 

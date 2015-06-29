@@ -49,8 +49,7 @@ public class DocumentDaoImpl implements DocumentDao {
 	@Override
 	public byte[] getDocumentContent(Long id) {
 		Document document = (Document) getSession().get(Document.class, id);
-		byte[] contentByte = durableBytesDataStorage.getData(document
-				.getСontentKey());
+		byte[] contentByte = durableBytesDataStorage.getData(document.getContentKey());
 		return contentByte != null ? contentByte : contentMock.getBytes();
 	}
 

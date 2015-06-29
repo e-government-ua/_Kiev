@@ -119,7 +119,7 @@ public class ActivitiRestDocumentController {
         if(nID_Subject != document.getSubject().getnID()){
             throw new ActivitiRestException("401", "You don't have access!");
         } else{
-            return Util.contentByteToString(documentDao.getDocumentContent(document.getСontentKey())); // ????
+            return Util.contentByteToString(documentDao.getDocumentContent(document.getContentKey())); // ????
         }
     }
 
@@ -164,7 +164,7 @@ public class ActivitiRestDocumentController {
             throw new ActivitiRestException("401", "You don't have access!");
         } 
         byte[] content = documentDao.getDocumentContent(document
-                .getСontentKey());
+                .getContentKey());
         //byte[] content = "".getBytes();
         
         httpResponse.setHeader("Content-disposition", "attachment; filename="

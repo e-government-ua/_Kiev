@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.util;
+package org.wf.dp.dniprorada.base.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

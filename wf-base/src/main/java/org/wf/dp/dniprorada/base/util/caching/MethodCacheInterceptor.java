@@ -1,6 +1,5 @@
-package org.wf.dp.dniprorada.util.caching;
+package org.wf.dp.dniprorada.base.util.caching;
 
-import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 import org.aopalliance.intercept.MethodInterceptor;
@@ -9,14 +8,12 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
-import org.jboss.serial.io.JBossObjectInputStream;
-import org.jboss.serial.io.JBossObjectOutputStream;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
-import org.wf.dp.dniprorada.util.SerializationUtil;
+import org.wf.dp.dniprorada.base.util.SerializationUtil;
 
 /**
  * User: goodg_000
