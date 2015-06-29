@@ -377,8 +377,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     			.processDefinitionId(sID_BP_Name)
     			.listPage(nRowStart, nRowsMax); 
 
-    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddHH-mm-ss");
-        String fileName = sID_BP_Name + "_" + sdf.format(Calendar.getInstance().getTime()) + ".csv";
+    	SimpleDateFormat sdfFileName = new SimpleDateFormat("yyyy-MM-ddHH-mm-ss");
+        String fileName = sID_BP_Name + "_" + sdfFileName.format(Calendar.getInstance().getTime()) + ".csv";
 
         log.debug("File name to return statistics : " + fileName);
         
@@ -391,14 +391,15 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 "Name of Task" };
     	csvWriter.writeNext(header);
     	
+    	SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
     	if (foundResults != null && foundResults.size() > 0){
-	    	log.debug(String.format("Found {0} completed tasks for business process {1} for date period {2} - {3}", foundResults.size(), sID_BP_Name, sdf.format(dateAt), 
-	    			sdf.format(dateTo)));
+	    	log.debug(String.format("Found {0} completed tasks for business process {1} for date period {2} - {3}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt), 
+	    			sdfDate.format(dateTo)));
 	        for (HistoricTaskInstance currTask : foundResults) {
 	        	String[] line = new String[5];
 	        	line[0] = currTask.getAssignee();
 	            Date startDate = currTask.getStartTime();
-	            line[1] = sdf.format(startDate);
+	            line[1] = sdfDate.format(startDate);
 	            line[2] = String.valueOf(currTask.getDurationInMillis());
 	            long durationInHours = currTask.getDurationInMillis() / (1000 * 60 * 60);
 	            line[3] = String.valueOf(durationInHours);
@@ -407,8 +408,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 	            csvWriter.writeNext(line);
 	        }
     	} else {
-    		log.debug(String.format("No completed tasks found for business process {0} for date period {1} - {2}", sID_BP_Name, sdf.format(dateAt), 
-	    			sdf.format(dateTo)));
+    		log.debug(String.format("No completed tasks found for business process {0} for date period {1} - {2}", sID_BP_Name, sdfDate.format(dateAt), 
+    				sdfDate.format(dateTo)));
     	}
 
         csvWriter.close();
