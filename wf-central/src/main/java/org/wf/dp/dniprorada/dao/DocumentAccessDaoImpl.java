@@ -247,13 +247,15 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	}
 	private String getOtpPassword(DocumentAccess docAcc) throws Exception{
 		Properties prop = new Properties();
-		FileInputStream fis = new FileInputStream(new File("${catalina.home}/conf/merch.properties"));
+		File file = new File("$CATALINA_HOME/conf/merch.properties");
+		FileInputStream fis = new FileInputStream(file);
 		prop.load(fis);
-		fis.close();
+		log.info(file.getCanonicalPath());
 		log.info(prop.getProperty("merchant_password"));
 		OtpPassword otp = new OtpPassword();
 		otp.setMerchant_id(prop.getProperty("merchant_id"));
 		otp.setMerchant_password(prop.getProperty("merchant_password"));
+		fis.close();
 		OtpCreate otpCreate = new OtpCreate();
 		otpCreate.setCategory("qwerty");
 		otpCreate.setFrom("10060");
