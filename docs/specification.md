@@ -531,6 +531,25 @@ https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 ```
 --------------------------------------------------------------------------------------------------------------------------
 
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/getDocumentOperators** - получение всех операторов(органов) которые имею право доступа к документу
+
+Примеры: https://test.igov.org.ua/wf-central/service/services/getDocumentOperators
+
+**Response**
+```json
+[
+    {
+        "nID_SubjectOrgan": 2,
+        "sHandlerClass": "org.wf.dp.dniprorada.model.document.DocumentAccessHandler_IGov",
+        "nID": 1,
+        "sName": "iGov"
+    }
+]
+```
+--------------------------------------------------------------------------------------------------------------------------
+
 <a name="11_accessDocuments">
 ####11. Предоставление и проверка доступа к документам
 </a><a href="#0_contents">↑Up</a><br/>
