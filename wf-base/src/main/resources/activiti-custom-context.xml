@@ -91,6 +91,7 @@
 					<bean class="org.wf.dp.dniprorada.form.LabelFormType" />
 					<bean class="org.wf.dp.dniprorada.form.MarkersFormType" />
 					<bean class="org.wf.dp.dniprorada.form.QueueDataFormType" />
+                                        <bean class="org.wf.dp.dniprorada.form.InvisibleFormType"/>
 				</list>
 			</property>
 
@@ -133,7 +134,7 @@
 
 		<import resource="classpath:/META-INF/spring/org-activiti-redis-context.xml" />
 		<import resource="classpath:/META-INF/spring/ua-org-egov-utils-storage-context.xml" />
-		<import resource="db-context.xml"/>
+		<import resource="classpath:base-services-context.xml"/>
 	</beans>
 
 </beans>

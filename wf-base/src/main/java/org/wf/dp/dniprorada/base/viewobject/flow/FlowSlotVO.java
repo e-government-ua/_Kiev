@@ -16,6 +16,8 @@ public class FlowSlotVO {
 
    private static final DateTimeFormatter timeFormatter = DateTimeFormat.forPattern("HH:mm");
 
+   private static final int TICKET_WITHOUT_TASK_EXPIRATION_TIME_MINUTES = 5;
+
    private Long nID;
    private String sTime;
    private int nMinutes;
@@ -29,12 +31,13 @@ public class FlowSlotVO {
       sTime = timeFormatter.print(flowSlot.getsDate());
 
       nMinutes = DurationUtil.parseDuration(flowSlot.getsDuration()).getMinutes();
-
+      
       DateTime now = DateTime.now();
 
       bFree = true;
       for (SubjectTicket ticket : flowSlot.getSubjectTickets()) {
-         if (ticket.getnID_Task_Activiti() != null || flowSlot.getsDate().compareTo(now.minusMinutes(nMinutes)) >= 0) {
+         if (ticket.getnID_Task_Activiti() != null || ticket.getsDateEdit().compareTo(now.minusMinutes(
+                 TICKET_WITHOUT_TASK_EXPIRATION_TIME_MINUTES)) >= 0) {
             bFree = false;
             break;
          }

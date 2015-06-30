@@ -1,33 +1,41 @@
 package org.wf.dp.dniprorada.dao;
 
 
+import com.google.gson.Gson;
+import org.apache.log4j.Logger;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.model.DocumentAccess;
+import org.wf.dp.dniprorada.model.OtpCreate;
+import org.wf.dp.dniprorada.model.OtpPass;
+import org.wf.dp.dniprorada.model.OtpPassword;
+import org.wf.dp.dniprorada.model.OtpText;
+import org.wf.dp.dniprorada.model.SmsTemplate;
+import org.wf.dp.dniprorada.util.GeneralConfig;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
-import java.util.Random;
-
-
-
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.wf.dp.dniprorada.model.DocumentAccess;
+import java.util.*;
 
 @Repository
 public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	private final String sURL = "https://igov.org.ua/index#";	
 	private SessionFactory sessionFactory;
 	private final String urlConn = "https://sms-inner.siteheart.com/api/otp_create_api.cgi";
+	final static Logger log = Logger.getLogger(DocumentAccessDaoImpl.class);
+	
+	@Autowired
+	GeneralConfig generalConfig;
 	
 	@Autowired
 	public DocumentAccessDaoImpl(SessionFactory sessionFactory) {
@@ -158,7 +166,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		List <DocumentAccess> list = null;
 		String sTelephone = "";
 		String sAnswer = "";
-		String otpPassword = "-";
+		String otpPassword = "";
 		DocumentAccess docAcc = new DocumentAccess();
 		try{
                     //TODO убедиться что все проверяется по этим WHERE
@@ -184,16 +192,24 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     docAcc.setAnswer(sAnswer);
                    // writeRow(docAcc);
                     
-                    otpPassword+=getOtpPassword(docAcc);
+                    otpPassword=getOtpPassword(docAcc);
 		} catch(Exception e) {
 			throw e;
 		}finally{
 			oSession.close();
 		}
-		return  "/"+ otpPassword;
+		return  otpPassword;
 	}
 
-        
+	@Override
+	public DocumentAccess getDocumentAccess(String accessCode) {
+		return (DocumentAccess) getSession()
+				.createCriteria(DocumentAccess.class)
+				.add(Restrictions.eq("sCode", accessCode))
+				.uniqueResult();
+	}
+
+
 	@Override
 	public String setDocumentAccess(Long nID_Access, String sSecret, String sAnswer) throws Exception {
 		Session oSession = getSession();
@@ -207,6 +223,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     }         
                     else {
                    	 for(DocumentAccess da : list){
+                   		 System.out.println("DocumentAccess:---------"+da.toString());
                         	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)
                                         && ( da.getAnswer().equals(sAnswer) || "1234".equals(sAnswer) )){  //TODO убрать бэкдур, после окончательной отладки, в т.ч. фронта
                         		docAcc = da;
@@ -235,25 +252,61 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-	private String getOtpPassword(DocumentAccess docAcc) throws Exception{
+	private <T> String getOtpPassword(DocumentAccess docAcc) throws Exception{
+		Properties prop = new Properties();
+		File file = new File(System.getProperty("catalina.base")+"\\conf\\merch.properties");
+		FileInputStream fis = new FileInputStream(file);
+		prop.load(fis);
+		OtpPassword otp = new OtpPassword();
+		otp.setMerchant_id(prop.getProperty("merchant_id"));
+		otp.setMerchant_password(prop.getProperty("merchant_password"));
+		fis.close();
+		OtpCreate otpCreate = new OtpCreate();
+		otpCreate.setCategory("qwerty");
+		otpCreate.setFrom("10060");
+		if(!docAcc.getTelephone().isEmpty() || docAcc.getTelephone() != null ){
+			//otpCreate.setPhone(docAcc.getTelephone());
+			otpCreate.setPhone("+380962731045");
+		} else {
+			otpCreate.setPhone("+380962731045");
+		}
+		SmsTemplate smsTemplate1 = new SmsTemplate();
+		smsTemplate1.setText("text:"+"Parol: ");
+		smsTemplate1.setPassword("password:"+"2");
+		SmsTemplate smsTemplate2 = new SmsTemplate();
+		smsTemplate2.setText("text:"+"-");
+		smsTemplate2.setPassword("password:"+"2");
+		SmsTemplate smsTemplate3 = new SmsTemplate();
+		smsTemplate3.setText("text:"+"-");
+		smsTemplate3.setPassword("password:"+"2");
+		SmsTemplate smsTemplate4 = new SmsTemplate();
+		smsTemplate4.setText("text:"+"-");
+		smsTemplate4.setPassword("password:"+"2");
+		List<T> list = new ArrayList<T>();
+		list.add((T)new OtpText("Parol:"));
+		list.add((T)new OtpPass("2"));
+		list.add((T)new OtpText("-"));
+		list.add((T)new OtpPass("2"));
+		list.add((T)new OtpText("-"));
+		list.add((T)new OtpPass("2"));
+		list.add((T)new OtpText("-"));
+		list.add((T)new OtpPass("2"));
+		otpCreate.setSms_template(list);
+		List<OtpCreate> listOtpCreate = new ArrayList<>();
+		listOtpCreate.add(otpCreate);
+		otp.setOtp_create(listOtpCreate);		
+		Gson g = new Gson();
+		String jsonObj = g.toJson(otp);
 		URL url = new URL(urlConn);
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		con.setRequestMethod("POST");
 		con.setRequestProperty("content-type", "application/json;charset=UTF-8");
 		con.setDoOutput(true);
-		Properties prop = new Properties();
-		prop.load(getClass().getClassLoader().getResourceAsStream("merch.properties"));
-		String merchant_id = prop.getProperty("merchant_id");
-		String merchant_password = prop.getProperty("merchant_password");
-		String jsonObj = "{\"merchant_id\":\""+merchant_id+"\", \"merchant_password\":\""+merchant_password+"\", \"otp_create\":[" +
-				"{\"from\":\"10060\", \"phone\":\"+380962731045\", \"category\":\"qwerty\", \"sms_template\":[" +
-				"{\"text\":\"Parol: \"}, {\"password\":\"2\"}, {\"text\":\"-\"}, {\"password\":\"2\"}, {\"text\":\"-\"}, {\"password\":\"2\"}, {\"text\":\"-\"}, {\"password\":\"2\"}]}]}";
 		DataOutputStream dos = new DataOutputStream(con.getOutputStream());
 		dos.writeBytes(jsonObj);
 		dos.flush();
 		dos.close();
 		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	Thread.currentThread().sleep(15000);
 		StringBuilder sb = new StringBuilder();
 		String inputLine;
 		while((inputLine = br.readLine()) != null){

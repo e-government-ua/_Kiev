@@ -7,7 +7,7 @@ define('bankid/service', ['angularAMD'], function (angularAMD) {
             isLoggedIn: function () {
                 var deferred = $q.defer();
 
-                $http.get('./api/auth/check').success(function(data, status) {
+                $http.get('./auth/isAuthenticated').success(function(data, status) {
                     deferred.resolve(true);
                 }).error(function(data, status) {
                     bankIDLogin = undefined;
@@ -37,9 +37,8 @@ define('bankid/service', ['angularAMD'], function (angularAMD) {
                 }
             },
 
-            account: function (access_token) {
+            account: function () {
                 var data = {
-                    'access_token': access_token
                 };
                 if (bankIDAccount) {
                     var deferred = $q.defer();

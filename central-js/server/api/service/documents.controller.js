@@ -59,7 +59,7 @@ module.exports.index = function (req, res) {
 module.exports.initialUpload = function (req, res) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-    var accessToken = req.session.access.access_token;
+    var accessToken = req.session.access.accessToken;
     var nID_Subject = req.session.subject.nID;
     var sID_Subject = req.session.subject.sID;
     var typesToUpload = req.body;
@@ -125,7 +125,10 @@ module.exports.initialUpload = function (req, res) {
 
         var requestOptionsForUploadContent =
             _.merge(optionsForUploadContent.option, {
-                headers: form.getHeaders()
+                headers: form.getHeaders(),
+                'qs': {
+                    'sFileExtension': documentScan.extension
+                }
             });
 
         var decoder = new StringDecoder('utf8');

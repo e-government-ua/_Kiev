@@ -15,17 +15,25 @@ define('state/journal/controller', ['angularAMD'], function (angularAMD) {
 });
 
 define('state/journal/bankid/controller', ['angularAMD'], function (angularAMD) {
-	angularAMD.controller('JournalBankIdController', ['$rootScope', '$scope', '$location', '$state', '$window', function ($rootScope, $scope, $location, $state, $window) {
+	angularAMD.controller('JournalBankIdController', ['$rootScope', '$scope', '$location', '$state', '$window', 'BankIDService', function ($rootScope, $scope, $location, $state, $window, BankIDService) {
 
         $scope.loginWithBankId = function () {
             var stateForRedirect = $state.href('journal.bankid', {});
-            var redirectURI = $location.protocol() + '://' + $location.host() + ':' + $location.port() + stateForRedirect;
-            //$window.location.href = 'https://bankid.org.ua/DataAccessService/das/authorize?response_type=code&client_id=9b0e5c63-9fcb-4b11-84ff-31fc2cea8801&redirect_uri=' + redirectURI;
-			$window.location.href = $scope.config.sProtocol_AccessService_BankID + '://' + $scope.config.sHost_AccessService_BankID + '/DataAccessService/das/authorize?response_type=code&client_id=' + $scope.config.client_id + '&redirect_uri=' + redirectURI;
+            var redirectURI = $location.protocol() +
+                '://' + $location.host() + ':'
+                + $location.port()
+                + stateForRedirect;
+            $window.location.href = './auth/bankID?link=' + redirectURI;
         }
 		
-        if ($state.is('journal.bankid') && !!$state.params.code) {
-			return $state.go('journal.content', {code: $state.params.code});
+        if ($state.is('journal.bankid')) {
+            if($state.params.error){
+                $scope.error = JSON.parse($state.params.error).error;
+            } else {
+                BankIDService.isLoggedIn().then(function () {
+                    return $state.go('journal.content', {code: $state.params.code});
+                });
+            };
         }
     }]);
 });

@@ -21,11 +21,21 @@ import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.task.Attachment;
 import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.activiti.redis.service.RedisService;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
+import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
+import org.wf.dp.dniprorada.base.dao.SubjectTicketDao;
+import org.wf.dp.dniprorada.base.util.JsonRestUtils;
+import org.wf.dp.dniprorada.base.viewobject.flow.SaveSubjectTicketResponse;
 import org.wf.dp.dniprorada.form.FormFileType;
+import org.wf.dp.dniprorada.form.QueueDataFormType;
 import org.wf.dp.dniprorada.model.MimiTypeModel;
 
 import sun.misc.BASE64Decoder;
@@ -42,6 +52,17 @@ public abstract class AbstractModelTask {
 	@Autowired
 	RedisService redisService;
 
+        
+   //@Autowired
+   //private FlowSlotDao flowSlotDao;
+
+   //@Autowired
+   //private SubjectTicketDao subjectTicketDao;
+
+   @Autowired
+   private BaseEntityDao baseEntityDao;
+        
+        
 	/**
 	 * Получить список по ключу списка из execution
 	 * @param listKey
@@ -196,22 +217,40 @@ public abstract class AbstractModelTask {
 
 	/**
 	 * Получить ид поля с кастомным типом file
-	 * @param startformData
+	 * @param oFormData
 	 * @return
 	 */
-	public static List<String> getListFieldCastomTypeFile(FormData startformData) {
-		List<String>filedTypeFile = new ArrayList<String>();
-		List<FormProperty> startformDataList = startformData.getFormProperties();
-		if(!startformDataList.isEmpty()){
-		for (FormProperty prop : startformDataList) {
-			if(prop.getType() instanceof FormFileType){
-				filedTypeFile.add(prop.getId());
-			}
+	public static List<String> getListFieldCastomTypeFile(FormData oFormData) {
+		List<String>asFieldID = new ArrayList<String>();
+		List<FormProperty> aFormProperty = oFormData.getFormProperties();
+		if(!aFormProperty.isEmpty()){
+                    for (FormProperty oFormProperty : aFormProperty) {
+                            if(oFormProperty.getType() instanceof FormFileType){
+                                    asFieldID.add(oFormProperty.getId());
+                            }
+                    }
 		}
-		}
-		return filedTypeFile;
+		return asFieldID;
 	}
-	
+
+	/**
+	 * Получить ид поля с кастомным типом file
+	 * @param oFormData
+	 * @return
+	 */
+	public static List<String> getListField_QueueDataFormType(FormData oFormData) {
+		List<String>asFieldID = new ArrayList<String>();
+		List<FormProperty> aFormProperty = oFormData.getFormProperties();
+		if(!aFormProperty.isEmpty()){
+                    for (FormProperty oFormProperty : aFormProperty) {
+                            if(oFormProperty.getType() instanceof QueueDataFormType){
+                                    asFieldID.add(oFormProperty.getId());
+                            }
+                    }
+		}
+		return asFieldID;
+	}
+        
 	/**
 	 * Получить имя поля 
 	 * @param startformData
@@ -273,25 +312,22 @@ public abstract class AbstractModelTask {
      */
 
     public void addAttachmentsToTask(FormData formData, DelegateTask task) {
-
         DelegateExecution execution = task.getExecution();
-        List<String> filedTypeFile = getListFieldCastomTypeFile(formData);
-        LOG.info("11filedTypeFile="+filedTypeFile.toString());
-		System.out.println("STEP 1 ___");
-		List<String> listValueKeys = getValueFieldWithCastomTypeFile(execution,
-                filedTypeFile);
-        LOG.info("21listValueKeys="+listValueKeys.toString());
-
-        List<String> filedName = getListCastomFieldName(formData);
-        LOG.info("31filedName="+filedName.toString());
-		System.out.println("STEP 2 ___");
-        if (!listValueKeys.isEmpty()) {
+        
+        LOG.info("SCAN:file");
+        List<String> asFieldID = getListFieldCastomTypeFile(formData);
+        LOG.info("[addAttachmentsToTask]");
+        LOG.info("asFieldID="+asFieldID.toString());
+        List<String> asFieldValue = getValueFieldWithCastomTypeFile(execution, asFieldID);
+        LOG.info("asFieldValue="+asFieldValue.toString());
+        List<String> asFieldName = getListCastomFieldName(formData);
+        LOG.info("asFieldName="+asFieldName.toString());
+        if (!asFieldValue.isEmpty()) {
             int n = 0;
-            for (String keyRedis : listValueKeys) {
-                LOG.info("keyRedis=" + keyRedis);
-				System.out.println("STEP 3 ___ keyRedis=" + keyRedis);
-				if (keyRedis != null && !keyRedis.isEmpty()) {
-                    byte[] byteFile = getRedisService().getAttachments(keyRedis);
+            for (String sKeyRedis : asFieldValue) {
+                LOG.info("sKeyRedis=" + sKeyRedis);
+                if (sKeyRedis != null && !sKeyRedis.isEmpty() && !"".equals(sKeyRedis.trim()) && !"null".equals(sKeyRedis.trim())) {
+                    byte[] byteFile = getRedisService().getAttachments(sKeyRedis);
                     ByteArrayMultipartFile contentMultipartFile = null;
                     try {
                         contentMultipartFile = getByteArrayMultipartFileFromRedis(byteFile);
@@ -313,8 +349,8 @@ public abstract class AbstractModelTask {
                         } catch (java.io.UnsupportedEncodingException e) {
                             throw new ActivitiException(e.getMessage(), e);
                         }
-                        if (!filedName.isEmpty() && n < filedName.size()) {
-                            String name = filedName.get((filedName.size() - 1) - n);
+                        if (!asFieldName.isEmpty() && n < asFieldName.size()) {
+                            String name = asFieldName.get((asFieldName.size() - 1) - n);
                             LOG.info("name=" + name);
 							System.out.println("STEP 4 ___" + "name= " + name);
                                 execution
@@ -334,9 +370,55 @@ public abstract class AbstractModelTask {
                 n++;
             }
         }
+        
+        
+        LOG.info("SCAN:queueData");
+        asFieldID = getListField_QueueDataFormType(formData);
+        LOG.info("asFieldID="+asFieldID.toString());
+        asFieldValue = getValueFieldWithCastomTypeFile(execution, asFieldID);
+        LOG.info("asFieldValue="+asFieldValue.toString());
+        asFieldName = getListCastomFieldName(formData);
+        LOG.info("asFieldName="+asFieldName.toString());
+        if (!asFieldValue.isEmpty()) {
+            String sValue = asFieldValue.get(0);
+            LOG.info("sValue=" + sValue);
+            long nID_SubjectTicket=0;
+            int nAt=sValue.indexOf(":");
+            int nTo=sValue.indexOf(",");
+            String s=sValue.substring(nAt+1,nTo);
+            LOG.info("s=" + s);
+            try{
+                nID_SubjectTicket = Long.valueOf(s);
+                LOG.info("Ok!");
+            }catch(Exception oException){
+                LOG.error(oException.getMessage());
+                nID_SubjectTicket=1;
+            }
+            LOG.info("nID_SubjectTicket=" + nID_SubjectTicket);
+            try{
+                SubjectTicket oSubjectTicket = baseEntityDao.getById(SubjectTicket.class, nID_SubjectTicket);
+                if (oSubjectTicket == null) {
+                    LOG.error("SubjectTicket with id=" + nID_SubjectTicket + " is not found!");
+                }else{
+                    long nID_FlowSlot=oSubjectTicket.getoFlowSlot().getId();
+                    LOG.error("nID_FlowSlot="+nID_FlowSlot);
+                    long nID_Subject = oSubjectTicket.getnID_Subject();
+                    LOG.error("nID_Subject="+nID_Subject);
+                    long nID_Task_Activiti = 1; //TODO set real ID!!!
+                    oSubjectTicket.setnID_Task_Activiti(nID_Task_Activiti);
+                    baseEntityDao.saveOrUpdate(oSubjectTicket);
+                    LOG.info("JSON:" + JsonRestUtils.toJsonResponse(new SaveSubjectTicketResponse(oSubjectTicket.getId())));
+                }
+            }catch(Exception oException){
+                LOG.error(oException.getMessage());
+            }
+            
+        }
+        
+       
     }
 
-	public RedisService getRedisService() {
-		return redisService;
-	}
+    public RedisService getRedisService() {
+            return redisService;
+    }
 }

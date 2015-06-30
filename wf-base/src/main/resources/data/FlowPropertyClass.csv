@@ -1,2 +1,2 @@
-nID;sName;sPath
-1;TestPropertyClass;fakepackage.TestPropertyClass
+nID;sName;sPath;sBeanName
+1;DefaultFlowSlotScheduler;org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler;defaultFlowSlotScheduler

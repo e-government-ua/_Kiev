@@ -18,11 +18,23 @@ public class FlowPropertyClass extends NamedEntity {
    @Column
    private String sPath;
 
+   /**
+    * Optional bean name of bean of corresponding class. Allows to use same class with different bean configurations.
+    */
+   @Column
+   private String sBeanName;
+
    public String getsPath() {
       return sPath;
    }
-
    public void setsPath(String sPath) {
       this.sPath = sPath;
+   }
+
+   public String getsBeanName() {
+      return sBeanName;
+   }
+   public void setsBeanName(String sBeanName) {
+      this.sBeanName = sBeanName;
    }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+    <bean id="flowService" class="org.wf.dp.dniprorada.base.service.flow.FlowService">
+        <property name="baseEntityDao" ref="baseEntityDao"/>
+        <property name="flowSlotDao" ref="flowSlotDao"/>
+        <property name="subjectTicketDao" ref="subjectTicketDao"/>
+    </bean>
+
+    <bean id="defaultFlowSlotScheduler" class="org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler"
+            scope="prototype">
+        <property name="defaultIntervalDaysLength" value="60"/>
+        <property name="maxGeneratedSlotsCount" value="3333"/>
+        <property name="defaultFlowSlotName" value="Рабочее время"/>
+    </bean>
+
+    <!-- ===========================   SERVICE TRANSACTIONS   ======================= -->
+
+    <aop:config>
+        <aop:pointcut id="base.service.flow" expression="execution(* org.wf.dp.dniprorada.base.service.flow.*.*(..))"/>
+        <aop:advisor pointcut-ref="base.service.flow" advice-ref="txAdvice"/>
+    </aop:config>
+
+
+    <import resource="classpath:db-context.xml"/>
+</beans>
