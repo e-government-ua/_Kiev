@@ -1,4 +1,23 @@
 ### iGov.ua APIs
+ <a name="0_contents">*Contents*</a><br/>
+<a href="#1_userLogin">1. Логин пользователя</a><br/>
+<a href="#2_userLogout">2. Логаут пользователя</a><br/>
+<a href="#3_activitiRun">3. Запуск процесса Activiti</a><br/>
+<a href="#4_activitiRunTasks">4. Загрузка задач из Activiti</a><br/>
+<a href="#5_activitiRunServices">5. Загрузка каталога сервисов из Activiti</a><br/>
+<a href="#6_loadFileFromDb">6. Загрузки прикрепленного к заявке файла из постоянной базы</a><br/>
+<a href="#7_workWithMerchants">7. Работа с мерчантами</a><br/>
+<a href="#8_workWithTables">8. Бэкап/восстановление данных таблиц сервисов и мест</a><br/>
+<a href="#9_workWithDocuments">9. Работа с документами</a><br/>
+<a href="#10_workWithSubjects">10. Работа с субъектами</a><br/>
+<a href="#11_accessDocuments">11. Предоставление и проверка доступа к документам</a><br/>
+<a href="#12_workWithMessages">12. Работа с сообщениями</a><br/>
+<a href="#13_workWithHistoryEvents">13. Работа с историей (Мой журнал)</a><br/>
+<a href="#14_uploadFileToDb">14. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti</a><br/>
+<a href="#15_workWithServices">15. Работа с каталогом сервисов</a><br/>
+<a href="#16_getWorkflowStatistics">16. Получение статистики по задачам в рамках бизнес процесса</a><br/>
+
+### iGov.ua APIs
 
 ##### Mandatory HTTP Headers
 
@@ -8,7 +27,9 @@
 | Accept | application/json |
 | Authorization | Basic ... |
 
-#### 1. Логин пользователя:
+<a name="1_userLogin">
+####1. Логин пользователя:
+</a><a href="#0_contents">↑Up</a>
 
 **HTTP Metod: POST**
 
@@ -36,7 +57,9 @@
 true - Пользователь авторизирован
 false - Имя пользователя или пароль не корректны
 
+<a name="2_userLogout">
 #### 2. Логаут пользователя:
+</a><a href="#0_contents">↑Up</a>
 
 **HTTP Metod: POST/DELETE**
 
@@ -54,7 +77,9 @@ true - Пользователь авторизирован
 false - Имя пользователя или пароль не корректны
 
 
+<a name="3_activitiRun">
 #### 3. Запуск процесса Activiti:
+</a><a href="#0_contents">↑Up</a>
 
 **HTTP Metod: GET**
 
@@ -71,7 +96,9 @@ false - Имя пользователя или пароль не коррект�
 	}
 ```
 
-#### 4. Загрузка задач из Activiti:
+<a name="4_activitiRunTasks">
+####4. Загрузка задач из Activiti
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
@@ -107,7 +134,9 @@ false - Имя пользователя или пароль не коррект�
 	]
 ```
 
-#### 5. Загрузка каталога сервисов из Activiti:
+<a name="5_activitiRunServices">
+####5. Загрузка каталога сервисов из Activiti
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
@@ -134,7 +163,9 @@ false - Имя пользователя или пароль не коррект�
 	  }
 	]
 ```
-#### 6. Загрузки прикрепленного к заявке файла из постоянной базы:
+<a name="6_loadFileFromDb">
+####6. Загрузки прикрепленного к заявке файла из постоянной базы
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
@@ -149,7 +180,9 @@ false - Имя пользователя или пароль не коррект�
 https://test.igov.org.ua/wf-region/service/rest/file/download_file_from_db?taskId=82596&attachmentId=6726532&nFile=7
 
 
-#### 7. Работа с мерчантами:
+<a name="7_workWithMerchants">
+####7. Работа с мерчантами
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
@@ -240,7 +273,9 @@ https://test.igov.org.ua/wf-region/service/merchant/setMerchant?id=1&ownerName=S
 https://test.igov.org.ua/wf-region/service/merchant/addMerchant?id=1
 
 
-#### 8. Бэкап/восстановление данных таблиц сервисов и мест:
+<a name="8_workWithTables">
+####8. Бэкап/восстановление данных таблиц сервисов и мест
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
@@ -290,7 +325,9 @@ https://test.igov.org.ua/wf-region/service/merchant/addMerchant?id=1
 
 ----------------------------------------------------------------------------------------------------------------------------
 
-#### 9. Работа с документами
+<a name="9_workWithDocuments">
+####9. Работа с документами
+</a><a href="#0_contents">↑Up</a><br/>
 
 
 **HTTP Metod: GET**
@@ -446,7 +483,9 @@ https://poligon.igov.org.ua/wf-central/service/services/setDocument?sID_Subject_
 --------------------------------------------------------------------------------------------------------------------------
 
 
-#### 10. Работа с субъктами
+<a name="10_workWithSubjects">
+####10. Работа с субъектами
+</a><a href="#0_contents">↑Up</a><br/>
 
 
 **HTTP Metod: GET**
@@ -479,7 +518,9 @@ https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 ```
 --------------------------------------------------------------------------------------------------------------------------
 
-#### 11. Предоставление и проверка доступа к документам
+<a name="11_accessDocuments">
+####11. Предоставление и проверка доступа к документам
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: POST**
 
@@ -575,7 +616,9 @@ https://seriver:port/wf-central/service/setDocumentAccess - Установка �
 ```
 
 
-#### 12. Работа с сообщениями
+<a name="12_workWithMessages">
+####12. Работа с сообщениями
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
@@ -626,7 +669,9 @@ Status 200 если Ok
 --------------------------------------------------------------------------------------------------------------------------
 
 
-#### 13. Работа с историей (Мой журнал)
+<a name="13_workWithHistoryEvents">
+####13. Работа с историей (Мой журнал)
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
@@ -662,7 +707,9 @@ https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Sub
 
 --------------------------------------------------------------------------------------------------------------------------
 
-#### 14. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti
+<a name="14_uploadFileToDb">
+####14. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: POST**
 
@@ -686,7 +733,9 @@ ID созданного attachment - "id":"45"
 
 --------------------------------------------------------------------------------------------------------------------------
 
-#### 15. Работа с каталогом сервисов
+<a name="15_workWithServices">
+####15. Работа с каталогом сервисов
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Context: http://server:port/wf-central/service/services/getServicesTree** - Получение делева сервисов
 
@@ -723,7 +772,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getService?nID=1
 
 Пример:
 https://poligon.igov.org.ua/wf-central/service/services/setService
-
+```json
 {
     "sSubjectOperatorName": "МВС",
     "subjectOperatorName": "МВС",
@@ -769,8 +818,9 @@ https://poligon.igov.org.ua/wf-central/service/services/setService
     "sLaw": "",
     "nSub": 0
 }
-
+```
 Ответ:
+```json
 {
     "sSubjectOperatorName": "МВС",
     "subjectOperatorName": "МВС",
@@ -816,7 +866,7 @@ https://poligon.igov.org.ua/wf-central/service/services/setService
     "sLaw": "",
     "nSub": 0
 }
-
+```
 **HTTP Context: http://server:port/wf-central/service/services/removeService** - Удаление сервиса. 
 
 **HTTP Metod: DELETE**
@@ -959,7 +1009,7 @@ https://poligon.igov.org.ua/wf-central/service/services/removeServicesTree
 https://poligon.igov.org.ua/wf-central/service/services/getPlaces
 
 Ответ:
-
+```json
 [
     {
         "nID": 1,
@@ -1045,7 +1095,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getPlaces
         ]
     }
 ]
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/setPlaces** - Изменение дерева мест (регионов и городов). Можно менять регионы (не добавлять и не удалять) + менять/добавлять города (но не удалять), Передается json в теле POST запроса в том же формате, в котором он был в getPlaces. 
 
@@ -1057,7 +1107,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getPlaces
 
 Пример:
 https://poligon.igov.org.ua/wf-central/service/services/setPlaces
-
+```json
 [
     {
         "nID": 1,
@@ -1074,9 +1124,9 @@ https://poligon.igov.org.ua/wf-central/service/services/setPlaces
         ]
     }
 ]
-
+```
 Ответ: HTTP STATUS 200
-
+```json
 [
     {
         "nID": 1,
@@ -1093,7 +1143,7 @@ https://poligon.igov.org.ua/wf-central/service/services/setPlaces
         ]
     }
 ]
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/setServicesTree** - Изменение дерева категорий (с вложенными подкатегориями и сервисами). Можно менять категории (не добавлять и не удалять) + менять/добавлять (но не удалять) вложенные сущности, Передается json в теле POST запроса в том же формате, в котором он был в getServicesTree. 
 
@@ -1105,7 +1155,7 @@ https://poligon.igov.org.ua/wf-central/service/services/setPlaces
 
 Пример:
 https://poligon.igov.org.ua/wf-central/service/services/setServicesTree
-
+```json
 [
     {
         "nID": 1,
@@ -1134,9 +1184,9 @@ https://poligon.igov.org.ua/wf-central/service/services/setServicesTree
             ]
          }
 ]
-
+```
 Ответ: HTTP STATUS 200
-
+```json
 [
     {
         "nID": 1,
@@ -1165,7 +1215,7 @@ https://poligon.igov.org.ua/wf-central/service/services/setServicesTree
             ]
          }
 ]
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/flow/getFlowSlots_ServiceData** - Получение слотов по сервису сгруппированных по дням.
 
@@ -1180,7 +1230,7 @@ https://poligon.igov.org.ua/wf-central/service/services/setServicesTree
 https://poligon.igov.org.ua/wf-central/service/flow/getFlowSlots_ServiceData?nID_ServiceData=1
 
 Ответ:  HTTP STATUS 200
-
+```json
 {
     "aDay": [
         {
@@ -1209,7 +1259,7 @@ https://poligon.igov.org.ua/wf-central/service/flow/getFlowSlots_ServiceData?nID
         }
     ]
 }
-
+```
 Калькулируемые поля в ответе:
 
 флаг "bFree" - является ли слот свободным? Слот считается свободным если на него нету тикетов у которых nID_Task_Activiti равен null, а у тех у которых nID_Task_Activiti = null - время создания тикета (sDateEdit) не позднее чем текущее время минус 5 минут (предопределенная константа)
@@ -1240,8 +1290,10 @@ http://poligon.igov.org.ua/wf-central/service/flow/setFlowSlot_ServiceData
 Поля в ответе:
 
 поле "nID_Ticket" - ID созданной/измененной сущности SubjectTicket.
+<a name="16_getWorkflowStatistics">
+#### 16. Получение статистики по задачам в рамках бизнес процесса
+</a><a href="#0_contents">↑Up</a><br/>
 
-#### 16. Получение статистики по задачам в рамках бизнес процесса:
 
 **HTTP Metod: GET**
 
