@@ -112,6 +112,11 @@
                         <label>{{item.value}}</label>
                     </p>
                     
+                    <p ng-if="['queueData'].indexOf(item.type) == -1">
+                        <label>{{sFieldLabel(item.name)}}</label>
+                        <label title="{{nID_SubjectTicket_FieldQueueData(item.value)}}">{{sDate_FieldQueueData(item.value)}}</label>
+                    </p>
+                    
                     
                 </div>
                 <div ng-show="attachments">
