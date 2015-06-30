@@ -27,7 +27,7 @@
             DROP TABLE IF EXISTS SubjectTicket CASCADE;
         </sql>
 
-        <createSequence incrementBy="1" sequenceName="hibernate_sequence" startValue="1000"/>
+        <createSequence incrementBy="1" sequenceName="hibernate_sequence" startValue="10000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="ServiceOperator_SubjectOrgan">
