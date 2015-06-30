@@ -6,6 +6,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Required;
 import org.wf.dp.dniprorada.base.model.Entity;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -14,6 +15,8 @@ import java.util.List;
  * Time: 22:33
  */
 public abstract class AbstractEntityDao<T extends Entity> implements EntityDao<T> {
+
+   private final static int DEFAULT_DELETE_BATCH_SIZE = 1000;
 
    private Class<T> entityClass;
 
@@ -53,5 +56,24 @@ public abstract class AbstractEntityDao<T extends Entity> implements EntityDao<T
 
    public Class<T> getEntityClass() {
       return entityClass;
+   }
+
+   @Override
+   public void delete(T entity) {
+      getSession().delete(entity);
+   }
+
+   @Override
+   public void deleteAll(Collection<T> entities) {
+      int i = 0;
+      for (T entity : entities) {
+         getSession().delete(entity);
+         i++;
+
+         if (i >= DEFAULT_DELETE_BATCH_SIZE) {
+            getSession().flush();
+            i = 0;
+         }
+      }
    }
 }

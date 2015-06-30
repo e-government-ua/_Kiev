@@ -1,22 +1,13 @@
 package org.wf.dp.dniprorada.base.service.flow.propertyHandler;
 
 import org.joda.time.DateTime;
-import org.joda.time.Duration;
-import org.quartz.CronExpression;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
 import org.wf.dp.dniprorada.base.model.FlowSlot;
-import org.wf.dp.dniprorada.base.model.Flow_ServiceData;
-import org.wf.dp.dniprorada.base.util.JsonDateTimeDeserializer;
-import org.wf.dp.dniprorada.base.util.JsonDateTimeSerializer;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
-import org.wf.dp.dniprorada.base.viewobject.flow.FlowSlotVO;
 
-import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -89,7 +80,7 @@ public class DefaultFlowSlotScheduler extends BaseFlowSlotScheduler {
          }
 
          if (!slots.isEmpty()) {
-            Set<DateTime> existingDates = flowSlotDao.getFlowSlotsDates(flow.getId(), minDateTime, maxDateTime);
+            Set<DateTime> existingDates = flowSlotDao.findFlowSlotsDates(flow.getId(), minDateTime, maxDateTime);
 
             for (FlowSlot slot : slots) {
                if (!existingDates.contains(slot.getsDate())) {

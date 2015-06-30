@@ -15,10 +15,12 @@ import org.wf.dp.dniprorada.base.model.Flow_ServiceData;
 import org.wf.dp.dniprorada.base.model.SubjectTicket;
 import org.wf.dp.dniprorada.base.service.flow.propertyHandler.BaseFlowSlotScheduler;
 import org.wf.dp.dniprorada.base.service.flow.propertyHandler.FlowPropertyHandler;
+import org.wf.dp.dniprorada.base.util.DurationUtil;
 import org.wf.dp.dniprorada.base.viewobject.flow.Day;
 import org.wf.dp.dniprorada.base.viewobject.flow.Days;
 import org.wf.dp.dniprorada.base.viewobject.flow.FlowSlotVO;
 
+import javax.xml.datatype.Duration;
 import java.util.*;
 
 /**
@@ -67,7 +69,7 @@ public class FlowService implements ApplicationContextAware {
 
 
    public Days getFlowSlots(Long nID_ServiceData, DateTime startDate, DateTime endDate, boolean bAll) {
-      List<FlowSlot> flowSlots = flowSlotDao.getFlowSlotsOrderByDateAsc(nID_ServiceData, startDate, endDate);
+      List<FlowSlot> flowSlots = flowSlotDao.findFlowSlotsByServiceData(nID_ServiceData, startDate, endDate);
 
       Map<DateTime, Day> daysMap = new TreeMap<>();
       if (bAll) {
@@ -123,6 +125,12 @@ public class FlowService implements ApplicationContextAware {
       FlowSlot flowSlot = baseEntityDao.getById(FlowSlot.class, nID_FlowSlot);
 
       subjectTicket.setoFlowSlot(flowSlot);
+      subjectTicket.setsDateStart(flowSlot.getsDate());
+
+      Duration duration = DurationUtil.parseDuration(flowSlot.getsDuration());
+      DateTime finishDateTime = flowSlot.getsDate().plusMinutes(duration.getMinutes());
+      subjectTicket.setsDateFinish(finishDateTime);
+
       subjectTicket.setsDateEdit(DateTime.now());
 
       baseEntityDao.saveOrUpdate(subjectTicket);
@@ -159,6 +167,32 @@ public class FlowService implements ApplicationContextAware {
          }
       }
 
+      return res;
+   }
+
+   public List<FlowSlotVO> clearFlowSlots(Long nID_Flow_ServiceData, DateTime startDate, DateTime stopDate,
+                                          boolean bWithTickets) {
+
+      List<FlowSlot> flowSlots = flowSlotDao.findFlowSlotsByFlow(nID_Flow_ServiceData, startDate, stopDate);
+      DateTime operationTime = DateTime.now();
+
+      List<FlowSlotVO> res = new ArrayList<>();
+      List<FlowSlot> flowSlotsToDelete = new ArrayList<>();
+      for (FlowSlot slot : flowSlots) {
+         if (bWithTickets || slot.getSubjectTickets().isEmpty()) {
+            flowSlotsToDelete.add(slot);
+
+            // detach existing tickets from slots
+            for (SubjectTicket subjectTicket : slot.getSubjectTickets()) {
+               subjectTicket.setoFlowSlot(null);
+               subjectTicket.setsDateEdit(operationTime);
+            }
+
+            res.add(new FlowSlotVO(slot));
+         }
+      }
+
+      flowSlotDao.deleteAll(flowSlotsToDelete);
       return res;
    }
 

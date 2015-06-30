@@ -81,4 +81,26 @@ public class ActivitiRestFlowController {
       return JsonRestUtils.toJsonResponse(res);
    }
 
+   @RequestMapping(value = "/clearFlowSlots", method = RequestMethod.DELETE)
+   public
+   @ResponseBody
+   ResponseEntity clearFlowSlots(@RequestParam(value = "nID_Flow_ServiceData") Long nID_Flow_ServiceData,
+                                 @RequestParam(value = "sDateStart") String sDateStart,
+                                 @RequestParam(value = "sDateStop") String sDateStop,
+                                 @RequestParam(value ="bWithTickets", required = false, defaultValue = "false")
+                                 boolean bWithTickets) {
+      DateTime startDate = null;
+      if (sDateStart != null) {
+         startDate = JsonDateSerializer.DATE_FORMATTER.parseDateTime(sDateStart);
+      }
+
+      DateTime stopDate = null;
+      if (sDateStop != null) {
+         stopDate = JsonDateSerializer.DATE_FORMATTER.parseDateTime(sDateStop);
+      }
+
+      List<FlowSlotVO> res = flowService.clearFlowSlots(nID_Flow_ServiceData, startDate, stopDate, bWithTickets);
+      return JsonRestUtils.toJsonResponse(res);
+   }
+
 }

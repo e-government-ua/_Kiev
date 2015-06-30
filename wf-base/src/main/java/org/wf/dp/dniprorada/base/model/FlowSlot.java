@@ -24,9 +24,7 @@ import java.util.List;
 public class FlowSlot extends NamedEntity {
 
    @Column
-   @Type(type= DATETIME_TYPE)
-   @JsonSerialize(using = JsonDateTimeSerializer.class)
-   @JsonDeserialize(using = JsonDateTimeDeserializer.class)
+   @Type(type=DATETIME_TYPE)
    private DateTime sDate;
 
    @Column
@@ -42,7 +40,7 @@ public class FlowSlot extends NamedEntity {
    @JoinColumn(name = "nID_Flow_ServiceData")
    private Flow_ServiceData flow;
 
-   @OneToMany(mappedBy = "oFlowSlot", cascade = CascadeType.ALL, orphanRemoval = true)
+   @OneToMany(mappedBy = "oFlowSlot")
    private List<SubjectTicket> subjectTickets = new ArrayList<>();
 
    public String getsData() {

@@ -132,8 +132,8 @@
             <column name="nID" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="nID_FlowSlot" type="bigint">
-                <constraints nullable="false"
+            <column name="nID_FlowSlot" type="bigint"> <!-- could exist detached from slot -->
+                <constraints nullable="true"
                              foreignKeyName="FK_SubjectTicket_FlowSlot"
                              referencedTableName="FlowSlot" referencedColumnNames="nID" deleteCascade="true"/>
             </column>
@@ -142,6 +142,12 @@
             </column>
             <column name="nID_Task_Activiti" type="bigint">
                 <constraints nullable="true"/>
+            </column>
+            <column name="sDateStart" type="datetime with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sDateFinish" type="datetime with time zone">
+                <constraints nullable="false"/>
             </column>
             <column name="sDateEdit" type="datetime with time zone">
                 <constraints nullable="false"/>
@@ -192,6 +198,8 @@
             <column name="nID_FlowSlot" type="NUMERIC"/>
             <column name="nID_Subject" type="NUMERIC"/>
             <column name="nID_Task_Activiti" type="NUMERIC"/>
+            <column name="sDateStart" type="DATETIME"/>
+            <column name="sDateFinish" type="DATETIME"/>
             <column name="sDateEdit" type="DATETIME"/>
         </loadData>
 
