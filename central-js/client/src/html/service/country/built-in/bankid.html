@@ -38,7 +38,7 @@
                                                             _3{{form[property.id].required}}
                                                         </div>
 
-                                                        <div class="col-md-5">
+                                                        <div class="col-md-5" ng-if="property.type!=invisible && property.type!=markers">*>
                                                             <label style="color: red;" ng-if="property.required==true">* </label>
                                                             {{property.sFieldLabel}}:
 
@@ -48,7 +48,10 @@
 															</div>
                                                         </div>
 
-							<div class="col-md-3" ng-class="{'has-error': form.$submitted && form[property.id].$invalid}" ng-if="!data.formData.fields[property.id]" ng-switch on="property.type">
+							<div class="col-md-3"
+                                                             ng-class="{'has-error': form.$submitted && form[property.id].$invalid}"
+                                                             ng-if="!data.formData.fields[property.id] && property.type!=invisible && property.type!=markers"
+                                                             ng-switch on="property.type">
                                                                 <textarea ng-switch-when="textArea" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required" class="form-control"></textarea>
                                                                 <label ng-switch-when="label" name="{{property.id}}" ng-required="property.required" class="form-control_">{{data.formData.params[property.id].value}}</label>
                                                                 <label style="display: none;" ng-switch-when="invisible" name="{{property.id}}" ng-required="property.required" class="form-control_">{{data.formData.params[property.id].value}}</label>
