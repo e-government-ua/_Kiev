@@ -1,12 +1,13 @@
 package org.wf.dp.dniprorada.model;
 
 import java.util.List;
+import java.util.Map;
 
-public class OtpCreate {
+public class OtpCreate<T> {
 		private String from;
 		private String phone;
 		private String category;
-		private List<SmsTemplate> sms_template;
+		private List<T> sms_template;
 		public String getFrom() {
 			return from;
 		}
@@ -25,10 +26,10 @@ public class OtpCreate {
 		public void setCategory(String category) {
 			this.category = category;
 		}
-		public List<SmsTemplate> getSms_template() {
+		public List <T> getSms_template() {
 			return sms_template;
 		}
-		public void setSms_template(List<SmsTemplate> sms_template) {
+		public void setSms_template(List <T> sms_template) {
 			this.sms_template = sms_template;
 		}
 		@Override

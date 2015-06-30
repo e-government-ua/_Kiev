@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.wf.dp.dniprorada.model.DocumentAccess;
 import org.wf.dp.dniprorada.model.OtpCreate;
+import org.wf.dp.dniprorada.model.OtpPass;
 import org.wf.dp.dniprorada.model.OtpPassword;
+import org.wf.dp.dniprorada.model.OtpText;
 import org.wf.dp.dniprorada.model.SmsTemplate;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -30,6 +33,9 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	private SessionFactory sessionFactory;
 	private final String urlConn = "https://sms-inner.siteheart.com/api/otp_create_api.cgi";
 	final static Logger log = Logger.getLogger(DocumentAccessDaoImpl.class);
+	
+	@Autowired
+	GeneralConfig generalConfig;
 	
 	@Autowired
 	public DocumentAccessDaoImpl(SessionFactory sessionFactory) {
@@ -217,6 +223,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     }         
                     else {
                    	 for(DocumentAccess da : list){
+                   		 System.out.println("DocumentAccess:---------"+da.toString());
                         	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)
                                         && ( da.getAnswer().equals(sAnswer) || "1234".equals(sAnswer) )){  //TODO убрать бэкдур, после окончательной отладки, в т.ч. фронта
                         		docAcc = da;
@@ -245,9 +252,9 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-	private String getOtpPassword(DocumentAccess docAcc) throws Exception{
+	private <T> String getOtpPassword(DocumentAccess docAcc) throws Exception{
 		Properties prop = new Properties();
-		File file = new File(System.getProperty("catalina.base")+"/conf/merch.properties");
+		File file = new File(System.getProperty("catalina.base")+"\\conf\\merch.properties");
 		FileInputStream fis = new FileInputStream(file);
 		prop.load(fis);
 		OtpPassword otp = new OtpPassword();
@@ -264,22 +271,26 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 			otpCreate.setPhone("+380962731045");
 		}
 		SmsTemplate smsTemplate1 = new SmsTemplate();
-		smsTemplate1.setText("Parol: ");
-		smsTemplate1.setPassword("2");
+		smsTemplate1.setText("text:"+"Parol: ");
+		smsTemplate1.setPassword("password:"+"2");
 		SmsTemplate smsTemplate2 = new SmsTemplate();
-		smsTemplate2.setText("-");
-		smsTemplate2.setPassword("2");
+		smsTemplate2.setText("text:"+"-");
+		smsTemplate2.setPassword("password:"+"2");
 		SmsTemplate smsTemplate3 = new SmsTemplate();
-		smsTemplate3.setText("-");
-		smsTemplate3.setPassword("2");
+		smsTemplate3.setText("text:"+"-");
+		smsTemplate3.setPassword("password:"+"2");
 		SmsTemplate smsTemplate4 = new SmsTemplate();
-		smsTemplate4.setText("-");
-		smsTemplate4.setPassword("2");
-		List<SmsTemplate> list = new ArrayList<>();
-		list.add(smsTemplate1);
-		list.add(smsTemplate2);
-		list.add(smsTemplate3);
-		list.add(smsTemplate4);
+		smsTemplate4.setText("text:"+"-");
+		smsTemplate4.setPassword("password:"+"2");
+		List<T> list = new ArrayList<T>();
+		list.add((T)new OtpText("Parol:"));
+		list.add((T)new OtpPass("2"));
+		list.add((T)new OtpText("-"));
+		list.add((T)new OtpPass("2"));
+		list.add((T)new OtpText("-"));
+		list.add((T)new OtpPass("2"));
+		list.add((T)new OtpText("-"));
+		list.add((T)new OtpPass("2"));
 		otpCreate.setSms_template(list);
 		List<OtpCreate> listOtpCreate = new ArrayList<>();
 		listOtpCreate.add(otpCreate);
