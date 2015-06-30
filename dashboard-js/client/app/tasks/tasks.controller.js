@@ -172,6 +172,33 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, $windo
     return s;
   };
 
+  $scope.nID_SubjectTicket_FieldQueueData = function(sValue) {
+    var nAt=sValue.indexOf(":");
+    var nTo=sValue.indexOf(",");
+    var s=sValue.substring(nAt+1,nTo);
+    var nID_SubjectTicket = 0;
+    try{
+        nID_SubjectTicket = s;
+    }catch(_){
+        nID_SubjectTicket=1;
+    }
+    return nID_SubjectTicket;
+  };
+
+  $scope.sDate_FieldQueueData = function(sValue) {
+    var nAt=sValue.indexOf("sDate");
+    var nTo=sValue.indexOf("}");
+    var s=sValue.substring(nAt+5+1,nTo-1);
+    var sDate = "Дата назначена!";
+    try{
+        sDate = s;
+    }catch(_){
+        sDate="Дата назначена!";
+    }
+    return sDate;
+  };
+
+
   $scope.sEnumValue = function(aItem,sID) {
     var s=sID;
     _.forEach(aItem, function(oItem) {

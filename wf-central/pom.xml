@@ -6,17 +6,19 @@
 	<parent>
 		<groupId>org.egov-ua</groupId>
 		<artifactId>org.egov-ua</artifactId>
-		<version>1.0-SNAPSHOT</version>
+                <version>1.0-SNAPSHOT</version>
+                <!--version>${igov.wf-base.version}</version-->
 	</parent>
 
 	<name>iGov-UA WF-Central</name>
 	<artifactId>wf-central</artifactId>
+        <version>${igov.wf-central.version}</version>
 	<packaging>war</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<activity.version>5.17.0</activity.version>
-	</properties>
+        </properties>
 
 	<!-- distributionManagement>
 		<repository>
@@ -220,14 +222,14 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>wf-base</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${igov.wf-base.version}</version>
             <classifier>lib</classifier>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>wf-base</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${igov.wf-base.version}</version>
             <classifier>ui-zip</classifier>
             <type>zip</type>
             <scope>provided</scope>
@@ -309,18 +311,18 @@
 		</dependency>
 
 		<!-- MONGO -->
-		<dependency>
+		<!--dependency>
 			<groupId>org.egov-ua</groupId>
 			<artifactId>org.egov-ua.storage-static</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
+                        <version>${igov.storage-static.version}</version>
+		</dependency-->
 		
 		<!-- REDIS -->
-		<dependency>
+		<!--dependency>
 			<groupId>org.activiti.redis</groupId>
 			<artifactId>wf-region-redis</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+                        <version>${igov.storage-temp.version}</version>
+		</dependency-->
 
 		<!-- Database -->
 		<dependency>

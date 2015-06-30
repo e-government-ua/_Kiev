@@ -37,7 +37,7 @@ public class Document {
 
 	@JsonProperty(value = "sID_Content")
 	@Column(name = "sID_Content", nullable = false)
-	private String сontentKey;
+	private String contentKey;
 
 	@JsonProperty(value = "oDocumentContentType")
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -100,12 +100,12 @@ public class Document {
 		this.name = name;
 	}
 
-	public String getСontentKey() {
-		return сontentKey;
+	public String getContentKey() {
+		return contentKey;
 	}
 
-	public void setСontentKey(String сontentKey) {
-		this.сontentKey = сontentKey;
+	public void setContentKey(String contentKey) {
+		this.contentKey = contentKey;
 	}
 
 	public String getFile() {

@@ -63,10 +63,8 @@
 	</beans>
 
 	<beans>
-	
-	
-	
-	      <bean id="mongoProps"
+
+	    <bean id="mongoProps"
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 			<property name="location" value="classpath:storage-mongodb.properties" />
 			<property name="ignoreUnresolvablePlaceholders" value="true" />

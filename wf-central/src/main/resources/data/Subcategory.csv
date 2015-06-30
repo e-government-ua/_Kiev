@@ -4,7 +4,7 @@ nID;sName;sID;nID_Category;nOrder
 3;Міліція та ДАІ;Police;1;1
 4;Посвідчення особи, Громадянство, Місце проживання;RegistrationsCitizen;1;4
 5;Ліцензії;License;2;9
-6;Реєстраційни дані;Registrations;1;7
+6;Реєстраційні дані;Registrations;1;7
 7;Будівництво, нерухомість, земля;BuildOrg;2;7
 8;Геологія;Mounts;2;8
 9;Довкілля;Nature;2;9
@@ -13,7 +13,7 @@ nID;sName;sID;nID_Category;nOrder
 12;Медицина;Medic;2;12
 13;Освіта;Education;2;13
 14;Мито;Tamognya;2;11
-15;Реєстраційни дані;RegistrationsOrg;2;15
+15;Реєстраційні дані;RegistrationsOrg;2;15
 16;Податки;Tax;1;6
 17;Транспорт;Transports_B;2;17
 19;Торгівля;Trade;2;14

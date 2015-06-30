@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.dao.*;
-import org.wf.dp.dniprorada.model.Document;
-import org.wf.dp.dniprorada.model.DocumentContentType;
-import org.wf.dp.dniprorada.model.HistoryEvent;
-import org.wf.dp.dniprorada.model.Subject;
+import org.wf.dp.dniprorada.model.*;
+import org.wf.dp.dniprorada.model.document.HandlerFactory;
 import org.wf.dp.dniprorada.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,11 +27,11 @@ import java.util.List;
 @RequestMapping(value = "/services")
 public class ActivitiRestDocumentController {
 
-    private final Logger log = LoggerFactory.getLogger(ActivitiRestDocumentController.class);
+    private static final Logger log = LoggerFactory.getLogger(ActivitiRestDocumentController.class);
     
     @Autowired
     private DocumentDao documentDao;
-    
+
     @Autowired
     private SubjectDao subjectDao;
     
@@ -46,6 +44,9 @@ public class ActivitiRestDocumentController {
     @Autowired
     private DocumentContentTypeDao documentContentTypeDao;
 
+    @Autowired
+    private HandlerFactory handlerFactory;
+
     @RequestMapping(value = "/getDocument", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -53,11 +54,46 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "nID_Subject") long nID_Subject) throws ActivitiRestException{
         Document document = documentDao.getDocument(id);
         if(nID_Subject != document.getSubject().getnID()){  
-            throw new ActivitiRestException("401", "You don't have access! Yuor nID = " + nID_Subject + " Document's Subject's nID = " + document.getSubject().getnID());
+            throw new ActivitiRestException("401", "You don't have access! Your nID = " + nID_Subject + " Document's Subject's nID = " + document.getSubject().getnID());
         } else{
             return  document;
         }
     }
+
+
+
+    /**
+     * @param accessCode    - строковой код доступа к документу
+     * @param organID	    - номер-ИД субьекта-органа оператора документа
+     * @param docTypeID	    - номер-ИД типа документа (опционально)
+     * @param password	    - строка-пароль (опционально)
+     * */
+    @RequestMapping(value 	= "/getDocumentAccessByHandler",
+                    method 	= RequestMethod.GET,
+                    headers = { "Accept=application/json" })
+    public @ResponseBody
+    Document getDocumentAccessByHandler(
+            @RequestParam(value = "sCode_DocumentAccess") 				String 	accessCode,
+            @RequestParam(value = "nID_DocumentOperator_SubjectOrgan") 	Long 	organID,
+            @RequestParam(value = "nID_DocumentType", required = false) Integer	docTypeID,
+            @RequestParam(value = "sPass", required = false)		    String 	password,
+            HttpServletResponse resp) {
+
+        return handlerFactory.buildHandlerFor( documentDao.getOperator(organID) )
+            .setDocumentType(docTypeID)
+            .setAccessCode(accessCode)
+            .setPassword(password)
+            .getDocument();
+    }
+
+
+    @RequestMapping(value 	= "/getDocumentOperators",
+                    method 	= RequestMethod.GET,
+                    headers = { "Accept=application/json" })
+    public @ResponseBody List<DocumentOperator_SubjectOrgan> getDocumentOperators() {
+        return documentDao.getAllOperators();
+    }
+
 
     @RequestMapping(value = "/getHistoryEvent", method = RequestMethod.GET)
     public
@@ -75,7 +111,7 @@ public class ActivitiRestDocumentController {
         if(nID_Subject != document.getSubject().getnID()){
             throw new ActivitiRestException("401", "You don't have access!");
         } else{
-            return Util.contentByteToString(documentDao.getDocumentContent(document.getСontentKey())); // ????
+            return Util.contentByteToString(documentDao.getDocumentContent(document.getContentKey())); // ????
         }
     }
 
@@ -120,7 +156,7 @@ public class ActivitiRestDocumentController {
             throw new ActivitiRestException("401", "You don't have access!");
         } 
         byte[] content = documentDao.getDocumentContent(document
-                .getСontentKey());
+                .getContentKey());
         //byte[] content = "".getBytes();
         
         httpResponse.setHeader("Content-disposition", "attachment; filename="
