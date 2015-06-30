@@ -16,7 +16,7 @@ var config = {
   },
   'activiti': {
     'protocol': 'https',
-    'hostname': 'poligon.igov.org.ua',
+    'hostname': 'test.igov.org.ua',
     'port': '8443',
     'path': '/wf-central/service',
     'username': 'activiti-master',

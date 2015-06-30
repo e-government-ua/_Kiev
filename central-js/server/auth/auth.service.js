@@ -1,6 +1,6 @@
 var compose = require('composable-middleware');
 var config = require('../config');
-var documents = require('../api/service/documents.controller.js');
+var documents = require('../api/documents/documents.controller.js');
 
 function isAuthenticated() {
 	return compose().use(function(req, res, next) {

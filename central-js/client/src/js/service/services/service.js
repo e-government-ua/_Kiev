@@ -49,13 +49,17 @@ define('service/service', ['angularAMD'], function(angularAMD) {
     this.getDocuments = function() {
       var data = {
       };
-      return $http.get('./api/service/documents', {
+      return $http.get('./api/documents', {
         params: data,
         data: data
       }).then(function(response) {
         return response.data;
       });
     };
+
+    this.getDocumentLink = function(docnID){
+      return '/api/documents/download/' + docnID;
+    }
 
     this.shareLink = function(nID_Subject, nID_Document, sFIO, sTelephone, sMail, nMS) {
       var data = {
@@ -67,7 +71,7 @@ define('service/service', ['angularAMD'], function(angularAMD) {
         'sMail': sMail,
         'nMS': nMS
       };
-      return $http.get('./api/service/documents/' + nID_Document + '/share', {
+      return $http.get('./api/documents/' + nID_Document + '/share', {
         params: data,
         data: data
       }).then(function(response) {
@@ -89,7 +93,7 @@ define('service/service', ['angularAMD'], function(angularAMD) {
     
    this.initialUpload = function(typesToUpload) {
 		var data = {};
-		return $http.post('./api/service/documents/initialUpload', typesToUpload, {
+		return $http.post('./api/documents/initialUpload', typesToUpload, {
 			params: data
 		}).then(function(response) {
 			return response.data;

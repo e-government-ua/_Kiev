@@ -75,7 +75,7 @@
                            value="{{doc.sName}}">
                 </td>
                 <td>
-                    <a href="/api/service/documents/download/{{doc.nID}}"
+                    <a ng-href="{{getDocumentLink(doc.nID)}}"
                        target="_blank">
                         <span class="glyphicon glyphicon-duplicate"
                               title="Завантажити копію"

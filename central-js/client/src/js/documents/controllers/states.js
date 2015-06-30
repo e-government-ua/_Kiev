@@ -59,6 +59,7 @@ define('state/documents/content/controller', ['angularAMD'], function (angularAM
             $scope.sTelephone = '+380';
             $scope.nDaysOptions = [{day: 1, title: '1 день'}, {day: 7, title: '1 тиждень'}, {day: 365, title: '1 рік'}];
             $scope.nDays = $scope.nDaysOptions[1];
+            $scope.getDocumentLink = ServiceService.getDocumentLink;
 
             $scope.shareLink = function (document, sFIO, sTelephone, sMail, nDays) {
                 ServiceService.shareLink($state.nID_Subject, document.nID, sFIO,
