@@ -1,5 +1,6 @@
 package org.activiti.rest.controller;
 
+import org.activiti.rest.controller.util.ErrMessage;
 import org.apache.commons.collections.Predicate;
 import org.junit.Before;
 import org.junit.Test;
@@ -72,37 +73,69 @@ public class ActivitiRestDocumentControllerTest {
         assertEquals("ID aren't match", 1L, iGov.getId().longValue()); // Long vs Object = compiler error
     }
 
+
     @Test
-    public void getAccessByHandlersWithoutPassword() throws Exception {
+    public void getDocumentByCodeAndOrgan() throws Exception {
         String jsonData = mockMvc
             .perform(get("/services/getDocumentAccessByHandler")
                     .param("sCode_DocumentAccess", "1")
-                    .param("nID_DocumentOperator_SubjectOrgan", "2")
-                    .param("nID_DocumentType", "0"))
+                    .param("nID_DocumentOperator_SubjectOrgan", "2"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andReturn()
             .getResponse()
             .getContentAsString();
 
-        assertNotNull(jsonData);
-
         Document doc = JsonRestUtils.readObject(jsonData, Document.class);
-        assertNotNull("Document not found", doc);
-        assertEquals("ID aren't match", 1L, doc.getId().longValue());
-        assertNotNull("Document name is empty", doc.getName());
-        assertEquals("Document types aren't match", 0, doc.getDocumentType().getId().intValue());
-        assertEquals("Content keys aren't match", "1", doc.getContentKey());
+
+        assertNotNull("Document can't be a null", doc);
+        assertEquals("IDs aren't match", 1, doc.getId().longValue());
+        assertNotNull("Name can't be empty", doc.getName());
+        assertEquals("Doc. types aren't match", 0, doc.getDocumentType().getId().longValue());
+        assertEquals("Subjects aren't match, ", 1, doc.getSubject().getnID().longValue());
     }
 
-
     @Test
-    public void getAccessByHandlersWithPassword() throws Exception {
+    public void getDocumentByCodeAndWrongOrgan() throws Exception {
+        String organID = "100500";
         String jsonData = mockMvc
             .perform(get("/services/getDocumentAccessByHandler")
                     .param("sCode_DocumentAccess", "1")
+                    .param("nID_DocumentOperator_SubjectOrgan", organID))
+            .andExpect(status().is5xxServerError())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+
+        ErrMessage msg = JsonRestUtils.readObject(jsonData, ErrMessage.class);
+        assertNotNull("Expected error message not found", msg);
+        assertEquals("Organ with ID:"+organID+" not found", msg.getMessage());
+    }
+
+    @Test
+    public void getDocumentByWrongCode() throws Exception {
+        String jsonData = mockMvc
+            .perform(get("/services/getDocumentAccessByHandler")
+                    .param("sCode_DocumentAccess", "100500")
+                    .param("nID_DocumentOperator_SubjectOrgan", "2"))
+            .andExpect(status().is5xxServerError())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+
+        ErrMessage msg = JsonRestUtils.readObject(jsonData, ErrMessage.class);
+        assertNotNull("Expected error message not found", msg);
+        assertEquals("Document Access not found", msg.getMessage());
+    }
+
+    @Test
+    public void getDocumentByCodeAndOrganAndPassword() throws Exception{
+        String jsonData = mockMvc
+            .perform(get("/services/getDocumentAccessByHandler")
+                    .param("sCode_DocumentAccess", "2")
                     .param("nID_DocumentOperator_SubjectOrgan", "2")
-                    .param("nID_DocumentType", "0")
                     .param("sPass", "123"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -110,7 +143,75 @@ public class ActivitiRestDocumentControllerTest {
             .getResponse()
             .getContentAsString();
 
-        assertNotNull(jsonData);
-        assertNotNull("Document not found", JsonRestUtils.readObject(jsonData, Document.class));
+        Document doc = JsonRestUtils.readObject(jsonData, Document.class);
+
+        assertNotNull("Document can't be a null", doc);
+        assertEquals("IDs aren't match", 2, doc.getId().longValue());
+        assertNotNull("Name can't be empty", doc.getName());
+        assertEquals("Doc. types aren't match", 1, doc.getDocumentType().getId().longValue());
+        assertEquals("Subjects aren't match, ", 2, doc.getSubject().getnID().longValue());
+    }
+
+
+
+    @Test
+    public void getDocumentByCodeAndOrganAndWrongPassword() throws Exception{
+        String jsonData = mockMvc
+            .perform(get("/services/getDocumentAccessByHandler")
+                    .param("sCode_DocumentAccess", "2")
+                    .param("nID_DocumentOperator_SubjectOrgan", "2")
+                    .param("sPass", "100500"))
+            .andExpect(status().is5xxServerError())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+
+        ErrMessage msg = JsonRestUtils.readObject(jsonData, ErrMessage.class);
+        assertNotNull("Expected error message not found", msg);
+        assertEquals("Document Access wrong password", msg.getMessage());
+    }
+
+
+    @Test
+    public void getDocumentByCodeAndDocumentTypeAndOrganAndPassword() throws Exception {
+        String jsonData = mockMvc
+            .perform(get("/services/getDocumentAccessByHandler")
+                    .param("sCode_DocumentAccess", "2")
+                    .param("nID_DocumentOperator_SubjectOrgan", "2")
+                    .param("nID_DocumentType", "1")
+                    .param("sPass", "123"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+
+        Document doc = JsonRestUtils.readObject(jsonData, Document.class);
+
+        assertNotNull("Document can't be a null", doc);
+        assertEquals("IDs aren't match", 2, doc.getId().longValue());
+        assertNotNull("Name can't be empty", doc.getName());
+        assertEquals("Doc. types aren't match", 1, doc.getDocumentType().getId().longValue());
+        assertEquals("Subjects aren't match, ", 2, doc.getSubject().getnID().longValue());
+    }
+
+    @Test
+    public void getDocumentByCodeAndWrongDocumentTypeAndOrganAndPassword() throws Exception {
+        String jsonData = mockMvc
+            .perform(get("/services/getDocumentAccessByHandler")
+                    .param("sCode_DocumentAccess", "2")
+                    .param("nID_DocumentOperator_SubjectOrgan", "2")
+                    .param("nID_DocumentType", "2")
+                    .param("sPass", "123"))
+            .andExpect(status().is5xxServerError())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+
+        ErrMessage msg = JsonRestUtils.readObject(jsonData, ErrMessage.class);
+        assertNotNull("Expected error message not found", msg);
+        assertEquals("Document Access not found", msg.getMessage());
     }
 }
