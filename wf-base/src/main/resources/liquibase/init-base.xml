@@ -8,6 +8,7 @@
     <changeSet id="Create/Update tables" author="brunneng" runOnChange="true">
 
         <sql splitStatements="true" dbms="postgresql">
+            DROP SEQUENCE IF EXISTS "hibernate_sequence";
             DROP TABLE IF EXISTS "ServiceOperator_SubjectOrgan" CASCADE;
             DROP TABLE IF EXISTS "Flow_ServiceData" CASCADE;
             DROP TABLE IF EXISTS "FlowPropertyClass" CASCADE;
@@ -17,6 +18,7 @@
         </sql>
 
         <sql splitStatements="true" dbms="h2">
+            DROP SEQUENCE IF EXISTS hibernate_sequence;
             DROP TABLE IF EXISTS ServiceOperator_SubjectOrgan CASCADE;
             DROP TABLE IF EXISTS Flow_ServiceData CASCADE;
             DROP TABLE IF EXISTS FlowPropertyClass CASCADE;
@@ -24,6 +26,8 @@
             DROP TABLE IF EXISTS FlowSlot CASCADE;
             DROP TABLE IF EXISTS SubjectTicket CASCADE;
         </sql>
+
+        <createSequence incrementBy="1" sequenceName="hibernate_sequence" startValue="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="ServiceOperator_SubjectOrgan">

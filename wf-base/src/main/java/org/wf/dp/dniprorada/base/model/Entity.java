@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import net.sf.brunneng.jom.annotations.Identifier;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Abstract entity.
@@ -13,8 +14,9 @@ import javax.persistence.*;
  * Time: 21:51
  */
 @MappedSuperclass
-public abstract class Entity {
+public abstract class Entity implements Serializable {
 
+   private static final long serialVersionUID = -5269544412868933212L;
    protected static final String DATETIME_TYPE = "org.jadira.usertype.dateandtime.joda.PersistentDateTime";
 
    @JsonProperty(value="nID")

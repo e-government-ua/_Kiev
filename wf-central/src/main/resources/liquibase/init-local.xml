@@ -402,7 +402,7 @@
             <column name="sContacts" type="varchar(200)"/>
             <column name="sData" type="varchar"/>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="SubjectMessage" columnDataType="bigint"  incrementBy="1" startWith="1"/>   
+        <addAutoIncrement columnName="nID" tableName="SubjectMessage" columnDataType="bigint"  incrementBy="1" startWith="1000"/>
              
          <!-- ####################################################################################################### -->
         <createTable tableName="DocumentType">
