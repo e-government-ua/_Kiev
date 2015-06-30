@@ -257,7 +257,9 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		OtpCreate otpCreate = new OtpCreate();
 		otpCreate.setCategory("qwerty");
 		otpCreate.setFrom("10060");
-		otpCreate.setPhone("+380962731045");
+		if(!docAcc.getTelephone().isEmpty() || docAcc.getTelephone() != null ){
+			otpCreate.setPhone(docAcc.getTelephone());
+		}
 		SmsTemplate smsTemplate1 = new SmsTemplate();
 		smsTemplate1.setText("Parol: ");
 		smsTemplate1.setPassword("2");
