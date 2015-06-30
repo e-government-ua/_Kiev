@@ -104,7 +104,7 @@ public class Document {
 		return contentKey;
 	}
 
-	public void setСontentKey(String contentKey) {
+	public void setContentKey(String contentKey) {
 		this.contentKey = contentKey;
 	}
 

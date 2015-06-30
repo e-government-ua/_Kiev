@@ -34,17 +34,16 @@ public class FlowService implements ApplicationContextAware {
 
    private ApplicationContext applicationContext;
 
+   public SubjectTicketDao getSubjectTicketDao() {
+      return subjectTicketDao;
+   }
+
    public FlowSlotDao getFlowSlotDao() {
       return flowSlotDao;
    }
-
    @Required
    public void setFlowSlotDao(FlowSlotDao flowSlotDao) {
       this.flowSlotDao = flowSlotDao;
-   }
-
-   public SubjectTicketDao getSubjectTicketDao() {
-      return subjectTicketDao;
    }
 
    @Required
@@ -141,7 +140,7 @@ public class FlowService implements ApplicationContextAware {
 
       Flow_ServiceData flow = baseEntityDao.getById(Flow_ServiceData.class, nID_Flow_ServiceData);
 
-      List<FlowSlot> slotCandidates = new ArrayList<>();
+      List<FlowSlotVO> res = new ArrayList<>();
 
       for (FlowProperty flowProperty : flow.getFlowProperties()) {
          Class<FlowPropertyHandler> flowPropertyHandlerClass = getFlowPropertyHandlerClass(flowProperty);
@@ -151,39 +150,10 @@ public class FlowService implements ApplicationContextAware {
                     flowProperty.getoFlowPropertyClass().getsBeanName(), flowPropertyHandlerClass);
             handler.setStartDate(startDate);
             handler.setEndDate(stopDate);
+            handler.setFlow(flow);
 
-            slotCandidates.addAll(handler.generateObjects(flowProperty.getsData()));
-         }
-      }
-
-      List<FlowSlotVO> res = new ArrayList<>();
-
-      DateTime minDateTime = null;
-      DateTime maxDateTime = null;
-      for (FlowSlot slot : slotCandidates) {
-         DateTime dateTime = slot.getsDate();
-         if (minDateTime == null) {
-            minDateTime = slot.getsDate();
-            maxDateTime = minDateTime;
-         }
-         else {
-            if (minDateTime.isAfter(dateTime)) {
-               minDateTime = dateTime;
-            }
-            if (maxDateTime.isBefore(dateTime)) {
-               maxDateTime = dateTime;
-            }
-         }
-      }
-
-      if (!slotCandidates.isEmpty()) {
-         Set<DateTime> existingDates = flowSlotDao.getFlowSlotsDates(flow.getId(), minDateTime, maxDateTime);
-
-         for (FlowSlot slot : slotCandidates) {
-            if (!existingDates.contains(slot.getsDate())) {
-               slot.setFlow(flow);
-               flowSlotDao.saveOrUpdate(slot);
-
+            List<FlowSlot> generatedSlots = handler.generateObjects(flowProperty.getsData());
+            for (FlowSlot slot : generatedSlots) {
                res.add(new FlowSlotVO(slot));
             }
          }

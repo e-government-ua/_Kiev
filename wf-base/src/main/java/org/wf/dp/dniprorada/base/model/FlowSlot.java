@@ -43,7 +43,6 @@ public class FlowSlot extends NamedEntity {
    private Flow_ServiceData flow;
 
    @OneToMany(mappedBy = "oFlowSlot", cascade = CascadeType.ALL, orphanRemoval = true)
-   @LazyCollection(LazyCollectionOption.FALSE)
    private List<SubjectTicket> subjectTickets = new ArrayList<>();
 
    public String getsData() {

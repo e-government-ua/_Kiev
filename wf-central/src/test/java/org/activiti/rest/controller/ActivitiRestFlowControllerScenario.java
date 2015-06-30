@@ -115,15 +115,28 @@ public class ActivitiRestFlowControllerScenario {
 
    @Test
    public void shouldGenerateSlots() throws Exception {
+      String sDateStart = "2015-06-01";
+      String sDateStop = "2015-06-07";
+
       String setJsonData = mockMvc.perform(post("/flow/buildFlowSlots").
               param("nID_Flow_ServiceData", "1").
-              param("sDateStart", "2015-06-01").
-              param("sDateStop", "2015-06-07")).
+              param("sDateStart", sDateStart).
+              param("sDateStop", sDateStop)).
               andExpect(status().isOk()).
               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
               andReturn().getResponse().getContentAsString();
       FlowSlotVO[] generatedSlots = JsonRestUtils.readObject(setJsonData, FlowSlotVO[].class);
       Assert.assertTrue(generatedSlots.length == 32*5); // 32 every day.
+
+      setJsonData = mockMvc.perform(post("/flow/buildFlowSlots").
+              param("nID_Flow_ServiceData", "1").
+              param("sDateStart", sDateStart).
+              param("sDateStop", sDateStop)).
+              andExpect(status().isOk()).
+              andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
+              andReturn().getResponse().getContentAsString();
+      generatedSlots = JsonRestUtils.readObject(setJsonData, FlowSlotVO[].class);
+      Assert.assertTrue(generatedSlots.length == 0); // already generated
    }
 
    private FlowSlotVO findSlot(Days days, Long slotId) {

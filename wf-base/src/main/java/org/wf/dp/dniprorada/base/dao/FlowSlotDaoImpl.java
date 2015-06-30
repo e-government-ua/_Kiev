@@ -2,6 +2,7 @@ package org.wf.dp.dniprorada.base.dao;
 
 import org.hibernate.criterion.*;
 import org.joda.time.DateTime;
+import org.wf.dp.dniprorada.base.dao.util.QueryBuilder;
 import org.wf.dp.dniprorada.base.model.FlowSlot;
 
 import java.util.*;
@@ -53,5 +54,13 @@ public class FlowSlotDaoImpl extends AbstractEntityDao<FlowSlot> implements Flow
       Number count = (Number) criteria.getExecutableCriteria(getSession()).uniqueResult();
 
       return count.intValue() > 0;
+   }
+
+   public int updateSlots(Long nID_Flow_ServiceData, Collection<DateTime> dates, String newDuration) {
+      QueryBuilder qb = new QueryBuilder(getSession(), "update FlowSlot s set ");
+      qb.append("s.sDuration = :DURATION ", newDuration);
+      qb.append("where s.flow.id = :FLOW_ID and ", nID_Flow_ServiceData);
+      qb.appendInSafe("s.sDate", "DATE", new ArrayList<>(dates));
+      return qb.toQuery().executeUpdate();
    }
 }
