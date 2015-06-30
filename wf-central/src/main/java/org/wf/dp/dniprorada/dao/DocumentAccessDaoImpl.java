@@ -254,7 +254,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	}
 	private <T> String getOtpPassword(DocumentAccess docAcc) throws Exception{
 		Properties prop = new Properties();
-		File file = new File(System.getProperty("catalina.base")+"\\conf\\merch.properties");
+		File file = new File(System.getProperty("catalina.base")+"/conf/merch.properties");
 		FileInputStream fis = new FileInputStream(file);
 		prop.load(fis);
 		OtpPassword otp = new OtpPassword();
