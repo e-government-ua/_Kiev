@@ -16,6 +16,7 @@ import org.wf.dp.dniprorada.base.model.SubjectTicket;
 import org.wf.dp.dniprorada.base.service.flow.propertyHandler.BaseFlowSlotScheduler;
 import org.wf.dp.dniprorada.base.service.flow.propertyHandler.FlowPropertyHandler;
 import org.wf.dp.dniprorada.base.util.DurationUtil;
+import org.wf.dp.dniprorada.base.viewobject.flow.ClearSlotsResult;
 import org.wf.dp.dniprorada.base.viewobject.flow.Day;
 import org.wf.dp.dniprorada.base.viewobject.flow.Days;
 import org.wf.dp.dniprorada.base.viewobject.flow.FlowSlotVO;
@@ -170,13 +171,13 @@ public class FlowService implements ApplicationContextAware {
       return res;
    }
 
-   public List<FlowSlotVO> clearFlowSlots(Long nID_Flow_ServiceData, DateTime startDate, DateTime stopDate,
+   public ClearSlotsResult clearFlowSlots(Long nID_Flow_ServiceData, DateTime startDate, DateTime stopDate,
                                           boolean bWithTickets) {
 
       List<FlowSlot> flowSlots = flowSlotDao.findFlowSlotsByFlow(nID_Flow_ServiceData, startDate, stopDate);
       DateTime operationTime = DateTime.now();
 
-      List<FlowSlotVO> res = new ArrayList<>();
+      ClearSlotsResult res = new ClearSlotsResult();
       List<FlowSlot> flowSlotsToDelete = new ArrayList<>();
       for (FlowSlot slot : flowSlots) {
          if (bWithTickets || slot.getSubjectTickets().isEmpty()) {
@@ -187,8 +188,11 @@ public class FlowService implements ApplicationContextAware {
                subjectTicket.setoFlowSlot(null);
                subjectTicket.setsDateEdit(operationTime);
             }
+            res.getaDeletedSlot().add(new FlowSlotVO(slot));
+         }
 
-            res.add(new FlowSlotVO(slot));
+         if (!slot.getSubjectTickets().isEmpty()) {
+            res.getaSlotWithTickets().add(new FlowSlotVO(slot));
          }
       }
 

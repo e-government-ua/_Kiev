@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.wf.dp.dniprorada.base.model.FlowSlot;
 import org.wf.dp.dniprorada.base.model.SubjectTicket;
 import org.wf.dp.dniprorada.base.service.flow.FlowService;
-import org.wf.dp.dniprorada.base.util.JsonDateSerializer;
+import org.wf.dp.dniprorada.base.util.JsonDateTimeSerializer;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
+import org.wf.dp.dniprorada.base.viewobject.flow.ClearSlotsResult;
 import org.wf.dp.dniprorada.base.viewobject.flow.Days;
 import org.wf.dp.dniprorada.base.viewobject.flow.FlowSlotVO;
 import org.wf.dp.dniprorada.base.viewobject.flow.SaveSubjectTicketResponse;
@@ -68,12 +68,12 @@ public class ActivitiRestFlowController {
 
       DateTime startDate = null;
       if (sDateStart != null) {
-         startDate = JsonDateSerializer.DATE_FORMATTER.parseDateTime(sDateStart);
+         startDate = JsonDateTimeSerializer.DATETIME_FORMATTER.parseDateTime(sDateStart);
       }
 
       DateTime stopDate = null;
       if (sDateStop != null) {
-         stopDate = JsonDateSerializer.DATE_FORMATTER.parseDateTime(sDateStop);
+         stopDate = JsonDateTimeSerializer.DATETIME_FORMATTER.parseDateTime(sDateStop);
       }
 
       List<FlowSlotVO> res = flowService.buildFlowSlots(nID_Flow_ServiceData, startDate, stopDate);
@@ -91,15 +91,15 @@ public class ActivitiRestFlowController {
                                  boolean bWithTickets) {
       DateTime startDate = null;
       if (sDateStart != null) {
-         startDate = JsonDateSerializer.DATE_FORMATTER.parseDateTime(sDateStart);
+         startDate = JsonDateTimeSerializer.DATETIME_FORMATTER.parseDateTime(sDateStart);
       }
 
       DateTime stopDate = null;
       if (sDateStop != null) {
-         stopDate = JsonDateSerializer.DATE_FORMATTER.parseDateTime(sDateStop);
+         stopDate = JsonDateTimeSerializer.DATETIME_FORMATTER.parseDateTime(sDateStop);
       }
 
-      List<FlowSlotVO> res = flowService.clearFlowSlots(nID_Flow_ServiceData, startDate, stopDate, bWithTickets);
+      ClearSlotsResult res = flowService.clearFlowSlots(nID_Flow_ServiceData, startDate, stopDate, bWithTickets);
       return JsonRestUtils.toJsonResponse(res);
    }
 
