@@ -17,27 +17,33 @@ import java.util.Map;
  * Date: 29.06.2015
  * Time: 21:38
  */
-public class DefaultFlowSlotSchedulerTest {
+public class DefaultFlowSlotGeneratorTest {
 
    private static final String DEFAULT_DURATION = "PT15M";
 
-   public DefaultFlowSlotScheduler scheduler;
+   public DefaultFlowSlotGenerator generator;
+
+   private DateTime startDate;
+   private DateTime endDate;
+   private int maxGeneratedSlotsCount;
+   private String defaultSlotName;
 
    @Before
    public void setUp() {
-      scheduler = new DefaultFlowSlotScheduler();
-      scheduler.setMaxGeneratedSlotsCount(3333);
-      scheduler.setDefaultIntervalDaysLength(60);
+      generator = new DefaultFlowSlotGenerator();
+      maxGeneratedSlotsCount = 3333;
+      defaultSlotName = DEFAULT_DURATION;
 
-      scheduler.setStartDate(new DateTime(2015, 6, 29, 0, 0));
-      scheduler.setEndDate(new DateTime(2015, 6, 30, 0, 0));
+      startDate = new DateTime(2015, 6, 29, 0, 0);
+      endDate = new DateTime(2015, 6, 30, 0, 0);
    }
 
    @Test
    public void testGenerateEmptyConfiguration() throws JsonProcessingException {
       Map<String, String> configuration = new HashMap<>();
       String sData = JsonRestUtils.toJson(configuration);
-      List<FlowSlot> slot = scheduler.generateObjects(sData);
+      List<FlowSlot> slot = generator.generateObjects(configuration, startDate, endDate, maxGeneratedSlotsCount,
+              defaultSlotName);
 
       Assert.assertTrue(slot.isEmpty());
    }
@@ -46,8 +52,8 @@ public class DefaultFlowSlotSchedulerTest {
       Map<String, String> configuration = new HashMap<>();
       configuration.put(cronExpression, DEFAULT_DURATION);
 
-      String sData = JsonRestUtils.toJson(configuration);
-      List<FlowSlot> slot = scheduler.generateObjects(sData);
+      List<FlowSlot> slot = generator.generateObjects(configuration, startDate, endDate, maxGeneratedSlotsCount,
+              defaultSlotName);
 
       Assert.assertEquals(slotsCount, slot.size());
    }
@@ -57,7 +63,7 @@ public class DefaultFlowSlotSchedulerTest {
    public void testGenerate() throws JsonProcessingException {
 
       for (int i = 1; i <= 4; ++i) {
-         scheduler.setEndDate(scheduler.getStartDate().plusDays(i));
+         endDate = startDate.plusDays(i);
 
          // Fire at 10:15am every day
          validateGeneration("0 15 10 ? * *", i);
@@ -70,20 +76,20 @@ public class DefaultFlowSlotSchedulerTest {
       }
 
       //Fire at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday
-      scheduler.setEndDate(scheduler.getStartDate().plusDays(7));
+      endDate = startDate.plusDays(7);
       validateGeneration("0 15 10 ? * MON-FRI", 5);
    }
 
    @Test
    public void testGenerateNearToRealData1() throws JsonProcessingException {
-      scheduler.setStartDate(new DateTime(2015, 7, 1, 0, 0));
-      scheduler.setEndDate(new DateTime(2015, 7, 2, 0, 0));
+      startDate = new DateTime(2015, 7, 1, 0, 0);
+      endDate = new DateTime(2015, 7, 2, 0, 0);
       validateGeneration("0 0/15 8-15 ? * MON-FRI *", 32);
    }
 
    @Test(expected = IllegalStateException.class)
    public void testTooManyValues() throws JsonProcessingException {
-      scheduler.setMaxGeneratedSlotsCount(59);
+      maxGeneratedSlotsCount = 59;
       validateGeneration("0 * 14 * * ?", 60);
    }
 }

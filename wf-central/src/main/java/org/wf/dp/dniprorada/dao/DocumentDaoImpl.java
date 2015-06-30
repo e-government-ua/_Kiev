@@ -90,7 +90,7 @@ public class DocumentDaoImpl implements DocumentDao {
 			document.setSubject(oSubject);
 		}
 
-		document.setСontentKey(durableBytesDataStorage.saveData(aoContent));
+		document.setContentKey(durableBytesDataStorage.saveData(aoContent));
 		document.setContentType(sFileContentType);
 		document.setFile(sFileName);
 		document.setDate_Upload(new Date());

@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.Assert;
 import org.wf.dp.dniprorada.base.model.FlowSlot;
+import org.wf.dp.dniprorada.base.model.Flow_ServiceData;
 
 /**
  * User: goodg_000
@@ -15,6 +16,7 @@ public abstract class BaseFlowSlotScheduler implements FlowPropertyHandler<FlowS
    protected DateTime startDate;
    protected DateTime endDate;
    protected int defaultIntervalDaysLength;
+   protected Flow_ServiceData flow;
 
    public DateTime getStartDate() {
       return startDate;
@@ -36,6 +38,13 @@ public abstract class BaseFlowSlotScheduler implements FlowPropertyHandler<FlowS
    @Required
    public void setDefaultIntervalDaysLength(int defaultIntervalDaysLength) {
       this.defaultIntervalDaysLength = defaultIntervalDaysLength;
+   }
+
+   public Flow_ServiceData getFlow() {
+      return flow;
+   }
+   public void setFlow(Flow_ServiceData flow) {
+      this.flow = flow;
    }
 
    @Override
