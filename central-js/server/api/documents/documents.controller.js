@@ -65,20 +65,17 @@ module.exports.initialUpload = function (req, res) {
     var typesToUpload = req.body;
 
     if (!accessToken || !sID_Subject) {
-        res.status(400);
-        res.send({
+        res.status(400).send({
             error: 'both accessToken and sID_Subject are needed'
         });
-        res.end();
         return;
     }
 
     if (!typesToUpload || !typesToUpload.length || typesToUpload.length === 0) {
-        res.status(400);
-        res.send({
+        res.status(400).send({
             error: 'nothing to upload'
         });
-        res.end();
+        return;
     }
 
     var options = getBankIDOptions(accessToken);

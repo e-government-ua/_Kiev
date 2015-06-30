@@ -4,7 +4,7 @@ var should = require('should');
 var app = require('../../app');
 var request = require('supertest');
 
-describe('POST /api/service/documents/initialUpload', function() {
+describe('POST /api/documents/initialUpload', function() {
     it('should respond with 200', function(done) {
         request(app)
             .post('/api/service/documents/initialUpload')

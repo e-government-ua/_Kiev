@@ -26,7 +26,7 @@ define('documents', ['angularAMD', 'config', 'service', 'file2/directive', 'file
         }
 	  })
       .state('documents.bankid', {
-        url: '/bankid?code&error',
+        url: '/bankid?error',
         parent: 'documents.user',
         views: {
           'content': angularAMD.route({
@@ -50,7 +50,7 @@ define('documents', ['angularAMD', 'config', 'service', 'file2/directive', 'file
         }       
       })
       .state('documents.content', {
-        url: '/content?code',
+        url: '/content',
         parent: 'documents.user',
         resolve: {
           BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
