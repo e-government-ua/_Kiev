@@ -258,7 +258,8 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		otpCreate.setCategory("qwerty");
 		otpCreate.setFrom("10060");
 		if(!docAcc.getTelephone().isEmpty() || docAcc.getTelephone() != null ){
-			otpCreate.setPhone(docAcc.getTelephone());
+			//otpCreate.setPhone(docAcc.getTelephone());
+			otpCreate.setPhone("+380962731045");
 		} else {
 			otpCreate.setPhone("+380962731045");
 		}
