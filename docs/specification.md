@@ -376,6 +376,25 @@ https://poligon.igov.org.ua/wf-central/service/services/getDocumentContent?nID=1
 **Response**
 КОНТЕНТ ДОКУМЕНТА В ВИДЕ СТРОКИ
 
+
+----------------------------------------------------------------------------------------------------------------------------
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/getDocumentTypes** - получение списка типов документов
+
+Пример:
+https://poligon.igov.org.ua/wf-central/service/services/getDocumentTypes
+
+**Response**
+```json
+[
+	{"nID":0,"sName":"Другое"},
+	{"nID":1,"sName":"Справка"},
+	{"nID":2,"sName":"Паспорт"}
+]
+```
+
 ----------------------------------------------------------------------------------------------------------------------------
 
 **HTTP Metod: GET**
