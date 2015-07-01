@@ -9,8 +9,8 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
     <bean id="flowService" class="org.wf.dp.dniprorada.base.service.flow.FlowService">
-        <property name="baseEntityDao" ref="baseEntityDao"/>
         <property name="flowSlotDao" ref="flowSlotDao"/>
+        <property name="baseEntityDao" ref="baseEntityDao"/>
         <property name="subjectTicketDao" ref="subjectTicketDao"/>
     </bean>
 
@@ -19,6 +19,7 @@
         <property name="defaultIntervalDaysLength" value="60"/>
         <property name="maxGeneratedSlotsCount" value="3333"/>
         <property name="defaultFlowSlotName" value="Рабочее время"/>
+        <property name="flowSlotDao" ref="flowSlotDao"/>
     </bean>
 
     <!-- ===========================   SERVICE TRANSACTIONS   ======================= -->

@@ -2,6 +2,7 @@ package org.wf.dp.dniprorada.base.dao;
 
 import org.wf.dp.dniprorada.base.model.Entity;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -16,4 +17,8 @@ public interface EntityDao<T extends Entity> {
    void saveOrUpdate(T entity);
 
    T getById(Integer identification);
+
+   void delete(T entity);
+
+   void deleteAll(Collection<T> entities);
 }

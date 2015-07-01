@@ -20,8 +20,8 @@
         <activiti:formProperty id="file1" name="Копія паспорта" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Копія ідентифікаційного номеру" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file3" name="Копія державного акту/ свідоцтва про право власності/ договору оренди на земельну ділянку" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Запит нотаріуса або адвоката; потрібно лише в разі оформлення спадщини" type="file"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копія свідоцтва про смерть попереднього власника; потрібно лише в разі оформлення спадщини" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file4" name="Запит нотаріуса або адвоката; потрібно лише в разі оформлення спадщини" default=" " type="file"></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Копія свідоцтва про смерть попереднього власника; потрібно лише в разі оформлення спадщини"  default=" " type="file"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>

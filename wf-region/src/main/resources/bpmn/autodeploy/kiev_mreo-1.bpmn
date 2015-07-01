@@ -64,7 +64,7 @@
         <activiti:formProperty id="model" name="Модель авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="queueData"></activiti:formProperty>
+        <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="queueData" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Результат перевірки наявності обтяжень" type="enum" required="true">
           <activiti:value id="accept" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"></activiti:value>
@@ -72,6 +72,10 @@
           <activiti:value id="reject" name="Знайдені обтяження. Відмовити громадянину в наданні послуги."></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="В разі відмови в наданні послуги,  вкажіть причину. В разі надання послуги, вкажіть час/дату, коли  авто може пройти огляд" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="price_to_pay" name="Вартість послуги; громадянин отримає квитанцію для сплати збору відповідно  обраної суми" type="enum">
+          <activiti:value id="price1" name="490 грн"></activiti:value>
+          <activiti:value id="price2" name="540 грн"></activiti:value>
+        </activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -292,11 +296,11 @@
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="55.0" width="151.0" x="180.0" y="110.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
-        <omgdc:Bounds height="30.0" width="30.0" x="264.0" y="93.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="55.0" width="185.0" x="376.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="264.0" y="93.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="261.0" y="20.0"></omgdc:Bounds>

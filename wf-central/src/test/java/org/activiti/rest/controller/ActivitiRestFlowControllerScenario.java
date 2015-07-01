@@ -1,34 +1,26 @@
 package org.activiti.rest.controller;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.wf.dp.dniprorada.base.model.FlowSlot;
 import org.wf.dp.dniprorada.base.util.JsonDateTimeSerializer;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
-import org.wf.dp.dniprorada.base.viewobject.flow.Day;
-import org.wf.dp.dniprorada.base.viewobject.flow.Days;
-import org.wf.dp.dniprorada.base.viewobject.flow.FlowSlotVO;
-import org.wf.dp.dniprorada.base.viewobject.flow.SaveSubjectTicketResponse;
+import org.wf.dp.dniprorada.base.viewobject.flow.*;
 
-import java.util.List;
-
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -103,7 +95,6 @@ public class ActivitiRestFlowControllerScenario {
       // save second time and make sure that Id is not changed
       setJsonData = mockMvc.perform(post("/flow/setFlowSlot_ServiceData").
               param("nID_FlowSlot", ""+freeSlot.getnID()).
-              param("sDate", sDateTime).
               param("nID_Subject", "2").
               param("nID_Task_Activiti", "1")).
               andExpect(status().isOk()).
@@ -114,16 +105,72 @@ public class ActivitiRestFlowControllerScenario {
    }
 
    @Test
-   public void shouldGenerateSlots() throws Exception {
+   public void shouldGenerateAndClearSlots() throws Exception {
+      String sDateStart = "2015-06-01 00:00:00.000";
+      String sDateStop = "2015-06-07 00:00:00.000";
+
+      String flowID = "1";
+      int expectedSlotsCount = 32 * 5; // 32 every day.
       String setJsonData = mockMvc.perform(post("/flow/buildFlowSlots").
-              param("nID_Flow_ServiceData", "1").
-              param("sDateStart", "2015-06-01").
-              param("sDateStop", "2015-06-07")).
+              param("nID_Flow_ServiceData", flowID).
+              param("sDateStart", sDateStart).
+              param("sDateStop", sDateStop)).
               andExpect(status().isOk()).
               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
               andReturn().getResponse().getContentAsString();
       FlowSlotVO[] generatedSlots = JsonRestUtils.readObject(setJsonData, FlowSlotVO[].class);
-      Assert.assertTrue(generatedSlots.length == 32*5); // 32 every day.
+      Assert.assertEquals(expectedSlotsCount, generatedSlots.length);
+      Long firstGeneratedSlotId = generatedSlots[0].getnID();
+
+      // repeat same call
+      setJsonData = mockMvc.perform(post("/flow/buildFlowSlots").
+              param("nID_Flow_ServiceData", flowID).
+              param("sDateStart", sDateStart).
+              param("sDateStop", sDateStop)).
+              andExpect(status().isOk()).
+              andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
+              andReturn().getResponse().getContentAsString();
+      generatedSlots = JsonRestUtils.readObject(setJsonData, FlowSlotVO[].class);
+      Assert.assertEquals(0, generatedSlots.length); // already generated
+
+      // save one ticket on generated slot
+      setJsonData = mockMvc.perform(post("/flow/setFlowSlot_ServiceData").
+              param("nID_FlowSlot", ""+firstGeneratedSlotId).
+              param("nID_Subject", "2").
+              param("nID_Task_Activiti", "1")).
+              andExpect(status().isOk()).
+              andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
+              andReturn().getResponse().getContentAsString();
+
+      // clear generated slots, with bWithTickets=false, by default
+      setJsonData = mockMvc.perform(delete("/flow/clearFlowSlots").
+              param("nID_Flow_ServiceData", flowID).
+              param("sDateStart", sDateStart).
+              param("sDateStop", sDateStop)).
+              andExpect(status().isOk()).
+              andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
+              andReturn().getResponse().getContentAsString();
+      ClearSlotsResult clearSlotsResults = JsonRestUtils.readObject(setJsonData, ClearSlotsResult.class);
+      Assert.assertEquals(expectedSlotsCount - 1,
+              clearSlotsResults.getaDeletedSlot().size()); // slot with ticket is not removed
+      Assert.assertTrue(clearSlotsResults.getaSlotWithTickets().size() == 1);
+      Assert.assertEquals(clearSlotsResults.getaSlotWithTickets().get(0).getnID(), firstGeneratedSlotId);
+
+      // repeat clear generated slots, with bWithTickets=true
+      setJsonData = mockMvc.perform(delete("/flow/clearFlowSlots").
+              param("nID_Flow_ServiceData", flowID).
+              param("sDateStart", sDateStart).
+              param("sDateStop", sDateStop).
+              param("bWithTickets", "true")).
+              andExpect(status().isOk()).
+              andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
+              andReturn().getResponse().getContentAsString();
+      clearSlotsResults = JsonRestUtils.readObject(setJsonData, ClearSlotsResult.class);
+      Assert.assertTrue(clearSlotsResults.getaDeletedSlot().size() == 1);
+
+      Assert.assertEquals(firstGeneratedSlotId,
+              clearSlotsResults.getaDeletedSlot().get(0).getnID()); // deleted slot with ticket
+      Assert.assertEquals(1, clearSlotsResults.getaSlotWithTickets().size());
    }
 
    private FlowSlotVO findSlot(Days days, Long slotId) {

@@ -2,6 +2,7 @@ package org.wf.dp.dniprorada.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.wf.dp.dniprorada.base.model.Entity;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -11,15 +12,9 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @javax.persistence.Entity
-public class SubjectMessage implements Serializable {
+public class SubjectMessage extends Entity {
 
     private static final long serialVersionUID = -5269544412868933212L;
-
-    @JsonProperty(value = "nID")
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "nID")
-    private Long id;
 
     @JsonProperty(value = "sHead")
     @Column(name = "sHead", length = 200, nullable = false)
@@ -49,14 +44,6 @@ public class SubjectMessage implements Serializable {
     @JsonProperty(value = "sData")
     @Column(name = "sData",length = 200)
     private String data;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getHead() {
         return head;

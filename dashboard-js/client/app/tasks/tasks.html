@@ -95,24 +95,26 @@
                                     ng-required="property.required">Add File
                         </file-field>
                     </p>
-                    <p ng-if="['string', 'long', 'date', 'enum', 'user', 'textArea', 'file'].indexOf(item.type) == -1">
+                    
+                    <!--'string', 'long', 'date' 'textArea' 'user' 'enum' 'file'-->
+                    <!--p ng-if="['string', 'long', 'date', 'textArea', 'user', 'enum', 'file'].indexOf(item.type) == -1">
                         <label>{{sFieldLabel(item.name)}}</label>
                         <input class="form-control"
                                ng-disabled="true"
                                ng-required="item.required"
                                ng-model="item.value"/>
-                    </p>
+                    </p-->
                     
-                    <p style="display: none;" ng-if="['invisible'].indexOf(item.type) == -1">
+                    <p style="display: none;" ng-if="['invisible'].indexOf(item.type) > -1">
                         <label>{{sFieldLabel(item.name)}}</label>
                     </p>
                     
-                    <p ng-if="['label'].indexOf(item.type) == -1">
+                    <p ng-if="['label'].indexOf(item.type) > -1">
                         <label>{{sFieldLabel(item.name)}}</label>
                         <label>{{item.value}}</label>
                     </p>
                     
-                    <p ng-if="['queueData'].indexOf(item.type) == -1">
+                    <p ng-if="['queueData'].indexOf(item.type) > -1">
                         <label>{{sFieldLabel(item.name)}}</label>
                         <label title="{{nID_SubjectTicket_FieldQueueData(item.value)}}">{{sDate_FieldQueueData(item.value)}}</label>
                     </p>
@@ -122,7 +124,7 @@
                 <div ng-show="attachments">
                     <p ng-repeat="item in attachments">
                         Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content/{{($index+1)}}"
-                                 target="_blank"><b>{{item.name}}</b> {{item.description}}</a>
+                                 target="_blank"><b>{{item.name}}</b></a> {{item.description}}
                     </p>
                 </div>
                 <p ng-if="selectedTask">

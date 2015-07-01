@@ -21,6 +21,8 @@ define('server', ['angularAMD'], function (angularAMD) {
 
 		$httpBackend.whenGET(/\/auth\//).passThrough();
 		$httpBackend.whenGET(/\/config\/config/).passThrough();
+		$httpBackend.whenGET(/\/api\/documents/).passThrough();
+		$httpBackend.whenPOST(/\/api\/documents\//).passThrough();
 
 	}]);
 	

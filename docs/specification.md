@@ -440,6 +440,19 @@ https://poligon.igov.org.ua/wf-central/service/services/getDocuments?nID_Subject
 ]
 ```
  ---------------------------------------------------------------------------------------------------------------------------
+ **HTTP Metod: GET**
+ 
+ **HTTP Context: http://server:port/wf-central/service/services/getDocumentAccessByHandler** - получение контента документа по коду доступа,оператору, типу документа и паролю
+ 
+ * sCode_DocumentAccess - код доступа документа
+ * nID_DocumentOperator_SubjectOrgan - код органа(оператора)
+ * nID_DocumentType - типа документа (опциональный)
+ * sPass - пароль для доступа к документу (опциональный, пока только для документов у которы sCodeType=SMS)
+ 
+Пример: https://test.igov.org.ua/wf-central/service/services/getDocumentAccessByHandler?sCode_DocumentAccess=2&nID_DocumentOperator_SubjectOrgan=2&sPass=123&nID_DocumentType=1
+
+Response КОНТЕНТ ДОКУМЕНТА В ВИДЕ СТРОКИ
+ ---------------------------------------------------------------------------------------------------------------------------
 
 **HTTP Metod: POST**
 
@@ -515,6 +528,25 @@ https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 	"sLabel":null,
 	"sLabelShort":null
 }
+```
+--------------------------------------------------------------------------------------------------------------------------
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/getDocumentOperators** - получение всех операторов(органов) которые имею право доступа к документу
+
+Примеры: https://test.igov.org.ua/wf-central/service/services/getDocumentOperators
+
+**Response**
+```json
+[
+    {
+        "nID_SubjectOrgan": 2,
+        "sHandlerClass": "org.wf.dp.dniprorada.model.document.DocumentAccessHandler_IGov",
+        "nID": 1,
+        "sName": "iGov"
+    }
+]
 ```
 --------------------------------------------------------------------------------------------------------------------------
 

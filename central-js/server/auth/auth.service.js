@@ -1,6 +1,6 @@
 var compose = require('composable-middleware');
 var config = require('../config');
-var documents = require('../api/service/documents.controller.js');
+var documents = require('../api/documents/documents.controller.js');
 
 function isAuthenticated() {
 	return compose().use(function(req, res, next) {
@@ -27,14 +27,10 @@ function isDocumentOwner() {
 						if (document.oSubject && document.oSubject.nID === req.session.subject.nID) {
 							next();
 						} else {
-							res.status(401);
-							res.send("Not your document");
-							res.end();
+							res.status(401).send({error: "User can have access only to his own documents"});
 						}
 					} catch (e) {
-						res.status(404);
-						res.send("There is no such document");
-						res.end();
+						res.status(404).send({error: "There is no such document"});
 					}
 
 				}

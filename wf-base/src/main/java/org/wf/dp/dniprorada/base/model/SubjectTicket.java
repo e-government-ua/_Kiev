@@ -35,6 +35,14 @@ public class SubjectTicket extends Entity {
 
    @Column
    @Type(type= DATETIME_TYPE)
+   private DateTime sDateStart;
+
+   @Column
+   @Type(type= DATETIME_TYPE)
+   private DateTime sDateFinish;
+
+   @Column
+   @Type(type= DATETIME_TYPE)
    private DateTime sDateEdit;
 
    public FlowSlot getoFlowSlot() {
@@ -56,6 +64,20 @@ public class SubjectTicket extends Entity {
    }
    public void setnID_Task_Activiti(Long nID_Task_Activiti) {
       this.nID_Task_Activiti = nID_Task_Activiti;
+   }
+
+   public DateTime getsDateStart() {
+      return sDateStart;
+   }
+   public void setsDateStart(DateTime sDateStart) {
+      this.sDateStart = sDateStart;
+   }
+
+   public DateTime getsDateFinish() {
+      return sDateFinish;
+   }
+   public void setsDateFinish(DateTime sDateFinish) {
+      this.sDateFinish = sDateFinish;
    }
 
    public DateTime getsDateEdit() {
