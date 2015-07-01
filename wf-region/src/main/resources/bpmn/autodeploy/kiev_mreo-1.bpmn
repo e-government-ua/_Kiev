@@ -18,8 +18,8 @@
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Відправляючи звернення Ви підтверджуєете достовірність зазначених персональних данних"></activiti:formProperty>
-        <activiti:formProperty id="response" name="thank_you_page_text" type="invisible" default="&lt;strong&gt;Дякуемо, що скористались нашим сервісом!&lt;/strong&gt;" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="markers" name="markersForValidations" type="markers" default="{}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="response" name="thank_you_page_text" type="invisible" default="&lt;strong&gt;Дякуемо, що скористались нашим сервісом!&lt;/strong&gt;"></activiti:formProperty>
+        <activiti:formProperty id="markers" name="markersForValidations" type="markers" default="{}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -41,7 +41,10 @@
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
-Ваша заява успішно зареєстрована.</activiti:expression>
+Ваша заява успішно зареєстрована.
+
+З повагою,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -72,10 +75,7 @@
           <activiti:value id="reject" name="Знайдені обтяження. Відмовити громадянину в наданні послуги."></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="В разі відмови в наданні послуги,  вкажіть причину. В разі надання послуги, вкажіть час/дату, коли  авто може пройти огляд" type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="price_to_pay" name="Вартість послуги; громадянин отримає квитанцію для сплати збору відповідно  обраної суми" type="enum">
-          <activiti:value id="price1" name="490 грн"></activiti:value>
-          <activiti:value id="price2" name="540 грн"></activiti:value>
-        </activiti:formProperty>
+        <activiti:formProperty id="billToPay" name="Завантажте квитацїю для сплати  збору за надання послуги" type="file" default=" "></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -107,7 +107,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow7" name="${decide == 'accept'}" sourceRef="exclusivegateway1" targetRef="mailtask3">
+    <sequenceFlow id="flow7" name="${decide == 'accept'}" sourceRef="exclusivegateway1" targetRef="servicetask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
@@ -125,7 +125,7 @@
         <activiti:formProperty id="model" name="Модель авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="queueData"></activiti:formProperty>
+        <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="queueData" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Результат перевірки наявності обтяжень" type="enum" writable="false">
           <activiti:value id="accept1" name="Обтяження відсутні. "></activiti:value>
@@ -152,7 +152,7 @@
         <activiti:formProperty id="model" name="Модель авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="queueData"></activiti:formProperty>
+        <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="queueData" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Результат перевірки наявності обтяжень" type="enum" writable="false">
           <activiti:value id="accept" name="Обтяження відсутні. "></activiti:value>
@@ -222,71 +222,58 @@
     </userTask>
     <endEvent id="endevent6" name="End"></endEvent>
     <sequenceFlow id="flow19" sourceRef="usertask4" targetRef="endevent6"></sequenceFlow>
-    <serviceTask id="mailtask3" name="Повідомлення про сплату збору" activiti:type="mail">
-      <extensionElements>
-        <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
-
-Для отримання посгули Вам необхідно сплатити державний збір і  надати квитанцію про сплату перед тех.оглядом Вашого авто.
-
-Разунок для сплати знаходиться в додатку до цього листа.</activiti:expression>
-        </activiti:field>
-        <activiti:field name="html">
-          <activiti:string><![CDATA[<form method="POST" accept-charset="utf-8" action="https://www.liqpay.com/api/checkout">
-<input type="hidden" name="data" value="eyJ2ZXJzaW9uIjozLCJwdWJsaWNfa2V5IjoiaTEwMTcyOTY4MDc4IiwiYW1vdW50IjoiMC4wMSIsImN1cnJlbmN5IjoiVUFIIiwiZGVzY3JpcHRpb24iOiLQntC/0LvQsNGC0LAg0YHQsdC+0YDQsNC30LAg0YDQtdCz0LjRgdGC0YDQsNGG0LjRjiDQsNCy0YLQviDQsiDQnNCg0K3QniIsInR5cGUiOiJidXkiLCJzYW5kYm94IjoiMSIsImxhbmd1YWdlIjoicnUiLCJwYXlfd2F5IjoiY2FyZCxsaXFwYXksZGVsYXllZCxpbnZvaWNlLHByaXZhdDI0In0=" />
-<input type="hidden" name="signature" value="Or/EDKfgmjsv71fd00a+3hjWEdg=" />
-<input type="image" src="//static.liqpay.com/buttons/p5ru.radius.png" name="btn_text" />
-</form>]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="to">
-          <activiti:expression>${email}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:string><![CDATA[Реєстрація авто]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
-    <sequenceFlow id="flow21" sourceRef="mailtask3" targetRef="usertask2"></sequenceFlow>
-    <serviceTask id="mailtask4" name="Повідомлення про сплату збору" activiti:type="mail">
-      <extensionElements>
-        <activiti:field name="to">
-          <activiti:expression>${email}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:string><![CDATA[Реєстрація авто]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="html">
-          <activiti:string><![CDATA[<form method="POST" accept-charset="utf-8" action="https://www.liqpay.com/api/checkout">
-<input type="hidden" name="data" value="eyJ2ZXJzaW9uIjozLCJwdWJsaWNfa2V5IjoiaTEwMTcyOTY4MDc4IiwiYW1vdW50IjoiMC4wMSIsImN1cnJlbmN5IjoiVUFIIiwiZGVzY3JpcHRpb24iOiLQntC/0LvQsNGC0LAg0YHQsdC+0YDQsNC30LAg0YDQtdCz0LjRgdGC0YDQsNGG0LjRjiDQsNCy0YLQviDQsiDQnNCg0K3QniIsInR5cGUiOiJidXkiLCJzYW5kYm94IjoiMSIsImxhbmd1YWdlIjoicnUiLCJwYXlfd2F5IjoiY2FyZCxsaXFwYXksZGVsYXllZCxpbnZvaWNlLHByaXZhdDI0In0=" />
-<input type="hidden" name="signature" value="Or/EDKfgmjsv71fd00a+3hjWEdg=" />
-<input type="image" src="//static.liqpay.com/buttons/p5ru.radius.png" name="btn_text" />
-</form>]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
-
-Для отримання посгули Вам необхідно сплатити державний збір і  надати квитанцію про сплату перед тех.оглядом Вашого авто.
-
-Разунок для сплати знаходиться в додатку до цього листа.</activiti:expression>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
-    <sequenceFlow id="flow22" name="${decide == 'warning'}" sourceRef="exclusivegateway1" targetRef="mailtask4">
+    <sequenceFlow id="flow21" sourceRef="servicetask2" targetRef="usertask2"></sequenceFlow>
+    <sequenceFlow id="flow22" name="${decide == 'warning'}" sourceRef="exclusivegateway1" targetRef="mailtask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'warning'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow23" sourceRef="mailtask4" targetRef="usertask2"></sequenceFlow>
+    <serviceTask id="servicetask2" name="Повідомлення громадянина про дату і час візиту" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Реєстрація авто]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а), "${bankIdfirstName}" "${bankIdmiddleName}".
+
+Для отримання послуги Вам необхідно сплатити державний збір і  надати квитанцію про сплату перед тех.оглядом Вашого авто.
+
+Рахунок для сплати знаходиться в додатку до цього листа.</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${billToPay}"</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow25" sourceRef="mailtask3" targetRef="usertask2"></sequenceFlow>
+    <serviceTask id="mailtask3" name="Повідомлення громадянина про дату і час візиту" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Реєстрація авто]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ви можете пройти тех.огляд Вашого авто ${dateView} за адресою ______ 
+
+З повагою,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_mreo_1">
     <bpmndi:BPMNPlane bpmnElement="kiev_mreo_1" id="BPMNPlane_kiev_mreo_1">
@@ -296,11 +283,11 @@
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="55.0" width="151.0" x="180.0" y="110.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
-        <omgdc:Bounds height="55.0" width="185.0" x="376.0" y="110.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
         <omgdc:Bounds height="30.0" width="30.0" x="264.0" y="93.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="55.0" width="185.0" x="376.0" y="110.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="261.0" y="20.0"></omgdc:Bounds>
@@ -341,11 +328,11 @@
       <bpmndi:BPMNShape bpmnElement="endevent6" id="BPMNShape_endevent6">
         <omgdc:Bounds height="35.0" width="35.0" x="451.0" y="910.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="55.0" width="185.0" x="250.0" y="490.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="220.0" x="229.0" y="490.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
-        <omgdc:Bounds height="55.0" width="184.0" x="467.0" y="490.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+        <omgdc:Bounds height="55.0" width="178.0" x="466.0" y="490.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="125.0" y="137.0"></omgdi:waypoint>
@@ -378,7 +365,7 @@
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="448.0" y="359.0"></omgdi:waypoint>
         <omgdi:waypoint x="342.0" y="359.0"></omgdi:waypoint>
-        <omgdi:waypoint x="342.0" y="490.0"></omgdi:waypoint>
+        <omgdi:waypoint x="339.0" y="490.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="42.0" width="100.0" x="230.0" y="426.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
@@ -431,7 +418,7 @@
         <omgdi:waypoint x="468.0" y="910.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
-        <omgdi:waypoint x="342.0" y="545.0"></omgdi:waypoint>
+        <omgdi:waypoint x="339.0" y="545.0"></omgdi:waypoint>
         <omgdi:waypoint x="342.0" y="575.0"></omgdi:waypoint>
         <omgdi:waypoint x="467.0" y="575.0"></omgdi:waypoint>
         <omgdi:waypoint x="468.0" y="602.0"></omgdi:waypoint>
@@ -440,15 +427,15 @@
         <omgdi:waypoint x="468.0" y="379.0"></omgdi:waypoint>
         <omgdi:waypoint x="468.0" y="427.0"></omgdi:waypoint>
         <omgdi:waypoint x="558.0" y="427.0"></omgdi:waypoint>
-        <omgdi:waypoint x="559.0" y="490.0"></omgdi:waypoint>
+        <omgdi:waypoint x="555.0" y="490.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="42.0" width="100.0" x="572.0" y="435.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
-        <omgdi:waypoint x="559.0" y="545.0"></omgdi:waypoint>
-        <omgdi:waypoint x="558.0" y="574.0"></omgdi:waypoint>
-        <omgdi:waypoint x="469.0" y="574.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="555.0" y="545.0"></omgdi:waypoint>
+        <omgdi:waypoint x="562.0" y="572.0"></omgdi:waypoint>
+        <omgdi:waypoint x="469.0" y="572.0"></omgdi:waypoint>
         <omgdi:waypoint x="468.0" y="602.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

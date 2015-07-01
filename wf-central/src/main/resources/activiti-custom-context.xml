@@ -104,6 +104,10 @@
         <bean id="documentContentTypeDao" class="org.wf.dp.dniprorada.dao.DocumentContentTypeDaoImpl">
             <property name="sessionFactory" ref="sessionFactory"/>
         </bean>
+        
+        <bean id="documentTypeDao" class="org.wf.dp.dniprorada.dao.DocumentTypeDaoImpl">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
 
         <bean id="subjectMessageDao" class="org.wf.dp.dniprorada.dao.SubjectMessagesDaoImpl">
             <property name="sessionFactory" ref="sessionFactory"/>

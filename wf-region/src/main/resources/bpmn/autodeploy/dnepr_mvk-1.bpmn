@@ -8,8 +8,8 @@
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="docType" name="Тип документа" type="enum" required="true">
-          <activiti:value id="копія рішення виконавчого комітету Дніпропетровської міської ради" name="копія рішення виконавчого комітету Дніпропетровської міської ради"></activiti:value>
-          <activiti:value id="копія рішення Дніпропетровської міської ради" name="копія рішення Дніпропетровської міської ради"></activiti:value>
+          <activiti:value id="копія рішення виконавчого комітету міської ради" name="копія рішення виконавчого комітету міської ради"></activiti:value>
+          <activiti:value id="копія рішення міської ради" name="копія рішення міської ради"></activiti:value>
           <activiti:value id="копія розпорядження міського голови" name="копія розпорядження міського голови"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="docDate" name="Дата прийняття документа; в форматі ДД.ММ.РРРР" type="string" required="true"></activiti:formProperty>

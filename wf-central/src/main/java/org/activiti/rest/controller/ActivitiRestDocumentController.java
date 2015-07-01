@@ -1,7 +1,12 @@
+
+
+
+
+
 package org.activiti.rest.controller;
 
 import org.activiti.engine.ActivitiObjectNotFoundException;
-import org.activiti.redis.util.RedisUtil;
+import org.activiti.redis.util.RedisUtil; 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +50,9 @@ public class ActivitiRestDocumentController {
 
     @Autowired
     private DocumentContentTypeDao documentContentTypeDao;
+    
+    @Autowired
+    private DocumentTypeDao documentTypeDao;
 
     @Autowired
     private HandlerFactory handlerFactory;
@@ -176,6 +184,13 @@ public class ActivitiRestDocumentController {
     List<Document> getDocuments(
             @RequestParam(value = "nID_Subject") long nID_Subject) {
         return documentDao.getDocuments(nID_Subject);
+    }
+    
+    @RequestMapping(value = "/getDocumentTypes", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<DocumentType> getDocumentTypes() {
+        return documentTypeDao.getDocumentTypes();
     }
 
     @RequestMapping(value = "/setDocument", method = RequestMethod.GET)
