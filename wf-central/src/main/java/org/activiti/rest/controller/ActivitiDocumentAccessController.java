@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.wf.dp.dniprorada.constant.HistoryEventType;
+import org.wf.dp.dniprorada.constant.HistoryEventMessage;
 import org.wf.dp.dniprorada.dao.DocumentAccessDao;
 import org.wf.dp.dniprorada.dao.DocumentDao;
 import org.wf.dp.dniprorada.dao.HistoryEventDao;
@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class ActivitiDocumentAccessController {
@@ -148,30 +150,22 @@ public class ActivitiDocumentAccessController {
 
     private void createHistoryEvent(Long nID_HistoryEventType, Long nID_Document,
                                     String sFIO, String sPhone) {
-        String sDocumentName = "";
-        String sDocumentType = "";
+        Map<String, String> values = new HashMap<>();
         try {
             Document oDocument = documentDao.getDocument(nID_Document);
-            sDocumentName = oDocument.getName();
-            sDocumentType = oDocument.getDocumentType().getName();
+            values.put(HistoryEventMessage.DOCUMENT_NAME, oDocument.getName());
+            values.put(HistoryEventMessage.DOCUMENT_TYPE, oDocument.getDocumentType().getName());
+            values.put(HistoryEventMessage.FIO, sFIO);
+            values.put(HistoryEventMessage.TELEPHONE, sPhone);
         } catch (Throwable e) {
             log.warn("can't get document info!", e);
         }
         try {
-            HistoryEventType eventType = HistoryEventType.getById(nID_HistoryEventType);
-            String eventMessage = eventType.getsTemplate();//"Ви надаєте доступ до документу %Назва документу% іншій людині: %Ім’я того, кому надають доступ% (телефон: %телефон%)")
-            //%Ім’я того, кому надають доступ% скористався доступом, який Ви надали, та переглянув документ %Тип документу% %Назва документу%
-            eventMessage = eventMessage.replaceAll("%Ім’я того, кому надають доступ%", sFIO)
-                    .replaceAll("%телефон%", sPhone)
-                    .replaceAll("%Тип документу%", sDocumentType)
-                    .replaceAll("%Назва документу%", sDocumentName);
-
+            String eventMessage = HistoryEventMessage.createJournalMessage(nID_HistoryEventType, values);
             historyEventDao.setHistoryEvent(nID_Document, nID_HistoryEventType,
                     eventMessage, eventMessage);
         } catch (IOException e) {
             log.error("error during creating HistoryEvent", e);
-        } catch (Throwable e) {
-            log.warn(e.getMessage());//???
         }
     }
 }
