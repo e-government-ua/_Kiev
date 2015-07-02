@@ -84,11 +84,18 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "sPass", required = false)		    String 	password,
             HttpServletResponse resp) {
 
-        return handlerFactory.buildHandlerFor( documentDao.getOperator(organID) )
-            .setDocumentType(docTypeID)
-            .setAccessCode(accessCode)
-            .setPassword(password)
-            .getDocument();
+        Document document = handlerFactory
+                .buildHandlerFor( documentDao.getOperator(organID) )
+                .setDocumentType(docTypeID)
+                .setAccessCode(accessCode)
+                .setPassword(password)
+                .getDocument();
+        try {
+            createHistoryEvent(7L, document.getSubject().getnID(), subjectOrganDao.getSubjectOrgan(organID).getsName(), null, document);
+        } catch (Exception e){
+            log.warn("can`t create history event!", e);
+        }
+        return document;
     }
 
 
@@ -297,7 +304,7 @@ public class ActivitiRestDocumentController {
                         sFileName,
                         sFileContentType,
                         aoContent);
-        createHistoryEvent(2L, nID_Subject, sSubjectName_Upload, sName, nID_Document);
+        createHistoryEvent(2L, nID_Subject, sSubjectName_Upload, nID_Document, null);
         return nID_Document;
     }
 
@@ -310,13 +317,13 @@ public class ActivitiRestDocumentController {
     }
 
     private void createHistoryEvent(Long nID_HistoryEventType, Long nID_Subject,
-                                    String sSubjectName_Upload,
-                                    String sDocumentName, Long nID_Document) {
+                                    String sSubjectName_Upload, Long nID_Document,
+                                    Document document) {
         Map<String, String> values = new HashMap<>();
         try {
-            Document oDocument = documentDao.getDocument(nID_Document);
+            Document oDocument = document == null ? documentDao.getDocument(nID_Document) : document;
             values.put(HistoryEventMessage.DOCUMENT_TYPE, oDocument.getDocumentType().getName());
-            values.put(HistoryEventMessage.DOCUMENT_NAME, sDocumentName);
+            values.put(HistoryEventMessage.DOCUMENT_NAME, oDocument.getName());
             values.put(HistoryEventMessage.ORGANIZATION_NAME, sSubjectName_Upload);
         } catch (Throwable e) {
             log.warn("can't get document info!", e);

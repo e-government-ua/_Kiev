@@ -3,25 +3,15 @@ package org.wf.dp.dniprorada.dao;
 
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.wf.dp.dniprorada.model.DocumentAccess;
-import org.wf.dp.dniprorada.model.OtpCreate;
-import org.wf.dp.dniprorada.model.OtpPass;
-import org.wf.dp.dniprorada.model.OtpPassword;
-import org.wf.dp.dniprorada.model.OtpText;
-import org.wf.dp.dniprorada.model.SmsTemplate;
+import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -105,9 +95,9 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	private void writeRow(DocumentAccess o) throws Exception{
 		Session s = getSession();
 		try{
-			if(o.getsCode() == null) o.setsCode("null");
-			if(o.getsCodeType() == null) o.setsCodeType("null");
-			s.saveOrUpdate(o);
+            if(o.getsCode() == null) o.setsCode("null");
+            if(o.getsCodeType() == null) o.setsCodeType("null");
+            s.saveOrUpdate(o);
 		} catch(Exception e){
 			throw e;
 		} finally {
@@ -213,7 +203,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     }         
                     else {
                    	 for(DocumentAccess da : list){
-                        	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)
+                   			if(da.getID() == nID_Access && da.getSecret().equals(sSecret)
                                         && ( da.getAnswer().equals(sAnswer) || "1234".equals(sAnswer) )){  //TODO убрать бэкдур, после окончательной отладки, в т.ч. фронта
                         		docAcc = da;
                         		break;

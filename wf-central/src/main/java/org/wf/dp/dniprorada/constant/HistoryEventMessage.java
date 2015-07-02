@@ -21,9 +21,9 @@ public class HistoryEventMessage {
         String eventMessage = "";
         try {
             HistoryEventType eventType = HistoryEventType.getById(nID_HistoryEventType);
-            String eventTemplate = eventType.getsTemplate();
+            eventMessage = eventType.getsTemplate();
             for (String key : values.keySet()) {
-                eventMessage = eventTemplate.replaceAll(key, values.get(key));
+                eventMessage = eventMessage.replaceAll(key, values.get(key));
             }
             ;
         } catch (Exception e) {
