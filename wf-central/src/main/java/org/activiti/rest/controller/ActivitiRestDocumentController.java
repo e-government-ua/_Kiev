@@ -1,8 +1,3 @@
-
-
-
-
-
 package org.activiti.rest.controller;
 
 import org.activiti.engine.ActivitiObjectNotFoundException;
