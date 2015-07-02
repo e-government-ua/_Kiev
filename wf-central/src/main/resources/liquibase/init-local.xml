@@ -535,7 +535,7 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
-        <!-- addAutoIncrement columnName="nID" tableName="DocumentAccess" columnDataType="bigint"  incrementBy="1" startWith="1"/ -->
+        <!-- addAutoIncrement columnName="nID" tableName="DocumentAccess" columnDataType="bigint"  incrementBy="1" startWith="1"/-->
 
         <!-- ####################################################################################################### -->
         <createTable tableName="DocumentOperator_SubjectOrgan">
@@ -679,6 +679,8 @@
             <column name="sSecret" type="STRING"/>    
             <column name="sAnswer" type="STRING"/>
             <column name="sDateAnswerExpire" type="STRING"/>
+            <column name="sCode" type="STRING"/>
+            <column name="sCodeType" type="STRING" />
         </loadData>
 
         <loadData encoding  = "UTF-8"
