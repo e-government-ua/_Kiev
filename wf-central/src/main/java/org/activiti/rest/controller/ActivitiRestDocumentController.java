@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.wf.dp.dniprorada.constant.HistoryEventType;
+import org.wf.dp.dniprorada.constant.HistoryEventMessage;
 import org.wf.dp.dniprorada.dao.*;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.model.document.HandlerFactory;
@@ -26,7 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/services")
@@ -315,26 +317,21 @@ public class ActivitiRestDocumentController {
     private void createHistoryEvent(Long nID_HistoryEventType, Long nID_Subject,
                                     String sSubjectName_Upload,
                                     String sDocumentName, Long nID_Document) {
-        String sDocumentType = "";
+        Map<String, String> values = new HashMap<>();
         try {
             Document oDocument = documentDao.getDocument(nID_Document);
-            sDocumentType = oDocument.getDocumentType().getName();
+            values.put(HistoryEventMessage.DOCUMENT_TYPE, oDocument.getDocumentType().getName());
+            values.put(HistoryEventMessage.DOCUMENT_NAME, sDocumentName);
+            values.put(HistoryEventMessage.ORGANIZATION_NAME, sSubjectName_Upload);
         } catch (Throwable e) {
-            log.error("can't get document info!", e);
+            log.warn("can't get document info!", e);
         }
         try {
-            HistoryEventType eventType = HistoryEventType.getById(nID_HistoryEventType);
-            String eventMessage = eventType.getsTemplate();//"%Назва органу% завантажує %Тип документу% %Назва документу% у Ваш розділ Мої документи"
-            eventMessage = eventMessage.replaceAll("%Назва органу%", sSubjectName_Upload)
-                    .replaceAll("%Тип документу%", sDocumentType)
-                    .replaceAll("%Назва документу%", sDocumentName);
-
-            historyEventDao.setHistoryEvent(nID_Subject,
-                    nID_HistoryEventType, eventMessage, eventMessage);
+            String eventMessage = HistoryEventMessage.createJournalMessage(nID_HistoryEventType, values);
+            historyEventDao.setHistoryEvent(nID_Subject, nID_HistoryEventType,
+                    eventMessage, eventMessage);
         } catch (IOException e) {
             log.error("error during creating HistoryEvent", e);
-        } catch (Throwable e) {
-            log.warn(e.getMessage());//???
         }
     }
 }

@@ -100,7 +100,8 @@ module.exports.syncWithSubject = function (options, done) {
                     callback(createError(error || body.error, body.error_description, response), null);
                 } else {
                     callback(null, {
-                        customer: body.customer
+                        customer: body.customer,
+                        admin: body.admin
                     });
                 }
             });
