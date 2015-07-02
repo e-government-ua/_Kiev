@@ -167,7 +167,7 @@ public class ActivitiDocumentAccessController {
             error = "during get doc-type name";
             values.put(HistoryEventMessage.DOCUMENT_TYPE, oDocument.getDocumentType().getName());
         } catch (Throwable e) {
-            values.put(HistoryEventMessage.DOCUMENT_NAME, error);
+            values.put(HistoryEventMessage.DOCUMENT_NAME, error + e.getMessage());
             log.warn("can't get document info!", e);
         }
         try {
