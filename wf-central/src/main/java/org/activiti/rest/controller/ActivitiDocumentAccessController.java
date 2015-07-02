@@ -154,20 +154,22 @@ public class ActivitiDocumentAccessController {
     private void createHistoryEvent(HistoryEventType eventType, Long nID_Document,
                                     String sFIO, String sPhone, Long nMs, String sEmail) {
         Map<String, String> values = new HashMap<>();
-        String error = "";
+        //String error = "";
+        Long nID_Subject = nID_Document;//???????
         try {
             values.put(HistoryEventMessage.FIO, sFIO);
             values.put(HistoryEventMessage.TELEPHONE, sPhone);
             values.put(HistoryEventMessage.EMAIL, sEmail);
             values.put(HistoryEventMessage.DAYS, "" + nMs / (1000 * 60 * 60 * 24));//day = 1000 * 60 * 60  * 24 ms
-            error = "in dao";
+            //error = "in dao";
             Document oDocument = documentDao.getDocument(nID_Document);
-            error = "during get document name";
+            //error = "during get document name";
             values.put(HistoryEventMessage.DOCUMENT_NAME, oDocument.getName());
-            error = "during get doc-type name";
+            //error = "during get doc-type name";
             values.put(HistoryEventMessage.DOCUMENT_TYPE, oDocument.getDocumentType().getName());
-        } catch (Throwable e) {
-            values.put(HistoryEventMessage.DOCUMENT_NAME, error + e.getMessage());
+            nID_Document = oDocument.getSubject().getnID();
+        } catch (Exception e) {
+            //values.put(HistoryEventMessage.DOCUMENT_NAME, error + e.getMessage());
             log.warn("can't get document info!", e);
         }
         try {
