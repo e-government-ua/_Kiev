@@ -53,7 +53,7 @@ public class ActivitiDocumentAccessController {
 			oAccessURL.setValue(documentAccessDao.setDocumentLink(nID_Document,
 					sFIO, sTarget, sTelephone, nMS, sMail));
 			oAccessURL.setName("sURL");
-            createHistoryEvent(HistoryEventType.SET_DOCUMENT_ACCESS_LINK.getnID(),
+            createHistoryEvent(HistoryEventType.SET_DOCUMENT_ACCESS_LINK,
                     nID_Document, sFIO, sTelephone, nMS, sMail);
 		} catch (Exception e) {
 			response.setStatus(400);
@@ -100,7 +100,7 @@ public class ActivitiDocumentAccessController {
                 response.setHeader("Reason", "Access to another document");
 			}
             if (isSuccessAccess) {
-                createHistoryEvent(HistoryEventType.SET_DOCUMENT_ACCESS.getnID(),
+                createHistoryEvent(HistoryEventType.SET_DOCUMENT_ACCESS,
                         da.getID_Document(), da.getFIO(), da.getTelephone(), da.getMS(), da.getMail());
             }
         }
@@ -151,23 +151,23 @@ public class ActivitiDocumentAccessController {
 		return oAccessURL;
 	}
 
-    private void createHistoryEvent(Long nID_HistoryEventType, Long nID_Document,
+    private void createHistoryEvent(HistoryEventType eventType, Long nID_Document,
                                     String sFIO, String sPhone, Long nMs, String sEmail) {
         Map<String, String> values = new HashMap<>();
         try {
-            Document oDocument = documentDao.getDocument(nID_Document);
-            values.put(HistoryEventMessage.DOCUMENT_NAME, oDocument.getName());
-            values.put(HistoryEventMessage.DOCUMENT_TYPE, oDocument.getDocumentType().getName());
             values.put(HistoryEventMessage.FIO, sFIO);
             values.put(HistoryEventMessage.TELEPHONE, sPhone);
             values.put(HistoryEventMessage.EMAIL, sEmail);
             values.put(HistoryEventMessage.DAYS, "" + nMs / (1000 * 60 * 60 * 24));//day = 1000 * 60 * 60  * 24 ms
+            Document oDocument = documentDao.getDocument(nID_Document);
+            values.put(HistoryEventMessage.DOCUMENT_NAME, oDocument.getName());
+            values.put(HistoryEventMessage.DOCUMENT_TYPE, oDocument.getDocumentType().getName());
         } catch (Throwable e) {
             log.warn("can't get document info!", e);
         }
         try {
-            String eventMessage = HistoryEventMessage.createJournalMessage(nID_HistoryEventType, values);
-            historyEventDao.setHistoryEvent(nID_Document, nID_HistoryEventType,
+            String eventMessage = HistoryEventMessage.createJournalMessage(eventType, values);
+            historyEventDao.setHistoryEvent(nID_Document, eventType.getnID(),
                     eventMessage, eventMessage);
         } catch (IOException e) {
             log.error("error during creating HistoryEvent", e);

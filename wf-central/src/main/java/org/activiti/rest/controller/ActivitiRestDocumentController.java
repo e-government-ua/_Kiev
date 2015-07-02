@@ -92,7 +92,7 @@ public class ActivitiRestDocumentController {
                 .setPassword(password)
                 .getDocument();
         try {
-            createHistoryEvent(HistoryEventType.GET_DOCUMENT_ACCESS_BY_HANDLER.getnID(),
+            createHistoryEvent(HistoryEventType.GET_DOCUMENT_ACCESS_BY_HANDLER,
                     document.getSubject().getnID(), subjectOrganDao.getSubjectOrgan(organID).getsName(), null, document);
         } catch (Exception e){
             log.warn("can`t create history event!", e);
@@ -306,7 +306,7 @@ public class ActivitiRestDocumentController {
                         sFileName,
                         sFileContentType,
                         aoContent);
-        createHistoryEvent(HistoryEventType.SET_DOCUMENT_INTERNAL.getnID(),
+        createHistoryEvent(HistoryEventType.SET_DOCUMENT_INTERNAL,
                 nID_Subject, sSubjectName_Upload, nID_Document, null);
         return nID_Document;
     }
@@ -319,7 +319,7 @@ public class ActivitiRestDocumentController {
     	return subject_Upload;
     }
 
-    private void createHistoryEvent(Long nID_HistoryEventType, Long nID_Subject,
+    private void createHistoryEvent(HistoryEventType eventType, Long nID_Subject,
                                     String sSubjectName_Upload, Long nID_Document,
                                     Document document) {
         Map<String, String> values = new HashMap<>();
@@ -332,8 +332,8 @@ public class ActivitiRestDocumentController {
             log.warn("can't get document info!", e);
         }
         try {
-            String eventMessage = HistoryEventMessage.createJournalMessage(nID_HistoryEventType, values);
-            historyEventDao.setHistoryEvent(nID_Subject, nID_HistoryEventType,
+            String eventMessage = HistoryEventMessage.createJournalMessage(eventType, values);
+            historyEventDao.setHistoryEvent(nID_Subject, eventType.getnID(),
                     eventMessage, eventMessage);
         } catch (IOException e) {
             log.error("error during creating HistoryEvent", e);
