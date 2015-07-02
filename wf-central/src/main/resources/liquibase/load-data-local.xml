@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="Core Subject Live" author="brunneng" runOnChange="true" context="test">
+
+        <sql splitStatements="true" dbms="postgresql">
+            SET CONSTRAINTS ALL DEFERRED;
+            DELETE FROM "Subject";
+            DELETE FROM "SubjectOrgan";
+            DELETE FROM "SubjectHuman";
+        </sql>
+
+        <loadData encoding="UTF-8" file="data/Subject.csv" tableName="Subject" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sID" type="STRING"/>
+            <column name="sLabel" type="STRING"/>
+            <column name="sLabelShort" type="STRING"/>
+        </loadData>
+
+        <loadData encoding="UTF-8" file="data/SubjectOrgan.csv" tableName="SubjectOrgan" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_Subject" type="NUMERIC"/>
+            <column name="sOKPO" type="STRING"/>
+            <column name="sFormPrivacy" type="STRING"/>
+            <column name="sName" type="STRING"/>
+            <column name="sNameFull" type="STRING"/>
+        </loadData>
+
+        <loadData encoding="UTF-8" file="data/SubjectHuman.csv" tableName="SubjectHuman" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_Subject" type="NUMERIC"/>
+            <column name="sSB" type="STRING"/>
+            <column name="sINN" type="STRING"/>
+            <column name="sPassportSeria" type="STRING"/>
+            <column name="sPassportNumber" type="STRING"/>
+            <column name="sFamily" type="STRING"/>
+            <column name="sName" type="STRING"/>
+            <column name="sSurname" type="STRING"/>
+        </loadData>
+    </changeSet>
+
+
+
+
+
+
+    <changeSet id="Module Subject Static" author="brunneng" runOnChange="true">
+
+        <sql splitStatements="true" dbms="postgresql">
+            SET CONSTRAINTS ALL DEFERRED;
+            DELETE FROM "SubjectOrganDepartment";
+        </sql>
+
+        <loadData encoding="UTF-8" file="data/SubjectOrganDepartment.csv" tableName="SubjectOrganDepartment" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="sGroup_Activiti" type="STRING"/>
+            <column name="nID_SubjectOrgan" type="NUMERIC"/>
+        </loadData>
+        
+    </changeSet>
+
+
+
+
+
+
+    <changeSet id="Module Service Static" author="brunneng" runOnChange="true">
+
+        <sql splitStatements="true" dbms="postgresql">
+            SET CONSTRAINTS ALL DEFERRED;
+            DELETE FROM "Region";
+            DELETE FROM "City";
+            DELETE FROM "Category";
+            DELETE FROM "Subcategory";
+            DELETE FROM "ServiceType";
+            DELETE FROM "Service";
+            DELETE FROM "ServiceData";
+        </sql>
+
+        <loadData encoding="UTF-8" file="data/Region.csv" tableName="Region" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/City.csv" tableName="City" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="nID_Region" type="NUMERIC"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/Category.csv" tableName="Category" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sID" type="STRING"/>
+            <column name="sName" type="STRING"/>
+            <column name="nOrder" type="NUMERIC"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/Subcategory.csv" tableName="Subcategory" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sID" type="STRING"/>
+            <column name="sName" type="STRING"/>
+            <column name="nID_Category" type="NUMERIC"/>
+            <column name="nOrder" type="NUMERIC"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/ServiceType.csv" tableName="ServiceType" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="sNote" type="STRING"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/Service.csv" tableName="Service" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="nOrder" type="NUMERIC"/>
+            <column name="nID_Subcategory" type="NUMERIC"/>
+            <column name="sInfo" type="STRING"/>
+            <column name="sFAQ" type="STRING"/>
+            <column name="sLaw" type="STRING"/>
+            <column name="sSubjectOperatorName" type="STRING"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/ServiceData.csv" tableName="ServiceData" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_Service" type="NUMERIC"/>
+            <column name="nID_City" type="NUMERIC"/>
+            <column name="nID_Region" type="NUMERIC"/>
+            <column name="nID_ServiceType" type="NUMERIC"/>
+            <column name="oData" type="STRING"/>
+            <column name="sURL" type="STRING"/>
+            <column name="bHidden" type="BOOLEAN"/>
+            <column name="nID_Subject_Operator" type="NUMERIC"/>
+            <column name="bTest" type="BOOLEAN"/>
+            <column name="sNote" type="STRING"/>
+            <column name="asAuth" type="STRING"/>
+        </loadData>
+
+    </changeSet>
+
+
+
+
+    <changeSet id="Module Document Static" author="brunneng" runOnChange="true">
+
+        <sql splitStatements="true" dbms="postgresql">
+            SET CONSTRAINTS ALL DEFERRED;
+            DELETE FROM "DocumentType";
+            DELETE FROM "DocumentContentType";            
+            DELETE FROM "DocumentAccess";
+            DELETE FROM "DocumentOperator_SubjectOrgan";
+        </sql>
+
+        <loadData encoding="UTF-8" file="data/DocumentType.csv" tableName="DocumentType" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+        </loadData>
+        <loadData encoding="UTF-8" file="data/DocumentContentType.csv" tableName="DocumentContentType" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+        </loadData>
+
+        <loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
+            <column name="nID" type="NUMERIC" />
+            <column name="nID_Document" type="NUMERIC"/>
+            <column name="sDateCreate" type="STRING"/>
+            <column name="nMS" type="NUMERIC"/>
+            <column name="sFIO" type="STRING" />
+            <column name="sTarget" type="STRING" />
+            <column name="sTelephone" type="STRING" />
+            <column name="sMail" type="STRING" />
+            <column name="sSecret" type="STRING"/>
+            <column name="sAnswer" type="STRING"/>
+            <column name="sDateAnswerExpire" type="STRING"/>
+        </loadData>
+
+        <loadData encoding="UTF-8" file="data/DocumentOperator_SubjectOrgan.csv" tableName="DocumentOperator_SubjectOrgan" separator=";">
+            <column name="nID"              type="NUMERIC"/>
+            <column name="sName"            type="STRING"/>
+            <column name="nID_SubjectOrgan" type="NUMERIC"/>
+            <column name="sHandlerClass"    type="String"/>
+        </loadData>
+    </changeSet>
+
+
+
+
+
+
+
+    <changeSet id="Module History Live" author="brunneng" runOnChange="true" context="test">
+        <sql splitStatements="true" dbms="postgresql">
+            SET CONSTRAINTS ALL DEFERRED;
+            DELETE FROM "HistoryEvent";
+        </sql>
+
+        <loadData encoding="UTF-8" file="data/HistoryEvent.csv" tableName="HistoryEvent" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_Subject" type="NUMERIC"/>
+            <column name="nID_HistoryEventType" type="NUMERIC"/>
+            <column name="sEventName_Custom" type="STRING"/>
+            <column name="sMessage" type="STRING"/>
+            <column name="sDate" type="STRING"/>
+        </loadData>
+
+    </changeSet>
+
+
+
+    <changeSet id="Module Document Live" author="brunneng" runOnChange="true" context="test">
+        <sql splitStatements="true" dbms="postgresql">
+            SET CONSTRAINTS ALL DEFERRED;
+            DELETE FROM "Document";
+        </sql>
+
+        <loadData encoding="UTF-8" file="data/Document.csv" tableName="Document" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="nID_DocumentType" type="NUMERIC"/>
+            <column name="sID_Content" type="STRING"/>
+            <column name="nID_ContentType" type="NUMERIC"/>
+            <column name="sFile" type="STRING"/>
+            <column name="sID_Subject_Upload" type="STRING"/>
+            <column name="sSubjectName_Upload" type="STRING"/>
+            <column name="sDate_Upload" type="STRING"/>
+            <column name="sContentType" type="STRING"/>
+            <column name="nID_Subject" type="NUMERIC"/>
+            <column name="nID_Subject_Upload" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+
+
+
+</databaseChangeLog>
