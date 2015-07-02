@@ -42,6 +42,13 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 
         @Autowired
         private BaseEntityDao baseEntityDao;
+
+   @Autowired
+   private FlowSlotDao flowSlotDao;
+
+   @Autowired
+   private SubjectTicketDao subjectTicketDao;
+
         
 	/**
 	 * Получить ид поля с кастомным типом file
