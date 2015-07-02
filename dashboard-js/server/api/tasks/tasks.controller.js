@@ -10,18 +10,19 @@ exports.index = function(req, res) {
   //https://test.igov.org.ua/wf-region/service/runtime/tasks?size=20
   query.size = 500;
 
+  var path = 'runtime/tasks';
   if (req.query.filterType === 'selfAssigned') {
     query.assignee = user.id;
   } else if (req.query.filterType === 'unassigned') {
     query.candidateUser = user.id;
     query.unassigned = true;
   } else if (req.query.filterType === 'finished') {
-    query.candidateUser = user.id;
-    query.delegationState = 'resolved';
+	path = 'history/historic-task-instances'
+    query.taskAssignee = user.id;
   }
 
   var options = {
-    path: 'runtime/tasks',
+    path: path,
     query: query
   };
 
