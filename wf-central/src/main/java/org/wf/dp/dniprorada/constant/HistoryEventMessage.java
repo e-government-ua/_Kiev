@@ -16,6 +16,8 @@ public class HistoryEventMessage {
     public static final String DOCUMENT_TYPE = "%Тип документу%";
     public static final String DOCUMENT_NAME = "%Назва документу%";
     public static final String ORGANIZATION_NAME = "%Назва органу%";
+    public static final String EMAIL = "%email%";
+    public static final String DAYS = "%кількість днів%";
 
     public static String createJournalMessage(Long nID_HistoryEventType, Map<String, String> values) {
         String eventMessage = "";
