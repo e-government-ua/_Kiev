@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.constant.HistoryEventMessage;
+import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.dao.*;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.model.document.HandlerFactory;
@@ -85,13 +86,14 @@ public class ActivitiRestDocumentController {
             HttpServletResponse resp) {
 
         Document document = handlerFactory
-                .buildHandlerFor( documentDao.getOperator(organID) )
+                .buildHandlerFor(documentDao.getOperator(organID))
                 .setDocumentType(docTypeID)
                 .setAccessCode(accessCode)
                 .setPassword(password)
                 .getDocument();
         try {
-            createHistoryEvent(7L, document.getSubject().getnID(), subjectOrganDao.getSubjectOrgan(organID).getsName(), null, document);
+            createHistoryEvent(HistoryEventType.GET_DOCUMENT_ACCESS_BY_HANDLER.getnID(),
+                    document.getSubject().getnID(), subjectOrganDao.getSubjectOrgan(organID).getsName(), null, document);
         } catch (Exception e){
             log.warn("can`t create history event!", e);
         }
@@ -304,7 +306,8 @@ public class ActivitiRestDocumentController {
                         sFileName,
                         sFileContentType,
                         aoContent);
-        createHistoryEvent(2L, nID_Subject, sSubjectName_Upload, nID_Document, null);
+        createHistoryEvent(HistoryEventType.SET_DOCUMENT_INTERNAL.getnID(),
+                nID_Subject, sSubjectName_Upload, nID_Document, null);
         return nID_Document;
     }
 

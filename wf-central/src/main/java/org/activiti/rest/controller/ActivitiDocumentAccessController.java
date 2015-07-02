@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wf.dp.dniprorada.constant.HistoryEventMessage;
+import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.dao.DocumentAccessDao;
 import org.wf.dp.dniprorada.dao.DocumentDao;
 import org.wf.dp.dniprorada.dao.HistoryEventDao;
@@ -52,7 +53,8 @@ public class ActivitiDocumentAccessController {
 			oAccessURL.setValue(documentAccessDao.setDocumentLink(nID_Document,
 					sFIO, sTarget, sTelephone, nMS, sMail));
 			oAccessURL.setName("sURL");
-            createHistoryEvent(4L, nID_Document, sFIO, sTelephone);
+            createHistoryEvent(HistoryEventType.SET_DOCUMENT_ACCESS_LINK.getnID(),
+                    nID_Document, sFIO, sTelephone, nMS, sMail);
 		} catch (Exception e) {
 			response.setStatus(400);
 			response.setHeader("Reason", e.getMessage());
@@ -98,7 +100,8 @@ public class ActivitiDocumentAccessController {
                 response.setHeader("Reason", "Access to another document");
 			}
             if (isSuccessAccess) {
-                createHistoryEvent(5L, da.getID_Document(), da.getFIO(), da.getTelephone());
+                createHistoryEvent(HistoryEventType.SET_DOCUMENT_ACCESS.getnID(),
+                        da.getID_Document(), da.getFIO(), da.getTelephone(), da.getMS(), da.getMail());
             }
         }
 
@@ -149,7 +152,7 @@ public class ActivitiDocumentAccessController {
 	}
 
     private void createHistoryEvent(Long nID_HistoryEventType, Long nID_Document,
-                                    String sFIO, String sPhone) {
+                                    String sFIO, String sPhone, Long nMs, String sEmail) {
         Map<String, String> values = new HashMap<>();
         try {
             Document oDocument = documentDao.getDocument(nID_Document);
@@ -157,6 +160,8 @@ public class ActivitiDocumentAccessController {
             values.put(HistoryEventMessage.DOCUMENT_TYPE, oDocument.getDocumentType().getName());
             values.put(HistoryEventMessage.FIO, sFIO);
             values.put(HistoryEventMessage.TELEPHONE, sPhone);
+            values.put(HistoryEventMessage.EMAIL, sEmail);
+            values.put(HistoryEventMessage.DAYS, "" + nMs / (1000 * 60 * 60 * 24));//day = 1000 * 60 * 60  * 24 ms
         } catch (Throwable e) {
             log.warn("can't get document info!", e);
         }

@@ -27,7 +27,9 @@ public enum HistoryEventType {
             "Ви надаєте доступ до документу "
                     + HistoryEventMessage.DOCUMENT_TYPE + " " + HistoryEventMessage.DOCUMENT_NAME
                     + " іншій людині: " + HistoryEventMessage.FIO
-                    + " (телефон: " + HistoryEventMessage.TELEPHONE + ")"),
+                    + " (телефон: " + HistoryEventMessage.TELEPHONE
+                    + ", e-mail: " + HistoryEventMessage.EMAIL
+                    +  ", строк дії: " + HistoryEventMessage.DAYS + " днів)"),
     SET_DOCUMENT_ACCESS(5L,
             "setDocumentAccess",
             "Кто-то воспользовался доступом к документу через OTP, который ему предоставил пользователь",
