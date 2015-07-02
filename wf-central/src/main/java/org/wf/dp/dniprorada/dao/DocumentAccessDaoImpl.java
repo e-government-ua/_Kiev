@@ -103,22 +103,12 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	}        
 
 	private void writeRow(DocumentAccess o) throws Exception{
-		//Transaction t = null;
 		Session s = getSession();
 		try{
-			/*t = s.beginTransaction();
-			s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES ("
-			+ o.getID_Document()+","+ o.getDateCreate()+","+ o.getMS()+","+o.getFIO()+","+o.getTarget()+","+o.getTelephone()+","+"email"+","+o.getSecret()+")").executeUpdate();
-			t.commit();*/
-			/*Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES (1,2014-06-03,222,LEO,secret,097,mail,qwe)");
-			query.executeUpdate();*/
-			Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES ("+o.getID_Document()+","+o.getDateCreate()+
-					","+o.getMS()+","+o.getFIO()+","+o.getTarget()+","+o.getTelephone()+","+o.getMail()+","+o.getSecret()+")");
-			query.executeUpdate();
-			//s.save(o);
-			
+			if(o.getsCode() == null) o.setsCode("null");
+			if(o.getsCodeType() == null) o.setsCodeType("null");
+			s.saveOrUpdate(o);
 		} catch(Exception e){
-			//t.rollback();
 			throw e;
 		} finally {
 			s.close();
@@ -223,7 +213,6 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     }         
                     else {
                    	 for(DocumentAccess da : list){
-                   		 System.out.println("DocumentAccess:---------"+da.toString());
                         	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)
                                         && ( da.getAnswer().equals(sAnswer) || "1234".equals(sAnswer) )){  //TODO убрать бэкдур, после окончательной отладки, в т.ч. фронта
                         		docAcc = da;

@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
+import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
+import org.wf.dp.dniprorada.base.dao.SubjectTicketDao;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getListCastomFieldName;
 import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getValueFieldWithCastomTypeFile;
@@ -42,6 +44,13 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 
         @Autowired
         private BaseEntityDao baseEntityDao;
+
+   @Autowired
+   private FlowSlotDao flowSlotDao;
+
+   @Autowired
+   private SubjectTicketDao subjectTicketDao;
+
         
 	/**
 	 * Получить ид поля с кастомным типом file
@@ -145,6 +154,7 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
                     }
                     LOG.info("nID_SubjectTicket=" + nID_SubjectTicket);
                     try{
+                        /*
                         SubjectTicket oSubjectTicket = baseEntityDao.getById(SubjectTicket.class, nID_SubjectTicket);
                         if (oSubjectTicket == null) {
                             LOG.error("SubjectTicket with id=" + nID_SubjectTicket + " is not found!");
@@ -158,6 +168,7 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
                             baseEntityDao.saveOrUpdate(oSubjectTicket);
                             LOG.info("JSON:" + JsonRestUtils.toJsonResponse(new SaveSubjectTicketResponse(oSubjectTicket.getId())));
                         }
+                        */
                     }catch(Exception oException){
                         LOG.error(oException.getMessage());
                     }
