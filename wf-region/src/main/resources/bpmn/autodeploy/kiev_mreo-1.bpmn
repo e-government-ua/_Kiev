@@ -44,7 +44,7 @@
 Ваша заява успішно зареєстрована.
 
 З повагою,
-Команда Порталу державних послу iGov.org.ua</activiti:expression>
+Команда Порталу державних послуг iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -226,7 +226,7 @@
     <sequenceFlow id="flow22" name="${decide == 'warning'}" sourceRef="exclusivegateway1" targetRef="mailtask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'warning'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask2" name="Повідомлення громадянина про дату і час візиту" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask2" name="Повідомлення громадянина сплату послуги" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -250,7 +250,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow25" sourceRef="mailtask3" targetRef="usertask2"></sequenceFlow>
-    <serviceTask id="mailtask3" name="Повідомлення громадянина про дату і час візиту" activiti:type="mail">
+    <serviceTask id="mailtask3" name="Повідомлення громадянина про дату" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -267,10 +267,10 @@
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
-Ви можете пройти тех.огляд Вашого авто ${dateView} за адресою ______ 
+Ви можете пройти тех.огляд Вашого авто в зазначений Вами час за адресою ______ 
 
 З повагою,
-Команда Порталу державних послу iGov.org.ua</activiti:expression>
+Команда Порталу державних послуг iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

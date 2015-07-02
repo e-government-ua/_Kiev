@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: sybase
+Build-Jdk: 1.7.0_21
+PluginVersion: 1.0.0a-SNAPSHOT
+

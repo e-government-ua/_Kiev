@@ -16,14 +16,16 @@ public class HistoryEventMessage {
     public static final String DOCUMENT_TYPE = "%Тип документу%";
     public static final String DOCUMENT_NAME = "%Назва документу%";
     public static final String ORGANIZATION_NAME = "%Назва органу%";
+    public static final String EMAIL = "%email%";
+    public static final String DAYS = "%кількість днів%";
 
-    public static String createJournalMessage(Long nID_HistoryEventType, Map<String, String> values) {
+    public static String createJournalMessage(HistoryEventType eventType, Map<String, String> values) {
         String eventMessage = "";
         try {
-            HistoryEventType eventType = HistoryEventType.getById(nID_HistoryEventType);
-            String eventTemplate = eventType.getsTemplate();
+            //HistoryEventType eventType = HistoryEventType.getById(nID_HistoryEventType);
+            eventMessage = eventType.getsTemplate();
             for (String key : values.keySet()) {
-                eventMessage = eventTemplate.replaceAll(key, values.get(key));
+                eventMessage = eventMessage.replaceAll(key, values.get(key));
             }
             ;
         } catch (Exception e) {

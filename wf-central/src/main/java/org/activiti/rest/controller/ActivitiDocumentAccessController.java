@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wf.dp.dniprorada.constant.HistoryEventMessage;
+import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.dao.DocumentAccessDao;
 import org.wf.dp.dniprorada.dao.DocumentDao;
 import org.wf.dp.dniprorada.dao.HistoryEventDao;
@@ -52,11 +53,12 @@ public class ActivitiDocumentAccessController {
 			oAccessURL.setValue(documentAccessDao.setDocumentLink(nID_Document,
 					sFIO, sTarget, sTelephone, nMS, sMail));
 			oAccessURL.setName("sURL");
+            createHistoryEvent(HistoryEventType.SET_DOCUMENT_ACCESS_LINK,
+                    nID_Document, sFIO, sTelephone, nMS, sMail);
 		} catch (Exception e) {
 			response.setStatus(400);
 			response.setHeader("Reason", e.getMessage());
 		}
-        createHistoryEvent(4L, nID_Document, sFIO, sTelephone);
         return oAccessURL;
     }
 
@@ -98,7 +100,8 @@ public class ActivitiDocumentAccessController {
                 response.setHeader("Reason", "Access to another document");
 			}
             if (isSuccessAccess) {
-                createHistoryEvent(5L, da.getID_Document(), da.getFIO(), da.getTelephone());
+                createHistoryEvent(HistoryEventType.SET_DOCUMENT_ACCESS,
+                        da.getID_Document(), da.getFIO(), da.getTelephone(), da.getMS(), da.getMail());
             }
         }
 
@@ -148,21 +151,30 @@ public class ActivitiDocumentAccessController {
 		return oAccessURL;
 	}
 
-    private void createHistoryEvent(Long nID_HistoryEventType, Long nID_Document,
-                                    String sFIO, String sPhone) {
+    private void createHistoryEvent(HistoryEventType eventType, Long nID_Document,
+                                    String sFIO, String sPhone, Long nMs, String sEmail) {
         Map<String, String> values = new HashMap<>();
+        //String error = "";
+        Long nID_Subject = nID_Document;//???????
         try {
-            Document oDocument = documentDao.getDocument(nID_Document);
-            values.put(HistoryEventMessage.DOCUMENT_NAME, oDocument.getName());
-            values.put(HistoryEventMessage.DOCUMENT_TYPE, oDocument.getDocumentType().getName());
             values.put(HistoryEventMessage.FIO, sFIO);
             values.put(HistoryEventMessage.TELEPHONE, sPhone);
-        } catch (Throwable e) {
+            values.put(HistoryEventMessage.EMAIL, sEmail);
+            values.put(HistoryEventMessage.DAYS, "" + nMs / (1000 * 60 * 60 * 24));//day = 1000 * 60 * 60  * 24 ms
+            //error = "in dao";
+            Document oDocument = documentDao.getDocument(nID_Document);
+            //error = "during get document name";
+            values.put(HistoryEventMessage.DOCUMENT_NAME, oDocument.getName());
+            //error = "during get doc-type name";
+            values.put(HistoryEventMessage.DOCUMENT_TYPE, oDocument.getDocumentType().getName());
+            nID_Document = oDocument.getSubject().getnID();
+        } catch (Exception e) {
+            //values.put(HistoryEventMessage.DOCUMENT_NAME, error + e.getMessage());
             log.warn("can't get document info!", e);
         }
         try {
-            String eventMessage = HistoryEventMessage.createJournalMessage(nID_HistoryEventType, values);
-            historyEventDao.setHistoryEvent(nID_Document, nID_HistoryEventType,
+            String eventMessage = HistoryEventMessage.createJournalMessage(eventType, values);
+            historyEventDao.setHistoryEvent(nID_Document, eventType.getnID(),
                     eventMessage, eventMessage);
         } catch (IOException e) {
             log.error("error during creating HistoryEvent", e);

@@ -27,17 +27,24 @@ public enum HistoryEventType {
             "Ви надаєте доступ до документу "
                     + HistoryEventMessage.DOCUMENT_TYPE + " " + HistoryEventMessage.DOCUMENT_NAME
                     + " іншій людині: " + HistoryEventMessage.FIO
-                    + " (телефон: " + HistoryEventMessage.TELEPHONE + ")"),
+                    + " (телефон: " + HistoryEventMessage.TELEPHONE
+                    + ", e-mail: " + HistoryEventMessage.EMAIL
+                    +  ", строк дії: " + HistoryEventMessage.DAYS + " днів)"),
     SET_DOCUMENT_ACCESS(5L,
             "setDocumentAccess",
             "Кто-то воспользовался доступом к документу через OTP, который ему предоставил пользователь",
-            "" + HistoryEventMessage.SERVICE_NAME + " скористався доступом, який Ви надали, та переглянув документ "
-                    + HistoryEventMessage.SERVICE_NAME + " " + HistoryEventMessage.SERVICE_NAME + ""),
+            "" + HistoryEventMessage.FIO + " скористався доступом, який Ви надали, та переглянув документ "
+                    + HistoryEventMessage.DOCUMENT_TYPE + " " + HistoryEventMessage.DOCUMENT_NAME + ""),
     ACTIVITY_STATUS_NEW(6L,
             "ActivitiStatusNew",
             "Изменение статуса заявки",
             "Ваша заявка №" + HistoryEventMessage.TASK_NUMBER
-                    + " изменила свой статус на " + HistoryEventMessage.SERVICE_STATE + "");
+                    + " изменила свой статус на " + HistoryEventMessage.SERVICE_STATE + ""),
+    GET_DOCUMENT_ACCESS_BY_HANDLER(7L,
+            "getDocumentAccessByHandler",
+            "Кто-то воспользовался доступом к документу, который ему предоставил пользователь",
+            "Організація " + HistoryEventMessage.ORGANIZATION_NAME + " скористалась доступом, який Ви надали, та переглянула документ "
+                    + HistoryEventMessage.DOCUMENT_TYPE + " " + HistoryEventMessage.DOCUMENT_NAME + "");
 
     private Long nID;
     private String sID;

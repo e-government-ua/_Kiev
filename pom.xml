@@ -610,6 +610,21 @@
 						</execution>
 					</executions>
 				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<version>3.4</version>
+					<configuration>
+						<rulesets>
+							<ruleset>${project.parent.basedir}/code-rules.xml</ruleset>
+						</rulesets>
+						<targetJdk>1.7</targetJdk>
+						<includeTests>true</includeTests>
+						<outputEncoding>UTF-8</outputEncoding>
+					</configuration>
+				</plugin>
+
 			</plugins>
 		</pluginManagement>
 

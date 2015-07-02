@@ -3,25 +3,15 @@ package org.wf.dp.dniprorada.dao;
 
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.wf.dp.dniprorada.model.DocumentAccess;
-import org.wf.dp.dniprorada.model.OtpCreate;
-import org.wf.dp.dniprorada.model.OtpPass;
-import org.wf.dp.dniprorada.model.OtpPassword;
-import org.wf.dp.dniprorada.model.OtpText;
-import org.wf.dp.dniprorada.model.SmsTemplate;
+import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -103,22 +93,12 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	}        
 
 	private void writeRow(DocumentAccess o) throws Exception{
-		//Transaction t = null;
 		Session s = getSession();
 		try{
-			/*t = s.beginTransaction();
-			s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES ("
-			+ o.getID_Document()+","+ o.getDateCreate()+","+ o.getMS()+","+o.getFIO()+","+o.getTarget()+","+o.getTelephone()+","+"email"+","+o.getSecret()+")").executeUpdate();
-			t.commit();*/
-			/*Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES (1,2014-06-03,222,LEO,secret,097,mail,qwe)");
-			query.executeUpdate();*/
-			Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES ("+o.getID_Document()+","+o.getDateCreate()+
-					","+o.getMS()+","+o.getFIO()+","+o.getTarget()+","+o.getTelephone()+","+o.getMail()+","+o.getSecret()+")");
-			query.executeUpdate();
-			//s.save(o);
-			
+            if(o.getsCode() == null) o.setsCode("null");
+            if(o.getsCodeType() == null) o.setsCodeType("null");
+            s.saveOrUpdate(o);
 		} catch(Exception e){
-			//t.rollback();
 			throw e;
 		} finally {
 			s.close();
@@ -223,8 +203,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     }         
                     else {
                    	 for(DocumentAccess da : list){
-                   		 System.out.println("DocumentAccess:---------"+da.toString());
-                        	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)
+                   			if(da.getID() == nID_Access && da.getSecret().equals(sSecret)
                                         && ( da.getAnswer().equals(sAnswer) || "1234".equals(sAnswer) )){  //TODO убрать бэкдур, после окончательной отладки, в т.ч. фронта
                         		docAcc = da;
                         		break;
