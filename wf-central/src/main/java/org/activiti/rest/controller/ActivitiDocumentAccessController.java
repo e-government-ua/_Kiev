@@ -52,11 +52,11 @@ public class ActivitiDocumentAccessController {
 			oAccessURL.setValue(documentAccessDao.setDocumentLink(nID_Document,
 					sFIO, sTarget, sTelephone, nMS, sMail));
 			oAccessURL.setName("sURL");
+            createHistoryEvent(4L, nID_Document, sFIO, sTelephone);
 		} catch (Exception e) {
 			response.setStatus(400);
 			response.setHeader("Reason", e.getMessage());
 		}
-        createHistoryEvent(4L, nID_Document, sFIO, sTelephone);
         return oAccessURL;
     }
 
