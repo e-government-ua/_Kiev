@@ -14,14 +14,8 @@
                            tooltip="{{task.description}}"
                            ng-click="selectTask(task)"
                            ng-class="{'active': isTaskSelected(task)}">
-                           <span ng-if="test.createTime">
                             #{{task.id}} ({{ sDateShort(task.createTime) }}) {{ getProcessName(task.processDefinitionId)
                             }} | {{ task.name }}
-                            </span>
-                           <span ng-if="test.startTime">
-                            #{{task.id}} ({{ sDateShort(task.startTime) }}) {{ getProcessName(task.processDefinitionId)
-                            }} | {{ task.name }}
-                            </span>
                         </a>
                     </div>
                 </div>
