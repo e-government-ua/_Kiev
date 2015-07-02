@@ -53,11 +53,11 @@ public abstract class AbstractModelTask {
 	RedisService redisService;
 
         
-   //@Autowired
-   //private FlowSlotDao flowSlotDao;
+   @Autowired
+   private FlowSlotDao flowSlotDao;
 
-   //@Autowired
-   //private SubjectTicketDao subjectTicketDao;
+   @Autowired
+   private SubjectTicketDao subjectTicketDao;
 
    @Autowired
    private BaseEntityDao baseEntityDao;

@@ -10,7 +10,6 @@
         <activiti:formProperty id="email" name="Ваша електронна пошта" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="book_number" name="Реєстраційний номер облікової картки платника податків" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_living" name="Місце проживання; область, місто, вулиця, дім, квартира" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="notice" name="Прошу надати мені відомості з Державного реєстру фізичних осіб – платників податків про суми виплачених доходів та утриманих податків/джерела виплачених доходів та утриманих податків" type="label" required="true"></activiti:formProperty>
         <activiti:formProperty id="date_start" name="Період з" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="date_stop" name="Період по" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="aim" name="Мета; для чого або якого органу потрібна дана довідка" type="string" required="true"></activiti:formProperty>
@@ -18,17 +17,16 @@
     </startEvent>
     <userTask id="usertask1" name="Обробка" activiti:candidateGroups="sales">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваша електронна пошта" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="book_number" name="Реєстраційний номер облікової картки платника податків" type="long"></activiti:formProperty>
-        <activiti:formProperty id="place_living" name="Місце проживання; область, місто, вулиця, дім, квартира" type="string"></activiti:formProperty>
-        <activiti:formProperty id="notice" name="Прошу надати мені відомості з Державного реєстру фізичних осіб – платників податків про суми виплачених доходів та утриманих податків/джерела виплачених доходів та утриманих податків" type="label" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_start" name="Період з" type="date"></activiti:formProperty>
-        <activiti:formProperty id="date_stop" name="Період по" type="date"></activiti:formProperty>
-        <activiti:formProperty id="aim" name="Мета; для чого або якого органу потрібна дана довідка" type="string"></activiti:formProperty>
+        <activiti:formProperty id="book_number" name="Реєстраційний номер облікової картки платника податків" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="place_living" name="Місце проживання; область, місто, вулиця, дім, квартира" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_start" name="Період з" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_stop" name="Період по" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="aim" name="Мета; для чого або якого органу потрібна дана довідка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Результат обробки" type="textArea" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>

@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
+import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
+import org.wf.dp.dniprorada.base.dao.SubjectTicketDao;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getListCastomFieldName;
 import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getValueFieldWithCastomTypeFile;
@@ -42,6 +44,13 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 
         @Autowired
         private BaseEntityDao baseEntityDao;
+
+   @Autowired
+   private FlowSlotDao flowSlotDao;
+
+   @Autowired
+   private SubjectTicketDao subjectTicketDao;
+
         
 	/**
 	 * Получить ид поля с кастомным типом file
