@@ -76,7 +76,8 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-            mParamRequest.put("requestBody", buffer.toString());
+            //mParamRequest.put("requestBody", buffer.toString()); 
+            //TODO temp
         }
 
         logger.info("mParamRequest: " + mParamRequest);
