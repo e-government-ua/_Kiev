@@ -154,6 +154,7 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
                     }
                     LOG.info("nID_SubjectTicket=" + nID_SubjectTicket);
                     try{
+                        /*
                         SubjectTicket oSubjectTicket = baseEntityDao.getById(SubjectTicket.class, nID_SubjectTicket);
                         if (oSubjectTicket == null) {
                             LOG.error("SubjectTicket with id=" + nID_SubjectTicket + " is not found!");
@@ -167,6 +168,7 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
                             baseEntityDao.saveOrUpdate(oSubjectTicket);
                             LOG.info("JSON:" + JsonRestUtils.toJsonResponse(new SaveSubjectTicketResponse(oSubjectTicket.getId())));
                         }
+                        */
                     }catch(Exception oException){
                         LOG.error(oException.getMessage());
                     }

@@ -395,7 +395,10 @@ public abstract class AbstractModelTask {
                 nID_SubjectTicket=1;
             }
             LOG.info("nID_SubjectTicket=" + nID_SubjectTicket);
+            
             try{
+                
+                /*
                 SubjectTicket oSubjectTicket = baseEntityDao.getById(SubjectTicket.class, nID_SubjectTicket);
                 if (oSubjectTicket == null) {
                     LOG.error("SubjectTicket with id=" + nID_SubjectTicket + " is not found!");
@@ -409,6 +412,7 @@ public abstract class AbstractModelTask {
                     baseEntityDao.saveOrUpdate(oSubjectTicket);
                     LOG.info("JSON:" + JsonRestUtils.toJsonResponse(new SaveSubjectTicketResponse(oSubjectTicket.getId())));
                 }
+                */
             }catch(Exception oException){
                 LOG.error(oException.getMessage());
             }
