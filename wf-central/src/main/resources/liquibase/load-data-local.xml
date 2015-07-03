@@ -48,7 +48,7 @@
 
 
 
-    <changeSet id="Module Subject Static" author="brunneng" runOnChange="true">
+    <changeSet id="Module Subject Test" author="brunneng" runOnChange="true" context="test">
 
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
