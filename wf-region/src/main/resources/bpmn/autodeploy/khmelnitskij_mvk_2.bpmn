@@ -35,10 +35,10 @@
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow3" name="${selection==attr1_yes}" sourceRef="exclusivegateway1" targetRef="mailtask1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection==[attr1_yes]}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr1_yes'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow4" name="${selection==attr2_no}" sourceRef="exclusivegateway1" targetRef="mailtask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection==[attr2_no]}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr2_no'}]]></conditionExpression>
     </sequenceFlow>
     <serviceTask id="mailtask1" name="е-мейл с печатью" activiti:type="mail">
       <extensionElements>
