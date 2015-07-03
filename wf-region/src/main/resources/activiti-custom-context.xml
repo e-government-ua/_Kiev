@@ -42,7 +42,32 @@
 
     <!-- profile="test" - тестовый запуск, все настройки боевые, указанные в
     db.properties. Установить в catalina.bat переменную -Dspring.profiles.active=test" -->
-    <beans profile="test,default">
+    <beans profile="test">
+
+        <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <property name="locations">
+                <list>
+                    <value>file:${catalina.home}/conf/db.properties</value>
+                    <value>file:${catalina.home}/conf/email.properties</value>
+                    <value>file:${catalina.home}/conf/bankID.properties</value>
+                    <value>file:${catalina.home}/conf/AS.properties</value>
+                </list>
+            </property>
+            <property name="ignoreUnresolvablePlaceholders" value="true"/>
+
+            <property name="properties">
+                <map>
+                    <entry key="processEngineConfiguration.databaseSchemaUpdate" value="true"/>
+                </map>
+            </property>
+        </bean>
+
+    </beans>
+
+
+    <!-- profile="test" - тестовый запуск, все настройки боевые, указанные в
+    db.properties. Установить в catalina.bat переменную -Dspring.profiles.active=test" -->
+    <beans profile="local,default">
 
         <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
             <property name="locations">
@@ -64,14 +89,8 @@
 
     </beans>
 
+
     <beans>
-        
-        <mvc:interceptors>
-                    <mvc:interceptor>
-                    <mvc:mapping path="/**" />
-                        <bean class="org.activiti.rest.interceptor.RequestProcessingInterceptor" />
-                    </mvc:interceptor>
-        </mvc:interceptors>
 
         <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
             <property name="dataSource" ref="dataSource"/>

@@ -11,7 +11,7 @@
     <bean id="flowService" class="org.wf.dp.dniprorada.base.service.flow.FlowService">
         <property name="flowSlotDao" ref="flowSlotDao"/>
         <property name="baseEntityDao" ref="baseEntityDao"/>
-        <property name="subjectTicketDao" ref="subjectTicketDao"/>
+        <property name="flowSlotTicketDao" ref="flowSlotTicketDao"/>
     </bean>
 
     <bean id="defaultFlowSlotScheduler" class="org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler"

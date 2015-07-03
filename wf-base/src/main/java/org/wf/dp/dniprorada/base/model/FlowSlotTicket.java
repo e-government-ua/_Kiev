@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
  * Time: 15:30
  */
 @javax.persistence.Entity
-public class SubjectTicket extends Entity {
+public class FlowSlotTicket extends Entity {
 
    @JsonProperty(value = "nID_FlowSlot")
    @ManyToOne(fetch = FetchType.EAGER)

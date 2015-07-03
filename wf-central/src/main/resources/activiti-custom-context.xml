@@ -43,7 +43,32 @@
 
     <!-- profile="test" - тестовый запуск, все настройки боевые, указанные в
     db.properties. Установить в catalina.bat переменную -Dspring.profiles.active=test" -->
-    <beans profile="test,default">
+    <beans profile="test">
+
+        <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <property name="locations">
+                <list>
+                    <value>file:${catalina.home}/conf/db.properties</value>
+                    <value>file:${catalina.home}/conf/email.properties</value>
+                    <value>file:${catalina.home}/conf/bankID.properties</value>
+                    <value>file:${catalina.home}/conf/AS.properties</value>
+                </list>
+            </property>
+            <property name="ignoreUnresolvablePlaceholders" value="true"/>
+
+            <property name="properties">
+                <map>
+                    <entry key="processEngineConfiguration.databaseSchemaUpdate" value="true"/>
+                </map>
+            </property>
+        </bean>
+
+    </beans>
+
+
+    <!-- profile="test" - тестовый запуск, все настройки боевые, указанные в
+    db.properties. Установить в catalina.bat переменную -Dspring.profiles.active=test" -->
+    <beans profile="local,default">
 
         <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
             <property name="locations">
@@ -64,8 +89,12 @@
         </bean>
 
     </beans>
+    
+    
 
     <beans>
+
+        <!-- ===========================   TRANSACTIONS   ========================= -->
         
         <mvc:interceptors>
             <mvc:interceptor>
@@ -74,8 +103,6 @@
                 </mvc:interceptor>
         </mvc:interceptors>
 
-        <!-- ===========================   TRANSACTIONS   ========================= -->
-        
         <aop:config>
             <aop:pointcut id="dao" expression="execution(* org.wf.dp.dniprorada.dao.*.*(..))"/>
             <aop:pointcut id="dao.services" expression="execution(* org.wf.dp.dniprorada.service.*.*(..))"/>

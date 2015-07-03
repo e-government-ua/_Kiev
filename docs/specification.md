@@ -1340,7 +1340,7 @@ http://poligon.igov.org.ua/wf-central/service/flow/setFlowSlot_ServiceData
 
 Поля в ответе:
 
-поле "nID_Ticket" - ID созданной/измененной сущности SubjectTicket.
+поле "nID_Ticket" - ID созданной/измененной сущности FlowSlotTicket.
 <a name="16_getWorkflowStatistics">
 #### 16. Получение статистики по задачам в рамках бизнес процесса
 </a><a href="#0_contents">↑Up</a><br/>
