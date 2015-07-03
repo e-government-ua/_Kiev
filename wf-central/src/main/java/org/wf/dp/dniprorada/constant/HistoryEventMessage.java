@@ -19,10 +19,10 @@ public class HistoryEventMessage {
     public static final String EMAIL = "%email%";
     public static final String DAYS = "%кількість днів%";
 
-    public static String createJournalMessage(Long nID_HistoryEventType, Map<String, String> values) {
+    public static String createJournalMessage(HistoryEventType eventType, Map<String, String> values) {
         String eventMessage = "";
         try {
-            HistoryEventType eventType = HistoryEventType.getById(nID_HistoryEventType);
+            //HistoryEventType eventType = HistoryEventType.getById(nID_HistoryEventType);
             eventMessage = eventType.getsTemplate();
             for (String key : values.keySet()) {
                 eventMessage = eventMessage.replaceAll(key, values.get(key));
