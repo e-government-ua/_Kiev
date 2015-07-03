@@ -66,16 +66,16 @@
     </beans>
 
     <beans>
-
-        <!-- ===========================   TRANSACTIONS   ========================= -->
         
-        <mvc:interceptors>
+        <!--mvc:interceptors>
             <mvc:interceptor>
                 <mvc:mapping path="/**" />
                     <bean class="org.activiti.rest.interceptor.RequestProcessingInterceptor" />
                 </mvc:interceptor>
-        </mvc:interceptors>
+        </mvc:interceptors-->
 
+        <!-- ===========================   TRANSACTIONS   ========================= -->
+        
         <aop:config>
             <aop:pointcut id="dao" expression="execution(* org.wf.dp.dniprorada.dao.*.*(..))"/>
             <aop:pointcut id="dao.services" expression="execution(* org.wf.dp.dniprorada.service.*.*(..))"/>
