@@ -66,12 +66,12 @@
 
 	<beans>
    
-                <!--mvc:interceptors>
+                <mvc:interceptors>
                     <mvc:interceptor>
                     <mvc:mapping path="/**" />
                         <bean class="org.activiti.rest.interceptor.RequestProcessingInterceptor" />
                     </mvc:interceptor>
-                </mvc:interceptors-->
+                </mvc:interceptors>
 
 		<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 			<property name="dataSource" ref="dataSource" />
