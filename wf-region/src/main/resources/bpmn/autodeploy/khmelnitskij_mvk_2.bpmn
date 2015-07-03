@@ -25,19 +25,19 @@
         <activiti:formProperty id="bankId_scan_passport" name="Скан паспорта" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="selection" name="Видати друковану копію" type="enum" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="selection" name="Видати друковану копію" type="enum" variable="selection" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Коментар/рішення" type="textArea" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow3" name="${selection==attr1_yes}" sourceRef="exclusivegateway1" targetRef="mailtask1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection==attr1_yes}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection==[attr1_yes]}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow4" name="${selection==attr2_no}" sourceRef="exclusivegateway1" targetRef="mailtask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection==attr2_no}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection==[attr2_no]}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask1" name="просто е-мейл" activiti:type="mail">
+    <serviceTask id="mailtask1" name="е-мейл с печатью" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -66,7 +66,7 @@ ${comment}
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask2" name="е-мейл с печатью" activiti:type="mail">
+    <serviceTask id="mailtask2" name="е-мейл без печати" activiti:type="mail">
       <extensionElements>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
