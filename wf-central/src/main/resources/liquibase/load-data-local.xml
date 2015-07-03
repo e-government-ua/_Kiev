@@ -145,7 +145,6 @@
             SET CONSTRAINTS ALL DEFERRED;
             DELETE FROM "DocumentType";
             DELETE FROM "DocumentContentType";            
-            DELETE FROM "DocumentAccess";
         </sql>
 
         <loadData encoding="UTF-8" file="data/DocumentType.csv" tableName="DocumentType" separator=";">
@@ -155,20 +154,6 @@
         <loadData encoding="UTF-8" file="data/DocumentContentType.csv" tableName="DocumentContentType" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sName" type="STRING"/>
-        </loadData>
-
-        <loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
-            <column name="nID" type="NUMERIC" />
-            <column name="nID_Document" type="NUMERIC"/>
-            <column name="sDateCreate" type="STRING"/>
-            <column name="nMS" type="NUMERIC"/>
-            <column name="sFIO" type="STRING" />
-            <column name="sTarget" type="STRING" />
-            <column name="sTelephone" type="STRING" />
-            <column name="sMail" type="STRING" />
-            <column name="sSecret" type="STRING"/>
-            <column name="sAnswer" type="STRING"/>
-            <column name="sDateAnswerExpire" type="STRING"/>
         </loadData>
 
     </changeSet>
@@ -216,6 +201,7 @@
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
             DELETE FROM "Document";
+            DELETE FROM "DocumentAccess";
         </sql>
 
         <loadData encoding="UTF-8" file="data/Document.csv" tableName="Document" separator=";">
@@ -232,6 +218,21 @@
             <column name="nID_Subject" type="NUMERIC"/>
             <column name="nID_Subject_Upload" type="NUMERIC"/>
         </loadData>
+        
+        <loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
+            <column name="nID" type="NUMERIC" />
+            <column name="nID_Document" type="NUMERIC"/>
+            <column name="sDateCreate" type="STRING"/>
+            <column name="nMS" type="NUMERIC"/>
+            <column name="sFIO" type="STRING" />
+            <column name="sTarget" type="STRING" />
+            <column name="sTelephone" type="STRING" />
+            <column name="sMail" type="STRING" />
+            <column name="sSecret" type="STRING"/>
+            <column name="sAnswer" type="STRING"/>
+            <column name="sDateAnswerExpire" type="STRING"/>
+        </loadData>
+
     </changeSet>
 
 
