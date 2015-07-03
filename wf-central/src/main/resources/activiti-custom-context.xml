@@ -66,8 +66,6 @@
     </beans>
 
     <beans>
-
-        <!-- ===========================   TRANSACTIONS   ========================= -->
         
         <mvc:interceptors>
             <mvc:interceptor>
@@ -76,6 +74,8 @@
                 </mvc:interceptor>
         </mvc:interceptors>
 
+        <!-- ===========================   TRANSACTIONS   ========================= -->
+        
         <aop:config>
             <aop:pointcut id="dao" expression="execution(* org.wf.dp.dniprorada.dao.*.*(..))"/>
             <aop:pointcut id="dao.services" expression="execution(* org.wf.dp.dniprorada.service.*.*(..))"/>

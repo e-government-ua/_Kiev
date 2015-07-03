@@ -4,9 +4,10 @@
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
         <activiti:formProperty id="name" name="Прошу надати інформацію про наявність у власності земельної ділянки на території м.Хмельницького. Даю згоду на обробку моїх персональних даних" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName " name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспорт" type="string"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="selection" name="Видати друковану копію" type="enum" required="true">
