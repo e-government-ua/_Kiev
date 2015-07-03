@@ -25,7 +25,10 @@
         <activiti:formProperty id="bankId_scan_passport" name="Скан паспорта" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="selection" name="Видати друковану копію" type="enum" variable="selection" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="selection" name="Видати друковану копію" type="enum" variable="selection" writable="false">
+          <activiti:value id="attr1_yes" name="так"></activiti:value>
+          <activiti:value id="attr2_no" name="ні"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="comment" name="Коментар/рішення" type="textArea" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
