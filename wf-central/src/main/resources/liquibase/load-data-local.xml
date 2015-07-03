@@ -146,7 +146,6 @@
             DELETE FROM "DocumentType";
             DELETE FROM "DocumentContentType";            
             DELETE FROM "DocumentAccess";
-            DELETE FROM "DocumentOperator_SubjectOrgan";
         </sql>
 
         <loadData encoding="UTF-8" file="data/DocumentType.csv" tableName="DocumentType" separator=";">
@@ -172,6 +171,17 @@
             <column name="sDateAnswerExpire" type="STRING"/>
         </loadData>
 
+    </changeSet>
+
+
+
+    <changeSet id="Module Document Live" author="brunneng" runOnChange="true" context="test">
+
+        <sql splitStatements="true" dbms="postgresql">
+            SET CONSTRAINTS ALL DEFERRED;
+            DELETE FROM "DocumentOperator_SubjectOrgan";
+        </sql>
+
         <loadData encoding="UTF-8" file="data/DocumentOperator_SubjectOrgan.csv" tableName="DocumentOperator_SubjectOrgan" separator=";">
             <column name="nID"              type="NUMERIC"/>
             <column name="sName"            type="STRING"/>
@@ -179,9 +189,6 @@
             <column name="sHandlerClass"    type="String"/>
         </loadData>
     </changeSet>
-
-
-
 
 
 
