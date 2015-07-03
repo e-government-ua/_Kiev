@@ -22,7 +22,7 @@
     
     
     
-    <changeSet id="Core Flow Static" author="brunneng" runOnChange="true">
+    <changeSet id="Core Flow Static" author="brunneng" runOnChange="true" context="test">
 
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
