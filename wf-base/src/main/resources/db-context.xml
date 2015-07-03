@@ -89,11 +89,19 @@
         </bean>
     </beans>
 
-    <beans profile="test,default">
+    <beans profile="test">
         <bean id="liquibase_test" class="liquibase.integration.spring.SpringLiquibase">
             <property name="dataSource" ref="dataSource"/>
             <property name="changeLog" value="classpath:liquibase/db.changelog-master.xml"/>
             <property name="contexts" value="test"/>
+        </bean>
+    </beans>
+
+    <beans profile="local,default">
+        <bean id="liquibase_local" class="liquibase.integration.spring.SpringLiquibase">
+            <property name="dataSource" ref="dataSource"/>
+            <property name="changeLog" value="classpath:liquibase/db.changelog-master.xml"/>
+            <property name="contexts" value="local"/>
         </bean>
     </beans>
 
