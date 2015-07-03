@@ -9,8 +9,11 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.activiti.rest.controller.adapter.MultiReaderHttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,10 +31,6 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
-
-
-
-
 
         long startTime = System.currentTimeMillis();
         logger.info("*.*.*.*.*.*.*.*.*.*.* preHandle Request URL::" + request.getRequestURL().toString()
@@ -80,6 +79,8 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             //TODO temp
         }
 
-        logger.info("mParamRequest: " + mParamRequest);
+        logger.info("!!!mParamRequest: " + mParamRequest);
+        logger.info("!!!response: " + response.toString() + " response: " + response.getClass());
+        logger.info("!!!request: " + request.toString() + " request: " + request.getClass());
     }
 }
