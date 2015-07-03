@@ -32,7 +32,7 @@
     <filter>
         <filter-name>multireadFilter</filter-name>
         <filter-class>org.activiti.rest.controller.adapter.MultiReadServletFilter</filter-class>
-    </filter>
+    </filter>z
 
     <filter>
         <filter-name>UIFilter</filter-name>
@@ -51,7 +51,7 @@
 
     <filter-mapping>
         <filter-name>multireadFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/service/*</url-pattern>
     </filter-mapping> 
 
     <filter-mapping>
