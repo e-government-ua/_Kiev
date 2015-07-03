@@ -13,7 +13,7 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-    <beans profile="local,default">
+    <beans profile="test,default">
         <bean id="authProp" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
             <property name="location" value="classpath:AS.properties" />
             <property name="ignoreUnresolvablePlaceholders" value="true" />
@@ -35,29 +35,6 @@
         </security:authentication-manager>
     </beans>
 
-    <beans profile="test">
-        <bean id="authProp" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-            <property name="location" value="file:${catalina.home}/conf/AS.properties" />
-            <property name="ignoreUnresolvablePlaceholders" value="true" />
-        </bean>
-
-        <bean id="activitiLoginHandler" class="org.activiti.explorer.ui.login.DefaultLoginHandler">
-            <property name="identityService" ref="identityService"/>
-        </bean>
-
-        <bean id="activitiRestAuthProvider" class="org.activiti.rest.controller.ActivitiRestAuthProvider"/>
-
-        <security:http create-session="stateless" realm="Activiti REST API">
-            <security:intercept-url pattern="/service/**" access="ROLE_USER"/>
-            <security:http-basic/>
-        </security:http>
-
-        <security:authentication-manager>
-            <security:authentication-provider ref="activitiRestAuthProvider" />
-        </security:authentication-manager>
-    </beans>
-    
-    
     <beans profile="prod">
         <bean id="authProp" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
             <property name="location" value="file:${catalina.home}/conf/AS.properties" />
@@ -78,6 +55,6 @@
         <security:authentication-manager>
             <security:authentication-provider ref="activitiRestAuthProvider" />
         </security:authentication-manager>
-    </beans>    
+    </beans>
 
 </beans>

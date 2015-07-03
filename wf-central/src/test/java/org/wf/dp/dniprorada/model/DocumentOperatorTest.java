@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
  * @since 28.06.15
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles("default")
+@ActiveProfiles("test")
 @ContextConfiguration(locations = {
         "classpath:activiti-custom-context.xml"})
 public class DocumentOperatorTest {
