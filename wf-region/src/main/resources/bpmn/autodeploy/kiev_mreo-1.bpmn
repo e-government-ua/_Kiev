@@ -7,7 +7,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdaddress" name="Адреса реєстрації; якщо Ваша актуальна адреса реєстрації відрізняється від зазначеної, зверніться в будь-яке" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdaddress" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="brand" name="Марка авто" type="string" required="true"></activiti:formProperty>
@@ -15,7 +15,7 @@
         <activiti:formProperty id="number" name="Попередній держ.номер авто" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="queueData"></activiti:formProperty>
+        <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="queueData" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Відправляючи звернення Ви підтверджуєете достовірність зазначених персональних данних"></activiti:formProperty>
