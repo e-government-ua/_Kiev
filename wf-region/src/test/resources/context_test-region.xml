@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-	<import resource="classpath:/activiti-custom-context.xml" />
+	<import resource="classpath:/context.xml" />
 
 
 	<bean id="dataSource"
@@ -28,8 +28,7 @@
 		<property name="jobExecutorActivate" value="true" />
 		<property name="enableDatabaseEventLogging" value="true" />
 		<!-- for unit tests deployments sets from test class -->
-		<!-- <property name="deploymentResources" value="classpath*:bpmn/autodeploy/*.bpmn" 
-			/> -->
+		<!-- <property name="deploymentResources" value="classpath*:bpmn/autodeploy/*.bpmn" -->
 
 
 		<property name="customFormTypes">
@@ -47,11 +46,11 @@
 						</map>
 					</constructor-arg>
 				</bean>
-				<bean class="org.wf.dp.dniprorada.form.FormFileType" />
-				<bean class="org.wf.dp.dniprorada.form.TextAreaFormType" />
-				<bean class="org.wf.dp.dniprorada.form.LabelFormType" />
-				<bean class="org.wf.dp.dniprorada.form.MarkersFormType" />
-                                <bean class="org.wf.dp.dniprorada.form.QueueDataFormType" />
+                                <bean class="org.wf.dp.dniprorada.form.FormFileType"/>
+                                <bean class="org.wf.dp.dniprorada.form.TextAreaFormType"/>
+                                <bean class="org.wf.dp.dniprorada.form.LabelFormType"/>
+                                <bean class="org.wf.dp.dniprorada.form.MarkersFormType"/>
+                                <bean class="org.wf.dp.dniprorada.form.QueueDataFormType"/>
                                 <bean class="org.wf.dp.dniprorada.form.InvisibleFormType"/>
 			</list>
 		</property>
@@ -63,13 +62,14 @@
 		<property name="mailServerPassword" value="dnipro.egov.tes" />
 		<property name="mailServerUseSSL" value="true" />
 		<property name="mailServerUseTLS" value="true" />
-		<property name="history" value="full" />
+                
 		<property name="preBpmnParseHandlers">
 			<list>
 				<bean class="org.activiti.parsing.MailBpmnParseHandler" />
 			</list>
 		</property>
+                
+		<property name="history" value="full" />
 	</bean>
-	<!-- </beans> -->
 
 </beans>

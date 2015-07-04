@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" 
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <beans>
+        
+        <!-- ===========================   TRANSACTIONS   ========================= -->
+
+        <mvc:interceptors>
+            <mvc:interceptor>
+                <mvc:mapping path="/**" />
+                    <bean class="org.activiti.rest.interceptor.RequestProcessingInterceptor" />
+                </mvc:interceptor>
+        </mvc:interceptors>
+
+        <aop:config>
+            <aop:pointcut id="dao" expression="execution(* org.wf.dp.dniprorada.dao.*.*(..))"/>
+            <aop:pointcut id="dao.services" expression="execution(* org.wf.dp.dniprorada.service.*.*(..))"/>
+
+            <aop:advisor pointcut-ref="dao" advice-ref="txAdvice"/>
+            <aop:advisor pointcut-ref="dao.services" advice-ref="txAdvice"/>
+        </aop:config>
+
+
+        <!-- ==============================   DAO   ============================= -->
+
+        <bean id="merchantDao" class="org.wf.dp.dniprorada.dao.MerchantDaoImpl">
+            <property name="dataSource" ref="dataSource"/>
+        </bean>
+
+        <bean id="documentAccessDao" class="org.wf.dp.dniprorada.dao.DocumentAccessDaoImpl">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
+        <bean id="entityService" class="org.wf.dp.dniprorada.service.EntityService">
+            <property name="baseEntityDao" ref="baseEntityDao"/>
+        </bean>
+
+        <bean id="tableDataService" class="org.wf.dp.dniprorada.service.TableDataService">
+            <property name="dataSource" ref="dataSource"/>
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
+        <bean id="documentDao" class="org.wf.dp.dniprorada.dao.DocumentDaoImpl">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
+        <bean id="historyEventDao" class="org.wf.dp.dniprorada.dao.HistoryEventDaoImpl">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
+        <bean id="documentContentTypeDao" class="org.wf.dp.dniprorada.dao.DocumentContentTypeDaoImpl">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
+        <bean id="documentTypeDao" class="org.wf.dp.dniprorada.dao.DocumentTypeDaoImpl">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
+        <bean id="subjectMessageDao" class="org.wf.dp.dniprorada.dao.SubjectMessagesDaoImpl">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
+        <bean id="subjectDao" class="org.wf.dp.dniprorada.dao.SubjectDaoImpl">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
+        <bean id="subjectHumanDao" class="org.wf.dp.dniprorada.dao.SubjectHumanDaoImpl">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
+        <bean id="subjectOrganDao" class="org.wf.dp.dniprorada.dao.SubjectOrganDaoIml">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
+    </beans>
+
+</beans>

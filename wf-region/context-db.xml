@@ -8,11 +8,11 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
+    
     <beans>
 
         <beans>
-            <bean id="dataSource"
-                  class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+            <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
                 <property name="driverClass" value="${jdbc.driver}"/>
                 <property name="url" value="${jdbc.url}"/>
                 <property name="username" value="${jdbc.username}"/>
@@ -91,6 +91,14 @@
 
     <beans profile="test">
         <bean id="liquibase_test" class="liquibase.integration.spring.SpringLiquibase">
+            <property name="dataSource" ref="dataSource"/>
+            <property name="changeLog" value="classpath:liquibase/db.changelog-master.xml"/>
+            <property name="contexts" value="test"/>
+        </bean>
+    </beans>
+
+    <beans profile="test-version">
+        <bean id="liquibase_test-version" class="liquibase.integration.spring.SpringLiquibase">
             <property name="dataSource" ref="dataSource"/>
             <property name="changeLog" value="classpath:liquibase/db.changelog-master.xml"/>
             <property name="contexts" value="test"/>

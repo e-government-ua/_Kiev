@@ -5,7 +5,7 @@
 
 
     <!-- use profile "with-cache" if you want to enable cache in tests -->
-    <beans profile="prod,with-cache">
+    <beans profile="test,prod,with-cache">
 
         <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
             <property name="configLocation" value="classpath:ehcache.xml"/>

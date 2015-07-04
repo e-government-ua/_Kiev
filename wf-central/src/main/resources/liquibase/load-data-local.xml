@@ -7,7 +7,7 @@
 
     
     
-    <changeSet id="Core Subject Live" author="brunneng" runOnChange="true" context="local,test">
+    <changeSet id="Subject Core Live" author="brunneng" runOnChange="true" context="local,test">
 
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
@@ -47,7 +47,7 @@
     </changeSet>
 
 
-    <changeSet id="Module Subject Live" author="brunneng" runOnChange="true" context="local,test">
+    <changeSet id="Subject Module Live" author="brunneng" runOnChange="true" context="local,test">
 
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
@@ -80,7 +80,7 @@
     
 
 
-    <changeSet id="Core Service Static" author="brunneng" runOnChange="true" context="local,test,prod">
+    <changeSet id="Service Core Static" author="brunneng" runOnChange="true" context="local,test,prod">
 
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
@@ -149,12 +149,11 @@
 
 
 
-    <changeSet id="Core Document Live" author="brunneng" runOnChange="true" context="local,test">
+    <changeSet id="Document Core Live" author="brunneng" runOnChange="true" context="local,test,prod">
 
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
             DELETE FROM "DocumentContentType";            
-            DELETE FROM "DocumentType";
         </sql>
 
         <loadData encoding="UTF-8" file="data/DocumentContentType.csv" tableName="DocumentContentType" separator=";">
@@ -162,20 +161,21 @@
             <column name="sName" type="STRING"/>
         </loadData>
         
+    </changeSet>
+
+
+    <changeSet id="Document Module Live" author="brunneng" runOnChange="true" context="local,test">
+        <sql splitStatements="true" dbms="postgresql">
+            SET CONSTRAINTS ALL DEFERRED;
+            DELETE FROM "DocumentType";
+            DELETE FROM "Document";
+            DELETE FROM "DocumentAccess";
+        </sql>
+
         <loadData encoding="UTF-8" file="data/DocumentType.csv" tableName="DocumentType" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sName" type="STRING"/>
         </loadData>
-        
-    </changeSet>
-
-
-    <changeSet id="Module Document Live" author="brunneng" runOnChange="true" context="local,test">
-        <sql splitStatements="true" dbms="postgresql">
-            SET CONSTRAINTS ALL DEFERRED;
-            DELETE FROM "Document";
-            DELETE FROM "DocumentAccess";
-        </sql>
 
         <loadData encoding="UTF-8" file="data/Document.csv" tableName="Document" separator=";">
             <column name="nID" type="NUMERIC"/>
@@ -210,7 +210,7 @@
 
 
 
-    <changeSet id="Core History Live" author="brunneng" runOnChange="true" context="test">
+    <changeSet id="History Core Live" author="brunneng" runOnChange="true" context="local,test">
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
             DELETE FROM "HistoryEvent";

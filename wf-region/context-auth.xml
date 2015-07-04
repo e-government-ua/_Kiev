@@ -13,9 +13,9 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-    <beans profile="local,default">
+    <beans profile="prod">
         <bean id="authProp" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-            <property name="location" value="classpath:AS.properties" />
+            <property name="location" value="file:${catalina.home}/conf/AS.properties" />
             <property name="ignoreUnresolvablePlaceholders" value="true" />
         </bean>
 
@@ -33,7 +33,8 @@
         <security:authentication-manager>
             <security:authentication-provider ref="activitiRestAuthProvider" />
         </security:authentication-manager>
-    </beans>
+    </beans>    
+
 
     <beans profile="test">
         <bean id="authProp" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -58,9 +59,9 @@
     </beans>
     
     
-    <beans profile="prod">
+    <beans profile="local,default">
         <bean id="authProp" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-            <property name="location" value="file:${catalina.home}/conf/AS.properties" />
+            <property name="location" value="classpath:AS.properties" />
             <property name="ignoreUnresolvablePlaceholders" value="true" />
         </bean>
 
@@ -78,6 +79,6 @@
         <security:authentication-manager>
             <security:authentication-provider ref="activitiRestAuthProvider" />
         </security:authentication-manager>
-    </beans>    
+    </beans>
 
 </beans>

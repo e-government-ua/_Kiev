@@ -21,8 +21,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("default")
-@ContextConfiguration(locations = {
-        "classpath:activiti-custom-context.xml"})
+@ContextConfiguration(locations = {"classpath:context.xml"})
 public class DocumentOperatorTest {
     public static final Long DUMMY_OPERATOR_ID = 2L;
 
