@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:tx="http://www.springframework.org/schema/tx" 
+       xmlns:jee="http://www.springframework.org/schema/jee"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
-
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+    
     <!-- Central -->
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
     <context:component-scan base-package="org.wf.dp.dniprorada"/>
-
+    
     <beans profile="prod">
 
         <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -40,7 +43,32 @@
 
     <!-- profile="test" - тестовый запуск, все настройки боевые, указанные в
     db.properties. Установить в catalina.bat переменную -Dspring.profiles.active=test" -->
-    <beans profile="test,default">
+    <beans profile="test">
+
+        <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <property name="locations">
+                <list>
+                    <value>file:${catalina.home}/conf/db.properties</value>
+                    <value>file:${catalina.home}/conf/email.properties</value>
+                    <value>file:${catalina.home}/conf/bankID.properties</value>
+                    <value>file:${catalina.home}/conf/AS.properties</value>
+                </list>
+            </property>
+            <property name="ignoreUnresolvablePlaceholders" value="true"/>
+
+            <property name="properties">
+                <map>
+                    <entry key="processEngineConfiguration.databaseSchemaUpdate" value="true"/>
+                </map>
+            </property>
+        </bean>
+
+    </beans>
+
+
+    <!-- profile="test" - тестовый запуск, все настройки боевые, указанные в
+    db.properties. Установить в catalina.bat переменную -Dspring.profiles.active=test" -->
+    <beans profile="local,default">
 
         <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
             <property name="locations">
@@ -61,10 +89,19 @@
         </bean>
 
     </beans>
+    
+    
 
     <beans>
 
         <!-- ===========================   TRANSACTIONS   ========================= -->
+        
+        <mvc:interceptors>
+            <mvc:interceptor>
+                <mvc:mapping path="/**" />
+                    <bean class="org.activiti.rest.interceptor.RequestProcessingInterceptor" />
+                </mvc:interceptor>
+        </mvc:interceptors>
 
         <aop:config>
             <aop:pointcut id="dao" expression="execution(* org.wf.dp.dniprorada.dao.*.*(..))"/>

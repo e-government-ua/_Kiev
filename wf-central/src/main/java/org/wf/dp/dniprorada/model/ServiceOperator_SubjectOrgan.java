@@ -1,6 +1,7 @@
-package org.wf.dp.dniprorada.base.model;
+package org.wf.dp.dniprorada.model;
 
 import javax.persistence.Column;
+import org.wf.dp.dniprorada.base.model.NamedEntity;
 
 /**
  * Store information specific to SubjectOrgan when it acts like ServiceOperator.

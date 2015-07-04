@@ -10,4 +10,6 @@ public interface SubjectOrganDao {
 
 	public SubjectOrgan saveOrUpdateSubjectOrgan(SubjectOrgan subjectOrgan);
 
+    public SubjectOrgan getSubjectOrgan(Long nID);
+
 }

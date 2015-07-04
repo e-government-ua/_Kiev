@@ -57,8 +57,7 @@ public class ActivitiRestDocumentControllerTest {
             .getResponse()
             .getContentAsString();
 
-        List<DocumentOperator_SubjectOrgan> operators = Arrays.asList(
-            JsonRestUtils.readObject(jsonData, DocumentOperator_SubjectOrgan[].class));
+        List<DocumentOperator_SubjectOrgan> operators = Arrays.asList(JsonRestUtils.readObject(jsonData, DocumentOperator_SubjectOrgan[].class));
 
         assertFalse(operators.isEmpty());
 

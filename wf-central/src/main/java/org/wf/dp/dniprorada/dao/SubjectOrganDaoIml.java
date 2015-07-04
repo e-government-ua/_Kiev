@@ -1,13 +1,13 @@
 package org.wf.dp.dniprorada.dao;
 
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Required;
 import org.wf.dp.dniprorada.model.Subject;
 import org.wf.dp.dniprorada.model.SubjectOrgan;
+
+import java.util.List;
 
 public class SubjectOrganDaoIml implements SubjectOrganDao{
 	
@@ -51,5 +51,15 @@ public class SubjectOrganDaoIml implements SubjectOrganDao{
 		getSession().saveOrUpdate(oSubjectOrgan);
 		return oSubjectOrgan;
 	}
+
+    @Override
+    public SubjectOrgan getSubjectOrgan(Long nID) {
+        SubjectOrgan subjectOrgan = null;
+        List<SubjectOrgan> subjects = (List<SubjectOrgan>)getSession().createCriteria(SubjectOrgan.class).add(Restrictions.eq("nID", nID)).list();
+        if(subjects != null && !subjects.isEmpty()){
+            subjectOrgan = subjects.get(0);
+        }
+        return subjectOrgan;
+    }
 
 }

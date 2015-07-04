@@ -5,14 +5,14 @@ package org.wf.dp.dniprorada.base.viewobject.flow;
  * Date: 21.06.2015
  * Time: 21:29
  */
-public class SaveSubjectTicketResponse {
+public class SaveFlowSlotTicketResponse {
 
-   private Long nID_Ticket;
+   private Long nID_Ticket; 
 
-   public SaveSubjectTicketResponse() {
+   public SaveFlowSlotTicketResponse() {
    }
 
-   public SaveSubjectTicketResponse(Long nID_Ticket) {
+   public SaveFlowSlotTicketResponse(Long nID_Ticket) {
       this.nID_Ticket = nID_Ticket;
    }
 

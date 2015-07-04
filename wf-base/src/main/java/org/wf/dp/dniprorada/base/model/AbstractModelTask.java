@@ -31,9 +31,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
-import org.wf.dp.dniprorada.base.dao.SubjectTicketDao;
+import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
-import org.wf.dp.dniprorada.base.viewobject.flow.SaveSubjectTicketResponse;
+import org.wf.dp.dniprorada.base.viewobject.flow.SaveFlowSlotTicketResponse;
 import org.wf.dp.dniprorada.form.FormFileType;
 import org.wf.dp.dniprorada.form.QueueDataFormType;
 import org.wf.dp.dniprorada.model.MimiTypeModel;
@@ -53,11 +53,11 @@ public abstract class AbstractModelTask {
 	RedisService redisService;
 
         
-   //@Autowired
-   //private FlowSlotDao flowSlotDao;
+   @Autowired
+   private FlowSlotDao flowSlotDao;
 
-   //@Autowired
-   //private SubjectTicketDao subjectTicketDao;
+   @Autowired
+   private FlowSlotTicketDao oFlowSlotTicketDao;
 
    @Autowired
    private BaseEntityDao baseEntityDao;
@@ -382,33 +382,37 @@ public abstract class AbstractModelTask {
         if (!asFieldValue.isEmpty()) {
             String sValue = asFieldValue.get(0);
             LOG.info("sValue=" + sValue);
-            long nID_SubjectTicket=0;
+            long nID_FlowSlotTicket=0;
             int nAt=sValue.indexOf(":");
             int nTo=sValue.indexOf(",");
             String s=sValue.substring(nAt+1,nTo);
             LOG.info("s=" + s);
             try{
-                nID_SubjectTicket = Long.valueOf(s);
+                nID_FlowSlotTicket = Long.valueOf(s);
                 LOG.info("Ok!");
             }catch(Exception oException){
                 LOG.error(oException.getMessage());
-                nID_SubjectTicket=1;
+                nID_FlowSlotTicket=1;
             }
-            LOG.info("nID_SubjectTicket=" + nID_SubjectTicket);
+            LOG.info("nID_FlowSlotTicket=" + nID_FlowSlotTicket);
+            
             try{
-                SubjectTicket oSubjectTicket = baseEntityDao.getById(SubjectTicket.class, nID_SubjectTicket);
-                if (oSubjectTicket == null) {
-                    LOG.error("SubjectTicket with id=" + nID_SubjectTicket + " is not found!");
+                
+                /*
+                FlowSlotTicket oFlowSlotTicket = baseEntityDao.getById(FlowSlotTicket.class, nID_FlowSlotTicket);
+                if (oFlowSlotTicket == null) {
+                    LOG.error("FlowSlotTicket with id=" + nID_FlowSlotTicket + " is not found!");
                 }else{
-                    long nID_FlowSlot=oSubjectTicket.getoFlowSlot().getId();
+                    long nID_FlowSlot=oFlowSlotTicket.getoFlowSlot().getId();
                     LOG.error("nID_FlowSlot="+nID_FlowSlot);
-                    long nID_Subject = oSubjectTicket.getnID_Subject();
+                    long nID_Subject = oFlowSlotTicket.getnID_Subject();
                     LOG.error("nID_Subject="+nID_Subject);
                     long nID_Task_Activiti = 1; //TODO set real ID!!!
-                    oSubjectTicket.setnID_Task_Activiti(nID_Task_Activiti);
-                    baseEntityDao.saveOrUpdate(oSubjectTicket);
-                    LOG.info("JSON:" + JsonRestUtils.toJsonResponse(new SaveSubjectTicketResponse(oSubjectTicket.getId())));
+                    oFlowSlotTicket.setnID_Task_Activiti(nID_Task_Activiti);
+                    baseEntityDao.saveOrUpdate(oFlowSlotTicket);
+                    LOG.info("JSON:" + JsonRestUtils.toJsonResponse(new SaveFlowSlotTicketResponse(oFlowSlotTicket.getId())));
                 }
+                */
             }catch(Exception oException){
                 LOG.error(oException.getMessage());
             }

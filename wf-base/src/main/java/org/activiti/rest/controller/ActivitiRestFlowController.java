@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.wf.dp.dniprorada.base.model.SubjectTicket;
+import org.wf.dp.dniprorada.base.model.FlowSlotTicket;
 import org.wf.dp.dniprorada.base.service.flow.FlowService;
 import org.wf.dp.dniprorada.base.util.JsonDateTimeSerializer;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.base.viewobject.flow.ClearSlotsResult;
 import org.wf.dp.dniprorada.base.viewobject.flow.Days;
 import org.wf.dp.dniprorada.base.viewobject.flow.FlowSlotVO;
-import org.wf.dp.dniprorada.base.viewobject.flow.SaveSubjectTicketResponse;
+import org.wf.dp.dniprorada.base.viewobject.flow.SaveFlowSlotTicketResponse;
 
 import java.util.List;
 
@@ -50,13 +50,13 @@ public class ActivitiRestFlowController {
    @RequestMapping(value = "/setFlowSlot_ServiceData", method = RequestMethod.POST)
    public
    @ResponseBody
-   ResponseEntity saveSubjectTicket(@RequestParam(value = "nID_FlowSlot") Long nID_FlowSlot,
+   ResponseEntity saveFlowSlotTicket(@RequestParam(value = "nID_FlowSlot") Long nID_FlowSlot,
                                @RequestParam(value = "nID_Subject") Long nID_Subject,
                                @RequestParam(value = "nID_Task_Activiti", required = false) Long nID_Task_Activiti) {
 
-      SubjectTicket subjectTicket = flowService.saveSubjectTicket(nID_FlowSlot, nID_Subject, nID_Task_Activiti);
+      FlowSlotTicket oFlowSlotTicket = flowService.saveFlowSlotTicket(nID_FlowSlot, nID_Subject, nID_Task_Activiti);
 
-      return JsonRestUtils.toJsonResponse(new SaveSubjectTicketResponse(subjectTicket.getId()));
+      return JsonRestUtils.toJsonResponse(new SaveFlowSlotTicketResponse(oFlowSlotTicket.getId()));
    }
 
    @RequestMapping(value = "/buildFlowSlots", method = RequestMethod.POST)

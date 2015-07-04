@@ -20,7 +20,8 @@ module.exports.index = function (req, res) {
         } else {
             req.session.subject = result.subject;
             res.send({
-                customer: result.customer
+                customer: result.customer,
+                admin: result.admin
             });
             res.end();
         }

@@ -95,7 +95,7 @@ define('service/service', ['angularAMD'], function (angularAMD) {
 
         this.getJournalEvents = function () {
             var data = {};
-            return $http.get('./api/service/journal', {
+            return $http.get('./api/journal', {
                 params: data,
                 data: data
             }).then(function (response) {
