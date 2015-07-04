@@ -1,28 +1,23 @@
 angular.module('journal', []).config(function($stateProvider) {
 
-  $stateProvider.state('journal', {
-    url: '/journal',
-    views: {
-      '': angularAMD.route({
-        templateProvider: ['$templateCache', function($templateCache) {
-          return $templateCache.get('html/journal/index.html');
-        }],
-        controller: 'JournalController',
-        controllerUrl: 'state/journal/controller'
-      })
-    }
-  })
+  $stateProvider
+    .state('journal', {
+      url: '/journal',
+      views: {
+        '': {
+          templateUrl: 'html/journal/index.html',
+          controller: 'JournalController'
+        }
+      }
+    })
     .state('journal.bankid', {
       url: '/bankid?code&error',
       parent: 'journal',
       views: {
-        'bankid': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/journal/bankid/index.html');
-          }],
-          controller: 'JournalBankIdController',
-          controllerUrl: 'state/journal/bankid/controller'
-        })
+        'bankid': {
+          templateUrl: 'html/journal/bankid/index.html',
+          controller: 'JournalBankIdController'
+        }
       }
     })
     .state('journal.content', {
@@ -36,25 +31,23 @@ angular.module('journal', []).config(function($stateProvider) {
             return $q.reject(null);
           });
         },
-        BankIDAccount: ['BankIDService', 'BankIDLogin', function(BankIDService, BankIDLogin) {
+        BankIDAccount: function(BankIDService) {
           return BankIDService.account();
-        }],
-        customer: ['BankIDAccount', function(BankIDAccount) {
+        },
+        customer: function(BankIDAccount) {
           return BankIDAccount.customer;
-        }],
-        journal: ['$q', '$state', 'ServiceService', 'customer', function($q, $state, ServiceService, customer) {
+        },
+        journal: function($q, $state, ServiceService) {
           return ServiceService.getJournalEvents();
-        }]
+        }
       },
       views: {
-        'content': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/journal/content.html');
-          }],
-          controller: 'JournalContentController',
-          controllerUrl: 'state/journal/content/controller'
-        })
+        'content': {
+          templateUrl: 'html/journal/content.html',
+          controller: 'JournalContentController'
+        }
       }
     });
-});
+})
+;
 

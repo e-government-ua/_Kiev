@@ -3,13 +3,10 @@ angular.module('app').config(function($stateProvider) {
     .state('service.general.city.built-in', {
       url: '/built-in',
       views: {
-        'content@service.general.city': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/service/city/built-in/index.html');
-          }],
-          controller: 'ServiceBuiltInController',
-          controllerUrl: 'service/built-in/controller'
-        })
+        'content@service.general.city': {
+          templateUrl: 'html/service/city/built-in/index.html',
+          controller: 'ServiceBuiltInController'
+        }
       }
     })
     .state('service.general.city.built-in.bankid', {
@@ -20,24 +17,24 @@ angular.module('app').config(function($stateProvider) {
         city: null
       },
       resolve: {
-        region: ['$state', '$stateParams', 'PlacesService', function($state, $stateParams, PlacesService) {
+        region: function($state, $stateParams, PlacesService) {
           return PlacesService.getRegion($stateParams.region).then(function(response) {
             var currentState = $state.get('service.general.city.built-in.bankid');
             currentState.data.region = response.data;
             return response.data;
           });
-        }],
-        city: ['$state', '$stateParams', 'PlacesService', function($state, $stateParams, PlacesService) {
+        },
+        city: function($state, $stateParams, PlacesService) {
           return PlacesService.getCity($stateParams.region, $stateParams.city).then(function(response) {
             var currentState = $state.get('service.general.city.built-in.bankid');
             currentState.data.city = response.data;
             return response.data;
           });
-        }],
-        oService: ['$stateParams', 'service', function($stateParams, service) {
+        },
+        oService: function($stateParams, service) {
           return service;
-        }],
-        oServiceData: ['$stateParams', 'service', function($stateParams, service) {
+        },
+        oServiceData: function($stateParams, service) {
           var aServiceData = service.aServiceData;
           var oServiceData = null;
           angular.forEach(aServiceData, function(value, key) {
@@ -46,7 +43,7 @@ angular.module('app').config(function($stateProvider) {
             }
           });
           return oServiceData;
-        }],
+        },
         BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
           return BankIDService.isLoggedIn().then(function() {
             return {loggedIn: true};
@@ -54,20 +51,17 @@ angular.module('app').config(function($stateProvider) {
             return $q.reject(null);
           });
         },
-        BankIDAccount: ['BankIDService', 'BankIDLogin', function(BankIDService, BankIDLogin) {
+        BankIDAccount: function(BankIDService, BankIDLogin) {
           return BankIDService.account();
-        }],
-        processDefinitions: ['ServiceService', 'oServiceData', function(ServiceService, oServiceData) {
+        },
+        processDefinitions: function(ServiceService, oServiceData) {
           return ServiceService.getProcessDefinitions(oServiceData, true);
-        }],
-        processDefinitionId: ['oServiceData', 'processDefinitions', function(oServiceData, processDefinitions) {
+        },
+        processDefinitionId: function(oServiceData, processDefinitions) {
           var sProcessDefinitionKeyWithVersion = oServiceData.oData.oParams.processDefinitionId;
           var sProcessDefinitionKey = sProcessDefinitionKeyWithVersion.split(':')[0];
 
           var sProcessDefinitionName = "тест";
-          //sProcessDefinitionName = "name2";
-          //var currentState = $state.get('service.general.city.built-in.bankid');
-          //currentState.data.sProcessDefinitionName2 = "name3";
 
           angular.forEach(processDefinitions.data, function(value, key) {
             if (value.key == sProcessDefinitionKey) {
@@ -76,45 +70,39 @@ angular.module('app').config(function($stateProvider) {
             }
           });
 
-          //return processDefinitionKeyWithVersion;
           return {
             sProcessDefinitionKeyWithVersion: sProcessDefinitionKeyWithVersion,
             sProcessDefinitionName: sProcessDefinitionName
           };
-        }],
-        ActivitiForm: ['ActivitiService', 'oServiceData', 'processDefinitionId', function(ActivitiService, oServiceData, processDefinitionId) {
+        },
+        ActivitiForm: function(ActivitiService, oServiceData, processDefinitionId) {
           return ActivitiService.getForm(oServiceData, processDefinitionId);
-        }]
+        }
       },
       views: {
-        'content@service.general.city': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/service/city/built-in/bankid.html');
-          }],
-          controller: 'ServiceBuiltInBankIDController',
-          controllerUrl: 'service/built-in/bankid/controller'
-        })
+        'content@service.general.city': {
+          templateUrl: 'html/service/city/built-in/bankid.html',
+          controller: 'ServiceBuiltInBankIDController'
+        }
       }
     })
     .state('service.general.city.built-in.bankid.submitted', {
       url: null,
       data: {id: null},
-      onExit: ['$state', function($state) {
+      onExit: function($state) {
         var state = $state.get('service.general.city.built-in.bankid.submitted');
         state.data = {id: null};
-      }],
+      },
       views: {
-        'content@service.general.city': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/service/city/built-in/bankid.submitted.html');
-          }],
-          controller: ['$state', '$scope', '$sce', function($state, $scope, $sce) {
+        'content@service.general.city': {
+          templateUrl: 'html/service/city/built-in/bankid.submitted.html',
+          controller: function($state, $scope, $sce) {
             $scope.state = $state.get('service.general.city.built-in.bankid.submitted');
             $scope.getHtml = function(html) {
               return $sce.trustAsHtml(html);
             };
-          }]
-        })
+          }
+        }
       }
     });
 });

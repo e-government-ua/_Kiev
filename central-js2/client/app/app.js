@@ -6,8 +6,11 @@ angular.module('app', [
   'ui.router',
   'ui.bootstrap',
   'ngMessages',
-  //'ui.event',
-  'ngClipboard'
+  'ngClipboard',
+  'bankid',
+  'index',
+  'journal',
+  'documents'
 ]).config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $urlRouterProvider.when('', function($match, $state) {
     $state.transitionTo('index', $match, false);

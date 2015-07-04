@@ -8,13 +8,10 @@ var app = angular.module('index', []).config(function($stateProvider) {
         }
       },
       views: {
-        '': angularAMD.route({
-          templateProvider: function($templateCache) {
-            return $templateCache.get('html/catalog/services.html');
-          },
-          controller: 'IndexController',
-          controllerUrl: 'state/index/controller'
-        })
+        '': {
+          templateUrl: 'html/catalog/services.html',
+          controller: 'IndexController'
+        }
       }
     })
     .state('subcategory', {
@@ -25,16 +22,12 @@ var app = angular.module('index', []).config(function($stateProvider) {
         }
       },
       views: {
-        '': angularAMD.route({
-          templateProvider: function($templateCache) {
-            return $templateCache.get('html/catalog/subcategory.html');
-          },
-          controller: 'SubcategoryController',
-          controllerUrl: 'state/subcategory/controller'
-        })
+        '': {
+          templateUrl: 'html/catalog/subcategory.html',
+          controller: 'SubcategoryController'
+        }
       }
     });
-
 }).run(function($rootScope, $state) {
   $rootScope.state = $state;
 });

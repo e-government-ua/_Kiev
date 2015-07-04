@@ -36,7 +36,7 @@ angular.module('app').factory('LocalityListFactory', function($http, TypeaheadFa
       return cities;
     }).then(function(cities) {
       self.typeahead.list = cities;
-      self.1dropdown.list = cities;
+      self.dropdown.list = cities;
       return cities;
     });
   };

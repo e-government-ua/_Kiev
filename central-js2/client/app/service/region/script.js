@@ -3,7 +3,7 @@ angular.module('app').config(function($stateProvider) {
     .state('service.general.region', {
       url: '/region',
       resolve: {
-        regions: ['$stateParams', 'PlacesService', 'service', function($stateParams, PlacesService, service) {
+        regions: function($stateParams, PlacesService, service) {
           return PlacesService.getRegions().then(function(response) {
             var regions = response.data;
             var aServiceData = service.aServiceData;
@@ -24,31 +24,24 @@ angular.module('app').config(function($stateProvider) {
 
             return regions;
           });
-        }]
+        }
       },
       views: {
-        '@service': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/service/region/index.html');
-          }],
-          controller: 'ServiceRegionController',
-          controllerUrl: 'state/service/region/controller'
-        }),
-        'content@service.general.region': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/service/region/content.html');
-          }]
-        })
+        '@service': {
+          templateUrl: 'html/service/region/index.html',
+          controller: 'ServiceRegionController'
+        },
+        'content@service.general.region': {
+          templateUrl: 'html/service/region/content.html'
+        }
       }
     })
     .state('service.general.region.error', {
       url: '/absent',
       views: {
-        'content@service.general.region': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/service/region/absent.html');
-          }]
-        })
+        'content@service.general.region': {
+          templateUrl: 'html/service/region/absent.html'
+        }
       }
     });
 });

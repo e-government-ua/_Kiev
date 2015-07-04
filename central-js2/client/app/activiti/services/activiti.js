@@ -24,7 +24,7 @@ angular.module('activiti', []).service('ActivitiService', function($http) {
 
   this.getUploadFileURL = function(oServiceData) {
     return './api/uploadfile?url=' + oServiceData.sURL + 'service/rest/file/upload_file_to_redis';
-  }
+  };
 
   this.updateFileField = function(oServiceData, formData, propertyID, fileUUID) {
     formData.params[propertyID].value = fileUUID;

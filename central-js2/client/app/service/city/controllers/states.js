@@ -74,14 +74,12 @@ angular.module('app').controller('ServiceCityController', function($state, $root
   $scope.$watchCollection('data.city', function(newValue, oldValue) {
     return (newValue == null) ? null : $scope.step2();
   });
-});
-
-angular.module('app').controller('ServiceCityAbsentController', function($state,
-                                                                         $rootScope,
-                                                                         $scope,
-                                                                         service,
-                                                                         MessagesService,
-                                                                         AdminService) {
+}).controller('ServiceCityAbsentController', function($state,
+                                                      $rootScope,
+                                                      $scope,
+                                                      service,
+                                                      MessagesService,
+                                                      AdminService) {
   $scope.service = service;
   $scope.bAdmin = AdminService.isAdmin();
   (function() {

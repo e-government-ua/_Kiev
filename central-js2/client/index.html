@@ -29,7 +29,7 @@
     <!-- endinjector -->
     <!-- endbuild -->
 </head>
-<body ng-app="centralJsApp">
+<body ng-app="app">
 
 <!-- End Google Tag Manager -->
 <!-- build:section layout.header -->
@@ -77,6 +77,10 @@
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="bower_components/lodash/dist/lodash.compat.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-messages/angular-messages.js"></script>
+<script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
+<script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
+<script src="bower_components/ng-clip/src/ngClip.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -85,30 +89,28 @@
 <!-- injector:js -->
 <script src="app/404/script.js"></script>
 <script src="app/about/script.js"></script>
-<script src="app/activiti/script.js"></script>
 <script src="app/activiti/services/activiti.js"></script>
 <script src="app/bankid/factories/documents.js"></script>
 <script src="app/bankid/factories/passport.js"></script>
-<script src="app/bankid/script.js"></script>
 <script src="app/bankid/services/bankid.js"></script>
 <script src="app/components/dropdown/factories/dropdown.js"></script>
+<script src="app/components/form/directives/file.js"></script>
+<script src="app/components/form/directives/file2.js"></script>
+<script src="app/components/form/directives/slotPicker.js"></script>
+<script src="app/components/form/factories/datepicker.js"></script>
+<script src="app/components/form/factories/file.js"></script>
+<script src="app/components/form/factories/formData.js"></script>
+<script src="app/components/form/factories/parameter.js"></script>
 <script src="app/components/select/directives/optionsClass.js"></script>
 <script src="app/components/typeahead/directives/typeaheadEmpty.js"></script>
 <script src="app/components/typeahead/factories/typeahead.js"></script>
-<script src="app/documents/controllers/states.js"></script>
 <script src="app/documents/script.js"></script>
-<script src="app/form/directives/file.js"></script>
-<script src="app/form/directives/file2.js"></script>
-<script src="app/form/directives/slotPicker.js"></script>
-<script src="app/form/factories/datepicker.js"></script>
-<script src="app/form/factories/file.js"></script>
-<script src="app/form/factories/formData.js"></script>
-<script src="app/form/factories/parameter.js"></script>
-<script src="app/index/controllers/states.js"></script>
+<script src="app/documents/controllers/states.js"></script>
 <script src="app/index/script.js"></script>
+<script src="app/index/controllers/states.js"></script>
 <script src="app/index/services/catalog.js"></script>
-<script src="app/journal/controllers/states.js"></script>
 <script src="app/journal/script.js"></script>
+<script src="app/journal/controllers/states.js"></script>
 <script src="app/places/factories/localityList.js"></script>
 <script src="app/places/factories/regionList.js"></script>
 <script src="app/places/services/places.js"></script>

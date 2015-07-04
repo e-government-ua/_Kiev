@@ -3,78 +3,60 @@ angular.module('app').config(function($stateProvider) {
     .state('service', {
       url: '/service/{id:int}',
       resolve: {
-        service: ['$stateParams', 'ServiceService', function($stateParams, ServiceService) {
+        service: function($stateParams, ServiceService) {
           return ServiceService.get($stateParams.id);
-        }]
+        }
       },
       views: {
-        '': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/service/index.html');
-          }],
-          controller: 'ServiceController',
-          controllerUrl: 'state/service/controller'
-        })
+        '': {
+          templateUrl: 'html/service/index.html',
+          controller: 'ServiceController'
+        }
       }
     })
     .state('service.general', {
       url: '/general',
       views: {
-        '': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/service/general.html');
-          }],
-          controller: 'ServiceGeneralController',
-          controllerUrl: 'state/service/general/controller'
-        })
+        '': {
+          templateUrl: 'html/service/general.html',
+          controller: 'ServiceGeneralController'
+        }
       }
     })
     .state('service.instruction', {
       url: '/instruction',
       views: {
-        '': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/service/instruction.html');
-          }],
-          controller: 'ServiceInstructionController',
-          controllerUrl: 'state/service/instruction/controller'
-        })
+        '': {
+          templateUrl: 'html/service/instruction.html',
+          controller: 'ServiceInstructionController'
+        }
       }
     })
     .state('service.legislation', {
       url: '/legislation',
       views: {
-        '': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/service/legislation.html');
-          }],
-          controller: 'ServiceLegislationController',
-          controllerUrl: 'state/service/legislation/controller'
-        })
+        '': {
+          templateUrl: 'html/service/legislation.html',
+          controller: 'ServiceLegislationController'
+        }
       }
     })
     .state('service.questions', {
       url: '/questions',
       views: {
-        '': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/service/questions.html');
-          }],
-          controller: 'ServiceQuestionsController',
-          controllerUrl: 'state/service/questions/controller'
-        })
+        '': {
+          templateUrl: 'html/service/questions.html',
+          controller: 'ServiceQuestionsController'
+        }
       }
     })
     .state('service.discussion', {
       url: '/discussion',
       views: {
-        '': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/service/discussion.html');
-          }],
-          controller: 'ServiceDiscussionController',
-          controllerUrl: 'state/service/discussion/controller'
-        })
+        '': {
+          templateUrl: 'html/service/discussion.html',
+          controller: 'ServiceDiscussionController'
+        }
       }
     })
 });

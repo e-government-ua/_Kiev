@@ -3,13 +3,11 @@ angular.module('app').config(function($stateProvider) {
     .state('service.general.region.link', {
       url: '/link',
       views: {
-        'content@service.general.region': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/service/region/link/index.html');
-          }],
-          controller: 'ServiceLinkController',
-          controllerUrl: 'service/link/controller'
-        })
+        'content@service.general.region': {
+          templateUrl: 'html/service/region/link/index.html',
+          controller: 'ServiceLinkController'
+        }
       }
     });
+});
 

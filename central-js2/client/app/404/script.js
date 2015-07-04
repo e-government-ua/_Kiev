@@ -4,11 +4,9 @@ var app = angular.module('404', []).config(function($stateProvider, $urlRouterPr
     .state('404', {
       url: '/404',
       views: {
-        '': angularAMD.route({
-          templateProvider: ['$templateCache', function($templateCache) {
-            return $templateCache.get('html/404/404.html');
-          }]
-        })
+        '': {
+          templateUrl: 'html/404/404.html'
+        }
       }
     })
 });

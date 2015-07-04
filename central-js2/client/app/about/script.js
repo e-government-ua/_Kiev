@@ -5,12 +5,9 @@ app.config(function($stateProvider) {
     .state('about', {
       url: '/about',
       views: {
-        '': angularAMD.route({
-          templateProvider: function($templateCache) {
-            return $templateCache.get('html/about/index.html');
-          }
-        })
+        '': {
+          templateUrl: {templateUrl: 'html/about/index.html'}
+        }
       }
-    })
+    });
 });
-

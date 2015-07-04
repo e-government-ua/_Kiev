@@ -5,14 +5,10 @@ angular.module('app').directive('optionsClass', function($parse, $timeout) {
       var NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?(?:\s+disable\s+when\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/;
 
       var match = attrs.ngOptions.match(NG_OPTIONS_REGEXP);
-      // get the source for the items array that populates the select.
       var optionsSourceStr = match[8],
-      // use $parse to get a function from the options-class attribute
-      // that you can use to evaluate later.
         getOptionsClass = $parse(attrs.optionsClass);
 
       scope.$watch(optionsSourceStr, function(items) {
-        // when the options source changes loop through its items.
         angular.forEach(items, function(item, index) {
           var classes = getOptionsClass(item),
             options = elem.find('option');
