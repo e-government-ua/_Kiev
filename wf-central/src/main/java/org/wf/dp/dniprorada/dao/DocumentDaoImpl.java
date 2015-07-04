@@ -61,8 +61,8 @@ public class DocumentDaoImpl implements DocumentDao {
 	}
 
 	public Long setDocument(Long nID_Subject, Long nID_Subject_Upload, String sID_Subject_Upload,
-			String sSubjectName_Upload, String sName, Integer nID_DocumentType,
-			Integer nID_DocumentContentType, String sFileName,
+			String sSubjectName_Upload, String sName, Long nID_DocumentType,
+			Long nID_DocumentContentType, String sFileName,
 			String sFileContentType, byte[] aoContent) throws IOException {
 
 		Document document = new Document();
@@ -71,7 +71,7 @@ public class DocumentDaoImpl implements DocumentDao {
 		document.setName(sName);
 		
 		Subject oSubject_Upload = new Subject();
-		oSubject_Upload.setnID(nID_Subject_Upload);
+		oSubject_Upload.setId(nID_Subject_Upload);
 		document.setSubject_Upload(oSubject_Upload);
 
 		DocumentType oDocumentType = new DocumentType();
@@ -86,7 +86,7 @@ public class DocumentDaoImpl implements DocumentDao {
 
 		if (nID_Subject != null) {
 			Subject oSubject = new Subject();
-			oSubject.setnID(nID_Subject);
+			oSubject.setId(nID_Subject);
 			document.setSubject(oSubject);
 		}
 

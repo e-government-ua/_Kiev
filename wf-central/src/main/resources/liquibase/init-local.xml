@@ -84,13 +84,6 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="Subject" columnDataType="bigint"  incrementBy="1" startWith="1"/>
-        
-         <createSequence catalogName="Subject"
-            incrementBy="1"
-            sequenceName="Subject_id_seq"
-            startValue="1"/>
-         
         
         <!-- ####################################################################################################### -->
         <createTable tableName="SubjectHuman">
@@ -124,13 +117,6 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="SubjectHuman" columnDataType="bigint"  incrementBy="1" startWith="1"/>
-        
-         <createSequence catalogName="SubjectHuman"
-            incrementBy="1"
-            sequenceName="SubjectHuman_id_seq"
-            startValue="1"/>
-            
         
         <!-- ####################################################################################################### -->
         <createTable tableName="SubjectOrgan">
@@ -155,12 +141,6 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="SubjectOrgan" columnDataType="bigint"  incrementBy="1" startWith="1"/>
-        
-        <createSequence catalogName="SubjectOrgan"
-            incrementBy="1"
-            sequenceName="SubjectOrgan_id_seq"
-            startValue="1"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="SubjectOrganType">
@@ -171,7 +151,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="SubjectOrganType" columnDataType="bigint"  incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="SubjectOrganDepartment">
@@ -190,7 +169,6 @@
                              referencedTableName="SubjectOrgan" referencedColumnNames="nID" deleteCascade="true"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="SubjectOrganDepartment" columnDataType="bigint"  incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="Region">
@@ -201,7 +179,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="Region" columnDataType="int" incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="City">
@@ -217,7 +194,6 @@
                              referencedTableName="Region" referencedColumnNames="nID" deleteCascade="true"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="City" columnDataType="int" incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="Category">
@@ -234,7 +210,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="Category" columnDataType="int" incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="Subcategory">
@@ -256,7 +231,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="Subcategory" columnDataType="int" incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="ServiceType">
@@ -270,7 +244,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="ServiceType" columnDataType="int" incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="Service">
@@ -301,9 +274,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="Service" columnDataType="int"  incrementBy="1" startWith="1000"/>
 		
-		        <!-- ####################################################################################################### -->
+		<!-- ####################################################################################################### -->
 
         <createTable tableName="HistoryEvent">
             <column name="nID" type="bigint">
@@ -325,13 +297,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="HistoryEvent" columnDataType="bigint" incrementBy="1" startWith="1"/>
-
-        <createSequence catalogName="HistoryEvent"
-                        incrementBy="1"
-                        sequenceName="HistoryEvent_id_seq"
-                        startValue="1"/>
-
 
         <!-- ####################################################################################################### -->
         <createTable tableName="ServiceData">
@@ -379,7 +344,6 @@
                 <constraints nullable = "false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="ServiceData" columnDataType="int"  incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="SubjectMessage">
@@ -402,7 +366,6 @@
             <column name="sContacts" type="varchar(200)"/>
             <column name="sData" type="varchar"/>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="SubjectMessage" columnDataType="bigint"  incrementBy="1" startWith="1000"/>
              
          <!-- ####################################################################################################### -->
         <createTable tableName="DocumentType">
@@ -413,12 +376,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="DocumentType" columnDataType="int" incrementBy="1" startWith="0"/>
-        
-        <createSequence catalogName="DocumentType"
-            incrementBy="1"
-            sequenceName="DocumentType_id_seq"
-            startValue="1"/>
         
         <!-- ####################################################################################################### -->
         <createTable tableName="DocumentContentType">
@@ -429,12 +386,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="DocumentContentType" columnDataType="int" incrementBy="1" startWith="0"/>
-        
-        <createSequence catalogName="DocumentContentType"
-            incrementBy="1"
-            sequenceName="DocumentContentType_id_seq"
-            startValue="1"/>
         
         <!-- ####################################################################################################### -->
         <createTable tableName="Document">
@@ -480,18 +431,6 @@
                              referencedTableName="Subject" referencedColumnNames="nID" deleteCascade="true"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="Document" columnDataType="bigint"  incrementBy="1" startWith="1"/>
-        
-        <createSequence catalogName="Document"
-            incrementBy="1"
-            sequenceName="Document_id_seq"
-            startValue="1"/>
-            
-            <createSequence catalogName="DocumentAccess"
-            incrementBy="1"
-            sequenceName="DocumentAccess_id_seq"
-            startValue="1"/>
-        
         
         <!-- ####################################################################################################### -->
         <createTable tableName="DocumentAccess">
@@ -535,7 +474,6 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
-        <!-- addAutoIncrement columnName="nID" tableName="DocumentAccess" columnDataType="bigint"  incrementBy="1" startWith="1"/-->
 
         <!-- ####################################################################################################### -->
         <createTable tableName="DocumentOperator_SubjectOrgan">
@@ -552,7 +490,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="DocumentOperator_SubjectOrgan" columnDataType="bigint" incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="ServiceOperator_SubjectOrgan">
@@ -566,8 +503,7 @@
                 <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="ServiceOperator_SubjectOrgan" columnDataType="bigint" incrementBy="1" startWith="1000"/>
-        
+
         
     </changeSet>
 </databaseChangeLog>

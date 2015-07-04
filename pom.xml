@@ -132,6 +132,7 @@
                         <igov.wf-base.version>1.0.0a-SNAPSHOT</igov.wf-base.version>
                         <igov.wf-central.version>1.0.0a-SNAPSHOT</igov.wf-central.version>
                         <igov.wf-region.version>1.0.0a-SNAPSHOT</igov.wf-region.version>
+						<liquibase.live.data.path>data</liquibase.live.data.path>
                     </properties>
                 </profile>
                 <profile>
@@ -157,6 +158,7 @@
                         <igov.wf-base.version>1.0.0b-SNAPSHOT</igov.wf-base.version>
                         <igov.wf-central.version>1.0.0b-SNAPSHOT</igov.wf-central.version>
                         <igov.wf-region.version>1.0.0b-SNAPSHOT</igov.wf-region.version>
+						<liquibase.live.data.path>data</liquibase.live.data.path>
                     </properties>
                 </profile>
                 <profile>
@@ -182,70 +184,9 @@
                         <igov.wf-base.version>1.0.0-RELEASE</igov.wf-base.version>
                         <igov.wf-central.version>1.0.0-RELEASE</igov.wf-central.version>
                         <igov.wf-region.version>1.0.0-RELEASE</igov.wf-region.version>
+						<liquibase.live.data.path>data/prod</liquibase.live.data.path>
                     </properties>
                 </profile> 
-                           
-		<profile>
-			<id>wf-all</id>
-                        <properties>
-                            <sRevision>b</sRevision>
-                            <igov.storage-static.version>1.0.0-SNAPSHOT</igov.storage-static.version>
-                            <igov.storage-temp.version>1.0.0-SNAPSHOT</igov.storage-temp.version>
-                            <igov.wf-base.version>1.0.0-SNAPSHOT</igov.wf-base.version>
-                            <igov.wf-central.version>1.0.0-SNAPSHOT</igov.wf-central.version>
-                            <igov.wf-region.version>1.0.0-SNAPSHOT</igov.wf-region.version>
-                        </properties>
-			<modules>
-				<module>auth-custom</module>
-				<module>storage-static</module>
-				<module>storage-temp</module>
-				<module>wf-base</module>
-				<module>wf-region</module>
-				<module>wf-central</module>
-			</modules>
-
-			<!--activation>
-				<activeByDefault>true</activeByDefault>
-			</activation-->
-		</profile>
-
-		<profile>
-			<id>wf-region</id>
-                        <properties>
-                            <sRevision>b</sRevision>
-                            <igov.storage-static.version>1.0.0-SNAPSHOT</igov.storage-static.version>
-                            <igov.storage-temp.version>1.0.0-SNAPSHOT</igov.storage-temp.version>
-                            <igov.wf-base.version>1.0.0-SNAPSHOT</igov.wf-base.version>
-                            <igov.wf-central.version>1.0.0-SNAPSHOT</igov.wf-central.version>
-                            <igov.wf-region.version>1.0.0-SNAPSHOT</igov.wf-region.version>
-                        </properties>
-			<modules>
-				<module>auth-custom</module>
-				<module>storage-static</module>
-				<module>storage-temp</module>
-				<module>wf-base</module>
-				<module>wf-region</module>
-			</modules>
-		</profile>
-
-		<profile>
-			<id>wf-central</id>
-                        <properties>
-                            <sRevision>b</sRevision>
-                            <igov.storage-static.version>1.0.0-SNAPSHOT</igov.storage-static.version>
-                            <igov.storage-temp.version>1.0.0-SNAPSHOT</igov.storage-temp.version>
-                            <igov.wf-base.version>1.0.0-SNAPSHOT</igov.wf-base.version>
-                            <igov.wf-central.version>1.0.0-SNAPSHOT</igov.wf-central.version>
-                            <igov.wf-region.version>1.0.0-SNAPSHOT</igov.wf-region.version>
-                        </properties>
-			<modules>
-				<module>auth-custom</module>
-				<module>storage-static</module>
-				<module>storage-temp</module>
-				<module>wf-base</module>
-				<module>wf-central</module>
-			</modules>
-		</profile>
 	</profiles>
 
 	<dependencyManagement>
@@ -515,6 +456,8 @@
 	</dependencyManagement>
 
 	<build>
+
+
 		<pluginManagement>
 			<plugins>
 				<plugin>

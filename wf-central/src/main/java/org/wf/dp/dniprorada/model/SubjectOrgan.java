@@ -16,17 +16,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.wf.dp.dniprorada.base.model.NamedEntity;
 
 @javax.persistence.Entity
-public class SubjectOrgan {
-	
-	@JsonProperty(value = "nID")
-	@Id
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="subjectOrgan_id_seq")
-    //@SequenceGenerator(name="subjectOrgan_id_seq", sequenceName="subjectOrgan_id_seq", allocationSize=1)
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "nID")
-	private Long nID; 
+public class SubjectOrgan extends NamedEntity {
 	 
 	@JsonProperty(value = "oSubject")
 	@OneToOne
@@ -42,22 +35,9 @@ public class SubjectOrgan {
 	@Column(name = "sFormPrivacy", nullable = true)
 	private String sFormPrivacy;
 	
-	@JsonProperty(value = "sName")
-	@Column(name = "sName", nullable = true)
-	private String sName;
-	
 	@JsonProperty(value = "sNameFull")
 	@Column(name = "sNameFull", nullable = true)
 	private String sNameFull;
-
-	@Identifier
-	public Long getnID() {
-		return nID;
-	}
-
-	public void setnID(Long nID) {
-		this.nID = nID;
-	}
 
 	public Subject getoSubject() {
 		return oSubject;
@@ -81,14 +61,6 @@ public class SubjectOrgan {
 
 	public void setsFormPrivacy(String sFormPrivacy) {
 		this.sFormPrivacy = sFormPrivacy;
-	}
-
-	public String getsName() {
-		return sName;
-	}
-
-	public void setsName(String sName) {
-		this.sName = sName;
 	}
 
 	public String getsNameFull() {

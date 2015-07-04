@@ -50,7 +50,7 @@ public class DocumentOperatorTest {
         DocumentAccess access = handler.setAccessCode("1").getAccess();
         assertNotNull("DocumentAccess not found", access);
 
-        Document doc = documentDao.getDocument( access.getID() );
+        Document doc = documentDao.getDocument( access.getId() );
         assertNotNull("Document not found", doc);
         assertNotNull("Document name is empty", doc.getName());
     }

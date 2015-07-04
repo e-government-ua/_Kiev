@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
     
-    <!-- ==============================   DAO   ============================= -->
+    <!-- ==============================   SERVICES    ============================= -->
 
     <bean id="flowService" class="org.wf.dp.dniprorada.base.service.flow.FlowService">
         <property name="flowSlotDao" ref="flowSlotDao"/>
