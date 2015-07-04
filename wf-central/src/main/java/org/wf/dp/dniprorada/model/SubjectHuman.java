@@ -1,14 +1,6 @@
 package org.wf.dp.dniprorada.model;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -19,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.wf.dp.dniprorada.base.model.NamedEntity;
 
 @javax.persistence.Entity
+@AttributeOverrides({@AttributeOverride(name = "name",
+		  column = @Column(name = "sName", nullable = true))})
 public class SubjectHuman extends NamedEntity {
 	
 	@JsonProperty(value = "oSubject")
