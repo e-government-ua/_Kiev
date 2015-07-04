@@ -15,5 +15,4 @@ define('404', ['angularAMD'], function (angularAMD) {
                 }
             })
     }]);
-    return app;
-});
+

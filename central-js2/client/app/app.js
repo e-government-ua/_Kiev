@@ -1,15 +1,17 @@
 'use strict';
-
-angular.module('centralJsApp', [
+angular.module('app', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
   'ui.router',
-  'ui.bootstrap'
-])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-    $urlRouterProvider
-      .otherwise('/');
-
-    $locationProvider.html5Mode(true);
+  'ui.bootstrap',
+  'ngMessages',
+  //'ui.event',
+  'ngClipboard'
+]).config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+  $urlRouterProvider.when('', function($match, $state) {
+    $state.transitionTo('index', $match, false);
   });
+  $urlRouterProvider.otherwise('/404');
+  $locationProvider.html5Mode(true);
+});

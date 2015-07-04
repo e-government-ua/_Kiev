@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('centralJsApp')
-  .controller('NavbarCtrl', function ($scope, $location) {
+angular.module('app')
+  .controller('NavbarCtrl', function($scope, $location) {
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
