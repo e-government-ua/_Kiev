@@ -9,5 +9,5 @@ module.exports.setFlowSlot_ServiceData = function (req, res) {
         var sHost = "https://test.region.igov.org.ua/wf-region/service";
 	activiti.sendPostRequest(req, res, '/flow/setFlowSlot_ServiceData', {
 		nID_FlowSlot: req.params.nID
-	}, sHost);
+	}, null, sHost);
 };
