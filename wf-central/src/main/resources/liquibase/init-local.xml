@@ -506,4 +506,26 @@
 
         
     </changeSet>
+
+    <changeSet id="Add auto increment for H2" author="brunneng" dbms="h2">
+        <addAutoIncrement tableName="Region" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="City" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="Category" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="Subcategory" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="ServiceType" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="Service" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="ServiceData" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="Subject" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="SubjectHuman" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="SubjectOrgan" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="SubjectMessage" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="DocumentType" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="DocumentContentType" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="Document" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="DocumentOperator_SubjectOrgan" startWith="1000" columnName="nID" columnDataType="bigint"/>
+        <addAutoIncrement tableName="ServiceOperator_SubjectOrgan" startWith="1000" columnName="nID" columnDataType="bigint"/>
+        <addAutoIncrement tableName="HistoryEvent" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="DocumentAccess" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
 </databaseChangeLog>

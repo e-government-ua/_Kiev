@@ -48,17 +48,17 @@
             <column name="nID_SubjectOrgan" type="NUMERIC"/>
         </loadUpdateData>
 
-        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="${liquibase.live.data.path}/ServiceOperator_SubjectOrgan.csv" tableName="ServiceOperator_SubjectOrgan" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="sName" type="STRING"/>
-            <column name="nID_SubjectOrgan" type="NUMERIC"/>
-        </loadUpdateData>
-
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="${liquibase.live.data.path}/DocumentOperator_SubjectOrgan.csv" tableName="DocumentOperator_SubjectOrgan" separator=";">
             <column name="nID"              type="NUMERIC"/>
             <column name="sName"            type="STRING"/>
             <column name="nID_SubjectOrgan" type="NUMERIC"/>
             <column name="sHandlerClass"    type="String"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="${liquibase.live.data.path}/ServiceOperator_SubjectOrgan.csv" tableName="ServiceOperator_SubjectOrgan" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="nID_SubjectOrgan" type="NUMERIC"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Region.csv" tableName="Region" separator=";">

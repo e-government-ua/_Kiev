@@ -140,4 +140,12 @@
 
 
     </changeSet>
+
+    <changeSet id="Add auto increment for H2" author="brunneng" dbms="h2">
+        <addAutoIncrement tableName="Flow_ServiceData" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="FlowProperty" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="FlowSlot" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="FlowSlotTicket" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
 </databaseChangeLog>
