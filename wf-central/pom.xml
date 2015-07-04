@@ -41,18 +41,6 @@
 
 	<build>
 
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>false</filtering>
-			</resource>
-			<resource>
-				<directory>src/main/resources/liquibase</directory>
-				<targetPath>liquibase</targetPath>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>

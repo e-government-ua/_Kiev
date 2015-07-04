@@ -18,6 +18,8 @@
 		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
 		<!--compiler properties -->
 
+		<liquibase.data.path>data</liquibase.data.path>
+
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
 		<maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
 		<maven-compiler-plugin.version>3.0</maven-compiler-plugin.version>
@@ -132,7 +134,7 @@
                         <igov.wf-base.version>1.0.0a-SNAPSHOT</igov.wf-base.version>
                         <igov.wf-central.version>1.0.0a-SNAPSHOT</igov.wf-central.version>
                         <igov.wf-region.version>1.0.0a-SNAPSHOT</igov.wf-region.version>
-						<liquibase.live.data.path>data</liquibase.live.data.path>
+						<liquibase.custom.data.path>${liquibase.data.path}</liquibase.custom.data.path>
                     </properties>
                 </profile>
                 <profile>
@@ -158,7 +160,7 @@
                         <igov.wf-base.version>1.0.0b-SNAPSHOT</igov.wf-base.version>
                         <igov.wf-central.version>1.0.0b-SNAPSHOT</igov.wf-central.version>
                         <igov.wf-region.version>1.0.0b-SNAPSHOT</igov.wf-region.version>
-						<liquibase.live.data.path>data</liquibase.live.data.path>
+						<liquibase.custom.data.path>${liquibase.data.path}/beta</liquibase.custom.data.path>
                     </properties>
                 </profile>
                 <profile>
@@ -184,7 +186,7 @@
                         <igov.wf-base.version>1.0.0-RELEASE</igov.wf-base.version>
                         <igov.wf-central.version>1.0.0-RELEASE</igov.wf-central.version>
                         <igov.wf-region.version>1.0.0-RELEASE</igov.wf-region.version>
-						<liquibase.live.data.path>data/prod</liquibase.live.data.path>
+						<liquibase.custom.data.path>${liquibase.data.path}/prod</liquibase.custom.data.path>
                     </properties>
                 </profile> 
 	</profiles>
@@ -457,6 +459,16 @@
 
 	<build>
 
+		<resources>
+			<resource> <!-- declared first because override is not working when copy resources -->
+				<directory>src/main/resources/${liquibase.custom.data.path}</directory>
+				<targetPath>${liquibase.data.path}</targetPath>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
 
 		<pluginManagement>
 			<plugins>
