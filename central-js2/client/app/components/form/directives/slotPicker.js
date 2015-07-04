@@ -21,7 +21,7 @@ angular.module('app').directive('slotPicker', function($http) {
         if (newValue) {
           $http.post('/api/service/flow/set/' + newValue.nID).then(function(response) {
             scope.ngModel = JSON.stringify({
-              nID_SubjectTicket: response.data.nID_Ticket,
+              nID_FlowSlotTicket: response.data.nID_Ticket,
               sDate: scope.selected.date.sDate + ' ' + scope.selected.slot.sTime + ':00.00'
             });
           });
