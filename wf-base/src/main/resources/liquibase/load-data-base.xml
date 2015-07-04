@@ -6,7 +6,7 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     
-    <changeSet id="Core Flow Live" author="brunneng" runOnChange="true" context="test">
+    <changeSet id="Core Flow Live" author="brunneng" runOnChange="true" context="local,test">
 
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
@@ -40,7 +40,7 @@
     
     
 
-    <changeSet id="Module Flow Live" author="brunneng" runOnChange="true" context="test">
+    <changeSet id="Module Flow Live" author="brunneng" runOnChange="true" context="local,test">
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
             DELETE FROM "FlowSlot";

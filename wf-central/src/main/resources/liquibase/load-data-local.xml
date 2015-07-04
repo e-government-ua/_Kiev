@@ -7,7 +7,7 @@
 
     
     
-    <changeSet id="Core Subject Live" author="brunneng" runOnChange="true" context="test">
+    <changeSet id="Core Subject Live" author="brunneng" runOnChange="true" context="local,test">
 
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
@@ -47,7 +47,7 @@
     </changeSet>
 
 
-    <changeSet id="Module Subject Live" author="brunneng" runOnChange="true" context="test">
+    <changeSet id="Module Subject Live" author="brunneng" runOnChange="true" context="local,test">
 
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
@@ -80,7 +80,7 @@
     
 
 
-    <changeSet id="Core Service Static" author="brunneng" runOnChange="true">
+    <changeSet id="Core Service Static" author="brunneng" runOnChange="true" context="local,test,prod">
 
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
@@ -149,7 +149,7 @@
 
 
 
-    <changeSet id="Core Document Live" author="brunneng" runOnChange="true" context="test">
+    <changeSet id="Core Document Live" author="brunneng" runOnChange="true" context="local,test">
 
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
@@ -170,7 +170,7 @@
     </changeSet>
 
 
-    <changeSet id="Module Document Live" author="brunneng" runOnChange="true" context="test">
+    <changeSet id="Module Document Live" author="brunneng" runOnChange="true" context="local,test">
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
             DELETE FROM "Document";
