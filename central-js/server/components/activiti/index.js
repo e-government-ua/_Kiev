@@ -25,12 +25,14 @@ module.exports.getConfigOptions = function () {
 
 module.exports.getRequestUrl = function (apiURL, sHost) {
 	var options = this.getConfigOptions();
-	return (sHost!=null ? sHost : options.protocol + '://' + options.hostname + options.path) + apiURL;
+	return (sHost!==null ? sHost : options.protocol + '://' + options.hostname + options.path) + apiURL;
 };
 
 module.exports.buildRequest = function (req, apiURL, params, sHost) {
+        var sURL = this.getRequestUrl(apiURL, sHost);
+        console.log('sHost='+sHost+',sURL=' + sURL);
 	return {
-		'url': this.getRequestUrl(apiURL, sHost),
+		'url': sURL,
 		'auth': this.getAuth(),
 		'qs': _.extend(params, {nID_Subject: req.session.subject.nID})
 	};
