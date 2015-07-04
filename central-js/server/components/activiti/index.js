@@ -25,7 +25,7 @@ module.exports.getConfigOptions = function () {
 
 module.exports.getRequestUrl = function (apiURL, sHost) {
 	var options = this.getConfigOptions();
-	return (sHost!==null ? sHost : options.protocol + '://' + options.hostname + options.path) + apiURL;
+	return (sHost!==null && sHost !== undefined ? sHost : options.protocol + '://' + options.hostname + options.path) + apiURL;
 };
 
 module.exports.buildRequest = function (req, apiURL, params, sHost) {
