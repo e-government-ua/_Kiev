@@ -23,14 +23,14 @@ module.exports.getConfigOptions = function () {
 
 };
 
-module.exports.getRequestUrl = function (apiURL) {
+module.exports.getRequestUrl = function (apiURL, sHost) {
 	var options = this.getConfigOptions();
-	return options.protocol + '://' + options.hostname + options.path + apiURL;
+	return (sHost!=null ? sHost : options.protocol + '://' + options.hostname + options.path) + apiURL;
 };
 
-module.exports.buildRequest = function (req, apiURL, params) {
+module.exports.buildRequest = function (req, apiURL, params, sHost) {
 	return {
-		'url': this.getRequestUrl(apiURL),
+		'url': this.getRequestUrl(apiURL, sHost),
 		'auth': this.getAuth(),
 		'qs': _.extend(params, {nID_Subject: req.session.subject.nID})
 	};
@@ -44,21 +44,21 @@ module.exports.getAuth = function () {
 	};
 };
 
-module.exports.sendGetRequest = function (req, res, apiURL, params, callback) {
+module.exports.sendGetRequest = function (req, res, apiURL, params, callback, sHost) {
 	var _callback = callback ? callback : function (error, response, body) {
 		res.send(body);
 		res.end();
 	};
-	var url = this.buildRequest(req, apiURL, params);
+	var url = this.buildRequest(req, apiURL, params, sHost);
 	return request(url, _callback);
 };
 
-module.exports.sendPostRequest = function (req, res, apiURL, params, callback) {
+module.exports.sendPostRequest = function (req, res, apiURL, params, callback, sHost) {
 	var _callback = callback ? callback : function (error, response, body) {
 		res.send(body);
 		res.end();
 	};
-	var url = this.buildRequest(req, apiURL, params);
+	var url = this.buildRequest(req, apiURL, params, sHost);
 	return request.post(url, _callback);
 };
 
