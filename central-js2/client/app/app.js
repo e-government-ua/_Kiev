@@ -8,7 +8,7 @@ angular.module('app', [
   'ngMessages',
   'ngClipboard',
   'index',
-  //'journal',
+  'journal',
   'documents',
   'about'
 ]).config(function($stateProvider, $urlRouterProvider, $locationProvider) {

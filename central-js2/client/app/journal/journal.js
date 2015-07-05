@@ -2,10 +2,10 @@ angular.module('journal').config(function($stateProvider) {
 
   $stateProvider
     .state('index.journal', {
-      url: '/journal',
+      url: 'journal',
       views: {
-        '': {
-          templateUrl: 'app/journal/index.html',
+        'main@': {
+          templateUrl: 'app/journal/journal.html',
           controller: 'JournalController'
         }
       }

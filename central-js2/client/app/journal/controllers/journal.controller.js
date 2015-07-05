@@ -1,5 +1,4 @@
-angular.module('journal', []).controller('JournalController', function($scope, $state, config, BankIDService) {
-  $scope.config = config;
+angular.module('journal', []).controller('JournalController', function($scope, $state, BankIDService) {
 
   BankIDService.isLoggedIn().then(function() {
     if ($state.is('journal')) {
