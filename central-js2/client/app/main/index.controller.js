@@ -1,5 +1,4 @@
 angular.module('index', []).controller('IndexController', function($scope, $rootScope, $timeout, CatalogService, AdminService, $filter) {
-  $scope.catalog = CatalogService.getServices();
   $scope.catalogCounts = {0: 0, 1: 0, 2: 0};
   $scope.limit = 4;
   $scope.sSearch = null;
@@ -114,4 +113,5 @@ angular.module('index', []).controller('IndexController', function($scope, $root
       $scope.recalcCounts = true;
     });
   });
+  $scope.search();
 });
