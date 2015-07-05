@@ -18,6 +18,8 @@
 		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
 		<!--compiler properties -->
 
+		<liquibase.data.path>data</liquibase.data.path>
+
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
 		<maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
 		<maven-compiler-plugin.version>3.0</maven-compiler-plugin.version>
@@ -132,6 +134,7 @@
                         <igov.wf-base.version>1.0.0a-SNAPSHOT</igov.wf-base.version>
                         <igov.wf-central.version>1.0.0a-SNAPSHOT</igov.wf-central.version>
                         <igov.wf-region.version>1.0.0a-SNAPSHOT</igov.wf-region.version>
+						<liquibase.custom.data.path>${liquibase.data.path}</liquibase.custom.data.path>
                     </properties>
                 </profile>
                 <profile>
@@ -157,6 +160,7 @@
                         <igov.wf-base.version>1.0.0b-SNAPSHOT</igov.wf-base.version>
                         <igov.wf-central.version>1.0.0b-SNAPSHOT</igov.wf-central.version>
                         <igov.wf-region.version>1.0.0b-SNAPSHOT</igov.wf-region.version>
+						<liquibase.custom.data.path>${liquibase.data.path}/beta</liquibase.custom.data.path>
                     </properties>
                 </profile>
                 <profile>
@@ -182,70 +186,9 @@
                         <igov.wf-base.version>1.0.0-RELEASE</igov.wf-base.version>
                         <igov.wf-central.version>1.0.0-RELEASE</igov.wf-central.version>
                         <igov.wf-region.version>1.0.0-RELEASE</igov.wf-region.version>
+						<liquibase.custom.data.path>${liquibase.data.path}/prod</liquibase.custom.data.path>
                     </properties>
                 </profile> 
-                           
-		<profile>
-			<id>wf-all</id>
-                        <properties>
-                            <sRevision>b</sRevision>
-                            <igov.storage-static.version>1.0.0-SNAPSHOT</igov.storage-static.version>
-                            <igov.storage-temp.version>1.0.0-SNAPSHOT</igov.storage-temp.version>
-                            <igov.wf-base.version>1.0.0-SNAPSHOT</igov.wf-base.version>
-                            <igov.wf-central.version>1.0.0-SNAPSHOT</igov.wf-central.version>
-                            <igov.wf-region.version>1.0.0-SNAPSHOT</igov.wf-region.version>
-                        </properties>
-			<modules>
-				<module>auth-custom</module>
-				<module>storage-static</module>
-				<module>storage-temp</module>
-				<module>wf-base</module>
-				<module>wf-region</module>
-				<module>wf-central</module>
-			</modules>
-
-			<!--activation>
-				<activeByDefault>true</activeByDefault>
-			</activation-->
-		</profile>
-
-		<profile>
-			<id>wf-region</id>
-                        <properties>
-                            <sRevision>b</sRevision>
-                            <igov.storage-static.version>1.0.0-SNAPSHOT</igov.storage-static.version>
-                            <igov.storage-temp.version>1.0.0-SNAPSHOT</igov.storage-temp.version>
-                            <igov.wf-base.version>1.0.0-SNAPSHOT</igov.wf-base.version>
-                            <igov.wf-central.version>1.0.0-SNAPSHOT</igov.wf-central.version>
-                            <igov.wf-region.version>1.0.0-SNAPSHOT</igov.wf-region.version>
-                        </properties>
-			<modules>
-				<module>auth-custom</module>
-				<module>storage-static</module>
-				<module>storage-temp</module>
-				<module>wf-base</module>
-				<module>wf-region</module>
-			</modules>
-		</profile>
-
-		<profile>
-			<id>wf-central</id>
-                        <properties>
-                            <sRevision>b</sRevision>
-                            <igov.storage-static.version>1.0.0-SNAPSHOT</igov.storage-static.version>
-                            <igov.storage-temp.version>1.0.0-SNAPSHOT</igov.storage-temp.version>
-                            <igov.wf-base.version>1.0.0-SNAPSHOT</igov.wf-base.version>
-                            <igov.wf-central.version>1.0.0-SNAPSHOT</igov.wf-central.version>
-                            <igov.wf-region.version>1.0.0-SNAPSHOT</igov.wf-region.version>
-                        </properties>
-			<modules>
-				<module>auth-custom</module>
-				<module>storage-static</module>
-				<module>storage-temp</module>
-				<module>wf-base</module>
-				<module>wf-central</module>
-			</modules>
-		</profile>
 	</profiles>
 
 	<dependencyManagement>
@@ -515,6 +458,18 @@
 	</dependencyManagement>
 
 	<build>
+
+		<resources>
+			<resource> <!-- declared first because override is not working when copy resources -->
+				<directory>src/main/resources/${liquibase.custom.data.path}</directory>
+				<targetPath>${liquibase.data.path}</targetPath>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+
 		<pluginManagement>
 			<plugins>
 				<plugin>

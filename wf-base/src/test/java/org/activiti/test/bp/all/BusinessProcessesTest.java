@@ -15,14 +15,15 @@ import org.springframework.test.context.junit4.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("default")
 @ContextConfiguration(locations = {
-		"classpath:META-INF/spring/bp/all/activiti.cfg.mock.xml",
-		"classpath:META-INF/spring/bp/all/activiti.cfg.scan.xml",
-		"classpath:activiti-custom-context-all-test.xml" })
+		"classpath:META-INF/spring/bp/all/activiti.cfg.mock.xml"
+                , "classpath:META-INF/spring/bp/all/activiti.cfg.scan.xml"
+                , "classpath:context_test-base.xml"
+                //, "classpath:context.xml"
+            })
 public class BusinessProcessesTest extends PluggableActivitiTestCase {
 
 	@Rule
-	public ActivitiRule activitiRule = new ActivitiRule(
-			"activiti-custom-context-all-test.xml");
+	public ActivitiRule activitiRule = new ActivitiRule("context_test-base.xml");
 
 	@Before
 	public void injectDependencies() throws Exception {

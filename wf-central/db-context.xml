@@ -73,7 +73,7 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="subjectTicketDao" class="org.wf.dp.dniprorada.base.dao.SubjectTicketDaoImp">
+    <bean id="flowSlotTicketDao" class="org.wf.dp.dniprorada.base.dao.SubjectTicketDaoImp">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 

@@ -20,9 +20,8 @@ import static org.junit.Assert.*;
  * @since 28.06.15
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles("test")
-@ContextConfiguration(locations = {
-        "classpath:activiti-custom-context.xml"})
+@ActiveProfiles("default")
+@ContextConfiguration(locations = {"classpath:context.xml"})
 public class DocumentOperatorTest {
     public static final Long DUMMY_OPERATOR_ID = 2L;
 
@@ -51,7 +50,7 @@ public class DocumentOperatorTest {
         DocumentAccess access = handler.setAccessCode("1").getAccess();
         assertNotNull("DocumentAccess not found", access);
 
-        Document doc = documentDao.getDocument( access.getID() );
+        Document doc = documentDao.getDocument( access.getId() );
         assertNotNull("Document not found", doc);
         assertNotNull("Document name is empty", doc.getName());
     }

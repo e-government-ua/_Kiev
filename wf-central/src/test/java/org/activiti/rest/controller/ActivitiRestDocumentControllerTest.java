@@ -57,8 +57,7 @@ public class ActivitiRestDocumentControllerTest {
             .getResponse()
             .getContentAsString();
 
-        List<DocumentOperator_SubjectOrgan> operators = Arrays.asList(
-            JsonRestUtils.readObject(jsonData, DocumentOperator_SubjectOrgan[].class));
+        List<DocumentOperator_SubjectOrgan> operators = Arrays.asList(JsonRestUtils.readObject(jsonData, DocumentOperator_SubjectOrgan[].class));
 
         assertFalse(operators.isEmpty());
 
@@ -92,7 +91,7 @@ public class ActivitiRestDocumentControllerTest {
         assertEquals("IDs aren't match", 1, doc.getId().longValue());
         assertNotNull("Name can't be empty", doc.getName());
         assertEquals("Doc. types aren't match", 0, doc.getDocumentType().getId().longValue());
-        assertEquals("Subjects aren't match, ", 1, doc.getSubject().getnID().longValue());
+        assertEquals("Subjects aren't match, ", 1, doc.getSubject().getId().longValue());
     }
 
     @Test
@@ -149,7 +148,7 @@ public class ActivitiRestDocumentControllerTest {
         assertEquals("IDs aren't match", 2, doc.getId().longValue());
         assertNotNull("Name can't be empty", doc.getName());
         assertEquals("Doc. types aren't match", 1, doc.getDocumentType().getId().longValue());
-        assertEquals("Subjects aren't match, ", 2, doc.getSubject().getnID().longValue());
+        assertEquals("Subjects aren't match, ", 2, doc.getSubject().getId().longValue());
     }
 
 
@@ -193,7 +192,7 @@ public class ActivitiRestDocumentControllerTest {
         assertEquals("IDs aren't match", 2, doc.getId().longValue());
         assertNotNull("Name can't be empty", doc.getName());
         assertEquals("Doc. types aren't match", 1, doc.getDocumentType().getId().longValue());
-        assertEquals("Subjects aren't match, ", 2, doc.getSubject().getnID().longValue());
+        assertEquals("Subjects aren't match, ", 2, doc.getSubject().getId().longValue());
     }
 
     @Test

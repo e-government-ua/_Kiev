@@ -21,7 +21,7 @@ public class DocumentAccessHandler_IGov implements DocumentAccessHandler {
     private static final Logger LOG = LoggerFactory.getLogger(DocumentAccessHandler_IGov.class);
     private String  accessCode;
     private String  password;
-    private Integer documentTypeId;
+    private Long documentTypeId;
 
     @Autowired
     private DocumentAccessDao documentAccessDao;
@@ -40,7 +40,7 @@ public class DocumentAccessHandler_IGov implements DocumentAccessHandler {
         return this;
     }
 
-    public DocumentAccessHandler setDocumentType(Integer docTypeID) {
+    public DocumentAccessHandler setDocumentType(Long docTypeID) {
         this.documentTypeId = docTypeID;
         return this;
     }

@@ -41,7 +41,7 @@ public class FlowSlot extends NamedEntity {
    private Flow_ServiceData flow;
 
    @OneToMany(mappedBy = "oFlowSlot")
-   private List<SubjectTicket> subjectTickets = new ArrayList<>();
+   private List<FlowSlotTicket> aFlowSlotTicket = new ArrayList<>();
 
    public String getsData() {
       return sData;
@@ -50,12 +50,12 @@ public class FlowSlot extends NamedEntity {
       this.sData = sData;
    }
 
-   public List<SubjectTicket> getSubjectTickets() {
-      return subjectTickets;
+   public List<FlowSlotTicket> getFlowSlotTickets() {
+      return aFlowSlotTicket;
    }
 
-   public void setSubjectTickets(List<SubjectTicket> subjectTickets) {
-      this.subjectTickets = subjectTickets;
+   public void setFlowSlotTickets(List<FlowSlotTicket> aFlowSlotTicket) {
+      this.aFlowSlotTicket = aFlowSlotTicket;
    }
 
    public DateTime getsDate() {

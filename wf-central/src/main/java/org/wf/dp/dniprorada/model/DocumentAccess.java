@@ -1,17 +1,15 @@
 package org.wf.dp.dniprorada.model;
 
 import net.sf.brunneng.jom.annotations.Identifier;
+import org.wf.dp.dniprorada.base.model.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
 @Table(name="DocumentAccess")
-public class DocumentAccess {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "nID")
-	private Long nID;
+public class DocumentAccess extends org.wf.dp.dniprorada.base.model.Entity {
 
 	@Column(name = "nID_Document")
 	private Long nID_Document;
@@ -131,14 +129,6 @@ public class DocumentAccess {
 		this.sDateAnswerExpire = o.toString();
 	}
 
-	public Long getID() {
-		return nID;
-	}
-
-	public void setID(Long n) {
-		this.nID = n;
-	}
-
 	public String getsCode() {
 		return sCode;
 	}
@@ -157,7 +147,7 @@ public class DocumentAccess {
 
 	@Override
 	public String toString() {
-		return "{\n" + "nID:" + nID + "\nnID_Document:" + nID_Document + "sDateCreate:" + sDateCreate +
+		return "{\n" + "nID:" + getId() + "\nnID_Document:" + nID_Document + "sDateCreate:" + sDateCreate +
 				"\nnMS:" + nMS + "\nsFIO:" + sFIO + "\nsTarget:" + sTarget + "\nsTelephone:" + sTelephone +
 				"\nsMail:" + sMail + "\nsSecret:" + sSecret + "\nsAnswer:" + sAnswer + "" +
 				"\nsDateAnswerExpire:" + sDateAnswerExpire +

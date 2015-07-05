@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.wf.dp.dniprorada.base.model.FlowSlot;
-import org.wf.dp.dniprorada.base.model.SubjectTicket;
+import org.wf.dp.dniprorada.base.model.FlowSlotTicket;
 import org.wf.dp.dniprorada.base.util.DurationUtil;
 
 /**
@@ -35,7 +35,7 @@ public class FlowSlotVO {
       DateTime now = DateTime.now();
 
       bFree = true;
-      for (SubjectTicket ticket : flowSlot.getSubjectTickets()) {
+      for (FlowSlotTicket ticket : flowSlot.getFlowSlotTickets()) {
          if (ticket.getnID_Task_Activiti() != null || ticket.getsDateEdit().compareTo(now.minusMinutes(
                  TICKET_WITHOUT_TASK_EXPIRATION_TIME_MINUTES)) >= 0) {
             bFree = false;

@@ -8,11 +8,11 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.Assert;
 import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
-import org.wf.dp.dniprorada.base.dao.SubjectTicketDao;
+import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
 import org.wf.dp.dniprorada.base.model.FlowProperty;
 import org.wf.dp.dniprorada.base.model.FlowSlot;
 import org.wf.dp.dniprorada.base.model.Flow_ServiceData;
-import org.wf.dp.dniprorada.base.model.SubjectTicket;
+import org.wf.dp.dniprorada.base.model.FlowSlotTicket;
 import org.wf.dp.dniprorada.base.service.flow.propertyHandler.BaseFlowSlotScheduler;
 import org.wf.dp.dniprorada.base.service.flow.propertyHandler.FlowPropertyHandler;
 import org.wf.dp.dniprorada.base.util.DurationUtil;
@@ -32,13 +32,13 @@ import java.util.*;
 public class FlowService implements ApplicationContextAware {
 
    private FlowSlotDao flowSlotDao;
-   private SubjectTicketDao subjectTicketDao;
+   private FlowSlotTicketDao oFlowSlotTicketDao;
    private BaseEntityDao baseEntityDao;
 
    private ApplicationContext applicationContext;
 
-   public SubjectTicketDao getSubjectTicketDao() {
-      return subjectTicketDao;
+   public FlowSlotTicketDao getFlowSlotTicketDao() {
+      return oFlowSlotTicketDao;
    }
 
    public FlowSlotDao getFlowSlotDao() {
@@ -50,8 +50,8 @@ public class FlowService implements ApplicationContextAware {
    }
 
    @Required
-   public void setSubjectTicketDao(SubjectTicketDao subjectTicketDao) {
-      this.subjectTicketDao = subjectTicketDao;
+   public void setFlowSlotTicketDao(FlowSlotTicketDao oFlowSlotTicketDao) {
+      this.oFlowSlotTicketDao = oFlowSlotTicketDao;
    }
 
    public BaseEntityDao getBaseEntityDao() {
@@ -113,29 +113,29 @@ public class FlowService implements ApplicationContextAware {
       return res;
    }
 
-   public SubjectTicket saveSubjectTicket(Long nID_FlowSlot, Long nID_Subject, Long nID_Task_Activiti) {
+   public FlowSlotTicket saveFlowSlotTicket(Long nID_FlowSlot, Long nID_Subject, Long nID_Task_Activiti) {
 
-      SubjectTicket subjectTicket = subjectTicketDao.findSubjectTicket(nID_FlowSlot);
-      if (subjectTicket == null) {
-         subjectTicket = new SubjectTicket();
+      FlowSlotTicket oFlowSlotTicket = oFlowSlotTicketDao.findFlowSlotTicket(nID_FlowSlot);
+      if (oFlowSlotTicket == null) {
+         oFlowSlotTicket = new FlowSlotTicket();
       }
 
-      subjectTicket.setnID_Subject(nID_Subject);
-      subjectTicket.setnID_Task_Activiti(nID_Task_Activiti);
+      oFlowSlotTicket.setnID_Subject(nID_Subject);
+      oFlowSlotTicket.setnID_Task_Activiti(nID_Task_Activiti);
 
       FlowSlot flowSlot = baseEntityDao.getById(FlowSlot.class, nID_FlowSlot);
 
-      subjectTicket.setoFlowSlot(flowSlot);
-      subjectTicket.setsDateStart(flowSlot.getsDate());
+      oFlowSlotTicket.setoFlowSlot(flowSlot);
+      oFlowSlotTicket.setsDateStart(flowSlot.getsDate());
 
       Duration duration = DurationUtil.parseDuration(flowSlot.getsDuration());
       DateTime finishDateTime = flowSlot.getsDate().plusMinutes(duration.getMinutes());
-      subjectTicket.setsDateFinish(finishDateTime);
+      oFlowSlotTicket.setsDateFinish(finishDateTime);
 
-      subjectTicket.setsDateEdit(DateTime.now());
+      oFlowSlotTicket.setsDateEdit(DateTime.now());
 
-      baseEntityDao.saveOrUpdate(subjectTicket);
-      return subjectTicket;
+      baseEntityDao.saveOrUpdate(oFlowSlotTicket);
+      return oFlowSlotTicket;
    }
 
    /**
@@ -180,18 +180,18 @@ public class FlowService implements ApplicationContextAware {
       ClearSlotsResult res = new ClearSlotsResult();
       List<FlowSlot> flowSlotsToDelete = new ArrayList<>();
       for (FlowSlot slot : flowSlots) {
-         if (bWithTickets || slot.getSubjectTickets().isEmpty()) {
+         if (bWithTickets || slot.getFlowSlotTickets().isEmpty()) {
             flowSlotsToDelete.add(slot);
 
             // detach existing tickets from slots
-            for (SubjectTicket subjectTicket : slot.getSubjectTickets()) {
-               subjectTicket.setoFlowSlot(null);
-               subjectTicket.setsDateEdit(operationTime);
+            for (FlowSlotTicket oFlowSlotTicket : slot.getFlowSlotTickets()) {
+               oFlowSlotTicket.setoFlowSlot(null);
+               oFlowSlotTicket.setsDateEdit(operationTime);
             }
             res.getaDeletedSlot().add(new FlowSlotVO(slot));
          }
 
-         if (!slot.getSubjectTickets().isEmpty()) {
+         if (!slot.getFlowSlotTickets().isEmpty()) {
             res.getaSlotWithTickets().add(new FlowSlotVO(slot));
          }
       }
