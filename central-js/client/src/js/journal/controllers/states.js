@@ -23,7 +23,7 @@ define('state/journal/bankid/controller', ['angularAMD'], function (angularAMD) 
                 '://' + $location.host() + ':'
                 + $location.port()
                 + stateForRedirect;
-            $window.location.href = '/auth/bankID?link=' + redirectURI;
+            $window.location.href = './auth/bankID?link=' + redirectURI;
         }
 		
         if ($state.is('journal.bankid')) {
