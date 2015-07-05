@@ -1,6 +1,6 @@
 angular.module('app').config(function($stateProvider) {
   $stateProvider
-    .state('service.general.country.link', {
+    .state('index.service.general.country.link', {
       url: '/link',
       views: {
         'content@service.general.country': {

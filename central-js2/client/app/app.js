@@ -7,33 +7,34 @@ angular.module('app', [
   'ui.bootstrap',
   'ngMessages',
   'ngClipboard',
-  'bankid',
   'index',
-  'journal',
+  //'journal',
   'documents'
 ]).config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
   $stateProvider
     .state('index', {
       url: '/',
-      abstract: true
-    })
-    .state('index.main', {
-      url: 'index',
-      views: {
+      abstract: true,
+      views:{
         header: {
           templateUrl: 'app/header/header.html'
         },
         footer: {
           templateUrl: 'app/footer/footer.html'
-        },
-        main: {
-          templateUrl: 'html/catalog/services.html',
-          controller: 'IndexController'
         }
       }
     })
-    .state('subcategory', {
+    .state('index.main', {
+      url: 'index',
+      views: {
+          'main@': {
+            templateUrl: 'html/catalog/services.html',
+            controller: 'IndexController'
+          }
+      }
+    })
+    .state('index.subcategory', {
       url: '/subcategory/:catID/:scatID',
       resolve: {
         catalog: function(CatalogService) {

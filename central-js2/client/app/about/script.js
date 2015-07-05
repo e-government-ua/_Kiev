@@ -2,7 +2,7 @@ var app = angular.module('about', []);
 
 app.config(function($stateProvider) {
   $stateProvider
-    .state('about', {
+    .state('index.about', {
       url: '/about',
       views: {
         '': {

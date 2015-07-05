@@ -73,15 +73,17 @@
                              ng-if="property.id != 'processName'">
                             <!--div class="col-md-5">{{property.name}}:</div-->
                             <!--div class="col-md-5">{{ sFieldLabel(property.name) }}:</div-->
-                            
+
                             <div style="display: none;">
                                 _1{{data.formData.params[property.id].required}}
                                 _2{{property.required}}
                                 _3{{form[property.id].required}}
                             </div>
-                            
-                            <div class="col-md-5" ng-if="property.type!='invisible' && property.type!='markers'">
-                                <label style="color: red;" ng-if="property.required==true">* </label>
+
+                            <div class="col-md-5"
+                                 ng-if="property.type!='invisible' && property.type!='markers'">
+                                <label style="color: red;"
+                                       ng-if="property.required==true">* </label>
                                 {{property.sFieldLabel}}:
 
                                 <div class="s-field-notes"
@@ -94,7 +96,8 @@
                             <div class="col-md-3"
                                  ng-class="{'has-error': form.$submitted && form[property.id].$invalid}"
                                  ng-if="!data.formData.fields[property.id] && property.type!='invisible' && property.type!='markers'"
-                                 ng-switch on="property.type">
+                                 ng-switch
+                                 on="property.type">
                                 <textarea ng-switch-when="textArea"
                                           name="{{property.id}}"
                                           ng-model="data.formData.params[property.id].value"
@@ -112,7 +115,7 @@
                                        ng-required="property.required"
                                        class="form-control"
                                        value="">
-                                
+
                                 <label style="display: none;"
                                        ng-switch-when="invisible"
                                        name="{{property.id}}"
@@ -123,7 +126,7 @@
                                        name="{{property.id}}"
                                        ng-required="property.required"
                                        class="form-control_">{{data.formData.params[property.id].value}}</label>
-                                       
+
                                 <input ng-switch-when="long"
                                        type="text"
                                        name="{{property.id}}"
@@ -205,7 +208,8 @@
                         <div class="row">
                             <div class="col-md-5"></div>
                             <div class="col-md-3">
-                                <button class="btn btn-info" ng-click="submit(form)"
+                                <button class="btn btn-info"
+                                        ng-click="submit(form)"
                                         ng-disable="cantSubmit(form)"
                                         ng-hide="bSending(form)"
                                         >Замовити послугу

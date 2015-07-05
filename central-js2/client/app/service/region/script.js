@@ -1,6 +1,6 @@
 angular.module('app').config(function($stateProvider) {
   $stateProvider
-    .state('service.general.region', {
+    .state('index.service.general.region', {
       url: '/region',
       resolve: {
         regions: function($stateParams, PlacesService, service) {
@@ -36,7 +36,7 @@ angular.module('app').config(function($stateProvider) {
         }
       }
     })
-    .state('service.general.region.error', {
+    .state('index.service.general.region.error', {
       url: '/absent',
       views: {
         'content@service.general.region': {

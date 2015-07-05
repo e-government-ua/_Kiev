@@ -1,7 +1,7 @@
 angular.module('journal').config(function($stateProvider) {
 
   $stateProvider
-    .state('journal', {
+    .state('index.journal', {
       url: '/journal',
       views: {
         '': {
@@ -10,9 +10,9 @@ angular.module('journal').config(function($stateProvider) {
         }
       }
     })
-    .state('journal.bankid', {
+    .state('index.journal.bankid', {
       url: '/bankid?code&error',
-      parent: 'journal',
+      parent: 'index.journal',
       views: {
         'bankid': {
           templateUrl: 'html/journal/bankid/index.html',
@@ -20,9 +20,9 @@ angular.module('journal').config(function($stateProvider) {
         }
       }
     })
-    .state('journal.content', {
+    .state('index.journal.content', {
       url: '/content?code',
-      parent: 'journal',
+      parent: 'index.journal',
       resolve: {
         BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
           return BankIDService.isLoggedIn().then(function() {

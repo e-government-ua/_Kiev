@@ -1,4 +1,4 @@
-angular.module('bankid', []).factory('BankIDDocumentsFactory', function(BankIDDocumentsPassportFactory) {
+angular.module('documents').factory('BankIDDocumentsFactory', function(BankIDDocumentsPassportFactory) {
   var documents = function() {
     this.list = [];
   };

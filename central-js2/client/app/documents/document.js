@@ -1,23 +1,23 @@
 angular.module('documents').config(function($stateProvider) {
   $stateProvider
-    .state('documents', {
-      url: '/documents',
+    .state('index.documents', {
+      url: 'documents',
       views: {
-        '': {
+        'main@': {
           templateUrl: 'html/documents/index.html',
           controller: 'DocumentsController'
         }
       }
     })
-    .state('documents.user', {
+    .state('index.documents.user', {
       url: '/user',
       views: {
         'content': {templateUrl: 'html/documents/user/index.html'}
       }
     })
-    .state('documents.bankid', {
+    .state('index.documents.bankid', {
       url: '/bankid?error',
-      parent: 'documents.user',
+      parent: 'index.documents.user',
       views: {
         'content': {
           templateUrl: 'html/documents/bankid/index.html',
@@ -25,16 +25,16 @@ angular.module('documents').config(function($stateProvider) {
         }
       }
     })
-    .state('documents.view', {
+    .state('index.documents.view', {
       url: '/view',
-      parent: 'documents.user',
+      parent: 'index.documents.user',
       views: {
         'content': {templateUrl: 'html/documents/view.html'}
       }
     })
-    .state('documents.content', {
+    .state('index.documents.content', {
       url: '/content',
-      parent: 'documents.user',
+      parent: 'index.documents.user',
       resolve: {
         BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
           return BankIDService.isLoggedIn().then(function() {
@@ -43,13 +43,13 @@ angular.module('documents').config(function($stateProvider) {
             return $q.reject(null);
           });
         },
-        BankIDAccount: function(BankIDService, BankIDLogin) {
+        BankIDAccount: function(BankIDService) {
           return BankIDService.account();
         },
         customer: function(BankIDAccount) {
           return BankIDAccount.customer;
         },
-        documents: function($q, $state, ServiceService, BankIDLogin, customer) {
+        documents: function($q, $state, ServiceService) {
           return ServiceService.getOrUploadDocuments()
             .then(function(data) {
               return data;
@@ -63,7 +63,7 @@ angular.module('documents').config(function($stateProvider) {
         }
       }
     })
-    .state('documents.search', {
+    .state('index.documents.search', {
       url: '/search',
       views: {
         'content': {
@@ -71,7 +71,7 @@ angular.module('documents').config(function($stateProvider) {
         }
       }
     })
-    .state('documents.notary', {
+    .state('index.documents.notary', {
       url: '/notary',
       views: {
         'content': {

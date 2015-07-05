@@ -1,6 +1,6 @@
 angular.module('app').config(function($stateProvider) {
   $stateProvider
-    .state('service.general.country', {
+    .state('index.service.general.country', {
       url: '/country',
       views: {
         '@service': {
@@ -9,7 +9,7 @@ angular.module('app').config(function($stateProvider) {
           controllerUrl: 'state/service/country/controller'
         }
       }
-    }).state('service.general.country.error', {
+    }).state('index.service.general.country.error', {
       url: '/absent',
       views: {
         'content@service.general.country': {

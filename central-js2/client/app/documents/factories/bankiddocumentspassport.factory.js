@@ -1,4 +1,4 @@
-angular.module('bankid').factory('BankIDDocumentsPassportFactory', [
+angular.module('documents').factory('BankIDDocumentsPassportFactory', [
   function() {
     var passport = function() {
       this.type = 'passport';

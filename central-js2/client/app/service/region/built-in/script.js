@@ -1,6 +1,6 @@
 angular.module('app').config(function($stateProvider) {
   $stateProvider
-    .state('service.general.region.built-in', {
+    .state('index.service.general.region.built-in', {
       url: '/built-in',
       views: {
         'content@service.general.region': {
@@ -9,9 +9,9 @@ angular.module('app').config(function($stateProvider) {
         }
       }
     })
-    .state('service.general.region.built-in.bankid', {
+    .state('index.service.general.region.built-in.bankid', {
       url: '/built-in/region/{region:int}/?code',
-      parent: 'service.general.region',
+      parent: 'index.service.general.region',
       data: {
         region: null,
         city: null
@@ -77,7 +77,7 @@ angular.module('app').config(function($stateProvider) {
         }
       }
     })
-    .state('service.general.region.built-in.bankid.submitted', {
+    .state('index.service.general.region.built-in.bankid.submitted', {
       url: null,
       data: {id: null},
       onExit: function($state) {

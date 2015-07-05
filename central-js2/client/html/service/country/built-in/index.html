@@ -1,7 +1,7 @@
-  <!--div style="margin-top:20px; font-size:25px;">{{service.sName}}</div>
-  <div style="margin-bottom:20px; font-size:18px;color:#cccccc;">{{service.sSubjectOperatorName}}</div-->
+<!--div style="margin-top:20px; font-size:25px;">{{service.sName}}</div>
+<div style="margin-bottom:20px; font-size:18px;color:#cccccc;">{{service.sSubjectOperatorName}}</div-->
 
 <service-auth-block
-		n-step="1"
-		redirect-uri="{{$state.href('service.general.country.built-in.bankid', {'id': service.nID})}}"
-		></service-auth-block>
+        n-step="1"
+        redirect-uri="{{$state.href('service.general.country.built-in.bankid', {'id': service.nID})}}"
+        ></service-auth-block>
