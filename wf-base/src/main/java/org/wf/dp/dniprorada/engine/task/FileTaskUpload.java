@@ -165,6 +165,7 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
                             LOG.error("nID_Subject="+nID_Subject);
                             long nID_Task_Activiti = 1; //TODO set real ID!!!
                             try{
+                                /*
                                 LOG.info("execution.getBusinessKey()="+execution.getBusinessKey());
                                 LOG.info("execution.getCurrentActivityId()="+execution.getCurrentActivityId());
                                 LOG.info("execution.getCurrentActivityName()="+execution.getCurrentActivityName());
@@ -173,10 +174,23 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
                                 LOG.info("execution.getParentId()="+execution.getParentId());
                                 LOG.info("execution.getProcessBusinessKey()="+execution.getProcessBusinessKey());
                                 LOG.info("execution.getProcessDefinitionId()="+execution.getProcessDefinitionId());
-                                LOG.info("execution.getProcessInstanceId()="+execution.getProcessInstanceId());
+                                LOG.info("execution.getProcessInstanceId()="+execution.getProcessInstanceId());//THIS!!!
                                 LOG.info("execution.getTenantId()="+execution.getTenantId());
+                                */
+/*                                
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getBusinessKey()=null
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getCurrentActivityId()=servicetask1
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getCurrentActivityName()=Підтягування документів
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getEventName()=null
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getId()=955057
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getParentId()=955001
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getProcessBusinessKey()=key
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getProcessDefinitionId()=kiev_mreo_1:126:942617
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getProcessInstanceId()=955001
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getTenantId()=
+*/                                
                                 try{
-                                    nID_Task_Activiti = Long.valueOf(execution.getId());
+                                    nID_Task_Activiti = Long.valueOf(execution.getProcessInstanceId());
                                     LOG.info("nID_Task_Activiti:Ok!");
                                 }catch(Exception oException){
                                     LOG.error(oException.getMessage());
