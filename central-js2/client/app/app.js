@@ -12,9 +12,46 @@ angular.module('app', [
   'journal',
   'documents'
 ]).config(function($stateProvider, $urlRouterProvider, $locationProvider) {
-  $urlRouterProvider.when('', function($match, $state) {
-    $state.transitionTo('index', $match, false);
-  });
-  $urlRouterProvider.otherwise('/404');
-  $locationProvider.html5Mode(true);
+
+  $stateProvider
+    .state('index', {
+      url: '/',
+      abstract: true
+    })
+    .state('index.main', {
+      url: 'index',
+      views: {
+        header: {
+          templateUrl: 'app/header/header.html'
+        },
+        footer: {
+          templateUrl: 'app/footer/footer.html'
+        },
+        main: {
+          templateUrl: 'html/catalog/services.html',
+          controller: 'IndexController'
+        }
+      }
+    })
+    .state('subcategory', {
+      url: '/subcategory/:catID/:scatID',
+      resolve: {
+        catalog: function(CatalogService) {
+          return CatalogService.getServices();
+        }
+      },
+      views: {
+        '': {
+          templateUrl: 'html/catalog/subcategory.html',
+          controller: 'SubcategoryController'
+        }
+      }
+    });
+  //});
+  $urlRouterProvider.otherwise('/index');
+  //$locationProvider.html5Mode(true);
+}).run(function($rootScope, $state) {
+  $rootScope.state = $state;
 });
+
+

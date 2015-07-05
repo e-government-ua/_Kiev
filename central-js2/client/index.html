@@ -28,40 +28,32 @@
     <!-- injector:css -->
     <!-- endinjector -->
     <!-- endbuild -->
+
 </head>
+
 <body ng-app="app">
 
-<!-- End Google Tag Manager -->
-<!-- build:section layout.header -->
-<!-- /build -->
-<div ui-view="">
-    <div class="text-center">
-        <img class="text-center"
-             src="/img/loading.gif"
-             alt="Loading"/>
+<!--<div ui-view="">-->
+    <!--<div class="text-center">-->
+        <!--<img class="text-center"-->
+             <!--src="assets/images/loading.gif"-->
+             <!--alt="Loading"/>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div ui-view=""
+     class="full-height">
+
+    <div ui-view="header"></div>
+
+    <div class="main full-height">
+        <div class="view"
+             ui-view="main"></div>
     </div>
+
+    <div ui-view="footer"></div>
 </div>
-<!-- build:section layout.footer -->
-<!-- /build -->
 
-
-<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-<script>
-    (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-    ga('create', 'UA-XXXXX-X');
-    ga('send', 'pageview');
-</script>
 
 <!--[if lt IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -104,17 +96,19 @@
 <script src="app/components/select/directives/optionsClass.js"></script>
 <script src="app/components/typeahead/directives/typeaheadEmpty.js"></script>
 <script src="app/components/typeahead/factories/typeahead.js"></script>
-<script src="app/documents/script.js"></script>
 <script src="app/documents/controllers/states.js"></script>
-<script src="app/index/script.js"></script>
-<script src="app/index/controllers/states.js"></script>
-<script src="app/index/services/catalog.js"></script>
-<script src="app/journal/script.js"></script>
-<script src="app/journal/controllers/states.js"></script>
+<script src="app/documents/document.js"></script>
+<script src="app/index/index.controller.js"></script>
+<script src="app/index/subcategory.controller.js"></script>
+<script src="app/journal/controllers/journal.controller.js"></script>
+<script src="app/journal/controllers/journalbankid.controller.js"></script>
+<script src="app/journal/controllers/journalcontent.controller.js"></script>
+<script src="app/journal/journal.js"></script>
 <script src="app/places/factories/localityList.js"></script>
 <script src="app/places/factories/regionList.js"></script>
 <script src="app/places/services/places.js"></script>
 <script src="app/service/built-in/controllers/built-in.js"></script>
+<script src="app/service/catalog.js"></script>
 <script src="app/service/city/built-in/script.js"></script>
 <script src="app/service/city/controllers/states.js"></script>
 <script src="app/service/city/link/script.js"></script>
@@ -135,8 +129,6 @@
 <script src="app/service/services/messages.js"></script>
 <script src="app/service/services/places.js"></script>
 <script src="app/service/services/service.js"></script>
-<script src="components/modal/modal.service.js"></script>
-<script src="components/navbar/navbar.controller.js"></script>
 <!-- endinjector -->
 <!-- endbuild -->
 </body>

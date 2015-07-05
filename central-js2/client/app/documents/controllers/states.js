@@ -1,4 +1,4 @@
-angular.module('documents').controller('DocumentsController', function($state, $scope, config, BankIDService) {
+angular.module('documents', []).controller('DocumentsController', function($state, $scope, config, BankIDService) {
   $scope.config = config;
 
   $scope.loading = false;
