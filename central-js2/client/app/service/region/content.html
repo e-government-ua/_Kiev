@@ -1,0 +1,53 @@
+<div class="list-group">
+    <div class="list-group-item"
+         ng-class="{'disabled': data.region}">
+        <div class="row no-margin-bottom">
+            <div class="col-md-11 form-inline">
+                <strong><span>Крок 1. Оберіть свій регіон </span></strong>
+
+                <div style="display:inline-block">
+                    <span>Область</span>
+                </div>
+                <div style="display:inline-block">
+                    <div style="position:relative"
+                         dropdown
+                         is-open="regionList.dropdown.isOpen">
+                        <div class="input-group">
+                            <input autocomplete="off"
+                                   class="form-control"
+                                   name="region"
+                                   type="text"
+                                   ng-model="regionList.typeahead.model"
+                                   typeahead="region as region.sName for region in loadRegionList($viewValue)"
+                                   typeahead-on-select="onSelectRegionList($item)"
+                                   typeahead-template-url="app/service/region/typeahead-match-region.html"
+                                   typeahead-empty
+                                   ng-disabled="data.region"/>
+							<span class="input-group-btn">
+								<button class="btn btn-default"
+                                        type="button"
+                                        ng-disabled="data.region"
+                                        dropdown-toggle>
+                                    <span class="caret"></span>
+                                </button>
+							</span>
+                        </div>
+                        <ul class="dropdown-menu"
+                            role="menu">
+                            <li ng-repeat="region in regionList.dropdown.list | orderBy:'sName'">
+                                <a ng-click="onSelectRegionList(region, null, null)"
+                                   ng-class="{'color-green': (region.color == 'green')}">{{region.sName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"
+                 ng-if="data.region">
+                <div class="link-button">
+                    <a href="#">Змінити</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

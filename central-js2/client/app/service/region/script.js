@@ -1,6 +1,6 @@
 angular.module('app').config(function($stateProvider) {
   $stateProvider
-    .state('service.general.region', {
+    .state('index.service.general.region', {
       url: '/region',
       resolve: {
         regions: function($stateParams, PlacesService, service) {
@@ -28,19 +28,19 @@ angular.module('app').config(function($stateProvider) {
       },
       views: {
         '@service': {
-          templateUrl: 'html/service/region/index.html',
+          templateUrl: 'app/service/region/index.html',
           controller: 'ServiceRegionController'
         },
         'content@service.general.region': {
-          templateUrl: 'html/service/region/content.html'
+          templateUrl: 'app/service/region/content.html'
         }
       }
     })
-    .state('service.general.region.error', {
+    .state('index.service.general.region.error', {
       url: '/absent',
       views: {
         'content@service.general.region': {
-          templateUrl: 'html/service/region/absent.html'
+          templateUrl: 'app/service/region/absent.html'
         }
       }
     });

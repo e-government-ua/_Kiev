@@ -1,16 +1,16 @@
 angular.module('app').config(function($stateProvider) {
-  $stateProvider.state('service.general.country.built-in', {
+  $stateProvider.state('index.service.general.country.built-in', {
     url: '/built-in',
     views: {
       'content@service.general.country': {
-        templateUrl: 'html/service/country/built-in/index.html',
+        templateUrl: 'app/service/country/built-in/index.html',
         controller: 'ServiceBuiltInController'
       }
     }
   })
-    .state('service.general.country.built-in.bankid', {
+    .state('index.service.general.country.built-in.bankid', {
       url: '/built-in/?code',
-      parent: 'service.general.country',
+      parent: 'index.service.general.country',
       data: {
         region: null,
         city: null
@@ -59,12 +59,12 @@ angular.module('app').config(function($stateProvider) {
       },
       views: {
         'content@service.general.country': {
-          templateUrl: 'html/service/country/built-in/bankid.html',
+          templateUrl: 'app/service/country/built-in/bankid.html',
           controller: 'ServiceBuiltInBankIDController'
         }
       }
     })
-    .state('service.general.country.built-in.bankid.submitted', {
+    .state('index.service.general.country.built-in.bankid.submitted', {
       url: null,
       data: {id: null},
       onExit: function($state) {
@@ -73,7 +73,7 @@ angular.module('app').config(function($stateProvider) {
       },
       views: {
         'content@service.general.country': {
-          templateUrl: 'html/service/country/built-in/bankid.submitted.html',
+          templateUrl: 'app/service/country/built-in/bankid.submitted.html',
           controller: function($state, $scope) {
             $scope.state = $state.get('service.general.country.built-in.bankid.submitted');
           }

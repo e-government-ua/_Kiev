@@ -59,8 +59,8 @@ public class ActivitiRestDocumentController {
     Document getDocument(@RequestParam(value = "nID") Long id,
             @RequestParam(value = "nID_Subject") long nID_Subject) throws ActivitiRestException{
         Document document = documentDao.getDocument(id);
-        if(nID_Subject != document.getSubject().getnID()){  
-            throw new ActivitiRestException("401", "You don't have access! Your nID = " + nID_Subject + " Document's Subject's nID = " + document.getSubject().getnID());
+        if(nID_Subject != document.getSubject().getId()){
+            throw new ActivitiRestException("401", "You don't have access! Your nID = " + nID_Subject + " Document's Subject's nID = " + document.getSubject().getId());
         } else{
             return  document;
         }
@@ -81,7 +81,7 @@ public class ActivitiRestDocumentController {
     Document getDocumentAccessByHandler(
             @RequestParam(value = "sCode_DocumentAccess") 				String 	accessCode,
             @RequestParam(value = "nID_DocumentOperator_SubjectOrgan") 	Long 	organID,
-            @RequestParam(value = "nID_DocumentType", required = false) Integer	docTypeID,
+            @RequestParam(value = "nID_DocumentType", required = false) Long	docTypeID,
             @RequestParam(value = "sPass", required = false)		    String 	password,
             HttpServletResponse resp) {
 
@@ -93,7 +93,7 @@ public class ActivitiRestDocumentController {
                 .getDocument();
         try {
             createHistoryEvent(HistoryEventType.GET_DOCUMENT_ACCESS_BY_HANDLER,
-                    document.getSubject().getnID(), subjectOrganDao.getSubjectOrgan(organID).getsName(), null, document);
+                    document.getSubject().getId(), subjectOrganDao.getSubjectOrgan(organID).getName(), null, document);
         } catch (Exception e){
             log.warn("can`t create history event!", e);
         }
@@ -122,7 +122,7 @@ public class ActivitiRestDocumentController {
     String getDocumentContent(@RequestParam(value = "nID") Long id, 
             @RequestParam(value = "nID_Subject") long nID_Subject) throws ActivitiRestException {
         Document document = documentDao.getDocument(id);
-        if(nID_Subject != document.getSubject().getnID()){
+        if(nID_Subject != document.getSubject().getId()){
             throw new ActivitiRestException("401", "You don't have access!");
         } else{
             return Util.contentByteToString(documentDao.getDocumentContent(document.getContentKey())); // ????
@@ -166,7 +166,7 @@ public class ActivitiRestDocumentController {
                            HttpServletRequest request, HttpServletResponse httpResponse) 
                            throws ActivitiRestException{
         Document document = documentDao.getDocument(id);
-        if(nID_Subject != document.getSubject().getnID()){
+        if(nID_Subject != document.getSubject().getId()){
             throw new ActivitiRestException("401", "You don't have access!");
         } 
         byte[] content = documentDao.getDocumentContent(document
@@ -206,7 +206,7 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
             @RequestParam(value = "sName") String sName,
             //@RequestParam(value = "sFile", required = false) String fileName,
-            @RequestParam(value = "nID_DocumentType") Integer nID_DocumentType,
+            @RequestParam(value = "nID_DocumentType") Long nID_DocumentType,
             //@RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
             @RequestParam(value = "sDocumentContentType", required = false) String documentContentTypeName,
             @RequestParam(value = "soDocumentContent") String sContent,
@@ -238,7 +238,7 @@ public class ActivitiRestDocumentController {
 
         return documentDao.setDocument(
                 nID_Subject,
-                subject_Upload.getnID(),
+                subject_Upload.getId(),
                 sID_Subject_Upload,
                 sSubjectName_Upload,
                 sName,
@@ -260,8 +260,8 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "sName") String sName,
             @RequestParam(value = "sFileExtension", required = false) String sFileExtension,
             //@RequestParam(value = "sFile", required = false) String fileName,
-            @RequestParam(value = "nID_DocumentType") Integer nID_DocumentType,
-            @RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
+            @RequestParam(value = "nID_DocumentType") Long nID_DocumentType,
+            @RequestParam(value = "nID_DocumentContentType", required = false) Long nID_DocumentContentType,
             @RequestParam(value = "oFile", required = true) MultipartFile oFile,
             //@RequestBody byte[] content,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
@@ -297,7 +297,7 @@ public class ActivitiRestDocumentController {
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
         Long nID_Document = documentDao.setDocument(
                         nID_Subject,
-                        subject_Upload.getnID(),
+                        subject_Upload.getId(),
                         sID_Subject_Upload,
                         sSubjectName_Upload,
                         sName,

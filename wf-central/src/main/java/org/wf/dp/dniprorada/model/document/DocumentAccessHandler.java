@@ -12,7 +12,7 @@ import org.wf.dp.dniprorada.model.DocumentAccess;
 @Component
 public interface DocumentAccessHandler {
 
-    DocumentAccessHandler setDocumentType(Integer docTypeID);
+    DocumentAccessHandler setDocumentType(Long docTypeID);
     DocumentAccessHandler setAccessCode  (String sCode_DocumentAccess);
     DocumentAccessHandler setPassword    (String sPass);
 
