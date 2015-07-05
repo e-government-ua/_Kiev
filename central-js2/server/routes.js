@@ -9,8 +9,19 @@ var errors = require('./components/errors');
 module.exports = function(app) {
 
   // Insert routes below
-  app.use('/api/things', require('./api/thing'));
-  
+  app.use('/auth', require('./auth'));
+  app.use('/api/bankid', require('./api/bankid'));
+  app.use('/api/documents', require('./api/documents'));
+  app.use('/api/journal', require('./api/journal'));
+  app.use('/api/places', require('./api/places/index'));
+  app.use('/api/process-definitions', require('./api/process-definitions/index'));
+  app.use('/api/process-form', require('./api/process-form'));
+  app.get('/api/service', require('./api/service/index'));
+  app.use('/api/service/flow', require('./api/service/flow'));
+  app.use('/api/messages', require('./api/messages/index'));
+  app.use('/api/services', require('./api/services'));
+  app.post('/api/uploadfile', require('./api/uploadfile/post'));
+
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
    .get(errors[404]);
@@ -18,6 +29,6 @@ module.exports = function(app) {
   // All other routes should redirect to the index.html
   app.route('/*')
     .get(function(req, res) {
-      res.sendfile(app.get('appPath') + '/index.html');
+      res.sendFile(app.get('appPath') + '/index.html');
     });
 };
