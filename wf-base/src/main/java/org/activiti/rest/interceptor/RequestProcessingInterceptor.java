@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.rest.controller.adapter.MultiReaderHttpServletResponse;
-import org.activiti.rest.controller.adapter.ServletOutputStreamCopier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,7 +33,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             HttpServletResponse response, Object handler) throws Exception {
 
         long startTime = System.currentTimeMillis();
-        logger.info("*.*.*.*.*.*.*.*.*.*.* preHandle Request URL = " + request.getRequestURL().toString()
+        logger.info("[preHandle] Request URL = " + request.getRequestURL().toString()
                 + ":: Start Time = " + System.currentTimeMillis());
         request.setAttribute("startTime", startTime);
         testReadFromRequest(request, response);
@@ -53,7 +52,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
     public void afterCompletion(HttpServletRequest request,
             HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-        logger.info("*.*.*.*.*.*.*.*.*.*.* afterCompletion Request URL = " + request.getRequestURL().toString()
+        logger.info("[afterCompletion] Request URL = " + request.getRequestURL().toString()
                 + ":: Time Taken = " + (System.currentTimeMillis() - (Long) request.getAttribute("startTime")));
         response = ((MultiReaderHttpServletResponse)request.getAttribute("responseMultiRead") != null ? 
         		(MultiReaderHttpServletResponse)request.getAttribute("responseMultiRead") : response);
@@ -79,7 +78,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             //TODO temp
         }
 
-        logger.info("!!!mParamRequest: " + mParamRequest);
-        logger.info("!!!responseBody: " + response.toString());
+        logger.info("mParamRequest: " + mParamRequest);
+        logger.info("sResponseBody: " + response.toString());
     }
 }
