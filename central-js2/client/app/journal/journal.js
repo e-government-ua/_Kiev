@@ -11,7 +11,7 @@ angular.module('journal').config(function($stateProvider) {
       }
     })
     .state('index.journal.bankid', {
-      url: '/bankid?code&error',
+      url: '/bankid?error',
       parent: 'index.journal',
       views: {
         'bankid': {
@@ -21,7 +21,7 @@ angular.module('journal').config(function($stateProvider) {
       }
     })
     .state('index.journal.content', {
-      url: '/content?code',
+      url: '/content',
       parent: 'index.journal',
       resolve: {
         BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
