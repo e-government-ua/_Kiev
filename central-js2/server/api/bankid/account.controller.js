@@ -3,7 +3,7 @@ var router = express.Router();
 var accountService = require('./account.service.js');
 
 module.exports.index = function (req, res) {
-    var config = require('../../config');
+    var config = require('../../config/environment');
 
     var options = {
         access: req.session.access,

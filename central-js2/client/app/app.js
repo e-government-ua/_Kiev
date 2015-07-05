@@ -51,7 +51,7 @@ angular.module('app', [
     });
   //});
   $urlRouterProvider.otherwise('/index');
-  //$locationProvider.html5Mode(true);
+  $locationProvider.html5Mode(true);
 }).run(function($rootScope, $state) {
   $rootScope.state = $state;
 });

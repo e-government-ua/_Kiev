@@ -7,7 +7,7 @@ module.exports.getConfigOptions = function () {
 	if (options)
 		return options;
 
-	var config = require('../../config');
+	var config = require('../../config/environment');
 	var activiti = config.activiti;
 
 	options = {

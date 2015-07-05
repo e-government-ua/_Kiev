@@ -3,7 +3,7 @@ angular.module('documents').controller('DocumentsBankIdController', function($sc
   $scope.error = undefined;
 
   $scope.loginWithBankId = function() {
-    var stateForRedirect = $state.href('documents.bankid', {error: ''});
+    var stateForRedirect = $state.href('index.documents.bankid', {error: ''});
     var redirectURI = $location.protocol() +
       '://' + $location.host() + ':'
       + $location.port()
@@ -11,12 +11,12 @@ angular.module('documents').controller('DocumentsBankIdController', function($sc
     $window.location.href = './auth/bankID?link=' + redirectURI;
   };
 
-  if ($state.is('documents.bankid')) {
+  if ($state.is('index.documents.bankid')) {
     if (!$state.params.error) {
       BankIDService.isLoggedIn().then(function() {
         $scope.authProcess = true;
-        return $state.go('documents.content').catch(function(fallback) {
-          $state.go('documents.bankid', {error: fallback.error});
+        return $state.go('index.documents.content').catch(function(fallback) {
+          $state.go('index.documents.bankid', {error: fallback.error});
         }).finally(function() {
           $scope.authProcess = false;
         });
