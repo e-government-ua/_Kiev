@@ -33,14 +33,6 @@
 
 <body ng-app="app">
 
-<!--<div ui-view="">-->
-    <!--<div class="text-center">-->
-        <!--<img class="text-center"-->
-             <!--src="assets/images/loading.gif"-->
-             <!--alt="Loading"/>-->
-    <!--</div>-->
-<!--</div>-->
-
 <div ui-view=""
      class="full-height">
 
@@ -81,8 +73,15 @@
 <!-- injector:js -->
 <script src="app/404/404.js"></script>
 <script src="app/about/about.js"></script>
-<script src="app/activiti/services/activiti.js"></script>
+<script src="app/common/services/activiti.service.js"></script>
 <script src="app/common/services/bankid.service.js"></script>
+<script src="app/common/services/admin.service.js"></script>
+<script src="app/common/services/messages.service.js"></script>
+<script src="app/common/services/places.service.js"></script>
+<script src="app/common/services/service.service.js"></script>
+<script src="app/common/factories/localitylist.factory.js"></script>
+<script src="app/common/factories/regionlist.factory.js"></script>
+<script src="app/common/services/place.service.js"></script>
 <script src="app/components/dropdown/factories/dropdown.js"></script>
 <script src="app/components/form/directives/file.js"></script>
 <script src="app/components/form/directives/file2.js"></script>
@@ -101,15 +100,12 @@
 <script src="app/documents/document.js"></script>
 <script src="app/documents/factories/bankiddocuments.factory.js"></script>
 <script src="app/documents/factories/bankiddocumentspassport.factory.js"></script>
-<script src="app/index/index.controller.js"></script>
-<script src="app/index/subcategory.controller.js"></script>
+<script src="app/main/index.controller.js"></script>
+<script src="app/main/subcategory.controller.js"></script>
 <script src="app/journal/controllers/journal.controller.js"></script>
 <script src="app/journal/controllers/journalbankid.controller.js"></script>
 <script src="app/journal/controllers/journalcontent.controller.js"></script>
 <script src="app/journal/journal.js"></script>
-<script src="app/common/factories/localitylist.factory.js"></script>
-<script src="app/common/factories/regionlist.factory.js"></script>
-<script src="app/common/services/place.service.js"></script>
 <script src="app/service/built-in/controllers/built-in.js"></script>
 <script src="app/service/catalog.js"></script>
 <script src="app/service/city/built-in/builtin.js"></script>
@@ -127,11 +123,7 @@
 <script src="app/service/region/link/script.js"></script>
 <script src="app/service/region/script.js"></script>
 <script src="app/service/script.js"></script>
-<script src="app/service/services/admin.js"></script>
 <script src="app/service/services/auth/serviceAuthBlock.js"></script>
-<script src="app/service/services/messages.js"></script>
-<script src="app/service/services/places.js"></script>
-<script src="app/service/services/service.js"></script>
 <!-- endinjector -->
 <!-- endbuild -->
 </body>

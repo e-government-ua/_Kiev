@@ -17,7 +17,7 @@ angular.module('app', [
     .state('index', {
       url: '/',
       abstract: true,
-      views:{
+      views: {
         header: {
           templateUrl: 'app/header/header.html'
         },
@@ -29,10 +29,10 @@ angular.module('app', [
     .state('index.main', {
       url: 'index',
       views: {
-          'main@': {
-            templateUrl: 'app/catalog/services.html',
-            controller: 'IndexController'
-          }
+        'main@': {
+          templateUrl: 'app/main/services.html',
+          controller: 'IndexController'
+        }
       }
     })
     .state('index.subcategory', {
@@ -49,7 +49,6 @@ angular.module('app', [
         }
       }
     });
-  //});
   $urlRouterProvider.otherwise('/index');
   //$locationProvider.html5Mode(true);
 }).run(function($rootScope, $state) {
