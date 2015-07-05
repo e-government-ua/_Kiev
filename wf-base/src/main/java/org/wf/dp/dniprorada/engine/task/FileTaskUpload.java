@@ -154,7 +154,7 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
                     }
                     LOG.info("nID_FlowSlotTicket=" + nID_FlowSlotTicket);
                     try{
-                        /*
+                        
                         FlowSlotTicket oFlowSlotTicket = baseEntityDao.getById(FlowSlotTicket.class, nID_FlowSlotTicket);
                         if (oFlowSlotTicket == null) {
                             LOG.error("FlowSlotTicket with id=" + nID_FlowSlotTicket + " is not found!");
@@ -168,7 +168,7 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
                             baseEntityDao.saveOrUpdate(oFlowSlotTicket);
                             LOG.info("JSON:" + JsonRestUtils.toJsonResponse(new SaveFlowSlotTicketResponse(oFlowSlotTicket.getId())));
                         }
-                        */
+                        
                     }catch(Exception oException){
                         LOG.error(oException.getMessage());
                     }

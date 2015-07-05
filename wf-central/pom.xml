@@ -40,6 +40,7 @@
 	</repositories-->
 
 	<build>
+
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
@@ -48,6 +49,8 @@
 					<warSourceExcludes>**/db.properties</warSourceExcludes>
 					<warSourceExcludes>**/email.properties</warSourceExcludes>
 					<warSourceExcludes>**/bankID.properties</warSourceExcludes>
+					<!--warSourceExcludes>**/*.properties</warSourceExcludes>
+					<warSourceExcludes>**/context*.xml</warSourceExcludes-->
 				</configuration>
 			</plugin>
 

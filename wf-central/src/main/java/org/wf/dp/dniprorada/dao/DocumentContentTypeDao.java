@@ -6,5 +6,5 @@ public interface DocumentContentTypeDao {
 
 	public DocumentContentType getDocumentContentType(String documentContentTypeName);
 	
-	public Integer setDocumentContent(DocumentContentType documentContentType);
+	public Long setDocumentContent(DocumentContentType documentContentType);
 }

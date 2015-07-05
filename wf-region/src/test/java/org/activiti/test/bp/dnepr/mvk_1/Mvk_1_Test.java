@@ -33,15 +33,14 @@ import com.plexiti.activiti.test.fluent.mocking.Mockitos;
 @ContextConfiguration(locations = {
 		"classpath:META-INF/spring/dnepr/mvk/1/activiti.cfg.mock.xml",
 		"classpath:META-INF/spring/dnepr/mvk/1/activiti.cfg.scan.xml",
-		"classpath:activiti-custom-context-test.xml" })
+		"classpath:context_test-region.xml" })
 public class Mvk_1_Test extends PluggableActivitiTestCase {
 
 	static final String PROCESS_KEY = "CivilCopyDocRequest";
 	static final String PROCESS_RESOURCE = "bpmn/autodeploy/dnepr_mvk-1.bpmn";
 
 	@Rule
-	public ActivitiRule activitiRule = new ActivitiRule(
-			"activiti-custom-context-test.xml");
+	public ActivitiRule activitiRule = new ActivitiRule("context_test-region.xml");
 
 	@Before
 	public void injectDependencies() throws Exception {

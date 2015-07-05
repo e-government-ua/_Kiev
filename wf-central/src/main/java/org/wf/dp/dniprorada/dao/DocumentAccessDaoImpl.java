@@ -115,7 +115,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		} finally{
 			oSession.close();
 		}
-		return list.get(0).getID();
+		return list.get(0).getId();
 	}
 
 	@Override
@@ -126,7 +126,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		try{
                     list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
                     for(DocumentAccess da : list){
-                    	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)){
+                    	if(da.getId() == nID_Access && da.getSecret().equals(sSecret)){
                     		docAcc = da;
                     		break;
                     	}
@@ -155,7 +155,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                         throw new Exception("Access not accepted!");
                     } else {
                     	 for(DocumentAccess da : list){
-                         	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)){
+                         	if(da.getId() == nID_Access && da.getSecret().equals(sSecret)){
                          		docAcc = da;                      		
                          		break;
                          	}
@@ -203,7 +203,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     }         
                     else {
                    	 for(DocumentAccess da : list){
-                   			if(da.getID() == nID_Access && da.getSecret().equals(sSecret)
+                   			if(da.getId() == nID_Access && da.getSecret().equals(sSecret)
                                         && ( da.getAnswer().equals(sAnswer) || "1234".equals(sAnswer) )){  //TODO убрать бэкдур, после окончательной отладки, в т.ч. фронта
                         		docAcc = da;
                         		break;

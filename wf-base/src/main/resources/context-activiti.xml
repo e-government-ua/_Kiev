@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" 
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+    
+
+    <!-- ===========================   ACTIVITI   ========================= -->
+
+    <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+        <property name="dataSource" ref="dataSource" />
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="databaseSchemaUpdate" value="${processEngineConfiguration.databaseSchemaUpdate}" />
+        <property name="jobExecutorActivate" value="true" />
+        <property name="enableDatabaseEventLogging" value="true" />
+        <property name="deploymentResources" value="classpath*:bpmn/autodeploy/*.bpmn" />
+
+        
+        <property name="customFormTypes">
+            <list>
+                <bean class="org.activiti.explorer.form.UserFormType" />
+                <bean class="org.activiti.explorer.form.ProcessDefinitionFormType" />
+                <bean class="org.activiti.explorer.form.MonthFormType" />
+                <bean class="org.activiti.engine.impl.form.DateFormType">
+                    <constructor-arg value="dd/MM/yyyy" />
+                </bean>
+                <bean class="org.activiti.engine.impl.form.EnumFormType">
+                    <constructor-arg>
+                        <map>
+                            <entry key="DEF" value="def" />
+                        </map>
+                    </constructor-arg>
+                </bean>
+                <bean class="org.wf.dp.dniprorada.form.FormFileType" />
+                <bean class="org.wf.dp.dniprorada.form.TextAreaFormType" />
+                 <bean class="org.wf.dp.dniprorada.form.LabelFormType" />
+                 <bean class="org.wf.dp.dniprorada.form.MarkersFormType" />
+                <bean class="org.wf.dp.dniprorada.form.QueueDataFormType" />
+                <bean class="org.wf.dp.dniprorada.form.InvisibleFormType"/>
+                
+            </list>
+        </property>
+
+        <!-- mail server configurations -->
+        <property name="mailServerHost" value="${mailServerHost}" />
+        <property name="mailServerPort" value="${mailServerPort}" />
+        <property name="mailServerDefaultFrom" value="${mailServerDefaultFrom}" />
+        <property name="mailServerUsername" value="${mailServerUsername}" />
+        <property name="mailServerPassword" value="${mailServerPassword}" />
+        <property name="mailServerUseSSL" value="${mailServerUseSSL}" />
+        <property name="mailServerUseTLS" value="${mailServerUseTLS}" />
+        <!--property name="mailAddressNoreply" value="${mail.address.noreply}"/-->
+
+        <!--property name="preBpmnParseHandlers">
+            <list>
+                    <bean class="org.activiti.parsing.MailBpmnParseHandler" />
+            </list>
+        </property-->
+
+        <property name="history" value="full"/>
+    </bean>
+
+
+    <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean" destroy-method="destroy">
+            <property name="processEngineConfiguration" ref="processEngineConfiguration" />
+    </bean>
+
+    <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService"/>
+    <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService"/>
+    <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService"/>
+    <bean id="formService" factory-bean="processEngine" factory-method="getFormService"/>
+    <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService"/>
+    <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService"/>
+    <bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService"/>        
+            
+</beans>
