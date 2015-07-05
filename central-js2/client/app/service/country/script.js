@@ -4,7 +4,7 @@ angular.module('app').config(function($stateProvider) {
       url: '/country',
       views: {
         '@service': {
-          templateUrl: 'html/service/country/index.html',
+          templateUrl: 'app/service/country/index.html',
           controller: 'ServiceCountryController',
           controllerUrl: 'state/service/country/controller'
         }
@@ -13,7 +13,7 @@ angular.module('app').config(function($stateProvider) {
       url: '/absent',
       views: {
         'content@service.general.country': {
-          templateUrl: 'html/service/country/absent.html',
+          templateUrl: 'app/service/country/absent.html',
           controller: 'ServiceCountryAbsentController',
           controllerUrl: 'state/service/country/absent/controller'
         }

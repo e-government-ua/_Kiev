@@ -29,11 +29,11 @@ angular.module('app').config(function($stateProvider) {
       },
       views: {
         '@service': {
-          templateUrl: 'html/service/city/index.html',
+          templateUrl: 'app/service/city/index.html',
           controller: 'ServiceCityController'
         },
         'content@service.general.city': {
-          templateUrl: 'html/service/city/content.html'
+          templateUrl: 'app/service/city/content.html'
         }
       }
     })
@@ -41,7 +41,7 @@ angular.module('app').config(function($stateProvider) {
       url: '/absent',
       views: {
         'status@service.general.city': {
-          templateUrl: 'html/service/city/absent.html',
+          templateUrl: 'app/service/city/absent.html',
           controller: 'ServiceCityAbsentController',
           controllerUrl: 'state/service/city/absent/controller'
         }

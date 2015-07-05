@@ -5,7 +5,7 @@ var app = angular.module('404', []).config(function($stateProvider, $urlRouterPr
       url: '/404',
       views: {
         '': {
-          templateUrl: 'html/404/404.html'
+          templateUrl: 'app/404/404.html'
         }
       }
     })

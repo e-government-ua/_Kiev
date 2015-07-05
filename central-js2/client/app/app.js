@@ -9,7 +9,8 @@ angular.module('app', [
   'ngClipboard',
   'index',
   //'journal',
-  'documents'
+  'documents',
+  'about'
 ]).config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
   $stateProvider
@@ -29,7 +30,7 @@ angular.module('app', [
       url: 'index',
       views: {
           'main@': {
-            templateUrl: 'html/catalog/services.html',
+            templateUrl: 'app/catalog/services.html',
             controller: 'IndexController'
           }
       }
@@ -43,7 +44,7 @@ angular.module('app', [
       },
       views: {
         '': {
-          templateUrl: 'html/catalog/subcategory.html',
+          templateUrl: 'app/catalog/subcategory.html',
           controller: 'SubcategoryController'
         }
       }

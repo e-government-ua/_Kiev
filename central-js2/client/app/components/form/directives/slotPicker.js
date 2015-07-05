@@ -1,7 +1,7 @@
 angular.module('app').directive('slotPicker', function($http) {
   return {
     restrict: 'EA',
-    templateUrl: 'html/form/directives/slotPicker.html',
+    templateUrl: 'app/form/directives/slotPicker.html',
     scope: {
       serviceId: "=",
       ngModel: "="

@@ -4,7 +4,7 @@ angular.module('documents').config(function($stateProvider) {
       url: 'documents',
       views: {
         'main@': {
-          templateUrl: 'html/documents/index.html',
+          templateUrl: 'app/documents/index.html',
           controller: 'DocumentsController'
         }
       }
@@ -12,7 +12,7 @@ angular.module('documents').config(function($stateProvider) {
     .state('index.documents.user', {
       url: '/user',
       views: {
-        'content': {templateUrl: 'html/documents/user/index.html'}
+        'content': {templateUrl: 'app/documents/user/index.html'}
       }
     })
     .state('index.documents.bankid', {
@@ -20,7 +20,7 @@ angular.module('documents').config(function($stateProvider) {
       parent: 'index.documents.user',
       views: {
         'content': {
-          templateUrl: 'html/documents/bankid/index.html',
+          templateUrl: 'app/documents/bankid/index.html',
           controller: 'DocumentsBankIdController'
         }
       }
@@ -29,7 +29,7 @@ angular.module('documents').config(function($stateProvider) {
       url: '/view',
       parent: 'index.documents.user',
       views: {
-        'content': {templateUrl: 'html/documents/view.html'}
+        'content': {templateUrl: 'app/documents/view.html'}
       }
     })
     .state('index.documents.content', {
@@ -58,7 +58,7 @@ angular.module('documents').config(function($stateProvider) {
       },
       views: {
         'content': {
-          templateUrl: 'html/documents/content.html',
+          templateUrl: 'app/documents/content.html',
           controller: 'DocumentsContentController'
         }
       }
@@ -67,7 +67,7 @@ angular.module('documents').config(function($stateProvider) {
       url: '/search',
       views: {
         'content': {
-          templateUrl: 'html/documents/search/index.html'
+          templateUrl: 'app/documents/search/index.html'
         }
       }
     })
@@ -75,7 +75,7 @@ angular.module('documents').config(function($stateProvider) {
       url: '/notary',
       views: {
         'content': {
-          templateUrl: 'html/documents/notary/index.html'
+          templateUrl: 'app/documents/notary/index.html'
         }
       }
     });

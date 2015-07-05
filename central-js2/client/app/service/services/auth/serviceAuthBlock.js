@@ -1,7 +1,7 @@
 angular.module('app').directive('serviceAuthBlock', function() {
   return {
     restrict: 'E',
-    templateUrl: 'html/service/auth/serviceAuthBlock.html',
+    templateUrl: 'app/service/auth/serviceAuthBlock.html',
     link: function(scope, element, attrs) {
       scope.authMethods = false;
       if (scope.serviceData.asAuth && scope.serviceData.asAuth.length > 0) {

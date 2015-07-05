@@ -9,7 +9,7 @@ angular.module('app').config(function($stateProvider) {
     //  },
     //  views: {
     //    '': {
-    //      templateUrl: 'html/service/index.html',
+    //      templateUrl: 'app/service/index.html',
     //      controller: 'ServiceController'
     //    }
     //  }
@@ -18,7 +18,7 @@ angular.module('app').config(function($stateProvider) {
     //  url: '/general',
     //  views: {
     //    '': {
-    //      templateUrl: 'html/service/general.html',
+    //      templateUrl: 'app/service/general.html',
     //      controller: 'ServiceGeneralController'
     //    }
     //  }
@@ -27,7 +27,7 @@ angular.module('app').config(function($stateProvider) {
     //  url: '/instruction',
     //  views: {
     //    '': {
-    //      templateUrl: 'html/service/instruction.html',
+    //      templateUrl: 'app/service/instruction.html',
     //      controller: 'ServiceInstructionController'
     //    }
     //  }
@@ -36,7 +36,7 @@ angular.module('app').config(function($stateProvider) {
     //  url: '/legislation',
     //  views: {
     //    '': {
-    //      templateUrl: 'html/service/legislation.html',
+    //      templateUrl: 'app/service/legislation.html',
     //      controller: 'ServiceLegislationController'
     //    }
     //  }
@@ -45,7 +45,7 @@ angular.module('app').config(function($stateProvider) {
     //  url: '/questions',
     //  views: {
     //    '': {
-    //      templateUrl: 'html/service/questions.html',
+    //      templateUrl: 'app/service/questions.html',
     //      controller: 'ServiceQuestionsController'
     //    }
     //  }
@@ -54,7 +54,7 @@ angular.module('app').config(function($stateProvider) {
     //  url: '/discussion',
     //  views: {
     //    '': {
-    //      templateUrl: 'html/service/discussion.html',
+    //      templateUrl: 'app/service/discussion.html',
     //      controller: 'ServiceDiscussionController'
     //    }
     //  }

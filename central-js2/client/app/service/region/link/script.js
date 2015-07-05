@@ -4,7 +4,7 @@ angular.module('app').config(function($stateProvider) {
       url: '/link',
       views: {
         'content@service.general.region': {
-          templateUrl: 'html/service/region/link/index.html',
+          templateUrl: 'app/service/region/link/index.html',
           controller: 'ServiceLinkController'
         }
       }

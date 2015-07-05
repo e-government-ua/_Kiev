@@ -5,7 +5,7 @@ angular.module('journal').config(function($stateProvider) {
       url: '/journal',
       views: {
         '': {
-          templateUrl: 'html/journal/index.html',
+          templateUrl: 'app/journal/index.html',
           controller: 'JournalController'
         }
       }
@@ -15,7 +15,7 @@ angular.module('journal').config(function($stateProvider) {
       parent: 'index.journal',
       views: {
         'bankid': {
-          templateUrl: 'html/journal/bankid/index.html',
+          templateUrl: 'app/journal/bankid/index.html',
           controller: 'JournalBankIdController'
         }
       }
@@ -43,7 +43,7 @@ angular.module('journal').config(function($stateProvider) {
       },
       views: {
         'content': {
-          templateUrl: 'html/journal/content.html',
+          templateUrl: 'app/journal/content.html',
           controller: 'JournalContentController'
         }
       }

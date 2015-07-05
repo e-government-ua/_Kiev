@@ -4,7 +4,7 @@ angular.module('app').config(function($stateProvider) {
       url: '/built-in',
       views: {
         'content@service.general.region': {
-          templateUrl: 'html/service/region/built-in/index.html',
+          templateUrl: 'app/service/region/built-in/index.html',
           controller: 'ServiceBuiltInController'
         }
       }
@@ -72,7 +72,7 @@ angular.module('app').config(function($stateProvider) {
       },
       views: {
         'content@service.general.region': {
-          templateUrl: 'html/service/region/built-in/bankid.html',
+          templateUrl: 'app/service/region/built-in/bankid.html',
           controller: 'ServiceBuiltInBankIDController'
         }
       }
@@ -86,7 +86,7 @@ angular.module('app').config(function($stateProvider) {
       },
       views: {
         'content@service.general.region': {
-          templateUrl: 'html/service/region/built-in/bankid.submitted.html',
+          templateUrl: 'app/service/region/built-in/bankid.submitted.html',
           controller: function($state, $scope) {
             $scope.state = $state.get('service.general.region.built-in.bankid.submitted');
           }
