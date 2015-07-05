@@ -169,13 +169,6 @@
                                                 ng-model="data.formData.params[property.id].value"
                                                 ng-required="property.required">Add File
                                     </file-field>
-                                    <!--
-                                    <button type="button" class="btn btn-success js-upload-btn" data-loading-text="Завантаження..." class="btn btn-primary" autocomplete="off" ng-click="uploadFile(property.id)" ng-disabled="isUploading">
-                                        <input style="display:none" type="file" name="{{property.id}}" ui-event="{change:'addFile(property.id, $event)'}" ng-required="property.required"/>
-                                        <span class="glyphicon glyphicon-file" aria-hidden="true"></span> Завантажити файл
-                                    </button>
-                                    <div class="filename js-filename"></div>
-                                    -->
                                 </p>
 
                                 <slot-picker ng-switch-when="queueData"

@@ -20,7 +20,7 @@
                                    ng-model="regionList.typeahead.model"
                                    typeahead="region as region.sName for region in loadRegionList($viewValue)"
                                    typeahead-on-select="onSelectRegionList($item)"
-                                   typeahead-template-url="html/bootstrap/typeahead/typeahead-match-region.html"
+                                   typeahead-template-url="app/service/region/typeahead-match-region.html"
                                    typeahead-empty
                                    ng-disabled="data.region"/>
 							<span class="input-group-btn">
@@ -58,7 +58,7 @@
                                    ng-model="localityList.typeahead.model"
                                    typeahead="city as city.sName for city in loadLocalityList($viewValue)"
                                    typeahead-on-select="onSelectLocalityList($item)"
-                                   typeahead-template-url="html/bootstrap/typeahead/typeahead-match-city.html"
+                                   typeahead-template-url="app/service/city/typeahead-match-city.html"
                                    typeahead-empty
                                    ng-disabled="data.city"/>
 							<span class="input-group-btn">
