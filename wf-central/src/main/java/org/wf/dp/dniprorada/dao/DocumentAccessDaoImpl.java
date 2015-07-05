@@ -1,33 +1,31 @@
 package org.wf.dp.dniprorada.dao;
 
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import com.google.gson.Gson;
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.model.*;
+import org.wf.dp.dniprorada.util.GeneralConfig;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
-import java.util.Random;
-
-
-
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.wf.dp.dniprorada.model.DocumentAccess;
+import java.util.*;
 
 @Repository
 public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	private final String sURL = "https://igov.org.ua/index#";	
 	private SessionFactory sessionFactory;
 	private final String urlConn = "https://sms-inner.siteheart.com/api/otp_create_api.cgi";
+	final static Logger log = Logger.getLogger(DocumentAccessDaoImpl.class);
+	
+	@Autowired
+	GeneralConfig generalConfig;
 	
 	@Autowired
 	public DocumentAccessDaoImpl(SessionFactory sessionFactory) {
@@ -95,22 +93,12 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	}        
 
 	private void writeRow(DocumentAccess o) throws Exception{
-		//Transaction t = null;
 		Session s = getSession();
 		try{
-			/*t = s.beginTransaction();
-			s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES ("
-			+ o.getID_Document()+","+ o.getDateCreate()+","+ o.getMS()+","+o.getFIO()+","+o.getTarget()+","+o.getTelephone()+","+"email"+","+o.getSecret()+")").executeUpdate();
-			t.commit();*/
-			/*Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES (1,2014-06-03,222,LEO,secret,097,mail,qwe)");
-			query.executeUpdate();*/
-			Query query = s.createQuery("INSERT INTO DocumentAccess (nID_Document, sDateCreate, nMS, sFIO, sTarget, sTelephone, sMail, sSecret) VALUES ("+o.getID_Document()+","+o.getDateCreate()+
-					","+o.getMS()+","+o.getFIO()+","+o.getTarget()+","+o.getTelephone()+","+o.getMail()+","+o.getSecret()+")");
-			query.executeUpdate();
-			//s.save(o);
-			
+            if(o.getsCode() == null) o.setsCode("null");
+            if(o.getsCodeType() == null) o.setsCodeType("null");
+            s.saveOrUpdate(o);
 		} catch(Exception e){
-			//t.rollback();
 			throw e;
 		} finally {
 			s.close();
@@ -127,7 +115,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		} finally{
 			oSession.close();
 		}
-		return list.get(0).getID();
+		return list.get(0).getId();
 	}
 
 	@Override
@@ -138,7 +126,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		try{
                     list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
                     for(DocumentAccess da : list){
-                    	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)){
+                    	if(da.getId() == nID_Access && da.getSecret().equals(sSecret)){
                     		docAcc = da;
                     		break;
                     	}
@@ -158,7 +146,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		List <DocumentAccess> list = null;
 		String sTelephone = "";
 		String sAnswer = "";
-		String otpPassword = "-";
+		String otpPassword = "";
 		DocumentAccess docAcc = new DocumentAccess();
 		try{
                     //TODO убедиться что все проверяется по этим WHERE
@@ -167,7 +155,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                         throw new Exception("Access not accepted!");
                     } else {
                     	 for(DocumentAccess da : list){
-                         	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)){
+                         	if(da.getId() == nID_Access && da.getSecret().equals(sSecret)){
                          		docAcc = da;                      		
                          		break;
                          	}
@@ -184,16 +172,24 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     docAcc.setAnswer(sAnswer);
                    // writeRow(docAcc);
                     
-                    otpPassword+=getOtpPassword(docAcc);
+                    otpPassword=getOtpPassword(docAcc);
 		} catch(Exception e) {
 			throw e;
 		}finally{
 			oSession.close();
 		}
-		return  "/"+ otpPassword;
+		return  otpPassword;
 	}
 
-        
+	@Override
+	public DocumentAccess getDocumentAccess(String accessCode) {
+		return (DocumentAccess) getSession()
+				.createCriteria(DocumentAccess.class)
+				.add(Restrictions.eq("sCode", accessCode))
+				.uniqueResult();
+	}
+
+
 	@Override
 	public String setDocumentAccess(Long nID_Access, String sSecret, String sAnswer) throws Exception {
 		Session oSession = getSession();
@@ -207,7 +203,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     }         
                     else {
                    	 for(DocumentAccess da : list){
-                        	if(da.getID() == nID_Access && da.getSecret().equals(sSecret)
+                   			if(da.getId() == nID_Access && da.getSecret().equals(sSecret)
                                         && ( da.getAnswer().equals(sAnswer) || "1234".equals(sAnswer) )){  //TODO убрать бэкдур, после окончательной отладки, в т.ч. фронта
                         		docAcc = da;
                         		break;
@@ -235,25 +231,60 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-	private String getOtpPassword(DocumentAccess docAcc) throws Exception{
+	private <T> String getOtpPassword(DocumentAccess docAcc) throws Exception{
+		Properties prop = new Properties();
+		File file = new File(System.getProperty("catalina.base")+"/conf/merch.properties");
+		FileInputStream fis = new FileInputStream(file);
+		prop.load(fis);
+		OtpPassword otp = new OtpPassword();
+		otp.setMerchant_id(prop.getProperty("merchant_id"));
+		otp.setMerchant_password(prop.getProperty("merchant_password"));
+		fis.close();
+		OtpCreate otpCreate = new OtpCreate();
+		otpCreate.setCategory("qwerty");
+		otpCreate.setFrom("10060");
+		if(!docAcc.getTelephone().isEmpty() || docAcc.getTelephone() != null ){
+			otpCreate.setPhone(docAcc.getTelephone());
+		} else {
+			otpCreate.setPhone("null");
+		}
+		SmsTemplate smsTemplate1 = new SmsTemplate();
+		smsTemplate1.setText("text:"+"Parol: ");
+		smsTemplate1.setPassword("password:"+"2");
+		SmsTemplate smsTemplate2 = new SmsTemplate();
+		smsTemplate2.setText("text:"+"-");
+		smsTemplate2.setPassword("password:"+"2");
+		SmsTemplate smsTemplate3 = new SmsTemplate();
+		smsTemplate3.setText("text:"+"-");
+		smsTemplate3.setPassword("password:"+"2");
+		SmsTemplate smsTemplate4 = new SmsTemplate();
+		smsTemplate4.setText("text:"+"-");
+		smsTemplate4.setPassword("password:"+"2");
+		List<T> list = new ArrayList<T>();
+		list.add((T)new OtpText("Parol:"));
+		list.add((T)new OtpPass("2"));
+		list.add((T)new OtpText("-"));
+		list.add((T)new OtpPass("2"));
+		list.add((T)new OtpText("-"));
+		list.add((T)new OtpPass("2"));
+		list.add((T)new OtpText("-"));
+		list.add((T)new OtpPass("2"));
+		otpCreate.setSms_template(list);
+		List<OtpCreate> listOtpCreate = new ArrayList<>();
+		listOtpCreate.add(otpCreate);
+		otp.setOtp_create(listOtpCreate);		
+		Gson g = new Gson();
+		String jsonObj = g.toJson(otp);
 		URL url = new URL(urlConn);
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
 		con.setRequestMethod("POST");
 		con.setRequestProperty("content-type", "application/json;charset=UTF-8");
 		con.setDoOutput(true);
-		Properties prop = new Properties();
-		prop.load(getClass().getClassLoader().getResourceAsStream("merch.properties"));
-		String merchant_id = prop.getProperty("merchant_id");
-		String merchant_password = prop.getProperty("merchant_password");
-		String jsonObj = "{\"merchant_id\":\""+merchant_id+"\", \"merchant_password\":\""+merchant_password+"\", \"otp_create\":[" +
-				"{\"from\":\"10060\", \"phone\":\"+380962731045\", \"category\":\"qwerty\", \"sms_template\":[" +
-				"{\"text\":\"Parol: \"}, {\"password\":\"2\"}, {\"text\":\"-\"}, {\"password\":\"2\"}, {\"text\":\"-\"}, {\"password\":\"2\"}, {\"text\":\"-\"}, {\"password\":\"2\"}]}]}";
 		DataOutputStream dos = new DataOutputStream(con.getOutputStream());
 		dos.writeBytes(jsonObj);
 		dos.flush();
 		dos.close();
 		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	Thread.currentThread().sleep(15000);
 		StringBuilder sb = new StringBuilder();
 		String inputLine;
 		while((inputLine = br.readLine()) != null){

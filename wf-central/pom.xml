@@ -6,17 +6,19 @@
 	<parent>
 		<groupId>org.egov-ua</groupId>
 		<artifactId>org.egov-ua</artifactId>
-		<version>1.0-SNAPSHOT</version>
+                <version>1.0-SNAPSHOT</version>
+                <!--version>${igov.wf-base.version}</version-->
 	</parent>
 
 	<name>iGov-UA WF-Central</name>
 	<artifactId>wf-central</artifactId>
+        <version>${igov.wf-central.version}</version>
 	<packaging>war</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<activity.version>5.17.0</activity.version>
-	</properties>
+        </properties>
 
 	<!-- distributionManagement>
 		<repository>
@@ -38,6 +40,7 @@
 	</repositories-->
 
 	<build>
+
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
@@ -46,6 +49,8 @@
 					<warSourceExcludes>**/db.properties</warSourceExcludes>
 					<warSourceExcludes>**/email.properties</warSourceExcludes>
 					<warSourceExcludes>**/bankID.properties</warSourceExcludes>
+					<!--warSourceExcludes>**/*.properties</warSourceExcludes>
+					<warSourceExcludes>**/context*.xml</warSourceExcludes-->
 				</configuration>
 			</plugin>
 
@@ -139,7 +144,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore/>
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -160,7 +165,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore/>
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
@@ -220,14 +225,14 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>wf-base</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${igov.wf-base.version}</version>
             <classifier>lib</classifier>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>wf-base</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${igov.wf-base.version}</version>
             <classifier>ui-zip</classifier>
             <type>zip</type>
             <scope>provided</scope>
@@ -237,6 +242,11 @@
 			<artifactId>jmimemagic</artifactId>
 			<version>0.1.2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.3.1</version>
+  		</dependency>
 		<!-- Activiti -->
 		<dependency>
 			<groupId>org.activiti</groupId>
@@ -304,18 +314,18 @@
 		</dependency>
 
 		<!-- MONGO -->
-		<dependency>
+		<!--dependency>
 			<groupId>org.egov-ua</groupId>
 			<artifactId>org.egov-ua.storage-static</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
+                        <version>${igov.storage-static.version}</version>
+		</dependency-->
 		
 		<!-- REDIS -->
-		<dependency>
+		<!--dependency>
 			<groupId>org.activiti.redis</groupId>
 			<artifactId>wf-region-redis</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+                        <version>${igov.storage-temp.version}</version>
+		</dependency-->
 
 		<!-- Database -->
 		<dependency>
@@ -335,38 +345,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aspects</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>jboss</groupId>
-			<artifactId>jboss-serialization</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>trove</groupId>
-			<artifactId>trove</artifactId>
 		</dependency>
 
 		<!-- Other -->
@@ -443,12 +423,27 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-	 <dependency>
-	  <groupId>org.springframework</groupId>
-	  <artifactId>spring-test</artifactId>
-	  <version>4.1.4.RELEASE</version>
-	  <type>jar</type>
-	 </dependency>
+	 	<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-test</artifactId>
+		  <version>4.1.4.RELEASE</version>
+		  <type>jar</type>
+	 	</dependency>
+
+		<!-- -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${logback-core.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback-classic.version}</version>
+			<type>jar</type>
+		</dependency>
+
 	</dependencies>
 
 </project>

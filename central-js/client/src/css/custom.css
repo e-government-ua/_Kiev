@@ -205,6 +205,11 @@ a {
     }
 }
 
+ul.dropdown-menu {
+    max-height: 270px;
+    overflow-y: auto;
+}
+
 .share-form {
     padding: 30px
 }
@@ -568,7 +573,6 @@ a {
     font-size: 14px;
 }
 
-
 .add0-cat, .add0-subcat, .add0-srvc {
     color: green;
 }
@@ -623,6 +627,7 @@ label .snippet {
 .error {
     color: red;
 }
+
 html {
     position: relative;
     min-height: 100%;
@@ -1211,7 +1216,7 @@ a {
 }
 
 .ctrls-block {
-    display: inline-block;   
+    display: inline-block;
     width: 280px;
 }
 
@@ -1299,10 +1304,23 @@ label .snippet {
 }
 
 .pluso-counter {
-    left:-20px;
+    left: -20px;
 }
 
 .s-field-notes {
     color: #aaaaaa;
     text-align: left;
+}
+
+.slot-picker .slot-day,
+.slot-picker .slot-time {
+    display: inline-block;
+}
+
+.slot-picker .slot-day {
+    min-width: 125px;
+}
+
+.slot-picker .slot-time {
+    min-width: 85px;
 }

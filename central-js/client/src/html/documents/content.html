@@ -75,8 +75,8 @@
                            value="{{doc.sName}}">
                 </td>
                 <td>
-                    <a href="/api/service/documents/download/{{doc.nID}}"
-                       target="_blank">
+                    <a ng-href="{{getDocumentLink(doc.nID)}}"
+                       target="_self">
                         <span class="glyphicon glyphicon-duplicate"
                               title="Завантажити копію"
                               aria-hidden="true"></span></a>
@@ -211,7 +211,7 @@
                                         <div class="submit-button">
                                             <button type="submit"
                                                     class="btn btn-primary"
-                                                    ng-disabled="shareLinkForm.$invalid">Надати доступ
+                                                    ng-disabled="shareLinkForm.$invalid">Отримати код
                                             </button>
                                         </div>
                                     </form>

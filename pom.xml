@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
 
 	<name>iGov-UA</name>
- 
 	<groupId>org.egov-ua</groupId>
 	<artifactId>org.egov-ua</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
+	<!--version>${igov.wf-base.version}</version-->
 
 	<properties>
 		<!--compiler properties -->
@@ -18,6 +17,8 @@
 		<encoding>UTF-8</encoding>
 		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
 		<!--compiler properties -->
+
+		<liquibase.data.path>data</liquibase.data.path>
 
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
 		<maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
@@ -56,8 +57,19 @@
 		<java.object.merger.version.version>0.8.5.1</java.object.merger.version.version>
 		<jboss.serialization.version>4.2.2.GA</jboss.serialization.version>
 		<trove.version>1.0.2</trove.version>
+		<quartz.version>1.6.1</quartz.version>
 		<ehcache.version>2.10.0</ehcache.version>
 	</properties>
+                <!--igov.storage-static.version>1.0.0${parameter.sRevision}-SNAPSHOT</igov.storage-static.version>
+                <igov.storage-temp.version>1.0.0${parameter.sRevision}-SNAPSHOT</igov.storage-temp.version>
+                <igov.wf-base.version>1.0.0${parameter.sRevision}-SNAPSHOT</igov.wf-base.version>
+                <igov.wf-central.version>1.0.0${parameter.sRevision}-SNAPSHOT</igov.wf-central.version>
+                <igov.wf-region.version>1.0.0${parameter.sRevision}-SNAPSHOT</igov.wf-region.version-->
+                <!--igov.storage-static.version>1.0.0-SNAPSHOT</igov.storage-static.version>
+                <igov.storage-temp.version>1.0.0-SNAPSHOT</igov.storage-temp.version>
+                <igov.wf-base.version>1.0.0-SNAPSHOT</igov.wf-base.version>
+                <igov.wf-central.version>1.0.0-SNAPSHOT</igov.wf-central.version>
+                <igov.wf-region.version>1.0.0-SNAPSHOT</igov.wf-region.version-->
 
 	<distributionManagement>
 	    <!-- XXX Replace localNexus to iGov_Nexus or something like that. And reconfigure Jenkins -->
@@ -101,46 +113,82 @@
     </repositories>
 
 	<profiles>
-		<profile>
-			<id>wf-all</id>
-
-			<modules>
-				<module>auth-custom</module>
-				<module>storage-static</module>
-				<module>storage-temp</module>
-				<module>wf-base</module>
-				<module>wf-region</module>
-				<module>wf-central</module>
-			</modules>
-
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		</profile>
-
-		<profile>
-			<id>wf-region</id>
-
-			<modules>
-				<module>auth-custom</module>
-				<module>storage-static</module>
-				<module>storage-temp</module>
-				<module>wf-base</module>
-				<module>wf-region</module>
-			</modules>
-		</profile>
-
-		<profile>
-			<id>wf-central</id>
-
-			<modules>
-				<module>auth-custom</module>
-				<module>storage-static</module>
-				<module>storage-temp</module>
-				<module>wf-base</module>
-				<module>wf-central</module>
-			</modules>
-		</profile>
+            
+                <profile>
+                    <id>alpha</id>
+                    <activation>
+                        <activeByDefault>true</activeByDefault>
+                    </activation>
+                    <modules>
+                            <module>auth-custom</module>
+                            <module>storage-static</module>
+                            <module>storage-temp</module>
+                            <module>wf-base</module>
+                            <module>wf-region</module>
+                            <module>wf-central</module>
+                    </modules>
+                    <properties>
+                        <sRevision>a</sRevision>
+                        <igov.storage-static.version>1.0.0a-SNAPSHOT</igov.storage-static.version>
+                        <igov.storage-temp.version>1.0.0a-SNAPSHOT</igov.storage-temp.version>
+                        <igov.wf-base.version>1.0.0a-SNAPSHOT</igov.wf-base.version>
+                        <igov.wf-central.version>1.0.0a-SNAPSHOT</igov.wf-central.version>
+                        <igov.wf-region.version>1.0.0a-SNAPSHOT</igov.wf-region.version>
+						<liquibase.custom.data.path>${liquibase.data.path}</liquibase.custom.data.path>
+                    </properties>
+                </profile>
+                <profile>
+                    <id>beta</id>
+                    <activation>
+                      <property>
+                        <name>parameter.sVer</name>
+                        <value>b</value>
+                      </property>
+                    </activation>            
+                    <modules>
+                            <module>auth-custom</module>
+                            <module>storage-static</module>
+                            <module>storage-temp</module>
+                            <module>wf-base</module>
+                            <module>wf-region</module>
+                            <module>wf-central</module>
+                    </modules>
+                    <properties>
+                        <sRevision>b</sRevision>
+                        <igov.storage-static.version>1.0.0b-SNAPSHOT</igov.storage-static.version>
+                        <igov.storage-temp.version>1.0.0b-SNAPSHOT</igov.storage-temp.version>
+                        <igov.wf-base.version>1.0.0b-SNAPSHOT</igov.wf-base.version>
+                        <igov.wf-central.version>1.0.0b-SNAPSHOT</igov.wf-central.version>
+                        <igov.wf-region.version>1.0.0b-SNAPSHOT</igov.wf-region.version>
+						<liquibase.custom.data.path>${liquibase.data.path}/beta</liquibase.custom.data.path>
+                    </properties>
+                </profile>
+                <profile>
+                    <id>release</id>
+                    <activation>
+                      <property>
+                        <name>parameter.sVer</name>
+                        <value>release</value>
+                      </property>
+                    </activation>            
+                    <modules>
+                            <module>auth-custom</module>
+                            <module>storage-static</module>
+                            <module>storage-temp</module>
+                            <module>wf-base</module>
+                            <module>wf-region</module>
+                            <module>wf-central</module>
+                    </modules>
+                    <properties>
+                        <sRevision></sRevision>
+                        <igov.storage-static.version>1.0.0-RELEASE</igov.storage-static.version>
+                        <igov.storage-temp.version>1.0.0-RELEASE</igov.storage-temp.version>
+                        <igov.wf-base.version>1.0.0-RELEASE</igov.wf-base.version>
+                        <igov.wf-central.version>1.0.0-RELEASE</igov.wf-central.version>
+                        <igov.wf-region.version>1.0.0-RELEASE</igov.wf-region.version>
+						<liquibase.custom.data.path>${liquibase.data.path}/prod</liquibase.custom.data.path>
+                    </properties>
+                </profile> 
 	</profiles>
 
 	<dependencyManagement>
@@ -202,6 +250,12 @@
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
 				<version>${commons.codec.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.opensymphony.quartz</groupId>
+				<artifactId>quartz</artifactId>
+				<version>${quartz.version}</version>
 			</dependency>
 
 			<!-- required for @Configuration annotation -->
@@ -404,6 +458,18 @@
 	</dependencyManagement>
 
 	<build>
+
+		<resources>
+			<resource> <!-- declared first because override is not working when copy resources -->
+				<directory>src/main/resources/${liquibase.custom.data.path}</directory>
+				<targetPath>${liquibase.data.path}</targetPath>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -473,6 +539,7 @@
 					<configuration>
 						<includes>
 							<include>**/*Test.java</include>
+							<include>**/*Scenario.java</include>
 						</includes>
 					</configuration>
 				</plugin>
@@ -498,6 +565,21 @@
 						</execution>
 					</executions>
 				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<version>3.4</version>
+					<configuration>
+						<rulesets>
+							<ruleset>${project.parent.basedir}/code-rules.xml</ruleset>
+						</rulesets>
+						<targetJdk>1.7</targetJdk>
+						<includeTests>true</includeTests>
+						<outputEncoding>UTF-8</outputEncoding>
+					</configuration>
+				</plugin>
+
 			</plugins>
 		</pluginManagement>
 

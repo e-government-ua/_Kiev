@@ -18,7 +18,7 @@
           <activiti:value id="3" name="Оплата твердого/рідкого палива"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="name_services" name="Наіменування послуг" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="houses" name="Утримання дому та придомової території" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="houses" name="Утримання дому та придомової території" type="label" default="--------------------"></activiti:formProperty>
         <activiti:formProperty id="house_number" name="Номер особового рахунка" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="house_name" name="Назваорганізації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="gas" name="Газ" type="label" default="--------------------"></activiti:formProperty>
@@ -47,7 +47,7 @@
           <activiti:value id="2" name="ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="notice2" name="Примітки" type="label" default="Я та особи, які зареєстровані (фактично проживають) у житловому приміщенні/будинку, даємо згоду на обробку персональних даних про сім’ю, доходи, майно, що необхідні для призначення житлової субсидії, та оприлюднення відомостей щодо її призначення. "></activiti:formProperty>
-        <activiti:formProperty id="declaration" name="Дані для декларації" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="declaration" name="Дані для декларації" type="label" default="--------------------"></activiti:formProperty>
         <activiti:formProperty id="place_type" name="Тип дома" type="enum" required="true">
           <activiti:value id="1" name="окремий будинок"></activiti:value>
           <activiti:value id="2" name="багатоквартирний будинок"></activiti:value>
@@ -63,12 +63,12 @@
         <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені протягом 12 місяців перед зверненням за призначенням житлової субсидії; перерахуйте з нового рядка ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг; ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг" type="textArea" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="Sales">
+    <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="dnepr_upzsn">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Им'я" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Им'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="chapter1" name="Деталі" type="label" default="--------------------" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_living" name="Місце проживання" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" required="true"></activiti:formProperty>
@@ -150,7 +150,7 @@
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний ${bankidfirstName}</activiti:expression>
+          <activiti:expression>Шановний ${bankIdfirstName}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

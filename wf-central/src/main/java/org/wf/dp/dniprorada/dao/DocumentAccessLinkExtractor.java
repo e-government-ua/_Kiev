@@ -13,7 +13,7 @@ public class DocumentAccessLinkExtractor implements ResultSetExtractor<DocumentA
 	public DocumentAccess extractData(ResultSet rs) throws SQLException,
 			DataAccessException {
 		DocumentAccess da = new DocumentAccess();
-		da.setID(rs.getLong("nID"));
+		da.setId(rs.getLong("nID"));
 		da.setID_Document(rs.getLong("nID_Document"));
 		da.setDateCreate(rs.getString("sDateCreate"));
 		da.setMS(rs.getLong("nMS"));

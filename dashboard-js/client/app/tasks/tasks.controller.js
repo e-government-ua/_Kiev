@@ -172,6 +172,33 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, $windo
     return s;
   };
 
+  $scope.nID_FlowSlotTicket_FieldQueueData = function(sValue) {
+    var nAt=sValue.indexOf(":");
+    var nTo=sValue.indexOf(",");
+    var s=sValue.substring(nAt+1,nTo);
+    var nID_FlowSlotTicket = 0;
+    try{
+        nID_FlowSlotTicket = s;
+    }catch(_){
+        nID_FlowSlotTicket=1;
+    }
+    return nID_FlowSlotTicket;
+  };
+
+  $scope.sDate_FieldQueueData = function(sValue) {
+    var nAt=sValue.indexOf("sDate");
+    var nTo=sValue.indexOf("}");
+    var s=sValue.substring(nAt+5+1+1,nTo-1-6);
+    var sDate = "Дата назначена!";
+    try{
+        sDate = s;
+    }catch(_){
+        sDate="Дата назначена!";
+    }
+    return sDate;
+  };
+
+
   $scope.sEnumValue = function(aItem,sID) {
     var s=sID;
     _.forEach(aItem, function(oItem) {

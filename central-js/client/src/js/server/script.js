@@ -16,6 +16,15 @@ define('server', ['angularAMD'], function (angularAMD) {
 		$httpBackend.whenGET(/\/api\/bankid/).passThrough();
 		$httpBackend.whenGET(/\/api\/process-form/).passThrough();
 		$httpBackend.whenPOST(/\/api\/process-form/).passThrough();
+		$httpBackend.whenGET(/\/api\/messages/).passThrough();
+		$httpBackend.whenPOST(/\/api\/messages/).passThrough();
+
+		$httpBackend.whenGET(/\/auth\//).passThrough();
+		$httpBackend.whenGET(/\/config\/config/).passThrough();
+		$httpBackend.whenGET(/\/api\/documents/).passThrough();
+		$httpBackend.whenPOST(/\/api\/documents\//).passThrough();
+		$httpBackend.whenGET(/\/api\/journal/).passThrough();
+
 	}]);
 	
     return app;

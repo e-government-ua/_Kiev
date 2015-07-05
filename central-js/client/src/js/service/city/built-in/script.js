@@ -50,20 +50,15 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
 						});
 						return oServiceData;
 					}],
-					BankIDLogin: ['$q', '$state', '$location', '$stateParams', 'BankIDService', function($q, $state, $location, $stateParams, BankIDService) {
-						var url = $location.protocol()
-							+'://'
-							+$location.host()
-							+':'
-							+$location.port()
-							+$state.href('service.general.city.built-in.bankid', { id: $stateParams.id, region: $stateParams.region, city: $stateParams.city });
-						
-						return BankIDService.login($stateParams.code, url).then(function(data) {
-							return data.hasOwnProperty('error') ? $q.reject(null): data;
+					BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
+						return BankIDService.isLoggedIn().then(function () {
+							return {loggedIn: true};
+						}).catch(function() {
+							return $q.reject(null);
 						});
-					}],
+					},
 					BankIDAccount: ['BankIDService', 'BankIDLogin', function(BankIDService, BankIDLogin) {
-						return BankIDService.account(BankIDLogin.access_token);
+						return BankIDService.account();
 					}],
 					processDefinitions: ['ServiceService', 'oServiceData', function(ServiceService, oServiceData) {
 						return ServiceService.getProcessDefinitions(oServiceData, true);
@@ -113,8 +108,11 @@ define('service.general.city.built-in', ['angularAMD'], function (angularAMD) {
                         templateProvider: ['$templateCache', function($templateCache) {
 							return $templateCache.get('html/service/city/built-in/bankid.submitted.html');
 						}],
-						controller: ['$state', '$scope', function($state, $scope) {
+						controller: ['$state', '$scope', '$sce', function($state, $scope, $sce) {
 							$scope.state = $state.get('service.general.city.built-in.bankid.submitted');
+							$scope.getHtml = function(html){
+								return $sce.trustAsHtml(html);
+							};
 						}]
 					})
 				}

@@ -28,6 +28,7 @@ module.exports = function(grunt) {
                     './src/html/service/**/*.html',
                     './src/html/documents/**/*.html',
                     './src/html/journal/**/*.html',
+                    './src/html/form/**/*.html',
                     './src/html/404/*.html'
                 ],
                 dest: './build/js/templates.js'
@@ -57,7 +58,8 @@ module.exports = function(grunt) {
 					'ui-router-extras': 'angular-ui-router',
 					'angular-ui-utils':'angular',
 					'angular-ui': 'angular',
-					'ngClip': 'angular'
+					'ngClip': 'angular',
+					'angular-resource': 'angular'
 				},
 				mainFiles: {
 					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css'],
@@ -81,7 +83,8 @@ module.exports = function(grunt) {
 					'ui-router-extras': 'angular-ui-router',
 					'angular-ui-utils':'angular',
 					'angular-ui': 'angular',
-					'ngClip': 'angular'
+					'ngClip': 'angular',
+					'angular-resource': 'angular'
 				},
 				mainFiles: {
 					'angular-ui': ['build/angular-ui.js', 'angular-ui-ieshiv.js', 'build/angular-ui.css'],
@@ -405,6 +408,11 @@ module.exports = function(grunt) {
 					{expand: false, src: ['./bower_components/bootstrap/dist/css/bootstrap.css.map'], dest: './build/css/bootstrap.css.map', filter: 'isFile'},
 					{expand: false, src: ['./src/js/main/data.json'], dest: './build/data.json', filter: 'isFile'}
 				]
+			},
+			config: {
+				files: [
+					{expand: true, cwd: './src/config', src: ['**'], dest: './build/config/'},
+				]
 			}
 		},
 		// watch for dev files to change and re-build the script files
@@ -413,7 +421,7 @@ module.exports = function(grunt) {
 		watch: {
 			scripts: {
 				files: './src/js/**/*.js',
-				tasks: ['concat:debug', 'copy:concat', 'htmlbuild', 'html2js'] 
+				tasks: ['concat:debug', 'copy:concat', 'copy:config', 'htmlbuild', 'html2js']
 			},
 			templates: {
 				files: './src/html/**/*.html',
@@ -435,10 +443,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
     // default task
-    grunt.registerTask('default', ['bower_concat:main', 'bower_concat:require', 'concat:main', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'htmlbuild', 'html2js']);
+    grunt.registerTask('default', ['bower_concat:main', 'bower_concat:require', 'concat:main', 'uglify', 'cssmin', 'compress:min', 'copy:concat', 'copy:config', 'htmlbuild', 'html2js']);
     // debug task: ommit compressing
     // TODO: ensure that omit compressing does not affect correctness of build
-	grunt.registerTask('debug', ['bower_concat:debug', 'bower_concat:require', 'concat:debug', 'copy:concat', 'htmlbuild', 'html2js']);
+	grunt.registerTask('debug', ['bower_concat:debug', 'bower_concat:require', 'concat:debug', 'copy:concat', 'copy:config', 'htmlbuild', 'html2js']);
 	// dev task: debug + watch for js files change to automatically rebuild project
-	grunt.registerTask('dev', ['bower_concat:debug', 'bower_concat:require', 'concat:debug', 'copy:concat', 'htmlbuild', 'html2js', 'watch']);
+	grunt.registerTask('dev', ['bower_concat:debug', 'bower_concat:require', 'concat:debug', 'copy:concat', 'copy:config', 'htmlbuild', 'html2js', 'watch']);
 };

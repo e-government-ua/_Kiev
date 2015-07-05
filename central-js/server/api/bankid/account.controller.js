@@ -1,68 +1,29 @@
-var request = require('request');
-var Admin = require('../../components/admin');
+var express = require('express');
+var router = express.Router();
+var accountService = require('./account.service.js');
+var async = require('async');
 
-module.exports.index = function(options, callback) {
-	var url = options.protocol + '://' + options.hostname + options.path + '/checked/data';
-	
-	var adminCheckCallback = function(error, response, body){
-		if (body.customer && Admin.isAdminInn(body.customer.inn)) {
-			body.admin = {
-				inn: body.customer.inn,
-				token: Admin.generateAdminToken()
-			};
-		}
-		callback(error, response, body);
-	};
+module.exports.index = function (req, res) {
+    var config = require('../../config');
 
-	return request.post({
-		'url': url,
-		'headers': {
-			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id,
-			'Accept': 'application/json'
-		},
-		json: true,
-		body: {
-			"type": "physical",
-			"fields": ["firstName", "middleName", "lastName", "phone", "inn", "clId", "clIdText", "birthDay"],
-			"documents": [{
-				"type": "passport",
-				"fields": ["series", "number", "issue", "dateIssue", "dateExpiration", "issueCountryIso2"]
-			}]
-		}
-	}, adminCheckCallback);
-};
+    var options = {
+        access: req.session.access,
+        bankid: config.bankid,
+        activiti: config.activiti
+    };
 
-module.exports.scansRequest = function(options, callback) {
-	var url = options.protocol + '://' + options.hostname + options.path + '/checked/data';
-	return request.post({
-		'url': url,
-		'headers': {
-			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id,
-			'Accept': 'application/json'
-		},
-		json: true,
-		body: {
-			"type": "physical",
-			"fields": ["firstName", "middleName", "lastName", "phone", "inn", "clId", "clIdText", "birthDay"],
-			"scans": [{
-				"type": "passport",
-				"fields": ["link", "dateCreate", "extension"]
-			}, {
-				"type": "zpassport",
-				"fields": ["link", "dateCreate", "extension"]
-			}]
-		}
-	}, callback);
-};
-
-module.exports.prepareScanContentRequest = function(options) {
-	var o = {
-		'url': options.url,
-		'headers': {
-			'Authorization': 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id
-		}
-	};
-	return request.get(o);
+    accountService.syncWithSubject(options, function (err, result) {
+        if (err) {
+            res.status(err.code);
+            res.send(err);
+            res.end();
+        } else {
+            req.session.subject = result.subject;
+            res.send({
+                customer: result.customer,
+                admin: result.admin
+            });
+            res.end();
+        }
+    });
 };

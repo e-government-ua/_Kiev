@@ -23,6 +23,7 @@ module.exports = function(app) {
         secret: config.server.session.secret,
         keys: config.server.session.keys,
         secure: config.server.session.secure,
-        signed: true
+        signed: true,
+        maxAge: config.server.session.maxAge
     }));
 };

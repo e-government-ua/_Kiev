@@ -26,7 +26,7 @@ define('documents', ['angularAMD', 'config', 'service', 'file2/directive', 'file
         }
 	  })
       .state('documents.bankid', {
-        url: '/bankid?code',
+        url: '/bankid?error',
         parent: 'documents.user',
         views: {
           'content': angularAMD.route({
@@ -50,30 +50,24 @@ define('documents', ['angularAMD', 'config', 'service', 'file2/directive', 'file
         }       
       })
       .state('documents.content', {
-        url: '/content?code',
+        url: '/content',
         parent: 'documents.user',
         resolve: {
           BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
-            var url = $location.protocol()
-              + '://'
-              + $location.host()
-              + ':'
-              + $location.port()
-              + $state.href('documents.bankid', {code: ''});
-
-            return BankIDService.login($stateParams.code, url).then(function(data) {
-              return data.hasOwnProperty('error') ? $q.reject(null) : data;
+            return BankIDService.isLoggedIn().then(function () {
+              return {loggedIn: true};
+            }).catch(function() {
+              return $q.reject(null);
             });
           },
           BankIDAccount: function(BankIDService, BankIDLogin) {
-            return BankIDService.account(BankIDLogin.access_token);
+            return  BankIDService.account();
           },
           customer: function(BankIDAccount) {
             return BankIDAccount.customer;
           },
           documents: function($q, $state, ServiceService, BankIDLogin, customer) {
-            return ServiceService.getOrUploadDocuments(
-                            BankIDLogin.access_token)
+            return ServiceService.getOrUploadDocuments()
                         .then(function(data) {
                             return data;
                         });

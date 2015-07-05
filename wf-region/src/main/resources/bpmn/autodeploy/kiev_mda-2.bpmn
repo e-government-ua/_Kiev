@@ -7,17 +7,15 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" required="true">
           <activiti:value id="kiev_rda1" name="Деснянський"></activiti:value>
-          <activiti:value id="kiev_rda2" name="Соломенскй"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="attr2" name="Тип квартиної черги" type="enum" required="true">
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="attr3" name="Копія довідки з міста праці; додається тільки у випадку пільгової квартирної черги" type="file"></activiti:formProperty>
+        <activiti:formProperty id="attr3" name="Копія довідки з місця роботи; додається тільки у випадку пільгової квартирної черги" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warningMessage" name="Увага!" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
@@ -297,7 +295,7 @@
         <activiti:formProperty id="confirm_cnap2" name="Оригінал довідки з місця працевлаштування  відправлено до РДА?" type="enum" writable="false">
           <activiti:value id="accept" name="документ відправлено в РДА"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="confirm_rda" name="Оригінал довідки з місця правцевлаштування громадянина  отримано з ЦНАПу?" type="enum">
+        <activiti:formProperty id="confirm_rda" name="Оригінал довідки з місця правцевлаштування громадянина  отримано з ЦНАПу?" type="enum" required="true">
           <activiti:value id="accept" name="Підтвердити, що оригінал довідки отриманий"></activiti:value>
         </activiti:formProperty>
       </extensionElements>
@@ -360,14 +358,12 @@
           <activiti:value id="accept" name="Ухвалити надання послуги. Почати формування пакету документів."></activiti:value>
           <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
-
         <activiti:formProperty id="decide2" name="Результат перевірки документів в РДА" type="enum" writable="false">
           <activiti:value id="accept" name="Документи перевірено. Зауваження відсутні."></activiti:value>
           <activiti:value id="reject" name="Документи не пройшли перевірку. Відмовити в наданні послуги."></activiti:value>
-        </activiti:formProperty>      
-    
+        </activiti:formProperty>
         <activiti:formProperty id="result_file" name="Завантажте копію довідки про перебування на квартирному обліку для передачі в ЦНАП" type="file" required="true"></activiti:formProperty>
-      <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="На опрацюванні РДА" readable="false"></activiti:formProperty>
+        <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="На опрацюванні РДА" readable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow33" sourceRef="usertask8" targetRef="usertask5"></sequenceFlow>
@@ -420,6 +416,9 @@
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="69.0" width="171.0" x="170.0" y="20.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="312.0" y="24.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="69.0" width="191.0" x="380.0" y="20.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -437,9 +436,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="887.0" y="-30.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
-        <omgdc:Bounds height="30.0" width="30.0" x="312.0" y="24.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
         <omgdc:Bounds height="35.0" width="35.0" x="250.0" y="-30.0"></omgdc:Bounds>

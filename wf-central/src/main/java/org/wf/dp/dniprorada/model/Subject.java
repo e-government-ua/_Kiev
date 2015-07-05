@@ -9,21 +9,10 @@ import javax.persistence.SequenceGenerator;
 import net.sf.brunneng.jom.annotations.Identifier;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.wf.dp.dniprorada.base.model.Entity;
 
 @javax.persistence.Entity
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Subject {
-	
-	@JsonProperty(value = "nID")
-	@Id
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="subject_id_seq")
-    //@SequenceGenerator(name="subject_id_seq", sequenceName="subject_id_seq", allocationSize=1)
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "nID")
-	
-    
-	private long nID;
+public class Subject extends Entity {
 	
 	@JsonProperty(value = "sID")
 	@Column(name = "sID", nullable = true)
@@ -36,16 +25,6 @@ public class Subject {
 	@JsonProperty(value = "sLabelShort")
 	@Column(name = "sLabelShort", nullable = true)
 	private String sLabelShort;
-	
-	
-	@Identifier
-	public Long getnID() {
-		return nID;
-	}
-	
-	public void setnID(Long nID) {
-		this.nID = nID;
-	}
 
 	public String getsID() {
 		return sID;

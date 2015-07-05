@@ -9,27 +9,42 @@ public enum HistoryEventType {
     GET_SERVICE(1L,
             "getService",
             "Пользователь воспользовался услугой на портале",
-            "Ви подали заявку на послугу %Назва послуги%. \n Cтатус: %статус%" ),
+            "Ви подали заявку на послугу " + HistoryEventMessage.SERVICE_NAME
+                    + ". \n Cтатус: " + HistoryEventMessage.SERVICE_STATE),
     SET_DOCUMENT_INTERNAL(2L,
             "setDocument_internal",
             "В Мои документы пользователя загружен новый документ – через наш портал",
-            "%Назва органу% завантажує %Назва документу% у Ваш розділ Мої документи"),
+            HistoryEventMessage.ORGANIZATION_NAME + " завантажує " + HistoryEventMessage.DOCUMENT_TYPE
+                    + " " + HistoryEventMessage.DOCUMENT_NAME + " у Ваш розділ Мої документи"),
     SET_DOCUMENT_EXTERNAL(3L,
             "setDocument_external",
             "В Мои документы пользователя загружен новый документ – внешняя организация",
-            "%Назва органу% завантажує %Назва документу% у Ваш розділ Мої документи"),
+            HistoryEventMessage.ORGANIZATION_NAME + " завантажує " + HistoryEventMessage.DOCUMENT_TYPE
+                    + " " + HistoryEventMessage.DOCUMENT_NAME + " у Ваш розділ Мої документи"),
     SET_DOCUMENT_ACCESS_LINK(4L,
             "setDocumentAccessLink",
             "Пользователь предоставил доступ к своему документу",
-            "Ви надаєте доступ до документу %Назва документу% іншій людині: %Ім’я того, кому надають доступ% (телефон: %телефон%)"),
+            "Ви надаєте доступ до документу "
+                    + HistoryEventMessage.DOCUMENT_TYPE + " " + HistoryEventMessage.DOCUMENT_NAME
+                    + " іншій людині: " + HistoryEventMessage.FIO
+                    + " (телефон: " + HistoryEventMessage.TELEPHONE
+                    + ", e-mail: " + HistoryEventMessage.EMAIL
+                    +  ", строк дії: " + HistoryEventMessage.DAYS + " днів)"),
     SET_DOCUMENT_ACCESS(5L,
             "setDocumentAccess",
             "Кто-то воспользовался доступом к документу через OTP, который ему предоставил пользователь",
-            "%Ім’я того, кому надають доступ% скористався доступом, який Ви надали, та переглянув документ %Назва документу%"),
+            "" + HistoryEventMessage.FIO + " скористався доступом, який Ви надали, та переглянув документ "
+                    + HistoryEventMessage.DOCUMENT_TYPE + " " + HistoryEventMessage.DOCUMENT_NAME + ""),
     ACTIVITY_STATUS_NEW(6L,
             "ActivitiStatusNew",
             "Изменение статуса заявки",
-            "Ваша заявка №%nTask% изменила свой статус на %StatusNameNew%");
+            "Ваша заявка №" + HistoryEventMessage.TASK_NUMBER
+                    + " изменила свой статус на " + HistoryEventMessage.SERVICE_STATE + ""),
+    GET_DOCUMENT_ACCESS_BY_HANDLER(7L,
+            "getDocumentAccessByHandler",
+            "Кто-то воспользовался доступом к документу, который ему предоставил пользователь",
+            "Організація " + HistoryEventMessage.ORGANIZATION_NAME + " скористалась доступом, який Ви надали, та переглянула документ "
+                    + HistoryEventMessage.DOCUMENT_TYPE + " " + HistoryEventMessage.DOCUMENT_NAME + "");
 
     private Long nID;
     private String sID;

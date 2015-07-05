@@ -5,9 +5,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="Create/Update tables" author="brunneng" runOnChange="true">
+    <changeSet id="Init tables" author="brunneng" runOnChange="true">
 
-        <sql splitStatements="true">
+        <sql splitStatements="true" dbms="postgresql">
             DROP SEQUENCE IF EXISTS "Subject_id_seq";
             DROP SEQUENCE IF EXISTS "SubjectHuman_id_seq";
             DROP SEQUENCE IF EXISTS "SubjectOrgan_id_seq";
@@ -32,9 +32,41 @@
             DROP TABLE IF EXISTS "DocumentType" CASCADE;
             DROP TABLE IF EXISTS "DocumentContentType" CASCADE;
             DROP TABLE IF EXISTS "Document" CASCADE;
+            DROP TABLE IF EXISTS "DocumentOperator_SubjectOrgan" CASCADE;
+            DROP TABLE IF EXISTS "ServiceOperator_SubjectOrgan" CASCADE;
             DROP TABLE IF EXISTS "HistoryEvent" CASCADE;
-
             DROP TABLE IF EXISTS "DocumentAccess" CASCADE;
+        </sql>
+
+        <sql splitStatements="true" dbms="h2">
+            DROP SEQUENCE IF EXISTS Subject_id_seq;
+            DROP SEQUENCE IF EXISTS SubjectHuman_id_seq;
+            DROP SEQUENCE IF EXISTS SubjectOrgan_id_seq;
+            DROP SEQUENCE IF EXISTS Document_id_seq;
+            DROP SEQUENCE IF EXISTS DocumentType_id_seq;
+            DROP SEQUENCE IF EXISTS DocumentContentType_id_seq;
+            DROP SEQUENCE IF EXISTS DocumentAccess_id_seq;
+            DROP SEQUENCE IF EXISTS HistoryEvent_id_seq;
+            DROP TABLE IF EXISTS Region CASCADE;
+            DROP TABLE IF EXISTS City CASCADE;
+            DROP TABLE IF EXISTS Category CASCADE;
+            DROP TABLE IF EXISTS Subcategory CASCADE;
+            DROP TABLE IF EXISTS ServiceType CASCADE;
+            DROP TABLE IF EXISTS Service CASCADE;
+            DROP TABLE IF EXISTS ServiceData CASCADE;
+            DROP TABLE IF EXISTS Subject CASCADE;
+            DROP TABLE IF EXISTS SubjectHuman CASCADE;
+            DROP TABLE IF EXISTS SubjectOrgan CASCADE;
+            DROP TABLE IF EXISTS SubjectOrganType CASCADE;
+            DROP TABLE IF EXISTS SubjectOrganDepartment CASCADE;
+            DROP TABLE IF EXISTS SubjectMessage CASCADE;
+            DROP TABLE IF EXISTS DocumentType CASCADE;
+            DROP TABLE IF EXISTS DocumentContentType CASCADE;
+            DROP TABLE IF EXISTS Document CASCADE;
+            DROP TABLE IF EXISTS DocumentOperator_SubjectOrgan CASCADE;
+            DROP TABLE IF EXISTS ServiceOperator_SubjectOrgan CASCADE;
+            DROP TABLE IF EXISTS HistoryEvent CASCADE;
+            DROP TABLE IF EXISTS DocumentAccess CASCADE;
         </sql>
         
         <!-- ####################################################################################################### -->
@@ -52,13 +84,6 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="Subject" columnDataType="bigint"  incrementBy="1" startWith="1"/>
-        
-         <createSequence catalogName="Subject"
-            incrementBy="1"
-            sequenceName="Subject_id_seq"
-            startValue="1"/>
-         
         
         <!-- ####################################################################################################### -->
         <createTable tableName="SubjectHuman">
@@ -92,13 +117,6 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="SubjectHuman" columnDataType="bigint"  incrementBy="1" startWith="1"/>
-        
-         <createSequence catalogName="SubjectHuman"
-            incrementBy="1"
-            sequenceName="SubjectHuman_id_seq"
-            startValue="1"/>
-            
         
         <!-- ####################################################################################################### -->
         <createTable tableName="SubjectOrgan">
@@ -123,12 +141,6 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="SubjectOrgan" columnDataType="bigint"  incrementBy="1" startWith="1"/>
-        
-        <createSequence catalogName="SubjectOrgan"
-            incrementBy="1"
-            sequenceName="SubjectOrgan_id_seq"
-            startValue="1"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="SubjectOrganType">
@@ -139,7 +151,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="SubjectOrganType" columnDataType="bigint"  incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="SubjectOrganDepartment">
@@ -158,7 +169,6 @@
                              referencedTableName="SubjectOrgan" referencedColumnNames="nID" deleteCascade="true"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="SubjectOrganDepartment" columnDataType="bigint"  incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="Region">
@@ -169,7 +179,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="Region" columnDataType="int" incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="City">
@@ -185,7 +194,6 @@
                              referencedTableName="Region" referencedColumnNames="nID" deleteCascade="true"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="City" columnDataType="int" incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="Category">
@@ -202,7 +210,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="Category" columnDataType="int" incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="Subcategory">
@@ -224,7 +231,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="Subcategory" columnDataType="int" incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="ServiceType">
@@ -238,7 +244,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="ServiceType" columnDataType="int" incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="Service">
@@ -269,9 +274,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="Service" columnDataType="int"  incrementBy="1" startWith="1000"/>
 		
-		        <!-- ####################################################################################################### -->
+		<!-- ####################################################################################################### -->
 
         <createTable tableName="HistoryEvent">
             <column name="nID" type="bigint">
@@ -293,13 +297,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="HistoryEvent" columnDataType="bigint" incrementBy="1" startWith="1"/>
-
-        <createSequence catalogName="HistoryEvent"
-                        incrementBy="1"
-                        sequenceName="HistoryEvent_id_seq"
-                        startValue="1"/>
-
 
         <!-- ####################################################################################################### -->
         <createTable tableName="ServiceData">
@@ -343,10 +340,11 @@
             <column name="sNote" type="varchar(1000)">
                 <constraints nullable="false"/>
             </column>
+            <column name="asAuth" type="varchar(20)">
+                <constraints nullable = "false"/>
+            </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="ServiceData" columnDataType="int"  incrementBy="1" startWith="1000"/>
-        
-               
+
         <!-- ####################################################################################################### -->
         <createTable tableName="SubjectMessage">
             <column name="nID" type="bigint">
@@ -368,7 +366,6 @@
             <column name="sContacts" type="varchar(200)"/>
             <column name="sData" type="varchar"/>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="SubjectMessage" columnDataType="bigint"  incrementBy="1" startWith="1"/>   
              
          <!-- ####################################################################################################### -->
         <createTable tableName="DocumentType">
@@ -379,12 +376,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="DocumentType" columnDataType="int" incrementBy="1" startWith="0"/>
-        
-        <createSequence catalogName="DocumentType"
-            incrementBy="1"
-            sequenceName="DocumentType_id_seq"
-            startValue="1"/>
         
         <!-- ####################################################################################################### -->
         <createTable tableName="DocumentContentType">
@@ -395,12 +386,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="DocumentContentType" columnDataType="int" incrementBy="1" startWith="0"/>
-        
-        <createSequence catalogName="DocumentContentType"
-            incrementBy="1"
-            sequenceName="DocumentContentType_id_seq"
-            startValue="1"/>
         
         <!-- ####################################################################################################### -->
         <createTable tableName="Document">
@@ -446,18 +431,6 @@
                              referencedTableName="Subject" referencedColumnNames="nID" deleteCascade="true"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="Document" columnDataType="bigint"  incrementBy="1" startWith="1"/>
-        
-        <createSequence catalogName="Document"
-            incrementBy="1"
-            sequenceName="Document_id_seq"
-            startValue="1"/>
-            
-            <createSequence catalogName="DocumentAccess"
-            incrementBy="1"
-            sequenceName="DocumentAccess_id_seq"
-            startValue="1"/>
-        
         
         <!-- ####################################################################################################### -->
         <createTable tableName="DocumentAccess">
@@ -494,135 +467,65 @@
             <column name="sDateAnswerExpire" type="timestamp">
                 <constraints nullable="true"/>
             </column>
+            <column name="sCode" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sCodeType" type="varchar(20)">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
-        <!-- addAutoIncrement columnName="nID" tableName="DocumentAccess" columnDataType="bigint"  incrementBy="1" startWith="1"/ -->
 
-        <!-- Loading of Data ####################################################################################### -->
-        <loadData encoding="UTF-8" file="data/Subject.csv" tableName="Subject" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="sID" type="STRING"/>
-            <column name="sLabel" type="STRING"/>
-            <column name="sLabelShort" type="STRING"/> 
-        </loadData>
-        <loadData encoding="UTF-8" file="data/SubjectHuman.csv" tableName="SubjectHuman" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="nID_Subject" type="NUMERIC"/>
-            <column name="sSB" type="STRING"/>
-            <column name="sINN" type="STRING"/>
-            <column name="sPassportSeria" type="STRING"/>
-            <column name="sPassportNumber" type="STRING"/>
-            <column name="sFamily" type="STRING"/>
-            <column name="sName" type="STRING"/>
-            <column name="sSurname" type="STRING"/>  
-        </loadData>
-        <loadData encoding="UTF-8" file="data/SubjectOrgan.csv" tableName="SubjectOrgan" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="nID_Subject" type="NUMERIC"/>
-            <column name="sOKPO" type="STRING"/>
-            <column name="sFormPrivacy" type="STRING"/>
-            <column name="sName" type="STRING"/>
-            <column name="sNameFull" type="STRING"/>
-        </loadData>
-        <loadData encoding="UTF-8" file="data/SubjectOrganDepartment.csv" tableName="SubjectOrganDepartment" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="sName" type="STRING"/>
-            <column name="sGroup_Activiti" type="STRING"/>
-            <column name="nID_SubjectOrgan" type="NUMERIC"/>
-        </loadData>
-        <loadData encoding="UTF-8" file="data/Region.csv" tableName="Region" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="sName" type="STRING"/>
-        </loadData>
-        <loadData encoding="UTF-8" file="data/City.csv" tableName="City" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="sName" type="STRING"/>
-            <column name="nID_Region" type="NUMERIC"/>
-        </loadData>
-        <loadData encoding="UTF-8" file="data/Category.csv" tableName="Category" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="sID" type="STRING"/>
-            <column name="sName" type="STRING"/>
-            <column name="nOrder" type="NUMERIC"/>
-        </loadData>
-        <loadData encoding="UTF-8" file="data/Subcategory.csv" tableName="Subcategory" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="sID" type="STRING"/>
-            <column name="sName" type="STRING"/>
-            <column name="nID_Category" type="NUMERIC"/>
-            <column name="nOrder" type="NUMERIC"/>
-        </loadData>
-        <loadData encoding="UTF-8" file="data/ServiceType.csv" tableName="ServiceType" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="sName" type="STRING"/>
-            <column name="sNote" type="STRING"/>
-        </loadData>
-        <loadData encoding="UTF-8" file="data/Service.csv" tableName="Service" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="sName" type="STRING"/>
-            <column name="nOrder" type="NUMERIC"/>
-            <column name="nID_Subcategory" type="NUMERIC"/>
-            <column name="sInfo" type="STRING"/>
-            <column name="sFAQ" type="STRING"/>
-            <column name="sLaw" type="STRING"/>
-            <column name="sSubjectOperatorName" type="STRING"/>
-        </loadData>
-        <loadData encoding="UTF-8" file="data/ServiceData.csv" tableName="ServiceData" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="nID_Service" type="NUMERIC"/>
-            <column name="nID_City" type="NUMERIC"/>
-            <column name="nID_Region" type="NUMERIC"/>
-            <column name="nID_ServiceType" type="NUMERIC"/>
-            <column name="oData" type="STRING"/>
-            <column name="sURL" type="STRING"/>
-            <column name="bHidden" type="BOOLEAN"/>
-            <column name="nID_Subject_Operator" type="NUMERIC"/> 
-            <column name="bTest" type="BOOLEAN"/>
-            <column name="sNote" type="STRING"/>
-        </loadData>
-        <loadData encoding="UTF-8" file="data/DocumentType.csv" tableName="DocumentType" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="sName" type="STRING"/>
-        </loadData>
-        <loadData encoding="UTF-8" file="data/DocumentContentType.csv" tableName="DocumentContentType" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="sName" type="STRING"/>
-        </loadData>
-        <loadData encoding="UTF-8" file="data/Document.csv" tableName="Document" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="sName" type="STRING"/>
-            <column name="nID_DocumentType" type="NUMERIC"/>
-            <column name="sID_Content" type="STRING"/>
-            <column name="nID_ContentType" type="NUMERIC"/>
-            <column name="sFile" type="STRING"/>
-            <column name="sID_Subject_Upload" type="STRING"/>
-            <column name="sSubjectName_Upload" type="STRING"/>
-            <column name="sDate_Upload" type="STRING"/>  
-            <column name="sContentType" type="STRING"/> 
-            <column name="nID_Subject" type="NUMERIC"/>
-            <column name="nID_Subject_Upload" type="NUMERIC"/> 
-        </loadData>
-        <loadData encoding="UTF-8" file="data/HistoryEvent.csv" tableName="HistoryEvent" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="nID_Subject" type="NUMERIC"/>
-            <column name="nID_HistoryEventType" type="NUMERIC"/>
-            <column name="sEventName_Custom" type="STRING"/>
-            <column name="sMessage" type="STRING"/>
-            <column name="sDate" type="STRING"/>
-        </loadData>
+        <!-- ####################################################################################################### -->
+        <createTable tableName="DocumentOperator_SubjectOrgan">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(300)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_SubjectOrgan" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sHandlerClass" type="varchar(300)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
 
-        <loadData encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
-            <column name="nID" type="NUMERIC" />
-            <column name="nID_Document" type="NUMERIC"/>
-            <column name="sDateCreate" type="STRING"/>
-            <column name="nMS" type="NUMERIC"/>
-            <column name="sFIO" type="STRING" />
-            <column name="sTarget" type="STRING" />
-            <column name="sTelephone" type="STRING" />
-            <column name="sMail" type="STRING" />
-            <column name="sSecret" type="STRING"/>    
-            <column name="sAnswer" type="STRING"/>
-            <column name="sDateAnswerExpire" type="STRING"/>
-        </loadData>
+        <!-- ####################################################################################################### -->
+        <createTable tableName="ServiceOperator_SubjectOrgan">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(300)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_SubjectOrgan" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
         
     </changeSet>
+
+    <changeSet id="Add auto increment for H2" author="brunneng" dbms="h2">
+        <addAutoIncrement tableName="Region" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="City" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="Category" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="Subcategory" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="ServiceType" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="Service" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="ServiceData" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="Subject" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="SubjectHuman" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="SubjectOrgan" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="SubjectMessage" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="DocumentType" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="DocumentContentType" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="Document" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="DocumentOperator_SubjectOrgan" startWith="1000" columnName="nID" columnDataType="bigint"/>
+        <addAutoIncrement tableName="ServiceOperator_SubjectOrgan" startWith="1000" columnName="nID" columnDataType="bigint"/>
+        <addAutoIncrement tableName="HistoryEvent" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="DocumentAccess" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
 </databaseChangeLog>

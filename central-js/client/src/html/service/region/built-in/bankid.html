@@ -1,117 +1,184 @@
-<!--div style="margin-top:20px; font-size:25px;">{{service.sName}}</div>
-<div style="margin-bottom:20px; font-size:18px;color:#cccccc;">{{service.sSubjectOperatorName}}</div-->
-
 <div class="list-group">
-	<div class="list-group-item" ng-class="{'disabled': data.region}">
-		<div class="row no-margin-bottom">
-			<div class="col-md-11 form-inline">
-				<strong><span>Крок 1. Оберіть свій регіон </span></strong>
-				<div style="display:inline-block">
-					<span>Область</span>
-					<select class="form-control" name="region" ng-model="data.region" ng-options="region as region.sName for region in [data.region] track by region.nID" ng-disabled="data.region"></select>
-				</div>
-			</div>
-			<div class="col-md-1" ng-if="data.region">
-				<div class="link-button">
-					<a ng-click="step1()">Змінити</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="list-group-item disabled">
-		<div class="row no-margin-bottom">
-			<div class="col-md-11">Крок 2. Ви увійшли як {{account.customer.firstName}} {{account.customer.middleName}} {{account.customer.lastName}}</div>
-			<div class="col-md-1">
-				<div class="link-button">
-					<a ng-click="step2()">Змінити</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="list-group-item">
-		<div class="row">
-			<!--div class="col-md-12">Крок 3. Ви зможете отримати довідку про несудимість у ГУМВС м.Львова, С.Бандери, 1, м. Львів через 2 тижні. Ви отримаєте повідомлення через SMS та Email, коли довідка буде готова.</div-->
-                        <div style="display: none;">0{{data.sName}} 00{{data.sProcessDefinitionName1}} 1{{data.formData.sProcessDefinitionName1}} 2{{data.formData.sProcessDefinitionName2}} 3{{data.formData.sProcessDefinitionName3}} </div>
-			<div class="col-md-12">Крок 3. {{data.formData.params["processName"].name==null?"":data.formData.params["processName"].name}} </div>
-			<!--div class="col-md-12">Крок 3. 1{{data.formData.sProcessDefinitionName}} 11{{data.formData.sProcessDefinitionName1}} 2{{data.sProcessDefinitionName}} 3{{ActivitiForm.sProcessDefinitionName}} 4{{ActivitiForm.processDefinitionId.sProcessDefinitionName}} 5{{data.sProcessDefinitionName}} 6{{data.sProcessDefinitionName2}} </div-->
-                        
-                        <!-- Запит  {{data.formData.params["processName"].name}}-->
-                        
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<div class="highlight">
-					<form name="form" novalidate>
-						<div class="row" ng-repeat="property in ActivitiForm.formProperties track by property.id" ng-if="property.id != 'processName'">
-							<!--div class="col-md-5">{{property.name}}:</div-->
-							<!--div class="col-md-5">{{ sFieldLabel(property.name) }}:</div-->
-							<!--div class="col-md-5">{{property.sFieldLabel}}:</div-->
-                                                        <div style="display: none;">
-                                                            _1{{data.formData.params[property.id].required}}
-                                                            _2{{property.required}}
-                                                            _3{{form[property.id].required}}
-                                                        </div>
+    <div class="list-group-item"
+         ng-class="{'disabled': data.region}">
+        <div class="row no-margin-bottom">
+            <div class="col-md-11 form-inline">
+                <strong><span>Крок 1. Оберіть свій регіон </span></strong>
 
-                                                        <div class="col-md-5">
-                                                            <label style="color: red;" ng-if="property.required==true">* </label>
-                                                            {{property.sFieldLabel}}:
+                <div style="display:inline-block">
+                    <span>Область</span>
+                    <select class="form-control"
+                            name="region"
+                            ng-model="data.region"
+                            ng-options="region as region.sName for region in [data.region] | orderBy:'sName'"
+                            ng-disabled="data.region"></select>
+                </div>
+            </div>
+            <div class="col-md-1"
+                 ng-if="data.region">
+                <div class="link-button">
+                    <a ng-click="step1()">Змінити</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="list-group-item disabled">
+        <div class="row no-margin-bottom">
+            <div class="col-md-11">Крок 2. Ви увійшли як {{account.customer.firstName}} {{account.customer.middleName}}
+                                   {{account.customer.lastName}}
+            </div>
+            <div class="col-md-1">
+                <div class="link-button">
+                    <a ng-click="step2()">Змінити</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="list-group-item">
+        <div class="row">
+            <div style="display: none;">0{{data.sName}} 00{{data.sProcessDefinitionName1}}
+                                        1{{data.formData.sProcessDefinitionName1}}
+                                        2{{data.formData.sProcessDefinitionName2}}
+                                        3{{data.formData.sProcessDefinitionName3}}
+            </div>
+            <div class="col-md-12">Крок 3.
+                                   {{data.formData.params["processName"].name==null?"":data.formData.params["processName"].name}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="highlight">
+                    <form name="form"
+                          novalidate>
+                        <div class="row"
+                             ng-repeat="property in ActivitiForm.formProperties track by property.id"
+                             ng-if="property.id != 'processName'">
+                            <div style="display: none;">
+                                _1{{data.formData.params[property.id].required}}
+                                _2{{property.required}}
+                                _3{{form[property.id].required}}
+                            </div>
 
-															<div class="s-field-notes"
-																 ng-if="property.sFieldNotes!=null">
-																{{property.sFieldNotes}}
-															</div>
-                                                        </div>
-                                                        
+                            <div class="col-md-5"
+                                 ng-if="property.type!='invisible' && property.type!='markers'">
+                                <label style="color: red;"
+                                       ng-if="property.required==true">* </label>
+                                {{property.sFieldLabel}}:
 
-							<div class="col-md-3" ng-class="{'has-error': form.$submitted && form[property.id].$invalid}" ng-if="!data.formData.fields[property.id]" ng-switch on="property.type">
-                                                                <textarea ng-switch-when="textArea" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required" class="form-control"></textarea>
-                                                                <label ng-switch-when="label" name="{{property.id}}" ng-required="property.required" class="form-control_">{{data.formData.params[property.id].value}}</label>
-                                                            
-								<input ng-switch-when="string" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required" class="form-control" value="">
-								<input ng-switch-when="long" type="text" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-pattern="/^\d+$/" ng-required="property.required" class="form-control" value="">
-								<p class="input-group" ng-switch-when="date">
-									<input type="text" name="{{property.id}}" datepicker-popup="{{data.formData.params[property.id].format}}" is-open="data.formData.params[property.id].opened" datepicker-options="data.formData.params[property.id].options" ng-model="data.formData.params[property.id].value" ng-required="property.required" ng-readonly="true" close-text="Close" class="form-control" value="">	
+                                <div class="s-field-notes"
+                                     ng-if="property.sFieldNotes!=null">
+                                    {{property.sFieldNotes}}
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-3"
+                                 ng-class="{'has-error': form.$submitted && form[property.id].$invalid}"
+                                 ng-if="!data.formData.fields[property.id] && property.type!='invisible' && property.type!='markers'"
+                                 ng-switch
+                                 on="property.type">
+                                <textarea ng-switch-when="textArea"
+                                          name="{{property.id}}"
+                                          ng-model="data.formData.params[property.id].value"
+                                          ng-required="property.required"
+                                          class="form-control"></textarea>
+                                <label ng-switch-when="label"
+                                       name="{{property.id}}"
+                                       ng-required="property.required"
+                                       class="form-control_">{{data.formData.params[property.id].value}}</label>
+                                <label style="display: none;"
+                                       ng-switch-when="invisible"
+                                       name="{{property.id}}"
+                                       ng-required="property.required"
+                                       class="form-control_">{{data.formData.params[property.id].value}}</label>
+
+                                <input ng-switch-when="string"
+                                       type="text"
+                                       name="{{property.id}}"
+                                       ng-model="data.formData.params[property.id].value"
+                                       ng-required="property.required"
+                                       class="form-control"
+                                       value="">
+                                <input ng-switch-when="long"
+                                       type="text"
+                                       name="{{property.id}}"
+                                       ng-model="data.formData.params[property.id].value"
+                                       ng-pattern="/^\d+$/"
+                                       ng-required="property.required"
+                                       class="form-control"
+                                       value="">
+
+                                <p class="input-group"
+                                   ng-switch-when="date">
+                                    <input type="text"
+                                           name="{{property.id}}"
+                                           datepicker-popup="{{data.formData.params[property.id].format}}"
+                                           is-open="data.formData.params[property.id].opened"
+                                           datepicker-options="data.formData.params[property.id].options"
+                                           ng-model="data.formData.params[property.id].value"
+                                           ng-required="property.required"
+                                           ng-readonly="true"
+                                           close-text="Close"
+                                           class="form-control"
+                                           value="">
 									<span class="input-group-btn">
-										<button type="button" class="btn btn-default" ng-click="data.formData.params[property.id].open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+										<button type="button"
+                                                class="btn btn-default"
+                                                ng-click="data.formData.params[property.id].open($event)">
+                                            <i class="glyphicon glyphicon-calendar"></i></button>
 									</span>
-								</p>
-								<select ng-switch-when="enum" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in property.enumValues" ng-required="property.required" class="form-control"></select>
-								<p class="input-group" ng-switch-when="file">
-									<file-field name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required">Add File</file-field>
-									<!--
-                                	<button type="button" class="btn btn-success js-upload-btn" data-loading-text="Завантаження..." class="btn btn-primary" autocomplete="off" ng-click="uploadFile(property.id)" ng-disabled="isUploading">
-										<input style="display:none" type="file" name="{{property.id}}" ui-event="{change:'addFile(property.id, $event)'}" ng-required="property.required"/>
-										<span class="glyphicon glyphicon-file" aria-hidden="true"></span> Завантажити файл
-                                	</button>
-                                	<div class="filename js-filename"></div>
-									-->
-                            	</p>								
-							</div>
-                                                        
-							<div class="col-md-3" ng-if="data.formData.fields[property.id]" ng-bind="data.formData.params[property.id].value">
-								<input type="hidden" name="{{property.id}}" ng-model="data.formData.params[property.id].value" ng-required="property.required" class="form-control" value="">
-							</div>
+                                </p>
+                                <select ng-switch-when="enum"
+                                        name="{{property.id}}"
+                                        ng-model="data.formData.params[property.id].value"
+                                        ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in property.enumValues"
+                                        ng-required="property.required"
+                                        class="form-control"></select>
 
-							<div class="col-md-4" style="color:#a94442" ng-if="form.$submitted" ng-messages="form[property.id].$error">
-								<div ng-message="required">Необхідно заповнити.</div>
-								<div ng-message="pattern">Значення має бути числом.</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-5"></div>
-							<div class="col-md-3">
-								<button class="btn btn-info" ng-click="submit(form)"
-                                                                        ng-disable="cantSubmit(form)"
-                                                                        ng-hide="bSending(form)"
-                                                                        >Замовити послугу
-                                                                </button>
-                                                                <br><label ng-show="bSending(form)">зачекайте...</label>
-							</div>
-							<div class="col-md-4"></div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+                                <p class="input-group"
+                                   ng-switch-when="file">
+                                    <file-field name="{{property.id}}"
+                                                ng-model="data.formData.params[property.id].value"
+                                                ng-required="property.required">Add File
+                                    </file-field>
+                                </p>
+                            </div>
+
+                            <div class="col-md-3"
+                                 ng-if="data.formData.fields[property.id]"
+                                 ng-bind="data.formData.params[property.id].value">
+                                <input type="hidden"
+                                       name="{{property.id}}"
+                                       ng-model="data.formData.params[property.id].value"
+                                       ng-required="property.required"
+                                       class="form-control"
+                                       value="">
+                            </div>
+
+                            <div class="col-md-4"
+                                 style="color:#a94442"
+                                 ng-if="form.$submitted"
+                                 ng-messages="form[property.id].$error">
+                                <div ng-message="required">Необхідно заповнити.</div>
+                                <div ng-message="pattern">Значення має бути числом.</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5"></div>
+                            <div class="col-md-3">
+                                <button class="btn btn-info"
+                                        ng-click="submit(form)"
+                                        ng-disable="cantSubmit(form)"
+                                        ng-hide="bSending(form)"
+                                        >Замовити послугу
+                                </button>
+                                <br><label ng-show="bSending(form)">зачекайте...</label>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

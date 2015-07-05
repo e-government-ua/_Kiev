@@ -2,18 +2,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <artifactId>org.egov-ua</artifactId>
         <groupId>org.egov-ua</groupId>
-        <version>1.0-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
+	<!--version>${igov.wf-base.version}</version-->
     </parent>
 
     <name>iGov-UA WF-Base</name>
-    <modelVersion>4.0.0</modelVersion>
     <artifactId>wf-base</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <!--version>1.0-SNAPSHOT</version-->
+    <!--version>1.0.0${parameter.sRevision}-SNAPSHOT</version-->
+    <version>${igov.wf-base.version}</version>
     <packaging>war</packaging>
+
+    <properties>
+        <activity.version>5.17.0</activity.version>
+        <guava-version>15.0</guava-version>
+    </properties>
 
     <repositories>
         <repository>
@@ -21,12 +29,9 @@
             <url>http://maven.vaadin.com/vaadin-addons</url>
         </repository>
     </repositories>
-    <properties>
-        <activity.version>5.17.0</activity.version>
-        <guava-version>15.0</guava-version>
-    </properties>
 
     <build>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -50,11 +55,11 @@
                 <configuration>
                     <jarName>${project.artifactId}-${project.version}</jarName>
                     <classifier>lib</classifier>
-                    <excludes>
+                    <!--excludes>
                         <exclude>*.properties</exclude>
                         <exclude>*.alfresco</exclude>
                         <exclude>*.json</exclude>
-                    </excludes>
+                    </excludes-->
                 </configuration>
             </plugin>
             <plugin>
@@ -219,13 +224,16 @@
         <dependency>
             <groupId>org.activiti.redis</groupId>
             <artifactId>wf-region-redis</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <!--version>0.0.1-SNAPSHOT</version-->
+            <version>${igov.storage-temp.version}</version>
+            
         </dependency>
 
         <dependency>
             <groupId>org.egov-ua</groupId>
             <artifactId>org.egov-ua.storage-static</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <!--version>1.0-SNAPSHOT</version-->
+            <version>${igov.storage-static.version}</version>
         </dependency>
 
         <!-- Database -->
@@ -256,10 +264,45 @@
             <artifactId>liquibase-core</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-serialization</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>trove</groupId>
+            <artifactId>trove</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+        </dependency>
+
         <!-- Other -->
         <dependency>
             <groupId>net.sf.brunneng.jom</groupId>
             <artifactId>java-object-merger</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.opensymphony.quartz</groupId>
+            <artifactId>quartz</artifactId>
         </dependency>
 
         <!-- Running example processes -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_mvd_1" name="Надання довідки про відсутність або наявніть судимості" isExecutable="true">
+  <process id="dnepr_mvd_1" name="Надання довідки про відсутність або наявніcть судимості" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -100,7 +100,7 @@
           <activiti:value id="reject" name="Сповістити громадянина, що довідка не може бути надана"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="В разі  неможливості надання послуги вкажіть причину. Ця інформація буде відправлена на e-mail заявника" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="footer" name="footerToPrint" type="label" default="&lt;p dir=&quot;ltr&quot; id=&quot;docs-internal-guid-a39915a5-e7ca-0f06-b3d2-dea92937c812&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt;&lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;---------------------------------------------------------------------------------------------------------------------------------------&lt;/span&gt;&lt;/p&gt;&lt;p dir=&quot;ltr&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt; &lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;Довідку№ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримав (ПІБ)_________________________&lt;/span&gt;&lt;/p&gt;&lt;br /&gt;&lt;p dir=&quot;tr&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt;&lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;Дата &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Підпис &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________&lt;/span&gt;&lt;/p&gt;" readable="false" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="footer" name="footerToPrint" type="invisible" default="&lt;p dir=&quot;ltr&quot; id=&quot;docs-internal-guid-a39915a5-e7ca-0f06-b3d2-dea92937c812&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt;&lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;---------------------------------------------------------------------------------------------------------------------------------------&lt;/span&gt;&lt;/p&gt;&lt;p dir=&quot;ltr&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt; &lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;Довідку№ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримав (ПІБ)_________________________&lt;/span&gt;&lt;/p&gt;&lt;br /&gt;&lt;p dir=&quot;tr&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt;&lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;Дата &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Підпис &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________&lt;/span&gt;&lt;/p&gt;" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -169,30 +169,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow9" sourceRef="mailtask3" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow10" sourceRef="mailtask1" targetRef="mailtask4"></sequenceFlow>
-    <sequenceFlow id="flow11" sourceRef="mailtask4" targetRef="usertask1"></sequenceFlow>
-    <serviceTask id="mailtask4" name="User Task" activiti:type="mail">
-      <extensionElements>
-        <activiti:field name="to">
-          <activiti:string><![CDATA[kyrbatsky@gmail.com]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання довідки про відсутність або наявніть судимості]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Предоставить сканы паспорта по гражданину:
-
-Данні громадянина: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}
-Паспортні дані: ${bankIdPassport}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
+    <sequenceFlow id="flow10" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_mvd_1">
     <bpmndi:BPMNPlane bpmnElement="dnepr_mvd_1" id="BPMNPlane_dnepr_mvd_1">
@@ -225,9 +202,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
         <omgdc:Bounds height="55.0" width="158.0" x="269.0" y="300.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
-        <omgdc:Bounds height="55.0" width="105.0" x="606.0" y="70.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="145.0" y="97.0"></omgdi:waypoint>
@@ -270,11 +244,7 @@
         <omgdi:waypoint x="463.0" y="457.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
-        <omgdi:waypoint x="561.0" y="97.0"></omgdi:waypoint>
-        <omgdi:waypoint x="606.0" y="97.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
-        <omgdi:waypoint x="658.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="125.0"></omgdi:waypoint>
         <omgdi:waypoint x="480.0" y="170.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

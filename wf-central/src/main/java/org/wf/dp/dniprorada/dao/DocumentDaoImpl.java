@@ -1,23 +1,17 @@
 package org.wf.dp.dniprorada.dao;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
-import org.springframework.data.mongodb.gridfs.GridFsTemplate;
-import org.springframework.web.multipart.MultipartFile;
-import org.wf.dp.dniprorada.model.Document;
-import org.wf.dp.dniprorada.model.DocumentContentType;
-import org.wf.dp.dniprorada.model.DocumentType;
-import org.wf.dp.dniprorada.model.Subject;
-import org.wf.dp.dniprorada.util.Util;
-
+import org.wf.dp.dniprorada.model.*;
+import org.wf.dp.dniprorada.model.document.DocumentOrganNotFoundException;
 import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
+
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 public class DocumentDaoImpl implements DocumentDao {
 
@@ -44,7 +38,7 @@ public class DocumentDaoImpl implements DocumentDao {
 	@Override
 	public List<Document> getDocuments(Long nID_Subject) {
 		return (List<Document>) getSession().createCriteria(Document.class)
-				.add(Restrictions.eq("subject.nID", nID_Subject))
+				.add(Restrictions.eq("subject.id", nID_Subject))
 				.list();
 	}
 
@@ -56,8 +50,7 @@ public class DocumentDaoImpl implements DocumentDao {
 	@Override
 	public byte[] getDocumentContent(Long id) {
 		Document document = (Document) getSession().get(Document.class, id);
-		byte[] contentByte = durableBytesDataStorage.getData(document
-				.getСontentKey());
+		byte[] contentByte = durableBytesDataStorage.getData(document.getContentKey());
 		return contentByte != null ? contentByte : contentMock.getBytes();
 	}
 
@@ -68,8 +61,8 @@ public class DocumentDaoImpl implements DocumentDao {
 	}
 
 	public Long setDocument(Long nID_Subject, Long nID_Subject_Upload, String sID_Subject_Upload,
-			String sSubjectName_Upload, String sName, Integer nID_DocumentType,
-			Integer nID_DocumentContentType, String sFileName,
+			String sSubjectName_Upload, String sName, Long nID_DocumentType,
+			Long nID_DocumentContentType, String sFileName,
 			String sFileContentType, byte[] aoContent) throws IOException {
 
 		Document document = new Document();
@@ -78,7 +71,7 @@ public class DocumentDaoImpl implements DocumentDao {
 		document.setName(sName);
 		
 		Subject oSubject_Upload = new Subject();
-		oSubject_Upload.setnID(nID_Subject_Upload);
+		oSubject_Upload.setId(nID_Subject_Upload);
 		document.setSubject_Upload(oSubject_Upload);
 
 		DocumentType oDocumentType = new DocumentType();
@@ -93,16 +86,40 @@ public class DocumentDaoImpl implements DocumentDao {
 
 		if (nID_Subject != null) {
 			Subject oSubject = new Subject();
-			oSubject.setnID(nID_Subject);
+			oSubject.setId(nID_Subject);
 			document.setSubject(oSubject);
 		}
 
-		document.setСontentKey(durableBytesDataStorage.saveData(aoContent));
+		document.setContentKey(durableBytesDataStorage.saveData(aoContent));
 		document.setContentType(sFileContentType);
 		document.setFile(sFileName);
 		document.setDate_Upload(new Date());
 		getSession().saveOrUpdate(document);
 		return document.getId();
 
+	}
+
+
+	@Override
+	public DocumentOperator_SubjectOrgan getOperator(Long operatorId) {
+		DocumentOperator_SubjectOrgan organ =
+			(DocumentOperator_SubjectOrgan) getSession()
+			.createCriteria(DocumentOperator_SubjectOrgan.class)
+			.add(Restrictions.eq("nID_SubjectOrgan", operatorId))
+			.uniqueResult();
+
+		if (organ == null)
+			throw new DocumentOrganNotFoundException(
+				"Organ with ID:" + operatorId +" not found");
+
+		return organ;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<DocumentOperator_SubjectOrgan> getAllOperators() {
+		return (List<DocumentOperator_SubjectOrgan>) getSession()
+				.createCriteria(DocumentOperator_SubjectOrgan.class)
+				.list();
 	}
 }

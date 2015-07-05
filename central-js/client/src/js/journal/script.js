@@ -16,7 +16,7 @@ define('journal', ['angularAMD', 'config', 'service'], function (angularAMD) {
                 }
             })
             .state('journal.bankid', {
-                url: '/bankid?code',
+                url: '/bankid?code&error',
                 parent: 'journal',
                 views: {
                     'bankid': angularAMD.route({
@@ -32,20 +32,15 @@ define('journal', ['angularAMD', 'config', 'service'], function (angularAMD) {
                 url: '/content?code',
                 parent: 'journal',
                 resolve: {
-                    BankIDLogin: ['$q', '$state', '$location', '$stateParams', 'BankIDService', function($q, $state, $location, $stateParams, BankIDService) {
-                        var url = $location.protocol()
-                            +'://'
-                            +$location.host()
-                            +':'
-                            +$location.port()
-                            +$state.href('journal.bankid', {code: ''});
-
-                        return BankIDService.login($stateParams.code, url).then(function(data) {
-                            return data.hasOwnProperty('error') ? $q.reject(null): data;
+                    BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
+                        return BankIDService.isLoggedIn().then(function () {
+                            return {loggedIn: true};
+                        }).catch(function() {
+                            return $q.reject(null);
                         });
-                    }],
+                    },
                     BankIDAccount: ['BankIDService', 'BankIDLogin', function(BankIDService, BankIDLogin) {
-                        return BankIDService.account(BankIDLogin.access_token);
+                        return BankIDService.account();
                     }],
                     customer: ['BankIDAccount', function (BankIDAccount) {
                         return BankIDAccount.customer;

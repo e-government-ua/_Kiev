@@ -1,145 +1,147 @@
-define('service/service', ['angularAMD'], function(angularAMD) {
-  angularAMD.service('ServiceService', function($http) {
+define('service/service', ['angularAMD'], function (angularAMD) {
+    angularAMD.service('ServiceService', function ($http, $q) {
 
-  	var docTypes = {
-		other : { nID: 0, sName: 'Другое'},
-		reference : { nID: 1, sName: 'Справка'},
-		passport : { nID: 2, sName: 'Паспорт'},
-		zpassport : { nID: 3, sName: 'Загранпаспорт'},
-		photo : { nID: 4, sName: 'Персональное фото'},
-		inn: { nID: 5, sName: 'Справка о предоставлении ИНН'}
-  	};
+        var docTypes = {
+            other: {nID: 0, sName: 'Другое'},
+            reference: {nID: 1, sName: 'Справка'},
+            passport: {nID: 2, sName: 'Паспорт'},
+            zpassport: {nID: 3, sName: 'Загранпаспорт'},
+            photo: {nID: 4, sName: 'Персональное фото'},
+            inn: {nID: 5, sName: 'Справка о предоставлении ИНН'}
+        };
 
-    this.get = function(id) {
-      var data = {
-        'nID': id
-      };
-      return $http.get('./api/service', {
-        params: data,
-        data: data,
-        transformResponse: [function(rawData, headersGetter) {
-          var data = angular.fromJson(rawData);
-          angular.forEach(data.aServiceData, function(oServiceData) {
-            try {
-              oServiceData.oData = angular.fromJson(oServiceData.oData);
-            } catch (e) {
-              oServiceData.oData = {};
+        var passportFilter = function (docTypeID) {
+            return docTypeID === docTypes.passport.nID;
+        };
+
+        var zpassportFilter = function (docTypeID) {
+            return docTypeID === docTypes.zpassport.nID;
+        };
+
+        var rejectIfError = function (data) {
+            if (data.hasOwnProperty('error')) {
+                return $q.reject(data);
             }
-          });
-          return data;
-        }]
-      }).then(function(response) {
-        return response.data;
-      });
-    };
+            return data;
+        };
 
-    this.getProcessDefinitions = function(oServiceData, latest) {
-      var data = {
-        'url': oServiceData.sURL,
-        'latest': latest || null
-      };
-      return $http.get('./api/process-definitions', {
-        'params': data,
-        'data': data
-      }).then(function(response) {
-        return response.data;
-      });
-    };
+        this.get = function (id) {
+            var data = {
+                'nID': id
+            };
+            return $http.get('./api/service', {
+                params: data,
+                data: data,
+                transformResponse: [function (rawData, headersGetter) {
+                    var data = angular.fromJson(rawData);
+                    angular.forEach(data.aServiceData, function (oServiceData) {
+                        try {
+                            oServiceData.oData = angular.fromJson(oServiceData.oData);
+                        } catch (e) {
+                            oServiceData.oData = {};
+                        }
+                    });
+                    return data;
+                }]
+            }).then(function (response) {
+                return response.data;
+            });
+        };
 
-    this.getDocuments = function() {
-      var data = {
-      };
-      return $http.get('./api/service/documents', {
-        params: data,
-        data: data
-      }).then(function(response) {
-        return response.data;
-      });
-    };
+        this.getProcessDefinitions = function (oServiceData, latest) {
+            var data = {
+                'url': oServiceData.sURL,
+                'latest': latest || null
+            };
+            return $http.get('./api/process-definitions', {
+                'params': data,
+                'data': data
+            }).then(function (response) {
+                return response.data;
+            });
+        };
 
-    this.shareLink = function(nID_Subject, nID_Document, sFIO, sTelephone, sMail, nMS) {
-      var data = {
-        'nID_Subject': nID_Subject,
-        'nID_Document': nID_Document,
-        'sFIO': sFIO,
-        'sTarget': '',
-        'sTelephone': sTelephone,
-        'sMail': sMail,
-        'nMS': nMS
-      };
-      return $http.get('./api/service/documents/' + nID_Document + '/share', {
-        params: data,
-        data: data
-      }).then(function(response) {
-        return response.data;
-      });
-    };
+        this.getDocuments = function () {
+            var data = {};
+            return $http.get('./api/documents', {
+                params: data,
+                data: data
+            }).then(function (response) {
+                return response.data;
+            });
+        };
 
-    this.getJournalEvents = function() {
-      var data = {
-        
-      };
-      return $http.get('./api/service/journal', {
-        params: data,
-        data: data
-      }).then(function(response) {
-        return response.data;
-      });
-    };
-    
-   this.initialUpload = function(accessToken, typesToUpload) {
-		var data = {
-			'access_token': accessToken
-		};
-		return $http.post('./api/service/documents/initialupload', typesToUpload, {
-			params: data
-		}).then(function(response) {
-			return response.data;
-		});
-	};
+        this.getDocumentLink = function (docnID) {
+            return '/api/documents/download/' + docnID;
+        }
 
-	this.getOrUploadDocuments = function(accessToken) {
-		var initialUpload = this.initialUpload;
-		var getDocuments = this.getDocuments;
-		return this.getDocuments().then(function(data) {
-			if (data.hasOwnProperty('error')) {
-				return $q.reject(null);
-			}
+        this.shareLink = function (nID_Subject, nID_Document, sFIO, sTelephone, sMail, nMS) {
+            var data = {
+                'nID_Subject': nID_Subject,
+                'nID_Document': nID_Document,
+                'sFIO': sFIO,
+                'sTarget': '',
+                'sTelephone': sTelephone,
+                'sMail': sMail,
+                'nMS': nMS
+            };
+            return $http.get('./api/documents/' + nID_Document + '/share', {
+                params: data,
+                data: data
+            }).then(function (response) {
+                return response.data;
+            });
+        };
 
-			var passportFilter = function(docTypeID){ return docTypeID === docTypes.passport.nID;};
-			var zpassportFilter = function(docTypeID){ return docTypeID === docTypes.zpassport.nID;};
-			var typesToUpload = [];
+        this.getJournalEvents = function () {
+            var data = {};
+            return $http.get('./api/journal', {
+                params: data,
+                data: data
+            }).then(function (response) {
+                return response.data;
+            });
+        };
 
-			var alreadyUploadedTypes = data.map(function(doc) {
-				return doc.oDocumentType.nID;
-			});
+        this.initialUpload = function (typesToUpload) {
+            var data = {};
+            return $http.post('./api/documents/initialUpload', typesToUpload, {
+                params: data
+            }).then(function (response) {
+                return response.data;
+            });
+        };
 
-			var passportResult = alreadyUploadedTypes.filter(passportFilter);
+        this.getOrUploadDocuments = function () {
+            var initialUpload = this.initialUpload;
+            var getDocuments = this.getDocuments;
 
-			if (alreadyUploadedTypes.filter(passportFilter).length === 0) {
-				typesToUpload.push(docTypes.passport);					
-			}
-			
-			if(alreadyUploadedTypes.filter(zpassportFilter).length === 0){
-				typesToUpload.push(docTypes.zpassport);
-			}
+            return this.getDocuments().then(function (data) {
+                return rejectIfError(data);
+            }).then(function (documents) {
+                var typesToUpload = [];
 
-			if (typesToUpload.length > 0) {
-				return initialUpload(accessToken, 
-						typesToUpload)
-					.then(function(uploadingResult) {
-						if (!uploadingResult.hasOwnProperty('error')) {
-							return getDocuments().then(function(updatedData) {
-								return updatedData.hasOwnProperty('error') ? $q.reject(null) : updatedData;
-							});
-						} else {
-							return data;
-						}
-					});
-			} else {
-				return data;
-			}
-		});
-	};
-  });
+                var alreadyUploadedTypes = documents.map(function (doc) {
+                    return doc.oDocumentType.nID;
+                });
+
+                if (alreadyUploadedTypes.filter(passportFilter).length === 0) {
+                    typesToUpload.push(docTypes.passport);
+                }
+
+                if (alreadyUploadedTypes.filter(zpassportFilter).length === 0) {
+                    typesToUpload.push(docTypes.zpassport);
+                }
+
+                return $q.when(typesToUpload.length === 0 ? documents :
+                    initialUpload(typesToUpload).then(function (uploadingResult) {
+                        return rejectIfError(uploadingResult);
+                    }).then(function () {
+                        return getDocuments();
+                    }).then(function (updatedDocuments) {
+                        return rejectIfError(updatedDocuments);
+                    }));
+            });
+        };
+    });
 });

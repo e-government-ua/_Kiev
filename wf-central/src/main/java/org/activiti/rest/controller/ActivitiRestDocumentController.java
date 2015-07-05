@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.activiti.engine.ActivitiObjectNotFoundException;
-import org.activiti.redis.util.RedisUtil;
+import org.activiti.redis.util.RedisUtil; 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +16,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.wf.dp.dniprorada.constant.HistoryEventMessage;
+import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.dao.*;
-import org.wf.dp.dniprorada.model.Document;
-import org.wf.dp.dniprorada.model.DocumentContentType;
-import org.wf.dp.dniprorada.model.HistoryEvent;
-import org.wf.dp.dniprorada.model.Subject;
+import org.wf.dp.dniprorada.model.*;
+import org.wf.dp.dniprorada.model.document.HandlerFactory;
 import org.wf.dp.dniprorada.util.Util;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/services")
 public class ActivitiRestDocumentController {
 
-    private final Logger log = LoggerFactory.getLogger(ActivitiRestDocumentController.class);
+    private static final Logger log = LoggerFactory.getLogger(ActivitiRestDocumentController.class);
     
     @Autowired
     private DocumentDao documentDao;
-    
+
     @Autowired
     private SubjectDao subjectDao;
     
@@ -43,6 +51,12 @@ public class ActivitiRestDocumentController {
 
     @Autowired
     private DocumentContentTypeDao documentContentTypeDao;
+    
+    @Autowired
+    private DocumentTypeDao documentTypeDao;
+
+    @Autowired
+    private HandlerFactory handlerFactory;
 
     @RequestMapping(value = "/getDocument", method = RequestMethod.GET)
     public
@@ -50,12 +64,55 @@ public class ActivitiRestDocumentController {
     Document getDocument(@RequestParam(value = "nID") Long id,
             @RequestParam(value = "nID_Subject") long nID_Subject) throws ActivitiRestException{
         Document document = documentDao.getDocument(id);
-        if(nID_Subject != document.getSubject().getnID()){  
-            throw new ActivitiRestException("401", "You don't have access! Yuor nID = " + nID_Subject + " Document's Subject's nID = " + document.getSubject().getnID());
+        if(nID_Subject != document.getSubject().getId()){
+            throw new ActivitiRestException("401", "You don't have access! Your nID = " + nID_Subject + " Document's Subject's nID = " + document.getSubject().getId());
         } else{
             return  document;
         }
     }
+
+
+
+    /**
+     * @param accessCode    - строковой код доступа к документу
+     * @param organID	    - номер-�?Д субьекта-органа оператора документа
+     * @param docTypeID	    - номер-�?Д типа документа (опционально)
+     * @param password	    - строка-пароль (опционально)
+     * */
+    @RequestMapping(value 	= "/getDocumentAccessByHandler",
+                    method 	= RequestMethod.GET,
+                    headers = { "Accept=application/json" })
+    public @ResponseBody
+    Document getDocumentAccessByHandler(
+            @RequestParam(value = "sCode_DocumentAccess") 				String 	accessCode,
+            @RequestParam(value = "nID_DocumentOperator_SubjectOrgan") 	Long 	organID,
+            @RequestParam(value = "nID_DocumentType", required = false) Long	docTypeID,
+            @RequestParam(value = "sPass", required = false)		    String 	password,
+            HttpServletResponse resp) {
+
+        Document document = handlerFactory
+                .buildHandlerFor(documentDao.getOperator(organID))
+                .setDocumentType(docTypeID)
+                .setAccessCode(accessCode)
+                .setPassword(password)
+                .getDocument();
+        try {
+            createHistoryEvent(HistoryEventType.GET_DOCUMENT_ACCESS_BY_HANDLER,
+                    document.getSubject().getId(), subjectOrganDao.getSubjectOrgan(organID).getName(), null, document);
+        } catch (Exception e){
+            log.warn("can`t create history event!", e);
+        }
+        return document;
+    }
+
+
+    @RequestMapping(value 	= "/getDocumentOperators",
+                    method 	= RequestMethod.GET,
+                    headers = { "Accept=application/json" })
+    public @ResponseBody List<DocumentOperator_SubjectOrgan> getDocumentOperators() {
+        return documentDao.getAllOperators();
+    }
+
 
     @RequestMapping(value = "/getHistoryEvent", method = RequestMethod.GET)
     public
@@ -70,10 +127,10 @@ public class ActivitiRestDocumentController {
     String getDocumentContent(@RequestParam(value = "nID") Long id, 
             @RequestParam(value = "nID_Subject") long nID_Subject) throws ActivitiRestException {
         Document document = documentDao.getDocument(id);
-        if(nID_Subject != document.getSubject().getnID()){
+        if(nID_Subject != document.getSubject().getId()){
             throw new ActivitiRestException("401", "You don't have access!");
         } else{
-            return Util.contentByteToString(documentDao.getDocumentContent(document.getСontentKey())); // ????
+            return Util.contentByteToString(documentDao.getDocumentContent(document.getContentKey())); // ????
         }
     }
 
@@ -114,11 +171,11 @@ public class ActivitiRestDocumentController {
                            HttpServletRequest request, HttpServletResponse httpResponse) 
                            throws ActivitiRestException{
         Document document = documentDao.getDocument(id);
-        if(nID_Subject != document.getSubject().getnID()){
+        if(nID_Subject != document.getSubject().getId()){
             throw new ActivitiRestException("401", "You don't have access!");
         } 
         byte[] content = documentDao.getDocumentContent(document
-                .getСontentKey());
+                .getContentKey());
         //byte[] content = "".getBytes();
         
         httpResponse.setHeader("Content-disposition", "attachment; filename="
@@ -137,6 +194,13 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "nID_Subject") long nID_Subject) {
         return documentDao.getDocuments(nID_Subject);
     }
+    
+    @RequestMapping(value = "/getDocumentTypes", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<DocumentType> getDocumentTypes() {
+        return documentTypeDao.getDocumentTypes();
+    }
 
     @RequestMapping(value = "/setDocument", method = RequestMethod.GET)
     public
@@ -147,7 +211,7 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "sSubjectName_Upload") String sSubjectName_Upload,
             @RequestParam(value = "sName") String sName,
             //@RequestParam(value = "sFile", required = false) String fileName,
-            @RequestParam(value = "nID_DocumentType") Integer nID_DocumentType,
+            @RequestParam(value = "nID_DocumentType") Long nID_DocumentType,
             //@RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
             @RequestParam(value = "sDocumentContentType", required = false) String documentContentTypeName,
             @RequestParam(value = "soDocumentContent") String sContent,
@@ -179,7 +243,7 @@ public class ActivitiRestDocumentController {
 
         return documentDao.setDocument(
                 nID_Subject,
-                subject_Upload.getnID(),
+                subject_Upload.getId(),
                 sID_Subject_Upload,
                 sSubjectName_Upload,
                 sName,
@@ -201,8 +265,8 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "sName") String sName,
             @RequestParam(value = "sFileExtension", required = false) String sFileExtension,
             //@RequestParam(value = "sFile", required = false) String fileName,
-            @RequestParam(value = "nID_DocumentType") Integer nID_DocumentType,
-            @RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
+            @RequestParam(value = "nID_DocumentType") Long nID_DocumentType,
+            @RequestParam(value = "nID_DocumentContentType", required = false) Long nID_DocumentContentType,
             @RequestParam(value = "oFile", required = true) MultipartFile oFile,
             //@RequestBody byte[] content,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
@@ -236,11 +300,9 @@ public class ActivitiRestDocumentController {
         byte[] aoContent = oFile.getBytes();
 
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
-        
-        return documentDao
-                .setDocument(
+        Long nID_Document = documentDao.setDocument(
                         nID_Subject,
-                        subject_Upload.getnID(),
+                        subject_Upload.getId(),
                         sID_Subject_Upload,
                         sSubjectName_Upload,
                         sName,
@@ -249,8 +311,11 @@ public class ActivitiRestDocumentController {
                         sFileName,
                         sFileContentType,
                         aoContent);
+        createHistoryEvent(HistoryEventType.SET_DOCUMENT_INTERNAL,
+                nID_Subject, sSubjectName_Upload, nID_Document, null);
+        return nID_Document;
     }
-    
+
     private Subject syncSubject_Upload(String sID_Subject_Upload){
     	Subject subject_Upload = subjectDao.getSubject(sID_Subject_Upload);
     	if(subject_Upload == null){
@@ -259,4 +324,24 @@ public class ActivitiRestDocumentController {
     	return subject_Upload;
     }
 
+    private void createHistoryEvent(HistoryEventType eventType, Long nID_Subject,
+                                    String sSubjectName_Upload, Long nID_Document,
+                                    Document document) {
+        Map<String, String> values = new HashMap<>();
+        try {
+            Document oDocument = document == null ? documentDao.getDocument(nID_Document) : document;
+            values.put(HistoryEventMessage.DOCUMENT_TYPE, oDocument.getDocumentType().getName());
+            values.put(HistoryEventMessage.DOCUMENT_NAME, oDocument.getName());
+            values.put(HistoryEventMessage.ORGANIZATION_NAME, sSubjectName_Upload);
+        } catch (Throwable e) {
+            log.warn("can't get document info!", e);
+        }
+        try {
+            String eventMessage = HistoryEventMessage.createJournalMessage(eventType, values);
+            historyEventDao.setHistoryEvent(nID_Subject, eventType.getnID(),
+                    eventMessage, eventMessage);
+        } catch (IOException e) {
+            log.error("error during creating HistoryEvent", e);
+        }
+    }
 }

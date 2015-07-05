@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+
+    <!-- use profile "with-cache" if you want to enable cache in tests -->
+    <beans profile="test,prod,with-cache">
+
+        <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+            <property name="configLocation" value="classpath:ehcache.xml"/>
+        </bean>
+
+        <bean id="methodCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+            <property name="cacheManager" ref="cacheManager"/>
+            <property name="cacheName" value="org.sample.cache.METHOD_CACHE"/>
+        </bean>
+
+        <bean id="methodCacheInterceptor" class="org.wf.dp.dniprorada.base.util.caching.MethodCacheInterceptor">
+            <property name="cache" ref="methodCache"/>
+        </bean>
+
+        <bean id="methodCacheAdvisor" class="org.wf.dp.dniprorada.base.util.caching.MethodCacheAdvisor">
+            <property name="interceptor" ref="methodCacheInterceptor"/>
+        </bean>
+
+    </beans>
+
+    <beans>
+
+        <bean id="cachedInvocationBean" class="org.wf.dp.dniprorada.base.util.caching.CachedInvocationBean"/>
+
+    </beans>
+
+</beans>

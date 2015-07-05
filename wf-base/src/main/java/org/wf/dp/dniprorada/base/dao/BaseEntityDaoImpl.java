@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.util.Assert;
 import org.wf.dp.dniprorada.base.model.Entity;
 
 import java.beans.PropertyDescriptor;
@@ -35,7 +36,10 @@ public class BaseEntityDaoImpl implements BaseEntityDao {
    }
 
    public <T extends Entity> T getById(Class<T> entityClass, Serializable id) {
-      return (T)getSession().get(entityClass, id);
+      T res = (T)getSession().get(entityClass, id);
+      Assert.notNull(res, entityClass.getSimpleName() + " with id=" + id + " is not found!");
+
+      return res;
    }
 
    private <T extends Entity> boolean hasOrderField(Class<T> entityClass, String fieldName) {

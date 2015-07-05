@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="dnepr_mvd_2" name=" Персоналізована заява до МВС щодо хабарництва чиновників" isExecutable="true">
+    <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="subj" name="Опишіть, будь ласка, ситуацію у довільній формі; Просимо надати якомога більше інформації" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="warningMessage" name="Увага!" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="mailtask1"></sequenceFlow>
+    <serviceTask id="mailtask1" name="Повідомлення громадянина  про успішну реєстрацію зверення" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему:]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
+Ваш запит _________  успішно зареєстровано. Ви отримаєте відповідь протягом п'яти робочих днів на цю email-адресу.
+
+З повагою,
+ _______
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <userTask id="usertask1" name="Прийняття рішення про надання послуги (1)" activiti:candidateGroups="dnepr_mvd_fo2">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="subj" name="Опис ситуації у довільній формі" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="Відповідь на  звернення. Ця відповідь буде надана позивачу через на електрону пошту" type="textArea" required="true"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow3" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="mailtask2"></sequenceFlow>
+    <serviceTask id="mailtask2" name="Повідомлення про відмову" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему:]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ваше звернення оброблено.
+ ${comment}
+
+З повагою,
+Міська рада міста ______________</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow12" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_mvd_2">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_mvd_2" id="BPMNPlane_dnepr_mvd_2">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="266.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="55.0" width="191.0" x="420.0" y="80.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="191.0" x="420.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
+        <omgdc:Bounds height="55.0" width="181.0" x="425.0" y="293.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="498.0" y="390.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="301.0" y="107.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="107.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="515.0" y="135.0"></omgdi:waypoint>
+        <omgdi:waypoint x="515.0" y="190.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="515.0" y="245.0"></omgdi:waypoint>
+        <omgdi:waypoint x="515.0" y="293.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="515.0" y="348.0"></omgdi:waypoint>
+        <omgdi:waypoint x="515.0" y="390.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

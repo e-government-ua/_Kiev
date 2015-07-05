@@ -2,12 +2,17 @@ package org.activiti.rest.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import liquibase.util.csv.CSVWriter;
 
 import org.activiti.engine.*;
 import org.activiti.engine.history.HistoricProcessInstance;
@@ -27,6 +32,7 @@ import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -335,6 +341,77 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         AttachmentEntityAdapter adapter = new AttachmentEntityAdapter();
 
         return adapter.apply(attachment);
+    }
+    
+    /**
+     * Получение статистики по бизнес процессу за указанные период
+     * @param sID_BP_Name - ИД бизнес процесса
+     * @param sDateAt - дата начала периода выборки
+     * @param sDateTo - дата окончания периода выборки
+     * @param nRowStart - позиция начальной строки для возврата (0 по умолчанию)
+     * @param nRowsMax - количество записей для возврата (1000 по умолчанию)
+     * @param request
+     * @param httpResponse
+     * @return
+     * @throws java.io.IOException
+     */
+    @RequestMapping(value = "/file/download_bp_timing", method = RequestMethod.GET)
+    @Transactional
+    public void getTimingForBusinessProcess(@RequestParam(value = "sID_BP_Name") String sID_BP_Name,
+    		@RequestParam(value = "sDateAt") @DateTimeFormat(pattern="yyyy-MM-dd") Date dateAt,
+    		@RequestParam(value = "sDateTo", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dateTo,
+    		@RequestParam(value = "nRowStart", required = false, defaultValue = "0") Integer nRowStart, 
+    		@RequestParam(value = "nRowsMax", required = false, defaultValue = "1000") Integer nRowsMax,
+    		             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
+
+    	if (sID_BP_Name == null || sID_BP_Name.isEmpty()) {
+    		log.error("ID of business process is null");
+            throw new ActivitiObjectNotFoundException(
+                    "Statistics for the business process '" + sID_BP_Name + "' not found.",
+                    Process.class);
+        }
+
+    	List<HistoricTaskInstance> foundResults = historyService.createHistoricTaskInstanceQuery()
+    			.taskCompletedAfter(dateAt)
+    			.taskCompletedBefore(dateTo)
+    			.processDefinitionKey(sID_BP_Name)
+    			.listPage(nRowStart, nRowsMax); 
+
+    	SimpleDateFormat sdfFileName = new SimpleDateFormat("yyyy-MM-ddHH-mm-ss");
+        String fileName = sID_BP_Name + "_" + sdfFileName.format(Calendar.getInstance().getTime()) + ".csv";
+
+        log.debug("File name to return statistics : " + fileName);
+        
+		httpResponse.setContentType("text/csv;charset=UTF-8");
+        httpResponse.setHeader("Content-disposition", "attachment; filename=" + fileName);
+
+    	CSVWriter csvWriter = new CSVWriter(httpResponse.getWriter());
+    	
+    	String[] header = { "Assignee", "Start Time", "Duration in millis", "Duration in hours", "Name of Task" };
+    	csvWriter.writeNext(header);
+    	
+    	SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
+    	if (foundResults != null && foundResults.size() > 0){
+	    	log.debug(String.format("Found {0} completed tasks for business process {1} for date period {2} - {3}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt), 
+	    			sdfDate.format(dateTo)));
+	        for (HistoricTaskInstance currTask : foundResults) {
+	        	String[] line = new String[5];
+	        	line[0] = currTask.getAssignee();
+	            Date startDate = currTask.getStartTime();
+	            line[1] = sdfDate.format(startDate);
+	            line[2] = String.valueOf(currTask.getDurationInMillis());
+	            long durationInHours = currTask.getDurationInMillis() / (1000 * 60 * 60);
+	            line[3] = String.valueOf(durationInHours);
+	            line[4] = currTask.getName();
+	            
+	            csvWriter.writeNext(line);
+	        }
+    	} else {
+    		log.debug(String.format("No completed tasks found for business process {0} for date period {1} - {2}", sID_BP_Name, sdfDate.format(dateAt), 
+    				sdfDate.format(dateTo)));
+    	}
+
+        csvWriter.close();
     }
 
     private String getFileExtention(MultipartFile file) {

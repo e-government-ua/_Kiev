@@ -16,8 +16,8 @@ import org.wf.dp.dniprorada.service.EntityService;
 import org.wf.dp.dniprorada.service.TableDataService;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
-import org.wf.dp.dniprorada.util.SerializableResponseEntity;
-import org.wf.dp.dniprorada.util.caching.CachedInvocationBean;
+import org.wf.dp.dniprorada.base.util.SerializableResponseEntity;
+import org.wf.dp.dniprorada.base.util.caching.CachedInvocationBean;
 import org.wf.dp.dniprorada.viewobject.TableData;
 
 import javax.servlet.http.HttpServletResponse;
@@ -169,13 +169,6 @@ public class ActivitiRestServicesController {
               new ResultMessage("success", entityClass + " id: " + nID + " removed"));
    }
 
-   private <T extends Entity> void deleteApropriateEntity(List<T> entities) {
-      for (int i = 0; i < entities.size(); i++) {
-         Entity entity = entities.get(i);
-         baseEntityDao.remove(entity);
-      }
-   }
-
    private ResponseEntity regionsToJsonResponse(Service oService) {
       oService.setSubcategory(null);
       //for (ServiceData oServiceData : oService.getServiceDataList()) {
@@ -186,12 +179,12 @@ public class ActivitiRestServicesController {
             //oServiceData.setRegion(oServiceData.getCity().getRegion());
             //oServiceData.getCity().setRegion(null);
             //oServiceData.getRegion().setCities(null);
-            oServiceData.getCity().getRegion().setCities(null);             
+            oServiceData.getCity().getRegion().setCities(null);
          }else if (oServiceData.getRegion() != null) {
             oServiceData.getRegion().setCities(null);
          }
       }
-      
+
     oService.setServiceDataList(aServiceData);
       return JsonRestUtils.toJsonResponse(oService);
    }
@@ -343,5 +336,5 @@ public class ActivitiRestServicesController {
 
       return new SerializableResponseEntity(JsonRestUtils.toJsonResponse(categories));
    }
-   
+
 }
