@@ -12,8 +12,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.activiti.rest.controller.adapter.MultiReaderHttpServletResponse;
 
+import org.activiti.rest.controller.adapter.MultiReaderHttpServletResponse;
+import org.activiti.rest.controller.adapter.ServletOutputStreamCopier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,8 +34,8 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             HttpServletResponse response, Object handler) throws Exception {
 
         long startTime = System.currentTimeMillis();
-        logger.info("*.*.*.*.*.*.*.*.*.*.* preHandle Request URL::" + request.getRequestURL().toString()
-                + ":: Start Time=" + System.currentTimeMillis());
+        logger.info("*.*.*.*.*.*.*.*.*.*.* preHandle Request URL = " + request.getRequestURL().toString()
+                + ":: Start Time = " + System.currentTimeMillis());
         request.setAttribute("startTime", startTime);
         testReadFromRequest(request, response);
         return true;
@@ -44,19 +45,18 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
     public void postHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
-        logger.info("Request URL::" + request.getRequestURL().toString()
-                + " Sent to Handler :: Current Time=" + System.currentTimeMillis());
+        //logger.info("Request URL::" + request.getRequestURL().toString()
+        //        + " Sent to Handler :: Current Time=" + System.currentTimeMillis());
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request,
             HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-        long startTime = (Long) request.getAttribute("startTime");
-        logger.info("*.*.*.*.*.*.*.*.*.*.*! afterCompletion Request URL::" + request.getRequestURL().toString()
-                + ":: Time Taken=" + (System.currentTimeMillis() - startTime));
-        System.out.println("*.*.*.*.*.*.*.*.*.*.* afterCompletion Request URL::" + request.getRequestURL().toString()
-                + ":: Time Taken=" + (System.currentTimeMillis() - startTime));
+        logger.info("*.*.*.*.*.*.*.*.*.*.* afterCompletion Request URL = " + request.getRequestURL().toString()
+                + ":: Time Taken = " + (System.currentTimeMillis() - (Long) request.getAttribute("startTime")));
+        response = ((MultiReaderHttpServletResponse)request.getAttribute("responseMultiRead") != null ? 
+        		(MultiReaderHttpServletResponse)request.getAttribute("responseMultiRead") : response);
         testReadFromRequest(request, response);
     }
 
@@ -80,7 +80,6 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         }
 
         logger.info("!!!mParamRequest: " + mParamRequest);
-        logger.info("!!!response: " + response.toString() + " response: " + response.getClass());
-        logger.info("!!!request: " + request.toString() + " request: " + request.getClass());
+        logger.info("!!!responseBody: " + response.toString());
     }
 }
