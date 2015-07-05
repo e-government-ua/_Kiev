@@ -5,6 +5,7 @@
 'use strict';
 
 var errors = require('./components/errors');
+var path = require('path');
 
 module.exports = function(app) {
 
@@ -27,8 +28,9 @@ module.exports = function(app) {
    .get(errors[404]);
 
   // All other routes should redirect to the index.html
+  var indexHtml = app.get('appPath') + '/index.html';
   app.route('/*')
     .get(function(req, res) {
-      res.sendFile(app.get('appPath') + '/index.html');
+      res.sendFile(indexHtml);
     });
 };

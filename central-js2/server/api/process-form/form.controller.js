@@ -1,7 +1,7 @@
 var request = require('request');
 
 module.exports.index = function(req, res) {
-	var config = require('../../config');
+	var config = require('../../config/environment');
 	var activiti = config.activiti;
 
 	var options = {
@@ -31,7 +31,7 @@ module.exports.index = function(req, res) {
 };
 
 module.exports.submit = function(req, res) {
-	var config = require('../../config');
+	var config = require('../../config/environment');
 	var activiti = config.activiti;
 
 	var options = {
@@ -56,7 +56,7 @@ module.exports.submit = function(req, res) {
 			'value': options.formData.params[i]
 		});
 	};
-	
+
 	return request.post({
 		'url': options.formData.url || null,
 		'auth': {
