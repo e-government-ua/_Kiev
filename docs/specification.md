@@ -54,7 +54,7 @@
 	{"session":"true"} //[1..1]
 ```
 
-true - Пользователь авторизирован
+true - Пользователь авторизирован   
 false - Имя пользователя или пароль не корректны
 
 <a name="2_userLogout">
@@ -338,7 +338,7 @@ https://test.igov.org.ua/wf-region/service/merchant/addMerchant?id=1
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/getDocument?nID=1
+https://test.igov.org.ua/wf-central/service/services/getDocument?nID=1
 
 **Response**
 ```json
@@ -371,7 +371,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getDocument?nID=1
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/getDocumentContent?nID=1
+https://test.igov.org.ua/wf-central/service/services/getDocumentContent?nID=1
 
 **Response**
 КОНТЕНТ ДОКУМЕНТА В ВИДЕ СТРОКИ
@@ -384,7 +384,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getDocumentContent?nID=1
 **HTTP Context: http://server:port/wf-central/service/services/getDocumentTypes** - получение списка типов документов
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/getDocumentTypes
+https://test.igov.org.ua/wf-central/service/services/getDocumentTypes
 
 **Response**
 ```json
@@ -405,7 +405,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getDocumentTypes
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/getDocumentFile?nID=1
+https://test.igov.org.ua/wf-central/service/services/getDocumentFile?nID=1
 
 **Response**
 ЗАГРУЖЕННЫЙ ФАЙЛ 
@@ -419,7 +419,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getDocumentFile?nID=1
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/getDocuments?nID_Subject=2
+https://test.igov.org.ua/wf-central/service/services/getDocuments?nID_Subject=2
 
 **Response**
 ```json
@@ -487,7 +487,7 @@ Response КОНТЕНТ ДОКУМЕНТА В ВИДЕ СТРОКИ
 * nID_Subject - ИД-номер субъекта документа (владельца) ????????????????????????????????????
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/setDocument?sID_Subject_Upload=123&sSubjectName_Upload=Vasia&sName=Pasport&sFile=file.txt&nID_DocumentType=1&sDocumentContentType=application/zip&soDocumentContent=ffffffffffffffffff&nID_Subject=1
+https://test.igov.org.ua/wf-central/service/services/setDocument?sID_Subject_Upload=123&sSubjectName_Upload=Vasia&sName=Pasport&sFile=file.txt&nID_DocumentType=1&sDocumentContentType=application/zip&soDocumentContent=ffffffffffffffffff&nID_Subject=1
 
 **Response**
 ИД ДОКУМЕНТА
@@ -533,11 +533,11 @@ https://poligon.igov.org.ua/wf-central/service/services/setDocument?sID_Subject_
 
 Примеры:
 
-https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?sINN=34125265377
+https://test.igov.org.ua/wf-central/service/subject/syncSubject?sINN=34125265377
 
-https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?sOKPO=123
+https://test.igov.org.ua/wf-central/service/subject/syncSubject?sOKPO=123
 
-https://poligon.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
+https://test.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 
 **Response**
 ```json
@@ -677,13 +677,14 @@ https://seriver:port/wf-central/service/setDocumentAccess - Установка �
 
 Примеры:
 
-https://poligon.igov.org.ua/wf-central/service/messages/getMessages
+https://test.igov.org.ua/wf-central/service/messages/getMessages
 
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
-Ответ:
+Response:
+```json
 [{"nID":76,"sHead":"Закликаю владу перевести цю послугу в електронну форму!","sBody":"Дніпропетровськ - Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки","sDate":"2015-06-03 22:09:16.536","nID_Subject":0,"sMail":"bvv4ik@gmail.com","sContacts":"","sData":""}]
-
+```
 
 **HTTP Metod: GET**
 
@@ -692,13 +693,14 @@ https://poligon.igov.org.ua/wf-central/service/messages/getMessages
 * nID - ИД-номер сообщения
 
 Примеры:
-https://poligon.igov.org.ua/wf-central/service/messages/getMessage?nID=76
+https://test.igov.org.ua/wf-central/service/messages/getMessage?nID=76
 
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 Ответ:
+```json
 {"nID":76,"sHead":"Закликаю владу перевести цю послугу в електронну форму!","sBody":"Дніпропетровськ - Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки","sDate":"2015-06-03 22:09:16.536","nID_Subject":0,"sMail":"bvv4ik@gmail.com","sContacts":"","sData":""}
-
+```
 **HTTP Metod: POST**
 
 **HTTP Context: http://server:port/wf-central/service/messages/setMessage** - сохранение сообщения
@@ -712,10 +714,10 @@ https://poligon.igov.org.ua/wf-central/service/messages/getMessage?nID=76
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 Примеры:
-https://poligon.igov.org.ua/wf-central/service/messages/setMessage?sHead=name&sBody=body&sMail=a@a.a
+https://test.igov.org.ua/wf-central/service/messages/setMessage?sHead=name&sBody=body&sMail=a@a.a
 
 Ответ:
-Status 200 если Ok
+ Status 200 если Ok
 
 --------------------------------------------------------------------------------------------------------------------------
 
@@ -732,7 +734,7 @@ Status 200 если Ok
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvent?nID=1
+https://test.igov.org.ua/wf-central/service/services/getHistoryEvent?nID=1
 
 ----------------------------------------------------------------------------------------------------------------------------
 
@@ -743,7 +745,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvent?nID=1
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)????????
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Subject=3
+https://test.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Subject=3
 
  ---------------------------------------------------------------------------------------------------------------------------
 
@@ -775,12 +777,14 @@ https://poligon.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Sub
 http://test.igov.org.ua/wf-region/service/rest/file/upload_file_as_attachment?taskId=68&description=ololo"
 
 Ответ без ошибок:
+```json
 {"taskId":"38","processInstanceId":null,"userId":"kermit","name":"jmt.png","id":"45","type":"image/png;png","description":"SomeDocumentDescription","time":1433539278957,"url":null} 
 ID созданного attachment - "id":"45"
-
+```
 Ответ с ошибкой:
+```json
 {"code":"SYSTEM_ERR","message":"Cannot find task with id 384"}
-
+```
 
 --------------------------------------------------------------------------------------------------------------------------
 
@@ -796,11 +800,12 @@ ID созданного attachment - "id":"45"
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/getServicesTree
+https://test.igov.org.ua/wf-central/service/services/getServicesTree
 
 Ответ:
+```json
 [{"nID":1,"sID":"Citizen","sName":"Громадянам","nOrder":1,"aSubcategory":[{"nID":1,"sName":"Будівництво, нерухомість, земля","sID":"Build","nOrder":1,"aService":[{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":6,"sName":"Видача відомостей з документації, що включена до місцевого фонду документації із землеустрою.","nOrder":6,"nSub":1},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":8,"sName":"Надання довідки про перебування на квартирному обліку при міськвиконкомі за місцем проживання та в житлово-будівельному кооперативі.","nOrder":8,"nSub":1},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":9,"sName":"Надання довідки про перебування на обліку бажаючих отримати земельну ділянку під індивідуальне будівництво","nOrder":9,"nSub":0},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":10,"sName":"Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки","nOrder":10,"nSub":2},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":11,"sName":"Надання відомостей з Державного земельного кадастру у формі витягу з Державного земельного кадастру про земельну ділянку","nOrder":11,"nSub":0},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":12,"sName":"Присвоєння поштової адреси об’єкту нерухомого майна","nOrder":12,"nSub":1},{"sSubjectOperatorName":"Міська Рада","subjectOperatorName":"Міська Рада","nID":13,"sName":"Видача довідок про перебування на квартирному обліку","nOrder":13,"nSub":0}]
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/getService** - Получение сервиса
 
@@ -810,10 +815,12 @@ https://poligon.igov.org.ua/wf-central/service/services/getServicesTree
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/getService?nID=1
+https://test.igov.org.ua/wf-central/service/services/getService?nID=1
 
 Ответ:
+```json
 {"sSubjectOperatorName":"МВС","subjectOperatorName":"МВС","nID":1,"sName":"Отримати довідку про несудимість","nOrder":1,"aServiceData":[{"nID":1,"nID_City":{"nID":2,"sName":"Кривий Ріг","nID_Region":{"nID":1,"sName":"Дніпропетровська"}},"nID_ServiceType":{"nID":1,"sName":"Внешняя","sNote":"Пользователь переходит по ссылке на услугу, реализованную на сторонней платформе"},"oSubject_Operator":{"nID":1,"oSubject":{"nID":1,"sID":"ПАО","sLabel":"ПАО ПриватБанк","sLabelShort":"ПриватБанк"},"sOKPO":"093205","sFormPrivacy":"ПАО","sName":"ПриватБанк","sNameFull":"Банк ПриватБанк"},"oData":"{}","sURL":"https://dniprorada.igov.org.ua","bHidden":false}],"sInfo":"","sFAQ":"","sLaw":"","nSub":0}
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/setService** - Изменение сервиса. Можно менять/добавлять, но не удалять данные внутри сервиса, на разной глубине вложенности. Передается json в теле POST запроса в том же формате, в котором он был в getService. 
 
@@ -822,7 +829,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getService?nID=1
 Вовращает: HTTP STATUS 200 + json представление сервиса после изменения. Чаще всего то же, что было передано в теле POST запроса + сгенерированные id-шники вложенных сущностей, если такие были.
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/setService
+https://test.igov.org.ua/wf-central/service/services/setService
 ```json
 {
     "sSubjectOperatorName": "МВС",
@@ -932,20 +939,20 @@ HTTP STATUS 200 - удаление успешно.
 HTTP STATUS 304 - не удалено.
 
 Пример 1:
-https://poligon.igov.org.ua/wf-central/service/services/removeService?nID=1
+https://test.igov.org.ua/wf-central/service/services/removeService?nID=1
 
 Ответ 1: HTTP STATUS 304
 
 Пример 2:
-https://poligon.igov.org.ua/wf-central/service/services/removeService?nID=1&bRecursive=true
+https://test.igov.org.ua/wf-central/service/services/removeService?nID=1&bRecursive=true
 
 Ответ 2: HTTP STATUS 200
-
+```json
 {
     "code": "success",
     "message": "class org.wf.dp.dniprorada.model.Service id: 1 removed"
 }
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/removeServiceData** - Удаление сущности ServiceData.
 
@@ -961,15 +968,15 @@ HTTP STATUS 200 - удаление успешно.
 HTTP STATUS 304 - не удалено.
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/removeServiceData?nID=1&bRecursive=true
+https://test.igov.org.ua/wf-central/service/services/removeServiceData?nID=1&bRecursive=true
 
 Ответ: HTTP STATUS 200
-
+```json
 {
     "code": "success",
     "message": "class org.wf.dp.dniprorada.model.ServiceData id: 1 removed"
 }
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/removeSubcategory** - Удаление подкатегории.
 
@@ -985,20 +992,20 @@ HTTP STATUS 200 - удаление успешно.
 HTTP STATUS 304 - не удалено.
 
 Пример 1:
-https://poligon.igov.org.ua/wf-central/service/services/removeSubcategory?nID=1
+https://test.igov.org.ua/wf-central/service/services/removeSubcategory?nID=1
 
 Ответ 1: HTTP STATUS 304
 
 Пример 2:
-https://poligon.igov.org.ua/wf-central/service/services/removeSubcategory?nID=1&bRecursive=true
+https://test.igov.org.ua/wf-central/service/services/removeSubcategory?nID=1&bRecursive=true
 
 Ответ 2: HTTP STATUS 200
-
+```json
 {
     "code": "success",
     "message": "class org.wf.dp.dniprorada.model.Subcategory id: 1 removed"
 }
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/removeCategory** - Удаление категории.
 
@@ -1014,20 +1021,20 @@ HTTP STATUS 200 - удаление успешно.
 HTTP STATUS 304 - не удалено.
 
 Пример 1:
-https://poligon.igov.org.ua/wf-central/service/services/removeCategory?nID=1
+https://test.igov.org.ua/wf-central/service/services/removeCategory?nID=1
 
 Ответ 1: HTTP STATUS 304
 
 Пример 2:
-https://poligon.igov.org.ua/wf-central/service/services/removeCategory?nID=1&bRecursive=true
+https://test.igov.org.ua/wf-central/service/services/removeCategory?nID=1&bRecursive=true
 
 Ответ 2: HTTP STATUS 200
-
+```json
 {
     "code": "success",
     "message": "class org.wf.dp.dniprorada.model.Category id: 1 removed"
 }
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/removeServicesTree** - Удаление всего дерева сервисов и категорий.
 
@@ -1040,15 +1047,15 @@ https://poligon.igov.org.ua/wf-central/service/services/removeCategory?nID=1&bRe
 HTTP STATUS 200 - удаление успешно.
 
 Пример 1:
-https://poligon.igov.org.ua/wf-central/service/services/removeServicesTree
+https://test.igov.org.ua/wf-central/service/services/removeServicesTree
 
 Ответ 1: HTTP STATUS 200
-
+```json
 {
     "code": "success",
     "message": "ServicesTree removed"
 }
-
+```
 
 **HTTP Context: http://server:port/wf-central/service/services/getPlaces** - Получения дерева мест (регионов и городов).
 
@@ -1057,7 +1064,7 @@ https://poligon.igov.org.ua/wf-central/service/services/removeServicesTree
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/getPlaces
+https://test.igov.org.ua/wf-central/service/services/getPlaces
 
 Ответ:
 ```json
@@ -1157,7 +1164,7 @@ https://poligon.igov.org.ua/wf-central/service/services/getPlaces
 Возвращает: HTTP STATUS 200 + json представление сервиса после изменения. Чаще всего то же, что было передано в теле POST запроса + сгенерированные id-шники вложенных сущностей, если такие были.
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/setPlaces
+https://test.igov.org.ua/wf-central/service/services/setPlaces
 ```json
 [
     {
@@ -1205,7 +1212,7 @@ https://poligon.igov.org.ua/wf-central/service/services/setPlaces
 Возвращает: HTTP STATUS 200 + json представление сервиса после изменения. Чаще всего то же, что было передано в теле POST запроса + сгенерированные id-шники вложенных сущностей, если такие были.
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/services/setServicesTree
+https://test.igov.org.ua/wf-central/service/services/setServicesTree
 ```json
 [
     {
@@ -1278,7 +1285,7 @@ https://poligon.igov.org.ua/wf-central/service/services/setServicesTree
 * nDays - колличество дней от сегодняшего включительно, до nDays в будующее за который нужно вернуть слоты (опциональный, по умолчанию 60)
 
 Пример:
-https://poligon.igov.org.ua/wf-central/service/flow/getFlowSlots_ServiceData?nID_ServiceData=1
+https://test.igov.org.ua/wf-central/service/flow/getFlowSlots_ServiceData?nID_ServiceData=1
 
 Ответ:  HTTP STATUS 200
 ```json
@@ -1328,7 +1335,7 @@ https://poligon.igov.org.ua/wf-central/service/flow/getFlowSlots_ServiceData?nID
 * nID_Task_Activiti - ID таски активити процесса предоставления услуги (не обязательный - вначале он null, а потом засчивается после подтверждения тикета, и создания процесса)
 
 Пример:
-http://poligon.igov.org.ua/wf-central/service/flow/setFlowSlot_ServiceData
+http://test.igov.org.ua/wf-central/service/flow/setFlowSlot_ServiceData
 * nID_FlowSlot=1
 * nID_Subject=2
 
@@ -1366,9 +1373,7 @@ Name of Task - Название задачи
 
 
 Пример:
-```
 https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?sID_BP_Name=lviv_mvk-1&sDateAt=2015-06-28&sDateTo=2015-07-01
-```
 
 Пример выходного файла
 

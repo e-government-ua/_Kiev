@@ -67,7 +67,7 @@
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[kyrbatsky@gmail.com,m.shlapak.ua@gmail.com]]></activiti:string>
+          <activiti:string><![CDATA[zapit_kanc@khoda.gov.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Данні громадянина: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}

@@ -1,5 +1,10 @@
 package org.activiti.rest.controller;
 
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.redis.util.RedisUtil; 
 import org.slf4j.Logger;
@@ -70,8 +75,8 @@ public class ActivitiRestDocumentController {
 
     /**
      * @param accessCode    - строковой код доступа к документу
-     * @param organID	    - номер-ИД субьекта-органа оператора документа
-     * @param docTypeID	    - номер-ИД типа документа (опционально)
+     * @param organID	    - номер-�?Д субьекта-органа оператора документа
+     * @param docTypeID	    - номер-�?Д типа документа (опционально)
      * @param password	    - строка-пароль (опционально)
      * */
     @RequestMapping(value 	= "/getDocumentAccessByHandler",
