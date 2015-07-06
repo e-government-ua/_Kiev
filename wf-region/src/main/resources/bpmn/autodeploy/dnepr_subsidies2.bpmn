@@ -12,6 +12,9 @@
         <activiti:formProperty id="zayava_download" name="Скачати бланк заяви" type="label" default="https://drive.google.com/drive/folders/0B-f8gnAShc39fmdYbG9qVHlGQ1lONy1qbzNLXzAzalUwZFZvSTFfR25mV3FfWVMtN2F5aXM"></activiti:formProperty>
         <activiti:formProperty id="declaration_download" name="Скачати бланк декларації" type="label" default="https://docs.google.com/document/d/1A7_D9uM1xiV5RqXiDj2a6VMR1Gl3Ii5U6rnuLviuyDs/edit"></activiti:formProperty>
         <activiti:formProperty id="notice" name="Заповніть Ваші заяву та декларацію та завантажте їх у поля нижче; завантажены файли мають бути формату .doc" type="label"></activiti:formProperty>
+        <activiti:formProperty id="select_area" name="Виберіть Ваш район" type="enum">
+          <activiti:value id="area1_zhovtneviy" name="Жовтневий"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="zayava_finish" name="Ваша заява" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="declaration_finish" name="Ваша декларація" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-mail" type="string" required="true"></activiti:formProperty>
@@ -24,6 +27,9 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-mail" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="select_area" name="Виберіть Ваш район" type="enum" writable="false">
+          <activiti:value id="area1_zhovtneviy" name="Жовтневий"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="zayava_finish" name="Ваша заява" type="file"></activiti:formProperty>
         <activiti:formProperty id="declaration_finish" name="Ваша декларація" type="file"></activiti:formProperty>
         <activiti:formProperty id="information" name="Коментар до обробки; сюда можете вписати на якому єтапі знаходиться розгляд заяви громадянина або які субсидії були йому нараховані" type="textArea" required="true"></activiti:formProperty>
