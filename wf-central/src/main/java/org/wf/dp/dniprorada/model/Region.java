@@ -20,11 +20,22 @@ public class Region extends org.wf.dp.dniprorada.base.model.NamedEntity {
    @OrderBy("name asc")
    private List<City> cities;
 
+   //ИД-строка кода классификатора КОАТУУ
+   @Column
+   private String sID_UA;
+
    public List<City> getCities() {
       return cities;
    }
 
    public void setCities(List<City> cities) {
       this.cities = cities;
+   }
+
+   public String getsID_UA() {
+      return sID_UA;
+   }
+   public void setsID_UA(String sID_UA) {
+      this.sID_UA = sID_UA;
    }
 }
