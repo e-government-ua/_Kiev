@@ -23,6 +23,7 @@
       <outputDirectory></outputDirectory>
       <includes>
         <include>activiti-ui-context.xml</include>
+        <include>context-activiti_ui.xml</include>
       </includes>
     </fileSet>
 

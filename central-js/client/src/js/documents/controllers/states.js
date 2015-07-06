@@ -32,6 +32,15 @@ define('state/documents/bankid/controller', ['angularAMD'], function (angularAMD
             $window.location.href = './auth/bankID?link=' + redirectURI;
         };
 
+        $scope.loginWithEds = function () {
+            var stateForRedirect = $state.href('documents.bankid', {error: ''});
+            var redirectURI = $location.protocol() +
+                '://' + $location.host() + ':'
+                + $location.port()
+                + stateForRedirect;
+            $window.location.href = './auth/eds?link=' + redirectURI;
+        };
+
         if ($state.is('documents.bankid')) {
             if (!$state.params.error) {
                 BankIDService.isLoggedIn().then(function () {

@@ -38,7 +38,6 @@ public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
 
     @Override
     public BufferedReader getReader() throws IOException {
-        logger.info("MultiReadHttpServletRequest.getReader()");
         String enc = getCharacterEncoding();
         if (enc == null) {
             enc = "UTF-8";

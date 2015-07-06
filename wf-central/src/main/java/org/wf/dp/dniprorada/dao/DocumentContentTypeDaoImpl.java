@@ -39,7 +39,7 @@ public class DocumentContentTypeDaoImpl implements DocumentContentTypeDao {
 	}
 
 	@Override
-	public Integer setDocumentContent(DocumentContentType documentContentType) {
+	public Long setDocumentContent(DocumentContentType documentContentType) {
 		getSession().save(documentContentType);
 		return documentContentType.getId();
 	}

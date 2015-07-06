@@ -78,7 +78,7 @@ public class ActivitiRestFlowControllerScenario {
               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
               andReturn().getResponse().getContentAsString();
 
-      SaveSubjectTicketResponse response = JsonRestUtils.readObject(setJsonData, SaveSubjectTicketResponse.class);
+      SaveFlowSlotTicketResponse response = JsonRestUtils.readObject(setJsonData, SaveFlowSlotTicketResponse.class);
       Long ticketId = response.getnID_Ticket();
       Assert.assertTrue(ticketId != null);
 
@@ -100,7 +100,7 @@ public class ActivitiRestFlowControllerScenario {
               andExpect(status().isOk()).
               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
               andReturn().getResponse().getContentAsString();
-      response = JsonRestUtils.readObject(setJsonData, SaveSubjectTicketResponse.class);
+      response = JsonRestUtils.readObject(setJsonData, SaveFlowSlotTicketResponse.class);
       Assert.assertEquals(ticketId, response.getnID_Ticket());
    }
 

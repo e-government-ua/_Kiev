@@ -15,19 +15,11 @@ import javax.persistence.Transient;
 import net.sf.brunneng.jom.annotations.Identifier;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.wf.dp.dniprorada.base.model.Entity;
+import org.wf.dp.dniprorada.base.model.NamedEntity;
 
 @javax.persistence.Entity
-public class Document {
-
-	@JsonProperty(value = "nID")
-	@Id //@GeneratedValue
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "nID")
-	private Long id;
-
-	@JsonProperty(value = "sName")
-	@Column(name = "sName", nullable = false)
-	private String name;
+public class Document extends NamedEntity {
 
 	@JsonProperty(value = "oDocumentType")
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -81,24 +73,6 @@ public class Document {
 	@ManyToOne(targetEntity = Subject.class, fetch = FetchType.EAGER, optional = true)
 	@JoinColumn(name = "nID_Subject", nullable = true)
 	private Subject subject;
-        
-        
-	@Identifier
-	public Long getId() { 
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getContentKey() {
 		return contentKey;

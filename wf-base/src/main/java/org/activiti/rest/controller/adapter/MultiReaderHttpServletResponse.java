@@ -1,60 +1,81 @@
 package org.activiti.rest.controller.adapter;
 
-import java.io.CharArrayWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
 public class MultiReaderHttpServletResponse extends HttpServletResponseWrapper {
 
-    protected CharArrayWriter charWriter;
+	private ServletOutputStream outputStream;
+	private PrintWriter writer;
+	private ServletOutputStreamCopier copier;
 
-    protected PrintWriter writer;
+	public MultiReaderHttpServletResponse(HttpServletResponse response, HttpServletRequest request)
+			throws IOException {
+		super(response);
+	}
 
-    protected boolean getOutputStreamCalled;
+	@Override
+	public ServletOutputStream getOutputStream() throws IOException {
+		if (writer != null) {
+			throw new IllegalStateException(
+					"getWriter() has already been called on this response.");
+		}
 
-    protected boolean getWriterCalled;
+		if (outputStream == null) {
+			outputStream = getResponse().getOutputStream();
+			copier = new ServletOutputStreamCopier(outputStream);
+		}
 
-    public MultiReaderHttpServletResponse(HttpServletResponse response) {
-        super(response);
-        charWriter = new CharArrayWriter();
-    }
+		return copier;
+	}
 
-    @Override
-    public ServletOutputStream getOutputStream() throws IOException {
-        if (getWriterCalled) {
-            throw new IllegalStateException("getWriter already called");
-        }
+	@Override
+	public PrintWriter getWriter() throws IOException {
+		if (outputStream != null) {
+			throw new IllegalStateException(
+					"getOutputStream() has already been called on this response.");
+		}
 
-        getOutputStreamCalled = true;
-        return super.getOutputStream();
-    }
+		if (writer == null) {
+			copier = new ServletOutputStreamCopier(getResponse()
+					.getOutputStream());
+			writer = new PrintWriter(new OutputStreamWriter(copier,
+					getResponse().getCharacterEncoding()), true);
+		}
 
-    @Override
-    public PrintWriter getWriter() throws IOException {
-        if (writer != null) {
-            return writer;
-        }
-        if (getOutputStreamCalled) {
-            throw new IllegalStateException("getOutputStream already called");
-        }
-        getWriterCalled = true;
-        writer = new PrintWriter(charWriter);
-        return writer;
-    }
+		return writer;
+	}
 
-    @Override
-    public String toString() {
-        String result = null;
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!toString()");
-        if (writer != null) {
-            result = charWriter.toString();
-        }
-        return result;
-    }
-    
-   
+	@Override
+	public void flushBuffer() throws IOException {
+		if (writer != null) {
+			writer.flush();
+		} else if (outputStream != null) {
+			copier.flush();
+		}
+	}
+
+	public byte[] getCopy() {
+		if (copier != null) {
+			return copier.getCopy();
+		} else {
+			return new byte[0];
+		}
+	}
+	
+	public String toString() {
+		if (copier != null) {
+			return copier.toString();
+		} else {
+			return null;
+		}
+	}
+
 }
+

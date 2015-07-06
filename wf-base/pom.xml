@@ -31,6 +31,7 @@
     </repositories>
 
     <build>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -54,11 +55,11 @@
                 <configuration>
                     <jarName>${project.artifactId}-${project.version}</jarName>
                     <classifier>lib</classifier>
-                    <excludes>
+                    <!--excludes>
                         <exclude>*.properties</exclude>
                         <exclude>*.alfresco</exclude>
                         <exclude>*.json</exclude>
-                    </excludes>
+                    </excludes-->
                 </configuration>
             </plugin>
             <plugin>

@@ -17,13 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
-import org.wf.dp.dniprorada.base.dao.SubjectTicketDao;
+import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getListCastomFieldName;
 import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getValueFieldWithCastomTypeFile;
-import org.wf.dp.dniprorada.base.model.SubjectTicket;
+import org.wf.dp.dniprorada.base.model.FlowSlotTicket;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
-import org.wf.dp.dniprorada.base.viewobject.flow.SaveSubjectTicketResponse;
+import org.wf.dp.dniprorada.base.viewobject.flow.SaveFlowSlotTicketResponse;
 import org.wf.dp.dniprorada.form.QueueDataFormType;
 import org.wf.dp.dniprorada.model.BuilderAtachModel;
 
@@ -49,7 +49,7 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
    private FlowSlotDao flowSlotDao;
 
    @Autowired
-   private SubjectTicketDao subjectTicketDao;
+   private FlowSlotTicketDao oFlowSlotTicketDao;
 
         
 	/**
@@ -129,7 +129,6 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
                 
                 
                 
-                
                 LOG.info("SCAN:queueData");
                 asFieldID = getListField_QueueDataFormType(startformData);
                 LOG.info("asFieldID="+asFieldID.toString());
@@ -140,35 +139,74 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
                 if (!asFieldValue.isEmpty()) {
                     String sValue = asFieldValue.get(0);
                     LOG.info("sValue=" + sValue);
-                    long nID_SubjectTicket=0;
+                    long nID_FlowSlotTicket=0;
                     int nAt=sValue.indexOf(":");
                     int nTo=sValue.indexOf(",");
                     String s=sValue.substring(nAt+1,nTo);
                     LOG.info("s=" + s);
                     try{
-                        nID_SubjectTicket = Long.valueOf(s);
-                        LOG.info("Ok!");
+                        nID_FlowSlotTicket = Long.valueOf(s);
+                        LOG.info("nID_FlowSlotTicket:Ok!");
                     }catch(Exception oException){
                         LOG.error(oException.getMessage());
-                        nID_SubjectTicket=1;
+                        nID_FlowSlotTicket=1;
                     }
-                    LOG.info("nID_SubjectTicket=" + nID_SubjectTicket);
+                    LOG.info("nID_FlowSlotTicket=" + nID_FlowSlotTicket);
                     try{
-                        /*
-                        SubjectTicket oSubjectTicket = baseEntityDao.getById(SubjectTicket.class, nID_SubjectTicket);
-                        if (oSubjectTicket == null) {
-                            LOG.error("SubjectTicket with id=" + nID_SubjectTicket + " is not found!");
+                        
+                        
+                        FlowSlotTicket oFlowSlotTicket = baseEntityDao.getById(FlowSlotTicket.class, nID_FlowSlotTicket);
+                        if (oFlowSlotTicket == null) {
+                            LOG.error("FlowSlotTicket with id=" + nID_FlowSlotTicket + " is not found!");
                         }else{
-                            long nID_FlowSlot=oSubjectTicket.getoFlowSlot().getId();
+                            long nID_FlowSlot=oFlowSlotTicket.getoFlowSlot().getId();
                             LOG.error("nID_FlowSlot="+nID_FlowSlot);
-                            long nID_Subject = oSubjectTicket.getnID_Subject();
+                            long nID_Subject = oFlowSlotTicket.getnID_Subject();
                             LOG.error("nID_Subject="+nID_Subject);
                             long nID_Task_Activiti = 1; //TODO set real ID!!!
-                            oSubjectTicket.setnID_Task_Activiti(nID_Task_Activiti);
-                            baseEntityDao.saveOrUpdate(oSubjectTicket);
-                            LOG.info("JSON:" + JsonRestUtils.toJsonResponse(new SaveSubjectTicketResponse(oSubjectTicket.getId())));
+                            try{
+                                /*
+                                LOG.info("execution.getBusinessKey()="+execution.getBusinessKey());
+                                LOG.info("execution.getCurrentActivityId()="+execution.getCurrentActivityId());
+                                LOG.info("execution.getCurrentActivityName()="+execution.getCurrentActivityName());
+                                LOG.info("execution.getEventName()="+execution.getEventName());
+                                LOG.info("execution.getId()="+execution.getId());
+                                LOG.info("execution.getParentId()="+execution.getParentId());
+                                LOG.info("execution.getProcessBusinessKey()="+execution.getProcessBusinessKey());
+                                LOG.info("execution.getProcessDefinitionId()="+execution.getProcessDefinitionId());
+                                LOG.info("execution.getProcessInstanceId()="+execution.getProcessInstanceId());//THIS!!!
+                                LOG.info("execution.getTenantId()="+execution.getTenantId());
+                                */
+/*                                
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getBusinessKey()=null
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getCurrentActivityId()=servicetask1
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getCurrentActivityName()=Підтягування документів
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getEventName()=null
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getId()=955057
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getParentId()=955001
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getProcessBusinessKey()=key
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getProcessDefinitionId()=kiev_mreo_1:126:942617
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getProcessInstanceId()=955001
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getTenantId()=
+*/                                
+                                try{
+                                    nID_Task_Activiti = Long.valueOf(execution.getProcessInstanceId());
+                                    LOG.info("nID_Task_Activiti:Ok!");
+                                }catch(Exception oException){
+                                    LOG.error(oException.getMessage());
+                                }
+                                //execution.getCurrentActivityId()
+                                //nID_Task_Activiti
+                            }catch(Exception oException){
+                                LOG.error(oException.getMessage());
+                            }
+                            LOG.error("nID_Task_Activiti="+nID_Task_Activiti);
+                            oFlowSlotTicket.setnID_Task_Activiti(nID_Task_Activiti);
+                            baseEntityDao.saveOrUpdate(oFlowSlotTicket);
+                            LOG.info("JSON:" + JsonRestUtils.toJsonResponse(new SaveFlowSlotTicketResponse(oFlowSlotTicket.getId())));
                         }
-                        */
+                        
+                        
                     }catch(Exception oException){
                         LOG.error(oException.getMessage());
                     }
