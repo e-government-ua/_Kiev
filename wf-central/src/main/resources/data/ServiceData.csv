@@ -93,7 +93,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 92;653;NULL;NULL;1;{};http://dzmi.informjust.ua/;FALSE;1;FALSE;Доступ до інформації про легалізацію (реєстрацію) політичних партій, громадських організацій, профспілок, організацій роботодавців, асоціацій кредитних спілок, благодійних організацій та ін.;BankID,EDS
 93;648;NULL;NULL;1;{};http://rgo.informjust.ua/;FALSE;1;FALSE;Можливість отримати відомості про реєстрацію об'єднань у формі громадської організації або громадської спілки.;BankID,EDS
 94;4;26;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"hmel_mvk_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-95;654;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_subsidies:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+95;654;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_subsidies2:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 96;1;37;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"nikopol_mvd_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 97;4;37;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"nikopol_mvk_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 98;4;109;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"voznesensk_mvk_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
