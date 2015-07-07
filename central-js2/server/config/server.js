@@ -3,8 +3,13 @@
 var fs = require('fs');
 var config = require('./environment');
 
-module.exports = function(app) {
+module.exports = function (app) {
   var server = null;
+
+  if (config.debug) {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+  }
+
   switch (config.server.protocol) {
     case 'https':
       var credentials = {
@@ -19,7 +24,7 @@ module.exports = function(app) {
       server = require('http').createServer(app);
   }
 
-  server.listen(config.server.port, function() {
+  server.listen(config.server.port, function () {
     console.log('Express server listening on %d', config.server.port);
   });
 }

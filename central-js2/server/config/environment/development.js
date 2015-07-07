@@ -3,6 +3,9 @@
 // Development specific configuration
 // ==================================
 module.exports = {
+
+  debug: true,
+
   bankid: {
     sProtocol_AccessService_BankID: 'https', //Test
     sHost_AccessService_BankID: 'bankid.privatbank.ua', //Test
@@ -15,7 +18,6 @@ module.exports = {
   server: {
     protocol: 'http',
     port: '9000',
-    debug: true,
     session: {
       secret: 'put yor session secret here',
       key: ['solt for session 1', 'solt for session 2'],
@@ -23,7 +25,7 @@ module.exports = {
       maxAge: 180000 // 3 * 60 * 1000 = 3 min
     }
   },
-  
+
   activiti: {
     protocol: 'https',
     hostname: 'test.igov.org.ua',

@@ -14,7 +14,7 @@ angular.module('journal').controller('JournalBankIdController', function($rootSc
       $scope.error = JSON.parse($state.params.error).error;
     } else {
       BankIDService.isLoggedIn().then(function() {
-        return $state.go('index.journal.content', {code: $state.params.code});
+        return $state.go('index.journal.content');
       });
     }
   }
