@@ -1,6 +1,3 @@
-<!--div style="margin-top:20px; font-size:25px;">{{service.sName}}</div>
-<div style="margin-bottom:20px; font-size:18px;color:#cccccc;">{{service.sSubjectOperatorName}}</div-->
-
 <div class="list-group">
     <div class="list-group-item"
          ng-class="{'disabled': data.city}">
@@ -37,6 +34,6 @@
     <service-auth-block
             ng-if="data.city"
             n-step="2"
-            redirect-uri="{{$state.href('service.general.city.built-in.bankid', {'id': service.nID, 'region': data.region.nID, 'city': data.city.nID})}}"
+            redirect-uri="{{$state.href('index.service.general.city.built-in.bankid', {'id': service.nID, 'region': data.region.nID, 'city': data.city.nID})}}"
             ></service-auth-block>
 </div>

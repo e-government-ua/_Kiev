@@ -1,4 +1,4 @@
-angular.module('app').config(function($stateProvider) {
+angular.module('service').config(function($stateProvider) {
   $stateProvider
     .state('index.service.general.region', {
       url: '/region',
@@ -31,7 +31,7 @@ angular.module('app').config(function($stateProvider) {
           templateUrl: 'app/service/region/index.html',
           controller: 'ServiceRegionController'
         },
-        'content@service.general.region': {
+        'content@index.service.general.region': {
           templateUrl: 'app/service/region/content.html'
         }
       }
@@ -39,7 +39,7 @@ angular.module('app').config(function($stateProvider) {
     .state('index.service.general.region.error', {
       url: '/absent',
       views: {
-        'content@service.general.region': {
+        'content@index.service.general.region': {
           templateUrl: 'app/service/region/absent.html'
         }
       }

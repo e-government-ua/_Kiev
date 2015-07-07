@@ -1,4 +1,4 @@
-angular.module('app').controller('ServiceRegionController', function($state, $rootScope, $scope, $sce, RegionListFactory, PlacesService, ServiceService, service, regions, AdminService) {
+angular.module('service').controller('ServiceRegionController', function($state, $rootScope, $scope, $sce, RegionListFactory, PlacesService, ServiceService, service, regions, AdminService) {
   $scope.service = service;
   $scope.regions = regions;
 
@@ -26,7 +26,7 @@ angular.module('app').controller('ServiceRegionController', function($state, $ro
       region: null,
       city: null
     };
-    return $state.go('service.general.region', {id: $scope.service.nID});
+    return $state.go('index.service.general.region', {id: $scope.service.nID});
   };
 
   $scope.step2 = function() {
@@ -42,11 +42,11 @@ angular.module('app').controller('ServiceRegionController', function($state, $ro
 
     switch (serviceType.nID) {
       case 1:
-        return $state.go('service.general.region.link', {id: $scope.service.nID}, {location: false});
+        return $state.go('index.service.general.region.link', {id: $scope.service.nID}, {location: false});
       case 4:
-        return $state.go('service.general.region.built-in', {id: $scope.service.nID}, {location: false});
+        return $state.go('index.service.general.region.built-in', {id: $scope.service.nID}, {location: false});
       default:
-        return $state.go('service.general.region.error', {id: $scope.service.nID}, {location: false});
+        return $state.go('index.service.general.region.error', {id: $scope.service.nID}, {location: false});
     }
   };
 

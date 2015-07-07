@@ -1,8 +1,6 @@
-angular.module('app').controller('ServiceBuiltInController', function($location, $state, $rootScope, $scope, config) {
+angular.module('service').controller('ServiceBuiltInController', function($location, $state, $rootScope, $scope) {
   $scope.$location = $location;
   $scope.$state = $state;
-
-  $scope.config = config;
 }).controller('ServiceBuiltInBankIDController', function($state, $stateParams, $scope, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
 
   $scope.oServiceData = oServiceData;

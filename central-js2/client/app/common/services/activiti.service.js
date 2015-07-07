@@ -1,4 +1,4 @@
-angular.module('activiti', []).service('ActivitiService', function($http) {
+angular.module('app').service('ActivitiService', function($http) {
   this.getForm = function(oServiceData, processDefinitionId) {
     var url = oServiceData.sURL + oServiceData.oData.sPath + '?processDefinitionId=' + processDefinitionId.sProcessDefinitionKeyWithVersion;
     var data = {

@@ -1,9 +1,9 @@
-angular.module('app').config(function($stateProvider) {
+angular.module('service').config(function($stateProvider) {
   $stateProvider
     .state('index.service.general.region.built-in', {
       url: '/built-in',
       views: {
-        'content@service.general.region': {
+        'content@index.service.general.region': {
           templateUrl: 'app/service/region/built-in/index.html',
           controller: 'ServiceBuiltInController'
         }
@@ -19,7 +19,7 @@ angular.module('app').config(function($stateProvider) {
       resolve: {
         region: function($state, $stateParams, PlacesService) {
           return PlacesService.getRegion($stateParams.region).then(function(response) {
-            var currentState = $state.get('service.general.region.built-in.bankid');
+            var currentState = $state.get('index.service.general.region.built-in.bankid');
             currentState.data.region = response.data;
             return response.data;
           });
@@ -71,7 +71,7 @@ angular.module('app').config(function($stateProvider) {
         }
       },
       views: {
-        'content@service.general.region': {
+        'content@index.service.general.region': {
           templateUrl: 'app/service/region/built-in/bankid.html',
           controller: 'ServiceBuiltInBankIDController'
         }
@@ -81,14 +81,14 @@ angular.module('app').config(function($stateProvider) {
       url: null,
       data: {id: null},
       onExit: function($state) {
-        var state = $state.get('service.general.region.built-in.bankid.submitted');
+        var state = $state.get('index.service.general.region.built-in.bankid.submitted');
         state.data = {id: null};
       },
       views: {
-        'content@service.general.region': {
+        'content@index.service.general.region': {
           templateUrl: 'app/service/region/built-in/bankid.submitted.html',
           controller: function($state, $scope) {
-            $scope.state = $state.get('service.general.region.built-in.bankid.submitted');
+            $scope.state = $state.get('index.service.general.region.built-in.bankid.submitted');
           }
         }
       }

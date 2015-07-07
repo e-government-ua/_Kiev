@@ -2,11 +2,11 @@ angular.module('journal', []).controller('JournalController', function($scope, $
 
   BankIDService.isLoggedIn().then(function() {
     if ($state.is('journal')) {
-      return $state.go('journal.content');
+      return $state.go('index.journal.content');
     }
   }).catch(function() {
     if ($state.is('journal')) {
-      return $state.go('journal.bankid');
+      return $state.go('index.journal.bankid');
     }
   });
 });

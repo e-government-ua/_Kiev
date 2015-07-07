@@ -1,13 +1,11 @@
-angular.module('app').config(function($stateProvider) {
+angular.module('service').config(function($stateProvider) {
   $stateProvider
     .state('index.service.general.country.link', {
       url: '/link',
       views: {
-        'content@service.general.country': {
+        'content@index.service.general.country': {
           templateUrl: 'app/service/country/link/index.html',
-          controller: 'ServiceLinkController',
-          controllerUrl: 'service/link/controller'
-
+          controller: 'ServiceLinkController'
         }
       }
     });

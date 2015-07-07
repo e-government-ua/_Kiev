@@ -1,4 +1,5 @@
-angular.module('index', []).controller('IndexController', function($scope, $rootScope, $timeout, CatalogService, AdminService, $filter) {
+angular.module('service', []).controller('ServiceController', function($scope, $rootScope, $timeout, CatalogService, AdminService, $filter) {
+  $scope.catalog = CatalogService.getServices();
   $scope.catalogCounts = {0: 0, 1: 0, 2: 0};
   $scope.limit = 4;
   $scope.sSearch = null;
@@ -8,7 +9,7 @@ angular.module('index', []).controller('IndexController', function($scope, $root
   $scope.operators = [];
   $scope.selectedStatus = -1;
   $scope.operator = -1;
-  $scope.sourceCatalog = CatalogService.getServices();
+  $scope.sourceCatalog = $scope.catalog;
 
   $scope.search = function() {
     return CatalogService.getServices($scope.sSearch).then(function(result) {
@@ -20,12 +21,6 @@ angular.module('index', []).controller('IndexController', function($scope, $root
     });
   };
 
-  function clearExtSearchDialog () {
-    $scope.selectedStatus = -1;
-    $scope.operator = -1;
-    $scope.catalog = $scope.sourceCatalog;
-  }
-
   $scope.onExtSearchClick = function() {
     $scope.bShowExtSearch = !$scope.bShowExtSearch;
     if (!$scope.bShowExtSearch) {
@@ -34,7 +29,6 @@ angular.module('index', []).controller('IndexController', function($scope, $root
   };
 
   $scope.filterByStatus = function(status) {
-    $scope.catalog = catalog;
     //close extended search dialog if opened
     $scope.bShowExtSearch = false;
     clearExtSearchDialog();
@@ -113,5 +107,12 @@ angular.module('index', []).controller('IndexController', function($scope, $root
       $scope.recalcCounts = true;
     });
   });
+
+  function clearExtSearchDialog () {
+    $scope.selectedStatus = -1;
+    $scope.operator = -1;
+    $scope.catalog = $scope.sourceCatalog;
+  }
+
   $scope.search();
 });

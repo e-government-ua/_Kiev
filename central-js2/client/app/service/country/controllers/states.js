@@ -1,4 +1,4 @@
-angular.module('app').controller('ServiceCountryController', function($state, $rootScope, $scope, $sce, service, AdminService) {
+angular.module('service').controller('ServiceCountryController', function($state, $rootScope, $scope, $sce, service, AdminService) {
   $scope.service = service;
 
   $scope.bAdmin = AdminService.isAdmin();
@@ -19,11 +19,11 @@ angular.module('app').controller('ServiceCountryController', function($state, $r
 
     switch (serviceType.nID) {
       case 1:
-        return $state.go('service.general.country.link', {id: $scope.service.nID}, {location: false});
+        return $state.go('index.service.general.country.link', {id: $scope.service.nID}, {location: false});
       case 4:
-        return $state.go('service.general.country.built-in', {id: $scope.service.nID}, {location: false});
+        return $state.go('index.service.general.country.built-in', {id: $scope.service.nID}, {location: false});
       default:
-        return $state.go('service.general.country.error', {id: $scope.service.nID}, {location: false});
+        return $state.go('index.service.general.country.error', {id: $scope.service.nID}, {location: false});
     }
   };
 

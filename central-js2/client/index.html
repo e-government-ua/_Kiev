@@ -25,6 +25,8 @@
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet"
           href="app/app.css">
+    <link rel="stylesheet"
+          href="bower_components/angular-ui/build/angular-ui.css">
     <!-- injector:css -->
     <!-- endinjector -->
     <!-- endbuild -->
@@ -32,7 +34,7 @@
 </head>
 
 <body ng-app="app">
-
+{{state.current.name}}
 <div ui-view=""
      class="full-height">
 
@@ -65,6 +67,7 @@
 <script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
 <script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
 <script src="bower_components/ng-clip/src/ngClip.js"></script>
+<script src="bower_components/angular-ui-utils/ui-utils.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -82,17 +85,17 @@
 <script src="app/common/factories/localitylist.factory.js"></script>
 <script src="app/common/factories/regionlist.factory.js"></script>
 <script src="app/common/services/place.service.js"></script>
-<script src="app/components/dropdown/factories/dropdown.js"></script>
-<script src="app/components/form/directives/file.js"></script>
-<script src="app/components/form/directives/file2.js"></script>
-<script src="app/components/form/directives/slotPicker.js"></script>
-<script src="app/components/form/factories/datepicker.js"></script>
-<script src="app/components/form/factories/file.js"></script>
-<script src="app/components/form/factories/formData.js"></script>
-<script src="app/components/form/factories/parameter.js"></script>
-<script src="app/components/select/directives/optionsClass.js"></script>
-<script src="app/components/typeahead/directives/typeaheadEmpty.js"></script>
-<script src="app/components/typeahead/factories/typeahead.js"></script>
+<script src="app/common/components/dropdown/factories/dropdown.js"></script>
+<script src="app/common/components/form/directives/file.js"></script>
+<script src="app/common/components/form/directives/file2.js"></script>
+<script src="app/common/components/form/directives/slotPicker.js"></script>
+<script src="app/common/components/form/factories/datepicker.js"></script>
+<script src="app/common/components/form/factories/file.js"></script>
+<script src="app/common/components/form/factories/formData.js"></script>
+<script src="app/common/components/form/factories/parameter.js"></script>
+<script src="app/common/components/select/directives/optionsClass.js"></script>
+<script src="app/common/components/typeahead/directives/typeaheadEmpty.js"></script>
+<script src="app/common/components/typeahead/factories/typeahead.js"></script>
 <script src="app/documents/controllers/documents.controller.js"></script>
 <script src="app/documents/controllers/documentsbankid.controller.js"></script>
 <script src="app/documents/controllers/documentscontent.controller.js"></script>
@@ -100,18 +103,17 @@
 <script src="app/documents/document.js"></script>
 <script src="app/documents/factories/bankiddocuments.factory.js"></script>
 <script src="app/documents/factories/bankiddocumentspassport.factory.js"></script>
-<script src="app/main/index.controller.js"></script>
-<script src="app/main/subcategory.controller.js"></script>
+<script src="app/service/index/service.controller.js"></script>
+<script src="app/service/subcategory/subcategory.controller.js"></script>
+<script src="app/service/service.js"></script>
 <script src="app/journal/controllers/journal.controller.js"></script>
 <script src="app/journal/controllers/journalbankid.controller.js"></script>
 <script src="app/journal/controllers/journalcontent.controller.js"></script>
 <script src="app/journal/journal.js"></script>
 <script src="app/service/built-in/controllers/built-in.js"></script>
 <script src="app/service/catalog.js"></script>
-<script src="app/service/city/built-in/builtin.js"></script>
-<script src="app/service/city/controllers/states.js"></script>
+<script src="app/service/city/controllers/servicecity.controller.js"></script>
 <script src="app/service/city/link/script.js"></script>
-<script src="app/service/city/city.js"></script>
 <script src="app/service/controllers/states.js"></script>
 <script src="app/service/country/built-in/script.js"></script>
 <script src="app/service/country/controllers/states.js"></script>
@@ -122,7 +124,6 @@
 <script src="app/service/region/controllers/states.js"></script>
 <script src="app/service/region/link/script.js"></script>
 <script src="app/service/region/script.js"></script>
-<script src="app/service/script.js"></script>
 <script src="app/service/services/auth/serviceAuthBlock.js"></script>
 <!-- endinjector -->
 <!-- endbuild -->

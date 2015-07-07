@@ -6,8 +6,10 @@ angular.module('app', [
   'ui.router',
   'ui.bootstrap',
   'ngMessages',
+  'ui.uploader',
+  'ui.event',
   'ngClipboard',
-  'index',
+  'service',
   'journal',
   'documents',
   'about'
@@ -23,29 +25,6 @@ angular.module('app', [
         },
         footer: {
           templateUrl: 'app/footer/footer.html'
-        }
-      }
-    })
-    .state('index.main', {
-      url: 'index',
-      views: {
-        'main@': {
-          templateUrl: 'app/main/services.html',
-          controller: 'IndexController'
-        }
-      }
-    })
-    .state('index.subcategory', {
-      url: '/subcategory/:catID/:scatID',
-      resolve: {
-        catalog: function(CatalogService) {
-          return CatalogService.getServices();
-        }
-      },
-      views: {
-        '': {
-          templateUrl: 'app/catalog/subcategory.html',
-          controller: 'SubcategoryController'
         }
       }
     });

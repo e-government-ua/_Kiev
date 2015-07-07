@@ -1,4 +1,4 @@
-angular.module('app').directive('serviceAuthBlock', function() {
+angular.module('service').directive('serviceAuthBlock', function() {
   return {
     restrict: 'E',
     templateUrl: 'app/service/auth/serviceAuthBlock.html',

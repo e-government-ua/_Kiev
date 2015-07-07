@@ -1,4 +1,4 @@
-angular.module('app').service('CatalogService', function($http) {
+angular.module('service').service('CatalogService', function($http) {
   this.getServices = function(sFind) {
     var data = {
       sFind: sFind || null
