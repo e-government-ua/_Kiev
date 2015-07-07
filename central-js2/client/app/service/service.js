@@ -142,7 +142,7 @@ angular.module('service').config(function($stateProvider) {
     })
     .state('index.service.general.city.built-in.bankid', {
       url: '/built-in/region/{region:int}/city/{city:int}/?code',
-      parent: 'index.service.general.city',
+      //parent: 'index.service.general.city',
       data: {
         region: null,
         city: null
@@ -211,7 +211,7 @@ angular.module('service').config(function($stateProvider) {
         }
       },
       views: {
-        'content@index.service.general.built-in': {
+        'content@index.service.general.city': {
           templateUrl: 'app/service/city/built-in/bankid.html',
           controller: 'ServiceBuiltInBankIDController'
         }
