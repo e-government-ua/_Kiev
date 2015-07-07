@@ -73,6 +73,10 @@
         <bean id="flowSlotTicketDao" class="org.wf.dp.dniprorada.base.dao.FlowSlotTicketDaoImp">
             <property name="sessionFactory" ref="sessionFactory"/>
         </bean>
+        
+        <bean id="accessDataDao" class="org.wf.dp.dniprorada.base.dao.AccessDataDaoImpl">
+            <!--property name="sessionFactory" ref="sessionFactory"/-->
+        </bean>
 
         <!-- ============================ LIQUIBASE ============================= -->
         <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
