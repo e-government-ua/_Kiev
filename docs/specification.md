@@ -16,7 +16,7 @@
 <a href="#14_uploadFileToDb">14. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti</a><br/>
 <a href="#15_workWithServices">15. Работа с каталогом сервисов</a><br/>
 <a href="#16_getWorkflowStatistics">16. Получение статистики по задачам в рамках бизнес процесса</a><br/>
-
+<a href="#17_workWithHistoryEvent_Services">17. Работа с обьектами событий по услугам</a><br/>
 ### iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -1382,3 +1382,33 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?s
 "kermit","2015-06-21:09-20-40","711231882","197","Підготовка відповіді на запит: пошук документа"
 ```
 
+<a name="17_workWithHistoryEvent_Services">
+#### 17. Работа с обьектами событий по услугам <<in developing, issue 493>>
+</a><a href="#0_contents">↑Up</a><br/>
+**HTTP Metod: GET**
+
+**HTTP Context: https://server:port/wf-central/service/services/getHistoryEvent_Service?sID=G8hi37Klg2
+получает объект события по услуге, параметры: 
+sID - ИД-строка (в урл-е) 
+Если не найдена запись, то возвращает объект ошибки со значением "Record not found"
+
+**HTTP Metod: POST**//??
+
+**HTTP Context: https://server:port/wf-central/service/services/addHistoryEvent_Service?nID_Task=1&sStatus=new&nID_Subject=2
+
+ добавляет объект события по услуге, параметры: 
+ nID_Task - ИД-номер задачи (long) 
+ nID_Subject - ИД-номер (long) //опциональный 
+ sStatus - строка-статус (long) 
+ sID_Status - строка-статус (long) //опциональный для авто-генерации значения поля sID:
+
+**HTTP Metod: POST**//??
+
+**HTTP Context: https://server:port/wf-central/service/services/updateHistoryEvent_Service?nID=1&sStatus=finish
+
+ добавляет/обновляет объект события по услуге,
+параметры:
+nID - ИД-номер
+sStatus - строка-статус
+sID_Status - строка-статус (long) //опциональный
+Если не найдена запись, то возвращает объект ошибки со значением "Record not found"
