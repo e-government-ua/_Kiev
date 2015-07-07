@@ -52,28 +52,6 @@
     <sequenceFlow id="flow4" name="${decide=='accept'}" sourceRef="exclusivegateway1" targetRef="replyReady">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide=='accept'}]]></conditionExpression>
     </sequenceFlow>
-    <endEvent id="endevent1" name="End"></endEvent>
-    <serviceTask id="replyReadyMail" name="Емейл відповідь громадянину" activiti:type="mail">
-      <extensionElements>
-        <activiti:field name="to">
-          <activiti:string><![CDATA[${email}]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: ${topic}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Шановний громадянин, ${bankIdfirstName} ${bankIdmiddleName}
-
-${replyMessage}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
     <userTask id="cannotReply" name="Відповідь неможлива" activiti:candidateGroups="kuznets_mvk_1">
       <extensionElements>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -87,32 +65,6 @@ ${replyMessage}</activiti:expression>
     <sequenceFlow id="flow5" name="${decide=='reject'}" sourceRef="exclusivegateway1" targetRef="cannotReply">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide=='reject'}]]></conditionExpression>
     </sequenceFlow>
-    <endEvent id="endevent2" name="End"></endEvent>
-    <sequenceFlow id="flow6" sourceRef="replyReady" targetRef="replyReadyMail"></sequenceFlow>
-    <sequenceFlow id="flow7" sourceRef="replyReadyMail" targetRef="endevent1"></sequenceFlow>
-    <serviceTask id="cannotReplyMail" name="Емейл відмова громадянину" activiti:type="mail">
-      <extensionElements>
-        <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="to">
-          <activiti:string><![CDATA[${email}]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: ${topic}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Шановний громадянин, ${bankIdfirstName} ${bankIdmiddleName}
-
-${reasonCannotReply}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
-    <sequenceFlow id="flow8" sourceRef="cannotReply" targetRef="cannotReplyMail"></sequenceFlow>
-    <sequenceFlow id="flow9" sourceRef="cannotReplyMail" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow13" sourceRef="taskRecieved" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow14" sourceRef="startevent2" targetRef="mailtask1"></sequenceFlow>
     <serviceTask id="mailtask1" name="Повідомле6ння про успішну реєстрацію звернення" activiti:type="mail">
@@ -137,6 +89,53 @@ ${reasonCannotReply}</activiti:expression>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow15" sourceRef="mailtask1" targetRef="taskRecieved"></sequenceFlow>
+    <serviceTask id="mailtask2" name="Надання ваідповіді громадянину" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Звернення на тему: ${topic}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний громадянин, ${bankIdfirstName} ${bankIdmiddleName}
+
+${replyMessage}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow16" sourceRef="replyReady" targetRef="mailtask2"></sequenceFlow>
+    <endEvent id="endevent3" name="End"></endEvent>
+    <sequenceFlow id="flow17" sourceRef="mailtask2" targetRef="endevent3"></sequenceFlow>
+    <serviceTask id="mailtask3" name="Емейл відмова громадянину" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Звернення на тему: ${topic}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний громадянин, ${bankIdfirstName} ${bankIdmiddleName}
+
+${reasonCannotReply}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow18" sourceRef="cannotReply" targetRef="mailtask3"></sequenceFlow>
+    <sequenceFlow id="flow19" sourceRef="mailtask3" targetRef="endevent3"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Відповідь готова</text>
     </textAnnotation>
@@ -158,23 +157,20 @@ ${reasonCannotReply}</activiti:expression>
       <bpmndi:BPMNShape bpmnElement="replyReady" id="BPMNShape_replyReady">
         <omgdc:Bounds height="75.0" width="105.0" x="90.0" y="330.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="125.0" y="550.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="replyReadyMail" id="BPMNShape_replyReadyMail">
-        <omgdc:Bounds height="55.0" width="105.0" x="90.0" y="440.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="cannotReply" id="BPMNShape_cannotReply">
         <omgdc:Bounds height="55.0" width="105.0" x="800.0" y="340.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="835.0" y="550.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="cannotReplyMail" id="BPMNShape_cannotReplyMail">
-        <omgdc:Bounds height="55.0" width="105.0" x="800.0" y="440.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="55.0" width="105.0" x="445.0" y="108.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="250.0" y="442.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="480.0" y="560.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="617.0" y="442.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="67.0" width="100.0" x="280.0" y="300.0"></omgdc:Bounds>
@@ -198,22 +194,6 @@ ${reasonCannotReply}</activiti:expression>
           <omgdc:Bounds height="14.0" width="100.0" x="507.0" y="330.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
-        <omgdi:waypoint x="142.0" y="405.0"></omgdi:waypoint>
-        <omgdi:waypoint x="142.0" y="440.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="142.0" y="495.0"></omgdi:waypoint>
-        <omgdi:waypoint x="142.0" y="550.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="852.0" y="395.0"></omgdi:waypoint>
-        <omgdi:waypoint x="852.0" y="440.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
-        <omgdi:waypoint x="852.0" y="495.0"></omgdi:waypoint>
-        <omgdi:waypoint x="852.0" y="550.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
         <omgdi:waypoint x="498.0" y="271.0"></omgdi:waypoint>
         <omgdi:waypoint x="497.0" y="290.0"></omgdi:waypoint>
@@ -225,6 +205,26 @@ ${reasonCannotReply}</activiti:expression>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
         <omgdi:waypoint x="497.0" y="163.0"></omgdi:waypoint>
         <omgdi:waypoint x="498.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="142.0" y="405.0"></omgdi:waypoint>
+        <omgdi:waypoint x="142.0" y="469.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="469.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="302.0" y="497.0"></omgdi:waypoint>
+        <omgdi:waypoint x="302.0" y="577.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="577.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="852.0" y="395.0"></omgdi:waypoint>
+        <omgdi:waypoint x="852.0" y="468.0"></omgdi:waypoint>
+        <omgdi:waypoint x="722.0" y="469.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="669.0" y="497.0"></omgdi:waypoint>
+        <omgdi:waypoint x="669.0" y="577.0"></omgdi:waypoint>
+        <omgdi:waypoint x="515.0" y="577.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
