@@ -68,7 +68,57 @@
         <modifyDataType tableName="HistoryEvent_Service" columnName="sID" newDataType="varchar(30)" />
     </changeSet>
 
+    <changeSet id="issue-487" author="dgroup">
 
+        <!-- ####################################################################################################### -->
+        <createTable tableName="SubjectOrganJoin">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nID_SubjectOrgan" type="bigint">
+                <constraints nullable               ="false"
+                             foreignKeyName         ="FK_SubjectOrganJoin_SubjectOrgan"
+                             referencedTableName    ="SubjectOrgan"
+                             referencedColumnNames  ="nID"
+                             deleteCascade          ="true"/>
+            </column>
+            <column name="sNameUa" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sNameRu" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sID_Privat" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sID_Public" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sGeoLongitude" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sGeoLatitude" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_Region" type="bigint">
+                <constraints nullable               ="true"
+                             foreignKeyName         ="FK_SubjectOrganJoin_Region"
+                             referencedTableName    ="Region"
+                             referencedColumnNames  ="nID"
+                             deleteCascade          ="true"/>
+            </column>
+            <column name="nID_City" type="bigint">
+                <constraints nullable               ="true"
+                             foreignKeyName         ="FK_SubjectOrganJoin_City"
+                             referencedTableName    ="City"
+                             referencedColumnNames  ="nID"
+                             deleteCascade          ="true"/>
+            </column>
+        </createTable>
+    </changeSet>
 
+    <changeSet id="issue-487-PK" author="dgroup" dbms="h2">
+        <addAutoIncrement tableName="SubjectOrganJoin" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
 
 </databaseChangeLog>
