@@ -62,9 +62,11 @@
             <column name="sStatus" type="STRING"/>
             <column name="sID_Status" type="STRING"/>
         </loadUpdateData>
-
     </changeSet>
 
+    <changeSet id="issue-493_sID-size" author="LamronNu">
+        <modifyDataType tableName="HistoryEvent_Service" columnName="sID" newDataType="varchar(30)" />
+    </changeSet>
 
 
 
