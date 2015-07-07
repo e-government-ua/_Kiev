@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="myProcess" name="My process" isExecutable="true">
+    <startEvent id="startevent1" name="Кліент хоче зарееструватися"></startEvent>
+    <userTask id="registerForm" name="Заповнити форму з email-ом">
+      <extensionElements>
+        <activiti:formProperty id="$email" name="Email" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="$firstName" name="Імя" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="$Surname" name="Прізвище" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="registerForm"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="registerForm" targetRef="servicetask1"></sequenceFlow>
+    <serviceTask id="servicetask1" name="Incoming Data Validation/Verification ">
+      <extensionElements>
+        <activiti:field name="param1">
+          <activiti:string>in</activiti:string>
+        </activiti:field>
+        <activiti:field name="param2">
+          <activiti:string>out</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow3" name="${param2=='true'}" sourceRef="exclusivegateway1" targetRef="usertask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${param2=='true'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow4" name="${param2=='false'}" sourceRef="exclusivegateway1" targetRef="usertask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${param2=='false'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="regSuccess" name="Welcome fellow User!" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:string>$userEmail</activiti:string>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>WebsiteAdmin</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Welcome</activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:string>Welcome !!!!!!</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow5" sourceRef="usertask2" targetRef="registerForm"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="usertask1" targetRef="regSuccess"></sequenceFlow>
+    <userTask id="usertask1" name="Add User to the database">
+      <extensionElements>
+        <activiti:formProperty id="$emailAddress" name="User's email" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="$firstName" name="User's name" type="String" required="true"></activiti:formProperty>
+        <activiti:formProperty id="$Surname" name="User's Surname" type="String" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="usertask2" name="Ask User to re-fill Form"></userTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow8" sourceRef="regSuccess" targetRef="endevent1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow9" sourceRef="servicetask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>Validation successful
+</text>
+    </textAnnotation>
+    <textAnnotation id="textannotation2">
+      <text>Mistake was made</text>
+    </textAnnotation>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
+    <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="555.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="registerForm" id="BPMNShape_registerForm">
+        <omgdc:Bounds height="81.0" width="105.0" x="520.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="111.0" width="161.0" x="492.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="50.0" width="100.0" x="340.0" y="246.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
+        <omgdc:Bounds height="50.0" width="100.0" x="732.0" y="246.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="regSuccess" id="BPMNShape_regSuccess">
+        <omgdc:Bounds height="55.0" width="105.0" x="80.0" y="380.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="250.0" y="380.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="180.0" y="268.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="890.0" y="268.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="210.0" y="510.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="562.0" y="387.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="572.0" y="55.0"></omgdi:waypoint>
+        <omgdi:waypoint x="572.0" y="120.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="572.0" y="201.0"></omgdi:waypoint>
+        <omgdi:waypoint x="572.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="582.0" y="387.0"></omgdi:waypoint>
+        <omgdi:waypoint x="232.0" y="323.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="16.0" width="100.0" x="-63.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="582.0" y="387.0"></omgdi:waypoint>
+        <omgdi:waypoint x="942.0" y="323.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="48.0" width="100.0" x="-14.0" y="-10.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="942.0" y="268.0"></omgdi:waypoint>
+        <omgdi:waypoint x="821.0" y="184.0"></omgdi:waypoint>
+        <omgdi:waypoint x="625.0" y="160.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="232.0" y="323.0"></omgdi:waypoint>
+        <omgdi:waypoint x="132.0" y="380.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="185.0" y="407.0"></omgdi:waypoint>
+        <omgdi:waypoint x="227.0" y="407.0"></omgdi:waypoint>
+        <omgdi:waypoint x="227.0" y="510.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="572.0" y="351.0"></omgdi:waypoint>
+        <omgdi:waypoint x="582.0" y="387.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
