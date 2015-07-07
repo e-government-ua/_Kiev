@@ -50,7 +50,7 @@
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow4" name="${decide=='accept'}" sourceRef="exclusivegateway1" targetRef="replyReady">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[$[decide=='accept']]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide=='accept'}]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <serviceTask id="replyReadyMail" name="Емейл відповідь громадянину" activiti:type="mail">
@@ -85,7 +85,7 @@ ${replyMessage}</activiti:expression>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow5" name="${decide=='reject'}" sourceRef="exclusivegateway1" targetRef="cannotReply">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[$[decide=='reject']]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide=='reject'}]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow6" sourceRef="replyReady" targetRef="replyReadyMail"></sequenceFlow>
@@ -150,7 +150,7 @@ ${reasonCannotReply}</activiti:expression>
         <omgdc:Bounds height="35.0" width="35.0" x="480.0" y="30.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="taskRecieved" id="BPMNShape_taskRecieved">
-        <omgdc:Bounds height="61.0" width="186.0" x="405.0" y="200.0"></omgdc:Bounds>
+        <omgdc:Bounds height="61.0" width="186.0" x="405.0" y="210.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="477.0" y="290.0"></omgdc:Bounds>
@@ -187,7 +187,7 @@ ${reasonCannotReply}</activiti:expression>
         <omgdi:waypoint x="496.0" y="367.0"></omgdi:waypoint>
         <omgdi:waypoint x="195.0" y="367.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="95.0" x="423.0" y="337.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="423.0" y="337.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
@@ -195,7 +195,7 @@ ${reasonCannotReply}</activiti:expression>
         <omgdi:waypoint x="497.0" y="367.0"></omgdi:waypoint>
         <omgdi:waypoint x="800.0" y="367.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="89.0" x="507.0" y="330.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="507.0" y="330.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
@@ -215,7 +215,7 @@ ${reasonCannotReply}</activiti:expression>
         <omgdi:waypoint x="852.0" y="550.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
-        <omgdi:waypoint x="498.0" y="261.0"></omgdi:waypoint>
+        <omgdi:waypoint x="498.0" y="271.0"></omgdi:waypoint>
         <omgdi:waypoint x="497.0" y="290.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
@@ -224,7 +224,7 @@ ${reasonCannotReply}</activiti:expression>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
         <omgdi:waypoint x="497.0" y="163.0"></omgdi:waypoint>
-        <omgdi:waypoint x="498.0" y="200.0"></omgdi:waypoint>
+        <omgdi:waypoint x="498.0" y="210.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
