@@ -94,7 +94,8 @@
     "core-util-is":"1.0.1",
     "inherits":"2.0.1",
     "isarray":"0.0.1",
-    "string_decoder":"0.10.31"
+    "string_decoder":"0.10.31",
+    "lodash": "3.8.0"
   },
   "engines": {
     "node": ">=0.10.25"
