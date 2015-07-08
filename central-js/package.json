@@ -84,7 +84,8 @@
     "should": "~3.3.1",
     "js-yaml": "~3.3.1",
     "whet.extend": "~0.9.9",
-    "sax": "~1.1.1"
+    "sax": "~1.1.1",
+    "grunt-mout": "~1.0.1"
   },
   "engines": {
     "node": ">=0.10.0"
