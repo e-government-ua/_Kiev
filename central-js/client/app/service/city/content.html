@@ -20,13 +20,13 @@
                                    ng-model="regionList.typeahead.model"
                                    typeahead="region as region.sName for region in loadRegionList($viewValue)"
                                    typeahead-on-select="onSelectRegionList($item)"
-                                   typeahead-template-url="app/service/region/typeahead-match-region.html"
+                                   typeahead-template-url="html/bootstrap/typeahead/typeahead-match-region.html"
                                    typeahead-empty
-                                   ng-disabled="data.region"/>
+                                   ng-disabled="data.city"/>
 							<span class="input-group-btn">
 								<button class="btn btn-default"
                                         type="button"
-                                        ng-disabled="data.region"
+                                        ng-disabled="data.city"
                                         dropdown-toggle>
                                     <span class="caret"></span>
                                 </button>
@@ -58,7 +58,7 @@
                                    ng-model="localityList.typeahead.model"
                                    typeahead="city as city.sName for city in loadLocalityList($viewValue)"
                                    typeahead-on-select="onSelectLocalityList($item)"
-                                   typeahead-template-url="app/service/city/typeahead-match-city.html"
+                                   typeahead-template-url="html/bootstrap/typeahead/typeahead-match-city.html"
                                    typeahead-empty
                                    ng-disabled="data.city"/>
 							<span class="input-group-btn">
@@ -78,20 +78,12 @@
                                    ng-class="{'color-green': (city.color == 'green')}">{{city.sName}}</a>
                             </li>
                         </ul>
-                    </div>
+                    </div>  
                 </div>
                 <div style="display:inline-block"
                      ng-if="data.region">
-                    <a class="ctrls-admin ctrls-srvc-edit"
-                       href=""
-                       ng-if="bAdmin"
-                       title="Редагувати послугу в цьому регіоні"><span class="glyphicon glyphicon-pencil"></span>
-                        Редагувати</a>
-                    <a class="ctrls-admin ctrls-srvc-remove"
-                       href=""
-                       ng-if="bAdmin"
-                       title="Видалити послугу в цьому регіоні"><span class="glyphicon glyphicon-remove"></span>
-                        Видалити</a>
+                    <a class="ctrls-admin ctrls-srvc-edit" href="" ng-if="bAdmin" title="Редагувати послугу в цьому регіоні"><span class="glyphicon glyphicon-pencil"></span> Редагувати</a>
+                    <a class="ctrls-admin ctrls-srvc-remove" href="" ng-if="bAdmin" title="Видалити послугу в цьому регіоні"><span class="glyphicon glyphicon-remove"></span> Видалити</a>
                 </div>
             </div>
             <div class="col-md-1"

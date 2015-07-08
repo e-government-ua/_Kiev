@@ -11,7 +11,7 @@
                             name="region"
                             ng-model="data.region"
                             ng-options="region as region.sName for region in [data.region] | orderBy:'sName'"
-                            ng-disabled="data.region"></select>
+                            ng-disabled="data.city"></select>
                 </div>
             </div>
             <div class="col-md-1"
@@ -37,9 +37,7 @@
     </div>
     <div class="list-group-item">
         <div class="row no-margin-bottom">
-            <h3 class="text-center">Шановний {{data.formData.params.bankIdfirstName.value}}
-                                    {{data.formData.params.bankIdmiddleName.value}}
-                                    {{data.formData.params.bankIdlastName.value}}!</h3>
+            <h3 class="text-center">Шановний {{data.formData.params.bankIdfirstName.value}} {{data.formData.params.bankIdmiddleName.value}}!</h3>
 
             <div class="text-center">Ваше звернення №{{state.data.id}} успішно зареєстровано</div>
             <div class="text-center"
