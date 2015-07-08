@@ -101,7 +101,9 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		} catch(Exception e){
 			throw e;
 		} finally {
-			s.close();
+			if(s.isConnected()){
+				s.close();
+			}
 		}
 	}
 
@@ -113,7 +115,9 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		} catch(Exception e){
 			throw e;
 		} finally{
-			oSession.close();
+			if(oSession.isConnected()){
+				oSession.close();
+			}
 		}
 		return list.get(0).getId();
 	}
@@ -134,7 +138,9 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		} catch(Exception e){
 			throw e;
 		} finally{
-			oSession.close();
+			if(oSession.isConnected()){
+				oSession.close();
+			}
 		}
 		return docAcc;
 	}
@@ -176,7 +182,9 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		} catch(Exception e) {
 			throw e;
 		}finally{
-			oSession.close();
+			if(oSession.isConnected()){
+				oSession.close();
+			}
 		}
 		return  otpPassword;
 	}
@@ -213,7 +221,9 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		} catch(Exception e){
 			throw e;
 		} finally{
-			oSession.close();
+			if(oSession.isConnected()){
+				oSession.close();
+			}
 		}
 		return "/";
 	}
