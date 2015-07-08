@@ -92,7 +92,7 @@
           <activiti:value id="physical" name="Електронна + Фізична копія"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="additionalInfo" name="Додаткова інформація" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="scanCopy" name="Завантажьте скан-копію рішення (буде відправлено громадянину на e-mail" type="file"></activiti:formProperty>
+        <activiti:formProperty id="scanCopy" name="Завантажте скан-копію рішення (буде відправлено громадянину на e-mail" type="file" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <userTask id="usertask3" name="Відповідь неможлива" activiti:candidateGroups="kuznets_mvk_3">
