@@ -87,7 +87,8 @@
     "grunt-mout": "~1.0.1",
     "sax": "~1.1.1",
     "grunt-node-version": "1.0.0",
-    "mout": "0.11.0"
+    "mout": "0.11.0",
+    "wordwrap": "0.0.3"
   },
   "engines": {
     "node": ">=0.10.25"
