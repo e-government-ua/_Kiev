@@ -1,5 +1,12 @@
 package org.activiti.rest.controller;
 
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.redis.util.RedisUtil;
 import org.slf4j.Logger;
@@ -15,15 +22,6 @@ import org.wf.dp.dniprorada.dao.*;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.model.document.HandlerFactory;
 import org.wf.dp.dniprorada.util.Util;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 
 @Controller
 @RequestMapping(value = "/services")
