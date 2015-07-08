@@ -28,7 +28,8 @@
     "errorhandler": "~1.0.0",
     "compression": "~1.0.1",
     "js-yaml": "~3.3.1",
-    "whet.extend": "~0.9.9"
+    "whet.extend": "~0.9.9",
+    "sax": "~1.1.1"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
