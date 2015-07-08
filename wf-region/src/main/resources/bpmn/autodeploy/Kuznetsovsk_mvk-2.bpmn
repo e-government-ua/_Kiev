@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="Kuznetsovsk_mvk_2" name="Кузнецьовський МВК - Звернення громадян до міського голови" isExecutable="true">
+  <process id="kuznetsovsk_mvk_2" name="Кузнецьовський МВК - Звернення громадян до міського голови" isExecutable="true">
     <startEvent id="startevent2" name="Start" activiti:initiator="initiator">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -143,8 +143,8 @@ ${reasonCannotReply}</activiti:expression>
       <text>Неможливо дати відповідь</text>
     </textAnnotation>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_Kuznetsovsk_mvk_2">
-    <bpmndi:BPMNPlane bpmnElement="Kuznetsovsk_mvk_2" id="BPMNPlane_Kuznetsovsk_mvk_2">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_kuznetsovsk_mvk_2">
+    <bpmndi:BPMNPlane bpmnElement="kuznetsovsk_mvk_2" id="BPMNPlane_kuznetsovsk_mvk_2">
       <bpmndi:BPMNShape bpmnElement="startevent2" id="BPMNShape_startevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="480.0" y="30.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -183,7 +183,7 @@ ${reasonCannotReply}</activiti:expression>
         <omgdi:waypoint x="496.0" y="367.0"></omgdi:waypoint>
         <omgdi:waypoint x="195.0" y="367.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="423.0" y="337.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="95.0" x="423.0" y="337.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
@@ -191,7 +191,7 @@ ${reasonCannotReply}</activiti:expression>
         <omgdi:waypoint x="497.0" y="367.0"></omgdi:waypoint>
         <omgdi:waypoint x="800.0" y="367.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="507.0" y="330.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="89.0" x="507.0" y="330.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
