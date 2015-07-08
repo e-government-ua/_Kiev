@@ -1,16 +1,14 @@
 package org.activiti.rest.controller;
 
 import org.activiti.engine.ActivitiObjectNotFoundException;
-import org.activiti.redis.util.RedisUtil; 
+import org.activiti.redis.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.constant.HistoryEventMessage;
 import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.dao.*;
@@ -87,7 +85,8 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "nID_DocumentOperator_SubjectOrgan") 	Long 	organID,
             @RequestParam(value = "nID_DocumentType", required = false) Long	docTypeID,
             @RequestParam(value = "sPass", required = false)		    String 	password,
-            HttpServletResponse resp) {
+            HttpServletResponse resp
+    ) {
 
         Document document = handlerFactory
                 .buildHandlerFor(documentDao.getOperator(organID))
@@ -342,5 +341,25 @@ public class ActivitiRestDocumentController {
         } catch (IOException e) {
             log.error("error during creating HistoryEvent", e);
         }
+    }
+
+    @RequestMapping(value   = "/getSubjectOrganJoins",
+                    method  = RequestMethod.GET,
+                    headers = { "Accept=application/json" })
+    public  @ResponseBody
+    List<SubjectOrganJoin> getAllSubjectOrganJoins(
+            @RequestParam(value = "nID_SubjectOrgan") 				Long organID,
+            @RequestParam(value = "nID_Region", required = false) 	Long regionID,
+            @RequestParam(value = "nID_City", required = false)     Long cityID
+    ) {
+        return subjectOrganDao.findSubjectOrganJoinsBy(organID, regionID, cityID);
+    }
+
+
+    @RequestMapping(value   = "/setSubjectOrganJoins",
+                    method  = RequestMethod.POST,
+                    headers = { "Accept=application/json" })
+    public @ResponseBody void setSubjectOrganJoins(@RequestBody String jsonData) {
+        subjectOrganDao.add( JsonRestUtils.readObject(jsonData, SubjectOrganJoin.class) );
     }
 }
