@@ -1420,7 +1420,7 @@ http://test.igov.org.ua/wf-central/service/flow/setFlowSlot_ServiceData
 поле "nID_Ticket" - ID созданной/измененной сущности FlowSlotTicket.
 
 
-**HTTP Context: http://server:port/wf-central/service/flow/buildFlowSlots** - Генерация слотов на заданных интервал для заданного потока.
+**HTTP Context: http://server:port/wf-central/service/flow/buildFlowSlots** - Генерация слотов на заданный интервал для заданного потока.
 
 **HTTP Metod: POST**
 
@@ -1435,9 +1435,9 @@ http://test.igov.org.ua/wf-central/service/flow/buildFlowSlots
 * sDateStart=2015-06-01 00:00:00.000
 * sDateStop=2015-06-07 00:00:00.000
 
-Ответ:  HTTP STATUS 200
+Ответ:  HTTP STATUS 200 + json перечисление всех сгенерированных слотов.
 
-Ниже приведена часть json ответа - по сути это перечисление всех сгенерированных слотов:
+Ниже приведена часть json ответа:
 ```json
 [
     {
@@ -1461,3 +1461,47 @@ http://test.igov.org.ua/wf-central/service/flow/buildFlowSlots
 ...
 ]
 ```
+Если на указанные даты слоты уже сгенерены то они не будут генерится повторно, и в ответ включаться не будут.
+
+
+**HTTP Context: http://server:port/wf-central/service/flow/clearFlowSlots** - Удаление слотов на заданный интервал для заданного потока.
+
+**HTTP Metod: DELETE**
+
+Параметры:
+* nID_Flow_ServiceData - номер-ИД потока по данным сервиса (по которому удаляются слоты) (обязательный)
+* sDateStart - дата "начиная с такого-то момента времени", в формате "2015-06-28 12:12:56.001" (обязательный)
+* sDateStop - дата "заканчивая к такому-то моменту времени", в формате "2015-07-28 12:12:56.001" (обязательный)
+* bWithTickets - удалять ли слоты с тикетами, отвязывая тикеты от слотов? (опциональный, по умолчанию false)
+
+Пример:
+http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceData=1&sDateStart=2015-06-01 00:00:00.000&sDateStop=2015-06-07 00:00:00.000
+
+Ответ:  HTTP STATUS 200 + json Обьект содержащий 2 списка:
+* aDeletedSlot - удаленные слоты
+* aSlotWithTickets - слоты с тикетами. Елси bWithTickets=true то эти слоты тоже удаляются и будут перечислены в aDeletedSlot, иначе - не удаляются.
+
+Ниже приведена часть json ответа:
+```json
+{
+    "aDeletedSlot": [
+        {
+            "nID": 1000,
+            "sTime": "08:00",
+            "nMinutes": 15,
+            "bFree": true
+        },
+        {
+            "nID": 1001,
+            "sTime": "08:15",
+            "nMinutes": 15,
+            "bFree": true
+        },
+        ...
+     ],
+     "aSlotWithTickets": []
+```
+
+
+
+
