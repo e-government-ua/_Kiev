@@ -22,9 +22,9 @@ public class AccessDataDaoImpl implements AccessDataDao{
     }
 
     @Override
-    public byte[] getAccessData(String sKey) {
+    public String getAccessData(String sKey) {
         byte[] contentByte = durableBytesDataStorage.getData(sKey);
-		return contentByte != null ? contentByte : contentMock.getBytes();
+		return contentByte != null ? contentByte.toString() : contentMock;
     }
 
     @Override
