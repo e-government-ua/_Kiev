@@ -57,9 +57,6 @@
             <div class="col-md-12">Крок 3.
                                    {{data.formData.params["processName"].name==null?"":data.formData.params["processName"].name}}
             </div>
-            <!--div class="col-md-12">Крок 3. 1{{data.formData.sProcessDefinitionName}} 11{{data.formData.sProcessDefinitionName1}} 2{{data.sProcessDefinitionName}} 3{{ActivitiForm.sProcessDefinitionName}} 4{{ActivitiForm.processDefinitionId.sProcessDefinitionName}} 5{{data.sProcessDefinitionName}} 6{{data.sProcessDefinitionName2}} </div-->
-
-            <!-- Запит  {{data.formData.params["processName"].name}}-->
 
         </div>
         <div class="row">
@@ -70,8 +67,6 @@
                         <div class="row"
                              ng-repeat="property in ActivitiForm.formProperties track by property.id"
                              ng-if="property.id != 'processName'">
-                            <!--div class="col-md-5">{{property.name}}:</div-->
-                            <!--div class="col-md-5">{{ sFieldLabel(property.name) }}:</div-->
 
                             <div style="display: none;">
                                 _1{{data.formData.params[property.id].required}}
@@ -203,8 +198,8 @@
                                 <button class="btn btn-info"
                                         ng-click="submit(form)"
                                         ng-disable="cantSubmit(form)"
-                                        ng-hide="bSending(form)"
-                                        >Замовити послугу
+                                        ng-hide="bSending(form)">
+                                    Замовити послугу
                                 </button>
                                 <br><label ng-show="bSending(form)">зачекайте...</label>
                             </div>

@@ -126,6 +126,11 @@ angular.module('service').config(function($stateProvider) {
       }
     }).state('index.service.general.city.built-in', {
       url: '/built-in',
+      //resolve: {
+      //  region: function($state, $stateParams, PlacesService) {
+      //    return console.log('hello');
+      //  }
+      //},
       views: {
         //'main@': {
         //  templateUrl: 'app/service/index.html',
@@ -142,7 +147,7 @@ angular.module('service').config(function($stateProvider) {
     })
     .state('index.service.general.city.built-in.bankid', {
       url: '/built-in/region/{region:int}/city/{city:int}/?code',
-      //parent: 'index.service.general.city',
+      parent: 'index.service.general.city',
       data: {
         region: null,
         city: null
@@ -182,7 +187,7 @@ angular.module('service').config(function($stateProvider) {
             return $q.reject(null);
           });
         },
-        BankIDAccount: function(BankIDService, BankIDLogin) {
+        BankIDAccount: function(BankIDService) {
           return BankIDService.account();
         },
         processDefinitions: function(ServiceService, oServiceData) {
@@ -208,10 +213,17 @@ angular.module('service').config(function($stateProvider) {
         },
         ActivitiForm: function(ActivitiService, oServiceData, processDefinitionId) {
           return ActivitiService.getForm(oServiceData, processDefinitionId);
+        },
+        service: function($stateParams, ServiceService) {
+          return ServiceService.get($stateParams.id);
         }
       },
       views: {
-        'content@index.service.general.city': {
+        'main@': {
+          templateUrl: 'app/service/index.html',
+          controller: 'BuiltinCityController'
+        },
+        'content@index.service.general.city.built-in.bankid': {
           templateUrl: 'app/service/city/built-in/bankid.html',
           controller: 'ServiceBuiltInBankIDController'
         }
@@ -225,7 +237,7 @@ angular.module('service').config(function($stateProvider) {
         state.data = {id: null};
       },
       views: {
-        'content@index.service.general.city': {
+        'content@index.service.general.city.built-in.bankid': {
           templateUrl: 'app/service/city/built-in/bankid.submitted.html',
           controller: function($state, $scope, $sce) {
             $scope.state = $state.get('index.service.general.city.built-in.bankid.submitted');
