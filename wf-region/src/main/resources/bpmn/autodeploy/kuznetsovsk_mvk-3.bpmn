@@ -17,9 +17,9 @@
         <activiti:formProperty id="orgEmail" name="Емейл адреса організатора " type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="contactPhone" name="Контактний номер телефона" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="contactAddress" name="Контактна адреса організатора" type="string"></activiti:formProperty>
-        <activiti:formProperty id="needPhysicalCopy?" name="Чи потрібна Вам фізична копія документа?" type="boolean" required="true">
-          <activiti:value id="true" name="Фізична+Електронна копія  "></activiti:value>
-          <activiti:value id="false" name="Тільки Електронна версія"></activiti:value>
+        <activiti:formProperty id="needPhysicalCopy?" name="Чи потрібна Вам фізична копія документа?" type="enum" required="true">
+          <activiti:value id="physical" name="Фізична+Електронна копія  "></activiti:value>
+          <activiti:value id="digital" name="Тільки Електронна версія"></activiti:value>
         </activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -86,7 +86,7 @@
         <activiti:formProperty id="contactAddress" name="Контактна адреса організатора" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="needPhysicalCopy?" name="Форма відповіді" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="additionalInfo" name="Додаткова інформація" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="scanCopy" name="Завантажьте скан-копію рішення (буде відправлено громадянину на e-mail" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="scanCopy" name="Завантажьте скан-копію рішення (буде відправлено громадянину на e-mail" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <userTask id="usertask3" name="Відповідь неможлива" activiti:candidateGroups="kuznets_mvk_3">
