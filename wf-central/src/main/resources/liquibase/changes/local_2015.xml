@@ -21,7 +21,7 @@
 
     <!-- ####################################################################################################### -->
 
-    <changeSet id="issue-493" author="LamronNu">
+    <changeSet id="issue-493" author="LamronNu" failOnError="false" runOnChange="true">
         <!--drop table if exists-->
         <sql splitStatements="true" dbms="postgresql">
             DROP SEQUENCE IF EXISTS "HistoryEvent_Service";
@@ -35,7 +35,7 @@
                 <constraints primaryKey="true" nullable="false" unique="true"/>
             </column>
             <column name="sID" type="varchar(10)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="nID_Task" type="bigint">
                 <constraints nullable="false"/>
@@ -53,8 +53,12 @@
         <!--id trigger-->
         <addAutoIncrement
                 tableName="HistoryEvent_Service" columnName="nID" startWith="1000" columnDataType="bigint"/>
+
     </changeSet>
 
+    <changeSet id="issue-493_sID-size" author="LamronNu">
+        <modifyDataType tableName="HistoryEvent_Service" columnName="sID" newDataType="varchar(30)" />
+    </changeSet>
 
 
     <!-- ####################################################################################################### -->
@@ -126,22 +130,6 @@
         </addColumn>
     </changeSet>
 
-    <changeSet id="issue-493_loadData" author="LamronNu">
-        <!--add test data-->
-        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/HistoryEvent_Service.csv" tableName="HistoryEvent_Service" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="sID" type="STRING"/>
-            <column name="nID_Task" type="NUMERIC"/>
-            <column name="nID_Subject" type="NUMERIC"/>
-            <column name="sStatus" type="STRING"/>
-            <column name="sID_Status" type="STRING"/>
-            <column name="nID_Protected" type="NUMERIC"/>
-        </loadUpdateData>
-    </changeSet>
-
-    <changeSet id="issue-493_sID-size" author="LamronNu">
-        <modifyDataType tableName="HistoryEvent_Service" columnName="sID" newDataType="varchar(30)" />
-    </changeSet>
     <!-- ####################################################################################################### -->
 
 
