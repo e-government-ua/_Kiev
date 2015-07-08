@@ -17,6 +17,7 @@
 <a href="#15_workWithServices">15. Работа с каталогом сервисов</a><br/>
 <a href="#16_getWorkflowStatistics">16. Получение статистики по задачам в рамках бизнес процесса</a><br/>
 <a href="#17_workWithHistoryEvent_Services">17. Работа с обьектами событий по услугам</a><br/>
+<a href="#18_workWithFlowSlot">18. Работа со слотами потока</a><br/>
 ### iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -1275,6 +1276,75 @@ https://test.igov.org.ua/wf-central/service/services/setServicesTree
 ]
 ```
 
+<a name="16_getWorkflowStatistics">
+#### 16. Получение статистики по задачам в рамках бизнес процесса
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://server:port/wf-region/service/rest/download_bp_timing?sID_BP_Name=XXX&sDateAt=XXX8&sDateTo=XXX**
+
+* {sID_BP_Name} - ID бизнес процесса
+* {sDateAt} - Дата начала периода для выборки в формате yyyy-MM-dd
+* {sDateTo} - Дата окончания периода для выборки в формате yyyy-MM-dd
+* {nRowsMax} - необязательный параметр. Максимальное значение завершенных задач для возврата. По умолчанию 1000.
+* {nRowStart} - Необязательный параметр. Порядковый номер завершенной задачи в списке для возврата. По умолчанию 0.
+
+Метод возвращает .csv файл со информацией о завершенных задачах в указанном бизнес процессе за период.
+Формат выходного файла
+Assignee - кто выполнял задачу
+Start Time - Дата и время начала
+Duration in millis - Длительность выполнения задачи в миллисекундах
+Duration in hours - Длительность выполнения задачи в часах
+Name of Task - Название задачи
+
+
+Пример:
+https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?sID_BP_Name=lviv_mvk-1&sDateAt=2015-06-28&sDateTo=2015-07-01
+
+Пример выходного файла
+
+```
+"Assignee","Start Time","Duration in millis","Duration in hours","Name of Task"
+"kermit","2015-06-21:09-20-40","711231882","197","Підготовка відповіді на запит: пошук документа"
+```
+
+<a name="17_workWithHistoryEvent_Services">
+#### 17. Работа с обьектами событий по услугам <<in developing, issue 493>>
+</a><a href="#0_contents">↑Up</a><br/>
+**HTTP Metod: GET**
+
+**HTTP Context: https://server:port/wf-central/service/services/getHistoryEvent_Service?sID=G8hi37Klg2
+получает объект события по услуге, параметры: 
+sID - ИД-строка (в урл-е) 
+Если не найдена запись, то возвращает объект ошибки со значением "Record not found"
+
+**HTTP Metod: POST**//??
+
+**HTTP Context: https://server:port/wf-central/service/services/addHistoryEvent_Service?nID_Task=1&sStatus=new&nID_Subject=2
+
+ добавляет объект события по услуге, параметры: 
+ nID_Task - ИД-номер задачи (long) 
+ nID_Subject - ИД-номер (long) //опциональный 
+ sStatus - строка-статус (long) 
+ sID_Status - строка-статус (long) //опциональный для авто-генерации значения поля sID:
+
+**HTTP Metod: POST**//??
+
+**HTTP Context: https://server:port/wf-central/service/services/updateHistoryEvent_Service?nID=1&sStatus=finish
+
+ добавляет/обновляет объект события по услуге,
+параметры:
+nID - ИД-номер
+sStatus - строка-статус
+sID_Status - строка-статус (long) //опциональный
+Если не найдена запись, то возвращает объект ошибки со значением "Record not found"
+
+<a name="18_workWithFlowSlot">
+#### 18. Работа со слотами потока
+</a><a href="#0_contents">↑Up</a><br/>
+
 **HTTP Context: http://server:port/wf-central/service/flow/getFlowSlots_ServiceData** - Получение слотов по сервису сгруппированных по дням.
 
 **HTTP Metod: GET**
@@ -1348,67 +1418,91 @@ http://test.igov.org.ua/wf-central/service/flow/setFlowSlot_ServiceData
 Поля в ответе:
 
 поле "nID_Ticket" - ID созданной/измененной сущности FlowSlotTicket.
-<a name="16_getWorkflowStatistics">
-#### 16. Получение статистики по задачам в рамках бизнес процесса
-</a><a href="#0_contents">↑Up</a><br/>
 
 
-**HTTP Metod: GET**
+**HTTP Context: http://server:port/wf-central/service/flow/buildFlowSlots** - Генерация слотов на заданный интервал для заданного потока.
 
-**HTTP Context: https://server:port/wf-region/service/rest/download_bp_timing?sID_BP_Name=XXX&sDateAt=XXX8&sDateTo=XXX**
+**HTTP Metod: POST**
 
-* {sID_BP_Name} - ID бизнес процесса
-* {sDateAt} - Дата начала периода для выборки в формате yyyy-MM-dd
-* {sDateTo} - Дата окончания периода для выборки в формате yyyy-MM-dd
-* {nRowsMax} - необязательный параметр. Максимальное значение завершенных задач для возврата. По умолчанию 1000.
-* {nRowStart} - Необязательный параметр. Порядковый номер завершенной задачи в списке для возврата. По умолчанию 0.
-
-Метод возвращает .csv файл со информацией о завершенных задачах в указанном бизнес процессе за период.
-Формат выходного файла
-Assignee - кто выполнял задачу
-Start Time - Дата и время начала
-Duration in millis - Длительность выполнения задачи в миллисекундах
-Duration in hours - Длительность выполнения задачи в часах
-Name of Task - Название задачи
-
+Параметры:
+* nID_Flow_ServiceData - номер-ИД потока по данным сервиса (по которому генерируется слоты) (обязательный)
+* sDateStart - дата "начиная с такого-то момента времени", в формате "2015-06-28 12:12:56.001" (опциональный)
+* sDateStop - дата "заканчивая к такому-то моменту времени", в формате "2015-07-28 12:12:56.001" (опциональный)
 
 Пример:
-https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?sID_BP_Name=lviv_mvk-1&sDateAt=2015-06-28&sDateTo=2015-07-01
+http://test.igov.org.ua/wf-central/service/flow/buildFlowSlots
+* nID_Flow_ServiceData=1
+* sDateStart=2015-06-01 00:00:00.000
+* sDateStop=2015-06-07 00:00:00.000
 
-Пример выходного файла
+Ответ:  HTTP STATUS 200 + json перечисление всех сгенерированных слотов.
 
+Ниже приведена часть json ответа:
+```json
+[
+    {
+        "nID": 1000,
+        "sTime": "08:00",
+        "nMinutes": 15,
+        "bFree": true
+    },
+    {
+        "nID": 1001,
+        "sTime": "08:15",
+        "nMinutes": 15,
+        "bFree": true
+    },
+    {
+        "nID": 1002,
+        "sTime": "08:30",
+        "nMinutes": 15,
+        "bFree": true
+    },
+...
+]
 ```
-"Assignee","Start Time","Duration in millis","Duration in hours","Name of Task"
-"kermit","2015-06-21:09-20-40","711231882","197","Підготовка відповіді на запит: пошук документа"
+Если на указанные даты слоты уже сгенерены то они не будут генерится повторно, и в ответ включаться не будут.
+
+
+**HTTP Context: http://server:port/wf-central/service/flow/clearFlowSlots** - Удаление слотов на заданный интервал для заданного потока.
+
+**HTTP Metod: DELETE**
+
+Параметры:
+* nID_Flow_ServiceData - номер-ИД потока по данным сервиса (по которому удаляются слоты) (обязательный)
+* sDateStart - дата "начиная с такого-то момента времени", в формате "2015-06-28 12:12:56.001" (обязательный)
+* sDateStop - дата "заканчивая к такому-то моменту времени", в формате "2015-07-28 12:12:56.001" (обязательный)
+* bWithTickets - удалять ли слоты с тикетами, отвязывая тикеты от слотов? (опциональный, по умолчанию false)
+
+Пример:
+http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceData=1&sDateStart=2015-06-01 00:00:00.000&sDateStop=2015-06-07 00:00:00.000
+
+Ответ:  HTTP STATUS 200 + json Обьект содержащий 2 списка:
+* aDeletedSlot - удаленные слоты
+* aSlotWithTickets - слоты с тикетами. Елси bWithTickets=true то эти слоты тоже удаляются и будут перечислены в aDeletedSlot, иначе - не удаляются.
+
+Ниже приведена часть json ответа:
+```json
+{
+    "aDeletedSlot": [
+        {
+            "nID": 1000,
+            "sTime": "08:00",
+            "nMinutes": 15,
+            "bFree": true
+        },
+        {
+            "nID": 1001,
+            "sTime": "08:15",
+            "nMinutes": 15,
+            "bFree": true
+        },
+        ...
+     ],
+     "aSlotWithTickets": []
+}
 ```
 
-<a name="17_workWithHistoryEvent_Services">
-#### 17. Работа с обьектами событий по услугам <<in developing, issue 493>>
-</a><a href="#0_contents">↑Up</a><br/>
-**HTTP Metod: GET**
 
-**HTTP Context: https://server:port/wf-central/service/services/getHistoryEvent_Service?sID=G8hi37Klg2
-получает объект события по услуге, параметры: 
-sID - ИД-строка (в урл-е) 
-Если не найдена запись, то возвращает объект ошибки со значением "Record not found"
 
-**HTTP Metod: POST**//??
 
-**HTTP Context: https://server:port/wf-central/service/services/addHistoryEvent_Service?nID_Task=1&sStatus=new&nID_Subject=2
-
- добавляет объект события по услуге, параметры: 
- nID_Task - ИД-номер задачи (long) 
- nID_Subject - ИД-номер (long) //опциональный 
- sStatus - строка-статус (long) 
- sID_Status - строка-статус (long) //опциональный для авто-генерации значения поля sID:
-
-**HTTP Metod: POST**//??
-
-**HTTP Context: https://server:port/wf-central/service/services/updateHistoryEvent_Service?nID=1&sStatus=finish
-
- добавляет/обновляет объект события по услуге,
-параметры:
-nID - ИД-номер
-sStatus - строка-статус
-sID_Status - строка-статус (long) //опциональный
-Если не найдена запись, то возвращает объект ошибки со значением "Record not found"

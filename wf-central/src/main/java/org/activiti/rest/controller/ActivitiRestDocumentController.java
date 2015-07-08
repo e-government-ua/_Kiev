@@ -344,13 +344,13 @@ public class ActivitiRestDocumentController {
     @RequestMapping(value   = "/getSubjectOrganJoins",
                     method  = RequestMethod.GET,
                     headers = { "Accept=application/json" })
-    public  @ResponseBody
-    List<SubjectOrganJoin> getAllSubjectOrganJoins(
-            @RequestParam(value = "nID_SubjectOrgan") 				Long organID,
-            @RequestParam(value = "nID_Region", required = false) 	Long regionID,
-            @RequestParam(value = "nID_City", required = false)     Long cityID
+    public  @ResponseBody List<SubjectOrganJoin> getAllSubjectOrganJoins(
+            @RequestParam(value = "nID_SubjectOrgan") 				Long    organID,
+            @RequestParam(value = "nID_Region", required = false) 	Long    regionID,
+            @RequestParam(value = "nID_City", required = false)     Long    cityID,
+            @RequestParam(value = "sID_UA", required = false)       String  uaID
     ) {
-        return subjectOrganDao.findSubjectOrganJoinsBy(organID, regionID, cityID);
+        return subjectOrganDao.findSubjectOrganJoinsBy(organID, regionID, cityID, uaID);
     }
 
 
@@ -358,6 +358,16 @@ public class ActivitiRestDocumentController {
                     method  = RequestMethod.POST,
                     headers = { "Accept=application/json" })
     public @ResponseBody void setSubjectOrganJoins(@RequestBody String jsonData) {
-        subjectOrganDao.add( JsonRestUtils.readObject(jsonData, SubjectOrganJoin.class) );
+        subjectOrganDao.add( JsonRestUtils.readObject(jsonData, SubjectOrganJoin[].class) );
+    }
+
+    @RequestMapping(value   = "/removeSubjectOrganJoins",
+                    method  = RequestMethod.POST,
+                    headers = { "Accept=application/json" })
+    public  @ResponseBody void removeSubjectOrganJoins(
+            @RequestParam(value = "nID_SubjectOrgan")   Long     organID,
+            @RequestParam(value = "asID_Public")        String[] publicIDs
+    ) {
+        subjectOrganDao.removeSubjectOrganJoin(organID, publicIDs);
     }
 }
