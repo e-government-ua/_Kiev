@@ -1,7 +1,7 @@
 var request = require('request');
 
 module.exports.index = function (req, res) {
-    var config = require('../../config');
+    var config = require('../../config/environment');
     var activiti = config.activiti;
 
     var options = {

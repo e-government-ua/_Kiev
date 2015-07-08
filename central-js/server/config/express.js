@@ -1,29 +1,53 @@
 /**
  * Express configuration
  */
+
 'use strict';
 
-var session = require('cookie-session');
-var bodyParser = require('body-parser');
+var express = require('express');
+var favicon = require('serve-favicon');
 var morgan = require('morgan');
-var ejs = require('ejs');
-var config = require('../config');
+var compression = require('compression');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var cookieParser = require('cookie-parser');
+var errorHandler = require('errorhandler');
+var path = require('path');
+var config = require('./environment');
+var session = require('cookie-session');
 
-module.exports = function(app) {
-    app.engine('html', ejs.renderFile);
-    app.use(morgan(
-        config.server.debug ?
-            'dev' :
-            ':method :url :status :response-time ms - :res[content-length]'));
-    app.use(bodyParser.json()); // for parsing application/json
-    app.use(bodyParser.urlencoded({
-        extended: true
-    })); // for parsing application/x-www-form-urlencoded
-    app.use(session({
-        secret: config.server.session.secret,
-        keys: config.server.session.keys,
-        secure: config.server.session.secure,
-        signed: true,
-        maxAge: config.server.session.maxAge
-    }));
+module.exports = function (app) {
+  var env = app.get('env');
+
+  app.set('views', config.root + '/server/views');
+  app.engine('html', require('ejs').renderFile);
+  app.set('view engine', 'html');
+  app.use(compression());
+  app.use(bodyParser.urlencoded({extended: false}));
+  app.use(bodyParser.json());
+  app.use(session({
+    secret: config.server.session.secret,
+    keys: config.server.session.keys,
+    secure: config.server.session.secure,
+    signed: true,
+    maxAge: config.server.session.maxAge
+  }));
+  app.use(methodOverride());
+  app.use(cookieParser());
+
+  if ('production' === env) {
+    app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
+    app.use(express.static(path.join(config.root, 'public')));
+    app.set('appPath', config.root + '/public');
+    app.use(morgan('dev'));
+  }
+
+  if ('development' === env || 'test' === env) {
+    app.use(require('connect-livereload')());
+    app.use(express.static(path.join(config.root, '.tmp')));
+    app.use(express.static(path.join(config.root, 'client')));
+    app.set('appPath', path.join(config.root, 'client'));
+    app.use(morgan('dev'));
+    app.use(errorHandler()); // Error handler - has to be last
+  }
 };
