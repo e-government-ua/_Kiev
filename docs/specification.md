@@ -1500,6 +1500,7 @@ http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceD
         ...
      ],
      "aSlotWithTickets": []
+}
 ```
 
 
