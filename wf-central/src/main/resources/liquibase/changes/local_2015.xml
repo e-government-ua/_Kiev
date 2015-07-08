@@ -130,6 +130,10 @@
     </changeSet>
 
     <changeSet id="issue-493_add-nID_Protected" author="LamronNu">
+        <sql splitStatements="true" dbms="postgresql">
+            SET CONSTRAINTS ALL DEFERRED;
+            DELETE FROM "HistoryEvent_Service";
+        </sql>
         <addColumn tableName="HistoryEvent_Service">
             <column name="nID_Protected" type="bigint" >
                 <constraints nullable="false"/>
