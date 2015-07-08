@@ -35,7 +35,7 @@
                 <constraints primaryKey="true" nullable="false" unique="true"/>
             </column>
             <column name="sID" type="varchar(10)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="nID_Task" type="bigint">
                 <constraints nullable="false"/>
@@ -53,24 +53,14 @@
         <!--id trigger-->
         <addAutoIncrement
                 tableName="HistoryEvent_Service" columnName="nID" startWith="1000" columnDataType="bigint"/>
-        <!--add test data-->
-        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/HistoryEvent_Service.csv" tableName="HistoryEvent_Service" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="sID" type="STRING"/>
-            <column name="nID_Task" type="NUMERIC"/>
-            <column name="nID_Subject" type="NUMERIC"/>
-            <column name="sStatus" type="STRING"/>
-            <column name="sID_Status" type="STRING"/>
-        </loadUpdateData>
     </changeSet>
 
-    <changeSet id="issue-493_sID-size" author="LamronNu">
-        <modifyDataType tableName="HistoryEvent_Service" columnName="sID" newDataType="varchar(30)" />
-    </changeSet>
+
+
+    <!-- ####################################################################################################### -->
 
     <changeSet id="issue-487" author="dgroup">
 
-        <!-- ####################################################################################################### -->
         <createTable tableName="SubjectOrganJoin">
             <column name="nID" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -120,5 +110,39 @@
     <changeSet id="issue-487-PK" author="dgroup" dbms="h2">
         <addAutoIncrement tableName="SubjectOrganJoin" columnName="nID" startWith="1000" columnDataType="bigint"/>
     </changeSet>
+
+    <!-- ####################################################################################################### -->
+
+    <changeSet id="issue-493_sID-make-optional" author="LamronNu">
+        <dropNotNullConstraint tableName="HistoryEvent_Service" columnName="sID" columnDataType="varchar(30)"/>
+        <!--<dropUniqueConstraint tableName="HistoryEvent_Service" constraintName="sID" uniqueColumns="sID"/>-->
+    </changeSet>
+
+    <changeSet id="issue-493_add-nID_Protected" author="LamronNu">
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="nID_Protected" type="bigint" >
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="issue-493_loadData" author="LamronNu">
+        <!--add test data-->
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/HistoryEvent_Service.csv" tableName="HistoryEvent_Service" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sID" type="STRING"/>
+            <column name="nID_Task" type="NUMERIC"/>
+            <column name="nID_Subject" type="NUMERIC"/>
+            <column name="sStatus" type="STRING"/>
+            <column name="sID_Status" type="STRING"/>
+            <column name="nID_Protected" type="NUMERIC"/>
+        </loadUpdateData>
+    </changeSet>
+
+    <changeSet id="issue-493_sID-size" author="LamronNu">
+        <modifyDataType tableName="HistoryEvent_Service" columnName="sID" newDataType="varchar(30)" />
+    </changeSet>
+    <!-- ####################################################################################################### -->
+
 
 </databaseChangeLog>
