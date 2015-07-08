@@ -7,6 +7,15 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Виберіть район; в якому вам буде зручно отримати довідку" type="enum">
+          <activiti:value id="and" name="АНД (пров. Універсальний, 12)"></activiti:value>
+          <activiti:value id="babush" name="Бабушкінський (вул. Героїв Сталінграду, 25)"></activiti:value>
+          <activiti:value id="october" name="Жовтневий (вул. Високовольтна, 24)"></activiti:value>
+          <activiti:value id="left" name="Лівобережний (пр-т Газети Правда, 95-А)"></activiti:value>
+          <activiti:value id="kirov" name="Кіровський (вул. Горького, 22)"></activiti:value>
+          <activiti:value id="red_guard" name="Красногвардійський (вул. Театральна, 1-А)"></activiti:value>
+          <activiti:value id="lenin" name="Ленінський (вул. Шаумяна, 5)"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваша електронна пошта" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="book_number" name="Реєстраційний номер облікової картки платника податків" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_living" name="Місце проживання; область, місто, вулиця, дім, квартира" type="string" required="true"></activiti:formProperty>
@@ -21,6 +30,15 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Виберіть район; де вам буде зручно отримати довідку" type="enum" writable="false">
+          <activiti:value id="and" name="АНД (пров. Універсальний, 12)"></activiti:value>
+          <activiti:value id="babush" name="Бабушкінський (вул. Героїв Сталінграду, 25)"></activiti:value>
+          <activiti:value id="october" name="Жовтневий (вул. Високовольтна, 24)"></activiti:value>
+          <activiti:value id="left" name="Лівобережний (пр-т Газети Правда, 95-А)"></activiti:value>
+          <activiti:value id="kirov" name="Кіровський (вул. Горького, 22)"></activiti:value>
+          <activiti:value id="red_guard" name="Красногвардійський (вул. Театральна, 1-А)"></activiti:value>
+          <activiti:value id="lenin" name="Ленінський (вул. Шаумяна, 5)"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваша електронна пошта" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="book_number" name="Реєстраційний номер облікової картки платника податків" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_living" name="Місце проживання; область, місто, вулиця, дім, квартира" type="string" writable="false"></activiti:formProperty>
@@ -51,7 +69,7 @@
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
-Ваша заява на отримання довідки про доходи прийнята в роботу. Ви отримаєте відповідь на протязі .. днів.
+Ваша заява на отримання довідки про доходи прийнята в роботу. Ви отримаєте відповідь на протязі 5 днів.
 
 З повагою,
 Державна Адміністрація Київської області,
@@ -66,7 +84,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="90.0" y="100.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="170.0" y="90.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="170.0" y="70.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="490.0" y="100.0"></omgdc:Bounds>
@@ -76,10 +94,10 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="125.0" y="117.0"></omgdi:waypoint>
-        <omgdi:waypoint x="170.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="170.0" y="97.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-        <omgdi:waypoint x="275.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="275.0" y="97.0"></omgdi:waypoint>
         <omgdi:waypoint x="330.0" y="117.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">

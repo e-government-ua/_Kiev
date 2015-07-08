@@ -4,7 +4,7 @@ var arrayQuery = require('array-query');
 
 router.use(function(req, res, next) {
 
-	var config = require('../../config');
+	var config = require('../../config/environment');
 	var activiti = config.activiti;
 
 	var options = {
@@ -15,9 +15,9 @@ router.use(function(req, res, next) {
 		username: activiti.username,
 		password: activiti.password
 	};
-	
+
 	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-	
+
 	var controller = require('./index.controller.js');
 	controller.getPlaces(options, next);
 })
