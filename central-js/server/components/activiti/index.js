@@ -7,7 +7,7 @@ module.exports.getConfigOptions = function () {
 	if (options)
 		return options;
 
-	var config = require('../../config');
+	var config = require('../../config/environment');
 	var activiti = config.activiti;
 
 	options = {
@@ -23,17 +23,14 @@ module.exports.getConfigOptions = function () {
 
 };
 
-module.exports.getRequestUrl = function (apiURL, sHost) {
+module.exports.getRequestUrl = function (apiURL) {
 	var options = this.getConfigOptions();
-	return (sHost!==null && sHost !== undefined ? sHost : options.protocol + '://' + options.hostname + options.path) + apiURL;
+	return options.protocol + '://' + options.hostname + options.path + apiURL;
 };
 
-module.exports.buildRequest = function (req, apiURL, params, sHost) {
-        var sURL = this.getRequestUrl(apiURL, sHost);
-        console.log('req.session.subject.nID=' + req.session.subject.nID);
-        console.log('sHost='+sHost+',sURL=' + sURL);
+module.exports.buildRequest = function (req, apiURL, params) {
 	return {
-		'url': sURL,
+		'url': this.getRequestUrl(apiURL),
 		'auth': this.getAuth(),
 		'qs': _.extend(params, {nID_Subject: req.session.subject.nID})
 	};
@@ -47,21 +44,21 @@ module.exports.getAuth = function () {
 	};
 };
 
-module.exports.sendGetRequest = function (req, res, apiURL, params, callback, sHost) {
+module.exports.sendGetRequest = function (req, res, apiURL, params, callback) {
 	var _callback = callback ? callback : function (error, response, body) {
 		res.send(body);
 		res.end();
 	};
-	var url = this.buildRequest(req, apiURL, params, sHost);
+	var url = this.buildRequest(req, apiURL, params);
 	return request(url, _callback);
 };
 
-module.exports.sendPostRequest = function (req, res, apiURL, params, callback, sHost) {
+module.exports.sendPostRequest = function (req, res, apiURL, params, callback) {
 	var _callback = callback ? callback : function (error, response, body) {
 		res.send(body);
 		res.end();
 	};
-	var url = this.buildRequest(req, apiURL, params, sHost);
+	var url = this.buildRequest(req, apiURL, params);
 	return request.post(url, _callback);
 };
 

@@ -48,7 +48,7 @@ module.exports.index = function (req, res) {
     return sendGetRequest(req, res, '/services/getDocuments', params);
 };
 
-/* 
+/*
  nID;sName
  0;Другое
  1;Справка
@@ -201,7 +201,7 @@ function sendGetRequest(req, res, apiURL, params, callback) {
 }
 
 function getBankIDOptions(accessToken) {
-    var config = require('../../config');
+    var config = require('../../config/environment');
     var bankid = config.bankid;
 
     return {
@@ -216,7 +216,7 @@ function getBankIDOptions(accessToken) {
 }
 
 function getOptions() {
-    var config = require('../../config');
+    var config = require('../../config/environment');
     var activiti = config.activiti;
 
     return {

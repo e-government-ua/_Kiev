@@ -3,7 +3,7 @@ var router = express.Router();
 var request = require('request');
 
 var httpProxy = require('http-proxy');
-var config = require('../../config');
+var config = require('../../config/environment');
 
 var Buffer = require('buffer').Buffer;
 var authBase = 'Basic ' + new Buffer(

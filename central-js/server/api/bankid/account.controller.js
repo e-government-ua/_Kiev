@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var accountService = require('./account.service.js');
-var async = require('async');
 
 module.exports.index = function (req, res) {
-    var config = require('../../config');
+    var config = require('../../config/environment');
 
     var options = {
         access: req.session.access,
