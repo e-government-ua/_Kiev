@@ -89,7 +89,8 @@
     "grunt-node-version": "1.0.0",
     "mout": "0.11.0",
     "wordwrap": "0.0.3",
-    "concat-map":"0.0.1"
+    "concat-map":"0.0.1",
+    "balanced-match":"0.2.0"
   },
   "engines": {
     "node": ">=0.10.25"
