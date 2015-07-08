@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="issue-508" author="brunneng"> <!-- ИД-строка кода классификатора КОАТУУ -->
+        <addColumn tableName="Region">
+            <column name="sID_UA" type="varchar(30)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <addColumn tableName="City">
+            <column name="sID_UA" type="varchar(30)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <!-- ####################################################################################################### -->
+
+    <changeSet id="issue-493" author="LamronNu">
+        <!--drop table if exists-->
+        <sql splitStatements="true" dbms="postgresql">
+            DROP SEQUENCE IF EXISTS "HistoryEvent_Service";
+        </sql>
+        <sql splitStatements="true" dbms="h2">
+            DROP SEQUENCE IF EXISTS "HistoryEvent_Service";
+        </sql>
+        <!--create table-->
+        <createTable tableName="HistoryEvent_Service">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="sID" type="varchar(10)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="nID_Task" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_Subject" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sStatus" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sID_Status" type="varchar">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <!--id trigger-->
+        <addAutoIncrement
+                tableName="HistoryEvent_Service" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <!--add test data-->
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/HistoryEvent_Service.csv" tableName="HistoryEvent_Service" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sID" type="STRING"/>
+            <column name="nID_Task" type="NUMERIC"/>
+            <column name="nID_Subject" type="NUMERIC"/>
+            <column name="sStatus" type="STRING"/>
+            <column name="sID_Status" type="STRING"/>
+        </loadUpdateData>
+    </changeSet>
+
+    <changeSet id="issue-493_sID-size" author="LamronNu">
+        <modifyDataType tableName="HistoryEvent_Service" columnName="sID" newDataType="varchar(30)" />
+    </changeSet>
+
+    <changeSet id="issue-487" author="dgroup">
+
+        <!-- ####################################################################################################### -->
+        <createTable tableName="SubjectOrganJoin">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nID_SubjectOrgan" type="bigint">
+                <constraints nullable               ="false"
+                             foreignKeyName         ="FK_SubjectOrganJoin_SubjectOrgan"
+                             referencedTableName    ="SubjectOrgan"
+                             referencedColumnNames  ="nID"
+                             deleteCascade          ="true"/>
+            </column>
+            <column name="sNameUa" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sNameRu" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sID_Privat" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sID_Public" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sGeoLongitude" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sGeoLatitude" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_Region" type="bigint">
+                <constraints nullable               ="true"
+                             foreignKeyName         ="FK_SubjectOrganJoin_Region"
+                             referencedTableName    ="Region"
+                             referencedColumnNames  ="nID"
+                             deleteCascade          ="true"/>
+            </column>
+            <column name="nID_City" type="bigint">
+                <constraints nullable               ="true"
+                             foreignKeyName         ="FK_SubjectOrganJoin_City"
+                             referencedTableName    ="City"
+                             referencedColumnNames  ="nID"
+                             deleteCascade          ="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="issue-487-PK" author="dgroup" dbms="h2">
+        <addAutoIncrement tableName="SubjectOrganJoin" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
+</databaseChangeLog>

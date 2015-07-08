@@ -71,12 +71,14 @@
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Region.csv" tableName="Region" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sName" type="STRING"/>
+            <column name="sID_UA" type="STRING"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/City.csv" tableName="City" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sName" type="STRING"/>
             <column name="nID_Region" type="NUMERIC"/>
+            <column name="sID_UA" type="STRING"/>
         </loadUpdateData>
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Category.csv" tableName="Category" separator=";">
             <column name="nID" type="NUMERIC"/>
@@ -168,6 +170,20 @@
             <column name="sMessage" type="STRING"/>
             <column name="sDate" type="STRING"/>
         </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/SubjectOrganJoin.csv" tableName="SubjectOrganJoin" separator=";">
+            <column name="nID"              type="NUMERIC"/>
+            <column name="nID_SubjectOrgan" type="NUMERIC"/>
+            <column name="sNameUa"          type="STRING"/>
+            <column name="sNameRu"          type="STRING"/>
+            <column name="sID_Privat"       type="STRING"/>
+            <column name="sID_Public"       type="STRING"/>
+            <column name="sGeoLongitude"    type="STRING"/>
+            <column name="sGeoLatitude"     type="STRING"/>
+            <column name="nID_Region"       type="NUMERIC"/>
+            <column name="nID_City"         type="NUMERIC"/>
+        </loadUpdateData>
+
     </changeSet>
 
 

@@ -26,6 +26,16 @@ define('state/journal/bankid/controller', ['angularAMD'], function (angularAMD) 
             $window.location.href = './auth/bankID?link=' + redirectURI;
         }
 		
+        $scope.loginWithEds = function () {
+            var stateForRedirect = $state.href('journal.bankid', {error: ''});
+            var redirectURI = $location.protocol() +
+                '://' + $location.host() + ':'
+                + $location.port()
+                + stateForRedirect;
+            $window.location.href = './auth/eds?link=' + redirectURI;
+        };
+
+                
         if ($state.is('journal.bankid')) {
             if($state.params.error){
                 $scope.error = JSON.parse($state.params.error).error;

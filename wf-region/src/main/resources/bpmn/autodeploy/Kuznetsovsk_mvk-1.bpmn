@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="kuznetsovsk_mvk-1" name="Кузнецовський МВК - Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ" isExecutable="true">
+  <process id="kuznetsovsk_mvk_1" name="Кузнецовський МВК - Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ" isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -34,7 +34,7 @@
 Причина для відмови: ${comment}
 
 З повагою,
-ЦНАП м. Кузнецовськ</activiti:expression>
+Міська державна адміністрація м.Кузнецовськ,</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -88,7 +88,7 @@
 Обідня перерва з 13:00 до 14:00
 
 З повагою,
-Міністерство Внутрішніх Справ Дніпропетровської області,
+Міська державна адміністрація м.Кузнецовськ,
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
@@ -111,7 +111,7 @@
 Підкреслюємо, що поки що забрати довідку Ви можете лише в паперовому вигляді.
 
 З повагою,
-Міністерство Внутрішніх Справ Дніпропетровської області,
+Міська державна адміністрація м.Кузнецовськ,
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
         <activiti:field name="to">
@@ -139,8 +139,8 @@
     <association id="association2" sourceRef="usertask4" targetRef="textannotation2"></association>
     <association id="association3" sourceRef="startevent1" targetRef="textannotation1"></association>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_kuznetsovsk_mvk-1">
-    <bpmndi:BPMNPlane bpmnElement="kuznetsovsk_mvk-1" id="BPMNPlane_kuznetsovsk_mvk-1">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_kuznetsovsk_mvk_1">
+    <bpmndi:BPMNPlane bpmnElement="kuznetsovsk_mvk_1" id="BPMNPlane_kuznetsovsk_mvk_1">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>

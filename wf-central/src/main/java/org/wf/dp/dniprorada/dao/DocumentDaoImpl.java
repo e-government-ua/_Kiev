@@ -5,19 +5,24 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.model.*;
-import org.wf.dp.dniprorada.model.document.DocumentOrganNotFoundException;
 import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import static org.wf.dp.dniprorada.model.EntityNotFoundException.assertPresence;
+
 public class DocumentDaoImpl implements DocumentDao {
 
 	private static final String contentMock = "No content!!!";
 
 	private SessionFactory sessionFactory;
+
+	@Autowired
+	private BaseEntityDao baseEntityDao;
 
 	@Autowired
 	private GridFSBytesDataStorage durableBytesDataStorage;
@@ -38,7 +43,7 @@ public class DocumentDaoImpl implements DocumentDao {
 	@Override
 	public List<Document> getDocuments(Long nID_Subject) {
 		return (List<Document>) getSession().createCriteria(Document.class)
-				.add(Restrictions.eq("subject.nID", nID_Subject))
+				.add(Restrictions.eq("subject.id", nID_Subject))
 				.list();
 	}
 
@@ -108,18 +113,13 @@ public class DocumentDaoImpl implements DocumentDao {
 			.add(Restrictions.eq("nID_SubjectOrgan", operatorId))
 			.uniqueResult();
 
-		if (organ == null)
-			throw new DocumentOrganNotFoundException(
-				"Organ with ID:" + operatorId +" not found");
+		assertPresence(organ, "Organ with ID:" + operatorId + " not found");
 
 		return organ;
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<DocumentOperator_SubjectOrgan> getAllOperators() {
-		return (List<DocumentOperator_SubjectOrgan>) getSession()
-				.createCriteria(DocumentOperator_SubjectOrgan.class)
-				.list();
+		return 	baseEntityDao.getAll(DocumentOperator_SubjectOrgan.class);
 	}
 }

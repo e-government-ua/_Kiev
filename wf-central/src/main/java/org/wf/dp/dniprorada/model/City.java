@@ -20,11 +20,22 @@ public class City extends NamedEntity {
 	@JoinColumn(name = "nID_Region", insertable = false, updatable = false, nullable = false)
 	private Region region;
 
+	// ИД-строка кода классификатора КОАТУУ
+	@Column
+	private String sID_UA;
+
 	public Region getRegion() {
 		return region;
 	}
 
 	public void setRegion(Region region) {
 		this.region = region;
+	}
+
+	public String getsID_UA() {
+		return sID_UA;
+	}
+	public void setsID_UA(String sID_UA) {
+		this.sID_UA = sID_UA;
 	}
 }
