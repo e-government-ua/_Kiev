@@ -358,6 +358,16 @@ public class ActivitiRestDocumentController {
                     method  = RequestMethod.POST,
                     headers = { "Accept=application/json" })
     public @ResponseBody void setSubjectOrganJoins(@RequestBody String jsonData) {
-        subjectOrganDao.add( JsonRestUtils.readObject(jsonData, SubjectOrganJoin.class) );
+        subjectOrganDao.add( JsonRestUtils.readObject(jsonData, SubjectOrganJoin[].class) );
+    }
+
+    @RequestMapping(value   = "/removeSubjectOrganJoins",
+                    method  = RequestMethod.POST,
+                    headers = { "Accept=application/json" })
+    public  @ResponseBody void removeSubjectOrganJoins(
+            @RequestParam(value = "nID_SubjectOrgan")   Long     organID,
+            @RequestParam(value = "asID_Public")        String[] publicIDs
+    ) {
+        subjectOrganDao.removeSubjectOrganJoin(organID, publicIDs);
     }
 }

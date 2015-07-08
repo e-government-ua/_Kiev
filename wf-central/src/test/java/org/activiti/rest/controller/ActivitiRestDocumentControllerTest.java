@@ -219,7 +219,7 @@ public class ActivitiRestDocumentControllerTest {
     }
 
 
-    @Test @Ignore
+    @Test
     public void getSubjectOrganJoinByOrganID() throws Exception {
         final Long region = 11L;
         final Long city   = 33L;
@@ -281,8 +281,13 @@ public class ActivitiRestDocumentControllerTest {
 
         String jsonSoj = JsonRestUtils.toJson(soj);
 
+
         mockMvc.perform(post("/services/setSubjectOrganJoins")
-                .param("subjectOrganJoin", jsonSoj));
+                        .content(jsonSoj)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk());
+        System.out.println("Fuck #2");
 
         jsonSoj = mockMvc.
             perform(get("/services/getSubjectOrganJoins")

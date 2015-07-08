@@ -4,10 +4,9 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.transaction.annotation.Transactional;
 import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.model.Subject;
 import org.wf.dp.dniprorada.model.SubjectOrgan;
@@ -86,8 +85,53 @@ public class SubjectOrganDaoIml implements SubjectOrganDao {
 		return crt.list();
 	}
 
-	@Override
-	public void add(SubjectOrganJoin subjectOrganJoin) {
-		baseEntityDao.saveOrUpdate(subjectOrganJoin);
+	@Transactional
+	// TODO Might be bottleneck, should be replaced via stored procedure.
+	public void add(SubjectOrganJoin[] organs) {
+		for(SubjectOrganJoin soj : organs){
+			SubjectOrganJoin persisted = get(soj.getPublicId(), soj.getSubjectOrganId());
+
+			if (persisted == null) {
+				// Object doesn't exists, we have to create it
+				soj.setId(null);
+				baseEntityDao.saveOrUpdate(soj);
+			} else {
+				// Object available, hence, we have to update its main parameters
+				persisted.setNameUa (soj.getNameUa());
+				persisted.setNameRu (soj.getNameRu());
+				persisted.setGeoLongitude(soj.getGeoLongitude());
+				persisted.setGeoLatitude (soj.getGeoLatitude());
+
+				if (soj.getRegionId() != null)
+					persisted.setRegionId(soj.getRegionId());
+
+				if (soj.getCityId() != null)
+					persisted.setCityId(soj.getCityId());
+
+				baseEntityDao.saveOrUpdate(persisted);
+			}
+		}
+	}
+
+	private SubjectOrganJoin get(String publicId, Long subjectOrganId) {
+		return (SubjectOrganJoin) getSession()
+				.createCriteria(SubjectOrganJoin.class)
+				.add(Restrictions.eq("publicId", publicId))
+				.add(Restrictions.eq("subjectOrganId", subjectOrganId))
+				.uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked") // i все буде добре...
+	@Transactional
+	// TODO Might be bottleneck, should be replaced via bulk delete (stored procedure)
+	public void removeSubjectOrganJoin(Long organID, String[] publicIDs) {
+		List<SubjectOrganJoin> sojs = (List<SubjectOrganJoin>) getSession()
+			.createCriteria(SubjectOrganJoin.class)
+			.add(Restrictions.eq("subjectOrganId", organID))
+			.add(Restrictions.in("publicId", publicIDs))
+			.list();
+
+		for(SubjectOrganJoin soj : sojs)
+			baseEntityDao.remove(soj);
 	}
 }
