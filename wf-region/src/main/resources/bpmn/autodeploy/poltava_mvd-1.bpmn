@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="harkov_mvd_1" name="Харків - Надання довідки про відсутність або наявніcть судимості" isExecutable="true">
+  <process id="poltava_mvd_1" name="Полтава - Надання довідки про відсутність або наявніcть судимості" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -54,12 +54,12 @@
 
 Дякуємо, що скористалися Інтернет-сервісом замовлення довідки про наявність або відсутніть судимості! Ваш запит успішно зареєстровано.
 
-Ви зможете забрати Вашу довідку приблизно за 20 робочих днів за адресою _________
+Ви зможете забрати Вашу довідку приблизно за 20 робочих днів за адресою __________
 
 Підкреслюємо, що поки що забрати довідку Ви можете лише в паперовому вигляді.
 
 З повагою,
-Міністерство Внутрішніх Справ Харківської області,
+Міністерство Внутрішніх Справ Полтавської області,
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
@@ -70,7 +70,7 @@
     </boundaryEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask1" name="Надання послуги" activiti:candidateGroups="harkov_mvd_fo1">
+    <userTask id="usertask1" name="Надання послуги" activiti:candidateGroups="poltava_mvd_fo1">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я " type="string" writable="false"></activiti:formProperty>
@@ -133,8 +133,8 @@
 Підстава: ${comment}
 
 З повагою,
-Міністерство Внутрішніх Справ Дніпропетровської області,
-Команда Порталу державних послу iGov.org.ua</activiti:expression>
+Міністерство Внутрішніх Справ Полтавської області,
+</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -159,11 +159,11 @@
 
 Ваш запит успішно оброблено.
 
-Ви можете отримати довідку за адресою _______
-Графік прийому: _______
+Ви можете отримати довідку за адресою _____________________________
+Графік прийому: з 15:00 до 17: 00 (крім вихідних)
 
 З повагою,
-Міністерство Внутрішніх Справ Харківської області,
+Міністерство Внутрішніх Справ Полтавської області,
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
@@ -171,8 +171,8 @@
     <sequenceFlow id="flow9" sourceRef="mailtask3" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow10" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_harkov_mvd_1">
-    <bpmndi:BPMNPlane bpmnElement="harkov_mvd_1" id="BPMNPlane_harkov_mvd_1">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_poltava_mvd_1">
+    <bpmndi:BPMNPlane bpmnElement="poltava_mvd_1" id="BPMNPlane_poltava_mvd_1">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="110.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
