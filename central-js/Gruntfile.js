@@ -17,7 +17,8 @@ module.exports = function (grunt) {
     cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
     injector: 'grunt-asset-injector',
-    buildcontrol: 'grunt-build-control'
+    buildcontrol: 'grunt-build-control',
+    node_version: 'grunt-node-version'
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -32,6 +33,11 @@ module.exports = function (grunt) {
       // configurable paths
       client: require('./bower.json').appPath || 'client',
       dist: 'dist'
+    },
+    node_version: {
+      options: {
+        errorLevel: 'fatal'
+      }
     },
     express: {
       options: {
@@ -655,6 +661,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build', [
+    'node_version',
     'clean:dist',
     'injector:sass',
     'concurrent:dist',
