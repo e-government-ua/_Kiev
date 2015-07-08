@@ -287,7 +287,6 @@ public class ActivitiRestDocumentControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
-        System.out.println("Fuck #2");
 
         jsonSoj = mockMvc.
             perform(get("/services/getSubjectOrganJoins")
