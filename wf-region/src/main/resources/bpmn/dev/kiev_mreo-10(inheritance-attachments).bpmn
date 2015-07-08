@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="Definitions_1" targetNamespace="http://www.activiti.org/test">
+  <process id="kiev_mreo_1" name="Киев - Реєстрація авто з пробігом в МРЕВ(Наслідувані атачменти)" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdlastName" name="Прізвище" type="string" required="true"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdfirstName" name="Ім'я" type="string" required="true"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdmiddleName" name="По Батькові" type="string" required="true"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdPassport" name="Паспортні дані" type="string" required="true"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdAddress" name="Адреса реєстрації" type="string" required="true"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdinn" name="ІПН" type="string" required="true"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="vin" name="VIN-номер авто" type="string" required="true"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="brand" name="Марка авто" type="string" required="true"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="model" name="Модель авто" type="string" required="true"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" required="true"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" required="true"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="dateView" name="Бажана дата  проходження огляду авто" type="queueData"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="phone" name="Ваш контактний телефон" type="long" default="380" required="true"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="text" name="Зверніть увагу:" type="label" default="Відправляючи звернення Ви підтверджуєете достовірність зазначених персональних данних"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="inheritedAttachments" name="ID документів для наслідування" type="string"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="response" name="thank_you_page_text" type="string" default="&lt;strong>Дякуемо, що скористались нашим сервісом!&lt;/strong>" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="markers" name="markersForValidations" type="markers" default="{}" writable="false"/>
+      </extensionElements>
+      <outgoing>flow1</outgoing>
+    </startEvent>
+    <serviceTask id="servicetask1" activiti:delegateExpression="#{fileTaskUpload}" name="Підтягування документів">
+      <incoming>flow1</incoming>
+      <outgoing>flow22</outgoing>
+      <outgoing>SequenceFlow_1</outgoing>
+    </serviceTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"/>
+    <serviceTask id="servicetask3" activiti:delegateExpression="#{fileTaskInheritance}" name="Підтягування документів  з парент таски">
+      <extensionElements>
+        <activiti:field xsi:type="xsd:anyType" name="aFieldInheritedAttachmentID">
+        	  <activiti:expression xsi:type="xsd:anyType">${inheritedAttachments}</activiti:expression>
+        	</activiti:field>
+      </extensionElements>
+      <incoming>flow22</incoming>
+      <incoming>SequenceFlow_1</incoming>
+      <outgoing>flow2</outgoing>
+    </serviceTask>
+    <sequenceFlow id="flow22" sourceRef="servicetask1" targetRef="servicetask3"/>
+    <serviceTask id="mailtask1" activiti:type="mail" name="Повідомлення громадянину про успішне подання заяви">
+      <extensionElements>
+        <activiti:field xsi:type="xsd:anyType" name="to">
+          <activiti:expression xsi:type="xsd:anyType">${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="from">
+          <activiti:string xsi:type="xsd:anyType"><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="subject">
+          <activiti:string xsi:type="xsd:anyType"><![CDATA[Реєстрація авто]]></activiti:string>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="charset">
+          <activiti:string xsi:type="xsd:anyType"><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="text">
+          <activiti:expression xsi:type="xsd:anyType">Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ваша заява успішно зареєстрована.</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+      <incoming>flow2</incoming>
+      <outgoing>flow4</outgoing>
+    </serviceTask>
+    <sequenceFlow id="flow2" sourceRef="servicetask3" targetRef="mailtask1"/>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
+      <outgoing>flow3</outgoing>
+      <errorEventDefinition id="ErrorEventDefinition_1"/>
+    </boundaryEvent>
+    <endEvent id="endevent1" name="End">
+      <incoming>flow3</incoming>
+    </endEvent>
+    <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"/>
+    <userTask id="usertask1" activiti:candidateGroups="kiev_mreo_bo" name="Перевірка наявності обтяжень">
+      <extensionElements>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdlastName" name="Прізвище" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdfirstName" name="Ім'я" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdmiddleName" name="По Батькові" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdPassport" name="Паспортні дані" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdinn" name="ІПН" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="vin" name="VIN-номер авто" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="brand" name="Марка авто" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="model" name="Модель авто" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="dateView" name="Бажана дата  проходження огляду авто" type="queueData"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="phone" name="Ваш контактний телефон" type="long" default="380" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="decide" name="Результат перевірки наявності обтяжень" type="enum" required="true">
+          <activiti:value xsi:type="xsd:anyType" id="accept1" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"/>
+          <activiti:value xsi:type="xsd:anyType" id="accept2" name="Авто підлягає арешту. Надіслати громадянину повідомлення про час / дату візиту"/>
+          <activiti:value xsi:type="xsd:anyType" id="reject" name="Знайдені обтяження. Відмовити громадянину в наданні послуги."/>
+        </activiti:formProperty>
+        <activiti:formProperty xsi:type="xsd:anyType" id="comment" name="Коментарі" type="textArea" default="В разі відмови в наданні послуги,  вкажіть причину. В разі надання послуги, вкажіть час/дату, коли  авто може пройти огляд" required="true"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="billToPay" name="Завантажте бланк квитанції для відправки громадянину в разі надання послуги" type="file"/>
+        <activiti:taskListener xsi:type="xsd:anyType" event="create" delegateExpression="${fileTaskUploadListener}"/>
+      </extensionElements>
+      <incoming>flow4</incoming>
+      <outgoing>flow5</outgoing>
+    </userTask>
+    <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="usertask1"/>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway">
+      <incoming>flow5</incoming>
+      <outgoing>flow6</outgoing>
+      <outgoing>flow7</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="flow5" sourceRef="usertask1" targetRef="exclusivegateway1"/>
+    <sequenceFlow id="flow6" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="mailtask2">
+      <conditionExpression xsi:type="tFormalExpression" id="FormalExpression_1"><![CDATA[${decide == 'reject'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="mailtask2" activiti:type="mail" name="Повідомлення про відмову в наданні послуги">
+      <extensionElements>
+        <activiti:field xsi:type="xsd:anyType" name="to">
+          <activiti:expression xsi:type="xsd:anyType">${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="from">
+          <activiti:string xsi:type="xsd:anyType"><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="subject">
+          <activiti:string xsi:type="xsd:anyType"><![CDATA[Реєстрація авто]]></activiti:string>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="charset">
+          <activiti:string xsi:type="xsd:anyType"><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="text">
+          <activiti:expression xsi:type="xsd:anyType">Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+Вам відмовлено в реєстраціі авто.
+Підстава: ${comment}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+      <incoming>flow6</incoming>
+      <outgoing>flow8</outgoing>
+    </serviceTask>
+    <sequenceFlow id="flow7" name="${decide == 'accept'}" sourceRef="exclusivegateway1" targetRef="servicetask2">
+      <conditionExpression xsi:type="tFormalExpression" id="FormalExpression_2"><![CDATA[${decide == 'accept'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endevent2" name="End">
+      <incoming>flow8</incoming>
+    </endEvent>
+    <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent2"/>
+    <userTask id="usertask2" activiti:candidateGroups="kiev_mreo_fo1" name="Надання послуги: Огляд авто ">
+      <extensionElements>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdlastName" name="Прізвище" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdfirstName" name="Ім'я" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdmiddleName" name="По Батькові" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdPassport" name="Паспортні дані" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdinn" name="ІПН" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="vin" name="VIN-номер авто" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="brand" name="Марка авто" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="model" name="Модель авто" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="dateView" name="Бажана дата  проходження огляду авто" type="queueData"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="phone" name="Ваш контактний телефон" type="long" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="decide" name="Результат перевірки наявності обтяжень" type="enum" writable="false">
+          <activiti:value xsi:type="xsd:anyType" id="accept1" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"/>
+          <activiti:value xsi:type="xsd:anyType" id="accept2" name="Авто підлягає арешту. Надіслати громадянину повідомлення про час / дату візиту"/>
+          <activiti:value xsi:type="xsd:anyType" id="reject" name="Знайдені обтяження. Відмовити громадянину в наданні послуги."/>
+        </activiti:formProperty>
+        <activiti:formProperty xsi:type="xsd:anyType" id="comment" name="Коментарі" type="textArea" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="decide2" name="Результат огляду авто " type="enum" required="true">
+          <activiti:value xsi:type="xsd:anyType" id="accept2" name="Перевірка успішна. "/>
+          <activiti:value xsi:type="xsd:anyType" id="reject2" name="Авто  не пройшло перевірку"/>
+        </activiti:formProperty>
+      </extensionElements>
+      <incoming>flow21</incoming>
+      <outgoing>flow13</outgoing>
+    </userTask>
+    <serviceTask id="servicetask2" activiti:delegateExpression="#{MailTaskWithAttachments}" name="Повідомлення громадянина про дату і час візиту">
+      <extensionElements>
+        <activiti:field xsi:type="xsd:anyType" name="from">
+          <activiti:string xsi:type="xsd:anyType"><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="to">
+          <activiti:expression xsi:type="xsd:anyType">&quot;${email}&quot;</activiti:expression>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="subject">
+          <activiti:string xsi:type="xsd:anyType"><![CDATA[Реєстрація авто]]></activiti:string>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="text">
+          <activiti:expression xsi:type="xsd:anyType">Шановний(-а), &quot;${bankIdfirstName}&quot; &quot;${bankIdmiddleName}&quot;.
+
+Для отримання посгули Вам необхідно сплатити державний збір і  надати квитанцію про сплату перед тех.оглядом Вашого авто.
+
+Разунок для сплати знаходиться в додатку до цього листа.</activiti:expression>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="saAttachmentsForSend">
+          <activiti:expression xsi:type="xsd:anyType">&quot;${billToPay}&quot;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+      <incoming>flow7</incoming>
+      <outgoing>flow20</outgoing>
+    </serviceTask>
+    <userTask id="usertask3" activiti:candidateGroups="kiev_mreo_fo2" name="Перевірка наданих документів">
+      <extensionElements>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdlastName" name="Прізвище" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdfirstName" name="Ім'я" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdmiddleName" name="По Батькові" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdPassport" name="Паспортні дані" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdinn" name="ІПН" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="vin" name="VIN-номер авто" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="brand" name="Марка авто" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="model" name="Модель авто" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="dateView" name="Бажана дата  проходження огляду авто" type="queueData"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="phone" name="Ваш контактний телефон" type="long" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="decide" name="Результат перевірки наявності обтяжень" type="enum" writable="false">
+          <activiti:value xsi:type="xsd:anyType" id="accept1" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"/>
+          <activiti:value xsi:type="xsd:anyType" id="accept2" name="Авто підлягає арешту. Надіслати громадянину повідомлення про час / дату візиту"/>
+          <activiti:value xsi:type="xsd:anyType" id="reject" name="Знайдені обтяження. Відмовити громадянину в наданні послуги."/>
+        </activiti:formProperty>
+        <activiti:formProperty xsi:type="xsd:anyType" id="comment" name="Коментарі" type="textArea" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="decide2" name="Результат огляду авто " type="enum" writable="false">
+          <activiti:value xsi:type="xsd:anyType" id="accept2" name="Перевірка успішна. "/>
+          <activiti:value xsi:type="xsd:anyType" id="reject2" name="Авто  не пройшло перевірку"/>
+        </activiti:formProperty>
+        <activiti:formProperty xsi:type="xsd:anyType" id="decide3" name="Результат перевірки оригіналів документів" type="enum" required="true">
+          <activiti:value xsi:type="xsd:anyType" id="accept3" name="Документи надані в повному обсязі. Зауважень немає"/>
+          <activiti:value xsi:type="xsd:anyType" id="reject3" name="Перевірка документів незадовільна"/>
+        </activiti:formProperty>
+      </extensionElements>
+      <incoming>flow14</incoming>
+      <outgoing>flow16</outgoing>
+    </userTask>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway">
+      <incoming>flow13</incoming>
+      <outgoing>flow14</outgoing>
+      <outgoing>flow15</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="flow13" sourceRef="usertask2" targetRef="exclusivegateway2"/>
+    <sequenceFlow id="flow14" name="${decide2 == 'accept2'}" sourceRef="exclusivegateway2" targetRef="usertask3">
+      <conditionExpression xsi:type="tFormalExpression" id="FormalExpression_3"><![CDATA[${decide2 == 'accept2'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endevent4" name="End">
+      <incoming>flow15</incoming>
+    </endEvent>
+    <sequenceFlow id="flow15" name="${decide2 == 'reject2'}" sourceRef="exclusivegateway2" targetRef="endevent4">
+      <conditionExpression xsi:type="tFormalExpression" id="FormalExpression_4"><![CDATA[${decide2 == 'reject2'}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway">
+      <incoming>flow16</incoming>
+      <outgoing>flow17</outgoing>
+      <outgoing>flow18</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="flow16" sourceRef="usertask3" targetRef="exclusivegateway3"/>
+    <endEvent id="endevent5" name="End">
+      <incoming>flow17</incoming>
+    </endEvent>
+    <sequenceFlow id="flow17" name="${decide3 == 'reject3'}" sourceRef="exclusivegateway3" targetRef="endevent5">
+      <conditionExpression xsi:type="tFormalExpression" id="FormalExpression_5"><![CDATA[${decide3 == 'reject3'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow18" name="${decide3 == 'accept3'}" sourceRef="exclusivegateway3" targetRef="usertask4">
+      <conditionExpression xsi:type="tFormalExpression" id="FormalExpression_6"><![CDATA[${decide3 == 'accept3'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="usertask4" activiti:candidateGroups="kiev_mreo_fo3" name="Друк держ.номерів">
+      <extensionElements>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdlastName" name="Прізвище" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdfirstName" name="Ім'я" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdmiddleName" name="По Батькові" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdPassport" name="Паспортні дані" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="bankIdinn" name="ІПН" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="vin" name="VIN-номер авто" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="brand" name="Марка авто" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="model" name="Модель авто" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="dateView" name="Бажана дата  проходження огляду авто" type="queueData"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="phone" name="Ваш контактний телефон" type="long" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="decide" name="Результат перевірки наявності обтяжень" type="enum" writable="false">
+          <activiti:value xsi:type="xsd:anyType" id="accept1" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"/>
+          <activiti:value xsi:type="xsd:anyType" id="accept2" name="Авто підлягає арешту. Надіслати громадянину повідомлення про час / дату візиту"/>
+          <activiti:value xsi:type="xsd:anyType" id="reject" name="Знайдені обтяження. Відмовити громадянину в наданні послуги."/>
+        </activiti:formProperty>
+        <activiti:formProperty xsi:type="xsd:anyType" id="comment" name="Коментарі" type="textArea" writable="false"/>
+        <activiti:formProperty xsi:type="xsd:anyType" id="decide2" name="Результат огляду авто " type="enum" writable="false">
+          <activiti:value xsi:type="xsd:anyType" id="accept2" name="Перевірка успішна. "/>
+          <activiti:value xsi:type="xsd:anyType" id="reject2" name="Авто  не пройшло перевірку"/>
+        </activiti:formProperty>
+        <activiti:formProperty xsi:type="xsd:anyType" id="decide3" name="Результат перевірки оригіналів документів" type="enum" writable="false">
+          <activiti:value xsi:type="xsd:anyType" id="accept3" name="Документи надані в повному обсязі. Зауважень немає"/>
+          <activiti:value xsi:type="xsd:anyType" id="reject3" name="Перевірка документів незадовільна"/>
+        </activiti:formProperty>
+        <activiti:formProperty xsi:type="xsd:anyType" id="printedAutoGovNumber" name="Вкажіть роздрукований держ.номер" type="string" required="true"/>
+      </extensionElements>
+      <incoming>flow18</incoming>
+      <outgoing>flow19</outgoing>
+    </userTask>
+    <endEvent id="endevent6" name="End">
+      <incoming>flow19</incoming>
+    </endEvent>
+    <sequenceFlow id="flow19" sourceRef="usertask4" targetRef="endevent6"/>
+    <serviceTask id="mailtask3" activiti:type="mail" name="Mail Task">
+      <extensionElements>
+        <activiti:field xsi:type="xsd:anyType" name="text">
+          <activiti:expression xsi:type="xsd:anyType">Шановний(-а), &quot;${bankIdfirstName}&quot; &quot;${bankIdmiddleName}&quot;.
+
+Для отримання посгули Вам необхідно сплатити державний збір і  надати квитанцію про сплату перед тех.оглядом Вашого авто.
+
+Разунок для сплати знаходиться в додатку до цього листа.</activiti:expression>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="html">
+          <activiti:string xsi:type="xsd:anyType"><![CDATA[<form method="POST" accept-charset="utf-8" action="https://www.liqpay.com/api/checkout">
+<input type="hidden" name="data" value="eyJ2ZXJzaW9uIjozLCJwdWJsaWNfa2V5IjoiaTEwMTcyOTY4MDc4IiwiYW1vdW50IjoiMC4wMSIsImN1cnJlbmN5IjoiVUFIIiwiZGVzY3JpcHRpb24iOiLQntC/0LvQsNGC0LAg0YHQsdC+0YDQsNC30LAg0YDQtdCz0LjRgdGC0YDQsNGG0LjRjiDQsNCy0YLQviDQsiDQnNCg0K3QniIsInR5cGUiOiJidXkiLCJzYW5kYm94IjoiMSIsImxhbmd1YWdlIjoicnUiLCJwYXlfd2F5IjoiY2FyZCxsaXFwYXksZGVsYXllZCxpbnZvaWNlLHByaXZhdDI0In0=" />
+<input type="hidden" name="signature" value="Or/EDKfgmjsv71fd00a+3hjWEdg=" />
+<input type="image" src="//static.liqpay.com/buttons/p5ru.radius.png" name="btn_text" />
+</form>]]></activiti:string>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="to">
+          <activiti:expression xsi:type="xsd:anyType">${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="from">
+          <activiti:string xsi:type="xsd:anyType"><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="subject">
+          <activiti:string xsi:type="xsd:anyType"><![CDATA[Реєстрація авто]]></activiti:string>
+        </activiti:field>
+        <activiti:field xsi:type="xsd:anyType" name="charset">
+          <activiti:string xsi:type="xsd:anyType"><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+      <incoming>flow20</incoming>
+      <outgoing>flow21</outgoing>
+    </serviceTask>
+    <sequenceFlow id="flow20" sourceRef="servicetask2" targetRef="mailtask3"/>
+    <sequenceFlow id="flow21" sourceRef="mailtask3" targetRef="usertask2"/>
+    <sequenceFlow id="SequenceFlow_1" sourceRef="servicetask1" targetRef="servicetask3"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_mreo_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_kiev_mreo_1" bpmnElement="kiev_mreo_1">
+      <bpmndi:BPMNShape id="BPMNShape_startevent1" bpmnElement="startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="90.0" y="120.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_servicetask1" bpmnElement="servicetask1">
+        <omgdc:Bounds height="55.0" width="151.0" x="180.0" y="110.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_servicetask3" bpmnElement="servicetask3">
+        <omgdc:Bounds height="55.0" width="151.0" x="180.0" y="220.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_boundaryerror1" bpmnElement="boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="264.0" y="93.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_mailtask1" bpmnElement="mailtask1">
+        <omgdc:Bounds height="55.0" width="185.0" x="376.0" y="110.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_endevent1" bpmnElement="endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="261.0" y="20.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_usertask1" bpmnElement="usertask1">
+        <omgdc:Bounds height="55.0" width="185.0" x="376.0" y="220.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_exclusivegateway1" bpmnElement="exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="670.0" y="227.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_mailtask2" bpmnElement="mailtask2">
+        <omgdc:Bounds height="55.0" width="181.0" x="753.0" y="220.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_endevent2" bpmnElement="endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="826.0" y="317.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_usertask2" bpmnElement="usertask2">
+        <omgdc:Bounds height="55.0" width="185.0" x="376.0" y="452.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_servicetask2" bpmnElement="servicetask2">
+        <omgdc:Bounds height="61.0" width="185.0" x="376.0" y="340.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_usertask3" bpmnElement="usertask3">
+        <omgdc:Bounds height="55.0" width="185.0" x="376.0" y="580.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_exclusivegateway2" bpmnElement="exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="670.0" y="459.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_endevent4" bpmnElement="endevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="826.0" y="462.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_exclusivegateway3" bpmnElement="exclusivegateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="670.0" y="587.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_endevent5" bpmnElement="endevent5">
+        <omgdc:Bounds height="35.0" width="35.0" x="826.0" y="590.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_usertask4" bpmnElement="usertask4">
+        <omgdc:Bounds height="55.0" width="185.0" x="376.0" y="670.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_endevent6" bpmnElement="endevent6">
+        <omgdc:Bounds height="35.0" width="35.0" x="451.0" y="760.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_mailtask3" bpmnElement="mailtask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="220.0" y="343.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow1" bpmnElement="flow1" sourceElement="BPMNShape_startevent1" targetElement="BPMNShape_servicetask1">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="125.0" y="137.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="180.0" y="137.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow2" bpmnElement="flow2" sourceElement="BPMNShape_servicetask1" targetElement="BPMNShape_mailtask1">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="331.0" y="137.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="376.0" y="137.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow3" bpmnElement="flow3" sourceElement="BPMNShape_boundaryerror1" targetElement="BPMNShape_endevent1">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="279.0" y="93.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="278.0" y="55.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow4" bpmnElement="flow4" sourceElement="BPMNShape_mailtask1" targetElement="BPMNShape_usertask1">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="468.0" y="165.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="468.0" y="220.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow5" bpmnElement="flow5" sourceElement="BPMNShape_usertask1" targetElement="BPMNShape_exclusivegateway1">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="561.0" y="247.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="670.0" y="247.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow6" bpmnElement="flow6" sourceElement="BPMNShape_exclusivegateway1" targetElement="BPMNShape_mailtask2">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="710.0" y="247.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="753.0" y="247.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_1">
+          <omgdc:Bounds height="14.0" width="95.0" x="680.0" y="207.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow7" bpmnElement="flow7" sourceElement="BPMNShape_exclusivegateway1" targetElement="BPMNShape_servicetask2">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="690.0" y="267.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="689.0" y="370.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="561.0" y="370.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_2">
+          <omgdc:Bounds height="42.0" width="100.0" x="591.0" y="319.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow8" bpmnElement="flow8" sourceElement="BPMNShape_mailtask2" targetElement="BPMNShape_endevent2">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="843.0" y="275.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="843.0" y="317.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow13" bpmnElement="flow13" sourceElement="BPMNShape_usertask2" targetElement="BPMNShape_exclusivegateway2">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="561.0" y="479.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="670.0" y="479.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow14" bpmnElement="flow14" sourceElement="BPMNShape_exclusivegateway2" targetElement="BPMNShape_usertask3">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="690.0" y="499.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="689.0" y="532.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="468.0" y="532.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="468.0" y="580.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_3">
+          <omgdc:Bounds height="42.0" width="100.0" x="583.0" y="559.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow15" bpmnElement="flow15" sourceElement="BPMNShape_exclusivegateway2" targetElement="BPMNShape_endevent4">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="710.0" y="479.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="826.0" y="479.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_4">
+          <omgdc:Bounds height="42.0" width="100.0" x="720.0" y="507.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow16" bpmnElement="flow16" sourceElement="BPMNShape_usertask3" targetElement="BPMNShape_exclusivegateway3">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="561.0" y="607.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="670.0" y="607.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow17" bpmnElement="flow17" sourceElement="BPMNShape_exclusivegateway3" targetElement="BPMNShape_endevent5">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="710.0" y="607.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="826.0" y="607.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_5">
+          <omgdc:Bounds height="42.0" width="100.0" x="720.0" y="607.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow18" bpmnElement="flow18" sourceElement="BPMNShape_exclusivegateway3" targetElement="BPMNShape_usertask4">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="690.0" y="627.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="689.0" y="697.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="561.0" y="697.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_6">
+          <omgdc:Bounds height="42.0" width="100.0" x="655.0" y="630.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow19" bpmnElement="flow19" sourceElement="BPMNShape_usertask4" targetElement="BPMNShape_endevent6">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="468.0" y="725.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="468.0" y="760.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow20" bpmnElement="flow20" sourceElement="BPMNShape_servicetask2" targetElement="BPMNShape_mailtask3">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="376.0" y="370.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="325.0" y="370.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_flow21" bpmnElement="flow21" sourceElement="BPMNShape_mailtask3" targetElement="BPMNShape_usertask2">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="272.0" y="398.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="468.0" y="452.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_servicetask1" targetElement="BPMNShape_servicetask1">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="255.0" y="165.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="255.0" y="189.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="255.0" y="189.0"/>
+        <omgdi:waypoint xsi:type="omgdc:Point" x="255.0" y="220.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
