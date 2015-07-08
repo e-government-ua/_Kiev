@@ -45,12 +45,15 @@ public class SubjectOrganJoin extends Entity {
 
     @JsonProperty(value="nID_Region")
     @Column(name="nID_Region")
-    private Long regionId;        // ИД-номер //опциональный
+    private Long regionId;
 
     @JsonProperty(value="nID_City")
     @Column(name="nID_City")
-    private Long cityId;          // ИД-номер //опциональный
+    private Long cityId;
 
+    @JsonProperty(value="sID_UA")
+    @Column(name="sID_UA")
+    private String uaId;
 
     public Long getSubjectOrganId() {
         return subjectOrganId;
@@ -115,9 +118,16 @@ public class SubjectOrganJoin extends Entity {
         this.cityId = cityId;
     }
 
+    public String getUaId() {
+        return uaId;
+    }
+    public void setUaId(String uaId) {
+        this.uaId = uaId;
+    }
+
     @Override
     public String toString() {
-        return "SubjectOrganJoin{id=" + getId() +
+        return "SubjectOrganJoin{id='" + getId() + '\'' +
                 ", subjectOrganId=" + subjectOrganId +
                 ", nameUa='" + nameUa + '\'' +
                 ", nameRu='" + nameRu + '\'' +
@@ -125,8 +135,9 @@ public class SubjectOrganJoin extends Entity {
                 ", publicId='" + publicId + '\'' +
                 ", geoLongitude='" + geoLongitude + '\'' +
                 ", geoLatitude='" + geoLatitude + '\'' +
-                ", regionId=" + regionId +
-                ", cityId=" + cityId +
+                ", regionId='" + regionId + '\'' +
+                ", cityId='" + cityId + '\'' +
+                ", UA_ID='" + uaId + '\'' +
                 '}';
     }
 }

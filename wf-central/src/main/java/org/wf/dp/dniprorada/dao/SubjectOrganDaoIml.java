@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.dao;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +14,8 @@ import org.wf.dp.dniprorada.model.SubjectOrgan;
 import org.wf.dp.dniprorada.model.SubjectOrganJoin;
 
 import java.util.List;
+
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 public class SubjectOrganDaoIml implements SubjectOrganDao {
 
@@ -71,7 +74,7 @@ public class SubjectOrganDaoIml implements SubjectOrganDao {
     }
 
 	@SuppressWarnings("unchecked" /* православно тут все... */)
-	public List<SubjectOrganJoin> findSubjectOrganJoinsBy(Long organID, Long regionID, Long cityID) {
+	public List<SubjectOrganJoin> findSubjectOrganJoinsBy(Long organID, Long regionID, Long cityID, String uaID) {
 		Criteria crt = getSession()
 			.createCriteria(SubjectOrganJoin.class)
 			.add(Restrictions.eq("subjectOrganId", organID));
@@ -81,6 +84,9 @@ public class SubjectOrganDaoIml implements SubjectOrganDao {
 
 		if (cityID != null && cityID > 0)
 			crt.add(Restrictions.eq("cityId", cityID));
+
+		if (isNotBlank(uaID))
+			crt.add(Restrictions.eq("uaId", uaID));
 
 		return crt.list();
 	}
