@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="myProcess" name="Кузнецьовський МВК - Звернення про надання дозволу на проведення публічних богослужінь" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="orgName" name="Назва релігійної громади/організації" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="eventName" name="Назва заходу" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="eventDate" name="Дата проведення заходу" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="eventPlace" name="Місце проведення заходу" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="eventTime" name="Час проведення заходу" type="string"></activiti:formProperty>
+        <activiti:formProperty id="eventEntertainment" name="Заход включатиме: " type="string"></activiti:formProperty>
+        <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище організатора-громадянина" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я організатора-громадянина" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string"></activiti:formProperty>
+        <activiti:formProperty id="dateCreation" name="Дата заповнення заяви" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="orgEmail" name="Емейл адреса організатора " type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="contactPhone" name="Контактний номер телефона" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="contactAddress" name="Контактна адреса організатора" type="string"></activiti:formProperty>
+        <activiti:formProperty id="needPhysicalCopy?" name="Чи потрібна Вам фізична копія документа?" type="boolean" required="true">
+          <activiti:value id="true" name="Фізична+Електронна копія  "></activiti:value>
+          <activiti:value id="false" name="Тільки Електронна версія"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <serviceTask id="mailtask1" name="Емейл підтвердження " activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${orgEmail}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Звернення щодо: ${eventName}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний громадянин, ${bankIdfirstName} ${bankIdmiddleName}
+
+Ваша заява була успішно прийнята в роботу. Відповідь повинна бути протягом 10 діб.</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <userTask id="usertask1" name="Заява поступає в роботу спеціалісту">
+      <extensionElements>
+        <activiti:formProperty id="orgName" name="Назва громади/організації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventName" name="Назва заходу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventDate" name="Дата проведення заходу" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventPlace" name="Місце проведення заходу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventTime" name="Час проведення заходу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventEntertainment" name="Заход включатиме: " type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище організатора-громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я організатора-громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="dateCreation" name="Дата заповнення заяви" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="orgEmail" name="Емейл адреса організатора " type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="contactPhone" name="Контактний номер телефона" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="contactAddress" name="Контактна адреса організатора" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="needPhysicalCopy?" name="Форма відповіді" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="workerDecision" name="Рішення чиновника" type="enum" required="true">
+          <activiti:value id="accept" name="Надати послугу"></activiti:value>
+          <activiti:value id="reject" name="Відмовити в послузі"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <userTask id="usertask2" name="Направлення відповіді громадянину">
+      <extensionElements>
+        <activiti:formProperty id="orgName" name="Назва громади/організації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventName" name="Назва заходу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventDate" name="Дата проведення заходу" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventPlace" name="Місце проведення заходу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventTime" name="Час проведення заходу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventEntertainment" name="Заход включатиме: " type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище організатора-громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я організатора-громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="dateCreation" name="Дата заповнення заяви" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="orgEmail" name="Емейл адреса організатора " type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="contactPhone" name="Контактний номер телефона" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="contactAddress" name="Контактна адреса організатора" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="needPhysicalCopy?" name="Форма відповіді" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="additionalInfo" name="Додаткова інформація" type="textArea"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="usertask3" name="Відповідь неможлива">
+      <extensionElements>
+        <activiti:formProperty id="refuseReason" name="Причина у відмові в наданні послуги" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="orgName" name="Назва громади/організації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventName" name="Назва заходу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventDate" name="Дата проведення заходу" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventPlace" name="Місце проведення заходу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventTime" name="Час проведення заходу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventEntertainment" name="Заход включатиме: " type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище організатора-громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я організатора-громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="dateCreation" name="Дата заповнення заяви" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="orgEmail" name="Емейл адреса організатора " type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="contactPhone" name="Контактний номер телефона" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="contactAddress" name="Контактна адреса організатора" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="needPhysicalCopy?" name="Форма відповіді" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="additionalInfo" name="Додаткова інформація" type="textArea"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow4" name="$[workerDecision=='accept']" sourceRef="exclusivegateway1" targetRef="usertask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[$[workerDecision=='accept']]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow5" name="$[workerDecision=='reject']" sourceRef="exclusivegateway1" targetRef="usertask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[$[workerDecision=='reject']]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="mailtask2" name="Емейл повідомлення" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${orgEmail}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Відповідь щодо проведення заходу під назвою: ${eventName}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний громадянин
+
+Ваша заява щодо проведення релігійного/культурного заходу була успішно опрацьована і задовілено. 
+
+Деталі вашого заходу: 
+
+Назва громади/організації - ${orgName}
+Назва заходу - ${eventName}
+Дата заходу - ${eventDate}
+Місце проведення - ${eventPlace}
+Час проведення - ${eventTime}
+Кількість учасників - ${eventSize}
+ПІП організатора - ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}
+Контактна інформація організатора - ${contactPhone} чи ${orgEmail}
+Додаткове повідомлення від МіськРади - ${additionalInfo}
+
+Якщо Ви побажали щоб вам було надано Фізичну копію документа то зверніться, буль ласка, до МіськРади за деталями того як, де і коли ії можно бути забрати. 
+
+Завжди ваша, МіськРада.</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="mailtask3" name="Емейл відмова" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${orgEmail}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Відповідь щодо проведення заходу під назвою: ${eventName}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний громадянин
+
+Нажаль ми не можемо дозволити проведення цього заходу з приведеними Вами деталями. 
+
+Причина відмови - ${refuseReason}
+
+Спробуйте заповнити заяву ще раз з врахуванням помилок. 
+
+Перепрошуємо за цю незручність. 
+Завжди ваша, МіськРада.</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow6" sourceRef="usertask2" targetRef="mailtask2"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="usertask3" targetRef="mailtask3"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="mailtask3" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="startevent1" targetRef="mailtask1"></sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow14" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>Відповідь готова</text>
+    </textAnnotation>
+    <textAnnotation id="textannotation2">
+      <text>Неможливо дати відповідь</text>
+    </textAnnotation>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
+    <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="430.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="71.0" width="145.0" x="387.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="81.0" width="160.0" x="368.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="430.0" y="320.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="81.0" width="155.0" x="50.0" y="364.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+        <omgdc:Bounds height="81.0" width="181.0" x="750.0" y="364.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="50.0" width="100.0" x="280.0" y="350.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
+        <omgdc:Bounds height="50.0" width="100.0" x="550.0" y="350.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="75.0" y="480.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="788.0" y="480.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="460.0" y="550.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="450.0" y="360.0"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="408.0"></omgdi:waypoint>
+        <omgdi:waypoint x="205.0" y="404.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="48.0" width="100.0" x="-56.0" y="26.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="450.0" y="360.0"></omgdi:waypoint>
+        <omgdi:waypoint x="450.0" y="407.0"></omgdi:waypoint>
+        <omgdi:waypoint x="750.0" y="404.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="48.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="127.0" y="445.0"></omgdi:waypoint>
+        <omgdi:waypoint x="127.0" y="480.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="840.0" y="445.0"></omgdi:waypoint>
+        <omgdi:waypoint x="840.0" y="480.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="180.0" y="507.0"></omgdi:waypoint>
+        <omgdi:waypoint x="477.0" y="507.0"></omgdi:waypoint>
+        <omgdi:waypoint x="477.0" y="550.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="788.0" y="507.0"></omgdi:waypoint>
+        <omgdi:waypoint x="477.0" y="507.0"></omgdi:waypoint>
+        <omgdi:waypoint x="477.0" y="550.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="447.0" y="65.0"></omgdi:waypoint>
+        <omgdi:waypoint x="459.0" y="90.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="459.0" y="161.0"></omgdi:waypoint>
+        <omgdi:waypoint x="448.0" y="200.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="448.0" y="281.0"></omgdi:waypoint>
+        <omgdi:waypoint x="450.0" y="320.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
