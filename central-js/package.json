@@ -95,7 +95,8 @@
     "inherits":"2.0.1",
     "isarray":"0.0.1",
     "string_decoder":"0.10.31",
-    "lodash": "3.8.0"
+    "lodash": "3.8.0",
+    "postcss":"0.3.5"
   },
   "engines": {
     "node": ">=0.10.25"
