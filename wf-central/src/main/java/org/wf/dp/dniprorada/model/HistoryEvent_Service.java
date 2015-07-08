@@ -11,6 +11,9 @@ public class HistoryEvent_Service extends Entity {
     private String sID;
 
     @Column
+    private Long nID_Protected;
+
+    @Column
     private Long nID_Task;
 
     @Column
@@ -28,6 +31,14 @@ public class HistoryEvent_Service extends Entity {
 
     public void setsID(String sID) {
         this.sID = sID;
+    }
+
+    public Long getnID_Protected() {
+        return nID_Protected;
+    }
+
+    public void setnID_Protected(Long nID_Protected) {
+        this.nID_Protected = nID_Protected;
     }
 
     public Long getnID_Task() {
