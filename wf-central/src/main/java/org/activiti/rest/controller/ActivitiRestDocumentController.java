@@ -2,34 +2,26 @@ package org.activiti.rest.controller;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.activiti.engine.ActivitiObjectNotFoundException;
-import org.activiti.redis.util.RedisUtil; 
+import org.activiti.redis.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.constant.HistoryEventMessage;
 import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.dao.*;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.model.document.HandlerFactory;
 import org.wf.dp.dniprorada.util.Util;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/services")
@@ -54,6 +46,9 @@ public class ActivitiRestDocumentController {
     
     @Autowired
     private DocumentTypeDao documentTypeDao;
+    
+    //@Autowired
+    //private AccessDataDao accessDataDao;
 
     @Autowired
     private HandlerFactory handlerFactory;
@@ -75,8 +70,8 @@ public class ActivitiRestDocumentController {
 
     /**
      * @param accessCode    - строковой код доступа к документу
-     * @param organID	    - номер-�?Д субьекта-органа оператора документа
-     * @param docTypeID	    - номер-�?Д типа документа (опционально)
+     * @param organID	    - номер-�?Д субьекта-органа оператора документа
+     * @param docTypeID	    - номер-�?Д типа документа (опционально)
      * @param password	    - строка-пароль (опционально)
      * */
     @RequestMapping(value 	= "/getDocumentAccessByHandler",
@@ -88,7 +83,8 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "nID_DocumentOperator_SubjectOrgan") 	Long 	organID,
             @RequestParam(value = "nID_DocumentType", required = false) Long	docTypeID,
             @RequestParam(value = "sPass", required = false)		    String 	password,
-            HttpServletResponse resp) {
+            HttpServletResponse resp
+    ) {
 
         Document document = handlerFactory
                 .buildHandlerFor(documentDao.getOperator(organID))
@@ -343,5 +339,25 @@ public class ActivitiRestDocumentController {
         } catch (IOException e) {
             log.error("error during creating HistoryEvent", e);
         }
+    }
+
+    @RequestMapping(value   = "/getSubjectOrganJoins",
+                    method  = RequestMethod.GET,
+                    headers = { "Accept=application/json" })
+    public  @ResponseBody
+    List<SubjectOrganJoin> getAllSubjectOrganJoins(
+            @RequestParam(value = "nID_SubjectOrgan") 				Long organID,
+            @RequestParam(value = "nID_Region", required = false) 	Long regionID,
+            @RequestParam(value = "nID_City", required = false)     Long cityID
+    ) {
+        return subjectOrganDao.findSubjectOrganJoinsBy(organID, regionID, cityID);
+    }
+
+
+    @RequestMapping(value   = "/setSubjectOrganJoins",
+                    method  = RequestMethod.POST,
+                    headers = { "Accept=application/json" })
+    public @ResponseBody void setSubjectOrganJoins(@RequestBody String jsonData) {
+        subjectOrganDao.add( JsonRestUtils.readObject(jsonData, SubjectOrganJoin.class) );
     }
 }

@@ -1,17 +1,26 @@
 package org.wf.dp.dniprorada.dao;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.model.Subject;
 import org.wf.dp.dniprorada.model.SubjectOrgan;
+import org.wf.dp.dniprorada.model.SubjectOrganJoin;
 
 import java.util.List;
 
-public class SubjectOrganDaoIml implements SubjectOrganDao{
-	
+public class SubjectOrganDaoIml implements SubjectOrganDao {
+
 	private SessionFactory sessionFactory;
+
+	@Autowired
+	private BaseEntityDao baseEntityDao;
 
 	@Required
 	public SessionFactory getSessionFactory() {
@@ -62,4 +71,23 @@ public class SubjectOrganDaoIml implements SubjectOrganDao{
         return subjectOrgan;
     }
 
+	@SuppressWarnings("unchecked" /* православно тут все... */)
+	public List<SubjectOrganJoin> findSubjectOrganJoinsBy(Long organID, Long regionID, Long cityID) {
+		Criteria crt = getSession()
+			.createCriteria(SubjectOrganJoin.class)
+			.add(Restrictions.eq("subjectOrganId", organID));
+
+		if (regionID != null && regionID > 0)
+			crt.add(Restrictions.eq("regionId", regionID));
+
+		if (cityID != null && cityID > 0)
+			crt.add(Restrictions.eq("cityId", cityID));
+
+		return crt.list();
+	}
+
+	@Override
+	public void add(SubjectOrganJoin subjectOrganJoin) {
+		baseEntityDao.saveOrUpdate(subjectOrganJoin);
+	}
 }
