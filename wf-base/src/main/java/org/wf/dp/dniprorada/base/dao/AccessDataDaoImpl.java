@@ -1,8 +1,8 @@
 package org.wf.dp.dniprorada.base.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
+import org.wf.dp.dniprorada.util.Util;
 
 public class AccessDataDaoImpl implements AccessDataDao{
     
@@ -13,7 +13,7 @@ public class AccessDataDaoImpl implements AccessDataDao{
 
     @Override
     public String setAccessData(String sContent) {
-        return durableBytesDataStorage.saveData(sContent.getBytes());
+        return durableBytesDataStorage.saveData(Util.contentStringToByte(sContent));
     }
 
     @Override
@@ -24,12 +24,12 @@ public class AccessDataDaoImpl implements AccessDataDao{
     @Override
     public String getAccessData(String sKey) {
         byte[] contentByte = durableBytesDataStorage.getData(sKey);
-		return contentByte != null ? contentByte.toString() : contentMock;
+		return contentByte != null ? Util.contentByteToString(contentByte) : contentMock;
     }
 
     @Override
-    public void removeAccessData(String sKey) {
-        durableBytesDataStorage.remove(sKey);
+    public boolean removeAccessData(String sKey) {
+        return durableBytesDataStorage.remove(sKey);
     }
     
 }
