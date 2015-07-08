@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "grunt": "~0.4.4",
-    "grunt-autoprefixer": "~0.7.2",
+    "grunt-autoprefixer": "3.0.3",
     "grunt-wiredep": "~1.8.0",
     "grunt-concurrent": "~0.5.0",
     "grunt-contrib-clean": "~0.5.0",
@@ -47,7 +47,7 @@
     "grunt-ng-annotate": "^0.2.3",
     "grunt-rev": "~0.1.0",
     "grunt-svgmin": "~0.4.0",
-    "grunt-usemin": "~2.1.1",
+    "grunt-usemin": "3.0.0",
     "grunt-env": "~0.4.1",
     "grunt-node-inspector": "~0.1.5",
     "grunt-nodemon": "~0.2.0",
@@ -84,10 +84,21 @@
     "should": "~3.3.1",
     "js-yaml": "~3.3.1",
     "whet.extend": "~0.9.9",
-    "sax": "~1.1.1"
+    "grunt-mout": "~1.0.1",
+    "sax": "~1.1.1",
+    "grunt-node-version": "1.0.0",
+    "mout": "0.11.0",
+    "wordwrap": "0.0.3",
+    "concat-map":"0.0.1",
+    "balanced-match":"0.2.0",
+    "core-util-is":"1.0.1",
+    "inherits":"2.0.1",
+    "isarray":"0.0.1",
+    "string_decoder":"0.10.31",
+    "lodash": "3.8.0"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.10.25"
   },
   "scripts": {
     "start": "node server/app.js",
