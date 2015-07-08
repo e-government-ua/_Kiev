@@ -60,7 +60,10 @@
         <activiti:formProperty id="orgEmail" name="Емейл адреса організатора " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="contactPhone" name="Контактний номер телефона" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="contactAddress" name="Контактна адреса організатора" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="needPhysicalCopy?" name="Форма відповіді" type="enum" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="needPhysicalCopy?" name="Форма відповіді" type="enum" writable="false">
+          <activiti:value id="digital" name="Тільки Електронна версія"></activiti:value>
+          <activiti:value id="physical" name="Фізична + Електронна версія"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення чиновника" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити в послузі"></activiti:value>
