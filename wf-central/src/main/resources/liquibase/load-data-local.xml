@@ -184,6 +184,16 @@
             <column name="nID_City"         type="NUMERIC"/>
         </loadUpdateData>
 
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/HistoryEvent_Service.csv" tableName="HistoryEvent_Service" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sID" type="STRING"/>
+            <column name="nID_Task" type="NUMERIC"/>
+            <column name="nID_Subject" type="NUMERIC"/>
+            <column name="sStatus" type="STRING"/>
+            <column name="sID_Status" type="STRING"/>
+            <column name="nID_Protected" type="NUMERIC"/>
+        </loadUpdateData>
+
     </changeSet>
 
 
