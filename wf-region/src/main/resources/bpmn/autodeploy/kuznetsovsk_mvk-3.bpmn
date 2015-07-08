@@ -86,6 +86,7 @@
         <activiti:formProperty id="contactAddress" name="Контактна адреса організатора" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="needPhysicalCopy?" name="Форма відповіді" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="additionalInfo" name="Додаткова інформація" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="scanCopy" name="Завантажьте скан-копію рішення (буде відправлено громадянину на e-mail" type="file" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <userTask id="usertask3" name="Відповідь неможлива">
@@ -115,40 +116,6 @@
     <sequenceFlow id="flow5" name="$[workerDecision=='reject']" sourceRef="exclusivegateway1" targetRef="usertask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[$[workerDecision=='reject']]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask2" name="Емейл повідомлення" activiti:type="mail">
-      <extensionElements>
-        <activiti:field name="to">
-          <activiti:expression>${orgEmail}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:expression>Відповідь щодо проведення заходу під назвою: ${eventName}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Шановний громадянин
-
-Ваша заява щодо проведення релігійного/культурного заходу була успішно опрацьована і задовілено. 
-
-Деталі вашого заходу: 
-
-Назва громади/організації - ${orgName}
-Назва заходу - ${eventName}
-Дата заходу - ${eventDate}
-Місце проведення - ${eventPlace}
-Час проведення - ${eventTime}
-Кількість учасників - ${eventSize}
-ПІП організатора - ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}
-Контактна інформація організатора - ${contactPhone} чи ${orgEmail}
-Додаткове повідомлення від МіськРади - ${additionalInfo}
-
-Якщо Ви побажали щоб вам було надано Фізичну копію документа то зверніться, буль ласка, до МіськРади за деталями того як, де і коли ії можно бути забрати. 
-
-Завжди ваша, МіськРада.</activiti:expression>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
     <serviceTask id="mailtask3" name="Емейл відмова" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -174,14 +141,52 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow6" sourceRef="usertask2" targetRef="mailtask2"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="usertask2" targetRef="servicetask1"></sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="usertask3" targetRef="mailtask3"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
-    <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="servicetask1" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow9" sourceRef="mailtask3" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow12" sourceRef="startevent1" targetRef="mailtask1"></sequenceFlow>
     <sequenceFlow id="flow13" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
     <sequenceFlow id="flow14" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <serviceTask id="servicetask1" name="Емейл повідомлення" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${orgEmail}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Заява щодо проведення релігійного/культурного заходу
+</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${scanCopy}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний громадянин
+
+Ваша заява щодо проведення релігійного/культурного заходу була успішно опрацьована і задовілено. 
+
+Деталі вашого заходу: 
+
+Назва громади/організації - ${orgName}
+Назва заходу - ${eventName}
+Дата заходу - ${eventDate}
+Місце проведення - ${eventPlace}
+Час проведення - ${eventTime}
+Кількість учасників - ${eventSize}
+ПІП організатора - ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}
+Контактна інформація організатора - ${contactPhone} чи ${orgEmail}
+Додаткове повідомлення від МіськРади - ${additionalInfo}
+
+Якщо Ви побажали щоб вам було надано Фізичну копію документа то зверніться, буль ласка, до МіськРади за деталями того як, де і коли ії можно бути забрати. 
+
+Завжди ваша, МіськРада.</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
     <textAnnotation id="textannotation1">
       <text>Відповідь готова</text>
     </textAnnotation>
@@ -215,14 +220,14 @@
       <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
         <omgdc:Bounds height="50.0" width="100.0" x="550.0" y="350.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="55.0" width="105.0" x="75.0" y="480.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
         <omgdc:Bounds height="55.0" width="105.0" x="788.0" y="480.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="460.0" y="550.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="75.0" y="480.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
         <omgdi:waypoint x="450.0" y="360.0"></omgdi:waypoint>
