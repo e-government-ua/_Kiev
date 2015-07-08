@@ -182,6 +182,7 @@
             <column name="sGeoLatitude"     type="STRING"/>
             <column name="nID_Region"       type="NUMERIC"/>
             <column name="nID_City"         type="NUMERIC"/>
+            <column name="sID_UA"           type="STRING"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/HistoryEvent_Service.csv" tableName="HistoryEvent_Service" separator=";">

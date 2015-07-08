@@ -115,6 +115,13 @@
         <addAutoIncrement tableName="SubjectOrganJoin" columnName="nID" startWith="1000" columnDataType="bigint"/>
     </changeSet>
 
+    <changeSet id="issue-487-add-field-sID_UA" author="dgroup"> <!-- ИД-строка кода классификатора КОАТУУ -->
+        <addColumn tableName="SubjectOrganJoin">
+            <column name="sID_UA" type="varchar(30)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
     <!-- ####################################################################################################### -->
 
     <changeSet id="issue-493_sID-make-optional" author="LamronNu">
