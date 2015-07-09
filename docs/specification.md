@@ -1516,7 +1516,19 @@ https://test.igov.org.ua/wf-central/service/services/getSubjectOrganJoins?nID_Su
 Set
 Method: POST
 https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoins
-[{"subjectOrganId":1,"sNameUa":"Українська мова","sNameRu":"Русский язык","sID_Privat":"12345","sID_Public":"130501","sGeoLongitude":"15.232312","sGeoLatitude":"23.234231"}]
+```json
+[
+	{
+		"subjectOrganId":1
+		,"sNameUa":"Українська мова"
+		,"sNameRu":"Русский язык"
+		,"sID_Privat":"12345"
+		,"sID_Public":"130501"
+		,"sGeoLongitude":"15.232312"
+		,"sGeoLatitude":"23.234231"
+	}
+]
+```
 
 Remove
 Method: POST
