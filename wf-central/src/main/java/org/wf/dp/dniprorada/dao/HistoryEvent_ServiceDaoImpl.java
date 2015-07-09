@@ -9,9 +9,6 @@ import org.wf.dp.dniprorada.model.EntityNotFoundException;
 import org.wf.dp.dniprorada.model.HistoryEvent_Service;
 import org.wf.dp.dniprorada.util.AlgorithmLuna;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 
 public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
 
@@ -43,10 +40,12 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
            throw new IllegalArgumentException("CRC Error");
         }
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
-        criteria.add(Restrictions.eq("nID_Protected", nID_Protected));
+        criteria.add(Restrictions.eq("nID", nID_Protected / 10));
         HistoryEvent_Service event_service = (HistoryEvent_Service) criteria.uniqueResult();
         if (event_service == null) {
             throw new EntityNotFoundException("Record not found");
+        } else {
+            event_service.setnID_Protected(nID_Protected);
         }
         return event_service;
     }
@@ -58,15 +57,15 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
         event_service.setsStatus(sStatus);
         event_service.setsID_Status(sID_status);
         event_service.setnID_Subject(nID_subject);
-        SimpleDateFormat sdf = new SimpleDateFormat("_yyyy-MM-dd_HH:mm:ss");
-        event_service.setsID(sdf.format(new Date()));
-        event_service.setnID_Protected(1L);
+//        SimpleDateFormat sdf = new SimpleDateFormat("_yyyy-MM-dd_HH:mm:ss");
+//        event_service.setsID(sdf.format(new Date()));
+        //event_service.setnID_Protected(1L);
         Session session = getSession();
         session.saveOrUpdate(event_service);
         Long nID = event_service.getId();
-        event_service.setsID(AlgorithmLuna.getProtectedString(nID, nID_subject, sID_status));
+//        event_service.setsID(AlgorithmLuna.getProtectedString(nID, nID_subject, sID_status));
         event_service.setnID_Protected(AlgorithmLuna.getProtectedNumber(nID));
-        session.saveOrUpdate(event_service);
+//        session.saveOrUpdate(event_service);
         return event_service;
     }
 

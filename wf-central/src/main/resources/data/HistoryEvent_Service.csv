@@ -1,3 +1,3 @@
-nID;sID;nID_Task;nID_Subject;sStatus;sID_Status;nID_Protected
-698953100675693697;6989531006;222;2;new;новая заявка;6989531006756936970
-349384928269511911;3493849282;222;2;processing;заявка в обработке;3493849282695119111
+nID;sID;nID_Task;nID_Subject;sStatus;sID_Status
+1;1;222;2;new;новая заявка
+2;2;222;2;processing;заявка в обработке

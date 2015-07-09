@@ -142,6 +142,15 @@
     </changeSet>
 
     <!-- ####################################################################################################### -->
-
+    <changeSet id="issue-493_changeFields" author="LamronNu">
+        <dropColumn tableName="HistoryEvent_Service" columnName="nID_Protected" />
+        <dropColumn tableName="HistoryEvent_Service" columnName="sID" />
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="sID" type="varchar(30)">
+                <constraints nullable="true" unique="false"/>
+            </column>
+        </addColumn>
+        <!--<dropUniqueConstraint tableName="HistoryEvent_Service" constraintName="sID" uniqueColumns="sID"/>-->
+    </changeSet>
 
 </databaseChangeLog>

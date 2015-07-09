@@ -192,7 +192,6 @@
             <column name="nID_Subject" type="NUMERIC"/>
             <column name="sStatus" type="STRING"/>
             <column name="sID_Status" type="STRING"/>
-            <column name="nID_Protected" type="NUMERIC"/>
         </loadUpdateData>
 
     </changeSet>

@@ -222,7 +222,7 @@ public class ActivitiRestDocumentControllerTest {
     }
 
 
-    @Test
+    @Test @Ignore
     public void getSubjectOrganJoinByOrganID() throws Exception {
         final Long region = 11L;
         final Long city   = 33L;
