@@ -1311,36 +1311,71 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?s
 "kermit","2015-06-21:09-20-40","711231882","197","Підготовка відповіді на запит: пошук документа"
 ```
 
+
 <a name="17_workWithHistoryEvent_Services">
 #### 17. Работа с обьектами событий по услугам <<in developing, issue 493>>
 </a><a href="#0_contents">↑Up</a><br/>
 **HTTP Metod: GET**
 
-**HTTP Context: https://server:port/wf-central/service/services/getHistoryEvent_Service?sID=G8hi37Klg2
+**HTTP Context: https://server:port/wf-central/service/services/getHistoryEvent_Service?nID_Protected=ххх***
 получает объект события по услуге, параметры: 
-sID - ИД-строка (в урл-е) 
-Если не найдена запись, то возвращает объект ошибки со значением "Record not found"
+* nID_Protected - проверочное число-ид
 
-**HTTP Metod: POST**//??
+сначала проверяется корректность числа nID_Protected -- последняя цифра должна быть "контрольной" (по
+<a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%9B%D1%83%D0%BD%D0%B0">алгоритму Луна</a>) для всего числа без нее.
+- если не совпадает -- возвращается ошибка "CRC Error"
+- если совпадает -- ищется запись по nID = nID_Protected без последней цифры
+- Если не найдена запись, то возвращает объект ошибки со значением "Record not found"
+- иначе возвращает обьект
 
-**HTTP Context: https://server:port/wf-central/service/services/addHistoryEvent_Service?nID_Task=1&sStatus=new&nID_Subject=2
+пример:
+http://test.igov.org.ua/wf-central/service/services/getHistoryEvent_Service?nID_Protected=11
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://server:port/wf-central/service/services/addHistoryEvent_Service?nID_Task=xxx&sStatus=xxx&nID_Subject=xxx***
 
  добавляет объект события по услуге, параметры: 
- nID_Task - ИД-номер задачи (long) 
- nID_Subject - ИД-номер (long) //опциональный 
- sStatus - строка-статус (long) 
- sID_Status - строка-статус (long) //опциональный для авто-генерации значения поля sID:
+ * nID_Task - ИД-номер задачи (long)
+ * nID_Subject - ИД-номер (long) //опциональный
+ * sStatus - строка-статус (long)
+ * sID_Status - строка-статус (long) //опциональный (для авто-генерации значения поля sID)
 
-**HTTP Metod: POST**//??
+при добавлении записи генерируется поле nID_Protected по принципу
+nID_Protected = nID (ид новой записи) + "контрольная цифра"
 
-**HTTP Context: https://server:port/wf-central/service/services/updateHistoryEvent_Service?nID=1&sStatus=finish
+контрольная цифра -- это последний разряд суммы цифр числа nID по
+<a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%9B%D1%83%D0%BD%D0%B0">алгоритму Луна</a>
+это поле используется для проверки корректности запрашиваемого ид записи (в методах get и update)
 
- добавляет/обновляет объект события по услуге,
+пример:
+http://test.igov.org.ua/wf-central/service/services/addHistoryEvent_Service?nID_Task=2&sStatus=new&nID_Subject=2
+
+ответ:
+```json
+{"nID":1001,"sID":null,"nID_Task":2,"nID_Subject":2,"sStatus":"new","sID_Status":null,"nID_Protected":10013,"id":1001}
+```
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://server:port/wf-central/service/services/updateHistoryEvent_Service?nID=xxx&sStatus=xxx***
+
+ обновляет объект события по услуге,
 параметры:
-nID - ИД-номер
-sStatus - строка-статус
-sID_Status - строка-статус (long) //опциональный
-Если не найдена запись, то возвращает объект ошибки со значением "Record not found"
+* nID_Protected - проверочное число-ид
+* sStatus - строка-статус
+* sID_Status - строка-статус (long) //опциональный
+
+- сначала проверяется корректность числа nID_Protected -- последняя цифра должна быть "контрольной" (по
+<a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%9B%D1%83%D0%BD%D0%B0">алгоритму Луна</a>) для всего числа без нее.
+- если не совпадает -- возвращается ошибка "CRC Error"
+- если совпадает -- ищется запись по nID = nID_Protected без последней цифры
+- Если не найдена запись, то возвращает объект ошибки со значением "Record not found"
+- обновление записи (если были изменения)
+
+пример
+http://test.igov.org.ua/wf-central/service/services/updateHistoryEvent_Service?nID_Protected=11&sStatus=finish
+
 
 <a name="18_workWithFlowSlot">
 #### 18. Работа со слотами потока
