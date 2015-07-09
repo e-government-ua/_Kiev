@@ -23,14 +23,14 @@ public abstract class Entity implements Serializable {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
    @Column(name="nID")
-   private Long nID;
+   private Long id;
 
    @Identifier
    public Long getId() {
-      return nID;
+      return id;
    }
    public void setId(Long id) {
-      this.nID = id;
+      this.id = id;
    }
 
 }
