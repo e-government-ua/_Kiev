@@ -3,6 +3,9 @@
   <process id="kuznetsovsk_mvk_3" name="Кузнецьовський МВК - Звернення про надання дозволу на проведення публічних богослужінь" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище організатора-громадянина" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я організатора-громадянина" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string"></activiti:formProperty>
         <activiti:formProperty id="orgName" name="Назва релігійної громади/організації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="eventName" name="Назва заходу" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="eventDate" name="Дата проведення заходу" type="date" required="true"></activiti:formProperty>
@@ -10,12 +13,8 @@
         <activiti:formProperty id="eventTime" name="Час проведення заходу" type="string"></activiti:formProperty>
         <activiti:formProperty id="eventEntertainment" name="Заход включатиме: " type="string"></activiti:formProperty>
         <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище організатора-громадянина" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я організатора-громадянина" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string"></activiti:formProperty>
-        <activiti:formProperty id="dateCreation" name="Дата заповнення заяви" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="contactPhone" name="Контактний номер телефона" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="contactAddress" name="Контактна адреса організатора" type="string"></activiti:formProperty>
+        <activiti:formProperty id="orgEmail" name="e-Mail для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="needPhysicalCopy?" name="Чи потрібна Вам фізична копія документа?" type="enum" required="true">
           <activiti:value id="digital" name="Тільки Електронна версія"></activiti:value>
           <activiti:value id="physical" name="Фізична+Електронна копія  "></activiti:value>
@@ -108,8 +107,7 @@
 Завжди ваша, МіськРада.</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${scanCopy}"
-</activiti:expression>
+          <activiti:expression>"${scanCopy}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
