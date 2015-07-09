@@ -1507,7 +1507,7 @@ http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceD
 <a name="19">
 #### 19. Работа с джоинами суьтектами (отделениями/филиалами)
 </a><a href="#0_contents">↑Up</a><br/>
-
+(таска: https://github.com/e-government-ua/i/issues/487)
 
 Get: 
 Method: GET
@@ -1526,6 +1526,9 @@ https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoins
 		,"sID_Public":"130501"
 		,"sGeoLongitude":"15.232312"
 		,"sGeoLatitude":"23.234231"
+		,"nID_Region":11
+		,"nID_City":33
+		,"sID_UA":"1"}
 	}
 ]
 ```
