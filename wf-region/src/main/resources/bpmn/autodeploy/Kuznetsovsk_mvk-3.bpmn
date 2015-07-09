@@ -54,10 +54,8 @@
         <activiti:formProperty id="eventTime" name="Час проведення заходу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventEntertainment" name="Заход включатиме" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="dateCreation" name="Дата заповнення заяви" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="orgEmail" name="e-Mail адреса організатора " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="contactPhone" name="Контактний номер телефона" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="contactAddress" name="Контактна адреса організатора" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="needPhysicalCopy?" name="Форма відповіді" type="enum" writable="false">
           <activiti:value id="digital" name="Тільки Електронна версія"></activiti:value>
           <activiti:value id="physical" name="Фізична + Електронна версія"></activiti:value>
@@ -84,16 +82,7 @@
           <activiti:expression>Звернення на тему: "${eventName}"</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Ваша заява щодо проведення релігійного/культурного заходу була успішно опрацьована.
-
-Рішення МіськРади - "${workerDecision}"
-
-Коментар рішення - "${reasonToAnswer}"
-
-
-Якщо Ви побажали щоб вам було надано Фізичну копію документа то зверніться, буль ласка, до МіськРади за деталями того як, де і коли ії можно буде забрати. 
-
-Завжди ваша, МіськРада.</activiti:expression>
+          <activiti:string>Тело письма</activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${scanCopy}"</activiti:expression>
