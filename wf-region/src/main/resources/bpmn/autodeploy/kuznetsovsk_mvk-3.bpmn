@@ -169,9 +169,6 @@
         <activiti:field name="subject">
           <activiti:expression>Заява щодо проведення релігійного/культурного заходу</activiti:expression>
         </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${scanCopy}"</activiti:expression>
-        </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний громадянин
 
@@ -192,6 +189,9 @@
 Якщо Ви побажали щоб вам було надано Фізичну копію документа то зверніться, буль ласка, до МіськРади за деталями того як, де і коли ії можно бути забрати. 
 
 Завжди ваша, МіськРада.</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${scanCopy}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
