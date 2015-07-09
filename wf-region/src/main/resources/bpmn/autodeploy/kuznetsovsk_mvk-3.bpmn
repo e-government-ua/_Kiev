@@ -169,9 +169,6 @@
         <activiti:field name="subject">
           <activiti:expression>Заява щодо проведення релігійного/культурного заходу</activiti:expression>
         </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${scanCopy}"</activiti:expression>
-        </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний громадянин
 
@@ -193,6 +190,9 @@
 
 Завжди ваша, МіськРада.</activiti:expression>
         </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${scanCopy}"</activiti:expression>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <textAnnotation id="textannotation1">
@@ -205,7 +205,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_kuznetsovsk_mvk_3">
     <bpmndi:BPMNPlane bpmnElement="kuznetsovsk_mvk_3" id="BPMNPlane_kuznetsovsk_mvk_3">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="442.0" y="20.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="410.0" y="21.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="71.0" width="145.0" x="387.0" y="90.0"></omgdc:Bounds>
@@ -272,7 +272,7 @@
         <omgdi:waypoint x="477.0" y="550.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="459.0" y="55.0"></omgdi:waypoint>
+        <omgdi:waypoint x="427.0" y="56.0"></omgdi:waypoint>
         <omgdi:waypoint x="459.0" y="90.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
