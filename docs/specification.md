@@ -1570,7 +1570,7 @@ http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceD
 Пример ответа:
 ```json
 [
-	{	"nID_SubjectOrgan", "32343"
+	{	"nID_SubjectOrgan":32343
 		,"sNameUa":"Українська мова"
 		,"sNameRu":"Русский язык"
 		,"sID_Privat":"12345"
@@ -1579,7 +1579,7 @@ http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceD
 		,"sGeoLatitude":"23.234231"
 		,"nID_Region":11
 		,"nID_City":33
-		,"sID_UA":"1"}
+		,"sID_UA":"1"
 	}
 ]
 ```
