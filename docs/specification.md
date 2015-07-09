@@ -1540,7 +1540,7 @@ http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceD
 ```
 
 <a name="19">
-#### 19. Работа с джоинами суьтектами (отделениями/филиалами)
+#### 19. Работа с джоинами субьектами (отделениями/филиалами)
 </a><a href="#0_contents">↑Up</a><br/>
 (таска: https://github.com/e-government-ua/i/issues/487)
 
@@ -1587,7 +1587,7 @@ http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceD
 https://test.igov.org.ua/wf-central/service/services/getSubjectOrganJoins?nID_SubjectOrgan=1&sID_UA=1
 
 
-**setSubjectOrganJoins - добавляет/обновляет массив объектов п.2 (сопоставляя по по ИД, и связывая новые с nID_Region, nID_City или sID_UA, по совпадению их названий)**
+**setSubjectOrganJoin - добавляет/обновляет массив объектов п.2 (сопоставляя по по ИД, и связывая новые с nID_Region, nID_City или sID_UA, по совпадению их названий)**
 <br>
 **Method: POST**
 Параметры:
@@ -1604,7 +1604,7 @@ https://test.igov.org.ua/wf-central/service/services/getSubjectOrganJoins?nID_Su
 * sID_UA //опциональный
 
 Пример:
-https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoins?nID_SubjectOrgan=1&sNameRu=Днепр.РОВД
+https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoin?nID_SubjectOrgan=1&sNameRu=Днепр.РОВД
 <br>
 
 
