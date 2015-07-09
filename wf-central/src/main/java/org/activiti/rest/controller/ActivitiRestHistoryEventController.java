@@ -93,7 +93,7 @@ public class ActivitiRestHistoryEventController {
     public
     @ResponseBody
     void updateHistoryEvent_Service(
-            @RequestParam(value = "nID") Long nID_Protected,
+            @RequestParam(value = "nID_Protected") Long nID_Protected,
             @RequestParam(value = "sStatus") String sStatus,
             @RequestParam(value = "sID_Status", required = false) String sID_Status,
             HttpServletResponse response) {
