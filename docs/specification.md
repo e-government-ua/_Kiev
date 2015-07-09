@@ -1567,26 +1567,11 @@ http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceD
 * nID_City - ИД-номер (в урл-е) //опциональный (только если надо задать или задан)
 * sID_UA - ИД-строка (в урл-е) //опциональный (только если надо задать или задан)
 
-Пример:
-https://test.igov.org.ua/wf-central/service/services/getSubjectOrganJoins?nID_SubjectOrgan=1&sID_UA=1
-
-
-**setSubjectOrganJoins - добавляет/обновляет массив объектов п.2 (сопоставляя по по ИД, и связывая новые с nID_Region, nID_City или sID_UA, по совпадению их названий)**
-<br>
-**Method: POST**
-Параметры:
-* nID_SubjectOrgan - ИД-номер
-* В ТЕЛЕ - массив объектов(п.2) sID_Public
-(если в объектах массива элементы nID_Region и nID_City не указваны, но в новых записях проставлять их как null, а в обновляемых - просто оставлять прежними)
-
-Пример:
-https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoins?nID_SubjectOrgan=1
-<br>
-В теле:
+Пример ответа:
 ```json
 [
-	{
-		"sNameUa":"Українська мова"
+	{	"nID_SubjectOrgan", "32343"
+		,"sNameUa":"Українська мова"
 		,"sNameRu":"Русский язык"
 		,"sID_Privat":"12345"
 		,"sID_Public":"130501"
@@ -1598,6 +1583,29 @@ https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoins?nID_Su
 	}
 ]
 ```
+Пример:
+https://test.igov.org.ua/wf-central/service/services/getSubjectOrganJoins?nID_SubjectOrgan=1&sID_UA=1
+
+
+**setSubjectOrganJoins - добавляет/обновляет массив объектов п.2 (сопоставляя по по ИД, и связывая новые с nID_Region, nID_City или sID_UA, по совпадению их названий)**
+<br>
+**Method: POST**
+Параметры:
+* nID_SubjectOrgan - ИД-номер
+* nID //опциональный, если добавление
+* sNameRu //опциональный
+* sNameUa //опциональный
+* sID_Privat //опциональный
+* sID_Public //опциональный, если апдейт
+* sGeoLongitude //опциональный
+* sGeoLatitude //опциональный
+* nID_Region //опциональный
+* nID_City //опциональный
+* sID_UA //опциональный
+
+Пример:
+https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoins?nID_SubjectOrgan=1&sNameRu=Днепр.РОВД
+<br>
 
 
 **removeSubjectOrganJoins - удаляет массив объектов п.2 (находя их по ИД)**
