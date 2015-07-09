@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.wf.dp.dniprorada.base.model.Entity;
 
 import javax.persistence.Column;
@@ -7,21 +8,27 @@ import javax.persistence.Column;
 @javax.persistence.Entity
 public class HistoryEvent_Service extends Entity {
 
+    @JsonProperty(value="sID")
     @Column
     private String sID;
 
-    @Column
-    private Long nID_Protected;
+//    @JsonProperty(value="nID_Protected")
+//    @Column
+    private transient Long nID_Protected;
 
+    @JsonProperty(value="nID_Task")
     @Column
     private Long nID_Task;
 
+    @JsonProperty(value="nID_Subject")
     @Column
     private Long nID_Subject;
 
+    @JsonProperty(value="sStatus")
     @Column
     private String sStatus;
 
+    @JsonProperty(value="sID_Status")
     @Column
     private String sID_Status;
 

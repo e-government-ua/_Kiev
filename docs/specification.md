@@ -1509,18 +1509,49 @@ http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceD
 </a><a href="#0_contents">↑Up</a><br/>
 (таска: https://github.com/e-government-ua/i/issues/487)
 
-Get: 
-Method: GET
+Поля:
+* nID - ИД-номер автоитеррируемый (уникальный, обязательный) (long)
+* nID_SubjectOrgan - ИД-номер (long)
+* sNameRu - строка <200 символов
+* sNameUa - ИД-строка <200 символов
+* sID_Privat - ИД-строка ключ-частный <60 символов //опциональный
+* sID_Public - строка ключ-публичный <60 символов
+* sGeoLongitude - строка долготы //опциональный
+* sGeoLatitude - строка широты //опциональный
+* nID_Region - ИД-номер //опциональный
+* nID_City - ИД-номер //опциональный
+* sID_UA - ИД-строка кода классификатора КОАТУУ //опциональный
+
+
+**getSubjectOrganJoins - получает весь массив объектов п.2 (либо всех либо в рамках заданных в запросе nID_Region, nID_City или sID_UA)**
+<br>
+**Method: GET**
+Параметры:
+* nID_SubjectOrgan - ИД-номер (в урл-е)
+* nID_Region - ИД-номер (в урл-е) //опциональный (только если надо задать или задан)
+* nID_City - ИД-номер (в урл-е) //опциональный (только если надо задать или задан)
+* sID_UA - ИД-строка (в урл-е) //опциональный (только если надо задать или задан)
+
+Пример:
 https://test.igov.org.ua/wf-central/service/services/getSubjectOrganJoins?nID_SubjectOrgan=1&sID_UA=1
 
-Set
-Method: POST
-https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoins
+
+**setSubjectOrganJoins - добавляет/обновляет массив объектов п.2 (сопоставляя по по ИД, и связывая новые с nID_Region, nID_City или sID_UA, по совпадению их названий)**
+<br>
+**Method: POST**
+Параметры:
+* nID_SubjectOrgan - ИД-номер
+* В ТЕЛЕ - массив объектов(п.2) sID_Public
+(если в объектах массива элементы nID_Region и nID_City не указваны, но в новых записях проставлять их как null, а в обновляемых - просто оставлять прежними)
+
+Пример:
+https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoins?nID_SubjectOrgan=1
+<br>
+В теле:
 ```json
 [
 	{
-		"subjectOrganId":1
-		,"sNameUa":"Українська мова"
+		"sNameUa":"Українська мова"
 		,"sNameRu":"Русский язык"
 		,"sID_Privat":"12345"
 		,"sID_Public":"130501"
@@ -1533,7 +1564,14 @@ https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoins
 ]
 ```
 
-Remove
-Method: POST
+
+**removeSubjectOrganJoins - удаляет массив объектов п.2 (находя их по ИД)**
+<br>
+**Method: POST**
+Параметры:
+* nID_SubjectOrgan - ИД-номер (в урл-е)
+* asID_Public - массив ИД-номеров  (в урл-е) (например [3423,52354,62356,63434])
+
+Пример:
 https://test.igov.org.ua/wf-central/service/services/removeSubjectOrganJoins?nID_SubjectOrgan=1&asID_Public=130505,130506,130507,130508
 
