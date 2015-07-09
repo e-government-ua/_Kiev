@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="kuznetsovsk_mvk_3" name="Кузнецьовський МВК - Звернення про надання дозволу на проведення публічних богослужінь" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -27,13 +27,13 @@
           <activiti:expression>${orgEmail}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення щодо: ${eventName}</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний громадянин, ${bankIdfirstName} ${bankIdmiddleName}
@@ -65,7 +65,7 @@
           <activiti:value id="reject" name="Відмовити в проведенні заходу"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="reasonForAnswer" name="Комментар для відповіді" type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="scanCopy" name="Скан-копія рішення" type="file"></activiti:formProperty>
+        <activiti:formProperty id="scanCopy" name="Скан-копія рішення" type="file" default=" "></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow12" sourceRef="startevent1" targetRef="mailtask1"></sequenceFlow>
@@ -73,7 +73,7 @@
     <serviceTask id="servicetask1" name="e-Mail відповідь громадянину" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${orgEmail}"</activiti:expression>
@@ -82,7 +82,7 @@
           <activiti:expression>Звернення на тему: "${eventName}"</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:string>Тело письма</activiti:string>
+          <activiti:string><![CDATA[Тело письма]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${scanCopy}"</activiti:expression>
