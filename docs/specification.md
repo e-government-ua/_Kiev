@@ -1523,10 +1523,10 @@ http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceD
 * sID_UA - ИД-строка кода классификатора КОАТУУ //опциональный
 
 
-**getSubjectOrganJoins - получает весь массив объектов п.2**
-**(либо всех либо в рамках заданных в запросе nID_Region, nID_City или sID_UA)**
+**getSubjectOrganJoins - получает весь массив объектов п.2 (либо всех либо в рамках заданных в запросе nID_Region, nID_City или sID_UA)**
+<br>
 **Method: GET**
-параметры:
+Параметры:
 * nID_SubjectOrgan - ИД-номер (в урл-е)
 * nID_Region - ИД-номер (в урл-е) //опциональный (только если надо задать или задан)
 * nID_City - ИД-номер (в урл-е) //опциональный (только если надо задать или задан)
@@ -1536,16 +1536,17 @@ http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceD
 https://test.igov.org.ua/wf-central/service/services/getSubjectOrganJoins?nID_SubjectOrgan=1&sID_UA=1
 
 
-**setSubjectOrganJoins - добавляет/обновляет массив объектов п.2**
-**(сопоставляя по по ИД, и связывая новые с nID_Region, nID_City или sID_UA, по совпадению их названий)**
+**setSubjectOrganJoins - добавляет/обновляет массив объектов п.2 (сопоставляя по по ИД, и связывая новые с nID_Region, nID_City или sID_UA, по совпадению их названий)**
+<br>
 **Method: POST**
-параметры:
+Параметры:
 * nID_SubjectOrgan - ИД-номер
 * В ТЕЛЕ - массив объектов(п.2) sID_Public
 (если в объектах массива элементы nID_Region и nID_City не указваны, но в новых записях проставлять их как null, а в обновляемых - просто оставлять прежними)
 
 Пример:
 https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoins?nID_SubjectOrgan=1
+<br>
 В теле:
 ```json
 [
@@ -1565,8 +1566,9 @@ https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoins?nID_Su
 
 
 **removeSubjectOrganJoins - удаляет массив объектов п.2 (находя их по ИД)**
+<br>
 **Method: POST**
-параметры:
+Параметры:
 * nID_SubjectOrgan - ИД-номер (в урл-е)
 * asID_Public - массив ИД-номеров  (в урл-е) (например [3423,52354,62356,63434])
 
