@@ -1,4 +1,4 @@
-angular.module('service').controller('ServiceGeneralController', function($state, $rootScope, $scope, service) {
+angular.module('app').controller('ServiceGeneralController', function($state, $rootScope, $scope, service) {
   $scope.service = service;
 
   var aServiceData = service.aServiceData;

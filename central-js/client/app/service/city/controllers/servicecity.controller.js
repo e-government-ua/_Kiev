@@ -1,4 +1,4 @@
-angular.module('service').controller('ServiceCityController', function($state, $rootScope, $scope, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, service, regions) {
+angular.module('app').controller('ServiceCityController', function($state, $rootScope, $scope, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, service, regions) {
   $scope.service = service;
   $scope.regions = regions;
 
@@ -76,6 +76,6 @@ angular.module('service').controller('ServiceCityController', function($state, $
   });
 });
 
-angular.module('service').controller('BuiltinCityController', function($scope, service) {
+angular.module('app').controller('BuiltinCityController', function($scope, service) {
   $scope.service = service;
 });
