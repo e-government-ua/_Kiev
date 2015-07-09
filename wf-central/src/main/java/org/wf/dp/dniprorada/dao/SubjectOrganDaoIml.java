@@ -1,6 +1,5 @@
 package org.wf.dp.dniprorada.dao;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -103,10 +102,11 @@ public class SubjectOrganDaoIml implements SubjectOrganDao {
 				baseEntityDao.saveOrUpdate(soj);
 			} else {
 				// Object available, hence, we have to update its main parameters
-				persisted.setNameUa (soj.getNameUa());
-				persisted.setNameRu (soj.getNameRu());
-				persisted.setGeoLongitude(soj.getGeoLongitude());
-				persisted.setGeoLatitude (soj.getGeoLatitude());
+                persisted.setUaId   ( soj.getUaId()   );
+				persisted.setNameUa ( soj.getNameUa() );
+				persisted.setNameRu ( soj.getNameRu() );
+				persisted.setGeoLongitude( soj.getGeoLongitude() );
+				persisted.setGeoLatitude ( soj.getGeoLatitude()  );
 
 				if (soj.getRegionId() != null)
 					persisted.setRegionId(soj.getRegionId());
