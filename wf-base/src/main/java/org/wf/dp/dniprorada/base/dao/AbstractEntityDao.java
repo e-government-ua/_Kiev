@@ -50,7 +50,7 @@ public abstract class AbstractEntityDao<T extends Entity> implements EntityDao<T
    }
 
    @Override
-   public T getById(Integer identification) {
+   public T getById(Long identification) {
       return (T) getSession().get(entityClass, identification);
    }
 
