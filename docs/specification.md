@@ -18,6 +18,7 @@
 <a href="#16_getWorkflowStatistics">16. Получение статистики по задачам в рамках бизнес процесса</a><br/>
 <a href="#17_workWithHistoryEvent_Services">17. Работа с обьектами событий по услугам</a><br/>
 <a href="#18_workWithFlowSlot">18. Работа со слотами потока</a><br/>
+<a href="#19">19. Работа с джоинами суьтектами (отделениями/филиалами)</a><br/>
 ### iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -1503,6 +1504,36 @@ http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceD
 }
 ```
 
+<a name="19">
+#### 19. Работа с джоинами суьтектами (отделениями/филиалами)
+</a><a href="#0_contents">↑Up</a><br/>
+(таска: https://github.com/e-government-ua/i/issues/487)
 
+Get: 
+Method: GET
+https://test.igov.org.ua/wf-central/service/services/getSubjectOrganJoins?nID_SubjectOrgan=1&sID_UA=1
 
+Set
+Method: POST
+https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoins
+```json
+[
+	{
+		"subjectOrganId":1
+		,"sNameUa":"Українська мова"
+		,"sNameRu":"Русский язык"
+		,"sID_Privat":"12345"
+		,"sID_Public":"130501"
+		,"sGeoLongitude":"15.232312"
+		,"sGeoLatitude":"23.234231"
+		,"nID_Region":11
+		,"nID_City":33
+		,"sID_UA":"1"}
+	}
+]
+```
+
+Remove
+Method: POST
+https://test.igov.org.ua/wf-central/service/services/removeSubjectOrganJoins?nID_SubjectOrgan=1&asID_Public=130505,130506,130507,130508
 
