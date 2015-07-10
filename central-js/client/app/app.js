@@ -38,7 +38,7 @@ angular.module('app', [
       },
       views: {
         '': {
-          templateUrl: 'app/catalog/subcategory.html',
+          templateUrl: 'app/service/subcategory.html',
           controller: 'SubcategoryController'
         }
       }

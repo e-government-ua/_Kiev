@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ActivitiPaymentRestController {
-	@RequestMapping(value = "/setPaymentStatus_TaskActiviti", method = RequestMethod.GET)
+	@RequestMapping(value = "/setPaymentStatus_TaskActiviti", method = RequestMethod.GET, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
 			@RequestParam String sID_Order,
 			@RequestParam String sData,
