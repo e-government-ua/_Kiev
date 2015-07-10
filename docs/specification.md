@@ -19,6 +19,7 @@
 <a href="#17_workWithHistoryEvent_Services">17. Работа с обьектами событий по услугам</a><br/>
 <a href="#18_workWithFlowSlot">18. Работа со слотами потока</a><br/>
 <a href="#19">19. Работа с джоинами суьтектами (отделениями/филиалами)</a><br/>
+<a href="#20">20. Сервис для callback-a liqpay</a><br/>
 ### iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -575,7 +576,7 @@ https://test.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 ####11. Предоставление и проверка доступа к документам
 </a><a href="#0_contents">↑Up</a><br/>
 
-**HTTP Metod: POST**
+**HTTP Metod: GET**
 
 **HTTP Context: 
 https://seriver:port/wf-central/service/setDocumentLink - запись на доступ, с генерацией и получением уникальной ссылки на него
@@ -598,7 +599,7 @@ https://seriver:port/wf-central/service/setDocumentLink - запись на до
 	]
 ```
 
-**HTTP Metod: POST**
+**HTTP Metod: GET**
 
 **HTTP Context: 
 https://seriver:port/wf-central/service/getDocumentLink - проверка доступа к документу и получения данных о нем, если доступ есть
@@ -629,7 +630,7 @@ HTTP STATUS 200
 Если доступ просрочен, возвращается HTTP STATUS 403
 Если возникла исключительная ситуация, возвращается HTTP STATUS 400. В заголовок ответа добавляется параметр Reason, в котором описана причина возникновения ситуации.
 
-**HTTP Metod: POST**
+**HTTP Metod: GET**
 
 **HTTP Context: 
 https://seriver:port/wf-central/service/getDocumentAccess - Получение подтверждения на доступ к документу(с отсылкой СМС ОТП-паролем на телефон))
@@ -648,7 +649,7 @@ https://seriver:port/wf-central/service/getDocumentAccess - Получение �
 	]
 ```
 
-**HTTP Metod: POST**
+**HTTP Metod: GET**
 
 **HTTP Context: 
 https://seriver:port/wf-central/service/setDocumentAccess - Установка подтверждения на доступ к документу, по введенному коду, из СМС-ки(ОТП-паролем), и возвратом уникальной разовой ссылки на докуемнт.
@@ -1617,3 +1618,35 @@ https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoin?nID_Sub
 Пример:
 https://test.igov.org.ua/wf-central/service/services/removeSubjectOrganJoins?nID_SubjectOrgan=1&asID_Public=130505,130506,130507,130508
 
+<a name="20_workWithFlowSlot">
+#### 20. Сервис для callback-a liqpay
+</a><a href="#0_contents">↑Up</a><br/>
+
+**HTTP Context: http://server:port/wf-central/service/flow/setPaymentNewStatus_Liqpay** - Поменять статус платежа.
+**HTTP Metod: GET**
+
+Параметры:
+* sID_Order - идентификатор платежа
+* sHost - хост платежа
+
+Пример:
+http://test.e-gov.org.ua/wf-central/service/setPaymentNewStatus_Liqpay?sID_Order=TaskActiviti_qqq&sHost=http://test.e-gov.org.ua
+
+Ответ:  HTTP STATUS 200
+
+<a name="21_workWithFlowSlot">
+#### 21. Сервис для callback-a liqpay
+</a><a href="#0_contents">↑Up</a><br/>
+
+**HTTP Context: http://server:port/wf-regional/service/setPaymentStatus_TaskActiviti**.
+**HTTP Metod: GET**
+
+Параметры:
+* sID_Order - идентификатор платежа
+* sData - данные для отправки на liqpay
+* sID_PaymentSystem - система платежа
+
+Пример:
+https://test.e-gov.org.ua/wf-regional/service/setPaymentStatus_TaskActiviti?sID_Order=TaskActiviti_qqq&sData=data&sID_PaymentSystem=3
+
+Ответ:  HTTP STATUS 200
