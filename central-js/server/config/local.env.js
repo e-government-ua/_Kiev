@@ -32,6 +32,9 @@ module.exports = {
   BANKID_SHOST_ACCESS_SERVICE: 'bankid.privatbank.ua',
   BANKID_SPROTOCOL_RESOURC_SERVICE: 'https',
   BANKID_SHOST_RESOURCE_SERVICE: 'bankid.privatbank.ua',
+
+
+
   BANKID_CLIENTID: 'testIgov',
   BANKID_CLIENT_SECRET: 'testIgovSecret'
 };
