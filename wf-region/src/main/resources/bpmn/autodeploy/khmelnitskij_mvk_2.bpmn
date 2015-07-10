@@ -16,7 +16,7 @@
         </activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask1" name="Отримання та обробка заяви" activiti:candidateGroups="sales">
+    <userTask id="usertask1" name="Отримання та обробка заяви" activiti:candidateGroups="hmel_mvk_2">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -55,7 +55,7 @@
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
 
 Ваше звернення щодо отримання довідки про наявність земельної ділянки оброблено. Станом на сьогодні ви маєте такі ділянки у Хмельницькій області:
 
@@ -72,7 +72,7 @@ ${comment}
     <serviceTask id="mailtask2" name="е-мейл без печати" activiti:type="mail">
       <extensionElements>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
 
 Ваше звернення щодо отримання довідки про наявність земельної ділянки оброблено. Станом на сьогодні ви маєте такі ділянки у Хмельницькій області:
 
@@ -109,7 +109,14 @@ ${comment}
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:string>Шановний</activiti:string>
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ваше звернення щодо отримання довідки про наявність земельної ділянки прийнято в роботу. Ви отримаєте відповідь протягом 30 днів.
+
+
+З повагою,
+Державна Адміністрація Хмельницької області,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

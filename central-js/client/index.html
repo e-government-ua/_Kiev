@@ -34,28 +34,40 @@
 </head>
 
 <body ng-app="app">
-    
-            <!-- Google Tag Manager -->
-    <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-WXGXTJ"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <script>
-        (function (w, d, s, l, i) {w[l] = w[l] || []; w[l].push({'gtm.start':
-        new Date().getTime(), event: 'gtm.js'}); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-        '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-WXGXTJ');
-    </script>
-    <!-- End Google Tag Manager -->
-    
+
+<!-- Google Tag Manager -->
+<noscript>
+    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-WXGXTJ"
+            height="0"
+            width="0"
+            style="display:none;visibility:hidden"></iframe>
+</noscript>
+<script>
+    (function(w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start': new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+                '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-WXGXTJ');
+</script>
+<!-- End Google Tag Manager -->
+
 <div ui-view=""
      class="full-height">
 
-    <div class="text-center">
-            <img class="text-center" src="assets/images/loading.gif" alt="Loading" />
+    <div class="text-center"
+         ng-if="false">
+        <img class="text-center"
+             src="assets/images/loading.gif"
+             alt="Loading"/>
     </div>
-    
+
 
     <div ui-view="header"></div>
 
@@ -95,15 +107,6 @@
 <!-- injector:js -->
 <script src="app/404/404.js"></script>
 <script src="app/about/about.js"></script>
-<script src="app/common/services/activiti.service.js"></script>
-<script src="app/common/services/bankid.service.js"></script>
-<script src="app/common/services/admin.service.js"></script>
-<script src="app/common/services/messages.service.js"></script>
-<script src="app/common/services/places.service.js"></script>
-<script src="app/common/services/service.service.js"></script>
-<script src="app/common/factories/localitylist.factory.js"></script>
-<script src="app/common/factories/regionlist.factory.js"></script>
-<script src="app/common/services/place.service.js"></script>
 <script src="app/common/components/dropdown/factories/dropdown.js"></script>
 <script src="app/common/components/form/directives/file.js"></script>
 <script src="app/common/components/form/directives/file2.js"></script>
@@ -115,6 +118,15 @@
 <script src="app/common/components/select/directives/optionsClass.js"></script>
 <script src="app/common/components/typeahead/directives/typeaheadEmpty.js"></script>
 <script src="app/common/components/typeahead/factories/typeahead.js"></script>
+<script src="app/common/factories/localitylist.factory.js"></script>
+<script src="app/common/factories/regionlist.factory.js"></script>
+<script src="app/common/services/activiti.service.js"></script>
+<script src="app/common/services/admin.service.js"></script>
+<script src="app/common/services/bankid.service.js"></script>
+<script src="app/common/services/messages.service.js"></script>
+<script src="app/common/services/place.service.js"></script>
+<script src="app/common/services/places.service.js"></script>
+<script src="app/common/services/service.service.js"></script>
 <script src="app/documents/controllers/documents.controller.js"></script>
 <script src="app/documents/controllers/documentsbankid.controller.js"></script>
 <script src="app/documents/controllers/documentscontent.controller.js"></script>
@@ -122,9 +134,6 @@
 <script src="app/documents/document.js"></script>
 <script src="app/documents/factories/bankiddocuments.factory.js"></script>
 <script src="app/documents/factories/bankiddocumentspassport.factory.js"></script>
-<script src="app/service/index/service.controller.js"></script>
-<script src="app/service/subcategory/subcategory.controller.js"></script>
-<script src="app/service/service.js"></script>
 <script src="app/journal/controllers/journal.controller.js"></script>
 <script src="app/journal/controllers/journalbankid.controller.js"></script>
 <script src="app/journal/controllers/journalcontent.controller.js"></script>
@@ -140,12 +149,14 @@
 <script src="app/service/country/controllers/states.js"></script>
 <script src="app/service/country/link/script.js"></script>
 <script src="app/service/country/script.js"></script>
+<script src="app/service/index/service.controller.js"></script>
 <script src="app/service/link/controllers/link.js"></script>
 <script src="app/service/region/built-in/script.js"></script>
 <script src="app/service/region/controllers/states.js"></script>
 <script src="app/service/region/link/script.js"></script>
 <script src="app/service/region/script.js"></script>
 <script src="app/service/services/auth/serviceAuthBlock.js"></script>
+<script src="app/service/subcategory/subcategory.controller.js"></script>
 <!-- endinjector -->
 <!-- endbuild -->
 </body>

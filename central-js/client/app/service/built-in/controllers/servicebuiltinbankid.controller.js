@@ -1,4 +1,4 @@
-angular.module('service').controller('ServiceBuiltInBankIDController', function($state, $stateParams, $scope, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
+angular.module('app').controller('ServiceBuiltInBankIDController', function($state, $stateParams, $scope, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
 
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount;

@@ -17,6 +17,6 @@ public interface SubjectOrganDao {
 
 
 	List<SubjectOrganJoin> findSubjectOrganJoinsBy(Long organID, Long regionID, Long cityID, String uaID);
-	void add(SubjectOrganJoin[] subjectOrganJoin);
+	void add(SubjectOrganJoin subjectOrganJoin);
 	void removeSubjectOrganJoin(Long organID, String[] publicIDs);
 }

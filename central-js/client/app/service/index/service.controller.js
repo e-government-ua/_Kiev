@@ -1,4 +1,4 @@
-angular.module('service', []).controller('ServiceController', function($scope, $rootScope, $timeout, CatalogService, AdminService, $filter) {
+angular.module('app').controller('ServiceController', function($scope, $rootScope, $timeout, CatalogService, AdminService, $filter) {
   $scope.catalog = CatalogService.getServices();
   $scope.catalogCounts = {0: 0, 1: 0, 2: 0};
   $scope.limit = 4;

@@ -90,33 +90,31 @@ public class SubjectOrganDaoIml implements SubjectOrganDao {
 		return crt.list();
 	}
 
-	@Transactional
-	// TODO Might be bottleneck, should be replaced via stored procedure.
-	public void add(SubjectOrganJoin[] organs) {
-		for(SubjectOrganJoin soj : organs){
-			SubjectOrganJoin persisted = get(soj.getPublicId(), soj.getSubjectOrganId());
+	@Transactional // TODO Might be bottleneck, should be replaced via stored procedure.
+	public void add(SubjectOrganJoin soj) {
 
-			if (persisted == null) {
-				// Object doesn't exists, we have to create it
-				soj.setId(null);
-				baseEntityDao.saveOrUpdate(soj);
-			} else {
-				// Object available, hence, we have to update its main parameters
-                persisted.setUaId   ( soj.getUaId()   );
-				persisted.setNameUa ( soj.getNameUa() );
-				persisted.setNameRu ( soj.getNameRu() );
-				persisted.setGeoLongitude( soj.getGeoLongitude() );
-				persisted.setGeoLatitude ( soj.getGeoLatitude()  );
+        SubjectOrganJoin persisted = get(soj.getPublicId(), soj.getSubjectOrganId());
 
-				if (soj.getRegionId() != null)
-					persisted.setRegionId(soj.getRegionId());
+        if (persisted == null) {
+            // Object doesn't exists, we have to create it
+            soj.setId(null);
+            baseEntityDao.saveOrUpdate(soj);
+        } else {
+            // Object available, hence, we have to update its main parameters
+            persisted.setUaId   ( soj.getUaId()   );
+            persisted.setNameUa ( soj.getNameUa() );
+            persisted.setNameRu ( soj.getNameRu() );
+            persisted.setGeoLongitude( soj.getGeoLongitude() );
+            persisted.setGeoLatitude ( soj.getGeoLatitude()  );
 
-				if (soj.getCityId() != null)
-					persisted.setCityId(soj.getCityId());
+            if (soj.getRegionId() != null)
+                persisted.setRegionId(soj.getRegionId());
 
-				baseEntityDao.saveOrUpdate(persisted);
-			}
-		}
+            if (soj.getCityId() != null)
+                persisted.setCityId(soj.getCityId());
+
+            baseEntityDao.saveOrUpdate(persisted);
+        }
 	}
 
 	private SubjectOrganJoin get(String publicId, Long subjectOrganId) {
@@ -127,9 +125,8 @@ public class SubjectOrganDaoIml implements SubjectOrganDao {
 				.uniqueResult();
 	}
 
-	@SuppressWarnings("unchecked") // i все буде добре...
-	@Transactional
-	// TODO Might be bottleneck, should be replaced via bulk delete (stored procedure)
+    @SuppressWarnings("unchecked") // i все буде добре...
+	@Transactional // TODO Might be bottleneck, should be replaced via bulk delete (stored procedure)
 	public void removeSubjectOrganJoin(Long organID, String[] publicIDs) {
 		List<SubjectOrganJoin> sojs = (List<SubjectOrganJoin>) getSession()
 			.createCriteria(SubjectOrganJoin.class)

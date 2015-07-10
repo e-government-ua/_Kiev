@@ -11,6 +11,16 @@ angular.module('documents').controller('DocumentsBankIdController', function($sc
     $window.location.href = './auth/bankID?link=' + redirectURI;
   };
 
+    $scope.loginWithEds = function () {
+        var stateForRedirect = $state.href('index.documents.bankid', {error: ''});
+        var redirectURI = $location.protocol() +
+            '://' + $location.host() + ':'
+            + $location.port()
+            + stateForRedirect;
+        $window.location.href = './auth/eds?link=' + redirectURI;
+    };
+
+
   if ($state.is('index.documents.bankid')) {
     if (!$state.params.error) {
       BankIDService.isLoggedIn().then(function() {

@@ -16,7 +16,7 @@ public interface EntityDao<T extends Entity> {
 
    void saveOrUpdate(T entity);
 
-   T getById(Integer identification);
+   T getById(Long identification);
 
    void delete(T entity);
 

@@ -354,15 +354,37 @@ public class ActivitiRestDocumentController {
     }
 
 
-    @RequestMapping(value   = "/setSubjectOrganJoins",
-                    method  = RequestMethod.POST,
-                    headers = { "Accept=application/json" })
-    public @ResponseBody void setSubjectOrganJoins(@RequestBody String jsonData) {
-        subjectOrganDao.add( JsonRestUtils.readObject(jsonData, SubjectOrganJoin[].class) );
+    @RequestMapping(value   = "/setSubjectOrganJoin",
+            method  = RequestMethod.GET,
+            headers = { "Accept=application/json" })
+    public  @ResponseBody void setSubjectOrganJoin(
+            @RequestParam(value = "nID_SubjectOrgan")   Long    organID,
+            @RequestParam(value = "sNameUa")            String  nameUA,
+            @RequestParam(value = "sNameRu")            String  nameRU,
+            @RequestParam(value = "sID_Privat")         String  privateID,
+            @RequestParam(value = "sID_Public")         String  publicID,
+            @RequestParam(value = "sGeoLongitude")      String  geoLongitude,
+            @RequestParam(value = "sGeoLatitude")       String  geoLatitude,
+            @RequestParam(value = "sID_UA")             String  uaID,
+            @RequestParam(value = "nID_Region", required = false)   Long regionID,
+            @RequestParam(value = "nID_City", required = false)     Long cityID
+    ){
+        SubjectOrganJoin soj = new SubjectOrganJoin();
+        soj.setUaId(uaID);
+        soj.setSubjectOrganId(organID);
+        soj.setNameUa(nameUA);
+        soj.setNameRu(nameRU);
+        soj.setPrivatId(privateID);
+        soj.setPublicId(publicID);
+        soj.setGeoLongitude(geoLongitude);
+        soj.setGeoLatitude(geoLatitude);
+        soj.setRegionId(regionID);
+        soj.setCityId(cityID);
+        subjectOrganDao.add( soj );
     }
 
     @RequestMapping(value   = "/removeSubjectOrganJoins",
-                    method  = RequestMethod.POST,
+                    method  = RequestMethod.GET,
                     headers = { "Accept=application/json" })
     public  @ResponseBody void removeSubjectOrganJoins(
             @RequestParam(value = "nID_SubjectOrgan")   Long     organID,
