@@ -55,7 +55,7 @@
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
 
 Ваше звернення щодо отримання довідки про наявність земельної ділянки оброблено. Станом на сьогодні ви маєте такі ділянки у Хмельницькій області:
 
@@ -72,7 +72,7 @@ ${comment}
     <serviceTask id="mailtask2" name="е-мейл без печати" activiti:type="mail">
       <extensionElements>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
 
 Ваше звернення щодо отримання довідки про наявність земельної ділянки оброблено. Станом на сьогодні ви маєте такі ділянки у Хмельницькій області:
 
@@ -107,6 +107,16 @@ ${comment}
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ваше звернення щодо отримання довідки про наявність земельної ділянки прийнято в роботу. Ви отримаєте відповідь протягом 30 днів.
+
+
+З повагою,
+Державна Адміністрація Хмельницької області,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
