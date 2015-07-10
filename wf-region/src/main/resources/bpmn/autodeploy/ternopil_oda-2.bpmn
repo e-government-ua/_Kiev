@@ -48,9 +48,12 @@
         <activiti:field name="subject">
           <activiti:string>Отримання одноразової матеріальної допомоги законним представником</activiti:string>
         </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="Заява поступає в роботу операціоніста">
+    <userTask id="usertask1" name="Заява поступає в роботу операціоніста" activiti:candidateGroups="ternopil_oda3">
       <extensionElements>
         <activiti:formProperty id="orgName" name="До кого Ви звертаєтесь по допомогу" type="string" default="МінСоцПолітики" writable="false"></activiti:formProperty>
         <activiti:formProperty id="citizen" name="Ви являєтесь" type="string" default="Законний Представник отримувача державної допомоги" writable="false"></activiti:formProperty>
@@ -107,6 +110,9 @@
 Нажаль ми не можемо надати Вам/Вашому підопічному запрошувану допомогу. 
 
 Причина такого рішення - ${refuseReason}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
