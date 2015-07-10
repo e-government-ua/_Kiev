@@ -16,7 +16,7 @@
         </activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask1" name="Отримання та обробка заяви" activiti:candidateGroups="sales">
+    <userTask id="usertask1" name="Отримання та обробка заяви" activiti:candidateGroups="hmel_mvk_2">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
