@@ -22,18 +22,18 @@ public class ActivitiPaymentLiqpayController {
 			@RequestParam String sHost) {
 		sb.append(sHost);
 		String data = "data"; // вместо "data" подставить ответ вызова API
-								// liqpay
+		String t = ""; 			// liqpay
 		sb.append("sID_Order=" + sID_Order);
 		sb.append("&sData=" + data);
 		sb.append("&sID_PaymentSystem=Liqpay");
 		try {
 			if (sID_Order.startsWith("TaskActiviti_")) {
-				setPaymentStatus_TaskActiviti(sHost, sb.toString(), data);
+				t=setPaymentStatus_TaskActiviti(sHost, sb.toString(), data);
 			}
 		} catch (Exception e) {
 			log.error("HttpAnswer error:", e);
 		}
-		return "/";
+		return t+"/";
 	}
 
 	private String setPaymentStatus_TaskActiviti(String sHost, String url,
