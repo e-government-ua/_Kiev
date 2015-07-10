@@ -30,6 +30,7 @@
         <activiti:formProperty id="accBank" name="Банк" type="string"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="repPhone" name="Контактний телефон Представника" type="string" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="testFile" name="тестовий файл" type="file"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення громадянину про успішне подання заяви" activiti:type="mail">
@@ -81,6 +82,7 @@
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="refuseReason" name="Причина відмови " type="textArea"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow7" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
@@ -118,7 +120,6 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow12" sourceRef="mailtask3" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow13" sourceRef="startevent1" targetRef="mailtask1"></sequenceFlow>
     <serviceTask id="mailtask3" name="Відповідь громадянину щодо успішного переказу коштів" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -131,15 +132,21 @@
           <activiti:string>наш subject</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:string>Шановний, все у нас порядок - деньги отослали. Все путем</activiti:string>
+          <activiti:string>Шановн</activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
+    <serviceTask id="servicetask1" name="Service Task" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <sequenceFlow id="flow13" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <sequenceFlow id="flow14" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
     <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="60.0" y="50.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="20.0" y="67.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="91.0" width="183.0" x="790.0" y="60.0"></omgdc:Bounds>
@@ -158,6 +165,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
         <omgdc:Bounds height="95.0" width="183.0" x="519.0" y="310.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="104.0" width="221.0" x="110.0" y="67.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="615.0" y="105.0"></omgdi:waypoint>
@@ -193,7 +203,11 @@
         <omgdi:waypoint x="980.0" y="487.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
-        <omgdi:waypoint x="95.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="55.0" y="84.0"></omgdi:waypoint>
+        <omgdi:waypoint x="110.0" y="119.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="331.0" y="119.0"></omgdi:waypoint>
         <omgdi:waypoint x="444.0" y="105.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
