@@ -7,7 +7,7 @@
 
 module.exports = {
   DOMAIN: 'http://localhost:9000',
-  // Control debug level for modules using visionmedia/debug
+  // Control debug level for modules using visionmedia/debug 
   DEBUG: 'true',
 
   SERVER_PROTOCOL: 'http',
