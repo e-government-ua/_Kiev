@@ -11,19 +11,19 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькове Представника" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса прописки Представника" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані Представника (серія і номер)" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Прикрипіть скан-копію паспорту Представника (1, 2 і 11 сторінку)" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Прикрипіть скан-копію паспорту Представника (1, 2 і 11 сторінку)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdInn" name="ІНН Представника" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_inn" name="Прикрипіть скан-копію ІНН Представника" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_inn" name="Прикрипіть скан-копію ІНН Представника" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="helpeeSurname" name="Прізвище отримувача допомоги" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="helpeeName" name="Ім'я отримувача допомоги" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="helpeeMiddleName" name="По-батькове отримувача допомоги" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="helpeeAddress" name="Адреса отримувача допомоги; (Вказати район та назву населеного пункту, вулицю, номер будинку та квартири)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="helpeePassport" name="Серія і номер паспорту отримувача допомоги" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="helpeePassportScan" name="Прикрипіть скан-копію паспорту отримувача допомоги" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="helpeePassportScan" name="Прикрипіть скан-копію паспорту отримувача допомоги" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="helpeeINN" name="ІНН отримувача допомоги" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="helpeeINNScan" name="Прикрипіть скан-копію ІНН отримувача допомоги" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="helpeeHelpID" name="Прикрипіть скан-копію посвідчення отримувача допомоги; Якщо це стосовно Вас" type="file"></activiti:formProperty>
-        <activiti:formProperty id="helpeeMedExp" name="Прикрипіть скан-копію висновку мед-експертизи отримувача допомоги; Якщо це стосовно Вас" type="file"></activiti:formProperty>
+        <activiti:formProperty id="helpeeINNScan" name="Прикрипіть скан-копію ІНН отримувача допомоги" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="helpeeHelpID" name="Прикрипіть скан-копію посвідчення отримувача допомоги; Якщо це стосовно Вас" type="string"></activiti:formProperty>
+        <activiti:formProperty id="helpeeMedExp" name="Прикрипіть скан-копію висновку мед-експертизи отримувача допомоги; Якщо це стосовно Вас" type="string"></activiti:formProperty>
         <activiti:formProperty id="postAddress" name="Поштова адреса; Якщо Ви бажаєте отримати допомогу поштою - заповніть це поле" type="string"></activiti:formProperty>
         <activiti:formProperty id="accAddress" name="Номер банківського рахунк       №; Якщо Ви бажаєте  отримати допомогу через банк - то заповніть слідучі 4 поля" type="string"></activiti:formProperty>
         <activiti:formProperty id="accMFO" name="МФО" type="string"></activiti:formProperty>
@@ -136,10 +136,7 @@
         <activiti:field name="text">
           <activiti:expression>Шановний громадянин, 
 
-Запрошуванна матеріальна допомога була успішно відправлена вибраним вами способом. 
-
-
-</activiti:expression>
+Запрошуванна матеріальна допомога була успішно відправлена вибраним вами способом.</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>'${transferConfirm}'</activiti:expression>
