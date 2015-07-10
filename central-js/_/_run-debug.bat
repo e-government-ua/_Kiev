@@ -1,6 +1,6 @@
 call up.bat
 
-call grunt serve
+call grunt serve:debug
 
 call dn.bat
 
