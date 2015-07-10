@@ -62,19 +62,13 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькове Представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса прописки Представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані Представника (серія і номер)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Прикрипіть скан-копію паспорту Представника (1, 2 і 11 сторінку)" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdInn" name="ІНН Представника" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_inn" name="Прикрипіть скан-копію ІНН Представника" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeSurname" name="Прізвище отримувача допомоги" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeName" name="Ім'я отримувача допомоги" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeMiddleName" name="По-батькове отримувача допомоги" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeAddress" name="Адреса отримувача допомоги; (Вказати район та назву населеного пункту, вулицю, номер будинку та квартири)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeePassport" name="Серія і номер паспорту отримувача допомоги" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeePassportScan" name="Прикрипіть скан-копію паспорту отримувача допомоги" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeINN" name="ІНН отримувача допомоги" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeeINNScan" name="Прикрипіть скан-копію ІНН отримувача допомоги" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeeHelpID" name="Прикрипіть скан-копію посвідчення отримувача допомоги; Якщо це стосовно Вас" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeeMedExp" name="Прикрипіть скан-копію висновку мед-експертизи отримувача допомоги; Якщо це стосовно Вас" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="postAddress" name="Поштова адреса; Якщо Ви бажаєте отримати допомогу поштою - заповніть це поле" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="accAddress" name="Номер банківського рахунк       №; Якщо Ви бажаєте  отримати допомогу через банк - то заповніть слідучі 4 поля" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="accMFO" name="МФО" type="string" writable="false"></activiti:formProperty>
@@ -87,7 +81,6 @@
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="refuseReason" name="Причина відмови " type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="transferConfirm" name="Документальне підтвердження (якщо можливо) відправки коштів" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow7" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
@@ -119,34 +112,29 @@
     <sequenceFlow id="flow9" name="${workerDecision=='decline'}" sourceRef="exclusivegateway1" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='decline'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask2" name="Відповідь громадянину щодо успішного переказу коштів" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow10" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow11" name="${workerDecision=='accept'}" sourceRef="exclusivegateway1" targetRef="mailtask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="mailtask3" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="startevent1" targetRef="mailtask1"></sequenceFlow>
+    <serviceTask id="mailtask3" name="Відповідь громадянину щодо успішного переказу коштів" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>'${email}'</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Матеріальна допомога була успішно відправлена</activiti:string>
+          <activiti:string>наш subject</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний громадянин, 
-
-Запрошуванна матеріальна допомога була успішно відправлена вибраним вами способом.</activiti:expression>
-        </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>'${transferConfirm}'</activiti:expression>
+          <activiti:string>Шановний, все у нас порядок - деньги отослали. Все путем</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <endEvent id="endevent2" name="End"></endEvent>
-    <sequenceFlow id="flow10" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow11" name="${workerDecision=='accept'}" sourceRef="exclusivegateway1" targetRef="servicetask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept'}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow12" sourceRef="servicetask2" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow13" sourceRef="startevent1" targetRef="mailtask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
     <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
@@ -165,11 +153,11 @@
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="73.0" width="221.0" x="820.0" y="178.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="95.0" width="183.0" x="519.0" y="310.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="980.0" y="470.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+        <omgdc:Bounds height="95.0" width="183.0" x="519.0" y="310.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="615.0" y="105.0"></omgdi:waypoint>
