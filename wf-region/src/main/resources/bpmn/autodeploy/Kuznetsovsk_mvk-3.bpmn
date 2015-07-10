@@ -38,7 +38,11 @@
         <activiti:field name="text">
           <activiti:expression>Шановний громадянин, ${bankIdfirstName} ${bankIdmiddleName}
 
-Ваша заява була успішно прийнята в роботу. Відповідь повинна бути протягом 10 діб.</activiti:expression>
+Ваша заява була успішно прийнята в роботу. Відповідь повинна бути протягом 10 діб.
+
+З повагою,
+Виконавчий комітет Кузнецовської міської ради,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -82,7 +86,11 @@
           <activiti:expression>Звернення на тему: "${eventName}"</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:string><![CDATA[Тело письма]]></activiti:string>
+          <activiti:expression>Шановний 
+
+З повагою,
+Виконавчий комітет Кузнецовської міської ради,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${scanCopy}"</activiti:expression>

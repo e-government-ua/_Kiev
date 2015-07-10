@@ -38,7 +38,8 @@
 На жаль, змушені відмовити Вам у наданні інформації у зв'язку з недостатньою аргументацією Вашого запиту.
 
 З повагою,
-Міська рада міста Кузнецовськ,</activiti:expression>
+Виконавчий комітет Кузнецовської міської ради,
+</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -67,7 +68,8 @@
 На жаль, документ не було знайдено.
 
 З повагою,
-Міська рада міста Кузнецовськ,</activiti:expression>
+Виконавчий комітет Кузнецовської міської ради,
+</activiti:expression>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -130,10 +132,11 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-Ваш запит на отримання ${docType} ${docName} від ${docDate} успішно зареєстровано. Ви отримаєте відповідь протягом п'яти робочих днів на цю email-адресу.
+Ваш запит на отримання ${docType} ${docName} від ${docDate} успішно зареєстровано. 
+Ви отримаєте відповідь протягом п'яти робочих днів на цю email-адресу.
 
 З повагою,
-Міська рада міста Кузнецовськ,
+Виконавчий комітет Кузнецовської міської ради,
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
@@ -153,11 +156,12 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-Щодо Вашого запиту на отримання ${docType} №${docNumber} від  ${docDate}
-Документ знаходиться у додатку до цього листа.
+Щодо Вашого запиту на отримання ${docType} №${docNumber}.
+
+Копія документа знаходиться у додатку до цього листа.
 
 З повагою,
-Міська рада міста Кузнецовськ,
+Виконавчий комітет Кузнецовської міської ради,
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">

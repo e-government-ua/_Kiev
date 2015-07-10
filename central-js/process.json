@@ -4,7 +4,7 @@
   "args": "",
   "log_date_format" : "YYYY-MM-DD_HH:mm:ss.SSS",
   "env": {
-    "NODE_ENV": "production",
+    "NODE_ENV": "local",
     "DEBUG": "false",
 
     "SERVER_PROTOCOL": "https",
