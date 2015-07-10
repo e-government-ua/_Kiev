@@ -1,4 +1,4 @@
-angular.module('service').config(function($stateProvider) {
+angular.module('app').config(function($stateProvider) {
   $stateProvider
     .state('index.service.general.region.built-in', {
       url: '/built-in',

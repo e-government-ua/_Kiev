@@ -10,7 +10,7 @@
             <span class="icon-bar"></span>
         </button>
         <div class="navbar-header"
-                ui-sref="index.main">
+                ui-sref="index">
             <a style="margin-top: 10px;"
                class="navbar-brand"
                href="/">iGov.org.ua</a>
@@ -24,10 +24,10 @@
             <ul class="nav navbar-nav navbar-right">
                 <li style="height: 90px;"
                     class="menu-item"
-                    ui-sref-active="selected">
+                    ng-class="{selected: state.is('index')}">
 
                     <a style="margin-top: 5px;"
-                       ui-sref="index.main">
+                       ui-sref="index">
                         <h4>Послуги</h4>
                     </a>
                 </li>

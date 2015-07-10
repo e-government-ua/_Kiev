@@ -1,4 +1,4 @@
-angular.module('service').controller('ServiceCountryController', function($state, $rootScope, $scope, $sce, service, AdminService) {
+angular.module('app').controller('ServiceCountryController', function($state, $rootScope, $scope, $sce, service, AdminService) {
   $scope.service = service;
 
   $scope.bAdmin = AdminService.isAdmin();

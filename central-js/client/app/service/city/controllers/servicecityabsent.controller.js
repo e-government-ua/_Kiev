@@ -1,4 +1,4 @@
-angular.module('service').controller('ServiceCityAbsentController', function($state,
+angular.module('app').controller('ServiceCityAbsentController', function($state,
                                                       $rootScope,
                                                       $scope,
                                                       service,

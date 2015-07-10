@@ -153,4 +153,33 @@
         <!--<dropUniqueConstraint tableName="HistoryEvent_Service" constraintName="sID" uniqueColumns="sID"/>-->
     </changeSet>
 
+    <changeSet id="issue-511" author="brunneng">
+        <createTable tableName="Merchant">
+            <column name="nID" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sID" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sName" type="varchar(200)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sURL_CallbackStatusNew" type="varchar(500)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sURL_CallbackPaySuccess" type="varchar(500)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="nID_SubjectOrgan" type="int">
+                <constraints nullable="true"
+                             foreignKeyName="FK_Merchant_SubjectOrgan"
+                             referencedTableName="SubjectOrgan" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="issue-511-autoIncrement" author="brunneng" dbms="h2">
+        <addAutoIncrement tableName="Merchant" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
 </databaseChangeLog>

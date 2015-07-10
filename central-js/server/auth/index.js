@@ -14,6 +14,7 @@ require('./bankid/passport').setup(config, url, accountService);
 var router = express.Router();
 
 router.use('/bankID', require('./bankid'));
+router.use('/eds', require('./eds'));
 router.get('/isAuthenticated', auth.isAuthenticated(), function(req,res){
     res.status(200);
     res.end();
