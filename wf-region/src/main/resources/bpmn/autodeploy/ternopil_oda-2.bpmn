@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="myProcess" name="Тернопіль ОДА - Отримання одноразової матеріальної допомоги законним представником" isExecutable="true">
-    <endEvent id="endevent1" name="End"></endEvent>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="orgName" name="До кого Ви звертаєтесь по допомогу" type="string" default="МінСоцПолітики" required="true"></activiti:formProperty>
@@ -33,13 +32,6 @@
         <activiti:formProperty id="repPhone" name="Контактний телефон Представника" type="string" default="+380" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <sequenceFlow id="flow4" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
-    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
-      <errorEventDefinition></errorEventDefinition>
-    </boundaryEvent>
-    <sequenceFlow id="flow5" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <sequenceFlow id="flow6" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
     <serviceTask id="mailtask1" name="Повідомлення громадянину про успішне подання заяви" activiti:type="mail">
       <extensionElements>
         <activiti:field name="text">
@@ -93,7 +85,6 @@
         </activiti:formProperty>
         <activiti:formProperty id="refuseReason" name="Причина відмови " type="textArea"></activiti:formProperty>
         <activiti:formProperty id="transferConfirm" name="Документальне підтвердження (якщо можливо) відправки коштів" type="file"></activiti:formProperty>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow7" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
@@ -149,23 +140,15 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow12" sourceRef="servicetask2" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="startevent1" targetRef="mailtask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
     <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="60.0" y="50.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="410.0" y="0.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="91.0" width="183.0" x="790.0" y="60.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
-        <omgdc:Bounds height="131.0" width="221.0" x="140.0" y="40.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
-        <omgdc:Bounds height="30.0" width="30.0" x="300.0" y="50.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="77.0" width="171.0" x="444.0" y="67.0"></omgdc:Bounds>
@@ -182,18 +165,6 @@
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="980.0" y="470.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="95.0" y="67.0"></omgdi:waypoint>
-        <omgdi:waypoint x="140.0" y="105.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="315.0" y="50.0"></omgdi:waypoint>
-        <omgdi:waypoint x="427.0" y="35.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
-        <omgdi:waypoint x="361.0" y="105.0"></omgdi:waypoint>
-        <omgdi:waypoint x="444.0" y="105.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="615.0" y="105.0"></omgdi:waypoint>
         <omgdi:waypoint x="790.0" y="105.0"></omgdi:waypoint>
@@ -226,6 +197,10 @@
         <omgdi:waypoint x="610.0" y="405.0"></omgdi:waypoint>
         <omgdi:waypoint x="610.0" y="487.0"></omgdi:waypoint>
         <omgdi:waypoint x="980.0" y="487.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="95.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="444.0" y="105.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
