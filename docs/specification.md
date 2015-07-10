@@ -20,6 +20,7 @@
 <a href="#18_workWithFlowSlot">18. Работа со слотами потока</a><br/>
 <a href="#19">19. Работа с джоинами суьтектами (отделениями/филиалами)</a><br/>
 <a href="#20">20. Сервис для callback-a liqpay</a><br/>
+<a href="#21">21. Сервис изменения платежа liqpay</a><br/>
 ### iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -1635,7 +1636,7 @@ http://test.e-gov.org.ua/wf-central/service/setPaymentNewStatus_Liqpay?sID_Order
 Ответ:  HTTP STATUS 200
 
 <a name="21_workWithFlowSlot">
-#### 21. Сервис для callback-a liqpay
+#### 21. Сервис изменения платежа liqpay
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Context: http://server:port/wf-regional/service/setPaymentStatus_TaskActiviti**.
@@ -1643,7 +1644,7 @@ http://test.e-gov.org.ua/wf-central/service/setPaymentNewStatus_Liqpay?sID_Order
 
 Параметры:
 * sID_Order - идентификатор платежа
-* sData - данные для отправки на liqpay
+* sData - данные для вызова liqpay
 * sID_PaymentSystem - система платежа
 
 Пример:
