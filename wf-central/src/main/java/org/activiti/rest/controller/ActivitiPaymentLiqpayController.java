@@ -12,14 +12,14 @@ import org.wf.dp.dniprorada.util.Util;
 public class ActivitiPaymentLiqpayController {
 	
 	private final Logger log = LoggerFactory.getLogger(ActivitiPaymentLiqpayController.class);
-	private StringBuffer sb = new StringBuffer("https://test.e-gov.org.ua/wf-region/service/setPaymentStatus_TaskActiviti?");
+	private StringBuffer sb = new StringBuffer();
 	
 	@RequestMapping(value="/setPaymentNewStatus_Liqpay", method = RequestMethod.GET)
 	public String setPaymentNewStatus_Liqpay(
 			@RequestParam String sID_Order,
 			@RequestParam String sHost) {
-		
-		String data = "data"; //вместо "data" вызвать API liqpay и подставить ответ
+		sb.append(sHost);
+		String data = "data"; //вместо "data" подставить ответ вызова API liqpay 
 		sb.append("sID_Order="+sID_Order);
 		sb.append("&sData="+data); 
 		sb.append("&sID_PaymentSystem=Liqpay");
