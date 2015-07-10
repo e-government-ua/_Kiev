@@ -42,7 +42,7 @@ public final class Util {
 		
 		URL url = new URL(urlName);
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
-		con.setRequestMethod("POST");
+		con.setRequestMethod("GET");
 		con.setRequestProperty("content-type", "application/json;charset=UTF-8");
 		con.setDoOutput(true);
 		DataOutputStream dos = new DataOutputStream(con.getOutputStream());
