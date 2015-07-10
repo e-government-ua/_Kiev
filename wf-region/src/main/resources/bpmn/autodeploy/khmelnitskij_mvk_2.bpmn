@@ -108,9 +108,6 @@ ${comment}
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
-        <activiti:field name="text">
-          <activiti:string>Шановний</activiti:string>
-        </activiti:field>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow5" sourceRef="startevent1" targetRef="mailtask3"></sequenceFlow>
