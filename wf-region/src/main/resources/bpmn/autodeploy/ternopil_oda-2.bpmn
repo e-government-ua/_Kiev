@@ -5,7 +5,7 @@
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="orgName" name="До кого Ви звертаєтесь по допомогу" type="string" default="МінСоцПолітики" required="true"></activiti:formProperty>
-        <activiti:formProperty id="citizen" name="Ви являєтесь" default="Законний Представник отримувача державної допомоги" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="citizen" name="Ви являєтесь" type="string" default="Законний Представник отримувача державної допомоги" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище Представника" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я Представника" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькове Представника" type="string" required="true"></activiti:formProperty>
@@ -61,7 +61,7 @@
     <userTask id="usertask1" name="Заява поступає в роботу операціоніста">
       <extensionElements>
         <activiti:formProperty id="orgName" name="До кого Ви звертаєтесь по допомогу" type="string" default="МінСоцПолітики" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="citizen" name="Ви являєтесь" default="Законний Представник отримувача державної допомоги" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="citizen" name="Ви являєтесь" type="string" default="Законний Представник отримувача державної допомоги" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище Представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я Представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькове Представника" type="string" writable="false"></activiti:formProperty>
