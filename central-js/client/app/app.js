@@ -30,15 +30,15 @@ angular.module('app', [
         }
       }
     }).state('index.subcategory', {
-      url: '/subcategory/:catID/:scatID',
+      url: 'subcategory/:catID/:scatID',
       resolve: {
         catalog: function(CatalogService) {
           return CatalogService.getServices();
         }
       },
       views: {
-        '': {
-          templateUrl: 'app/service/subcategory.html',
+        'main@': {
+          templateUrl: 'app/service/subcategory/subcategory.html',
           controller: 'SubcategoryController'
         }
       }
