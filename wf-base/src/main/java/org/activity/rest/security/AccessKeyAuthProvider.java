@@ -21,6 +21,8 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
     private String generalAccessKey;
     @Value("${general.auth.custom.subjectId}")
     private String generalSubjectId;
+    @Value("${general.auth.custom.persistentKey}")
+    private String persistentKey;
     private AccessDataDao accessDataDao;
 
     @Autowired
@@ -34,6 +36,10 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
 
     public void setGeneralSubjectId(String generalSubjectId) {
         this.generalSubjectId = generalSubjectId;
+    }
+
+    public void setPersistentKey(String persistentKey) {
+        this.persistentKey = persistentKey;
     }
 
     @Override
@@ -54,7 +60,9 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
         if (!accessData.equals(authentication.getCredentials())) {
             throw new BadAccessKeyCredentialsException("Error custom authorization - key data is wrong");
         }
-        accessDataDao.removeAccessData(authentication.getName());
+        if (persistentKey == null || !persistentKey.equals(authentication.getName())) {
+            accessDataDao.removeAccessData(authentication.getName());
+        }
     }
 
     private boolean authenticatedByGeneralCredentials(Authentication authentication) {
