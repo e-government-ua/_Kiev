@@ -6,7 +6,7 @@
 //
 module.exports = {
   DEBUG: false,
-  DOMAIN: 'http://localhost:9000',
+  DOMAIN: 'http://localhost:9001',
   SESSION_SECRET: 'dashboardjs-secret',
 
   ACTIVITI_PROT: 'https',
