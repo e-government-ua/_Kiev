@@ -27,7 +27,7 @@ angular.module('app').config(function($stateProvider) {
         }
       },
       views: {
-        '@service': {
+        'main@': {
           templateUrl: 'app/service/region/index.html',
           controller: 'ServiceRegionController'
         },

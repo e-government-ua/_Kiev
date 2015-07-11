@@ -3,7 +3,7 @@ angular.module('app').config(function($stateProvider) {
     .state('index.service.general.country', {
       url: '/country',
       views: {
-        '@service': {
+        'main@': {
           templateUrl: 'app/service/country/index.html',
           controller: 'ServiceCountryController'
         }
