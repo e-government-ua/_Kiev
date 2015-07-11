@@ -1,4 +1,4 @@
-package org.activiti.rest.controller;
+package org.activiti.rest.security;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

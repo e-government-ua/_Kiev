@@ -1,4 +1,4 @@
-package org.activiti.rest.controller;
+package org.activity.rest.security;
 
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.*;

@@ -1,4 +1,4 @@
-package org.activiti.rest.controller;
+package org.activity.rest.security;
 
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.ProcessEngines;

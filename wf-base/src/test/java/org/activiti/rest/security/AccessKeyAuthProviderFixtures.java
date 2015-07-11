@@ -1,5 +1,6 @@
-package org.activiti.rest.controller;
+package org.activiti.rest.security;
 
+import org.activity.rest.security.*;
 import org.springframework.security.core.*;
 import org.springframework.security.core.authority.*;
 

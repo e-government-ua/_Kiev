@@ -1,5 +1,6 @@
-package org.activiti.rest.controller;
+package org.activiti.rest.security;
 
+import org.activity.rest.security.*;
 import org.junit.*;
 import org.junit.rules.*;
 import org.junit.runner.*;
@@ -8,7 +9,7 @@ import org.mockito.runners.*;
 import org.springframework.security.core.*;
 import org.wf.dp.dniprorada.base.dao.*;
 
-import static org.activiti.rest.controller.AccessKeyAuthProviderFixtures.*;
+import static org.activiti.rest.security.AccessKeyAuthProviderFixtures.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
