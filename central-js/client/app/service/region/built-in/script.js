@@ -87,8 +87,10 @@ angular.module('app').config(function($stateProvider) {
       views: {
         'content@index.service.general.region': {
           templateUrl: 'app/service/region/built-in/bankid.submitted.html',
-          controller: function($state, $scope) {
+          controller: function($state, $scope, BankIDAccount) {
             $scope.state = $state.get('index.service.general.region.built-in.bankid.submitted');
+
+            $scope.bankIDAccount = BankIDAccount;
           }
         }
       }
