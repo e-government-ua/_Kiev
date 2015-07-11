@@ -60,6 +60,17 @@ public class AccessKeyAuthProviderTest {
     }
 
     @Test
+    public void shouldNotRemoveDaoCredentialsForPersistentKeyAfterSuccessfulAuthentication() throws Exception {
+        when(accessDataDao.getAccessData(ACCESS_KEY)).thenReturn(SUBJECT_ID);
+        Authentication authentication = createAuthToken();
+        provider.setPersistentKey(ACCESS_KEY);
+
+        provider.authenticate(authentication);
+
+        verify(accessDataDao, times(0)).removeAccessData(ACCESS_KEY);
+    }
+
+    @Test
     public void shouldThrowExceptionWhenDaoDoesNotContainTheAccessKey() throws Exception {
         Authentication authentication = createAuthToken();
         thrown.expect(BadAccessKeyCredentialsException.class);
