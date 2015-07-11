@@ -8,12 +8,12 @@ angular.module('documents').controller('DocumentsSearchController',
     $scope.showSmsPass = false;
     $scope.typeOptions = types;
     $scope.operatorOptions = operators;
-    $scope.document = {};
+    $scope.documents = {};
 
     $scope.searchDocument = function(typeId, operatorId, code, smsPass) {
         ServiceService.searchDocument(typeId, operatorId, code, smsPass)
             .then(function(data) {
-                return $scope.document = data;
+                return $scope.documents = data;
             })
             .then(function(data) {
                 if (data.hasOwnProperty('message') && data.message == 'Document Access wrong password') {
