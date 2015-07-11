@@ -1,4 +1,4 @@
-call up.bat
+cd ..
 
 call gem install sass
 call npm cache clean
@@ -10,4 +10,4 @@ cd dist
 call npm install
 cd ..
 
-call dn.bat
+cd _

@@ -1,9 +1,9 @@
-up.bat
+cd ./..
 
 gem install sass
 npm install 
 bower install
 
-dn.bat
+cd ./_
 
-_run.sh
+./_run.sh

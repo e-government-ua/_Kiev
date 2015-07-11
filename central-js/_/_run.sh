@@ -1,5 +1,5 @@
-up.bat
+cd ./..
 
 grunt serve
 
-dn.bat
+cd ./_

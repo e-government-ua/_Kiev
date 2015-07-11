@@ -1,5 +1,5 @@
-up.bat
+cd ./..
 
 grunt serve:debug
 
-dn.bat
+cd ./_
