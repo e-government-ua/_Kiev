@@ -1,5 +1,8 @@
 angular.module('app').controller('ServiceController', function($scope, $rootScope, $timeout, CatalogService, AdminService, $filter) {
-  $scope.catalog = CatalogService.getServices();
+  $scope.catalog = CatalogService.getServices().finally(function(){
+      $scope.spinner = false; // Hide a loading spinner
+  });
+
   $scope.catalogCounts = {0: 0, 1: 0, 2: 0};
   $scope.limit = 4;
   $scope.sSearch = null;
@@ -10,6 +13,7 @@ angular.module('app').controller('ServiceController', function($scope, $rootScop
   $scope.selectedStatus = -1;
   $scope.operator = -1;
   $scope.sourceCatalog = $scope.catalog;
+  $scope.spinner = true;
 
   $scope.search = function() {
     return CatalogService.getServices($scope.sSearch).then(function(result) {
