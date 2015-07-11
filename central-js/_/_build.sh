@@ -5,5 +5,3 @@ npm install
 bower install
 
 cd ./_
-
-./_run.sh

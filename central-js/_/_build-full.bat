@@ -7,7 +7,7 @@ call bower install
 call npm install grunt-contrib-imagemin
 call grunt build
 cd dist
-call npm install
+	call npm install
 cd ..
 
 cd _
