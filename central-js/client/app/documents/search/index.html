@@ -19,7 +19,7 @@
                         <div class="col-md-6">
                             <form name="searchForm"
                                   role="form"
-                                  ng-submit="searchForm.$valid && searchDocument(typeId, operatorId, code)">
+                                  ng-submit="searchForm.$valid && searchDocument(typeId, operatorId, code, smsPass)">
                                 <div class="row">
                                     <div class="form-group">
                                         <label for="typeId">Оберить тип документу<em>*</em></label>
@@ -50,6 +50,16 @@
                                                ng-model="code"
                                                class="form-control"
                                                id="code"/>
+                                    </div>
+                                </div>
+
+                                <div class="row" ng-show="showSmsPass">
+                                    <div class="form-group">
+                                        <label for="smsPass">Введіть отриманий Вами SMS код<em>*</em></label>
+                                        <input type="text"
+                                               ng-model="smsPass"
+                                               class="form-control"
+                                               id="smsPass"/>
                                     </div>
                                 </div>
 
