@@ -27,6 +27,25 @@ module.exports.getDocumentFile = function (req, res) {
     }).pipe(res);
 };
 
+module.exports.getDocumentTypes = function (req, res) {
+    return sendGetRequest(req, res, '/services/getDocumentTypes', {});
+};
+
+module.exports.getDocumentOperators = function (req, res) {
+    return sendGetRequest(req, res, '/services/getDocumentOperators', {});
+};
+
+module.exports.searchDocument = function (req, res) {
+    console.log(req.body);
+    var params = {
+        'sCode_DocumentAccess': req.body.params.sCode_DocumentAccess,
+        'nID_DocumentOperator_SubjectOrgan': req.body.params.nID_DocumentOperator_SubjectOrgan,
+        'nID_DocumentType': req.body.params.nID_DocumentType,
+        'sPass': req.body.params.sPass
+    };
+    return sendGetRequest(req, res, '/services/getDocumentAccessByHandler', params);
+};
+
 module.exports.getDocument = function (req, res) {
     var params = {
         'nID': req.params.nID

@@ -8,5 +8,8 @@ router.get('/:nID', documents.getDocument);
 router.get('/download/:nID', auth.isDocumentOwner(), documents.getDocumentFile);
 router.post('/initialUpload', auth.isAuthenticated(), documents.initialUpload);
 router.get('/:nID/share', auth.isDocumentOwner(), documents.shareDocument);
+router.get('/search/getDocumentTypes', auth.isAuthenticated(), documents.getDocumentTypes);
+router.get('/search/getDocumentOperators', auth.isAuthenticated(), documents.getDocumentOperators);
+router.post('/search/searchDocument', auth.isAuthenticated(), documents.searchDocument);
 
 module.exports = router;

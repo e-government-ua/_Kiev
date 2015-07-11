@@ -4,16 +4,66 @@
         <div class="row no-margin-bottom">
             <div class="col-md-10">
                 <p>Тут Ви зможете шукати електронні образи документів як державних організацій (наприклад, довідки) так
-                   і приватних (наприклад, довідки банків).</p>
+                    і приватних (наприклад, довідки банків).</p>
+                <b style="color: red;">(розділ у процесі розробки)</b>
                 <a href="https://docs.google.com/presentation/d/17SPm-nD1awYllMNiuv3gQnckOC0VegHj7-SbLtjTOZs/edit#slide=id.p">Докладніше
-                                                                                                                              про
-                                                                                                                              розділ
-                                                                                                                              Документи
-                                                                                                                              на
-                                                                                                                              порталі
-                                                                                                                              iGov</a>
-                <br>
-                (розділ у процесі розробки)
+                    про
+                    розділ
+                    Документи
+                    на
+                    порталі
+                    iGov</a>
+
+                <div class="panel panel-default">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form name="searchForm"
+                                  role="form"
+                                  ng-submit="searchForm.$valid && searchDocument(typeId, operatorId, code)">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="typeId">Оберить тип документу<em>*</em></label>
+                                        <select class="form-control"
+                                                required
+                                                ng-model="typeId"
+                                                ng-options="item.nID as item.sName for item in typeOptions"
+                                                id="typeId">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="operatorId">Оберить оператора<em>*</em></label>
+                                        <select class="form-control"
+                                                required
+                                                ng-model="operatorId"
+                                                ng-options="item.nID as item.sName for item in operatorOptions"
+                                                id="operatorId">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="code">Введіть код доступу до документу<em>*</em></label>
+                                        <input type="text"
+                                               required
+                                               ng-model="code"
+                                               class="form-control"
+                                               id="code"/>
+                                    </div>
+                                </div>
+
+                                <div class="submit-button">
+                                    <button type="submit"
+                                            class="btn btn-primary"
+                                            ng-disabled="searchForm.$invalid">Знайти
+                                    </button>
+                                </div>
+                            </form>
+                            {{document}}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -65,9 +65,32 @@ angular.module('documents').config(function($stateProvider) {
     })
     .state('index.documents.search', {
       url: '/search',
+      //parent: 'index.documents.user',
+      resolve: {
+        BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
+          return BankIDService.isLoggedIn().then(function() {
+            return {loggedIn: true};
+          }).catch(function() {
+            return $q.reject(null);
+          });
+        },
+        BankIDAccount: function(BankIDService) {
+          return BankIDService.account();
+        },
+        customer: function(BankIDAccount) {
+          return BankIDAccount.customer;
+        },
+        types: function($q, $state, ServiceService) {
+          return ServiceService.getDocumentTypes();
+        },
+        operators: function($q, $state, ServiceService) {
+          return ServiceService.getDocumentOperators();
+        }
+      },
       views: {
         'content': {
-          templateUrl: 'app/documents/search/index.html'
+          templateUrl: 'app/documents/search/index.html',
+          controller: 'DocumentsSearchController'
         }
       }
     })
