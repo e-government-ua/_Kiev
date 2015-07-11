@@ -1,4 +1,4 @@
-up.bat
+cd ./..
 
 npm install
 npm list grunt
@@ -7,7 +7,7 @@ bower install
 npm install grunt-contrib-imagemin
 grunt build
 cd dist
-npm install
+	npm install
 cd ..
 
-call dn.bat
+cd ./_

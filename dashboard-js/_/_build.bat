@@ -1,6 +1,6 @@
-call up.bat
+cd ..
 
 call npm install 
 call bower install
 
-call dn.bat
+cd _

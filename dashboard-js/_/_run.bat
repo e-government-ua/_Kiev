@@ -1,6 +1,5 @@
-call up.bat
+cd ..
 
 call grunt serve
 
-call dn.bat
-
+cd _

@@ -1,8 +1,6 @@
-up.bat
+cd ./..
 
 npm install 
 bower install
 
-dn.bat
-
-_run.sh
+cd ./_

@@ -2,4 +2,4 @@ up.bat
 
 grunt serve
 
-dn.bat
+cd ./_

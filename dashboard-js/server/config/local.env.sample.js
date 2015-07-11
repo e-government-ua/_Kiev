@@ -9,6 +9,11 @@ module.exports = {
   DOMAIN: 'http://localhost:9001',
   SESSION_SECRET: 'dashboardjs-secret',
 
+  SERVER_PROTOCOL: 'http',
+  SERVER_PORT: '9001',
+  SERVER_KEY: '/sybase/cert/server.key',
+  SERVER_CERT: '/sybase/cert/server.crt',
+
   ACTIVITI_PROT: 'https',
   ACTIVITI_HOST: 'test.igov.org.ua',
   ACTIVITI_PORT: 8080,
