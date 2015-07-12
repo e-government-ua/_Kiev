@@ -204,6 +204,7 @@
             <column name="nID" type="NUMERIC"/>
             <column name="sID" type="STRING"/>
             <column name="sName" type="STRING"/>
+            <column name="sPrivateKey" type="STRING"/>
             <column name="sURL_CallbackStatusNew" type="STRING"/>
             <column name="sURL_CallbackPaySuccess" type="STRING"/>
             <column name="nID_SubjectOrgan" type="NUMERIC"/>

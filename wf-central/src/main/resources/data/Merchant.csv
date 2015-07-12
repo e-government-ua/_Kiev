@@ -1,2 +1,2 @@
-nID;sID;sName;sURL_CallbackStatusNew;sURL_CallbackPaySuccess;nID_SubjectOrgan
-1;Test_sID;Test_sName;test_sURL_CallbackStatusNew;test_sURL_CallbackPaySuccess;1
+nID;sID;sName;sPrivateKey;sURL_CallbackStatusNew;sURL_CallbackPaySuccess;nID_SubjectOrgan
+1;Test_sID;Test_sName;test_sPrivateKey;test_sURL_CallbackStatusNew;test_sURL_CallbackPaySuccess;1

@@ -60,6 +60,7 @@ public class ActivitiRestMerchantController {
 			  @RequestParam(value = "nID", required = false) Long nID,
 			  @RequestParam(value = "sID", required = false) String sID,
 			  @RequestParam(value = "sName", required = false) String sName,
+			  @RequestParam(value = "sPrivateKey", required = false) String sPrivateKey,
 			  @RequestParam(value = "nID_SubjectOrgan", required = false) Long nID_SubjectOrgan,
 			  @RequestParam(value = "sURL_CallbackStatusNew", required = false) String sURL_CallbackStatusNew,
 			  @RequestParam(value = "sURL_CallbackPaySuccess", required = false) String sURL_CallbackPaySuccess) {
@@ -77,6 +78,10 @@ public class ActivitiRestMerchantController {
 		if (sName != null) {
 			merchant.setName(sName);
 		}
+
+      if (sPrivateKey != null) {
+         merchant.setsPrivateKey(sPrivateKey);
+      }
 
 		if (nID_SubjectOrgan != null) {
 			SubjectOrgan subjectOrgan = baseEntityDao.getById(SubjectOrgan.class, nID_SubjectOrgan);

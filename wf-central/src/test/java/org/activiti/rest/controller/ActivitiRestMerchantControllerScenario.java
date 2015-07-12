@@ -51,6 +51,7 @@ public class ActivitiRestMerchantControllerScenario {
       String jsonData = mockMvc.perform(post("/merchant/setMerchant").
               param("sID", sID).
               param("sName", sID).
+              param("sPrivateKey", "8Hde98909de3").
               param("sURL_CallbackStatusNew", "FFF").
               param("sURL_CallbackPaySuccess", "WWW").
               param("nID_SubjectOrgan", "1")).

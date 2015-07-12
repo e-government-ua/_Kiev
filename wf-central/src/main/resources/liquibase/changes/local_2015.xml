@@ -214,4 +214,12 @@
         <addAutoIncrement tableName="SubjectMessageType" columnName="nID" startWith="1000" columnDataType="bigint"/>
     </changeSet>
 
+    <changeSet id="issue-511_sPrivateKey" author="brunneng">
+        <addColumn tableName="Merchant">
+            <column name="sPrivateKey" type="varchar(100)" defaultValue="dummy">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
