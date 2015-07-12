@@ -194,6 +194,12 @@
             <column name="sID_Status" type="STRING"/>
         </loadUpdateData>
 
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/SubjectMessageType.csv" tableName="SubjectMessageType" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="sDescription" type="STRING"/>
+        </loadUpdateData>
+
     </changeSet>
 
 

@@ -45,7 +45,7 @@ public class ActivitiRestMerchantControllerScenario {
    }
 
    @Test
-   public void shouldSuccessfullySaveGetAndUpdate() throws Exception {
+   public void shouldSuccessfullySaveUpdateGetAndRemove() throws Exception {
       String sID = "AAA";
 
       String jsonData = mockMvc.perform(post("/merchant/setMerchant").
