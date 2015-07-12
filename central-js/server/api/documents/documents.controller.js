@@ -28,10 +28,12 @@ module.exports.getDocumentFile = function (req, res) {
 };
 
 module.exports.getDocumentTypes = function (req, res) {
+    console.log(req);
     return sendGetRequest(req, res, '/services/getDocumentTypes', {});
 };
 
 module.exports.getDocumentOperators = function (req, res) {
+    console.log(req);
     return sendGetRequest(req, res, '/services/getDocumentOperators', {});
 };
 
@@ -203,10 +205,13 @@ module.exports.initialUpload = function (req, res) {
 };
 
 function buildGetRequest(req, apiURL, params) {
+    if (req.session.hasOwnProperty('subject') && req.session.subject.hasOwnProperty('nID')) {
+        params = _.extend(params, {nID_Subject: req.session.subject.nID});
+    }
     return {
         'url': getUrl(apiURL),
         'auth': getAuth(),
-        'qs': _.extend(params, {nID_Subject: req.session.subject.nID})
+        'qs': params
     };
 }
 
