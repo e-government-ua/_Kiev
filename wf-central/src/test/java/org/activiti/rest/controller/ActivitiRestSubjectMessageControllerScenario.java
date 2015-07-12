@@ -1,5 +1,6 @@
 package org.activiti.rest.controller;
 
+import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.wf.dp.dniprorada.model.SubjectMessage;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
+import org.wf.dp.dniprorada.model.SubjectMessageType;
 
 import java.util.List;
 
@@ -32,8 +34,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ActivitiRestSubjectMessageControllerScenario {
 
-    public static final String APPLICATION_JSON_VALUE = "application/json";
-
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -45,16 +45,26 @@ public class ActivitiRestSubjectMessageControllerScenario {
     }
 
     @Test
-    public void firstShouldSuccessfullySetMassage() throws Exception {
-        mockMvc.perform(post("/messages/setMessage").
+    public void firstShouldSuccessfullySetAndGetMassage() throws Exception {
+       String messageBody = "XXX";
+       String jsonAfterSave = mockMvc.perform(post("/messages/setMessage").
                 contentType(MediaType.APPLICATION_JSON).
                 param("sHead", "expect").
-                param("sBody", "XXX").
+                param("sBody", messageBody).
                 param("sContacts", "093").
                 param("sData", "some data").
-                param("nID_Subject", "34").
                 param("sMail", "ukr.net")).
-                andExpect(status().isOk());
+                andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+       SubjectMessage savedMessage = JsonRestUtils.readObject(jsonAfterSave, SubjectMessage.class);
+       assertNotNull(savedMessage.getId());
+       assertNotNull(savedMessage.getSubjectMessageType());
+       assertEquals(SubjectMessageType.DEFAULT.getId(), savedMessage.getSubjectMessageType().getId());
+       assertEquals(messageBody, savedMessage.getBody());
+       assertEquals(0L, savedMessage.getId_subject().longValue());
+
+       String jsonAfterGet = mockMvc.perform(get("/messages/getMessage").param("nID", "" + savedMessage.getId())).
+               andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+       assertEquals(jsonAfterSave, jsonAfterGet);
     }
 
     @Test
@@ -74,37 +84,6 @@ public class ActivitiRestSubjectMessageControllerScenario {
                 param("sBody", "XXXXXxxx").
                 param("sMail", "ukr.ed")).
                 andExpect(status().isBadRequest());
-    }
-
-    @Test
-    @Ignore
-    public void shouldSuccessfullyGetMessageById() throws Exception {
-        String jsonData = mockMvc.perform(get("/messages/getMessage").
-                param("nID", "1")).
-                andExpect(status().isOk()).
-                andExpect(jsonPath("$.sHead", is("expect"))).
-                andExpect(jsonPath("$.sBody", is("XXX"))).
-                andExpect(jsonPath("$.sDate", not(empty()))).
-                andExpect(content().contentType(APPLICATION_JSON_VALUE)).
-                andReturn().getResponse().getContentAsString();
-        SubjectMessage actualSubjectMessage = JsonRestUtils.readObject(jsonData, SubjectMessage.class);
-        assertNotNull(actualSubjectMessage);
-    }
-
-    @Test
-    @Ignore
-    public void shouldSuccessfullyGetMessages() throws Exception {
-        String jsonData = mockMvc.perform(get("/messages/getMessages").
-                param("nID", "null")).
-                andExpect(status().isOk()).
-                andExpect(content().contentType(APPLICATION_JSON_VALUE)).
-                andExpect(jsonPath("$.sHead", not(empty()))).
-                andExpect(jsonPath("$.sBody", not(empty()))).
-                andExpect(jsonPath("$[0].nID_Subject", is(34))).
-                andExpect(jsonPath("$[1].nID_Subject", is(0))).
-                andReturn().getResponse().getContentAsString();
-        List<SubjectMessage> actualSubjectMessage = JsonRestUtils.readObject(jsonData, List.class);
-        assertEquals(2, actualSubjectMessage.size());
     }
 
 }
