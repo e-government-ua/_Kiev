@@ -50,12 +50,15 @@ public class HttpRequester {
 	public static String get(String url, Map<String, String> list) throws Exception {
 		String urlParameters = "";
 
-		for (Map.Entry<String, String> entry : list.entrySet())
-			urlParameters += entry.getKey() + "="
-					+ URLEncoder.encode(entry.getValue(), "UTF-8") + "&";
+		if(list != null){
+			for (Map.Entry<String, String> entry : list.entrySet())
+				urlParameters += entry.getKey() + "="
+						+ URLEncoder.encode(entry.getValue(), "UTF-8") + "&";
+		}
+		
 
-		URL obj = new URL(url);
-		DataOutputStream wr;
+		URL obj = new URL(url + "?" + urlParameters);
+		//DataOutputStream wr;
 		InputStream in;
 		BufferedReader bf;
 		HttpURLConnection con;
@@ -63,12 +66,12 @@ public class HttpRequester {
 		con.setRequestProperty("authorization",
 				"Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=");
 		con.setRequestMethod(RequestMethod.GET.name());
+		con.setDoInput(true); 
 		con.setDoOutput(true);
-		wr = new DataOutputStream(con.getOutputStream());
-		// Send get request
-		wr.writeBytes(urlParameters);
-		wr.flush();
-		wr.close();
+		//wr = new DataOutputStream(con.getOutputStream());
+		//wr.writeBytes(urlParameters);
+		//wr.flush();
+		//wr.close();
 		if (con.getResponseCode() >= 400) {
 			in = con.getErrorStream();
 		} else {
