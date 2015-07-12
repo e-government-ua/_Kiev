@@ -65,7 +65,14 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     } else {
       var printTemplate = findPrintTemplate($scope.printObj.form);
       printTemplate = processPrintTemplate($scope.printObj.form, printTemplate, /(\[(\w+)])/, function (item) {
-        return item.value;
+        if (item.type === 'enum') {
+          var enumID = item.value;
+          return item.enumValues.filter(function (enumObj) {
+            return enumObj.id === enumID;
+          })[0].name;
+        } else {
+          return item.value;
+        }
       });
       printTemplate = processPrintTemplate($scope.printObj.form, printTemplate, /(\[label=(\w+)])/, function (item) {
         return item.name;
@@ -76,10 +83,27 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
   $scope.print = function () {
     if ($scope.selectedTask && $scope.taskForm) {
+      $scope.taskForm.push({
+        id: 'sBody',
+        value: '<div>[label=bankIdlastName] : [bankIdlastName] <p> [label=bankIdfirstName] [bankIdfirstName]</p> <p>[label=decide] : [decide]</p></div>',
+        name: 'sBody',
+        type: 'invisible'
+      });
       $scope.printObj = {task: $scope.selectedTask, form: $scope.taskForm};
       $scope.showPrintModal = !$scope.showPrintModal;
     }
   };
+
+  $scope.hasUnPopulatedFields = function (){
+    if ($scope.selectedTask && $scope.taskForm) {
+      var unpopulated = $scope.taskForm.filter(function (item) {
+        return item.value === undefined || item.value === null;
+      });
+      return unpopulated.length > 0;
+    } else {
+      return true;
+    }
+  }
 
   $scope.isFormPropertyDisabled = function (formProperty) {
     if ($scope.selectedTask && $scope.selectedTask.assignee === null) {
