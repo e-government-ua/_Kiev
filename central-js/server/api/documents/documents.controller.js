@@ -28,17 +28,14 @@ module.exports.getDocumentFile = function (req, res) {
 };
 
 module.exports.getDocumentTypes = function (req, res) {
-    console.log(req);
     return sendGetRequest(req, res, '/services/getDocumentTypes', {});
 };
 
 module.exports.getDocumentOperators = function (req, res) {
-    console.log(req);
     return sendGetRequest(req, res, '/services/getDocumentOperators', {});
 };
 
 module.exports.searchDocument = function (req, res) {
-    console.log(req.body);
     var params = {
         'sCode_DocumentAccess': req.body.params.sCode_DocumentAccess,
         'nID_DocumentOperator_SubjectOrgan': req.body.params.nID_DocumentOperator_SubjectOrgan,
