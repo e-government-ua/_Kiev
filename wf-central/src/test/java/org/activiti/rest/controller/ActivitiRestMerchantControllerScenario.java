@@ -77,8 +77,8 @@ public class ActivitiRestMerchantControllerScenario {
               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
               andReturn().getResponse().getContentAsString();
       MerchantVO[] merchants = JsonRestUtils.readObject(jsonData, MerchantVO[].class);
-      Assert.assertEquals(1, merchants.length);
-      Assert.assertEquals(savedMerchantVO, merchants[0]);
+      Assert.assertTrue(merchants.length > 0);
+      Assert.assertEquals(savedMerchantVO, merchants[merchants.length - 1]);
 
       String wrongsID = "WRONGID";
       mockMvc.perform(get("/merchant/getMerchant").param("sID", wrongsID)).andExpect(status().isNotFound());

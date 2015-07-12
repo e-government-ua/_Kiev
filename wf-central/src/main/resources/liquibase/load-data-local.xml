@@ -200,6 +200,15 @@
             <column name="sDescription" type="STRING"/>
         </loadUpdateData>
 
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Merchant.csv" tableName="Merchant" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sID" type="STRING"/>
+            <column name="sName" type="STRING"/>
+            <column name="sURL_CallbackStatusNew" type="STRING"/>
+            <column name="sURL_CallbackPaySuccess" type="STRING"/>
+            <column name="nID_SubjectOrgan" type="NUMERIC"/>
+        </loadUpdateData>
+
     </changeSet>
 
 
