@@ -200,18 +200,14 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     List<DocumentType> getDocumentTypes() throws Exception {
-    	new LiqBuy().getPayButtonHTML_LiqPay("1", "5,10", 
-    			Currency.UAH, Language.RUSSIAN, "test", "123", 
-    			"https://jenkins.igov.org.ua/jo", "https://jenkins.igov.org.ua/jo", 
-    			new Long(1), true);
         return documentTypeDao.getDocumentTypes();
     }
     
-    @RequestMapping(value = "/getDocumentTypes_", method = RequestMethod.GET)
+    @RequestMapping(value = "/getPayButtonHTML_LiqPay", method = RequestMethod.GET)
     public
     @ResponseBody
     String getDocumentTypes_() throws Exception {
-    	return new LiqBuy().getPayButtonHTML_LiqPay("1", "5,10", 
+    	return new LiqBuy().getPayButtonHTML_LiqPay("Test_sID", "5,10", 
     			Currency.UAH, Language.RUSSIAN, "test", "123", 
     			"https://jenkins.igov.org.ua/jo", "https://jenkins.igov.org.ua/jo", 
     			new Long(1), true);

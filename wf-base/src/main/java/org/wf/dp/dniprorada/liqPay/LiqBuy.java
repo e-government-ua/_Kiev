@@ -5,12 +5,22 @@ import static org.wf.dp.dniprorada.liqPay.LiqBuyUtil.sha1;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 import org.wf.dp.dniprorada.constant.Currency;
 import org.wf.dp.dniprorada.constant.Language;
 
+@Component
 public class LiqBuy {
+	
+	@Autowired
+    private AccessDataDao accessDataDao;
 
 	private static final String URL = "https://www.liqpay.com/api/checkout";
 	private static final String version = "version";
@@ -33,17 +43,27 @@ public class LiqBuy {
 
 		bTest = true; //пока не отладим
 		String publicKey = sID_Merchant;
-        Map<String, String> paramMerchant= new HashMap<String, String>();
-        paramMerchant.put("sID_Merchant", sID_Merchant);
-        String merchant = "12";
-		merchant = HttpRequester.get("https://test.igov.org.ua/wf-central/service/services/getDocument?nID=1&nID_Subject=1", paramMerchant);
-		System.out.println("!!!!!!!!!!!!!!!!!merchant ok: " + merchant);
-		String privateKey = "test"; //!!!!!!!!!!!!!!!!!!!!!!!!!!!Пока не реализовали возврат в ответе ключа
+        
+		Map<String, String> paramMerchant= new HashMap<String, String>();
+        paramMerchant.put("sID", sID_Merchant);
+        paramMerchant.put("nID_Subject", String.valueOf(nID_Subject));
+        String merchant = HttpRequester.get("https://test.igov.org.ua/wf-central/service/merchant/getMerchant", paramMerchant);
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) parser.parse(merchant);
+        System.out.println("!!!!!!!!!!!!!!!!!merchant ok: " + merchant + " sURL_CallbackStatusNew: " + (String)jsonObject.get("sURL_CallbackStatusNew"));
+		String privateKey = (String)jsonObject.get("sPrivateKey"); //!!!!!!!!!!!!!!!!!!!!!!!!!!!Пока не реализовали парсер
+		if(privateKey == null){
+			privateKey = "test";
+		}
+		if (sURL_CallbackStatusNew == null) {
+			sURL_CallbackStatusNew = (String)jsonObject.get("sURL_CallbackStatusNew");
+		}
 		if (sURL_CallbackPaySuccess == null) {
-			sURL_CallbackPaySuccess = "https://test.igov.org.ua/wf-central/service/merchant/getMerchants";//пока не реализовали в ответе URL merchant.getsURL_CallbackPaySuccess(); 
+			sURL_CallbackPaySuccess = (String)jsonObject.get("sURL_CallbackPaySuccess");
 		}
 
-		Long nID_Access = new Long(10);// !!!!!!!!!!!!!!!AccessData.setAccessData(nID_Subject);
+		
+		String nID_Access = null;//accessDataDao.setAccessData(String.valueOf(nID_Subject));
 		if (sURL_CallbackPaySuccess != null) {
 			sURL_CallbackPaySuccess = new StringBuilder(sURL_CallbackPaySuccess)
 					.append("?nID_Subject=").append(nID_Subject)
@@ -59,7 +79,6 @@ public class LiqBuy {
 		params.put("order_id", sID_Order);
 		params.put("server_url", sURL_CallbackStatusNew);
 		params.put("result_url", sURL_CallbackPaySuccess);
-		
 		params.put("public_key", publicKey);
 		
 		if (bTest) {
