@@ -34,6 +34,8 @@ var all = {
     host: process.env.ACTIVITI_HOST || 'localhost',
     port: process.env.ACTIVITI_PORT || 8080,
     rest: process.env.ACTIVITI_REST || 'activiti-rest/service',
+    username: process.env.ACTIVITI_USER,
+    password: process.env.ACTIVITI_PASSWORD,
     auth: {
       basic: process.env.ACTIVITI_AUTH_BASIC
     },
