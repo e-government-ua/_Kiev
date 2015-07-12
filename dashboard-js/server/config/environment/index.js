@@ -36,9 +36,6 @@ var all = {
     rest: process.env.ACTIVITI_REST || 'activiti-rest/service',
     username: process.env.ACTIVITI_USER,
     password: process.env.ACTIVITI_PASSWORD,
-    auth: {
-      basic: process.env.ACTIVITI_AUTH_BASIC
-    },
     session: {
       sessionIdle: process.env.ACTIVITI_SESSION_IDLE || 60 * 8, //sec show warning
       timeOut: process.env.ACTIVITI_SESSION_TIMEOUT || 60 * 2, //sec close session after warning
