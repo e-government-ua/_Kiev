@@ -83,12 +83,6 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
   $scope.print = function () {
     if ($scope.selectedTask && $scope.taskForm) {
-      $scope.taskForm.push({
-        id: 'sBody',
-        value: '<div>[label=bankIdlastName] : [bankIdlastName] <p> [label=bankIdfirstName] [bankIdfirstName]</p> <p>[label=decide] : [decide]</p></div>',
-        name: 'sBody',
-        type: 'invisible'
-      });
       $scope.printObj = {task: $scope.selectedTask, form: $scope.taskForm};
       $scope.showPrintModal = !$scope.showPrintModal;
     }
