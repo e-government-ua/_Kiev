@@ -53,6 +53,18 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="submit-button">
+                                            <button type="submit"
+                                                    class="btn btn-primary"
+                                                    ng-disabled="searchForm.$invalid">Знайти
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="row" ng-show="showSmsPass">
                                     <div class="form-group">
                                         <label for="smsPass">Введіть отриманий Вами SMS код<em>*</em></label>
@@ -63,10 +75,10 @@
                                     </div>
                                 </div>
 
-                                <div class="submit-button">
+                                <div class="submit-button" ng-show="showSmsPass">
                                     <button type="submit"
                                             class="btn btn-primary"
-                                            ng-disabled="searchForm.$invalid">Знайти
+                                            ng-disabled="!smsPass">Підтвердити
                                     </button>
                                 </div>
                             </form>
