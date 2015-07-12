@@ -346,8 +346,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     /**
      * Получение статистики по бизнес процессу за указанные период
      * @param sID_BP_Name - ИД бизнес процесса
-     * @param sDateAt - дата начала периода выборки
-     * @param sDateTo - дата окончания периода выборки
+     * @param dateAt - дата начала периода выборки
+     * @param dateTo - дата окончания периода выборки
      * @param nRowStart - позиция начальной строки для возврата (0 по умолчанию)
      * @param nRowsMax - количество записей для возврата (1000 по умолчанию)
      * @param request
