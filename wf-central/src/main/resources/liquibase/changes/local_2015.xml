@@ -182,4 +182,30 @@
         <addAutoIncrement tableName="Merchant" columnName="nID" startWith="1000" columnDataType="bigint"/>
     </changeSet>
 
+    <changeSet id="issue-528" author="brunneng" dbms="h2">
+        <createTable tableName="SubjectMessageType">
+            <column name="nID" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sDescription" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addColumn tableName="SubjectMessage">
+            <column name="nID_SubjectMessageType" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="FK_SubjectMessage_SubjectMessageType"
+                             referencedTableName="SubjectMessageType" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="issue-528-autoIncrement" author="brunneng" dbms="h2">
+        <addAutoIncrement tableName="SubjectMessageType" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
 </databaseChangeLog>
