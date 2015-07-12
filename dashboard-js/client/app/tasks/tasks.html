@@ -131,18 +131,18 @@
   </div>
 </div>
 
-<print-modal show='showPrintModal'
-             info='showPrintModal'>
+<print-modal show='printTemplate.showPrintModal'
+             info='printTemplate.showPrintModal'>
   <div class="col-md-12">
-    <div ng-hide="containsPrintTemplate()">
-      <p>Звернення: {{getProcessName(printObj.task.processDefinitionId)}}</p>
+    <div ng-hide="printTemplate.containsPrintTemplate()">
+      <p>Звернення: {{getProcessName(printTemplate.task.processDefinitionId)}}</p>
 
       <p>джерело: igov.org.ua</p>
 
-      <p>№: {{printObj.task.id}}</p>
+      <p>№: {{printTemplate.task.id}}</p>
 
-      <p>від: {{ sDateShort(printObj.task.createTime) }}</p>
-      <p ng-repeat='item in printObj.form'>
+      <p>від: {{ sDateShort(printTemplate.task.createTime) }}</p>
+      <p ng-repeat='item in printTemplate.form'>
         {{sFieldLabel(item.name)}}
         <b ng-if="item.type == 'enum'">{{sEnumValue(item.enumValues,item.value)}}</b>
         <b ng-if="item.type != 'enum'">{{item.value}}</b>
@@ -151,8 +151,8 @@
       <p>Довідку№ _________________________ Отримав (ПІБ)_________________________</p>
       <p>Дата _________________________ Підпис _________________________</p>
     </div>
-    <div ng-show="containsPrintTemplate()">
-      <div ng-bind-html="getPrintTemplate()"></div>
+    <div ng-show="printTemplate.containsPrintTemplate()">
+      <div ng-bind-html="printTemplate.getPrintTemplate()"></div>
     </div>
   </div>
 </print-modal>
