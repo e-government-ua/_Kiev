@@ -19,12 +19,39 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, $windo
     count: 0
   }];
 
+  var findPrintTemplate = function(form){
+    var printTemplateResult = form.filter(function(item){
+      return item.id === 'sBody';
+    });
+   return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
+  };
+
+  $scope.containsPrintTemplate = function(){
+    return $scope.printObj && $scope.printObj.form && findPrintTemplate($scope.printObj.form) !== "";
+  };
+
+  $scope.getPrintTemplate = function(item){
+    if($scope.printObj && $scope.printObj.form){
+      var printTemplate = findPrintTemplate($scope.printObj.form);
+      var matches = printTemplate.match(/\[\w+]/g).forEach(function(templateID) {
+        var id = templateID.match(/\w+/)[0];
+        var value = $scope.printObj.form.filter(function(item){
+          return item.id === id;
+        })[0].value;
+
+        printTemplate = printTemplate.replace(templateID, value);
+      });
+      return printTemplate;
+    }
+    return  "";
+  };
+
   $scope.print = function (){
     if ($scope.selectedTask && $scope.taskForm) {
       $scope.printObj = {task : $scope.selectedTask, form: $scope.taskForm};
       $scope.showPrintModal = !$scope.showPrintModal;
     }
-  }
+  };
 
   $scope.isFormPropertyDisabled = function(formProperty) {
     if ($scope.selectedTask && $scope.selectedTask.assignee === null) {
@@ -209,7 +236,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function($scope, $windo
     return s;
   };
 
-  
+
   $scope.sFieldNotes = function(sField) {
     var s = null;
     if (sField !== null) {
