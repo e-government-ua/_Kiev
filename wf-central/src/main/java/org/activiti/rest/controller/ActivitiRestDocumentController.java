@@ -5,8 +5,10 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.redis.util.RedisUtil;
 import org.slf4j.Logger;
@@ -16,9 +18,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
+import org.wf.dp.dniprorada.constant.Currency;
 import org.wf.dp.dniprorada.constant.HistoryEventMessage;
 import org.wf.dp.dniprorada.constant.HistoryEventType;
+import org.wf.dp.dniprorada.constant.Language;
 import org.wf.dp.dniprorada.dao.*;
+import org.wf.dp.dniprorada.liqPay.LiqBuy;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.model.document.HandlerFactory;
 import org.wf.dp.dniprorada.util.Util;
@@ -194,8 +199,22 @@ public class ActivitiRestDocumentController {
     @RequestMapping(value = "/getDocumentTypes", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<DocumentType> getDocumentTypes() {
+    List<DocumentType> getDocumentTypes() throws Exception {
+    	new LiqBuy().getPayButtonHTML_LiqPay("1", "5,10", 
+    			Currency.UAH, Language.RUSSIAN, "test", "123", 
+    			"https://jenkins.igov.org.ua/jo", "https://jenkins.igov.org.ua/jo", 
+    			new Long(1), true);
         return documentTypeDao.getDocumentTypes();
+    }
+    
+    @RequestMapping(value = "/getDocumentTypes_", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    String getDocumentTypes_() throws Exception {
+    	return new LiqBuy().getPayButtonHTML_LiqPay("1", "5,10", 
+    			Currency.UAH, Language.RUSSIAN, "test", "123", 
+    			"https://jenkins.igov.org.ua/jo", "https://jenkins.igov.org.ua/jo", 
+    			new Long(1), true);
     }
 
     @RequestMapping(value = "/setDocument", method = RequestMethod.GET)
