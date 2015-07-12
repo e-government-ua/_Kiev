@@ -515,6 +515,19 @@ module.exports = function (grunt) {
     this.async();
   });
 
+
+  grunt.registerTask('client', function() {
+    grunt.task.run([
+      'clean:server',
+      'env:all',
+      'concurrent:server',
+      'injector',
+      'wiredep',
+      'autoprefixer',
+      'watch'
+    ]);
+  });
+
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
       return grunt.task.run([

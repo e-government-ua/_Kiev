@@ -228,7 +228,8 @@ a {
 
 ul.dropdown-menu {
   max-height: 270px;
-  overflow-y: auto;
+  /*overflow-y: auto;*/
+  overflow-y: scroll;
 }
 
 .share-form {

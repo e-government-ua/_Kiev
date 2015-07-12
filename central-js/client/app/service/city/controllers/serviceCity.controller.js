@@ -1,6 +1,7 @@
-angular.module('app').controller('ServiceCityController', function($state, $rootScope, $scope, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, service, regions) {
+angular.module('app').controller('ServiceCityController', function($state,AdminService, $rootScope, $scope, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, service, regions) {
   $scope.service = service;
   $scope.regions = regions;
+    $scope.bAdmin = AdminService.isAdmin();
 
   $scope.regionList = new RegionListFactory();
   $scope.regionList.initialize(regions);

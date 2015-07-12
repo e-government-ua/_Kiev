@@ -3,153 +3,156 @@
 <div class="container"
      ng-style="showPrintModal && {'overflow-y':'hidden'}"
      ng-init="init()">
-    <div class="container__in">
-        <div class="row">
-            <div class="col-xs-5 sidebar">
-                <div class="tasks">
-                    <div class="list-group">
-                        <a class="list-group-item task"
-                           href=""
-                           ng-repeat="task in tasks"
-                           tooltip="{{task.description}}"
-                           ng-click="selectTask(task)"
-                           ng-class="{'active': isTaskSelected(task)}">
-                            #{{task.id}} ({{ sDateShort(task.createTime) }}) {{ getProcessName(task.processDefinitionId)
-                            }} | {{ task.name }}
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-7 col-xs-offset-5 main">
-                <h3 ng-show="selectedTask && taskForm == null && !error">Завантаження ...</h3>
+  <div class="container__in">
+    <div class="row">
+      <div class="col-xs-5 sidebar">
+        <div class="tasks">
+          <div class="list-group">
+            <a class="list-group-item task"
+               href=""
+               ng-repeat="task in tasks"
+               tooltip="{{task.description}}"
+               ng-click="selectTask(task)"
+               ng-class="{'active': isTaskSelected(task)}">
+              #{{task.id}} ({{ sDateShort(task.createTime) }}) {{ getProcessName(task.processDefinitionId)
+              }} | {{ task.name }}
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-7 col-xs-offset-5 main">
+        <h3 ng-show="selectedTask && taskForm == null && !error">Завантаження ...</h3>
 
-                <show-error data="error"
-                            ng-show="error"></show-error>
+        <show-error data="error"
+                    ng-show="error"></show-error>
 
-                <div ng-repeat="item in taskForm">
-                    <div ng-if="['string', 'long', 'date'].indexOf(item.type) > -1">
+        <div ng-repeat="item in taskForm">
+          <div ng-if="['string', 'long', 'date'].indexOf(item.type) > -1">
 
-                        <label>{{sFieldLabel(item.name)}}</label>
+            <label>{{sFieldLabel(item.name)}}</label>
 
-                        <div class="input-group">
-                            <input class="form-control"
-                                   ng-disabled="isFormPropertyDisabled(item)"
-                                   ng-required="item.required"
-                                   ng-model="item.value"/>
+            <div class="input-group">
+              <input class="form-control"
+                     ng-disabled="isFormPropertyDisabled(item)"
+                     ng-required="item.required"
+                     ng-model="item.value"/>
                             <span class="input-group-addon"
                                   ng-if="isFormPropertyDisabled(item)"
                                   clip-copy="item.value">
                                 <i class="glyphicon glyphicon-copy"></i>
                             </span>
-                        </div>
-                    </div>
+            </div>
+          </div>
 
-                    <p ng-if="item.type == 'textArea'">
-                        <label>{{sFieldLabel(item.name)}}</label>
+          <p ng-if="item.type == 'textArea'">
+            <label>{{sFieldLabel(item.name)}}</label>
                         <textarea class="form-control"
                                   ng-disabled="isFormPropertyDisabled(item)"
                                   ng-required="item.required"
                                   ng-model="item.value"></textarea>
-                    </p>
+          </p>
 
-                    <p ng-if="item.type == 'user'">
-                        <label>{{sFieldLabel(item.name)}}</label>
-                        <input class="form-control"
-                               ng-disabled="true"
-                               ng-required="item.required"
-                               ng-model="item.value"/>
-                    </p>
+          <p ng-if="item.type == 'user'">
+            <label>{{sFieldLabel(item.name)}}</label>
+            <input class="form-control"
+                   ng-disabled="true"
+                   ng-required="item.required"
+                   ng-model="item.value"/>
+          </p>
 
-                    <p ng-if="item.type == 'enum'">
-                        <label>{{sFieldLabel(item.name)}}</label>
-                        <select class="form-control"
-                                ng-disabled="isFormPropertyDisabled(item)"
-                                ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues"
-                                ng-required="item.required"
-                                ng-model="item.value"></select>
-                    </p>
+          <p ng-if="item.type == 'enum'">
+            <label>{{sFieldLabel(item.name)}}</label>
+            <select class="form-control"
+                    ng-disabled="isFormPropertyDisabled(item)"
+                    ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues"
+                    ng-required="item.required"
+                    ng-model="item.value"></select>
+          </p>
 
-                    <p ng-if="item.type == 'file' && !isFormPropertyDisabled(item)">
-                        <label>{{sFieldLabel(item.name)}}</label>
-                        <file-field name="{{item.id}}"
-                                    ng-disabled="isFormPropertyDisabled(item)"
-                                    ng-model="item.value"
-                                    ng-required="property.required">Add File
-                        </file-field>
-                    </p>
-                    
-                    <!--'string', 'long', 'date' 'textArea' 'user' 'enum' 'file'-->
-                    <!--p ng-if="['string', 'long', 'date', 'textArea', 'user', 'enum', 'file'].indexOf(item.type) == -1">
-                        <label>{{sFieldLabel(item.name)}}</label>
-                        <input class="form-control"
-                               ng-disabled="true"
-                               ng-required="item.required"
-                               ng-model="item.value"/>
-                    </p-->
-                    
-                    <p style="display: none;" ng-if="['invisible'].indexOf(item.type) > -1">
-                        <label>{{sFieldLabel(item.name)}}</label>
-                    </p>
-                    
-                    <p ng-if="['label'].indexOf(item.type) > -1">
-                        <label>{{sFieldLabel(item.name)}}</label>
-                        <label>{{item.value}}</label>
-                    </p>
-                    
-                    <p ng-if="['queueData'].indexOf(item.type) > -1">
-                        <label>{{sFieldLabel(item.name)}}</label>
-                        <label title="{{nID_FlowSlotTicket_FieldQueueData(item.value)}}">{{sDate_FieldQueueData(item.value)}}</label>
-                    </p>
-                    
-                    
-                </div>
-                <div ng-show="attachments">
-                    <p ng-repeat="item in attachments">
-                        Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content/{{($index+1)}}"
-                                 target="_blank"><b>{{item.name}}</b></a> {{item.description}}
-                    </p>
-                </div>
-                <p ng-if="selectedTask">
-                    <button ng-hide="selectedTask.assignee != null"
-                            ng-click="assignTask()"
-                            class="btn btn-success">Взяти в роботу
-                    </button>
-                    <button ng-hide="selectedTask.assignee == null"
-                            ng-click="submitTask()"
-                            class="btn btn-success">Опрацювати
-                    </button>
-                    <button ng-hide="selectedTask.assignee == null"
-                            ng-click="print()"
-                            class="btn btn-success">Роздрукувати
-                    </button>
-                </p>
-            </div>
+          <p ng-if="item.type == 'file' && !isFormPropertyDisabled(item)">
+            <label>{{sFieldLabel(item.name)}}</label>
+            <file-field name="{{item.id}}"
+                        ng-disabled="isFormPropertyDisabled(item)"
+                        ng-model="item.value"
+                        ng-required="property.required">Add File
+            </file-field>
+          </p>
+
+          <!--'string', 'long', 'date' 'textArea' 'user' 'enum' 'file'-->
+          <!--p ng-if="['string', 'long', 'date', 'textArea', 'user', 'enum', 'file'].indexOf(item.type) == -1">
+              <label>{{sFieldLabel(item.name)}}</label>
+              <input class="form-control"
+                     ng-disabled="true"
+                     ng-required="item.required"
+                     ng-model="item.value"/>
+          </p-->
+
+          <p style="display: none;" ng-if="['invisible'].indexOf(item.type) > -1">
+            <label>{{sFieldLabel(item.name)}}</label>
+          </p>
+
+          <p ng-if="['label'].indexOf(item.type) > -1">
+            <label>{{sFieldLabel(item.name)}}</label>
+            <label>{{item.value}}</label>
+          </p>
+
+          <p ng-if="['queueData'].indexOf(item.type) > -1">
+            <label>{{sFieldLabel(item.name)}}</label>
+            <label
+              title="{{nID_FlowSlotTicket_FieldQueueData(item.value)}}">{{sDate_FieldQueueData(item.value)}}</label>
+          </p>
+
+
         </div>
+        <div ng-show="attachments">
+          <p ng-repeat="item in attachments">
+            Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content/{{($index+1)}}"
+                     target="_blank"><b>{{item.name}}</b></a> {{item.description}}
+          </p>
+        </div>
+        <p ng-if="selectedTask">
+          <button ng-hide="selectedTask.assignee != null"
+                  ng-click="assignTask()"
+                  class="btn btn-success">Взяти в роботу
+          </button>
+          <button ng-hide="selectedTask.assignee == null"
+                  ng-click="submitTask()"
+                  ng-disabled="hasUnPopulatedFields()"
+                  class="btn btn-success">Опрацювати
+          </button>
+          <button ng-hide="selectedTask.assignee == null"
+                  ng-click="print()"
+                  ng-disabled="hasUnPopulatedFields()"
+                  class="btn btn-success">Роздрукувати
+          </button>
+        </p>
+      </div>
     </div>
+  </div>
 </div>
 
 <print-modal show='showPrintModal'
              info='showPrintModal'>
-    <div class="col-md-12">
-        <p>Звернення: {{getProcessName(printObj.task.processDefinitionId)}}</p>
+  <div class="col-md-12">
+    <div ng-hide="containsPrintTemplate()">
+      <p>Звернення: {{getProcessName(printObj.task.processDefinitionId)}}</p>
 
-        <p>джерело: igov.org.ua</p>
+      <p>джерело: igov.org.ua</p>
 
-        <p>№: {{printObj.task.id}}</p>
+      <p>№: {{printObj.task.id}}</p>
 
-        <p>від: {{ sDateShort(printObj.task.createTime) }}</p>
-
-        <p ng-repeat='item in printObj.form'>
-            {{sFieldLabel(item.name)}}
-            <b ng-if="item.type == 'enum'">{{sEnumValue(item.enumValues,item.value)}}</b>
-            <b ng-if="item.type != 'enum'">{{item.value}}</b>
-        </p>
-
-        <p>
-            ----------------------------------------------------------------------------------------------------------------------------</p>
-
-        <p>Довідку№ _________________________ Отримав (ПІБ)_________________________</p>
-
-        <p>Дата _________________________ Підпис _________________________</p>
+      <p>від: {{ sDateShort(printObj.task.createTime) }}</p>
+      <p ng-repeat='item in printObj.form'>
+        {{sFieldLabel(item.name)}}
+        <b ng-if="item.type == 'enum'">{{sEnumValue(item.enumValues,item.value)}}</b>
+        <b ng-if="item.type != 'enum'">{{item.value}}</b>
+      </p>
+      <p>----------------------------------------------------------------------------------------------------------------------------</p>
+      <p>Довідку№ _________________________ Отримав (ПІБ)_________________________</p>
+      <p>Дата _________________________ Підпис _________________________</p>
     </div>
+    <div ng-show="containsPrintTemplate()">
+      <div ng-bind-html="getPrintTemplate()"></div>
+    </div>
+  </div>
 </print-modal>
