@@ -20,7 +20,9 @@ angular.module('documents').controller('DocumentsSearchController',
                 $scope.messages = {};
                 if (data.hasOwnProperty('message')) {
                     if (data.message == 'Document Access wrong password') {
-                        $scope.messages = ['Неправильний код'];
+                        if ($scope.smsPass) {
+                            $scope.messages = ['Неправильний код'];
+                        }
                         $scope.showSmsPass = true;
                     } else if (data.message == 'Document Access not found') {
                         $scope.messages = ['Документи не знайдені'];
