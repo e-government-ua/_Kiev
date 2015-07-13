@@ -108,7 +108,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow7" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
-    <serviceTask id="servicetask1" name="загрузка файлов"></serviceTask>
+    <serviceTask id="servicetask1" name="загрузка файлов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow8" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_post_spravka_o_doxodax_pens">
