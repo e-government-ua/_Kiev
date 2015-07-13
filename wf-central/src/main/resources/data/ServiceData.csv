@@ -30,7 +30,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 29;159;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mreo_1:1:58"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 30;157;NULL;NULL;3;;https://lviv.igov.org.ua;false;1;true;;BankID,EDS
 31;158;NULL;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"CivilCardAccountlRequest:4:12564"}};https://test.region.igov.org.ua/wf-region/;true;1;true;;BankID,EDS
-32;160;NULL;9;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_oda_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
+32;160;10;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_oda_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
 33;1;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_mvd_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID
 34;161;NULL;6;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"herson_oda_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 35;3;2;NULL;1;{};https://dniprorada.igov.org.ua;FALSE;1;TRUE;;BankID,EDS
@@ -110,3 +110,4 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 109;4;27;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zhitomir_mvk_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 110;23;27;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zhitomir_mvk_2:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 111;661;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"post_spravka_o_doxodax_pens:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+112;628;NULL;10;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_oda_2:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS

@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.wf.dp.dniprorada.base.util.JsonRestUtils;
+//import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 import org.wf.dp.dniprorada.constant.Currency;
 import org.wf.dp.dniprorada.constant.HistoryEventMessage;
 import org.wf.dp.dniprorada.constant.HistoryEventType;
@@ -54,6 +54,9 @@ public class ActivitiRestDocumentController {
     
     //@Autowired
     //private AccessDataDao accessDataDao;
+    
+    @Autowired
+    LiqBuy liqBuy;
 
     @Autowired
     private HandlerFactory handlerFactory;
@@ -227,8 +230,8 @@ public class ActivitiRestDocumentController {
     @RequestMapping(value = "/getPayButtonHTML_LiqPay", method = RequestMethod.GET)
     public
     @ResponseBody
-    String getDocumentTypes_() throws Exception {
-    	return new LiqBuy().getPayButtonHTML_LiqPay("Test_sID", "5,10", 
+    String getPayButtonHTML_LiqPay() throws Exception {
+    	return liqBuy.getPayButtonHTML_LiqPay("Test_sID", "5,10", 
     			Currency.UAH, Language.RUSSIAN, "test", "123", 
     			"https://jenkins.igov.org.ua/jo", "https://jenkins.igov.org.ua/jo", 
     			new Long(1), true);
