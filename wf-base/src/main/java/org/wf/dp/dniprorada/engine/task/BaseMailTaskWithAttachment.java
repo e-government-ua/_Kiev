@@ -4,9 +4,11 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.wf.dp.dniprorada.constant.Currency;
 import org.wf.dp.dniprorada.constant.Language;
 import org.wf.dp.dniprorada.liqPay.LiqBuy;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 
 public abstract class BaseMailTaskWithAttachment implements JavaDelegate {
 
@@ -14,6 +16,9 @@ public abstract class BaseMailTaskWithAttachment implements JavaDelegate {
     
     private static final String LIQPAY_CALLBACK_URL = "https://test.region.igov.org.ua/wf-central/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=\"Liqpay\"&sData = \"\"";
 
+    @Autowired
+    GeneralConfig generalConfig;
+    
     protected Expression sID_Merchant;
     protected Expression sSum;
     protected Expression sID_Currency;
@@ -36,7 +41,7 @@ public abstract class BaseMailTaskWithAttachment implements JavaDelegate {
             String sURL_CallbackStatusNew = StringUtils.replace(LIQPAY_CALLBACK_URL, "{0}", sID_Order); 
             String sURL_CallbackPaySuccess = null;
             Long nID_Subject = getLongFromFieldExpression(this.nID_Subject, execution);
-            boolean bTest = true; // Impossible to get bTest in wf-base.
+            boolean bTest = generalConfig.bTest();
             String htmlButton = new LiqBuy().getPayButtonHTML_LiqPay(sID_Merchant, sSum, sID_Currency, sLanguage, sDescription, sID_Order, sURL_CallbackStatusNew, sURL_CallbackPaySuccess, nID_Subject, bTest);
             textWithoutTags = StringUtils.replace(textStr, TAG_PAYMENT_BUTTON_LIQPAY, htmlButton);
         }

@@ -45,7 +45,6 @@ public class LiqBuy {
             oLanguage = DEFAULT_LANG;
         }
         
-        bTest = true; //пока не отладим
         String publicKey = sID_Merchant;
 
         Map<String, String> paramMerchant = new HashMap<String, String>();
