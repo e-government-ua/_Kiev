@@ -74,7 +74,7 @@ public class LiqBuy {
         params.put("version", version);
         params.put("amount", sSum);
         params.put("currency", oID_Currency.name());
-        params.put("language", oLanguage.name());
+        params.put("language", oLanguage.getShortName());
         params.put("description", sDescription);
         params.put("order_id", sID_Order);
         params.put("server_url", sURL_CallbackStatusNew);
