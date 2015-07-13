@@ -237,8 +237,8 @@ public class ActivitiRestDocumentController {
     		@RequestParam(value = "oLanguage", required = true) Language oLanguage,
     		@RequestParam(value = "sDescription", required = true) String sDescription,
     		@RequestParam(value = "sID_Order", required = true) String sID_Order,
-    		@RequestParam(value = "sURL_CallbackStatusNew", required = true) String sURL_CallbackStatusNew,
-    		@RequestParam(value = "sURL_CallbackPaySuccess", required = true) String sURL_CallbackPaySuccess,
+    		@RequestParam(value = "sURL_CallbackStatusNew", required = false) String sURL_CallbackStatusNew,
+    		@RequestParam(value = "sURL_CallbackPaySuccess", required = false) String sURL_CallbackPaySuccess,
     		@RequestParam(value = "nID_Subject", required = true) Long nID_Subject,
     		@RequestParam(value = "bTest", required = true) boolean bTest) throws Exception {
          

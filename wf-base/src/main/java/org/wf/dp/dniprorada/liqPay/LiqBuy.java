@@ -24,7 +24,7 @@ public class LiqBuy {
 
     private static final Logger log = LoggerFactory.getLogger(LiqBuy.class);
     private static final String URL = "https://www.liqpay.com/api/checkout";
-    private static final String version = "version";
+    private static final String version = "3";
     private static final Language languageDefault = Language.RUSSIAN;
     private static final String sandbox = "1";
     private static final String payButtonHTML = new StringBuilder()
