@@ -91,6 +91,18 @@
 Укрпошта,
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Довідка про доходи (пенсійний фонд)</activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
   </process>
