@@ -1689,6 +1689,8 @@ https://test.igov.org.ua/wf-central/service/services/removeSubjectOrganJoins?nID
 <br>
 **Method: GET**
 
+HTTP Context: https://server:port/wf-central/service/services/getPayButtonHTML_LiqPay
+
 Параметры:
 * sID_Merchant - ид меранта
 * sSum - сумма оплаты
