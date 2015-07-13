@@ -48,6 +48,9 @@
         <activiti:field name="subject">
           <activiti:string>Отримання одноразової матеріальної допомоги законним представником</activiti:string>
         </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <userTask id="usertask1" name="Заява поступає в роботу операціоніста">
@@ -109,6 +112,9 @@
 
 Причина такого рішення - ${refuseReason}</activiti:expression>
         </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow9" name="${workerDecision=='decline'}" sourceRef="exclusivegateway1" targetRef="mailtask2">
@@ -132,6 +138,9 @@
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>'${transferConfirm}'</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
