@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="myProcess" name="Тернопіль ОДА - Отримання одноразової матеріальної допомоги законним представником" isExecutable="true">
+  <process id="ternopil_oda_2" name="Тернопіль ОДА - Отримання одноразової матеріальної допомоги законним представником" isExecutable="true">
     <endEvent id="endevent1" name="End"></endEvent>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -136,10 +136,7 @@
         <activiti:field name="text">
           <activiti:expression>Шановний громадянин, 
 
-Запрошуванна матеріальна допомога була успішно відправлена вибраним вами способом. 
-
-
-</activiti:expression>
+Запрошуванна матеріальна допомога була успішно відправлена вибраним вами способом.</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>'${transferConfirm}'</activiti:expression>
@@ -153,8 +150,8 @@
     </sequenceFlow>
     <sequenceFlow id="flow12" sourceRef="servicetask2" targetRef="endevent2"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
-    <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_ternopil_oda_2">
+    <bpmndi:BPMNPlane bpmnElement="ternopil_oda_2" id="BPMNPlane_ternopil_oda_2">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="60.0" y="50.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
