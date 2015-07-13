@@ -173,10 +173,10 @@ public class ActivitiRestDocumentController {
     byte[] getDocumentFile(@RequestParam(value = "nID") Long id,
             @RequestParam(value = "nID_Subject") long nID_Subject,
             
-            @RequestParam(value = "sCode_DocumentAccess") 				String 	accessCode,
-            @RequestParam(value = "nID_DocumentOperator_SubjectOrgan") 	Long 	organID,
-            @RequestParam(value = "nID_DocumentType", required = false) Long	docTypeID,
-            @RequestParam(value = "sPass", required = false)		    String 	password,
+            @RequestParam(value = "sCode_DocumentAccess", required = false) String accessCode,
+            @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false) Long organID,
+            @RequestParam(value = "nID_DocumentType", required = false) Long docTypeID,
+            @RequestParam(value = "sPass", required = false) String password,
             
                            HttpServletRequest request, HttpServletResponse httpResponse) 
                            throws ActivitiRestException{
@@ -230,11 +230,22 @@ public class ActivitiRestDocumentController {
     @RequestMapping(value = "/getPayButtonHTML_LiqPay", method = RequestMethod.GET)
     public
     @ResponseBody
-    String getPayButtonHTML_LiqPay() throws Exception {
-    	return liqBuy.getPayButtonHTML_LiqPay("Test_sID", "5,10", 
-    			Currency.UAH, Language.RUSSIAN, "test", "123", 
-    			"https://jenkins.igov.org.ua/jo", "https://jenkins.igov.org.ua/jo", 
-    			new Long(1), true);
+    String getPayButtonHTML_LiqPay(
+    		@RequestParam(value = "sID_Merchant", required = true) String sID_Merchant,
+    		@RequestParam(value = "sSum", required = true) String sSum,
+    		@RequestParam(value = "oID_Currency", required = true) Currency oID_Currency,
+    		@RequestParam(value = "oLanguage", required = true) Language oLanguage,
+    		@RequestParam(value = "sDescription", required = true) String sDescription,
+    		@RequestParam(value = "sID_Order", required = true) String sID_Order,
+    		@RequestParam(value = "sURL_CallbackStatusNew", required = false) String sURL_CallbackStatusNew,
+    		@RequestParam(value = "sURL_CallbackPaySuccess", required = false) String sURL_CallbackPaySuccess,
+    		@RequestParam(value = "nID_Subject", required = true) Long nID_Subject,
+    		@RequestParam(value = "bTest", required = true) boolean bTest) throws Exception {
+         
+    	return liqBuy.getPayButtonHTML_LiqPay(sID_Merchant, sSum, 
+    			oID_Currency, oLanguage, sDescription, sID_Order, 
+    			sURL_CallbackStatusNew, sURL_CallbackStatusNew, 
+    			nID_Subject, true);
     }
 
     @RequestMapping(value = "/setDocument", method = RequestMethod.GET)

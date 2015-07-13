@@ -53,12 +53,13 @@ public class ActivitiRestSubjectMessageControllerScenario {
                 param("sBody", messageBody).
                 param("sContacts", "093").
                 param("sData", "some data").
-                param("sMail", "ukr.net")).
-                andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+                param("sMail", "ukr.net").
+                param("nID_SubjectMessageType", "1")).
+               andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
        SubjectMessage savedMessage = JsonRestUtils.readObject(jsonAfterSave, SubjectMessage.class);
        assertNotNull(savedMessage.getId());
        assertNotNull(savedMessage.getSubjectMessageType());
-       assertEquals(SubjectMessageType.DEFAULT.getId(), savedMessage.getSubjectMessageType().getId());
+       assertEquals(1L, savedMessage.getSubjectMessageType().getId().longValue());
        assertEquals(messageBody, savedMessage.getBody());
        assertEquals(0L, savedMessage.getId_subject().longValue());
 

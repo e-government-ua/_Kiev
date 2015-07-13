@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 public class MerchantVO {
    private Long nID;
    private String sID;
+   private String sName;
+   private String sPrivateKey;
    private String sURL_CallbackStatusNew;
    private String sURL_CallbackPaySuccess;
    private Long nID_SubjectOrgan;
@@ -28,6 +30,8 @@ public class MerchantVO {
    public MerchantVO(Merchant merchant) {
       nID = merchant.getId();
       sID = merchant.getsID();
+      sName = merchant.getName();
+      sPrivateKey = merchant.getsPrivateKey();
       sURL_CallbackStatusNew = merchant.getsURL_CallbackStatusNew();
       sURL_CallbackPaySuccess = merchant.getsURL_CallbackPaySuccess();
       if (merchant.getOwner() != null) {
@@ -71,6 +75,22 @@ public class MerchantVO {
       this.sURL_CallbackPaySuccess = sURL_CallbackPaySuccess;
    }
 
+   public String getsName() {
+      return sName;
+   }
+
+   public void setsName(String sName) {
+      this.sName = sName;
+   }
+
+   public String getsPrivateKey() {
+      return sPrivateKey;
+   }
+
+   public void setsPrivateKey(String sPrivateKey) {
+      this.sPrivateKey = sPrivateKey;
+   }
+
    public void setnID_SubjectOrgan(Long nID_SubjectOrgan) {
       this.nID_SubjectOrgan = nID_SubjectOrgan;
    }
@@ -86,6 +106,8 @@ public class MerchantVO {
       return new EqualsBuilder()
               .append(nID, that.nID)
               .append(sID, that.sID)
+              .append(sName, that.sName)
+              .append(sPrivateKey, that.sPrivateKey)
               .append(sURL_CallbackStatusNew, that.sURL_CallbackStatusNew)
               .append(sURL_CallbackPaySuccess, that.sURL_CallbackPaySuccess)
               .append(nID_SubjectOrgan, that.nID_SubjectOrgan)
@@ -97,6 +119,8 @@ public class MerchantVO {
       return new HashCodeBuilder(17, 37)
               .append(nID)
               .append(sID)
+              .append(sName)
+              .append(sPrivateKey)
               .append(sURL_CallbackStatusNew)
               .append(sURL_CallbackPaySuccess)
               .append(nID_SubjectOrgan)
