@@ -188,45 +188,82 @@ https://test.igov.org.ua/wf-region/service/rest/file/download_file_from_db?taskI
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://server:port/wf-region/service/merchant/getMerchants** - весь список мерчантов
-
-* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
+**HTTP Context: https://server:port/wf-central/service/merchant/getMerchants** - получить весь список обьектов мерчантов
 
 **Response**
 
 ```json					
-	[				        //[0..N]
-	{"idOwner":"14360570"   //[1..1]
-	 "ownerName":"ПриватБанк" //[1..1]
-	 "id":"1" 				//[1..1]
-	}  
-	]
+	[
+		{
+			"nID":1
+			,"sID":"Test_sID"
+			,"sName":"Test_sName"
+			,"sPrivateKey":"test_sPrivateKey"
+			,"sURL_CallbackStatusNew":"test_sURL_CallbackStatusNew"
+			,"sURL_CallbackPaySuccess":"test_sURL_CallbackPaySuccess"
+			,"nID_SubjectOrgan":1
+		}
+		,{
+			"nID":2
+			,"sID":"i10172968078"
+			,"sName":"igov test"
+			,"sPrivateKey":"BStHb3EMmVSYefW2ejwJYz0CY6rDVMj1ZugJdZ2K"
+			,"sURL_CallbackStatusNew":"test_sURL_CallbackStatusNew"
+			,"sURL_CallbackPaySuccess":"test_sURL_CallbackPaySuccess"
+			,"nID_SubjectOrgan":1
+		}
+	]	
 ```
 
 
 Пример:
-https://test.igov.org.ua/wf-region/service/merchant/setMerchant?id=1
+https://test.igov.org.ua/wf-central/service/merchant/getMerchants
+
+
+
+**HTTP Metod: GET**
+**HTTP Context: https://server:port/wf-central/service/merchant/getMerchant** - получить обьект мерчанта
+
+* sID - ID-строка мерчанта(публичный ключ)
+
+**Response**
+
+```json	
+	{
+		"nID":1
+		,"sID":"Test_sID"
+		,"sName":"Test_sName"
+		,"sPrivateKey":"test_sPrivateKey"
+		,"sURL_CallbackStatusNew":"test_sURL_CallbackStatusNew"
+		,"sURL_CallbackPaySuccess":"test_sURL_CallbackPaySuccess"
+		,"nID_SubjectOrgan":1
+	}
+```
+
+Пример:
+https://test.igov.org.ua/wf-central/service/merchant/getMerchant?sID=i10172968078
+
+
 
 **HTTP Metod: DELETE**
 
-**HTTP Context: http://server:port/wf-region/service/merchant/removeMerchant** - удалить мерчанта
+**HTTP Context: http://server:port/wf-central/service/merchant/removeMerchant** - удалить мерчанта
 
 | Name        | Value           |
 | ------------- |:-------------:|
 | Content-Type | application/x-www-form-urlencoded |
 
-* idOwner - ОКПО
-* id - id мерчанта
-* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
+* sID - ID-строка мерчанта(публичный ключ)
 
-**Request**
+**Response**
 
-```text
-    idOwner=idOwner&id=id
+```Status 200
 ```
 
 Пример:
-https://test.igov.org.ua/wf-region/service/merchant/setMerchant?id=1
+https://test.igov.org.ua/wf-central/service/merchant/removeMerchant?sID=i10172968078
+
+
 
 
 **HTTP Metod: POST**
@@ -237,42 +274,36 @@ https://test.igov.org.ua/wf-region/service/merchant/setMerchant?id=1
 | ------------- |:-------------:|
 | Content-Type | application/x-www-form-urlencoded |
 
-* idOwner - ОКПО
-* ownerName - название организации
-* id - id мерчанта
-* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
+* nID - ID-номер мерчанта(внутренний) //опциональный (если не задан или не найден - будет добавлена запись)
+* sID - ID-строка мерчанта(публичный ключ) //опциональный (если не задан или не найден - будет добавлена запись)
+* sName - строковое название мерчанта //опциональный (при добавлении записи - обязательный)
+* sPrivateKey - приватный ключ мерчанта //опциональный (при добавлении записи - обязательный)
+* nID_SubjectOrgan - ID-номер субьекта-органа мерчанта(может быть общий субьект у нескольких мерчантов) //опциональный
+* sURL_CallbackStatusNew - строка-URL каллбэка, при новом статусе платежа(проведении проплаты) //опциональный
+* sURL_CallbackPaySuccess - строка-URL каллбэка, после успешной отправки платежа //опциональный
 
-**Request**
+**Response**
 
-```text
-    idOwner=idOwner&ownerName=ownerName&id=id
+```json	
+	{
+		"nID":1
+		,"sID":"Test_sID"
+		,"sName":"Test_sName22"
+		,"sPrivateKey":"test_sPrivateKey"
+		,"sURL_CallbackStatusNew":"test_sURL_CallbackStatusNew"
+		,"sURL_CallbackPaySuccess":"test_sURL_CallbackPaySuccess"
+		,"nID_SubjectOrgan":1
+	}
 ```
 
-Пример:
-https://test.igov.org.ua/wf-region/service/merchant/setMerchant?id=1&ownerName=Shop1&idOwner=543245
+Примеры обновления:
+https://test.igov.org.ua/wf-central/service/merchant/setMerchant?sID=Test_sID&sName=Test_sName2
+https://test.igov.org.ua/wf-central/service/merchant/setMerchant?nID=1&sName=Test_sName22
+Пример добавления:
+https://test.igov.org.ua/wf-central/service/merchant/setMerchant?sID=Test_sID3&sName=Test_sName3&sPrivateKey=121212 
 
 
-**HTTP Metod: PUT**
 
-**HTTP Context: http://server:port/wf-region/service/merchant/addMerchant** - добавить мерчанта
-
-| Name        | Value           |
-| ------------- |:-------------:|
-| Content-Type | application/x-www-form-urlencoded |
-
-* idOwner - ОКПО
-* ownerName - название организации
-* id - id мерчанта
-* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
-
-**Request**
-
-```text
-    idOwner=idOwner&ownerName=ownerName&id=id
-```
-
-Пример:
-https://test.igov.org.ua/wf-region/service/merchant/addMerchant?id=1
 
 
 <a name="8_workWithTables">
@@ -691,7 +722,18 @@ https://test.igov.org.ua/wf-central/service/messages/getMessages
 
 Response:
 ```json
-[{"nID":76,"sHead":"Закликаю владу перевести цю послугу в електронну форму!","sBody":"Дніпропетровськ - Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки","sDate":"2015-06-03 22:09:16.536","nID_Subject":0,"sMail":"bvv4ik@gmail.com","sContacts":"","sData":""}]
+[
+	{
+		"nID":76,"sHead":"Закликаю владу перевести цю послугу в електронну форму!"
+		,"sBody":"Дніпропетровськ - Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки"
+		,"sDate":"2015-06-03 22:09:16.536"
+		,"nID_Subject":0
+		,"sMail":"bvv4ik@gmail.com"
+		,"sContacts":""
+		,"sData":""
+		,"nID_SubjectMessageType":0
+	}
+]
 ```
 
 **HTTP Metod: GET**
@@ -707,7 +749,17 @@ https://test.igov.org.ua/wf-central/service/messages/getMessage?nID=76
 
 Ответ:
 ```json
-{"nID":76,"sHead":"Закликаю владу перевести цю послугу в електронну форму!","sBody":"Дніпропетровськ - Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки","sDate":"2015-06-03 22:09:16.536","nID_Subject":0,"sMail":"bvv4ik@gmail.com","sContacts":"","sData":""}
+{
+	"nID":76
+	,"sHead":"Закликаю владу перевести цю послугу в електронну форму!"
+	,"sBody":"Дніпропетровськ - Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки"
+	,"sDate":"2015-06-03 22:09:16.536"
+	,"nID_Subject":0
+	,"sMail":"bvv4ik@gmail.com"
+	,"sContacts":""
+	,"sData":""
+	,"nID_SubjectMessageType":0
+}
 ```
 **HTTP Metod: POST**
 
@@ -719,6 +771,13 @@ https://test.igov.org.ua/wf-central/service/messages/getMessage?nID=76
 * sMail - Строка электронного адреса автора //опционально
 * sContacts - Строка контактов автора //опционально
 * sData - Строка дополнительных данных автора //опционально
+* nID_SubjectMessageType - ИД-номер типа сообщения  //опционально (по умолчанию == 0) 
+
+nID_SubjectMessageType:
+nID;sName;sDescription
+0;ServiceNeed;Просьба добавить услугу
+1;ServiceFeedback;Отзыв о услуге
+
 
 Примеры:
 https://test.igov.org.ua/wf-central/service/messages/setMessage?sHead=name&sBody=body&sMail=a@a.a

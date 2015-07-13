@@ -2,7 +2,11 @@ package org.activiti.rest.controller;
 
 import com.google.gwt.user.server.Base64Utils;
 import com.mongodb.util.JSON;
-import org.activiti.engine.TaskService;
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.history.HistoricVariableInstance;
+import org.activiti.engine.impl.util.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,12 +31,12 @@ public class ActivitiPaymentRestController {
     public static final String TASK_MARK = "TaskActiviti_";
     public static final String PAYMENT_SUCCESS = "success";
 
+//    @Autowired
+//    TaskService taskService;
     @Autowired
-    TaskService taskService;
-//    @Autowired
-//    RuntimeService runtimeService;
-//    @Autowired
-//    private HistoryService historyService;
+    private RuntimeService runtimeService;
+    @Autowired
+    private HistoryService historyService;
 
     @RequestMapping(value = "/setPaymentStatus_TaskActiviti", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
@@ -79,25 +84,44 @@ public class ActivitiPaymentRestController {
             return;
         }
 
-        //save info to task
-//        Map<String, Object> variables = new HashMap<>();
-//        variables.put("sID_Payment", transaction_id);
-//        taskService.setVariables(""+nID_Task,variables );
+        //save info to process
         try {
-            taskService.setVariable("" + nID_Task, "sID_Payment", transaction_id);
+            log.info("try to get task. task_id=" + nID_Task);
+            HistoricTaskInstance task = historyService.createHistoricTaskInstanceQuery()
+                    .taskId("" + nID_Task).singleResult();
+            log.info("try to set sID_Payment to processInstance of task, getProcessInstanceId="
+                    +  task.getProcessInstanceId());
+            runtimeService.setVariable(
+                    task.getProcessInstanceId(),
+                    "sID_Payment", transaction_id);
+            runtimeService.setVariable("" + nID_Task, "sID_Payment", transaction_id);
+            if (task.getProcessVariables().get("sID_Payment") == transaction_id) {
+                log.info("success");
+            }
         } catch (Exception e){
             log.error("error during changing task " + nID_Task + ", field sID_Payment=" + transaction_id, e);
         }
-//        HistoricTaskInstance historicTaskInstanceQuery = historyService.createHistoricTaskInstanceQuery()
-//                .taskId("" + nID_Task).singleResult();
-//        historicTaskInstanceQuery.
+
+
     }
-/*
+
+
+
+    private Object getProccessVariableValue(String processInstance_ID,
+                                            String variableName) {
+
+        HistoricVariableInstance historicVariableInstance = historyService
+                .createHistoricVariableInstanceQuery()
+                .processInstanceId(processInstance_ID)
+                .variableName(variableName).singleResult();
+        return (Object) historicVariableInstance.getValue();
+    }
+
     public static void main(String[] args) {
         Map values = new HashMap<String, String>();
         values.put(LIQPAY_FIELD_TRANSACTION_ID, "123");
         values.put(LIQPAY_FIELD_PAYMENT_STATUS, "success");
         ActivitiPaymentRestController controller = new ActivitiPaymentRestController();
         controller.setPaymentStatus("TaskActiviti_12345", new JSONObject(values).toString(), LIQPAY_PAYMENT_SYSTEM);
-    }*/
+    }
 }
