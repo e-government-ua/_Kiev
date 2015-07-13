@@ -1688,16 +1688,18 @@ https://test.igov.org.ua/wf-central/service/services/removeSubjectOrganJoins?nID
 #### 20. Получение кнопки для оплаты через LiqPay
 <br>
 **Method: GET**
+
 Параметры:
-*sID_Merchant - ид меранта
-*sSum - сумма оплаты
-*oID_Currency - валюта
-*oLanguage - язык
-*sDescription - описание
-*sID_Order - ид заказа
-*sURL_CallbackStatusNew - URL для отправки статуса
-*sURL_CallbackPaySuccess - URL для отправки ответа
-*nID_Subject - ид субъекта
-*bTest - тестовый вызов или нет
+* sID_Merchant - ид меранта
+* sSum - сумма оплаты
+* oID_Currency - валюта
+* oLanguage - язык
+* sDescription - описание
+* sID_Order - ид заказа
+* sURL_CallbackStatusNew - URL для отправки статуса
+* sURL_CallbackPaySuccess - URL для отправки ответа
+* nID_Subject - ид субъекта
+* bTest - тестовый вызов или нет
+
 Пример:
 https://test.igov.org.ua/wf-central/service/services/getPayButtonHTML_LiqPay?sID_Merchant=i10172968078&sSum=55,00&oID_Currency=UAH&oLanguage=RUSSIAN&sDescription=test&sID_Order=12345&sURL_CallbackStatusNew=&sURL_CallbackPaySuccess=&nID_Subject=1&bTest=true
