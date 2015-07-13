@@ -13,13 +13,16 @@ import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 import org.wf.dp.dniprorada.constant.Currency;
 import org.wf.dp.dniprorada.constant.Language;
 import org.wf.dp.dniprorada.rest.HttpRequester;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Component
+@Component()
 public class LiqBuy {
 
     @Autowired
     private AccessDataDao accessDataDao;
 
+    private static final Logger log = LoggerFactory.getLogger(LiqBuy.class);
     private static final String URL = "https://www.liqpay.com/api/checkout";
     private static final String version = "version";
     private static final Language languageDefault = Language.RUSSIAN;
@@ -48,8 +51,8 @@ public class LiqBuy {
         String merchant = HttpRequester.get("https://test.igov.org.ua/wf-central/service/merchant/getMerchant", paramMerchant);
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(merchant);
-        System.out.println("!!!!!!!!!!!!!!!!!merchant ok: " + merchant + " sURL_CallbackStatusNew: " + (String) jsonObject.get("sURL_CallbackStatusNew"));
-        String privateKey = (String) jsonObject.get("sPrivateKey"); //!!!!!!!!!!!!!!!!!!!!!!!!!!!Пока не реализовали парсер
+        
+        String privateKey = (String) jsonObject.get("sPrivateKey");
         if (privateKey == null) {
             privateKey = "test";
         }
@@ -60,14 +63,13 @@ public class LiqBuy {
             sURL_CallbackPaySuccess = (String) jsonObject.get("sURL_CallbackPaySuccess");
         }
 
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!accessDataDao: " + accessDataDao + " nID_Subject: " + nID_Subject);
-        String nID_Access = null;//accessDataDao.setAccessData(String.valueOf(nID_Subject));
         if (sURL_CallbackPaySuccess != null) {
+            String nID_Access = accessDataDao.setAccessData(String.valueOf(nID_Subject));
             sURL_CallbackPaySuccess = new StringBuilder(sURL_CallbackPaySuccess)
                     .append("?nID_Subject=").append(nID_Subject)
                     .append("&nID_Access=").append(nID_Access).toString();
         }
-
+        
         Map<String, String> params = new HashMap<String, String>();
         params.put("version", version);
         params.put("amount", sSum);
@@ -82,12 +84,14 @@ public class LiqBuy {
         if (bTest) {
             params.put("sandbox", sandbox);
         }
-
-		// LiqPay liqpay = new LiqPay(publicKey, privateKey);
+        
+        log.info("getPayButtonHTML_LiqPay params: " + params + " privateKey: " + privateKey);
+        String result = getForm(params, privateKey, oLanguage);
+        log.info("getPayButtonHTML_LiqPay ok!: " + result);
+        
+        // LiqPay liqpay = new LiqPay(publicKey, privateKey);
         // String result = liqpay.cnb_form(params);
         // System.out.println(result);
-        String result = getForm(params, privateKey, oLanguage);
-        System.out.println("*************************************************result: " + result);
         return result;
     }
 
