@@ -36,9 +36,9 @@
     </div>
     <div class="list-group-item disabled">
         <div class="row no-margin-bottom">
-            <div class="col-md-11">Крок 2. Ви увійшли як {{data.formData.params.bankIdfirstName.value}}
-                {{data.formData.params.bankIdmiddleName.value}}
-                {{data.formData.params.bankIdlastName.value}}
+            <div class="col-md-11">Крок 2. Ви увійшли як {{bankIDAccount.customer.firstName}}
+                {{bankIDAccount.customer.middleName}}
+                {{bankIDAccount.customer.lastName}}
             </div>
             <div class="col-md-1">
                 <div class="link-button">
@@ -49,7 +49,7 @@
     </div>
     <div class="list-group-item">
         <div class="row no-margin-bottom">
-            <h3 class="text-center">Шановний {{data.formData.params.bankIdfirstName.value}} {{data.formData.params.bankIdmiddleName.value}}!</h3>
+            <h3 class="text-center">Шановний {{bankIDAccount.customer.firstName}} {{bankIDAccount.customer.middleName}}!</h3>
 
             <div class="text-center">Ваше звернення №{{state.data.id}} успішно зареєстровано</div>
             <div class="text-center" ng-bind-html="getHtml(data.formData.params.response.value)" ng-if="data.formData.params.response.value"></div>

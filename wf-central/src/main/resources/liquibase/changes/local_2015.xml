@@ -153,4 +153,73 @@
         <!--<dropUniqueConstraint tableName="HistoryEvent_Service" constraintName="sID" uniqueColumns="sID"/>-->
     </changeSet>
 
+    <changeSet id="issue-511" author="brunneng">
+        <createTable tableName="Merchant">
+            <column name="nID" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sID" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sName" type="varchar(200)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sURL_CallbackStatusNew" type="varchar(500)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sURL_CallbackPaySuccess" type="varchar(500)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="nID_SubjectOrgan" type="int">
+                <constraints nullable="true"
+                             foreignKeyName="FK_Merchant_SubjectOrgan"
+                             referencedTableName="SubjectOrgan" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="issue-511-autoIncrement" author="brunneng" dbms="h2">
+        <addAutoIncrement tableName="Merchant" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
+    <changeSet id="issue-528" author="brunneng">
+        <createTable tableName="SubjectMessageType">
+            <column name="nID" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sDescription" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <insert tableName="SubjectMessageType">
+            <column name="nID" value="0"/>
+            <column name="sName" value="dummy"/>
+            <column name="sDescription" value="dummy"/>
+        </insert>
+
+        <addColumn tableName="SubjectMessage">
+            <column name="nID_SubjectMessageType" type="int" defaultValue="0">
+                <constraints nullable="false"
+                             foreignKeyName="FK_SubjectMessage_SubjectMessageType"
+                             referencedTableName="SubjectMessageType" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="issue-528-autoIncrement" author="brunneng" dbms="h2">
+        <addAutoIncrement tableName="SubjectMessageType" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
+    <changeSet id="issue-511_sPrivateKey" author="brunneng">
+        <addColumn tableName="Merchant">
+            <column name="sPrivateKey" type="varchar(100)" defaultValue="dummy">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

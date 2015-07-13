@@ -11,7 +11,7 @@ module.exports = {
   DEBUG: 'true',
 
   SERVER_PROTOCOL: 'http',
-  SERVER_PORT: '8443',
+  SERVER_PORT: '9000',
   SERVER_KEY: '/sybase/cert/server.key',
   SERVER_CERT: '/sybase/cert/server.crt',
 
@@ -23,7 +23,7 @@ module.exports = {
 
   ACTIVITI_PROTOCOL: 'https',
   ACTIVITI_HOSTNAME: 'test.igov.org.ua',
-  ACTIVITI_PORT: '8443',
+  ACTIVITI_PORT: 8080,
   ACTIVITI_PATH: '/wf-central/service',
   ACTIVITI_USER: 'activiti-master',
   ACTIVITI_PASSWORD: 'UjhtJnEvf!',

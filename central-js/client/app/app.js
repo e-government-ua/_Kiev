@@ -30,15 +30,15 @@ angular.module('app', [
         }
       }
     }).state('index.subcategory', {
-      url: '/subcategory/:catID/:scatID',
+      url: 'subcategory/:catID/:scatID',
       resolve: {
         catalog: function(CatalogService) {
           return CatalogService.getServices();
         }
       },
       views: {
-        '': {
-          templateUrl: 'app/catalog/subcategory.html',
+        'main@': {
+          templateUrl: 'app/service/subcategory/subcategory.html',
           controller: 'SubcategoryController'
         }
       }
@@ -247,11 +247,13 @@ angular.module('app', [
       views: {
         'content@index.service.general.city.built-in.bankid': {
           templateUrl: 'app/service/city/built-in/bankid.submitted.html',
-          controller: function($state, $scope, $sce) {
+          controller: function($state, $scope, $sce, BankIDAccount) {
             $scope.state = $state.get('index.service.general.city.built-in.bankid.submitted');
             $scope.getHtml = function(html) {
               return $sce.trustAsHtml(html);
             };
+            
+            $scope.bankIDAccount = BankIDAccount
           }
         }
       }

@@ -33,7 +33,7 @@ exports.setup = function (config, url, accountService) {
         });
 
     BankIDAuth.prototype.authorizationParams = function (options) {
-        return {};
+        return options.eds ? {eds : true} : {};
     };
 
     BankIDAuth.prototype.tokenParams = function (options) {

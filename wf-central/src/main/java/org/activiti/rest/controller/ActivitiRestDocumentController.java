@@ -5,8 +5,10 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.redis.util.RedisUtil;
 import org.slf4j.Logger;
@@ -15,10 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.wf.dp.dniprorada.base.util.JsonRestUtils;
+//import org.wf.dp.dniprorada.base.dao.AccessDataDao;
+import org.wf.dp.dniprorada.constant.Currency;
 import org.wf.dp.dniprorada.constant.HistoryEventMessage;
 import org.wf.dp.dniprorada.constant.HistoryEventType;
+import org.wf.dp.dniprorada.constant.Language;
 import org.wf.dp.dniprorada.dao.*;
+import org.wf.dp.dniprorada.liqPay.LiqBuy;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.model.document.HandlerFactory;
 import org.wf.dp.dniprorada.util.Util;
@@ -49,6 +54,9 @@ public class ActivitiRestDocumentController {
     
     //@Autowired
     //private AccessDataDao accessDataDao;
+    
+    @Autowired
+    LiqBuy liqBuy;
 
     @Autowired
     private HandlerFactory handlerFactory;
@@ -164,11 +172,32 @@ public class ActivitiRestDocumentController {
     @ResponseBody
     byte[] getDocumentFile(@RequestParam(value = "nID") Long id,
             @RequestParam(value = "nID_Subject") long nID_Subject,
+            
+            @RequestParam(value = "sCode_DocumentAccess", required = false) String accessCode,
+            @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false) Long organID,
+            @RequestParam(value = "nID_DocumentType", required = false) Long docTypeID,
+            @RequestParam(value = "sPass", required = false) String password,
+            
                            HttpServletRequest request, HttpServletResponse httpResponse) 
                            throws ActivitiRestException{
         Document document = documentDao.getDocument(id);
         if(nID_Subject != document.getSubject().getId()){
-            throw new ActivitiRestException("401", "You don't have access!");
+            
+            
+            
+            if(accessCode!=null){
+                Document oDocument = handlerFactory
+                    .buildHandlerFor(documentDao.getOperator(organID))
+                    .setDocumentType(docTypeID)
+                    .setAccessCode(accessCode)
+                    .setPassword(password)
+                    .getDocument();
+                if(oDocument==null){
+                    throw new ActivitiRestException("401", "You don't have access by accessCode!");
+                }
+            }else{
+                throw new ActivitiRestException("401", "You don't have access!");
+            }
         } 
         byte[] content = documentDao.getDocumentContent(document
                 .getContentKey());
@@ -194,8 +223,29 @@ public class ActivitiRestDocumentController {
     @RequestMapping(value = "/getDocumentTypes", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<DocumentType> getDocumentTypes() {
+    List<DocumentType> getDocumentTypes() throws Exception {
         return documentTypeDao.getDocumentTypes();
+    }
+    
+    @RequestMapping(value = "/getPayButtonHTML_LiqPay", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    String getPayButtonHTML_LiqPay(
+    		@RequestParam(value = "sID_Merchant", required = true) String sID_Merchant,
+    		@RequestParam(value = "sSum", required = true) String sSum,
+    		@RequestParam(value = "oID_Currency", required = true) Currency oID_Currency,
+    		@RequestParam(value = "oLanguage", required = true) Language oLanguage,
+    		@RequestParam(value = "sDescription", required = true) String sDescription,
+    		@RequestParam(value = "sID_Order", required = true) String sID_Order,
+    		@RequestParam(value = "sURL_CallbackStatusNew", required = false) String sURL_CallbackStatusNew,
+    		@RequestParam(value = "sURL_CallbackPaySuccess", required = false) String sURL_CallbackPaySuccess,
+    		@RequestParam(value = "nID_Subject", required = true) Long nID_Subject,
+    		@RequestParam(value = "bTest", required = true) boolean bTest) throws Exception {
+         
+    	return liqBuy.getPayButtonHTML_LiqPay(sID_Merchant, sSum, 
+    			oID_Currency, oLanguage, sDescription, sID_Order, 
+    			sURL_CallbackStatusNew, sURL_CallbackStatusNew, 
+    			nID_Subject, true);
     }
 
     @RequestMapping(value = "/setDocument", method = RequestMethod.GET)

@@ -228,7 +228,8 @@ a {
 
 ul.dropdown-menu {
   max-height: 270px;
-  overflow-y: auto;
+  /*overflow-y: auto;*/
+  overflow-y: scroll;
 }
 
 .share-form {
@@ -1340,4 +1341,7 @@ label .snippet {
 
 .slot-picker .slot-time {
   min-width: 85px;
+}
+ .subcategory_title{
+  padding-left:30px;
 }

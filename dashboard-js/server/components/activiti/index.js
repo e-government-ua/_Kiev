@@ -5,10 +5,19 @@ var config = require('../../config/environment');
 var request = require('request');
 var url = require('url');
 
+var Buffer = require('buffer').Buffer;
+
+var authBase = 'Basic ' + new Buffer(
+			config.activiti.username +
+			':' +
+			config.activiti.password)
+		.toString('base64');
+
 var httpProxy = require('http-proxy');
 var default_headers = {
-	'Authorization': config.activiti.auth.basic
-}
+	'Authorization': authBase
+};
+/*	'Authorization': config.activiti.auth.basic*/
 
 request.debug = config.request.debug;
 
@@ -16,7 +25,8 @@ var createUploadProxy = function() {
 	var uploadProxy = httpProxy.createProxyServer({});
 	uploadProxy.on('proxyReq', function(proxyReq, req, res, options) {
 		proxyReq.path = options.target.path;
-		proxyReq.setHeader('Authorization', config.activiti.auth.basic);
+		proxyReq.setHeader('Authorization', authBase);
+		/*proxyReq.setHeader('Authorization', config.activiti.auth.basic);*/
 	});
 	uploadProxy.on('proxyRes', function(proxyRes, req, res) {
 
@@ -36,7 +46,8 @@ var getRequestURL = function(options) {
 
 var getRequestOptions = function(options) {
 	var headers = options.headers;
-	if (config.activiti.auth.basic) {
+	/*if (config.activiti.auth.basic) {*/
+	if (config.activiti.password) {
 		headers = _.merge(options.headers, default_headers) || default_headers;
 	}
 	return {

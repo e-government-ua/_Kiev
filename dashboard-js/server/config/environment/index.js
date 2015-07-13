@@ -34,9 +34,8 @@ var all = {
     host: process.env.ACTIVITI_HOST || 'localhost',
     port: process.env.ACTIVITI_PORT || 8080,
     rest: process.env.ACTIVITI_REST || 'activiti-rest/service',
-    auth: {
-      basic: process.env.ACTIVITI_AUTH_BASIC
-    },
+    username: process.env.ACTIVITI_USER,
+    password: process.env.ACTIVITI_PASSWORD,
     session: {
       sessionIdle: process.env.ACTIVITI_SESSION_IDLE || 60 * 8, //sec show warning
       timeOut: process.env.ACTIVITI_SESSION_TIMEOUT || 60 * 2, //sec close session after warning

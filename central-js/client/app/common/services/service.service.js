@@ -72,7 +72,7 @@ angular.module('app').service('ServiceService', function($http, $q) {
 
   this.getDocumentLink = function(docnID) {
     return '/api/documents/download/' + docnID;
-  }
+  };
 
   this.shareLink = function(nID_Subject, nID_Document, sFIO, sTelephone, sMail, nMS) {
     var data = {
@@ -85,6 +85,33 @@ angular.module('app').service('ServiceService', function($http, $q) {
       'nMS': nMS
     };
     return $http.get('./api/documents/' + nID_Document + '/share', {
+      params: data,
+      data: data
+    }).then(function(response) {
+      return response.data;
+    });
+  };
+
+  this.getDocumentTypes = function() {
+    return $http.get('./api/documents/search/getDocumentTypes').then(function(response) {
+      return response.data;
+    });
+  };
+
+  this.getDocumentOperators = function() {
+    return $http.get('./api/documents/search/getDocumentOperators').then(function(response) {
+      return response.data;
+    });
+  };
+
+  this.searchDocument = function(typeId, operatorId, code, pass) {
+    var data = {
+      'sCode_DocumentAccess': code,
+      'nID_DocumentOperator_SubjectOrgan': operatorId,
+      'nID_DocumentType': typeId,
+      'sPass': pass
+    };
+    return $http.post('./api/documents/search/searchDocument', {
       params: data,
       data: data
     }).then(function(response) {

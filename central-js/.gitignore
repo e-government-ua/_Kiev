@@ -4,6 +4,6 @@ public
 .sass-cache
 .idea
 client/bower_components
+client/build
 dist
-/server/config/local.env.js
-server/local_config.js
+server/config/local.env.js

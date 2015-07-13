@@ -65,9 +65,19 @@ angular.module('documents').config(function($stateProvider) {
     })
     .state('index.documents.search', {
       url: '/search',
+      //parent: 'index.documents.user',
+      resolve: {
+        types: function($q, $state, ServiceService) {
+          return ServiceService.getDocumentTypes();
+        },
+        operators: function($q, $state, ServiceService) {
+          return ServiceService.getDocumentOperators();
+        }
+      },
       views: {
         'content': {
-          templateUrl: 'app/documents/search/index.html'
+          templateUrl: 'app/documents/search/index.html',
+          controller: 'DocumentsSearchController'
         }
       }
     })

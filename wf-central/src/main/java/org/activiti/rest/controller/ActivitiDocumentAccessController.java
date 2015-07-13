@@ -37,6 +37,7 @@ public class ActivitiDocumentAccessController {
     @Autowired
     private DocumentDao documentDao;
 
+    //@Deprecated
     @RequestMapping(value = "/setDocumentLink", method = RequestMethod.GET, headers = {"Accept=application/json"})
     public
     @ResponseBody
@@ -50,9 +51,15 @@ public class ActivitiDocumentAccessController {
 			HttpServletResponse response) {
 		AccessURL oAccessURL = new AccessURL();
 		try {
-			oAccessURL.setValue(documentAccessDao.setDocumentLink(nID_Document,
-					sFIO, sTarget, sTelephone, nMS, sMail));
 			oAccessURL.setName("sURL");
+                        String sValue = "";
+			//oAccessURL.setValue(documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail));
+                        String sURL = documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail);
+			//sValue = documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail);
+			sValue = String.valueOf(documentAccessDao.getIdAccess());
+			oAccessURL.setValue(sValue);
+                        
+                        
             createHistoryEvent(HistoryEventType.SET_DOCUMENT_ACCESS_LINK,
                     nID_Document, sFIO, sTelephone, nMS, sMail);
 		} catch (Exception e) {
@@ -62,6 +69,7 @@ public class ActivitiDocumentAccessController {
         return oAccessURL;
     }
 
+        @Deprecated
 	@RequestMapping(value = "/getDocumentLink", method = RequestMethod.GET, headers = { "Accept=application/json" })
 	public @ResponseBody
 	DocumentAccess getDocumentAccessLink(
@@ -108,18 +116,21 @@ public class ActivitiDocumentAccessController {
 		return da;
 	}
 
+        @Deprecated
 	@RequestMapping(value = "/getDocumentAccess", method = RequestMethod.GET, headers = { "Accept=application/json" })
 	public @ResponseBody
 	AccessURL getDocumentAccess(
 			@RequestParam(value = "nID_Access") Long nID_Access,
 			@RequestParam(value = "sSecret") String sSecret,
 			HttpServletResponse response) {
-		String str = "";
 		AccessURL oAccessURL = new AccessURL();
 		try {
 			oAccessURL.setName("sURL");
-			str = documentAccessDao.getDocumentAccess(nID_Access,sSecret);
-			oAccessURL.setValue(str);
+                        String sValue = "";
+			//sValue = documentAccessDao.getDocumentAccess(nID_Access,sSecret);
+			documentAccessDao.getDocumentAccess(nID_Access,sSecret);
+			sValue = String.valueOf(nID_Access);
+			oAccessURL.setValue(sValue);
 		} catch (Exception e) {
 			response.setStatus(403);
 			response.setHeader("Reason", "Access not found");
@@ -128,6 +139,7 @@ public class ActivitiDocumentAccessController {
 		return oAccessURL;
 	}
 
+        @Deprecated
 	@RequestMapping(value = "/setDocumentAccess", method = RequestMethod.GET, headers = { "Accept=application/json" })
 	public @ResponseBody
 	AccessURL setDocumentAccess(
@@ -137,8 +149,11 @@ public class ActivitiDocumentAccessController {
 			HttpServletResponse response) {
 		AccessURL oAccessURL = new AccessURL();
 		try {
-			oAccessURL.setValue(documentAccessDao.setDocumentAccess(nID_Access,
-					sSecret, sAnswer));
+                        String sValue;
+			sValue = documentAccessDao.setDocumentAccess(nID_Access, sSecret, sAnswer);
+                        //sValue = String.valueOf(nID_Access);
+			//oAccessURL.setValue(documentAccessDao.setDocumentAccess(nID_Access, sSecret, sAnswer));
+                        oAccessURL.setValue(sValue);
 			oAccessURL.setName("sURL");
 			if(oAccessURL.getValue().isEmpty() || oAccessURL.getValue() == null){
 				response.setStatus(403);
