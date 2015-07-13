@@ -1,5 +1,6 @@
 package org.activiti.rest.controller;
 
+import com.google.gwt.user.server.Base64Utils;
 import com.mongodb.util.JSON;
 import org.activiti.engine.TaskService;
 import org.apache.log4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class ActivitiPaymentRestController {
@@ -30,16 +33,18 @@ public class ActivitiPaymentRestController {
 //    @Autowired
 //    private HistoryService historyService;
 
-    @RequestMapping(value = "/setPaymentStatus_TaskActiviti", method = RequestMethod.GET, headers = { "Accept=application/json" })
+    @RequestMapping(value = "/setPaymentStatus_TaskActiviti", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
+			@RequestParam byte[] data,
+			@RequestParam byte[] signature,
 			@RequestParam String sID_Order,
-			@RequestParam String sData,
-			@RequestParam String sID_PaymentSystem){
+			@RequestParam String sID_PaymentSystem,
+			HttpServletResponse response){
 
-
+    	String sData = new String(Base64Utils.toBase64(data));
         setPaymentStatus(sID_Order, sData, sID_PaymentSystem);
 
-		return "/";
+		return sData;
 	}
 
     private void setPaymentStatus(String sID_Order, String sData, String sID_PaymentSystem) {
