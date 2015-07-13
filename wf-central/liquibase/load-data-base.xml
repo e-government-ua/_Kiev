@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="Update data" author="brunneng" runOnChange="true">
+
+        <sql splitStatements="true" dbms="postgresql">
+            SET CONSTRAINTS ALL DEFERRED;
+        </sql>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Flow_ServiceData.csv" tableName="Flow_ServiceData" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="nID_ServiceData" type="NUMERIC"/>
+            <column name="nID_SubjectOrganDepartment" type="NUMERIC"/>
+            <column name="sID_BP" type="STRING"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/FlowPropertyClass.csv" tableName="FlowPropertyClass" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="sPath" type="STRING"/>
+            <column name="sBeanName" type="STRING"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/FlowProperty.csv" tableName="FlowProperty" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_FlowPropertyClass" type="NUMERIC"/>
+            <column name="sData" type="STRING"/>
+            <column name="nID_Flow_ServiceData" type="NUMERIC"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/FlowSlot.csv" tableName="FlowSlot" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="sDate" type="DATETIME"/>
+            <column name="sData" type="STRING"/>
+            <column name="nID_Flow_ServiceData" type="NUMERIC"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/FlowSlotTicket.csv" tableName="FlowSlotTicket" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_FlowSlot" type="NUMERIC"/>
+            <column name="nID_Subject" type="NUMERIC"/>
+            <column name="nID_Task_Activiti" type="NUMERIC"/>
+            <column name="sDateStart" type="DATETIME"/>
+            <column name="sDateFinish" type="DATETIME"/>
+            <column name="sDateEdit" type="DATETIME"/>
+        </loadUpdateData>
+    </changeSet>    
+
+
+</databaseChangeLog>
