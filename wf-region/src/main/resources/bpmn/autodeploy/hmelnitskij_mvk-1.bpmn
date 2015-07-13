@@ -12,9 +12,9 @@
           <activiti:value id="копія рішення міської ради" name="копія рішення міської ради"></activiti:value>
           <activiti:value id="копія розпорядження міського голови" name="копія розпорядження міського голови"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="docDate" name="Дата прийняття документа; в форматі ДД.ММ.РРРР" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="docNumber" name="Номер документа" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="docName" name="Назва документа" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="docDate" name="Дата прийняття документа; в форматі ДД.ММ.РРРР" type="string"></activiti:formProperty>
+        <activiti:formProperty id="docNumber" name="Номер документа" type="long"></activiti:formProperty>
+        <activiti:formProperty id="docName" name="Назва документа" type="string"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
       </extensionElements>
