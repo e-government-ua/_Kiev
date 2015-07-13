@@ -25,7 +25,7 @@ public class LiqBuy {
     private static final Logger log = LoggerFactory.getLogger(LiqBuy.class);
     private static final String URL = "https://www.liqpay.com/api/checkout";
     private static final String version = "3";
-    private static final Language languageDefault = Language.RUSSIAN;
+    public static final Language DEFAULT_LANG = Language.RUSSIAN;
     private static final String sandbox = "1";
     private static final String payButtonHTML = new StringBuilder()
             .append("<form method=\"POST\" action=\"")
@@ -41,7 +41,10 @@ public class LiqBuy {
             Currency oID_Currency, Language oLanguage, String sDescription,
             String sID_Order, String sURL_CallbackStatusNew,
             String sURL_CallbackPaySuccess, Long nID_Subject, boolean bTest) throws Exception {
-
+        if (oLanguage == null) {
+            oLanguage = DEFAULT_LANG;
+        }
+        
         bTest = true; //пока не отладим
         String publicKey = sID_Merchant;
 
@@ -98,8 +101,7 @@ public class LiqBuy {
     private String getForm(Map<String, String> params, String privateKey, Language oLanguage) {
         String data = base64_encode(JSONObject.toJSONString(params));
         String signature = createSignature(data, privateKey);
-        Language language = oLanguage != null ? oLanguage : languageDefault;
-        return String.format(payButtonHTML, data, signature, language.getShortName());
+        return String.format(payButtonHTML, data, signature, oLanguage.getShortName());
     }
 
     private String str_to_sign(String str) {

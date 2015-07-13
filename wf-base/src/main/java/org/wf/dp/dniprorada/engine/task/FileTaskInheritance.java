@@ -109,7 +109,7 @@ public class FileTaskInheritance extends AbstractModelTask implements
 	}
 
 	protected List<Attachment> getAttachmentsFromParentTasks(DelegateExecution execution) {
-		final String METHOD_NAME = "getAttachmentsFromParentTasks(String taskId)";
+		final String METHOD_NAME = "getAttachmentsFromParentTasks(DelegateExecution execution)";
 		LOG.trace("Entering method " + METHOD_NAME);
 		
 		List<Attachment> res = new LinkedList<Attachment>();
