@@ -112,7 +112,7 @@
           <activiti:value id="found" name="Документ знайдено"></activiti:value>
           <activiti:value id="notFound" name="Документ не знайдено"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="docToSend" name="Завантажте  копію документа для відправлення заявнику" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="docToSend" name="Завантажте  копію документа для відправлення заявнику" type="file"></activiti:formProperty>
         <activiti:formProperty id="footer" name="footerToPrint" type="invisible" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
