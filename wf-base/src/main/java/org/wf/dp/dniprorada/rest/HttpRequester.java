@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.liqPay;
+package org.wf.dp.dniprorada.rest;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
