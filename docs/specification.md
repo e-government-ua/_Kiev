@@ -19,6 +19,7 @@
 <a href="#17_workWithHistoryEvent_Services">17. Работа с обьектами событий по услугам</a><br/>
 <a href="#18_workWithFlowSlot">18. Работа со слотами потока</a><br/>
 <a href="#19">19. Работа с джоинами суьтектами (отделениями/филиалами)</a><br/>
+<a href="#20">20. Получение кнопки для оплаты через Liqpay</a><br/>
 ### iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -1682,3 +1683,21 @@ https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoin?nID_Sub
 Пример:
 https://test.igov.org.ua/wf-central/service/services/removeSubjectOrganJoins?nID_SubjectOrgan=1&asID_Public=130505,130506,130507,130508
 
+
+<a name="20">
+#### 20. Получение кнопки для оплаты через LiqPay
+<br>
+**Method: GET**
+Параметры:
+*sID_Merchant - ид меранта
+*sSum - сумма оплаты
+*oID_Currency - валюта
+*oLanguage - язык
+*sDescription - описание
+*sID_Order - ид заказа
+*sURL_CallbackStatusNew - URL для отправки статуса
+*sURL_CallbackPaySuccess - URL для отправки ответа
+*nID_Subject - ид субъекта
+*bTest - тестовый вызов или нет
+Пример:
+https://test.igov.org.ua/wf-central/service/services/getPayButtonHTML_LiqPay?sID_Merchant=i10172968078&sSum=55,00&oID_Currency=UAH&oLanguage=RUSSIAN&sDescription=test&sID_Order=12345&sURL_CallbackStatusNew=&sURL_CallbackPaySuccess=&nID_Subject=1&bTest=true
