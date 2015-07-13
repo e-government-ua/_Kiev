@@ -722,7 +722,18 @@ https://test.igov.org.ua/wf-central/service/messages/getMessages
 
 Response:
 ```json
-[{"nID":76,"sHead":"Закликаю владу перевести цю послугу в електронну форму!","sBody":"Дніпропетровськ - Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки","sDate":"2015-06-03 22:09:16.536","nID_Subject":0,"sMail":"bvv4ik@gmail.com","sContacts":"","sData":""}]
+[
+	{
+		"nID":76,"sHead":"Закликаю владу перевести цю послугу в електронну форму!"
+		,"sBody":"Дніпропетровськ - Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки"
+		,"sDate":"2015-06-03 22:09:16.536"
+		,"nID_Subject":0
+		,"sMail":"bvv4ik@gmail.com"
+		,"sContacts":""
+		,"sData":""
+		,"nID_SubjectMessageType":0
+	}
+]
 ```
 
 **HTTP Metod: GET**
@@ -738,7 +749,17 @@ https://test.igov.org.ua/wf-central/service/messages/getMessage?nID=76
 
 Ответ:
 ```json
-{"nID":76,"sHead":"Закликаю владу перевести цю послугу в електронну форму!","sBody":"Дніпропетровськ - Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки","sDate":"2015-06-03 22:09:16.536","nID_Subject":0,"sMail":"bvv4ik@gmail.com","sContacts":"","sData":""}
+{
+	"nID":76
+	,"sHead":"Закликаю владу перевести цю послугу в електронну форму!"
+	,"sBody":"Дніпропетровськ - Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки"
+	,"sDate":"2015-06-03 22:09:16.536"
+	,"nID_Subject":0
+	,"sMail":"bvv4ik@gmail.com"
+	,"sContacts":""
+	,"sData":""
+	,"nID_SubjectMessageType":0
+}
 ```
 **HTTP Metod: POST**
 
@@ -750,6 +771,13 @@ https://test.igov.org.ua/wf-central/service/messages/getMessage?nID=76
 * sMail - Строка электронного адреса автора //опционально
 * sContacts - Строка контактов автора //опционально
 * sData - Строка дополнительных данных автора //опционально
+* nID_SubjectMessageType - ИД-номер типа сообщения  //опционально (по умолчанию == 0) 
+
+nID_SubjectMessageType:
+nID;sName;sDescription
+0;ServiceNeed;Просьба добавить услугу
+1;ServiceFeedback;Отзыв о услуге
+
 
 Примеры:
 https://test.igov.org.ua/wf-central/service/messages/setMessage?sHead=name&sBody=body&sMail=a@a.a
