@@ -188,28 +188,87 @@ https://test.igov.org.ua/wf-region/service/rest/file/download_file_from_db?taskI
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://server:port/wf-region/service/merchant/getMerchants** - весь список мерчантов
+**HTTP Context: https://server:port/wf-central/service/merchant/getMerchants** - весь список мерчантов
 
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 **Response**
 
 ```json					
-	[				        //[0..N]
-	{"idOwner":"14360570"   //[1..1]
-	 "ownerName":"ПриватБанк" //[1..1]
-	 "id":"1" 				//[1..1]
-	}  
-	]
+	[
+		{
+			"nID":1
+			,"sID":"Test_sID"
+			,"sURL_CallbackStatusNew":"test_sURL_CallbackStatusNew"
+			,"sURL_CallbackPaySuccess":"test_sURL_CallbackPaySuccess"
+			,"nID_SubjectOrgan":1
+		}
+		,{
+			"nID":2
+			,"sID":"i10172968078"
+			,"sURL_CallbackStatusNew":"test_sURL_CallbackStatusNew"
+			,"sURL_CallbackPaySuccess":"test_sURL_CallbackPaySuccess"
+			,"nID_SubjectOrgan":1
+		}
+	]	
 ```
 
 
 Пример:
-https://test.igov.org.ua/wf-region/service/merchant/setMerchant?id=1
+https://test.igov.org.ua/wf-central/service/merchant/getMerchants
+
+
+
+
+
+
+
+
+
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://server:port/wf-central/service/merchant/getMerchant** - получить обьект мерчанта
+
+* sID - ID-строка мерчанта(публичный ключ)
+
+**Response**
+
+```json	
+	{
+		"nID":2,"sID":"i10172968078"
+		,"sURL_CallbackStatusNew":"test_sURL_CallbackStatusNew"
+		,"sURL_CallbackPaySuccess":"test_sURL_CallbackPaySuccess"
+		,"nID_SubjectOrgan":1
+	}
+```
+
+
+Пример:
+https://test.igov.org.ua/wf-central/service/merchant/getMerchant?sID=i10172968078
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 **HTTP Metod: DELETE**
 
-**HTTP Context: http://server:port/wf-region/service/merchant/removeMerchant** - удалить мерчанта
+**HTTP Context: http://server:port/wf-central/service/merchant/removeMerchant** - удалить мерчанта
 
 | Name        | Value           |
 | ------------- |:-------------:|
@@ -226,7 +285,7 @@ https://test.igov.org.ua/wf-region/service/merchant/setMerchant?id=1
 ```
 
 Пример:
-https://test.igov.org.ua/wf-region/service/merchant/setMerchant?id=1
+https://test.igov.org.ua/wf-central/service/merchant/removeMerchant?id=1
 
 
 **HTTP Metod: POST**
@@ -249,7 +308,7 @@ https://test.igov.org.ua/wf-region/service/merchant/setMerchant?id=1
 ```
 
 Пример:
-https://test.igov.org.ua/wf-region/service/merchant/setMerchant?id=1&ownerName=Shop1&idOwner=543245
+https://test.igov.org.ua/wf-central/service/merchant/setMerchant?id=1&ownerName=Shop1&idOwner=543245
 
 
 **HTTP Metod: PUT**
@@ -272,7 +331,11 @@ https://test.igov.org.ua/wf-region/service/merchant/setMerchant?id=1&ownerName=S
 ```
 
 Пример:
-https://test.igov.org.ua/wf-region/service/merchant/addMerchant?id=1
+https://test.igov.org.ua/wf-central/service/merchant/addMerchant?id=1
+
+
+
+
 
 
 <a name="8_workWithTables">
