@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="ternopil_oda_2" name="Тернопіль ОДА - Отримання одноразової матеріальної допомоги законним представником" isExecutable="true">
+  <process id="ternopol_oda_2" name="Тернопіль ОДА - Отримання одноразової матеріальної допомоги законним представником" isExecutable="true">
     <endEvent id="endevent1" name="End"></endEvent>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="orgName" name="До кого Ви звертаєтесь по допомогу" type="string" default="МінСоцПолітики" required="true"></activiti:formProperty>
-        <activiti:formProperty id="citizen" name="Ви являєтесь" default="Законний Представник отримувача державної допомоги" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="citizen" name="Ви являєтесь" type="string" default="Законний Представник отримувача державної допомоги" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище Представника" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я Представника" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькове Представника" type="string" required="true"></activiti:formProperty>
@@ -150,8 +150,8 @@
     </sequenceFlow>
     <sequenceFlow id="flow12" sourceRef="servicetask2" targetRef="endevent2"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_ternopil_oda_2">
-    <bpmndi:BPMNPlane bpmnElement="ternopil_oda_2" id="BPMNPlane_ternopil_oda_2">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_ternopol_oda_2">
+    <bpmndi:BPMNPlane bpmnElement="ternopol_oda_2" id="BPMNPlane_ternopol_oda_2">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="60.0" y="50.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
