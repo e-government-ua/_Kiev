@@ -3,13 +3,13 @@
   <process id="ternopol_2_short4" name="Тернопіль ОДА - Надання матеріальної допомоги у разі тривалої хвороби" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище отримувача АБО представника" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdInn" name="ІПН" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище отримувача АБО представника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file"></activiti:formProperty>
+        <activiti:formProperty id="bankIdInn" name="ІПН" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file"></activiti:formProperty>
         <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера/отримувача державної соціальної допомоги АБО висновок МедЕкспертизи" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="helpeeIncome" name="Акт обстеження матеріально-побутових умов проживання" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="diseaseProof" name="Висновк з медичної установи" type="file" required="true"></activiti:formProperty>
