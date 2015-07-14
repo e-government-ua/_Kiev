@@ -5,6 +5,9 @@ import org.activiti.redis.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,7 @@ import org.wf.dp.dniprorada.util.Util;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -461,9 +465,17 @@ public class ActivitiRestDocumentController {
             DocumentType documentType = documentTypeDao.setDocumentType(nID, sName);
             result = JsonRestUtils.toJsonResponse(documentType);
         } catch (RuntimeException e) {
-            result = JsonRestUtils.toJsonErrorResponse(403, e.getMessage());
+            result = toJsonErrorResponse(403, e.getMessage());
         }
         return result;
+    }
+
+    private ResponseEntity toJsonErrorResponse(int httpCode, String eMessage) {//todo move to JsonRestUtils
+        HttpHeaders headers = new HttpHeaders();
+        MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
+        headers.setContentType(mediaType);
+        headers.set("Reason", eMessage);
+        return new ResponseEntity<>(headers, HttpStatus.valueOf(403));
     }
 
     @RequestMapping(value   = "/removeDocumentType", method  = RequestMethod.GET)
@@ -499,7 +511,7 @@ public class ActivitiRestDocumentController {
             DocumentContentType documentType = documentContentTypeDao.setDocumentContentType(nID, sName);
             result = JsonRestUtils.toJsonResponse(documentType);
         } catch (RuntimeException e) {
-            result = JsonRestUtils.toJsonErrorResponse(403, e.getMessage());
+            result = toJsonErrorResponse(403, e.getMessage());
         }
         return result;
     }

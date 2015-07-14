@@ -101,12 +101,4 @@ public final class JsonRestUtils {
       return new ResponseEntity<>(json, headers, httpStatus);
    }
 
-    public static ResponseEntity toJsonErrorResponse(int httpCode, String eMessage) {
-        HttpHeaders headers = new HttpHeaders();
-        MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
-        headers.setContentType(mediaType);
-        headers.set("Reason",eMessage);
-        return new ResponseEntity<>(headers, HttpStatus.valueOf(httpCode));
-
-    }
 }
