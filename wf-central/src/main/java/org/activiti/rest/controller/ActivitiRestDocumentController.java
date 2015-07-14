@@ -441,6 +441,8 @@ public class ActivitiRestDocumentController {
         subjectOrganDao.removeSubjectOrganJoin(organID, publicIDs);
     }
 
+    //################ DocumentType services ###################
+
     @RequestMapping(value = "/getDocumentTypes", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -477,8 +479,44 @@ public class ActivitiRestDocumentController {
         }
     }
 
+    //################ DocumentContentType services ###################
 
+    @RequestMapping(value = "/getDocumentContentTypes", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<DocumentContentType> getDocumentContentTypes()  {
+        return documentContentTypeDao.getDocumentContentTypes();
+    }
 
+    @RequestMapping(value   = "/setDocumentContentType",  method  = RequestMethod.GET)
+    public  @ResponseBody
+    ResponseEntity<DocumentContentType> setDocumentContentType (
+            @RequestParam(value = "nID")   Long     nID,
+            @RequestParam(value = "sName") String sName
+    ) {
+        ResponseEntity<DocumentContentType> result;
+        try {
+            DocumentContentType documentType = documentContentTypeDao.setDocumentContentType(nID, sName);
+            result = JsonRestUtils.toJsonResponse(documentType);
+        } catch (RuntimeException e) {
+            result = JsonRestUtils.toJsonErrorResponse(403, e.getMessage());
+        }
+        return result;
+    }
 
+    @RequestMapping(value   = "/removeDocumentContentType", method  = RequestMethod.GET)
+    public  @ResponseBody void removeDocumentContentType (
+            @RequestParam(value = "nID")   Long     nID,
+            HttpServletResponse response
+    ) {
+        try {
+            documentContentTypeDao.removeDocumentContentType(nID);
+        } catch (RuntimeException e) {
+            response.setStatus(403);
+            response.setHeader("Reason", e.getMessage());
+        }
+    }
+
+    //################      ###################
 
 }
