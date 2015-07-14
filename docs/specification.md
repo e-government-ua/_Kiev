@@ -415,24 +415,6 @@ https://test.igov.org.ua/wf-central/service/services/getDocumentContent?nID=1
 
 **HTTP Metod: GET**
 
-**HTTP Context: http://server:port/wf-central/service/services/getDocumentTypes** - получение списка типов документов
-
-Пример:
-https://test.igov.org.ua/wf-central/service/services/getDocumentTypes
-
-**Response**
-```json
-[
-	{"nID":0,"sName":"Другое"},
-	{"nID":1,"sName":"Справка"},
-	{"nID":2,"sName":"Паспорт"}
-]
-```
-
-----------------------------------------------------------------------------------------------------------------------------
-
-**HTTP Metod: GET**
-
 **HTTP Context: http://server:port/wf-central/service/services/getDocumentFile** - получение документа в виде файла по ид документа
 
 * nID - ИД-номер документа
@@ -552,7 +534,58 @@ https://test.igov.org.ua/wf-central/service/services/setDocument?sID_Subject_Upl
 **Response**
 ИД ДОКУМЕНТА
 
+----------------------------------------------------------------------------------------------------------------------------
+----------- ТИПЫ ДОКУМЕНТОВ -------------
+----------------------------------------------------------------------------------------------------------------------------
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/getDocumentTypes** - получение списка типов документов
+
+Пример:
+https://test.igov.org.ua/wf-central/service/services/getDocumentTypes
+
+**Response**
+```json
+[
+	{"nID":0,"sName":"Другое"},
+	{"nID":1,"sName":"Справка"},
+	{"nID":2,"sName":"Паспорт"}
+]
+```
+
 --------------------------------------------------------------------------------------------------------------------------
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/setDocumentType** - добавить/изменить запись типа документа
+параметры:
+
+ *nID -- ид записи
+
+ *sName -- название записи
+
+ Если параметр запись с ид=nID не будет найдена, то создастся новая запись (с автогенерируемым nID), иначе -- обновится текущая.
+  примеры:
+создать новый тип:
+https://test.igov.org.ua/wf-central/service/services/setDocumentType?nID=100&sName=test
+ответ: ```json{"nID":20314,"sName":"test"}```
+изменить (взять ид из предыдущего ответа):
+https://test.igov.org.ua/wf-central/service/services/setDocumentType?nID=20314&sName=test2
+ответ: ```json {"nID":20314,"sName":"test2"}```
+
+--------------------------------------------------------------------------------------------------------------------------
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/removeDocumentType** - удаление записи по ее ид
+параметры:
+ *nID -- ид записи
+
+  Если параметр запись с ид=nID не будет найдена, то вернется ошибка *403. Record not found*, иначе -- запись удалится.
+  
+пример:
+https://test.igov.org.ua/wf-central/service/services/removeDocumentContentType?nID=20314
+ответ: ```200 ok ```
+--------------------------------------------------------------------------------------------------------------------------
+
 
 
 <a name="10_workWithSubjects">
@@ -1378,7 +1411,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?s
 
 
 <a name="17_workWithHistoryEvent_Services">
-#### 17. Работа с обьектами событий по услугам <<in developing, issue 493>>
+#### 17. Работа с обьектами событий по услугам
 </a><a href="#0_contents">↑Up</a><br/>
 **HTTP Metod: GET**
 
