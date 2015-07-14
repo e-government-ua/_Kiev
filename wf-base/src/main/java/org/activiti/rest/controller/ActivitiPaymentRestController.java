@@ -2,6 +2,8 @@ package org.activiti.rest.controller;
 
 import com.google.gwt.user.server.Base64Utils;
 import com.mongodb.util.JSON;
+import com.sun.mail.util.BASE64DecoderStream;
+
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.history.HistoricTaskInstance;
@@ -46,7 +48,7 @@ public class ActivitiPaymentRestController {
 			@RequestParam String sID_PaymentSystem,
 			HttpServletResponse response){
 
-    	String sData = new String(Base64Utils.toBase64(data));
+    	String sData = new String(BASE64DecoderStream.decode(data));
         setPaymentStatus(sID_Order, sData, sID_PaymentSystem);
 
 		return sData;
