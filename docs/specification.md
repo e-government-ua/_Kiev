@@ -19,6 +19,7 @@
 <a href="#17_workWithHistoryEvent_Services">17. Работа с обьектами событий по услугам</a><br/>
 <a href="#18_workWithFlowSlot">18. Работа со слотами потока</a><br/>
 <a href="#19">19. Работа с джоинами суьтектами (отделениями/филиалами)</a><br/>
+<a href="#20">20. Получение кнопки для оплаты через Liqpay</a><br/>
 ### iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -1385,11 +1386,11 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?s
 получает объект события по услуге, параметры: 
 * nID_Protected - проверочное число-ид
 
-сначала проверяется корректность числа nID_Protected -- последняя цифра должна быть "контрольной" (по
+сначала проверяется корректность числа nID_Protected, где последняя цифра - это последний разряд контрольной суммы (по
 <a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%9B%D1%83%D0%BD%D0%B0">алгоритму Луна</a>) для всего числа без нее.
-- если не совпадает -- возвращается ошибка "CRC Error"
+- если не совпадает -- возвращается ошибка "CRC Error" (код состояния HTTP 403) 
 - если совпадает -- ищется запись по nID = nID_Protected без последней цифры
-- Если не найдена запись, то возвращает объект ошибки со значением "Record not found"
+- Если не найдена запись, то возвращает объект ошибки со значением "Record not found"  (код состояния HTTP 403)
 - иначе возвращает обьект
 
 пример:
@@ -1432,9 +1433,9 @@ http://test.igov.org.ua/wf-central/service/services/addHistoryEvent_Service?nID_
 
 - сначала проверяется корректность числа nID_Protected -- последняя цифра должна быть "контрольной" (по
 <a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%9B%D1%83%D0%BD%D0%B0">алгоритму Луна</a>) для всего числа без нее.
-- если не совпадает -- возвращается ошибка "CRC Error"
+- если не совпадает -- возвращается ошибка "CRC Error"  (код состояния HTTP 403)
 - если совпадает -- ищется запись по nID = nID_Protected без последней цифры
-- Если не найдена запись, то возвращает объект ошибки со значением "Record not found"
+- Если не найдена запись, то возвращает объект ошибки со значением "Record not found"  (код состояния HTTP 403)
 - обновление записи (если были изменения)
 
 пример
@@ -1682,3 +1683,25 @@ https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoin?nID_Sub
 Пример:
 https://test.igov.org.ua/wf-central/service/services/removeSubjectOrganJoins?nID_SubjectOrgan=1&asID_Public=130505,130506,130507,130508
 
+
+<a name="20">
+#### 20. Получение кнопки для оплаты через LiqPay
+<br>
+**Method: GET**
+
+HTTP Context: https://server:port/wf-central/service/services/getPayButtonHTML_LiqPay
+
+Параметры:
+* sID_Merchant - ид меранта
+* sSum - сумма оплаты
+* oID_Currency - валюта
+* oLanguage - язык
+* sDescription - описание
+* sID_Order - ид заказа
+* sURL_CallbackStatusNew - URL для отправки статуса
+* sURL_CallbackPaySuccess - URL для отправки ответа
+* nID_Subject - ид субъекта
+* bTest - тестовый вызов или нет
+
+Пример:
+https://test.igov.org.ua/wf-central/service/services/getPayButtonHTML_LiqPay?sID_Merchant=i10172968078&sSum=55,00&oID_Currency=UAH&oLanguage=RUSSIAN&sDescription=test&sID_Order=12345&sURL_CallbackStatusNew=&sURL_CallbackPaySuccess=&nID_Subject=1&bTest=true
