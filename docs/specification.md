@@ -565,13 +565,18 @@ https://test.igov.org.ua/wf-central/service/services/getDocumentTypes
  *sName -- название записи
 
  Если запись с ид=nID не будет найдена, то создастся новая запись (с автогенерируемым nID), иначе -- обновится текущая.
+ 
   примеры:
+  
 создать новый тип:
 https://test.igov.org.ua/wf-central/service/services/setDocumentType?nID=100&sName=test
-ответ: ```json{"nID":20314,"sName":"test"}```
+
+ответ: ```{"nID":20314,"sName":"test"}```
+
 изменить (взять ид из предыдущего ответа):
 https://test.igov.org.ua/wf-central/service/services/setDocumentType?nID=20314&sName=test2
-ответ: ```json {"nID":20314,"sName":"test2"}```
+
+ответ: ```{"nID":20314,"sName":"test2"}```
 
 --------------------------------------------------------------------------------------------------------------------------
 **HTTP Metod: GET**
@@ -584,6 +589,7 @@ https://test.igov.org.ua/wf-central/service/services/setDocumentType?nID=20314&s
 
 пример:
 https://test.igov.org.ua/wf-central/service/services/removeDocumentType?nID=20314
+
 ответ: ```200 ok ```
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -618,13 +624,18 @@ https://test.igov.org.ua/wf-central/service/services/getDocumentContentTypes
  *sName -- название записи
 
  Если запись с ид=nID не будет найдена, то создастся новая запись (с автогенерируемым nID), иначе -- обновится текущая.
+ 
   примеры:
+  
 создать новый тип:
 https://test.igov.org.ua/wf-central/service/services/setDocumentContentType?nID=100&sName=test
-ответ: ```json{"nID":20311,"sName":"test"}```
+
+ответ: ```{"nID":20311,"sName":"test"}```
+
 изменить (взять ид из предыдущего ответа):
 https://test.igov.org.ua/wf-central/service/services/setDocumentContentType?nID=20311&sName=test2
-ответ: ```json {"nID":20311,"sName":"test2"}```
+
+ответ: ``` {"nID":20311,"sName":"test2"}```
 
 --------------------------------------------------------------------------------------------------------------------------
 **HTTP Metod: GET**
@@ -637,6 +648,7 @@ https://test.igov.org.ua/wf-central/service/services/setDocumentContentType?nID=
 
 пример:
 https://test.igov.org.ua/wf-central/service/services/removeDocumentContentType?nID=20311
+
 ответ: ```200 ok ```
 
 --------------------------------------------------------------------------------------------------------------------------
