@@ -225,13 +225,6 @@ public class ActivitiRestDocumentController {
         return documentDao.getDocuments(nID_Subject);
     }
     
-    @RequestMapping(value = "/getDocumentTypes", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<DocumentType> getDocumentTypes() throws Exception {
-        return documentTypeDao.getDocumentTypes();
-    }
-    
     @RequestMapping(value = "/getPayButtonHTML_LiqPay", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -448,6 +441,13 @@ public class ActivitiRestDocumentController {
         subjectOrganDao.removeSubjectOrganJoin(organID, publicIDs);
     }
 
+    @RequestMapping(value = "/getDocumentTypes", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<DocumentType> getDocumentTypes() throws Exception {
+        return documentTypeDao.getDocumentTypes();
+    }
+
     @RequestMapping(value   = "/setDocumentType",  method  = RequestMethod.GET)
     public  @ResponseBody
     ResponseEntity<DocumentType> setDocumentType (
@@ -476,5 +476,9 @@ public class ActivitiRestDocumentController {
             response.setHeader("Reason", e.getMessage());
         }
     }
+
+
+
+
 
 }
