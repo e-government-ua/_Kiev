@@ -5,6 +5,7 @@ import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 import org.wf.dp.dniprorada.constant.Currency;
 import org.wf.dp.dniprorada.constant.Language;
 import org.wf.dp.dniprorada.liqPay.LiqBuy;
@@ -15,9 +16,16 @@ public abstract class BaseMailTaskWithAttachment implements JavaDelegate {
     private static final String TAG_PAYMENT_BUTTON_LIQPAY = "[paymentButton_LiqPay]";
     
     private static final String LIQPAY_CALLBACK_URL = "https://test.region.igov.org.ua/wf-region/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=\"Liqpay\"&sData = \"\"";
+    private static final String TAG_nID_SUBJECT = "[nID_Subject]";
+    private static final String TAG_sACCESS_KEY = "[sAccessKey]";
+    private static final String TAG_sURL_SERVICE_MESSAGE = "[sURL_ServiceMessage]";
+    private static final String URL_SERVICE_MESSAGE = "https://test.igov.org.ua/wf-central/service/messages/setMessage";
 
     @Autowired
     GeneralConfig generalConfig;
+
+    @Autowired
+    AccessDataDao accessDataDao;
     
     protected Expression sID_Merchant;
     protected Expression sSum;
@@ -44,6 +52,16 @@ public abstract class BaseMailTaskWithAttachment implements JavaDelegate {
             boolean bTest = generalConfig.bTest();
             String htmlButton = new LiqBuy().getPayButtonHTML_LiqPay(sID_Merchant, sSum, sID_Currency, sLanguage, sDescription, sID_Order, sURL_CallbackStatusNew, sURL_CallbackPaySuccess, nID_Subject, bTest);
             textWithoutTags = StringUtils.replace(textStr, TAG_PAYMENT_BUTTON_LIQPAY, htmlButton);
+        }
+
+        if (textWithoutTags.contains(TAG_nID_SUBJECT)) {
+            textWithoutTags = textWithoutTags.replaceAll(TAG_nID_SUBJECT, "" + nID_Subject);
+        }
+        if (textWithoutTags.contains(TAG_sACCESS_KEY)) {
+            textWithoutTags = textWithoutTags.replaceAll(TAG_sACCESS_KEY, accessDataDao.setAccessData("" + nID_Subject));
+        }
+        if (textWithoutTags.contains(TAG_sURL_SERVICE_MESSAGE)) {
+            textWithoutTags = textWithoutTags.replaceAll(TAG_sURL_SERVICE_MESSAGE, URL_SERVICE_MESSAGE);
         }
         return textWithoutTags;
     }
