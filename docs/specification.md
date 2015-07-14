@@ -563,7 +563,7 @@ https://test.igov.org.ua/wf-central/service/services/getDocumentTypes
 
  *sName -- название записи
 
- Если параметр запись с ид=nID не будет найдена, то создастся новая запись (с автогенерируемым nID), иначе -- обновится текущая.
+ Если запись с ид=nID не будет найдена, то создастся новая запись (с автогенерируемым nID), иначе -- обновится текущая.
   примеры:
 создать новый тип:
 https://test.igov.org.ua/wf-central/service/services/setDocumentType?nID=100&sName=test
@@ -579,13 +579,63 @@ https://test.igov.org.ua/wf-central/service/services/setDocumentType?nID=20314&s
 параметры:
  *nID -- ид записи
 
-  Если параметр запись с ид=nID не будет найдена, то вернется ошибка *403. Record not found*, иначе -- запись удалится.
-  
+  Если запись с ид=nID не будет найдена, то вернется ошибка *403. Record not found*, иначе -- запись удалится.
+
 пример:
-https://test.igov.org.ua/wf-central/service/services/removeDocumentContentType?nID=20314
+https://test.igov.org.ua/wf-central/service/services/removeDocumentType?nID=20314
 ответ: ```200 ok ```
 --------------------------------------------------------------------------------------------------------------------------
+----------- ТИПЫ КОНТЕНТА ДОКУМЕНТОВ -------------
+----------------------------------------------------------------------------------------------------------------------------
+**HTTP Metod: GET**
 
+**HTTP Context: http://server:port/wf-central/service/services/getDocumentContentTypes** - получение списка типов контента документов
+
+Пример:
+https://test.igov.org.ua/wf-central/service/services/getDocumentContentTypes
+
+**Response**
+```json
+[
+	{"nID":0,"sName":"application/json"},
+	{"nID":1,"sName":"application/xml"},
+	{"nID":2,"sName":"text/plain"},
+	{"nID":3,"sName":"application/jpg"}
+]
+```
+
+--------------------------------------------------------------------------------------------------------------------------
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/setDocumentContentType** - добавить/изменить запись типа контента документа
+параметры:
+
+ *nID -- ид записи
+
+ *sName -- название записи
+
+ Если запись с ид=nID не будет найдена, то создастся новая запись (с автогенерируемым nID), иначе -- обновится текущая.
+  примеры:
+создать новый тип:
+https://test.igov.org.ua/wf-central/service/services/setDocumentContentType?nID=100&sName=test
+ответ: ```json{"nID":20311,"sName":"test"}```
+изменить (взять ид из предыдущего ответа):
+https://test.igov.org.ua/wf-central/service/services/setDocumentContentType?nID=20311&sName=test2
+ответ: ```json {"nID":20311,"sName":"test2"}```
+
+--------------------------------------------------------------------------------------------------------------------------
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/removeDocumentContentType** - удаление записи по ее ид
+параметры:
+ *nID -- ид записи
+
+  Если запись с ид=nID не будет найдена, то вернется ошибка *403. Record not found*, иначе -- запись удалится.
+
+пример:
+https://test.igov.org.ua/wf-central/service/services/removeDocumentContentType?nID=20311
+ответ: ```200 ok ```
+--------------------------------------------------------------------------------------------------------------------------
 
 
 <a name="10_workWithSubjects">
