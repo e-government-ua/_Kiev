@@ -38,13 +38,13 @@
           <activiti:value id="mail" name="Поштою"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="transferComment" name="Деталі переказу коштів" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-mail громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення чиновника" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="decline" name="Відмовити"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Додатковий коментар" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="E-mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>

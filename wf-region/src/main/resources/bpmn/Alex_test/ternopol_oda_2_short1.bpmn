@@ -22,8 +22,8 @@
           <activiti:value id="mail" name="Поштою"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="transferComment" name="Додатковий коментар; Якщо Ви бажаєте отримати допомогу поштою - введіть №. Якщо через банк - №, МФО, Код і Банк" type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-mail для зворотнього зв'язку " type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
