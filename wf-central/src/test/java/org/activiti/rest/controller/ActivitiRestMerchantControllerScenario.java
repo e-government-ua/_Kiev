@@ -47,13 +47,17 @@ public class ActivitiRestMerchantControllerScenario {
    @Test
    public void shouldSuccessfullySaveUpdateGetAndRemove() throws Exception {
       String sID = "AAA";
+      String sName = "BBB";
+      String sPrivateKey = "8Hde98909de3";
+      String sURL_CallbackStatusNew = "FFF";
+      String sURL_CallbackPaySuccess = "WWW";
 
       String jsonData = mockMvc.perform(post("/merchant/setMerchant").
               param("sID", sID).
-              param("sName", sID).
-              param("sPrivateKey", "8Hde98909de3").
-              param("sURL_CallbackStatusNew", "FFF").
-              param("sURL_CallbackPaySuccess", "WWW").
+              param("sName", sName).
+              param("sPrivateKey", sPrivateKey).
+              param("sURL_CallbackStatusNew", sURL_CallbackStatusNew).
+              param("sURL_CallbackPaySuccess", sURL_CallbackPaySuccess).
               param("nID_SubjectOrgan", "1")).
               andExpect(status().isOk()).
               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
@@ -61,7 +65,11 @@ public class ActivitiRestMerchantControllerScenario {
       MerchantVO savedMerchantVO = JsonRestUtils.readObject(jsonData, MerchantVO.class);
 
       Assert.assertNotNull(savedMerchantVO);
-      Assert.assertEquals(savedMerchantVO.getsURL_CallbackStatusNew(), "FFF");
+      Assert.assertEquals(sID, savedMerchantVO.getsID());
+      Assert.assertEquals(sName, savedMerchantVO.getsName());
+      Assert.assertEquals(sPrivateKey, savedMerchantVO.getsPrivateKey());
+      Assert.assertEquals(sURL_CallbackStatusNew, savedMerchantVO.getsURL_CallbackStatusNew());
+      Assert.assertEquals(sURL_CallbackPaySuccess, savedMerchantVO.getsURL_CallbackPaySuccess());
       Assert.assertNotNull(savedMerchantVO.getnID());
 
       jsonData = mockMvc.perform(post("/merchant/setMerchant").

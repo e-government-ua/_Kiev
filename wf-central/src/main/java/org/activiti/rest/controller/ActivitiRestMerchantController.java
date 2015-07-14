@@ -24,9 +24,7 @@ import org.wf.dp.dniprorada.viewobject.MerchantVO;
 @RequestMapping(value = "/merchant")
 public class ActivitiRestMerchantController {
 
-	//final static Logger LOG = Logger.getLogger(ActivitiRestMerchController.class);
-
-	@Autowired	
+	@Autowired
 	@Qualifier(value = "merchantDao")		
 	private MerchantDao merchantDao;
 
@@ -93,17 +91,10 @@ public class ActivitiRestMerchantController {
 		}
 
 		if (sURL_CallbackPaySuccess != null) {
-			merchant.setsURL_CallbackPaySuccess(null);
+			merchant.setsURL_CallbackPaySuccess(sURL_CallbackPaySuccess);
 		}
 
 		merchantDao.saveOrUpdate(merchant);
-//		try {
-//			merchantDao.saveOrUpdate(merchant);
-//		}
-//		catch (Exception exc) {
-//			LOG.error(exc.getMessage(), exc);
-//			return new ResponseEntity(exc.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
 		return JsonRestUtils.toJsonResponse(new MerchantVO(merchant));
 	}
 

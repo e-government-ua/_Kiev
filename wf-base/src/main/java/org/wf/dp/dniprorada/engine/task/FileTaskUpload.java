@@ -125,6 +125,10 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 
 		if (!listModel.isEmpty()) {
 			execution.setVariable(BUILDER_ATACH_MODEL_LIST, listModel);
+			for (BuilderAtachModel builder : listModel){
+				execution.getEngineServices().getTaskService().createAttachment(builder.getContentType(), 
+						execution.getId(), execution.getProcessInstanceId(), builder.getName(), builder.getOriginalFilename(), builder.getByteToStringContent());
+			}
 		}
                 
                 
@@ -180,7 +184,7 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 /*                                
 2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getBusinessKey()=null
 2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getCurrentActivityId()=servicetask1
-2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getCurrentActivityName()=Підтягування документів
+2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getCurrentActivityName()=ПіпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getEventName()=null
 2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getId()=955057
 2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- execution.getParentId()=955001
