@@ -344,6 +344,9 @@
 З повагою,
 Державна Адміністрація Тернопільскої області</activiti:expression>
         </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <endEvent id="endevent7" name="End"></endEvent>
@@ -370,6 +373,9 @@
 З повагою,
 Державна Адміністрація Тернопільскої області,
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
