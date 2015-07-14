@@ -20,7 +20,7 @@
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <userTask id="usertask1" name="Заява поступає в роботу операціоніста" activiti:candidateGroups="ternopol_oda_2_all">
+    <userTask id="usertask1" name="Заява поступає в роботу операціоніста" activiti:candidateGroups="ternopil_oda3">
       <extensionElements>
         <activiti:formProperty id="sitRep" name="Опис надзвичайної ситуації" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="proof1" name="Документ №1" type="file" writable="false"></activiti:formProperty>
