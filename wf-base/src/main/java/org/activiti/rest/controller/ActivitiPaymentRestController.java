@@ -1,7 +1,10 @@
 package org.activiti.rest.controller;
 
+import com.google.gson.Gson;
 import com.google.gwt.user.server.Base64Utils;
 import com.mongodb.util.JSON;
+import com.sun.mail.util.BASE64DecoderStream;
+
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.history.HistoricTaskInstance;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.wf.dp.dniprorada.model.LiqpayCallbackModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,19 +41,33 @@ public class ActivitiPaymentRestController {
     private RuntimeService runtimeService;
     @Autowired
     private HistoryService historyService;
-
+    private final String sID_PaymentSystem = "Liqpay";
+    
     @RequestMapping(value = "/setPaymentStatus_TaskActiviti", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
-			@RequestParam byte[] data,
-			@RequestParam byte[] signature,
 			@RequestParam String sID_Order,
 			@RequestParam String sID_PaymentSystem,
-			HttpServletResponse response){
+			@RequestParam byte[] data,
+			@RequestParam byte[] signature
+			){
 
-    	String sData = new String(Base64Utils.toBase64(data));
+    	String sData = new String(BASE64DecoderStream.decode(data));
         setPaymentStatus(sID_Order, sData, sID_PaymentSystem);
 
 		return sData;
+	}
+    @RequestMapping(value = "/setPaymentStatus_TaskActiviti2/", method = RequestMethod.POST, headers = { "Accept=application/json" })
+	public @ResponseBody String setPaymentStatusNew_TaskActiviti(
+			@RequestParam byte[] data,
+			@RequestParam byte[] signature
+			){
+    	
+    	String sFullData = new String(BASE64DecoderStream.decode(data));
+    	Gson gson = new Gson();
+    	LiqpayCallbackModel liqpayCallback = gson.fromJson(sFullData, LiqpayCallbackModel.class);
+        setPaymentStatus(liqpayCallback.getOrder_id(), sFullData, sID_PaymentSystem);
+
+		return sFullData;
 	}
 
     private void setPaymentStatus(String sID_Order, String sData, String sID_PaymentSystem) {
