@@ -14,7 +14,7 @@ public abstract class BaseMailTaskWithAttachment implements JavaDelegate {
 
     private static final String TAG_PAYMENT_BUTTON_LIQPAY = "[paymentButton_LiqPay]";
     
-    private static final String LIQPAY_CALLBACK_URL = "https://test.region.igov.org.ua/wf-central/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=\"Liqpay\"&sData = \"\"";
+    private static final String LIQPAY_CALLBACK_URL = "https://test.region.igov.org.ua/wf-region/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=\"Liqpay\"&sData = \"\"";
 
     @Autowired
     GeneralConfig generalConfig;
