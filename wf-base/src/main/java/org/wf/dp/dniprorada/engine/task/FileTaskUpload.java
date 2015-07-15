@@ -125,10 +125,12 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 
 		if (!listModel.isEmpty()) {
 			execution.setVariable(BUILDER_ATACH_MODEL_LIST, listModel);
+                        /* TODO происходит ошибка всегда после стартовой формы! А зачем атачить еще раз, когда выше уже атач делается?  Тут нужно только сами поля обновить (засетить ИД атачментов)
 			for (BuilderAtachModel builder : listModel){
 				execution.getEngineServices().getTaskService().createAttachment(builder.getContentType(), 
 						execution.getId(), execution.getProcessInstanceId(), builder.getName(), builder.getOriginalFilename(), builder.getByteToStringContent());
 			}
+                        */
 		}
                 
                 
@@ -138,8 +140,8 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
                 LOG.info("asFieldID="+asFieldID.toString());
                 asFieldValue = getValueFieldWithCastomTypeFile(execution, asFieldID);
                 LOG.info("asFieldValue="+asFieldValue.toString());
-                asFieldName = getListCastomFieldName(startformData);
-                LOG.info("asFieldName="+asFieldName.toString());
+                //asFieldName = getListCastomFieldName(startformData);
+                //LOG.info("asFieldName="+asFieldName.toString());
                 if (!asFieldValue.isEmpty()) {
                     String sValue = asFieldValue.get(0);
                     LOG.info("sValue=" + sValue);
