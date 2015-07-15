@@ -222,4 +222,35 @@
         </addColumn>
     </changeSet>
 
+    <!-- ####################################################################################################### -->
+
+    <changeSet id="issue-515-create_table" author="LamronNu">
+        <!--create table-->
+        <createTable tableName="Country">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="nID_UA" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sID_Two" type="varchar(2)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sID_Three" type="varchar(3)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sNameShort_UA" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sNameShort_EN" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sReference_LocalISO" type="varchar(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="issue-515-autoIncrement" author="LamronNu">
+        <addAutoIncrement
+                tableName="Country" columnName="nID" startWith="100" columnDataType="bigint"/>
+    </changeSet>
+    <!-- ####################################################################################################### -->
 </databaseChangeLog>
