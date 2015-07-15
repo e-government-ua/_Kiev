@@ -69,7 +69,8 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
             return false;
         }
     } else {
-
+        $scope.isSending = false;
+        return false;
     }
 
   };
