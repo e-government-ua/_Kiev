@@ -3,25 +3,46 @@
   <process id="ternopol_2_long" name="Тернопіль ОДА - Надання соціальної матеріальної допомоги у разі тяжкого матеріального стану" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
+        <activiti:formProperty id="organID" name="До якого Державного Органа Ви звертаєтесь" type="enum" required="true">
+          <activiti:value id="ternopil_oda3" name="Департамент СоцЗахисту Тернопільської ОДА"></activiti:value>
+          <activiti:value id="other" name="Додати ще поля"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="citizenType" name="До якої категорії громадян Ви відноситесь" type="enum" required="true">
+          <activiti:value id="poor" name="Малозабезпечена особа"></activiti:value>
+          <activiti:value id="disabled" name="Інвалід"></activiti:value>
+          <activiti:value id="rep" name="Законний представник отримувача допомоги"></activiti:value>
+          <activiti:value id="familyDeath" name="В мене помер родич"></activiti:value>
+          <activiti:value id="naturalDisaster" name="Постраждалий від стихійного лиха"></activiti:value>
+          <activiti:value id="diseased" name="Тривала хвороба"></activiti:value>
+          <activiti:value id="other" name="Додати ще категорії"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="citizenTypeExtended" name="Інвалідам - вказати групу і причину інвалідності" type="string"></activiti:formProperty>
+        <activiti:formProperty id="helpTo" name="Прошу видати матеріальну допомогу" type="enum" required="true">
+          <activiti:value id="me" name="Мені"></activiti:value>
+          <activiti:value id="helpee" name="На мого підопічного"></activiti:value>
+          <activiti:value id="disabledKid" name="На мою дитину-інваліда"></activiti:value>
+          <activiti:value id="other" name="Інша категорія"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="helpReason" name="Допомога потрібна в зв'зяку " type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище отримувача допомоги АБО Законного Представника" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані отримувача допомоги АБО Законного Представника" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія його паспорту" type="file"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Адреса прописки отримувача АБО законного отримувача" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Адреса прописки отримувача АБО Законного представника" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdInn" name="ІПН отримувача допомоги АБО Законного Представника" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера/отримувача державної соціальної допомоги АБО висновок МедЕкспертизи" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="helpeeIncome" name="Акт обстеження матеріально-побутових умов проживання" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="helpeeSurname" name="Прізвище отримувача допомоги" type="string"></activiti:formProperty>
+        <activiti:formProperty id="helpeeSurname" name="Прізвище отримувача допомоги; Заповніть слідучі поля, якщо допомогу ви берете для свого підопічного. Якщо ні - залишіть іх пустими." type="string"></activiti:formProperty>
         <activiti:formProperty id="helpeeName" name="Його ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpeeMiddleName" name="По-батькове" type="string"></activiti:formProperty>
-        <activiti:formProperty id="helpeePassport" name="Паспортні дані/свідоцтва народження отримувача" type="string"></activiti:formProperty>
-        <activiti:formProperty id="helpeePassportScan" name="Скан-копія паспорту/свідоцтва народження отримувача допомоги" type="file"></activiti:formProperty>
-        <activiti:formProperty id="helpeeINN" name="ІПН отримувача допомоги" type="string"></activiti:formProperty>
+        <activiti:formProperty id="helpeePassport" name="Паспортні дані/свідоцтва народження підопічного" type="string"></activiti:formProperty>
+        <activiti:formProperty id="helpeePassportScan" name="Скан-копія паспорту/свідоцтва народження підопічного" type="file"></activiti:formProperty>
+        <activiti:formProperty id="helpeeINN" name="ІПН підопічного; Якщо підопічний не дитина" type="string"></activiti:formProperty>
         <activiti:formProperty id="repProof" name="Документ, що підтверджує  повноваження Законного Представника" type="file"></activiti:formProperty>
         <activiti:formProperty id="deathNote" name="Свідоцтва про смерть; Якщо це стосовно вашого запиту" type="file"></activiti:formProperty>
         <activiti:formProperty id="diseaseProof" name="Висновок з медичної установи; Якщо це стосовно Вашого запиту" type="file"></activiti:formProperty>
-        <activiti:formProperty id="helpeeAddress" name="Адреса прописки отримувача допомоги" type="string"></activiti:formProperty>
+        <activiti:formProperty id="helpeeAddress" name="Адреса прописки підопічного" type="string"></activiti:formProperty>
         <activiti:formProperty id="transferMethod" name="Яким шляхом Ви бажаєте отримати цю допомогу" type="enum" required="true">
           <activiti:value id="bank" name="Банківським переказом"></activiti:value>
           <activiti:value id="mail" name="Поштовим перерказом"></activiti:value>
@@ -34,6 +55,27 @@
     <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <userTask id="usertask1" name="Заява поступає в роботу операціоніста" activiti:candidateGroups="ternopil_oda3">
       <extensionElements>
+        <activiti:formProperty id="organID" name="До якого органу звертаються" type="enum" writable="false">
+          <activiti:value id="ternopol_oda_2" name="Департамент СоцЗахисту Тернопільської ОДА"></activiti:value>
+          <activiti:value id="other" name="Інше"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="citizenType" name="До якої категорії підпадає громадянин" type="enum" writable="false">
+          <activiti:value id="poor" name="Малозабезпечена особа"></activiti:value>
+          <activiti:value id="disabled" name="Інвалід"></activiti:value>
+          <activiti:value id="rep" name="Законний представник отримувача допомоги"></activiti:value>
+          <activiti:value id="familyDeath" name="В мене помер родич"></activiti:value>
+          <activiti:value id="naturalDisaster" name="Постраждалий від стихійного лиха"></activiti:value>
+          <activiti:value id="diseased" name="Тривала хвороба"></activiti:value>
+          <activiti:value id="other" name="Додати ще категорії"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="citizenTypeExtended" name="Категорія і причина інвалідності АБО інше" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="helpTo" name="Прошу видати матеріальну допомогу" type="enum" writable="false">
+          <activiti:value id="me" name="Мені"></activiti:value>
+          <activiti:value id="helpee" name="На мого підопічного"></activiti:value>
+          <activiti:value id="disabledKid" name="На мою дитину-інваліда"></activiti:value>
+          <activiti:value id="other" name="Інша категорія"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="helpReason" name="Причина запиту допомоги" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище отримувача допомоги АБО Законного Представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
@@ -43,12 +85,12 @@
         <activiti:formProperty id="bankIdInn" name="ІПН отримувача допомоги АБО Законного Представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера/отримувача державної соціальної допомоги АБО висновок МедЕкспертизи; Якщо це стосовно Вашого запиту" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeIncome" name="Акт обстеження матеріально-побутових умов проживання" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeeSurname" name="Прізвище отримувача допомоги" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="helpeeSurname" name="Прізвище підопічного" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeName" name="Його ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeMiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeePassport" name="Паспортні дані отримувача" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeePassportScan" name="Скан-копія паспорту отримувача допомоги" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeeINN" name="ІПН отримувача допомоги" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="helpeePassport" name="Паспортні підопічного" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="helpeePassportScan" name="Скан-копія паспорту підопічного" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="helpeeINN" name="ІПН підопічного" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="repProof" name="Документ, що підтверджує  повноваження Законного Представника" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="deathNote" name="Свідоцтва про смерть; Якщо це стосовно вашого запиту" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="diseaseProof" name="Висновок з медичної установи; Якщо це стосовно Вашого запиту" type="file" writable="false"></activiti:formProperty>
@@ -64,7 +106,7 @@
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="decline" name="Відмовити"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="decisionComment" name="Додатковий коментар" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="decisionComment" name="Додатковий коментар/причина відмови" type="textArea"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -318,7 +360,6 @@
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
-
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
