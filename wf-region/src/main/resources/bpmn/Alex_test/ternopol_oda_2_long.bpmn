@@ -4,7 +4,7 @@
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="organID" name="До якого Державного Органа Ви звертаєтесь" type="enum" required="true">
-          <activiti:value id="ternopol_oda_2" name="Департамент СоцЗахисту Тернопільської ОДА"></activiti:value>
+          <activiti:value id="ternopil_oda3" name="Департамент СоцЗахисту Тернопільської ОДА"></activiti:value>
           <activiti:value id="other" name="Додати ще поля"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="citizenType" name="До якої категорії громадян Ви відноситесь" type="enum" required="true">
