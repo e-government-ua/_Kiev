@@ -222,4 +222,11 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="issue-547" author="brunneng">
+        <modifyDataType tableName="SubjectMessage" columnName="sDate" newDataType="datetime with time zone"/>
+        <modifyDataType tableName="Document" columnName="sDate_Upload" newDataType="datetime with time zone"/>
+        <modifyDataType tableName="DocumentAccess" columnName="sDateCreate" newDataType="datetime with time zone"/>
+        <modifyDataType tableName="DocumentAccess" columnName="sDateAnswerExpire" newDataType="datetime with time zone"/>
+    </changeSet>
+
 </databaseChangeLog>
