@@ -49,23 +49,29 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
   $scope.submit = function(form) {
     $scope.isSending = true;
     form.$setSubmitted();
-    if (form.$valid) {
-      ActivitiService
-        .submitForm(oServiceData, $scope.data.formData)
-        .then(function(result) {
-          $scope.isSending = false;
-          var state = $state.$current;
 
-          var submitted = $state.get(state.name + '.submitted');
-          submitted.data.id = result.id;
+    if ($($('input[type=tel]')[0]).intlTelInput("isValidNumber")){
+        if (form.$valid) {
+            ActivitiService
+                .submitForm(oServiceData, $scope.data.formData)
+                .then(function(result) {
+                    $scope.isSending = false;
+                    var state = $state.$current;
 
-          $scope.isSending = false;
-          return $state.go(submitted, $stateParams);
-        })
+                    var submitted = $state.get(state.name + '.submitted');
+                    submitted.data.id = result.id;
+
+                    $scope.isSending = false;
+                    return $state.go(submitted, $stateParams);
+                })
+        } else {
+            $scope.isSending = false;
+            return false;
+        }
     } else {
-      $scope.isSending = false;
-      return false;
+
     }
+
   };
 
   $scope.cantSubmit = function(form) {
@@ -122,6 +128,10 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
     $timeout(function () {
         $('input[type=tel]').intlTelInput({
             defaultCountry: "auto",
+            autoFormat: true,
+            allowExtensions: true,
+            preferredCountries: ["ua"],
+            autoPlaceholder: false,
             geoIpLookup: function(callback) {
                 $.get('http://ipinfo.io', function() {}, "jsonp").always(function(resp) {
                     var countryCode = (resp && resp.country) ? resp.country : "";
