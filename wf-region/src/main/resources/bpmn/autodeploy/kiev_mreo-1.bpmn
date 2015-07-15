@@ -59,7 +59,7 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Киев - Реєстрація авто з пробігом в МРЕВ&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Киев - Реєстрація авто з пробігом в МРЕВ&amp;sMail= &amp;nID_SubjectMessageType=1" method="get"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
@@ -111,9 +111,7 @@
         &lt;/td&gt;
     &lt;/tr&gt;
     &lt;/tbody&gt;
-&lt;/table&gt;
-
-</activiti:expression>
+&lt;/table&gt;</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

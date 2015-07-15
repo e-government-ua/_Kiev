@@ -78,6 +78,7 @@
     <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="usertask3"></sequenceFlow>
     <userTask id="usertask3" name="Формування пакету документів в ЦНАП" activiti:candidateGroups="kiev_mr_0">
       <extensionElements>
+      <activiti:formProperty id="form_number" name="Номер справи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
@@ -94,7 +95,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="docToSend" name="Завантажте копію форми-3 для передачі в РДА" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="form3_number" name="Зазначте номер довідки" type="string" required="true"></activiti:formProperty>
+        
         <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="На опрацюванні в ЦНАП" readable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
@@ -105,6 +106,7 @@
     <sequenceFlow id="flow17" sourceRef="boundaryerror1" targetRef="endevent4"></sequenceFlow>
     <userTask id="usertask4" name="Перевірка пакету документів в РДА" activiti:candidateGroups="kiev_rda_1">
       <extensionElements>
+      
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
@@ -119,7 +121,7 @@
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="form3_number" name="Номер довідки" type="string" writable="false"></activiti:formProperty>
+        
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="На опрацюванні РДА" readable="false"></activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат перевірки документів в РДА" type="enum">
@@ -132,6 +134,7 @@
     <sequenceFlow id="flow18" sourceRef="usertask3" targetRef="usertask4"></sequenceFlow>
     <userTask id="usertask5" name="Підтвердження отримання ЦНАПом оригіналу довідки" activiti:candidateGroups="kiev_mr_0">
       <extensionElements>
+      <activiti:formProperty id="form_number" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
@@ -146,7 +149,7 @@
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="form3_number" name="Номер довідки" type="string" writable="false"></activiti:formProperty>
+        
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат перевірки документів в РДА" type="enum" writable="false">
           <activiti:value id="accept" name="Документи перевірено. Зауваження відсутні."></activiti:value>
@@ -186,6 +189,7 @@
     <sequenceFlow id="flow22" sourceRef="usertask5" targetRef="mailtask3"></sequenceFlow>
     <userTask id="usertask6" name="Надання довідки громадянину та перевірка оригіналів документів" activiti:candidateGroups="kiev_mr_0">
       <extensionElements>
+      <activiti:formProperty id="form_number" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
@@ -200,7 +204,7 @@
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="form3_number" name="Номер довідки" type="string" writable="false"></activiti:formProperty>
+
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат перевірки документів в РДА" type="enum" writable="false">
           <activiti:value id="accept" name="Документи перевірено. Зауваження відсутні."></activiti:value>
@@ -223,6 +227,7 @@
     </sequenceFlow>
     <userTask id="usertask7" name="Підтвердження  отримання оригіналів документів в РДА" activiti:candidateGroups="kiev_rda_1">
       <extensionElements>
+      <activiti:formProperty id="form_number" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
@@ -237,7 +242,7 @@
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="form3_number" name="Номер довідки" type="string" writable="false"></activiti:formProperty>
+
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат перевірки документів в РДА" type="enum" writable="false">
           <activiti:value id="accept" name="Документи перевірено. Зауваження відсутні."></activiti:value>
@@ -298,6 +303,7 @@
     <sequenceFlow id="flow32" sourceRef="mailtask7" targetRef="endevent6"></sequenceFlow>
     <userTask id="usertask8" name="Формування довідки в РДА" activiti:candidateGroups="kiev_rda_1">
       <extensionElements>
+      <activiti:formProperty id="form_number" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
@@ -312,7 +318,7 @@
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="form3_number" name="Номер довідки" type="string" writable="false"></activiti:formProperty>
+ 
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат перевірки документів в РДА" type="enum" writable="false">
           <activiti:value id="accept" name="Документи перевірено. Зауваження відсутні."></activiti:value>
@@ -327,6 +333,7 @@
     <sequenceFlow id="flow34" sourceRef="mailtask3" targetRef="exclusivegateway3"></sequenceFlow>
     <userTask id="usertask9" name="Надання довідки громадянину " activiti:candidateGroups="kiev_mr_0">
       <extensionElements>
+      <activiti:formProperty id="form_number" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
@@ -341,7 +348,7 @@
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="form3_number" name="Номер довідки" type="string" writable="false"></activiti:formProperty>
+  
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат перевірки документів в РДА" type="enum" writable="false">
           <activiti:value id="accept" name="Документи перевірено. Зауваження відсутні."></activiti:value>
