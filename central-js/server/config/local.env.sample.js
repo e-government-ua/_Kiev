@@ -10,6 +10,7 @@ module.exports = {
   // Control debug level for modules using visionmedia/debug
   DEBUG: 'true',
 
+  sServerRegion: 'https://test.region.igov.org.ua',
   SERVER_PROTOCOL: 'http',
   SERVER_PORT: '9000',
   SERVER_KEY: '/sybase/cert/server.key',

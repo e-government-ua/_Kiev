@@ -21,6 +21,7 @@ var all = {
   debug: process.env.DEBUG,
 
   server: {
+    sServerRegion: process.env.sServerRegion,
     protocol: process.env.SERVER_PROTOCOL,
     port: process.env.SERVER_PORT,
     key: process.env.SERVER_KEY,

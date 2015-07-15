@@ -18,7 +18,6 @@ module.exports = {
   ACTIVITI_HOST: 'test.region.igov.org.ua',
   ACTIVITI_PORT: 8080,
   ACTIVITI_REST: 'wf-region/service',
-   ACTIVITI_AUTH_BASIC: 'Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=',
   ACTIVITI_USER: 'activiti-master',
   ACTIVITI_PASSWORD: 'UjhtJnEvf!',
   ACTIVITI_SESSION_IDLE: '3000',

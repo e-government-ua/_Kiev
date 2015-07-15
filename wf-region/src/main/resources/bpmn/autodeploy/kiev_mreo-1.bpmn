@@ -46,8 +46,7 @@
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>&lt;body&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+          <activiti:expression>&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
     &lt;tbody&gt;
     &lt;tr&gt;
         &lt;td align="center"&gt;
@@ -113,7 +112,7 @@
     &lt;/tr&gt;
     &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;/body&gt;
+
 </activiti:expression>
         </activiti:field>
       </extensionElements>
