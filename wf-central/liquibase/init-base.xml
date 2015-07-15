@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="Init tables" author="brunneng" runOnChange="true">
+    <changeSet id="Init tables" author="brunneng" runOnChange="false">
 
         <sql splitStatements="true" dbms="postgresql">
             DROP SEQUENCE IF EXISTS "hibernate_sequence";
@@ -25,7 +25,7 @@
             DROP TABLE IF EXISTS FlowSlotTicket CASCADE;
         </sql>
 
-        <createSequence incrementBy="1" sequenceName="hibernate_sequence" startValue="10000"/>
+        <createSequence incrementBy="1" sequenceName="hibernate_sequence" startValue="20000"/>
 
 
         <!-- ####################################################################################################### -->
@@ -46,7 +46,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="Flow_ServiceData" columnDataType="bigint" incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="FlowPropertyClass">
@@ -63,7 +62,6 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="FlowPropertyClass" columnDataType="bigint" incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="FlowProperty">
@@ -84,7 +82,6 @@
                              referencedTableName="Flow_ServiceData" referencedColumnNames="nID" deleteCascade="true"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="FlowProperty" columnDataType="bigint" incrementBy="1" startWith="1000"/>
 
         <!-- ####################################################################################################### -->
         <createTable tableName="FlowSlot">
@@ -114,8 +111,6 @@
             <column name="sDate" type="datetime with time zone"/>
         </createIndex>
 
-        <addAutoIncrement columnName="nID" tableName="FlowSlot" columnDataType="bigint" incrementBy="1" startWith="1000"/>
-
         <!-- ####################################################################################################### -->
         <createTable tableName="FlowSlotTicket">
             <column name="nID" type="bigint">
@@ -142,8 +137,15 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="nID" tableName="FlowSlotTicket" columnDataType="bigint" incrementBy="1" startWith="1000"/>
 
 
     </changeSet>
+
+    <changeSet id="Add auto increment for H2" author="brunneng" dbms="h2">
+        <addAutoIncrement tableName="Flow_ServiceData" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="FlowProperty" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="FlowSlot" columnName="nID" startWith="1000" columnDataType="bigint"/>
+        <addAutoIncrement tableName="FlowSlotTicket" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
 </databaseChangeLog>

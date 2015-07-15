@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 import org.wf.dp.dniprorada.util.Util;
 
-public class AccessDataDaoImpl implements AccessDataDao{
-    
+public class AccessDataDaoImpl implements AccessDataDao {
+
     private static final String contentMock = "No content!!!";
 
     @Autowired
@@ -24,12 +24,12 @@ public class AccessDataDaoImpl implements AccessDataDao{
     @Override
     public String getAccessData(String sKey) {
         byte[] contentByte = durableBytesDataStorage.getData(sKey);
-		return contentByte != null ? Util.contentByteToString(contentByte) : contentMock;
+        return contentByte != null ? Util.contentByteToString(contentByte) : contentMock;
     }
 
     @Override
     public boolean removeAccessData(String sKey) {
         return durableBytesDataStorage.remove(sKey);
     }
-    
+
 }

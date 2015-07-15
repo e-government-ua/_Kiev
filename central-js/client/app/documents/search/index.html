@@ -53,6 +53,18 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="submit-button">
+                                            <button type="submit"
+                                                    class="btn btn-primary"
+                                                    ng-disabled="searchForm.$invalid">Знайти
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="row" ng-show="showSmsPass">
                                     <div class="form-group">
                                         <label for="smsPass">Введіть отриманий Вами SMS код<em>*</em></label>
@@ -63,198 +75,65 @@
                                     </div>
                                 </div>
 
-                                <div class="submit-button">
+                                <div class="submit-button" ng-show="showSmsPass">
                                     <button type="submit"
                                             class="btn btn-primary"
-                                            ng-disabled="searchForm.$invalid">Знайти
+                                            ng-disabled="!smsPass">Підтвердити
                                     </button>
                                 </div>
                             </form>
-                            <!-- todo -->
-                            <!--<table class="table table-striped">-->
-                                <!--<thead>-->
-                                <!--<tr>-->
-                                    <!--<th class="col-md-5">-->
-                                        <!--<p class="text-muted">Документ</p>-->
-                                    <!--</th>-->
-                                    <!--<th class="col-md-3">-->
-                                        <!--<p class="text-muted">Дата завантаження копії</p>-->
-                                    <!--</th>-->
-                                    <!--<th class="col-md-3">-->
-                                        <!--<p class="text-muted">Ким завантажена копія</p>-->
-                                    <!--</th>-->
-                                    <!--<th class="col-md-1 align-right">-->
-                                        <!--<p class="text-muted">Дії</p>-->
-                                    <!--</th>-->
-                                <!--</tr>-->
-                                <!--</thead>-->
+                            <br>
+                            <div ng-repeat="message in messages">
+                                <div class="alert alert-info" role="alert">
+                                    {{message}}
+                                </div>
+                            </div>
 
-                                <!--<tbody ng-repeat="doc in documents">-->
+                            <table ng-show="documents.length > 0" class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th class="col-md-5">
+                                        <p class="text-muted">Документ</p>
+                                    </th>
+                                    <th class="col-md-3">
+                                        <p class="text-muted">Дата завантаження копії</p>
+                                    </th>
+                                    <th class="col-md-3">
+                                        <p class="text-muted">Ким завантажена копія</p>
+                                    </th>
+                                    <th class="col-md-1 align-right">
+                                        <p class="text-muted">Дії</p>
+                                    </th>
+                                </tr>
+                                </thead>
 
-                                <!--<tr id="document">-->
-                                    <!--<td>-->
-                                        <!--{{doc.sName}}-->
-                                    <!--</td>-->
-                                    <!--<td>-->
-                                        <!--{{doc.oDate_Upload | date:'dd MMMM yyyy HH:mm'}}-->
-                                    <!--</td>-->
-                                    <!--<td>-->
-                                        <!--{{doc.sSubjectName_Upload}}-->
-                                        <!--<input type="hidden"-->
-                                               <!--value="{{doc.nID}}">-->
-                                        <!--<input type="hidden"-->
-                                               <!--value="{{doc.sName}}">-->
-                                    <!--</td>-->
-                                    <!--<td>-->
-                                        <!--<a ng-href="{{getDocumentLink(doc.nID)}}"-->
-                                           <!--target="_self">-->
-                        <!--<span class="glyphicon glyphicon-download"-->
-                              <!--title="Завантажити копію"-->
-                              <!--aria-hidden="true"></span></a>-->
-                                        <!--<a href="#accordion{{doc.nID}}"-->
-                                           <!--data-parent="#accordion"-->
-                                           <!--data-toggle="collapse"-->
-                                           <!--class="accordion-toggle">-->
-                        <!--<span class="glyphicon glyphicon-link"-->
-                              <!--title="Надати доступ третій особі"-->
-                              <!--aria-hidden="true"></span>-->
-                                        <!--</a>-->
-                                    <!--</td>-->
-                                <!--</tr>-->
+                                <tbody ng-repeat="doc in documents">
 
-                                <!--<tr id="accordion{{doc.nID}}"-->
-                                    <!--class="collapse">-->
-                                    <!--<td colspan="4">-->
-                                        <!--<div>-->
-                                            <!--<h3 class="input-header">Надати доступ до електронного документу</h3>-->
-
-                                            <!--<p class="input-header">Ви можете надати доступ до документу, згенерувавши код до нього. За цим-->
-                                                <!--кодом можна буде знайти Ваш документ (вкладка Пошук документу за кодом).-->
-                                                <!--Також Ви можете додатково захистити документ SMS-паролем.</p>-->
-                                            <!--<br>-->
-
-                                            <!--<p style="color:red;"><b>Розділ у процесі розробки!</b></p>-->
-
-                                            <!--<div class="panel panel-default"-->
-                                                 <!--ng-init="isPhoneFormVisible = 'false'">-->
-                                                <!--<div class="row">-->
-                                                    <!--<div class="col-md-6">-->
-                                                        <!--<form name="shareLinkForm"-->
-                                                              <!--role="form"-->
-                                                              <!--ng-submit="shareLinkForm.$valid && shareLink(doc, sFIO, sTelephone, sMail, nDays)">-->
-                                                            <!--<div class="row">-->
-                                                                <!--<div class="form-group">-->
-                                                                    <!--<label for="name">Введіть ім’я та прізвище людини, якій Ви надаєте-->
-                                                                        <!--доступ-->
-                                                                        <!--<em>*</em>-->
-                                                                    <!--</label>-->
-                                                                    <!--<input type="text"-->
-                                                                           <!--required-->
-                                                                           <!--ng-model="sFIO"-->
-                                                                           <!--class="form-control"-->
-                                                                           <!--id="name"-->
-                                                                           <!--autofocus/>-->
-                                                                <!--</div>-->
-                                                            <!--</div>-->
-
-                                                            <!--<div class="row">-->
-                                                                <!--<div class="form-group">-->
-                                                                    <!--<label for="valid-days">Введіть термін дії доступу:</label>-->
-                                                                    <!--<select class="form-control"-->
-                                                                            <!--required-->
-                                                                            <!--ng-model="nDays"-->
-                                                                            <!--ng-options="item.day as item.title for item in nDaysOptions"-->
-                                                                            <!--id="valid-days">-->
-                                                                    <!--</select>-->
-                                                                <!--</div>-->
-                                                            <!--</div>-->
-                                                            <!--<div class="row">-->
-
-                                                                <!--<p>Чи бажаєте Ви захистити документ SMS-паролем? Ви можете ввести номер-->
-                                                                    <!--мобільного телефону людини, якій Ви надаєте доступ, і тоді для входу їй-->
-                                                                    <!--потрібно буде ввести SMS-пароль</p>-->
-
-
-                                                                <!--<input id="other"-->
-                                                                       <!--type="radio"-->
-                                                                       <!--name="content"-->
-                                                                       <!--ng-model="isPhoneFormVisible"-->
-                                                                       <!--value="false">-->
-                                                                <!--<label for="other">Hi</label>-->
-
-                                                                <!--<br/>-->
-
-                                                                <!--<input id="first"-->
-                                                                       <!--type="radio"-->
-                                                                       <!--name="content"-->
-                                                                       <!--ng-model="isPhoneFormVisible"-->
-                                                                       <!--value="true">-->
-                                                                <!--<label for="first">Так</label>-->
-                                                            <!--</div>-->
-
-                                                            <!--<div class="row"-->
-                                                                 <!--ng-if="isPhoneFormVisible == 'true'">-->
-                                                                <!--<div class="form-group"-->
-                                                                     <!--ng-class="{'has-success': shareLinkForm.phone.$valid}">-->
-                                                                    <!--<label for="phone">Введіть номер її мобільного телефону-->
-                                                                        <!--<span class="snippet">(через нього вона веріфікується через SMS)</span>-->
-                                                                    <!--</label><br/>-->
-
-                                                                    <!--<div class="alert alert-danger"-->
-                                                                         <!--ng-show="shareLinkForm.phone.$error.maxlength">-->
-                                                                        <!--Забагато цифр у-->
-                                                                        <!--номері, перевірте-->
-                                                                        <!--його правильність-->
-                                                                    <!--</div>-->
-                                                                    <!--<div class="alert alert-danger"-->
-                                                                         <!--ng-show="shareLinkForm.phone.$error.pattern">-->
-                                                                        <!--У номері мають бути-->
-                                                                        <!--лише цифри та + на-->
-                                                                        <!--початку-->
-                                                                    <!--</div>-->
-                                                                    <!--<input type="tel"-->
-                                                                           <!--class="form-control"-->
-                                                                           <!--style="width: auto;"-->
-                                                                           <!--id="phone"-->
-                                                                           <!--name="phone"-->
-                                                                           <!--ng-model="sTelephone"-->
-                                                                           <!--ng-pattern="/^\+[0-9]{1,}$/"-->
-                                                                           <!--ng-minlength="13"-->
-                                                                           <!--ng-maxlength="13"/>-->
-                                                                <!--</div>-->
-                                                            <!--</div>-->
-
-                                                            <!--<div class="row">-->
-                                                                <!--<div class="form-group"-->
-                                                                     <!--ng-class="{'has-success': shareLinkForm.email.$valid && shareLinkForm.email.$touched}">-->
-
-                                                                    <!--<label for="email">Введіть електронну пошту (за бажанням)-->
-                                                                        <!--<span class="snippet">(на вказаний адрес буде надіслано посилання на документ)</span>-->
-                                                                    <!--</label>-->
-                                                                    <!--<input type="email"-->
-                                                                           <!--ng-model="sMail"-->
-                                                                           <!--class="form-control"-->
-                                                                           <!--name="email"-->
-                                                                           <!--id="email">-->
-                                                                <!--</div>-->
-                                                            <!--</div>-->
-
-                                                            <!--<div class="submit-button">-->
-                                                                <!--<button type="submit"-->
-                                                                        <!--class="btn btn-primary"-->
-                                                                        <!--ng-disabled="shareLinkForm.$invalid">Отримати код-->
-                                                                <!--</button>-->
-                                                            <!--</div>-->
-                                                        <!--</form>-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</td>-->
-                                <!--</tr>-->
-
-                                <!--</tbody>-->
-                            <!--</table>-->
+                                    <tr id="document">
+                                        <td>
+                                            {{doc.sName}}
+                                        </td>
+                                        <td>
+                                            {{doc.oDate_Upload | date:'dd MMMM yyyy HH:mm'}}
+                                        </td>
+                                        <td>
+                                            {{doc.sSubjectName_Upload}}
+                                            <input type="hidden"
+                                                   value="{{doc.nID}}">
+                                            <input type="hidden"
+                                                   value="{{doc.sName}}">
+                                        </td>
+                                        <td>
+                                            <a ng-href="{{getDocumentLink(doc.nID)}}"
+                                               target="_self">
+                                                <span class="glyphicon glyphicon-download"
+                                                      title="Завантажити копію"
+                                                      aria-hidden="true"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

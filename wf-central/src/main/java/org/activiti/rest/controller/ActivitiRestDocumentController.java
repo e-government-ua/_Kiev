@@ -1,27 +1,41 @@
 package org.activiti.rest.controller;
 
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.redis.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
+import org.wf.dp.dniprorada.constant.Currency;
 import org.wf.dp.dniprorada.constant.HistoryEventMessage;
 import org.wf.dp.dniprorada.constant.HistoryEventType;
+import org.wf.dp.dniprorada.constant.Language;
 import org.wf.dp.dniprorada.dao.*;
+import org.wf.dp.dniprorada.liqPay.LiqBuy;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.model.document.HandlerFactory;
 import org.wf.dp.dniprorada.util.Util;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+//import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 
 @Controller
 @RequestMapping(value = "/services")
@@ -49,6 +63,9 @@ public class ActivitiRestDocumentController {
     
     //@Autowired
     //private AccessDataDao accessDataDao;
+    
+    @Autowired
+    LiqBuy liqBuy;
 
     @Autowired
     private HandlerFactory handlerFactory;
@@ -164,11 +181,32 @@ public class ActivitiRestDocumentController {
     @ResponseBody
     byte[] getDocumentFile(@RequestParam(value = "nID") Long id,
             @RequestParam(value = "nID_Subject") long nID_Subject,
+            
+            @RequestParam(value = "sCode_DocumentAccess", required = false) String accessCode,
+            @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false) Long organID,
+            @RequestParam(value = "nID_DocumentType", required = false) Long docTypeID,
+            @RequestParam(value = "sPass", required = false) String password,
+            
                            HttpServletRequest request, HttpServletResponse httpResponse) 
                            throws ActivitiRestException{
         Document document = documentDao.getDocument(id);
         if(nID_Subject != document.getSubject().getId()){
-            throw new ActivitiRestException("401", "You don't have access!");
+            
+            
+            
+            if(accessCode!=null){
+                Document oDocument = handlerFactory
+                    .buildHandlerFor(documentDao.getOperator(organID))
+                    .setDocumentType(docTypeID)
+                    .setAccessCode(accessCode)
+                    .setPassword(password)
+                    .getDocument();
+                if(oDocument==null){
+                    throw new ActivitiRestException("401", "You don't have access by accessCode!");
+                }
+            }else{
+                throw new ActivitiRestException("401", "You don't have access!");
+            }
         } 
         byte[] content = documentDao.getDocumentContent(document
                 .getContentKey());
@@ -191,11 +229,25 @@ public class ActivitiRestDocumentController {
         return documentDao.getDocuments(nID_Subject);
     }
     
-    @RequestMapping(value = "/getDocumentTypes", method = RequestMethod.GET)
+    @RequestMapping(value = "/getPayButtonHTML_LiqPay", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<DocumentType> getDocumentTypes() {
-        return documentTypeDao.getDocumentTypes();
+    String getPayButtonHTML_LiqPay(
+    		@RequestParam(value = "sID_Merchant", required = true) String sID_Merchant,
+    		@RequestParam(value = "sSum", required = true) String sSum,
+    		@RequestParam(value = "oID_Currency", required = true) Currency oID_Currency,
+    		@RequestParam(value = "oLanguage", required = true) Language oLanguage,
+    		@RequestParam(value = "sDescription", required = true) String sDescription,
+    		@RequestParam(value = "sID_Order", required = true) String sID_Order,
+    		@RequestParam(value = "sURL_CallbackStatusNew", required = false) String sURL_CallbackStatusNew,
+    		@RequestParam(value = "sURL_CallbackPaySuccess", required = false) String sURL_CallbackPaySuccess,
+    		@RequestParam(value = "nID_Subject", required = true) Long nID_Subject,
+    		@RequestParam(value = "bTest", required = true) boolean bTest) throws Exception {
+         
+    	return liqBuy.getPayButtonHTML_LiqPay(sID_Merchant, sSum, 
+    			oID_Currency, oLanguage, sDescription, sID_Order, 
+    			sURL_CallbackStatusNew, sURL_CallbackStatusNew, 
+    			nID_Subject, true);
     }
 
     @RequestMapping(value = "/setDocument", method = RequestMethod.GET)
@@ -392,4 +444,91 @@ public class ActivitiRestDocumentController {
     ) {
         subjectOrganDao.removeSubjectOrganJoin(organID, publicIDs);
     }
+
+    //################ DocumentType services ###################
+
+    @RequestMapping(value = "/getDocumentTypes", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<DocumentType> getDocumentTypes() throws Exception {
+        return documentTypeDao.getDocumentTypes();
+    }
+
+    @RequestMapping(value   = "/setDocumentType",  method  = RequestMethod.GET)
+    public  @ResponseBody
+    ResponseEntity<DocumentType> setDocumentType (
+            @RequestParam(value = "nID")   Long     nID,
+            @RequestParam(value = "sName") String sName
+    ) {
+        ResponseEntity<DocumentType> result;
+        try {
+            DocumentType documentType = documentTypeDao.setDocumentType(nID, sName);
+            result = JsonRestUtils.toJsonResponse(documentType);
+        } catch (RuntimeException e) {
+            result = toJsonErrorResponse(403, e.getMessage());
+        }
+        return result;
+    }
+
+    private ResponseEntity toJsonErrorResponse(int httpCode, String eMessage) {//todo move to JsonRestUtils
+        HttpHeaders headers = new HttpHeaders();
+        MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
+        headers.setContentType(mediaType);
+        headers.set("Reason", eMessage);
+        return new ResponseEntity<>(headers, HttpStatus.valueOf(403));
+    }
+
+    @RequestMapping(value   = "/removeDocumentType", method  = RequestMethod.GET)
+    public  @ResponseBody void removeDocumentType (
+            @RequestParam(value = "nID")   Long     nID,
+            HttpServletResponse response
+    ) {
+        try {
+            documentTypeDao.removeDocumentType(nID);
+        } catch (RuntimeException e) {
+            response.setStatus(403);
+            response.setHeader("Reason", e.getMessage());
+        }
+    }
+
+    //################ DocumentContentType services ###################
+
+    @RequestMapping(value = "/getDocumentContentTypes", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<DocumentContentType> getDocumentContentTypes()  {
+        return documentContentTypeDao.getDocumentContentTypes();
+    }
+
+    @RequestMapping(value   = "/setDocumentContentType",  method  = RequestMethod.GET)
+    public  @ResponseBody
+    ResponseEntity<DocumentContentType> setDocumentContentType (
+            @RequestParam(value = "nID")   Long     nID,
+            @RequestParam(value = "sName") String sName
+    ) {
+        ResponseEntity<DocumentContentType> result;
+        try {
+            DocumentContentType documentType = documentContentTypeDao.setDocumentContentType(nID, sName);
+            result = JsonRestUtils.toJsonResponse(documentType);
+        } catch (RuntimeException e) {
+            result = toJsonErrorResponse(403, e.getMessage());
+        }
+        return result;
+    }
+
+    @RequestMapping(value   = "/removeDocumentContentType", method  = RequestMethod.GET)
+    public  @ResponseBody void removeDocumentContentType (
+            @RequestParam(value = "nID")   Long     nID,
+            HttpServletResponse response
+    ) {
+        try {
+            documentContentTypeDao.removeDocumentContentType(nID);
+        } catch (RuntimeException e) {
+            response.setStatus(403);
+            response.setHeader("Reason", e.getMessage());
+        }
+    }
+
+    //################      ###################
+
 }

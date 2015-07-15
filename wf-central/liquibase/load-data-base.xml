@@ -5,54 +5,43 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="Flow Core Live" author="brunneng" runOnChange="true" context="local,test,prod">
+    <changeSet id="Update data" author="brunneng" runOnChange="true">
+
         <sql splitStatements="true" dbms="postgresql">
             SET CONSTRAINTS ALL DEFERRED;
-            DELETE FROM "Flow_ServiceData";
-            DELETE FROM "FlowPropertyClass";
-            DELETE FROM "FlowProperty";
         </sql>
 
-        <loadData encoding="UTF-8" file="data/Flow_ServiceData.csv" tableName="Flow_ServiceData" separator=";">
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Flow_ServiceData.csv" tableName="Flow_ServiceData" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sName" type="STRING"/>
             <column name="nID_ServiceData" type="NUMERIC"/>
             <column name="nID_SubjectOrganDepartment" type="NUMERIC"/>
             <column name="sID_BP" type="STRING"/>
-        </loadData>
+        </loadUpdateData>
 
-        <loadData encoding="UTF-8" file="data/FlowPropertyClass.csv" tableName="FlowPropertyClass" separator=";">
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/FlowPropertyClass.csv" tableName="FlowPropertyClass" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sName" type="STRING"/>
             <column name="sPath" type="STRING"/>
             <column name="sBeanName" type="STRING"/>
-        </loadData>
+        </loadUpdateData>
 
-        <loadData encoding="UTF-8" file="data/FlowProperty.csv" tableName="FlowProperty" separator=";">
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/FlowProperty.csv" tableName="FlowProperty" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="nID_FlowPropertyClass" type="NUMERIC"/>
             <column name="sData" type="STRING"/>
             <column name="nID_Flow_ServiceData" type="NUMERIC"/>
-        </loadData>
-    </changeSet>    
+        </loadUpdateData>
 
-
-    <changeSet id="Flow Module Live" author="brunneng" runOnChange="true" context="local,test,prod">
-        <sql splitStatements="true" dbms="postgresql">
-            SET CONSTRAINTS ALL DEFERRED;
-            DELETE FROM "FlowSlot";
-            DELETE FROM "FlowSlotTicket";
-        </sql>
-
-        <loadData encoding="UTF-8" file="data/FlowSlot.csv" tableName="FlowSlot" separator=";">
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/FlowSlot.csv" tableName="FlowSlot" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sName" type="STRING"/>
             <column name="sDate" type="DATETIME"/>
             <column name="sData" type="STRING"/>
             <column name="nID_Flow_ServiceData" type="NUMERIC"/>
-        </loadData>
+        </loadUpdateData>
 
-        <loadData encoding="UTF-8" file="data/FlowSlotTicket.csv" tableName="FlowSlotTicket" separator=";">
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/FlowSlotTicket.csv" tableName="FlowSlotTicket" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="nID_FlowSlot" type="NUMERIC"/>
             <column name="nID_Subject" type="NUMERIC"/>
@@ -60,7 +49,8 @@
             <column name="sDateStart" type="DATETIME"/>
             <column name="sDateFinish" type="DATETIME"/>
             <column name="sDateEdit" type="DATETIME"/>
-        </loadData>
-    </changeSet>
+        </loadUpdateData>
+    </changeSet>    
+
 
 </databaseChangeLog>

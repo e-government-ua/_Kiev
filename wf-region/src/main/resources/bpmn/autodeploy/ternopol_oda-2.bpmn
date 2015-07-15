@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="myProcess" name="Тернопіль ОДА - Отримання одноразової матеріальної допомоги законним представником" isExecutable="true">
+  <process id="ternopol_oda_2" name="Тернопіль ОДА - Отримання одноразової матеріальної допомоги законним представником" isExecutable="true">
     <endEvent id="endevent1" name="End"></endEvent>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="orgName" name="До кого Ви звертаєтесь по допомогу" type="string" default="МінСоцПолітики" required="true"></activiti:formProperty>
-        <activiti:formProperty id="citizen" name="Ви являєтесь" default="Законний Представник отримувача державної допомоги" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище Представника" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я Представника" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькове Представника" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Адреса прописки Представника" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані Представника (серія і номер)" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Прикрипіть скан-копію паспорту Представника (1, 2 і 11 сторінку)" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdInn" name="ІНН Представника" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_inn" name="Прикрипіть скан-копію ІНН Представника" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="helpeeSurname" name="Прізвище отримувача допомоги" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="helpeeName" name="Ім'я отримувача допомоги" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="helpeeMiddleName" name="По-батькове отримувача допомоги" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="helpeeAddress" name="Адреса отримувача допомоги; (Вказати район та назву населеного пункту, вулицю, номер будинку та квартири)" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="helpeePassport" name="Серія і номер паспорту отримувача допомоги" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="helpeePassportScan" name="Прикрипіть скан-копію паспорту отримувача допомоги" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="helpeeINN" name="ІНН отримувача допомоги" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="helpeeINNScan" name="Прикрипіть скан-копію ІНН отримувача допомоги" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="helpeeHelpID" name="Прикрипіть скан-копію посвідчення отримувача допомоги; Якщо це стосовно Вас" type="file"></activiti:formProperty>
-        <activiti:formProperty id="helpeeMedExp" name="Прикрипіть скан-копію висновку мед-експертизи отримувача допомоги; Якщо це стосовно Вас" type="file"></activiti:formProperty>
-        <activiti:formProperty id="postAddress" name="Поштова адреса; Якщо Ви бажаєте отримати допомогу поштою - заповніть це поле" type="string"></activiti:formProperty>
-        <activiti:formProperty id="accAddress" name="Номер банківського рахунк       №; Якщо Ви бажаєте  отримати допомогу через банк - то заповніть слідучі 4 поля" type="string"></activiti:formProperty>
-        <activiti:formProperty id="accMFO" name="МФО" type="string"></activiti:formProperty>
-        <activiti:formProperty id="accCode" name="Код" type="string"></activiti:formProperty>
-        <activiti:formProperty id="accBank" name="Банк" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Ваше прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькове " type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Ваша Адреса прописки" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Ваші Паспортні дані (серія і номер)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Прикрипіть скан-копію Вашого паспорту (1, 2 і 11 сторінку)" type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdInn" name="Ваш ІПН" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_inn" name="Прикрипіть скан-копію Вашого ІПН " type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="helpeeSurname" name="Прізвище вашого підопічного" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="helpeeName" name="Його ім'я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="helpeeMiddleName" name="По-батькове " type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="helpeeAddress" name="Його адреса ; (Вказати район та назву населеного пункту, вулицю, номер будинку та квартири)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="helpeePassport" name="Серія і номер паспорту" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="helpeePassportScan" name="Прикрипіть скан-копію паспорту Вашого підопічного" type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="helpeeINN" name="ІПН Вашого підопічного" type="string"></activiti:formProperty>
+        <activiti:formProperty id="helpeeINNScan" name="Прикрипіть скан-копію ІПН/свідоцство народження" type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="transferMethod" name="Яким шляхом Ви бажаєте отримати цю допомогу" type="enum" required="true">
+          <activiti:value id="bank" name="Банківським переказом"></activiti:value>
+          <activiti:value id="mail" name="Поштовим перерказом"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="transferComment" name="Додатковий коментар; Якщо поштою - введіть №. Якщо через банк - №, МФО, Код і Банк" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="repPhone" name="Контактний телефон Представника" type="string" default="+380" required="true"></activiti:formProperty>
       </extensionElements>
@@ -56,43 +53,41 @@
         <activiti:field name="subject">
           <activiti:string>Отримання одноразової матеріальної допомоги законним представником</activiti:string>
         </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <userTask id="usertask1" name="Заява поступає в роботу операціоніста">
       <extensionElements>
         <activiti:formProperty id="orgName" name="До кого Ви звертаєтесь по допомогу" type="string" default="МінСоцПолітики" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="citizen" name="Ви являєтесь" default="Законний Представник отримувача державної допомоги" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище Представника" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я Представника" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькове Представника" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Адреса прописки Представника" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані Представника (серія і номер)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Прикрипіть скан-копію паспорту Представника (1, 2 і 11 сторінку)" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdInn" name="ІНН Представника" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_inn" name="Прикрипіть скан-копію ІНН Представника" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdFirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Адреса прописки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія і номер)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Скан-копію паспорту (1, 2 і 11 сторінку)" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdInn" name="ІПН" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_inn" name="Скан-копію ІНН Представника" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeSurname" name="Прізвище отримувача допомоги" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeeName" name="Ім'я отримувача допомоги" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeeMiddleName" name="По-батькове отримувача допомоги" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeeAddress" name="Адреса отримувача допомоги; (Вказати район та назву населеного пункту, вулицю, номер будинку та квартири)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeePassport" name="Серія і номер паспорту отримувача допомоги" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="helpeeName" name="Його ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="helpeeMiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="helpeeAddress" name="Його Адреса; (Вказати район та назву населеного пункту, вулицю, номер будинку та квартири)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="helpeePassport" name="Серія і номер паспорту " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeePassportScan" name="Прикрипіть скан-копію паспорту отримувача допомоги" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeINN" name="ІНН отримувача допомоги" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeeINNScan" name="Прикрипіть скан-копію ІНН отримувача допомоги" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeeHelpID" name="Прикрипіть скан-копію посвідчення отримувача допомоги; Якщо це стосовно Вас" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeeMedExp" name="Прикрипіть скан-копію висновку мед-експертизи отримувача допомоги; Якщо це стосовно Вас" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="postAddress" name="Поштова адреса; Якщо Ви бажаєте отримати допомогу поштою - заповніть це поле" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="accAddress" name="Номер банківського рахунк       №; Якщо Ви бажаєте  отримати допомогу через банк - то заповніть слідучі 4 поля" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="accMFO" name="МФО" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="accCode" name="Код" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="accBank" name="Банк" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="helpeeINNScan" name="Скан-копію ІПН" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="helpeeHelpID" name="Скан-копію посвідчення отримувача допомоги або пенсіонера" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="transferMethod" name="Шлях переказу допомоги" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="transferComment" name="Додатковий коментар" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="repPhone" name="Контактний телефон Представника" type="string" default="+380" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення чиновника" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="refuseReason" name="Причина відмови " type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="transferConfirm" name="Документальне підтвердження (якщо можливо) відправки коштів" type="file"></activiti:formProperty>
+        <activiti:formProperty id="reasonComment" name="Додатковий коментар" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="transferConfirm" name="Документальне підтвердження (якщо можливо) відправки коштів" type="file" default=" "></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -115,7 +110,10 @@
 
 Нажаль ми не можемо надати Вам/Вашому підопічному запрошувану допомогу. 
 
-Причина такого рішення - ${refuseReason}</activiti:expression>
+Причина такого рішення - ${reasonComment}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -136,13 +134,15 @@
         <activiti:field name="text">
           <activiti:expression>Шановний громадянин, 
 
-Запрошуванна матеріальна допомога була успішно відправлена вибраним вами способом. 
+Запрошуванна матеріальна допомога була успішно відправлена вибраним вами способом.
 
-
-</activiti:expression>
+Додаткова інформація - '${reasonComment}'</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>'${transferConfirm}'</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -153,8 +153,8 @@
     </sequenceFlow>
     <sequenceFlow id="flow12" sourceRef="servicetask2" targetRef="endevent2"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
-    <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_ternopol_oda_2">
+    <bpmndi:BPMNPlane bpmnElement="ternopol_oda_2" id="BPMNPlane_ternopol_oda_2">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="60.0" y="50.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -174,16 +174,16 @@
         <omgdc:Bounds height="77.0" width="171.0" x="444.0" y="67.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
-        <omgdc:Bounds height="40.0" width="40.0" x="590.0" y="200.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="360.0" y="290.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="73.0" width="221.0" x="820.0" y="178.0"></omgdc:Bounds>
+        <omgdc:Bounds height="73.0" width="221.0" x="870.0" y="319.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="95.0" width="183.0" x="519.0" y="310.0"></omgdc:Bounds>
+        <omgdc:Bounds height="95.0" width="183.0" x="36.0" y="308.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="980.0" y="470.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="963.0" y="465.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
         <omgdi:waypoint x="95.0" y="67.0"></omgdi:waypoint>
@@ -203,32 +203,30 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
         <omgdi:waypoint x="881.0" y="151.0"></omgdi:waypoint>
-        <omgdi:waypoint x="610.0" y="200.0"></omgdi:waypoint>
+        <omgdi:waypoint x="380.0" y="290.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
-        <omgdi:waypoint x="630.0" y="220.0"></omgdi:waypoint>
-        <omgdi:waypoint x="650.0" y="214.0"></omgdi:waypoint>
-        <omgdi:waypoint x="820.0" y="214.0"></omgdi:waypoint>
+        <omgdi:waypoint x="400.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="870.0" y="355.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="48.0" width="100.0" x="-53.0" y="6.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
-        <omgdi:waypoint x="930.0" y="251.0"></omgdi:waypoint>
-        <omgdi:waypoint x="997.0" y="357.0"></omgdi:waypoint>
-        <omgdi:waypoint x="997.0" y="470.0"></omgdi:waypoint>
+        <omgdi:waypoint x="980.0" y="392.0"></omgdi:waypoint>
+        <omgdi:waypoint x="980.0" y="465.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
-        <omgdi:waypoint x="610.0" y="240.0"></omgdi:waypoint>
-        <omgdi:waypoint x="610.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="219.0" y="355.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="48.0" width="100.0" x="-110.0" y="-25.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="610.0" y="405.0"></omgdi:waypoint>
-        <omgdi:waypoint x="610.0" y="487.0"></omgdi:waypoint>
-        <omgdi:waypoint x="980.0" y="487.0"></omgdi:waypoint>
+        <omgdi:waypoint x="127.0" y="403.0"></omgdi:waypoint>
+        <omgdi:waypoint x="127.0" y="482.0"></omgdi:waypoint>
+        <omgdi:waypoint x="963.0" y="482.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

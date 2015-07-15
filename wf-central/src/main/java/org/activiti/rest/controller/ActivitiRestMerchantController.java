@@ -24,9 +24,7 @@ import org.wf.dp.dniprorada.viewobject.MerchantVO;
 @RequestMapping(value = "/merchant")
 public class ActivitiRestMerchantController {
 
-	//final static Logger LOG = Logger.getLogger(ActivitiRestMerchController.class);
-
-	@Autowired	
+	@Autowired
 	@Qualifier(value = "merchantDao")		
 	private MerchantDao merchantDao;
 
@@ -60,6 +58,7 @@ public class ActivitiRestMerchantController {
 			  @RequestParam(value = "nID", required = false) Long nID,
 			  @RequestParam(value = "sID", required = false) String sID,
 			  @RequestParam(value = "sName", required = false) String sName,
+			  @RequestParam(value = "sPrivateKey", required = false) String sPrivateKey,
 			  @RequestParam(value = "nID_SubjectOrgan", required = false) Long nID_SubjectOrgan,
 			  @RequestParam(value = "sURL_CallbackStatusNew", required = false) String sURL_CallbackStatusNew,
 			  @RequestParam(value = "sURL_CallbackPaySuccess", required = false) String sURL_CallbackPaySuccess) {
@@ -78,6 +77,10 @@ public class ActivitiRestMerchantController {
 			merchant.setName(sName);
 		}
 
+      if (sPrivateKey != null) {
+         merchant.setsPrivateKey(sPrivateKey);
+      }
+
 		if (nID_SubjectOrgan != null) {
 			SubjectOrgan subjectOrgan = baseEntityDao.getById(SubjectOrgan.class, nID_SubjectOrgan);
 			merchant.setOwner(subjectOrgan);
@@ -88,17 +91,10 @@ public class ActivitiRestMerchantController {
 		}
 
 		if (sURL_CallbackPaySuccess != null) {
-			merchant.setsURL_CallbackPaySuccess(null);
+			merchant.setsURL_CallbackPaySuccess(sURL_CallbackPaySuccess);
 		}
 
 		merchantDao.saveOrUpdate(merchant);
-//		try {
-//			merchantDao.saveOrUpdate(merchant);
-//		}
-//		catch (Exception exc) {
-//			LOG.error(exc.getMessage(), exc);
-//			return new ResponseEntity(exc.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
 		return JsonRestUtils.toJsonResponse(new MerchantVO(merchant));
 	}
 

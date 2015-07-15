@@ -8,7 +8,6 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.activiti.engine.task.Attachment;
-import org.activiti.engine.task.Task;
 import org.activiti.redis.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +54,10 @@ public class FileTaskInheritance extends AbstractModelTask implements
 			return;
 		}
 
-		List<Attachment> attachments = getAttachmentsFromParentTasks(execution.getParentId());
+		LOG.info("execution.getParentId():" + execution.getParentId());
+		LOG.info("execution.getId()" + execution.getId());
+		
+		List<Attachment> attachments = getAttachmentsFromParentTasks(execution);
 
 		List<Attachment> attachmentsToAdd = getInheritedAttachmentIdsFromTask(attachments, sInheritedAttachmentsIds);
 
@@ -87,7 +89,7 @@ public class FileTaskInheritance extends AbstractModelTask implements
 			List<Attachment> attachments, String sInheritedAttachmentsIds) {
 		final String METHOD_NAME = "getInheritedAttachmentIdsFromTask(List<Attachment> attachments, String sInheritedAttachmentsIds)";
 		LOG.trace("Entering method " + METHOD_NAME);
-		
+		LOG.info("sInheritedAttachmentsIds:" + sInheritedAttachmentsIds);
 		List<Attachment> res = new LinkedList<Attachment>();
 
 		String[] attachIds = sInheritedAttachmentsIds.split(",");
@@ -102,34 +104,20 @@ public class FileTaskInheritance extends AbstractModelTask implements
 				}
 			}
 		}
-		if (res.isEmpty() && !attachments.isEmpty()){
-			LOG.info("!!! Debug case. Adding first attachment from the list and print its properties");
-			res.add(attachments.get(0));
-			LOG.info("!!! DEBUG case. Adding attachment: " + attachments.get(0).getId() + "|" + attachments.get(0).getName() + "|" +
-					attachments.get(0).getDescription() + "|" + attachments.get(0).getTaskId());
-		}
 		LOG.trace("Exiting method " + METHOD_NAME);
 		return res;
 	}
 
-	protected List<Attachment> getAttachmentsFromParentTasks(String taskId) {
-		final String METHOD_NAME = "getAttachmentsFromParentTasks(String taskId)";
+	protected List<Attachment> getAttachmentsFromParentTasks(DelegateExecution execution) {
+		final String METHOD_NAME = "getAttachmentsFromParentTasks(DelegateExecution execution)";
 		LOG.trace("Entering method " + METHOD_NAME);
 		
 		List<Attachment> res = new LinkedList<Attachment>();
 
-		List<Task> tasks = taskService.createTaskQuery().taskId(taskId).list();
-		if (tasks != null && !tasks.isEmpty()) {
-			Task task = tasks.iterator().next();
-			res.addAll(taskService.getTaskAttachments(taskId));
-
-			LOG.info(String.format("Took all the attachments from task with ID {0} ", taskId));
-			if (task.getParentTaskId() != null) {
-				LOG.info(String.format("Will take attachments from parent task now with ID {0} ", task.getParentTaskId()));
-				res.addAll(getAttachmentsFromParentTasks(task.getParentTaskId()));
-			}
-		}
-
+		LOG.info("execution.getProcessInstanceId():" + execution.getProcessInstanceId());
+		res = execution.getEngineServices().getTaskService().getProcessInstanceAttachments(execution.getProcessInstanceId());
+		LOG.info("res:" + res);
+		
 		LOG.trace("Exiting method " + METHOD_NAME);
 		return res;
 	}

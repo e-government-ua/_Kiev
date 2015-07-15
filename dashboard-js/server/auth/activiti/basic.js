@@ -53,10 +53,12 @@ exports.authenticate = function(req, res) {
 	};
 
 	activiti.post(checkLogin, function(error, statusCode, result, headers) {
-		res.statusCode = statusCode;
+    if(statusCode){
+      res.statusCode = statusCode;
+    }
 
 		if (error) {
-			res.send(error);
+			res.status(500).send(error);
 			return;
 		}
 

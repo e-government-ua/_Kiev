@@ -7,6 +7,7 @@
     "NODE_ENV": "local",
     "DEBUG": "false",
 
+    "sServerRegion": "https://test.region.igov.org.ua",
     "SERVER_PROTOCOL": "https",
     "SERVER_PORT": "8443",
     "SERVER_KEY": "/sybase/cert/server.key",

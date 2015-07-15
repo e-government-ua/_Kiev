@@ -107,7 +107,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		}
 	}
 
-	private Long getIdAccess() throws Exception{
+	public Long getIdAccess() throws Exception{
 		Session oSession = getSession();
 		List <DocumentAccess> list = null;
 		try{

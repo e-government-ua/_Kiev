@@ -17,6 +17,9 @@ public class Merchant extends NamedEntity {
    @Column
    private String sURL_CallbackPaySuccess;
 
+   @Column
+   private String sPrivateKey;
+
    //OKPO
    @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "nID_SubjectOrgan")
@@ -53,5 +56,14 @@ public class Merchant extends NamedEntity {
 
    public void setOwner(SubjectOrgan owner) {
       this.owner = owner;
+   }
+
+
+   public String getsPrivateKey() {
+      return sPrivateKey;
+   }
+
+   public void setsPrivateKey(String sPrivateKey) {
+      this.sPrivateKey = sPrivateKey;
    }
 }

@@ -68,6 +68,11 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
             $scope.isSending = false;
             return false;
         }
+          $scope.isSending = false;
+          $scope.$root.data = $scope.$root.data || {}
+          $scope.$root.data.formData = $scope.data.formData;
+          return $state.go(submitted, $stateParams);
+        })
     } else {
         $scope.isSending = false;
         return false;

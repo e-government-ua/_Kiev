@@ -12,11 +12,17 @@
           <activiti:value id="копія рішення міської ради" name="копія рішення міської ради"></activiti:value>
           <activiti:value id="копія розпорядження міського голови" name="копія розпорядження міського голови"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="docDate" name="Дата прийняття документа; в форматі ДД.ММ.РРРР" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="docNumber" name="Номер документа" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="docName" name="Назва документа" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="docDate" name="Дата прийняття документа; в форматі ДД.ММ.РРРР" type="string"></activiti:formProperty>
+        <activiti:formProperty id="docNumber" name="Номер документа" type="long"></activiti:formProperty>
+        <activiti:formProperty id="docName" name="Назва документа" type="string"></activiti:formProperty>
+        <activiti:formProperty id="docPartContent" name="Частина тексту запитуваного документу; зазначте для можливості пошуку потрібного документа, якщо Вам невідомі дата прийняття,номер або назва документа" type="string"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання документа" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="responseType" name="Оберіть потрібний формат відподіві" type="enum" required="true">
+          <activiti:value id="emailOnly" name="В електронному вігляді на e-mail"></activiti:value>
+          <activiti:value id="both" name="Паперова копія і електронна копія на e-mail"></activiti:value>
+        </activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
@@ -38,7 +44,7 @@
 На жаль, змушені відмовити Вам у наданні інформації у зв'язку з недостатньою аргументацією Вашого запиту.
 
 З повагою,
-Міська рада міста Хмельницький,</activiti:expression>
+Хмельницька міська рада</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -47,7 +53,13 @@
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clPassport" name="Паспортні дані" type="string" default="${bankIdPassport}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запитуваний документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="docPartContent" name="Частина тексту запитуваного документу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="responseType" name="Оберіть потрібний формат відподіві" type="enum" writable="false">
+          <activiti:value id="emailOnly" name="В електронному вігляді на e-mail"></activiti:value>
+          <activiti:value id="both" name="Паперова копія і електронна копія на e-mail"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Перейти до надання послуги"></activiti:value>
           <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
@@ -63,11 +75,11 @@
       <extensionElements>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-Щодо Вашого запиту на отримання ${docType} №${docNumber}.
+
 На жаль, документ не було знайдено.
 
 З повагою,
-Міська рада міста Хмельницький</activiti:expression>
+Хмельницька міська рада</activiti:expression>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -89,7 +101,13 @@
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запитуваній документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="docPartContent" name="Частина тексту запитуваного ддокументу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="responseType" name="Оберіть потрібний формат відподіві" type="enum" writable="false">
+          <activiti:value id="emailOnly" name="В електронному вігляді на e-mail"></activiti:value>
+          <activiti:value id="both" name="Паперова копія і електронна копія на e-mail"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="searchResult" name="Результат обробки запиту" type="enum" required="true">
           <activiti:value id="found" name="Документ знайдено"></activiti:value>
           <activiti:value id="notFound" name="Документ не знайдено"></activiti:value>
@@ -111,8 +129,8 @@
     </sequenceFlow>
     <endEvent id="endevent6" name="End"></endEvent>
     <sequenceFlow id="flow44" sourceRef="servicetask1" targetRef="endevent6"></sequenceFlow>
-    <sequenceFlow id="flow47" name="searchResult == 'found'" sourceRef="exclusivegateway2" targetRef="servicetask1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult == 'found'}]]></conditionExpression>
+    <sequenceFlow id="flow47" name="${searchResult == 'found' &amp;&amp;  responseType == 'both'}" sourceRef="exclusivegateway2" targetRef="servicetask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult == 'found' &&  responseType == 'both'}]]></conditionExpression>
     </sequenceFlow>
     <serviceTask id="mailtask5" name="Повідомлення про  подання звернення" activiti:type="mail">
       <extensionElements>
@@ -130,10 +148,11 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-Ваш запит на отримання ${docType} №${docNumber} від ${docDate} успішно зареєстровано. Ви отримаєте відповідь протягом п'яти робочих днів на цю email-адресу.
+Ваш запит успішно зареєстровано. 
+Ви отримаєте відповідь протягом тридцяти робочих днів на цю email-адресу.
 
 З повагою,
-Міська рада міста Хмельницький,
+Хмельницька міська рада
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
@@ -153,11 +172,18 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-Щодо Вашого запиту на отримання ${docType} №${docNumber} від  ${docDate}
-Документ знаходиться у додатку до цього листа.
+
+Електрона копія документа знаходиться у додатку до цього листа.
+
+Друкований варіант документа Ви можете отримати в Центрі надання адміністративних послуг Хмельницької міської ради за адресою: м.Хмельницький, вул.Соборна, 16. 
+
+Графік прийому: 
+понеділок, середа, п'ятниця з 9-00 до 16-00, 
+субота з 8-00 до 15-00, 
+вівторок, четвер - з 9-00 до 20-00 (без перерви на обід).
 
 З повагою,
-Міська рада міста Хмельницький,
+Хмельницька міська рада
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
@@ -165,6 +191,36 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
+    <serviceTask id="servicetask2" name="Відправка відповіді на запит користувачу" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
+
+Електрона копія документа знаходиться у додатку до цього листа.
+
+
+З повагою,
+Хмельницька міська рада
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${docToSend}"</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow51" sourceRef="servicetask2" targetRef="endevent6"></sequenceFlow>
+    <sequenceFlow id="flow52" name="${searchResult == 'found' &amp;&amp;  responseType == 'emailOnly'}" sourceRef="exclusivegateway2" targetRef="servicetask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult == 'found' &&  responseType == 'emailOnly'}]]></conditionExpression>
+    </sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Пользователь портала  отправляет выбирает услугу:
 Надання копій рішень міської ради та її виконкому, розпоряджень міського голови за зверненням юридичних та фізичних осіб, правоохоронних органів,адвокатів</text>
@@ -182,7 +238,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_hmel_mvk_1">
     <bpmndi:BPMNPlane bpmnElement="hmel_mvk_1" id="BPMNPlane_hmel_mvk_1">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="180.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="150.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="67.0" width="105.0" x="620.0" y="243.0"></omgdc:Bounds>
@@ -216,6 +272,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="71.0" width="105.0" x="1114.0" y="430.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="71.0" width="105.0" x="1114.0" y="537.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="50.0" width="299.0" x="-40.0" y="90.0"></omgdc:Bounds>
@@ -275,23 +334,36 @@
         <omgdi:waypoint x="972.0" y="465.0"></omgdi:waypoint>
         <omgdi:waypoint x="1114.0" y="465.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="1020.0" y="465.0"></omgdc:Bounds>
+          <omgdc:Bounds height="56.0" width="100.0" x="1020.0" y="465.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
-        <omgdi:waypoint x="432.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="432.0" y="185.0"></omgdi:waypoint>
         <omgdi:waypoint x="432.0" y="287.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
         <omgdi:waypoint x="432.0" y="342.0"></omgdi:waypoint>
         <omgdi:waypoint x="432.0" y="438.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow51" id="BPMNEdge_flow51">
+        <omgdi:waypoint x="1219.0" y="572.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1258.0" y="571.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1257.0" y="483.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow52" id="BPMNEdge_flow52">
+        <omgdi:waypoint x="960.0" y="485.0"></omgdi:waypoint>
+        <omgdi:waypoint x="960.0" y="572.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1114.0" y="572.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="56.0" width="100.0" x="971.0" y="570.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
         <omgdi:waypoint x="432.0" y="493.0"></omgdi:waypoint>
         <omgdi:waypoint x="240.0" y="510.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
-        <omgdi:waypoint x="432.0" y="180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="415.0" y="167.0"></omgdi:waypoint>
         <omgdi:waypoint x="109.0" y="140.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
