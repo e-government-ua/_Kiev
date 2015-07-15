@@ -19,6 +19,9 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
             "PhoneUA":{
                 "aField_ID":["privatePhone","workPhone", "phone"]
             }
+            , "Mail":{
+                "aField_ID":["privateMail","email"]
+            }            
         }
     };
 
