@@ -72,7 +72,8 @@ public abstract class BaseMailTaskWithAttachment implements JavaDelegate {
             String sURL_CallbackPaySuccess = null;
             //Long nID_Subject = getLongFromFieldExpression(this.nID_Subject, execution);
             Long nID_Subject = Long.valueOf(execution.getVariable("nID_Subject").toString());
-            LOG.info("nID_Subject="+(nID_Subject==null?0:nID_Subject));
+            nID_Subject = (nID_Subject==null?0:nID_Subject);
+            LOG.info("nID_Subject="+nID_Subject);
             boolean bTest = generalConfig.bTest();
             String htmlButton = new LiqBuy().getPayButtonHTML_LiqPay(sID_Merchant, sSum, oID_Currency, sLanguage, sDescription, sID_Order, sURL_CallbackStatusNew, sURL_CallbackPaySuccess, nID_Subject, bTest);
             textWithoutTags = StringUtils.replace(textStr, TAG_PAYMENT_BUTTON_LIQPAY, htmlButton);
