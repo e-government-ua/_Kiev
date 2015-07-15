@@ -46,9 +46,14 @@ public abstract class BaseMailTaskWithAttachment implements JavaDelegate {
         }
         String textWithoutTags = textStr;
         if (textStr.contains(TAG_PAYMENT_BUTTON_LIQPAY)) {
-            String sID_Merchant = getStringFromFieldExpression(this.sID_Merchant, execution);
+            String sID_Merchant = execution.getVariable("sID_Merchant").toString();
+            LOG.info("sID_Merchant="+sID_Merchant);
+            sID_Merchant = getStringFromFieldExpression(this.sID_Merchant, execution);
+            LOG.info("sID_Merchant="+sID_Merchant);
+            
             String sSum = getStringFromFieldExpression(this.sSum, execution);
             LOG.info("sSum="+sSum);
+            
             
             String sID_Currency = getStringFromFieldExpression(this.sID_Currency, execution);
             LOG.info("sID_Currency="+sID_Currency);
