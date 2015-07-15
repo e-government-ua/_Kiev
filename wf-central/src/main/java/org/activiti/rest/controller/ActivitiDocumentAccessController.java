@@ -1,8 +1,10 @@
 package org.activiti.rest.controller;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -63,13 +65,13 @@ public class ActivitiDocumentAccessController {
             createHistoryEvent(HistoryEventType.SET_DOCUMENT_ACCESS_LINK,
                     nID_Document, sFIO, sTelephone, nMS, sMail);
 		} catch (Exception e) {
-			response.setStatus(400);
+			response.setStatus(HttpStatus.BAD_REQUEST.value());
 			response.setHeader("Reason", e.getMessage());
 		}
         return oAccessURL;
     }
 
-        @Deprecated
+   @Deprecated
 	@RequestMapping(value = "/getDocumentLink", method = RequestMethod.GET, headers = { "Accept=application/json" })
 	public @ResponseBody
 	DocumentAccess getDocumentAccessLink(
@@ -80,31 +82,25 @@ public class ActivitiDocumentAccessController {
 		try {
 			da = documentAccessDao.getDocumentLink(nID_Access, sSecret);
 		} catch (Exception e) {
-			response.setStatus(403);
+			response.setStatus(HttpStatus.FORBIDDEN.value());
 			response.setHeader("Reason", "Access not found\n" + e.getMessage());
 		}
 		if (da == null) {
-			response.setStatus(403);
+			response.setStatus(HttpStatus.FORBIDDEN.value());
 			response.setHeader("Reason", "Access not found");
 		} else {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-			Date d = null;
-            boolean isSuccessAccess = true;
-            try {
-                d = sdf.parse(da.getDateCreate());
-			} catch (ParseException e) {
+			DateTime now = new DateTime();
+         boolean isSuccessAccess = true;
+         DateTime d = da.getDateCreate();
+
+			if (d.plusMillis(da.getMS().intValue()).isBefore(now)) {
                 isSuccessAccess = false;
-                response.setStatus(400);
-                response.setHeader("Reason", e.getMessage());
-			}
-			if (da.getMS() + d.getTime() < new Date().getTime()) {
-                isSuccessAccess = false;
-                response.setStatus(403);
+                response.setStatus(HttpStatus.FORBIDDEN.value());
                 response.setHeader("Reason", "Access expired");
 			}
 			if (!sSecret.equals(da.getSecret())) {
                 isSuccessAccess = false;
-                response.setStatus(403);
+                response.setStatus(HttpStatus.FORBIDDEN.value());
                 response.setHeader("Reason", "Access to another document");
 			}
             if (isSuccessAccess) {
@@ -132,7 +128,7 @@ public class ActivitiDocumentAccessController {
 			sValue = String.valueOf(nID_Access);
 			oAccessURL.setValue(sValue);
 		} catch (Exception e) {
-			response.setStatus(403);
+			response.setStatus(HttpStatus.FORBIDDEN.value());
 			response.setHeader("Reason", "Access not found");
 			oAccessURL.setValue(e.getMessage());
 		}
@@ -156,11 +152,11 @@ public class ActivitiDocumentAccessController {
                         oAccessURL.setValue(sValue);
 			oAccessURL.setName("sURL");
 			if(oAccessURL.getValue().isEmpty() || oAccessURL.getValue() == null){
-				response.setStatus(403);
+				response.setStatus(HttpStatus.FORBIDDEN.value());
 				response.setHeader("Reason", "Access not found");
 			}
 		} catch (Exception e) {
-			response.setStatus(400);
+			response.setStatus(HttpStatus.BAD_REQUEST.value());
 			response.setHeader("Reason", e.getMessage());
 		}
 		return oAccessURL;

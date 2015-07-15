@@ -51,6 +51,9 @@ public class LiqBuy {
         paramMerchant.put("sID", sID_Merchant);
         paramMerchant.put("nID_Subject", String.valueOf(nID_Subject));
         String merchant = HttpRequester.get("https://test.igov.org.ua/wf-central/service/merchant/getMerchant", paramMerchant);
+        
+        log.info("merchant="+merchant);
+        
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(merchant);
         
@@ -59,10 +62,18 @@ public class LiqBuy {
             privateKey = "test";
         }
         if (sURL_CallbackStatusNew == null) {
-            sURL_CallbackStatusNew = (String) jsonObject.get("sURL_CallbackStatusNew");
+            if(jsonObject.get("sURL_CallbackStatusNew")!=null){
+                sURL_CallbackStatusNew = (String) jsonObject.get("sURL_CallbackStatusNew");
+            }else{
+                sURL_CallbackStatusNew = "";
+            }
         }
         if (sURL_CallbackPaySuccess == null) {
-            sURL_CallbackPaySuccess = (String) jsonObject.get("sURL_CallbackPaySuccess");
+            if(jsonObject.get("sURL_CallbackPaySuccess")!=null){
+                sURL_CallbackPaySuccess = (String) jsonObject.get("sURL_CallbackPaySuccess");
+            }else{
+                sURL_CallbackPaySuccess = "https://igov.org.ua";
+            }
         }
 
         if (sURL_CallbackPaySuccess != null) {

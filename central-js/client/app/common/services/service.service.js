@@ -74,6 +74,11 @@ angular.module('app').service('ServiceService', function($http, $q) {
     return '/api/documents/download/' + docnID;
   };
 
+  this.getSearchDocumentLink = function(docnID, typeId, operatorId, code, smsPass) {
+    return '/api/documents/download/' + docnID  + '/' +  code + '/'
+        + operatorId + '/' + typeId + '/' + smsPass;
+  };
+
   this.shareLink = function(nID_Subject, nID_Document, sFIO, sTelephone, sMail, nMS) {
     var data = {
       'nID_Subject': nID_Subject,

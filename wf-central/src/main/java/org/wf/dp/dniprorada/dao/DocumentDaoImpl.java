@@ -3,6 +3,7 @@ package org.wf.dp.dniprorada.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
@@ -98,7 +99,7 @@ public class DocumentDaoImpl implements DocumentDao {
 		document.setContentKey(durableBytesDataStorage.saveData(aoContent));
 		document.setContentType(sFileContentType);
 		document.setFile(sFileName);
-		document.setDate_Upload(new Date());
+		document.setDate_Upload(new DateTime());
 		getSession().saveOrUpdate(document);
 		return document.getId();
 
