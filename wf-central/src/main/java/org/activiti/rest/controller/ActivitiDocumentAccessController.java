@@ -56,9 +56,10 @@ public class ActivitiDocumentAccessController {
 			oAccessURL.setName("sURL");
                         String sValue = "";
 			//oAccessURL.setValue(documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail));
-                        String sURL = documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail);
+                        //String sURL = documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail);
+                        sValue = documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail);
 			//sValue = documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail);
-			sValue = String.valueOf(documentAccessDao.getIdAccess());
+			//sValue = String.valueOf(documentAccessDao.getIdAccess());
 			oAccessURL.setValue(sValue);
                         
                         

@@ -45,13 +45,19 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		oDocumentAccess.setTarget(sTarget);
 		oDocumentAccess.setTelephone(sTelephone);
 		oDocumentAccess.setSecret(generateSecret());
+                //sCode;sCodeType
 		writeRow(oDocumentAccess);
-		StringBuilder osURL = new StringBuilder(sURL);
+                oDocumentAccess.setsCode(getIdAccess().toString());
+                oDocumentAccess.setsCodeType((sTelephone!=null&&sTelephone.length()>6)?"sms":"");
+		writeRow(oDocumentAccess);
+		/*StringBuilder osURL = new StringBuilder(sURL);
 		osURL.append("nID_Access=");
 		osURL.append(getIdAccess()+"&");
 		osURL.append("sSecret=");
-		osURL.append(oDocumentAccess.getSecret());
-		return osURL.toString();
+		osURL.append(oDocumentAccess.getSecret());*/
+		//return osURL.toString();
+                return getIdAccess().toString();
+                
 	}
 
 	private String generateSecret() {
