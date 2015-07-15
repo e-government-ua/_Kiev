@@ -44,16 +44,18 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
           }
         }
         value.sFieldNotes = s;
+        /*
         if (_.indexOf(validateIds, value.id)!=-1){
             value.sFieldType="tel";
-        }
+        }*/
   });
 
   $scope.submit = function(form) {
     $scope.isSending = true;
     form.$setSubmitted();
 
-    if ($($('input[type=tel]')[0]).intlTelInput("isValidNumber")){
+    //if ($($('input[type=tel]')[0]).intlTelInput("isValidNumber")){
+        
         if (form.$valid) {
             ActivitiService
                 .submitForm(oServiceData, $scope.data.formData)
@@ -74,10 +76,10 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
             return false;
         }
 
-    } else {
-        $scope.isSending = false;
-        return false;
-    }
+    //} else {
+    //   $scope.isSending = false;
+    //    return false;
+    //}
 
   };
 
@@ -131,7 +133,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
     }
     $scope.$apply();
   };
-
+/*
     $timeout(function () {
         $('input[type=tel]').intlTelInput({
             defaultCountry: "auto",
@@ -146,5 +148,5 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
                 });
             }
         });
-    });
+    });*/
 });
