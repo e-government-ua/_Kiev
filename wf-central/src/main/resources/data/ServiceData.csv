@@ -110,5 +110,10 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 109;4;27;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zhitomir_mvk_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 110;23;27;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zhitomir_mvk_2:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 111;661;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"post_spravka_o_doxodax_pens:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-112;628;NULL;9;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_oda_2:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+112;628;NULL;9;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_long:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 113;1;14;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_mvd_10:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID
+114;662;NULL;9;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_short1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+115;663;NULL;9;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_short2:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+116;664;NULL;9;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_short3:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+117;665;NULL;9;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_short4:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+118;666;NULL;9;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_short5:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
