@@ -40,7 +40,7 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
            throw new IllegalArgumentException("CRC Error");
         }
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
-        criteria.add(Restrictions.eq("nID", nID_Protected / 10));
+        criteria.add(Restrictions.eq("id", nID_Protected / 10));
         HistoryEvent_Service event_service = (HistoryEvent_Service) criteria.uniqueResult();
         if (event_service == null) {
             throw new EntityNotFoundException("Record not found");

@@ -21,11 +21,7 @@
         <activiti:formProperty id="helpeePassportScan" name="Прикрипіть скан-копію паспорту Вашого підопічного" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="helpeeINN" name="ІПН Вашого підопічного" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpeeINNScan" name="Прикрипіть скан-копію ІПН/свідоцство народження" type="file" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="transferMethod" name="Яким шляхом Ви бажаєте отримати цю допомогу" type="enum" required="true">
-          <activiti:value id="bank" name="Банківським переказом"></activiti:value>
-          <activiti:value id="mail" name="Поштовим перерказом"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="transferComment" name="Додатковий коментар; Якщо поштою - введіть №. Якщо через банк - №, МФО, Код і Банк" type="textArea" required="true"></activiti:formProperty>
+        
         <activiti:formProperty id="email" name="e-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="repPhone" name="Контактний телефон Представника" type="string" default="+380" required="true"></activiti:formProperty>
       </extensionElements>

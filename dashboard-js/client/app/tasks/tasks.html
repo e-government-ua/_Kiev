@@ -117,12 +117,10 @@
           </button>
           <button ng-hide="selectedTask.assignee == null"
                   ng-click="submitTask()"
-                  ng-disabled="hasUnPopulatedFields()"
                   class="btn btn-success">Опрацювати
           </button>
           <button ng-hide="selectedTask.assignee == null"
                   ng-click="print()"
-                  ng-disabled="hasUnPopulatedFields()"
                   class="btn btn-success">Роздрукувати
           </button>
         </p>
