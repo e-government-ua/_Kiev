@@ -72,7 +72,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 71;625;2;NULL;1;{};https://dniprorada.igov.org.ua;FALSE;1;TRUE;;BankID,EDS
 72;626;2;NULL;1;{};https://dniprorada.igov.org.ua;FALSE;1;TRUE;;BankID,EDS
 73;627;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mda_2:1:595058"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-74;628;2;NULL;1;{};https://dniprorada.igov.org.ua;FALSE;1;TRUE;;BankID,EDS
+74;628;2;NULL;1;{};https://dniprorada.igov.org.ua;false;1;TRUE;;BankID,EDS
 75;629;NULL;NULL;1;{};http://geoinf.kiev.ua/wp/interaktyvni-karty-spetsdozvoliv.htm;FALSE;1;FALSE;За наступним посиланням Ви зможете переглянути інтерактивну карту із можливістю фільтрації на різні типи шарів та за різноманітними атрибутами. Веріфікація не потрібна;BankID,EDS
 76;630;NULL;NULL;1;{};http://geoinf.kiev.ua/wp/interaktyvna-karta-rodovyshch-korysnykh-kopalyn.htm;FALSE;1;FALSE;За наступним посиланням Ви зможете переглянути інтерактивну карту із можливістю фільтрації на різні типи шарів та за різноманітними атрибутами. Веріфікація не потрібна;BankID,EDS
 77;631;NULL;NULL;1;{};http://geoinf.kiev.ua/katalog-fondu/;FALSE;1;FALSE;Пошук за каталогом геологічних досліджень у каталозі фонду (більше 60.000 матеріалів) за різноманітними атрибутами. Веріфікація не потрібна;BankID,EDS
@@ -110,5 +110,10 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 109;4;27;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zhitomir_mvk_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 110;23;27;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zhitomir_mvk_2:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 111;661;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"post_spravka_o_doxodax_pens:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-112;628;NULL;9;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_oda_2:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+112;628;NULL;9;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_long:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
 113;1;14;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_mvd_10:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID
+114;662;10;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_short1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+115;663;10;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_short2:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+116;664;10;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_short3:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+117;665;10;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_short4:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+118;666;10;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_short5:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
