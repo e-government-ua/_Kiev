@@ -121,10 +121,12 @@
                                        ng-required="property.required"
                                        class="form-control_">{{data.formData.params[property.id].value}}</label>
 
+                                       <!--type="{{!!property.sFieldType?property.sFieldType : 'text'}}"-->
                                 <input ng-switch-when="long"
-                                       type="{{!!property.sFieldType?property.sFieldType : 'text'}}"
+                                       type="text"
                                        name="{{property.id}}"
                                        ng-model="data.formData.params[property.id].value"
+                                        ng-pattern="/^\d+$/"
                                        ng-required="property.required"
                                        class="form-control"
                                        value="">
