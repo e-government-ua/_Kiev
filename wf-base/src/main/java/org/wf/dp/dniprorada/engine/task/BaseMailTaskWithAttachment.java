@@ -1,5 +1,7 @@
 package org.wf.dp.dniprorada.engine.task;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
@@ -15,6 +17,7 @@ public abstract class BaseMailTaskWithAttachment implements JavaDelegate {
 
     private static final String TAG_PAYMENT_BUTTON_LIQPAY = "[paymentButton_LiqPay]";
     
+    //private static final String LIQPAY_CALLBACK_URL = "https://test.region.igov.org.ua/wf-region/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=\"Liqpay\"&sData = \"\"";
     private static final String LIQPAY_CALLBACK_URL = "https://test.region.igov.org.ua/wf-region/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=\"Liqpay\"&sData = \"\"";
     private static final String TAG_nID_SUBJECT = "[nID_Subject]";
     private static final String TAG_sACCESS_KEY = "[sAccessKey]";
@@ -33,6 +36,9 @@ public abstract class BaseMailTaskWithAttachment implements JavaDelegate {
     protected Expression sLanguage;
     protected Expression sDescription;
     protected Expression nID_Subject;
+
+    static final transient Logger LOG = LoggerFactory
+                    .getLogger(BaseMailTaskWithAttachment.class);
     
     protected String replaceTags(String textStr, DelegateExecution execution) throws Exception {
         if (textStr == null) {
@@ -42,15 +48,24 @@ public abstract class BaseMailTaskWithAttachment implements JavaDelegate {
         if (textStr.contains(TAG_PAYMENT_BUTTON_LIQPAY)) {
             String sID_Merchant = getStringFromFieldExpression(this.sID_Merchant, execution);
             String sSum = getStringFromFieldExpression(this.sSum, execution);
-            Currency sID_Currency = Currency.valueOf(getStringFromFieldExpression(this.sID_Currency, execution));
+            LOG.info("sSum="+sSum);
+            
+            String sID_Currency = getStringFromFieldExpression(this.sID_Currency, execution);
+            LOG.info("sID_Currency="+sID_Currency);
+            Currency oID_Currency = Currency.valueOf(sID_Currency==null?"UAH":sID_Currency);
+            LOG.info("oID_Currency.name()="+oID_Currency.name());
+            
             Language sLanguage = LiqBuy.DEFAULT_LANG;
             String sDescription = getStringFromFieldExpression(this.sDescription, execution);
+            LOG.info("sDescription="+sDescription);
+            
             String sID_Order = "TaskActiviti_" + execution.getId();  // TODO: not sure about id
             String sURL_CallbackStatusNew = StringUtils.replace(LIQPAY_CALLBACK_URL, "{0}", sID_Order); 
             String sURL_CallbackPaySuccess = null;
             Long nID_Subject = getLongFromFieldExpression(this.nID_Subject, execution);
+            LOG.info("nID_Subject="+(nID_Subject==null?0:nID_Subject));
             boolean bTest = generalConfig.bTest();
-            String htmlButton = new LiqBuy().getPayButtonHTML_LiqPay(sID_Merchant, sSum, sID_Currency, sLanguage, sDescription, sID_Order, sURL_CallbackStatusNew, sURL_CallbackPaySuccess, nID_Subject, bTest);
+            String htmlButton = new LiqBuy().getPayButtonHTML_LiqPay(sID_Merchant, sSum, oID_Currency, sLanguage, sDescription, sID_Order, sURL_CallbackStatusNew, sURL_CallbackPaySuccess, nID_Subject, bTest);
             textWithoutTags = StringUtils.replace(textStr, TAG_PAYMENT_BUTTON_LIQPAY, htmlButton);
         }
 
