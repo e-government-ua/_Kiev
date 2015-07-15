@@ -138,8 +138,8 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
                 LOG.info("asFieldID="+asFieldID.toString());
                 asFieldValue = getValueFieldWithCastomTypeFile(execution, asFieldID);
                 LOG.info("asFieldValue="+asFieldValue.toString());
-                asFieldName = getListCastomFieldName(startformData);
-                LOG.info("asFieldName="+asFieldName.toString());
+                //asFieldName = getListCastomFieldName(startformData);
+                //LOG.info("asFieldName="+asFieldName.toString());
                 if (!asFieldValue.isEmpty()) {
                     String sValue = asFieldValue.get(0);
                     LOG.info("sValue=" + sValue);

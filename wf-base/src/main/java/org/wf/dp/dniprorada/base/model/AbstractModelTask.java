@@ -377,8 +377,8 @@ public abstract class AbstractModelTask {
         LOG.info("asFieldID="+asFieldID.toString());
         asFieldValue = getValueFieldWithCastomTypeFile(execution, asFieldID);
         LOG.info("asFieldValue="+asFieldValue.toString());
-        asFieldName = getListCastomFieldName(formData);
-        LOG.info("asFieldName="+asFieldName.toString());
+        //asFieldName = getListCastomFieldName(formData);
+        //LOG.info("asFieldName="+asFieldName.toString());
         if (!asFieldValue.isEmpty()) {
             String sValue = asFieldValue.get(0);
             LOG.info("sValue=" + sValue);
