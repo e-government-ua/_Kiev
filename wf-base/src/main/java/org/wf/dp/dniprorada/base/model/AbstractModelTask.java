@@ -206,9 +206,9 @@ public abstract class AbstractModelTask {
 			Map<String, Object> variables = execution.getEngineServices()
 					.getRuntimeService()
 					.getVariables(execution.getProcessInstanceId());
-			for (Map.Entry<String, Object> entry1 : variables.entrySet()) {
-				if (filedTypeFile.contains(entry1.getKey())) {
-					listValueKeys.add(String.valueOf(entry1.getValue()));
+			for (String fieldId : filedTypeFile) {
+				if (variables.containsKey(fieldId)) {				
+					listValueKeys.add(String.valueOf(variables.get(fieldId)));
 				}
 			}
 		}
@@ -353,7 +353,7 @@ public abstract class AbstractModelTask {
                             String name = asFieldName.get((asFieldName.size() - 1) - n);
                             LOG.info("name=" + name);
 							System.out.println("STEP 4 ___" + "name= " + name);
-                                execution
+                                Attachment attachment = execution
                                         .getEngineServices()
                                         .getTaskService()
                                         .createAttachment(
@@ -364,6 +364,10 @@ public abstract class AbstractModelTask {
                                                 execution.getProcessInstanceId(),
                                                 outFilename,
                                                 name, is);
+                                LOG.info("Setting variable " + asFieldID.get(n) + " with the value " + attachment.getId() + " for new attachment");
+                                execution.getEngineServices().getRuntimeService().setVariable(execution.getProcessInstanceId(),
+            							asFieldID.get(n), attachment.getId());
+                                LOG.info("Finished setting new value for variable with attachment " + asFieldID.get(n));
                         }
                     }
                 }
