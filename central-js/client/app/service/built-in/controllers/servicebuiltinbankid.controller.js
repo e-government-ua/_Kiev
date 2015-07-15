@@ -1,4 +1,4 @@
-angular.module('app').controller('ServiceBuiltInBankIDController', function($state, $stateParams, $scope, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
+angular.module('app').controller('ServiceBuiltInBankIDController', function($state, $stateParams, $scope,$timeout, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
 
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount;
@@ -13,23 +13,37 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
   $scope.data.region = currentState.data.region;
   $scope.data.city = currentState.data.city;
 
-  angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {
-    var sField = value.name;
-    var s;
-    if (sField === null) {
-      sField = "";
-    }
-    var a = sField.split(";");
-    s = a[0].trim();
-    value.sFieldLabel = s;
-    s = null;
-    if (a.length > 1) {
-      s = a[1].trim();
-      if (s === "") {
+    //mock markers
+    $scope.data.formData.params.markers = {
+        "validate":{
+            "PhoneUA":{
+                "aField_ID":["privatePhone","workPhone", "phone"]
+            }
+        }
+    };
+
+    var validateIds = $scope.data.formData.params.markers.validate.PhoneUA.aField_ID;
+
+    angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {
+        var sField = value.name;
+        var s;
+        if (sField === null) {
+          sField = "";
+        }
+        var a = sField.split(";");
+        s = a[0].trim();
+        value.sFieldLabel = s;
         s = null;
-      }
-    }
-    value.sFieldNotes = s;
+        if (a.length > 1) {
+          s = a[1].trim();
+          if (s === "") {
+            s = null;
+          }
+        }
+        value.sFieldNotes = s;
+        if (_.indexOf(validateIds, value.id)!=-1){
+            value.sFieldType="tel";
+        }
   });
 
   $scope.submit = function(form) {
@@ -104,4 +118,16 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
     }
     $scope.$apply();
   };
+
+    $timeout(function () {
+        $('input[type=tel]').intlTelInput({
+            defaultCountry: "auto",
+            geoIpLookup: function(callback) {
+                $.get('http://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+                    var countryCode = (resp && resp.country) ? resp.country : "";
+                    callback(countryCode);
+                });
+            }
+        });
+    });
 });
