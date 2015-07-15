@@ -48,26 +48,30 @@ public abstract class BaseMailTaskWithAttachment implements JavaDelegate {
         if (textStr.contains(TAG_PAYMENT_BUTTON_LIQPAY)) {
             String sID_Merchant = execution.getVariable("sID_Merchant").toString();
             LOG.info("sID_Merchant="+sID_Merchant);
-            sID_Merchant = getStringFromFieldExpression(this.sID_Merchant, execution);
-            LOG.info("sID_Merchant="+sID_Merchant);
+            //sID_Merchant = getStringFromFieldExpression(this.sID_Merchant, execution);
+            //LOG.info("sID_Merchant="+sID_Merchant);
             
-            String sSum = getStringFromFieldExpression(this.sSum, execution);
+            //String sSum = getStringFromFieldExpression(this.sSum, execution);
+            String sSum = execution.getVariable("sSum").toString();
             LOG.info("sSum="+sSum);
             
             
-            String sID_Currency = getStringFromFieldExpression(this.sID_Currency, execution);
+            //String sID_Currency = getStringFromFieldExpression(this.sID_Currency, execution);
+            String sID_Currency = execution.getVariable("sID_Currency").toString();
             LOG.info("sID_Currency="+sID_Currency);
             Currency oID_Currency = Currency.valueOf(sID_Currency==null?"UAH":sID_Currency);
             LOG.info("oID_Currency.name()="+oID_Currency.name());
             
             Language sLanguage = LiqBuy.DEFAULT_LANG;
-            String sDescription = getStringFromFieldExpression(this.sDescription, execution);
+            //String sDescription = getStringFromFieldExpression(this.sDescription, execution);
+            String sDescription = execution.getVariable("sDescription").toString();
             LOG.info("sDescription="+sDescription);
             
             String sID_Order = "TaskActiviti_" + execution.getId();  // TODO: not sure about id
             String sURL_CallbackStatusNew = StringUtils.replace(LIQPAY_CALLBACK_URL, "{0}", sID_Order); 
             String sURL_CallbackPaySuccess = null;
-            Long nID_Subject = getLongFromFieldExpression(this.nID_Subject, execution);
+            //Long nID_Subject = getLongFromFieldExpression(this.nID_Subject, execution);
+            Long nID_Subject = Long.valueOf(execution.getVariable("nID_Subject").toString());
             LOG.info("nID_Subject="+(nID_Subject==null?0:nID_Subject));
             boolean bTest = generalConfig.bTest();
             String htmlButton = new LiqBuy().getPayButtonHTML_LiqPay(sID_Merchant, sSum, oID_Currency, sLanguage, sDescription, sID_Order, sURL_CallbackStatusNew, sURL_CallbackPaySuccess, nID_Subject, bTest);
