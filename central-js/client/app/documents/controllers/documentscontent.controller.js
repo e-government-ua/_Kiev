@@ -6,11 +6,17 @@ angular.module('documents').controller('DocumentsContentController', function($s
       item.oDate_Upload = new Date();
     }
   });
+
+  $scope.shareTab = false;
   $scope.documents = documents;
   $scope.sTelephone = '+380';
   $scope.nDaysOptions = [{day: 1, title: '1 день'}, {day: 7, title: '1 тиждень'}, {day: 365, title: '1 рік'}];
   $scope.nDays = $scope.nDaysOptions[1];
   $scope.getDocumentLink = ServiceService.getDocumentLink;
+
+  $scope.showShareTab = function(){
+    $scope.shareTab = !$scope.shareTab;
+  }
 
   $scope.shareLink = function(document, sFIO, sTelephone, sMail, nDays) {
     ServiceService.shareLink($state.nID_Subject, document.nID, sFIO,
@@ -19,8 +25,10 @@ angular.module('documents').controller('DocumentsContentController', function($s
   };
 
   function getTelephone (sTelephone) {
-    if (sTelephone == '+380') {
-      return ' '
+    //if (sTelephone == '+380' || sTelephone == '') {
+    if (sTelephone == '+380' || sTelephone == null) {
+        sTelephone = '';
+      //return ' ';
     }
     return sTelephone;
   }

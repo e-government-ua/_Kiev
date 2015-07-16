@@ -1,7 +1,13 @@
 package org.wf.dp.dniprorada.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import net.sf.brunneng.jom.annotations.Identifier;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 import org.wf.dp.dniprorada.base.model.*;
+import org.wf.dp.dniprorada.base.util.JsonDateTimeDeserializer;
+import org.wf.dp.dniprorada.base.util.JsonDateTimeSerializer;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -11,40 +17,46 @@ import java.util.Date;
 @Table(name="DocumentAccess")
 public class DocumentAccess extends org.wf.dp.dniprorada.base.model.Entity {
 
-	@Column(name = "nID_Document")
+	@Column
 	private Long nID_Document;
 
-	@Column(name = "sDateCreate")
-	private String sDateCreate;
+   @JsonSerialize(using= JsonDateTimeSerializer.class)
+   @JsonDeserialize(using= JsonDateTimeDeserializer.class)
+	@Type(type=DATETIME_TYPE)
+	@Column
+	private DateTime sDateCreate;
 
-	@Column(name = "nMS")
+	@Column
 	private Long nMS;
 
-	@Column(name = "sFIO")
+	@Column
 	private String sFIO;
 
-	@Column(name = "sTarget")
+	@Column
 	private String sTarget;
 
-	@Column(name = "sTelephone")
+	@Column
 	private String sTelephone;
 
-	@Column(name = "sMail")
+	@Column
 	private String sMail;
 
-	@Column(name = "sSecret")
+	@Column
 	private String sSecret;
 
-	@Column(name = "sAnswer")
+	@Column
 	private String sAnswer;
 
-	@Column(name = "sDateAnswerExpire")
-	private String sDateAnswerExpire;
+   @JsonSerialize(using= JsonDateTimeSerializer.class)
+   @JsonDeserialize(using= JsonDateTimeDeserializer.class)
+	@Type(type=DATETIME_TYPE)
+	@Column
+	private DateTime sDateAnswerExpire;
 
-	@Column(name = "sCode")
+	@Column
 	private String sCode;
 
-	@Column(name = "sCodeType")
+	@Column
 	private String sCodeType;
 
 	@Identifier
@@ -56,11 +68,11 @@ public class DocumentAccess extends org.wf.dp.dniprorada.base.model.Entity {
 		this.nID_Document = nID_Document;
 	}
 
-	public String getDateCreate() {
+	public DateTime getDateCreate() {
 		return sDateCreate;
 	}
 
-	public void setDateCreate(String sDateCreate) {
+	public void setDateCreate(DateTime sDateCreate) {
 		this.sDateCreate = sDateCreate;
 	}
 
@@ -121,12 +133,12 @@ public class DocumentAccess extends org.wf.dp.dniprorada.base.model.Entity {
 	}
 
 
-	public String getDateAnswerExpire() {
+	public DateTime getDateAnswerExpire() {
 		return sDateAnswerExpire;
 	}
 
-	public void setDateAnswerExpire(Date o) {
-		this.sDateAnswerExpire = o.toString();
+	public void setDateAnswerExpire(DateTime sDateAnswerExpire) {
+		this.sDateAnswerExpire = sDateAnswerExpire;
 	}
 
 	public String getsCode() {

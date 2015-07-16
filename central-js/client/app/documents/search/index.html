@@ -118,13 +118,9 @@
                                         </td>
                                         <td>
                                             {{doc.sSubjectName_Upload}}
-                                            <input type="hidden"
-                                                   value="{{doc.nID}}">
-                                            <input type="hidden"
-                                                   value="{{doc.sName}}">
                                         </td>
                                         <td>
-                                            <a ng-href="{{getDocumentLink(doc.nID)}}"
+                                            <a ng-href="{{getDocumentLink(doc.nID, typeId, operatorId, code, smsPass)}}"
                                                target="_self">
                                                 <span class="glyphicon glyphicon-download"
                                                       title="Завантажити копію"

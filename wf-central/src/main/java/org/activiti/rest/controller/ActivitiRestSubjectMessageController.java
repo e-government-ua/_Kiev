@@ -1,5 +1,6 @@
 package org.activiti.rest.controller;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,8 +16,6 @@ import org.wf.dp.dniprorada.dao.SubjectMessagesDao;
 import org.wf.dp.dniprorada.model.SubjectMessage;
 import org.wf.dp.dniprorada.model.SubjectMessageType;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -71,7 +70,7 @@ public class ActivitiRestSubjectMessageController {
       message.setMail((sMail == null) ? "" : sMail);
       message.setContacts((sContacts == null) ? "" : sContacts);
       message.setData((sData == null) ? "" : sData);
-      message.setDate(new Timestamp(new Date().getTime()));
+      message.setDate(new DateTime());
       if (nID_SubjectMessageType != null) {
          SubjectMessageType subjectMessageType = baseEntityDao.getById(SubjectMessageType.class,
                  nID_SubjectMessageType);

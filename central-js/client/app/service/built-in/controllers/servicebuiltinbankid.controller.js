@@ -1,4 +1,5 @@
 angular.module('app').controller('ServiceBuiltInBankIDController', function($state, $stateParams, $scope, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
+    //,$timeout
 
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount;
@@ -13,45 +14,74 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
   $scope.data.region = currentState.data.region;
   $scope.data.city = currentState.data.city;
 
-  angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {
-    var sField = value.name;
-    var s;
-    if (sField === null) {
-      sField = "";
-    }
-    var a = sField.split(";");
-    s = a[0].trim();
-    value.sFieldLabel = s;
-    s = null;
-    if (a.length > 1) {
-      s = a[1].trim();
-      if (s === "") {
+    //mock markers
+    /*$scope.data.formData.params.markers = {
+        "validate":{
+            "PhoneUA":{
+                "aField_ID":["privatePhone","workPhone", "phone1"]
+            }
+            , "Mail":{
+                "aField_ID":["privateMail","email1"]
+            }            
+        }
+    };
+
+    var validateIds = $scope.data.formData.params.markers.validate.PhoneUA.aField_ID;*/
+
+    angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {
+        var sField = value.name;
+        var s;
+        if (sField === null) {
+          sField = "";
+        }
+        var a = sField.split(";");
+        s = a[0].trim();
+        value.sFieldLabel = s;
         s = null;
-      }
-    }
-    value.sFieldNotes = s;
+        if (a.length > 1) {
+          s = a[1].trim();
+          if (s === "") {
+            s = null;
+          }
+        }
+        value.sFieldNotes = s;
+        /*
+        if (_.indexOf(validateIds, value.id)!=-1){
+            value.sFieldType="tel";
+        }*/
   });
 
   $scope.submit = function(form) {
     $scope.isSending = true;
     form.$setSubmitted();
-    if (form.$valid) {
-      ActivitiService
-        .submitForm(oServiceData, $scope.data.formData)
-        .then(function(result) {
-          $scope.isSending = false;
-          var state = $state.$current;
 
-          var submitted = $state.get(state.name + '.submitted');
-          submitted.data.id = result.id;
+    //if ($($('input[type=tel]')[0]).intlTelInput("isValidNumber")){
+        
+        if (form.$valid) {
+            ActivitiService
+                .submitForm(oServiceData, $scope.data.formData)
+                .then(function(result) {
+                    $scope.isSending = false;
+                    var state = $state.$current;
 
-          $scope.isSending = false;
-          return $state.go(submitted, $stateParams);
-        })
-    } else {
-      $scope.isSending = false;
-      return false;
-    }
+                    var submitted = $state.get(state.name + '.submitted');
+                    submitted.data.id = result.id;
+
+                    $scope.isSending = false;
+                    $scope.$root.data = $scope.$root.data || {}
+                    $scope.$root.data.formData = $scope.data.formData;
+                    return $state.go(submitted, $stateParams);
+                })
+        } else {
+            $scope.isSending = false;
+            return false;
+        }
+
+    //} else {
+    //   $scope.isSending = false;
+    //    return false;
+    //}
+
   };
 
   $scope.cantSubmit = function(form) {
@@ -104,4 +134,20 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
     }
     $scope.$apply();
   };
+/*
+    $timeout(function () {
+        $('input[type=tel]').intlTelInput({
+            defaultCountry: "auto",
+            autoFormat: true,
+            allowExtensions: true,
+            preferredCountries: ["ua"],
+            autoPlaceholder: false,
+            geoIpLookup: function(callback) {
+                $.get('http://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+                    var countryCode = (resp && resp.country) ? resp.country : "";
+                    callback(countryCode);
+                });
+            }
+        });
+    });*/
 });

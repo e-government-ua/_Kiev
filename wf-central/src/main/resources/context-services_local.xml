@@ -85,6 +85,9 @@
             <property name="sessionFactory" ref="sessionFactory"/>
         </bean>
 
+        <bean id="countryDao" class="org.wf.dp.dniprorada.dao.CountryDaoImpl">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
 
     </beans>
 
