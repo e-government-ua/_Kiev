@@ -56,15 +56,7 @@ public class CountryDaoImpl extends AbstractEntityDao<Country>
                               String sNameShort_ua, String sNameShort_en, String sReference_localISO) {
 
         Country country = getByKey(nID, nID_ua, sID_two, sID_three);
-        //check nID
-//        if (nID != null){//update
-//            country = getById(nID);
-//            if (country == null)
-//                throw new EntityNotFoundException("Record not found!");
-//        } else {        //insert
-//
-//                    new Country();
-//        }
+
         if (country == null){
             if (nID == null) {
                 country = new Country();
