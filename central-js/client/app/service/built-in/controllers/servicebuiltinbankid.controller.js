@@ -1,5 +1,4 @@
-angular.module('app').controller('ServiceBuiltInBankIDController', function($state, $stateParams, $scope, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
-    //,$timeout
+angular.module('app').controller('ServiceBuiltInBankIDController', function($state, $stateParams, $scope,$timeout, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
 
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount;
@@ -15,7 +14,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
   $scope.data.city = currentState.data.city;
 
     //mock markers
-    /*$scope.data.formData.params.markers = {
+    $scope.data.formData.params.markers = {
         "validate":{
             "PhoneUA":{
                 "aField_ID":["privatePhone","workPhone", "phone1"]
@@ -26,7 +25,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
         }
     };
 
-    var validateIds = $scope.data.formData.params.markers.validate.PhoneUA.aField_ID;*/
+    var aID_FieldPhoneUA = $scope.data.formData.params.markers.validate.PhoneUA.aField_ID;
 
     angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {
         var sField = value.name;
@@ -45,10 +44,10 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
           }
         }
         value.sFieldNotes = s;
-        /*
-        if (_.indexOf(validateIds, value.id)!=-1){
+
+        if (_.indexOf(aID_FieldPhoneUA, value.id)!=-1){
             value.sFieldType="tel";
-        }*/
+        }
   });
 
   $scope.submit = function(form) {
