@@ -5,7 +5,6 @@
       <extensionElements>
         <activiti:formProperty id="organID" name="До якого Державного Органа Ви звертаєтесь" type="enum" required="true">
           <activiti:value id="ternopil_oda3" name="Департамент СоцЗахисту Тернопільської ОДА"></activiti:value>
-          <activiti:value id="other" name="Додати ще поля"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="citizenType" name="До якої категорії громадян Ви відноситесь" type="enum" required="true">
           <activiti:value id="poor" name="Малозабезпечена особа"></activiti:value>
@@ -53,7 +52,7 @@
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <userTask id="usertask1" name="Заява поступає в роботу операціоніста" activiti:candidateGroups="ternopil_oda3">
+    <userTask id="usertask1" name="Заява поступає в роботу операціоніста" activiti:candidateGroups="${organID}">
       <extensionElements>
         <activiti:formProperty id="organID" name="До якого органу звертаються" type="enum" writable="false">
           <activiti:value id="ternopol_oda_2" name="Департамент СоцЗахисту Тернопільської ОДА"></activiti:value>
