@@ -77,7 +77,11 @@ public class LiqBuy {
         }
 
         if (sURL_CallbackPaySuccess != null) {
-            String nID_Access = accessDataDao.setAccessData(String.valueOf(nID_Subject));
+            nID_Subject=new Long(0);
+            
+            String snID_Subject="0";
+            //String nID_Access = accessDataDao.setAccessData(String.valueOf(nID_Subject));
+            String nID_Access = accessDataDao.setAccessData(snID_Subject);
             sURL_CallbackPaySuccess = new StringBuilder(sURL_CallbackPaySuccess)
                     .append("?nID_Subject=").append(nID_Subject)
                     .append("&nID_Access=").append(nID_Access).toString();
