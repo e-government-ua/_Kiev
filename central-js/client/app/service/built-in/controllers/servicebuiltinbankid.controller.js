@@ -23,9 +23,9 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
                 aField_ID:["privateMail","email1"]
             }            
         }
-    };*/
+    };
 
-    var aID_FieldPhoneUA = $scope.data.formData.params.markers.validate.PhoneUA.aField_ID;
+    var aID_FieldPhoneUA = $scope.data.formData.params.markers.validate.PhoneUA.aField_ID;*/
 
     angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {
         var sField = value.name;
