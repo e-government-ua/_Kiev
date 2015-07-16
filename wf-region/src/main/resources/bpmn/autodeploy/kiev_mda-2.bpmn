@@ -72,7 +72,6 @@
           <activiti:value id="accept" name="Почати формування пакету документів.Замовити Форму-3"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="На опрацюванні в ЦНАП" readable="false"></activiti:formProperty>
-
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -102,7 +101,6 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="docToSend" name="Завантажте копію форми-3 для передачі в РДА" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="На опрацюванні в ЦНАП" readable="false"></activiti:formProperty>
-
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
             <activiti:expression>${file1}</activiti:expression>
@@ -138,7 +136,6 @@
           <activiti:value id="reject" name="Документи не пройшли перевірку. Відмовити в наданні послуги."></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment2" name="Підстава для відмови в наданні послуги. Коментар буде відправлено громадянину на e-mail" type="textArea"></activiti:formProperty>
-
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
             <activiti:expression>${file1},${docToSend}</activiti:expression>
@@ -173,7 +170,6 @@
         <activiti:formProperty id="confirm" name="ЦНАП отримав документи від РДА?" type="enum" required="true">
           <activiti:value id="accept" name="Підтверджую отримання докуметіи від РДА. Сповістити громадянина, що довідка підготовлена до отримання"></activiti:value>
         </activiti:formProperty>
-
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
             <activiti:expression>${file1},${docToSend},${result_file}</activiti:expression>
@@ -239,7 +235,6 @@
         <activiti:formProperty id="confirm_cnap2" name="Оригінал довідки з місця працевлаштування  відправлено до РДА?" type="enum" required="true">
           <activiti:value id="accept" name="Підтвердити, що  документ відправлено в РДА"></activiti:value>
         </activiti:formProperty>
-
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
             <activiti:expression>${file1},${docToSend},${result_file}</activiti:expression>
@@ -285,7 +280,6 @@
         <activiti:formProperty id="confirm_rda" name="Оригінал довідки з місця правцевлаштування громадянина  отримано з ЦНАПу?" type="enum" required="true">
           <activiti:value id="accept" name="Підтвердити, що оригінал довідки отриманий"></activiti:value>
         </activiti:formProperty>
-
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
             <activiti:expression>{file1},${docToSend},${result_file}</activiti:expression>
@@ -355,7 +349,6 @@
         </activiti:formProperty>
         <activiti:formProperty id="result_file" name="Завантажте копію довідки про перебування на квартирному обліку для передачі в ЦНАП" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="На опрацюванні РДА" readable="false"></activiti:formProperty>
-
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
             <activiti:expression>${file1},${docToSend}</activiti:expression>
@@ -395,7 +388,6 @@
         <activiti:formProperty id="confirm_cnap" name="Громадянин отримав довідку?" type="enum">
           <activiti:value id="accept" name="Підтвердити, що громадянин отримав довідку."></activiti:value>
         </activiti:formProperty>
-
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
             <activiti:expression>${file1},${docToSend},${result_file}</activiti:expression>
