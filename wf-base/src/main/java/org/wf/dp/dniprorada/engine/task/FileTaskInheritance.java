@@ -58,6 +58,7 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
 			return;
 		}
 
+                LOG.info("sInheritedAttachmentsIds="+sInheritedAttachmentsIds);
 		LOG.info("task.getId()" + task.getId());
 		
 		List<Attachment> attachments = getAttachmentsFromParentTasks(execution);
@@ -74,7 +75,13 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
 
 		TaskService taskService = task.getExecution().getEngineServices()
 				.getTaskService();
+                int n=0;
 		for (Attachment attachment : attachmentsToAdd) {
+                    n++;
+                        LOG.info("[addAttachmentsToCurrentTask](n="+n+"):task.getId()" + task.getId());
+                        LOG.info("[addAttachmentsToCurrentTask](n="+n+"):task.getExecution().getProcessInstanceId()" + task.getExecution().getProcessInstanceId());
+                        LOG.info("[addAttachmentsToCurrentTask](n="+n+"):attachment.getName()" + attachment.getName());
+                        LOG.info("[addAttachmentsToCurrentTask](n="+n+"):attachment.getDescription()" + attachment.getDescription());
 			Attachment newAttachment = taskService.createAttachment(
 					attachment.getType(), task.getId(),
 					task.getExecution().getProcessInstanceId(), attachment.getName(),
@@ -97,7 +104,12 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
 
 		String[] attachIds = sInheritedAttachmentsIds.split(",");
 		for (String attachId : attachIds) {
+                        LOG.info("[getInheritedAttachmentIdsFromTask]:attachId" + attachId);
+                        int n=0;
 			for (Attachment attachment : attachments) {
+                            n++;
+                            LOG.info("[getInheritedAttachmentIdsFromTask](n="+n+"):attachment.getId()" + attachment.getId());
+                            
 				if (attachment.getId().equals(attachId)) {
 					res.add(attachment);
 					LOG.info(String
