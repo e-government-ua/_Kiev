@@ -61,6 +61,11 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
         if (bValid && !$($('input[type=tel]')[0]).intlTelInput("isValidNumber")){
             bValid = false;
         }
+        /*
+        .has-error .form-control {
+          border-color: #a94442;
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        }*/
         
         if (form.$valid && bValid) {
             ActivitiService
