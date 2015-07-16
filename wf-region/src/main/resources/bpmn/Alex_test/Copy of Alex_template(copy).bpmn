@@ -81,11 +81,13 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;
-										Ваш запит був успішно зареєстрований у нашій системі. Спеціалісти із Державного Органу повинні дати відповідь найближчим часом. 
-
+                                    &lt;p&gt;&lt;/p&gt;
+										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
+										
+										Спеціалісти із Державного Органу повинні дати відповідь найближчим часом. 
+									&lt;p&gt;&lt;/p&gt;
 										Залишайтесь з нами. 	
-                                    &lt;/p&gt;
+                                    &lt;p&gt;&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -222,19 +224,22 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;
+                                    &lt;p&gt;&lt;/p&gt;
 										Нажаль Державний Орган не може надати вам цю послугу у цей час. 
-										
-										Вероятні причини: 
-										1. Неправильно або не повністю заповнена заява
-										2. Неспроможність відкрити ваші документи. 
-										3. Ви не підпадаєте в категорію громадян для яких ця послуга діє
-										4. Технічна помилка ДержОргану
-										
-										Коментар Державного службовця - '${decisionComment}'
-										
+									&lt;p&gt;&lt;/p&gt;
+										Вероятні причини: &lt;br /&gt;
+										&lt;ol&gt;
+										&lt;li&gt;Неправильно або не повністю заповнена заява. &lt;/li&gt;
+										&lt;li&gt;Неспроможність відкрити ваші документи. &lt;/li&gt;
+										&lt;li&gt;Ви не підпадаєте в категорію громадян для яких ця послуга діє. &lt;/li&gt;
+										&lt;li&gt;Технічна помилка ДержОргану або технічні роботи на серверах iGov. &lt;li&gt;
+										&lt;/ol&gt;
+										&lt;p&gt;&lt;/p&gt;
+										Коментар Державного службовця: &lt;br /&gt;
+											&lt;i&gt;'${decisionComment}'&lt;/i&gt;
+										&lt;p&gt;&lt;/p&gt;
 										Вибачте за незручність. 
-                                    &lt;/p&gt;
+                                    &lt;p&gt;&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -355,11 +360,14 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;
-                                        Послуга було успішно надано
+                                    &lt;p&gt;&lt;/p&gt;
+                                        Послуга була успішно надана
 									&lt;p&gt;&lt;/p&gt;
-										Коментар до рішення - ${decisionComment}
-                                    &lt;/p&gt;
+										Коментар до рішення:
+									&lt;p&gt;&lt;/p&gt;	
+									&lt;i&gt;	${decisionComment} &lt;/i&gt;
+									&lt;p&gt;&lt;/p&gt;
+                                    &lt;p&gt;&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
