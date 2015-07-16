@@ -62,13 +62,17 @@ public class DocumentAccessHandler_IGov implements DocumentAccessHandler {
             //throw new DocumentAccessException("Document Access wrong password");
             if ("SMS".equalsIgnoreCase(access.getsCodeType())){
                 try {
+                    LOG.info("[getAccess]accessCode="+accessCode);
                     if(documentAccessDao.bSentDocumentAccessOTP(accessCode)){
                         throw new DocumentAccessException("Document Access need password - sent SMS");
                     }else{
                         throw new DocumentAccessException("Document Access need password - cant send SMS");
                     }
+                } catch (DocumentAccessException ex) {
+                    throw ex;
                 } catch (Exception ex) {
                     LOG.error("[getAccess]", ex);
+                    throw new DocumentAccessException("Document Access need password - UNKNOWN:"+ex.getMessage());
                 }
             }else{
                 throw new DocumentAccessException("Document Access wrong password (no SMS:"+access.getsCodeType()+")");

@@ -187,13 +187,19 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                         String sPhone = "";
                         String sAnswer = "";
                         sPhone = oDocumentAccess.getTelephone();
+                        log.info("[bSentDocumentAccessOTP]sPhone="+sPhone);
+                        
                         //Generate random 4xDigits answercode
                         sAnswer = generateAnswer();
+                        log.info("[bSentDocumentAccessOTP]sAnswer="+sAnswer);
+                        
                         //o.setDateAnswerExpire(null);
                         //SEND SMS with this code
                         oDocumentAccess.setAnswer(sAnswer);
                         writeRow(oDocumentAccess);
-                        sendPasswordOTP(sPhone, sAnswer);
+                        String sReturn = sendPasswordOTP(sPhone, sAnswer);
+                        log.info("[bSentDocumentAccessOTP]sReturn="+sReturn);
+                        
                         bSent=true;
                     }else{
                         //TODO loging warn
