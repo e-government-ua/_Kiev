@@ -26,11 +26,11 @@ angular.module('documents').controller('DocumentsContentController', function($s
 
   function getTelephone (sTelephone) {
     //if (sTelephone == '+380' || sTelephone == '') {
-    /*
-    if (sTelephone == '+380' || sTelephone == null) {
-        sTelephone = '';
+    
+    if (sTelephone == '+380' || sTelephone == null || sTelephone == '') {
+        sTelephone = ' ';
       //return ' ';
-    }*/
+    }
     return sTelephone;
   }
 

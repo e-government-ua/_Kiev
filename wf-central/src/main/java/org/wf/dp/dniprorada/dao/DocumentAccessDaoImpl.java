@@ -184,7 +184,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                          	}
                          }
                     }*/
-                    if(oDocumentAccess.getTelephone() != null){
+                    if(oDocumentAccess.getTelephone() != null && oDocumentAccess.getTelephone().trim().length()>6){
                         String sPhone = "";
                         String sAnswer = "";
                         sPhone = oDocumentAccess.getTelephone();
