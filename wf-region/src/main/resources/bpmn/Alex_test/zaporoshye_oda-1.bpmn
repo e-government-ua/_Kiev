@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="Zaporoshye_oda_1" name="Запорізьке ОДА - Дозвіл на розміщення зовнішньої реклами" isExecutable="true">
+  <process id="zaporoshye_oda_1" name="Запорізьке ОДА - Дозвіл на розміщення зовнішньої реклами. " isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="serviceType" name="Дозвіл на зовнішню рекламу, Я прошу мені" type="enum" required="true">
@@ -28,7 +28,7 @@
         <activiti:formProperty id="bossMiddleName" name="По-батькове" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="placePhoto" name="Фотокартка або комп'ютерний макет місця, на якому планується розташування реклами; Розмір має бути не менш 6х9 см. " type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="advertFile" name="Ескіз рекламного засобу з конструктивним рішенням" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="advertLicense" name="Копія виписки з Єдиного державного реєстру юридичних осіб та фізичних осіб" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="advertLicense" name="Копія виписки з Єдиного державного реєстру юридичних осіб та фізичних осіб" type="file"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
       </extensionElements>
@@ -156,9 +156,9 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="Заява поступає в роботу у ДержОргані" activiti:candidateGroups="Zaporoshye_oda_1">
+    <userTask id="usertask1" name="Заява поступає в роботу у ДержОргані" activiti:candidateGroups="zaporoshye_oda_1">
       <extensionElements>
-        <activiti:formProperty id="serviceType" name="Дозвіл на зовнішню рекламу, Я прошу мені" type="enum" writable="false">
+        <activiti:formProperty id="serviceType" name="Дозвіл на зовнішню рекламу, прошу мені" type="enum" writable="false">
           <activiti:value id="create" name="Видати"></activiti:value>
           <activiti:value id="delete" name="Анулювати"></activiti:value>
           <activiti:value id="extend" name="Подовжити"></activiti:value>
@@ -312,8 +312,7 @@
 &lt;/html&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${workerAttach}"
-</activiti:expression>
+          <activiti:expression>"${workerAttach}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -463,8 +462,8 @@
     <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow8" sourceRef="servicetask2" targetRef="endevent1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_Zaporoshye_oda_1">
-    <bpmndi:BPMNPlane bpmnElement="Zaporoshye_oda_1" id="BPMNPlane_Zaporoshye_oda_1">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_zaporoshye_oda_1">
+    <bpmndi:BPMNPlane bpmnElement="zaporoshye_oda_1" id="BPMNPlane_zaporoshye_oda_1">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="40.0" y="130.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
