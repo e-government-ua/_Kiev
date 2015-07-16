@@ -3,11 +3,18 @@ package org.wf.dp.dniprorada.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 import org.wf.dp.dniprorada.base.model.Entity;
+import org.wf.dp.dniprorada.base.util.JsonDateDeserializer;
+import org.wf.dp.dniprorada.base.util.JsonDateSerializer;
+import org.wf.dp.dniprorada.base.util.JsonDateTimeDeserializer;
+import org.wf.dp.dniprorada.base.util.JsonDateTimeSerializer;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 @javax.persistence.Entity
 public class SubjectMessage extends Entity {
@@ -23,9 +30,11 @@ public class SubjectMessage extends Entity {
    private String body;
 
    @JsonProperty(value = "sDate")
-   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+   @JsonSerialize(using= JsonDateTimeSerializer.class)
+   @JsonDeserialize(using= JsonDateTimeDeserializer.class)
+   @Type(type=DATETIME_TYPE)
    @Column(name = "sDate", nullable = false)
-   private Timestamp date;
+   private DateTime date;
 
    @JsonProperty(value = "nID_Subject")
    @Column(name = "nID_Subject", nullable = false, columnDefinition = "int default 0")
@@ -64,11 +73,11 @@ public class SubjectMessage extends Entity {
       this.body = body;
    }
 
-   public Timestamp getDate() {
+   public DateTime getDate() {
       return date;
    }
 
-   public void setDate(Timestamp date) {
+   public void setDate(DateTime date) {
       this.date = date;
    }
 

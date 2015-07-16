@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.wf.dp.dniprorada.model.*;
@@ -35,23 +36,28 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	@Override
 	public String setDocumentLink(Long nID_Document, String sFIO,
 			String sTarget, String sTelephone, Long nMS, String sMail) throws Exception{
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		DocumentAccess oDocumentAccess = new DocumentAccess();
 		oDocumentAccess.setID_Document(nID_Document);
-		oDocumentAccess.setDateCreate(sdf.format(new Date()));
+		oDocumentAccess.setDateCreate(new DateTime());
 		oDocumentAccess.setMS(nMS);
 		oDocumentAccess.setFIO(sFIO);
 		oDocumentAccess.setMail(sMail);
 		oDocumentAccess.setTarget(sTarget);
 		oDocumentAccess.setTelephone(sTelephone);
 		oDocumentAccess.setSecret(generateSecret());
+                //sCode;sCodeType
 		writeRow(oDocumentAccess);
-		StringBuilder osURL = new StringBuilder(sURL);
+                oDocumentAccess.setsCode(getIdAccess().toString());
+                oDocumentAccess.setsCodeType((sTelephone!=null&&sTelephone.length()>6)?"sms":"");
+		writeRow(oDocumentAccess);
+		/*StringBuilder osURL = new StringBuilder(sURL);
 		osURL.append("nID_Access=");
 		osURL.append(getIdAccess()+"&");
 		osURL.append("sSecret=");
-		osURL.append(oDocumentAccess.getSecret());
-		return osURL.toString();
+		osURL.append(oDocumentAccess.getSecret());*/
+		//return osURL.toString();
+                return getIdAccess().toString();
+                
 	}
 
 	private String generateSecret() {

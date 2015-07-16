@@ -5,8 +5,9 @@ import java.util.List;
 
 import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.DelegateExecution;
+import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.Expression;
-import org.activiti.engine.delegate.JavaDelegate;
+import org.activiti.engine.delegate.TaskListener;
 import org.activiti.engine.task.Attachment;
 import org.activiti.redis.service.RedisService;
 import org.slf4j.Logger;
@@ -22,8 +23,9 @@ import org.wf.dp.dniprorada.base.model.AbstractModelTask;
  * @author askosyr
  */
 @Component("fileTaskInheritance")
-public class FileTaskInheritance extends AbstractModelTask implements
-		JavaDelegate {
+public class FileTaskInheritance extends AbstractModelTask  implements TaskListener {
+
+	private static final long serialVersionUID = 1L;
 
 	private static final transient Logger LOG = LoggerFactory.getLogger(FileTaskInheritance.class);
 
@@ -45,8 +47,10 @@ public class FileTaskInheritance extends AbstractModelTask implements
 	private Expression aFieldInheritedAttachmentID;
 
 	@Override
-	public void execute(DelegateExecution execution) throws Exception {
-
+	public void notify(DelegateTask task) {
+		
+		DelegateExecution execution = task.getExecution();
+		
 		String sInheritedAttachmentsIds = getStringFromFieldExpression(this.aFieldInheritedAttachmentID, execution);
 
 		if (sInheritedAttachmentsIds == null) {
@@ -54,32 +58,31 @@ public class FileTaskInheritance extends AbstractModelTask implements
 			return;
 		}
 
-		LOG.info("execution.getParentId():" + execution.getParentId());
-		LOG.info("execution.getId()" + execution.getId());
+		LOG.info("task.getId()" + task.getId());
 		
 		List<Attachment> attachments = getAttachmentsFromParentTasks(execution);
 
 		List<Attachment> attachmentsToAdd = getInheritedAttachmentIdsFromTask(attachments, sInheritedAttachmentsIds);
 
-		addAttachmentsToCurrentTask(attachmentsToAdd, execution);
+		addAttachmentsToCurrentTask(attachmentsToAdd, task);
 	}
 
 	private void addAttachmentsToCurrentTask(List<Attachment> attachmentsToAdd,
-			DelegateExecution execution) {
+			DelegateTask task) {
 		final String METHOD_NAME = "addAttachmentsToCurrentTask(List<Attachment> attachmentsToAdd, DelegateExecution execution)";
 		LOG.trace("Entering method " + METHOD_NAME);
 
-		TaskService taskService = execution.getEngineServices()
+		TaskService taskService = task.getExecution().getEngineServices()
 				.getTaskService();
 		for (Attachment attachment : attachmentsToAdd) {
 			Attachment newAttachment = taskService.createAttachment(
-					attachment.getType(), execution.getId(),
-					execution.getProcessInstanceId(), attachment.getName(),
+					attachment.getType(), task.getId(),
+					task.getExecution().getProcessInstanceId(), attachment.getName(),
 					attachment.getDescription(),
 					taskService.getAttachmentContent(attachment.getId()));
 			LOG.info(String
 					.format("Created new attachment for the task {0} with ID {1} from the attachment with ID {2}",
-							execution.getId(), newAttachment.getId(),
+							task.getId(), newAttachment.getId(),
 							attachment.getId()));
 		}
 		LOG.trace("Exiting method " + METHOD_NAME);

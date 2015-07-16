@@ -210,6 +210,16 @@
             <column name="nID_SubjectOrgan" type="NUMERIC"/>
         </loadUpdateData>
 
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Country.csv" tableName="Country" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_UA" type="NUMERIC"/>
+            <column name="sID_Two" type="STRING"/>
+            <column name="sID_Three" type="STRING"/>
+            <column name="sNameShort_UA" type="STRING"/>
+            <column name="sNameShort_EN" type="STRING"/>
+            <column name="sReference_LocalISO" type="STRING"/>
+
+        </loadUpdateData>
     </changeSet>
 
 
