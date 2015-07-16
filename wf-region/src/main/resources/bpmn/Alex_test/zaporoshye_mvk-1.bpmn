@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="Alex_template_service" name="Шаблон для створення ДержПослуг" isExecutable="true">
+  <process id="zaporoshye_mvk_1" name="Запорізьке МВК - Дозвіл на розміщення зовнішньої реклами. " isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="serviceType" name="Дозвіл на зовнішню рекламу, Я прошу мені" type="enum" required="true">
+          <activiti:value id="create" name="Видати"></activiti:value>
+          <activiti:value id="delete" name="Анулювати"></activiti:value>
+          <activiti:value id="extend" name="Подовжити"></activiti:value>
+          <activiti:value id="change" name="Переоформити"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="objectName" name="Назва об'єкта на який видається документ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objectPlace" name="Місцезнаходження/адреса об'єкта на який видається документ" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objectType" name="Вид діяльності; Згідно КВЕД " type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="legalName" name="Повне найменування юридичної особи; Якщо Ви не юридична особа - залишіть це поле пустим" type="string"></activiti:formProperty>
+        <activiti:formProperty id="businessCode" name="Iдентифікаційний код згідно ЄДРПОУ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище фізичної особи підприємця / уповноваженної особи" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Його Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія і номер)" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН " type="string"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Адреса прописки" type="file"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Місце проживання фізичної / уповноваженної особи" type="string"></activiti:formProperty>
+        <activiti:formProperty id="legalPos" name="Місцезнаходження юридичної особи; Якщо Ви не юридична особа - залишіть це поле пустим" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bossSurname" name="Прізвище керівника юридичної особи / фізичної особи підприємця / уповноваженої особи" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bossName" name="Його ім'я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bossMiddleName" name="По-батькове" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="placePhoto" name="Фотокартка або комп'ютерний макет місця, на якому планується розташування реклами; Розмір має бути не менш 6х9 см. " type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="advertFile" name="Ескіз рекламного засобу з конструктивним рішенням" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="advertLicense" name="Копія виписки з Єдиного державного реєстру юридичних осіб та фізичних осіб" type="file"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
@@ -138,23 +156,42 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="Заява поступає в роботу у ДержОргані" activiti:candidateGroups="customGroup_oda/mvk_#">
+    <userTask id="usertask1" name="Заява поступає в роботу у ДержОргані" activiti:candidateGroups="zaporoshye_mvk_1">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="serviceType" name="Дозвіл на зовнішню рекламу, прошу мені" type="enum" writable="false">
+          <activiti:value id="create" name="Видати"></activiti:value>
+          <activiti:value id="delete" name="Анулювати"></activiti:value>
+          <activiti:value id="extend" name="Подовжити"></activiti:value>
+          <activiti:value id="change" name="Переоформити"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="objectName" name="Назва об'єкта на який видається документ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objectPlace" name="Місцезнаходження/адреса об'єкта на який видається документ" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objectType" name="Вид діяльності; Згідно КВЕД " type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="legalName" name="Повне найменування юридичної особи; Поле має бути пустим, якщо заповнювач не є юридичною особою." type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="businessCode" name="Iдентифікаційний код згідно ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище фізичної особи підприємця / уповноваженної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Його ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія і номер)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Адреса прописки громадянина" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Місце проживання фізичної / уповноваженної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="legalPos" name="Місцезнаходження юридичної особи; Поле має бути пустим, якщо заповнювач не є юридичною особою." type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bossSurname" name="Прізвище керівника юридичної особи / фізичної особи підприємця / уповноваженої особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bossName" name="Його ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bossMiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="placePhoto" name="Фотокартка або комп'ютерний макет місця, на якому планується розташування реклами" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="advertFile" name="Ескіз рекламного засобу з конструктивним рішенням" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="advertLicense" name="Копія виписки з Єдиного державного реєстру юридичних осіб та фізичних осіб" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення чиновника" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="workerAttach" name="Документ для відправки громадянину; Необов'язкове поле - на випадок якщо треба відправити громадянину скан-копію якогось документа" type="file" default=" "></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -164,7 +201,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>'${email}'</activiti:expression>
+          <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string>Послуга була успішно надано</activiti:string>
@@ -273,6 +310,9 @@
 &lt;/table&gt;
 &lt;/body&gt;
 &lt;/html&gt;</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${workerAttach}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -422,8 +462,8 @@
     <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow8" sourceRef="servicetask2" targetRef="endevent1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_Alex_template_service">
-    <bpmndi:BPMNPlane bpmnElement="Alex_template_service" id="BPMNPlane_Alex_template_service">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_zaporoshye_mvk_1">
+    <bpmndi:BPMNPlane bpmnElement="zaporoshye_mvk_1" id="BPMNPlane_zaporoshye_mvk_1">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="40.0" y="130.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
