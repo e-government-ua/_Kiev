@@ -56,10 +56,14 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
   $scope.submit = function(form) {
         $scope.isSending = true;
         form.$setSubmitted();
-        var bValid=true;
+        //var bValid=true;
         
-        if (bValid && !$($('input[type=tel]')[0]).intlTelInput("isValidNumber")){
-            bValid = false;
+        $($('input[type=tel]')[0]).removeClass("has-error");
+        if (!$($('input[type=tel]')[0]).intlTelInput("isValidNumber")){//bValid && 
+            //bValid = false;
+            $($('input[type=tel]')[0]).addClass("has-error");
+            alert("Неверный формат телефона!");
+            return;
         }
         /*
         .has-error .form-control {
