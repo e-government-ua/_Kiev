@@ -57,7 +57,6 @@ public class DocumentAccessHandler_IGov implements DocumentAccessHandler {
         if (isBlank(access.getsCodeType()))
             return access;
 
-        int currPass = Integer.valueOf(access.getAnswer());
         if (isBlank(password) || !isNumeric(password)){
             //throw new DocumentAccessException("Document Access wrong password");
             if ("SMS".equalsIgnoreCase(access.getsCodeType())){
@@ -79,6 +78,7 @@ public class DocumentAccessHandler_IGov implements DocumentAccessHandler {
             }
         }
         
+        int currPass = Integer.valueOf(access.getAnswer());
         int userPass = Integer.valueOf(password);
         if ("SMS".equalsIgnoreCase(access.getsCodeType()) && userPass == currPass)
             return access;
