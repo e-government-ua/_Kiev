@@ -18,10 +18,10 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
     $scope.markers = {
         validate:{
             PhoneUA:{
-                aField_ID:["privatePhone","workPhone", "phone1"]
+                aField_ID:["privatePhone","workPhone", "phone"]
             }
             , Mail:{
-                aField_ID:["privateMail","email1"]
+                aField_ID:["privateMail","email"]
             }            
         }
     };
