@@ -56,22 +56,22 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
   $scope.submit = function(form) {
         $scope.isSending = true;
         form.$setSubmitted();
-        //var bValid=true;
+        var bValid=true;
         
-        $($('input[type=tel]')[0]).removeClass("has-error");
-        if (!$($('input[type=tel]')[0]).intlTelInput("isValidNumber")){//bValid && 
-            //bValid = false;
-            $($('input[type=tel]')[0]).addClass("has-error");
+        //$($('input[type=tel]')[0]).removeClass("has-error");
+        /*if (!$($('input[type=tel]')[0]).intlTelInput("isValidNumber")){//bValid && 
+            bValid = false;
+            //$($('input[type=tel]')[0]).addClass("has-error");
             alert("Неверный формат телефона!");
             return;
-        }
+        }*/
         /*
         .has-error .form-control {
           border-color: #a94442;
           box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
         }*/
         
-        if (form.$valid && bValid) {
+        if (form.$valid && bValid) {//
             ActivitiService
                 .submitForm(oServiceData, $scope.data.formData)
                 .then(function(result) {
