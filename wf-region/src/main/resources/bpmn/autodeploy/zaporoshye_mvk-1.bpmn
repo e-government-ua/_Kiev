@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="zaporoshye_oda_1" name="Запорізьке ОДА - Дозвіл на розміщення зовнішньої реклами. " isExecutable="true">
+  <process id="zaporoshye_mvk_1" name="Запорізьке МВК - Дозвіл на розміщення зовнішньої реклами. " isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="serviceType" name="Дозвіл на зовнішню рекламу, Я прошу мені" type="enum" required="true">
@@ -156,7 +156,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="Заява поступає в роботу у ДержОргані" activiti:candidateGroups="zaporoshye_oda_1">
+    <userTask id="usertask1" name="Заява поступає в роботу у ДержОргані" activiti:candidateGroups="zaporoshye_mvk_1">
       <extensionElements>
         <activiti:formProperty id="serviceType" name="Дозвіл на зовнішню рекламу, прошу мені" type="enum" writable="false">
           <activiti:value id="create" name="Видати"></activiti:value>
@@ -462,8 +462,8 @@
     <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow8" sourceRef="servicetask2" targetRef="endevent1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_zaporoshye_oda_1">
-    <bpmndi:BPMNPlane bpmnElement="zaporoshye_oda_1" id="BPMNPlane_zaporoshye_oda_1">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_zaporoshye_mvk_1">
+    <bpmndi:BPMNPlane bpmnElement="zaporoshye_mvk_1" id="BPMNPlane_zaporoshye_mvk_1">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="40.0" y="130.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
