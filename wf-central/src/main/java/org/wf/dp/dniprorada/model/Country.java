@@ -98,4 +98,48 @@ public class Country extends Entity{
     public void setsReference_LocalISO(String sReference_LocalISO) {
         this.sReference_LocalISO = sReference_LocalISO;
     }
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "nID=" + getId() +
+                ",nID_UA=" + nID_UA +
+                ", sID_Two='" + sID_Two + '\'' +
+                ", sID_Three='" + sID_Three + '\'' +
+                ", sNameShort_UA='" + sNameShort_UA + '\'' +
+                ", sNameShort_EN='" + sNameShort_EN + '\'' +
+                ", sReference_LocalISO='" + sReference_LocalISO + '\'' +
+                "} " ;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Country country = (Country) o;
+
+        if (nID_UA != null ? !nID_UA.equals(country.nID_UA) : country.nID_UA != null) return false;
+        if (sID_Three != null ? !sID_Three.equals(country.sID_Three) : country.sID_Three != null) return false;
+        if (sID_Two != null ? !sID_Two.equals(country.sID_Two) : country.sID_Two != null) return false;
+        if (sNameShort_EN != null ? !sNameShort_EN.equals(country.sNameShort_EN) : country.sNameShort_EN != null)
+            return false;
+        if (sNameShort_UA != null ? !sNameShort_UA.equals(country.sNameShort_UA) : country.sNameShort_UA != null)
+            return false;
+        if (sReference_LocalISO != null ? !sReference_LocalISO.equals(country.sReference_LocalISO) : country.sReference_LocalISO != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = nID_UA != null ? nID_UA.hashCode() : 0;
+        result = 31 * result + (sID_Two != null ? sID_Two.hashCode() : 0);
+        result = 31 * result + (sID_Three != null ? sID_Three.hashCode() : 0);
+        result = 31 * result + (sNameShort_UA != null ? sNameShort_UA.hashCode() : 0);
+        result = 31 * result + (sNameShort_EN != null ? sNameShort_EN.hashCode() : 0);
+        result = 31 * result + (sReference_LocalISO != null ? sReference_LocalISO.hashCode() : 0);
+        return result;
+    }
 }
