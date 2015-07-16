@@ -75,6 +75,9 @@ angular.module('app').service('ServiceService', function($http, $q) {
   };
 
   this.getSearchDocumentLink = function(docnID, typeId, operatorId, code, smsPass) {
+      if(smsPass==null||smsPass==""){
+          smsPass=0;
+      }
     return '/api/documents/search/download/' + docnID  + '/' +  code + '/'
         + operatorId + '/' + typeId + '/' + smsPass;
   };
