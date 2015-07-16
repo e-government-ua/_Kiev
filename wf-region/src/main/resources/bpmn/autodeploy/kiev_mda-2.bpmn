@@ -17,7 +17,7 @@
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="attr3" name="Копія довідки з місця роботи; додається тільки у випадку пільгової квартирної черги" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="attr3" name="Документ, що підтверджує право на пільгову чергу; додається тільки у випадку пільгової квартирної черги" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warningMessage" name="Увага!" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
