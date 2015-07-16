@@ -45,9 +45,9 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		oDocumentAccess.setTarget(sTarget);
 		oDocumentAccess.setTelephone(sTelephone);
 		oDocumentAccess.setSecret(generateSecret());
+		String id = writeRow(oDocumentAccess).toString();
                 //sCode;sCodeType
-		writeRow(oDocumentAccess);
-                oDocumentAccess.setsCode(getIdAccess().toString());
+                oDocumentAccess.setsCode(id);
                 oDocumentAccess.setsCodeType((sTelephone!=null&&sTelephone.length()>6)?"sms":"");
 		writeRow(oDocumentAccess);
 		/*StringBuilder osURL = new StringBuilder(sURL);
@@ -56,7 +56,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		osURL.append("sSecret=");
 		osURL.append(oDocumentAccess.getSecret());*/
 		//return osURL.toString();
-                return getIdAccess().toString();
+                return id;
                 
 	}
 
@@ -98,12 +98,14 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		return os.toString();
 	}        
 
-	private void writeRow(DocumentAccess o) throws Exception{
+	private String writeRow(DocumentAccess o) throws Exception{
 		Session s = getSession();
 		try{
             if(o.getsCode() == null) o.setsCode("null");
             if(o.getsCodeType() == null) o.setsCodeType("null");
             s.saveOrUpdate(o);
+            s.flush();
+            return o.getId().toString();
 		} catch(Exception e){
 			throw e;
 		} finally {
@@ -112,7 +114,8 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 			}
 		}
 	}
-
+	
+	@Deprecated
 	public Long getIdAccess() throws Exception{
 		Session oSession = getSession();
 		List <DocumentAccess> list = null;
@@ -125,7 +128,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 				oSession.close();
 			}
 		}
-		return list.get(0).getId();
+		return list.get(list.size()-1).getId();
 	}
 
 	@Override
@@ -151,6 +154,71 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		return docAcc;
 	}
 
+        
+        
+        
+
+        
+        
+        @Override
+	public boolean bSentDocumentAccessOTP(String sCode) throws Exception {
+		Session oSession = getSession();
+		boolean bSent = false;
+		try{
+                    DocumentAccess oDocumentAccess = (DocumentAccess) getSession()
+				.createCriteria(DocumentAccess.class)
+				.add(Restrictions.eq("sCode", sCode))
+				.uniqueResult();
+                    //TODO делать точечную выборку по sCode
+                    /*DocumentAccess oDocumentAccess = new DocumentAccess();
+                    List <DocumentAccess> aDocumentAccess = null;
+                    aDocumentAccess = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
+                    if(aDocumentAccess == null || aDocumentAccess.isEmpty()){
+                        throw new Exception("Access not accepted!");
+                    } else {
+                    	 for(DocumentAccess o : aDocumentAccess){
+                         	if(sCode.equals(o.getsCode())){
+                         		oDocumentAccess = o;                      		
+                         		break;
+                         	}
+                         }
+                    }*/
+                    if(oDocumentAccess.getTelephone() != null){
+                        String sPhone = "";
+                        String sAnswer = "";
+                        sPhone = oDocumentAccess.getTelephone();
+                        log.info("[bSentDocumentAccessOTP]sPhone="+sPhone);
+                        
+                        //Generate random 4xDigits answercode
+                        sAnswer = generateAnswer();
+                        log.info("[bSentDocumentAccessOTP]sAnswer="+sAnswer);
+                        
+                        //o.setDateAnswerExpire(null);
+                        //SEND SMS with this code
+                        oDocumentAccess.setAnswer(sAnswer);
+                        writeRow(oDocumentAccess);
+                        String sReturn = sendPasswordOTP(sPhone, sAnswer);
+                        log.info("[bSentDocumentAccessOTP]sReturn="+sReturn);
+                        
+                        bSent=true;
+                    }else{
+                        //TODO loging warn
+                    }
+                    
+                    //otpPassword=getOtpPassword(docAcc);
+		} catch(Exception e) {
+			throw e;
+		}finally{
+			if(oSession.isConnected()){
+				oSession.close();
+			}
+		}
+		return  bSent;
+	}        
+        
+        
+        
+        
         
 	@Override
 	public String getDocumentAccess(Long nID_Access, String sSecret) throws Exception {
@@ -211,7 +279,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		DocumentAccess docAcc = null;
 		try{
                     //TODO убедиться что все проверяется по этим WHERE
-                    list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
+                   /* list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
                     if(list == null || list.isEmpty()){
                         throw new Exception("Access not accepted!");
                     }         
@@ -223,7 +291,19 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                         		break;
                         	}
                         }
-                   }
+                   }*/
+			docAcc = (DocumentAccess) getSession()
+					.createCriteria(DocumentAccess.class)
+					.add(Restrictions.eq("nID", nID_Access))
+					.add(Restrictions.eq("sSecret", sSecret))
+					.add(Restrictions.eq("sAnswer", sAnswer))
+					.uniqueResult();
+			if(docAcc == null){
+				 throw new Exception("Access not accepted!");
+			} else {
+				oSession.saveOrUpdate(docAcc);
+			}
+			
 		} catch(Exception e){
 			throw e;
 		} finally{
@@ -231,7 +311,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 				oSession.close();
 			}
 		}
-		return "/";
+		return docAcc.toString();
 	}
         
 	//public String setDocumentAccess(Integer nID_Access, String sSecret, String sAnswer) throws Exception;
@@ -247,6 +327,91 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
+        
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+	private <T> String sendPasswordOTP(String sPhone, String sPassword) throws Exception{
+		Properties oProperties = new Properties();
+		File oFile = new File(System.getProperty("catalina.base")+"/conf/merch.properties");
+		FileInputStream oFileInputStream = new FileInputStream(oFile);
+		oProperties.load(oFileInputStream);
+		oFileInputStream.close();
+                
+		OtpPassword oOtpPassword = new OtpPassword();
+		oOtpPassword.setMerchant_id(oProperties.getProperty("merchant_id"));
+		oOtpPassword.setMerchant_password(oProperties.getProperty("merchant_password"));
+                
+		OtpCreate oOtpCreate = new OtpCreate();
+		oOtpCreate.setCategory("qwerty");
+		oOtpCreate.setFrom("10060");
+                oOtpCreate.setPhone(sPhone);
+		/*SmsTemplate oSmsTemplate = new SmsTemplate();
+		oSmsTemplate.setText("text:"+"Parol: ");
+		oSmsTemplate.setPassword("password:"+"2");
+		SmsTemplate oSmsTemplate2 = new SmsTemplate();
+		oSmsTemplate2.setText("text:"+"-");
+		oSmsTemplate2.setPassword("password:"+"2");
+		SmsTemplate oSmsTemplate3 = new SmsTemplate();
+		oSmsTemplate3.setText("text:"+"-");
+		oSmsTemplate3.setPassword("password:"+"2");
+		SmsTemplate oSmsTemplate4 = new SmsTemplate();
+		oSmsTemplate4.setText("text:"+"-");
+		oSmsTemplate4.setPassword("password:"+"2");*/
+		List<T> a = new ArrayList<T>();
+		a.add((T)new OtpText("Parol:"));
+		a.add((T)new OtpPass(sPassword));
+		/*a.add((T)new OtpPass("2"));
+		a.add((T)new OtpText("-"));
+		a.add((T)new OtpPass("2"));
+		a.add((T)new OtpText("-"));
+		a.add((T)new OtpPass("2"));
+		a.add((T)new OtpText("-"));
+		a.add((T)new OtpPass("2"));*/
+		oOtpCreate.setSms_template(a);
+		List<OtpCreate> aOtpCreate = new ArrayList<>();
+		aOtpCreate.add(oOtpCreate);
+		oOtpPassword.setOtp_create(aOtpCreate);		
+		Gson oGson = new Gson();
+		String jsonObj = oGson.toJson(oOtpPassword);
+		URL oURL = new URL(urlConn);
+		HttpURLConnection oHttpURLConnection = (HttpURLConnection)oURL.openConnection();
+		oHttpURLConnection.setRequestMethod("POST");
+		oHttpURLConnection.setRequestProperty("content-type", "application/json;charset=UTF-8");
+		oHttpURLConnection.setDoOutput(true);
+		DataOutputStream oDataOutputStream = new DataOutputStream(oHttpURLConnection.getOutputStream());
+		oDataOutputStream.writeBytes(jsonObj);
+		oDataOutputStream.flush();
+		oDataOutputStream.close();
+                
+		BufferedReader oBufferedReader = new BufferedReader(new InputStreamReader(oHttpURLConnection.getInputStream()));
+		StringBuilder os = new StringBuilder();
+		String s;
+		while((s = oBufferedReader.readLine()) != null){
+			os.append(s);
+		}
+		oBufferedReader.close();
+		return os.toString();
+	}        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 	private <T> String getOtpPassword(DocumentAccess docAcc) throws Exception{
 		Properties prop = new Properties();
 		File file = new File(System.getProperty("catalina.base")+"/conf/merch.properties");
