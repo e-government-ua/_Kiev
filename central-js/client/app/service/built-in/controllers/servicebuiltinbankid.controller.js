@@ -14,7 +14,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
   $scope.data.city = currentState.data.city;
 
     //mock markers
-    $scope.data.formData.params.markers = {
+    /*$scope.data.formData.params.markers = {
         validate:{
             PhoneUA:{
                 aField_ID:["privatePhone","workPhone", "phone1"]
@@ -23,7 +23,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
                 aField_ID:["privateMail","email1"]
             }            
         }
-    };
+    };*/
 
     var aID_FieldPhoneUA = $scope.data.formData.params.markers.validate.PhoneUA.aField_ID;
 
@@ -45,18 +45,18 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
         }
         value.sFieldNotes = s;
 
-        if (_.indexOf(aID_FieldPhoneUA, value.id)!=-1){
+        /*if (_.indexOf(aID_FieldPhoneUA, value.id)!=-1){
             value.sFieldType="tel";
-        }
+        }*/
   });
 
   $scope.submit = function(form) {
         $scope.isSending = true;
         form.$setSubmitted();
         var bValid=true;
-        if (bValid && !$($('input[type=tel]')[0]).intlTelInput("isValidNumber")){
+        /*if (bValid && !$($('input[type=tel]')[0]).intlTelInput("isValidNumber")){
             bValid = false;
-        }
+        }*/
         
         if (form.$valid && bValid) {
             ActivitiService
@@ -130,7 +130,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
     $scope.$apply();
   };
 
-    $timeout(function () {
+    /*$timeout(function () {
         $('input[type=tel]').intlTelInput({
             defaultCountry: "auto",
             autoFormat: true,
@@ -144,6 +144,6 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
                 });
             }
         });
-    });
+    });*/
     
 });
