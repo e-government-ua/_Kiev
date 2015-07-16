@@ -12,7 +12,6 @@ angular.module('documents').controller('DocumentsSearchController',
     $scope.documents = {};
     $scope.messages = [];
 
-
     $scope.getDocumentLink = ServiceService.getSearchDocumentLink;
     $scope.searchDocument = function(typeId, operatorId, code, smsPass) {
         ServiceService.searchDocument(typeId, operatorId, code, smsPass)

@@ -25,6 +25,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	private final String urlConn = "https://sms-inner.siteheart.com/api/otp_create_api.cgi";
 	final static Logger log = Logger.getLogger(DocumentAccessDaoImpl.class);
 	
+        
 	@Autowired
 	GeneralConfig generalConfig;
 	
@@ -192,13 +193,24 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                         //Generate random 4xDigits answercode
                         sAnswer = generateAnswer();
                         log.info("[bSentDocumentAccessOTP]sAnswer="+sAnswer);
-                        
+                         
                         //o.setDateAnswerExpire(null);
                         //SEND SMS with this code
-//////                        oDocumentAccess.setAnswer(sAnswer);
-//////                        writeRow(oDocumentAccess);
-//////                        String sReturn = sendPasswordOTP(sPhone, sAnswer);
-                        String sReturn = "test";
+                        String sReturn;
+                        if(generalConfig.bTest()){
+                            sAnswer="4444";
+                        }
+                        oDocumentAccess.setAnswer(sAnswer);
+                        writeRow(oDocumentAccess);
+                        
+                        if(generalConfig.bTest()){
+                            sReturn = "test";
+                        }else{
+                            sReturn = sendPasswordOTP(sPhone, sAnswer);
+                        }
+                        
+
+                        
                         log.info("[bSentDocumentAccessOTP]sReturn="+sReturn);
                         
                         bSent=true;
