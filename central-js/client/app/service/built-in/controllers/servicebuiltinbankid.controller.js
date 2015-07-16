@@ -1,4 +1,4 @@
-angular.module('app').controller('ServiceBuiltInBankIDController', function($state, $stateParams, $scope,$timeout, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
+angular.module('app').controller('ServiceBuiltInBankIDController', function($state, $stateParams, $scope, $timeout, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
 
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount;
@@ -15,12 +15,12 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
 
     //mock markers
     $scope.data.formData.params.markers = {
-        "validate":{
-            "PhoneUA":{
-                "aField_ID":["privatePhone","workPhone", "phone1"]
+        validate:{
+            PhoneUA:{
+                aField_ID:["privatePhone","workPhone", "phone1"]
             }
-            , "Mail":{
-                "aField_ID":["privateMail","email1"]
+            , Mail:{
+                aField_ID:["privateMail","email1"]
             }            
         }
     };
@@ -51,12 +51,14 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
   });
 
   $scope.submit = function(form) {
-    $scope.isSending = true;
-    form.$setSubmitted();
-
-    //if ($($('input[type=tel]')[0]).intlTelInput("isValidNumber")){
+        $scope.isSending = true;
+        form.$setSubmitted();
+        var bValid=true;
+        if (bValid && !$($('input[type=tel]')[0]).intlTelInput("isValidNumber")){
+            bValid = false;
+        }
         
-        if (form.$valid) {
+        if (form.$valid && bValid) {
             ActivitiService
                 .submitForm(oServiceData, $scope.data.formData)
                 .then(function(result) {
@@ -75,12 +77,6 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
             $scope.isSending = false;
             return false;
         }
-
-    //} else {
-    //   $scope.isSending = false;
-    //    return false;
-    //}
-
   };
 
   $scope.cantSubmit = function(form) {
@@ -133,7 +129,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
     }
     $scope.$apply();
   };
-/*
+
     $timeout(function () {
         $('input[type=tel]').intlTelInput({
             defaultCountry: "auto",
@@ -148,5 +144,6 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
                 });
             }
         });
-    });*/
+    });
+    
 });
