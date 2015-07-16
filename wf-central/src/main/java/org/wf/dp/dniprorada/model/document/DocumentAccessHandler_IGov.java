@@ -83,7 +83,7 @@ public class DocumentAccessHandler_IGov implements DocumentAccessHandler {
         if ("SMS".equalsIgnoreCase(access.getsCodeType()) && userPass == currPass)
             return access;
         else
-            throw new DocumentAccessException("Document Access wrong password");
+            throw new DocumentAccessException("Document Access password wrong");
     }
 
 
