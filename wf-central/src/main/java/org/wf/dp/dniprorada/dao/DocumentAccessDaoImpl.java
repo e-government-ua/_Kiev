@@ -195,9 +195,10 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                         
                         //o.setDateAnswerExpire(null);
                         //SEND SMS with this code
-                        oDocumentAccess.setAnswer(sAnswer);
-                        writeRow(oDocumentAccess);
-                        String sReturn = sendPasswordOTP(sPhone, sAnswer);
+//////                        oDocumentAccess.setAnswer(sAnswer);
+//////                        writeRow(oDocumentAccess);
+//////                        String sReturn = sendPasswordOTP(sPhone, sAnswer);
+                        String sReturn = "test";
                         log.info("[bSentDocumentAccessOTP]sReturn="+sReturn);
                         
                         bSent=true;
