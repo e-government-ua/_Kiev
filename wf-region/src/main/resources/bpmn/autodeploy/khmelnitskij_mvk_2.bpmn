@@ -14,6 +14,7 @@
           <activiti:value id="attr1_yes" name="так"></activiti:value>
           <activiti:value id="attr2_no" name="ні"></activiti:value>
         </activiti:formProperty>
+              <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Отримання та обробка заяви" activiti:candidateGroups="hmel_mvk_2">
