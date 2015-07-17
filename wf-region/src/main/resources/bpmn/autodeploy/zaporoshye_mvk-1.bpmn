@@ -461,7 +461,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask2" name="[Етап II] Заява поступає в роботу у ДержОргані">
+    <userTask id="usertask2" name="[Етап II] Заява поступає в роботу у ДержОргані" activiti:candidateGroups="zaporoshye_mvk_1">
       <extensionElements>
         <activiti:formProperty id="serviceType" name="Дозвіл на зовнішню рекламу, прошу мені" type="enum" writable="false">
           <activiti:value id="create" name="Видати"></activiti:value>
