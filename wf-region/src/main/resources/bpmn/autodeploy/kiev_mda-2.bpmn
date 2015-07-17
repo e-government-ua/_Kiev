@@ -11,7 +11,6 @@
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" required="true">
           <activiti:value id="kiev_rda1" name="Деснянський"></activiti:value>
           <activiti:value id="kiev_rda3" name="Солом’янський"></activiti:value>
-          <activiti:value id="kiev_rda2" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="attr2" name="Тип квартиної черги" type="enum" required="true">
           <activiti:value id="type1" name="Загальна"></activiti:value>
@@ -282,7 +281,7 @@
         </activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>{file1},${docToSend},${result_file}</activiti:expression>
+            <activiti:expression>${file1},${docToSend},${result_file}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
