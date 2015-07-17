@@ -851,7 +851,7 @@ Response:
 Примеры:
 https://test.igov.org.ua/wf-central/service/messages/getMessage?nID=76
 
-* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
+* nID - ID сообщения
 
 Ответ:
 ```json
