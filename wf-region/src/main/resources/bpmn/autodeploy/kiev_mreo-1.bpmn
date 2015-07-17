@@ -316,7 +316,7 @@
 
 Рахунок для сплати знаходиться в додатку до цього листа.
 
-[paymentButton_LiqPay]</activiti:expression>
+</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${billToPay}"</activiti:expression>
@@ -338,13 +338,18 @@
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
-        <activiti:field name="text">
+        <activiti:field name="html">
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
 Ви можете пройти тех.огляд Вашого авто в зазначений Вами час за адресою ______ 
 
+[paymentButton_LiqPay]
+
+
 З повагою,
-Команда Порталу державних послуг iGov.org.ua</activiti:expression>
+Команда Порталу державних послуг iGov.org.ua
+
+</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
