@@ -255,7 +255,7 @@
     
     <!-- ####################################################################################################### -->
     
-    <changeSet id="issues/553" author="bw" runOnChange="true">
+    <changeSet id="issues/553" author="bw">
         <dropNotNullConstraint tableName="DocumentAccess" columnName="sTarget" columnDataType="varchar(250)"/>
         <dropNotNullConstraint tableName="DocumentAccess" columnName="sTelephone" columnDataType="varchar(50)"/>
         <dropNotNullConstraint tableName="DocumentAccess" columnName="sMail" columnDataType="varchar(200)"/>
