@@ -9,11 +9,11 @@ angular.module('documents').controller('DocumentsContentController', function($s
 
   $scope.shareTab = false;
   $scope.documents = documents;
-  $scope.nDays = 1;
+  //$scope.nDays = 1;
   //$scope.sTelephone = '+380';
   $scope.sTelephone = '';
   $scope.nDaysOptions = [{day: 1, title: '1 день'}, {day: 7, title: '1 тиждень'}, {day: 365, title: '1 рік'}];
-  $scope.nDays = $scope.nDaysOptions[1];
+  $scope.nDays = $scope.nDaysOptions[1].day;
   $scope.getDocumentLink = ServiceService.getDocumentLink;
 
   $scope.showShareTab = function(){
