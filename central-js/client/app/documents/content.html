@@ -110,10 +110,7 @@
                                     ng-submit="shareLinkForm.$valid && shareLink(doc, sFIO, sTelephone, sMail, nDays)">
                                 <div class="row">
                                   <div class="form-group">
-                                    <label for="name">Введіть ім’я та прізвище людини, якій Ви надаєте
-                                      доступ
-                                      <em>*</em>
-                                    </label>
+                                    <label for="name">Введіть ім’я та прізвище людини, якій Ви надаєте доступ: <em>*</em></label>
                                     <input type="text"
                                            required
                                            ng-model="sFIO"
@@ -125,7 +122,7 @@
 
                                 <div class="row">
                                   <div class="form-group">
-                                    <label for="valid-days">Введіть термін дії доступу:</label>
+                                    <label for="valid-days">Введіть термін дії доступу: <em>*</em></label>
                                     <select class="form-control"
                                             required
                                             ng-model="nDays"
