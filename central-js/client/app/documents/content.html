@@ -166,16 +166,16 @@
                                     </label><br/>
 
                                     <div class="alert alert-danger"
+                                         ng-show="shareLinkForm.phone.$error.minlength">
+                                      Мало цифр у номері, перевірте його правильність
+                                    </div>
+                                    <div class="alert alert-danger"
                                          ng-show="shareLinkForm.phone.$error.maxlength">
-                                      Забагато цифр у
-                                      номері, перевірте
-                                      його правильність
+                                      Забагато цифр у номері, перевірте його правильність
                                     </div>
                                     <div class="alert alert-danger"
                                          ng-show="shareLinkForm.phone.$error.pattern">
-                                      У номері мають бути
-                                      лише цифри та + на
-                                      початку
+                                      У номері мають бути лише цифри та + на початку
                                     </div>
                                     <input type="tel"
                                            class="form-control"
@@ -190,12 +190,21 @@
                                 </div>
 
                                 <div class="row">
+                                    
+                                    
+                                    
                                   <div class="form-group"
                                        ng-class="{'has-success': shareLinkForm.email.$valid && shareLinkForm.email.$touched}">
 
-                                    <label for="email">Введіть електронну пошту (за бажанням)
-                                      <span class="snippet">(на вказаний адрес буде надіслано посилання на документ)</span>
+                                    <label for="email">Введіть електронну пошту:
+                                      <span class="snippet">(якщо вказане, то на вказаний адрес буде надіслано посилання на документ)</span>
                                     </label>
+                                      
+                                    <div class="alert alert-danger"
+                                         ng-show="!shareLinkForm.email.$valid && shareLinkForm.email.$touched">
+                                      Не вірний формат електроної адреси!
+                                    </div>
+                                      
                                     <input type="email"
                                            ng-model="sMail"
                                            class="form-control"
@@ -229,7 +238,7 @@
         id="urlmodal.html">
     <div class="modal-body">
         <div class="link-modal form-group col-md-12">
-            <label for="link">Посилання, за яким користувач може отримати доступ</label><!-- (через SMS-пароль)-->
+            <label for="link">Посилання, за яким користувач може отримати доступ <b ng-show="isPhoneFormVisible == 'true'"> (через SMS-пароль)</b></label>
 
             <div class="input-group">
                 <input type="text"

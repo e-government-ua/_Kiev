@@ -26,6 +26,10 @@ angular.module('documents').controller('DocumentsContentController', function($s
   };
 
   function getTelephone (sTelephone) {
+    //<b ng-show="isPhoneFormVisible == 'true'"> (через SMS-пароль)</b>
+    if($('[name=content]:checked').val()!="true"){
+        sTelephone = ''
+    }
     if (sTelephone == '+380' || sTelephone == null || sTelephone == '') {
         sTelephone = ' ';
     }
