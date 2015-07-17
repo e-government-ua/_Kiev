@@ -259,10 +259,12 @@
         <dropNotNullConstraint tableName="DocumentAccess" columnName="sTarget" columnDataType="varchar(250)"/>
         <dropNotNullConstraint tableName="DocumentAccess" columnName="sTelephone" columnDataType="varchar(50)"/>
         <dropNotNullConstraint tableName="DocumentAccess" columnName="sMail" columnDataType="varchar(200)"/>
+    </changeSet>
+    
+    <changeSet id="issues/553" author="bw" dbms="postgresql">
         <delete tableName="DocumentType">
             <where>"nID" IN (4,5,20324)</where>
         </delete>
     </changeSet>
-    
     
 </databaseChangeLog>
