@@ -67,17 +67,21 @@ public class LiqBuy {
             }else{
                 sURL_CallbackStatusNew = "";
             }
-        }
+        }log.info("sURL_CallbackStatusNew="+sURL_CallbackStatusNew);
         if (sURL_CallbackPaySuccess == null) {
             if(jsonObject.get("sURL_CallbackPaySuccess")!=null){
                 sURL_CallbackPaySuccess = (String) jsonObject.get("sURL_CallbackPaySuccess");
             }else{
                 sURL_CallbackPaySuccess = "https://igov.org.ua";
             }
-        }
-
+        }log.info("sURL_CallbackPaySuccess="+sURL_CallbackPaySuccess);
+        
         if (sURL_CallbackPaySuccess != null) {
-            String nID_Access = accessDataDao.setAccessData(String.valueOf(nID_Subject));
+            nID_Subject=new Long(0);
+            
+            String snID_Subject="0";log.info("accessDataDao!=null:"+(accessDataDao!=null));
+            //String nID_Access = accessDataDao.setAccessData(String.valueOf(nID_Subject));
+            String nID_Access = accessDataDao.setAccessData(snID_Subject);
             sURL_CallbackPaySuccess = new StringBuilder(sURL_CallbackPaySuccess)
                     .append("?nID_Subject=").append(nID_Subject)
                     .append("&nID_Access=").append(nID_Access).toString();

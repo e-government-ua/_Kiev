@@ -25,6 +25,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	private final String urlConn = "https://sms-inner.siteheart.com/api/otp_create_api.cgi";
 	final static Logger log = Logger.getLogger(DocumentAccessDaoImpl.class);
 	
+        
 	@Autowired
 	GeneralConfig generalConfig;
 	
@@ -183,17 +184,35 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                          	}
                          }
                     }*/
-                    if(oDocumentAccess.getTelephone() != null){
+                    if(oDocumentAccess.getTelephone() != null && oDocumentAccess.getTelephone().trim().length()>6){
                         String sPhone = "";
                         String sAnswer = "";
                         sPhone = oDocumentAccess.getTelephone();
+                        log.info("[bSentDocumentAccessOTP]sPhone="+sPhone);
+                        
                         //Generate random 4xDigits answercode
                         sAnswer = generateAnswer();
+                        log.info("[bSentDocumentAccessOTP]sAnswer="+sAnswer);
+                         
                         //o.setDateAnswerExpire(null);
                         //SEND SMS with this code
+                        String sReturn;
+                        if(generalConfig.bTest()){
+                            sAnswer="4444";
+                        }
                         oDocumentAccess.setAnswer(sAnswer);
                         writeRow(oDocumentAccess);
-                        sendPasswordOTP(sPhone, sAnswer);
+                        
+                        if(generalConfig.bTest()){
+                            sReturn = "test";
+                        }else{
+                            sReturn = sendPasswordOTP(sPhone, sAnswer);
+                        }
+                        
+
+                        
+                        log.info("[bSentDocumentAccessOTP]sReturn="+sReturn);
+                        
                         bSent=true;
                     }else{
                         //TODO loging warn

@@ -79,7 +79,7 @@ public class CountryDaoImpl extends AbstractEntityDao<Country>
             country.setsReference_LocalISO(sReference_localISO);
 
         saveOrUpdate(country);
-
+        log.info("country " + country + "is updated");
         return country;
     }
 
@@ -102,6 +102,7 @@ public class CountryDaoImpl extends AbstractEntityDao<Country>
             throw new EntityNotFoundException("Record not found!");
         } else {
             delete(country);
+            log.info("country " + country + "is deleted");
         }
     }
 
