@@ -15,7 +15,7 @@
         <activiti:formProperty id="number" name="Попередній держ.номер авто" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="queueData" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dateView" name="Бажана дата  проходження огляду авто" type="queueData"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
