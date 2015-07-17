@@ -259,6 +259,9 @@
         <dropNotNullConstraint tableName="DocumentAccess" columnName="sTarget" columnDataType="varchar(250)"/>
         <dropNotNullConstraint tableName="DocumentAccess" columnName="sTelephone" columnDataType="varchar(50)"/>
         <dropNotNullConstraint tableName="DocumentAccess" columnName="sMail" columnDataType="varchar(200)"/>
+        <delete tableName="DocumentType">
+            <where>nID IN (4,5,20324)</where>
+        </delete>
     </changeSet>
     
     
