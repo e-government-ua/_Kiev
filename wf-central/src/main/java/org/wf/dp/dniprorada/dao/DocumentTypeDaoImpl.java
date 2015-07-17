@@ -36,18 +36,22 @@ public class DocumentTypeDaoImpl implements DocumentTypeDao {
         this.sessionFactory = sessionFactory;
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
     public List<DocumentType> getDocumentTypes() {
-        return (List<DocumentType>) getSession()
-                .createCriteria(DocumentType.class).list();
+        Criteria cr =  getSession().createCriteria(DocumentType.class);
+        cr.add(Restrictions.eq("bHidden", false));
+        return (List<DocumentType>)cr.list();
     }
 
     @Override
-    public DocumentType setDocumentType(Long nID, String sName) {
+    public DocumentType setDocumentType(Long nID, String sName, Boolean bHidden) {
         DocumentType documentType = getDocumentType(nID);
         if (documentType == null){
             documentType = new DocumentType();
         }
         documentType.setName(sName);
+        documentType.setbHidden(bHidden == null ? false : bHidden);
         getSession().saveOrUpdate(documentType);
         return documentType;
     }

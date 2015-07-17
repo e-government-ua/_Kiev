@@ -541,7 +541,8 @@ https://test.igov.org.ua/wf-central/service/services/setDocument?sID_Subject_Upl
 ----------------------------------------------------------------------------------------------------------------------------
 **HTTP Metod: GET**
 
-**HTTP Context: http://server:port/wf-central/service/services/getDocumentTypes** - получение списка типов документов
+**HTTP Context: http://server:port/wf-central/service/services/getDocumentTypes**
+ - получение списка всех "нескрытых" типов документов, т.е. у которых поле bHidden=false
 
 Пример:
 https://test.igov.org.ua/wf-central/service/services/getDocumentTypes
@@ -549,9 +550,9 @@ https://test.igov.org.ua/wf-central/service/services/getDocumentTypes
 **Response**
 ```json
 [
-	{"nID":0,"sName":"Другое"},
-	{"nID":1,"sName":"Справка"},
-	{"nID":2,"sName":"Паспорт"}
+	{"nID":0,"sName":"Другое", "bHidden":false},
+	{"nID":1,"sName":"Справка", "bHidden":false},
+	{"nID":2,"sName":"Паспорт", "bHidden":false}
 ]
 ```
 
@@ -561,9 +562,9 @@ https://test.igov.org.ua/wf-central/service/services/getDocumentTypes
 **HTTP Context: http://server:port/wf-central/service/services/setDocumentType** - добавить/изменить запись типа документа
 параметры:
 
- *nID -- ид записи
-
- *sName -- название записи
+ * nID -- ид записи (число)
+ * sName -- название записи (строка)
+ * bHidden -- скрывать/не скрывать (при отдаче списка всех записей, булевское, по умолчанию = false)
 
  Если запись с ид=nID не будет найдена, то создастся новая запись (с автогенерируемым nID), иначе -- обновится текущая.
  
@@ -572,12 +573,12 @@ https://test.igov.org.ua/wf-central/service/services/getDocumentTypes
 создать новый тип:
 https://test.igov.org.ua/wf-central/service/services/setDocumentType?nID=100&sName=test
 
-ответ: ```{"nID":20314,"sName":"test"}```
+ответ: ```{"nID":20314,"sName":"test", , "bHidden":false}```
 
 изменить (взять ид из предыдущего ответа):
 https://test.igov.org.ua/wf-central/service/services/setDocumentType?nID=20314&sName=test2
 
-ответ: ```{"nID":20314,"sName":"test2"}```
+ответ: ```{"nID":20314,"sName":"test2", "bHidden":false}```
 
 --------------------------------------------------------------------------------------------------------------------------
 **HTTP Metod: GET**
