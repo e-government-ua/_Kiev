@@ -124,21 +124,23 @@
 
                                 <div class="row">
                                   <div class="form-group">
-                                    <label for="valid-days">Введіть термін дії доступу: <!--em>*</em--></label>
+                                    <label for="nDays">Введіть термін дії доступу: <!--em>*</em--></label>
+                                    
+                                    <select class="form-control"
+                                            required
+                                            ng-model="nDays"
+                                            ng-options="item.day as item.title for item in nDaysOptions"
+                                            id="nDays">
+                                    </select>
                                     
                                     <!--
                                     <select class="form-control"
-                                            ng-model="1"
-                                            ng-options="item.day as item.title for item in nDaysOptions"
-                                            id="valid-days">
+                                            ng-model="nDays"
+                                            id="nDays">
+                                        <option ng-repeat="item in nDaysOptions" value="{{item.day}}" ng-selected="item.day == 1">{{item.title}}</option>
                                     </select>
                                     -->
                                     
-                                    <select class="form-control"
-                                            ng-model="nDays"
-                                            id="valid-days">
-                                        <option ng-repeat="item in nDaysOptions" value="{{item.day}}" ng-selected="item.day == 1">{{item.title}}</option>
-                                    </select>
                                     
                                   </div>
                                 </div>
