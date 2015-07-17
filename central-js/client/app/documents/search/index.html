@@ -9,12 +9,14 @@
                 
 
                 <center>
-                    <div style="width: 600px;" class="panel panel-default">
+                    <div style="width: 600px;border: 0px; /*border-color: white;*/ /*#ddd;*/" class="panel panel-default">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <form name="searchForm"
                                       role="form"
-                                      ng-submit="searchForm.$valid && searchDocument(typeId, operatorId, code, smsPass)">
+                                      ng-submit="searchForm.$valid && searchDocument(typeId, operatorId, code, smsPass)"
+                                      style="text-align:left;"
+                                      >
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="typeId">Оберить тип документу<!--em>*</em--></label>
