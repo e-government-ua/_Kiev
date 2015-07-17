@@ -833,7 +833,11 @@ Response:
 		,"sMail":"bvv4ik@gmail.com"
 		,"sContacts":""
 		,"sData":""
-		,"nID_SubjectMessageType":0
+		,"oSubjectMessageType": {
+			"sDescription": "Просьба добавить услугу",
+			"nID": 0,
+			"sName": "ServiceNeed"
+		}
 	}
 ]
 ```
@@ -860,7 +864,11 @@ https://test.igov.org.ua/wf-central/service/messages/getMessage?nID=76
 	,"sMail":"bvv4ik@gmail.com"
 	,"sContacts":""
 	,"sData":""
-	,"nID_SubjectMessageType":0
+	,"oSubjectMessageType": {
+		"sDescription": "Просьба добавить услугу",
+		"nID": 0,
+		"sName": "ServiceNeed"
+	}
 }
 ```
 **HTTP Metod: POST**
