@@ -29,6 +29,9 @@ public abstract class BaseMailTaskWithAttachment implements JavaDelegate {
 
     @Autowired
     AccessDataDao accessDataDao;
+
+    @Autowired
+    LiqBuy liqBuy;
     
     protected Expression sID_Merchant;
     protected Expression sSum;
@@ -75,7 +78,7 @@ public abstract class BaseMailTaskWithAttachment implements JavaDelegate {
             nID_Subject = (nID_Subject==null?0:nID_Subject);
             LOG.info("nID_Subject="+nID_Subject);
             boolean bTest = generalConfig.bTest();
-            String htmlButton = new LiqBuy().getPayButtonHTML_LiqPay(sID_Merchant, sSum, oID_Currency, sLanguage, sDescription, sID_Order, sURL_CallbackStatusNew, sURL_CallbackPaySuccess, nID_Subject, bTest);
+            String htmlButton = liqBuy.getPayButtonHTML_LiqPay(sID_Merchant, sSum, oID_Currency, sLanguage, sDescription, sID_Order, sURL_CallbackStatusNew, sURL_CallbackPaySuccess, nID_Subject, bTest);
             textWithoutTags = StringUtils.replace(textStr, TAG_PAYMENT_BUTTON_LIQPAY, htmlButton);
         }
 

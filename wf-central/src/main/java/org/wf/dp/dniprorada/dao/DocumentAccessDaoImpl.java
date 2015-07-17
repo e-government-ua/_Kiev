@@ -25,6 +25,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	private final String urlConn = "https://sms-inner.siteheart.com/api/otp_create_api.cgi";
 	final static Logger log = Logger.getLogger(DocumentAccessDaoImpl.class);
 	
+        
 	@Autowired
 	GeneralConfig generalConfig;
 	
@@ -45,9 +46,9 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		oDocumentAccess.setTarget(sTarget);
 		oDocumentAccess.setTelephone(sTelephone);
 		oDocumentAccess.setSecret(generateSecret());
+		String id = writeRow(oDocumentAccess).toString();
                 //sCode;sCodeType
-		writeRow(oDocumentAccess);
-                oDocumentAccess.setsCode(getIdAccess().toString());
+                oDocumentAccess.setsCode(id);
                 oDocumentAccess.setsCodeType((sTelephone!=null&&sTelephone.length()>6)?"sms":"");
 		writeRow(oDocumentAccess);
 		/*StringBuilder osURL = new StringBuilder(sURL);
@@ -56,7 +57,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		osURL.append("sSecret=");
 		osURL.append(oDocumentAccess.getSecret());*/
 		//return osURL.toString();
-                return getIdAccess().toString();
+                return id;
                 
 	}
 
@@ -98,12 +99,14 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		return os.toString();
 	}        
 
-	private void writeRow(DocumentAccess o) throws Exception{
+	private String writeRow(DocumentAccess o) throws Exception{
 		Session s = getSession();
 		try{
             if(o.getsCode() == null) o.setsCode("null");
             if(o.getsCodeType() == null) o.setsCodeType("null");
             s.saveOrUpdate(o);
+            s.flush();
+            return o.getId().toString();
 		} catch(Exception e){
 			throw e;
 		} finally {
@@ -112,7 +115,8 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 			}
 		}
 	}
-
+	
+	@Deprecated
 	public Long getIdAccess() throws Exception{
 		Session oSession = getSession();
 		List <DocumentAccess> list = null;
@@ -180,17 +184,35 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                          	}
                          }
                     }*/
-                    if(oDocumentAccess.getTelephone() != null){
+                    if(oDocumentAccess.getTelephone() != null && oDocumentAccess.getTelephone().trim().length()>6){
                         String sPhone = "";
                         String sAnswer = "";
                         sPhone = oDocumentAccess.getTelephone();
+                        log.info("[bSentDocumentAccessOTP]sPhone="+sPhone);
+                        
                         //Generate random 4xDigits answercode
                         sAnswer = generateAnswer();
+                        log.info("[bSentDocumentAccessOTP]sAnswer="+sAnswer);
+                         
                         //o.setDateAnswerExpire(null);
                         //SEND SMS with this code
+                        String sReturn;
+                        if(generalConfig.bTest()){
+                            sAnswer="4444";
+                        }
                         oDocumentAccess.setAnswer(sAnswer);
                         writeRow(oDocumentAccess);
-                        sendPasswordOTP(sPhone, sAnswer);
+                        
+                        if(generalConfig.bTest()){
+                            sReturn = "test";
+                        }else{
+                            sReturn = sendPasswordOTP(sPhone, sAnswer);
+                        }
+                        
+
+                        
+                        log.info("[bSentDocumentAccessOTP]sReturn="+sReturn);
+                        
                         bSent=true;
                     }else{
                         //TODO loging warn
@@ -270,7 +292,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		DocumentAccess docAcc = null;
 		try{
                     //TODO убедиться что все проверяется по этим WHERE
-                    list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
+                   /* list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
                     if(list == null || list.isEmpty()){
                         throw new Exception("Access not accepted!");
                     }         
@@ -282,7 +304,19 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                         		break;
                         	}
                         }
-                   }
+                   }*/
+			docAcc = (DocumentAccess) getSession()
+					.createCriteria(DocumentAccess.class)
+					.add(Restrictions.eq("nID", nID_Access))
+					.add(Restrictions.eq("sSecret", sSecret))
+					.add(Restrictions.eq("sAnswer", sAnswer))
+					.uniqueResult();
+			if(docAcc == null){
+				 throw new Exception("Access not accepted!");
+			} else {
+				oSession.saveOrUpdate(docAcc);
+			}
+			
 		} catch(Exception e){
 			throw e;
 		} finally{
@@ -290,7 +324,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 				oSession.close();
 			}
 		}
-		return "/";
+		return docAcc.toString();
 	}
         
 	//public String setDocumentAccess(Integer nID_Access, String sSecret, String sAnswer) throws Exception;

@@ -255,11 +255,10 @@
     
     <!-- ####################################################################################################### -->
     
-    <changeSet id="issue-547" author="brunneng">
-        <modifyDataType tableName="SubjectMessage" columnName="sDate" newDataType="datetime with time zone"/>
-        <modifyDataType tableName="Document" columnName="sDate_Upload" newDataType="datetime with time zone"/>
-        <modifyDataType tableName="DocumentAccess" columnName="sDateCreate" newDataType="datetime with time zone"/>
-        <modifyDataType tableName="DocumentAccess" columnName="sDateAnswerExpire" newDataType="datetime with time zone"/>
+    <changeSet id="issues/553" author="bw">
+        <dropNotNullConstraint tableName="DocumentAccess" columnName="sTarget" columnDataType="varchar(250)"/>
+        <dropNotNullConstraint tableName="DocumentAccess" columnName="sTelephone" columnDataType="varchar(50)"/>
+        <dropNotNullConstraint tableName="DocumentAccess" columnName="sMail" columnDataType="varchar(200)"/>
     </changeSet>
     
     

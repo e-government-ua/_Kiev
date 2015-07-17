@@ -9,7 +9,8 @@ angular.module('documents').controller('DocumentsContentController', function($s
 
   $scope.shareTab = false;
   $scope.documents = documents;
-  $scope.sTelephone = '+380';
+  //$scope.sTelephone = '+380';
+  $scope.sTelephone = '';
   $scope.nDaysOptions = [{day: 1, title: '1 день'}, {day: 7, title: '1 тиждень'}, {day: 365, title: '1 рік'}];
   $scope.nDays = $scope.nDaysOptions[1];
   $scope.getDocumentLink = ServiceService.getDocumentLink;
@@ -20,18 +21,28 @@ angular.module('documents').controller('DocumentsContentController', function($s
 
   $scope.shareLink = function(document, sFIO, sTelephone, sMail, nDays) {
     ServiceService.shareLink($state.nID_Subject, document.nID, sFIO,
-      getTelephone(sTelephone), sMail, getDaysInMilliseconds(nDays))
+      getTelephone(sTelephone), getMail(sMail), getDaysInMilliseconds(nDays))
       .then(showConfirmationModal);
   };
 
   function getTelephone (sTelephone) {
-    //if (sTelephone == '+380' || sTelephone == '') {
-    if (sTelephone == '+380' || sTelephone == null) {
-        sTelephone = '';
-      //return ' ';
+    //<b ng-show="isPhoneFormVisible == 'true'"> (через SMS-пароль)</b>
+    if($('[name=content]:checked').val()!="true"){
+        sTelephone = ''
+    }
+    if (sTelephone == '+380' || sTelephone == null || sTelephone == '') {
+        sTelephone = ' ';
     }
     return sTelephone;
   }
+
+  function getMail (sMail) {
+    if (sMail == null || sMail == '') {
+        sMail = ' ';
+    }
+    return sMail;
+  }
+
 
   function getDaysInMilliseconds (nDays) {
     if (isNaN(nDays.day * 86400000)) {

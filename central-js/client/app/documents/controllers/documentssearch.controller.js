@@ -19,12 +19,12 @@ angular.module('documents').controller('DocumentsSearchController',
                 $scope.documents = {};
                 $scope.messages = {};
                 if (data.hasOwnProperty('message')) {
-                    if (data.message == 'Document Access wrong password') {
+                    if (data.message.indexOf('Document Access password') > -1) {
                         if ($scope.smsPass) {
                             $scope.messages = ['Неправильний код'];
                         }
                         $scope.showSmsPass = true;
-                    } else if (data.message == 'Document Access not found') {
+                    } else if (data.message.indexOf('Document Access not found') > -1) {
                         $scope.messages = ['Документи не знайдені'];
                     } else {
                         $scope.messages = [data.message];
