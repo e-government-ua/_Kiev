@@ -23,6 +23,7 @@
           <activiti:value id="emailOnly" name="В електронному вігляді на e-mail"></activiti:value>
           <activiti:value id="both" name="Паперова копія і електронна копія на e-mail"></activiti:value>
         </activiti:formProperty>
+                <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
