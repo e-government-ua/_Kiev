@@ -125,12 +125,19 @@
                                 <div class="row">
                                   <div class="form-group">
                                     <label for="valid-days">Введіть термін дії доступу: <em>*</em></label>
-                                    <select class="form-control"
-                                            required
+                                    
+                                    <!--select class="form-control"
                                             ng-model="nDaysOptions"
                                             ng-options="item.day as item.title for item in nDaysOptions"
                                             id="valid-days">
+                                    </select-->
+
+                                    <select class="form-control"
+                                            ng-model="nDays"
+                                            id="valid-days">
+                                        <option ng-repeat="item in nDaysOptions" value="{{item.day}}" ng-selected="item.day == 1">{{item.title}}</option>
                                     </select>
+                                    
                                   </div>
                                 </div>
                                 <div class="row">
