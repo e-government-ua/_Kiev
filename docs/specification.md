@@ -20,6 +20,7 @@
 <a href="#18_workWithFlowSlot">18. Работа со слотами потока</a><br/>
 <a href="#19">19. Работа с джоинами суьтектами (отделениями/филиалами)</a><br/>
 <a href="#20">20. Получение кнопки для оплаты через Liqpay</a><br/>
+<a href="#21">21. Работа со странами </a><br/>
 ### iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -540,7 +541,8 @@ https://test.igov.org.ua/wf-central/service/services/setDocument?sID_Subject_Upl
 ----------------------------------------------------------------------------------------------------------------------------
 **HTTP Metod: GET**
 
-**HTTP Context: http://server:port/wf-central/service/services/getDocumentTypes** - получение списка типов документов
+**HTTP Context: http://server:port/wf-central/service/services/getDocumentTypes**
+ - получение списка всех "нескрытых" типов документов, т.е. у которых поле bHidden=false
 
 Пример:
 https://test.igov.org.ua/wf-central/service/services/getDocumentTypes
@@ -548,9 +550,9 @@ https://test.igov.org.ua/wf-central/service/services/getDocumentTypes
 **Response**
 ```json
 [
-	{"nID":0,"sName":"Другое"},
-	{"nID":1,"sName":"Справка"},
-	{"nID":2,"sName":"Паспорт"}
+	{"nID":0,"sName":"Другое", "bHidden":false},
+	{"nID":1,"sName":"Справка", "bHidden":false},
+	{"nID":2,"sName":"Паспорт", "bHidden":false}
 ]
 ```
 
@@ -560,9 +562,9 @@ https://test.igov.org.ua/wf-central/service/services/getDocumentTypes
 **HTTP Context: http://server:port/wf-central/service/services/setDocumentType** - добавить/изменить запись типа документа
 параметры:
 
- *nID -- ид записи
-
- *sName -- название записи
+ * nID -- ид записи (число)
+ * sName -- название записи (строка)
+ * bHidden -- скрывать/не скрывать (при отдаче списка всех записей, булевское, по умолчанию = false)
 
  Если запись с ид=nID не будет найдена, то создастся новая запись (с автогенерируемым nID), иначе -- обновится текущая.
  
@@ -571,12 +573,12 @@ https://test.igov.org.ua/wf-central/service/services/getDocumentTypes
 создать новый тип:
 https://test.igov.org.ua/wf-central/service/services/setDocumentType?nID=100&sName=test
 
-ответ: ```{"nID":20314,"sName":"test"}```
+ответ: ```{"nID":20314,"sName":"test", , "bHidden":false}```
 
 изменить (взять ид из предыдущего ответа):
 https://test.igov.org.ua/wf-central/service/services/setDocumentType?nID=20314&sName=test2
 
-ответ: ```{"nID":20314,"sName":"test2"}```
+ответ: ```{"nID":20314,"sName":"test2", "bHidden":false}```
 
 --------------------------------------------------------------------------------------------------------------------------
 **HTTP Metod: GET**
@@ -1785,10 +1787,10 @@ https://test.igov.org.ua/wf-central/service/services/removeSubjectOrganJoins?nID
 
 <a name="20">
 #### 20. Получение кнопки для оплаты через LiqPay
-<br>
+<br><a href="#0_contents">↑Up</a>
 **Method: GET**
 
-HTTP Context: https://server:port/wf-central/service/services/getPayButtonHTML_LiqPay
+**HTTP Context: https://server:port/wf-central/service/services/getPayButtonHTML_LiqPay**
 
 Параметры:
 * sID_Merchant - ид меранта
@@ -1804,3 +1806,73 @@ HTTP Context: https://server:port/wf-central/service/services/getPayButtonHTML_L
 
 Пример:
 https://test.igov.org.ua/wf-central/service/services/getPayButtonHTML_LiqPay?sID_Merchant=i10172968078&sSum=55,00&oID_Currency=UAH&oLanguage=RUSSIAN&sDescription=test&sID_Order=12345&sURL_CallbackStatusNew=&sURL_CallbackPaySuccess=&nID_Subject=1&bTest=true
+
+<a name="21">
+####21. Работа со странами
+</a><a href="#0_contents">↑Up</a>
+
+----------------------
+
+**HTTP Context: https://server:port/wf-central/service/services/setCountry**
+
+**Method: GET**
+
+ апдейтит элемент (если задан один из уникальных ключей) или вставляет (если не задан nID), и отдает экземпляр нового объекта.
+ 
+Параметры:
+ * nID - ИД-номер, идентификатор записи
+ * nID_UA - ИД-номер Код, в Украинском классификаторе (уникальное)
+ * sID_Two - ИД-строка Код-двухсимвольный, международный (уникальное, строка 2 символа)
+ * sID_Three - ИД-строка Код-трехсимвольный, международный (уникальное, строка 3 символа)
+ * sNameShort_UA - Назва країни, коротка, Украинская (уникальное, строка до 100 символов)
+ * sNameShort_EN - Назва країни, коротка, англійською мовою (уникальное, строка до 100 символов)
+ * sReference_LocalISO - Ссылка на локальный ISO-стандарт, с названием (a-teg с href) (строка до 100 символов)
+ 
+Если нет ни одного параметра  возвращает ошибку ```403. All args are null!```
+Если есть один из уникальных ключей, но запись не найдена -- ошибка ```403. Record not found!```
+Если кидать "новую" запись с одним из уже существующих ключем nID_UA -- то обновится существующая запись по ключу nID_UA, если будет дублироваться другой ключ -- ошибка ```403. Could not execute statement``` (из-за уникальных констрейнтов)
+
+----------------------
+
+**HTTP Context: https://server:port/wf-central/service/services/getCountries**
+
+**Method: GET**
+
+ возвращает весь список стран (залит справочник согласно <a href="https://uk.wikipedia.org/wiki/ISO_3166-1">Википеции</a> и <a href="http://www.profiwins.com.ua/uk/letters-and-orders/gks/4405-426.html">Класифікації країн світу</a>) 
+
+пример: https://test.igov.org.ua/wf-central/service/services/getCountries
+
+----------------------
+
+**HTTP Context: https://server:port/wf-central/service/services/getCountry**
+
+**Method: GET**
+
+ возвращает объект Страны по первому из 4х ключей (nID, nID_UA, sID_Two, sID_Three). 
+
+Если нет ни одного параметра  возвращает ошибку ```403. required at least one of parameters (nID, nID_UA, sID_Two, sID_Three)!```
+
+Eсли задано два ключа от разных записей -- вернется та, ключ который "первее" в таком порядке: nID, nID_UA, sID_Two, sID_Three.
+
+пример: https://test.igov.org.ua/wf-central/service/services/getCountry?nID_UA=123
+
+ответ:
+```json
+{
+"nID_UA":123,
+"sID_Two":"AU",
+"sID_Three":"AUS",
+"sNameShort_UA":"Австралія",
+"sNameShort_EN":"Australy",
+"sReference_LocalISO":"ISO_3166-2:AU",
+"nID":20340
+}
+```
+
+----------------------
+
+**HTTP Context: https://server:port/wf-central/service/services/removeCountry**
+
+**Method: GET**
+ 
+ удаляет обьект по одному из четырех ключей (nID, nID_UA, sID_Two, sID_Three) или кидает ошибку ```403. Record not found!```.

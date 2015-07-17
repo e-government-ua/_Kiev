@@ -458,11 +458,12 @@ public class ActivitiRestDocumentController {
     public  @ResponseBody
     ResponseEntity<DocumentType> setDocumentType (
             @RequestParam(value = "nID")   Long     nID,
-            @RequestParam(value = "sName") String sName
+            @RequestParam(value = "sName") String sName,
+            @RequestParam(value = "bHidden", required = false) Boolean bHidden
     ) {
         ResponseEntity<DocumentType> result;
         try {
-            DocumentType documentType = documentTypeDao.setDocumentType(nID, sName);
+            DocumentType documentType = documentTypeDao.setDocumentType(nID, sName, bHidden);
             result = JsonRestUtils.toJsonResponse(documentType);
         } catch (RuntimeException e) {
             result = toJsonErrorResponse(403, e.getMessage());
@@ -475,7 +476,7 @@ public class ActivitiRestDocumentController {
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         headers.setContentType(mediaType);
         headers.set("Reason", eMessage);
-        return new ResponseEntity<>(headers, HttpStatus.valueOf(403));
+        return new ResponseEntity<>(headers, HttpStatus.valueOf(httpCode));
     }
 
     @RequestMapping(value   = "/removeDocumentType", method  = RequestMethod.GET)

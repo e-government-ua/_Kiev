@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="ternopol_2_long" name="Тернопіль ОДА - Надання соціальної матеріальної допомоги у разі тяжкого матеріального стану" isExecutable="true">
+  <process id="ternopol_2_long2" name="(Тестова) Тернопіль ОДА - Надання соціальної матеріальної допомоги у разі тяжкого матеріального стану" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="organID" name="До якого Державного Органа Ви звертаєтесь" type="enum" required="true">
@@ -482,8 +482,8 @@
     <sequenceFlow id="flow7" sourceRef="mailtask3" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_ternopol_2_long">
-    <bpmndi:BPMNPlane bpmnElement="ternopol_2_long" id="BPMNPlane_ternopol_2_long">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_ternopol_2_long2">
+    <bpmndi:BPMNPlane bpmnElement="ternopol_2_long2" id="BPMNPlane_ternopol_2_long2">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="40.0" y="115.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
