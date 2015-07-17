@@ -2,7 +2,6 @@ angular.module('documents').controller('DocumentsSearchController',
     function($scope, $state, types, operators, FileFactory, ServiceService, $modal) {
 
     $scope.typeId = 0;
-    $scope.nDays = 1;
     $scope.code = '';
     $scope.operatorId = 0;
     $scope.smsPass = '';
