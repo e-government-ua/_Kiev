@@ -47,27 +47,38 @@ public class ActivitiPaymentRestController {
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
 			@RequestParam String sID_Order,
 			@RequestParam String sID_PaymentSystem,
+			@RequestParam String sData,
 			@RequestParam byte[] data,
 			@RequestParam byte[] signature
 			){
 
-    	String sData = new String(BASE64DecoderStream.decode(data));
-        setPaymentStatus(sID_Order, sData, sID_PaymentSystem);
-
-		return sData;
+            log.info("sID_Order="+sID_Order);
+            log.info("sID_PaymentSystem="+sID_PaymentSystem);
+            log.info("sData="+sData);
+            log.info("data="+data);
+            log.info("signature="+signature);
+            String sDataDecoded = new String(BASE64DecoderStream.decode(data));
+            log.info("sDataDecoded="+sDataDecoded);
+            setPaymentStatus(sID_Order, sDataDecoded, sID_PaymentSystem);
+            return sData;
 	}
     @RequestMapping(value = "/setPaymentStatus_TaskActiviti2/", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatusNew_TaskActiviti(
 			@RequestParam byte[] data,
 			@RequestParam byte[] signature
 			){
-    	
-    	String sFullData = new String(BASE64DecoderStream.decode(data));
-    	Gson gson = new Gson();
-    	LiqpayCallbackModel liqpayCallback = gson.fromJson(sFullData, LiqpayCallbackModel.class);
-        setPaymentStatus(liqpayCallback.getOrder_id(), sFullData, sID_PaymentSystem);
 
-		return sFullData;
+            log.info("data="+data);
+            log.info("signature="+signature);
+
+            String sFullData = new String(BASE64DecoderStream.decode(data));
+            log.info("sFullData="+sFullData);
+            Gson gson = new Gson();
+            LiqpayCallbackModel liqpayCallback = gson.fromJson(sFullData, LiqpayCallbackModel.class);
+            //log.info("sID_PaymentSystem="+sID_PaymentSystem);
+            log.info("liqpayCallback.getOrder_id()="+liqpayCallback.getOrder_id());
+            setPaymentStatus(liqpayCallback.getOrder_id(), sFullData, sID_PaymentSystem);
+            return sFullData;
 	}
 
     private void setPaymentStatus(String sID_Order, String sData, String sID_PaymentSystem) {
