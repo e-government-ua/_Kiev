@@ -2,12 +2,9 @@ package org.activiti.rest.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +17,7 @@ import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Attachment;
+import org.activiti.engine.task.DelegationState;
 import org.activiti.engine.task.Task;
 import org.activiti.redis.exception.RedisException;
 import org.activiti.redis.service.RedisService;
@@ -29,6 +27,8 @@ import org.activiti.rest.controller.adapter.TaskAssigneeAdapter;
 import org.activiti.rest.controller.entity.*;
 import org.activiti.rest.controller.entity.Process;
 import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -254,7 +254,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	
     	//получаем по задаче ид процесса
     	HistoricTaskInstance historicTaskInstanceQuery = historyService.createHistoricTaskInstanceQuery()
-        		.taskId(taskId).singleResult(); 
+        		.taskId(taskId).singleResult();
     	String processInstanceId = historicTaskInstanceQuery.getProcessInstanceId();
     	if (processInstanceId == null) {
             throw new ActivitiObjectNotFoundException(String.format(
@@ -289,8 +289,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         //Помещаем параметры контента в header 
         /*httpResponse.setHeader("Content-disposition", 
         		"attachment; filename=" + atachModel.getOriginalFilename() + "." + atachModel.getExp());*/
-        httpResponse.setHeader("Content-disposition", 
-        		"attachment; filename=" + atachModel.getOriginalFilename());
+        httpResponse.setHeader("Content-disposition",
+                "attachment; filename=" + atachModel.getOriginalFilename());
         httpResponse.setHeader("Content-Type", atachModel.getContentType() + ";charset=UTF-8");
         httpResponse.setContentLength(atachModel.getByteToStringContent().getBytes().length);
         
@@ -346,8 +346,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     /**
      * Получение статистики по бизнес процессу за указанные период
      * @param sID_BP_Name - ИД бизнес процесса
-     * @param sDateAt - дата начала периода выборки
-     * @param sDateTo - дата окончания периода выборки
+     * @param dateAt - дата начала периода выборки
+     * @param dateTo - дата окончания периода выборки
      * @param nRowStart - позиция начальной строки для возврата (0 по умолчанию)
      * @param nRowsMax - количество записей для возврата (1000 по умолчанию)
      * @param request
@@ -365,7 +365,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     		             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
 
     	if (sID_BP_Name == null || sID_BP_Name.isEmpty()) {
-    		log.error("ID of business process is null");
+    		log.error("ID of business process is {}", sID_BP_Name);
             throw new ActivitiObjectNotFoundException(
                     "Statistics for the business process '" + sID_BP_Name + "' not found.",
                     Process.class);
@@ -380,7 +380,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	SimpleDateFormat sdfFileName = new SimpleDateFormat("yyyy-MM-ddHH-mm-ss");
         String fileName = sID_BP_Name + "_" + sdfFileName.format(Calendar.getInstance().getTime()) + ".csv";
 
-        log.debug("File name to return statistics : " + fileName);
+        log.debug("File name to return statistics : {}", fileName);
         
 		httpResponse.setContentType("text/csv;charset=UTF-8");
         httpResponse.setHeader("Content-disposition", "attachment; filename=" + fileName);
@@ -407,11 +407,158 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 	            csvWriter.writeNext(line);
 	        }
     	} else {
-    		log.debug(String.format("No completed tasks found for business process {0} for date period {1} - {2}", sID_BP_Name, sdfDate.format(dateAt), 
-    				sdfDate.format(dateTo)));
+    		log.debug(String.format("No completed tasks found for business process {0} for date period {1} - {2}", sID_BP_Name, sdfDate.format(dateAt),
+                    sdfDate.format(dateTo)));
     	}
 
         csvWriter.close();
+    }
+
+    /**
+     * Download information about the tasks in csv format
+     *
+     * @param sID_BP business process name
+     * @param sID_State_BP task state id
+     * @param saFields field of the tasks to download. Separated by comma
+     * @param nASCI_Spliter splitter of the fields
+     * @param sID_Codepage encoding for the file
+     * @param dateAt start date for the filter
+     * @param dateTo end date for the filter
+     * @param nRowStart start row for paging
+     * @param nRowsMax maximal amount of row for paging
+     * @param httpRequest http request wrapper
+     * @param httpResponse http responce wrapper
+     * @throws IOException in case of connection aborted with client
+     */
+    @RequestMapping(value = "/file/downloadTasksData", method = RequestMethod.GET)
+    @Transactional
+    public void downloadTasksData(@RequestParam(value = "sID_BP") String sID_BP,
+            @RequestParam(value = "sID_State_BP") String sID_State_BP,
+            @RequestParam(value = "saFields") String saFields,
+            @RequestParam(value = "nASCI_Spliter") String nASCI_Spliter,
+            @RequestParam(value = "sID_Codepage") String sID_Codepage,
+            @RequestParam(value = "sDateAt") @DateTimeFormat(pattern="yyyy-MM-dd") Date dateAt,
+            @RequestParam(value = "sDateTo", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dateTo,
+            @RequestParam(value = "nRowStart", required = false, defaultValue = "0") Integer nRowStart,
+            @RequestParam(value = "nRowsMax", required = false, defaultValue = "1000") Integer nRowsMax,
+            HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws IOException {
+        //validation
+        if (StringUtils.isBlank(sID_BP)) {
+            log.error("Wrong ID of business task - {}", sID_BP);
+            throw new ActivitiObjectNotFoundException(
+                    "Statistics for the business task '" + sID_BP + "' not found.",
+                    Attachment.class);
+        }
+
+        if (StringUtils.isBlank(sID_State_BP)) {
+            log.error("Wrong STATE of business task - {}", sID_BP);
+            throw new ActivitiObjectNotFoundException(
+                    "Statistics for the business task '" + sID_BP + "' not found.",
+                    Task.class);
+        }
+
+        DelegationState delegationState = null;
+        try {
+            delegationState = DelegationState.valueOf(sID_State_BP.toUpperCase());
+        } catch (IllegalArgumentException e){
+            log.error("Do not support bussiness status - {}", delegationState, e);
+            throw new ActivitiObjectNotFoundException(
+                    "Statistics for the business task with state '" + sID_State_BP + "' not found.",
+                    Task.class, e);
+        }
+
+        if(!NumberUtils.isNumber(nASCI_Spliter)){
+            log.error("ASCI code is not a number {}", nASCI_Spliter);
+            throw new ActivitiObjectNotFoundException(
+                    "Statistics for the business task with state '" + sID_State_BP + "' not found.",
+                    Task.class);
+        }
+        Character separator = (char) NumberUtils.toInt(nASCI_Spliter);
+
+        Charset charset = null;
+        try {
+            if(sID_Codepage.replaceAll("-", "").equalsIgnoreCase("WIN1251") || sID_Codepage.replaceAll("-", "").equalsIgnoreCase("CL8MSWIN1251")){
+                sID_Codepage = "CP1251";    //hack for alias
+            }
+            charset = Charset.forName(sID_Codepage);
+        } catch (IllegalArgumentException e) {
+            log.error("Do not support charset - {}", sID_Codepage, e);
+            throw new ActivitiObjectNotFoundException(
+                    "Statistics for the business task for chatset '" + sID_Codepage + "' cannot be construct.",
+                    Task.class, e);
+        }
+
+        boolean allFileds = "*".equals(saFields.trim());
+        Set<String> fields = new HashSet<>(Arrays.asList(saFields.split(";")));
+
+        //query
+        List<Task> foundResults = taskService.createTaskQuery()
+                .processDefinitionKey(sID_BP)
+                .taskCreatedAfter(dateAt)
+                .taskCreatedBefore(dateTo)
+                .listPage(nRowStart, nRowsMax);
+
+        //response
+        SimpleDateFormat sdfFileName = new SimpleDateFormat("yyyy-MM-ddHH-mm-ss");
+        String fileName = sID_BP + "_" + sdfFileName.format(Calendar.getInstance().getTime()) + ".csv";
+
+        log.debug("File name to return statistics : {}", fileName);
+
+        httpResponse.setContentType("text/csv;charset=" + charset.name());
+        httpResponse.setHeader("Content-disposition", "attachment; filename=" + fileName);
+
+        CSVWriter csvWriter = new CSVWriter(httpResponse.getWriter(), separator);
+
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
+        if (foundResults != null && foundResults.size() > 0){
+            log.debug(String.format("Found %s tasks for business process %s for date period %s - %s",
+                    foundResults.size(),
+                    sID_BP,
+                    sdfDate.format(dateAt),
+                    sdfDate.format(dateTo)));
+
+            for (Task curTask : foundResults) {
+                List<String> row = new ArrayList<>();
+
+                log.trace("Process task - {}", curTask);
+                if(allFileds){
+                    for(Map.Entry<String, Object> curEntry : curTask.getProcessVariables().entrySet()){
+                        if (curEntry.getValue() instanceof Enum<?>) {
+                            row.add(parseEnumValue(((Enum<?>) curEntry.getValue()).name()));
+                        } else {
+                            row.add(Objects.toString(curEntry.getValue()));
+                        }
+                    }
+                } else {
+                    for (String curField : fields) {
+                        Object variable = curTask.getProcessVariables().get(curField);
+                        if (variable instanceof Enum<?>) {
+                            row.add(parseEnumValue(((Enum<?>) variable).name()));
+                        } else {
+                            row.add(Objects.toString(variable));
+                        }
+                    }
+                }
+                csvWriter.writeNext(row.toArray(new String[0]));
+            }
+        } else {
+            log.debug(String.format("No tasks found for business process %s for date period %s - %s",
+                    sID_BP,
+                    sdfDate.format(dateAt),
+                    sdfDate.format(dateTo)));
+        }
+
+        csvWriter.close();
+    }
+
+    public static String parseEnumValue(String enumName) {
+        enumName = StringUtils.defaultString(enumName);
+        if(enumName.contains(";")){
+            String[] names = enumName.split(";");
+            return names[names.length - 1];
+        } else {
+            return enumName;
+        }
     }
 
     private String getFileExtention(MultipartFile file) {
