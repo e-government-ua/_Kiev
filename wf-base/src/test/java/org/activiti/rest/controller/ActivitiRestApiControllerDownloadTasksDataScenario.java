@@ -1,9 +1,14 @@
 package org.activiti.rest.controller;
 
+import org.activiti.engine.FormService;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.TaskFormData;
+import org.activiti.engine.task.DelegationState;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -41,9 +47,9 @@ public class ActivitiRestApiControllerDownloadTasksDataScenario {
     private MockMvc mockMvc;
 
     @Autowired
-    private HistoryService historyService;
-    @Autowired
     private TaskService taskService;
+    @Autowired
+    private FormService formService;
 
     @Before
     public void setUp() {
@@ -53,19 +59,22 @@ public class ActivitiRestApiControllerDownloadTasksDataScenario {
     @Before
     public void initTaskServiceMock() {
         Task mockedTask = mock(Task.class);
-        //stub data
-
-    	List<Task> tasks = new ArrayList<>();
-    	
-    	tasks.add(mockedTask);
+        when(mockedTask.getId()).thenReturn("42");
+        when(mockedTask.getCreateTime()).thenReturn(DateTime.now().toDate());
 
         TaskQuery taskQuery = Mockito.mock(TaskQuery.class);
     	when(taskQuery.taskCreatedAfter((Date) Mockito.anyObject())).thenReturn(taskQuery);
     	when(taskQuery.taskCreatedBefore((Date) Mockito.anyObject())).thenReturn(taskQuery);
         when(taskQuery.processDefinitionKey(Mockito.anyString())).thenReturn(taskQuery);
-    	when(taskQuery.listPage(Mockito.anyInt(), Mockito.anyInt())).thenReturn(tasks);
+        when(taskQuery.taskDelegationState(DelegationState.PENDING)).thenReturn(taskQuery);
+    	when(taskQuery.listPage(Mockito.anyInt(), Mockito.anyInt())).thenReturn(Arrays.asList(mockedTask));
     	
     	when(taskService.createTaskQuery()).thenReturn(taskQuery);
+
+        TaskFormData data = mock(TaskFormData.class);
+        when(data.getFormProperties()).thenReturn(new ArrayList<FormProperty>());
+
+        when(formService.getTaskFormData("42")).thenReturn(data);
     }
 
     @Test
@@ -76,9 +85,7 @@ public class ActivitiRestApiControllerDownloadTasksDataScenario {
                 param("sID_State_BP", "PENDING").
                 param("saFields", "nID_Task;sDateCreate;1").
                 param("nASCI_Spliter", "18").
-                param("sID_Codepage", "win1251").
                 param("sDateAt", "2015-06-01").
-                param("sDateTo", "2015-06-30").
                 header("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=")).andReturn();
     	
     	assertEquals(200, result.getResponse().getStatus());
@@ -90,12 +97,9 @@ public class ActivitiRestApiControllerDownloadTasksDataScenario {
     	mockMvc.perform(get("/rest/file/downloadTasksData").
                 accept(MediaType.APPLICATION_JSON).
                 param("sID_BP", "").
-                param("sID_State_BP", "PENDING").
                 param("saFields", "nID_Task;sDateCreate;1").
                 param("nASCI_Spliter", "18").
                 param("sID_Codepage", "win1251").
-                param("sDateAt", "2015-06-01").
-                param("sDateTo", "2015-06-30").
                 header("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=")).
                 andExpect(status().isInternalServerError());
     	
