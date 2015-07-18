@@ -101,8 +101,8 @@ public class ActivitiRestApiControllerDownloadTasksDataScenario {
                 header("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=")).andReturn();
     	
     	assertEquals("expected no error", 200, result.getResponse().getStatus());
-    	assertEquals("unexpected encoding", "text/csv;charset=windows-1251", result.getResponse().getContentType());
-        assertEquals("unexpected content", "\"nID_Task\"\u0012\"sDateCreate\"\u0012\"nid_task\"\u0012\"bankidlastname\"\n" +
+    	assertEquals("expected cp1251 encoding", "text/csv;charset=windows-1251", result.getResponse().getContentType());
+        assertEquals("expected correct content", "\"nID_Task\"\u0012\"sDateCreate\"\u0012\"bankIdlastName\"\n" +
                 "\"42\"\u0012\"2015-01-21 09:45:33\"\u0012\"LastName\"\n", result.getResponse().getContentAsString());
     }
     

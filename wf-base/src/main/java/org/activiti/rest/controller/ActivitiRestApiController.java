@@ -529,11 +529,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         httpResponse.setHeader("Content-disposition", "attachment; filename=" + fileName);
 
         CSVWriter csvWriter = new CSVWriter(httpResponse.getWriter(), separator);
-        List<String> headers = new ArrayList<>(Arrays.asList("nID_Task", "sDateCreate"));
-        if(!allFileds) {
-            headers.addAll(fieldNames);
-            csvWriter.writeNext(headers.toArray(new String[0]));
-        }
 
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
         if (foundResults != null && foundResults.size() > 0){
@@ -544,18 +539,23 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     sdfDate.format(dateTo)));
 
             boolean firstStep = true;
+            List<String> headers = new ArrayList<>();
 
             for (Task curTask : foundResults) {
                 List<String> row = new ArrayList<>();
                 row.add(curTask.getId());
                 row.add(sDateCreateDF.format(curTask.getCreateTime()));
+                if(firstStep){
+                    headers.add("nID_Task");
+                    headers.add("sDateCreate");
+                }
 
                 log.trace("Process task - {}", curTask);
                 TaskFormData data = formService.getTaskFormData(curTask.getId());
                 for(FormProperty property : data.getFormProperties()){
                 	log.trace(String.format("Matching property %s:%s:%s with fieldNames", property.getId(), property.getName(), property.getType().getName()));
                     if(allFileds || fieldNames.contains(property.getId().toLowerCase())){
-                        if(allFileds && firstStep){ //build headers from properties if all fields are requested
+                        if(firstStep){ //build headers from properties if all fields are requested
                             headers.add(property.getId());
                         }
                         String column;
@@ -568,7 +568,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     }
                 }
 
-                if(firstStep && allFileds){
+                if(firstStep){
                     csvWriter.writeNext(headers.toArray(new String[0]));
                 }
                 csvWriter.writeNext(row.toArray(new String[0]));
