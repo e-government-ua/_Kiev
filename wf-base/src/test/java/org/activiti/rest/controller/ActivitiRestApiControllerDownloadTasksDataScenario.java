@@ -82,7 +82,7 @@ public class ActivitiRestApiControllerDownloadTasksDataScenario {
                 header("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=")).andReturn();
     	
     	assertEquals(200, result.getResponse().getStatus());
-    	assertEquals("text/csv;charset=UTF-8", result.getResponse().getContentType());
+    	assertEquals("text/csv;charset=windows-1251", result.getResponse().getContentType());
     }
     
     @Test
