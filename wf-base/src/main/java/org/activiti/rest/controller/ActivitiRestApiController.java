@@ -621,7 +621,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	
     	log.info(String.format("Selecting business processes for the user with login: %s", sLogin));
     	
-    	List<ProcessDefinition> processDefinitionsList = repositoryService.createProcessDefinitionQuery().active().list();
+    	List<ProcessDefinition> processDefinitionsList = repositoryService.createProcessDefinitionQuery().active().latestVersion().list();
     	if (!processDefinitionsList.isEmpty() && processDefinitionsList.size() > 0){
 			log.info(String.format("Found %d active process definitions",
 					processDefinitionsList.size()));
