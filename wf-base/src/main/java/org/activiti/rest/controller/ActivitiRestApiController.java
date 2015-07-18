@@ -447,7 +447,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             @RequestParam(value = "nASCI_Spliter") String nASCI_Spliter,
             @RequestParam(value = "sFileName", required = false) String fileName,
             @RequestParam(value = "sID_Codepage", required = false, defaultValue = "win1251") String sID_Codepage,
-            @RequestParam(value = "sDateCreateFormat", required = false, defaultValue = "yyyy-mm-dd HH:mm:ss") String sDateCreateFormat,
+            @RequestParam(value = "sDateCreateFormat", required = false, defaultValue = "yyyy-MM-dd HH:mm:ss") String sDateCreateFormat,
             @RequestParam(value = "sDateAt", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dateAt,
             @RequestParam(value = "sDateTo", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dateTo,
             @RequestParam(value = "nRowStart", required = false, defaultValue = "0") Integer nRowStart,
@@ -505,11 +505,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         }
 
         boolean allFileds = "*".equals(saFields.trim());
-        List<String> customHeaders = Arrays.asList(saFields.split(";"));
-        List<String> fieldNames = new ArrayList<>();
-        for(String curHeader : customHeaders){
-            fieldNames.add(curHeader);
-        }
+        List<String> fieldNames = Arrays.asList(saFields.toLowerCase().split(";"));
         log.info("List of fields to retrieve: " + fieldNames.toString());
         //2. query
         TaskQuery query = taskService.createTaskQuery()
@@ -534,10 +530,10 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         CSVWriter csvWriter = new CSVWriter(httpResponse.getWriter(), separator);
         List<String> headers = new ArrayList<>(Arrays.asList("nID_Task", "sDateCreate"));
-        if(!"*".equals(saFields)) {
-            headers.addAll(customHeaders);
+        if(!allFileds) {
+            headers.addAll(fieldNames);
+            csvWriter.writeNext(headers.toArray(new String[0]));
         }
-        csvWriter.writeNext(headers.toArray(new String[0]));
 
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
         if (foundResults != null && foundResults.size() > 0){
@@ -547,6 +543,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     sdfDate.format(dateAt),
                     sdfDate.format(dateTo)));
 
+            boolean firstStep = true;
+
             for (Task curTask : foundResults) {
                 List<String> row = new ArrayList<>();
                 row.add(curTask.getId());
@@ -555,19 +553,26 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 log.trace("Process task - {}", curTask);
                 TaskFormData data = formService.getTaskFormData(curTask.getId());
                 for(FormProperty property : data.getFormProperties()){
-                	log.info(String.format("Matching property %s:%s:%s with fieldNames", property.getId(), property.getName(), property.getType().getName()));
-                    if(allFileds || fieldNames.contains(property.getId().toUpperCase())){
-                        String column = allFileds? property.getId() + ": " : "";
+                	log.trace(String.format("Matching property %s:%s:%s with fieldNames", property.getId(), property.getName(), property.getType().getName()));
+                    if(allFileds || fieldNames.contains(property.getId().toLowerCase())){
+                        if(allFileds && firstStep){ //build headers from properties if all fields are requested
+                            headers.add(property.getId());
+                        }
+                        String column;
                         if("enum".equalsIgnoreCase(property.getType().getName())){
-                            column = column + parseEnumProperty(property);
+                            column = parseEnumProperty(property);
                         } else {
-                            column = column + property.getValue();
+                            column = property.getValue();
                         }
                         row.add(column);
                     }
                 }
 
+                if(firstStep && allFileds){
+                    csvWriter.writeNext(headers.toArray(new String[0]));
+                }
                 csvWriter.writeNext(row.toArray(new String[0]));
+                firstStep = false;
             }
         } else {
             log.debug(String.format("No tasks found for business process %s for date period %s - %s",
