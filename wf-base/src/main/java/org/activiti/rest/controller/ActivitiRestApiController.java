@@ -555,7 +555,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 log.trace("Process task - {}", curTask);
                 TaskFormData data = formService.getTaskFormData(curTask.getId());
                 for(FormProperty property : data.getFormProperties()){
-                	log.info(String.format("Matching property {0}:{1}:{2} with fieldNames", property.getId(), property.getName(), property.getType()));
+                	log.info(String.format("Matching property %s:%s:%s with fieldNames", property.getId(), property.getName(), property.getType().getName()));
                     if(allFileds || fieldNames.contains(property.getId().toUpperCase())){
                         String column = allFileds? property.getId() + ": " : "";
                         if("enum".equalsIgnoreCase(property.getType().getName())){
