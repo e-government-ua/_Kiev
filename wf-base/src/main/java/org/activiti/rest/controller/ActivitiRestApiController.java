@@ -505,7 +505,11 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         }
 
         boolean allFileds = "*".equals(saFields.trim());
-        List<String> fieldNames = Arrays.asList(saFields.toUpperCase().split(";"));
+        List<String> customHeaders = Arrays.asList(saFields.split(";"));
+        List<String> fieldNames = new ArrayList<>();
+        for(String curHeader : customHeaders){
+            fieldNames.add(curHeader);
+        }
 
         //2. query
         TaskQuery query = taskService.createTaskQuery()
@@ -530,7 +534,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         CSVWriter csvWriter = new CSVWriter(httpResponse.getWriter(), separator);
         List<String> headers = new ArrayList<>(Arrays.asList("nID_Task", "sDateCreate"));
-        headers.addAll(fieldNames);
+        if(!"*".equals(saFields)) {
+            headers.addAll(customHeaders);
+        }
         csvWriter.writeNext(headers.toArray(new String[0]));
 
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
@@ -549,8 +555,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 log.trace("Process task - {}", curTask);
                 TaskFormData data = formService.getTaskFormData(curTask.getId());
                 for(FormProperty property : data.getFormProperties()){
-                    if(allFileds || fieldNames.contains(property.getName().toUpperCase())){
-                        String column = allFileds? property.getName() + ": " : "";
+                    if(allFileds || fieldNames.contains(property.getId().toUpperCase())){
+                        String column = allFileds? property.getId() + ": " : "";
                         if("enum".equalsIgnoreCase(property.getType().getName())){
                             column = column + parseEnumProperty(property);
                         } else {
