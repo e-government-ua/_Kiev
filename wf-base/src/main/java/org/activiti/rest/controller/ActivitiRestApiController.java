@@ -4,18 +4,32 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import liquibase.util.csv.CSVWriter;
 
-import org.activiti.engine.*;
+import org.activiti.engine.ActivitiObjectNotFoundException;
+import org.activiti.engine.FormService;
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.identity.User;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Attachment;
@@ -27,12 +41,16 @@ import org.activiti.redis.service.RedisService;
 import org.activiti.rest.controller.adapter.AttachmentEntityAdapter;
 import org.activiti.rest.controller.adapter.ProcDefinitionAdapter;
 import org.activiti.rest.controller.adapter.TaskAssigneeAdapter;
-import org.activiti.rest.controller.entity.*;
+import org.activiti.rest.controller.entity.AttachmentEntityI;
+import org.activiti.rest.controller.entity.ProcDefinitionI;
 import org.activiti.rest.controller.entity.Process;
+import org.activiti.rest.controller.entity.ProcessI;
+import org.activiti.rest.controller.entity.TaskAssigneeI;
 import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.joda.time.DateTime;
+import org.json.simple.JSONValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -584,6 +602,58 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         csvWriter.close();
     }
 
+
+    /**
+     * Returns business processes which are belong to a specified user
+     * @param sLogin - login of user in user activity
+     */
+    @RequestMapping(value = "/getLoginBPs", method = RequestMethod.GET)
+    @Transactional
+    public String getBusinessProcessesForUser(@RequestParam(value = "sLogin") String sLogin) throws IOException {
+    	if (sLogin.isEmpty()) {
+    		log.error("Unable to found business processes for user with empty login");
+            throw new ActivitiObjectNotFoundException(
+            		"Unable to found business processes for user with empty login",
+                    ProcessDefinition.class);
+        }
+    	
+    	List<Map<String, String>> res = new LinkedList<Map<String,String>>();
+    	
+    	log.info(String.format("Selecting business processes for the user with login: %s", sLogin));
+    	
+    	List<ProcessDefinition> processDefinitionsList = repositoryService.createProcessDefinitionQuery().active().list();
+    	if (!processDefinitionsList.isEmpty() && processDefinitionsList.size() > 0){
+			log.info(String.format("Found %d active process definitions",
+					processDefinitionsList.size()));
+			for (ProcessDefinition processDef : processDefinitionsList) {
+
+				log.info(String
+						.format("Checking whether process %s can be started by user with logic %s",
+								processDef.getId(), sLogin));
+				User user = identityService.createUserQuery()
+						.potentialStarter(processDef.getId()).userId(sLogin)
+						.singleResult();
+
+				if (user != null) {
+					log.info(String.format("Added process %s to results",
+							processDef.getId()));
+					Map<String, String> map = new HashMap<String, String>();
+					map.put("sId", processDef.getKey());
+					map.put("sName", processDef.getName());
+					res.add(map);
+				}
+			}
+		} else {
+			log.info("Have not found ative process definitions.");
+		}
+    	
+    	String jsonRes = JSONValue.toJSONString(res);
+    	log.info("Result" + jsonRes);
+    	return jsonRes;
+    }
+
+
+    
     public static String parseEnumProperty(FormProperty property) {
         Object valuesObj = property.getType().getInformation("values");
         if(valuesObj instanceof Map) {
