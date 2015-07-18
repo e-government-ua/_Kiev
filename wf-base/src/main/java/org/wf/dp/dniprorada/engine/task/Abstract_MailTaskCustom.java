@@ -217,7 +217,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     
     
     //sFromMail="HelpDesk <helpdesk@privatbank.ua>"
-    private void sendMessageHTML(String sFromMail, String saToMail, String sHead, String sBody, String[] aPictureFilename) throws Exception {
+    /*private void sendMessageHTML(String sFromMail, String saToMail, String sHead, String sBody, String[] aPictureFilename) throws Exception {
     
         Date start = new Date();
         final ClassLoader oClassLoader = Thread.currentThread().getContextClassLoader();
@@ -249,7 +249,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             Thread.currentThread().setContextClassLoader(oClassLoader);
             LOG.info("sendMessage " + Long.toString(new Date().getTime() - start.getTime()));
         }
-    }    
+    }*/
     
     
 
