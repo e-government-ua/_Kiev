@@ -23,6 +23,7 @@ angular.module('dashboardJsApp').directive('printModal', ['$window', function ($
         popupWin.document.open();
         popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + printContents + '</html>');
         popupWin.document.close();
+        scope.hideModal();
       }
     },
     templateUrl: 'components/print/PrintModal.html',
