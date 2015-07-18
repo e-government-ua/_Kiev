@@ -42,6 +42,20 @@ public class ActivitiPaymentRestController {
     @Autowired
     private HistoryService historyService;
     private final String sID_PaymentSystem = "Liqpay";
+
+    @RequestMapping(value = "/setPaymentStatus_TaskActiviti0", method = RequestMethod.POST, headers = { "Accept=application/json" })
+	public @ResponseBody String setPaymentStatus_TaskActiviti(
+			@RequestParam String sID_Order,
+			@RequestParam String sID_PaymentSystem,
+			@RequestParam String sData
+			){
+
+            log.info("sID_Order="+sID_Order);
+            log.info("sID_PaymentSystem="+sID_PaymentSystem);
+            log.info("sData="+sData);
+            setPaymentStatus(sID_Order, null, sID_PaymentSystem);
+            return sData;
+	}
     
     @RequestMapping(value = "/setPaymentStatus_TaskActiviti", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
@@ -86,16 +100,7 @@ public class ActivitiPaymentRestController {
             log.info("not liqpay system");
             return;
         }
-        //parse sData
-        String transaction_id = null;
-        String sStatus_Payment = null;
-        try {
-            Map<String, Object> json = (Map<String, Object>) JSON.parse(sData);
-            transaction_id = (String) json.get(LIQPAY_FIELD_TRANSACTION_ID);
-            sStatus_Payment = (String) json.get(LIQPAY_FIELD_PAYMENT_STATUS);
-        } catch (Exception e) {
-            log.error("can't parse json! reason:" + e.getMessage());
-        }
+        
         Long nID_Task = null;
         try {
             if (sID_Order.contains(TASK_MARK)) {
@@ -104,31 +109,38 @@ public class ActivitiPaymentRestController {
         } catch (NumberFormatException e) {
             log.error("incorrect sID_Order! can't invoke task_id: " + sID_Order);
         }
+        
+        //parse sData
+        String sID_Transaction = "Pay_"+nID_Task;
+        String sStatus_Payment = null;
+        if(sData != null){
+            try {
+                Map<String, Object> json = (Map<String, Object>) JSON.parse(sData);
+                sID_Transaction = (String) json.get(LIQPAY_FIELD_TRANSACTION_ID);
+                sStatus_Payment = (String) json.get(LIQPAY_FIELD_PAYMENT_STATUS);
+            } catch (Exception e) {
+                log.error("can't parse json! reason:" + e.getMessage());
+            }
+        }
 
         //check variables
-        if (transaction_id == null || nID_Task == null
-                || !PAYMENT_SUCCESS.equals(sStatus_Payment)) {
-            log.warn("incorrect input data: " +
-                    "tr_id=" + transaction_id + ", task_id=" + nID_Task + ", pay_status=" + sStatus_Payment);
+        if (sData != null && (sID_Transaction == null || nID_Task == null || !PAYMENT_SUCCESS.equals(sStatus_Payment))) {
+            log.warn("incorrect input data: " + "tr_id=" + sID_Transaction + ", task_id=" + nID_Task + ", pay_status=" + sStatus_Payment);
             return;
         }
 
         //save info to process
         try {
             log.info("try to get task. task_id=" + nID_Task);
-            HistoricTaskInstance task = historyService.createHistoricTaskInstanceQuery()
-                    .taskId("" + nID_Task).singleResult();
-            log.info("try to set sID_Payment to processInstance of task, getProcessInstanceId="
-                    +  task.getProcessInstanceId());
-            runtimeService.setVariable(
-                    task.getProcessInstanceId(),
-                    "sID_Payment", transaction_id);
-            runtimeService.setVariable("" + nID_Task, "sID_Payment", transaction_id);
-            if (task.getProcessVariables().get("sID_Payment") == transaction_id) {
+            HistoricTaskInstance oTask = historyService.createHistoricTaskInstanceQuery().taskId("" + nID_Task).singleResult();
+            log.info("try to set sID_Payment to processInstance of task, getProcessInstanceId=" + oTask.getProcessInstanceId());
+            runtimeService.setVariable(oTask.getProcessInstanceId(), "sID_Payment", sID_Transaction);
+            runtimeService.setVariable("" + nID_Task, "sID_Payment", sID_Transaction);
+            if (oTask.getProcessVariables().get("sID_Payment") == sID_Transaction) {
                 log.info("success");
             }
         } catch (Exception e){
-            log.error("error during changing task " + nID_Task + ", field sID_Payment=" + transaction_id, e);
+            log.error("error during changing task " + nID_Task + ", field sID_Payment=" + sID_Transaction, e);
         }
 
 
