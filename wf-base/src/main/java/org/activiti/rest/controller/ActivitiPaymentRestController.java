@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import org.activiti.engine.TaskService;
+import org.activiti.engine.task.Task;
 
 @Controller
 public class ActivitiPaymentRestController {
@@ -37,6 +39,9 @@ public class ActivitiPaymentRestController {
 
 //    @Autowired
 //    TaskService taskService;
+    @Autowired
+    private TaskService taskService;
+    
     @Autowired
     private RuntimeService runtimeService;
     @Autowired
@@ -109,9 +114,10 @@ public class ActivitiPaymentRestController {
         } catch (NumberFormatException e) {
             log.error("incorrect sID_Order! can't invoke task_id: " + sID_Order);
         }
+        String snID_Task = ""+nID_Task;
         
         //parse sData
-        String sID_Transaction = "Pay_"+nID_Task;
+        String sID_Transaction = "Pay_"+snID_Task;
         String sStatus_Payment = null;
         if(sData != null){
             try {
@@ -131,16 +137,27 @@ public class ActivitiPaymentRestController {
 
         //save info to process
         try {
-            log.info("try to get task. task_id=" + nID_Task);
+            log.info("try to get task. snID_Task=" + snID_Task);
+            /*
             HistoricTaskInstance oTask = historyService.createHistoricTaskInstanceQuery().taskId("" + nID_Task).singleResult();
+            //HistoricTaskInstance oTask = runtimeService.createExecutionQuery(). createExecutionQuery().taskId("" + nID_Task).singleResult();
+            
             log.info("try to set sID_Payment to processInstance of task, getProcessInstanceId=" + oTask.getProcessInstanceId());
             runtimeService.setVariable(oTask.getProcessInstanceId(), "sID_Payment", sID_Transaction);
             runtimeService.setVariable("" + nID_Task, "sID_Payment", sID_Transaction);
             if (oTask.getProcessVariables().get("sID_Payment") == sID_Transaction) {
                 log.info("success");
-            }
+            }*/
+
+//=            Task oTask = taskService.createTaskQuery().taskId(""+nID_Task).singleResult();
+//=            String snID_Process = oTask.getProcessInstanceId();
+            
+//TODO разобраться почему приходит ИД процесса а не таски
+            String snID_Process = snID_Task;
+            log.info("try to set sID_Payment to processInstance of task, snID_Process=" + snID_Process);
+            runtimeService.setVariable(snID_Process, "sID_Payment", sID_Transaction);
         } catch (Exception e){
-            log.error("error during changing task " + nID_Task + ", field sID_Payment=" + sID_Transaction, e);
+            log.error("error during changing: nID_Task=" + nID_Task + ", sID_Transaction=" + sID_Transaction, e);
         }
 
 
