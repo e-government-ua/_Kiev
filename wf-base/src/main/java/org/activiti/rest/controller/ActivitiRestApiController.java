@@ -436,6 +436,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
      * @param httpRequest http request wrapper
      * @param httpResponse http responce wrapper
      * @throws IOException in case of connection aborted with client
+     *
+     * example: https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?sID_BP=kiev_mreo_1&sDateAt=2015-06-28&sDateTo=2015-08-01&nASCI_Spliter=59&sID_Codepage=UTF8&saFields=nID_Task;bankIdPassport;bankIdlastName;bankIdfirstName;bankIdmiddleName;1;sDateCreate
      */
     @RequestMapping(value = "/file/downloadTasksData", method = RequestMethod.GET)
     @Transactional
@@ -473,9 +475,11 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         if(dateAt == null){
             dateAt = DateTime.now().minusDays(1).toDate();
+            log.debug("No dateAt was set, use - {}", dateAt);
         }
         if(dateTo == null){
             dateTo = DateTime.now().toDate();
+            log.debug("No dateTo was set, use - {}", dateTo);
         }
 
         if(!NumberUtils.isNumber(nASCI_Spliter)){
@@ -492,6 +496,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 sID_Codepage = "CP1251";    //hack for alias
             }
             charset = Charset.forName(sID_Codepage);
+            log.debug("use charset - {}", charset);
         } catch (IllegalArgumentException e) {
             log.error("Do not support charset - {}", sID_Codepage, e);
             throw new ActivitiObjectNotFoundException(
@@ -500,7 +505,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         }
 
         boolean allFileds = "*".equals(saFields.trim());
-        Set<String> fieldNames = new HashSet<>(Arrays.asList(saFields.split(";")));
+        List<String> fieldNames = Arrays.asList(saFields.toUpperCase().split(";"));
 
         //2. query
         TaskQuery query = taskService.createTaskQuery()
@@ -530,7 +535,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
         if (foundResults != null && foundResults.size() > 0){
-            log.debug(String.format("Found %s tasks for business process %s for date period %s - %s",
+            log.info(String.format("Found %s tasks for business process %s for date period %s - %s",
                     foundResults.size(),
                     sID_BP,
                     sdfDate.format(dateAt),
@@ -544,11 +549,14 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 log.trace("Process task - {}", curTask);
                 TaskFormData data = formService.getTaskFormData(curTask.getId());
                 for(FormProperty property : data.getFormProperties()){
-                    if(allFileds || fieldNames.contains(property.getName())){
+                    if(allFileds || fieldNames.contains(property.getName().toUpperCase())){
+                        String column = allFileds? property.getName() + ": " : "";
                         if("enum".equalsIgnoreCase(property.getType().getName())){
-                            row.add(parseEnumProperty(property));
+                            column = column + parseEnumProperty(property);
+                        } else {
+                            column = column + property.getValue();
                         }
-                        row.add(property.getValue());
+                        row.add(column);
                     }
                 }
 
