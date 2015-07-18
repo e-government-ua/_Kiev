@@ -52,13 +52,26 @@ public class ActivitiPaymentRestController {
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
 			@RequestParam String sID_Order,
 			@RequestParam String sID_PaymentSystem,
-			@RequestParam String sData
+			@RequestParam String sData,
+			@RequestParam(value = "data", required = false) String data,
+			@RequestParam(value = "signature", required = false) String signature
+			//@RequestParam byte[] data,
+			//@RequestParam byte[] signature
 			){
 
             log.info("sID_Order="+sID_Order);
             log.info("sID_PaymentSystem="+sID_PaymentSystem);
             log.info("sData="+sData);
-            setPaymentStatus(sID_Order, null, sID_PaymentSystem);
+            
+            log.info("data="+data);
+            log.info("signature="+signature);
+            String sDataDecoded = null;
+            if(data != null){
+                sDataDecoded = new String(BASE64DecoderStream.decode(data.getBytes()));
+                log.info("sDataDecoded="+sDataDecoded);
+            }
+            setPaymentStatus(sID_Order, sDataDecoded, sID_PaymentSystem);
+            //setPaymentStatus(sID_Order, null, sID_PaymentSystem);
             return sData;
 	}
     
