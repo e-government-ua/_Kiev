@@ -510,7 +510,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         for(String curHeader : customHeaders){
             fieldNames.add(curHeader);
         }
-
+        log.info("List of fields to retrieve: " + fieldNames.toString());
         //2. query
         TaskQuery query = taskService.createTaskQuery()
                 .processDefinitionKey(sID_BP)
@@ -555,6 +555,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 log.trace("Process task - {}", curTask);
                 TaskFormData data = formService.getTaskFormData(curTask.getId());
                 for(FormProperty property : data.getFormProperties()){
+                	log.info(String.format("Matching property {0}:{1}:{2} with fieldNames", property.getId(), property.getName(), property.getType()));
                     if(allFileds || fieldNames.contains(property.getId().toUpperCase())){
                         String column = allFileds? property.getId() + ": " : "";
                         if("enum".equalsIgnoreCase(property.getType().getName())){
