@@ -32,12 +32,12 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
     private Expression saAttachmentsForSend;
 
     @Override
-    public void execute(DelegateExecution execution) throws Exception {
+    public void execute(DelegateExecution oExecution) throws Exception {
         System.setProperty("mail.mime.address.strict", "false");
 
         MultiPartEmail oMultiPartEmail = MultiPartEmail_BaseFromTask(oExecution);
         
-        String sAttachmentsForSend = getStringFromFieldExpression(this.saAttachmentsForSend, execution);
+        String sAttachmentsForSend = getStringFromFieldExpression(this.saAttachmentsForSend, oExecution);
         
         log.info("sAttachmentsForSend=" + sAttachmentsForSend);
         List<Attachment> aAttachment = new ArrayList<>();
@@ -62,7 +62,7 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
                 sFileExt = oAttachment.getType().split(";")[0];
                 log.info("sFileExt=" + sFileExt);
                 sDescription = oAttachment.getDescription();
-                oInputStream_Attachment = execution.getEngineServices().getTaskService().getAttachmentContent(oAttachment.getId());
+                oInputStream_Attachment = oExecution.getEngineServices().getTaskService().getAttachmentContent(oAttachment.getId());
                 if (oInputStream_Attachment == null) {
                     throw new ActivitiObjectNotFoundException(
                             "Attachment with id '" + oAttachment.getId() + "' doesn't have content associated with it.",
