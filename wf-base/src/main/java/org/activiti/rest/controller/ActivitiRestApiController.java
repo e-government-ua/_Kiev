@@ -392,7 +392,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     
     /**
      * Получение статистики по бизнес процессу за указанные период
-     * @param sID_BP_Name - �?Д бизнес процесса
+     * @param sID_BP_Name - �?Д бизнес процесса
      * @param dateAt - дата начала периода выборки
      * @param dateTo - дата окончания периода выборки
      * @param nRowStart - позиция начальной строки для возврата (0 по умолчанию)
@@ -569,7 +569,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 					log.info(String.format(
 							"Matching property %s:%s:%s with fieldNames", property.getId(), property.getName(), property.getType().getName()));
 					if (currentRow.contains("${" + property.getId() + "}")) {
-						log.info("Found field with id %s in the pattern. Adding value to the result", "${" + property.getId() + "}");
+						log.info(String.format("Found field with id %s in the pattern. Adding value to the result", "${" + property.getId() + "}"));
 						if (firstStep) { 
 							headers.add(property.getId());
 						}
@@ -579,7 +579,14 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 						} else {
 							value = property.getValue();
 						}
-						currentRow.replace("${" + property.getId() + "}", value);
+						log.info(String.format("Replacing field with the value %s", value));
+						currentRow = currentRow.replace("${" + property.getId() + "}", value);
+					}
+				}
+				
+				for (ReportField field : ReportField.values()) {
+					if (currentRow.contains(field.getPattern())){
+						currentRow = field.replaceValue(currentRow, curTask, sDateCreateDF, data.getFormProperties());
 					}
 				}
 				
