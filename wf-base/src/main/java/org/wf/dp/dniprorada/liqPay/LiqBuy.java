@@ -28,19 +28,20 @@ public class LiqBuy {
     
     
     private static final Logger log = LoggerFactory.getLogger(LiqBuy.class);
-    private static final String URL = "https://www.liqpay.com/api/checkout";
+    private static final String sURL_Liqpay = "https://www.liqpay.com/api/checkout";
     private static final String version = "3";
     public static final Language DEFAULT_LANG = Language.RUSSIAN;
     private static final String sandbox = "1";
     private static final String payButtonHTML = new StringBuilder()
             .append("<form method=\"POST\" action=\"")
-            .append(URL)
+            .append(sURL_Liqpay)
             .append("\" ")
             .append("accept-charset=\"utf-8\">")
             .append("<input type=\"hidden\" name=\"data\" value=\"%s\"/>")
             .append("<input type=\"hidden\" name=\"signature\" value=\"%s\"/>")
-            .append("<input type=\"image\" src=\"//static.liqpay.com/buttons/p1%s.radius.png\"/>")
+            .append("<input type=\"image\" src=\"https://static.liqpay.com/buttons/p1%s.radius.png\"/>")
             .append("</form>").toString();
+    //result = result.replaceAll("\\Q//static.liqpay.com\\E", "https://static.liqpay.com");
 
     public String getPayButtonHTML_LiqPay(String sID_Merchant, String sSum,
             Currency oID_Currency, Language oLanguage, String sDescription,
@@ -127,8 +128,8 @@ public class LiqBuy {
         log.info("getPayButtonHTML_LiqPay params: " + params + " privateKey: " + privateKey);
         String result = getForm(params, privateKey, oLanguage);
         log.info("getPayButtonHTML_LiqPay ok!: " + result);
-        result = result.replaceAll("\\Q//static.liqpay.com\\E", "static.liqpay.com");
-        log.info("getPayButtonHTML_LiqPay ok-replaced!: " + result);
+        //result = result.replaceAll("\\Q//static.liqpay.com\\E", "https://static.liqpay.com");
+        //log.info("getPayButtonHTML_LiqPay ok-replaced!: " + result);
         //static.liqpay.com/buttons/p1ru.radius.png
         
         // LiqPay liqpay = new LiqPay(publicKey, privateKey);
