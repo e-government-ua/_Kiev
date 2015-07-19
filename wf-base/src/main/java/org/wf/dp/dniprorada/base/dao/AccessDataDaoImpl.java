@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 public class AccessDataDaoImpl implements AccessDataDao {
 
     private static final String contentMock = "No content!!!";
-    private final Logger log = LoggerFactory.getLogger(AccessKeyAuthProvider.class);
+    private final Logger log = LoggerFactory.getLogger(AccessDataDaoImpl.class);
 
     @Autowired
     private GridFSBytesDataStorage durableBytesDataStorage;
