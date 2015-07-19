@@ -659,7 +659,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
      */
     @RequestMapping(value = "/getLoginBPs", method = RequestMethod.GET)
     @Transactional
-    public String getBusinessProcessesForUser(@RequestParam(value = "sLogin") String sLogin) throws IOException {
+    public @ResponseBody String getBusinessProcessesForUser(@RequestParam(value = "sLogin") String sLogin) throws IOException {
     	if (sLogin.isEmpty()) {
     		log.error("Unable to found business processes for user with empty login");
             throw new ActivitiObjectNotFoundException(
