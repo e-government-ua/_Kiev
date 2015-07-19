@@ -548,7 +548,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             log.info("List of fields to retrieve: " + fieldNames.toString());
 
             for (Task curTask : foundResults) {
-                List<String> row = new ArrayList<>();
 
                 String currentRow = pattern;
                 log.trace("Process task - {}", curTask);
@@ -579,8 +578,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 				}
 				// replacing all the fields which were empty in the form with empty string
 				currentRow = currentRow.replaceAll("\\$\\{.*?\\}", "");
-				row.add(currentRow.replaceAll(";", separator));
-				printWriter.println(currentRow);
+				printWriter.println(currentRow.replaceAll(";", separator));
             }
         } else {
             log.debug(String.format("No tasks found for business process %s for date period %s - %s",
