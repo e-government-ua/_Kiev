@@ -31,4 +31,8 @@
         <constructor-arg value="org.activiti.engine.HistoryService" />
     </bean>
 
+    <bean id="formService" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.activiti.engine.FormService" />
+    </bean>
+
 </beans>
