@@ -130,10 +130,6 @@ public class ActivitiPaymentRestController {
             log.error("incorrect sID_Order! can't invoke task_id: " + sID_Order);
         }
         String snID_Task = ""+nID_Task;
-        if (nID_Task == null) {
-            log.error("incorrect primary input data(BREAKED): " + "sID_Transaction=" + sID_Transaction + ", snID_Task=" + snID_Task + ", sStatus_Payment=" + sStatus_Payment);
-            return;
-        }
         
         //parse sData
         //https://test.region.igov.org.ua/wf-region/service/setPaymentStatus_TaskActiviti0?sID_Order=TaskActiviti_1485001&sID_PaymentSystem=Liqpay&sData=&nID_Subject=20045&sAccessKey=b32d9855-dce0-44df-bbe0-dd0e41958cde
@@ -199,6 +195,11 @@ public class ActivitiPaymentRestController {
             //return;
         }
 
+        if (nID_Task == null) {
+            log.error("incorrect primary input data(BREAKED): " + "sID_Transaction=" + sID_Transaction + ", snID_Task=" + snID_Task + ", sStatus_Payment=" + sStatus_Payment);
+            return;
+        }
+        
         //save info to process
         try {
             log.info("try to get task. snID_Task=" + snID_Task);
