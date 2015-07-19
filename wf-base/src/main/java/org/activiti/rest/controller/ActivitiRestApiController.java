@@ -502,17 +502,16 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     Task.class);
         }
 
-        DelegationState delegationState = validateDelegationState(sID_State_BP);
         dateAt = validateDateAt(dateAt);
         dateTo = validateDateTo(dateTo);
         String separator = validateSeparator(sID_BP, nASCI_Spliter);
         Charset charset = validateCharset(sID_Codepage);
 
         //2. query
-        TaskQuery query = taskService.createTaskQuery().processDefinitionKey(sID_BP).taskCreatedAfter(dateAt) .taskCreatedBefore(dateTo);
+        TaskQuery query = taskService.createTaskQuery().processDefinitionKey(sID_BP).taskCreatedAfter(dateAt).taskCreatedBefore(dateTo);
         
-        if(delegationState != null){
-            query = query.taskDelegationState(delegationState);
+        if(sID_State_BP != null){
+            query = query.taskDefinitionKey(sID_State_BP);
         }
         List<Task> foundResults = query.listPage(nRowStart, nRowsMax);
 
