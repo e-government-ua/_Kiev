@@ -549,7 +549,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
                 String currentRow = pattern;
                 log.trace("Process task - {}", curTask);
-                StartFormData data = formService.getStartFormData(curTask.getProcessDefinitionId());
+                TaskFormData data = formService.getTaskFormData(curTask.getId());
 				for (FormProperty property : data.getFormProperties()) {
 					log.info(String.format(
 							"Matching property %s:%s:%s with fieldNames", property.getId(), property.getName(), property.getType().getName()));
@@ -564,9 +564,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 						if (value != null){
 							log.info(String.format("Replacing field with the value %s", value));
 							currentRow = currentRow.replace("${" + property.getId() + "}", value);
-						} else {
-							log.info(String.format("Field with id %s has null value", property.getId()));
 						}
+						
 					}
 				}
 				
@@ -575,7 +574,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 						currentRow = field.replaceValue(currentRow, curTask, sDateCreateDF);
 					}
 				}
-				
+				currentRow = currentRow.replaceAll("\\$\\{.*?\\}", "");
 				row.add(currentRow.replaceAll(";", separator));
 				printWriter.println(currentRow);
             }
