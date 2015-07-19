@@ -22,7 +22,7 @@ module.exports = {
       secret: 'put yor session secret here',
       key: ['solt for session 1', 'solt for session 2'],
       secure: false,
-      maxAge: 1180000 // 3 * 60 * 1000 = 3 min
+      maxAge: 10800000 // 3h*60m*60s*1000ms
     }
   },
 

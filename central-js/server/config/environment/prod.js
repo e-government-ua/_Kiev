@@ -8,5 +8,13 @@ module.exports = {
     sHost_AccessService_BankID: 'bankid.org.ua', //Prod
     sProtocol_ResourceService_BankID: 'https', //Prod
     sHost_ResourceService_BankID: 'biprocessing.org.ua' //Prod
+  },
+  server: {
+    session: {
+      secret: 'put yor session secret here',
+      key: ['solt for session 1', 'solt for session 2'],
+      secure: false,
+      maxAge: 10800000 // 3h*60m*60s*1000ms
+    }
   }
 };
