@@ -134,7 +134,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
             $scope.selectedTasks[$scope.$storage.menuType] = null;
             loadTaskCounters();
             $scope.applyTaskFilter($scope.$storage.menuType);
-          })('Форма відправлена : ' + result);
+          })('Форму відправлено' + (result && result.length > 0 ? (': ' + result) : ''));
         })
         .catch(function (err) {
           Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
