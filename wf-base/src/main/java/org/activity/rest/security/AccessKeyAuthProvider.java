@@ -74,7 +74,7 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
         }
         log.info("persistentKey="+persistentKey);
         if (persistentKey == null || !persistentKey.equals(authentication.getName())) {
-            log.info("persistentKey == null || !persistentKey.equals(authentication.getName())");
+            log.info("remove key (persistentKey == null || !persistentKey.equals(authentication.getName()))");
             accessDataDao.removeAccessData(authentication.getName());
         }else{
             log.warn("Can't remove key");
