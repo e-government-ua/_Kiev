@@ -2,9 +2,14 @@ angular.module('app').config(function($stateProvider) {
   $stateProvider
     .state('index.service.general.country', {
       url: '/country',
+      resolve: {
+        service: function($stateParams, ServiceService) {
+          return ServiceService.get($stateParams.id);
+        }
+      },
       views: {
         'main@': {
-          templateUrl: 'app/service/country/index.html',
+          templateUrl: 'app/service/index.html',
           controller: 'ServiceCountryController'
         }
       }
