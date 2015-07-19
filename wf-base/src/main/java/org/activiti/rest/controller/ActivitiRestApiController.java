@@ -41,6 +41,7 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.DelegationState;
+import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.IdentityLinkType;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
@@ -674,36 +675,26 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	if (!processDefinitionsList.isEmpty() && processDefinitionsList.size() > 0){
 			log.info(String.format("Found %d active process definitions", processDefinitionsList.size()));
 			for (ProcessDefinition processDef : processDefinitionsList) {
-
-				if (processDef instanceof ProcessDefinitionEntity){
-					ProcessDefinitionEntity processDefinitionEntity = (ProcessDefinitionEntity) processDef;
-					
-					Map<String, TaskDefinition> identityLinks = processDefinitionEntity.getTaskDefinitions();
-					log.info(String.format("Found %d identity links for the process %s", identityLinks.size(), processDef.getKey()));
-					for (TaskDefinition identity : identityLinks.values()){
-						for (Map.Entry<String, Set<Expression>> entry :identity.getCustomGroupIdentityLinkExpressions().entrySet()){
-							log.info(entry.getKey() + ":" + entry.getValue());
-						}
-//						if (IdentityLinkType.CANDIDATE.equals(identity.getType())){
-//							String groupId = identity.getGroupId();
-//							log.info(String.format("Found identity link %s type Candidate with value %s. will check "
-//									+ "whether user %s belongs to this group", identity.getId(), groupId, sLogin));
-//							User user = identityService.createUserQuery().userId(sLogin).memberOfGroup(groupId).singleResult();
-//							if (user != null){
-//								Map<String, String> process = new HashMap<String, String>();
-//								process.put("sID", processDef.getKey());
-//								process.put("sName", processDef.getName());
-//								log.info(String.format("Added record to response %s", process.toString()));
-//								res.add(process);
-//							} else {
-//								log.info(String.format("user %s is not in group %s", sLogin, groupId));
-//							}
-//						} else {
-//							log.info(String.format("Indentity link %s is of type %s. skipping from checking it", identity.getId(), identity.getType()));
-//						}
+				List<IdentityLink> identityLinks = repositoryService.getIdentityLinksForProcessDefinition(processDef.getId());
+				log.info(String.format("Found %d identity links for the process %s", identityLinks.size(), processDef.getKey()));
+				for (IdentityLink identity : identityLinks){
+				if (IdentityLinkType.CANDIDATE.equals(identity.getType())){
+					String groupId = identity.getGroupId();
+					log.info(String.format("Found identity link for process %s type Candidate with value %s. will check "
+							+ "whether user %s belongs to this group", identity.getProcessDefinitionId(), groupId, sLogin));
+					User user = identityService.createUserQuery().userId(sLogin).memberOfGroup(groupId).singleResult();
+					if (user != null){
+						Map<String, String> process = new HashMap<String, String>();
+						process.put("sID", processDef.getKey());
+						process.put("sName", processDef.getName());
+						log.info(String.format("Added record to response %s", process.toString()));
+						res.add(process);
+					} else {
+						log.info(String.format("user %s is not in group %s", sLogin, groupId));
 					}
 				} else {
-					log.info(String.format("Process %s is not an instance of ProcessDefinitionEntity", processDef.getKey()));
+					log.info(String.format("Indentity link for process %s is of type %s. skipping from checking it", identity.getProcessDefinitionId(), identity.getType()));
+				}
 				}
 			}
 		} else {
