@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -26,15 +27,17 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
-import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.identity.User;
+import org.activiti.engine.impl.persistence.entity.IdentityLinkEntity;
+import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Attachment;
 import org.activiti.engine.task.DelegationState;
+import org.activiti.engine.task.IdentityLinkType;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
 import org.activiti.redis.exception.RedisException;
@@ -671,22 +674,31 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 					processDefinitionsList.size()));
 			for (ProcessDefinition processDef : processDefinitionsList) {
 
-				log.info(String
-						.format("Checking whether process %s can be started by user with logic %s",
-								processDef.getId(), sLogin));
-				List<User> users = identityService.createUserQuery()
-						.potentialStarter(processDef.getId()).list();
-
-				if (users != null) {
-					for (User user : users){
-						System.out.println(user.getId());
+				if (processDef instanceof ProcessDefinitionEntity){
+					ProcessDefinitionEntity processDefinitionEntity = (ProcessDefinitionEntity) processDef;
+					List<IdentityLinkEntity> identityLinks = processDefinitionEntity.getIdentityLinks();
+					log.info(String.format("Found %d identity links for the process %s", identityLinks.size(), processDef.getKey()));
+					for (IdentityLinkEntity identity : identityLinks){
+						if (IdentityLinkType.CANDIDATE.equals(identity.getType())){
+							String groupId = identity.getGroupId();
+							log.info(String.format("Found identity link %s type Candidate with value %s. will check "
+									+ "whether user %s belongs to this group", identity.getId(), groupId, sLogin));
+							User user = identityService.createUserQuery().userId(sLogin).memberOfGroup(groupId).singleResult();
+							if (user != null){
+								Map<String, String> process = new HashMap<String, String>();
+								process.put("sID", processDef.getKey());
+								process.put("sName", processDef.getName());
+								log.info(String.format("Added record to response %s", process.toString()));
+								res.add(process);
+							} else {
+								log.info(String.format("user %s is not in group %s", sLogin, groupId));
+							}
+						} else {
+							log.info(String.format("Indentity link %s is of type %s. skipping from checking it", identity.getId(), identity.getType()));
+						}
 					}
-//					log.info(String.format("Added process %s to results",
-//							processDef.getId()));
-//					Map<String, String> map = new HashMap<String, String>();
-//					map.put("sId", processDef.getKey());
-//					map.put("sName", processDef.getName());
-//					res.add(map);
+				} else {
+					log.info(String.format("Process %s is not an instance of ProcessDefinitionEntity", processDef.getKey()));
 				}
 			}
 		} else {
