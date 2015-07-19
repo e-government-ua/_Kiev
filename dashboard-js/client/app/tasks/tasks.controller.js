@@ -51,6 +51,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.isTaskFilterActive = function (taskType) {
+    $scope.sSelectedTask = $scope.$storage.menuType;
     return $scope.$storage.menuType === taskType;
   };
 
@@ -89,6 +90,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.selectTask = function (task) {
+    $scope.sSelectedTask = $scope.$storage.menuType;
     $scope.selectedTask = task;
     $scope.selectedTasks[$scope.$storage.menuType] = task;
     $scope.taskForm = null;
