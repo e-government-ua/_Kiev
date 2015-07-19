@@ -18,7 +18,8 @@ public class AccessDataDaoImpl implements AccessDataDao {
     @Override
     public String setAccessData(String sContent) {
         log.info("[setAccessData]:sContent="+sContent);
-        String sKey=durableBytesDataStorage.saveData(Util.contentStringToByte(sContent));
+        //String sKey=durableBytesDataStorage.saveData(Util.contentStringToByte(sContent));
+        String sKey=durableBytesDataStorage.saveData(sContent.getBytes());
         log.info("[setAccessData]:sKey="+sKey);
         log.info("[setAccessData]:sData(check)="+getAccessData(sKey));
         return sKey;
@@ -26,7 +27,8 @@ public class AccessDataDaoImpl implements AccessDataDao {
 
     @Override
     public String setAccessData(byte[] aContent) {
-        log.info("[setAccessData]:sContent="+(aContent==null?"null":Util.contentByteToString(aContent)));
+        //log.info("[setAccessData]:sContent="+(aContent==null?"null":Util.contentByteToString(aContent)));
+        log.info("[setAccessData]:sContent="+(aContent==null?"null":Arrays.toString(aContent)));
         String sKey=durableBytesDataStorage.saveData(aContent);
         log.info("[setAccessData]:sKey="+sKey);
         return sKey;
@@ -38,8 +40,10 @@ public class AccessDataDaoImpl implements AccessDataDao {
         //return aContent != null ? Util.contentByteToString(aContent) : contentMock;
         String sData = contentMock;
         if(aContent != null){
-            sData = Util.contentByteToString(aContent);
-            log.info("[getAccessData]:TEST:sKey="+sKey+",Arrays.toString(aContent)="+Arrays.toString(aContent));
+            log.info("[getAccessData]:sKey="+sKey+",aContent.length()="+aContent.length);
+            //sData = Util.contentByteToString(aContent);
+            sData = Arrays.toString(aContent);
+            //log.info("[getAccessData]:TEST:sKey="+sKey+",Arrays.toString(aContent)="+Arrays.toString(aContent));
             if(sData!=null){
                 log.info("[getAccessData]:sKey="+sKey+",sData.length()="+sData.length());
             }
