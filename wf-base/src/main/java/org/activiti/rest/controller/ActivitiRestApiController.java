@@ -541,7 +541,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             log.info(String.format("Found %s tasks for business process %s for date period %s - %s",
                     foundResults.size(), sID_BP, sdfDate.format(dateAt), sdfDate.format(dateTo)));
 
-            boolean firstStep = true;
             List<String> headers = new ArrayList<>();
             
             List<String> fieldNames = Arrays.asList(pattern.split(";"));
@@ -570,9 +569,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 							"Matching property %s:%s:%s with fieldNames", property.getId(), property.getName(), property.getType().getName()));
 					if (currentRow.contains("${" + property.getId() + "}")) {
 						log.info(String.format("Found field with id %s in the pattern. Adding value to the result", "${" + property.getId() + "}"));
-						if (firstStep) { 
-							headers.add(property.getId());
-						}
 						String value = "";
 						if ("enum".equalsIgnoreCase(property.getType().getName())) {
 							value = parseEnumProperty(property);
@@ -592,7 +588,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 				
 				row.add(currentRow.replaceAll(";", separator));
 				printWriter.println(currentRow);
-                firstStep = false;
             }
         } else {
             log.debug(String.format("No tasks found for business process %s for date period %s - %s",
