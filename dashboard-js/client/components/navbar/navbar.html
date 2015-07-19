@@ -23,6 +23,10 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
+        <li ng-class="{active: isTaskFilterActive(menu.type)}">
+          <a ng-attr-id="{{menu.type}}" ng-click="goToReports()">Звіти</a>
+        </li>
+        <li ng-show="isLoggedIn()"><a href="" ng-click="goToTasks()">Задачі</a></li>
         <li ng-show="isLoggedIn()"><a href="" ng-click="goToTasks()">{{ getCurrentUserName()}}</a></li>
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Вийти</a></li>
       </ul>
