@@ -383,7 +383,10 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         identityService.setAuthenticatedUserId(assignee);
 
-        System.out.println("FileExtention: " + getFileExtention(file) + " fileContentType: " + file.getContentType() + "fileName: " + file.getOriginalFilename());
+        String sFilename = file.getOriginalFilename();
+        System.out.println("sFilename=" + file.getOriginalFilename());
+        sFilename = Renamer.sRenamed(sFilename);
+        System.out.println("FileExtention: " + getFileExtention(file) + " fileContentType: " + file.getContentType() + "fileName: " + sFilename);
         System.out.println("description: " + description);
 
         Attachment attachment = taskService.createAttachment(file.getContentType()
@@ -391,7 +394,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                         + getFileExtention(file),
                 taskId,
                 processInstanceId,
-                file.getOriginalFilename(),
+                sFilename,//file.getOriginalFilename()
                 description, file.getInputStream());
 
         AttachmentEntityAdapter adapter = new AttachmentEntityAdapter();
