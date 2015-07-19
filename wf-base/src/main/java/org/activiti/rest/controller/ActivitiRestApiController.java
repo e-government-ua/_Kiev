@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,13 +27,16 @@ import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.impl.persistence.entity.IdentityLinkEntity;
+import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityManager;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
+import org.activiti.engine.impl.task.TaskDefinition;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Attachment;
@@ -668,32 +672,35 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	
     	List<ProcessDefinition> processDefinitionsList = repositoryService.createProcessDefinitionQuery().active().latestVersion().list();
     	if (!processDefinitionsList.isEmpty() && processDefinitionsList.size() > 0){
-			log.info(String.format("Found %d active process definitions",
-					processDefinitionsList.size()));
+			log.info(String.format("Found %d active process definitions", processDefinitionsList.size()));
 			for (ProcessDefinition processDef : processDefinitionsList) {
 
 				if (processDef instanceof ProcessDefinitionEntity){
 					ProcessDefinitionEntity processDefinitionEntity = (ProcessDefinitionEntity) processDef;
-					List<IdentityLinkEntity> identityLinks = processDefinitionEntity.getIdentityLinks();
+					
+					Map<String, TaskDefinition> identityLinks = processDefinitionEntity.getTaskDefinitions();
 					log.info(String.format("Found %d identity links for the process %s", identityLinks.size(), processDef.getKey()));
-					for (IdentityLinkEntity identity : identityLinks){
-						if (IdentityLinkType.CANDIDATE.equals(identity.getType())){
-							String groupId = identity.getGroupId();
-							log.info(String.format("Found identity link %s type Candidate with value %s. will check "
-									+ "whether user %s belongs to this group", identity.getId(), groupId, sLogin));
-							User user = identityService.createUserQuery().userId(sLogin).memberOfGroup(groupId).singleResult();
-							if (user != null){
-								Map<String, String> process = new HashMap<String, String>();
-								process.put("sID", processDef.getKey());
-								process.put("sName", processDef.getName());
-								log.info(String.format("Added record to response %s", process.toString()));
-								res.add(process);
-							} else {
-								log.info(String.format("user %s is not in group %s", sLogin, groupId));
-							}
-						} else {
-							log.info(String.format("Indentity link %s is of type %s. skipping from checking it", identity.getId(), identity.getType()));
+					for (TaskDefinition identity : identityLinks.values()){
+						for (Map.Entry<String, Set<Expression>> entry :identity.getCustomGroupIdentityLinkExpressions().entrySet()){
+							log.info(entry.getKey() + ":" + entry.getValue());
 						}
+//						if (IdentityLinkType.CANDIDATE.equals(identity.getType())){
+//							String groupId = identity.getGroupId();
+//							log.info(String.format("Found identity link %s type Candidate with value %s. will check "
+//									+ "whether user %s belongs to this group", identity.getId(), groupId, sLogin));
+//							User user = identityService.createUserQuery().userId(sLogin).memberOfGroup(groupId).singleResult();
+//							if (user != null){
+//								Map<String, String> process = new HashMap<String, String>();
+//								process.put("sID", processDef.getKey());
+//								process.put("sName", processDef.getName());
+//								log.info(String.format("Added record to response %s", process.toString()));
+//								res.add(process);
+//							} else {
+//								log.info(String.format("user %s is not in group %s", sLogin, groupId));
+//							}
+//						} else {
+//							log.info(String.format("Indentity link %s is of type %s. skipping from checking it", identity.getId(), identity.getType()));
+//						}
 					}
 				} else {
 					log.info(String.format("Process %s is not an instance of ProcessDefinitionEntity", processDef.getKey()));
