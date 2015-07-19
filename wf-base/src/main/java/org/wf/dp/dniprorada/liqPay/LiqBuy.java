@@ -82,16 +82,21 @@ public class LiqBuy {
         
         
         if (sURL_CallbackStatusNew != null) {
-            nID_Subject=new Long(0);
+            log.info("nID_Subject="+nID_Subject);
+            if(nID_Subject==null){
+                nID_Subject=new Long(0);
+            }
+            String snID_Subject=""+nID_Subject;
+            log.info("snID_Subject="+snID_Subject);
             
-            String snID_Subject="0";log.info("accessDataDao!=null:"+(accessDataDao!=null));
+            log.info("accessDataDao!=null:"+(accessDataDao!=null));
             //String nID_Access = accessDataDao.setAccessData(String.valueOf(nID_Subject));
-            String nID_Access = accessDataDao.setAccessData(snID_Subject);
+            String sAccessKey = accessDataDao.setAccessData(snID_Subject);
             
             sURL_CallbackStatusNew = new StringBuilder(sURL_CallbackStatusNew)
                     .append(sURL_CallbackStatusNew.indexOf("?")>-1?"&":"?")
                     .append("nID_Subject=").append(nID_Subject)
-                    .append("&nID_Access=").append(nID_Access).toString();
+                    .append("&sAccessKey=").append(sAccessKey).toString();
         }
         log.info("sURL_CallbackStatusNew(with security-key)="+sURL_CallbackStatusNew);
         
