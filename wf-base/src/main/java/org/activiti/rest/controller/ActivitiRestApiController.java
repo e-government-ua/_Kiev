@@ -26,6 +26,7 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
@@ -548,7 +549,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
                 String currentRow = pattern;
                 log.trace("Process task - {}", curTask);
-                TaskFormData data = formService.getTaskFormData(curTask.getId());
+                StartFormData data = formService.getStartFormData(curTask.getProcessDefinitionId());
 				for (FormProperty property : data.getFormProperties()) {
 					log.info(String.format(
 							"Matching property %s:%s:%s with fieldNames", property.getId(), property.getName(), property.getType().getName()));
