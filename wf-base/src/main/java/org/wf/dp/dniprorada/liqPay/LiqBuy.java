@@ -15,6 +15,7 @@ import org.wf.dp.dniprorada.constant.Language;
 import org.wf.dp.dniprorada.rest.HttpRequester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 
 @Component()
 public class LiqBuy {
@@ -22,6 +23,10 @@ public class LiqBuy {
     @Autowired
     private AccessDataDao accessDataDao;
 
+    @Autowired
+    GeneralConfig generalConfig;
+    
+    
     private static final Logger log = LoggerFactory.getLogger(LiqBuy.class);
     private static final String URL = "https://www.liqpay.com/api/checkout";
     private static final String version = "3";
@@ -41,22 +46,27 @@ public class LiqBuy {
             Currency oID_Currency, Language oLanguage, String sDescription,
             String sID_Order, String sURL_CallbackStatusNew,
             String sURL_CallbackPaySuccess, Long nID_Subject, boolean bTest) throws Exception {
+        
         if (oLanguage == null) {
             oLanguage = DEFAULT_LANG;
         }
         
-        String publicKey = sID_Merchant;
-
+        String snID_Subject=""+nID_Subject;
+        String sAccessKey_Merchant = accessDataDao.setAccessData(snID_Subject);
+        
         Map<String, String> paramMerchant = new HashMap<String, String>();
         paramMerchant.put("sID", sID_Merchant);
         paramMerchant.put("nID_Subject", String.valueOf(nID_Subject));
-        String merchant = HttpRequester.get("https://test.igov.org.ua/wf-central/service/merchant/getMerchant", paramMerchant);
+        paramMerchant.put("sAccessKey", sAccessKey_Merchant);
         
-        log.info("merchant="+merchant);
+        //String soJSON_Merchant = HttpRequester.get("https://test.igov.org.ua/wf-central/service/merchant/getMerchant", paramMerchant);
+        String soJSON_Merchant = HttpRequester.get(new GeneralConfig().sHostCentral() + "/wf-central/service/merchant/getMerchant", paramMerchant);
+        log.info("soJSON_Merchant="+soJSON_Merchant);
         
         JSONParser parser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) parser.parse(merchant);
+        JSONObject jsonObject = (JSONObject) parser.parse(soJSON_Merchant);
         
+        String publicKey = sID_Merchant;
         String privateKey = (String) jsonObject.get("sPrivateKey");
         if (privateKey == null) {
             privateKey = "test";
@@ -118,6 +128,9 @@ public class LiqBuy {
         log.info("getPayButtonHTML_LiqPay params: " + params + " privateKey: " + privateKey);
         String result = getForm(params, privateKey, oLanguage);
         log.info("getPayButtonHTML_LiqPay ok!: " + result);
+        result = result.replaceAll("\\Q//static.liqpay.com\\E", "static.liqpay.com");
+        log.info("getPayButtonHTML_LiqPay ok-replaced!: " + result);
+        //static.liqpay.com/buttons/p1ru.radius.png
         
         // LiqPay liqpay = new LiqPay(publicKey, privateKey);
         // String result = liqpay.cnb_form(params);

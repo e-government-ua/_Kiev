@@ -14,10 +14,28 @@ public class GeneralConfig {
 
     private final static Logger oLog = LoggerFactory.getLogger(GeneralConfig.class);
 
+    
+    @Value("${general.sHost}")
+    private String sHost; //general.sHost=https://test.region.igov.org.ua    
+    
+    @Value("${general.sHostCentral}")
+    private String sHostCentral; //general.sHost=https://test.igov.org.ua    
+    
     @Value("${general.bTest}")
     private String sbTest;
-
     public static Boolean bTest=null;
+    
+    
+    public String sHost(){
+        //general.sHost=https://test-version.region.igov.org.ua    
+        return sHost!=null?sHost:"https://test.region.igov.org.ua";
+    }
+    
+    public String sHostCentral(){
+        //general.sHost=https://test-version.region.igov.org.ua    
+        return sHostCentral!=null?sHostCentral:"https://test.igov.org.ua";
+    }
+    
 
     //static public boolean bTest=false;
     public boolean bTest(){

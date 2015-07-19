@@ -36,6 +36,7 @@ public class ActivitiPaymentRestController {
     public static final String LIQPAY_FIELD_PAYMENT_STATUS = "status";
     public static final String TASK_MARK = "TaskActiviti_";
     public static final String PAYMENT_SUCCESS = "success";
+    public static final String PAYMENT_SUCCESS_TEST = "sandbox";
 
 //    @Autowired
 //    TaskService taskService;
@@ -48,7 +49,7 @@ public class ActivitiPaymentRestController {
     private HistoryService historyService;
     private final String sID_PaymentSystem = "Liqpay";
 
-    @RequestMapping(value = "/setPaymentStatus_TaskActiviti0", method = RequestMethod.POST, headers = { "Accept=application/json" })
+    @RequestMapping(value = "/setPaymentStatus_TaskActiviti", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
 			@RequestParam String sID_Order,
 			@RequestParam String sID_PaymentSystem,
@@ -75,7 +76,7 @@ public class ActivitiPaymentRestController {
             return sData;
 	}
     
-    @RequestMapping(value = "/setPaymentStatus_TaskActiviti", method = RequestMethod.POST, headers = { "Accept=application/json" })
+    @RequestMapping(value = "/setPaymentStatus_TaskActiviti_", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
 			@RequestParam String sID_Order,
 			@RequestParam String sID_PaymentSystem,
@@ -131,12 +132,12 @@ public class ActivitiPaymentRestController {
         }
         String snID_Task = ""+nID_Task;
         
-        //parse sData
         //https://test.region.igov.org.ua/wf-region/service/setPaymentStatus_TaskActiviti0?sID_Order=TaskActiviti_1485001&sID_PaymentSystem=Liqpay&sData=&nID_Subject=20045&sAccessKey=b32d9855-dce0-44df-bbe0-dd0e41958cde
         //data=eyJwYXltZW50X2lkIjo2MzQ0NDcxOCwidHJhbnNhY3Rpb25faWQiOjYzNDQ0NzE4LCJzdGF0dXMiOiJzYW5kYm94IiwidmVyc2lvbiI6MywidHlwZSI6ImJ1eSIsInB1YmxpY19rZXkiOiJpMTAxNzI5NjgwNzgiLCJhY3FfaWQiOjQxNDk2Mywib3JkZXJfaWQiOiJUYXNrQWN0aXZpdGlfMTQ4NTAwMSIsImxpcXBheV9vcmRlcl9pZCI6IjQwMXUxNDM3MzI1MDIyMTgzMzAzIiwiZGVzY3JpcHRpb24iOiLQotC10YHRgtC+0LLQsNGPINGC0YDQsNC90LfQsNC60YbQuNGPIiwic2VuZGVyX3Bob25lIjoiMzgwOTc5MTM4MDA3IiwiYW1vdW50IjowLjAxLCJjdXJyZW5jeSI6IlVBSCIsInNlbmRlcl9jb21taXNzaW9uIjowLjAsInJlY2VpdmVyX2NvbW1pc3Npb24iOjAuMCwiYWdlbnRfY29tbWlzc2lvbiI6MC4wLCJhbW91bnRfZGViaXQiOjAuMDEsImFtb3VudF9jcmVkaXQiOjAuMDEsImNvbW1pc3Npb25fZGViaXQiOjAuMCwiY29tbWlzc2lvbl9jcmVkaXQiOjAuMCwiY3VycmVuY3lfZGViaXQiOiJVQUgiLCJjdXJyZW5jeV9jcmVkaXQiOiJVQUgiLCJzZW5kZXJfYm9udXMiOjAuMCwiYW1vdW50X2JvbnVzIjowLjB9
         //signature=z77CQeBn3Z75n5UpJqXKG+KjZyI=
         String sID_Transaction = "Pay_"+snID_Task;
         String sStatus_Payment = null;
+        //parse sData
         if(sData != null){
             try {
                 /*
@@ -148,12 +149,14 @@ public class ActivitiPaymentRestController {
                 Gson oGson = new Gson();
                 LiqpayCallbackModel oLiqpayCallbackModel = oGson.fromJson(sData, LiqpayCallbackModel.class);
                 //log.info("sID_PaymentSystem="+sID_PaymentSystem);
-                log.info("liqpayCallback.getOrder_id()="+oLiqpayCallbackModel.getOrder_id());
+                log.info("oLiqpayCallbackModel.getOrder_id()="+oLiqpayCallbackModel.getOrder_id());
                 sID_Transaction = oLiqpayCallbackModel.getTransaction_id();
+                log.info("oLiqpayCallbackModel.getTransaction_id()="+sID_Transaction);
                 sStatus_Payment = oLiqpayCallbackModel.getStatus();
+                log.info("oLiqpayCallbackModel.getStatus()="+sStatus_Payment);
             } catch (Exception e) {
                 log.error("can't parse json! reason:" + e.getMessage());
-                int nAt;
+                /*int nAt;
                 int nTo;
                 
                 String sFieldName = LIQPAY_FIELD_TRANSACTION_ID;//"transaction_id"
@@ -190,21 +193,28 @@ public class ActivitiPaymentRestController {
                     }
                 } catch (Exception e1) {
                     log.error("can't get field json!(sFieldName="+sFieldName + "):" + e.getMessage());
-                }
+                }*/
             }
         }else{
-            log.warn("incorrect input data: sData != null: " + "sID_Transaction=" + sID_Transaction + ", snID_Task=" + snID_Task + ", sStatus_Payment=" + sStatus_Payment);
+            log.warn("incorrect input data: sData == null: " + "snID_Task=" + snID_Task
+                    + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
         }
 
         //check variables
         //if (sData != null && (sID_Transaction == null || nID_Task == null || !PAYMENT_SUCCESS.equals(sStatus_Payment))) {
         if (sData != null && (sID_Transaction == null || sStatus_Payment == null)) {
-            log.error("incorrect secondary input data: " + "sID_Transaction=" + sID_Transaction + ", nID_Task=" + snID_Task + ", sStatus_Payment=" + sStatus_Payment);
-            //return;
+            log.error("incorrect secondary input data: " + "nID_Task=" + snID_Task
+                    + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
         }
 
+        if (sData != null && !PAYMENT_SUCCESS.equals(sStatus_Payment) && !PAYMENT_SUCCESS_TEST.equals(sStatus_Payment)) {
+            log.error("incorrect sStatus_Payment: " + "nID_Task=" + snID_Task
+                    + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
+        }
+        
         if (nID_Task == null) {
-            log.error("incorrect primary input data(BREAKED): " + "sID_Transaction=" + sID_Transaction + ", snID_Task=" + snID_Task + ", sStatus_Payment=" + sStatus_Payment);
+            log.error("incorrect primary input data(BREAKED): " + "snID_Task=" + snID_Task
+                     + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
             return;
         }
         
@@ -228,11 +238,9 @@ public class ActivitiPaymentRestController {
 //TODO разобраться почему приходит ИД процесса а не таски
             String snID_Process = snID_Task;
             String sID_Payment = sID_Transaction+"_"+sStatus_Payment;
-            log.info("try to set sID_Payment="+sID_Payment+" to snID_Process=" + snID_Process
-                    + ": sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
+            log.info("try to set: sID_Payment="+sID_Payment);
             runtimeService.setVariable(snID_Process, "sID_Payment", sID_Payment);
-            log.info("completed set sID_Payment="+sID_Payment+" to snID_Process=" + snID_Process
-                    + ": sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
+            log.info("completed set sID_Payment="+sID_Payment+" to: snID_Process=" + snID_Process);
         } catch (Exception e){
             log.error("during changing: nID_Task=" + nID_Task
                     + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment, e);
