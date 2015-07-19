@@ -574,6 +574,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 						currentRow = field.replaceValue(currentRow, curTask, sDateCreateDF);
 					}
 				}
+				// replacing all the fields which were empty in the form with empty string
 				currentRow = currentRow.replaceAll("\\$\\{.*?\\}", "");
 				row.add(currentRow.replaceAll(";", separator));
 				printWriter.println(currentRow);
