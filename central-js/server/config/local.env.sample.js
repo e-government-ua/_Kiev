@@ -20,7 +20,7 @@ module.exports = {
   SESSION_KEY_ONE: 'solt1 for session',
   SESSION_KEY_TWO: 'solt2 for session',
   SESSION_SECURE: true,
-  SESSION_MAX_AGE: 180000, // 3 * 60 * 1000 = 3 min
+  SESSION_MAX_AGE: 1180000, // 3 * 60 * 1000 = 3 min
 
   ACTIVITI_PROTOCOL: 'https',
   ACTIVITI_HOSTNAME: 'test.igov.org.ua',
