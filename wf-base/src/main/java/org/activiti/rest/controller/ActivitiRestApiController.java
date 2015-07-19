@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +26,7 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
@@ -49,7 +49,6 @@ import org.activiti.rest.controller.entity.ProcessI;
 import org.activiti.rest.controller.entity.TaskAssigneeI;
 import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.joda.time.DateTime;
 import org.json.simple.JSONValue;
 import org.slf4j.Logger;
@@ -64,11 +63,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import org.wf.dp.dniprorada.engine.task.FileTaskUpload;
 import org.wf.dp.dniprorada.model.BuilderAtachModel;
 import org.wf.dp.dniprorada.model.ByteArrayMultipartFileOld;
-import org.wf.dp.dniprorada.base.dao.*;
 
 /**
  * ...wf-region/service/...
@@ -81,7 +80,9 @@ import org.wf.dp.dniprorada.base.dao.*;
 @RequestMapping(value = "/rest")
 public class ActivitiRestApiController extends ExecutionBaseResource {
 
-    private static final Logger log = LoggerFactory.getLogger(ActivitiRestApiController.class);
+    private static final int DEFAULT_REPORT_FIELD_SPLITTER = 59;
+
+	private static final Logger log = LoggerFactory.getLogger(ActivitiRestApiController.class);
 
     @Autowired
     AccessDataDao accessDataDao;
@@ -485,7 +486,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     public void downloadTasksData(@RequestParam(value = "sID_BP") String sID_BP,
             @RequestParam(value = "sID_State_BP", required = false) String sID_State_BP,
             @RequestParam(value = "saFields") String saFields,
-            @RequestParam(value = "nASCI_Spliter") String nASCI_Spliter,
+            @RequestParam(value = "nASCI_Spliter", required = false) String nASCI_Spliter,
             @RequestParam(value = "sFileName", required = false) String fileName,
             @RequestParam(value = "sID_Codepage", required = false, defaultValue = "win1251") String sID_Codepage,
             @RequestParam(value = "sDateCreateFormat", required = false, defaultValue = "yyyy-MM-dd HH:mm:ss") String sDateCreateFormat,
@@ -502,17 +503,16 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     Task.class);
         }
 
-        DelegationState delegationState = validateDelegationState(sID_State_BP);
         dateAt = validateDateAt(dateAt);
         dateTo = validateDateTo(dateTo);
         String separator = validateSeparator(sID_BP, nASCI_Spliter);
         Charset charset = validateCharset(sID_Codepage);
 
         //2. query
-        TaskQuery query = taskService.createTaskQuery().processDefinitionKey(sID_BP).taskCreatedAfter(dateAt) .taskCreatedBefore(dateTo);
+        TaskQuery query = taskService.createTaskQuery().processDefinitionKey(sID_BP).taskCreatedAfter(dateAt).taskCreatedBefore(dateTo);
         
-        if(delegationState != null){
-            query = query.taskDelegationState(delegationState);
+        if(sID_State_BP != null){
+            query = query.taskDefinitionKey(sID_State_BP);
         }
         List<Task> foundResults = query.listPage(nRowStart, nRowsMax);
 
@@ -541,23 +541,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             log.info(String.format("Found %s tasks for business process %s for date period %s - %s",
                     foundResults.size(), sID_BP, sdfDate.format(dateAt), sdfDate.format(dateTo)));
 
-            List<String> headers = new ArrayList<>();
-            
             List<String> fieldNames = Arrays.asList(pattern.split(";"));
             log.info("List of fields to retrieve: " + fieldNames.toString());
 
-			for (String field : fieldNames) {
-				if (StringUtils.isNumeric(field)){
-					ReportField fieldEnum = ReportField.getReportFieldForId(field);
-					if (fieldEnum != null){
-						log.info(String.format("Found field %s. Replacing it with pattern from enum to %s", field, fieldEnum.getPattern()));
-						pattern = pattern.replace(field, fieldEnum.getPattern());
-					} else {
-						log.warn(String.format("Have not found ReportField enum value for the ID %s", field));
-					}
-				}
-			}
-            
             for (Task curTask : foundResults) {
                 List<String> row = new ArrayList<>();
 
@@ -575,17 +561,21 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 						} else {
 							value = property.getValue();
 						}
-						log.info(String.format("Replacing field with the value %s", value));
-						currentRow = currentRow.replace("${" + property.getId() + "}", value);
+						if (value != null){
+							log.info(String.format("Replacing field with the value %s", value));
+							currentRow = currentRow.replace("${" + property.getId() + "}", value);
+						}
+						
 					}
 				}
 				
 				for (ReportField field : ReportField.values()) {
 					if (currentRow.contains(field.getPattern())){
-						currentRow = field.replaceValue(currentRow, curTask, sDateCreateDF, data.getFormProperties());
+						currentRow = field.replaceValue(currentRow, curTask, sDateCreateDF);
 					}
 				}
-				
+				// replacing all the fields which were empty in the form with empty string
+				currentRow = currentRow.replaceAll("\\$\\{.*?\\}", "");
 				row.add(currentRow.replaceAll(";", separator));
 				printWriter.println(currentRow);
             }
@@ -629,14 +619,16 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 	}
 
 	private String validateSeparator(String sID_BP, String nASCI_Spliter) {
-		if(!NumberUtils.isNumber(nASCI_Spliter)){
+		if (nASCI_Spliter == null) {
+			return String.valueOf(Character.toChars(DEFAULT_REPORT_FIELD_SPLITTER));
+		}
+		if(!StringUtils.isNumeric(nASCI_Spliter)){
             log.error("ASCI code is not a number {}", nASCI_Spliter);
             throw new ActivitiObjectNotFoundException(
                     "Statistics for the business task with name '" + sID_BP + "' not found. Wrong splitter.",
                     Task.class);
         }
-        Character separator = (char) NumberUtils.toInt(nASCI_Spliter);
-		return String.valueOf(separator);
+		return String.valueOf(Character.toChars(Integer.valueOf(nASCI_Spliter)));
 	}
 
 	private DelegationState validateDelegationState(String sID_State_BP) {
