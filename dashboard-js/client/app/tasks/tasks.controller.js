@@ -144,11 +144,13 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
   $scope.assignTask = function () {
     tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id).then(function (result) {
-      Modal.inform.success(function (event) {
+      Modal.assignTask(function (event) {
         $scope.selectedTasks[$scope.$storage.menuType] = null;
         loadTaskCounters();
-        $scope.applyTaskFilter($scope.$storage.menuType);
-      })('Задача у вас в роботі');
+
+        $scope.selectedTasks[$scope.menus[0].type] = $scope.selectedTask;
+        $scope.applyTaskFilter($scope.menus[0].type);
+      }, 'Задача у вас в роботі');
     })
       .catch(function (err) {
         Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
