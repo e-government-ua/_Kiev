@@ -1,0 +1,34 @@
+<div style="position:relative"
+     dropdown
+     is-open="organList.dropdown.isOpen">
+
+  <div class="input-group">
+
+    <input autocomplete="off"
+           class="form-control"
+           name="organ"
+           type="text"
+           ng-model="organList.typeahead.model"
+           typeahead="organ as organ.sNameUa for organ in loadOrganList($viewValue) | orderBy:'sNameUa'"
+           typeahead-on-select="onSelectOrganList($item)"
+           typeahead-empty
+           ng-required="ngRequired"/>
+
+    <span class="input-group-btn">
+      <button class="btn btn-default"
+              type="button"
+              dropdown-toggle>
+        <span class="caret"></span>
+      </button>
+    </span>
+
+  </div>
+
+  <ul class="dropdown-menu"
+      role="menu">
+    <li ng-repeat="organ in organList.dropdown.list | orderBy:'sNameUa'">
+      <a ng-click="onSelectOrganList(organ)">{{organ.sNameUa}}</a>
+    </li>
+  </ul>
+
+</div>
