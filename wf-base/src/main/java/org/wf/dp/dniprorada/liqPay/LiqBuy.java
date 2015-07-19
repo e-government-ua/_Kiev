@@ -51,8 +51,7 @@ public class LiqBuy {
             oLanguage = DEFAULT_LANG;
         }
         
-        String snID_Subject=""+nID_Subject;
-        String sAccessKey_Merchant = accessDataDao.setAccessData(snID_Subject);
+        String sAccessKey_Merchant = accessDataDao.setAccessData(""+nID_Subject);
         
         Map<String, String> paramMerchant = new HashMap<String, String>();
         paramMerchant.put("sID", sID_Merchant);
