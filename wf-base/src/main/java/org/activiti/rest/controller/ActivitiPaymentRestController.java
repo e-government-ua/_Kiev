@@ -139,13 +139,52 @@ public class ActivitiPaymentRestController {
                 sStatus_Payment = (String) json.get(LIQPAY_FIELD_PAYMENT_STATUS);
             } catch (Exception e) {
                 log.error("can't parse json! reason:" + e.getMessage());
+                log.info("sData=" + sData);
+                
+                String sFieldName = LIQPAY_FIELD_TRANSACTION_ID;//"transaction_id"
+                log.info("sFieldName="+sFieldName+",sID_Transaction="+sID_Transaction);
+                int nAt;
+                int nTo;
+                
+                nAt=sData.indexOf(sFieldName);
+                if(nAt>-1){
+                    nTo=sData.indexOf(",",nAt);
+                    String s=sData.substring(nAt+(sFieldName.length())+2,nTo);
+                    log.info("s=" + s);
+                    //"transaction_id":63444718
+                    sID_Transaction=s;
+                    log.info("NEW: sID_Transaction="+sID_Transaction);
+                }else{
+                    log.error("nAt="+nAt);
+                }
+                
+                sFieldName = LIQPAY_FIELD_PAYMENT_STATUS;//"status"
+                log.info("sFieldName="+sFieldName+",sStatus_Payment="+sStatus_Payment);
+                nAt=sData.indexOf(sFieldName);
+                if(nAt>-1){
+                    nTo=sData.indexOf(",",nAt);
+                    String s=sData.substring(nAt+(sFieldName.length())+2+1,nTo-1);
+                    log.info("s=" + s);
+                    //"transaction_id":63444718
+                    sStatus_Payment=s;
+                    log.info("NEW: sStatus_Payment="+sStatus_Payment);
+                }else{
+                    log.error("nAt="+nAt);
+                }
             }
+        }else{
+            log.warn("incorrect input data: sData != null: " + "sID_Transaction=" + sID_Transaction + ", snID_Task=" + snID_Task + ", sStatus_Payment=" + sStatus_Payment);
         }
 
         //check variables
-        if (sData != null && (sID_Transaction == null || nID_Task == null || !PAYMENT_SUCCESS.equals(sStatus_Payment))) {
-            log.warn("incorrect input data: " + "tr_id=" + sID_Transaction + ", task_id=" + nID_Task + ", pay_status=" + sStatus_Payment);
+        //if (sData != null && (sID_Transaction == null || nID_Task == null || !PAYMENT_SUCCESS.equals(sStatus_Payment))) {
+        if (nID_Task == null) {
+            log.error("incorrect primary input data(BREAKED): " + "sID_Transaction=" + sID_Transaction + ", snID_Task=" + snID_Task + ", sStatus_Payment=" + sStatus_Payment);
             return;
+        }
+        if (sData != null && (sID_Transaction == null || sStatus_Payment == null)) {
+            log.error("incorrect secondary input data: " + "sID_Transaction=" + sID_Transaction + ", nID_Task=" + snID_Task + ", sStatus_Payment=" + sStatus_Payment);
+            //return;
         }
 
         //save info to process
@@ -168,7 +207,7 @@ public class ActivitiPaymentRestController {
 //TODO разобраться почему приходит ИД процесса а не таски
             String snID_Process = snID_Task;
             log.info("try to set sID_Payment to processInstance of task, snID_Process=" + snID_Process);
-            runtimeService.setVariable(snID_Process, "sID_Payment", sID_Transaction);
+            runtimeService.setVariable(snID_Process, "sID_Payment", sID_Transaction+"_"+sStatus_Payment);
         } catch (Exception e){
             log.error("error during changing: nID_Task=" + nID_Task + ", sID_Transaction=" + sID_Transaction, e);
         }
