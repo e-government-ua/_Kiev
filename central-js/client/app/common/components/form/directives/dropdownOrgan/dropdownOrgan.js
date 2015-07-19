@@ -14,7 +14,7 @@ angular.module('app').directive('dropdownOrgan', function (OrganListFactory) {
         return scope.organList.load(scope.serviceData, search);
       };
       scope.onSelectOrganList = function (organ) {
-        scope.ngModel = organ.nID;
+        scope.ngModel = organ.sID_Public;
         scope.organList.typeahead.model = organ.sNameUa;
       };
       scope.organList.reset();
