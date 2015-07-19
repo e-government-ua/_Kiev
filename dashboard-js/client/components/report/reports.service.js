@@ -25,6 +25,19 @@ angular.module('dashboardJsApp').factory('reports', function tasks($http) {
         'sDateCreateFormat=' + data.sDateCreateFormat + '&' +
         'sFileName=' + data.sFileName;
     }
+    
+    , statisticLink: function (statisticParams) {
+      var data = {
+        'sID_BP': statisticParams.sBP,
+        'sDateAt': statisticParams.from,
+        'sDateTo': statisticParams.to
+      };
+      return './api/reports/statistic?' +
+        'sID_BP_Name=' + data.sID_BP + '&' +
+        'sDateAt=' + data.sDateAt + '&' +
+        'sDateTo=' + data.sDateTo
+    }
+    
   }
 });
 

@@ -19,3 +19,16 @@ exports.index = function (req, res) {
   };
   activiti.filedownload(req, res, options);
 };
+
+exports.statistic = function (req, res) {
+  var options = {
+    path: 'rest/file/download_bp_timing',
+    query: {
+      'sID_BP_Name': req.query.sID_BP,
+      'sDateAt':req.query.sDateAt,
+      'sDateTo':req.query.sDateTo
+    }
+  };
+  activiti.filedownload(req, res, options);
+};
+
