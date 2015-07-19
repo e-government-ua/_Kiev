@@ -2,6 +2,7 @@
 angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $window, tasks, processes, Modal, Auth, PrintTemplate, $localStorage) {
   $scope.tasks = [];
   $scope.selectedTasks = {};
+  $scope.sSelectedTask = "";
   $scope.$storage = $localStorage.$default({
     menuType: tasks.filterTypes.selfAssigned
   });
@@ -66,6 +67,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.applyTaskFilter = function (menuType) {
+    $scope.sSelectedTask = $scope.$storage.menuType;
     $scope.selectedTask = $scope.selectedTasks[menuType];
     $scope.$storage.menuType = menuType;
     $scope.taskForm = null;

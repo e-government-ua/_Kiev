@@ -118,7 +118,7 @@
                     ng-click="assignTask()"
                     class="btn btn-success">Взяти в роботу
             </button>
-            <button ng-hide="selectedTask.assignee == null"
+            <button ng-hide="selectedTask.assignee == null || sSelectedTask == 'finished'"
                     ng-click="submitTask()"
                     class="btn btn-success">Опрацювати
             </button>
