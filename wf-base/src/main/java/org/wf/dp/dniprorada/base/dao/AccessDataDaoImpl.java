@@ -24,7 +24,7 @@ public class AccessDataDaoImpl implements AccessDataDao {
 
     @Override
     public String setAccessData(byte[] aContent) {
-        log.info("[setAccessData]:aContent="+aContent.toString());
+        log.info("[setAccessData]:sContent="+(aContent==null?"null":Util.contentByteToString(aContent)));
         String sKey=durableBytesDataStorage.saveData(aContent);
         log.info("[setAccessData]:sKey="+sKey);
         return sKey;
@@ -32,8 +32,8 @@ public class AccessDataDaoImpl implements AccessDataDao {
 
     @Override
     public String getAccessData(String sKey) {
-        byte[] contentByte = durableBytesDataStorage.getData(sKey);
-        return contentByte != null ? Util.contentByteToString(contentByte) : contentMock;
+        byte[] aContent = durableBytesDataStorage.getData(sKey);
+        return aContent != null ? Util.contentByteToString(aContent) : contentMock;
     }
 
     @Override
