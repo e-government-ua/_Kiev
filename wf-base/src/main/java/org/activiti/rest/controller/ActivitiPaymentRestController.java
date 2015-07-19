@@ -139,10 +139,18 @@ public class ActivitiPaymentRestController {
         String sStatus_Payment = null;
         if(sData != null){
             try {
+                /*
                 //Map<String, Object> json = (Map<String, Object>) JSON.parse(sData);
                 Map<String, Object> json = new Gson().fromJson(sData, HashMap.class);
                 sID_Transaction = (String) json.get(LIQPAY_FIELD_TRANSACTION_ID);
                 sStatus_Payment = (String) json.get(LIQPAY_FIELD_PAYMENT_STATUS);
+                */
+                Gson oGson = new Gson();
+                LiqpayCallbackModel oLiqpayCallbackModel = oGson.fromJson(sData, LiqpayCallbackModel.class);
+                //log.info("sID_PaymentSystem="+sID_PaymentSystem);
+                log.info("liqpayCallback.getOrder_id()="+oLiqpayCallbackModel.getOrder_id());
+                sID_Transaction = oLiqpayCallbackModel.getTransaction_id();
+                sStatus_Payment = oLiqpayCallbackModel.getStatus();
             } catch (Exception e) {
                 log.error("can't parse json! reason:" + e.getMessage());
                 int nAt;
@@ -219,11 +227,14 @@ public class ActivitiPaymentRestController {
             
 //TODO разобраться почему приходит ИД процесса а не таски
             String snID_Process = snID_Task;
-            log.info("try to set sID_Payment to processInstance of task, snID_Process=" + snID_Process
-                    + "sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
-            runtimeService.setVariable(snID_Process, "sID_Payment", sID_Transaction+"_"+sStatus_Payment);
+            String sID_Payment = sID_Transaction+"_"+sStatus_Payment;
+            log.info("try to set sID_Payment="+sID_Payment+" to snID_Process=" + snID_Process
+                    + ": sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
+            runtimeService.setVariable(snID_Process, "sID_Payment", sID_Payment);
+            log.info("completed set sID_Payment="+sID_Payment+" to snID_Process=" + snID_Process
+                    + ": sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
         } catch (Exception e){
-            log.error("error during changing: nID_Task=" + nID_Task
+            log.error("during changing: nID_Task=" + nID_Task
                     + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment, e);
         }
 
