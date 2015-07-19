@@ -19,13 +19,8 @@
   }
 }
 
-.tasks-form {
-
-}
-
 .tasks-form-view {
   overflow-y: auto;
-  height: 800px;
 }
 
 .tasks-form-buttons {

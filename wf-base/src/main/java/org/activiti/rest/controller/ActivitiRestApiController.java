@@ -2,6 +2,7 @@ package org.activiti.rest.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -500,57 +501,15 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     Task.class);
         }
 
-        DelegationState delegationState = null;
-        try {
-            if(sID_State_BP != null) {
-                delegationState = DelegationState.valueOf(sID_State_BP.toUpperCase());
-            }
-        } catch (IllegalArgumentException e){
-            log.error("Do not support bussiness status - {}", sID_State_BP, e);
-            throw new ActivitiObjectNotFoundException(
-                    "Statistics for the business task with state '" + sID_State_BP + "' not found. Wrong state.",
-                    Task.class, e);
-        }
+        DelegationState delegationState = validateDelegationState(sID_State_BP);
+        dateAt = validateDateAt(dateAt);
+        dateTo = validateDateTo(dateTo);
+        String separator = validateSeparator(sID_BP, nASCI_Spliter);
+        Charset charset = validateCharset(sID_Codepage);
 
-        if(dateAt == null){
-            dateAt = DateTime.now().minusDays(1).toDate();
-            log.debug("No dateAt was set, use - {}", dateAt);
-        }
-        if(dateTo == null){
-            dateTo = DateTime.now().toDate();
-            log.debug("No dateTo was set, use - {}", dateTo);
-        }
-
-        if(!NumberUtils.isNumber(nASCI_Spliter)){
-            log.error("ASCI code is not a number {}", nASCI_Spliter);
-            throw new ActivitiObjectNotFoundException(
-                    "Statistics for the business task with name '" + sID_BP + "' not found. Wrong splitter.",
-                    Task.class);
-        }
-        Character separator = (char) NumberUtils.toInt(nASCI_Spliter);
-
-        Charset charset;
-        try {
-            if(sID_Codepage.replaceAll("-", "").equalsIgnoreCase("win1251") || sID_Codepage.replaceAll("-", "").equalsIgnoreCase("CL8MSWIN1251")){
-                sID_Codepage = "CP1251";    //hack for alias
-            }
-            charset = Charset.forName(sID_Codepage);
-            log.debug("use charset - {}", charset);
-        } catch (IllegalArgumentException e) {
-            log.error("Do not support charset - {}", sID_Codepage, e);
-            throw new ActivitiObjectNotFoundException(
-                    "Statistics for the business task for chatset '" + sID_Codepage + "' cannot be construct.",
-                    Task.class, e);
-        }
-
-        boolean allFileds = "*".equals(saFields.trim());
-        List<String> fieldNames = Arrays.asList(saFields.toLowerCase().split(";"));
-        log.info("List of fields to retrieve: " + fieldNames.toString());
         //2. query
-        TaskQuery query = taskService.createTaskQuery()
-                .processDefinitionKey(sID_BP)
-                .taskCreatedAfter(dateAt)
-                .taskCreatedBefore(dateTo);
+        TaskQuery query = taskService.createTaskQuery().processDefinitionKey(sID_BP).taskCreatedAfter(dateAt) .taskCreatedBefore(dateTo);
+        
         if(delegationState != null){
             query = query.taskDelegationState(delegationState);
         }
@@ -567,61 +526,130 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         httpResponse.setContentType("text/csv;charset=" + charset.name());
         httpResponse.setHeader("Content-disposition", "attachment; filename=" + fileName);
 
-        CSVWriter csvWriter = new CSVWriter(httpResponse.getWriter(), separator);
+        PrintWriter printWriter = new PrintWriter(httpResponse.getWriter());
 
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
+        fillTheFile(sID_BP, dateAt, dateTo, foundResults, sDateCreateDF, printWriter, saFields, separator);
+
+        printWriter.close();
+    }
+
+	private void fillTheFile(String sID_BP, Date dateAt, Date dateTo,
+			List<Task> foundResults, SimpleDateFormat sDateCreateDF, PrintWriter printWriter, String pattern, String separator) {
+		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
         if (foundResults != null && foundResults.size() > 0){
             log.info(String.format("Found %s tasks for business process %s for date period %s - %s",
-                    foundResults.size(),
-                    sID_BP,
-                    sdfDate.format(dateAt),
-                    sdfDate.format(dateTo)));
+                    foundResults.size(), sID_BP, sdfDate.format(dateAt), sdfDate.format(dateTo)));
 
             boolean firstStep = true;
             List<String> headers = new ArrayList<>();
+            
+            List<String> fieldNames = Arrays.asList(pattern.split(";"));
+            log.info("List of fields to retrieve: " + fieldNames.toString());
 
+			for (String field : fieldNames) {
+				if (StringUtils.isNumeric(field)){
+					ReportField fieldEnum = ReportField.getReportFieldForId(field);
+					if (fieldEnum != null){
+						log.info(String.format("Found field %s. Replacing it with pattern from enum to %s", field, fieldEnum.getPattern()));
+						pattern = pattern.replace(field, fieldEnum.getPattern());
+					} else {
+						log.warn(String.format("Have not found ReportField enum value for the ID %s", field));
+					}
+				}
+			}
+            
             for (Task curTask : foundResults) {
                 List<String> row = new ArrayList<>();
-                row.add(curTask.getId());
-                row.add(sDateCreateDF.format(curTask.getCreateTime()));
-                if(firstStep){
-                    headers.add("nID_Task");
-                    headers.add("sDateCreate");
-                }
 
+                String currentRow = pattern;
                 log.trace("Process task - {}", curTask);
                 TaskFormData data = formService.getTaskFormData(curTask.getId());
-                for(FormProperty property : data.getFormProperties()){
-                	log.trace(String.format("Matching property %s:%s:%s with fieldNames", property.getId(), property.getName(), property.getType().getName()));
-                    if(allFileds || fieldNames.contains(property.getId().toLowerCase())){
-                        if(firstStep){ //build headers from properties if all fields are requested
-                            headers.add(property.getId());
-                        }
-                        String column;
-                        if("enum".equalsIgnoreCase(property.getType().getName())){
-                            column = parseEnumProperty(property);
-                        } else {
-                            column = property.getValue();
-                        }
-                        row.add(column);
-                    }
-                }
-
-                if(firstStep){
-                    csvWriter.writeNext(headers.toArray(new String[0]));
-                }
-                csvWriter.writeNext(row.toArray(new String[0]));
+				for (FormProperty property : data.getFormProperties()) {
+					log.info(String.format(
+							"Matching property %s:%s:%s with fieldNames", property.getId(), property.getName(), property.getType().getName()));
+					if (currentRow.contains("${" + property.getId() + "}")) {
+						log.info("Found field with id %s in the pattern. Adding value to the result", "${" + property.getId() + "}");
+						if (firstStep) { 
+							headers.add(property.getId());
+						}
+						String value = "";
+						if ("enum".equalsIgnoreCase(property.getType().getName())) {
+							value = parseEnumProperty(property);
+						} else {
+							value = property.getValue();
+						}
+						currentRow.replace("${" + property.getId() + "}", value);
+					}
+				}
+				
+				row.add(currentRow.replaceAll(";", separator));
+				printWriter.println(currentRow);
                 firstStep = false;
             }
         } else {
             log.debug(String.format("No tasks found for business process %s for date period %s - %s",
-                    sID_BP,
-                    sdfDate.format(dateAt),
-                    sdfDate.format(dateTo)));
+                    sID_BP, sdfDate.format(dateAt), sdfDate.format(dateTo)));
         }
+	}
 
-        csvWriter.close();
-    }
+	private Date validateDateTo(Date dateTo) {
+		if(dateTo == null){
+            dateTo = DateTime.now().toDate();
+            log.debug("No dateTo was set, use - {}", dateTo);
+        }
+		return dateTo;
+	}
+
+	private Date validateDateAt(Date dateAt) {
+		if(dateAt == null){
+            dateAt = DateTime.now().minusDays(1).toDate();
+            log.debug("No dateAt was set, use - {}", dateAt);
+        }
+		return dateAt;
+	}
+
+	private Charset validateCharset(String sID_Codepage) {
+		Charset charset;
+        try {
+            if(sID_Codepage.replaceAll("-", "").equalsIgnoreCase("win1251") || sID_Codepage.replaceAll("-", "").equalsIgnoreCase("CL8MSWIN1251")){
+                sID_Codepage = "CP1251";    //hack for alias
+            }
+            charset = Charset.forName(sID_Codepage);
+            log.debug("use charset - {}", charset);
+        } catch (IllegalArgumentException e) {
+            log.error("Do not support charset - {}", sID_Codepage, e);
+            throw new ActivitiObjectNotFoundException(
+                    "Statistics for the business task for chatset '" + sID_Codepage + "' cannot be construct.",
+                    Task.class, e);
+        }
+		return charset;
+	}
+
+	private String validateSeparator(String sID_BP, String nASCI_Spliter) {
+		if(!NumberUtils.isNumber(nASCI_Spliter)){
+            log.error("ASCI code is not a number {}", nASCI_Spliter);
+            throw new ActivitiObjectNotFoundException(
+                    "Statistics for the business task with name '" + sID_BP + "' not found. Wrong splitter.",
+                    Task.class);
+        }
+        Character separator = (char) NumberUtils.toInt(nASCI_Spliter);
+		return String.valueOf(separator);
+	}
+
+	private DelegationState validateDelegationState(String sID_State_BP) {
+		DelegationState delegationState = null;
+        try {
+            if(sID_State_BP != null) {
+                delegationState = DelegationState.valueOf(sID_State_BP.toUpperCase());
+            }
+        } catch (IllegalArgumentException e){
+            log.error("Do not support bussiness status - {}", sID_State_BP, e);
+            throw new ActivitiObjectNotFoundException(
+                    "Statistics for the business task with state '" + sID_State_BP + "' not found. Wrong state.",
+                    Task.class, e);
+        }
+		return delegationState;
+	}
 
 
     /**
@@ -651,17 +679,19 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 				log.info(String
 						.format("Checking whether process %s can be started by user with logic %s",
 								processDef.getId(), sLogin));
-				User user = identityService.createUserQuery()
-						.potentialStarter(processDef.getId()).userId(sLogin)
-						.singleResult();
+				List<User> users = identityService.createUserQuery()
+						.potentialStarter(processDef.getId()).list();
 
-				if (user != null) {
-					log.info(String.format("Added process %s to results",
-							processDef.getId()));
-					Map<String, String> map = new HashMap<String, String>();
-					map.put("sId", processDef.getKey());
-					map.put("sName", processDef.getName());
-					res.add(map);
+				if (users != null) {
+					for (User user : users){
+						System.out.println(user.getId());
+					}
+//					log.info(String.format("Added process %s to results",
+//							processDef.getId()));
+//					Map<String, String> map = new HashMap<String, String>();
+//					map.put("sId", processDef.getKey());
+//					map.put("sName", processDef.getName());
+//					res.add(map);
 				}
 			}
 		} else {
