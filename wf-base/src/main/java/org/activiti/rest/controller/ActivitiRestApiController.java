@@ -147,11 +147,11 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     
     /**
-     * @param file
+     * @param sData
      * @return
      * @throws org.activiti.rest.controller.ActivitiIOException
      */
-    @RequestMapping(value = "/setAccessData", method = RequestMethod.POST)
+    @RequestMapping(value = "/setAccessData", method = RequestMethod.GET)
     @Transactional
     public
     @ResponseBody
