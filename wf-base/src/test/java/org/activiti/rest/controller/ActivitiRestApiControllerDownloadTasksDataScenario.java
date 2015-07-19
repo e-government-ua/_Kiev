@@ -89,8 +89,8 @@ public class ActivitiRestApiControllerDownloadTasksDataScenario {
 //        when(formService.getTaskFormData("42")).thenReturn(data);
 //    }
 //
-//    @Test
-//    public void shouldSuccessfullyReturnFileResponse() throws Exception {
+    @Test
+    public void shouldSuccessfullyReturnFileResponse() throws Exception {
 //    	MvcResult result = mockMvc.perform(get("/rest/file/downloadTasksData").
 //                accept(MediaType.APPLICATION_JSON).
 //                param("sID_BP", "test").
@@ -104,7 +104,7 @@ public class ActivitiRestApiControllerDownloadTasksDataScenario {
 //    	assertEquals("expected cp1251 encoding", "text/csv;charset=windows-1251", result.getResponse().getContentType());
 //        assertEquals("expected correct content", "\"nID_Task\"\u0012\"sDateCreate\"\u0012\"bankIdlastName\"\n" +
 //                "\"42\"\u0012\"2015-01-21 09:45:33\"\u0012\"LastName\"\n", result.getResponse().getContentAsString());
-//    }
+    }
 //    
 //    @Test
 //    public void shouldReturnError() throws Exception {
