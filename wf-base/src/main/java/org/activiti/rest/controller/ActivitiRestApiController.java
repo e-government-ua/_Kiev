@@ -82,6 +82,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     private static final Logger log = LoggerFactory.getLogger(ActivitiRestApiController.class);
 
     @Autowired
+    AccessDataDao accessDataDao;
+
+    @Autowired
     private RuntimeService runtimeService;
     @Autowired
     private TaskService taskService;
@@ -140,6 +143,24 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     }
 
 
+    
+    /**
+     * @param file
+     * @return
+     * @throws org.activiti.rest.controller.ActivitiIOException
+     */
+    @RequestMapping(value = "/setAccessData", method = RequestMethod.POST)
+    @Transactional
+    public
+    @ResponseBody
+    String setAccessData(
+            @RequestParam("sData") String sData
+    ) throws ActivitiIOException, Exception  {
+        
+        String sKey = accessDataDao.setAccessData(sData);
+        return sKey;
+    }
+    
     /**
      * Укладываем в редис multipartFileToByteArray 
      * @param file
@@ -369,7 +390,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     
     /**
      * Получение статистики по бизнес процессу за указанные период
-     * @param sID_BP_Name - ИД бизнес процесса
+     * @param sID_BP_Name - �?Д бизнес процесса
      * @param dateAt - дата начала периода выборки
      * @param dateTo - дата окончания периода выборки
      * @param nRowStart - позиция начальной строки для возврата (0 по умолчанию)
