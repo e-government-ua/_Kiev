@@ -8,7 +8,7 @@
       <div class="col-xs-5 sidebar">
         <div class="tasks">
           <div class="list-group">
-            <a class="list-group-item task"
+            <a class="list-group-item task {{ sTaskClass(task.taskDefinitionKey) }}"
                href=""
                ng-repeat="task in tasks"
                tooltip="{{task.description}}"
@@ -17,6 +17,10 @@
               #{{task.id}} ({{ sDateShort(task.createTime) }}) {{ getProcessName(task.processDefinitionId)
               }} | {{ task.name }}
             </a>
+              
+            <!--li ng-repeat="service in subcategory.aService | orderBy: '-nSub' | limitTo: limit as services"-->
+              
+              
           </div>
         </div>
       </div>

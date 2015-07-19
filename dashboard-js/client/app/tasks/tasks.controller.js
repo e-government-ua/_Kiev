@@ -181,6 +181,39 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     }
   };
 
+    /*String.prototype.endsWith = function(suffix) {
+        return this.indexOf(suffix, this.length - suffix.length) !== -1;
+    };*/
+//http://stackoverflow.com/questions/280634/endswith-in-javascript
+    function endsWith(s, sSuffix) {
+        return s.indexOf(sSuffix, s.length - sSuffix.length) !== -1;
+    }
+  $scope.sTaskClass = function (sUserTask) {
+    //sUserTask.stren
+    /*var n=-1;
+    var s="";
+    s="_10";
+    n=sUserTask.lastIndexOf(s);
+    if(n>-1 && n=s){
+    }*/
+    //"_10" - подкрашивать строку - красным цветом
+    //"_5" - подкрашивать строку - желтым цветом
+    //"_1" - подкрашивать строку - зеленым цветом      
+    var sClass="";
+    if(endsWith(sUserTask, "_red")){
+        return "bg_red";
+    }
+    if(endsWith(sUserTask, "_yellow")){
+        return "bg_yellow";
+    }
+    if(endsWith(sUserTask, "_green")){
+        return "bg_green";
+    }
+    if(endsWith(sUserTask, "usertask1")){
+        return "bg_first";
+    }
+  };
+
   $scope.sFieldLabel = function (sField) {
     var s = '';
     if (sField !== null) {
