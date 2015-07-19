@@ -3,7 +3,7 @@
 // Test specific configuration
 // ===========================
 module.exports = {
-  session: {
-    maxAge: 1800000 // 3 * 60 * 1000 = 3 min
-  }
+  /*session: {
+    maxAge: 11800000 // 3 * 60 * 1000 = 3 min
+  }*/
 };
