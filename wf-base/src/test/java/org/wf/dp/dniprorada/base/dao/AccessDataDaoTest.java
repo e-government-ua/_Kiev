@@ -29,7 +29,7 @@ public class AccessDataDaoTest {
     @Autowired
     private AccessDataDao accessDataDao;
 
-    @Test
+    @Test //@Ignore
     public void workWithAccessData() {
         byte[] content = new byte[] {1, 2, 3};
         String contentString = Util.contentByteToString(content);

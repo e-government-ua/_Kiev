@@ -60,10 +60,11 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
             for (Attachment oAttachment : aAttachment) {
                 sFileName = oAttachment.getName();
                 sFileExt = oAttachment.getType().split(";")[0];
-                log.info("sFileExt=" + sFileExt);
                 sDescription = oAttachment.getDescription();
+                log.info("oAttachment.getId()="+oAttachment.getId()+", sFileName=" + sFileName + ", sFileExt=" + sFileExt + ", sDescription=" + sDescription);
                 oInputStream_Attachment = oExecution.getEngineServices().getTaskService().getAttachmentContent(oAttachment.getId());
                 if (oInputStream_Attachment == null) {
+                    log.error("Attachment with id '" + oAttachment.getId() + "' doesn't have content associated with it.");
                     throw new ActivitiObjectNotFoundException(
                             "Attachment with id '" + oAttachment.getId() + "' doesn't have content associated with it.",
                             Attachment.class);
@@ -71,8 +72,10 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
                 DataSource oDataSource = new ByteArrayDataSource(oInputStream_Attachment, sFileExt);
                 // add the attachment
                 oMultiPartEmail.attach(oDataSource, sFileName, sDescription);
+                log.info("oMultiPartEmail.attach: Ok!");
             }
         } else {
+            log.error("aAttachment has nothing!");
             throw new ActivitiObjectNotFoundException("add the file to send");
         }
 

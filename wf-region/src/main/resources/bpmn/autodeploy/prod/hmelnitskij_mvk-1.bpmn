@@ -13,7 +13,7 @@
           <activiti:value id="копія розпорядження міського голови" name="копія розпорядження міського голови"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="docDate" name="Дата прийняття документа; в форматі ДД.ММ.РРРР" type="string"></activiti:formProperty>
-        <activiti:formProperty id="docNumber" name="Номер документа" type="long"></activiti:formProperty>
+        <activiti:formProperty id="docNumber" name="Номер документа" type="string"></activiti:formProperty>
         <activiti:formProperty id="docName" name="Назва документа" type="string"></activiti:formProperty>
         <activiti:formProperty id="docPartContent" name="Частина тексту запитуваного документу; зазначте для можливості пошуку потрібного документа, якщо Вам невідомі дата прийняття,номер або назва документа" type="string"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання документа" type="string" required="true"></activiti:formProperty>

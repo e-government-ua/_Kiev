@@ -28,7 +28,6 @@
         <activiti:formProperty id="advertLicense" name="Копія виписки з Єдиного державного реєстру юридичних осіб та фізичних осіб" type="file"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-             <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
@@ -266,7 +265,8 @@
 										&lt;/ol&gt;
 										&lt;p&gt;&lt;/p&gt;
 										Коментар Державного службовця: &lt;br /&gt;  
-										&lt;i&gt;'${decisionComment}'&lt;/i&gt;
+										&lt;i&gt;'${decisionComment}'&lt;/i&gt; &lt;br /&gt;
+										&lt;i&gt;'${decisionComment_2}'&lt;/i&gt;
 										&lt;p&gt;&lt;/p&gt;
 										Вибачте за незручність. 
                                     &lt;p&gt;&lt;/p&gt;
@@ -398,6 +398,8 @@
 										&lt;i&gt;${decisionComment}&lt;/i&gt;
 																			
                                     &lt;p&gt;&lt;/p&gt;
+									Після їх збору, для отримання дозволу, Вам потрібно предоставити їх відділенню МВК міста Запоріжжя. &lt;br /&gt; 
+									
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -462,7 +464,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask2" name="[Етап II] Заява поступає в роботу у ДержОргані" activiti:candidateGroups="zaporoshye_mvk_1">
+    <userTask id="usertask2" name="[Етап II] Заява+документи поступили в роботу у ДержОргані" activiti:candidateGroups="zaporoshye_mvk_1">
       <extensionElements>
         <activiti:formProperty id="serviceType" name="Дозвіл на зовнішню рекламу, прошу мені" type="enum" writable="false">
           <activiti:value id="create" name="Видати"></activiti:value>
@@ -489,11 +491,12 @@
         <activiti:formProperty id="advertLicense" name="Копія виписки з Єдиного державного реєстру юридичних осіб та фізичних осіб" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="workerDecision" name="Рішення чиновника" type="enum" required="true">
+        <activiti:formProperty id="decisionComment" name="Коментар до першого Етапу І" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="workerDecision_2" name="Рішення чиновника" type="enum" required="true">
           <activiti:value id="accept" name="Видати дозвіл"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="decisionComment" name="Перелік документів і підписей які потрібно зібрати для остаточного прийняття рішення" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="decisionComment_2" name="Додатковий комментар" type="textArea" default="Гарного дня. "></activiti:formProperty>
         <activiti:formProperty id="decisionCopy" name="Скан-копія дозволу" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
@@ -562,7 +565,16 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-										Дозвіл був успішно наданий
+										Дозвіл був успішно наданий. &lt;br /&gt;
+										
+										Скан-копію рішення Ви можете знайти у прикріплених файлах цього письма. &lt;br /&gt;
+
+										Якщо Ви хочете отримати фізичну копію документа - зверніться будь-ласка до МВК міста Запоріжжя &lt;br /&gt;
+										
+										Коментар до рішення:
+									&lt;p&gt;&lt;/p&gt;	
+									&lt;i&gt;	${decisionComment_2} &lt;/i&gt;
+										
 									&lt;p&gt;&lt;/p&gt;
 										Залишайтесь з нами. 	
                                     &lt;p&gt;&lt;/p&gt;
@@ -622,6 +634,9 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow10" sourceRef="mailtask4" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow11" name="${workerDecision=='decline'}" sourceRef="usertask2" targetRef="mailtask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='decline'}]]></conditionExpression>
+    </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_zaporoshye_mvk_1">
     <bpmndi:BPMNPlane bpmnElement="zaporoshye_mvk_1" id="BPMNPlane_zaporoshye_mvk_1">
@@ -641,7 +656,7 @@
         <omgdc:Bounds height="81.0" width="161.0" x="370.0" y="107.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="81.0" width="177.0" x="730.0" y="97.0"></omgdc:Bounds>
+        <omgdc:Bounds height="81.0" width="177.0" x="710.0" y="107.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="71.0" width="135.0" x="830.0" y="471.0"></omgdc:Bounds>
@@ -672,17 +687,17 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
         <omgdi:waypoint x="531.0" y="147.0"></omgdi:waypoint>
-        <omgdi:waypoint x="730.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="710.0" y="147.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="818.0" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="798.0" y="188.0"></omgdi:waypoint>
         <omgdi:waypoint x="517.0" y="345.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="48.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
-        <omgdi:waypoint x="818.0" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="798.0" y="188.0"></omgdi:waypoint>
         <omgdi:waypoint x="897.0" y="471.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="48.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
@@ -707,6 +722,13 @@
         <omgdi:waypoint x="221.0" y="538.0"></omgdi:waypoint>
         <omgdi:waypoint x="537.0" y="538.0"></omgdi:waypoint>
         <omgdi:waypoint x="537.0" y="560.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="144.0" y="431.0"></omgdi:waypoint>
+        <omgdi:waypoint x="897.0" y="471.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="48.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
