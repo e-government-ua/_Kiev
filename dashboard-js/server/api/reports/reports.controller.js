@@ -24,7 +24,7 @@ exports.statistic = function (req, res) {
   var options = {
     path: 'rest/file/download_bp_timing',
     query: {
-      'sID_BP_Name': req.query.sID_BP,
+      'sID_BP_Name': req.query.sID_BP_Name,
       'sDateAt':req.query.sDateAt,
       'sDateTo':req.query.sDateTo
     }
