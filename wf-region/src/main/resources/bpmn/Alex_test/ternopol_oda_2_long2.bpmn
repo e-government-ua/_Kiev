@@ -35,7 +35,7 @@
           <activiti:value id="bank" name="Банківським переказом"></activiti:value>
           <activiti:value id="mail" name="Поштовим перерказом"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="transferComment" name="Додатковий коментар: якщо бажаєте отримати допомогу поштою, введіть №; якщо через банк - №, МФО, код, назва банку" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="transferComment" name="Додатковий коментар: якщо бажаєте отримати допомогу поштою, введіть №. Якщо через банк - №, МФО, код, назва банку" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="deathNote" name="Свідоцтва про смерть; Якщо це стосується вашого запиту" type="file"></activiti:formProperty>
         <activiti:formProperty id="diseaseProof" name="Висновок з медичної установи, якщо це стосується вашого запиту" type="file"></activiti:formProperty>
         <activiti:formProperty id="helpeeIncome" name="Акт обстеження матеріально-побутових умов проживання" type="file" required="true"></activiti:formProperty>
