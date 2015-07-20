@@ -1392,19 +1392,19 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?s
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=<userId>
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=[userId]
 
 * {sLogin} - ID пользователя
 
 Метод возвращает json со списком бизнес процессов, которые пользователь может запускать, в формате 
 [
 {
-"sID":"<process definition key>"
-"sName":"<process definition name>"
+"sID":"[process definition key]"
+"sName":"[process definition name]"
 },
 {
-"sID":"<process definition key>"
-"sName":"<process definition name>"
+"sID":"[process definition key]"
+"sName":"[process definition name]"
 }
 ]
 
