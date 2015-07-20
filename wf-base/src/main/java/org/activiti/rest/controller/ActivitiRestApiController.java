@@ -654,7 +654,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
      * Returns business processes which are belong to a specified user
      * @param sLogin - login of user in user activity
      */
-    @RequestMapping(value = "/getLoginBPs", method = RequestMethod.GET)
+    @RequestMapping(value = "/getLoginBPs", method = RequestMethod.GET, produces = "application/json;charset=UTF-8" )
     @Transactional
     public @ResponseBody String getBusinessProcessesForUser(@RequestParam(value = "sLogin") String sLogin,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
@@ -701,7 +701,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	
     	String jsonRes = JSONValue.toJSONString(res);
     	log.info("Result" + jsonRes);
-		httpResponse.setContentType("application/json;charset=UTF-8");
     	return jsonRes;
     }
 
