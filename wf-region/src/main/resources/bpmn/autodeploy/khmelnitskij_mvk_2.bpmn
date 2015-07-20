@@ -93,8 +93,7 @@
 
 З повагою,
 Хмельницька міська рада,
-Команда Порталу державних послу iGov.org.ua
-</activiti:expression>
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${fileToSend}"</activiti:expression>
@@ -121,8 +120,7 @@
 
 З повагою,
 Хмельницька міська рада,
-Команда Порталу державних послу iGov.org.ua
-</activiti:expression>
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${fileToSend}"</activiti:expression>
