@@ -265,7 +265,8 @@
 										&lt;/ol&gt;
 										&lt;p&gt;&lt;/p&gt;
 										Коментар Державного службовця: &lt;br /&gt;  
-										&lt;i&gt;'${decisionComment}'&lt;/i&gt;
+										&lt;i&gt;'${decisionComment}'&lt;/i&gt; &lt;br /&gt;
+										&lt;i&gt;'${decisionComment_2}'&lt;/i&gt;
 										&lt;p&gt;&lt;/p&gt;
 										Вибачте за незручність. 
                                     &lt;p&gt;&lt;/p&gt;
@@ -490,11 +491,12 @@
         <activiti:formProperty id="advertLicense" name="Копія виписки з Єдиного державного реєстру юридичних осіб та фізичних осіб" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="workerDecision" name="Рішення чиновника" type="enum" required="true">
+        <activiti:formProperty id="decisionComment" name="Коментар до першого Етапу І" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="workerDecision_2" name="Рішення чиновника" type="enum" required="true">
           <activiti:value id="accept" name="Видати дозвіл"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="decisionComment" name="Додатковий коментар; Наприклад причина у відмові в наданні послуги. " type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="decisionComment_2" name="Додатковий комментар" type="textArea" default="Гарного дня. "></activiti:formProperty>
         <activiti:formProperty id="decisionCopy" name="Скан-копія дозволу" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
@@ -567,7 +569,11 @@
 										
 										Скан-копію рішення Ви можете знайти у прикріплених файлах цього письма. &lt;br /&gt;
 
-										Якщо Ви хочете отримати фізичну копію документа - зверніться будь-ласка до МВК міста Запоріжжя
+										Якщо Ви хочете отримати фізичну копію документа - зверніться будь-ласка до МВК міста Запоріжжя &lt;br /&gt;
+										
+										Коментар до рішення:
+									&lt;p&gt;&lt;/p&gt;	
+									&lt;i&gt;	${decisionComment_2} &lt;/i&gt;
 										
 									&lt;p&gt;&lt;/p&gt;
 										Залишайтесь з нами. 	
