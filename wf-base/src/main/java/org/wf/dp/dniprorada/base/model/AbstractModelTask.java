@@ -37,6 +37,7 @@ import org.wf.dp.dniprorada.base.viewobject.flow.SaveFlowSlotTicketResponse;
 import org.wf.dp.dniprorada.form.FormFileType;
 import org.wf.dp.dniprorada.form.QueueDataFormType;
 import org.wf.dp.dniprorada.model.MimiTypeModel;
+import org.activiti.rest.controller.*;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -277,9 +278,15 @@ public abstract class AbstractModelTask {
 	 */
 	public static ByteArrayOutputStream multipartFileToByteArray(MultipartFile file)
 			throws IOException {
+            
+                String sFilename = file.getOriginalFilename();
+                System.out.println("sFilename=" + file.getOriginalFilename());
+                sFilename = Renamer.sRenamed(sFilename);
+                System.out.println("sFilename(new)=" + file.getOriginalFilename());
+            
 		ByteArrayMultipartFile byteArrayMultipartFile  
 				= new ByteArrayMultipartFile(
-						file.getBytes(), file.getName(), file.getOriginalFilename(), file.getContentType());
+						file.getBytes(), file.getName(), sFilename, file.getContentType());
 		 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		 ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
 		 oos.writeObject(byteArrayMultipartFile);

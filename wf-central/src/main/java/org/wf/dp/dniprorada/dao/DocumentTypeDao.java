@@ -19,7 +19,7 @@ public interface DocumentTypeDao {
 
     public List<DocumentType> getDocumentTypes();
 
-    public DocumentType setDocumentType(Long nID, String sName);
+    public DocumentType setDocumentType(Long nID, String sName, Boolean bHidden);
 
     public void removeDocumentType(Long nID);
 

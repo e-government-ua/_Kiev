@@ -1,7 +1,9 @@
 var request = require('request');
 
+var config = require('../../config/environment');
+
 module.exports.index = function(req, res) {
-	var config = require('../../config/environment');
+
 	var activiti = config.activiti;
 
 	var options = {
@@ -31,7 +33,6 @@ module.exports.index = function(req, res) {
 };
 
 module.exports.submit = function(req, res) {
-	var config = require('../../config/environment');
 	var activiti = config.activiti;
 
 	var options = {
@@ -50,10 +51,14 @@ module.exports.submit = function(req, res) {
 	};
 
 	var properties = [];
-	for(var i in options.formData.params) {
+	for(var id in options.formData.params) {
+    var value = options.formData.params[id];
+    if(id === 'nID_Subject'){
+      value = req.session.subject.nID;
+    }
 		properties.push({
-			'id': i,
-			'value': options.formData.params[i]
+			'id': id,
+			'value': value
 		});
 	};
 

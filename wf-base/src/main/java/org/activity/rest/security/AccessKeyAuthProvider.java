@@ -7,6 +7,8 @@ import org.springframework.security.core.*;
 import org.springframework.security.core.authority.*;
 import org.springframework.stereotype.*;
 import org.wf.dp.dniprorada.base.dao.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -25,6 +27,8 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
     private String persistentKey;
     private AccessDataDao accessDataDao;
 
+    private final Logger log = LoggerFactory.getLogger(AccessKeyAuthProvider.class);
+    
     @Autowired
     public AccessKeyAuthProvider(AccessDataDao accessDataDao) {
         this.accessDataDao = accessDataDao;
@@ -53,15 +57,27 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
     }
 
     private void authenticateByAccessKey(Authentication authentication) {
+        log.info("authentication.getName()="+authentication.getName());
+        log.info("authentication.getPrincipal()="+authentication.getPrincipal());
+        
         String accessData = accessDataDao.getAccessData(authentication.getName());
+        log.info("accessData="+accessData);
+        log.info("authentication.getCredentials()="+authentication.getCredentials());
+        
         if (accessData == null) {
+            log.warn("accessData == null");
             throw new BadAccessKeyCredentialsException("Error custom authorization - key is absent");
         }
         if (!accessData.equals(authentication.getCredentials())) {
+            log.warn("!accessData.equals(authentication.getCredentials()");
             throw new BadAccessKeyCredentialsException("Error custom authorization - key data is wrong");
         }
+        log.info("persistentKey="+persistentKey);
         if (persistentKey == null || !persistentKey.equals(authentication.getName())) {
+            log.info("remove key (persistentKey == null || !persistentKey.equals(authentication.getName()))");
             accessDataDao.removeAccessData(authentication.getName());
+        }else{
+            log.warn("Can't remove key");
         }
     }
 

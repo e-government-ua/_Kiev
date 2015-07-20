@@ -82,8 +82,8 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
                     submitted.data.id = result.id;
 
                     $scope.isSending = false;
-                    $scope.$root.data = $scope.$root.data || {}
-                    $scope.$root.data.formData = $scope.data.formData;
+                    $scope.$root.data = $scope.data
+                    console.log($scope.data)
                     return $state.go(submitted, $stateParams);
                 })
         } else {
