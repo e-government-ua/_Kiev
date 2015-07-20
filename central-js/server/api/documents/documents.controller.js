@@ -86,6 +86,11 @@ module.exports.initialUpload = function (req, res) {
     var sID_Subject = req.session.subject.sID;
     var typesToUpload = req.body;
 
+    if(req.session.documents && req.session.documents.uploaded) {
+      res.status(200).end();
+      return;
+    }
+
     if (!accessToken || !sID_Subject) {
         res.status(400).send({
             error: 'both accessToken and sID_Subject are needed'
@@ -178,7 +183,7 @@ module.exports.initialUpload = function (req, res) {
             }
             //don't do end here, it will be executed after all async
         }, function (result) {
-            //here
+            req.session.documents = {uploaded : true};
             res.send(result);
             res.end();
         });

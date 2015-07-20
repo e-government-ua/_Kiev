@@ -36,24 +36,8 @@ angular.module('documents').config(function($stateProvider) {
       url: '/content',
       parent: 'index.documents.user',
       resolve: {
-        BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
-          return BankIDService.isLoggedIn().then(function() {
-            return {loggedIn: true};
-          }).catch(function() {
-            return $q.reject(null);
-          });
-        },
-        BankIDAccount: function(BankIDService) {
-          return BankIDService.account();
-        },
-        customer: function(BankIDAccount) {
-          return BankIDAccount.customer;
-        },
         documents: function($q, $state, ServiceService) {
-          return ServiceService.getOrUploadDocuments()
-            .then(function(data) {
-              return data;
-            });
+          return ServiceService.getOrUploadDocuments();
         }
       },
       views: {
