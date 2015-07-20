@@ -188,6 +188,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     };*/
 //http://stackoverflow.com/questions/280634/endswith-in-javascript
     function endsWith(s, sSuffix) {
+        if(s==null){
+            return false;
+        }
         return s.indexOf(sSuffix, s.length - sSuffix.length) !== -1;
     }
   $scope.sTaskClass = function (sUserTask) {
