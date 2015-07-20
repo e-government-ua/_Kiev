@@ -28,7 +28,7 @@ angular.module('app').factory('OrganListFactory', function($http, $filter, Typea
       nID_Region: oServiceData.nID_City && oServiceData.nID_City.nID_Region ? oServiceData.nID_City.nID_Region.nID : null,
       sID_UA: sID_UA
     };
-    return this.typeahead.load('./api/organs/' + oServiceData.nID, search, data).then(function(organs) {
+    return this.typeahead.load('./api/organs/' + oServiceData.oSubject_Operator.oSubject.nID, search, data).then(function(organs) {
       if (search && search.length > 0 && search !== '[$empty$]')
         return $filter('filter')(organs, {sNameUa:search});
       else
