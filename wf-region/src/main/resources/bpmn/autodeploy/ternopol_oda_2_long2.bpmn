@@ -8,6 +8,8 @@
         <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані одержувача АБО його законного представника" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорта заявника" type="file"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Адреса прописки одержувача АБО його законного представника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdInn" name="ІПН одержувача допомоги АБО його законного представника" type="string"></activiti:formProperty>
         <activiti:formProperty id="organID" name="До якого державного органу Ви звертаєтесь" type="enum" required="true">
           <activiti:value id="ternopil_oda3" name="Департамент соцзахисту Тернопільської ОДА"></activiti:value>
         </activiti:formProperty>
@@ -17,8 +19,6 @@
           <activiti:value id="rep" name="Законний представник отримувача допомоги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="citizenTypeExtended" name="Для інвалідів указати групу і причину інвалідності" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Адреса прописки одержувача АБО його законного представника" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdInn" name="ІПН одержувача допомоги АБО його законного представника" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpTo" name="Прошу видати матеріальну допомогу" type="enum" required="true">
           <activiti:value id="me" name="Мені"></activiti:value>
           <activiti:value id="helpee" name="На мого підопічного"></activiti:value>
