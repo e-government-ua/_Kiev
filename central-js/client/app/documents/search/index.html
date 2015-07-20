@@ -2,141 +2,136 @@
 <div class="list-group">
     <div class="list-group-item">
         <div class="row no-margin-bottom">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <p>Тут Ви зможете шукати електронні образи документів як державних організацій (наприклад, довідки) так
-                    і приватних (наприклад, довідки банків).</p>
-                <b style="color: red;">(розділ у процесі розробки)</b>
-                <a href="https://docs.google.com/presentation/d/17SPm-nD1awYllMNiuv3gQnckOC0VegHj7-SbLtjTOZs/edit#slide=id.p">Докладніше
-                    про
-                    розділ
-                    Документи
-                    на
-                    порталі
-                    iGov</a>
+                    і приватних (наприклад, довідки банків). <a href="https://docs.google.com/presentation/d/17SPm-nD1awYllMNiuv3gQnckOC0VegHj7-SbLtjTOZs/edit#slide=id.p">Докладніше про розділ Документи на порталі iGov</a></p>
+                <b style="display: none; color: red;">(розділ у процесі розробки)</b>
+                
 
-                <div class="panel panel-default">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <form name="searchForm"
-                                  role="form"
-                                  ng-submit="searchForm.$valid && searchDocument(typeId, operatorId, code, smsPass)">
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label for="typeId">Оберить тип документу<em>*</em></label>
-                                        <select class="form-control"
-                                                required
-                                                ng-model="typeId"
-                                                ng-options="item.nID as item.sName for item in typeOptions"
-                                                id="typeId">
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label for="operatorId">Оберить оператора<em>*</em></label>
-                                        <select class="form-control"
-                                                required
-                                                ng-model="operatorId"
-                                                ng-options="items.nID_SubjectOrgan as items.sName for items in operatorOptions"
-                                                id="operatorId">
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label for="code">Введіть код доступу до документу<em>*</em></label>
-                                        <input type="text"
-                                               required
-                                               ng-model="code"
-                                               class="form-control"
-                                               id="code"/>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group">
-                                        <div class="submit-button">
-                                            <button type="submit"
-                                                    class="btn btn-primary"
-                                                    ng-disabled="searchForm.$invalid">Знайти
-                                            </button>
+                <center>
+                    <div style="width: 600px;border: 0px; /*border-color: white;*/ /*#ddd;*/" class="panel panel-default">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form name="searchForm"
+                                      role="form"
+                                      ng-submit="searchForm.$valid && searchDocument(typeId, operatorId, code, smsPass)"
+                                      style="text-align:left;"
+                                      >
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="typeId">Оберить тип документу<!--em>*</em--></label>
+                                            <select class="form-control"
+                                                    required
+                                                    ng-model="typeId"
+                                                    ng-options="item.nID as item.sName for item in typeOptions"
+                                                    id="typeId">
+                                            </select>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="operatorId">Оберить оператора<!--em>*</em--></label>
+                                            <select class="form-control"
+                                                    required
+                                                    ng-model="operatorId"
+                                                    ng-options="items.nID_SubjectOrgan as items.sName for items in operatorOptions"
+                                                    id="operatorId">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="code">Введіть код доступу до документу<!--em>*</em--></label>
+                                            <input type="text"
+                                                   required
+                                                   ng-model="code"
+                                                   class="form-control"
+                                                   id="code"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="submit-button">
+                                                <button type="submit"
+                                                        class="btn btn-primary"
+                                                        ng-disabled="searchForm.$invalid">Знайти
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
-                                <div class="row" ng-show="showSmsPass">
-                                    <div class="form-group">
-                                        <label for="smsPass">Введіть отриманий Вами SMS код<em>*</em></label>
-                                        <input type="text"
-                                               ng-model="smsPass"
-                                               class="form-control"
-                                               id="smsPass"/>
+                                    <div class="row" ng-show="showSmsPass">
+                                        <div class="form-group">
+                                            <label for="smsPass">Введіть отриманий Вами SMS код<!--em>*</em--></label>
+                                            <input type="text"
+                                                   ng-model="smsPass"
+                                                   class="form-control"
+                                                   id="smsPass"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="submit-button" ng-show="showSmsPass">
+                                        <button type="submit"
+                                                class="btn btn-primary"
+                                                ng-disabled="!smsPass">Підтвердити
+                                        </button>
+                                    </div>
+                                </form>
+                                <br>
+                                <div ng-repeat="message in messages">
+                                    <div class="alert alert-info" role="alert">
+                                        {{message}}
                                     </div>
                                 </div>
 
-                                <div class="submit-button" ng-show="showSmsPass">
-                                    <button type="submit"
-                                            class="btn btn-primary"
-                                            ng-disabled="!smsPass">Підтвердити
-                                    </button>
-                                </div>
-                            </form>
-                            <br>
-                            <div ng-repeat="message in messages">
-                                <div class="alert alert-info" role="alert">
-                                    {{message}}
-                                </div>
-                            </div>
-
-                            <table ng-show="documents.length > 0" class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th class="col-md-5">
-                                        <p class="text-muted">Документ</p>
-                                    </th>
-                                    <th class="col-md-3">
-                                        <p class="text-muted">Дата завантаження копії</p>
-                                    </th>
-                                    <th class="col-md-3">
-                                        <p class="text-muted">Ким завантажена копія</p>
-                                    </th>
-                                    <th class="col-md-1 align-right">
-                                        <p class="text-muted">Дії</p>
-                                    </th>
-                                </tr>
-                                </thead>
-
-                                <tbody ng-repeat="doc in documents">
-
-                                    <tr id="document">
-                                        <td>
-                                            {{doc.sName}}
-                                        </td>
-                                        <td>
-                                            {{doc.oDate_Upload | date:'dd MMMM yyyy HH:mm'}}
-                                        </td>
-                                        <td>
-                                            {{doc.sSubjectName_Upload}}
-                                            <input type="hidden"
-                                                   value="{{doc.nID}}">
-                                            <input type="hidden"
-                                                   value="{{doc.sName}}">
-                                        </td>
-                                        <td>
-                                            <a ng-href="{{getDocumentLink(doc.nID)}}"
-                                               target="_self">
-                                                <span class="glyphicon glyphicon-download"
-                                                      title="Завантажити копію"
-                                                      aria-hidden="true"></span>
-                                            </a>
-                                        </td>
+                                <table ng-show="documents.length > 0" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="col-md-7">
+                                            <p class="text-muted">Документ</p>
+                                        </th>
+                                        <th class="col-md-3">
+                                            <p class="text-muted">Дата завантаження копії</p>
+                                        </th>
+                                        <th class="col-md-3">
+                                            <p class="text-muted">Ким завантажена копія</p>
+                                        </th>
+                                        <th class="col-md-1 align-right">
+                                            <p class="text-muted">Дії</p>
+                                        </th>
                                     </tr>
-                                </tbody>
-                            </table>
+                                    </thead>
+
+                                    <tbody ng-repeat="doc in documents">
+
+                                        <tr id="document">
+                                            <td>
+                                                {{doc.oDocumentType.sName}}
+                                            </td>
+                                            <td>
+                                                {{doc.sDate_Upload | date:'dd MMMM yyyy HH:mm'}}
+                                            </td>
+                                            <td>
+                                                {{doc.sSubjectName_Upload}}
+                                            </td>
+                                            <td>
+                                                <a ng-href="{{getDocumentLink(doc.nID, typeId, operatorId, code, smsPass)}}"
+                                                   target="_self">
+                                                    <span class="glyphicon glyphicon-download"
+                                                          title="Завантажити копію"
+                                                          aria-hidden="true"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </center>
+
             </div>
         </div>
     </div>

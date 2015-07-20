@@ -44,8 +44,8 @@
         <activiti:formProperty id="file3" name="копія сертифікату про походження товару або експертний висновок з визначенням країни походження та коду товару відповідно до УКТ ЗЕД (подаються тільки для одержання ліцензій на експорт товарів). " type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dateView" name="Бажана дата отримання ліцензії" type="date"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Відправляючи звернення Ви підтверджуєете достовірність зазначених персональних данних"></activiti:formProperty>
-      </extensionElements>
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+ </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
@@ -159,7 +159,6 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow5" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow6" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="mailtask2">
@@ -380,6 +379,33 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow21" sourceRef="mailtask4" targetRef="endevent6"></sequenceFlow>
+    <serviceTask id="mailtask5" name="Повідомлення держслужбовця про нову заявку" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:string><![CDATA[internationalrelations.te@gmail.com]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Отримання разової (індивідуальної) ліцензії на зовнішньоекономічну операцію]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:string><![CDATA[Шановний(-а), колего!
+
+У Вас в черзі на обробку  зареєстровано нове звернення щодо отримання разової (індивідуальної) ліцензії на зовнішньоекономічну операцію.
+
+З повагою,
+Державна Адміністрація Тернопільскої області,
+Команда Порталу державних послу iGov.org.ua]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow22" sourceRef="mailtask1" targetRef="mailtask5"></sequenceFlow>
+    <sequenceFlow id="flow23" sourceRef="mailtask5" targetRef="usertask1"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>ternopol_oda1</text>
     </textAnnotation>
@@ -449,6 +475,9 @@
       <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
         <omgdc:Bounds height="73.0" width="185.0" x="376.0" y="672.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="676.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="50.0" width="100.0" x="196.0" y="230.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -469,10 +498,6 @@
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
         <omgdi:waypoint x="279.0" y="93.0"></omgdi:waypoint>
         <omgdi:waypoint x="278.0" y="55.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="468.0" y="165.0"></omgdi:waypoint>
-        <omgdi:waypoint x="468.0" y="220.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="561.0" y="247.0"></omgdi:waypoint>
@@ -548,6 +573,14 @@
       <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
         <omgdi:waypoint x="468.0" y="745.0"></omgdi:waypoint>
         <omgdi:waypoint x="468.0" y="800.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="561.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="676.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="728.0" y="165.0"></omgdi:waypoint>
+        <omgdi:waypoint x="468.0" y="220.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
         <omgdi:waypoint x="296.0" y="608.0"></omgdi:waypoint>

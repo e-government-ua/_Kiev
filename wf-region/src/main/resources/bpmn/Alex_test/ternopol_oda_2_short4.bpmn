@@ -3,6 +3,16 @@
   <process id="ternopol_2_short4" name="Тернопіль ОДА - Надання матеріальної допомоги у разі тривалої хвороби" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
+        <activiti:formProperty id="organID" name="До якого Державного Органа Ви звертаєтесь" type="enum" required="true">
+          <activiti:value id="ternopil_oda3" name="Департамент СоцЗахисту Тернопільської ОДА"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="citizenTypeExtended" name="Інвалідам - вказати групу і причину інвалідності; Іншим - опишіть більш детально Вашу категорії" type="string"></activiti:formProperty>
+        <activiti:formProperty id="helpTo" name="Прошу видати матеріальну допомогу" type="enum" required="true">
+          <activiti:value id="me" name="Мені"></activiti:value>
+          <activiti:value id="helpee" name="На мого підопічного"></activiti:value>
+          <activiti:value id="disabledKid" name="На мою дитину-інваліда"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="disasterName" name="Стихійне лихо що завдало Вам матеріальних збитків" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище отримувача АБО представника" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string"></activiti:formProperty>
@@ -12,13 +22,12 @@
         <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file"></activiti:formProperty>
         <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера/отримувача державної соціальної допомоги АБО висновок МедЕкспертизи" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="helpeeIncome" name="Акт обстеження матеріально-побутових умов проживання" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="diseaseProof" name="Висновк з медичної установи" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="helpeeSurname" name="Прізвище отримувача допомоги; Якщо Ви законний представник" type="string"></activiti:formProperty>
+        <activiti:formProperty id="helpeeSurname" name="Прізвище отримувача допомоги; Заповніть якщо Ви законний представник" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpeeName" name="Його ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpeeMiddleName" name="Його по-батькове" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpeePassport" name="Паспортні дані/свідоцтва народження отримувача" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpeePassportScan" name="Скан-копія паспорта/свідоцтва народження отримувача" type="file"></activiti:formProperty>
-        <activiti:formProperty id="repProof" name="Документ, що підтверджує  повноваження представника" type="file"></activiti:formProperty>
+        <activiti:formProperty id="repProof" name="Документ, що підтверджує повноваження представника" type="file"></activiti:formProperty>
         <activiti:formProperty id="transferMethod" name="Яким шляхом Ви бажаєте отримати допомогу" type="enum" required="true">
           <activiti:value id="bank" name="Банківським переказом"></activiti:value>
           <activiti:value id="mail" name="Поштою"></activiti:value>
@@ -312,7 +321,6 @@
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
-
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
 &lt;html&gt;

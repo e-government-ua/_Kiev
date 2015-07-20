@@ -19,6 +19,7 @@
           <activiti:value id="digital" name="Тільки Електронна версія"></activiti:value>
           <activiti:value id="physical" name="Фізична+Електронна копія  "></activiti:value>
         </activiti:formProperty>
+                <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Емейл підтвердження " activiti:type="mail">

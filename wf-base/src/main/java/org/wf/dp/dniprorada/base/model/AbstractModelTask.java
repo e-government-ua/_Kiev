@@ -37,6 +37,7 @@ import org.wf.dp.dniprorada.base.viewobject.flow.SaveFlowSlotTicketResponse;
 import org.wf.dp.dniprorada.form.FormFileType;
 import org.wf.dp.dniprorada.form.QueueDataFormType;
 import org.wf.dp.dniprorada.model.MimiTypeModel;
+import org.activiti.rest.controller.*;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -206,9 +207,9 @@ public abstract class AbstractModelTask {
 			Map<String, Object> variables = execution.getEngineServices()
 					.getRuntimeService()
 					.getVariables(execution.getProcessInstanceId());
-			for (Map.Entry<String, Object> entry1 : variables.entrySet()) {
-				if (filedTypeFile.contains(entry1.getKey())) {
-					listValueKeys.add(String.valueOf(entry1.getValue()));
+			for (String fieldId : filedTypeFile) {
+				if (variables.containsKey(fieldId)) {				
+					listValueKeys.add(String.valueOf(variables.get(fieldId)));
 				}
 			}
 		}
@@ -277,9 +278,15 @@ public abstract class AbstractModelTask {
 	 */
 	public static ByteArrayOutputStream multipartFileToByteArray(MultipartFile file)
 			throws IOException {
+            
+                String sFilename = file.getOriginalFilename();
+                System.out.println("sFilename=" + file.getOriginalFilename());
+                sFilename = Renamer.sRenamed(sFilename);
+                System.out.println("sFilename(new)=" + file.getOriginalFilename());
+            
 		ByteArrayMultipartFile byteArrayMultipartFile  
 				= new ByteArrayMultipartFile(
-						file.getBytes(), file.getName(), file.getOriginalFilename(), file.getContentType());
+						file.getBytes(), file.getName(), sFilename, file.getContentType());
 		 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		 ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
 		 oos.writeObject(byteArrayMultipartFile);
@@ -353,7 +360,7 @@ public abstract class AbstractModelTask {
                             String name = asFieldName.get((asFieldName.size() - 1) - n);
                             LOG.info("name=" + name);
 							System.out.println("STEP 4 ___" + "name= " + name);
-                                execution
+                                Attachment attachment = execution
                                         .getEngineServices()
                                         .getTaskService()
                                         .createAttachment(
@@ -364,6 +371,10 @@ public abstract class AbstractModelTask {
                                                 execution.getProcessInstanceId(),
                                                 outFilename,
                                                 name, is);
+                                LOG.info("Setting variable " + asFieldID.get(n) + " with the value " + attachment.getId() + " for new attachment");
+                                execution.getEngineServices().getRuntimeService().setVariable(execution.getProcessInstanceId(),
+            							asFieldID.get(n), attachment.getId());
+                                LOG.info("Finished setting new value for variable with attachment " + asFieldID.get(n));
                         }
                     }
                 }

@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import org.activiti.engine.TaskService;
+import org.activiti.engine.task.Task;
 
 @Controller
 public class ActivitiPaymentRestController {
@@ -34,40 +36,82 @@ public class ActivitiPaymentRestController {
     public static final String LIQPAY_FIELD_PAYMENT_STATUS = "status";
     public static final String TASK_MARK = "TaskActiviti_";
     public static final String PAYMENT_SUCCESS = "success";
+    public static final String PAYMENT_SUCCESS_TEST = "sandbox";
 
 //    @Autowired
 //    TaskService taskService;
+    @Autowired
+    private TaskService taskService;
+    
     @Autowired
     private RuntimeService runtimeService;
     @Autowired
     private HistoryService historyService;
     private final String sID_PaymentSystem = "Liqpay";
-    
+
     @RequestMapping(value = "/setPaymentStatus_TaskActiviti", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
 			@RequestParam String sID_Order,
 			@RequestParam String sID_PaymentSystem,
+			@RequestParam String sData,
+			@RequestParam(value = "data", required = false) String data,
+			@RequestParam(value = "signature", required = false) String signature
+			//@RequestParam byte[] data,
+			//@RequestParam byte[] signature
+			){
+
+            log.info("sID_Order="+sID_Order);
+            log.info("sID_PaymentSystem="+sID_PaymentSystem);
+            log.info("sData="+sData);
+            
+            log.info("data="+data);
+            log.info("signature="+signature);
+            String sDataDecoded = null;
+            if(data != null){
+                sDataDecoded = new String(BASE64DecoderStream.decode(data.getBytes()));
+                log.info("sDataDecoded="+sDataDecoded);
+            }
+            setPaymentStatus(sID_Order, sDataDecoded, sID_PaymentSystem);
+            //setPaymentStatus(sID_Order, null, sID_PaymentSystem);
+            return sData;
+	}
+    
+    @RequestMapping(value = "/setPaymentStatus_TaskActiviti_", method = RequestMethod.POST, headers = { "Accept=application/json" })
+	public @ResponseBody String setPaymentStatus_TaskActiviti(
+			@RequestParam String sID_Order,
+			@RequestParam String sID_PaymentSystem,
+			@RequestParam String sData,
 			@RequestParam byte[] data,
 			@RequestParam byte[] signature
 			){
 
-    	String sData = new String(BASE64DecoderStream.decode(data));
-        setPaymentStatus(sID_Order, sData, sID_PaymentSystem);
-
-		return sData;
+            log.info("sID_Order="+sID_Order);
+            log.info("sID_PaymentSystem="+sID_PaymentSystem);
+            log.info("sData="+sData);
+            log.info("data="+data);
+            log.info("signature="+signature);
+            String sDataDecoded = new String(BASE64DecoderStream.decode(data));
+            log.info("sDataDecoded="+sDataDecoded);
+            setPaymentStatus(sID_Order, sDataDecoded, sID_PaymentSystem);
+            return sData;
 	}
     @RequestMapping(value = "/setPaymentStatus_TaskActiviti2/", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatusNew_TaskActiviti(
 			@RequestParam byte[] data,
 			@RequestParam byte[] signature
 			){
-    	
-    	String sFullData = new String(BASE64DecoderStream.decode(data));
-    	Gson gson = new Gson();
-    	LiqpayCallbackModel liqpayCallback = gson.fromJson(sFullData, LiqpayCallbackModel.class);
-        setPaymentStatus(liqpayCallback.getOrder_id(), sFullData, sID_PaymentSystem);
 
-		return sFullData;
+            log.info("data="+data);
+            log.info("signature="+signature);
+
+            String sFullData = new String(BASE64DecoderStream.decode(data));
+            log.info("sFullData="+sFullData);
+            Gson gson = new Gson();
+            LiqpayCallbackModel liqpayCallback = gson.fromJson(sFullData, LiqpayCallbackModel.class);
+            //log.info("sID_PaymentSystem="+sID_PaymentSystem);
+            log.info("liqpayCallback.getOrder_id()="+liqpayCallback.getOrder_id());
+            setPaymentStatus(liqpayCallback.getOrder_id(), sFullData, sID_PaymentSystem);
+            return sFullData;
 	}
 
     private void setPaymentStatus(String sID_Order, String sData, String sID_PaymentSystem) {
@@ -75,16 +119,9 @@ public class ActivitiPaymentRestController {
             log.info("not liqpay system");
             return;
         }
-        //parse sData
-        String transaction_id = null;
-        String sStatus_Payment = null;
-        try {
-            Map<String, Object> json = (Map<String, Object>) JSON.parse(sData);
-            transaction_id = (String) json.get(LIQPAY_FIELD_TRANSACTION_ID);
-            sStatus_Payment = (String) json.get(LIQPAY_FIELD_PAYMENT_STATUS);
-        } catch (Exception e) {
-            log.error("can't parse json! reason:" + e.getMessage());
-        }
+
+        log.info("sData=" + sData);
+        
         Long nID_Task = null;
         try {
             if (sID_Order.contains(TASK_MARK)) {
@@ -93,31 +130,120 @@ public class ActivitiPaymentRestController {
         } catch (NumberFormatException e) {
             log.error("incorrect sID_Order! can't invoke task_id: " + sID_Order);
         }
-
-        //check variables
-        if (transaction_id == null || nID_Task == null
-                || !PAYMENT_SUCCESS.equals(sStatus_Payment)) {
-            log.warn("incorrect input data: " +
-                    "tr_id=" + transaction_id + ", task_id=" + nID_Task + ", pay_status=" + sStatus_Payment);
-            return;
+        String snID_Task = ""+nID_Task;
+        
+        //https://test.region.igov.org.ua/wf-region/service/setPaymentStatus_TaskActiviti0?sID_Order=TaskActiviti_1485001&sID_PaymentSystem=Liqpay&sData=&nID_Subject=20045&sAccessKey=b32d9855-dce0-44df-bbe0-dd0e41958cde
+        //data=eyJwYXltZW50X2lkIjo2MzQ0NDcxOCwidHJhbnNhY3Rpb25faWQiOjYzNDQ0NzE4LCJzdGF0dXMiOiJzYW5kYm94IiwidmVyc2lvbiI6MywidHlwZSI6ImJ1eSIsInB1YmxpY19rZXkiOiJpMTAxNzI5NjgwNzgiLCJhY3FfaWQiOjQxNDk2Mywib3JkZXJfaWQiOiJUYXNrQWN0aXZpdGlfMTQ4NTAwMSIsImxpcXBheV9vcmRlcl9pZCI6IjQwMXUxNDM3MzI1MDIyMTgzMzAzIiwiZGVzY3JpcHRpb24iOiLQotC10YHRgtC+0LLQsNGPINGC0YDQsNC90LfQsNC60YbQuNGPIiwic2VuZGVyX3Bob25lIjoiMzgwOTc5MTM4MDA3IiwiYW1vdW50IjowLjAxLCJjdXJyZW5jeSI6IlVBSCIsInNlbmRlcl9jb21taXNzaW9uIjowLjAsInJlY2VpdmVyX2NvbW1pc3Npb24iOjAuMCwiYWdlbnRfY29tbWlzc2lvbiI6MC4wLCJhbW91bnRfZGViaXQiOjAuMDEsImFtb3VudF9jcmVkaXQiOjAuMDEsImNvbW1pc3Npb25fZGViaXQiOjAuMCwiY29tbWlzc2lvbl9jcmVkaXQiOjAuMCwiY3VycmVuY3lfZGViaXQiOiJVQUgiLCJjdXJyZW5jeV9jcmVkaXQiOiJVQUgiLCJzZW5kZXJfYm9udXMiOjAuMCwiYW1vdW50X2JvbnVzIjowLjB9
+        //signature=z77CQeBn3Z75n5UpJqXKG+KjZyI=
+        String sID_Transaction = "Pay_"+snID_Task;
+        String sStatus_Payment = null;
+        //parse sData
+        if(sData != null){
+            try {
+                /*
+                //Map<String, Object> json = (Map<String, Object>) JSON.parse(sData);
+                Map<String, Object> json = new Gson().fromJson(sData, HashMap.class);
+                sID_Transaction = (String) json.get(LIQPAY_FIELD_TRANSACTION_ID);
+                sStatus_Payment = (String) json.get(LIQPAY_FIELD_PAYMENT_STATUS);
+                */
+                Gson oGson = new Gson();
+                LiqpayCallbackModel oLiqpayCallbackModel = oGson.fromJson(sData, LiqpayCallbackModel.class);
+                //log.info("sID_PaymentSystem="+sID_PaymentSystem);
+                log.info("oLiqpayCallbackModel.getOrder_id()="+oLiqpayCallbackModel.getOrder_id());
+                sID_Transaction = oLiqpayCallbackModel.getTransaction_id();
+                log.info("oLiqpayCallbackModel.getTransaction_id()="+sID_Transaction);
+                sStatus_Payment = oLiqpayCallbackModel.getStatus();
+                log.info("oLiqpayCallbackModel.getStatus()="+sStatus_Payment);
+            } catch (Exception e) {
+                log.error("can't parse json! reason:" + e.getMessage());
+                /*int nAt;
+                int nTo;
+                
+                String sFieldName = LIQPAY_FIELD_TRANSACTION_ID;//"transaction_id"
+                log.info("sFieldName="+sFieldName+",sID_Transaction="+sID_Transaction);
+                try {
+                    nAt=sData.indexOf(sFieldName);
+                    if(nAt>-1){
+                        nTo=sData.indexOf(",",nAt);
+                        String s=sData.substring(nAt+(sFieldName.length())+2,nTo);
+                        log.info("s=" + s);
+                        //"transaction_id":63444718
+                        sID_Transaction=s;
+                        log.info("NEW: sID_Transaction="+sID_Transaction);
+                    }else{
+                        log.error("nAt="+nAt);
+                    }
+                } catch (Exception e1) {
+                    log.error("can't get field json!(sFieldName="+sFieldName + "):" + e.getMessage());
+                }
+                
+                try {
+                    sFieldName = LIQPAY_FIELD_PAYMENT_STATUS;//"status"
+                    log.info("sFieldName="+sFieldName+",sStatus_Payment="+sStatus_Payment);
+                    nAt=sData.indexOf(sFieldName);
+                    if(nAt>-1){
+                        nTo=sData.indexOf(",",nAt);
+                        String s=sData.substring(nAt+(sFieldName.length())+2+1,nTo-1);
+                        log.info("s=" + s);
+                        //"transaction_id":63444718
+                        sStatus_Payment=s;
+                        log.info("NEW: sStatus_Payment="+sStatus_Payment);
+                    }else{
+                        log.error("nAt="+nAt);
+                    }
+                } catch (Exception e1) {
+                    log.error("can't get field json!(sFieldName="+sFieldName + "):" + e.getMessage());
+                }*/
+            }
+        }else{
+            log.warn("incorrect input data: sData == null: " + "snID_Task=" + snID_Task
+                    + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
         }
 
+        //check variables
+        //if (sData != null && (sID_Transaction == null || nID_Task == null || !PAYMENT_SUCCESS.equals(sStatus_Payment))) {
+        if (sData != null && (sID_Transaction == null || sStatus_Payment == null)) {
+            log.error("incorrect secondary input data: " + "nID_Task=" + snID_Task
+                    + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
+        }
+
+        if (sData != null && !PAYMENT_SUCCESS.equals(sStatus_Payment) && !PAYMENT_SUCCESS_TEST.equals(sStatus_Payment)) {
+            log.error("incorrect sStatus_Payment: " + "nID_Task=" + snID_Task
+                    + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
+        }
+        
+        if (nID_Task == null) {
+            log.error("incorrect primary input data(BREAKED): " + "snID_Task=" + snID_Task
+                     + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
+            return;
+        }
+        
         //save info to process
         try {
-            log.info("try to get task. task_id=" + nID_Task);
-            HistoricTaskInstance task = historyService.createHistoricTaskInstanceQuery()
-                    .taskId("" + nID_Task).singleResult();
-            log.info("try to set sID_Payment to processInstance of task, getProcessInstanceId="
-                    +  task.getProcessInstanceId());
-            runtimeService.setVariable(
-                    task.getProcessInstanceId(),
-                    "sID_Payment", transaction_id);
-            runtimeService.setVariable("" + nID_Task, "sID_Payment", transaction_id);
-            if (task.getProcessVariables().get("sID_Payment") == transaction_id) {
+            log.info("try to get task. snID_Task=" + snID_Task);
+            /*
+            HistoricTaskInstance oTask = historyService.createHistoricTaskInstanceQuery().taskId("" + nID_Task).singleResult();
+            //HistoricTaskInstance oTask = runtimeService.createExecutionQuery(). createExecutionQuery().taskId("" + nID_Task).singleResult();
+            
+            log.info("try to set sID_Payment to processInstance of task, getProcessInstanceId=" + oTask.getProcessInstanceId());
+            runtimeService.setVariable(oTask.getProcessInstanceId(), "sID_Payment", sID_Transaction);
+            runtimeService.setVariable("" + nID_Task, "sID_Payment", sID_Transaction);
+            if (oTask.getProcessVariables().get("sID_Payment") == sID_Transaction) {
                 log.info("success");
-            }
+            }*/
+
+//=            Task oTask = taskService.createTaskQuery().taskId(""+nID_Task).singleResult();
+//=            String snID_Process = oTask.getProcessInstanceId();
+            
+//TODO разобраться почему приходит ИД процесса а не таски
+            String snID_Process = snID_Task;
+            String sID_Payment = sID_Transaction+"_"+sStatus_Payment;
+            log.info("try to set: sID_Payment="+sID_Payment);
+            runtimeService.setVariable(snID_Process, "sID_Payment", sID_Payment);
+            log.info("completed set sID_Payment="+sID_Payment+" to: snID_Process=" + snID_Process);
         } catch (Exception e){
-            log.error("error during changing task " + nID_Task + ", field sID_Payment=" + transaction_id, e);
+            log.error("during changing: nID_Task=" + nID_Task
+                    + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment, e);
         }
 
 

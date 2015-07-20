@@ -10,8 +10,25 @@
     overflow-x: hidden;
     overflow-y: auto;
     background-color: whitesmoke;
-    border-right: 1px solid #eeeeee; }
+    border-right: 1px solid #eeeeee;
+  }
 
   .main {
     padding-top: 20px;
-    top: 51px; } }
+    top: 51px;
+  }
+}
+
+.tasks-form-view {
+  overflow-y: auto;
+}
+
+.tasks-form-buttons {
+  height: 40px;
+  padding-top: 6px;
+}
+
+.task-form-property {
+  padding-top: 6px;
+  padding-right: 6px;
+}

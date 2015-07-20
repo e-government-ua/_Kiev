@@ -142,6 +142,13 @@
                                                 ng-required="property.required">Add File
                                     </file-field>
                                 </p>
+
+                                <dropdown-organ ng-switch-when="select"
+                                                ng-if="property.id==='sID_Public_SubjectOrganJoin'"
+                                                ng-model="data.formData.params[property.id].value"
+                                                service-data="oServiceData"
+                                                ng-required="property.required"></dropdown-organ>
+
                             </div>
 
                             <div class="col-md-3"

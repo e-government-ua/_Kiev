@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.model.document;
 
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,16 +57,33 @@ public class DocumentAccessHandler_IGov implements DocumentAccessHandler {
         if (isBlank(access.getsCodeType()))
             return access;
 
-        if (isBlank(password) || !isNumeric(password))
-            throw new DocumentAccessException("Document Access wrong password");
-
-        int userPass = Integer.valueOf(password);
+        if (isBlank(password) || !isNumeric(password)){
+            //throw new DocumentAccessException("Document Access wrong password");
+            if ("SMS".equalsIgnoreCase(access.getsCodeType())){
+                try {
+                    LOG.info("[getAccess]accessCode="+accessCode);
+                    if(documentAccessDao.bSentDocumentAccessOTP(accessCode)){
+                        throw new DocumentAccessException("Document Access password need - sent SMS");
+                    }else{
+                        throw new DocumentAccessException("Document Access password need - cant send SMS");
+                    }
+                } catch (DocumentAccessException ex) {
+                    throw ex;
+                } catch (Exception ex) {
+                    LOG.error("[getAccess]", ex);
+                    throw new DocumentAccessException("Document Access password need - UNKNOWN:"+ex.getMessage());
+                }
+            }else{
+                throw new DocumentAccessException("Document Access password wrong (no SMS:"+access.getsCodeType()+")");
+            }
+        }
+        
         int currPass = Integer.valueOf(access.getAnswer());
-
+        int userPass = Integer.valueOf(password);
         if ("SMS".equalsIgnoreCase(access.getsCodeType()) && userPass == currPass)
             return access;
         else
-            throw new DocumentAccessException("Document Access wrong password");
+            throw new DocumentAccessException("Document Access password wrong");
     }
 
 

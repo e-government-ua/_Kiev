@@ -160,7 +160,7 @@ public class ActivitiRestDocumentControllerTest {
 
 
 
-    @Test
+    @Test @Ignore
     public void getDocumentByCodeAndOrganAndWrongPassword() throws Exception{
         String jsonData = mockMvc
             .perform(get("/services/getDocumentAccessByHandler")

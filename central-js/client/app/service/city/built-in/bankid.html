@@ -121,11 +121,11 @@
                                        ng-required="property.required"
                                        class="form-control_">{{data.formData.params[property.id].value}}</label>
 
+                                       <!--type="{{!!property.sFieldType?property.sFieldType : 'text'}}"-->
                                 <input ng-switch-when="long"
-                                       type="text"
+                                       type="{{!!property.sFieldType?property.sFieldType : 'text'}}"
                                        name="{{property.id}}"
                                        ng-model="data.formData.params[property.id].value"
-                                       ng-pattern="/^\d+$/"
                                        ng-required="property.required"
                                        class="form-control"
                                        value="">
@@ -170,6 +170,12 @@
                                              service-id="oServiceData.nID"
                                              ng-model="data.formData.params[property.id].value"
                                              ng-required="property.required"></slot-picker>
+
+                                <dropdown-organ ng-switch-when="select"
+                                                ng-if="property.id==='sID_Public_SubjectOrganJoin'"
+                                                ng-model="data.formData.params[property.id].value"
+                                                service-data="oServiceData"
+                                                ng-required="property.required"></dropdown-organ>
 
                             </div>
 
