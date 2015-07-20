@@ -32,15 +32,15 @@ angular.module('dashboardJsApp')
             html: '<strong>' + message + '</strong>',
             buttons: [{
               classes: 'btn-success',
-              text: 'Перейти у необроблені',
-              click: function(e) {
-                warningModal.close(e);
-              }
-            },{
-              classes: 'btn-success',
               text: 'Почати опрацювання задачі',
               click: function(e) {
                 redirectCallback();
+                warningModal.close(e);
+              }
+            }, {
+              classes: 'btn-success',
+              text: 'Перейти у необроблені',
+              click: function(e) {
                 warningModal.close(e);
               }
             }]
