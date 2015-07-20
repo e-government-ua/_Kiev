@@ -35,7 +35,7 @@ angular.module('dashboardJsApp').factory('reports', function tasks($http) {
       return './api/reports/statistic?' +
         'sID_BP_Name=' + data.sID_BP + '&' +
         'sDateAt=' + data.sDateAt + '&' +
-        'sDateTo=' + data.sDateTo
+        'sDateTo=' + data.sDateTo;
     }
     
   }
