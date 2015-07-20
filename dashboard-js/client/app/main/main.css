@@ -30,6 +30,14 @@
     margin-top: 30px;
 }
 
+.btn-login {
+  background-color: #aaa;
+}
+
+.btn-login:hover {
+  background-color: #ccc;
+}
+
 .footer {
     text-align: center;
     padding: 30px 0;
