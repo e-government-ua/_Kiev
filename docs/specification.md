@@ -16,6 +16,7 @@
 <a href="#14_uploadFileToDb">14. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti</a><br/>
 <a href="#15_workWithServices">15. Работа с каталогом сервисов</a><br/>
 <a href="#16_getWorkflowStatistics">16. Получение статистики по задачам в рамках бизнес процесса</a><br/>
+<a href="#17_getBPForUsers">17. Получение списка бизнес процессов к которым у пользователя есть доступ</a><br/>
 
 ### iGov.ua APIs
 
@@ -1384,3 +1385,37 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?s
 "kermit","2015-06-21:09-20-40","711231882","197","Підготовка відповіді на запит: пошук документа"
 ```
 
+<a name="17_getBPForUsers">
+#### 17. Получение списка бизнес процессов к которым у пользователя есть доступ
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=<userId>
+
+* {sLogin} - ID пользователя
+
+Метод возвращает json со списком бизнес процессов, которые пользователь может запускать, в формате 
+[
+{
+"sID":"<process definition key>"
+"sName":"<process definition name>"
+},
+{
+"sID":"<process definition key>"
+"sName":"<process definition name>"
+}
+]
+
+
+Пример:
+```
+https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=kermit
+```
+
+Пример результата
+
+```
+[{"sID":"dnepr_spravka_o_doxodax","sName":"Дніпропетровськ - Отримання довідки про доходи фіз. осіб"},{"sID":"dnepr_subsidies2","sName":"Отримання субсидії на оплату житлово-комунальних послуг2"},{"sID":"khmelnitskij_mvk_2","sName":"Хмельницький - Надання інформації, що підтверджує відсутність (наявність) земельної ділянки"},{"sID":"khmelnitskij_zemlya","sName":"Заява про наявність земельної ділянки"},{"sID":"kiev_spravka_o_doxodax","sName":"Київ - Отримання довідки про доходи фіз. осіб"},{"sID":"kuznetsovsk_mvk_5","sName":"Кузнецовськ МВК - Узгодження графіка роботи підприємства торгівлі\/обслуговування"},{"sID":"post_spravka_o_doxodax_pens","sName":"Отримання довідки про доходи (пенсійний фонд)"}]
+```
