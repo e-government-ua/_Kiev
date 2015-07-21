@@ -173,20 +173,23 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         oMultiPartEmail.setFrom(sFromMail, mailAddressNoreplay);
         oMultiPartEmail.setSubject(sHead);
         
+        /*
         oMultiPartEmail.setMsg(sBody);
         //oMultiPartEmail.setContent(sBody, "text/html; charset=\"utf-8\"");
-
+        */
+        
         /*
         oMultiPartEmail.setContent(sBody, "text/html");
         oMultiPartEmail.setCharset("UTF-8");
         */
-        /*
+
+        oMultiPartEmail.setMsg("");
         MimeMultipart oMimeMultipart = new MimeMultipart("related");
         BodyPart oBodyPart = new MimeBodyPart();
         oBodyPart.setContent(sBody, "text/html; charset=\"utf-8\"");
         oMimeMultipart.addBodyPart(oBodyPart);
         oMultiPartEmail.setContent(oMimeMultipart);
-        */
+        
         
         
         
