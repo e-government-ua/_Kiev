@@ -31,12 +31,6 @@ angular.module('journal').config(function($stateProvider) {
             return $q.reject(null);
           });
         },
-        BankIDAccount: function(BankIDService) {
-          return BankIDService.account();
-        },
-        customer: function(BankIDAccount) {
-          return BankIDAccount.customer;
-        },
         journal: function($q, $state, ServiceService) {
           return ServiceService.getJournalEvents();
         }

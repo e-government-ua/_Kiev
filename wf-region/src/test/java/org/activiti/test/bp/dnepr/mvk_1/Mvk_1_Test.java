@@ -37,7 +37,7 @@ import com.plexiti.activiti.test.fluent.mocking.Mockitos;
 public class Mvk_1_Test extends PluggableActivitiTestCase {
 
 	static final String PROCESS_KEY = "CivilCopyDocRequest";
-	static final String PROCESS_RESOURCE = "bpmn/autodeploy/prod/dnepr_mvk-1.bpmn";
+	static final String PROCESS_RESOURCE = "bpmn/autodeploy/dnepr_mvk-1.bpmn";
 
 	@Rule
 	public ActivitiRule activitiRule = new ActivitiRule("context_test-region.xml");
