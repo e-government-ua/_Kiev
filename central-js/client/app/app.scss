@@ -16,6 +16,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 }
 
 // Component styles are injected through grunt
+// Component styles are injected through grunt
 // injector
 // endinjector
 
@@ -1344,4 +1345,11 @@ label .snippet {
 }
  .subcategory_title{
   padding-left:30px;
+}
+
+/** 
+ * Validation Styles 
+ */
+input .ng-invalid {
+  border: 2px solid #ffd;
 }

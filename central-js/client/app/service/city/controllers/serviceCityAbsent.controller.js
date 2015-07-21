@@ -36,6 +36,8 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
   $scope.sendAbsentMessage = function(absentMessageForm, absentMessage) {
 
     if (false === absentMessageForm.$valid) {
+      console.log( 'city absentMessageForm', absentMessageForm );
+      absentMessageForm.$setValidity('email', false);
       $scope.absentMessage.showErrors = true;
       return false;
     }
