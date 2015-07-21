@@ -120,3 +120,4 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 119;15;14;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zaporoshye_mvk_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 120;667;8;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk_5:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 121;668;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mda_3:1:595058"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+122;15;2;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kr_rig_mvk_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS

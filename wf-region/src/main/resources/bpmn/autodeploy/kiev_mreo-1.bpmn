@@ -241,7 +241,7 @@
           <activiti:expression>Шановний(-а), "${bankIdfirstName}" "${bankIdmiddleName}".
 
 Для отримання послуги Вам необхідно сплатити державний збір і  надати квитанцію про сплату перед тех.оглядом Вашого авто.
-[paymentButton_LiqPay]
+
 
 
 
