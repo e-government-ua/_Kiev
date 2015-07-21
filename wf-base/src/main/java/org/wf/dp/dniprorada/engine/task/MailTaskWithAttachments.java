@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import javax.activation.DataHandler;
 
 import javax.activation.DataSource;
 import javax.mail.BodyPart;
@@ -12,6 +13,7 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.TaskService;
@@ -110,12 +112,60 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
                 oMultiPartEmail.addPart(oMimeMultipart);
                 */
 
+                /*
                 // Create the attachment
-                /*EmailAttachment oEmailAttachment = new EmailAttachment();
+                EmailAttachment oEmailAttachment = new EmailAttachment();
                 oEmailAttachment.setPath("mypictures/john.jpg");
                 oEmailAttachment.setDisposition(EmailAttachment.ATTACHMENT);
                 oEmailAttachment.setDescription("Picture of John");
-                oEmailAttachment.setName("John");*/
+                oEmailAttachment.setName("John");
+                */
+                
+/*
+                //File oFile;
+                Multipart aPart = new MimeMultipart();
+                MimeBodyPart oPart = new MimeBodyPart();
+                oPart.setHeader("Content-Type","multipart/mixed");
+//                DataSource source = new FileDataSource(oFile);
+                //oPart.setDataHandler(new DataHandler(source));
+                oPart.setDataHandler(new DataHandler(oDataSource));
+                //if(sLog!=null||sDebug!=null)System.out.println("_"+sLog+"|"+sDebug+"_"+"[Mail.bSend] (oFile.getName()="+oFile.getName()+") ");
+                //oPart.setFileName(MimeUtility.encodeText(oFile.getName()));
+                //oPart.setFileName(MimeUtility.encodeText(oFile.getName()));
+                oPart.setFileName(MimeUtility.encodeText(sFileName));
+                aPart.addBodyPart(oPart);                
+
+                oMultiPartEmail.setContent(aPart);
+*/                
+                //oMultiPartEmail.addPart(oPart);
+/*
+                
+                try{if(oSession==null)oSession="".equals(sContext)?Session.getInstance(oProps
+                        ,new Authenticator(){
+                             @Override
+                             public PasswordAuthentication getPasswordAuthentication(){
+                                    return new PasswordAuthentication(sLogin,sPassword);//"dn310780bvv"//"9111391113"
+                             }
+                        }
+                ):(Session)(new InitialContext()).lookup(sContext);//session=getMailSession();
+                MimeMessage oMsg = new MimeMessage(oSession);
+                String[] as=sAt.split(">")[0].trim().split("<");String sAtName="";
+                if(as.length>1){sAt=as[1].trim();if(!"".equals(sAt)){sAtName=as[0].trim();}}
+                if(sLog!=null||sDebug!=null)System.out.println("_"+sLog+"|"+sDebug+"_"+"[Mail.bSend] (sAt="+sAt+",sAtName="+sAtName+") ");
+                oMsg.setFrom(new InternetAddress(sAt,sAtName,DEFAULT_ENCODING));
+                for(int n=0;n<asTo.length;n++){
+                    as=asTo[n].split(">")[0].trim().split("<");String sTo=as[0].trim(),sToName="";
+                    if(as.length>1){sTo=as[1].trim();if(!"".equals(sTo)){sToName=as[0].trim();}}
+                    if(sLog!=null||sDebug!=null)System.out.println("_"+sLog+"|"+sDebug+"_"+"[Mail.bSend] (sTo="+sTo+",sToName="+sToName+") ");
+                    oMsg.addRecipient(Message.RecipientType.CC,new InternetAddress(sTo,sToName,DEFAULT_ENCODING));
+                   if(sDebug!=null)System.out.println("_"+sDebug+"_"+sMsg+"_ADDED!");
+                }oMsg.setSubject(sHead,DEFAULT_ENCODING);
+                oMsg.setContent(oParts);
+                oMsg.getRecipients(Message.RecipientType.CC);
+                Transport.send(oMsg);                
+
+                        */
+
                 
                 //oMultiPartEmail.addPart(saToMail, sBody);
                 

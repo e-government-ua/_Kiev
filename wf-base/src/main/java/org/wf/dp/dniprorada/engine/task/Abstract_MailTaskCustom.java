@@ -190,9 +190,12 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         oMimeMultipart.addBodyPart(oBodyPart);
         oMultiPartEmail.setContent(oMimeMultipart);
         
-        
-        
-        
+        /*
+        oMimeMultipart = new MimeMultipart("related");
+        oBodyPart = new MimeBodyPart();
+        oBodyPart.setContent(sBody, "application/zip");
+        oMimeMultipart.addBodyPart(oBodyPart);
+        */
         oMultiPartEmail.setAuthentication(mailServerUsername, mailServerPassword);
         oMultiPartEmail.setSmtpPort(Integer.valueOf(mailServerPort));
         oMultiPartEmail.setSSL(true);
