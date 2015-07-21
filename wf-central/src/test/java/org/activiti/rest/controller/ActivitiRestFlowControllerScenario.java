@@ -46,7 +46,7 @@ public class ActivitiRestFlowControllerScenario {
       mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
    }
 
-   @Test
+   @Test @Ignore
    public void shouldSuccessfullyGetFlowSlotsAndSaveTicket() throws Exception {
       String getJsonData = mockMvc.perform(get("/flow/getFlowSlots_ServiceData").
               param("nID_ServiceData", "1")).
