@@ -276,5 +276,17 @@
 
     <!-- ####################################################################################################### -->
 
+    <changeSet id="issue-587" author="LamronNu">
+        <addColumn tableName="Document">
+            <column name="oSignData" type="varchar" defaultValue="{}">
+                <constraints nullable="false"/>
+            </column>
+
+        </addColumn>
+    </changeSet>
+
+    <!-- ####################################################################################################### -->
+
+
 
 </databaseChangeLog>
