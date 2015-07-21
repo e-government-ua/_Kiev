@@ -719,8 +719,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     public static String parseEnumValue(String enumName) {
         enumName = StringUtils.defaultString(enumName);
-        if(enumName.contains(";")){
-            String[] names = enumName.split(";");
+        if(enumName.contains("|")){
+            String[] names = enumName.split("|");
             return names[names.length - 1];
         } else {
             return enumName;
