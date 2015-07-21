@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,16 +26,11 @@ import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.identity.User;
-import org.activiti.engine.impl.persistence.entity.IdentityLinkEntity;
-import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityManager;
-import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
-import org.activiti.engine.impl.task.TaskDefinition;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Attachment;
@@ -660,9 +654,10 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
      * Returns business processes which are belong to a specified user
      * @param sLogin - login of user in user activity
      */
-    @RequestMapping(value = "/getLoginBPs", method = RequestMethod.GET)
+    @RequestMapping(value = "/getLoginBPs", method = RequestMethod.GET, produces = "application/json;charset=UTF-8" )
     @Transactional
-    public @ResponseBody String getBusinessProcessesForUser(@RequestParam(value = "sLogin") String sLogin) throws IOException {
+    public @ResponseBody String getBusinessProcessesForUser(@RequestParam(value = "sLogin") String sLogin,
+            HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
     	if (sLogin.isEmpty()) {
     		log.error("Unable to found business processes for user with empty login");
             throw new ActivitiObjectNotFoundException(
@@ -724,8 +719,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     public static String parseEnumValue(String enumName) {
         enumName = StringUtils.defaultString(enumName);
-        if(enumName.contains(";")){
-            String[] names = enumName.split(";");
+        if(enumName.contains("|")){
+            String[] names = enumName.split("|");
             return names[names.length - 1];
         } else {
             return enumName;

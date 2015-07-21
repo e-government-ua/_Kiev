@@ -172,16 +172,80 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         oMultiPartEmail.addTo(saToMail, "receiver");
         oMultiPartEmail.setFrom(sFromMail, mailAddressNoreplay);
         oMultiPartEmail.setSubject(sHead);
-        //oMultiPartEmail.setMsg(sBody);
+        
+        /*
+        oMultiPartEmail.setMsg(sBody);
         //oMultiPartEmail.setContent(sBody, "text/html; charset=\"utf-8\"");
+        */
+        
+        /*
         oMultiPartEmail.setContent(sBody, "text/html");
         oMultiPartEmail.setCharset("UTF-8");
+        */
+
+        oMultiPartEmail.setMsg("0");
+        MimeMultipart oMimeMultipart = new MimeMultipart("related");
+        BodyPart oBodyPart = new MimeBodyPart();
+        oBodyPart.setContent(sBody, "text/html; charset=\"utf-8\"");
+        oMimeMultipart.addBodyPart(oBodyPart);
+        oMultiPartEmail.setContent(oMimeMultipart);
+        
+        
+        
         
         oMultiPartEmail.setAuthentication(mailServerUsername, mailServerPassword);
         oMultiPartEmail.setSmtpPort(Integer.valueOf(mailServerPort));
         oMultiPartEmail.setSSL(true);
-        oMultiPartEmail.setTLS(true);
+        oMultiPartEmail.setTLS(true); 
         
+        
+        
+        
+        
+        
+        
+        /*
+        
+        // load your HTML email template
+        String htmlEmailTemplate = ".... <img src=\"http://www.apache.org/images/feather.gif\"> ....";
+
+        // define you base URL to resolve relative resource locations
+        URL url = new URL("http://www.apache.org");
+
+        // create the email message
+        ImageHtmlEmail email = new ImageHtmlEmail();
+        email.setDataSourceResolver(new DataSourceUrlResolver(url));
+        email.setHostName("mail.myserver.com");
+        email.addTo("jdoe@somewhere.org", "John Doe");
+        email.setFrom("me@apache.org", "Me");
+        email.setSubject("Test email with inline image");
+
+        // set the html message
+        email.setHtmlMsg(htmlEmailTemplate);
+
+        // set the alternative message
+        email.setTextMsg("Your email client does not support HTML messages");        
+        
+        */
+        
+        
+        
+        /*MimeMultipart oMimeMultipart = new MimeMultipart("related");
+        BodyPart oBodyPart = new MimeBodyPart();
+        oBodyPart.setContent(sBody, "text/html; charset=\"utf-8\"");
+        oMimeMultipart.addBodyPart(oBodyPart);*/
+        //oMimeMultipart.
+        
+        //oMimeMultipart.addBodyPart(oBodyPart);
+        
+        /*email.addTo(toStr, "receiver");
+        email.setFrom(fromStr, mailAddressNoreplay);
+        email.setSubject(subjectStr);
+        email.setMsg(replaceTags(textStr, execution));
+        email.setAuthentication(mailServerUsername, mailServerPassword);
+        email.setSmtpPort(Integer.valueOf(mailServerPort));
+        email.setSSL(true);
+        email.setTLS(true);*/
         
         /*String fromStr = getStringFromFieldExpression(this.from, execution);
         String toStr = getStringFromFieldExpression(this.to, execution);
