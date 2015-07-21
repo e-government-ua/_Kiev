@@ -24,6 +24,10 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
   $scope.print = function () {
     if ($scope.selectedTask && $scope.taskForm) {
+      if(hasUnPopulatedFields()){
+        Modal.inform.error()('Не всі поля заповнені!');
+        return;
+      }
       $scope.printTemplate.task = $scope.selectedTask;
       $scope.printTemplate.form = $scope.taskForm;
       $scope.printTemplate.showPrintModal = !$scope.printTemplate.showPrintModal;
@@ -132,6 +136,10 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
   $scope.submitTask = function () {
     if ($scope.selectedTask && $scope.taskForm) {
+      if(hasUnPopulatedFields()){
+        Modal.inform.error()('Не всі поля заповнені!');
+        return;
+      }
       tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm)
         .then(function (result) {
           Modal.inform.success(function (event) {
