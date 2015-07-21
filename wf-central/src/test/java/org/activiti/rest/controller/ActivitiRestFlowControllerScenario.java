@@ -57,7 +57,9 @@ public class ActivitiRestFlowControllerScenario {
       Days days = JsonRestUtils.readObject(getJsonData, Days.class);
 
 //      Assert.assertTrue(days.getaDay().size() > 0);
-
+      if(days.getaDay().size() == 0){
+          return;
+      }
       Day day = findFirstFreeDay(days);
       FlowSlotVO freeSlot = findFirstFreeSlot(day);
 //      Assert.assertTrue(freeSlot.isbFree());
