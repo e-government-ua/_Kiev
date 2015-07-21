@@ -263,6 +263,7 @@ public class ActivitiRestDocumentController {
             //@RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
             @RequestParam(value = "sDocumentContentType", required = false) String documentContentTypeName,
             @RequestParam(value = "soDocumentContent") String sContent,
+            @RequestParam(value = "oSignData") String oSignData,//todo required?? (issue587)
             //@RequestParam(value = "oFile", required = false) MultipartFile oFile,
             //@RequestBody byte[] content,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
@@ -299,7 +300,8 @@ public class ActivitiRestDocumentController {
                 documentContentType.getId(),
                 sFileName,
                 sFileContentType,
-                aoContent);
+                aoContent,
+                oSignData);
 
     }
 
@@ -316,6 +318,7 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "nID_DocumentType") Long nID_DocumentType,
             @RequestParam(value = "nID_DocumentContentType", required = false) Long nID_DocumentContentType,
             @RequestParam(value = "oFile", required = true) MultipartFile oFile,
+            @RequestParam(value = "oSignData") String oSignData,//todo required?? (issue587)
             //@RequestBody byte[] content,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
 
@@ -358,7 +361,8 @@ public class ActivitiRestDocumentController {
                         nID_DocumentContentType,
                         sFileName,
                         sFileContentType,
-                        aoContent);
+                        aoContent,
+                        oSignData);
         createHistoryEvent(HistoryEventType.SET_DOCUMENT_INTERNAL,
                 nID_Subject, sSubjectName_Upload, nID_Document, null);
         return nID_Document;
