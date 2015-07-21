@@ -3,28 +3,16 @@
   <process id="dnepr_mvd_1" name="Днепропетровск - Надання довідки про відсутність або наявніcть судимості" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="nID_Subject" name="nID_Subject" default="0" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="sID_Public_SubjectOrganJoin" name="Отделение" default="0" type="select"></activiti:formProperty>
-             <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="sFamily_UA" name="Прізвище (укр.); якщо Ви побачили помилку в прізвищі,надайте правильний варіант написання" type="string" required="false"></activiti:formProperty>
-		<activiti:formProperty id="sFamily_RU" name="Фамилия (рус.)" type="string" required="true"></activiti:formProperty>    
-		 <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
-		<activiti:formProperty id="sName_UA" name="Ім'я (укр.); якщо Ви побачили помилку в прізвищі,надайте правильний варіант написання" type="string" required="false"></activiti:formProperty>
-        <activiti:formProperty id="sName_RU" name="Имя (рус.)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="sSurname_UA" name="По-Батькові (укр.); якщо Ви побачили помилку в прізвищі,надайте правильний варіант написання" type="string" required="false"></activiti:formProperty>
-		<activiti:formProperty id="sSurname_RU" name="Отчество (рус.)" type="string" required="true"></activiti:formProperty>
-       <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string"></activiti:formProperty>
-        <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string"></activiti:formProperty>      
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження; у форматі ДД.ММ.РРРР" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdsID_Country" name="Країна (код)" type="invisible" required="true"></activiti:formProperty>
-		<activiti:formProperty id="sCountry_UA" name="Країна народження" type="string" required="true"></activiti:formProperty>
-		<activiti:formProperty id="sRegion" name="Регіон" type="string" required="false"></activiti:formProperty>
-		<activiti:formProperty id="sArea" name="Район" type="string" required="false"></activiti:formProperty>
-		<activiti:formProperty id="sPlace" name="Населений пункт" type="string" required="true"></activiti:formProperty>
-		<activiti:formProperty id="resident" name="Громадянство" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="birthLoc" name="Місце народження; країна, область/регіон, населений пункт" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="resident" name="Громадянство" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text1" name="Якщо змінювались  прізвище, ім'я та по-батькові, обов'язково вкажіть попередні ПІБ  на обох мовах (укр. та рос.)" type="label" default="-------------------"></activiti:formProperty>
+        <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string"></activiti:formProperty>
         <activiti:formProperty id="text4" name="Додаткова інформація" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="enum" required="true">
           <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки (піклування), створення прийомної сім'ї або дитячого будинку cімейного типу"></activiti:value>
@@ -43,7 +31,7 @@
         <activiti:formProperty id="phone" name="Контактний телефон; у форматі 380...." type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-</extensionElements>
+      </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування додаткових документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
@@ -84,39 +72,20 @@
     <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
     <userTask id="usertask1" name="Надання послуги" activiti:candidateGroups="dnepr_mvd_fo1">
       <extensionElements>
-     
-        
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sFamily_UA" name="Прізвище (укр.); якщо Ви побачили помилку в прізвищі,надайте правильний варіант написання" type="string" writable="false"></activiti:formProperty>
-		<activiti:formProperty id="sFamily_RU" name="Фамилия (рус.)" type="string" writable="false"></activiti:formProperty>        
-        
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-		<activiti:formProperty id="sName_UA" name="Ім'я (укр.); якщо Ви побачили помилку в прізвищі,надайте правильний варіант написання" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sName_RU" name="Имя (рус.)" type="string" writable="false"></activiti:formProperty>
-        
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sSurname_UA" name="По-Батькові (укр.); якщо Ви побачили помилку в прізвищі,надайте правильний варіант написання" type="string" writable="false"></activiti:formProperty>
-		<activiti:formProperty id="sSurname_RU" name="Отчество (рус.)" type="string" writable="false"></activiti:formProperty>
-        
-                
         <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string" writable="false"></activiti:formProperty>
-              
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження" type="string" writable="false"></activiti:formProperty>
-
-        <activiti:formProperty id="bankIdsID_Country" name="Країна (код)" type="invisible" writable="false"></activiti:formProperty>
-		<activiti:formProperty id="sCountry_UA" name="Країна народження" type="string" writable="false"></activiti:formProperty>
-		<activiti:formProperty id="sRegion" name="Регіон" type="string" writable="false"></activiti:formProperty>
-		<activiti:formProperty id="sArea" name="Район" type="string" writable="false"></activiti:formProperty>
-		<activiti:formProperty id="sPlace" name="Населений пункт" type="string" writable="false"></activiti:formProperty>
-       
+        <activiti:formProperty id="birthLoc" name="Місце народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="resident" name="Громадянство" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="enum" writable="false">
           <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки (піклування), створення прийомної сім'ї або дитячого будинку cімейного типу"></activiti:value>
           <activiti:value id="attr2" name="Оформлення документів в органи соціального забезпечення."></activiti:value>
           <activiti:value id="attr3" name="Оформлення візи для виїзду за кордон."></activiti:value>
-          <activiti:value id="attr4" name="ОНадання в установи іноземних держав, працевлаштування за кордоном."></activiti:value>
+          <activiti:value id="attr4" name="Надання в установи іноземних держав, працевлаштування за кордоном."></activiti:value>
           <activiti:value id="attr5" name="Оформлення на роботу."></activiti:value>
           <activiti:value id="attr6" name="Оформлення дозволу на зброю, оформлення ліцензії на роботу з вибуховими речовинами."></activiti:value>
           <activiti:value id="attr7" name="Оформлення ліцензії на роботу з наркотичними засобами, психотропними речовинами та прекурсорами."></activiti:value>
@@ -132,7 +101,6 @@
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="В разі  неможливості надання послуги вкажіть причину. Ця інформація буде відправлена на e-mail заявника" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="footer" name="footerToPrint" type="invisible" default="&lt;p dir=&quot;ltr&quot; id=&quot;docs-internal-guid-a39915a5-e7ca-0f06-b3d2-dea92937c812&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt;&lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;---------------------------------------------------------------------------------------------------------------------------------------&lt;/span&gt;&lt;/p&gt;&lt;p dir=&quot;ltr&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt; &lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;Довідку№ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримав (ПІБ)_________________________&lt;/span&gt;&lt;/p&gt;&lt;br /&gt;&lt;p dir=&quot;tr&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt;&lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;Дата &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Підпис &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________&lt;/span&gt;&lt;/p&gt;" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="sBodyToPrint" type="invisible" default="&lt;p dir=&quot;ltr&quot; id=&quot;docs-internal-guid-a39915a5-e7ca-0f06-b3d2-dea92937c812&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt;&lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;---------------------------------------------------------------------------------------------------------------------------------------&lt;/span&gt;&lt;/p&gt;&lt;p dir=&quot;ltr&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt; &lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;Довідку№ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримав (ПІБ)_________________________&lt;/span&gt;&lt;/p&gt;&lt;br /&gt;&lt;p dir=&quot;tr&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt;&lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;Дата &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Підпис &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________&lt;/span&gt;&lt;/p&gt;" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
