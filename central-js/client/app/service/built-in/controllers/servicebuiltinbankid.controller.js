@@ -1,6 +1,6 @@
 angular.module('app').controller('ServiceBuiltInBankIDController', function($state, $stateParams, $scope, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
     //,$timeout
-
+    'use strict';
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount;
   $scope.ActivitiForm = ActivitiForm;
@@ -32,15 +32,15 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
         var sField = value.name;
         var s;
         if (sField === null) {
-          sField = "";
+          sField = '';
         }
-        var a = sField.split(";");
+        var a = sField.split(';');
         s = a[0].trim();
         value.sFieldLabel = s;
         s = null;
         if (a.length > 1) {
           s = a[1].trim();
-          if (s === "") {
+          if (s === '') {
             s = null;
           }
         }
@@ -68,10 +68,10 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
                     submitted.data.id = result.id;
 
                     $scope.isSending = false;
-                    $scope.$root.data = $scope.$root.data || {}
+                    $scope.$root.data = $scope.$root.data || {};
                     $scope.$root.data.formData = $scope.data.formData;
                     return $state.go(submitted, $stateParams);
-                })
+                });
         } else {
             $scope.isSending = false;
             return false;
@@ -112,7 +112,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
         if (response) {
           try {
             JSON.parse(response);
-            alert(response);
+            // alert(response);
           } catch (e) {
             ActivitiService.updateFileField(oServiceData,
               $scope.data.formData, $scope.files[fileKey(file)], response);
