@@ -29,7 +29,8 @@ var all = {
 
     session: {
       secret: process.env.SESSION_SECRET,
-      key: [process.env.SESSION_KEY_ONE, process.env.SESSION_KEY_TWO],
+      key: process.env.SESSION_KEY_ONE && process.env.SESSION_KEY_TWO ?
+        [process.env.SESSION_KEY_ONE, process.env.SESSION_KEY_TWO] : undefined,
       secure: process.env.SESSION_SECURE,
       maxAge: process.env.SESSION_MAX_AGE // 3 * 60 * 1000 = 3 min
     }
@@ -57,6 +58,7 @@ var all = {
 
 // Export the config object based on the NODE_ENV
 // ==============================================
-module.exports = _.merge(
-  all,
-  require('./' + process.env.NODE_ENV + '.js') || {});
+var result = _.merge(
+  require('./' + process.env.NODE_ENV + '.js') || {},
+  all);
+module.exports = result;
