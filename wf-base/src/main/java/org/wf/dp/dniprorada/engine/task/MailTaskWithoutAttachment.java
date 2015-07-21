@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+import org.wf.dp.dniprorada.util.Mail;
 
 /**
  * 
@@ -38,10 +39,12 @@ public class MailTaskWithoutAttachment extends Abstract_MailTaskCustom {
     @Override
     public void execute(DelegateExecution oExecution) throws Exception {
         
-        MultiPartEmail oMultiPartEmail = MultiPartEmail_BaseFromTask(oExecution);
-        
+        //MultiPartEmail oMultiPartEmail = MultiPartEmail_BaseFromTask(oExecution);
+        Mail oMail = Mail_BaseFromTask(oExecution);
+
         // send the email
-        oMultiPartEmail.send();
+        //oMultiPartEmail.send();
+        oMail.send();
     }
 
 }

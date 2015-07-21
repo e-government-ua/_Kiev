@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+import org.wf.dp.dniprorada.util.Mail;
 
 /**
  * 
@@ -40,7 +41,8 @@ public class MailTaskWithAttachment extends Abstract_MailTaskCustom {
     @Override
     public void execute(DelegateExecution oExecution) throws Exception {
         
-        MultiPartEmail oMultiPartEmail = MultiPartEmail_BaseFromTask(oExecution);
+        //MultiPartEmail oMultiPartEmail = MultiPartEmail_BaseFromTask(oExecution);
+        Mail oMail = Mail_BaseFromTask(oExecution);
         
         List<Attachment> aAttachment = oExecution.getEngineServices().getTaskService().getProcessInstanceAttachments(oExecution.getProcessInstanceId());
         InputStream oInputStream_Attachment = null;
@@ -63,13 +65,16 @@ public class MailTaskWithAttachment extends Abstract_MailTaskCustom {
             log.info("sFileName= " + sFileName);
             log.info("sFileExt= " + sFileExt);
             log.info("sFileExtNew= " + sFileExtNew);
-            oMultiPartEmail.attach(oDataSource, sFileName + "." + sFileExtNew, sAttachName);
+            
+            oMail._Attach(oDataSource, sFileName + "." + sFileExtNew, sAttachName);
+            //oMultiPartEmail.attach(oDataSource, sFileName + "." + sFileExtNew, sAttachName);
         } else {
             throw new ActivitiObjectNotFoundException("add the file to send");
         }
 
         // send the email
-        oMultiPartEmail.send();
+        //oMultiPartEmail.send();
+        oMail.send();
     }
 
 }

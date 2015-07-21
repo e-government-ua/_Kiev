@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import javax.activation.DataSource;
+import javax.mail.MessagingException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +28,7 @@ import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
@@ -51,6 +54,8 @@ import org.activiti.rest.controller.entity.ProcessI;
 import org.activiti.rest.controller.entity.TaskAssigneeI;
 import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.mail.ByteArrayDataSource;
+import org.apache.commons.mail.EmailException;
 import org.joda.time.DateTime;
 import org.json.simple.JSONValue;
 import org.slf4j.Logger;
@@ -68,15 +73,17 @@ import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import org.wf.dp.dniprorada.engine.task.FileTaskUpload;
+import org.wf.dp.dniprorada.engine.task.MailTaskWithAttachments;
 import org.wf.dp.dniprorada.model.BuilderAtachModel;
 import org.wf.dp.dniprorada.model.ByteArrayMultipartFileOld;
+import org.wf.dp.dniprorada.util.Mail;
 
 /**
  * ...wf-region/service/...
  * Example:
  * .../wf-region/service/rest/startProcessByKey/citizensRequest
  *
- * @author Tereshchenko
+ * @author BW
  */
 @Controller
 @RequestMapping(value = "/rest")
@@ -735,4 +742,42 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         }
         return "";
     }
+    
+    
+    
+    
+    
+    
+    
+    @RequestMapping(value = "/test/sendAttachmentsByMail", method = RequestMethod.GET)
+    @Transactional
+    public void sendAttachmentsByMail(
+                @RequestParam(value = "sMailTo", required = false) String sMailTo,
+                @RequestParam(value = "nID_Task", required = false) String snID_Task,
+                @RequestParam(value = "nID_Attachment", required = false) String snID_Attachment,
+    		             HttpServletRequest request, HttpServletResponse httpResponse)
+            throws IOException, MessagingException, EmailException {
+
+            Mail oMail = new Mail();
+            oMail
+                    ._Body("<a href=\"http:\\\\google.com\">Google</a> It's test Это проверка!")
+                    ._To("bvv4ik@gmail.com")
+                    ;
+            
+            Attachment oAttachment = taskService.getAttachment(snID_Attachment);
+            String sFileName = oAttachment.getName();
+            String sFileExt = oAttachment.getType().split(";")[0];
+            String sDescription = oAttachment.getDescription();
+            log.info("oAttachment.getId()="+oAttachment.getId()+", sFileName=" + sFileName + ", sFileExt=" + sFileExt + ", sDescription=" + sDescription);
+            InputStream oInputStream = taskService.getAttachmentContent(oAttachment.getId());
+            DataSource oDataSource = new ByteArrayDataSource(oInputStream, sFileExt);            
+            
+            oMail._Attach(oDataSource, sFileName + "." + sFileExt, sDescription);
+            oMail.send();
+    }    
+    
+    
+    
+    
+    
 }
