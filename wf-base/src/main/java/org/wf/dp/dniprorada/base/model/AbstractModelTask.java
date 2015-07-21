@@ -315,11 +315,11 @@ public abstract class AbstractModelTask {
     /**
      * Adds Attachemnts based on formData to task.
      * @param formData FormData from task where we search file fields.
-     * @param task where we add Attachments.
+     * @param oTask where we add Attachments.
      */
 
-    public void addAttachmentsToTask(FormData formData, DelegateTask task) {
-        DelegateExecution execution = task.getExecution();
+    public void addAttachmentsToTask(FormData formData, DelegateTask oTask) {
+        DelegateExecution execution = oTask.getExecution();
         
         LOG.info("SCAN:file");
         List<String> asFieldID = getListFieldCastomTypeFile(formData);
@@ -334,48 +334,60 @@ public abstract class AbstractModelTask {
             for (String sKeyRedis : asFieldValue) {
                 LOG.info("sKeyRedis=" + sKeyRedis);
                 if (sKeyRedis != null && !sKeyRedis.isEmpty() && !"".equals(sKeyRedis.trim()) && !"null".equals(sKeyRedis.trim())) {
-                    byte[] byteFile = getRedisService().getAttachments(sKeyRedis);
-                    ByteArrayMultipartFile contentMultipartFile = null;
+                    byte[] aByteFile = getRedisService().getAttachments(sKeyRedis);
+                    ByteArrayMultipartFile oByteArrayMultipartFile = null;
                     try {
-                        contentMultipartFile = getByteArrayMultipartFileFromRedis(byteFile);
+                        oByteArrayMultipartFile = getByteArrayMultipartFileFromRedis(aByteFile);
                     } catch (ClassNotFoundException | IOException e1) {
                         throw new ActivitiException(e1.getMessage(), e1);
                     }
-                    InputStream is = null;
-                    try {
-                        is = contentMultipartFile.getInputStream();
-                    } catch (Exception e) {
-                        throw new ActivitiException(e.getMessage(), e);
-                    }
-                    if (contentMultipartFile != null) {
-                        String outFilename = null;
+                    if (oByteArrayMultipartFile != null) {
+                        InputStream oInputStream = null;
                         try {
-                            outFilename = new String(contentMultipartFile
+                            oInputStream = oByteArrayMultipartFile.getInputStream();
+                        } catch (Exception e) {
+                            throw new ActivitiException(e.getMessage(), e);
+                        }
+                        String sFileName = null;
+                        try {
+                            sFileName = new String(oByteArrayMultipartFile
                                     .getOriginalFilename().getBytes(
                                             "ISO-8859-1"), "UTF-8");
                         } catch (java.io.UnsupportedEncodingException e) {
                             throw new ActivitiException(e.getMessage(), e);
                         }
+                        LOG.info("sFileName=" + sFileName);
                         if (!asFieldName.isEmpty() && n < asFieldName.size()) {
-                            String name = asFieldName.get((asFieldName.size() - 1) - n);
-                            LOG.info("name=" + name);
-							System.out.println("STEP 4 ___" + "name= " + name);
-                                Attachment attachment = execution
-                                        .getEngineServices()
-                                        .getTaskService()
-                                        .createAttachment(
-                                                contentMultipartFile.getContentType()
-                                                        + ";"
-                                                        + contentMultipartFile.getExp(),
-                                                task.getId(),
-                                                execution.getProcessInstanceId(),
-                                                outFilename,
-                                                name, is);
-                                LOG.info("Setting variable " + asFieldID.get(n) + " with the value " + attachment.getId() + " for new attachment");
-                                execution.getEngineServices().getRuntimeService().setVariable(execution.getProcessInstanceId(),
-            							asFieldID.get(n), attachment.getId());
-                                LOG.info("Finished setting new value for variable with attachment " + asFieldID.get(n));
+                            //String sDescription = asFieldName.get((asFieldName.size() - 1) - n);
+                            String sDescription = asFieldName.get(n);
+                            LOG.info("sDescription=" + sDescription);
+                            String sID_Field = asFieldID.get(n);
+                            LOG.info("sID_Field=" + sID_Field);
+                            Attachment oAttachment = execution
+                                    .getEngineServices()
+                                    .getTaskService()
+                                    .createAttachment(
+                                            oByteArrayMultipartFile.getContentType()
+                                                    + ";"
+                                                    + oByteArrayMultipartFile.getExp(),
+                                            oTask.getId(),
+                                            execution.getProcessInstanceId(),
+                                            sFileName,
+                                            sDescription, oInputStream);
+                            if(oAttachment!=null){
+                                String nID_Attachment = oAttachment.getId();
+                                //LOG.info("nID_Attachment=" + nID_Attachment);
+                                LOG.info("Try set variable(sID_Field) '" + sID_Field + "' with the value(nID_Attachment) '" + nID_Attachment + "', for new attachment...");
+                                execution.getEngineServices().getRuntimeService().setVariable(execution.getProcessInstanceId(), sID_Field, nID_Attachment);
+                                LOG.info("Finished setting new value for variable with attachment(sID_Field) '" + sID_Field + "'");
+                            }else{
+                                LOG.error("Can't add attachment to oTask.getId()=" + oTask.getId());
+                            }
+                        }else{
+                            LOG.error("asFieldName has nothing! asFieldName=" + asFieldName);
                         }
+                    }else{
+                        LOG.error("oByteArrayMultipartFile==null! aByteFile="+aByteFile.toString());
                     }
                 }
                 n++;
