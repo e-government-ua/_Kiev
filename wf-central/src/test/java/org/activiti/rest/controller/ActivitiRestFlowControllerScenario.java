@@ -30,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Date: 21.06.2015
  * Time: 21:10
  */
+@Ignore
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = IntegrationTestsApplicationConfiguration.class)
@@ -46,7 +47,7 @@ public class ActivitiRestFlowControllerScenario {
       mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
    }
 
-   @Test @Ignore
+   @Test
    public void shouldSuccessfullyGetFlowSlotsAndSaveTicket() throws Exception {
       String getJsonData = mockMvc.perform(get("/flow/getFlowSlots_ServiceData").
               param("nID_ServiceData", "1")).
