@@ -333,7 +333,7 @@ public abstract class AbstractModelTask {
             int n = 0;
             for (String sKeyRedis : asFieldValue) {
                 LOG.info("sKeyRedis=" + sKeyRedis);
-                if (sKeyRedis != null && !sKeyRedis.isEmpty() && !"".equals(sKeyRedis.trim()) && !"null".equals(sKeyRedis.trim())) {
+                if (sKeyRedis != null && !sKeyRedis.isEmpty() && !"".equals(sKeyRedis.trim()) && !"null".equals(sKeyRedis.trim()) && sKeyRedis.length() > 15) {
                     byte[] aByteFile = getRedisService().getAttachments(sKeyRedis);
                     ByteArrayMultipartFile oByteArrayMultipartFile = null;
                     try {
@@ -389,6 +389,8 @@ public abstract class AbstractModelTask {
                     }else{
                         LOG.error("oByteArrayMultipartFile==null! aByteFile="+aByteFile.toString());
                     }
+                }else{
+                    LOG.error("Invalid Redis Key!!! sKeyRedis=" + sKeyRedis);
                 }
                 n++;
             }
