@@ -37,7 +37,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   $scope.hasUnPopulatedFields = function () {
     if ($scope.selectedTask && $scope.taskForm) {
       var unpopulated = $scope.taskForm.filter(function (item) {
-        return (item.value === undefined || item.value === null) && item.type !== 'file';
+        return (item.value === undefined || item.value === null || item.value.trim() === "") && item.required;//&& item.type !== 'file'
       });
       return unpopulated.length > 0;
     } else {
