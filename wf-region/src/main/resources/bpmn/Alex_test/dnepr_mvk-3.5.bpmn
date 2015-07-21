@@ -153,7 +153,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="Заява поступає в роботу у ДержОргані" activiti:candidateGroups="customGroup_oda/mvk_#">
+    <userTask id="usertask1" name="Заява поступає в роботу у ДержОргані" activiti:candidateGroups="dnepr_mvk_3">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -170,7 +170,7 @@
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="dayVisit" name="Назначити день візиту" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dayVisit" name="Назначити день візиту" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="timeVisit" name="Час зустрічі" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="placeVisit" name="Місце візиту" type="string" required="true"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>

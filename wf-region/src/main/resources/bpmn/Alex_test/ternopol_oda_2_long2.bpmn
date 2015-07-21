@@ -3,13 +3,12 @@
   <process id="ternopol_2_long2" name="Тернопіль ОДА - Надання соціальної матеріальної допомоги у разі тяжкого матеріального стану" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище одержувача  допомоги АБО його законного представника" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані одержувача АБО його законного представника" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорта заявника" type="file"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Адреса прописки одержувача АБО його законного представника" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdInn" name="ІПН одержувача допомоги АБО його законного представника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name=" Прізвище заявника; Одержувача допомоги АБО його законного представника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я заявника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По батькові заявника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані заявника; Одержувача допомоги АБО його законного представника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Адреса прописки заявника; Одержувача допомоги АБО його законного представника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdInn" name="ІПН заявника; Одержувача допомоги АБО його законного представника" type="string"></activiti:formProperty>
         <activiti:formProperty id="organID" name="До якого державного органу Ви звертаєтесь" type="enum" required="true">
           <activiti:value id="ternopil_oda3" name="Департамент соцзахисту Тернопільської ОДА"></activiti:value>
         </activiti:formProperty>
@@ -18,23 +17,24 @@
           <activiti:value id="disabled" name="Інвалід"></activiti:value>
           <activiti:value id="rep" name="Законний представник отримувача допомоги"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="citizenTypeExtended" name="Для інвалідів указати групу і причину інвалідності" type="string"></activiti:formProperty>
+        <activiti:formProperty id="citizenTypeExtended" name="Для інваліда/представника інваліда вказати групу і причину інвалідності" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpTo" name="Прошу видати матеріальну допомогу" type="enum" required="true">
           <activiti:value id="me" name="Мені"></activiti:value>
           <activiti:value id="helpee" name="На мого підопічного"></activiti:value>
           <activiti:value id="other" name="Інша категорія"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="helpeeSurname" name="Прізвище одержувача допомоги; необхідно заповнити вказані поля, якщо допомогу Ви оформлюєте для свого підопічного, якщо ні – необхідно залишити їх порожніми" type="string"></activiti:formProperty>
-        <activiti:formProperty id="helpeeName" name="Його ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="helpeeMiddleName" name="По батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="helpeeAddress" name="Адреса прописки одержувача" type="string"></activiti:formProperty>
-        <activiti:formProperty id="helpeeINN" name="ІПН одержувача (крім дітей)" type="string"></activiti:formProperty>
-        <activiti:formProperty id="helpReason" name="Допомога потрібна у зв’язку з" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="helpeeSurname" name="Прізвище підопічного; необхідно заповнити вказані поля, якщо допомогу Ви оформлюєте для свого підопічного, якщо - залишіть їх порожніми" type="string"></activiti:formProperty>
+        <activiti:formProperty id="helpeeName" name="Ім'я підопічного" type="string"></activiti:formProperty>
+        <activiti:formProperty id="helpeeMiddleName" name="По батькові підопічного" type="string"></activiti:formProperty>
+        <activiti:formProperty id="helpeeAddress" name="Адреса прописки підопічного" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpeePassport" name="Дані паспорта / свідоцтва про народження підопічного" type="string"></activiti:formProperty>
-        <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера / одержувача державної соціальної допомоги АБО висновок медичної експертизи" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="helpeeINN" name="ІПН підопічного; якщо є" type="string"></activiti:formProperty>
+        <activiti:formProperty id="helpReason" name="Допомога потрібна у зв’язку з" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорта заявника" type="file"></activiti:formProperty>
+        <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера або одержувача Державної соціальної допомоги/ Висновок медико-соціальної експертної комісії, лікувально-консультативної комісії лікувально-профілактичного закладу (для дітей-інвалідів)" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="repProof" name="Документ, що засвідчує повноваження законного представника" type="file"></activiti:formProperty>
         <activiti:formProperty id="helpeePassportScan" name="Скан-копія паспорта / свідоцтва про народження підопічного; Сторінки 1, 2 і 11" type="file"></activiti:formProperty>
-        <activiti:formProperty id="scanINN" name="Скан-копія ІПН / свідоцтва народження підопічного" type="file"></activiti:formProperty>
+        <activiti:formProperty id="scanINN" name="Скан-копія ІПН підопічного; Якщо є" type="file"></activiti:formProperty>
         <activiti:formProperty id="helpeeIncome" name="Акт обстеження матеріально-побутових умов проживання" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="otherDocs" name="Інші супутні документи; Якщо їх &gt;1, будь ласька зробіть ZIP архів." type="file"></activiti:formProperty>
         <activiti:formProperty id="transferMethod" name="Яким спосібом бажаєте отримати допомогу" type="enum" required="true">
@@ -487,14 +487,16 @@
     <sequenceFlow id="flow2" sourceRef="servicetask1" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow3" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
     <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
-    <sequenceFlow id="flow5" name="${workerDecision=='accept'}" sourceRef="usertask1" targetRef="mailtask2">
+    <sequenceFlow id="flow5" name="${workerDecision=='accept'}" sourceRef="exclusivegateway1" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow6" name="${workerDecision=='decline'}" sourceRef="usertask1" targetRef="mailtask3">
+    <sequenceFlow id="flow6" name="${workerDecision=='decline'}" sourceRef="exclusivegateway1" targetRef="mailtask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='decline'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="mailtask3" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow9" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_ternopol_2_long2">
     <bpmndi:BPMNPlane bpmnElement="ternopol_2_long2" id="BPMNPlane_ternopol_2_long2">
@@ -514,16 +516,19 @@
         <omgdc:Bounds height="55.0" width="105.0" x="440.0" y="105.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="55.0" width="105.0" x="450.0" y="350.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="641.0" y="350.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="55.0" width="105.0" x="970.0" y="350.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="930.0" y="350.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="160.0" y="230.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="780.0" y="470.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="800.0" y="470.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="797.0" y="264.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="75.0" y="132.0"></omgdi:waypoint>
@@ -542,28 +547,34 @@
         <omgdi:waypoint x="745.0" y="132.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="818.0" y="175.0"></omgdi:waypoint>
-        <omgdi:waypoint x="502.0" y="350.0"></omgdi:waypoint>
+        <omgdi:waypoint x="817.0" y="304.0"></omgdi:waypoint>
+        <omgdi:waypoint x="816.0" y="377.0"></omgdi:waypoint>
+        <omgdi:waypoint x="746.0" y="377.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="48.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="48.0" width="100.0" x="648.0" y="277.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
-        <omgdi:waypoint x="818.0" y="175.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1022.0" y="350.0"></omgdi:waypoint>
+        <omgdi:waypoint x="817.0" y="304.0"></omgdi:waypoint>
+        <omgdi:waypoint x="817.0" y="377.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="377.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="48.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="48.0" width="100.0" x="917.0" y="281.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="970.0" y="377.0"></omgdi:waypoint>
-        <omgdi:waypoint x="797.0" y="377.0"></omgdi:waypoint>
-        <omgdi:waypoint x="797.0" y="470.0"></omgdi:waypoint>
+        <omgdi:waypoint x="982.0" y="405.0"></omgdi:waypoint>
+        <omgdi:waypoint x="982.0" y="487.0"></omgdi:waypoint>
+        <omgdi:waypoint x="835.0" y="487.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="555.0" y="377.0"></omgdi:waypoint>
-        <omgdi:waypoint x="797.0" y="377.0"></omgdi:waypoint>
-        <omgdi:waypoint x="797.0" y="470.0"></omgdi:waypoint>
+        <omgdi:waypoint x="693.0" y="405.0"></omgdi:waypoint>
+        <omgdi:waypoint x="693.0" y="487.0"></omgdi:waypoint>
+        <omgdi:waypoint x="800.0" y="487.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="818.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="817.0" y="264.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
