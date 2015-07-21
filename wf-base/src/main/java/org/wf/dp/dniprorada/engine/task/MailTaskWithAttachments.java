@@ -1,10 +1,17 @@
 package org.wf.dp.dniprorada.engine.task;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.activation.DataSource;
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
 
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.TaskService;
@@ -12,6 +19,7 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.task.Attachment;
 import org.apache.commons.mail.ByteArrayDataSource;
+import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.MultiPartEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +70,7 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
                 sFileExt = oAttachment.getType().split(";")[0];
                 sDescription = oAttachment.getDescription();
                 if(sDescription==null||"".equals(sDescription.trim())){
-                    sDescription = "(без описания)";
+                    sDescription = "(no description)";
                 }
                 log.info("oAttachment.getId()="+oAttachment.getId()+", sFileName=" + sFileName + ", sFileExt=" + sFileExt + ", sDescription=" + sDescription);
                 oInputStream_Attachment = oExecution.getEngineServices().getTaskService().getAttachmentContent(oAttachment.getId());
@@ -73,8 +81,44 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
                             Attachment.class);
                 }
                 DataSource oDataSource = new ByteArrayDataSource(oInputStream_Attachment, sFileExt);
+                if (oDataSource == null) {
+                    log.error("Attachment: oDataSource == null");
+                }
+                
+                log.info("1)oMultiPartEmail.isBoolHasAttachments()="+oMultiPartEmail.isBoolHasAttachments());
                 // add the attachment
                 oMultiPartEmail.attach(oDataSource, sFileName, sDescription);
+                log.info("2)oMultiPartEmail.isBoolHasAttachments()="+oMultiPartEmail.isBoolHasAttachments());
+                oMultiPartEmail.setBoolHasAttachments(true);
+                log.info("3)oMultiPartEmail.isBoolHasAttachments()="+oMultiPartEmail.isBoolHasAttachments());
+                
+                /*Multipart oMultipart = new Multipart(oDataSource) {
+
+                    @Override
+                    public void writeTo(OutputStream out) throws IOException, MessagingException {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+                };
+                MultipartDataSource oMultipartDataSource=new();*/
+                
+                /*
+                MimeMultipart oMimeMultipart = new MimeMultipart("related");
+                BodyPart oBodyPart = new MimeBodyPart();
+                oBodyPart.setContent(oDataSource, "application/zip");
+                oMimeMultipart.addBodyPart(oBodyPart);
+                //oMultiPartEmail.setContent(oMimeMultipart);
+                oMultiPartEmail.addPart(oMimeMultipart);
+                */
+
+                // Create the attachment
+                /*EmailAttachment oEmailAttachment = new EmailAttachment();
+                oEmailAttachment.setPath("mypictures/john.jpg");
+                oEmailAttachment.setDisposition(EmailAttachment.ATTACHMENT);
+                oEmailAttachment.setDescription("Picture of John");
+                oEmailAttachment.setName("John");*/
+                
+                //oMultiPartEmail.addPart(saToMail, sBody);
+                
                 log.info("oMultiPartEmail.attach: Ok!");
             }
         } else {
