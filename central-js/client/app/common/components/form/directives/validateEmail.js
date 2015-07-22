@@ -5,9 +5,9 @@ angular.module('app').directive('validateEmail', function() {
   var EMAIL_REGEXP = /^([\w-]+(?:.[\w-]+))@((?:[\w-]+.)\w[\w-]{0,66}).([a-z]{2,6}(?:.[a-z]{2})?)$/i;
 
   return {
-    require: 'ngModel',
+    require: '^form',
     restrict: '',
-    link: function(scope, elm, attrs, ctrl) {
+    link: function(scope, elm, attrs, form, ctrl) {
 
       //mock markers
       scope.data.formData = {
