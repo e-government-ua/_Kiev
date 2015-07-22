@@ -1,10 +1,19 @@
 package org.wf.dp.dniprorada.engine.task;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import javax.activation.DataHandler;
 
 import javax.activation.DataSource;
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.TaskService;
@@ -12,12 +21,14 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.task.Attachment;
 import org.apache.commons.mail.ByteArrayDataSource;
+import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.MultiPartEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.wf.dp.dniprorada.util.Mail;
 
 /**
  * 
@@ -35,7 +46,8 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
     public void execute(DelegateExecution oExecution) throws Exception {
         System.setProperty("mail.mime.address.strict", "false");
 
-        MultiPartEmail oMultiPartEmail = MultiPartEmail_BaseFromTask(oExecution);
+        //MultiPartEmail oMultiPartEmail = MultiPartEmail_BaseFromTask(oExecution);
+        Mail oMail = Mail_BaseFromTask(oExecution);
         
         String sAttachmentsForSend = getStringFromFieldExpression(this.saAttachmentsForSend, oExecution);
         
@@ -61,6 +73,9 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
                 sFileName = oAttachment.getName();
                 sFileExt = oAttachment.getType().split(";")[0];
                 sDescription = oAttachment.getDescription();
+                if(sDescription==null||"".equals(sDescription.trim())){
+                    sDescription = "(no description)";
+                }
                 log.info("oAttachment.getId()="+oAttachment.getId()+", sFileName=" + sFileName + ", sFileExt=" + sFileExt + ", sDescription=" + sDescription);
                 oInputStream_Attachment = oExecution.getEngineServices().getTaskService().getAttachmentContent(oAttachment.getId());
                 if (oInputStream_Attachment == null) {
@@ -70,8 +85,12 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
                             Attachment.class);
                 }
                 DataSource oDataSource = new ByteArrayDataSource(oInputStream_Attachment, sFileExt);
-                // add the attachment
-                oMultiPartEmail.attach(oDataSource, sFileName, sDescription);
+                if (oDataSource == null) {
+                    log.error("Attachment: oDataSource == null");
+                }
+                
+                oMail._Attach(oDataSource, sFileName + "." + sFileExt, sDescription);
+                
                 log.info("oMultiPartEmail.attach: Ok!");
             }
         } else {
@@ -80,7 +99,8 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
         }
 
         // send the email
-        oMultiPartEmail.send();
+        //oMultiPartEmail.send();
+        oMail.send();
     }
 
 }

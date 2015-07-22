@@ -147,6 +147,7 @@
             <column name="sContentType" type="STRING"/>
             <column name="nID_Subject" type="NUMERIC"/>
             <column name="nID_Subject_Upload" type="NUMERIC"/>
+            <column name="oSignData" type="STRING"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">

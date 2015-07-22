@@ -37,7 +37,9 @@ public class FileTaskUploadListener extends AbstractModelTask implements TaskLis
 				.memberOfGroup(identityLink.iterator().next().getGroupId())
 				.list();
 
-		System.out.println("Did we found any user?  " + users);
+		//System.out.println("Did we found any user?  " + users);
+                LOG.info("Did we found any user?  " + users);
+                
 		if(users == null || users.size()==0|| users.get(0)==null || users.get(0).getId() == null){
 			//TODO  what to do if no user?
 		} else {
@@ -50,8 +52,8 @@ public class FileTaskUploadListener extends AbstractModelTask implements TaskLis
 		FormData startformData = execution.getEngineServices()
 				.getFormService()
 				.getStartFormData(execution.getProcessDefinitionId());
-			System.out.println("beginning of addAttachmentsToTask(startformData, task)");
-
+			//System.out.println("beginning of addAttachmentsToTask(startformData, task)");
+                        LOG.info("beginning of addAttachmentsToTask(startformData, task):execution.getProcessDefinitionId()="+execution.getProcessDefinitionId());
 			addAttachmentsToTask(startformData, task);
 		}
 	}

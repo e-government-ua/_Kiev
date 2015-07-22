@@ -24,6 +24,7 @@ import org.wf.dp.dniprorada.constant.Currency;
 import org.wf.dp.dniprorada.constant.Language;
 import org.wf.dp.dniprorada.liqPay.LiqBuy;
 import org.wf.dp.dniprorada.util.GeneralConfig;
+import org.wf.dp.dniprorada.util.Mail;
 
 public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
@@ -159,7 +160,8 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     }
     
     
-    public MultiPartEmail MultiPartEmail_BaseFromTask(DelegateExecution oExecution) throws Exception {
+    //public MultiPartEmail MultiPartEmail_BaseFromTask(DelegateExecution oExecution) throws Exception {
+    public Mail Mail_BaseFromTask(DelegateExecution oExecution) throws Exception {
     
         String sFromMail = getStringFromFieldExpression(this.from, oExecution);
         String saToMail = getStringFromFieldExpression(this.to, oExecution);
@@ -167,57 +169,27 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         String sBodySource = getStringFromFieldExpression(this.text, oExecution);
         String sBody = replaceTags(sBodySource, oExecution);
         
-        MultiPartEmail oMultiPartEmail = new MultiPartEmail();
-        oMultiPartEmail.setHostName(mailServerHost);
-        oMultiPartEmail.addTo(saToMail, "receiver");
-        oMultiPartEmail.setFrom(sFromMail, mailAddressNoreplay);
-        oMultiPartEmail.setSubject(sHead);
-        //oMultiPartEmail.setMsg(sBody);
-        //oMultiPartEmail.setContent(sBody, "text/html; charset=\"utf-8\"");
-        oMultiPartEmail.setContent(sBody, "text/html");
-        oMultiPartEmail.setCharset("UTF-8");
-        
-        oMultiPartEmail.setAuthentication(mailServerUsername, mailServerPassword);
-        oMultiPartEmail.setSmtpPort(Integer.valueOf(mailServerPort));
-        oMultiPartEmail.setSSL(true);
-        oMultiPartEmail.setTLS(true);
-        
-        
-        /*String fromStr = getStringFromFieldExpression(this.from, execution);
-        String toStr = getStringFromFieldExpression(this.to, execution);
-        String subjectStr = getStringFromFieldExpression(this.subject, execution);
-        String textStr = getStringFromFieldExpression(this.text, execution);
+        Mail oMail = new Mail();
+        oMail
+        ._From(mailAddressNoreplay)
+        ._To(saToMail)
+        ._Head(sHead)
+        ._Body(sBody)
+        ._AuthUser(mailServerUsername)
+        ._AuthPassword(mailServerPassword)
+        ._Host(mailServerHost)
+        ._Port(Integer.valueOf(mailServerPort))
+        ._SSL(true)
+        ._TLS(true)
+        ;
 
-        MultiPartEmail email = new MultiPartEmail();
-        email.setHostName(mailServerHost);
-        email.addTo(toStr, "receiver");
-        email.setFrom(fromStr, mailAddressNoreplay);
-        email.setSubject(subjectStr);
-        email.setMsg(replaceTags(textStr, execution));
-        email.setAuthentication(mailServerUsername, mailServerPassword);
-        email.setSmtpPort(Integer.valueOf(mailServerPort));
-        email.setSSL(true);
-        email.setTLS(true);*/        
+        oMail
+        ._BodyAsText()
+        ;
         
-        /*
-        MimeMessage oMimeMessage = mailSender.createMimeMessage();
-        MimeMessageHelper oMMH = new MimeMessageHelper(oMimeMessage, true);
-        oMMH.setTo(saToMail);
-        oMMH.setFrom(sFromMail);
-        oMMH.setSubject(sHead);
-        
-        MimeMultipart oMimeMultipart = new MimeMultipart("related");
-        BodyPart oBodyPart = new MimeBodyPart();
-        oBodyPart.setContent(sBody, "text/html; charset=\"utf-8\"");
-        oMimeMultipart.addBodyPart(oBodyPart);
-        
-        oMimeMessage.setContent(oMimeMultipart);
-        */
-        
-        
-        return oMultiPartEmail;
+//        return oMultiPartEmail;
+        return oMail;
         //MultiPartEmail oMultiPartEmail = MultiPartEmail_BaseFromTask();    
-    
     }
     
     
