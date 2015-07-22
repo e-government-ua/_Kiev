@@ -68,7 +68,7 @@
         <activiti:formProperty id="person4" name="Особа 4;ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="person5" name="Особа 5;ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені протягом 12 місяців перед зверненням за призначенням житлової субсидії; перерахуйте з нового рядка ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг; ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг" type="textArea" required="true"></activiti:formProperty>
-             <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="dnepr_upzsn">
@@ -182,7 +182,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="80.0" y="20.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="10.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="17.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="320.0" y="17.0"></omgdc:Bounds>
@@ -195,10 +195,10 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="115.0" y="37.0"></omgdi:waypoint>
-        <omgdi:waypoint x="160.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="44.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
-        <omgdi:waypoint x="265.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="265.0" y="44.0"></omgdi:waypoint>
         <omgdi:waypoint x="320.0" y="37.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
@@ -218,7 +218,7 @@
         <omgdi:waypoint x="339.0" y="168.0"></omgdi:waypoint>
         <omgdi:waypoint x="279.0" y="168.0"></omgdi:waypoint>
         <omgdi:waypoint x="212.0" y="168.0"></omgdi:waypoint>
-        <omgdi:waypoint x="212.0" y="65.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="72.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="14.0" width="95.0" x="230.0" y="170.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
