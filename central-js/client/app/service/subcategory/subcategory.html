@@ -4,9 +4,9 @@
             <h3 class="subcategory_title">{{category.sName}}: {{subcategory.sName}}</h3>
         </div>
         <div class="col-md-4"
-             ng-repeat-start="service in subcategory.aService | orderBy: '-nSub'">
+             ng-repeat-start="subcategory in category.aSubcategory">
             <ul class="list-unstyled">
-                <li>
+                <li ng-repeat="service in subcategory.aService | orderBy: '-nSub'">
                     <a ng-if="service.nStatus==2"
                        ui-sref="index.service.general({'id': service.nID })"
                        ng-href="/service/{{service.nID}}/general"><i class="icon-e-service-on"

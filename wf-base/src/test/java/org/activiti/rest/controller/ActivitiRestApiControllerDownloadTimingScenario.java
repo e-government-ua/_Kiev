@@ -74,8 +74,8 @@ public class ActivitiRestApiControllerDownloadTimingScenario {
                 param("sDateTo", "2015-06-30").
                 header("Authorization", "Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=")).andReturn();
     	
-    	assertEquals(result.getResponse().getStatus(), 200);
-    	assertEquals(result.getResponse().getContentType(), "text/csv;charset=UTF-8");
+    	assertEquals(200, result.getResponse().getStatus());
+    	assertEquals("text/csv;charset=UTF-8", result.getResponse().getContentType());
     }
     
     @Test

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="khmelnitskij_mvk_2" name="Хмельницький - Надання інформації, що підтверджує відсутність (наявність) земельної ділянки" isExecutable="true" activiti:candidateStarterGroups="hmel_mvk_2">
+    <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
+      <extensionElements>
+        <activiti:formProperty id="name" name="Прошу надати інформацію про наявність у власності земельної ділянки на території м.Хмельницького. Даю згоду на обробку моїх персональних даних" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспорт" type="string"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="selection" name="Видати друкований документ" type="enum" required="true">
+          <activiti:value id="attr1_yes" name="так"></activiti:value>
+          <activiti:value id="attr2_no" name="ні"></activiti:value>
+        </activiti:formProperty>
+              <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="usertask1" name="Отримання та обробка заяви" activiti:candidateGroups="hmel_mvk_2">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Скан паспорта" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="selection" name="Видати друкований документ" type="enum" variable="selection" writable="false">
+          <activiti:value id="attr1_yes" name="так"></activiti:value>
+          <activiti:value id="attr2_no" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="comment" name="Коментар/рішення" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fileToSend" name="Завантажте електронную копію рішення" type="file"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow3" name="${selection==attr1_yes}" sourceRef="exclusivegateway1" targetRef="servicetask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr1_yes'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow4" name="${selection==attr2_no}" sourceRef="exclusivegateway1" targetRef="servicetask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr2_no'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="mailtask3" name="Повідомлення про успішну реєстрацію звернення" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Отримання довідки про наявність земельної ділянки</activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ваше звернення щодо отримання довідки про наявність земельної ділянки прийнято в роботу. Ви отримаєте відповідь протягом 30 днів.
+
+
+З повагою,
+Хмельницька міська рада,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow5" sourceRef="startevent1" targetRef="mailtask3"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="mailtask3" targetRef="usertask1"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow7" sourceRef="servicetask1" targetRef="endevent1"></sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow8" sourceRef="servicetask2" targetRef="endevent2"></sequenceFlow>
+    <serviceTask id="servicetask1" name="е-мейл с печатью" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Надання довідки про наявність/відсутність земельної ділянки</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ваше звернення щодо отримання довідки про наявність земельної ділянки оброблено. Довідка прикріплена до цього листа.
+
+Щоб отримати паперову довідку просимо звернутися за адресою: м.Хмельницький, вул.Соборна, 16. Графік прийому суб'єктів звернень: понеділок, середа, п'ятниця з 9-00 до 16-00, субота з 8-00 до 15-00, вівторок, четвер - з 9-00 до 20-00 (без перерви на обід).
+
+З повагою,
+Хмельницька міська рада,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${fileToSend}"</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask2" name="е-мейл без печати" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Надання довідки про наявність/відсутність земельної ділянки</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ваше звернення щодо отримання довідки про наявність земельної ділянки оброблено. Довідка прикріплена до цього листа.
+
+
+
+З повагою,
+Хмельницька міська рада,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${fileToSend}"</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_khmelnitskij_mvk_2">
+    <bpmndi:BPMNPlane bpmnElement="khmelnitskij_mvk_2" id="BPMNPlane_khmelnitskij_mvk_2">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="20.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="270.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="419.0" y="97.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+        <omgdc:Bounds height="80.0" width="105.0" x="110.0" y="58.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="790.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="790.0" y="220.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="630.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="630.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="375.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="419.0" y="117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="459.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="117.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="439.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="237.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="-55.0" y="3.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="55.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="110.0" y="98.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="215.0" y="98.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="735.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="735.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="herson_oda_1" name="Херсонстка ОДА - Запит на публічну інформацію (для фізичних осіб)" isExecutable="true">
+    <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Поштова адреса" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPhone" name="Телефон" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail; на цей e-mail Ви отримаєте результат обробки Вашего звернення" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="requestData" name="Вкажіть загальний опис запитуваної інформації або вид, назва,реквізити чи зміст документа" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="resultWay" name="Спосіб отримання відповіді" type="enum" required="true">
+          <activiti:value id="На електронну адресу" name="На електронну адресу"></activiti:value>
+          <activiti:value id="На поштову адресу" name="На поштову адресу"></activiti:value>
+          <activiti:value id="За телефоном" name="За телефоном"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+ </extensionElements>
+    </startEvent>
+    <serviceTask id="mailtask3" name="Повідомлення про  подання звернення" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення: Запит на публічну інформацію]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ваш запит на отримання публічної інформації успішно зареєстрований.
+Ви отримаєте відповідь у визначений законодавством термін.
+
+Згідно Статті 20 Закону України "Про доступ до публічної інформації":
+1. Розпорядник інформації має надати відповідь на запит на інформацію не пізніше п'яти робочих днів з дня отримання запиту. 
+2. У разі якщо запит на інформацію стосується інформації, необхідної для захисту життя чи свободи особи, щодо стану довкілля, якості харчових продуктів і предметів побуту, аварій, катастроф, небезпечних природних явищ та інших надзвичайних подій, що сталися або можуть статись і загрожують безпеці громадян, відповідь має бути надана не пізніше 48 годин з дня отримання запиту. 
+3. Клопотання про термінове опрацювання запиту має бути обґрунтованим. 
+4. У разі якщо запит стосується надання великого обсягу інформації або потребує пошуку інформації серед значної кількості даних, розпорядник інформації може продовжити строк розгляду запиту до 20 робочих днів з обґрунтуванням такого продовження. Про продовження строку розпорядник інформації повідомляє запитувача в письмовій формі не пізніше п'яти робочих днів з дня отримання запиту.
+
+З повагою,
+Херсонська ОДА,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow46" sourceRef="startevent1" targetRef="mailtask3"></sequenceFlow>
+    <sequenceFlow id="flow48" sourceRef="mailtask3" targetRef="mailtask4"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow49" sourceRef="mailtask4" targetRef="endevent1"></sequenceFlow>
+    <serviceTask id="mailtask4" name="Відправка  запиту до канцелярії" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення громадянина: Запит на публічну інформацію]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:string><![CDATA[zapit_kanc@khoda.gov.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Данні громадянина: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}
+Паспортні дані: ${bankIdPassport}
+Поштова адреса: ${bankIdAddress}
+Контактний телефон: ${bankIdPhone}
+Адреса електронної пошти: ${email}
+Спосіб отримання відповіді: ${resultWay}
+
+Загальний опис запитуваної інформації або вид, назва,реквізити чи зміст документа: ${requestData}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <textAnnotation id="textannotation1">
+      <text>Херсонстка ОДА - Запит на публічну інформацію (для фізичних осіб)</text>
+    </textAnnotation>
+    <association id="association3" sourceRef="startevent1" targetRef="textannotation1"></association>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_herson_oda_1">
+    <bpmndi:BPMNPlane bpmnElement="herson_oda_1" id="BPMNPlane_herson_oda_1">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="510.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+        <omgdc:Bounds height="55.0" width="171.0" x="442.0" y="186.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="510.0" y="380.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
+        <omgdc:Bounds height="55.0" width="171.0" x="442.0" y="279.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="50.0" width="441.0" x="20.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow46" id="BPMNEdge_flow46">
+        <omgdi:waypoint x="527.0" y="135.0"></omgdi:waypoint>
+        <omgdi:waypoint x="527.0" y="186.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow48" id="BPMNEdge_flow48">
+        <omgdi:waypoint x="527.0" y="241.0"></omgdi:waypoint>
+        <omgdi:waypoint x="527.0" y="279.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
+        <omgdi:waypoint x="527.0" y="334.0"></omgdi:waypoint>
+        <omgdi:waypoint x="527.0" y="380.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
+        <omgdi:waypoint x="527.0" y="100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="240.0" y="70.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

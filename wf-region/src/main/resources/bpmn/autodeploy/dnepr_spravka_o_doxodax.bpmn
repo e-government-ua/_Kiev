@@ -8,13 +8,13 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район; в якому вам буде зручно отримати довідку" type="enum">
-          <activiti:value id="and" name="АНД (пров. Універсальний, 12)"></activiti:value>
-          <activiti:value id="babush" name="Бабушкінський (вул. Героїв Сталінграду, 25)"></activiti:value>
-          <activiti:value id="october" name="Жовтневий (вул. Високовольтна, 24)"></activiti:value>
-          <activiti:value id="left" name="Лівобережний (пр-т Газети Правда, 95-А)"></activiti:value>
-          <activiti:value id="kirov" name="Кіровський (вул. Горького, 22)"></activiti:value>
-          <activiti:value id="red_guard" name="Красногвардійський (вул. Театральна, 1-А)"></activiti:value>
-          <activiti:value id="lenin" name="Ленінський (вул. Шаумяна, 5)"></activiti:value>
+          <activiti:value id="and" name="АНД (пров. Універсальний, 12)|461"></activiti:value>
+          <activiti:value id="babush" name="Бабушкінський (вул. Героїв Сталінграду, 25)|462"></activiti:value>
+          <activiti:value id="october" name="Жовтневий (вул. Високовольтна, 24)|463"></activiti:value>
+          <activiti:value id="left" name="Лівобережний (пр-т Газети Правда, 95-А)|464"></activiti:value>
+          <activiti:value id="kirov" name="Кіровський (вул. Горького, 22)|465"></activiti:value>
+          <activiti:value id="red_guard" name="Красногвардійський (вул. Театральна, 1-А)|466"></activiti:value>
+          <activiti:value id="lenin" name="Ленінський (вул. Шаумяна, 5)|467"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваша електронна пошта" type="string" required="true"></activiti:formProperty>
@@ -23,6 +23,7 @@
         <activiti:formProperty id="date_start" name="Період з" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="date_stop" name="Період по" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="aim" name="Мета; для чого або якого органу потрібна дана довідка" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Обробка" activiti:candidateGroups="sales">
@@ -32,13 +33,13 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район; де вам буде зручно отримати довідку" type="enum" writable="false">
-          <activiti:value id="and" name="АНД (пров. Універсальний, 12)"></activiti:value>
-          <activiti:value id="babush" name="Бабушкінський (вул. Героїв Сталінграду, 25)"></activiti:value>
-          <activiti:value id="october" name="Жовтневий (вул. Високовольтна, 24)"></activiti:value>
-          <activiti:value id="left" name="Лівобережний (пр-т Газети Правда, 95-А)"></activiti:value>
-          <activiti:value id="kirov" name="Кіровський (вул. Горького, 22)"></activiti:value>
-          <activiti:value id="red_guard" name="Красногвардійський (вул. Театральна, 1-А)"></activiti:value>
-          <activiti:value id="lenin" name="Ленінський (вул. Шаумяна, 5)"></activiti:value>
+          <activiti:value id="and" name="АНД (пров. Універсальний, 12)|461"></activiti:value>
+          <activiti:value id="babush" name="Бабушкінський (вул. Героїв Сталінграду, 25)|462"></activiti:value>
+          <activiti:value id="october" name="Жовтневий (вул. Високовольтна, 24)|463"></activiti:value>
+          <activiti:value id="left" name="Лівобережний (пр-т Газети Правда, 95-А)|464"></activiti:value>
+          <activiti:value id="kirov" name="Кіровський (вул. Горького, 22)|465"></activiti:value>
+          <activiti:value id="red_guard" name="Красногвардійський (вул. Театральна, 1-А)|466"></activiti:value>
+          <activiti:value id="lenin" name="Ленінський (вул. Шаумяна, 5)|467"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваша електронна пошта" type="string" writable="false"></activiti:formProperty>

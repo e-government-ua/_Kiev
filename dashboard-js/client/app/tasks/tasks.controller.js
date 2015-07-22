@@ -2,6 +2,7 @@
 angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $window, tasks, processes, Modal, Auth, PrintTemplate, $localStorage) {
   $scope.tasks = [];
   $scope.selectedTasks = {};
+  $scope.sSelectedTask = "";
   $scope.$storage = $localStorage.$default({
     menuType: tasks.filterTypes.selfAssigned
   });
@@ -23,6 +24,10 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
   $scope.print = function () {
     if ($scope.selectedTask && $scope.taskForm) {
+      if($scope.hasUnPopulatedFields()){
+        Modal.inform.error()('Не всі поля заповнені!');
+        return;
+      }
       $scope.printTemplate.task = $scope.selectedTask;
       $scope.printTemplate.form = $scope.taskForm;
       $scope.printTemplate.showPrintModal = !$scope.printTemplate.showPrintModal;
@@ -32,7 +37,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   $scope.hasUnPopulatedFields = function () {
     if ($scope.selectedTask && $scope.taskForm) {
       var unpopulated = $scope.taskForm.filter(function (item) {
-        return (item.value === undefined || item.value === null) && item.type !== 'file';
+        return (item.value === undefined || item.value === null || item.value.trim() === "") && item.required;//&& item.type !== 'file'
       });
       return unpopulated.length > 0;
     } else {
@@ -50,6 +55,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.isTaskFilterActive = function (taskType) {
+    $scope.sSelectedTask = $scope.$storage.menuType;
     return $scope.$storage.menuType === taskType;
   };
 
@@ -66,6 +72,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.applyTaskFilter = function (menuType) {
+    $scope.sSelectedTask = $scope.$storage.menuType;
     $scope.selectedTask = $scope.selectedTasks[menuType];
     $scope.$storage.menuType = menuType;
     $scope.taskForm = null;
@@ -87,6 +94,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.selectTask = function (task) {
+    $scope.sSelectedTask = $scope.$storage.menuType;
     $scope.selectedTask = task;
     $scope.selectedTasks[$scope.$storage.menuType] = task;
     $scope.taskForm = null;
@@ -128,13 +136,17 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
   $scope.submitTask = function () {
     if ($scope.selectedTask && $scope.taskForm) {
+      if($scope.hasUnPopulatedFields()){
+        Modal.inform.error()('Не всі поля заповнені!');
+        return;
+      }
       tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm)
         .then(function (result) {
           Modal.inform.success(function (event) {
             $scope.selectedTasks[$scope.$storage.menuType] = null;
             loadTaskCounters();
             $scope.applyTaskFilter($scope.$storage.menuType);
-          })('Форма відправлена : ' + result);
+          })('Форму відправлено' + (result && result.length > 0 ? (': ' + result) : ''));
         })
         .catch(function (err) {
           Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
@@ -144,11 +156,13 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
   $scope.assignTask = function () {
     tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id).then(function (result) {
-      Modal.inform.success(function (event) {
+      Modal.assignTask(function (event) {
         $scope.selectedTasks[$scope.$storage.menuType] = null;
         loadTaskCounters();
-        $scope.applyTaskFilter($scope.$storage.menuType);
-      })('Задача у вас в роботі');
+
+        $scope.selectedTasks[$scope.menus[0].type] = $scope.selectedTask;
+        $scope.applyTaskFilter($scope.menus[0].type);
+      }, 'Задача у вас в роботі');
     })
       .catch(function (err) {
         Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
@@ -174,6 +188,42 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
       var o = new Date(sDateLong); //'2015-04-27T13:19:44.098+03:00'
       return o.getFullYear() + '-' + (o.getMonth() + 1) + '-' + o.getDate() + ' ' + o.getHours() + ':' + o.getMinutes();
       //"2015-05-21T00:40:28.801+03:00\"
+    }
+  };
+
+    /*String.prototype.endsWith = function(suffix) {
+        return this.indexOf(suffix, this.length - suffix.length) !== -1;
+    };*/
+//http://stackoverflow.com/questions/280634/endswith-in-javascript
+    function endsWith(s, sSuffix) {
+        if(s==null){
+            return false;
+        }
+        return s.indexOf(sSuffix, s.length - sSuffix.length) !== -1;
+    }
+  $scope.sTaskClass = function (sUserTask) {
+    //sUserTask.stren
+    /*var n=-1;
+    var s="";
+    s="_10";
+    n=sUserTask.lastIndexOf(s);
+    if(n>-1 && n=s){
+    }*/
+    //"_10" - подкрашивать строку - красным цветом
+    //"_5" - подкрашивать строку - желтым цветом
+    //"_1" - подкрашивать строку - зеленым цветом      
+    var sClass="";
+    if(endsWith(sUserTask, "_red")){
+        return "bg_red";
+    }
+    if(endsWith(sUserTask, "_yellow")){
+        return "bg_yellow";
+    }
+    if(endsWith(sUserTask, "_green")){
+        return "bg_green";
+    }
+    if(endsWith(sUserTask, "usertask1")){
+        return "bg_first";
     }
   };
 
