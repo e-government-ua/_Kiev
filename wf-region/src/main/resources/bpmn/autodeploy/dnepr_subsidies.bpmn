@@ -68,7 +68,7 @@
         <activiti:formProperty id="person4" name="Особа 4;ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="person5" name="Особа 5;ПІБ, ДР, Номер облікової картки, Вид прибутку, Сума доходу до відрахування податків, Джерело прибутку" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені протягом 12 місяців перед зверненням за призначенням житлової субсидії; перерахуйте з нового рядка ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг; ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг" type="textArea" required="true"></activiti:formProperty>
-             <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="dnepr_upzsn">
@@ -142,8 +142,107 @@
           <activiti:value id="attr1" name="відправлені запроси, очікують відповіді"></activiti:value>
           <activiti:value id="attr2" name="відповідь отримана, винесено рішення, повідомити громадянина"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="sBody" name="Печатная форма" type="invisible" default="&lt;![CDATA[&lt;p&gt;_______________________________________&lt;br&gt;(найменування структурного підрозділу &lt;br&gt;_______________________________________&lt;br&gt;з питань соціального захисту населення)&lt;br&gt;ЗАЯВА &lt;br&gt;про призначення житлової субсидії &lt;br&gt;Від [bankIdlastName] [bankIdfirstName] [bankIdmiddleName]______________________&lt;br&gt;(прізвище, ім’я, по батькові)&lt;br&gt;зареєстроване (для орендарів — фактичне) місце проживання: [place_of_living]&lt;br&gt;_______________________________________________________________________&lt;br&gt;контактний телефон [phone] паспорт: [bankIdPassport]&lt;br&gt;__________________________________________________ ___ __________ ___ р.&lt;br&gt;(серія, номер, ким і коли виданий)&lt;br&gt;реєстраційний номер облікової картки платника податків [book]&lt;br&gt;(крім осіб, які мають відмітку у паспорті про право здійснювати платежі за серією та номером паспорта)&lt;br&gt;Прошу призначити субсидію для відшкодування витрат на оплату [subsidy]&lt;br&gt;Відомості про житлово-комунальні послуги, якими користуються особи, які зареєстровані (фактично проживають) у житловому приміщенні/будинку&lt;br&gt;Вид послуги&lt;br&gt;Номер особового рахунка&lt;br&gt;Найменування організації, що надає послуги&lt;br&gt;Примітки&lt;br&gt;Утримання будинків і споруд та прибудинкових територій&lt;/p&gt;&lt;br&gt;&lt;br&gt;[house_number]&lt;br&gt;[house_name]&lt;br&gt;[house_notice]&lt;br&gt;&lt;p&gt;Газопостачання&lt;/p&gt;&lt;br&gt;&lt;br&gt;[gas_number]&lt;br&gt;[gas_name]&lt;br&gt;[gas_notice]&lt;br&gt;&lt;p&gt;Централізоване постачання холодної води&lt;/p&gt;&lt;br&gt;&lt;br&gt;[coolwater_number]&lt;br&gt;[coolwater_name]&lt;br&gt;[coolwater_notice]&lt;br&gt;&lt;p&gt;Централізоване постачання гарячої води&lt;/p&gt;&lt;br&gt;&lt;br&gt;[hotwater_number]&lt;br&gt;[hotwater_name]&lt;br&gt;[hotwater_notice]&lt;br&gt;&lt;p&gt;Водовідведення&lt;/p&gt;&lt;br&gt;&lt;br&gt;[waterback_number]&lt;br&gt;[waterback_name]&lt;br&gt;[waterback_notice]&lt;br&gt;&lt;p&gt;Централізоване опалення&lt;/p&gt;&lt;br&gt;&lt;br&gt;[warming_number]&lt;br&gt;[warming_name]&lt;br&gt;[warming_notice]&lt;br&gt;&lt;p&gt;Електропостачання&lt;/p&gt;&lt;br&gt;&lt;br&gt;[electricity_number]&lt;br&gt;[electricity_name]&lt;br&gt;[electricity_notice]&lt;br&gt;&lt;p&gt;Вивезення побутових відходів&lt;/p&gt;&lt;br&gt;&lt;br&gt;[garbage_number]&lt;br&gt;[garbage_name]&lt;br&gt;[garbage_notice]&lt;br&gt;&lt;p&gt;У разі коли прийняття рішення щодо моєї заяви потребує окремого рішення місцевих органів виконавчої влади/місцевого самоврядування або утвореної ними комісії, прошу розглянути/не розглядати мою заяву відповідними органами або утвореною ними комісією (необхідне підкреслити) - [notice]. &lt;br&gt;Я та особи, які зареєстровані (фактично проживають) у житловому приміщенні/будинку, даємо згоду на обробку персональних даних про сім’ю, доходи, майно, що необхідні для призначення житлової субсидії, та оприлюднення відомостей щодо її призначення. &lt;br&gt;У разі зміни обставин, які можуть вплинути на отримання житлової субсидії (зміни складу осіб, які зареєстровані (фактично проживають), джерел доходу, переліку отримуваних житлово-комунальних послуг, придбання майна, товарів або оплати послуг на суму, що перевищує 50 тис. гривень), зобов’язуюся протягом місяця повідомити про це структурний підрозділ з питань соціального захисту населення.&lt;br&gt;_____ ______________ 20__ р. ________________________&lt;br&gt;(підпис)&lt;/p&gt;&lt;p&gt;Примітка. Ця заява заповнюється особою, на яку відкрито особовий рахунок із сплати житлово-комунальних послуг (особою, яка фактично сплачує вартість одержуваних послуг).&lt;br&gt;&lt;/p&gt;]]&gt;" writable="false"></activiti:formProperty>
-      </extensionElements>
+        <activiti:formProperty id="sBody" name="Печатная форма" type="invisible" default="<![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Заява</title>
+
+    <!-- Styles :: THEME -->
+    <link rel="stylesheet" href="media_print.css"/>
+    <link rel="stylesheet" href="documents.css"/>
+</head>
+<body>
+    <section class="print_wrap">
+        <div class="line_col ta-r">
+            <div class="under_field w350 ta-l"><i></i><span>(найменування структурного підрозділу</span></div><br />
+            <div class="under_field w350 ta-l"><i></i><span>з питань соціального захисту населення)</span></div>
+        </div>
+        <div class="line_col ta-c m-t-25">
+            ЗАЯВА<br />
+            про призначення житлової субсидії<br />
+            <div class="under_field_line ta-l"><i>Від [bankIdlastName] [bankIdfirstName] [bankIdmiddleName]</i><span>(прізвище, ім’я, по батькові)</span></div>
+            <div class="under_field_line ta-l"><i>зареєстроване (для орендарів — фактичне) місце проживання: [place_of_living]</i></div>
+            <div class="under_field_line ta-l"></div>
+            <div class="under_field_line ta-l"><i>контактний телефон [phone]</i>
+                <div class="under_field_line ta-l m-l-300"><i>паспорт: [bankIdPassport]</i>
+                    <div class="under_field_line ta-l m-l-180"><i></i></div></div></div>
+            <div class="under_field_line ta-l"><span>(ким і коли виданий)</span><div class="month-fl"><span></span><span></span><span></span>р.</div></div>
+            <div class="under_field_line ta-l"><i>реєстраційний номер облікової картки платника податків: [book]</i><span>(крім осіб, які мають відмітку у паспорті про право здійснювати платежі за серією та номером паспорта)</span></div>
+            <div class="under_field_line wub ta-l ti-15 m-t-25">Прошу призначити субсидію для відшкодування витрат на оплату житлово-комунальних послуг, на придбання скрапленого газу, твердого та рідкого пічного побутового палива (необхідне підкреслити).</div>
+            <div class="under_field_line wub ta-l ti-15">Відомості про житлово-комунальні послуги, якими користуються особи, які зареєстровані (фактично проживають) у житловому приміщенні/будинку.</div>
+            <table class="zit_v-form">
+                <tr>
+                    <td class="w225">Вид послуги</td>
+                    <td class="w145">Номер особового рахунка</td>
+                    <td class="w185">Найменування організації, що надає послуги</td>
+                    <td>Примітки</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Утримання будинків і споруд та прибудинкових територій</td>
+                    <td>[house_number]</td>
+                    <td>[house_name]</td>
+                    <td>[house_number]</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Газопостачання</td>
+                    <td>[gas_number]</td>
+                    <td>[gas_name]</td>
+                    <td>[gas_notice]</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Централізоване постачання холодної води</td>
+                    <td>[coolwater_number]</td>
+                    <td>[coolwater_name]</td>
+                    <td>[coolwater_notice]</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Централізоване постачання гарячої води</td>
+                    <td>[hotwater_number]</td>
+                    <td>[hotwater_name]</td>
+                    <td>[hotwater_notice]</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Водовідведення</td>
+                    <td>[waterback_number]</td>
+                    <td>[waterback_name]</td>
+                    <td>[waterback_notice]</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Централізоване опалення</td>
+                    <td>[warming_number]</td>
+                    <td>[warming_name]</td>
+                    <td>[warming_notice]</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Електропостачання</td>
+                    <td>[electricity_number]</td>
+                    <td>[electricity_name]</td>
+                    <td>[electricity_notice]</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Вивезення побутових відходів</td>
+                    <td>[garbage_number]</td>
+                    <td>[garbage_name]</td>
+                    <td>[garbage_notice]</td>
+                </tr>
+            </table>
+            <div class="under_field_line wub ta-l ti-15">У разі коли прийняття рішення щодо моєї заяви потребує окремого рішення місцевих органів виконавчої влади/місцевого самоврядування або утвореної ними комісії, прошу розглянути/не розглядати мою заяву відповідними органами або утвореною ними комісією ([notice]).</div>
+            <div class="under_field_line wub ta-l ti-15">Я та особи, які зареєстровані (фактично проживають) у житловому приміщенні/будинку, даємо згоду на обробку персональних даних про сім’ю, доходи, майно, що необхідні для призначення житлової субсидії, та оприлюднення відомостей щодо її призначення.</div>
+            <div class="under_field_line wub ta-l ti-15">У разі зміни обставин, які можуть вплинути на отримання житлової субсидії (зміни складу осіб, які зареєстровані (фактично проживають), джерел доходу, переліку отримуваних житлово-комунальних послуг, придбання майна, товарів або оплати послуг на суму, що перевищує 50 тис. гривень), зобов’язуюся протягом місяця повідомити про це структурний підрозділ з питань соціального захисту населення.</div>
+
+            <div class="date_subm">
+                <div class="month-fl-sm"><span></span><span></span>20<span></span>р.</div>
+                <div class="signature"><span>(підпис)</span></div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <p>Примітка. Ця заява заповнюється особою, на яку відкрито особовий рахунок із сплати житлово-комунальних послуг (особою, яка фактично сплачує вартість одержуваних послуг).</p>
+        </div>
+    </section>
+</body>
+</html>]]>" writable="false"></activiti:formProperty>
+</extensionElements>
     </userTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
@@ -182,7 +281,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="80.0" y="20.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="10.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="17.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="320.0" y="17.0"></omgdc:Bounds>
@@ -195,10 +294,10 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="115.0" y="37.0"></omgdi:waypoint>
-        <omgdi:waypoint x="160.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="44.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
-        <omgdi:waypoint x="265.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="265.0" y="44.0"></omgdi:waypoint>
         <omgdi:waypoint x="320.0" y="37.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
@@ -218,7 +317,7 @@
         <omgdi:waypoint x="339.0" y="168.0"></omgdi:waypoint>
         <omgdi:waypoint x="279.0" y="168.0"></omgdi:waypoint>
         <omgdi:waypoint x="212.0" y="168.0"></omgdi:waypoint>
-        <omgdi:waypoint x="212.0" y="65.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="72.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="14.0" width="95.0" x="230.0" y="170.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
