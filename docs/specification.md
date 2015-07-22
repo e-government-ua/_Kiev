@@ -22,6 +22,8 @@
 <a href="#20">20. Получение кнопки для оплаты через Liqpay</a><br/>
 <a href="#21">21. Работа со странами </a><br/>
 <a href="#22">22. Загрузка данных по задачам </a><br/>
+<a href="#23_getBPForUsers"> 23. Получение списка бизнес процессов к которым у пользователя есть доступ </a><br/>
+
 ### iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -1929,3 +1931,39 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?&s
 ----------------------
 
 
+
+
+<a name="23_getBPForUsers">
+#### 23. Получение списка бизнес процессов к которым у пользователя есть доступ
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=[userId]
+
+* {sLogin} - ID пользователя
+
+Метод возвращает json со списком бизнес процессов, которые пользователь может запускать, в формате 
+[
+{
+"sID":"[process definition key]"
+"sName":"[process definition name]"
+},
+{
+"sID":"[process definition key]"
+"sName":"[process definition name]"
+}
+]
+
+
+Пример:
+```
+https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=kermit
+```
+
+Пример результата
+
+```
+[{"sID":"dnepr_spravka_o_doxodax","sName":"Дніпропетровськ - Отримання довідки про доходи фіз. осіб"},{"sID":"dnepr_subsidies2","sName":"Отримання субсидії на оплату житлово-комунальних послуг2"},{"sID":"khmelnitskij_mvk_2","sName":"Хмельницький - Надання інформації, що підтверджує відсутність (наявність) земельної ділянки"},{"sID":"khmelnitskij_zemlya","sName":"Заява про наявність земельної ділянки"},{"sID":"kiev_spravka_o_doxodax","sName":"Київ - Отримання довідки про доходи фіз. осіб"},{"sID":"kuznetsovsk_mvk_5","sName":"Кузнецовськ МВК - Узгодження графіка роботи підприємства торгівлі\/обслуговування"},{"sID":"post_spravka_o_doxodax_pens","sName":"Отримання довідки про доходи (пенсійний фонд)"}]
+```

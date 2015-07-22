@@ -11,6 +11,7 @@ angular.module('app', [
   'ngClipboard',
   'journal',
   'documents',
+  'order',
   'about'
 ]).config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 

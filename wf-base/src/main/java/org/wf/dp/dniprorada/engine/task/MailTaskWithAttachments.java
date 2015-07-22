@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import javax.activation.DataHandler;
 
 import javax.activation.DataSource;
 import javax.mail.BodyPart;
@@ -12,6 +13,7 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.TaskService;
@@ -26,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.wf.dp.dniprorada.util.Mail;
 
 /**
  * 
@@ -43,7 +46,8 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
     public void execute(DelegateExecution oExecution) throws Exception {
         System.setProperty("mail.mime.address.strict", "false");
 
-        MultiPartEmail oMultiPartEmail = MultiPartEmail_BaseFromTask(oExecution);
+        //MultiPartEmail oMultiPartEmail = MultiPartEmail_BaseFromTask(oExecution);
+        Mail oMail = Mail_BaseFromTask(oExecution);
         
         String sAttachmentsForSend = getStringFromFieldExpression(this.saAttachmentsForSend, oExecution);
         
@@ -85,39 +89,7 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
                     log.error("Attachment: oDataSource == null");
                 }
                 
-                log.info("1)oMultiPartEmail.isBoolHasAttachments()="+oMultiPartEmail.isBoolHasAttachments());
-                // add the attachment
-                oMultiPartEmail.attach(oDataSource, sFileName, sDescription);
-                log.info("2)oMultiPartEmail.isBoolHasAttachments()="+oMultiPartEmail.isBoolHasAttachments());
-                oMultiPartEmail.setBoolHasAttachments(true);
-                log.info("3)oMultiPartEmail.isBoolHasAttachments()="+oMultiPartEmail.isBoolHasAttachments());
-                
-                /*Multipart oMultipart = new Multipart(oDataSource) {
-
-                    @Override
-                    public void writeTo(OutputStream out) throws IOException, MessagingException {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    }
-                };
-                MultipartDataSource oMultipartDataSource=new();*/
-                
-                /*
-                MimeMultipart oMimeMultipart = new MimeMultipart("related");
-                BodyPart oBodyPart = new MimeBodyPart();
-                oBodyPart.setContent(oDataSource, "application/zip");
-                oMimeMultipart.addBodyPart(oBodyPart);
-                //oMultiPartEmail.setContent(oMimeMultipart);
-                oMultiPartEmail.addPart(oMimeMultipart);
-                */
-
-                // Create the attachment
-                /*EmailAttachment oEmailAttachment = new EmailAttachment();
-                oEmailAttachment.setPath("mypictures/john.jpg");
-                oEmailAttachment.setDisposition(EmailAttachment.ATTACHMENT);
-                oEmailAttachment.setDescription("Picture of John");
-                oEmailAttachment.setName("John");*/
-                
-                //oMultiPartEmail.addPart(saToMail, sBody);
+                oMail._Attach(oDataSource, sFileName + "." + sFileExt, sDescription);
                 
                 log.info("oMultiPartEmail.attach: Ok!");
             }
@@ -127,7 +99,8 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
         }
 
         // send the email
-        oMultiPartEmail.send();
+        //oMultiPartEmail.send();
+        oMail.send();
     }
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="kiev_mreo_1" name="Киев - Реєстрація авто з пробігом в МРЕВ" isExecutable="true">
+  <process id="dnepr_mreo_1" name="Киев - Реєстрація авто з пробігом в МРЕВ" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -127,7 +127,7 @@
     </boundaryEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask1" name="Перевірка наявності обтяжень" activiti:candidateGroups="kiev_mreo_bo">
+    <userTask id="usertask1" name="Перевірка наявності обтяжень" activiti:candidateGroups="dnepr_mreo_bo">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -267,7 +267,7 @@
     </sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
-    <userTask id="usertask2" name="Надання послуги: Огляд авто " activiti:candidateGroups="kiev_mreo_fo1">
+    <userTask id="usertask2" name="Надання послуги: Огляд авто " activiti:candidateGroups="dnepr_mreo_bo">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -295,7 +295,7 @@
         </activiti:formProperty>
       </extensionElements>
     </userTask>
-    <userTask id="usertask3" name="Перевірка наданих документів" activiti:candidateGroups="kiev_mreo_fo2">
+    <userTask id="usertask3" name="Перевірка наданих документів" activiti:candidateGroups="dnepr_mreo_bo">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -345,7 +345,7 @@
     <sequenceFlow id="flow18" name="${decide3 == 'accept3'}" sourceRef="exclusivegateway3" targetRef="usertask4">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide3 == 'accept3'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask4" name="Друк держ.номерів" activiti:candidateGroups="kiev_mreo_fo3">
+    <userTask id="usertask4" name="Друк держ.номерів" activiti:candidateGroups="dnepr_mreo_bo">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -586,8 +586,8 @@
       </extensionElements>
     </serviceTask>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_mreo_1">
-    <bpmndi:BPMNPlane bpmnElement="kiev_mreo_1" id="BPMNPlane_kiev_mreo_1">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_mreo_1">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_mreo_1" id="BPMNPlane_dnepr_mreo_1">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="90.0" y="120.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
