@@ -73,8 +73,10 @@
     <div ui-view="header"></div>
 
     <div class="main full-height">
+        <errors-container></errors-container>
         <div class="view"
-             ui-view="main"></div>
+             ui-view="main">
+         </div>
     </div>
 
     <div ui-view="footer"></div>
@@ -111,6 +113,8 @@
 <script src="app/404/404.js"></script>
 <script src="app/about/about.js"></script>
 <script src="app/common/components/dropdown/factories/dropdown.js"></script>
+<script src="app/common/components/errors/directives/mod.js"></script>
+<script src="app/common/components/errors/errors.controller.js"></script>
 <script src="app/common/components/errors/factories/errors.factory.js"></script>
 <script src="app/common/components/form/directives/dropdownOrgan/dropdownOrgan.js"></script>
 <script src="app/common/components/form/directives/file.js"></script>
