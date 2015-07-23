@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="nikopol_mvd_1" name="Надання довідки про відсутність або наявніcть судимості" isExecutable="true">
+  <process id="nikopol_mvd_1" name="Никополь - Надання довідки про відсутність або наявніcть судимості" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -15,22 +15,22 @@
         <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string"></activiti:formProperty>
         <activiti:formProperty id="text4" name="Додаткова інформація" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="enum" required="true">
-          <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки(піклування), створення прийомної сім'ї або дитячого будинку"></activiti:value>
-          <activiti:value id="attr2" name="Оформлення візи для виїзду за кордон"></activiti:value>
-          <activiti:value id="attr3" name="Оформлення дозволу на зброю, оформлення ліцензії на роботу с вибуховими речовинами"></activiti:value>
-          <activiti:value id="attr4" name="Оформлення або поновлення паспортних документів"></activiti:value>
-          <activiti:value id="attr5" name="Оформлення на роботу"></activiti:value>
-          <activiti:value id="attr6" name="Надання в установи іноземних держав, працевлаштуання за кордоном"></activiti:value>
-          <activiti:value id="attr7" name="Оформлення ліцензії на роботу з наркотичними засобами, психотропними речовинами та прекурсорами"></activiti:value>
-          <activiti:value id="attr8" name="Оформлення документів в орган соціального забезпечення"></activiti:value>
-          <activiti:value id="attr9" name="Оформлення громадянства"></activiti:value>
-          <activiti:value id="attr10" name="Для участі в тендері"></activiti:value>
+          <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки (піклування), створення прийомної сім'ї або дитячого будинку cімейного типу"></activiti:value>
+          <activiti:value id="attr2" name="Оформлення документів в органи соціального забезпечення."></activiti:value>
+          <activiti:value id="attr3" name="Оформлення візи для виїзду за кордон."></activiti:value>
+          <activiti:value id="attr4" name="Надання в установи іноземних держав, працевлаштування за кордоном."></activiti:value>
+          <activiti:value id="attr5" name="Оформлення на роботу."></activiti:value>
+          <activiti:value id="attr6" name="Оформлення дозволу на зброю, оформлення ліцензії на роботу з вибуховими речовинами."></activiti:value>
+          <activiti:value id="attr7" name="Оформлення ліцензії на роботу з наркотичними засобами, психотропними речовинами та прекурсорами."></activiti:value>
+          <activiti:value id="attr8" name="Для участі у тендері."></activiti:value>
+          <activiti:value id="attr9" name="Оформлення громадянства."></activiti:value>
+          <activiti:value id="attr10" name="Оформлення або поновлення документів."></activiti:value>
           <activiti:value id="attr11" name="Інша"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="text3" name="Контактні данні" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон; у форматі 380...." type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="warningMessage" name="Увага!" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування додаткових документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -54,12 +54,13 @@
 
 Дякуємо, що скористалися Інтернет-сервісом замовлення довідки про наявність або відсутніть судимості! Ваш запит успішно зареєстровано.
 
-Ви зможете забрати Вашу довідку приблизно за 20 робочих днів за адресою _____________
+Ви зможете забрати Вашу довідку приблизно за 20 робочих днів за адресою м. Нікополь вул. Станіславскього, б. № 1 к. № 401
+
 
 Підкреслюємо, що поки що забрати довідку Ви можете лише в паперовому вигляді.
 
 З повагою,
-Міністерство Внутрішніх Справ Дніпропетровської області,
+Міністерство Внутрішніх Справ,
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
@@ -70,7 +71,7 @@
     </boundaryEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask1" name="Надання послуги" activiti:candidateGroups="nikopol_mvd_fo1">
+    <userTask id="usertask1" name="Надання послуги" activiti:candidateGroups="dnepr_mvd_fo1">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я " type="string" writable="false"></activiti:formProperty>
@@ -82,16 +83,16 @@
         <activiti:formProperty id="birthLoc" name="Місце народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="resident" name="Громадянство" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="enum" writable="false">
-          <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки(піклування), створення прийомної сім'ї або дитячого будинку"></activiti:value>
-          <activiti:value id="attr2" name="Оформлення візи для виїзду за кордон"></activiti:value>
-          <activiti:value id="attr3" name="Оформлення дозволу на зброю, оформлення ліцензії на роботу с вибуховими речовинами"></activiti:value>
-          <activiti:value id="attr4" name="Оформлення або поновлення паспортних документів"></activiti:value>
-          <activiti:value id="attr5" name="Оформлення на роботу"></activiti:value>
-          <activiti:value id="attr6" name="Надання в установи іноземних держав, працевлаштуання за кордоном"></activiti:value>
-          <activiti:value id="attr7" name="Оформлення ліцензії на роботу з наркотичними засобами, психотропними речовинами та прекурсорами"></activiti:value>
-          <activiti:value id="attr8" name="Оформлення документів в орган соціального забезпечення"></activiti:value>
-          <activiti:value id="attr9" name="Оформлення громадянства"></activiti:value>
-          <activiti:value id="attr10" name="Для участі в тендері"></activiti:value>
+          <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки (піклування), створення прийомної сім'ї або дитячого будинку cімейного типу"></activiti:value>
+          <activiti:value id="attr2" name="Оформлення документів в органи соціального забезпечення."></activiti:value>
+          <activiti:value id="attr3" name="Оформлення візи для виїзду за кордон."></activiti:value>
+          <activiti:value id="attr4" name="ОНадання в установи іноземних держав, працевлаштування за кордоном."></activiti:value>
+          <activiti:value id="attr5" name="Оформлення на роботу."></activiti:value>
+          <activiti:value id="attr6" name="Оформлення дозволу на зброю, оформлення ліцензії на роботу з вибуховими речовинами."></activiti:value>
+          <activiti:value id="attr7" name="Оформлення ліцензії на роботу з наркотичними засобами, психотропними речовинами та прекурсорами."></activiti:value>
+          <activiti:value id="attr8" name="Для участі у тендері."></activiti:value>
+          <activiti:value id="attr9" name="Оформлення громадянства."></activiti:value>
+          <activiti:value id="attr10" name="Оформлення або поновлення документів."></activiti:value>
           <activiti:value id="attr11" name="Інша"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
@@ -133,7 +134,7 @@
 Підстава: ${comment}
 
 З повагою,
-Міністерство Внутрішніх Справ Дніпропетровської області,
+Міністерство Внутрішніх Справ,
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
@@ -159,11 +160,14 @@
 
 Ваш запит успішно оброблено.
 
-Ви можете отримати довідку за адресою м._______
-Графік прийому: _____
+Отримати документи можна за адресою м. Нікополь вул. Станіславскього, б. № 1 к. № 401 
+Графік прийому: з 10:00 до 11:00 та з 16:00 до 17:00 щодня, крім суботи, неділі та свят.
+
+Додаткову інформацію Ви можете отримати за телефоном: 
++380 (5662) 27832, +380 (056) 686888
 
 З повагою,
-Міністерство Внутрішніх Справ Дніпропетровської області,
+Міністерство Внутрішніх Справ,
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
