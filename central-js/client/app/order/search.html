@@ -2,5 +2,85 @@
     <div class="col-md-4">
         <h1>Заявки</h1>
         <b style="color: red;">Сервіс в процесі реалізації!</b>
+        <div style="width: 600px;border: 0px; /*border-color: white;*/ /*#ddd;*/" class="panel panel-default">
+            <div class="row">
+
+                <div class="col-md-12">
+                        <div class="row">
+                            <form name="searchForm"
+                                  role="form"
+                                  ng-submit="searchForm.$valid && searchOrder(sID)"
+                                  style="text-align:left;"
+                                    >
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <label for="code">Номер заявки</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <input type="text"
+                                           required
+                                           ng-model="sID"
+                                           class="form-control"
+                                           id="code"/>
+                                        </div>
+
+                                    <div class="col-md-3">
+                                        <a ng-disabled="searchForm.$invalid"
+                                           ng-click="searchForm.$valid && searchOrder(sID)">Переглянути</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    <br>
+                    <div ng-repeat="message in messages">
+                        <div class="alert alert-info" role="alert">
+                            {{message}}
+                        </div>
+                    </div>
+
+                    <!--<table ng-show="documents.length > 0" class="table table-striped">-->
+                        <!--<thead>-->
+                        <!--<tr>-->
+                            <!--<th class="col-md-7">-->
+                                <!--<p class="text-muted">Документ</p>-->
+                            <!--</th>-->
+                            <!--<th class="col-md-3">-->
+                                <!--<p class="text-muted">Дата завантаження копії</p>-->
+                            <!--</th>-->
+                            <!--<th class="col-md-3">-->
+                                <!--<p class="text-muted">Ким завантажена копія</p>-->
+                            <!--</th>-->
+                            <!--<th class="col-md-1 align-right">-->
+                                <!--<p class="text-muted">Дії</p>-->
+                            <!--</th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+
+                        <!--<tbody ng-repeat="doc in documents">-->
+
+                        <!--<tr id="document">-->
+                            <!--<td>-->
+                                <!--{{doc.oDocumentType.sName}}-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--{{doc.sDate_Upload | date:'dd MMMM yyyy HH:mm'}}-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--{{doc.sSubjectName_Upload}}-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<a ng-href="{{getDocumentLink(doc.nID, typeId, operatorId, code, smsPass)}}"-->
+                                   <!--target="_self">-->
+                                                    <!--<span class="glyphicon glyphicon-download"-->
+                                                          <!--title="Завантажити копію"-->
+                                                          <!--aria-hidden="true"></span>-->
+                                <!--</a>-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                </div>
+            </div>
+        </div>
     </div>
 </div>

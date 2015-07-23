@@ -57,7 +57,7 @@ public abstract class Abstract_Mail {
     private String sAuthUser = mailServerUsername; //"user";
     private String sAuthPassword = mailServerPassword; //"password";
     private String sHost = mailServerHost; //"gmail.com";
-    private Integer nPort = Integer.valueOf(mailServerPort); //465;
+    private Integer nPort = 465; //Integer.valueOf(mailServerPort);
     private boolean bSSL = true;
     private boolean bTLS = true;
     
