@@ -38,12 +38,10 @@ public class SubjectOrganDaoIml implements SubjectOrganDao {
 
 	@Override
 	public SubjectOrgan getSubjectOrgan(String sOKPO) {
-		SubjectOrgan subjectOrgan = null;
-		List<SubjectOrgan> subjects = (List<SubjectOrgan>)getSession().createCriteria(SubjectOrgan.class).add(Restrictions.eq("sOKPO", sOKPO)).list();
-		if(subjects != null && !subjects.isEmpty()){
-			subjectOrgan = subjects.get(0);
-		}
-		return subjectOrgan;
+		return 	(SubjectOrgan) getSession()
+				.createCriteria(SubjectOrgan.class)
+				.add(Restrictions.eq("sOKPO", sOKPO))
+				.uniqueResult();
 	}
 
 	@Override
@@ -62,14 +60,9 @@ public class SubjectOrganDaoIml implements SubjectOrganDao {
 		return oSubjectOrgan;
 	}
 
-    @Override
+    @SuppressWarnings("unchecked")
     public SubjectOrgan getSubjectOrgan(Long nID) {
-        SubjectOrgan subjectOrgan = null;
-        List<SubjectOrgan> subjects = (List<SubjectOrgan>)getSession().createCriteria(SubjectOrgan.class).add(Restrictions.eq("nID", nID)).list();
-        if(subjects != null && !subjects.isEmpty()){
-            subjectOrgan = subjects.get(0);
-        }
-        return subjectOrgan;
+		return baseEntityDao.getById(SubjectOrgan.class, nID);
     }
 
 	@SuppressWarnings("unchecked" /* православно тут все... */)

@@ -1,17 +1,24 @@
 package org.wf.dp.dniprorada.base.dao;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.Assert;
 import org.wf.dp.dniprorada.base.model.Entity;
+import org.wf.dp.dniprorada.util.Parameter;
 
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
+
+import static java.lang.String.format;
+import static org.apache.commons.lang3.StringUtils.*;
 
 /**
  * User: goodg_000
@@ -20,6 +27,7 @@ import java.util.List;
  */
 public class BaseEntityDaoImpl implements BaseEntityDao {
 
+   private static final String NOT_FOUND_BY_PARAM = "%s with %s = %s is not found";
    private SessionFactory sessionFactory;
 
    protected Session getSession() {
@@ -40,6 +48,30 @@ public class BaseEntityDaoImpl implements BaseEntityDao {
       Assert.notNull(res, entityClass.getSimpleName() + " with id=" + id + " is not found!");
 
       return res;
+   }
+
+   @SuppressWarnings("unchecked")
+   public <T extends Entity> T getByParameter(Class<T> entityType, Parameter param) {
+      T res = (T) getSession()
+           .createCriteria(entityType)
+           .add(Restrictions.eq(param.getName(), param.getValue()))
+           .uniqueResult();
+      if (res == null) {
+         String errMsg = isNotBlank( param.getErrorMsg() ) ? param.getErrorMsg() :
+              format(NOT_FOUND_BY_PARAM, entityType.getSimpleName(), param.getName(), param.getValue());
+         throw new IllegalArgumentException(errMsg);
+      }
+      return res;
+   }
+
+
+   public <T extends Entity> T getByParameter(Class<T> entityType, String param, Serializable value) {
+      return getByParameter(entityType, new Parameter(param, value));
+   }
+
+
+   public <T extends Entity> T getByParameters(Class<T> entityType, Collection<Parameter> params) {
+      throw new UnsupportedOperationException("Not implemented yet.");
    }
 
    private <T extends Entity> boolean hasOrderField(Class<T> entityClass, String fieldName) {

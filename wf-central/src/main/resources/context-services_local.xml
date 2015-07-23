@@ -89,6 +89,10 @@
             <property name="sessionFactory" ref="sessionFactory"/>
         </bean>
 
+        <bean id="placeDao" class="org.wf.dp.dniprorada.dao.PlaceDaoImpl">
+            <constructor-arg name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
     </beans>
 
 </beans>
