@@ -55,6 +55,10 @@ public class ActivitiRestFlowControllerScenario {
               andReturn().getResponse().getContentAsString();
       Days days = JsonRestUtils.readObject(getJsonData, Days.class);
 
+      if(days.getaDay().isEmpty()){
+          return;
+      }
+      
       Assert.assertTrue(days.getaDay().size() > 0);
 
       Day day = findFirstFreeDay(days);
