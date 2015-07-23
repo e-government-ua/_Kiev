@@ -149,7 +149,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="[Етап I] Заява поступає в роботу у ДержОргані" activiti:candidateGroups="zaporoshye_mvk_1">
+    <userTask id="usertask1" name="[Етап I] Отримання перечню документів громадянина" activiti:candidateGroups="zaporoshye_mvk_1">
       <extensionElements>
         <activiti:formProperty id="serviceType" name="Мета звернення" type="enum" writable="false">
           <activiti:value id="create" name="Отримання дозволу на зовнішню рекламу"></activiti:value>
@@ -172,7 +172,7 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення чиновника" type="enum" required="true">
-          <activiti:value id="accept" name="Перейти на слідучий Етап"></activiti:value>
+          <activiti:value id="accept" name="Видати перелік документів/організацій"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Перелік документів і підписей які потрібно зібрати для остаточного прийняття рішення" type="textArea" required="true"></activiti:formProperty>
@@ -453,7 +453,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask2" name="[Етап II] Заява+документи поступили в роботу у ДержОргані" activiti:candidateGroups="zaporoshye_mvk_1">
+    <userTask id="usertask2" name="[Етап II] Отримання підписей від організацій + додаткові документи" activiti:candidateGroups="zaporoshye_mvk_1">
       <extensionElements>
         <activiti:formProperty id="serviceType" name="Мета звернення" type="enum" writable="false">
           <activiti:value id="create" name="Отримання дозволу на зовнішню рекламу"></activiti:value>
@@ -476,16 +476,15 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення чиновника на етапі І" type="enum" required="true">
-          <activiti:value id="accept" name="Перейти на слідучий Етап"></activiti:value>
+          <activiti:value id="accept" name="Видати перелік документів/організацій"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Перелік документів і підписей які потрібно зібрати для остаточного прийняття рішення" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="workerDecision_2" name="Фінальне рішення чиновника" type="enum" required="true">
-          <activiti:value id="accept" name="Видати дозвіл"></activiti:value>
+          <activiti:value id="accept" name="Повідомити громадянина, що дозвіл буде надано"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment_2" name="Додатковий комментар" type="textArea" default="Гарного дня. "></activiti:formProperty>
-        <activiti:formProperty id="decisionCopy" name="Скан-копія дозволу" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <serviceTask id="mailtask4" name="E-mail завершення процесу " activiti:type="mail">
@@ -555,10 +554,11 @@
                                     &lt;p&gt;&lt;/p&gt;
 										Дозвіл був успішно наданий. &lt;br /&gt;
 										
-										Скан-копію рішення Ви можете знайти у прикріплених файлах цього письма. &lt;br /&gt;
-
-										Якщо Ви хочете отримати фізичну копію документа - зверніться будь-ласка до МВК міста Запоріжжя &lt;br /&gt;
-										
+										&lt;!-- Скан-копію рішення Ви можете знайти у прикріплених файлах цього письма. &lt;br /&gt;
+ --&gt;
+										Якщо Ви хочете отримати фізичну копію документа - зверніться будь-ласка до МВК міста Запоріжжя. &lt;br /&gt;
+										З собою треба мати будь-яке посвідчення особистості&lt;br /&gt;
+									
 										Коментар до рішення:
 									&lt;p&gt;&lt;/p&gt;	
 									&lt;i&gt;	${decisionComment_2} &lt;/i&gt;

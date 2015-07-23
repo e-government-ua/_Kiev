@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="zaporoshye_mvk_1" name="Запорізьке МВК - Дозвіл на розміщення зовнішньої реклами (для фізичних осіб та підприємців)" isExecutable="true">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="zaporoshye_mvk_1" name="Запорізьке МВК - Дозвіл на розміщення зовнішньої реклами Частним Підприємцям. " isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="serviceType" name="Мета звернення" type="enum" writable="false">
@@ -33,13 +33,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Запит було успішно подано]]></activiti:string>
+          <activiti:string>Запит було успішно подано</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -149,7 +149,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="[Етап I] Заява поступає в роботу у ДержОргані" activiti:candidateGroups="zaporoshye_mvk_1">
+    <userTask id="usertask1" name="[Етап I] Отримання перечню документів громадянина" activiti:candidateGroups="zaporoshye_mvk_1">
       <extensionElements>
         <activiti:formProperty id="serviceType" name="Мета звернення" type="enum" writable="false">
           <activiti:value id="create" name="Отримання дозволу на зовнішню рекламу"></activiti:value>
@@ -172,7 +172,7 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення чиновника" type="enum" required="true">
-          <activiti:value id="accept" name="Перейти на слідучий Етап"></activiti:value>
+          <activiti:value id="accept" name="Видати перелік документів/організацій"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Перелік документів і підписей які потрібно зібрати для остаточного прийняття рішення" type="textArea" required="true"></activiti:formProperty>
@@ -185,13 +185,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Відповідь Державного Органу на Ваш запит]]></activiti:string>
+          <activiti:string>Відповідь Державного Органу на Ваш запит</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -443,17 +443,17 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[[Етап І] Відповідь Державного Органу на Ваш запит]]></activiti:string>
+          <activiti:string>[Етап І] Відповідь Державного Органу на Ваш запит</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask2" name="[Етап II] Заява+документи поступили в роботу у ДержОргані" activiti:candidateGroups="zaporoshye_mvk_1">
+    <userTask id="usertask2" name="[Етап II] Отримання підписей від організацій + додаткові документи" activiti:candidateGroups="zaporoshye_mvk_1">
       <extensionElements>
         <activiti:formProperty id="serviceType" name="Мета звернення" type="enum" writable="false">
           <activiti:value id="create" name="Отримання дозволу на зовнішню рекламу"></activiti:value>
@@ -476,16 +476,15 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення чиновника на етапі І" type="enum" required="true">
-          <activiti:value id="accept" name="Перейти на слідучий Етап"></activiti:value>
+          <activiti:value id="accept" name="Видати перелік документів/організацій"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Перелік документів і підписей які потрібно зібрати для остаточного прийняття рішення" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="workerDecision_2" name="Фінальне рішення чиновника" type="enum" required="true">
-          <activiti:value id="accept" name="Видати дозвіл"></activiti:value>
+          <activiti:value id="accept" name="Повідомити громадянина, що дозвіл буде надано"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment_2" name="Додатковий комментар" type="textArea" default="Гарного дня. "></activiti:formProperty>
-        <activiti:formProperty id="decisionCopy" name="Скан-копія дозволу" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <serviceTask id="mailtask4" name="E-mail завершення процесу " activiti:type="mail">
@@ -494,13 +493,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[[Етап ІІ] Дозвіл успішно надано]]></activiti:string>
+          <activiti:string>[Етап ІІ] Дозвіл успішно надано</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -555,10 +554,11 @@
                                     &lt;p&gt;&lt;/p&gt;
 										Дозвіл був успішно наданий. &lt;br /&gt;
 										
-										Скан-копію рішення Ви можете знайти у прикріплених файлах цього письма. &lt;br /&gt;
-
-										Якщо Ви хочете отримати фізичну копію документа - зверніться будь-ласка до МВК міста Запоріжжя &lt;br /&gt;
-										
+										&lt;!-- Скан-копію рішення Ви можете знайти у прикріплених файлах цього письма. &lt;br /&gt;
+ --&gt;
+										Якщо Ви хочете отримати фізичну копію документа - зверніться будь-ласка до МВК міста Запоріжжя. &lt;br /&gt;
+										З собою треба мати будь-яке посвідчення особистості&lt;br /&gt;
+									
 										Коментар до рішення:
 									&lt;p&gt;&lt;/p&gt;	
 									&lt;i&gt;	${decisionComment_2} &lt;/i&gt;
@@ -697,14 +697,14 @@
         <omgdi:waypoint x="778.0" y="300.0"></omgdi:waypoint>
         <omgdi:waypoint x="709.0" y="300.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="671.0" y="219.0"></omgdc:Bounds>
+          <omgdc:Bounds height="48.0" width="100.0" x="671.0" y="219.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
         <omgdi:waypoint x="818.0" y="300.0"></omgdi:waypoint>
         <omgdi:waypoint x="883.0" y="300.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="829.0" y="219.0"></omgdc:Bounds>
+          <omgdc:Bounds height="48.0" width="100.0" x="829.0" y="219.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
@@ -715,7 +715,7 @@
         <omgdi:waypoint x="784.0" y="464.0"></omgdi:waypoint>
         <omgdi:waypoint x="784.0" y="560.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="794.0" y="464.0"></omgdc:Bounds>
+          <omgdc:Bounds height="48.0" width="100.0" x="794.0" y="464.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
@@ -723,7 +723,7 @@
         <omgdi:waypoint x="950.0" y="444.0"></omgdi:waypoint>
         <omgdi:waypoint x="950.0" y="336.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="738.0" y="367.0"></omgdc:Bounds>
+          <omgdc:Bounds height="48.0" width="100.0" x="738.0" y="367.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
