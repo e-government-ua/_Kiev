@@ -14,7 +14,7 @@
         <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса прописки (BankID)" type="file"></activiti:formProperty>
         <activiti:formProperty id="citizenship" name="Ваше громадянство" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="kids" name="Чи є у вас дитина (&lt;14 років) яку Ви бажаєте зареєструвати за цією адресою; Якщо дитині (&gt;14 років) або її реєструвати не треба - виберіть поле НІ. Діти старші 14 років подають заяву самостійно" type="enum" required="true">
+        <activiti:formProperty id="kids" name="Чи є у вас дитина (молодша 14 років) яку Ви бажаєте зареєструвати за цією адресою; Якщо дитині (&gt;14 років) або її реєструвати не треба - виберіть поле НІ. Діти старші 14 років подають заяву самостійно" type="enum" required="true">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
@@ -25,9 +25,10 @@
         <activiti:formProperty id="newAddress" name="Нова адреса; Адміністративно-територіальна одиниця / Вулиця / Будинок / Корпус / Квартира " type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="oldAddress" name="Стара адреса; Формат той же самий" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="unRegisterDoc" name="Талон зняття з реєстрація с місця проживання" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="militaryDoc" name=" Військовий квиток АБО посвідчення про приписку" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380"></activiti:formProperty>
+        <activiti:formProperty id="militaryDoc" name="Військовий квиток АБО посвідчення про приписку" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="warning" name=" " type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних" writable="false"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
@@ -168,7 +169,7 @@
         <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса прописки (BankID)" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="citizenship" name="Громадянство" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kids" name="Чи є дитина (&lt;14 років) яку треба зареєструвати" type="enum" writable="false">
+        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зареєструвати" type="enum" writable="false">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
@@ -187,6 +188,7 @@
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги &lt;br /&gt; АБО &lt;br /&gt; Додаткові деталі для закінчення процессу реєстрації" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="taxAddress" name="Необхідні реквізити для сплати Державного мита" type="textArea" required="true"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -385,12 +387,25 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-                                        Послуга була успішно надана
+                                        Державний Орган успішно опрацював Вашу заяву. &lt;br /&gt;
+										Для того щоб закінчити процедуру реєстрації необхідно: &lt;br /&gt;
+										&lt;li&gt;Сплатити Державне мито у розмірі 0.85 грн і отримати талон про сплату. &lt;/li&gt; &lt;br /&gt;
+										&lt;li&gt;Прийти до відділення ДМС з необхідними документами&lt;/li&gt; &lt;br /&gt;
+										&lt;li&gt;Пройти співбесіду з працівником ДМС і отримати печатку у громадянський паспорт&lt;/li&gt; &lt;br /&gt;
+										&lt;p&gt;&lt;/p&gt;
+										Реквізити для сплати: &lt;br /&gt;
+										&lt;i&gt;${taxAddress}&lt;/i&gt;
 									&lt;p&gt;&lt;/p&gt;
+										Необхідні документи, які треба принести до відділення ДМС: &lt;br /&gt;
+										&lt;li&gt;Посвічдчення особи (Паспорт)&lt;/li&gt; &lt;br /&gt;
+										&lt;li&gt;Талон про сплату Державного мита&lt;/li&gt; &lt;br /&gt;
+										&lt;li&gt;Документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації;&lt;/li&gt; &lt;br /&gt;
+										
 										Коментар до рішення:
 									&lt;p&gt;&lt;/p&gt;	
 									&lt;i&gt;	${decisionComment} &lt;/i&gt;
 									&lt;p&gt;&lt;/p&gt;
+									
                                     &lt;p&gt;&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
