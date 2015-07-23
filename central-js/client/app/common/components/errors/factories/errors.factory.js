@@ -24,6 +24,7 @@ angular.module("app").factory("ErrorsFactory", function() {
     push: function(message) {
       if(!message) return;
       message.type = errorTypes.indexOf(message.type) >= 0 ? message.type : "danger";
+      message.warn = message.type === "danger" ? "помилка" : "";
       errors.push(message);
     }
   }

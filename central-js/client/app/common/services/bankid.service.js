@@ -1,4 +1,4 @@
-angular.module('app').factory('BankIDService', function ($http, $q, AdminService) {
+angular.module('app').factory('BankIDService', function ($http, $q, AdminService, ErrorsFactory) {
   var bankIDLogin;
   var bankIDAccount;
 
@@ -46,6 +46,9 @@ angular.module('app').factory('BankIDService', function ($http, $q, AdminService
           AdminService.processAccountResponse(response);
           return bankIDAccount = response.data;
         }).catch(function (response) {
+          var err = response.data ? response.data.err || {} : {};
+          ErrorsFactory.push({type: "danger", text: err.error});
+
           bankIDLogin = undefined;
           bankIDAccount = undefined;
           return bankIDAccount;
