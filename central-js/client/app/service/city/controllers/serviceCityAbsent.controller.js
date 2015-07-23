@@ -9,7 +9,7 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
   $scope.service = service;
   $scope.bAdmin = AdminService.isAdmin();
   (function() {
-    if (window.pluso)if (typeof window.pluso.start === 'function') return;
+    if (window.pluso && typeof window.pluso.start === 'function') return;
     if (window.ifpluso === undefined) {
       window.ifpluso = 1;
       var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
