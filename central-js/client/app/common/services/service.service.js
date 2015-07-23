@@ -127,6 +127,12 @@ angular.module('app').service('ServiceService', function($http, $q) {
     });
   };
 
+  this.searchOrder = function(sID) {
+    return $http.get('./api/order/search/' + sID).then(function(response) {
+      return response.data;
+    });
+  };
+
   this.getJournalEvents = function() {
     var data = {};
     return $http.get('./api/journal', {
