@@ -15,13 +15,15 @@
         <activiti:formProperty id="POB" name="Місце народження; Країна і місто" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="citizenship" name="Ваше громадянство" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="newAddress" name="Нова адреса; Адміністративно-територіальна одиниця / Вулиця / Будинок / Корпус / Квартира " type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="kidDoc" name="Свідоцтво про народження або свідоцтво про належність до громадянства України" type="file"></activiti:formProperty>
+        <activiti:formProperty id="kidDoc" name="Свідоцтво про народження або свідоцтво про належність до громадянства України; Для дітей молодших 14 років" type="file"></activiti:formProperty>
         <activiti:formProperty id="repProof" name="Документ, що підтверджує повноваження особи як законного представника; Крім випадків, коли законними представниками є батьки (усиновлювачі)" type="file"></activiti:formProperty>
         <activiti:formProperty id="milBase" name="Найменування військомату" type="string"></activiti:formProperty>
         <activiti:formProperty id="milRank" name="Військове звання" type="string"></activiti:formProperty>
         <activiti:formProperty id="milSpec" name="Війсково-облікова спеціальність" type="string"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="visitDay" name="У який день Вам буде зручно зайти до відділення ДМС; ДМС необхідно поставити відмітку у Ваш паспорт для завершення цієї процедури" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="visitTime" name="У який проміжок часу Вам буде зручно зустрітися; Будь ласка, вкажіть проміжок як мінімум у 2 години" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warning" name=" " type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних" writable="false"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -171,6 +173,8 @@
         <activiti:formProperty id="milSpec" name="Війсково-облікова спеціальність" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="visitDay" name="Бажаний день зустрічі" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="visitTime" name="Бажаний час зустрічі" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення чиновника" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
@@ -378,6 +382,10 @@
 										Для того щоб закінчити процедуру зняття з місця реєстрації необхідно: &lt;br /&gt;										
 										&lt;li&gt;Прийти до відділення ДМС з необхідними документами&lt;/li&gt; &lt;br /&gt;
 										&lt;p&gt;&lt;/p&gt;
+										
+										Деталі зустрічі: &lt;br /&gt;
+										День - ${visitDay} &lt;br /&gt;
+										Проміжок часу - ${visitTime} &lt;br /&gt;
 										
 									&lt;p&gt;&lt;/p&gt;
 										Необхідні документи, які треба принести до відділення ДМС: &lt;br /&gt;
