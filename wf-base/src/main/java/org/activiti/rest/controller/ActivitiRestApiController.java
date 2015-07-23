@@ -737,7 +737,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         sEnumName = StringUtils.defaultString(sEnumName);
         log.info("[parseEnumValue]:sEnumName(2)="+sEnumName);
         if(sEnumName.contains("|")){
-            String[] as = sEnumName.split("|");
+            String[] as = sEnumName.split("\\|");
             log.info("[parseEnumValue]:as.length - 1="+(as.length - 1));
             log.info("[parseEnumValue]:as="+as);
             return as[as.length - 1];
