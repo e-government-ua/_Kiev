@@ -184,7 +184,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         ;
 
         oMail
-        ._BodyAsText()
+        ._BodyAsHTML()
         ;
         
 //        return oMultiPartEmail;
