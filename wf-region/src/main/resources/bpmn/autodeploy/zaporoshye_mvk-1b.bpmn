@@ -1,45 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="zaporoshye_mvk_1" name="Запорізьке МВК - Дозвіл на розміщення зовнішньої реклами. " isExecutable="true">
+  <process id="zaporoshye_mvk_1b" name="Запорізьке МВК - Дозвіл на розміщення зовнішньої реклами (для юридичних осіб)" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-<activiti:formProperty id="serviceType" name="Мета звернення" type="enum" writable="false">
+        <activiti:formProperty id="serviceType" name="Мета звернення" type="enum" writable="false">
           <activiti:value id="create" name="Отримання дозволу на зовнішню рекламу"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="label1" name="Дані фізичної особи підприємця /уповноваженої особи" default="-------------------" type="label"></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище заявника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Його ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН " type="string"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані заявника" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
-        
-        <activiti:formProperty id="label1" name="Дані юридичної особи" default="-------------------" type="label"></activiti:formProperty>
-        
+        <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації заявника" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="businessAddress" name="Місце прописки юридичної особи" type="string"></activiti:formProperty>
         <activiti:formProperty id="objectName" name="Назва об'єкта, на який видається документ" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="objectPlace" name="Місцезнаходження/адреса об'єкта на який видається документ" type="textArea" required="true"></activiti:formProperty>
-        
         <activiti:formProperty id="objectType" name="Вид діяльності; Згідно КВЕД " type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="legalName" name="Повне найменування юридичної особи; Якщо Ви не юридична особа - залишіть це поле пустим" type="string"></activiti:formProperty>
         <activiti:formProperty id="businessCode" name="Iдентифікаційний код згідно ЄДРПОУ" type="string" required="true"></activiti:formProperty>
-        
-       
-        
-        <activiti:formProperty id="legalPos" name="Місцезнаходження юридичної особи; Якщо Ви не юридична особа - залишіть це поле пустим" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bossSurname" name="Прізвище керівника юридичної особи / фізичної особи підприємця / уповноваженої особи" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bossName" name="Його ім'я" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bossMiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
-        
-        
         <activiti:formProperty id="placePhoto" name="Фотокартка або комп'ютерний макет місця, на якому планується розташування реклами; Розмір має бути не менш 6х9 см. " type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="advertFile" name="Ескіз рекламного засобу з конструктивним рішенням" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="advertLicense" name="Копія виписки з Єдиного державного реєстру юридичних осіб та фізичних осіб" type="file"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-        
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування додаткових документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -165,35 +150,31 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="[Етап I] Заява поступає в роботу у ДержОргані" activiti:candidateGroups="zaporoshye_mvk_1">
+    <userTask id="usertask1" name="[Етап I] Отримання перечню документів громадянина" activiti:candidateGroups="zaporoshye_mvk_1">
       <extensionElements>
-        <activiti:formProperty id="serviceType" name="Дозвіл на зовнішню рекламу, прошу мені" type="enum" writable="false">
-          <activiti:value id="create" name="Видати"></activiti:value>
+        <activiti:formProperty id="serviceType" name="Мета звернення" type="enum" writable="false">
+          <activiti:value id="create" name="Отримання дозволу на зовнішню рекламу"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="objectName" name="Назва об'єкта на який видається документ" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="objectPlace" name="Місцезнаходження/адреса об'єкта на який видається документ" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="objectType" name="Вид діяльності; Згідно КВЕД " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="legalName" name="Повне найменування юридичної особи; Поле має бути пустим, якщо заповнювач не є юридичною особою." type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="businessCode" name="Iдентифікаційний код згідно ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище фізичної особи підприємця / уповноваженної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Його ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія і номер)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Місце проживання фізичної / уповноваженної особи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="legalPos" name="Місцезнаходження юридичної особи; Поле має бути пустим, якщо заповнювач не є юридичною особою." type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bossSurname" name="Прізвище керівника юридичної особи / фізичної особи підприємця / уповноваженої особи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bossName" name="Його ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bossMiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="placePhoto" name="Фотокартка або комп'ютерний макет місця, на якому планується розташування реклами" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані заявника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації заявника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="businessAddress" name="Місце прописки юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objectName" name="Назва об'єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objectPlace" name="Місцезнаходження/адреса об'єкта на який видається документ" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objectType" name="Вид діяльності; Згідно КВЕД " type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="businessCode" name="Iдентифікаційний код згідно ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="placePhoto" name="Фотокартка або комп'ютерний макет місця, на якому планується розташування реклами; Розмір має бути не менш 6х9 см. " type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="advertFile" name="Ескіз рекламного засобу з конструктивним рішенням" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="advertLicense" name="Копія виписки з Єдиного державного реєстру юридичних осіб та фізичних осіб" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення чиновника" type="enum" required="true">
-          <activiti:value id="accept" name="Перейти на слідучий Етап"></activiti:value>
+          <activiti:value id="accept" name="Видати перелік документів/організацій"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Перелік документів і підписей які потрібно зібрати для остаточного прийняття рішення" type="textArea" required="true"></activiti:formProperty>
@@ -474,36 +455,36 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask2" name="[Етап II] Заява+документи поступили в роботу у ДержОргані" activiti:candidateGroups="zaporoshye_mvk_1">
+    <userTask id="usertask2" name="[Етап II] Отримання підписей від організацій + додаткові документи" activiti:candidateGroups="zaporoshye_mvk_1">
       <extensionElements>
-        <activiti:formProperty id="serviceType" name="Дозвіл на зовнішню рекламу, прошу мені" type="enum" writable="false">
-          <activiti:value id="create" name="Видати"></activiti:value>
+        <activiti:formProperty id="serviceType" name="Мета звернення" type="enum" writable="false">
+          <activiti:value id="create" name="Отримання дозволу на зовнішню рекламу"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="objectName" name="Назва об'єкта на який видається документ" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="objectPlace" name="Місцезнаходження/адреса об'єкта на який видається документ" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="objectType" name="Вид діяльності; Згідно КВЕД " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="legalName" name="Повне найменування юридичної особи; Поле має бути пустим, якщо заповнювач не є юридичною особою." type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="businessCode" name="Iдентифікаційний код згідно ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище фізичної особи підприємця / уповноваженної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Його ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія і номер)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Місце проживання фізичної / уповноваженної особи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="legalPos" name="Місцезнаходження юридичної особи; Поле має бути пустим, якщо заповнювач не є юридичною особою." type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bossSurname" name="Прізвище керівника юридичної особи / фізичної особи підприємця / уповноваженої особи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bossName" name="Його ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bossMiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="placePhoto" name="Фотокартка або комп'ютерний макет місця, на якому планується розташування реклами" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані заявника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації заявника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="businessAddress" name="Місце прописки юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objectName" name="Назва об'єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objectPlace" name="Місцезнаходження/адреса об'єкта на який видається документ" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objectType" name="Вид діяльності; Згідно КВЕД " type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="businessCode" name="Iдентифікаційний код згідно ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="placePhoto" name="Фотокартка або комп'ютерний макет місця, на якому планується розташування реклами; Розмір має бути не менш 6х9 см. " type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="advertFile" name="Ескіз рекламного засобу з конструктивним рішенням" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="advertLicense" name="Копія виписки з Єдиного державного реєстру юридичних осіб та фізичних осіб" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decisionComment" name="Коментар до першого Етапу І" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="workerDecision_2" name="Рішення чиновника" type="enum" required="true">
-          <activiti:value id="accept" name="Видати дозвіл"></activiti:value>
+        <activiti:formProperty id="workerDecision" type="enum" writable="false">
+          <activiti:value id="accept" name="Видати перелік документів/організацій"></activiti:value>
+          <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="decisionComment" name="Перелік документів і підписей які потрібно зібрати для остаточного прийняття рішення" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="workerDecision_2" name="Фінальне рішення чиновника" type="enum" required="true">
+          <activiti:value id="accept" name="Повідомити громадянина, що дозвіл буде надано"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment_2" name="Додатковий комментар" type="textArea" default="Гарного дня. "></activiti:formProperty>
@@ -577,10 +558,11 @@
                                     &lt;p&gt;&lt;/p&gt;
 										Дозвіл був успішно наданий. &lt;br /&gt;
 										
-										Скан-копію рішення Ви можете знайти у прикріплених файлах цього письма. &lt;br /&gt;
-
-										Якщо Ви хочете отримати фізичну копію документа - зверніться будь-ласка до МВК міста Запоріжжя &lt;br /&gt;
-										
+										&lt;!-- Скан-копію рішення Ви можете знайти у прикріплених файлах цього письма. &lt;br /&gt;
+ --&gt;
+										Якщо Ви хочете отримати фізичну копію документа - зверніться будь-ласка до МВК міста Запоріжжя. &lt;br /&gt;
+										З собою треба мати будь-яке посвідчення особистості&lt;br /&gt;
+									
 										Коментар до рішення:
 									&lt;p&gt;&lt;/p&gt;	
 									&lt;i&gt;	${decisionComment_2} &lt;/i&gt;
@@ -655,8 +637,8 @@
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow15" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_zaporoshye_mvk_1">
-    <bpmndi:BPMNPlane bpmnElement="zaporoshye_mvk_1" id="BPMNPlane_zaporoshye_mvk_1">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_zaporoshye_mvk_1b">
+    <bpmndi:BPMNPlane bpmnElement="zaporoshye_mvk_1b" id="BPMNPlane_zaporoshye_mvk_1b">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="40.0" y="130.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>

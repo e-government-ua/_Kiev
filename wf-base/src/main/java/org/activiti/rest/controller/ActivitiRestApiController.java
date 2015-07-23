@@ -566,15 +566,18 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 							"Matching property %s:%s:%s with fieldNames", property.getId(), property.getName(), property.getType().getName()));
 					if (currentRow.contains("${" + property.getId() + "}")) {
 						log.info(String.format("Found field with id %s in the pattern. Adding value to the result", "${" + property.getId() + "}"));
-						String value = "";
-						if ("enum".equalsIgnoreCase(property.getType().getName())) {
-							value = parseEnumProperty(property);
+						String sValue = "";
+                                                String sType=property.getType().getName();
+						log.info("sType="+sType);
+						if ("enum".equalsIgnoreCase(sType)) {
+							sValue = parseEnumProperty(property);
 						} else {
-							value = property.getValue();
+							sValue = property.getValue();
 						}
-						if (value != null){
-							log.info(String.format("Replacing field with the value %s", value));
-							currentRow = currentRow.replace("${" + property.getId() + "}", value);
+						log.info("sValue="+sValue);
+						if (sValue != null){
+							log.info(String.format("Replacing field with the value %s", sValue));
+							currentRow = currentRow.replace("${" + property.getId() + "}", sValue);
 						}
 						
 					}
@@ -714,23 +717,32 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     
     public static String parseEnumProperty(FormProperty property) {
-        Object valuesObj = property.getType().getInformation("values");
-        if(valuesObj instanceof Map) {
-            Map<String, String> values = (Map) valuesObj;
-            return parseEnumValue(values.get(property.getValue()));
+        Object oValues = property.getType().getInformation("values");
+        if(oValues instanceof Map) {
+            Map<String, String> mValue = (Map) oValues;
+            log.info("[parseEnumProperty]:m="+mValue);
+            String sName=property.getValue();
+            log.info("[parseEnumProperty]:sName="+sName);
+            String sValue=mValue.get(sName);
+            log.info("[parseEnumProperty]:sValue="+sValue);
+            return parseEnumValue(sValue);
         } else {
             log.error("Cannot parse values for property - {}", property);
             return "";
         }
     }
 
-    public static String parseEnumValue(String enumName) {
-        enumName = StringUtils.defaultString(enumName);
-        if(enumName.contains("|")){
-            String[] names = enumName.split("|");
-            return names[names.length - 1];
+    public static String parseEnumValue(String sEnumName) {
+        log.info("[parseEnumValue]:sEnumName="+sEnumName);
+        sEnumName = StringUtils.defaultString(sEnumName);
+        log.info("[parseEnumValue]:sEnumName(2)="+sEnumName);
+        if(sEnumName.contains("|")){
+            String[] as = sEnumName.split("\\|");
+            log.info("[parseEnumValue]:as.length - 1="+(as.length - 1));
+            log.info("[parseEnumValue]:as="+as);
+            return as[as.length - 1];
         } else {
-            return enumName;
+            return sEnumName;
         }
     }
 

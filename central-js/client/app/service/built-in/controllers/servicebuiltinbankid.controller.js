@@ -22,7 +22,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
             }
             , Mail:{
                 aField_ID:["privateMail","email"]
-            }            
+            }
         }
     };
 
@@ -57,9 +57,9 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
         $scope.isSending = true;
         form.$setSubmitted();
         var bValid=true;
-        
+
         //$($('input[type=tel]')[0]).removeClass("has-error");
-        /*if (!$($('input[type=tel]')[0]).intlTelInput("isValidNumber")){//bValid && 
+        /*if (!$($('input[type=tel]')[0]).intlTelInput("isValidNumber")){//bValid &&
             bValid = false;
             //$($('input[type=tel]')[0]).addClass("has-error");
             alert("Неверный формат телефона!");
@@ -70,7 +70,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
           border-color: #a94442;
           box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
         }*/
-        
+
         if (form.$valid && bValid) {//
             ActivitiService
                 .submitForm(oServiceData, $scope.data.formData)
@@ -82,8 +82,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
                     submitted.data.id = result.id;
 
                     $scope.isSending = false;
-                    $scope.$root.data = $scope.data
-                    console.log($scope.data)
+                    $scope.$root.data = $scope.data;
                     return $state.go(submitted, $stateParams);
                 });
         } else {
@@ -158,5 +157,5 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
             }
         });
     });
-    
+
 });
