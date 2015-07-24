@@ -10,6 +10,7 @@ import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.MultiPartEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,6 +22,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Belyavtsev Vladimir Vladimirovich (BW)
  */
+@Component("mail")
 public class Mail extends Abstract_Mail{
     
     public Mail(){}

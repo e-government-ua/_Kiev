@@ -111,6 +111,11 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     @Autowired
     private FormService formService;
 
+    
+    @Autowired
+    Mail oMail;
+    
+    
 
     @RequestMapping(value = "/start-process/{key}", method = RequestMethod.GET)
     @Transactional
@@ -776,11 +781,21 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             Mail oMail = new Mail();
             oMail._To("bvv4ik@gmail.com");
             //oMail._To(sMailTo==null?"bvv4ik@gmail.com":sMailTo);
-            oMail._Body(sBody==null?"<a href=\"http:\\\\google.com\">Google</a> It's test Это проверка!":sBody);
+            oMail._Body(sBody==null?"<a href=\"http:\\\\google.com\">Google</a> It's test пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!":sBody);
             if(bHTML==true){
                 log.info("bHTML");
                 oMail._BodyAsHTML();
             }
+            
+            log.info("oMail.getHead()="+oMail.getHead());
+            log.info("oMail.getBody()="+oMail.getBody());
+            log.info("oMail.getAuthUser()="+oMail.getAuthUser());
+            log.info("oMail.getAuthPassword()="+oMail.getAuthPassword());
+            log.info("oMail.getFrom()="+oMail.getFrom());
+            log.info("oMail.getTo()="+oMail.getTo());
+            log.info("oMail.getHost()="+oMail.getHost());
+            log.info("oMail.getPort()="+oMail.getPort());
+            
             
             if(snaID_Attachment !=null){
                 String[] ansID_Attachment = snaID_Attachment.split(",");
