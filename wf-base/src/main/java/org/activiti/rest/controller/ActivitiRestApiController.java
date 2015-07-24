@@ -766,25 +766,39 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     public void sendAttachmentsByMail(
                 @RequestParam(value = "sMailTo", required = false) String sMailTo,
                 @RequestParam(value = "nID_Task", required = false) String snID_Task,
-                @RequestParam(value = "nID_Attachment", required = false) String snID_Attachment,
+                @RequestParam(value = "sBody", required = false) String sBody,
+                @RequestParam(value = "bHTML", required = false) boolean bHTML,
+                //@RequestParam(value = "nID_Attachment", required = false) String snID_Attachment,
+                @RequestParam(value = "naID_Attachment", required = false) String snaID_Attachment,
     		             HttpServletRequest request, HttpServletResponse httpResponse)
             throws IOException, MessagingException, EmailException {
 
             Mail oMail = new Mail();
-            oMail
-                    ._Body("<a href=\"http:\\\\google.com\">Google</a> It's test Это проверка!")
-                    ._To("bvv4ik@gmail.com")
-                    ;
+            oMail._To("bvv4ik@gmail.com");
+            //oMail._To(sMailTo==null?"bvv4ik@gmail.com":sMailTo);
+            oMail._Body(sBody==null?"<a href=\"http:\\\\google.com\">Google</a> It's test Это проверка!":sBody);
+            if(bHTML==true){
+                log.info("bHTML");
+                oMail._BodyAsHTML();
+            }
             
-            Attachment oAttachment = taskService.getAttachment(snID_Attachment);
-            String sFileName = oAttachment.getName();
-            String sFileExt = oAttachment.getType().split(";")[0];
-            String sDescription = oAttachment.getDescription();
-            log.info("oAttachment.getId()="+oAttachment.getId()+", sFileName=" + sFileName + ", sFileExt=" + sFileExt + ", sDescription=" + sDescription);
-            InputStream oInputStream = taskService.getAttachmentContent(oAttachment.getId());
-            DataSource oDataSource = new ByteArrayDataSource(oInputStream, sFileExt);            
+            if(snaID_Attachment !=null){
+                String[] ansID_Attachment = snaID_Attachment.split(",");
+                for(String snID_Attachment : ansID_Attachment){
+                    //anID_Attachment.split()
+                    //String snID_Attachment;
+                    Attachment oAttachment = taskService.getAttachment(snID_Attachment);
+                    String sFileName = oAttachment.getName();
+                    String sFileExt = oAttachment.getType().split(";")[0];
+                    String sDescription = oAttachment.getDescription();
+                    log.info("oAttachment.getId()="+oAttachment.getId()+", sFileName=" + sFileName + ", sFileExt=" + sFileExt + ", sDescription=" + sDescription);
+                    InputStream oInputStream = taskService.getAttachmentContent(oAttachment.getId());
+                    DataSource oDataSource = new ByteArrayDataSource(oInputStream, sFileExt);            
+
+                    oMail._Attach(oDataSource, sFileName + "." + sFileExt, sDescription);
+                }
+            }
             
-            oMail._Attach(oDataSource, sFileName + "." + sFileExt, sDescription);
             oMail.send();
     }    
     
