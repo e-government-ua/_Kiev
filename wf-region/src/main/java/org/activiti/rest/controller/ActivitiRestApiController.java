@@ -781,7 +781,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 //            Mail oMail = new Mail();
             oMail._To("bvv4ik@gmail.com");
             //oMail._To(sMailTo==null?"bvv4ik@gmail.com":sMailTo);
-            oMail._Body(sBody==null?"<a href=\"http:\\\\google.com\">Google</a> It's test ��� ��������!":sBody);
+            oMail._Body(sBody==null?"<a href=\"http:\\\\google.com\">Google</a> It's test Проверка ! ��� ��������!":sBody);
             
             
             log.info("oMail.getHead()="+oMail.getHead());
@@ -794,15 +794,15 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             log.info("oMail.getPort()="+oMail.getPort());
 
             
-            oMail.init();
-            if(bHTML==true){
+//            oMail.init();
+/*            if(bHTML==true){
                 log.info("bHTML");
                 oMail._BodyAsHTML();
             }else{
                 log.info("!bHTML");
                 oMail._BodyAsText();
             }
-            
+*/
             
             
             if(snaID_Attachment !=null){
@@ -818,6 +818,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     InputStream oInputStream = taskService.getAttachmentContent(oAttachment.getId());
                     DataSource oDataSource = new ByteArrayDataSource(oInputStream, sFileExt);            
 
+                    //oMail._Attach(oDataSource, sFileName + "." + sFileExt, sDescription);
                     oMail._Attach(oDataSource, sFileName + "." + sFileExt, sDescription);
                 }
             }
