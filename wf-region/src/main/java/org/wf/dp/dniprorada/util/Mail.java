@@ -55,7 +55,7 @@ public class Mail extends Abstract_Mail{
             
     private final static Logger log = LoggerFactory.getLogger(Mail.class);
     
-    //private MultiPartEmail oMultiPartEmail = new MultiPartEmail();
+    private MultiPartEmail oMultiPartEmail = new MultiPartEmail();
 //    private MultiPartEmail oMultiPartEmail = null;
     //public Mail() throws EmailException{
     
@@ -373,6 +373,7 @@ public class Mail extends Abstract_Mail{
             
             
         oProps.clear();//"10.1.100.70"//"true"
+        oProps.put("mail.smtp.port",getPort());// Mail server
         oProps.put("mail.smtp.host",getHost());// Mail server
         oProps.put("mail.smtp.auth","true");
         //return this;//void
@@ -380,7 +381,7 @@ public class Mail extends Abstract_Mail{
             
             
         try {
-            if (oSession == null) {
+            /*if (oSession == null) {
                 oSession = "".equals(sContext) ? Session.getInstance(oProps, new Authenticator() {
                     @Override
                     public PasswordAuthentication getPasswordAuthentication() {
@@ -388,13 +389,60 @@ public class Mail extends Abstract_Mail{
                     }
                 }
                 ) : (Session) (new InitialContext()).lookup(sContext);//session=getMailSession();
-            }
-            MimeMessage oMimeMessage = new MimeMessage(oSession);
+            }*/
+            
             
             /*
-            String[] as = sAt.split(">")[0].trim().split("<");
-            String sAtName = "";
-            if (as.length > 1) {
+            oMultiPartEmail.setAuthentication(getAuthUser(), getAuthPassword());
+                log.info("getAuthUser()="+getAuthUser());
+                log.info("getAuthPassword()="+getAuthPassword());
+            oMultiPartEmail.setSmtpPort(getPort());
+                log.info("getPort()="+getPort());
+            oMultiPartEmail.setSSL(isSSL());
+                log.info("isSSL()="+isSSL());
+            oMultiPartEmail.setTLS(isTLS());
+                log.info("isTLS()="+isTLS());
+
+
+            oSession = oMultiPartEmail.getMailSession();
+            */
+            
+            
+        log.info("init");
+        oMultiPartEmail = new MultiPartEmail();
+        oMultiPartEmail.setHostName(getHost());
+            log.info("getHost()="+getHost());
+        oMultiPartEmail.addTo(getTo(), "receiver");
+            log.info("getTo()="+getTo());
+        oMultiPartEmail.setFrom(getFrom(), getFrom());//"iGov"
+            log.info("getFrom()="+getFrom());
+        oMultiPartEmail.setSubject(getHead());
+            log.info("getHead()="+getHead());
+            
+        oMultiPartEmail.setAuthentication(getAuthUser(), getAuthPassword());
+            log.info("getAuthUser()="+getAuthUser());
+            log.info("getAuthPassword()="+getAuthPassword());
+        oMultiPartEmail.setSmtpPort(getPort());
+            log.info("getPort()="+getPort());
+        oMultiPartEmail.setSSL(isSSL());
+            log.info("isSSL()="+isSSL());
+        oMultiPartEmail.setTLS(isTLS());
+            log.info("isTLS()="+isTLS());
+
+        oSession = oMultiPartEmail.getMailSession();
+                        
+            
+            
+            
+            
+            
+            
+            MimeMessage oMimeMessage = new MimeMessage(oSession);
+
+            /*
+             String[] as = sAt.split(">")[0].trim().split("<");
+             String sAtName = "";
+             if (as.length > 1) {
                 sAt = as[1].trim();
                 if (!"".equals(sAt)) {
                     sAtName = as[0].trim();
@@ -439,6 +487,7 @@ public class Mail extends Abstract_Mail{
             
             oMimeMessage.setSubject(getHead(), DEFAULT_ENCODING);
             oMimeMessage.setContent(oParts);
+            
 //            oMimeMessage.getRecipients(Message.RecipientType.CC);
             Transport.send(oMimeMessage);
             /*if (sDebug != null) {
@@ -455,13 +504,50 @@ public class Mail extends Abstract_Mail{
             return false;//throw new RuntimeException(sMsg);*/
             log.error("[send]", oException);
         }
-
-            
-            
-            
-            
     }
 
+
+    
+    
+    
+
+    public void sendNew() throws EmailException{
+        //init();
+        
+        
+        //oMultiPartEmail = new MultiPartEmail();
+        //oMultiPartEmail.setHostName(getHost());
+            log.info("getHost()="+getHost());
+        //oMultiPartEmail.addTo(getTo(), "receiver");
+            log.info("getTo()="+getTo());
+        //oMultiPartEmail.setFrom(getFrom(), getFrom());//"iGov"
+            log.info("getFrom()="+getFrom());
+        //oMultiPartEmail.setSubject(getHead());
+            log.info("getHead()="+getHead());
+        
+        
+        //oMultiPartEmail.setAuthentication(getAuthUser(), getAuthPassword());
+            log.info("getAuthUser()="+getAuthUser());
+            log.info("getAuthPassword()="+getAuthPassword());
+        //oMultiPartEmail.setSmtpPort(getPort());
+            log.info("getPort()="+getPort());
+        //oMultiPartEmail.setSSL(isSSL());
+            log.info("isSSL()="+isSSL());
+        //oMultiPartEmail.setTLS(isTLS());
+            log.info("isTLS()="+isTLS());
+        
+        //oMultiPartEmail.sendMimeMessage();
+//            log.info("sendMimeMessage!");
+            
+
+            
+
+            
+            
+            //oMimeMessage.setContent(oParts);
+            
+            
+    }    
     
     
     
