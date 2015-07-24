@@ -111,6 +111,11 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     @Autowired
     private FormService formService;
 
+    
+    @Autowired
+    private Mail oMail;
+    
+    
 
     @RequestMapping(value = "/start-process/{key}", method = RequestMethod.GET)
     @Transactional
@@ -140,7 +145,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     }
 
 
-    @RequestMapping(value = "/process-definitions", method = RequestMethod.GET)
+    @RequestMapping(value = "/process-definitions00", method = RequestMethod.GET)
     @Transactional
     public
     @ResponseBody
@@ -773,14 +778,32 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     		             HttpServletRequest request, HttpServletResponse httpResponse)
             throws IOException, MessagingException, EmailException {
 
-            Mail oMail = new Mail();
+//            Mail oMail = new Mail();
             oMail._To("bvv4ik@gmail.com");
             //oMail._To(sMailTo==null?"bvv4ik@gmail.com":sMailTo);
-            oMail._Body(sBody==null?"<a href=\"http:\\\\google.com\">Google</a> It's test Это проверка!":sBody);
-            if(bHTML==true){
+            oMail._Body(sBody==null?"<a href=\"http:\\\\google.com\">Google</a> It's test РџСЂРѕРІРµСЂРєР° ! пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!":sBody);
+            
+            
+            log.info("oMail.getHead()="+oMail.getHead());
+            log.info("oMail.getBody()="+oMail.getBody());
+            log.info("oMail.getAuthUser()="+oMail.getAuthUser());
+            log.info("oMail.getAuthPassword()="+oMail.getAuthPassword());
+            log.info("oMail.getFrom()="+oMail.getFrom());
+            log.info("oMail.getTo()="+oMail.getTo());
+            log.info("oMail.getHost()="+oMail.getHost());
+            log.info("oMail.getPort()="+oMail.getPort());
+
+            
+//            oMail.init();
+/*            if(bHTML==true){
                 log.info("bHTML");
                 oMail._BodyAsHTML();
+            }else{
+                log.info("!bHTML");
+                oMail._BodyAsText();
             }
+*/
+            
             
             if(snaID_Attachment !=null){
                 String[] ansID_Attachment = snaID_Attachment.split(",");
@@ -795,6 +818,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     InputStream oInputStream = taskService.getAttachmentContent(oAttachment.getId());
                     DataSource oDataSource = new ByteArrayDataSource(oInputStream, sFileExt);            
 
+                    //oMail._Attach(oDataSource, sFileName + "." + sFileExt, sDescription);
                     oMail._Attach(oDataSource, sFileName + "." + sFileExt, sDescription);
                 }
             }
