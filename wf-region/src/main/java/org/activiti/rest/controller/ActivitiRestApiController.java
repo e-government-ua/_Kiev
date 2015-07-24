@@ -113,7 +113,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     
     @Autowired
-    Mail oMail;
+    private Mail oMail;
     
     
 
