@@ -163,7 +163,7 @@
 Команда Порталу державних послуг igov.org.ua</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${billToPay}"</activiti:expression>
+          <activiti:expression> </activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
