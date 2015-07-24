@@ -50,6 +50,8 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
       return true;
     } else if ($scope.selectedTask && $scope.selectedTask.assignee !== null && !formProperty.writable) {
       return true;
+    } else if ($scope.sSelectedTask === 'finished') {
+      return true;
     }
     return false;
   };
