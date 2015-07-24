@@ -12,7 +12,7 @@
         <activiti:formProperty id="bankIdinn" name="ІПН " type="string"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту; Сторінки 1, 2 і 11" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="objectName" name="Назва об'єкта, на який видається документ" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="objectPlace" name="Місцезнаходження/адреса об'єкта на який видається документ" type="textArea" required="true"></activiti:formProperty>
@@ -93,6 +93,7 @@
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
 										Ваш запит був успішно зареєстрований у нашій системі. &lt;br /&gt;
+										&lt;p&gt;&lt;/p&gt;
 										Спеціалісти із Державного Органу повинні дати відповідь найближчим часом. 
 									&lt;p&gt;&lt;/p&gt;
 										Залишайтесь з нами. 	
@@ -322,7 +323,7 @@
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
                                         Державний Орган прийняв рішення задовільнити Ваш запит.  &lt;br /&gt;
-										
+										&lt;p&gt;&lt;/p&gt;
 										Для отримання остаточного дозвілу на розміщення реклами необхідно зібрати слідучі документи і підписи: 
 										&lt;p&gt;&lt;/p&gt;
 										&lt;i&gt;${decisionComment}&lt;/i&gt;
@@ -465,12 +466,13 @@
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
 										Дозвіл був успішно наданий. &lt;br /&gt;
-										
+										&lt;p&gt;&lt;/p&gt;
 										&lt;!-- Скан-копію рішення Ви можете знайти у прикріплених файлах цього письма. &lt;br /&gt;
  --&gt;
 										Якщо Ви хочете отримати фізичну копію документа - зверніться будь-ласка до МВК міста Запоріжжя. &lt;br /&gt;
+										&lt;p&gt;&lt;/p&gt;
 										З собою треба мати будь-яке посвідчення особистості&lt;br /&gt;
-									
+									&lt;p&gt;&lt;/p&gt;
 										Коментар до рішення:
 									&lt;p&gt;&lt;/p&gt;	
 									&lt;i&gt;	${decisionComment_2} &lt;/i&gt;
