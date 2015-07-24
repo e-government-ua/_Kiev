@@ -221,43 +221,6 @@
             <column name="sNameShort_EN" type="STRING"/>
             <column name="sReference_LocalISO" type="STRING"/>
         </loadUpdateData>
-
-        <loadUpdateData primaryKey  = "nID"
-                        encoding    = "UTF-8"
-                        file        = "data/PlaceType.csv"
-                        tableName   = "PlaceType"
-                        separator   = ";">
-            <column name="nID"      type="NUMERIC"/>
-            <column name="sName"    type="STRING"/>
-            <column name="nOrder"   type="NUMERIC"/>
-            <column name="bArea"    type="BOOLEAN"/>
-            <column name="bRoot"    type="BOOLEAN"/>
-        </loadUpdateData>
-
-        <loadUpdateData primaryKey  = "nID"
-                        encoding    = "UTF-8"
-                        file        = "data/Place.csv"
-                        tableName   = "Place"
-                        separator   = ";">
-            <column name="nID"           type="NUMERIC"/>
-            <column name="sName"         type="STRING"/>
-            <column name="nID_PlaceType" type="NUMERIC"/>
-            <column name="sID_UA"        type="STRING"/>
-            <column name="sNameOriginal" type="STRING"/>
-        </loadUpdateData>
-
-        <loadUpdateData primaryKey  = "nID"
-                        encoding    = "UTF-8"
-                        file        = "data/PlaceTree.csv"
-                        tableName   = "PlaceTree"
-                        separator   = ";">
-            <column name="nID"              type="NUMERIC"/>
-            <column name="nID_Place"        type="NUMERIC"/>
-            <column name="nID_Place_Root"   type="NUMERIC"/>
-            <column name="nID_Place_Area"   type="NUMERIC"/>
-            <column name="nID_Place_Parent" type="NUMERIC"/>
-        </loadUpdateData>
-
     </changeSet>
 
 
