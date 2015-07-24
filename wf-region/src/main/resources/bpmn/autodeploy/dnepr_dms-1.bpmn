@@ -233,20 +233,20 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-										Нажаль Державний Орган не може надати вам цю послугу у цей час. 
+										На жаль, державний орган не може надати вам цю послугу в даний момент. 
 									&lt;p&gt;&lt;/p&gt;
-										Вірогідні причини: &lt;br /&gt;
+										Ймовірні причини:  &lt;br /&gt;
 										&lt;ol&gt;
-										&lt;li&gt;Неправильно або не повністю заповнена заява. &lt;/li&gt;
-										&lt;li&gt;Неспроможність відкрити ваші документи. &lt;/li&gt;
-										&lt;li&gt;Ви не підпадаєте в категорію громадян для яких ця послуга діє. &lt;/li&gt;
-										&lt;li&gt;Технічна помилка ДержОргану або технічні роботи на серверах iGov. &lt;li&gt;
+										&lt;li&gt;Неправильно або неповністю заповнена заява; &lt;/li&gt;
+										&lt;li&gt;Неспроможність відкрити ваші документи;&lt;/li&gt;
+										&lt;li&gt;Ви не належите до категорії громадян, для яких ця послуга діє;&lt;/li&gt;
+										&lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov; &lt;li&gt;
 										&lt;/ol&gt;
 										&lt;p&gt;&lt;/p&gt;
 										Коментар Державного службовця: &lt;br /&gt;
-											&lt;i&gt;'${decisionComment}'&lt;/i&gt;
+											&lt;i&gt;${decisionComment}&lt;/i&gt;
 										&lt;p&gt;&lt;/p&gt;
-										Вибачте за незручність. 
+										Вибачте за незручність. Спробуйте подати заяву через півгодини.
                                     &lt;p&gt;&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -255,7 +255,7 @@
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                            
+                           
                         &lt;/table&gt;
                         &lt;/form&gt;
                     &lt;/td&gt;
