@@ -794,6 +794,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             log.info("oMail.getPort()="+oMail.getPort());
 
             
+            oMail.init();
             if(bHTML==true){
                 log.info("bHTML");
                 oMail._BodyAsHTML();

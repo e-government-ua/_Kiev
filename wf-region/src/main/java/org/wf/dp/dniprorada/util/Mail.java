@@ -32,10 +32,10 @@ public class Mail extends Abstract_Mail{
     //private MultiPartEmail oMultiPartEmail = new MultiPartEmail();
     private MultiPartEmail oMultiPartEmail = null;
     //public Mail() throws EmailException{
-    private void init() throws EmailException{
-        if(oMultiPartEmail!=null){
-            return;
-        }
+    public void init() throws EmailException{
+        //if(oMultiPartEmail!=null){
+        //    return;
+        //}
         log.info("init");
         oMultiPartEmail = new MultiPartEmail();
         oMultiPartEmail.setHostName(getHost());
@@ -49,7 +49,7 @@ public class Mail extends Abstract_Mail{
     }
 
     public Mail _BodyAsText() throws EmailException {
-        init();
+//        init();
         log.info("_BodyAsText");
         oMultiPartEmail.setMsg(getBody());
         //oMultiPartEmail.setContent(sBody, "text/html; charset=\"utf-8\"");
@@ -58,7 +58,7 @@ public class Mail extends Abstract_Mail{
     }
 
     public Mail _BodyAsHTML() throws EmailException {
-        init();
+//        init();
         log.info("_BodyAsHTML");
         //oMultiPartEmail.setMsg(sBody);
         oMultiPartEmail.setContent(getBody(), "text/html");
@@ -68,7 +68,7 @@ public class Mail extends Abstract_Mail{
     }
     
     public Mail _PartHTML() throws MessagingException, EmailException {
-        init();
+//        init();
         log.info("_PartHTML");
         //oMultiPartEmail.setMsg("0");
         MimeMultipart oMimeMultipart = new MimeMultipart("related");
@@ -81,7 +81,7 @@ public class Mail extends Abstract_Mail{
     }
     
     public Mail _Part(DataSource oDataSource) throws MessagingException, EmailException {
-        init();
+//        init();
         log.info("_Part");
         MimeMultipart oMimeMultipart = new MimeMultipart("related");
         BodyPart oBodyPart = new MimeBodyPart();
@@ -91,7 +91,7 @@ public class Mail extends Abstract_Mail{
     }
         
     public Mail _Attach(DataSource oDataSource, String sName, String sNote) throws MessagingException, EmailException {
-        init();
+//        init();
         log.info("1)oMultiPartEmail.isBoolHasAttachments()="+oMultiPartEmail.isBoolHasAttachments());
         // add the attachment
         oMultiPartEmail.attach(oDataSource, sName, sNote);
@@ -309,8 +309,7 @@ public class Mail extends Abstract_Mail{
     
     @Override
     public void send() throws EmailException{
-        init();
-        
+        //init();
         oMultiPartEmail.setAuthentication(getAuthUser(), getAuthPassword());
             log.info("getAuthUser()="+getAuthUser());
             log.info("getAuthPassword()="+getAuthPassword());
