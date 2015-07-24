@@ -111,7 +111,7 @@ public class Mail extends Abstract_Mail{
             */
             
             //oMimeMessage.setFrom(new InternetAddress(getFrom(), "iGov", DEFAULT_ENCODING));
-            oMimeMessage.setFrom(new InternetAddress(getFrom()));
+            oMimeMessage.setFrom(new InternetAddress(getFrom(),true));
             //oMimeMessage.addRecipient(Message.RecipientType.CC, new InternetAddress(sTo, sToName, DEFAULT_ENCODING));
             oMimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(getTo(), "recipient", DEFAULT_ENCODING));
             /*for (int n = 0; n < asTo.length; n++) {
