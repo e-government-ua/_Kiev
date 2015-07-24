@@ -30,7 +30,11 @@
         <activiti:formProperty id="helpeeAddress" name="Адреса прописки підопічного" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpeePassport" name="Дані паспорта / свідоцтва про народження підопічного" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpeeINN" name="ІПН підопічного; якщо є" type="string"></activiti:formProperty>
-        <activiti:formProperty id="helpReason" name="Допомога потрібна у зв’язку з" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="helpReason" name="Допомога потрібна у зв’язку з" type="enum" required="true">
+          <activiti:value id="sick" name="Тривалою хворобою"></activiti:value>
+          <activiti:value id="death" name="Смертю близьких родичів (одного з подружжя, батьків, дітей)"></activiti:value>
+          <activiti:value id="disaster" name="Стихійним лихом"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорта заявника" type="file"></activiti:formProperty>
         <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера або одержувача Державної соціальної допомоги/ Висновок медико-соціальної експертної комісії, лікувально-консультативної комісії лікувально-профілактичного закладу (для дітей-інвалідів) про встановлення інвалідності" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="repProof" name="Документ, що засвідчує повноваження законного представника" type="file"></activiti:formProperty>
