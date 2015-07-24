@@ -28,12 +28,12 @@
         </activiti:formProperty>
         <activiti:formProperty id="date" name="Відповідна дата; заповніть її, якщо Ви вибрали такий вид довідки вище" type="date"></activiti:formProperty>
         <activiti:formProperty id="pens" name="Копія пенсійного посвідчення; завантажте копію пенсійного посвідчення " type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default=" "></activiti:formProperty>
-        <activiti:formProperty id="nID_Subject" name="ИД-номер субъекта" type="invisible" default="0"></activiti:formProperty>
-        <activiti:formProperty id="sID_Merchant" name="ИД-строковой мерчанта (магазина)" type="invisible" default="i75116857714"></activiti:formProperty>
-        <activiti:formProperty id="sSum" name="сумма платежа" type="invisible" default="10.94"></activiti:formProperty>
-        <activiti:formProperty id="sID_Currency" name="ИД-строковой валюты" type="invisible" default="UAH"></activiti:formProperty>
-        <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default="Оплата послуги отримання довідки про доходи (розмір пенсії)"></activiti:formProperty>
+        <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="nID_Subject" name="ИД-номер субъекта" type="string" default="0"></activiti:formProperty>
+        <activiti:formProperty id="sID_Merchant" name="ИД-строковой мерчанта (магазина)" type="string" default="i75116857714"></activiti:formProperty>
+        <activiti:formProperty id="sSum" name="сумма платежа" type="string" default="10.94"></activiti:formProperty>
+        <activiti:formProperty id="sID_Currency" name="ИД-строковой валюты" type="string" default="UAH"></activiti:formProperty>
+        <activiti:formProperty id="sDescription" name="строка-описание платежа" type="string" default="Оплата послуги отримання довідки про доходи (розмір пенсії)"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="обробка укрпоштою" activiti:candidateGroups="post_spravka_o_doxodax_pens">
@@ -214,7 +214,7 @@
         <omgdc:Bounds height="91.0" width="105.0" x="610.0" y="150.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="96.0" y="130.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="93.0" y="141.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
         <omgdc:Bounds height="55.0" width="105.0" x="210.0" y="40.0"></omgdc:Bounds>
@@ -247,10 +247,10 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="37.0" y="92.0"></omgdi:waypoint>
-        <omgdi:waypoint x="148.0" y="130.0"></omgdi:waypoint>
+        <omgdi:waypoint x="145.0" y="141.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
-        <omgdi:waypoint x="148.0" y="130.0"></omgdi:waypoint>
+        <omgdi:waypoint x="145.0" y="141.0"></omgdi:waypoint>
         <omgdi:waypoint x="262.0" y="95.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
