@@ -1,5 +1,5 @@
 angular.module('app').config(function ($stateProvider, statesRepositoryProvider) {
-  statesRepositoryProvider.init(this.location.host);
+  statesRepositoryProvider.init(window.location.host);
   $stateProvider
     .state('index', statesRepositoryProvider.index())
     .state('index.subcategory', {
