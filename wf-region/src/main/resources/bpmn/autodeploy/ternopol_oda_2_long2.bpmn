@@ -36,15 +36,15 @@
         <activiti:formProperty id="helpeePassportScan" name="Скан-копія паспорта / свідоцтва про народження підопічного; Сторінки 1, 2 і 11" type="file"></activiti:formProperty>
         <activiti:formProperty id="scanINN" name="Скан-копія ІПН підопічного; Якщо є" type="file"></activiti:formProperty>
         <activiti:formProperty id="helpeeIncome" name="Акт обстеження матеріально-побутових умов проживання" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="otherDocs" name="Інші супутні документи; Якщо їх &gt;1, будь ласька зробіть ZIP архів." type="file"></activiti:formProperty>
+        <activiti:formProperty id="otherDocs" name="Інші супутні документи; Якщо їх більше 1-го, будь ласька зробіть ZIP архів." type="file"></activiti:formProperty>
         <activiti:formProperty id="transferMethod" name="Яким спосібом бажаєте отримати допомогу" type="enum" required="true">
           <activiti:value id="bank" name="Банківським переказом"></activiti:value>
           <activiti:value id="mail" name="Поштовим перерказом"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="transferComment" name="Додатковий коментар; якщо бажаєте отримати допомогу поштою, введіть №. Якщо через банк - №, МФО, код, назва банку" type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail для зворотнього зв'язку " type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="warning" name=" " type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="warning" name=" " type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -108,7 +108,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Заява була успішно прийнята в роботу</activiti:string>
+          <activiti:string>Звернення на тему: Надання соціальної матеріальної допомоги у разі тяжкого матеріального стану</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -207,36 +207,7 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px 0 120px;"&gt;
-                                    
-									&lt;b&gt;Оцініть, будь ласка, наскільки Ви задоволені якістю надання цієї послуги, за шкалою від 2 до 5:&lt;/b&gt;
 
-                                    &lt;p style="text-align: center;"&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
-                                    &lt;/p&gt;
-
-                                    &lt;p style="font-size: 13px;"&gt;
-										Якщо Ви не задоволені якістю, прокоментуйте будь ласка що Вас не задовольнило.&lt;br /&gt;
-                                        Також Ви &lt;b style="color: #cc3333;"&gt;маєте пожливість анонімно&lt;/b&gt; подати сигнал о будь-яких правопорушеннях Державних службовців.
-										
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
-                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
-                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
-                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
                         &lt;/table&gt;
                         &lt;/form&gt;
                     &lt;/td&gt;
@@ -261,7 +232,7 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Допомога була відправлена</activiti:string>
+          <activiti:string>Звернення на тему: Надання соціальної матеріальної допомоги у разі тяжкого матеріального стану</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -331,36 +302,7 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px 0 120px;"&gt;
-                                    
-									&lt;b&gt;Оцініть, будь ласка, наскільки Ви задоволені якістю надання цієї послуги, за шкалою від 2 до 5:&lt;/b&gt;
-
-                                    &lt;p style="text-align: center;"&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
-                                    &lt;/p&gt;
-
-                                    &lt;p style="font-size: 13px;"&gt;
-										Якщо Ви не задоволені якістю, прокоментуйте будь ласка що Вас не задовольнило.&lt;br /&gt;
-                                        Також Ви &lt;b style="color: #cc3333;"&gt;маєте пожливість анонімно&lt;/b&gt; подати сигнал о будь-яких правопорушеннях Державних службовців.
-										
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
-                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
-                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
-                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
+                            
                         &lt;/table&gt;
                         &lt;/form&gt;
                     &lt;/td&gt;
@@ -385,7 +327,7 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Надання Державної Соціальної допомоги</activiti:string>
+          <activiti:string>Звернення на тему: Надання соціальної матеріальної допомоги у разі тяжкого матеріального стану</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -441,20 +383,20 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-										Нажаль Державний Орган не може надати вам цю послугу у цей час. 
+										На жаль, державний орган не може надати вам цю послугу в даний момент. 
 									&lt;p&gt;&lt;/p&gt;
-										Вероятні причини: &lt;br /&gt;
+										Ймовірні причини:  &lt;br /&gt;
 										&lt;ol&gt;
-										&lt;li&gt;Неправильно або не повністю заповнена заява. &lt;/li&gt;
-										&lt;li&gt;Неспроможність відкрити ваші документи. &lt;/li&gt;
-										&lt;li&gt;Ви не підпадаєте в категорію громадян для яких ця послуга діє. &lt;/li&gt;
-										&lt;li&gt;Технічна помилка ДержОргану або технічні роботи на серверах iGov. &lt;li&gt;
+										&lt;li&gt;Неправильно або неповністю заповнена заява; &lt;/li&gt;
+										&lt;li&gt;Неспроможність відкрити ваші документи;&lt;/li&gt;
+										&lt;li&gt;Ви не належите до категорії громадян, для яких ця послуга діє;&lt;/li&gt;
+										&lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov; &lt;li&gt;
 										&lt;/ol&gt;
 										&lt;p&gt;&lt;/p&gt;
 										Коментар Державного службовця: &lt;br /&gt;
 											&lt;i&gt;'${decisionComment}'&lt;/i&gt;
 										&lt;p&gt;&lt;/p&gt;
-										Вибачте за незручність. Спробуйте подати заяву через півгодини. 
+										Вибачте за незручність. Спробуйте подати заяву через півгодини.
                                     &lt;p&gt;&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -463,36 +405,7 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px 0 120px;"&gt;
-                                    
-									&lt;b&gt;Оцініть, будь ласка, наскільки Ви задоволені якістю надання цієї послуги, за шкалою від 2 до 5:&lt;/b&gt;
-
-                                    &lt;p style="text-align: center;"&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
-                                    &lt;/p&gt;
-
-                                    &lt;p style="font-size: 13px;"&gt;
-										Якщо Ви не задоволені якістю, прокоментуйте будь ласка що Вас не задовольнило.&lt;br /&gt;
-                                        Також Ви &lt;b style="color: #cc3333;"&gt;маєте пожливість анонімно&lt;/b&gt; подати сигнал о будь-яких правопорушеннях Державних службовців.
-										
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
-                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
-                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
-                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
+                           
                         &lt;/table&gt;
                         &lt;/form&gt;
                     &lt;/td&gt;
