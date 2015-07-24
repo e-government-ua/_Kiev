@@ -785,6 +785,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             if(bHTML==true){
                 log.info("bHTML");
                 oMail._BodyAsHTML();
+            }else{
+                oMail._BodyAsText();
             }
             
             log.info("oMail.getHead()="+oMail.getHead());
