@@ -15,8 +15,6 @@
         <activiti:formProperty id="POB" name="Місце народження; Країна і місто" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="citizenship" name="Ваше громадянство" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="newAddress" name="Нова адреса; Адміністративно-територіальна одиниця / Вулиця / Будинок / Корпус / Квартира " type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="kidDoc" name="Свідоцтво про народження або свідоцтво про належність до громадянства України; Для дітей молодших 14 років" type="file"></activiti:formProperty>
-        <activiti:formProperty id="repProof" name="Документ, що підтверджує повноваження особи як законного представника; Крім випадків, коли законними представниками є батьки (усиновлювачі)" type="file"></activiti:formProperty>
         <activiti:formProperty id="milBase" name="Найменування військомату" type="string"></activiti:formProperty>
         <activiti:formProperty id="milRank" name="Військове звання" type="string"></activiti:formProperty>
         <activiti:formProperty id="milSpec" name="Війсково-облікова спеціальність" type="string"></activiti:formProperty>
