@@ -486,6 +486,11 @@ public class Mail extends Abstract_Mail{
             }*/
             
             oMimeMessage.setSubject(getHead(), DEFAULT_ENCODING);
+            
+            
+            _Add(getBody());
+            
+            
             oMimeMessage.setContent(oParts);
             
 //            oMimeMessage.getRecipients(Message.RecipientType.CC);
