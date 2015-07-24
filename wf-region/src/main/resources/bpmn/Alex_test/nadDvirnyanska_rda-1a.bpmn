@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="temp_varName" name="#Населений пункт - #Назва_послуги" isExecutable="true">
+  <process id="nadDvirnyanska_rda-1a" name="Надвірнянська РДА - Надання довідки про наявність у Державному земельному кадастрі відомостей про одержання у власність земельної ділянки у межах норм безоплатної приватизації за певним видом її цільового призначення/використання (Фізичним Особам)." isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія і номер)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище заявника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Його ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="Його по батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія і номер) заявника" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту; Сторінки № 1, 2 і 11" type="file"></activiti:formProperty>
-        <activiti:formProperty id="bankIdinn" name="ІПН " type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН заявника" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file"></activiti:formProperty>
+        <activiti:formProperty id="label1" name="Зверніть увагу" type="label" default="Заповніть наступні поля в тому разі, якщо Ви є Законним Представником власника ділянки. &lt;br /&gt; В протилежному разі, залишіть їх пустими"></activiti:formProperty>
+        <activiti:formProperty id="ownerSurname" name="Прізвище власника ділянки" type="string"></activiti:formProperty>
+        <activiti:formProperty id="ownerName" name="Його ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="ownerMiddleName" name="Його по батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="ownerINN" name="ІПН власника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="ownerAddress" name="Місце проживання фізичної особи власника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="ownerProof" name="Реквізити документа, що посвідчує особу заявника; Назва, номер та серія документа, дата його видачі" type="file"></activiti:formProperty>
+        <activiti:formProperty id="repProof" name="Реквізити документа, .що посвідчує повноваження діяти від імені власника ділянки" type="file"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="visitDay" name="У який день Вам буде зручно зайти до відділення державного органу" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="visitTime" name="У який проміжок часу Вам буде зручно зустрітися; Будь ласка, вкажіть проміжок як мінімум у 2 години" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warning" name="Зверніть увагу" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -28,7 +34,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: #Тема</activiti:string>
+          <activiti:string>Звернення на тему: Надання довідки про наявність у Державному земельному кадастрі відомостей</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -112,26 +118,30 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="Звернення на тему: #Тема" activiti:candidateGroups="#Group_name">
+    <userTask id="usertask1" name="Звернення на тему: Надання довідки про наявність у Державному земельному кадастрі відомостей" activiti:candidateGroups="nadDvirnyanska_rda-1a">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище заявника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Його ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="Його по батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія і номер)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту; Або будь-якого посвідчення особистості" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdinn" name="ІПН " type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="visitDay" name="Бажаний день зустрічі" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="visitTime" name="Бажаний час зустрічі" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ownerSurname" name="Прізвище власника ділянки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ownerName" name="Його ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ownerMiddleName" name="Його по батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ownerINN" name="ІПН власника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ownerAddress" name="Місце проживання фізичної особи власника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ownerProof" name="Реквізити документа, що посвідчує особу заявника; Назва, номер та серія документа, дата його видачі" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="repProof" name="Реквізити документа, що посвідчує повноваження діяти від імені власника ділянки" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення чиновника" type="enum" required="true">
           <activiti:value id="accept" name="Назначити зустріч у відділенні"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги &lt;br /&gt; АБО &lt;br /&gt; Додаткові деталі для закінчення процессу реєстрації" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="meetDay" name="Назначити день зустрічі" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="meetTime" name="Назначити час зустрічі" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги." type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="meetDay" name="Назначити день зустрічі / Документи будуть готові після " type="string"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -144,7 +154,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Реєстрація нового місця проживання</activiti:string>
+          <activiti:string>Звернення на тему: Надання довідки про наявність у Державному земельному кадастрі відомостей</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -353,7 +363,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: #Тема</activiti:string>
+          <activiti:string>Звернення на тему: Надання довідки про наявність у Державному земельному кадастрі відомостей</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -369,8 +379,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='decline'}]]></conditionExpression>
     </sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_temp_varName">
-    <bpmndi:BPMNPlane bpmnElement="temp_varName" id="BPMNPlane_temp_varName">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_nadDvirnyanska_rda-1a">
+    <bpmndi:BPMNPlane bpmnElement="nadDvirnyanska_rda-1a" id="BPMNPlane_nadDvirnyanska_rda-1a">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="40.0" y="130.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -435,14 +445,14 @@
         <omgdi:waypoint x="534.0" y="297.0"></omgdi:waypoint>
         <omgdi:waypoint x="247.0" y="345.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="48.0" width="100.0" x="371.0" y="283.0"></omgdc:Bounds>
+          <omgdc:Bounds height="48.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
         <omgdi:waypoint x="534.0" y="297.0"></omgdi:waypoint>
         <omgdi:waypoint x="812.0" y="350.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="48.0" width="100.0" x="605.0" y="283.0"></omgdc:Bounds>
+          <omgdc:Bounds height="48.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
