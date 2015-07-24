@@ -36,6 +36,7 @@ public class Mail extends Abstract_Mail{
         if(oMultiPartEmail==null){
             return;
         }
+        log.info("init");
         oMultiPartEmail = new MultiPartEmail();
         oMultiPartEmail.setHostName(getHost());
         oMultiPartEmail.addTo(getTo(), "receiver");
@@ -49,6 +50,7 @@ public class Mail extends Abstract_Mail{
 
     public Mail _BodyAsText() throws EmailException {
         init();
+        log.info("_BodyAsText");
         oMultiPartEmail.setMsg(getBody());
         //oMultiPartEmail.setContent(sBody, "text/html; charset=\"utf-8\"");
         return this;
@@ -56,6 +58,7 @@ public class Mail extends Abstract_Mail{
 
     public Mail _BodyAsHTML() throws EmailException {
         init();
+        log.info("_BodyAsHTML");
         //oMultiPartEmail.setMsg(sBody);
         oMultiPartEmail.setContent(getBody(), "text/html");
         oMultiPartEmail.setCharset("UTF-8");
@@ -64,6 +67,7 @@ public class Mail extends Abstract_Mail{
     
     public Mail _PartHTML() throws MessagingException, EmailException {
         init();
+        log.info("_PartHTML");
         //oMultiPartEmail.setMsg("0");
         MimeMultipart oMimeMultipart = new MimeMultipart("related");
         BodyPart oBodyPart = new MimeBodyPart();
@@ -75,6 +79,7 @@ public class Mail extends Abstract_Mail{
     
     public Mail _Part(DataSource oDataSource) throws MessagingException, EmailException {
         init();
+        log.info("_Part");
         MimeMultipart oMimeMultipart = new MimeMultipart("related");
         BodyPart oBodyPart = new MimeBodyPart();
         oBodyPart.setContent(oDataSource, "application/zip");
