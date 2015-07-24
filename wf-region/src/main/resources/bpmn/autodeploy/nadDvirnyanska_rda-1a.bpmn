@@ -118,7 +118,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="Звернення на тему: Надання довідки про наявність у Державному земельному кадастрі відомостей" activiti:candidateGroups="nadDvirnyanska_rda-1">
+    <userTask id="usertask1" name="Звернення на тему: Надання довідки про наявність у Державному земельному кадастрі відомостей" activiti:candidateGroups="nadDvirnyanska_rda-1a">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Його ім'я" type="string" writable="false"></activiti:formProperty>
