@@ -180,7 +180,7 @@
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги АБО додаткові деталі необхідні для закінчення процессу реєстрації" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="meetDay" name="Назначити день зустрічі" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="meetDay" name="Назначити день зустрічі" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="meetTime" name="Назначити час зустрічі" type="string" required="true"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
