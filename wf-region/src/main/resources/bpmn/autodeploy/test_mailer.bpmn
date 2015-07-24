@@ -4,6 +4,9 @@
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="mail" name="mail" type="string"></activiti:formProperty>
+         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="подтягивание документов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
