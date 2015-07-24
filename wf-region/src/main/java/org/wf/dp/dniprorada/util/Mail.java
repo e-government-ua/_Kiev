@@ -33,10 +33,10 @@ public class Mail extends Abstract_Mail{
     private MultiPartEmail oMultiPartEmail = null;
     //public Mail() throws EmailException{
     private void init() throws EmailException{
-        if(oMultiPartEmail==null){
+        log.info("init");
+        if(oMultiPartEmail!=null){
             return;
         }
-        log.info("init");
         oMultiPartEmail = new MultiPartEmail();
         oMultiPartEmail.setHostName(getHost());
         oMultiPartEmail.addTo(getTo(), "receiver");
