@@ -782,12 +782,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             oMail._To("bvv4ik@gmail.com");
             //oMail._To(sMailTo==null?"bvv4ik@gmail.com":sMailTo);
             oMail._Body(sBody==null?"<a href=\"http:\\\\google.com\">Google</a> It's test ��� ��������!":sBody);
-            if(bHTML==true){
-                log.info("bHTML");
-                oMail._BodyAsHTML();
-            }else{
-                oMail._BodyAsText();
-            }
+            
             
             log.info("oMail.getHead()="+oMail.getHead());
             log.info("oMail.getBody()="+oMail.getBody());
@@ -797,6 +792,16 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             log.info("oMail.getTo()="+oMail.getTo());
             log.info("oMail.getHost()="+oMail.getHost());
             log.info("oMail.getPort()="+oMail.getPort());
+
+            
+            if(bHTML==true){
+                log.info("bHTML");
+                oMail._BodyAsHTML();
+            }else{
+                log.info("!bHTML");
+                oMail._BodyAsText();
+            }
+            
             
             
             if(snaID_Attachment !=null){

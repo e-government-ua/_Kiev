@@ -33,19 +33,19 @@ public class Mail extends Abstract_Mail{
     private MultiPartEmail oMultiPartEmail = null;
     //public Mail() throws EmailException{
     private void init() throws EmailException{
-        log.info("init");
         if(oMultiPartEmail!=null){
             return;
         }
+        log.info("init");
         oMultiPartEmail = new MultiPartEmail();
         oMultiPartEmail.setHostName(getHost());
+            log.info("getHost()="+getHost());
         oMultiPartEmail.addTo(getTo(), "receiver");
+            log.info("getTo()="+getTo());
         oMultiPartEmail.setFrom(getFrom(), "iGov");
+            log.info("getFrom()="+getFrom());
         oMultiPartEmail.setSubject(getHead());
-        oMultiPartEmail.setAuthentication(getAuthUser(), getAuthPassword());
-        oMultiPartEmail.setSmtpPort(getPort());
-        oMultiPartEmail.setSSL(isSSL());
-        oMultiPartEmail.setTLS(isTLS());
+            log.info("getHead()="+getHead());
     }
 
     public Mail _BodyAsText() throws EmailException {
@@ -53,6 +53,7 @@ public class Mail extends Abstract_Mail{
         log.info("_BodyAsText");
         oMultiPartEmail.setMsg(getBody());
         //oMultiPartEmail.setContent(sBody, "text/html; charset=\"utf-8\"");
+            log.info("getBody()="+getBody());
         return this;
     }
 
@@ -62,6 +63,7 @@ public class Mail extends Abstract_Mail{
         //oMultiPartEmail.setMsg(sBody);
         oMultiPartEmail.setContent(getBody(), "text/html");
         oMultiPartEmail.setCharset("UTF-8");
+            log.info("getBody()="+getBody());
         return this;
     }
     
@@ -74,6 +76,7 @@ public class Mail extends Abstract_Mail{
         oBodyPart.setContent(getBody(), "text/html; charset=\"utf-8\"");
         oMimeMultipart.addBodyPart(oBodyPart);
         oMultiPartEmail.setContent(oMimeMultipart);
+            log.info("getBody()="+getBody());
         return this;
     }
     
@@ -307,7 +310,19 @@ public class Mail extends Abstract_Mail{
     @Override
     public void send() throws EmailException{
         init();
+        
+        oMultiPartEmail.setAuthentication(getAuthUser(), getAuthPassword());
+            log.info("getAuthUser()="+getAuthUser());
+            log.info("getAuthPassword()="+getAuthPassword());
+        oMultiPartEmail.setSmtpPort(getPort());
+            log.info("getPort()="+getPort());
+        oMultiPartEmail.setSSL(isSSL());
+            log.info("isSSL()="+isSSL());
+        oMultiPartEmail.setTLS(isTLS());
+            log.info("isTLS()="+isTLS());
+        
         oMultiPartEmail.sendMimeMessage();
+            log.info("sendMimeMessage!");
     }
     
     /*public Mail oThis() throws EmailException, MessagingException{
