@@ -774,7 +774,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 @RequestParam(value = "sBody", required = false) String sBody,
                 @RequestParam(value = "bHTML", required = false) boolean bHTML,
                 //@RequestParam(value = "nID_Attachment", required = false) String snID_Attachment,
-                @RequestParam(value = "naID_Attachment", required = false) String snaID_Attachment,
+                @RequestParam(value = "naID_Attachment", required = false) String snaID_Attachment,//naID_Attachment=1530717
     		             HttpServletRequest request, HttpServletResponse httpResponse)
             throws IOException, MessagingException, EmailException {
 

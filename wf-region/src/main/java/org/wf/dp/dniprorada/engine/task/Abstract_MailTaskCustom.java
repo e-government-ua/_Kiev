@@ -186,9 +186,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         ._TLS(true)
         ;
 
-        oMail
+        /*oMail
         ._BodyAsHTML()
-        ;
+        ;*/
         
 //        return oMultiPartEmail;
         return oMail;
