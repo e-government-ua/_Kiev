@@ -26,22 +26,22 @@ import org.springframework.beans.factory.annotation.Value;
 public abstract class Abstract_Mail {
     
     
-    @Value("${mailServerHost}")
+//    @Value("${mailServerHost}")
     public String mailServerHost;
 
-    @Value("${mailServerPort}")
+//    @Value("${mailServerPort}")
     public String mailServerPort;
 
-    @Value("${mailServerDefaultFrom}")
+//    @Value("${mailServerDefaultFrom}")
     public String mailServerDefaultFrom;
 
-    @Value("${mailServerUsername}")
+//    @Value("${mailServerUsername}")
     public String mailServerUsername;
 
-    @Value("${mailServerPassword}")
+//    @Value("${mailServerPassword}")
     public String mailServerPassword;
 
-    @Value("${mailAddressNoreply}")
+//    @Value("${mailAddressNoreply}")
     public String mailAddressNoreplay;    
     
     
@@ -50,13 +50,19 @@ public abstract class Abstract_Mail {
     
     public Abstract_Mail(){}
     
+    @Value("${mailServerDefaultFrom}")
     private String sFrom = mailServerDefaultFrom; //"noreplay@gmail.com";
+    @Value("${mailAddressNoreply}")
     private String saTo = mailAddressNoreplay; //"noreplay@gmail.com";
     private String sHead = "Subject";
     private String sBody = "Text";
+    @Value("${mailServerUsername}")
     private String sAuthUser = mailServerUsername; //"user";
+    @Value("${mailServerPassword}")
     private String sAuthPassword = mailServerPassword; //"password";
+    @Value("${mailServerHost}")
     private String sHost = mailServerHost; //"gmail.com";
+    @Value("${mailServerPort}")
     private Integer nPort = 465; //Integer.valueOf(mailServerPort);
     private boolean bSSL = true;
     private boolean bTLS = true;
