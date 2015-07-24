@@ -44,3 +44,11 @@
     margin-top: 70px;
     border-top: 1px solid #E5E5E5;
 }
+
+
+.ng-modal-dialog {
+  position: fixed;
+  top: 350px;
+  box-shadow: 4px 4px 80px #000;
+  max-height: 100%;
+}
