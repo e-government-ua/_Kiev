@@ -162,7 +162,7 @@ public abstract class Abstract_Mail {
     
 
             
-    abstract public void init() throws Exception;
+    //abstract public void init() throws Exception;
     
     abstract public void send() throws Exception;
     

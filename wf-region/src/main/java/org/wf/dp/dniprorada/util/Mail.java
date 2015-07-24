@@ -30,7 +30,7 @@ public class Mail extends Abstract_Mail{
     private final static Logger log = LoggerFactory.getLogger(Mail.class);
     
     private MultiPartEmail oMultiPartEmail = new MultiPartEmail();
-    public void init() throws EmailException{
+    private void init() throws EmailException{
         oMultiPartEmail = new MultiPartEmail();
         oMultiPartEmail.setHostName(getHost());
         oMultiPartEmail.addTo(getTo(), "receiver");
@@ -290,6 +290,7 @@ public class Mail extends Abstract_Mail{
             
     
     public void send() throws EmailException{
+        init();
         oMultiPartEmail.sendMimeMessage();
     }
     
