@@ -42,7 +42,7 @@ public class Mail extends Abstract_Mail{
             log.info("getHost()="+getHost());
         oMultiPartEmail.addTo(getTo(), "receiver");
             log.info("getTo()="+getTo());
-        oMultiPartEmail.setFrom(getFrom(), "iGov");
+        oMultiPartEmail.setFrom(getFrom(), getFrom());//"iGov"
             log.info("getFrom()="+getFrom());
         oMultiPartEmail.setSubject(getHead());
             log.info("getHead()="+getHead());
