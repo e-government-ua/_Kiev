@@ -111,6 +111,11 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     @Autowired
     private FormService formService;
 
+    
+    @Autowired
+    private Mail oMail;
+    
+    
 
     @RequestMapping(value = "/start-process/{key}", method = RequestMethod.GET)
     @Transactional
@@ -140,7 +145,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     }
 
 
-    @RequestMapping(value = "/process-definitions", method = RequestMethod.GET)
+    @RequestMapping(value = "/process-definitions00", method = RequestMethod.GET)
     @Transactional
     public
     @ResponseBody
@@ -566,15 +571,18 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 							"Matching property %s:%s:%s with fieldNames", property.getId(), property.getName(), property.getType().getName()));
 					if (currentRow.contains("${" + property.getId() + "}")) {
 						log.info(String.format("Found field with id %s in the pattern. Adding value to the result", "${" + property.getId() + "}"));
-						String value = "";
-						if ("enum".equalsIgnoreCase(property.getType().getName())) {
-							value = parseEnumProperty(property);
+						String sValue = "";
+                                                String sType=property.getType().getName();
+						log.info("sType="+sType);
+						if ("enum".equalsIgnoreCase(sType)) {
+							sValue = parseEnumProperty(property);
 						} else {
-							value = property.getValue();
+							sValue = property.getValue();
 						}
-						if (value != null){
-							log.info(String.format("Replacing field with the value %s", value));
-							currentRow = currentRow.replace("${" + property.getId() + "}", value);
+						log.info("sValue="+sValue);
+						if (sValue != null){
+							log.info(String.format("Replacing field with the value %s", sValue));
+							currentRow = currentRow.replace("${" + property.getId() + "}", sValue);
 						}
 						
 					}
@@ -714,23 +722,32 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     
     public static String parseEnumProperty(FormProperty property) {
-        Object valuesObj = property.getType().getInformation("values");
-        if(valuesObj instanceof Map) {
-            Map<String, String> values = (Map) valuesObj;
-            return parseEnumValue(values.get(property.getValue()));
+        Object oValues = property.getType().getInformation("values");
+        if(oValues instanceof Map) {
+            Map<String, String> mValue = (Map) oValues;
+            log.info("[parseEnumProperty]:m="+mValue);
+            String sName=property.getValue();
+            log.info("[parseEnumProperty]:sName="+sName);
+            String sValue=mValue.get(sName);
+            log.info("[parseEnumProperty]:sValue="+sValue);
+            return parseEnumValue(sValue);
         } else {
             log.error("Cannot parse values for property - {}", property);
             return "";
         }
     }
 
-    public static String parseEnumValue(String enumName) {
-        enumName = StringUtils.defaultString(enumName);
-        if(enumName.contains("|")){
-            String[] names = enumName.split("|");
-            return names[names.length - 1];
+    public static String parseEnumValue(String sEnumName) {
+        log.info("[parseEnumValue]:sEnumName="+sEnumName);
+        sEnumName = StringUtils.defaultString(sEnumName);
+        log.info("[parseEnumValue]:sEnumName(2)="+sEnumName);
+        if(sEnumName.contains("|")){
+            String[] as = sEnumName.split("\\|");
+            log.info("[parseEnumValue]:as.length - 1="+(as.length - 1));
+            log.info("[parseEnumValue]:as="+as);
+            return as[as.length - 1];
         } else {
-            return enumName;
+            return sEnumName;
         }
     }
 
@@ -754,25 +771,58 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     public void sendAttachmentsByMail(
                 @RequestParam(value = "sMailTo", required = false) String sMailTo,
                 @RequestParam(value = "nID_Task", required = false) String snID_Task,
-                @RequestParam(value = "nID_Attachment", required = false) String snID_Attachment,
+                @RequestParam(value = "sBody", required = false) String sBody,
+                @RequestParam(value = "bHTML", required = false) boolean bHTML,
+                //@RequestParam(value = "nID_Attachment", required = false) String snID_Attachment,
+                @RequestParam(value = "naID_Attachment", required = false) String snaID_Attachment,//naID_Attachment=1530717
     		             HttpServletRequest request, HttpServletResponse httpResponse)
             throws IOException, MessagingException, EmailException {
 
-            Mail oMail = new Mail();
-            oMail
-                    ._Body("<a href=\"http:\\\\google.com\">Google</a> It's test Это проверка!")
-                    ._To("bvv4ik@gmail.com")
-                    ;
+//            Mail oMail = new Mail();
+            oMail._To("bvv4ik@gmail.com");
+            //oMail._To(sMailTo==null?"bvv4ik@gmail.com":sMailTo);
+            oMail._Body(sBody==null?"<a href=\"http:\\\\google.com\">Google</a> It's test РџСЂРѕРІРµСЂРєР° ! пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!":sBody);
             
-            Attachment oAttachment = taskService.getAttachment(snID_Attachment);
-            String sFileName = oAttachment.getName();
-            String sFileExt = oAttachment.getType().split(";")[0];
-            String sDescription = oAttachment.getDescription();
-            log.info("oAttachment.getId()="+oAttachment.getId()+", sFileName=" + sFileName + ", sFileExt=" + sFileExt + ", sDescription=" + sDescription);
-            InputStream oInputStream = taskService.getAttachmentContent(oAttachment.getId());
-            DataSource oDataSource = new ByteArrayDataSource(oInputStream, sFileExt);            
             
-            oMail._Attach(oDataSource, sFileName + "." + sFileExt, sDescription);
+            log.info("oMail.getHead()="+oMail.getHead());
+            log.info("oMail.getBody()="+oMail.getBody());
+            log.info("oMail.getAuthUser()="+oMail.getAuthUser());
+            log.info("oMail.getAuthPassword()="+oMail.getAuthPassword());
+            log.info("oMail.getFrom()="+oMail.getFrom());
+            log.info("oMail.getTo()="+oMail.getTo());
+            log.info("oMail.getHost()="+oMail.getHost());
+            log.info("oMail.getPort()="+oMail.getPort());
+
+            
+//            oMail.init();
+/*            if(bHTML==true){
+                log.info("bHTML");
+                oMail._BodyAsHTML();
+            }else{
+                log.info("!bHTML");
+                oMail._BodyAsText();
+            }
+*/
+            
+            
+            if(snaID_Attachment !=null){
+                String[] ansID_Attachment = snaID_Attachment.split(",");
+                for(String snID_Attachment : ansID_Attachment){
+                    //anID_Attachment.split()
+                    //String snID_Attachment;
+                    Attachment oAttachment = taskService.getAttachment(snID_Attachment);
+                    String sFileName = oAttachment.getName();
+                    String sFileExt = oAttachment.getType().split(";")[0];
+                    String sDescription = oAttachment.getDescription();
+                    log.info("oAttachment.getId()="+oAttachment.getId()+", sFileName=" + sFileName + ", sFileExt=" + sFileExt + ", sDescription=" + sDescription);
+                    InputStream oInputStream = taskService.getAttachmentContent(oAttachment.getId());
+                    DataSource oDataSource = new ByteArrayDataSource(oInputStream, sFileExt);            
+
+                    //oMail._Attach(oDataSource, sFileName + "." + sFileExt, sDescription);
+                    oMail._Attach(oDataSource, sFileName + "." + sFileExt, sDescription);
+                }
+            }
+            
             oMail.send();
     }    
     
