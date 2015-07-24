@@ -29,8 +29,13 @@ public class Mail extends Abstract_Mail{
             
     private final static Logger log = LoggerFactory.getLogger(Mail.class);
     
-    private MultiPartEmail oMultiPartEmail = new MultiPartEmail();
+    //private MultiPartEmail oMultiPartEmail = new MultiPartEmail();
+    private MultiPartEmail oMultiPartEmail = null;
+    //public Mail() throws EmailException{
     private void init() throws EmailException{
+        if(oMultiPartEmail==null){
+            return;
+        }
         oMultiPartEmail = new MultiPartEmail();
         oMultiPartEmail.setHostName(getHost());
         oMultiPartEmail.addTo(getTo(), "receiver");
@@ -43,19 +48,22 @@ public class Mail extends Abstract_Mail{
     }
 
     public Mail _BodyAsText() throws EmailException {
+        init();
         oMultiPartEmail.setMsg(getBody());
         //oMultiPartEmail.setContent(sBody, "text/html; charset=\"utf-8\"");
         return this;
     }
 
-    public Mail _BodyAsHTML() {
+    public Mail _BodyAsHTML() throws EmailException {
+        init();
         //oMultiPartEmail.setMsg(sBody);
         oMultiPartEmail.setContent(getBody(), "text/html");
         oMultiPartEmail.setCharset("UTF-8");
         return this;
     }
     
-    public Mail _PartHTML() throws MessagingException {
+    public Mail _PartHTML() throws MessagingException, EmailException {
+        init();
         //oMultiPartEmail.setMsg("0");
         MimeMultipart oMimeMultipart = new MimeMultipart("related");
         BodyPart oBodyPart = new MimeBodyPart();
@@ -65,7 +73,8 @@ public class Mail extends Abstract_Mail{
         return this;
     }
     
-    public Mail _Part(DataSource oDataSource) throws MessagingException {
+    public Mail _Part(DataSource oDataSource) throws MessagingException, EmailException {
+        init();
         MimeMultipart oMimeMultipart = new MimeMultipart("related");
         BodyPart oBodyPart = new MimeBodyPart();
         oBodyPart.setContent(oDataSource, "application/zip");
@@ -74,6 +83,7 @@ public class Mail extends Abstract_Mail{
     }
         
     public Mail _Attach(DataSource oDataSource, String sName, String sNote) throws MessagingException, EmailException {
+        init();
         log.info("1)oMultiPartEmail.isBoolHasAttachments()="+oMultiPartEmail.isBoolHasAttachments());
         // add the attachment
         oMultiPartEmail.attach(oDataSource, sName, sNote);
@@ -84,7 +94,7 @@ public class Mail extends Abstract_Mail{
     }
     
     
-    public Mail _Parts(List<DataSource> aDataSource) throws MessagingException {
+    private Mail _Parts(List<DataSource> aDataSource) throws MessagingException {
                 /*Multipart oMultipart = new Multipart(oDataSource) {
 
                     @Override
@@ -289,6 +299,7 @@ public class Mail extends Abstract_Mail{
         */
             
     
+    @Override
     public void send() throws EmailException{
         init();
         oMultiPartEmail.sendMimeMessage();
