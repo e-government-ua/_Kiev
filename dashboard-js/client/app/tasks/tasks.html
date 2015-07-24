@@ -150,9 +150,9 @@
       <p>від: {{ sDateShort(printTemplate.task.createTime) }}</p>
 
       <p ng-repeat='item in printTemplate.form'>
-        {{sFieldLabel(item.name)}}
+        <font ng-if="item.type != 'invisible'">{{sFieldLabel(item.name)}}</font>
         <b ng-if="item.type == 'enum'">{{sEnumValue(item.enumValues,item.value)}}</b>
-        <b ng-if="item.type != 'enum'">{{item.value}}</b>
+        <b ng-if="item.type != 'enum' && item.type != 'invisible'">{{item.value}}</b>
       </p>
 
       <p>

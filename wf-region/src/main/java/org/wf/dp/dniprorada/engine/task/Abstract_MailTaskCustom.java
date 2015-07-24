@@ -32,6 +32,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     @Autowired
     GeneralConfig generalConfig;
     
+    @Autowired
+    Mail oMail;
+    
     private static final String TAG_PAYMENT_BUTTON_LIQPAY = "[paymentButton_LiqPay]";
     
 
@@ -169,7 +172,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         String sBodySource = getStringFromFieldExpression(this.text, oExecution);
         String sBody = replaceTags(sBodySource, oExecution);
         
-        Mail oMail = new Mail();
+        //Mail oMail = new Mail();
         oMail
         ._From(mailAddressNoreplay)
         ._To(saToMail)

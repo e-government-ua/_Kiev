@@ -10,6 +10,7 @@ import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.MultiPartEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,6 +22,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Belyavtsev Vladimir Vladimirovich (BW)
  */
+@Component("mail")
 public class Mail extends Abstract_Mail{
     
     public Mail(){}
@@ -28,7 +30,7 @@ public class Mail extends Abstract_Mail{
     private final static Logger log = LoggerFactory.getLogger(Mail.class);
     
     private MultiPartEmail oMultiPartEmail = new MultiPartEmail();
-    public void init() throws EmailException{
+    private void init() throws EmailException{
         oMultiPartEmail = new MultiPartEmail();
         oMultiPartEmail.setHostName(getHost());
         oMultiPartEmail.addTo(getTo(), "receiver");
@@ -288,6 +290,7 @@ public class Mail extends Abstract_Mail{
             
     
     public void send() throws EmailException{
+        init();
         oMultiPartEmail.sendMimeMessage();
     }
     
