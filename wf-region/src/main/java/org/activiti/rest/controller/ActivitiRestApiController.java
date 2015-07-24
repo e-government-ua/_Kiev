@@ -778,7 +778,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     		             HttpServletRequest request, HttpServletResponse httpResponse)
             throws IOException, MessagingException, EmailException {
 
-            Mail oMail = new Mail();
+//            Mail oMail = new Mail();
             oMail._To("bvv4ik@gmail.com");
             //oMail._To(sMailTo==null?"bvv4ik@gmail.com":sMailTo);
             oMail._Body(sBody==null?"<a href=\"http:\\\\google.com\">Google</a> It's test ��� ��������!":sBody);
