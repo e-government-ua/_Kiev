@@ -24,6 +24,29 @@ angular.module('dashboardJsApp')
 
     // Public API here
     return {
+      assignTask: function(redirectCallback, message) {
+        var warningModal = openModal({
+          modal: {
+            dismissable: true,
+            title: 'Успіх!',
+            html: '<strong>' + message + '</strong>',
+            buttons: [{
+              classes: 'btn-success',
+              text: 'Почати опрацювання задачі',
+              click: function(e) {
+                redirectCallback();
+                warningModal.close(e);
+              }
+            }, {
+              classes: 'btn-success',
+              text: 'Перейти у Необроблені',
+              click: function(e) {
+                warningModal.close(e);
+              }
+            }]
+          }
+        }, 'modal-success');
+      },
       inform: {
         info: function(callBack) {
           return function() {

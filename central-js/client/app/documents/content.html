@@ -62,10 +62,11 @@
 
             <tr id="document">
                 <td>
-                    {{doc.sName}}
+                    {{doc.oDocumentType.sName}}
+                    <!--{{doc.sName}}-->
                 </td>
                 <td>
-                    {{doc.oDate_Upload | date:'dd MMMM yyyy HH:mm'}}
+                    {{doc.sDate_Upload | date:'dd MMMM yyyy HH:mm'}}
                 </td>
                 <td>
                     {{doc.sSubjectName_Upload}}
@@ -98,122 +99,143 @@
                       Також Ви можете додатково захистити документ SMS-паролем.</p>
                     <br>
 
-                    <p style="color:red;"><b>Розділ у процесі розробки!</b></p>
-
-                    <div class="panel panel-default"
-                         ng-init="isPhoneFormVisible = 'false'">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <form name="shareLinkForm"
-                                role="form"
-                                ng-submit="shareLinkForm.$valid && shareLink(doc, sFIO, sTelephone, sMail, nDays)">
-                            <div class="row">
-                              <div class="form-group">
-                                <label for="name">Введіть ім’я та прізвище людини, якій Ви надаєте
-                                  доступ
-                                  <em>*</em>
-                                </label>
-                                <input type="text"
-                                       required
-                                       ng-model="sFIO"
-                                       class="form-control"
-                                       id="name"
-                                       autofocus/>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="form-group">
-                                <label for="valid-days">Введіть термін дії доступу:</label>
-                                <select class="form-control"
-                                        required
-                                        ng-model="nDays"
-                                        ng-options="item.day as item.title for item in nDaysOptions"
-                                        id="valid-days">
-                                </select>
-                              </div>
-                            </div>
-                            <div class="row">
-
-                              <p>Чи бажаєте Ви захистити документ SMS-паролем? Ви можете ввести номер
-                                мобільного телефону людини, якій Ви надаєте доступ, і тоді для входу їй
-                                потрібно буде ввести SMS-пароль</p>
-
-
-                              <input id="other"
-                                     type="radio"
-                                     name="content"
-                                     ng-model="isPhoneFormVisible"
-                                     value="false">
-                              <label for="other">Hi</label>
-
-                              <br/>
-
-                              <input id="first"
-                                     type="radio"
-                                     name="content"
-                                     ng-model="isPhoneFormVisible"
-                                     value="true">
-                              <label for="first">Так</label>
-                            </div>
-
-                            <div class="row"
-                                 ng-show="isPhoneFormVisible == 'true'">
-                              <div class="form-group"
-                                   ng-class="{'has-success': shareLinkForm.phone.$valid}">
-                                <label for="phone">Введіть номер її мобільного телефону
-                                  <span class="snippet">(через нього вона веріфікується через SMS)</span>
-                                </label><br/>
-
-                                <div class="alert alert-danger"
-                                     ng-show="shareLinkForm.phone.$error.maxlength">
-                                  Забагато цифр у
-                                  номері, перевірте
-                                  його правильність
+                    <p style="display: none; color:red;"><b>Розділ у процесі розробки!</b></p>
+                    <center>
+                        <div class="panel panel-default"
+                             ng-init="isPhoneFormVisible = 'false'">
+                            <div class="row" style="width: 600px;">
+                            <div class="col-md-12">
+                              <form name="shareLinkForm"
+                                    role="form"
+                                    ng-submit="shareLinkForm.$valid && shareLink(doc, sFIO, sTelephone, sMail, nDays)"
+                                    style="text-align:left;"
+                                    >
+                                <div class="row">
+                                  <div class="form-group">
+                                    <label for="name">Введіть ім’я та прізвище людини, якій Ви надаєте доступ: <em>*</em></label>
+                                    <input type="text"
+                                           required
+                                           ng-model="sFIO"
+                                           class="form-control"
+                                           id="name"
+                                           autofocus/>
+                                  </div>
                                 </div>
-                                <div class="alert alert-danger"
-                                     ng-show="shareLinkForm.phone.$error.pattern">
-                                  У номері мають бути
-                                  лише цифри та + на
-                                  початку
+
+                                <div class="row">
+                                  <div class="form-group">
+                                    <label for="nDays">Введіть термін дії доступу: <!--em>*</em--></label>
+                                    
+                                    <select class="form-control"
+                                            required
+                                            ng-model="nDays"
+                                            ng-options="item.day as item.title for item in nDaysOptions"
+                                            id="nDays">
+                                    </select>
+                                    
+                                    <!--
+                                    <select class="form-control"
+                                            ng-model="nDays"
+                                            id="nDays">
+                                        <option ng-repeat="item in nDaysOptions" value="{{item.day}}" ng-selected="item.day == 1">{{item.title}}</option>
+                                    </select>
+                                    -->
+                                    
+                                    
+                                  </div>
                                 </div>
-                                <input type="tel"
-                                       class="form-control"
-                                       style="width: auto;"
-                                       id="phone"
-                                       name="phone"
-                                       ng-model="sTelephone"
-                                       ng-pattern="/^\+[0-9]{1,}$/"
-                                       ng-minlength="13"
-                                       ng-maxlength="13"/>
-                              </div>
-                            </div>
+                                <div class="row">
 
-                            <div class="row">
-                              <div class="form-group"
-                                   ng-class="{'has-success': shareLinkForm.email.$valid && shareLinkForm.email.$touched}">
+                                  <p>Чи бажаєте Ви захистити документ SMS-паролем? Ви можете ввести номер
+                                    мобільного телефону людини, якій Ви надаєте доступ, і тоді для входу їй
+                                    потрібно буде ввести SMS-пароль</p>
 
-                                <label for="email">Введіть електронну пошту (за бажанням)
-                                  <span class="snippet">(на вказаний адрес буде надіслано посилання на документ)</span>
-                                </label>
-                                <input type="email"
-                                       ng-model="sMail"
-                                       class="form-control"
-                                       name="email"
-                                       id="email">
-                              </div>
-                            </div>
 
-                            <div class="submit-button">
-                              <button type="submit"
-                                      class="btn btn-primary"
-                                      ng-disabled="shareLinkForm.$invalid">Отримати код
-                              </button>
+                                  <input id="other"
+                                         type="radio"
+                                         name="content"
+                                         ng-model="isPhoneFormVisible"
+                                         value="false">
+                                  <label for="other">Hi</label>
+
+                                  <br/>
+
+                                  <input id="first"
+                                         type="radio"
+                                         name="content"
+                                         ng-model="isPhoneFormVisible"
+                                         value="true">
+                                  <label for="first">Так</label>
+                                </div>
+
+                                <div class="row"
+                                     ng-show="isPhoneFormVisible == 'true'">
+                                  <div class="form-group"
+                                       ng-class="{'has-success': shareLinkForm.phone.$valid}">
+                                    <label for="phone">Введіть номер її мобільного телефону
+                                      <span class="snippet">(через нього вона веріфікується через SMS)</span>
+                                    </label><br/>
+
+                                    <div class="alert alert-danger"
+                                         ng-show="shareLinkForm.phone.$error.minlength && shareLinkForm.email.$touched">
+                                      Мало цифр у номері, перевірте його правильність
+                                    </div>
+                                    <div class="alert alert-danger"
+                                         ng-show="shareLinkForm.phone.$error.maxlength">
+                                      Забагато цифр у номері, перевірте його правильність
+                                    </div>
+                                    <div class="alert alert-danger"
+                                         ng-show="shareLinkForm.phone.$error.pattern">
+                                      У номері мають бути лише цифри та + на початку
+                                    </div>
+                                    <input type="tel"
+                                           class="form-control"
+                                           style="width: auto;"
+                                           id="phone"
+                                           name="phone"
+                                           ng-model="sTelephone"
+                                           ng-pattern="/^\+[0-9]{1,}$/"
+                                           ng-minlength="13"
+                                           ng-maxlength="13"/>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                    
+                                    
+                                    
+                                  <div class="form-group"
+                                       ng-class="{'has-success': shareLinkForm.email.$valid && shareLinkForm.email.$touched}">
+
+                                    <label for="email">Введіть електронну пошту:
+                                      <span class="snippet">(якщо вказане, то на вказаний адрес буде надіслано посилання на документ)</span>
+                                    </label>
+                                      
+                                    <div class="alert alert-danger"
+                                         ng-show="!shareLinkForm.email.$valid && shareLinkForm.email.$touched">
+                                      Не вірний формат електроної адреси!
+                                    </div>
+                                      
+                                    <input type="email"
+                                           ng-model="sMail"
+                                           class="form-control"
+                                           name="email"
+                                           id="email">
+                                  </div>
+                                </div>
+
+                                <div class="submit-button">
+                                  <button type="submit"
+                                          class="btn btn-primary"
+                                          ng-disabled="shareLinkForm.$invalid">Отримати код
+                                  </button>
+                                </div>
+                              </form>
                             </div>
-                          </form>
+                          </div>
                         </div>
-                      </div>
-                    </div>
+                    </center>
+                        
                   </div>
               </td>
             </tr>
@@ -227,17 +249,19 @@
         id="urlmodal.html">
     <div class="modal-body">
         <div class="link-modal form-group col-md-12">
-            <label for="link">Посилання, за яким користувач може отримати доступ (через SMS-пароль)</label>
+            <label for="link">Посилання, за яким користувач може отримати доступ <b ng-show="isPhoneFormVisible == 'true'"> (через SMS-пароль)</b></label>
 
             <div class="input-group">
                 <input type="text"
                        ng-model="url"
                        readonly
                        class="form-control"
-                       id="link"/>
+                       id="link"
+                       style="cursor: auto;"
+                        />
                 <span class="input-group-addon"
                       clip-copy="url">
-                    <i class="glyphicon glyphicon-copy"></i>
+                    <i class="glyphicon glyphicon-pushpin" title="Скопіювати у бувер обміну"></i>
                 </span>
             </div>
         </div>

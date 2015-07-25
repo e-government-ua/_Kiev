@@ -4,6 +4,10 @@ import java.io.InputStream;
 import java.util.List;
 
 import javax.activation.DataSource;
+import javax.mail.BodyPart;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.TaskService;
@@ -16,97 +20,61 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+import org.wf.dp.dniprorada.util.Mail;
 
 /**
- * Шаг для отправки уведомления с прикрепленным документом
  * 
- * @author inna
+ * @author BW
  * 
  */
 @Component("mailTaskWithAttachment")
-public class MailTaskWithAttachment extends BaseMailTaskWithAttachment {
+public class MailTaskWithAttachment extends Abstract_MailTaskCustom {
 
     private final static Logger log = LoggerFactory.getLogger(MailTaskWithAttachment.class);
 
-    @Autowired
-    TaskService taskService;
 
-    @Value("${mailServerHost}")
-    private String mailServerHost;
-
-    @Value("${mailServerPort}")
-    private String mailServerPort;
-
-    @Value("${mailServerDefaultFrom}")
-    private String mailServerDefaultFrom;
-
-    @Value("${mailServerUsername}")
-    private String mailServerUsername;
-
-    @Value("${mailServerPassword}")
-    private String mailServerPassword;
-
-    @Value("${mailAddressNoreply}")
-    private String mailAddressNoreplay;
-
-    private Expression from;
-    private Expression to;
-    private Expression subject;
-    private Expression text;
+    
     private Expression docName;
 
     @Override
-    public void execute(DelegateExecution execution) throws Exception {
-        List<Attachment> attachmentList = execution.getEngineServices().getTaskService()
-                .getProcessInstanceAttachments(execution.getProcessInstanceId());
-        InputStream attachmentStream = null;
-        String nameFile = "document";
-        String typeFile = "txt";
-        for (Attachment attachment : attachmentList) {
-            nameFile = attachment.getName();
-            typeFile = attachment.getType();
-            attachmentStream = execution.getEngineServices().getTaskService().getAttachmentContent(attachment.getId());
-            if (attachmentStream == null) {
-                throw new ActivitiObjectNotFoundException(
-                        "Attachment with id '" + attachment.getId() + "' doesn't have content associated with it.",
-                        Attachment.class);
+    public void execute(DelegateExecution oExecution) throws Exception {
+        
+        //MultiPartEmail oMultiPartEmail = MultiPartEmail_BaseFromTask(oExecution);
+        Mail oMail = Mail_BaseFromTask(oExecution);
+        
+        List<Attachment> aAttachment = oExecution.getEngineServices().getTaskService().getProcessInstanceAttachments(oExecution.getProcessInstanceId());
+        InputStream oInputStream_Attachment = null;
+        String sFileName = "document";
+        String sFileExt = "txt";
+        for (Attachment oAttachment : aAttachment) {
+            sFileName = oAttachment.getName();
+            sFileExt = oAttachment.getType();
+            oInputStream_Attachment = oExecution.getEngineServices().getTaskService().getAttachmentContent(oAttachment.getId());
+            if (oInputStream_Attachment == null) {
+                throw new ActivitiObjectNotFoundException("Attachment with id '" + oAttachment.getId() + "' doesn't have content associated with it.", Attachment.class);
             }
-
         }
-
-        String fromStr = getStringFromFieldExpression(this.from, execution);
-        String toStr = getStringFromFieldExpression(this.to, execution);
-        String subjectStr = getStringFromFieldExpression(this.subject, execution);
-        String textStr = getStringFromFieldExpression(this.text, execution);
-        String docNameStr = getStringFromFieldExpression(this.docName, execution);
-        MultiPartEmail email = new MultiPartEmail();
-        email.setHostName(mailServerHost);
-        email.addTo(toStr, "receiver");
-        email.setFrom(fromStr, mailAddressNoreplay);
-        email.setSubject(subjectStr);
-        email.setMsg(replaceTags(textStr, execution));
-        email.setAuthentication(mailServerUsername, mailServerPassword);
-        email.setSmtpPort(Integer.valueOf(mailServerPort));
-        email.setSSL(true);
-        email.setTLS(true);
-        if (attachmentList != null && !attachmentList.isEmpty()) {
-            String exp = "";
-            if (typeFile.startsWith("imag")) {
-                exp = typeFile.substring(11);
-            } else {
-                exp = typeFile.substring(25);
-            }
-            DataSource source = new ByteArrayDataSource(attachmentStream, "application/" + exp);
-
+        String sAttachName = getStringFromFieldExpression(this.docName, oExecution);
+        log.info("sAttachName= " + sAttachName);
+        if (aAttachment != null && !aAttachment.isEmpty()) {
+            String sFileExtNew = sFileExt.startsWith("imag") ? sFileExt.substring(11) : sFileExt.substring(25);
+            DataSource oDataSource = new ByteArrayDataSource(oInputStream_Attachment, "application/" + sFileExtNew);
             // add the attachment
-            email.attach(source, nameFile + "." + exp, docNameStr);
+            log.info("sFileName= " + sFileName);
+            log.info("sFileExt= " + sFileExt);
+            log.info("sFileExtNew= " + sFileExtNew);
+            
+            oMail._Attach(oDataSource, sFileName + "." + sFileExtNew, sAttachName);
+            //oMultiPartEmail.attach(oDataSource, sFileName + "." + sFileExtNew, sAttachName);
         } else {
             throw new ActivitiObjectNotFoundException("add the file to send");
         }
 
         // send the email
-        email.send();
+        //oMultiPartEmail.send();
+        oMail.send();
     }
 
 }

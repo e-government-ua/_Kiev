@@ -10,7 +10,7 @@
         <activiti:formProperty id="phone" name="Ваш контактний  телефон" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="warning" name="Зверніть увагу!" type="label" default="Замовляючи послугу Ви погоджуєтесь на обробку зазначених персональних даних та підтверджуєте їх достовірніть"></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
@@ -40,10 +40,10 @@
     </serviceTask>
     <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="zhitomir_mvk_1">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="clPassport" name="Паспортні дані" type="string" default="${bankIdPassport}" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="контактний  телефон" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="goal" name="Мета отримання довідки" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clPassport" name="Паспортні дані" type="string" default="${bankIdPassport}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="контактний  телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="goal" name="Мета отримання довідки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Повідимити громадянина, що довідка підготовлена до отримання"></activiti:value>
           <activiti:value id="reject" name="Повідомити громадянина про відмову в наданні послуги"></activiti:value>

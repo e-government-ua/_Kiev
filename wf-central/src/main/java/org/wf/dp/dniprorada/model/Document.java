@@ -1,30 +1,18 @@
 package org.wf.dp.dniprorada.model;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import net.sf.brunneng.jom.annotations.Identifier;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-import org.wf.dp.dniprorada.base.model.Entity;
 import org.wf.dp.dniprorada.base.model.NamedEntity;
 import org.wf.dp.dniprorada.base.util.JsonDateDeserializer;
 import org.wf.dp.dniprorada.base.util.JsonDateSerializer;
-import org.wf.dp.dniprorada.base.util.JsonDateTimeDeserializer;
-import org.wf.dp.dniprorada.base.util.JsonDateTimeSerializer;
+
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @javax.persistence.Entity
 public class Document extends NamedEntity {
@@ -81,7 +69,19 @@ public class Document extends NamedEntity {
 	@JoinColumn(name = "nID_Subject", nullable = true)
 	private Subject subject;
 
-	public String getContentKey() {
+    @JsonProperty(value = "oSignData")
+    @Column(name = "oSignData", nullable = false )
+    private String oSignData;
+
+    public String getoSignData() {
+        return oSignData;
+    }
+
+    public void setoSignData(String oSignData) {
+        this.oSignData = (oSignData == null || oSignData == "") ? "{}" : oSignData;
+    }
+
+    public String getContentKey() {
 		return contentKey;
 	}
 

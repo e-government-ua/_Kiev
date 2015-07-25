@@ -5,7 +5,7 @@
     <div class="list-group-item"
          ng-class="{'disabled': data.city}">
         <div class="row no-margin-bottom">
-            <div class="col-md-11 form-inline">
+            <div class="col-md-12 form-inline">
                 <span class="step">Крок 1. Оберіть свій регіон </span>
 
                 <div style="display:inline-block">
@@ -26,24 +26,13 @@
                             ng-disabled="data.city"></select>
                 </div>
             </div>
-            <div class="col-md-1"
-                 ng-if="data.city">
-                <div class="link-button">
-                    <a ng-click="step1()">Змінити</a>
-                </div>
-            </div>
         </div>
     </div>
     <div class="list-group-item disabled">
         <div class="row no-margin-bottom">
-            <div class="col-md-11">Крок 2. Ви увійшли як {{data.formData.params.bankIdfirstName.value}}
+            <div class="col-md-12">Крок 2. Ви увійшли як {{data.formData.params.bankIdfirstName.value}}
                                    {{data.formData.params.bankIdmiddleName.value}}
                                    {{data.formData.params.bankIdlastName.value}}
-            </div>
-            <div class="col-md-1">
-                <div class="link-button">
-                    <a ng-click="step2()">Змінити</a>
-                </div>
             </div>
         </div>
     </div>

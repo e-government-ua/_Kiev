@@ -73,8 +73,10 @@
     <div ui-view="header"></div>
 
     <div class="main full-height">
+        <errors-container></errors-container>
         <div class="view"
-             ui-view="main"></div>
+             ui-view="main">
+         </div>
     </div>
 
     <div ui-view="footer"></div>
@@ -110,7 +112,12 @@
 <!-- injector:js -->
 <script src="app/404/404.js"></script>
 <script src="app/about/about.js"></script>
+<script src="app/app.states.js"></script>
 <script src="app/common/components/dropdown/factories/dropdown.js"></script>
+<script src="app/common/components/errors/directives/mod.js"></script>
+<script src="app/common/components/errors/errors.controller.js"></script>
+<script src="app/common/components/errors/factories/errors.factory.js"></script>
+<script src="app/common/components/form/directives/dropdownOrgan/dropdownOrgan.js"></script>
 <script src="app/common/components/form/directives/file.js"></script>
 <script src="app/common/components/form/directives/file2.js"></script>
 <script src="app/common/components/form/directives/slotPicker.js"></script>
@@ -123,14 +130,16 @@
 <script src="app/common/components/typeahead/directives/typeaheadEmpty.js"></script>
 <script src="app/common/components/typeahead/factories/typeahead.js"></script>
 <script src="app/common/factories/localitylist.factory.js"></script>
+<script src="app/common/factories/organlist.factory.js"></script>
 <script src="app/common/factories/regionlist.factory.js"></script>
 <script src="app/common/services/activiti.service.js"></script>
 <script src="app/common/services/admin.service.js"></script>
 <script src="app/common/services/bankid.service.js"></script>
 <script src="app/common/services/messages.service.js"></script>
-<script src="app/common/services/place.service.js"></script>
 <script src="app/common/services/places.service.js"></script>
 <script src="app/common/services/service.service.js"></script>
+<script src="app/common/services/validation.service.js"></script>
+<script src="app/common/states/statesRepository.provider.js"></script>
 <script src="app/documents/controllers/documents.controller.js"></script>
 <script src="app/documents/controllers/documentsbankid.controller.js"></script>
 <script src="app/documents/controllers/documentscontent.controller.js"></script>
@@ -143,6 +152,9 @@
 <script src="app/journal/controllers/journalbankid.controller.js"></script>
 <script src="app/journal/controllers/journalcontent.controller.js"></script>
 <script src="app/journal/journal.js"></script>
+<script src="app/order/controllers/order.controller.js"></script>
+<script src="app/order/controllers/ordersearch.controller.js"></script>
+<script src="app/order/order.js"></script>
 <script src="app/service/built-in/controllers/servicebuiltin.controller.js"></script>
 <script src="app/service/built-in/controllers/servicebuiltinbankid.controller.js"></script>
 <script src="app/service/catalog.js"></script>

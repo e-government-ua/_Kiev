@@ -22,9 +22,33 @@
     background: #4393B9;
 }
 
+.hero-unit-heading {
+    font-weight: bold;
+}
+
+.login-form-row {
+    margin-top: 30px;
+}
+
+.btn-login {
+  background-color: #aaa;
+}
+
+.btn-login:hover {
+  background-color: #ccc;
+}
+
 .footer {
     text-align: center;
     padding: 30px 0;
     margin-top: 70px;
     border-top: 1px solid #E5E5E5;
+}
+
+
+.ng-modal-dialog {
+  position: fixed;
+  top: 350px;
+  box-shadow: 4px 4px 80px #000;
+  max-height: 100%;
 }

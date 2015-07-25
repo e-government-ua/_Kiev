@@ -131,6 +131,7 @@
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/DocumentType.csv" tableName="DocumentType" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sName" type="STRING"/>
+            <column name="bHidden" type="BOOLEAN"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Document.csv" tableName="Document" separator=";">
@@ -146,6 +147,7 @@
             <column name="sContentType" type="STRING"/>
             <column name="nID_Subject" type="NUMERIC"/>
             <column name="nID_Subject_Upload" type="NUMERIC"/>
+            <column name="oSignData" type="STRING"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
@@ -218,7 +220,6 @@
             <column name="sNameShort_UA" type="STRING"/>
             <column name="sNameShort_EN" type="STRING"/>
             <column name="sReference_LocalISO" type="STRING"/>
-
         </loadUpdateData>
     </changeSet>
 

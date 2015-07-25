@@ -41,3 +41,17 @@
 .navbar-default .navbar-nav>li>a, .navbar-default .navbar-text {
   cursor: default;
 }
+
+
+.bg_yellow{
+     background-color:#ffffcc;
+ }
+ .bg_green{
+     background-color:#cceecc;
+ }
+ .bg_red{
+     background-color:#eecccc;
+ }
+ .bg_first{
+     background-color:#eeffcc;
+ }

@@ -11,7 +11,6 @@ import org.wf.dp.dniprorada.model.*;
 import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import static org.wf.dp.dniprorada.model.EntityNotFoundException.assertPresence;
@@ -67,9 +66,9 @@ public class DocumentDaoImpl implements DocumentDao {
 	}
 
 	public Long setDocument(Long nID_Subject, Long nID_Subject_Upload, String sID_Subject_Upload,
-			String sSubjectName_Upload, String sName, Long nID_DocumentType,
-			Long nID_DocumentContentType, String sFileName,
-			String sFileContentType, byte[] aoContent) throws IOException {
+                            String sSubjectName_Upload, String sName, Long nID_DocumentType,
+                            Long nID_DocumentContentType, String sFileName,
+                            String sFileContentType, byte[] aoContent, String oSignData) throws IOException {
 
 		Document document = new Document();
 		document.setsID_subject_Upload(sID_Subject_Upload);
@@ -100,6 +99,8 @@ public class DocumentDaoImpl implements DocumentDao {
 		document.setContentType(sFileContentType);
 		document.setFile(sFileName);
 		document.setDate_Upload(new DateTime());
+
+        document.setoSignData(oSignData);
 		getSession().saveOrUpdate(document);
 		return document.getId();
 

@@ -30,12 +30,10 @@ module.exports.getRequestUrl = function (apiURL, sHost) {
 
 module.exports.buildRequest = function (req, apiURL, params, sHost) {
         var sURL = this.getRequestUrl(apiURL, sHost);
-        console.log('req.session.subject.nID=' + req.session.subject.nID);
-        console.log('sHost='+sHost+',sURL=' + sURL);
 	return {
 		'url': sURL,
 		'auth': this.getAuth(),
-		'qs': _.extend(params, {nID_Subject: req.session.subject.nID})
+		'qs': _.extend(params, {nID_Subject: req.session.subject ? req.session.subject.nID : null})
 	};
 };
 
