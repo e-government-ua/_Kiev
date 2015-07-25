@@ -9,7 +9,7 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
   $scope.service = service;
   $scope.bAdmin = AdminService.isAdmin();
   (function() {
-    if (window.pluso && typeof window.pluso.start === 'function') return;
+    if (window.pluso && typeof window.pluso.start === 'function') { return; }
     if (window.ifpluso === undefined) {
       window.ifpluso = 1;
       var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
@@ -31,28 +31,41 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
     showErrors: false
   };
 
+  //mock markers
+  $scope.markers = {
+      validate: {
+          Mail: {
+              aField_ID: ['email']
+          }
+      }
+  };
+
+  var aID_FieldMail = $scope.markers.validate.Mail.aField_ID;
+
   $scope.emailKeydown = function() {
     $scope.absentMessage.showErrors = false;
   };
 
   $scope.sendAbsentMessage = function(absentMessageForm, absentMessage) {
 
-    // var EMAIL_REGEXP = /^([\w-]+(?:.[\w-]+))@((?:[\w-]+.)\w[\w-]{0,66}).([a-z]{2,6}(?:.[a-z]{2})?)$/i;
+    var EMAIL_REGEXP = /^([\w-]+(?:.[\w-]+))@((?:[\w-]+.)\w[\w-]{0,66}).([a-z]{2,6}(?:.[a-z]{2})?)$/i;
 
-    // var ctrl = absentMessageForm;
+    var emailCtrl = absentMessageForm.email;
 
-    //   // only apply the validator if ngModel is present and Angular has added the email validator
-    //   if (ctrl && ctrl.$validators.email) {
+    function hasValidationMarker( field ) {
+      return _.indexOf( aID_FieldMail, field.$name ) !== -1;
+    }
 
-    //     // this will overwrite the default Angular email validator
-    //     ctrl.$validators.email = function(modelValue) {
-    //       return ctrl.$isEmpty(modelValue) || EMAIL_REGEXP.test(modelValue);
-    //     };
-    //   }
+    // only apply the validator if ngModel is present and Angular has added the email validator
+    if (emailCtrl && emailCtrl.$validators.email && hasValidationMarker( emailCtrl )) {
+      // overwrite the default Angular email validator
+      emailCtrl.$validators.email = function(modelValue) {
+        return emailCtrl.$isEmpty(modelValue) || EMAIL_REGEXP.test(modelValue);
+      };
+      absentMessageForm.email.$validate();
+    }
 
     if (false === absentMessageForm.$valid) {
-      console.log( 'city absentMessageForm', absentMessageForm );
-      //absentMessageForm.$setValidity('email', false);
       $scope.absentMessage.showErrors = true;
       return false;
     }

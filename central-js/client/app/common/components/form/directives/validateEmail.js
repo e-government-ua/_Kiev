@@ -37,7 +37,7 @@ angular.module('app').directive('validateEmail', function() {
           return;
         }
 
-        // this will overwrite the default Angular email validator
+        // overwrite the default Angular email validator
         ctrl.$validators.email = function(modelValue) {
           return ctrl.$isEmpty(modelValue) || EMAIL_REGEXP.test(modelValue);
         };

@@ -4,6 +4,10 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import 'font-awesome/scss/font-awesome';
 
+// Validation style
+$invalid-input-bg-color: #fcc;
+$invalid-input-border-color: #e10;
+
 /**
  * App-wide Styles
  */
@@ -1350,6 +1354,13 @@ label .snippet {
 /** 
  * Validation Styles 
  */
-/* input.ng-invalid {
-  border: 2px solid #e10;
-}*/
+
+.email-absent-form {
+  div[role="alert"] {
+    padding: 1em;
+  }
+}
+input.ng-invalid-email {
+  border: 2px solid $invalid-input-border-color;
+  background-color: $invalid-input-bg-color;
+}
