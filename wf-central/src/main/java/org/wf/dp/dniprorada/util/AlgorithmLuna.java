@@ -50,6 +50,10 @@ public class AlgorithmLuna {
     }
 
     public static boolean checkProtectedNumber(Long inputNumber){
+        log.info("inputNumber / 10="+(inputNumber / 10));
+        log.info("inputNumber="+inputNumber);
+        log.info("getLastDigit(inputNumber)="+getLastDigit(inputNumber));
+        log.info("getCheckSumLastDigit(inputNumber / 10)="+getCheckSumLastDigit(inputNumber / 10));
         return getCheckSumLastDigit(inputNumber / 10) == getLastDigit(inputNumber);
     }
 
