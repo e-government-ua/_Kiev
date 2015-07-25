@@ -62,10 +62,6 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
         if (_.indexOf(aID_FieldPhoneUA, value.id) !== -1){
             value.sFieldType='tel';
         }
-
-        if (_.indexOf(aID_FieldMail, value.id) !== -1){
-            value.sFieldType='email';
-        }
   });
 
   $scope.submit = function(form) {
