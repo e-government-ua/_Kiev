@@ -1,6 +1,6 @@
 var request = require('request');
 
-function getOptions(req) {
+function getOptions() {
     var config = require('../../config/environment');
     var activiti = config.activiti;
 
@@ -15,7 +15,9 @@ function getOptions(req) {
 }
 
 module.exports.searchOrderBySID = function (req, res) {
-    var url = getUrl('/services/getHistoryEvent_Service');
+
+    var options = getOptions();
+    var url = getUrl('/services/getHistoryEvent_Service?nID_Protected=' + req.params.nID);
     var callback = function(error, response, body) {
         res.send(body);
         res.end();
@@ -23,11 +25,16 @@ module.exports.searchOrderBySID = function (req, res) {
 
     return request.get({
         'url': url,
+        'auth': {
+            'username': options.username,
+            'password': options.password
+        },
         'qs': {
             'nID_Protected': req.params.sID
         }
     }, callback);
 };
+
 function getUrl(apiURL) {
     var options = getOptions();
     return options.protocol + '://' + options.hostname + options.path + apiURL;
