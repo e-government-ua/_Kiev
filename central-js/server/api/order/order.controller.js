@@ -17,7 +17,7 @@ function getOptions() {
 module.exports.searchOrderBySID = function (req, res) {
 
     var options = getOptions();
-    var url = getUrl('/services/getHistoryEvent_Service?nID_Protected=' + req.params.nID);
+    var url = getUrl('/services/getHistoryEvent_Service');
     var callback = function(error, response, body) {
         res.send(body);
         res.end();
@@ -30,7 +30,7 @@ module.exports.searchOrderBySID = function (req, res) {
             'password': options.password
         },
         'qs': {
-            'nID_Protected': req.params.sID
+            'nID_Protected': req.params.nID
         }
     }, callback);
 };

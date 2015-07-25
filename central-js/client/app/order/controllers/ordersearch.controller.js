@@ -7,7 +7,9 @@ angular.module('order').controller('OrderSearchController', function($rootScope,
             .then(function(data) {
                 $scope.messages = {};
                 $scope.orders = {};
-                if (data.hasOwnProperty('message') || !data) {
+                if (!data) {
+                    $scope.messages = ['Неверный номер!'];
+                } else if (data.hasOwnProperty('message')) {
                     $scope.messages = ['Завявка не знайдена'];
                 } else {
                     if (typeof data === 'object') {
