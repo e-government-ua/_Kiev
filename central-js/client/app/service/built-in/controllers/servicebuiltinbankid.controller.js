@@ -1,5 +1,17 @@
-angular.module('app').controller('ServiceBuiltInBankIDController', function($state, $stateParams, $scope, $timeout, FormDataFactory, ActivitiService, oServiceData, BankIDAccount, ActivitiForm, uiUploader) {
+angular.module('app').controller('ServiceBuiltInBankIDController', function(
+    $state, 
+    $stateParams, 
+    $scope, 
+    $timeout, 
+    FormDataFactory, 
+    ActivitiService, 
+    ValidationService, 
+    oServiceData, 
+    BankIDAccount, 
+    ActivitiForm, 
+    uiUploader ) {
 
+    'use strict';
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount;
   $scope.ActivitiForm = ActivitiForm;
@@ -18,10 +30,9 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
     $scope.markers = {
         validate:{
             PhoneUA:{
-                aField_ID:["privatePhone","workPhone", "phone"]
-            }
-            , Mail:{
-                aField_ID:["privateMail","email"]
+                aField_ID:['privatePhone','workPhone', 'phone']
+            }, Mail:{
+                aField_ID:['privateMail','email']
             }
         }
     };
@@ -34,22 +45,22 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
         var sField = value.name;
         var s;
         if (sField === null) {
-          sField = "";
+          sField = '';
         }
-        var a = sField.split(";");
+        var a = sField.split(';');
         s = a[0].trim();
         value.sFieldLabel = s;
         s = null;
         if (a.length > 1) {
           s = a[1].trim();
-          if (s === "") {
+          if (s === '') {
             s = null;
           }
         }
         value.sFieldNotes = s;
 
-        if (_.indexOf(aID_FieldPhoneUA, value.id)!=-1){
-            value.sFieldType="tel";
+        if (_.indexOf(aID_FieldPhoneUA, value.id) !== -1){
+            value.sFieldType='tel';
         }
   });
 
@@ -58,11 +69,11 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
         form.$setSubmitted();
         var bValid=true;
 
-        //$($('input[type=tel]')[0]).removeClass("has-error");
-        /*if (!$($('input[type=tel]')[0]).intlTelInput("isValidNumber")){//bValid &&
+        //$($('input[type=tel]')[0]).removeClass('has-error');
+        /*if (!$($('input[type=tel]')[0]).intlTelInput('isValidNumber')){//bValid &&
             bValid = false;
-            //$($('input[type=tel]')[0]).addClass("has-error");
-            alert("Неверный формат телефона!");
+            //$($('input[type=tel]')[0]).addClass('has-error');
+            alert('Неверный формат телефона!');
             return;
         }*/
         /*
@@ -70,6 +81,8 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
           border-color: #a94442;
           box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
         }*/
+
+        ValidationService.validateEmailByMarker( form.email, $scope.markers );
 
         if (form.$valid && bValid) {//
             ActivitiService
@@ -84,7 +97,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
                     $scope.isSending = false;
                     $scope.$root.data = $scope.data;
                     return $state.go(submitted, $stateParams);
-                })
+                });
         } else {
             $scope.isSending = false;
             return false;
@@ -119,7 +132,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
         if (response) {
           try {
             JSON.parse(response);
-            alert(response);
+            // alert(response);
           } catch (e) {
             ActivitiService.updateFileField(oServiceData,
               $scope.data.formData, $scope.files[fileKey(file)], response);
@@ -144,14 +157,14 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function($sta
 
     $timeout(function () {
         $('input[type=tel]').intlTelInput({
-            defaultCountry: "auto",
+            defaultCountry: 'auto',
             autoFormat: true,
             allowExtensions: true,
-            preferredCountries: ["ua"],
+            preferredCountries: ['ua'],
             autoPlaceholder: false,
             geoIpLookup: function(callback) {
-                $.get('http://ipinfo.io', function() {}, "jsonp").always(function(resp) {
-                    var countryCode = (resp && resp.country) ? resp.country : "";
+                $.get('http://ipinfo.io', function() {}, 'jsonp').always(function(resp) {
+                    var countryCode = (resp && resp.country) ? resp.country : '';
                     callback(countryCode);
                 });
             }
