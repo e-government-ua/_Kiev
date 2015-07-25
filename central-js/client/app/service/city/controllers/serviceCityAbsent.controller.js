@@ -42,8 +42,12 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
 
   var aID_FieldMail = $scope.markers.validate.Mail.aField_ID;
 
-  $scope.emailKeydown = function() {
+  $scope.emailKeydown = function( e, absentMessageForm, absentMessage )  {
     $scope.absentMessage.showErrors = false;
+    // If key is Enter (has 13 keyCode), try to submit the form:
+    if ( e.keyCode === 13 ) {
+      $scope.sendAbsentMessage( absentMessageForm, absentMessage );
+    }
   };
 
   $scope.sendAbsentMessage = function(absentMessageForm, absentMessage) {

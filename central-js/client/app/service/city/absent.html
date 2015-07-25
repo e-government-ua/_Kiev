@@ -22,7 +22,7 @@
             Залиште свій email. Ми Вас поінформуємо, як тільки ця послуга буде доступна в електронному вигляді.
             <div class="email-absent-form col-md-12 text-center">
                 <form name="absentMessageForm" novalidate>
-                    <input type="email" data-ng-model="absentMessage.email" name="email" id="email" placeholder="Ваш email:" required ng-keyup="emailKeydown()" data-marker="validateMe" ng-model-options="{ updateOn: 'blur' }" />
+                    <input type="email" data-ng-model="absentMessage.email" name="email" id="email" placeholder="Ваш email:" required ng-keyup="emailKeydown($event, absentMessageForm, absentMessage)" data-marker="validateMe" ng-model-options="{ updateOn: 'blur' }" />
                     <input type="button" data-ng-click="sendAbsentMessage(absentMessageForm, absentMessage)" value="Зберегти" />
                     <div role="alert" ng-if="absentMessage.showErrors">
                         <span class="error" ng-if="absentMessageForm.email.$error.required">Введіть Вашу email-адресу</span>
