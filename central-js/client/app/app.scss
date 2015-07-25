@@ -1365,3 +1365,6 @@ input.ng-invalid-email {
   border: 2px solid $invalid-input-border-color;
   background-color: $invalid-input-bg-color;
 }
+.validation-message {
+  color: #a94442;
+}

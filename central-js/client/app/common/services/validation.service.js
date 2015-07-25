@@ -30,13 +30,13 @@ angular.module('app').service('ValidationService', function () {
       return;
     }
 
-    // only apply the validator if ngModel (emailCtrl) is present and there's email validator
-    if ( !emailCtrl || !emailCtrl.$validators.email ) {
+    // markers are here, so we can check if field is marked by it's name: 
+    if (_.indexOf( markers.validate.Mail.aField_ID, emailCtrl.$name ) === -1) {
       return;
     }
 
-    // markers are here, so we can check if field is marked by it's name: 
-    if (_.indexOf( markers.validate.Mail.aField_ID, emailCtrl.$name ) === -1) {
+    // only apply the validator if ngModel (emailCtrl) is present and there's email validator
+    if ( !emailCtrl || !emailCtrl.$validators ) {
       return;
     }
 
