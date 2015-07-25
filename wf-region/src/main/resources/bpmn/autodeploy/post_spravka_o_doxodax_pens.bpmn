@@ -9,6 +9,16 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string"></activiti:formProperty>
         <activiti:formProperty id="adress" name="Ваша адреса" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Оберіть пенсійний фонд, до якого Ви відноситесь" type="enum" required="true">
+          <activiti:value id="fond1" name="Бабушкінський, вул. Героїв Сталінграда, 116-а"></activiti:value>
+          <activiti:value id="fond2" name="Ленінський, пр. Калініна, 52"></activiti:value>
+          <activiti:value id="fond3" name="Самарський, вул. Молодогвардійська, 22-а"></activiti:value>
+          <activiti:value id="fond4" name="АНД, вул. Маріупольська, 3"></activiti:value>
+          <activiti:value id="fond5" name="Жовтневий, вул. Писаржевського, 1-а"></activiti:value>
+          <activiti:value id="fond6" name="Кіровський, Набережна Леніна, 17"></activiti:value>
+          <activiti:value id="fond7" name="Красногвардійський, вул. Чичеріна, 100"></activiti:value>
+          <activiti:value id="fond8" name="Індустріальний, вул. Богдана Хмельницького, 14 А"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="notice" name="Прошу надати мені довідку про доходи (розмір пенсії) за такий період:" type="enum" required="true">
@@ -18,6 +28,12 @@
         </activiti:formProperty>
         <activiti:formProperty id="date" name="Відповідна дата; заповніть її, якщо Ви вибрали такий вид довідки вище" type="date"></activiti:formProperty>
         <activiti:formProperty id="pens" name="Копія пенсійного посвідчення; завантажте копію пенсійного посвідчення " type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default=" "></activiti:formProperty>
+        <activiti:formProperty id="nID_Subject" name="ИД-номер субъекта" type="invisible" default="0"></activiti:formProperty>
+        <activiti:formProperty id="sID_Merchant" name="ИД-строковой мерчанта (магазина)" type="invisible" default="i75116857714"></activiti:formProperty>
+        <activiti:formProperty id="sSum" name="сумма платежа" type="invisible" default="10.94"></activiti:formProperty>
+        <activiti:formProperty id="sID_Currency" name="ИД-строковой валюты" type="invisible" default="UAH"></activiti:formProperty>
+        <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default="Оплата послуги отримання довідки про доходи (розмір пенсії)"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="обробка укрпоштою" activiti:candidateGroups="post_spravka_o_doxodax_pens">
@@ -28,6 +44,16 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress" name="Ваша адреса" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Оберіть пенсійний фонд, до якого Ви відноситесь" type="enum" writable="false">
+          <activiti:value id="fond1" name="Бабушкінський, вул. Героїв Сталінграда, 116-а"></activiti:value>
+          <activiti:value id="fond2" name="Ленінський, пр. Калініна, 52"></activiti:value>
+          <activiti:value id="fond3" name="Самарський, вул. Молодогвардійська, 22-а"></activiti:value>
+          <activiti:value id="fond4" name="АНД, вул. Маріупольська, 3"></activiti:value>
+          <activiti:value id="fond5" name="Жовтневий, вул. Писаржевського, 1-а"></activiti:value>
+          <activiti:value id="fond6" name="Кіровський, Набережна Леніна, 17"></activiti:value>
+          <activiti:value id="fond7" name="Красногвардійський, вул. Чичеріна, 100"></activiti:value>
+          <activiti:value id="fond8" name="Індустріальний, вул. Богдана Хмельницького, 14 А"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="notice" name="Прошу надати мені довідку про доходи (розмір пенсії) за такий період:" type="enum" writable="false">
@@ -40,8 +66,10 @@
         <activiti:formProperty id="decision" name="Стан заяви" type="enum" required="true">
           <activiti:value id="attr1_inwork" name="відправлені запити, очікую відповіді"></activiti:value>
           <activiti:value id="attr2_finish" name="відповідь отримана, відправлена заявнику"></activiti:value>
+          <activiti:value id="attr3_money_no" name="Сплата не надійшла"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Примітки; тут ви можете написати текст для громадянина, який буде відправлений йому на електронну пошту" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="sIDPayment" name="ID платежа за послугу" type="string" default="${sID_Payment}" writable="false" required="true"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -80,8 +108,7 @@
     </serviceTask>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow5" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
-    <endEvent id="endevent2" name="End"></endEvent>
-    <sequenceFlow id="flow6" sourceRef="mailtask1" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
     <serviceTask id="mailtask2" name="Відповідь після надсилання довідки поштою" activiti:type="mail">
       <extensionElements>
         <activiti:field name="text">
@@ -109,7 +136,59 @@
     </serviceTask>
     <sequenceFlow id="flow7" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <serviceTask id="servicetask1" name="загрузка файлов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <sequenceFlow id="flow8" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="servicetask1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="servicetask2" targetRef="usertask1"></sequenceFlow>
+    <serviceTask id="servicetask2" name="відправка імейла для сплати" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Отримання довідки про доходи (розмір пенсії)</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а), "${bankIdfirstName}" "${bankIdmiddleName}".
+
+Для отримання послуги Вам необхідно сплатити її протягом 1 дня з моменту подачі заяви.
+Для сплати натисніть цю кнопку:
+[paymentButton_LiqPay]
+
+
+
+З повагою,
+Укрпошта
+Команда Порталу державних послуг igov.org.ua</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow11" sourceRef="exclusivegateway1" targetRef="mailtask3"></sequenceFlow>
+    <serviceTask id="mailtask3" name="Відповідь у разі відсутності сплати" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Довідка про доходи (пенсійний фонд)</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ваше звернення щодо отримання довідки про доходи фізичних осіб відхилено, так як Ви не сплатили послуги протягом 3-х днів. Ви можете подати ще одну заяву на порталі igov.org.ua
+
+З повагою,
+Укрпошта,
+Команда Порталу державних послу iGov.org.ua</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow12" sourceRef="mailtask3" targetRef="endevent2"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_post_spravka_o_doxodax_pens">
     <bpmndi:BPMNPlane bpmnElement="post_spravka_o_doxodax_pens" id="BPMNPlane_post_spravka_o_doxodax_pens">
@@ -117,54 +196,75 @@
         <omgdc:Bounds height="35.0" width="35.0" x="20.0" y="57.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="200.0" y="40.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="350.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
-        <omgdc:Bounds height="40.0" width="40.0" x="360.0" y="47.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="515.0" y="47.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="445.0" y="40.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="608.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="650.0" y="170.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="750.0" y="178.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="605.0" y="50.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="768.0" y="280.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="91.0" width="105.0" x="450.0" y="150.0"></omgdc:Bounds>
+        <omgdc:Bounds height="91.0" width="105.0" x="610.0" y="150.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="96.0" y="130.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="94.0" y="168.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="210.0" y="40.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="608.0" y="270.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
-        <omgdi:waypoint x="305.0" y="67.0"></omgdi:waypoint>
-        <omgdi:waypoint x="360.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="515.0" y="67.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-        <omgdi:waypoint x="400.0" y="67.0"></omgdi:waypoint>
-        <omgdi:waypoint x="445.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="555.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="608.0" y="67.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="380.0" y="87.0"></omgdi:waypoint>
-        <omgdi:waypoint x="502.0" y="150.0"></omgdi:waypoint>
+        <omgdi:waypoint x="535.0" y="87.0"></omgdi:waypoint>
+        <omgdi:waypoint x="662.0" y="150.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="555.0" y="195.0"></omgdi:waypoint>
-        <omgdi:waypoint x="627.0" y="195.0"></omgdi:waypoint>
-        <omgdi:waypoint x="650.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="715.0" y="195.0"></omgdi:waypoint>
+        <omgdi:waypoint x="750.0" y="195.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
-        <omgdi:waypoint x="550.0" y="67.0"></omgdi:waypoint>
-        <omgdi:waypoint x="605.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="40.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="-7.0"></omgdi:waypoint>
+        <omgdi:waypoint x="518.0" y="-7.0"></omgdi:waypoint>
+        <omgdi:waypoint x="402.0" y="-7.0"></omgdi:waypoint>
+        <omgdi:waypoint x="402.0" y="40.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="37.0" y="92.0"></omgdi:waypoint>
-        <omgdi:waypoint x="148.0" y="130.0"></omgdi:waypoint>
+        <omgdi:waypoint x="146.0" y="168.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="148.0" y="130.0"></omgdi:waypoint>
-        <omgdi:waypoint x="252.0" y="95.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="146.0" y="168.0"></omgdi:waypoint>
+        <omgdi:waypoint x="262.0" y="95.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="315.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="67.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="535.0" y="87.0"></omgdi:waypoint>
+        <omgdi:waypoint x="535.0" y="297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="608.0" y="297.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="713.0" y="297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="768.0" y="297.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

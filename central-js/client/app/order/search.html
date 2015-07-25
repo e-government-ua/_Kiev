@@ -37,53 +37,42 @@
                             </form>
                         </div>
                     <br>
+
                     <div ng-repeat="message in messages">
                         <div class="alert alert-info" role="alert">
                             {{message}}
                         </div>
                     </div>
 
-                    <!--<table ng-show="documents.length > 0" class="table table-striped">-->
-                        <!--<thead>-->
-                        <!--<tr>-->
-                            <!--<th class="col-md-7">-->
-                                <!--<p class="text-muted">Документ</p>-->
-                            <!--</th>-->
-                            <!--<th class="col-md-3">-->
-                                <!--<p class="text-muted">Дата завантаження копії</p>-->
-                            <!--</th>-->
-                            <!--<th class="col-md-3">-->
-                                <!--<p class="text-muted">Ким завантажена копія</p>-->
-                            <!--</th>-->
-                            <!--<th class="col-md-1 align-right">-->
-                                <!--<p class="text-muted">Дії</p>-->
-                            <!--</th>-->
-                        <!--</tr>-->
-                        <!--</thead>-->
+                    <div ng-show="orders.length > 0">
+                        <div>
+                            Тип заявки: Услуга
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th class="col-md-6">
+                                    <p class="text-muted">Час</p>
+                                </th>
+                                <th class="col-md-6">
+                                    <p class="text-muted">Статус</p>
+                                </th>
+                            </tr>
+                            </thead>
 
-                        <!--<tbody ng-repeat="doc in documents">-->
+                            <tbody ng-repeat="or in orders">
 
-                        <!--<tr id="document">-->
-                            <!--<td>-->
-                                <!--{{doc.oDocumentType.sName}}-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--{{doc.sDate_Upload | date:'dd MMMM yyyy HH:mm'}}-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--{{doc.sSubjectName_Upload}}-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--<a ng-href="{{getDocumentLink(doc.nID, typeId, operatorId, code, smsPass)}}"-->
-                                   <!--target="_self">-->
-                                                    <!--<span class="glyphicon glyphicon-download"-->
-                                                          <!--title="Завантажити копію"-->
-                                                          <!--aria-hidden="true"></span>-->
-                                <!--</a>-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                        <!--</tbody>-->
-                    <!--</table>-->
+                            <tr id="document">
+                                <td>
+                                    {{ or.sDate | date: 'dd MMMM yyyy HH:mm'}}
+                                </td>
+                                <td>
+                                    {{or.sID_Status}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
