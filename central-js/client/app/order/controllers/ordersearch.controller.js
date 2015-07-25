@@ -6,10 +6,14 @@ angular.module('order').controller('OrderSearchController', function($rootScope,
         ServiceService.searchOrder(sID)
             .then(function(data) {
                 $scope.messages = {};
-                if (typeof data === 'object') {
-                    data = [data];
+                if (data.hasOwnProperty('message') || !data) {
+                    $scope.messages = ['Завявка не знайдена'];
+                } else {
+                    if (typeof data === 'object') {
+                        data = [data];
+                    }
+                    $scope.orders = data;
                 }
-                $scope.orders = data;
 
                 return data;
             });
