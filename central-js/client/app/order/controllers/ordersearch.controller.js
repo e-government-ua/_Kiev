@@ -6,6 +6,7 @@ angular.module('order').controller('OrderSearchController', function($rootScope,
         ServiceService.searchOrder(sID)
             .then(function(data) {
                 $scope.messages = {};
+                $scope.orders = {};
                 if (data.hasOwnProperty('message') || !data) {
                     $scope.messages = ['Завявка не знайдена'];
                 } else {
