@@ -3,7 +3,8 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
                                                       $scope,
                                                       service,
                                                       MessagesService,
-                                                      AdminService) {
+                                                      AdminService,
+                                                      ValidationService) {
   'use strict';
 
   $scope.service = service;
@@ -32,13 +33,13 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
   };
 
   // mock markers
-  // $scope.markers = {
-  //     validate: {
-  //         Mail: {
-  //             aField_ID: ['email']
-  //         }
-  //     }
-  // };
+  $scope.markers = {
+       validate: {
+           Mail: {
+               aField_ID: ['email']
+           }
+       }
+  };
 
   $scope.emailKeydown = function( e, absentMessageForm, absentMessage )  {
     $scope.absentMessage.showErrors = false;
@@ -50,30 +51,7 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
 
   $scope.sendAbsentMessage = function(absentMessageForm, absentMessage) {
 
-    var emailCtrl = absentMessageForm.email;
-    var EMAIL_REGEXP = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
-
-    function hasValidationMarker( emailCtrl ) {
-      // only apply the validator if ngModel (emailCtrl) is present and there's email validator
-      if ( !emailCtrl || !emailCtrl.$validators.email ) {
-        return false;
-      }
-      // return true if there's no markers set, so it won't prevent validation
-      if ( !$scope.markers ) {
-        return true;
-      }
-      // markers are here, so we can check if field is marked by it's name: 
-      return _.indexOf( $scope.markers.validate.Mail.aField_ID, emailCtrl.$name ) !== -1;
-    }
-
-    if (hasValidationMarker( emailCtrl )) {
-      // overwrite the default Angular email validator
-      emailCtrl.$validators.email = function(modelValue) {
-        return emailCtrl.$isEmpty(modelValue) || EMAIL_REGEXP.test(modelValue);
-      };
-      // and revalidate it:
-      absentMessageForm.email.$validate();
-    }
+    ValidationService.validateEmailByMarker( absentMessageForm.email, $scope.markers );
 
     if (false === absentMessageForm.$valid) {
       $scope.absentMessage.showErrors = true;
