@@ -1342,6 +1342,24 @@ label .snippet {
 .slot-picker .slot-time {
   min-width: 85px;
 }
- .subcategory_title{
+
+.subcategory_title{
   padding-left:30px;
+}
+
+.kyiv-header-container .container {
+  height: 175px;
+}
+
+.kyiv-header {
+  vertical-align: middle;
+  display: inline-block;
+  background-image: url(/assets/images/baners/igov_kiev.png);
+  background-repeat: no-repeat !important;
+  background-position: 0px 0px;
+  width: 100%;
+  height: 100%;
+  margin-right: 5px;
+  margin-bottom: 3px;
+  background-size: cover;
 }
