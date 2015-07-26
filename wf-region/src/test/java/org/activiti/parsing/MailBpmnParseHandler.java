@@ -1,9 +1,8 @@
 package org.activiti.parsing;
 
-import org.activiti.bpmn.model.ImplementationType;
-import org.activiti.bpmn.model.ServiceTask;
-import org.activiti.engine.impl.bpmn.parser.BpmnParse;
-import org.activiti.engine.impl.bpmn.parser.handler.ServiceTaskParseHandler;
+import org.activiti.bpmn.model.*;
+import org.activiti.engine.impl.bpmn.parser.*;
+import org.activiti.engine.impl.bpmn.parser.handler.*;
 
 /**
  * Custom, BpmnParseHendler for skipping real e-mail tasks

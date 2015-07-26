@@ -1,9 +1,7 @@
 package org.activiti.parsing;
 
-import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.delegate.Expression;
-import org.activiti.engine.delegate.JavaDelegate;
-import org.springframework.stereotype.Component;
+import org.activiti.engine.delegate.*;
+import org.springframework.stereotype.*;
 
 /**
  * Mock e-mail service task.
