@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('appBoilerPlate').provider('statesRepository', function StatesRepositoryProvider() {
   var findModeRegexp = /(\w*).(\w*)(\w*|.*)*/;
 
@@ -18,9 +20,9 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
 
   };
 
-  this.isCentral = function(){
+  this.isCentral = function () {
     return this.mode === 'local' || this.mode === 'igov'
-  }
+  };
 
   var getHeader = function (mode) {
     var header;
@@ -30,7 +32,7 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
       header = 'header.html'
     }
     return 'app/header/' + header;
-  }
+  };
 
   this.index = function () {
     return {
@@ -48,11 +50,18 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
         }
       }
     };
-  }
+  };
 
-  var StatesRepository = function(mode, domain){
+  var StatesRepository = function (mode, domain) {
     this.mode = mode;
     this.domain = domain;
+  };
+
+  StatesRepository.prototype.getIDPlaces = function(){
+    if(this.mode === 'kyiv' || this.mode === 'kiev'){
+      return ['123','456'];
+    }
+    return [];
   }
 
   this.$get = [function StatesRepositoryFactory() {
