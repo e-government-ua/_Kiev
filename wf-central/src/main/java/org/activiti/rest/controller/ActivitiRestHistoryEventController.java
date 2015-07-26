@@ -2,9 +2,7 @@ package org.activiti.rest.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.dao.HistoryEvent_ServiceDao;
+import org.wf.dp.dniprorada.model.EntityNotFoundException;
 import org.wf.dp.dniprorada.model.HistoryEvent_Service;
 
 import javax.servlet.http.HttpServletResponse;
-import java.nio.charset.Charset;
 
 @Controller
 @RequestMapping(value = "/services")
@@ -63,19 +61,28 @@ public class ActivitiRestHistoryEventController {
     public
     @ResponseBody
     ResponseEntity<HistoryEvent_Service> getHistoryEvent_Service(
-            @RequestParam(value = "nID_Protected") Long nID_Protected) {
+            @RequestParam(value = "nID_Protected") Long nID_Protected) throws ActivitiRestException {
 
         HistoryEvent_Service event_service = null;
         ResponseEntity<HistoryEvent_Service> result;
         try {
             event_service = historyEventServiceDao.getHistoryEvent_ServiceByID_Protected(nID_Protected);
             result = JsonRestUtils.toJsonResponse(event_service);
+        } catch (EntityNotFoundException e) {
+            ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR","Record not found", e);
+            newErr.setHttpStatus(HttpStatus.FORBIDDEN);
+            throw newErr;
+        } catch (IllegalArgumentException e) {
+            ActivitiRestException newErr =new ActivitiRestException("BUSINESS_ERR", e.getMessage(), e);
+            newErr.setHttpStatus(HttpStatus.FORBIDDEN);
+            throw newErr;
         } catch (RuntimeException e) {
-            HttpHeaders headers = new HttpHeaders();
-            MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
-            headers.setContentType(mediaType);
-            headers.set("Reason", e.getMessage());
-            result = new ResponseEntity<>(headers, HttpStatus.valueOf(403));
+            throw new ActivitiRestException(e.getMessage(), e);
+//            HttpHeaders headers = new HttpHeaders();
+//            MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
+//            headers.setContentType(mediaType);
+//            headers.set("Reason", e.getMessage());
+//            result = new ResponseEntity<>(headers, HttpStatus.valueOf(403));
         }
         return result;
     }

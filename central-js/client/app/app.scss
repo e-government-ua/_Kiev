@@ -1360,9 +1360,9 @@ label .snippet {
   margin-top: 5em;
 }
 
-/** 
- * Validation Styles 
- */
+/**
+* Validation Styles
+*/
 
 .email-absent-form {
   margin-top: 44px;
@@ -1370,10 +1370,28 @@ label .snippet {
     padding: 1em;
   }
 }
+
 input.ng-invalid-email {
   border: 1px solid $invalid-input-border-color;
   background-color: $invalid-input-bg-color;
 }
 .validation-message {
   color: $invalid-label-text-color;
+}
+
+.kyiv-header-container .container {
+  height: 175px;
+}
+
+.kyiv-header {
+  vertical-align: middle;
+  display: inline-block;
+  background-image: url(/assets/images/baners/igov_kiev.png);
+  background-repeat: no-repeat !important;
+  background-position: 0px 0px;
+  width: 100%;
+  height: 100%;
+  margin-right: 5px;
+  margin-bottom: 3px;
+  background-size: cover;
 }
