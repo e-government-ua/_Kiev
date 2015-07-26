@@ -1,4 +1,4 @@
-angular.module('documents', []).controller('DocumentsController', function($state, $scope, BankIDService) {
+angular.module('documents').controller('DocumentsController', function($state, $scope, BankIDService) {
   $scope.loading = false;
   BankIDService.isLoggedIn().then(function() {
     if ($state.is('index.documents')) {
