@@ -6,10 +6,18 @@ angular.module('order').controller('OrderSearchController', function($rootScope,
         ServiceService.searchOrder(sID)
             .then(function(data) {
                 $scope.messages = {};
-                if (typeof data === 'object') {
-                    data = [data];
+                $scope.orders = {};
+                if (!data) {
+                    $scope.messages = ['Неверный номер!'];
+                } else if (data.hasOwnProperty('message')) {
+                    $scope.messages = ['Завявка не знайдена'];
+                } else {
+                    if (typeof data === 'object') {
+                        data.sDateEdit = new Date();
+                        data = [data];
+                    }
+                    $scope.orders = data;
                 }
-                $scope.orders = data;
 
                 return data;
             });

@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Required;
 import org.wf.dp.dniprorada.model.EntityNotFoundException;
 import org.wf.dp.dniprorada.model.HistoryEvent_Service;
 import org.wf.dp.dniprorada.util.AlgorithmLuna;
+import org.apache.log4j.Logger;
 
 
 public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
 
     private SessionFactory sessionFactory;
+    private static final Logger log = Logger.getLogger(HistoryEvent_ServiceDaoImpl.class);
 
     @Required
     public SessionFactory getSessionFactory() {
@@ -37,14 +39,17 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
     @Override
     public HistoryEvent_Service getHistoryEvent_ServiceByID_Protected(Long nID_Protected) {
         if (!AlgorithmLuna.checkProtectedNumber(nID_Protected)) {
-           throw new IllegalArgumentException("CRC Error");
+            log.warn("CRC Error");
+            throw new IllegalArgumentException("CRC Error");
         }
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
         criteria.add(Restrictions.eq("id", nID_Protected / 10));
         HistoryEvent_Service event_service = (HistoryEvent_Service) criteria.uniqueResult();
         if (event_service == null) {
+            log.warn("Record not found");
             throw new EntityNotFoundException("Record not found");
         } else {
+            log.info("Ok");
             event_service.setnID_Protected(nID_Protected);
         }
         return event_service;

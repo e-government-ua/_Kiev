@@ -2,7 +2,6 @@
     <div class="col-md-12">
         <h1>Заявки</h1>
         <p>На цій сторінці Ви можете переглянути статус по своїй заявці за її номером.</p>
-        <b style="color: red;">Сервіс в процесі реалізації!</b>
     </div>
 </div>
 <div class="row">
@@ -46,7 +45,7 @@
 
                     <div ng-show="orders.length > 0">
                         <div>
-                            Тип заявки: Услуги
+                            Тип заявки: Услуга
                         </div>
                         <table class="table table-striped">
                             <thead>
@@ -64,7 +63,7 @@
 
                             <tr id="document">
                                 <td>
-                                    {{ or.sDate | date: 'dd MMMM yyyy HH:mm'}}
+                                    {{ or.sDateEdit | date: 'dd MMMM yyyy HH:mm'}}
                                 </td>
                                 <td>
                                     {{or.sID_Status}}

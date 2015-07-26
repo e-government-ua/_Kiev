@@ -4,6 +4,10 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import 'font-awesome/scss/font-awesome';
 
+// Validation style
+$invalid-input-bg-color: #fcc;
+$invalid-input-border-color: #e10;
+
 /**
  * App-wide Styles
  */
@@ -15,6 +19,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
   padding: 0.2em 0;
 }
 
+// Component styles are injected through grunt
 // Component styles are injected through grunt
 // injector
 // endinjector
@@ -1342,9 +1347,27 @@ label .snippet {
 .slot-picker .slot-time {
   min-width: 85px;
 }
-
-.subcategory_title{
+ .subcategory_title{
   padding-left:30px;
+}
+
+/**
+* Validation Styles
+*/
+
+.email-absent-form {
+  margin-top: 44px;
+  div[role="alert"] {
+    padding: 1em;
+  }
+}
+
+input.ng-invalid-email {
+  border: 2px solid $invalid-input-border-color;
+  background-color: $invalid-input-bg-color;
+}
+.validation-message {
+  color: #a94442;
 }
 
 .kyiv-header-container .container {

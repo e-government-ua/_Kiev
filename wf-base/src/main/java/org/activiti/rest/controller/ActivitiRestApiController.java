@@ -145,7 +145,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     }
 
 
-    @RequestMapping(value = "/process-definitions00", method = RequestMethod.GET)
+    @RequestMapping(value = "/process-definitions", method = RequestMethod.GET)
     @Transactional
     public
     @ResponseBody
