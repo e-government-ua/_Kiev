@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="demo8" name="* Львів МВК - Дозвіл на розміщення рекоамної конструкції" isExecutable="true">
+  <process id="demo3" name="* Івано-Франківськ МВК - Надання довідки про перебування на квартирному обліку при міськвиконкомі за місцем проживання та в житлово-будівельному кооперативі." isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="firstName" name="Имя" type="string" required="true"></activiti:formProperty>
@@ -63,8 +63,8 @@
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="endevent1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_demo8">
-    <bpmndi:BPMNPlane bpmnElement="demo8" id="BPMNPlane_demo8">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_demo3">
+    <bpmndi:BPMNPlane bpmnElement="demo3" id="BPMNPlane_demo3">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="50.0" y="120.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
