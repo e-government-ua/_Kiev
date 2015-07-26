@@ -1,5 +1,10 @@
 package org.wf.dp.dniprorada.engine.task;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +23,7 @@ import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
+import org.wf.dp.dniprorada.util.Util;
 
 /**
  * @author askosyr
@@ -45,6 +51,7 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
 	private FlowSlotTicketDao oFlowSlotTicketDao;
 
 	private Expression aFieldInheritedAttachmentID;
+	private Expression osBody;
 
 	@Override
 	public void notify(DelegateTask task) {
@@ -66,6 +73,9 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
 		List<Attachment> attachmentsToAdd = getInheritedAttachmentIdsFromTask(attachments, sInheritedAttachmentsIds);
 
 		addAttachmentsToCurrentTask(attachmentsToAdd, task);
+                
+                Util.replacePatterns(execution, this.osBody, LOG); 
+                
 	}
 
 	private void addAttachmentsToCurrentTask(List<Attachment> attachmentsToAdd,
