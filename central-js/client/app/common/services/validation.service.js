@@ -26,7 +26,7 @@ angular.module('app').service('ValidationService', function () {
     // alternative re: /^([\w-]+(?:.[\w-]+))@((?:[\w-]+.)\w[\w-]{0,66}).([a-z]{2,6}(?:.[a-z]{2})?)$/i;
 
     // return true if there's no markers set, so it won't prevent validation
-    if ( !markers ) {
+    if ( !markers || !emailCtrl ) {
       return;
     }
 
