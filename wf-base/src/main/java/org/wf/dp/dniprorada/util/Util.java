@@ -164,7 +164,9 @@ public final class Util {
                                 File oFile = new File(sName);//"pattern/print/subsidy.html"
                                 oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
                                 if(!oFile.exists()){
-                                    oFile = new File("class/"+sName);
+                                    //oFile = new File("class/"+sName);
+                                    // /sybase/tomcat_wf-region/bin/class/pattern/print/subsidy.html                                    
+                                    oFile = new File("../webapps/wf-region/WEB-INF/classes/"+sName);
                                 }
                                 oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
                                 if(oFile.exists()){
