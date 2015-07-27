@@ -102,9 +102,15 @@ public final class Util {
         
         
 
-	public static void replacePatterns(DelegateExecution execution, Expression osBody, Logger oLog) {
+	//public static void replacePatterns(DelegateExecution execution, Expression osBody, Logger oLog) {
+	public static void replacePatterns(DelegateExecution execution, Logger oLog) {
                 try{
-                    String sExpression = getStringFromFieldExpression(osBody, execution);
+                    /*String sBody=(String)execution.getVariable("sBody");
+                    if(sBody==null){
+                        return;
+                    }*/
+                    //String sExpression = getStringFromFieldExpression(osBody, execution);
+                    String sExpression = (String)execution.getVariable("sBody");
                     oLog.info("[replacePatterns]:sExpression="+sExpression);
                     if(sExpression!=null){
                         String[] asPatterns = {
