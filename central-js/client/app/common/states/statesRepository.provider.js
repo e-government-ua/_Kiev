@@ -1,5 +1,7 @@
+'use strict';
+
 angular.module('appBoilerPlate').provider('statesRepository', function StatesRepositoryProvider() {
-  var findModeRegexp = /(\w*).(\w*)(\w*|.*)*/;
+  var findModeRegexp = /(\w*).(\w*).(\w*)(\w*|.*)*/;
 
   this.init = function (domen) {
     //test.kiev.igov.org.ua
@@ -7,8 +9,12 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
     this.domen = domen;
     if (domen.split(':')[0] !== 'localhost') {
       var matches = findModeRegexp.exec(domen);
-      if (matches[1] === 'test') {
-        this.mode = matches[2];
+      if (matches[1] === 'test' ) {// || matches[1] === 'test-version'
+        if (matches[2] === 'version' ) {
+            this.mode = matches[3];
+        }else{
+            this.mode = matches[2];
+        }
       } else {
         this.mode = matches[1];
       }
@@ -18,9 +24,9 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
 
   };
 
-  this.isCentral = function(){
+  this.isCentral = function () {
     return this.mode === 'local' || this.mode === 'igov'
-  }
+  };
 
   var getHeader = function (mode) {
     var header;
@@ -30,7 +36,7 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
       header = 'header.html'
     }
     return 'app/header/' + header;
-  }
+  };
 
   this.index = function () {
     return {
@@ -48,11 +54,18 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
         }
       }
     };
-  }
+  };
 
-  var StatesRepository = function(mode, domain){
+  var StatesRepository = function (mode, domain) {
     this.mode = mode;
     this.domain = domain;
+  };
+
+  StatesRepository.prototype.getIDPlaces = function(){
+    if(this.mode === 'kyiv' || this.mode === 'kiev'){
+      return ['123','456'];
+    }
+    return [];
   }
 
   this.$get = [function StatesRepositoryFactory() {

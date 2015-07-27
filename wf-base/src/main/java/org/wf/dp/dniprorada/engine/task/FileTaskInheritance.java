@@ -1,5 +1,10 @@
 package org.wf.dp.dniprorada.engine.task;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +23,7 @@ import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
+import org.wf.dp.dniprorada.util.Util;
 
 /**
  * @author askosyr
@@ -45,15 +51,18 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
 	private FlowSlotTicketDao oFlowSlotTicketDao;
 
 	private Expression aFieldInheritedAttachmentID;
+	//private Expression osBody;
 
 	@Override
 	public void notify(DelegateTask task) {
 		
 		DelegateExecution execution = task.getExecution();
-		
+
+                Util.replacePatterns(execution, LOG); 
+                
 		String sInheritedAttachmentsIds = getStringFromFieldExpression(this.aFieldInheritedAttachmentID, execution);
 
-		if (sInheritedAttachmentsIds == null) {
+		if (sInheritedAttachmentsIds == null || "".equals(sInheritedAttachmentsIds.trim())) {
 			LOG.error("aFieldInheritedAttachmentID field is not specified");
 			return;
 		}
@@ -66,6 +75,11 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
 		List<Attachment> attachmentsToAdd = getInheritedAttachmentIdsFromTask(attachments, sInheritedAttachmentsIds);
 
 		addAttachmentsToCurrentTask(attachmentsToAdd, task);
+                
+                //runtimeService.setVariable(snID_Process, "sID_Payment", sID_Payment);
+                //String sBody=(String)execution.getVariable("sBody");
+                //Util.replacePatterns(execution, this.osBody, LOG); 
+                
 	}
 
 	private void addAttachmentsToCurrentTask(List<Attachment> attachmentsToAdd,

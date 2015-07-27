@@ -2,18 +2,24 @@ package org.wf.dp.dniprorada.util;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import org.activiti.engine.delegate.DelegateExecution;
+import org.activiti.engine.delegate.Expression;
 
 import sun.misc.BASE64Encoder;
 import sun.misc.BASE64Decoder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getStringFromFieldExpression;
 
 public final class Util {
 
@@ -89,4 +95,118 @@ public final class Util {
 		br.close();
 		return sb.toString();
 	}
+        
+        
+        
+        
+        
+        
+
+	//public static void replacePatterns(DelegateExecution execution, Expression osBody, Logger oLog) {
+	public static void replacePatterns(DelegateExecution execution, Logger oLog) {
+                try{
+                    /*String sBody=(String)execution.getVariable("sBody");
+                    if(sBody==null){
+                        return;
+                    }*/
+                    //String sExpression = getStringFromFieldExpression(osBody, execution);
+                    String sExpression = (String)execution.getVariable("sBody");
+                    oLog.info("[replacePatterns]:sExpression="+sExpression);
+                    if(sExpression!=null){
+                        String[] asPatterns = {
+                                "pattern/print/subsidy.html"
+                                ,"pattern/print/1.html"
+                                ,"pattern/print/2.html"
+                                ,"pattern/print/3.html"
+                                ,"pattern/print/4.html"
+                                ,"pattern/print/5.html"
+                        };
+                        for(String sName:asPatterns){
+                            if(sExpression.contains("["+sName+"]")){
+                                oLog.info("[replacePatterns]:sName="+sName);
+                                //String sFullPath = sName.replaceAll("\\.", "/").replaceLast(sName, sName);
+                                File oFile = new File(sName);//"pattern/print/subsidy.html"
+                                oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
+                                if(!oFile.exists()){
+                                    oFile = new File("class/"+sName);
+                                }
+                                oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
+                                if(oFile.exists()){
+                                    String sData = getFromFile(oFile, "Cp1251");
+                                    oLog.info("[replacePatterns]:sData="+sData);
+                                    if(sData!=null){
+                                        sExpression=sExpression.replaceAll("\\Q["+sName+"]\\E", sData);
+                                        oLog.info("[replacePatterns]:sExpression="+sExpression);
+                                        //setStringFromFieldExpression(osBody, execution, sExpression);
+                                        execution.setVariable("sBody", sExpression);
+                                        oLog.info("[replacePatterns]:Ok!");
+                                    }
+                                }else{
+                                    oLog.info("[replacePatterns]:oFile.getAbsolutePath()="+oFile.getAbsolutePath());
+                                    oLog.info("[replacePatterns]:oFile.getCanonicalPath()="+oFile.getCanonicalPath());
+                                    oLog.info("[replacePatterns]:oFile.getPath()="+oFile.getPath());
+                                    oLog.info("[replacePatterns]:oFile.getName()="+oFile.getName());
+                                }
+                            }
+                        }
+                    }
+                
+                }catch(Exception oException){
+                    oLog.error("[replacePatterns]",oException);
+                }            
+        }
+        
+        public static String getFromFile(File file, String sCodepage) throws IOException {
+            byte[] aByte = getBytesFromFile(file);
+            //return Util.sData(aByte);
+            //java.lang.
+            if(aByte==null){
+                return null;
+            }
+            return new String(aByte, sCodepage == null ? "UTF-8" : sCodepage);
+            //Charset.forName("UTF-8")
+            //Cp1251
+            
+        }
+        public static byte[] getBytesFromFile(File file) throws IOException {
+
+            InputStream is = new FileInputStream(file);
+
+            // Получаем размер файла
+            long length = file.length();
+
+            // Создаем массив для хранения данных
+            byte[] bytes = new byte[(int)length];
+
+            // Считываем
+            int offset = 0;
+
+            int numRead = 0;
+
+            while (offset < bytes.length
+                && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
+
+                offset += numRead;
+            }
+
+            // Проверяем, все ли прочитано
+            if (offset < bytes.length) {
+                throw new IOException("Could not completely read file "+file.getName());
+            }
+
+            // Закрываем и возвращаем
+            is.close();
+
+            return bytes;
+        }        
+        
+	public static String setStringFromFieldExpression(Expression expression,
+			DelegateExecution execution, Object value) {
+		if (expression != null && value!=null) {
+			expression.setValue(value, execution);
+		}
+		return null;
+	}        
+        
+        
 }

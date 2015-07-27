@@ -10,6 +10,7 @@
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту; Сторінки № 1, 2 і 11" type="file"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН заявника" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Місце проживання заявника" type="string"></activiti:formProperty>
         <activiti:formProperty id="label1" name="Зверніть увагу" type="label" default="Заповніть наступні поля в тому разі, якщо Ви є Законним Представником власника ділянки. &lt;br /&gt; В протилежному разі, залишіть їх пустими"></activiti:formProperty>
         <activiti:formProperty id="ownerSurname" name="Прізвище власника ділянки" type="string"></activiti:formProperty>
         <activiti:formProperty id="ownerName" name="Його ім'я" type="string"></activiti:formProperty>
@@ -129,6 +130,7 @@
         <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ownerSurname" name="Прізвище власника ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ownerName" name="Його ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Місце проживання заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ownerMiddleName" name="Його по батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ownerINN" name="ІПН власника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ownerAddress" name="Місце проживання фізичної особи власника" type="string" writable="false"></activiti:formProperty>
