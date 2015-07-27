@@ -57,7 +57,9 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
 	public void notify(DelegateTask task) {
 		
 		DelegateExecution execution = task.getExecution();
-		
+
+                Util.replacePatterns(execution, LOG); 
+                
 		String sInheritedAttachmentsIds = getStringFromFieldExpression(this.aFieldInheritedAttachmentID, execution);
 
 		if (sInheritedAttachmentsIds == null || "".equals(sInheritedAttachmentsIds.trim())) {
@@ -77,7 +79,6 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
                 //runtimeService.setVariable(snID_Process, "sID_Payment", sID_Payment);
                 //String sBody=(String)execution.getVariable("sBody");
                 //Util.replacePatterns(execution, this.osBody, LOG); 
-                Util.replacePatterns(execution, LOG); 
                 
 	}
 
