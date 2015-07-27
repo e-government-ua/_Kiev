@@ -60,7 +60,7 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
 		
 		String sInheritedAttachmentsIds = getStringFromFieldExpression(this.aFieldInheritedAttachmentID, execution);
 
-		if (sInheritedAttachmentsIds == null) {
+		if (sInheritedAttachmentsIds == null || "".equals(sInheritedAttachmentsIds.trim())) {
 			LOG.error("aFieldInheritedAttachmentID field is not specified");
 			return;
 		}
