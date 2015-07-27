@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_mvd_1_auto" name="Днепропетровск - Надання довідки про відсутність або наявніcть судимості" isExecutable="true">
+  <process id="_test_dnepr_mvd_1_auto" name="Днепропетровск - Надання довідки про відсутність або наявніcть судимості" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="nID_Subject" name="nID_Subject" type="invisible" default="0"></activiti:formProperty>
@@ -194,8 +194,8 @@
     <sequenceFlow id="flow9" sourceRef="mailtask3" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow10" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_mvd_1_auto">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_mvd_1_auto" id="BPMNPlane_dnepr_mvd_1_auto">
+  <bpmndi:BPMNDiagram id="BPMNDiagram__test_dnepr_mvd_1_auto">
+    <bpmndi:BPMNPlane bpmnElement="_test_dnepr_mvd_1_auto" id="BPMNPlane__test_dnepr_mvd_1_auto">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="110.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
