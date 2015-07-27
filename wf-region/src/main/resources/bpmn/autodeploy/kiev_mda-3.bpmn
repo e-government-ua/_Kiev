@@ -174,7 +174,11 @@
           <activiti:value id="accept" name="Документи перевірено. Зауваження відсутні."></activiti:value>
           <activiti:value id="reject" name="Документи не пройшли перевірку. Відмовити в наданні послуги."></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment2" name="Підстава для відмови в наданні послуги. Коментар буде відправлено громадянину на e-mail" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="comment2" name="Підстава для відмови в наданні послуги. Коментар буде відправлено громадянину на e-mail" type="enum">
+          <activiti:value id="Документи надані не в повному обсязі" name="Документи надані не в повному обсязі"></activiti:value>
+          <activiti:value id="Надані документи оформлені за змістом та формою неналежним чином" name="Надані документи оформлені за змістом та формою неналежним чином"></activiti:value>
+          <activiti:value id="Звернулася особа, яка не має повноважень, підтверджених в установленому порядку" name="Звернулася особа, яка не має повноважень, підтверджених в установленому порядку"></activiti:value>
+        </activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
             <activiti:expression>${docToSend}</activiti:expression>
