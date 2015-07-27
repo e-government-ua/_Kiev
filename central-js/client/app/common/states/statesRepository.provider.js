@@ -9,8 +9,12 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
     this.domen = domen;
     if (domen.split(':')[0] !== 'localhost') {
       var matches = findModeRegexp.exec(domen);
-      if (matches[1] === 'test' || matches[1] === 'test-version' ) {
-        this.mode = matches[2];
+      if (matches[1] === 'test' ) {// || matches[1] === 'test-version'
+        if (matches[2] === 'version' ) {
+            this.mode = matches[3];
+        }else{
+            this.mode = matches[2];
+        }
       } else {
         this.mode = matches[1];
       }
