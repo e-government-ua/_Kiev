@@ -114,19 +114,22 @@ public final class Util {
                         return;
                     }*/
                     //String sExpression = getStringFromFieldExpression(osBody, execution);
+                	
                 	TaskFormData taskformData = execution.getEngineServices()
                 		    .getFormService()
                 		    .getTaskFormData(execution.getId());
                 	
                 	oLog.info("[replacePatterns]:Found taskformData=" + taskformData);
                 	String sExpression = null;
-                	for (FormProperty property : taskformData.getFormProperties()) {
-                		if (property.getId().equals("sBody") ){
-                			oLog.info("[replacePatterns]:Found necessary property=" + property.getValue());
-                			sExpression = property.getValue();
-                		} else {
-                			oLog.info("[replacePatterns]:Property =" + property.getId());
-                		}
+                	if (taskformData != null){
+	                	for (FormProperty property : taskformData.getFormProperties()) {
+	                		if (property.getId().equals("sBody") ){
+	                			oLog.info("[replacePatterns]:Found necessary property=" + property.getValue());
+	                			sExpression = property.getValue();
+	                		} else {
+	                			oLog.info("[replacePatterns]:Property =" + property.getId());
+	                		}
+	                	}
                 	}
                 	
 //                    String sExpression = (String)execution.getVariable("sBody");
