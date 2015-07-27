@@ -142,7 +142,7 @@
           <activiti:value id="attr1" name="відправлені запроси, очікують відповіді"></activiti:value>
           <activiti:value id="attr2" name="відповідь отримана, винесено рішення, повідомити громадянина"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="sBody" name="Печатная форма" type="invisible" default="[pattern/print/subsidy.html]" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="Печатная форма" type="invisible" variable="[pattern/print/subsidy.html]" default="[pattern/print/subsidy.html]" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
             <activiti:expression> </activiti:expression>
