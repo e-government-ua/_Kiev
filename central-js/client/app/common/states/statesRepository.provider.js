@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('appBoilerPlate').provider('statesRepository', function StatesRepositoryProvider() {
-  var findModeRegexp = /(\w*).(\w*)(\w*|.*)*/;
+  var findModeRegexp = /(\w*).(\w*).(\w*)(\w*|.*)*/;
 
   this.init = function (domen) {
     //test.kiev.igov.org.ua
@@ -9,8 +9,12 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
     this.domen = domen;
     if (domen.split(':')[0] !== 'localhost') {
       var matches = findModeRegexp.exec(domen);
-      if (matches[1] === 'test') {
-        this.mode = matches[2];
+      if (matches[1] === 'test' ) {// || matches[1] === 'test-version'
+        if (matches[2] === 'version' ) {
+            this.mode = matches[3];
+        }else{
+            this.mode = matches[2];
+        }
       } else {
         this.mode = matches[1];
       }
