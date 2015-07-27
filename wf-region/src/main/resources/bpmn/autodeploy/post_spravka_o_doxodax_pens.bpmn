@@ -69,7 +69,7 @@
           <activiti:value id="attr3_money_no" name="Сплата не надійшла"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Примітки; тут ви можете написати текст для громадянина, який буде відправлений йому на електронну пошту" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sIDPayment" name="ID платежа за послугу" type="string" default="${sID_Payment}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="sIDPayment" name="ID платежа за послугу" type="string" default="${sID_Payment}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
