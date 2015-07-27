@@ -179,7 +179,7 @@ public abstract class AbstractModelTask {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Получить 
 	 * @param keyRedis

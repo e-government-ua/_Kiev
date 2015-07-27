@@ -19,6 +19,7 @@
 		<!--compiler properties -->
 
 		<liquibase.data.path>data</liquibase.data.path>
+		<activiti.data.path>bpmn/autodeploy</activiti.data.path>
 
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
 		<maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
@@ -135,6 +136,7 @@
                         <igov.wf-central.version>1.0.0a-SNAPSHOT</igov.wf-central.version>
                         <igov.wf-region.version>1.0.0a-SNAPSHOT</igov.wf-region.version>
 						<liquibase.custom.data.path>${liquibase.data.path}</liquibase.custom.data.path>
+						<activiti.custom.data.path>${activiti.data.path}</activiti.custom.data.path>
                     </properties>
                 </profile>
                 <profile>
@@ -161,6 +163,7 @@
                         <igov.wf-central.version>1.0.0b-SNAPSHOT</igov.wf-central.version>
                         <igov.wf-region.version>1.0.0b-SNAPSHOT</igov.wf-region.version>
 						<liquibase.custom.data.path>${liquibase.data.path}/beta</liquibase.custom.data.path>
+						<activiti.custom.data.path>${activiti.data.path}/beta</activiti.custom.data.path>
                     </properties>
                 </profile>
                 <profile>
@@ -187,6 +190,7 @@
                         <igov.wf-central.version>1.0.0-RELEASE</igov.wf-central.version>
                         <igov.wf-region.version>1.0.0-RELEASE</igov.wf-region.version>
 						<liquibase.custom.data.path>${liquibase.data.path}/prod</liquibase.custom.data.path>
+						<activiti.custom.data.path>${activiti.data.path}/prod</activiti.custom.data.path>
                     </properties>
                 </profile> 
 	</profiles>
@@ -463,6 +467,10 @@
 			<resource> <!-- declared first because override is not working when copy resources -->
 				<directory>src/main/resources/${liquibase.custom.data.path}</directory>
 				<targetPath>${liquibase.data.path}</targetPath>
+			</resource>
+			<resource> <!-- declared first because override is not working when copy resources -->
+				<directory>src/main/resources/${activiti.custom.data.path}</directory>
+				<targetPath>${activiti.data.path}</targetPath>
 			</resource>
 			<resource>
 				<directory>src/main/resources</directory>
