@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('appBoilerPlate').provider('statesRepository', function StatesRepositoryProvider() {
-  var findModeRegexp = /(\*).(\w*)(\w*|.*)*/;
+  var findModeRegexp = /(\w*).(\w*)(\w*|.*)*/;
 
   this.init = function (domen) {
     //test.kiev.igov.org.ua
