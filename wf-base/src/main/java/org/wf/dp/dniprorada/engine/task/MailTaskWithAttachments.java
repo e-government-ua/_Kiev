@@ -1,148 +1,106 @@
 package org.wf.dp.dniprorada.engine.task;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import javax.activation.DataHandler;
 
 import javax.activation.DataSource;
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 
-import org.activiti.engine.*;
+import org.activiti.engine.ActivitiObjectNotFoundException;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
-import org.activiti.engine.delegate.JavaDelegate;
 import org.activiti.engine.task.Attachment;
 import org.apache.commons.mail.ByteArrayDataSource;
+import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.MultiPartEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.wf.dp.dniprorada.util.Mail;
 
 /**
- * Шаг для отправки уведомления с прикрепленным документом
  * 
- * @author inna
+ * @author BW
  * 
  */
 @Component("MailTaskWithAttachments")
-public class MailTaskWithAttachments implements JavaDelegate {
+public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
 
-	private final static Logger log = LoggerFactory
-			.getLogger(MailTaskWithAttachment.class);
+    private final static Logger log = LoggerFactory.getLogger(MailTaskWithAttachments.class);
+    
+    private Expression saAttachmentsForSend;
 
-	@Autowired
-	TaskService taskService;
+    @Override
+    public void execute(DelegateExecution oExecution) throws Exception {
+        System.setProperty("mail.mime.address.strict", "false");
 
-	@Value("${mailServerHost}")
-	private String mailServerHost;
+        //MultiPartEmail oMultiPartEmail = MultiPartEmail_BaseFromTask(oExecution);
+        Mail oMail = Mail_BaseFromTask(oExecution);
+        
+        String sAttachmentsForSend = getStringFromFieldExpression(this.saAttachmentsForSend, oExecution);
+        
+        log.info("sAttachmentsForSend=" + sAttachmentsForSend);
+        List<Attachment> aAttachment = new ArrayList<>();
+        String[] saID_Attachment = sAttachmentsForSend.split(",");
+        for (String sID_Attachment : saID_Attachment) {
+            log.info("sID_Attachment=" + sID_Attachment);
+            String sID_AttachmentTrimmed = sID_Attachment.replaceAll("^\"|\"$", "");
+            log.info("sID_AttachmentTrimmed= " + sID_AttachmentTrimmed);
+            Attachment oAttachment = taskService.getAttachment(sID_AttachmentTrimmed);
+            if (oAttachment != null) {
+                aAttachment.add(oAttachment);
+            }
+        }
 
-	@Value("${mailServerPort}")
-	private String mailServerPort;
-
-	@Value("${mailServerDefaultFrom}")
-	private String mailServerDefaultFrom;
-
-	@Value("${mailServerUsername}")
-	private String mailServerUsername;
-
-	@Value("${mailServerPassword}")
-	private String mailServerPassword;
-
-	@Value("${mailAddressNoreply}")
-	private String mailAddressNoreplay;
-
-       
-	private Expression from;
-	private Expression to;
-	private Expression subject;
-	private Expression text;
-	private Expression saAttachmentsForSend;
-
-	@Override
-	public void execute(DelegateExecution execution) throws Exception {
-
-		System.setProperty("mail.mime.address.strict", "false");
-
-		String fromStr = getStringFromFieldExpression(this.from, execution);
-		String toStr = getStringFromFieldExpression(this.to, execution);
-		String subjectStr = getStringFromFieldExpression(this.subject,
-				execution);
-		String textStr = getStringFromFieldExpression(this.text, execution);
-		String sAttachments = getStringFromFieldExpression(this.saAttachmentsForSend, execution);
-
-		MultiPartEmail email = new MultiPartEmail();
-		email.setHostName(mailServerHost);
-		email.addTo(toStr, "reciver");
-		email.setFrom(fromStr, mailAddressNoreplay);
-		email.setSubject(subjectStr);
-		email.setMsg(textStr);
-		email.setAuthentication(mailServerUsername, mailServerPassword);
-		email.setSmtpPort(Integer.valueOf(mailServerPort));
-		email.setSSL(true);
-		email.setTLS(true);
+        if (aAttachment != null && !aAttachment.isEmpty()) {
+            InputStream oInputStream_Attachment = null;
+            String sFileName = "document";
+            String sFileExt = "txt";
+            String sDescription = "";
+            for (Attachment oAttachment : aAttachment) {
+                sFileName = oAttachment.getName();
+                sFileExt = oAttachment.getType().split(";")[0];
+                sDescription = oAttachment.getDescription();
+                if(sDescription==null||"".equals(sDescription.trim())){
+                    sDescription = "(no description)";
+                }
+                log.info("oAttachment.getId()="+oAttachment.getId()+", sFileName=" + sFileName + ", sFileExt=" + sFileExt + ", sDescription=" + sDescription);
+                oInputStream_Attachment = oExecution.getEngineServices().getTaskService().getAttachmentContent(oAttachment.getId());
+                if (oInputStream_Attachment == null) {
+                    log.error("Attachment with id '" + oAttachment.getId() + "' doesn't have content associated with it.");
+                    throw new ActivitiObjectNotFoundException(
+                            "Attachment with id '" + oAttachment.getId() + "' doesn't have content associated with it.",
+                            Attachment.class);
+                }
+                DataSource oDataSource = new ByteArrayDataSource(oInputStream_Attachment, sFileExt);
+                if (oDataSource == null) {
+                    log.error("Attachment: oDataSource == null");
+                }
                 
-                log.info("sAttachments="+sAttachments);
-		List<Attachment> attachmentList = new ArrayList<>();
-		String[] attachmentIds = sAttachments.split(",");
+                oMail._Attach(oDataSource, sFileName + "." + sFileExt, sDescription);
+                
+                log.info("oMultiPartEmail.attach: Ok!");
+            }
+        } else {
+            log.error("aAttachment has nothing!");
+            throw new ActivitiObjectNotFoundException("add the file to send");
+        }
 
-		for (String attachmentId : attachmentIds) {
-                        log.info("attachmentId="+attachmentId);
-			String attachmentIdTrimmed = attachmentId.replaceAll("^\"|\"$", "");
-			log.info("attachmentIdTrimmed= " + attachmentIdTrimmed);
-			Attachment attachment = taskService.getAttachment(attachmentIdTrimmed);
-
-			if (attachment != null) {
-				attachmentList.add(attachment);
-			}
-		}
-
-		if (attachmentList != null && !attachmentList.isEmpty()) {
-			InputStream attachmentStream = null;
-			String nameFile = "document";
-			String typeFile = "txt";
-			String description = "";
-
-			for (Attachment attachment : attachmentList) {
-				nameFile = attachment.getName();
-				typeFile = attachment.getType().split(";")[0];
-				System.out.println("typeFile: " + typeFile);
-				description = attachment.getDescription();
-				attachmentStream = execution.getEngineServices().getTaskService()
-						.getAttachmentContent(attachment.getId());
-				if (attachmentStream == null) {
-					throw new ActivitiObjectNotFoundException(
-							"Attachment with id '" + attachment.getId()
-									+ "' doesn't have content associated with it.",
-							Attachment.class);
-				}
-
-				DataSource source = new ByteArrayDataSource(attachmentStream, typeFile);
-				// add the attachment
-				email.attach(source, nameFile, description);
-			}
-		} else {
-			throw new ActivitiObjectNotFoundException(
-					"add the file to send");
-		}
-
-		// send the email
-		email.send();
-	}
-
-	protected String getStringFromFieldExpression(Expression expression,
-			DelegateExecution execution) {
-		if (expression != null) {
-			Object value = expression.getValue(execution);
-			if (value != null) {
-                                log.info("value.toString()="+value.toString());
-                            
-				return value.toString();
-			}
-		}
-		return null;
-	}
+        // send the email
+        //oMultiPartEmail.send();
+        oMail.send();
+    }
 
 }

@@ -27,7 +27,10 @@ public class MultiReadServletFilter implements Filter {
     	if (servletRequest instanceof HttpServletRequest) {
             HttpServletRequest request = (HttpServletRequest) servletRequest;
             HttpServletResponse response = (HttpServletResponse) servletResponse;
-            filterChain.doFilter(new MultiReadHttpServletRequest(request), new MultiReaderHttpServletResponse(response));
+            MultiReadHttpServletRequest requestMultiRead = new MultiReadHttpServletRequest(request);
+            MultiReaderHttpServletResponse responseMultiRead = new MultiReaderHttpServletResponse(response, requestMultiRead);
+            requestMultiRead.setAttribute("responseMultiRead", responseMultiRead);
+            filterChain.doFilter(requestMultiRead, responseMultiRead);
             return;  
         }
         filterChain.doFilter(servletRequest, servletResponse);

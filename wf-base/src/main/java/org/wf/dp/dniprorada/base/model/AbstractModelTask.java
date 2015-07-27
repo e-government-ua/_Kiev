@@ -37,6 +37,7 @@ import org.wf.dp.dniprorada.base.viewobject.flow.SaveFlowSlotTicketResponse;
 import org.wf.dp.dniprorada.form.FormFileType;
 import org.wf.dp.dniprorada.form.QueueDataFormType;
 import org.wf.dp.dniprorada.model.MimiTypeModel;
+import org.activiti.rest.controller.*;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -178,7 +179,7 @@ public abstract class AbstractModelTask {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Получить 
 	 * @param keyRedis
@@ -206,9 +207,9 @@ public abstract class AbstractModelTask {
 			Map<String, Object> variables = execution.getEngineServices()
 					.getRuntimeService()
 					.getVariables(execution.getProcessInstanceId());
-			for (Map.Entry<String, Object> entry1 : variables.entrySet()) {
-				if (filedTypeFile.contains(entry1.getKey())) {
-					listValueKeys.add(String.valueOf(entry1.getValue()));
+			for (String fieldId : filedTypeFile) {
+				if (variables.containsKey(fieldId)) {				
+					listValueKeys.add(String.valueOf(variables.get(fieldId)));
 				}
 			}
 		}
@@ -277,9 +278,15 @@ public abstract class AbstractModelTask {
 	 */
 	public static ByteArrayOutputStream multipartFileToByteArray(MultipartFile file)
 			throws IOException {
+            
+                String sFilename = file.getOriginalFilename();
+                System.out.println("sFilename=" + file.getOriginalFilename());
+                sFilename = Renamer.sRenamed(sFilename);
+                System.out.println("sFilename(new)=" + file.getOriginalFilename());
+            
 		ByteArrayMultipartFile byteArrayMultipartFile  
 				= new ByteArrayMultipartFile(
-						file.getBytes(), file.getName(), file.getOriginalFilename(), file.getContentType());
+						file.getBytes(), file.getName(), sFilename, file.getContentType());
 		 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		 ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
 		 oos.writeObject(byteArrayMultipartFile);
@@ -308,11 +315,11 @@ public abstract class AbstractModelTask {
     /**
      * Adds Attachemnts based on formData to task.
      * @param formData FormData from task where we search file fields.
-     * @param task where we add Attachments.
+     * @param oTask where we add Attachments.
      */
 
-    public void addAttachmentsToTask(FormData formData, DelegateTask task) {
-        DelegateExecution execution = task.getExecution();
+    public void addAttachmentsToTask(FormData formData, DelegateTask oTask) {
+        DelegateExecution execution = oTask.getExecution();
         
         LOG.info("SCAN:file");
         List<String> asFieldID = getListFieldCastomTypeFile(formData);
@@ -326,46 +333,64 @@ public abstract class AbstractModelTask {
             int n = 0;
             for (String sKeyRedis : asFieldValue) {
                 LOG.info("sKeyRedis=" + sKeyRedis);
-                if (sKeyRedis != null && !sKeyRedis.isEmpty() && !"".equals(sKeyRedis.trim()) && !"null".equals(sKeyRedis.trim())) {
-                    byte[] byteFile = getRedisService().getAttachments(sKeyRedis);
-                    ByteArrayMultipartFile contentMultipartFile = null;
+                if (sKeyRedis != null && !sKeyRedis.isEmpty() && !"".equals(sKeyRedis.trim()) && !"null".equals(sKeyRedis.trim()) && sKeyRedis.length() > 15) {
+                    byte[] aByteFile = getRedisService().getAttachments(sKeyRedis);
+                    ByteArrayMultipartFile oByteArrayMultipartFile = null;
                     try {
-                        contentMultipartFile = getByteArrayMultipartFileFromRedis(byteFile);
+                        oByteArrayMultipartFile = getByteArrayMultipartFileFromRedis(aByteFile);
                     } catch (ClassNotFoundException | IOException e1) {
                         throw new ActivitiException(e1.getMessage(), e1);
                     }
-                    InputStream is = null;
-                    try {
-                        is = contentMultipartFile.getInputStream();
-                    } catch (Exception e) {
-                        throw new ActivitiException(e.getMessage(), e);
-                    }
-                    if (contentMultipartFile != null) {
-                        String outFilename = null;
+                    if (oByteArrayMultipartFile != null) {
+                        InputStream oInputStream = null;
                         try {
-                            outFilename = new String(contentMultipartFile
+                            oInputStream = oByteArrayMultipartFile.getInputStream();
+                        } catch (Exception e) {
+                            throw new ActivitiException(e.getMessage(), e);
+                        }
+                        String sFileName = null;
+                        try {
+                            sFileName = new String(oByteArrayMultipartFile
                                     .getOriginalFilename().getBytes(
                                             "ISO-8859-1"), "UTF-8");
                         } catch (java.io.UnsupportedEncodingException e) {
                             throw new ActivitiException(e.getMessage(), e);
                         }
+                        LOG.info("sFileName=" + sFileName);
                         if (!asFieldName.isEmpty() && n < asFieldName.size()) {
-                            String name = asFieldName.get((asFieldName.size() - 1) - n);
-                            LOG.info("name=" + name);
-							System.out.println("STEP 4 ___" + "name= " + name);
-                                execution
-                                        .getEngineServices()
-                                        .getTaskService()
-                                        .createAttachment(
-                                                contentMultipartFile.getContentType()
-                                                        + ";"
-                                                        + contentMultipartFile.getExp(),
-                                                task.getId(),
-                                                execution.getProcessInstanceId(),
-                                                outFilename,
-                                                name, is);
+                            //String sDescription = asFieldName.get((asFieldName.size() - 1) - n);
+                            String sDescription = asFieldName.get(n);
+                            LOG.info("sDescription=" + sDescription);
+                            String sID_Field = asFieldID.get(n);
+                            LOG.info("sID_Field=" + sID_Field);
+                            Attachment oAttachment = execution
+                                    .getEngineServices()
+                                    .getTaskService()
+                                    .createAttachment(
+                                            oByteArrayMultipartFile.getContentType()
+                                                    + ";"
+                                                    + oByteArrayMultipartFile.getExp(),
+                                            oTask.getId(),
+                                            execution.getProcessInstanceId(),
+                                            sFileName,
+                                            sDescription, oInputStream);
+                            if(oAttachment!=null){
+                                String nID_Attachment = oAttachment.getId();
+                                //LOG.info("nID_Attachment=" + nID_Attachment);
+                                LOG.info("Try set variable(sID_Field) '" + sID_Field + "' with the value(nID_Attachment) '" + nID_Attachment + "', for new attachment...");
+                                execution.getEngineServices().getRuntimeService().setVariable(execution.getProcessInstanceId(), sID_Field, nID_Attachment);
+                                LOG.info("Finished setting new value for variable with attachment(sID_Field) '" + sID_Field + "'");
+                            }else{
+                                LOG.error("Can't add attachment to oTask.getId()=" + oTask.getId());
+                            }
+                        }else{
+                            LOG.error("asFieldName has nothing! asFieldName=" + asFieldName);
                         }
+                    }else{
+                        LOG.error("oByteArrayMultipartFile==null! aByteFile="+aByteFile.toString());
                     }
+                }else{
+                    LOG.error("Invalid Redis Key!!! sKeyRedis=" + sKeyRedis);
                 }
                 n++;
             }
@@ -377,8 +402,8 @@ public abstract class AbstractModelTask {
         LOG.info("asFieldID="+asFieldID.toString());
         asFieldValue = getValueFieldWithCastomTypeFile(execution, asFieldID);
         LOG.info("asFieldValue="+asFieldValue.toString());
-        asFieldName = getListCastomFieldName(formData);
-        LOG.info("asFieldName="+asFieldName.toString());
+        //asFieldName = getListCastomFieldName(formData);
+        //LOG.info("asFieldName="+asFieldName.toString());
         if (!asFieldValue.isEmpty()) {
             String sValue = asFieldValue.get(0);
             LOG.info("sValue=" + sValue);

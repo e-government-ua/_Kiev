@@ -20,12 +20,12 @@
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
-      <link rel="stylesheet" href="app/account/login/login.css">
       <link rel="stylesheet" href="app/app.css">
       <link rel="stylesheet" href="app/main/main.css">
+      <link rel="stylesheet" href="app/reports/reports.css">
       <link rel="stylesheet" href="app/tasks/tasks.css">
       <link rel="stylesheet" href="components/modal/modal.css">
-      <link rel="stylesheet" href="components/print/print.modal.css">
+      <link rel="stylesheet" href="components/print/PrintModal.css">
       <!-- endinjector -->
     <!-- endbuild -->
   </head>
@@ -70,6 +70,8 @@
           <script src="app/main/error.directive.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
+          <script src="app/reports/reports.controller.js"></script>
+          <script src="app/reports/reports.js"></script>
           <script src="app/tasks/tasks.controller.js"></script>
           <script src="app/tasks/tasks.file.directive.js"></script>
           <script src="app/tasks/tasks.js"></script>
@@ -78,8 +80,10 @@
           <script src="components/auth/user.service.js"></script>
           <script src="components/modal/modal.service.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
-          <script src="components/print/print.modal.directive.js"></script>
+          <script src="components/print/PrintModal.directive.js"></script>
+          <script src="components/print/PrintTemplate.js"></script>
           <script src="components/process/process.service.js"></script>
+          <script src="components/report/reports.service.js"></script>
           <script src="components/task/task.service.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->

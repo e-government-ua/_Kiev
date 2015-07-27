@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="issue-508" author="brunneng"> <!-- ИД-строка кода классификатора КОАТУУ -->
+        <addColumn tableName="Region">
+            <column name="sID_UA" type="varchar(30)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <addColumn tableName="City">
+            <column name="sID_UA" type="varchar(30)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <!-- ####################################################################################################### -->
+
+    <changeSet id="issue-493" author="LamronNu" failOnError="false" runOnChange="true">
+        <!--drop table if exists-->
+        <sql splitStatements="true" dbms="postgresql">
+            DROP SEQUENCE IF EXISTS "HistoryEvent_Service";
+        </sql>
+        <sql splitStatements="true" dbms="h2">
+            DROP SEQUENCE IF EXISTS "HistoryEvent_Service";
+        </sql>
+        <!--create table-->
+        <createTable tableName="HistoryEvent_Service">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="sID" type="varchar(10)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="nID_Task" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_Subject" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sStatus" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sID_Status" type="varchar">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <!--id trigger-->
+        <addAutoIncrement
+                tableName="HistoryEvent_Service" columnName="nID" startWith="1000" columnDataType="bigint"/>
+
+    </changeSet>
+
+    <changeSet id="issue-493_sID-size" author="LamronNu">
+        <modifyDataType tableName="HistoryEvent_Service" columnName="sID" newDataType="varchar(30)" />
+    </changeSet>
+
+
+    <!-- ####################################################################################################### -->
+
+    <changeSet id="issue-487" author="dgroup">
+
+        <createTable tableName="SubjectOrganJoin">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nID_SubjectOrgan" type="bigint">
+                <constraints nullable               ="false"
+                             foreignKeyName         ="FK_SubjectOrganJoin_SubjectOrgan"
+                             referencedTableName    ="SubjectOrgan"
+                             referencedColumnNames  ="nID"
+                             deleteCascade          ="true"/>
+            </column>
+            <column name="sNameUa" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sNameRu" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sID_Privat" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sID_Public" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sGeoLongitude" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sGeoLatitude" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_Region" type="bigint">
+                <constraints nullable               ="true"
+                             foreignKeyName         ="FK_SubjectOrganJoin_Region"
+                             referencedTableName    ="Region"
+                             referencedColumnNames  ="nID"
+                             deleteCascade          ="true"/>
+            </column>
+            <column name="nID_City" type="bigint">
+                <constraints nullable               ="true"
+                             foreignKeyName         ="FK_SubjectOrganJoin_City"
+                             referencedTableName    ="City"
+                             referencedColumnNames  ="nID"
+                             deleteCascade          ="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="issue-487-PK" author="dgroup">
+        <addAutoIncrement tableName="SubjectOrganJoin" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
+    <changeSet id="issue-487-add-field-sID_UA" author="dgroup"> <!-- ИД-строка кода классификатора КОАТУУ -->
+        <addColumn tableName="SubjectOrganJoin">
+            <column name="sID_UA" type="varchar(30)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <!-- ####################################################################################################### -->
+
+    <changeSet id="issue-493_sID-make-optional" author="LamronNu">
+        <dropNotNullConstraint tableName="HistoryEvent_Service" columnName="sID" columnDataType="varchar(30)"/>
+        <!--<dropUniqueConstraint tableName="HistoryEvent_Service" constraintName="sID" uniqueColumns="sID"/>-->
+    </changeSet>
+
+    <changeSet id="issue-493_add-nID_Protected" author="LamronNu">
+        <sql splitStatements="true" dbms="postgresql">
+            SET CONSTRAINTS ALL DEFERRED;
+            DELETE FROM "HistoryEvent_Service";
+        </sql>
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="nID_Protected" type="bigint" >
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <!-- ####################################################################################################### -->
+    <changeSet id="issue-493_changeFields" author="LamronNu">
+        <dropColumn tableName="HistoryEvent_Service" columnName="nID_Protected" />
+        <dropColumn tableName="HistoryEvent_Service" columnName="sID" />
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="sID" type="varchar(30)">
+                <constraints nullable="true" unique="false"/>
+            </column>
+        </addColumn>
+        <!--<dropUniqueConstraint tableName="HistoryEvent_Service" constraintName="sID" uniqueColumns="sID"/>-->
+    </changeSet>
+
+    <changeSet id="issue-511" author="brunneng">
+        <createTable tableName="Merchant">
+            <column name="nID" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sID" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sName" type="varchar(200)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sURL_CallbackStatusNew" type="varchar(500)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sURL_CallbackPaySuccess" type="varchar(500)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="nID_SubjectOrgan" type="int">
+                <constraints nullable="true"
+                             foreignKeyName="FK_Merchant_SubjectOrgan"
+                             referencedTableName="SubjectOrgan" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="issue-511-autoIncrement" author="brunneng" dbms="h2">
+        <addAutoIncrement tableName="Merchant" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
+    <changeSet id="issue-528" author="brunneng">
+        <createTable tableName="SubjectMessageType">
+            <column name="nID" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sDescription" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <insert tableName="SubjectMessageType">
+            <column name="nID" value="0"/>
+            <column name="sName" value="dummy"/>
+            <column name="sDescription" value="dummy"/>
+        </insert>
+
+        <addColumn tableName="SubjectMessage">
+            <column name="nID_SubjectMessageType" type="int" defaultValue="0">
+                <constraints nullable="false"
+                             foreignKeyName="FK_SubjectMessage_SubjectMessageType"
+                             referencedTableName="SubjectMessageType" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="issue-528-autoIncrement" author="brunneng" dbms="h2">
+        <addAutoIncrement tableName="SubjectMessageType" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
+    <changeSet id="issue-511_sPrivateKey" author="brunneng">
+        <addColumn tableName="Merchant">
+            <column name="sPrivateKey" type="varchar(100)" defaultValue="dummy">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    
+    <!-- ####################################################################################################### -->
+
+    <changeSet id="issue-515-create_table" author="LamronNu">
+        <!--create table-->
+        <createTable tableName="Country">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="nID_UA" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sID_Two" type="varchar(2)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sID_Three" type="varchar(3)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sNameShort_UA" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sNameShort_EN" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sReference_LocalISO" type="varchar(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="issue-515-autoIncrement" author="LamronNu">
+        <addAutoIncrement
+                tableName="Country" columnName="nID" startWith="100" columnDataType="bigint"/>
+    </changeSet>
+    
+    <!-- ####################################################################################################### -->
+
+    <changeSet id="issues/553" author="bw" runOnChange="true">
+        <dropNotNullConstraint tableName="DocumentAccess" columnName="sTarget" columnDataType="varchar(250)"/>
+        <dropNotNullConstraint tableName="DocumentAccess" columnName="sTelephone" columnDataType="varchar(50)"/>
+        <dropNotNullConstraint tableName="DocumentAccess" columnName="sMail" columnDataType="varchar(200)"/>
+    </changeSet>
+
+    <changeSet id="issues/553_1" author="bw" dbms="postgresql" runOnChange="true">
+        <delete tableName="DocumentType">
+            <where>"nID" IN (4,5,20324)</where>
+        </delete>
+    </changeSet>
+    <!-- ####################################################################################################### -->
+
+    <changeSet id="issue-556" author="LamronNu">
+        <addColumn tableName="DocumentType">
+            <column name="bHidden" type="boolean" defaultValue="false" />
+        </addColumn>
+    </changeSet>
+
+    <!-- ####################################################################################################### -->
+
+    <changeSet id="issue-587" author="LamronNu">
+        <addColumn tableName="Document">
+            <column name="oSignData" type="varchar" defaultValue="{}">
+                <constraints nullable="false"/>
+            </column>
+
+        </addColumn>
+    </changeSet>
+
+    <!-- ####################################################################################################### -->
+
+    <changeSet id="issue-573" author="dgroup">
+        <!-- -->
+        <createTable tableName="PlaceType">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="sName"  type="varchar(30)"/>
+            <column name="nOrder" type="number"/>
+            <column name="bArea"  type="boolean"/>
+            <column name="bRoot"  type="boolean"/>
+        </createTable>
+        <addAutoIncrement tableName     = "PlaceType"
+                          columnName    = "nID"
+                          startWith     = "100"
+                          columnDataType= "bigint"/>
+        <!-- -->
+        <createTable tableName="Place">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="sName" type="varchar(30)"/>
+            <column name="nID_PlaceType" type="bigint">
+                <constraints nullable               = "false"
+                             foreignKeyName         = "FK_Place_PlaceType"
+                             referencedTableName    = "PlaceType"
+                             referencedColumnNames  = "nID"
+                             deleteCascade          = "true"/>
+            </column>
+            <column name="sID_UA"        type="varchar(100)"/>
+            <column name="sNameOriginal" type="varchar(200)"/>
+        </createTable>
+        <addAutoIncrement tableName     = "Place"
+                          columnName    = "nID"
+                          startWith     = "100"
+                          columnDataType= "bigint"/>
+        <!-- -->
+        <createTable tableName="PlaceTree">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="nID_Place" type="bigint">
+                <constraints nullable               = "false"
+                             foreignKeyName         = "FK_PlaceTree_Place"
+                             referencedTableName    = "Place"
+                             referencedColumnNames  = "nID"
+                             deleteCascade          = "true"/>
+            </column>
+            <column name="nID_Place_Root"   type="number"/>
+            <column name="nID_Place_Area"   type="number"/>
+            <column name="nID_Place_Parent" type="number"/>
+        </createTable>
+        <addAutoIncrement tableName     = "PlaceTree"
+                          columnName    = "nID"
+                          startWith     = "100"
+                          columnDataType= "bigint"/>
+    </changeSet>
+
+
+</databaseChangeLog>

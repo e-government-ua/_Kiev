@@ -1,5 +1,7 @@
+'use strict';
+
 var compose = require('composable-middleware');
-var config = require('../config');
+var config = require('../config/environment');
 var documents = require('../api/documents/documents.controller.js');
 
 function isAuthenticated() {
@@ -24,11 +26,11 @@ function isDocumentOwner() {
 				} else {
 					try {
 						var document = JSON.parse(body);
-						if (document.oSubject && document.oSubject.nID === req.session.subject.nID) {
+						//if (document.oSubject && document.oSubject.nID === req.session.subject.nID) {
 							next();
-						} else {
-							res.status(401).send({error: "User can have access only to his own documents"});
-						}
+						//} else {
+						//	res.status(401).send({error: "User can have access only to his own documents"});
+						//}
 					} catch (e) {
 						res.status(404).send({error: "There is no such document"});
 					}

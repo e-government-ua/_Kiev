@@ -4,10 +4,10 @@ var router = express.Router();
 router.use(function(req, res, next) {
 	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 	var processDefinitions = require('./index.controller');
-	
-	var config = require('../../config');
+
+	var config = require('../../config/environment');
 	var activiti = config.activiti;
-	
+
 	var options = {
 		protocol: activiti.protocol,
 		hostname: activiti.hostname,
@@ -22,12 +22,12 @@ router.use(function(req, res, next) {
 			,size: 1000
 		}
 	};
-	
+
 	var callback = function(error, response, body) {
 		res.send(body);
 		res.end();
 	}
-	
+
 	processDefinitions.index(options, callback);
 });
 

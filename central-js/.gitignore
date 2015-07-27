@@ -1,3 +1,9 @@
-node_modules/
-.vagrant/
-local_config.js
+node_modules
+public
+.tmp
+.sass-cache
+.idea
+client/bower_components
+client/build
+dist
+server/config/local.env.js

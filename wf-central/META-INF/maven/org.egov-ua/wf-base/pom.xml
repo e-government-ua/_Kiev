@@ -24,13 +24,18 @@
     </properties>
 
     <repositories>
-        <repository>
-            <id>vaadin-addons</id>
-            <url>http://maven.vaadin.com/vaadin-addons</url>
-        </repository>
+    	
+    <repository>
+         <id>vaadin-addons</id>
+         <url>http://maven.vaadin.com/vaadin-addons</url>
+    </repository>
+        
+    	
+
     </repositories>
 
     <build>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -54,11 +59,11 @@
                 <configuration>
                     <jarName>${project.artifactId}-${project.version}</jarName>
                     <classifier>lib</classifier>
-                    <excludes>
+                    <!--excludes>
                         <exclude>*.properties</exclude>
                         <exclude>*.alfresco</exclude>
                         <exclude>*.json</exclude>
-                    </excludes>
+                    </excludes-->
                 </configuration>
             </plugin>
             <plugin>
@@ -364,7 +369,11 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-
+       <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
 
     </dependencies>
     <profiles>

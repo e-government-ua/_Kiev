@@ -1,41 +1,35 @@
 package org.wf.dp.dniprorada.dao;
-import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.util.Assert;
+import org.wf.dp.dniprorada.base.dao.AbstractEntityDao;
 import org.wf.dp.dniprorada.model.Merchant;
 
+public class MerchantDaoImpl extends AbstractEntityDao<Merchant> implements MerchantDao {
 
-
-public class MerchantDaoImpl implements MerchantDao{
-	
-    private JdbcTemplate jdbcTemplate;
-    
-    public void setDataSource(DataSource dataSource){
-    	this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-	
-	public List<Merchant> getMerchants() {
-		return jdbcTemplate.query("SELECT sIdOwner, sOwnerName, sId FROM MERCHANTS", new MerchantRowMapper());
+	protected MerchantDaoImpl() {
+		super(Merchant.class);
 	}
 
-	public void removeMerchant(String idOwner, String id) {
-		if(idOwner == null){
-			jdbcTemplate.update("DELETE FROM merchants WHERE sId=?", id);
-		} else {
-			jdbcTemplate.update("DELETE FROM merchants WHERE sIdOwner=?", idOwner);
-		}		
-	}
+	@Override
+	public Merchant getMerchant(String sID) {
+      DetachedCriteria criteria = DetachedCriteria.forClass(getEntityClass());
+      criteria.add(Restrictions.eq("sID", sID));
 
-	public void updateMerchant(Merchant merchant) {
-		jdbcTemplate.update("UPDATE merchants SET sIdOwner=?, sOwnerName=? WHERE sId=?",
-				merchant.getIdOwner(), merchant.getOwnerName(), merchant.getId());
-	}
+      return (Merchant) criteria.getExecutableCriteria(getSession()).uniqueResult();
+   }
 
-	public void addMerchant(Merchant merchant) {
-		jdbcTemplate.update("INSERT INTO merchants (sIdOwner, sOwnerName, sId) VALUES (?,?,?)",
-				merchant.getIdOwner(), merchant.getOwnerName(), merchant.getId());
-	}
+   public boolean deleteMerchant(String sID) {
+      Merchant merchant = getMerchant(sID);
 
+      boolean deleted = false;
+      if (merchant != null) {
+         delete(merchant);
+         deleted = true;
+      }
+
+      return deleted;
+   }
 }

@@ -71,12 +71,14 @@
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Region.csv" tableName="Region" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sName" type="STRING"/>
+            <column name="sID_UA" type="STRING"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/City.csv" tableName="City" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sName" type="STRING"/>
             <column name="nID_Region" type="NUMERIC"/>
+            <column name="sID_UA" type="STRING"/>
         </loadUpdateData>
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Category.csv" tableName="Category" separator=";">
             <column name="nID" type="NUMERIC"/>
@@ -129,6 +131,7 @@
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/DocumentType.csv" tableName="DocumentType" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sName" type="STRING"/>
+            <column name="bHidden" type="BOOLEAN"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Document.csv" tableName="Document" separator=";">
@@ -144,6 +147,7 @@
             <column name="sContentType" type="STRING"/>
             <column name="nID_Subject" type="NUMERIC"/>
             <column name="nID_Subject_Upload" type="NUMERIC"/>
+            <column name="oSignData" type="STRING"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/DocumentAccess.csv" tableName="DocumentAccess" separator=";">
@@ -168,6 +172,92 @@
             <column name="sMessage" type="STRING"/>
             <column name="sDate" type="STRING"/>
         </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/SubjectOrganJoin.csv" tableName="SubjectOrganJoin" separator=";">
+            <column name="nID"              type="NUMERIC"/>
+            <column name="nID_SubjectOrgan" type="NUMERIC"/>
+            <column name="sNameUa"          type="STRING"/>
+            <column name="sNameRu"          type="STRING"/>
+            <column name="sID_Privat"       type="STRING"/>
+            <column name="sID_Public"       type="STRING"/>
+            <column name="sGeoLongitude"    type="STRING"/>
+            <column name="sGeoLatitude"     type="STRING"/>
+            <column name="nID_Region"       type="NUMERIC"/>
+            <column name="nID_City"         type="NUMERIC"/>
+            <column name="sID_UA"           type="STRING"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/HistoryEvent_Service.csv" tableName="HistoryEvent_Service" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sID" type="STRING"/>
+            <column name="nID_Task" type="NUMERIC"/>
+            <column name="nID_Subject" type="NUMERIC"/>
+            <column name="sStatus" type="STRING"/>
+            <column name="sID_Status" type="STRING"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/SubjectMessageType.csv" tableName="SubjectMessageType" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="sDescription" type="STRING"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Merchant.csv" tableName="Merchant" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sID" type="STRING"/>
+            <column name="sName" type="STRING"/>
+            <column name="sPrivateKey" type="STRING"/>
+            <column name="sURL_CallbackStatusNew" type="STRING"/>
+            <column name="sURL_CallbackPaySuccess" type="STRING"/>
+            <column name="nID_SubjectOrgan" type="NUMERIC"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Country.csv" tableName="Country" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_UA" type="NUMERIC"/>
+            <column name="sID_Two" type="STRING"/>
+            <column name="sID_Three" type="STRING"/>
+            <column name="sNameShort_UA" type="STRING"/>
+            <column name="sNameShort_EN" type="STRING"/>
+            <column name="sReference_LocalISO" type="STRING"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey  = "nID"
+                        encoding    = "UTF-8"
+                        file        = "data/PlaceType.csv"
+                        tableName   = "PlaceType"
+                        separator   = ";">
+            <column name="nID"      type="NUMERIC"/>
+            <column name="sName"    type="STRING"/>
+            <column name="nOrder"   type="NUMERIC"/>
+            <column name="bArea"    type="BOOLEAN"/>
+            <column name="bRoot"    type="BOOLEAN"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey  = "nID"
+                        encoding    = "UTF-8"
+                        file        = "data/Place.csv"
+                        tableName   = "Place"
+                        separator   = ";">
+            <column name="nID"           type="NUMERIC"/>
+            <column name="sName"         type="STRING"/>
+            <column name="nID_PlaceType" type="NUMERIC"/>
+            <column name="sID_UA"        type="STRING"/>
+            <column name="sNameOriginal" type="STRING"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey  = "nID"
+                        encoding    = "UTF-8"
+                        file        = "data/PlaceTree.csv"
+                        tableName   = "PlaceTree"
+                        separator   = ";">
+            <column name="nID"              type="NUMERIC"/>
+            <column name="nID_Place"        type="NUMERIC"/>
+            <column name="nID_Place_Root"   type="NUMERIC"/>
+            <column name="nID_Place_Area"   type="NUMERIC"/>
+            <column name="nID_Place_Parent" type="NUMERIC"/>
+        </loadUpdateData>
+
     </changeSet>
 
 

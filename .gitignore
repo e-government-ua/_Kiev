@@ -38,3 +38,5 @@ wf-region/src/main/resources/bpmn/autodeploy/citizens_request_test_tsapko.bpmn.x
 
 #sublime
 project.sublime-workspace
+/central-js/client/tmp/
+/central-js/client/build/

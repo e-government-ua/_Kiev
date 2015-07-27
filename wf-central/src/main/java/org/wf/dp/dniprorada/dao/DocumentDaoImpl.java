@@ -3,21 +3,26 @@ package org.wf.dp.dniprorada.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.model.*;
-import org.wf.dp.dniprorada.model.document.DocumentOrganNotFoundException;
 import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
+
+import static org.wf.dp.dniprorada.model.EntityNotFoundException.assertPresence;
 
 public class DocumentDaoImpl implements DocumentDao {
 
 	private static final String contentMock = "No content!!!";
 
 	private SessionFactory sessionFactory;
+
+	@Autowired
+	private BaseEntityDao baseEntityDao;
 
 	@Autowired
 	private GridFSBytesDataStorage durableBytesDataStorage;
@@ -61,9 +66,9 @@ public class DocumentDaoImpl implements DocumentDao {
 	}
 
 	public Long setDocument(Long nID_Subject, Long nID_Subject_Upload, String sID_Subject_Upload,
-			String sSubjectName_Upload, String sName, Long nID_DocumentType,
-			Long nID_DocumentContentType, String sFileName,
-			String sFileContentType, byte[] aoContent) throws IOException {
+                            String sSubjectName_Upload, String sName, Long nID_DocumentType,
+                            Long nID_DocumentContentType, String sFileName,
+                            String sFileContentType, byte[] aoContent, String oSignData) throws IOException {
 
 		Document document = new Document();
 		document.setsID_subject_Upload(sID_Subject_Upload);
@@ -93,7 +98,9 @@ public class DocumentDaoImpl implements DocumentDao {
 		document.setContentKey(durableBytesDataStorage.saveData(aoContent));
 		document.setContentType(sFileContentType);
 		document.setFile(sFileName);
-		document.setDate_Upload(new Date());
+		document.setDate_Upload(new DateTime());
+
+        document.setoSignData(oSignData);
 		getSession().saveOrUpdate(document);
 		return document.getId();
 
@@ -108,18 +115,13 @@ public class DocumentDaoImpl implements DocumentDao {
 			.add(Restrictions.eq("nID_SubjectOrgan", operatorId))
 			.uniqueResult();
 
-		if (organ == null)
-			throw new DocumentOrganNotFoundException(
-				"Organ with ID:" + operatorId +" not found");
+		assertPresence(organ, "Organ with ID:" + operatorId + " not found");
 
 		return organ;
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<DocumentOperator_SubjectOrgan> getAllOperators() {
-		return (List<DocumentOperator_SubjectOrgan>) getSession()
-				.createCriteria(DocumentOperator_SubjectOrgan.class)
-				.list();
+		return 	baseEntityDao.getAll(DocumentOperator_SubjectOrgan.class);
 	}
 }

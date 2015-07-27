@@ -7,8 +7,9 @@
  */
 package org.wf.dp.dniprorada.dao;
 
-import java.util.List;
 import org.wf.dp.dniprorada.model.DocumentType;
+
+import java.util.List;
 
 /**
  *
@@ -17,4 +18,10 @@ import org.wf.dp.dniprorada.model.DocumentType;
 public interface DocumentTypeDao {
 
     public List<DocumentType> getDocumentTypes();
+
+    public DocumentType setDocumentType(Long nID, String sName, Boolean bHidden);
+
+    public void removeDocumentType(Long nID);
+
+    public DocumentType getDocumentType(Long nID);
 }

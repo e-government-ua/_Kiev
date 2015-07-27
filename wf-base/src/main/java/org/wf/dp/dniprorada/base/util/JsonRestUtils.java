@@ -100,4 +100,5 @@ public final class JsonRestUtils {
       headers.setContentType(mediaType);
       return new ResponseEntity<>(json, headers, httpStatus);
    }
+
 }

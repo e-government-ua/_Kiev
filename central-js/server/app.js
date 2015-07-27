@@ -1,11 +1,21 @@
-var express = require('express');
-var config = require('./config');
+/**
+ * Main application file
+ */
 
+'use strict';
+
+// Set default node environment to development
+process.env.NODE_ENV = process.env.NODE_ENV || 'local';
+
+var express = require('express');
+var config = require('./config/environment');
+// Setup server
 var app = express();
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+require('./config/server')(app);
 require('./config/express')(app);
 require('./routes')(app);
-require('./config/server')(app);
 
-exports = module.exports = app;
+
+// Expose app
+module.exports = app;

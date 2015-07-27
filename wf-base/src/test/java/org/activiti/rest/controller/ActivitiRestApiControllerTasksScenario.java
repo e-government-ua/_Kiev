@@ -52,6 +52,7 @@ public class ActivitiRestApiControllerTasksScenario {
         Mockito.when(taskService.createTaskQuery()).thenReturn(taskQueue);
     }
 
+    @Ignore
     @Test
     public void shouldSuccessfullyReturnTasksJsonResponse() throws Exception {
         mockMvc.perform(get("/rest/tasks/kermit").

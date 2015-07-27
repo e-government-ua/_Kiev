@@ -116,11 +116,11 @@
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<configuration>
-					<port>8080</port>
+					<port>8081</port>
 					<path>/wf-region</path>
 					<systemProperties>
 						<com.sun.management.jmxremote.port>4000</com.sun.management.jmxremote.port>
-						<spring.profiles.active>test</spring.profiles.active>
+						<spring.profiles.active>local</spring.profiles.active>
 					</systemProperties>
 				</configuration>
 			</plugin>
@@ -255,6 +255,13 @@
             <version>${igov.wf-base.version}</version>
             <classifier>lib</classifier>
             <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>wf-base</artifactId>
+            <version>${igov.wf-base.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>

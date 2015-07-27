@@ -4,11 +4,6 @@ var idleProvider, keepaliveProvider;
 
 angular.module('dashboardJsApp')
 	.config(function($routeProvider, IdleProvider, KeepaliveProvider) {
-		$routeProvider
-			.when('/login', {
-				templateUrl: 'app/account/login/login.html',
-				controller: 'LoginCtrl'
-			});
 		idleProvider = IdleProvider;
 		keepaliveProvider = KeepaliveProvider;
 	})

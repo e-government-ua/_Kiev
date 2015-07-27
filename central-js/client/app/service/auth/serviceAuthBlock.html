@@ -1,0 +1,23 @@
+<div class="list-group-item">
+    <span>Крок {{nStep}}. Увійдіть в систему через</span>
+    <button style="display: none;" class="btn btn-info"><i class="icon-door-lock"></i><span class="btn-text">igov.org.ua</span></button>
+    <a class="btn btn-info" target="_self"
+        ng-href="{{$location.protocol()}}://{{$location.host()}}:{{$location.port()}}/auth/bankID?link={{$location.protocol()}}://{{$location.host()}}:{{$location.port()}}{{redirectUri}}"
+        ng-if="!authMethods || authMethods.indexOf('BankID') > -1">
+        <i class="icon-bank-id"></i>
+        <span class="btn-text">BankID</span>
+    </a>
+    <button style="display: none;" class="btn"><i class="icon-mobil-id"></i></button>
+    <a class="btn btn-info_ btn-success i-btn-badge" target="_self"
+        ng-href="{{$location.protocol()}}://{{$location.host()}}:{{$location.port()}}/auth/eds?link={{$location.protocol()}}://{{$location.host()}}:{{$location.port()}}{{redirectUri}}"
+        ng-if="!authMethods || authMethods.indexOf('EDS') > -1">
+        <i class="icon-badge"></i>
+        <span class="btn-text"><div>Сертифікат електронно-</div><div>цифрового підпису</div></span>
+    </a>
+    
+    <!--button ng-click="loginWithEds()" class="btn btn-success i-btn-badge"
+            ng-if="!authMethods || authMethods.indexOf('EDS') > -1">
+        <i class="icon-badge"></i>
+        <span class="btn-text"><div>Сертифікат електронно-</div><div>цифрового підпису</div></span>
+    </button-->
+</div>

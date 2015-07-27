@@ -19,12 +19,34 @@ module.exports.shareDocument = function (req, res) {
 
 module.exports.getDocumentFile = function (req, res) {
     var r = request(buildGetRequest(req, '/services/getDocumentFile', {
-        'nID': req.params.nID
+        'nID': req.params.nID,
+        'sCode_DocumentAccess': req.params.sCode_DocumentAccess,
+        'nID_DocumentOperator_SubjectOrgan': req.params.nID_DocumentOperator_SubjectOrgan,
+        'nID_DocumentType': req.params.nID_DocumentType,
+        'sPass': req.params.sPass
     }));
 
     req.pipe(r).on('response', function (response) {
         response.headers['content-type'] = 'application/octet-stream';
     }).pipe(res);
+};
+
+module.exports.getDocumentTypes = function (req, res) {
+    return sendGetRequest(req, res, '/services/getDocumentTypes', {});
+};
+
+module.exports.getDocumentOperators = function (req, res) {
+    return sendGetRequest(req, res, '/services/getDocumentOperators', {});
+};
+
+module.exports.searchDocument = function (req, res) {
+    var params = {
+        'sCode_DocumentAccess': req.body.params.sCode_DocumentAccess,
+        'nID_DocumentOperator_SubjectOrgan': req.body.params.nID_DocumentOperator_SubjectOrgan,
+        'nID_DocumentType': req.body.params.nID_DocumentType,
+        'sPass': req.body.params.sPass
+    };
+    return sendGetRequest(req, res, '/services/getDocumentAccessByHandler', params);
 };
 
 module.exports.getDocument = function (req, res) {
@@ -48,7 +70,7 @@ module.exports.index = function (req, res) {
     return sendGetRequest(req, res, '/services/getDocuments', params);
 };
 
-/* 
+/*
  nID;sName
  0;Другое
  1;Справка
@@ -63,6 +85,11 @@ module.exports.initialUpload = function (req, res) {
     var nID_Subject = req.session.subject.nID;
     var sID_Subject = req.session.subject.sID;
     var typesToUpload = req.body;
+
+    if(req.session.documents && req.session.documents.uploaded) {
+      res.status(200).end();
+      return;
+    }
 
     if (!accessToken || !sID_Subject) {
         res.status(400).send({
@@ -156,7 +183,7 @@ module.exports.initialUpload = function (req, res) {
             }
             //don't do end here, it will be executed after all async
         }, function (result) {
-            //here
+            req.session.documents = {uploaded : true};
             res.send(result);
             res.end();
         });
@@ -184,10 +211,13 @@ module.exports.initialUpload = function (req, res) {
 };
 
 function buildGetRequest(req, apiURL, params) {
+    if (req.session.hasOwnProperty('subject') && req.session.subject.hasOwnProperty('nID')) {
+        params = _.extend(params, {nID_Subject: req.session.subject.nID});
+    }
     return {
         'url': getUrl(apiURL),
         'auth': getAuth(),
-        'qs': _.extend(params, {nID_Subject: req.session.subject.nID})
+        'qs': params
     };
 }
 
@@ -201,7 +231,7 @@ function sendGetRequest(req, res, apiURL, params, callback) {
 }
 
 function getBankIDOptions(accessToken) {
-    var config = require('../../config');
+    var config = require('../../config/environment');
     var bankid = config.bankid;
 
     return {
@@ -216,7 +246,7 @@ function getBankIDOptions(accessToken) {
 }
 
 function getOptions() {
-    var config = require('../../config');
+    var config = require('../../config/environment');
     var activiti = config.activiti;
 
     return {

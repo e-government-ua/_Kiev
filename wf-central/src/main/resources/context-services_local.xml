@@ -2,14 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx" 
-       xmlns:jee="http://www.springframework.org/schema/jee"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+
+
+
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
@@ -36,7 +33,7 @@
         <!-- ==============================   DAO   ============================= -->
 
         <bean id="merchantDao" class="org.wf.dp.dniprorada.dao.MerchantDaoImpl">
-            <property name="dataSource" ref="dataSource"/>
+            <property name="sessionFactory" ref="sessionFactory"/>
         </bean>
 
         <bean id="documentAccessDao" class="org.wf.dp.dniprorada.dao.DocumentAccessDaoImpl">
@@ -57,6 +54,10 @@
         </bean>
 
         <bean id="historyEventDao" class="org.wf.dp.dniprorada.dao.HistoryEventDaoImpl">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
+        <bean id="historyEventServiceDao" class="org.wf.dp.dniprorada.dao.HistoryEvent_ServiceDaoImpl">
             <property name="sessionFactory" ref="sessionFactory"/>
         </bean>
 
@@ -82,6 +83,14 @@
 
         <bean id="subjectOrganDao" class="org.wf.dp.dniprorada.dao.SubjectOrganDaoIml">
             <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
+        <bean id="countryDao" class="org.wf.dp.dniprorada.dao.CountryDaoImpl">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
+        <bean id="placeDao" class="org.wf.dp.dniprorada.dao.PlaceDaoImpl">
+            <constructor-arg name="sessionFactory" ref="sessionFactory"/>
         </bean>
 
     </beans>

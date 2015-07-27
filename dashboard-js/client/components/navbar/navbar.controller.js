@@ -18,6 +18,10 @@ angular.module('dashboardJsApp').controller('NavbarCtrl', function($scope, $loca
     $location.path('/tasks');
   };
 
+  $scope.goToReports = function () {
+    $location.path('/reports');
+  }
+
   $scope.logout = function() {
     Auth.logout();
     $location.path('/login');

@@ -2,11 +2,44 @@
 
 <header class="hero-unit" id="banner">
   <div class="container">
-    <h1>Електронний портал</h1>
+    <h1 class="hero-unit-heading">iGov.org.ua</h1>
+    <h3>портал обробки звернень громадян</h3>
   </div>
 </header>
 
 <div class="container">
+  <div class="row login-form-row" ng-controller="LoginCtrl">
+    <div class="col-xs-4 col-xs-offset-4">
+      <form class="form" name="form" ng-submit="login(form)" novalidate>
+
+        <div class="form-group">
+          <label>Логін</label>
+
+          <input type="text" name="login" class="form-control" ng-model="user.login" required>
+        </div>
+
+        <div class="form-group">
+          <label>Пароль</label>
+
+          <input type="password" name="password" class="form-control" ng-model="user.password" required>
+        </div>
+
+        <div class="form-group has-error">
+          <p class="help-block" ng-show="form.login.$error.required && form.password.$error.required && submitted">
+             Введіть логін та пароль
+          </p>
+
+          <p class="help-block">{{ errors.other }}</p>
+        </div>
+
+        <div>
+          <button class="btn btn-inverse btn-lg btn-login" type="submit">
+            Увійти
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
   <div class="row">
     <div style="display: none;" class="col-lg-12">
       <h1 class="page-header">Доступні сервіси:</h1>

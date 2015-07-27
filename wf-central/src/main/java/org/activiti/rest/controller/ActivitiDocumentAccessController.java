@@ -1,8 +1,10 @@
 package org.activiti.rest.controller;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +39,7 @@ public class ActivitiDocumentAccessController {
     @Autowired
     private DocumentDao documentDao;
 
+    //@Deprecated
     @RequestMapping(value = "/setDocumentLink", method = RequestMethod.GET, headers = {"Accept=application/json"})
     public
     @ResponseBody
@@ -50,18 +53,26 @@ public class ActivitiDocumentAccessController {
 			HttpServletResponse response) {
 		AccessURL oAccessURL = new AccessURL();
 		try {
-			oAccessURL.setValue(documentAccessDao.setDocumentLink(nID_Document,
-					sFIO, sTarget, sTelephone, nMS, sMail));
 			oAccessURL.setName("sURL");
+                        String sValue = "";
+			//oAccessURL.setValue(documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail));
+                        //String sURL = documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail);
+                        sValue = documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail);
+			//sValue = documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail);
+			//sValue = String.valueOf(documentAccessDao.getIdAccess());
+			oAccessURL.setValue(sValue);
+                        
+                        
             createHistoryEvent(HistoryEventType.SET_DOCUMENT_ACCESS_LINK,
                     nID_Document, sFIO, sTelephone, nMS, sMail);
 		} catch (Exception e) {
-			response.setStatus(400);
+			response.setStatus(HttpStatus.BAD_REQUEST.value());
 			response.setHeader("Reason", e.getMessage());
 		}
         return oAccessURL;
     }
 
+   @Deprecated
 	@RequestMapping(value = "/getDocumentLink", method = RequestMethod.GET, headers = { "Accept=application/json" })
 	public @ResponseBody
 	DocumentAccess getDocumentAccessLink(
@@ -72,31 +83,25 @@ public class ActivitiDocumentAccessController {
 		try {
 			da = documentAccessDao.getDocumentLink(nID_Access, sSecret);
 		} catch (Exception e) {
-			response.setStatus(403);
+			response.setStatus(HttpStatus.FORBIDDEN.value());
 			response.setHeader("Reason", "Access not found\n" + e.getMessage());
 		}
 		if (da == null) {
-			response.setStatus(403);
+			response.setStatus(HttpStatus.FORBIDDEN.value());
 			response.setHeader("Reason", "Access not found");
 		} else {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-			Date d = null;
-            boolean isSuccessAccess = true;
-            try {
-                d = sdf.parse(da.getDateCreate());
-			} catch (ParseException e) {
+			DateTime now = new DateTime();
+         boolean isSuccessAccess = true;
+         DateTime d = da.getDateCreate();
+
+			if (d.plusMillis(da.getMS().intValue()).isBefore(now)) {
                 isSuccessAccess = false;
-                response.setStatus(400);
-                response.setHeader("Reason", e.getMessage());
-			}
-			if (da.getMS() + d.getTime() < new Date().getTime()) {
-                isSuccessAccess = false;
-                response.setStatus(403);
+                response.setStatus(HttpStatus.FORBIDDEN.value());
                 response.setHeader("Reason", "Access expired");
 			}
 			if (!sSecret.equals(da.getSecret())) {
                 isSuccessAccess = false;
-                response.setStatus(403);
+                response.setStatus(HttpStatus.FORBIDDEN.value());
                 response.setHeader("Reason", "Access to another document");
 			}
             if (isSuccessAccess) {
@@ -108,26 +113,30 @@ public class ActivitiDocumentAccessController {
 		return da;
 	}
 
+        @Deprecated
 	@RequestMapping(value = "/getDocumentAccess", method = RequestMethod.GET, headers = { "Accept=application/json" })
 	public @ResponseBody
 	AccessURL getDocumentAccess(
 			@RequestParam(value = "nID_Access") Long nID_Access,
 			@RequestParam(value = "sSecret") String sSecret,
 			HttpServletResponse response) {
-		String str = "";
 		AccessURL oAccessURL = new AccessURL();
 		try {
 			oAccessURL.setName("sURL");
-			str = documentAccessDao.getDocumentAccess(nID_Access,sSecret);
-			oAccessURL.setValue(str);
+                        String sValue = "";
+			//sValue = documentAccessDao.getDocumentAccess(nID_Access,sSecret);
+			documentAccessDao.getDocumentAccess(nID_Access,sSecret);
+			sValue = String.valueOf(nID_Access);
+			oAccessURL.setValue(sValue);
 		} catch (Exception e) {
-			response.setStatus(403);
+			response.setStatus(HttpStatus.FORBIDDEN.value());
 			response.setHeader("Reason", "Access not found");
 			oAccessURL.setValue(e.getMessage());
 		}
 		return oAccessURL;
 	}
 
+        @Deprecated
 	@RequestMapping(value = "/setDocumentAccess", method = RequestMethod.GET, headers = { "Accept=application/json" })
 	public @ResponseBody
 	AccessURL setDocumentAccess(
@@ -137,15 +146,18 @@ public class ActivitiDocumentAccessController {
 			HttpServletResponse response) {
 		AccessURL oAccessURL = new AccessURL();
 		try {
-			oAccessURL.setValue(documentAccessDao.setDocumentAccess(nID_Access,
-					sSecret, sAnswer));
+                        String sValue;
+			sValue = documentAccessDao.setDocumentAccess(nID_Access, sSecret, sAnswer);
+                        //sValue = String.valueOf(nID_Access);
+			//oAccessURL.setValue(documentAccessDao.setDocumentAccess(nID_Access, sSecret, sAnswer));
+                        oAccessURL.setValue(sValue);
 			oAccessURL.setName("sURL");
 			if(oAccessURL.getValue().isEmpty() || oAccessURL.getValue() == null){
-				response.setStatus(403);
+				response.setStatus(HttpStatus.FORBIDDEN.value());
 				response.setHeader("Reason", "Access not found");
 			}
 		} catch (Exception e) {
-			response.setStatus(400);
+			response.setStatus(HttpStatus.BAD_REQUEST.value());
 			response.setHeader("Reason", e.getMessage());
 		}
 		return oAccessURL;

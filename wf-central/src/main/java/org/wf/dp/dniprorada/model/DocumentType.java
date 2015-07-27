@@ -1,17 +1,22 @@
 package org.wf.dp.dniprorada.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.wf.dp.dniprorada.base.model.NamedEntity;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import net.sf.brunneng.jom.annotations.Identifier;
-import org.wf.dp.dniprorada.base.model.NamedEntity;
 
 @javax.persistence.Entity
 public class DocumentType extends NamedEntity {
 
+    @JsonProperty("bHidden")
+    @Column
+    private boolean bHidden;
 
+    public boolean isbHidden() {
+        return bHidden;
+    }
+
+    public void setbHidden(boolean bHidden) {
+        this.bHidden = bHidden;
+    }
 }

@@ -1,22 +1,18 @@
 package org.wf.dp.dniprorada.model;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+import org.wf.dp.dniprorada.base.model.NamedEntity;
+import org.wf.dp.dniprorada.base.util.JsonDateDeserializer;
+import org.wf.dp.dniprorada.base.util.JsonDateSerializer;
 
 import javax.persistence.Column;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
-
-import net.sf.brunneng.jom.annotations.Identifier;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.wf.dp.dniprorada.base.model.Entity;
-import org.wf.dp.dniprorada.base.model.NamedEntity;
 
 @javax.persistence.Entity
 public class Document extends NamedEntity {
@@ -41,13 +37,12 @@ public class Document extends NamedEntity {
 	@Column(name = "sFile", nullable = true)
 	private String file;
 
-	@JsonProperty(value="oDate_Upload")
-	@Column(name = "sDate_Upload", nullable = true) 
-	private Date date_Upload;
-	
 	@JsonProperty(value="sDate_Upload")
-	@Transient
-	private String sDate_Upload;
+	@JsonSerialize(using= JsonDateSerializer.class)
+	@JsonDeserialize(using= JsonDateDeserializer.class)
+   @Type(type=DATETIME_TYPE)
+	@Column(name = "sDate_Upload", nullable = true) 
+	private DateTime date_Upload;
 
 	@JsonProperty(value = "sContentType")
 	@Column(name = "sContentType", nullable = false)
@@ -74,7 +69,19 @@ public class Document extends NamedEntity {
 	@JoinColumn(name = "nID_Subject", nullable = true)
 	private Subject subject;
 
-	public String getContentKey() {
+    @JsonProperty(value = "oSignData")
+    @Column(name = "oSignData", nullable = false )
+    private String oSignData;
+
+    public String getoSignData() {
+        return oSignData;
+    }
+
+    public void setoSignData(String oSignData) {
+        this.oSignData = (oSignData == null || oSignData == "") ? "{}" : oSignData;
+    }
+
+    public String getContentKey() {
 		return contentKey;
 	}
 
@@ -90,22 +97,12 @@ public class Document extends NamedEntity {
 		this.file = file;
 	}
 
-	public Date getDate_Upload() {
+	public DateTime getDate_Upload() {
 		return date_Upload;
 	}
 
-	public void setDate_Upload(Date date_Upload) {
+	public void setDate_Upload(DateTime date_Upload) {
 		 this.date_Upload = date_Upload;
-	}
-
-	
-    @Transient
-	public String getsDate_Upload() {
-		return new SimpleDateFormat("yyyy-MM-dd").format(date_Upload);
-	}
-
-	public void setsDate_Upload(String sDate_Upload) {
-		this.sDate_Upload = sDate_Upload;
 	}
 
 	public DocumentType getDocumentType() {
