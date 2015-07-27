@@ -31,7 +31,7 @@
         <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default=" "></activiti:formProperty>
         <activiti:formProperty id="nID_Subject" name="ИД-номер субъекта" type="invisible" default="0"></activiti:formProperty>
         <activiti:formProperty id="sID_Merchant" name="ИД-строковой мерчанта (магазина)" type="invisible" default="i75116857714"></activiti:formProperty>
-        <activiti:formProperty id="sSum" name="сумма платежа" type="invisible" default="10.94"></activiti:formProperty>
+        <activiti:formProperty id="sSum" name="сумма платежа" type="invisible" default="16.84"></activiti:formProperty>
         <activiti:formProperty id="sID_Currency" name="ИД-строковой валюты" type="invisible" default="UAH"></activiti:formProperty>
         <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default="Оплата послуги отримання довідки про доходи (розмір пенсії)"></activiti:formProperty>
       </extensionElements>
@@ -136,8 +136,6 @@
     </serviceTask>
     <sequenceFlow id="flow7" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <serviceTask id="servicetask1" name="загрузка файлов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <sequenceFlow id="flow9" sourceRef="servicetask1" targetRef="servicetask2"></sequenceFlow>
-    <sequenceFlow id="flow10" sourceRef="servicetask2" targetRef="usertask1"></sequenceFlow>
     <serviceTask id="servicetask2" name="відправка імейла для сплати" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
@@ -161,9 +159,6 @@
 З повагою,
 Укрпошта
 Команда Порталу державних послуг igov.org.ua</activiti:expression>
-        </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression> </activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -192,6 +187,7 @@
     </serviceTask>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow12" sourceRef="mailtask3" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_post_spravka_o_doxodax_pens">
     <bpmndi:BPMNPlane bpmnElement="post_spravka_o_doxodax_pens" id="BPMNPlane_post_spravka_o_doxodax_pens">
@@ -252,14 +248,6 @@
         <omgdi:waypoint x="37.0" y="92.0"></omgdi:waypoint>
         <omgdi:waypoint x="146.0" y="168.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
-        <omgdi:waypoint x="146.0" y="168.0"></omgdi:waypoint>
-        <omgdi:waypoint x="262.0" y="95.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
-        <omgdi:waypoint x="315.0" y="67.0"></omgdi:waypoint>
-        <omgdi:waypoint x="350.0" y="67.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
         <omgdi:waypoint x="535.0" y="87.0"></omgdi:waypoint>
         <omgdi:waypoint x="535.0" y="297.0"></omgdi:waypoint>
@@ -268,6 +256,10 @@
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
         <omgdi:waypoint x="713.0" y="297.0"></omgdi:waypoint>
         <omgdi:waypoint x="768.0" y="297.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="146.0" y="168.0"></omgdi:waypoint>
+        <omgdi:waypoint x="402.0" y="95.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
