@@ -51,7 +51,7 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
 	private FlowSlotTicketDao oFlowSlotTicketDao;
 
 	private Expression aFieldInheritedAttachmentID;
-	private Expression osBody;
+	//private Expression osBody;
 
 	@Override
 	public void notify(DelegateTask task) {

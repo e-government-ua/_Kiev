@@ -137,7 +137,8 @@ public final class Util {
                                     if(sData!=null){
                                         sExpression=sExpression.replaceAll("\\Q["+sName+"]\\E", sData);
                                         oLog.info("[replacePatterns]:sExpression="+sExpression);
-                                        setStringFromFieldExpression(osBody, execution, sExpression);
+                                        //setStringFromFieldExpression(osBody, execution, sExpression);
+                                        execution.setVariable("sBody", sExpression);
                                         oLog.info("[replacePatterns]:Ok!");
                                     }
                                 }else{
