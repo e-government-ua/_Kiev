@@ -51,16 +51,18 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
 	private FlowSlotTicketDao oFlowSlotTicketDao;
 
 	private Expression aFieldInheritedAttachmentID;
-	private Expression osBody;
+	//private Expression osBody;
 
 	@Override
 	public void notify(DelegateTask task) {
 		
 		DelegateExecution execution = task.getExecution();
-		
+
+                Util.replacePatterns(execution, LOG); 
+                
 		String sInheritedAttachmentsIds = getStringFromFieldExpression(this.aFieldInheritedAttachmentID, execution);
 
-		if (sInheritedAttachmentsIds == null) {
+		if (sInheritedAttachmentsIds == null || "".equals(sInheritedAttachmentsIds.trim())) {
 			LOG.error("aFieldInheritedAttachmentID field is not specified");
 			return;
 		}
@@ -74,7 +76,9 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
 
 		addAttachmentsToCurrentTask(attachmentsToAdd, task);
                 
-                Util.replacePatterns(execution, this.osBody, LOG); 
+                //runtimeService.setVariable(snID_Process, "sID_Payment", sID_Payment);
+                //String sBody=(String)execution.getVariable("sBody");
+                //Util.replacePatterns(execution, this.osBody, LOG); 
                 
 	}
 
