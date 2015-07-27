@@ -10,8 +10,10 @@
           <activiti:value id="attr1" name="отримувач особисто"></activiti:value>
           <activiti:value id="attr2" name="представник отримувача"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="info1" name="Дані, що заповнюються тіцльки отримувачем" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="info2" name="Дані, що заповнюються тіцльки представником отримувача" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="info1" name="Дані, що заповнюються тільки отримувачем" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="info2" name="Дані, що заповнюються тільки представником отримувача" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="file1" name=" Файл, що додається тільки отримувачем" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file2" name="Файл, що додається тільки представником отримувача" type="file"></activiti:formProperty>
         <activiti:formProperty id="email" name="email" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -19,6 +21,16 @@
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <userTask id="usertask1" name="рассмотрение и загрузка" activiti:candidateGroups="sales">
       <extensionElements>
+        
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" ></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" ></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" ></activiti:formProperty>
+        <activiti:formProperty id="client" name="Заявник" type="enum" >
+          <activiti:value id="attr1" name="отримувач особисто"></activiti:value>
+          <activiti:value id="attr2" name="представник отримувача"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="info1" name="Дані, що заповнюються тільки отримувачем" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="info2" name="Дані, що заповнюються тільки представником отримувача" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="file" name="file" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
