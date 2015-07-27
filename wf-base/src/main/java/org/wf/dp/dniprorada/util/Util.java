@@ -11,14 +11,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
+import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.TaskFormData;
 
 import sun.misc.BASE64Encoder;
 import sun.misc.BASE64Decoder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getStringFromFieldExpression;
 
 public final class Util {
@@ -110,7 +114,23 @@ public final class Util {
                         return;
                     }*/
                     //String sExpression = getStringFromFieldExpression(osBody, execution);
-                    String sExpression = (String)execution.getVariable("sBody");
+                	TaskFormData taskformData = execution.getEngineServices()
+                		    .getFormService()
+                		    .getTaskFormData(execution.getId());
+                	
+                	oLog.info("[replacePatterns]:Found taskformData=" + taskformData);
+                	String sExpression = null;
+                	for (FormProperty property : taskformData.getFormProperties()) {
+                		if (property.getId().equals("sBody") ){
+                			oLog.info("[replacePatterns]:Found necessary property=" + property.getValue());
+                			sExpression = property.getValue();
+                		} else {
+                			oLog.info("[replacePatterns]:Property =" + property.getId());
+                		}
+                	}
+                	
+//                    String sExpression = (String)execution.getVariable("sBody");
+                	if (sExpression != null){
                     oLog.info("[replacePatterns]:sExpression="+sExpression);
                     if(sExpression!=null){
                         String[] asPatterns = {
@@ -150,7 +170,7 @@ public final class Util {
                             }
                         }
                     }
-                
+                	}
                 }catch(Exception oException){
                     oLog.error("[replacePatterns]",oException);
                 }            
@@ -172,13 +192,13 @@ public final class Util {
 
             InputStream is = new FileInputStream(file);
 
-            // Получаем размер файла
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             long length = file.length();
 
-            // Создаем массив для хранения данных
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             byte[] bytes = new byte[(int)length];
 
-            // Считываем
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             int offset = 0;
 
             int numRead = 0;
@@ -189,12 +209,12 @@ public final class Util {
                 offset += numRead;
             }
 
-            // Проверяем, все ли прочитано
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             if (offset < bytes.length) {
                 throw new IOException("Could not completely read file "+file.getName());
             }
 
-            // Закрываем и возвращаем
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             is.close();
 
             return bytes;
