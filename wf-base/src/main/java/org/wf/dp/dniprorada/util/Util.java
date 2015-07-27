@@ -13,6 +13,7 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import org.activiti.engine.delegate.DelegateExecution;
+import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
@@ -107,7 +108,7 @@ public final class Util {
         
 
 	//public static void replacePatterns(DelegateExecution execution, Expression osBody, Logger oLog) {
-	public static void replacePatterns(DelegateExecution execution, Logger oLog) {
+	public static void replacePatterns(DelegateExecution execution, DelegateTask task, Logger oLog) {
                 try{
                     /*String sBody=(String)execution.getVariable("sBody");
                     if(sBody==null){
@@ -115,9 +116,16 @@ public final class Util {
                     }*/
                     //String sExpression = getStringFromFieldExpression(osBody, execution);
                 	
+                    
+                    oLog.info("[replacePatterns]:task.getId()="+task.getId());
+                    oLog.info("[replacePatterns]:execution.getId()="+execution.getId());
+                    oLog.info("[replacePatterns]:task.getVariable(\"sBody\")="+task.getVariable("sBody"));
+                    oLog.info("[replacePatterns]:execution.getVariable(\"sBody\")="+execution.getVariable("sBody"));
+                            
                 	TaskFormData taskformData = execution.getEngineServices()
                 		    .getFormService()
-                		    .getTaskFormData(execution.getId());
+                		    .getTaskFormData(task.getId());
+                		    //.getTaskFormData(execution.getId());
                 	
                 	oLog.info("[replacePatterns]:Found taskformData=" + taskformData);
                 	String sExpression = null;
@@ -132,9 +140,14 @@ public final class Util {
 	                	}
                 	}
                 	
-//                    String sExpression = (String)execution.getVariable("sBody");
-                	if (sExpression != null){
+                    //String sExpression = (String)execution.getVariable("sBody");
                     oLog.info("[replacePatterns]:sExpression="+sExpression);
+                    /*if(sExpression!=null){
+                        sExpression = (String)execution.get getVariable("sBody");
+                        oLog.info("[replacePatterns]:sExpression="+sExpression);
+                    }*/
+                    
+                    
                     if(sExpression!=null){
                         String[] asPatterns = {
                                 "pattern/print/subsidy.html"
@@ -173,7 +186,6 @@ public final class Util {
                             }
                         }
                     }
-                	}
                 }catch(Exception oException){
                     oLog.error("[replacePatterns]",oException);
                 }            
