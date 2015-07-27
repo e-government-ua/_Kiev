@@ -82,9 +82,16 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
           box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
         }*/
 
+        var telInput = $($('input[type=tel]')[0]);
+
+        if (!telInput.intlTelInput('isValidNumber')){
+            //telInput.addClass('has-error');
+            alert('Неверный формат телефона!');
+        }       
+
         ValidationService.validateEmailByMarker( form.email, $scope.markers );
 
-        if (form.$valid && bValid) {//
+        if (form.$valid) {//
             ActivitiService
                 .submitForm(oServiceData, $scope.data.formData)
                 .then(function(result) {
@@ -144,6 +151,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   };
 
   $scope.files = {};
+
   $scope.addFile = function(propertyId, event) {
     var files = event.target.files;
     if (files && files.length === 1) {
@@ -154,21 +162,5 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     }
     $scope.$apply();
   };
-
-    $timeout(function () {
-        $('input[type=tel]').intlTelInput({
-            defaultCountry: 'auto',
-            autoFormat: true,
-            allowExtensions: true,
-            preferredCountries: ['ua'],
-            autoPlaceholder: false,
-            geoIpLookup: function(callback) {
-                $.get('http://ipinfo.io', function() {}, 'jsonp').always(function(resp) {
-                    var countryCode = (resp && resp.country) ? resp.country : '';
-                    callback(countryCode);
-                });
-            }
-        });
-    });
 
 });
