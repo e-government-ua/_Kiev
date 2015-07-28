@@ -137,7 +137,7 @@
     </serviceTask>
     <sequenceFlow id="flow7" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <serviceTask id="servicetask1" name="загрузка файлов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <serviceTask id="servicetask2" name="відправка імейла для сплати" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
+    <serviceTask id="servicetask2" name="відправка імейла для сплати" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>
