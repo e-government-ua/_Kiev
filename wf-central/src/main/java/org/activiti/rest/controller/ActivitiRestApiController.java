@@ -43,7 +43,7 @@ import org.wf.dp.dniprorada.model.ByteArrayMultipartFile;
  * @author Tereshchenko
  */
 @Controller
-@RequestMapping(value = "/rest")
+@RequestMapping(value = "/restOldVersion")
 public class ActivitiRestApiController extends ExecutionBaseResource {
 
     @SuppressWarnings("unused")
