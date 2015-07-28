@@ -9,7 +9,7 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function() {
 
   PrintTemplate.prototype.findPrintTemplate = function (form) {
     var printTemplateResult = form.filter(function (item) {
-      return item.id === 'sBody0' || item.id === 'sBody';
+      return item.id === 'sBody';
     });
     return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
   };

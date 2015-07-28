@@ -22,6 +22,7 @@
         <activiti:formProperty id="house_name" name="Назваорганізації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="house_notice" name="Примітки" type="string"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="sBody" type="invisible" default=" "></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="dnepr_upzsn">
@@ -48,7 +49,7 @@
           <activiti:value id="attr1" name="відправлені запроси, очікують відповіді"></activiti:value>
           <activiti:value id="attr2" name="відповідь отримана, винесено рішення, повідомити громадянина"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="sBody" name="Печатная форма" type="invisible" variable="[pattern/print/subsidy.html]" default="[pattern/print/subsidy.html]" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/subsidy.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
     </userTask>
