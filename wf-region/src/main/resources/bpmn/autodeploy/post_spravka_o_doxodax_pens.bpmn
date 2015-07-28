@@ -125,7 +125,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string>Довідка про доходи (пенсійний фонд)</activiti:string>
@@ -146,7 +146,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Отримання довідки про доходи (розмір пенсії)</activiti:string>
+          <activiti:string><![CDATA[Отримання довідки про доходи (розмір пенсії)]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а), "${bankIdfirstName}" "${bankIdmiddleName}".
