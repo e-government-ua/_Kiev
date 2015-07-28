@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <h1>Заявки</h1>
+        <h1 style="margin-left: 0px;">Заявки</h1>
         <p>На цій сторінці Ви можете переглянути статус по своїй заявці за її номером.</p>
     </div>
 </div>
@@ -17,7 +17,7 @@
                                   style="text-align:left;"
                                     >
                                 <div class="form-group">
-                                    <div class="col-md-3">
+                                    <div style="top: 6px;" class="col-md-3">
                                         <label for="code">Номер заявки</label>
                                     </div>
                                     <div class="col-md-6">
@@ -28,7 +28,7 @@
                                            id="code"/>
                                         </div>
 
-                                    <div class="col-md-3">
+                                    <div style="top: 6px;" class="col-md-3">
                                         <a ng-disabled="searchForm.$invalid"
                                            ng-click="searchForm.$valid && searchOrder(sID)">Переглянути</a>
                                     </div>
