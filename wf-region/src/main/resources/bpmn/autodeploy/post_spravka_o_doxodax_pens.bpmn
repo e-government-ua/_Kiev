@@ -187,7 +187,8 @@
     </serviceTask>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow12" sourceRef="mailtask3" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow13" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="servicetask1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow14" sourceRef="servicetask2" targetRef="usertask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_post_spravka_o_doxodax_pens">
     <bpmndi:BPMNPlane bpmnElement="post_spravka_o_doxodax_pens" id="BPMNPlane_post_spravka_o_doxodax_pens">
@@ -259,7 +260,11 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
         <omgdi:waypoint x="146.0" y="168.0"></omgdi:waypoint>
-        <omgdi:waypoint x="402.0" y="95.0"></omgdi:waypoint>
+        <omgdi:waypoint x="262.0" y="95.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="315.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="67.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
