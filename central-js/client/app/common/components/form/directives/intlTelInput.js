@@ -1,4 +1,5 @@
 angular.module('app').directive('intlTelInput', function() {
+	
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
