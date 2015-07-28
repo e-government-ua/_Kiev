@@ -132,7 +132,7 @@
     </boundaryEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask1" name="Перевірка наявності обтяжень" activiti:candidateGroups="tester">
+    <userTask id="usertask1" name="Перевірка наявності обтяжень" activiti:candidateGroups="sales">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -159,7 +159,7 @@
     </userTask>
     <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="usertask1" targetRef="servicetask2"></sequenceFlow>
-    <userTask id="usertask2" name="Надання послуги: Огляд авто " activiti:candidateGroups="tester">
+    <userTask id="usertask2" name="Надання послуги: Огляд авто " activiti:candidateGroups="sales">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
