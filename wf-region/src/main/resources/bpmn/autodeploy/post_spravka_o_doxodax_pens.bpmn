@@ -70,6 +70,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Примітки; тут ви можете написати текст для громадянина, який буде відправлений йому на електронну пошту" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="sIDPayment" name="ID платежа за послугу" type="string" default="${sID_Payment}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="testfile" name="приложение к письму" type="file" default=" "></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -161,7 +162,7 @@
 Команда Порталу державних послуг igov.org.ua</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${pens}"</activiti:expression>
+          <activiti:expression>"${testfile}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
