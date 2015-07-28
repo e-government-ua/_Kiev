@@ -128,3 +128,4 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 127;670;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_mailer:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 128;671;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_dependence_form:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 129;672;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_dnepr_mvd_1_auto:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+130;673;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_print_form:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
