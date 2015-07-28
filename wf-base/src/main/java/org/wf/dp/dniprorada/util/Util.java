@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.util;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Constants;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -132,8 +133,12 @@ public final class Util {
                 	if (taskformData != null){
 	                	for (FormProperty property : taskformData.getFormProperties()) {
 	                		if (property.getId().equals("sBody") ){
-	                			oLog.info("[replacePatterns]:Found necessary property=" + property.getValue());
+	                			oLog.info("[replacePatterns]:Found necessary property.getValue()=" + property.getValue());
 	                			sExpression = property.getValue();
+	                			oLog.info("[replacePatterns]:Found necessary property.getValue()=" + property.getName());
+                                                if( sExpression==null || "".equals(sExpression.trim()) || "${sBody}".equals(sExpression.trim())){
+                                                    sExpression = property.getName();
+                                                }
 	                		} else {
 	                			oLog.info("[replacePatterns]:Property =" + property.getId());
 	                		}
@@ -180,7 +185,13 @@ public final class Util {
                                         execution.setVariable("sBody0", sExpression);
                                         task.setVariable("sBody", sExpression);
                                         task.setVariable("sBody0", sExpression);
-                                        oLog.info("[replacePatterns]:Ok!");
+                                        oLog.info("[replacePatterns]:1-Ok!");
+                                        
+                                        execution.getEngineServices().getRuntimeService()
+                                                .setVariable(task.getProcessInstanceId(), "sBody", sExpression);
+                                        //task.getId()
+                                        
+                                        oLog.info("[replacePatterns]:2-Ok!");
                                     }
                                 }else{
                                     oLog.info("[replacePatterns]:oFile.getAbsolutePath()="+oFile.getAbsolutePath());
