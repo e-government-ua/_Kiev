@@ -33,7 +33,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import org.wf.dp.dniprorada.model.ByteArrayMultipartFile;
 
 /**
@@ -44,7 +43,7 @@ import org.wf.dp.dniprorada.model.ByteArrayMultipartFile;
  * @author Tereshchenko
  */
 @Controller
-@RequestMapping(value = "/restOldVersion") //Todo: remove after test
+@RequestMapping(value = "/restOldVersion")
 public class ActivitiRestApiController extends ExecutionBaseResource {
 
     @SuppressWarnings("unused")
@@ -104,7 +103,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return procDefinitions;
     }
 
-    /*@RequestMapping(value = "/file/upload_file_to_redis", method = RequestMethod.POST)
+    @RequestMapping(value = "/file/upload_file_to_redis", method = RequestMethod.POST)
     @Transactional
     public
     @ResponseBody
@@ -116,26 +115,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 			 throw new ActivitiIOException(ActivitiIOException.Error.REDIS_ERROR,e.getMessage());
 		} catch (IOException e) {
 			throw new ActivitiIOException(ActivitiIOException.Error.REDIS_ERROR,e.getMessage());
-		}
-		return atachId;
-    }*/
-    
-    /**
-     * Укладываем в редис multipartFileToByteArray 
-     * @param file
-     * @return
-     * @throws org.activiti.rest.controller.ActivitiIOException
-     */
-    @RequestMapping(value = "/file/upload_file_to_redis", method = RequestMethod.POST)
-    @Transactional
-    public
-    @ResponseBody
-    String putAttachmentsToRedis(@RequestParam("file") MultipartFile file) throws ActivitiIOException, Exception  {
-    	String atachId = null;
-		try {
-			atachId = redisService.putAttachments(AbstractModelTask.multipartFileToByteArray(file).toByteArray());
-		}catch (Exception e) {
-			 throw e;
 		}
 		return atachId;
     }
