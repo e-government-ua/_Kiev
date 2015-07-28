@@ -69,7 +69,7 @@
           <activiti:value id="attr3_money_no" name="Сплата не надійшла"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Примітки; тут ви можете написати текст для громадянина, який буде відправлений йому на електронну пошту" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sIDPayment" name="ID платежа за послугу" type="string" default="${sID_Payment}" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="sIDPayment" name="ID платежа за послугу" type="string" default="${sID_Payment}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -136,7 +136,7 @@
     </serviceTask>
     <sequenceFlow id="flow7" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <serviceTask id="servicetask1" name="загрузка файлов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <serviceTask id="servicetask2" name="відправка імейла для сплати" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask2" name="відправка імейла для сплати" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>
@@ -160,9 +160,14 @@
 Укрпошта
 Команда Порталу державних послуг igov.org.ua</activiti:expression>
         </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${pens}"</activiti:expression>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow11" sourceRef="exclusivegateway1" targetRef="mailtask3"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="exclusivegateway1" targetRef="mailtask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision=='attr3_money_no'}]]></conditionExpression>
+    </sequenceFlow>
     <serviceTask id="mailtask3" name="Відповідь у разі відсутності сплати" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -187,7 +192,8 @@
     </serviceTask>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow12" sourceRef="mailtask3" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow13" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="servicetask1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow14" sourceRef="servicetask2" targetRef="usertask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_post_spravka_o_doxodax_pens">
     <bpmndi:BPMNPlane bpmnElement="post_spravka_o_doxodax_pens" id="BPMNPlane_post_spravka_o_doxodax_pens">
@@ -259,7 +265,11 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
         <omgdi:waypoint x="146.0" y="168.0"></omgdi:waypoint>
-        <omgdi:waypoint x="402.0" y="95.0"></omgdi:waypoint>
+        <omgdi:waypoint x="262.0" y="95.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="315.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="67.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

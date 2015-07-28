@@ -57,8 +57,8 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
 	public void notify(DelegateTask task) {
 		
 		DelegateExecution execution = task.getExecution();
-
-                Util.replacePatterns(execution, LOG); 
+                //task.getId()
+                Util.replacePatterns(execution, task, LOG); 
                 
 		String sInheritedAttachmentsIds = getStringFromFieldExpression(this.aFieldInheritedAttachmentID, execution);
 

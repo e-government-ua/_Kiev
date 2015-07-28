@@ -1,0 +1,6 @@
+nID;sName;bArea;bRoot
+1;Область;true;true
+2;Район;true;false
+3;Город;false;false
+4;ПГТ;false;false
+5;Село;false;false

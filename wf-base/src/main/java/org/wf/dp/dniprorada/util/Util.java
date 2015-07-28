@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.util;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Constants;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -11,14 +12,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+
 import org.activiti.engine.delegate.DelegateExecution;
+import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.Expression;
+import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.TaskFormData;
 
 import sun.misc.BASE64Encoder;
 import sun.misc.BASE64Decoder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getStringFromFieldExpression;
 
 public final class Util {
@@ -103,15 +109,50 @@ public final class Util {
         
 
 	//public static void replacePatterns(DelegateExecution execution, Expression osBody, Logger oLog) {
-	public static void replacePatterns(DelegateExecution execution, Logger oLog) {
+	public static void replacePatterns(DelegateExecution execution, DelegateTask task, Logger oLog) {
                 try{
                     /*String sBody=(String)execution.getVariable("sBody");
                     if(sBody==null){
                         return;
                     }*/
                     //String sExpression = getStringFromFieldExpression(osBody, execution);
-                    String sExpression = (String)execution.getVariable("sBody");
+                	
+                    
+                    oLog.info("[replacePatterns]:task.getId()="+task.getId());
+                    oLog.info("[replacePatterns]:execution.getId()="+execution.getId());
+                    oLog.info("[replacePatterns]:task.getVariable(\"sBody\")="+task.getVariable("sBody"));
+                    oLog.info("[replacePatterns]:execution.getVariable(\"sBody\")="+execution.getVariable("sBody"));
+                            
+                	TaskFormData taskformData = execution.getEngineServices()
+                		    .getFormService()
+                		    .getTaskFormData(task.getId());
+                		    //.getTaskFormData(execution.getId());
+                	
+                	oLog.info("[replacePatterns]:Found taskformData=" + taskformData);
+                	String sExpression = null;
+                	if (taskformData != null){
+	                	for (FormProperty property : taskformData.getFormProperties()) {
+	                		if (property.getId().equals("sBody") ){
+	                			oLog.info("[replacePatterns]:Found necessary property.getValue()=" + property.getValue());
+	                			//sExpression = property.getValue();
+	                			oLog.info("[replacePatterns]:Found necessary property.getName()=" + property.getName());
+                                                //if( sExpression==null || "".equals(sExpression.trim()) || "${sBody}".equals(sExpression.trim())){
+                                                    sExpression = property.getName();
+                                                //}
+	                		} else {
+	                			oLog.info("[replacePatterns]:Property =" + property.getId());
+	                		}
+	                	}
+                	}
+                	
+                    //String sExpression = (String)execution.getVariable("sBody");
                     oLog.info("[replacePatterns]:sExpression="+sExpression);
+                    /*if(sExpression!=null){
+                        sExpression = (String)execution.get getVariable("sBody");
+                        oLog.info("[replacePatterns]:sExpression="+sExpression);
+                    }*/
+                    
+                    
                     if(sExpression!=null){
                         String[] asPatterns = {
                                 "pattern/print/subsidy.html"
@@ -128,18 +169,33 @@ public final class Util {
                                 File oFile = new File(sName);//"pattern/print/subsidy.html"
                                 oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
                                 if(!oFile.exists()){
-                                    oFile = new File("class/"+sName);
+                                    //oFile = new File("class/"+sName);
+                                    // /sybase/tomcat_wf-region/bin/class/pattern/print/subsidy.html                                    
+                                    oFile = new File("../webapps/wf-region/WEB-INF/classes/"+sName);
                                 }
                                 oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
                                 if(oFile.exists()){
-                                    String sData = getFromFile(oFile, "Cp1251");
+                                    //String sData = getFromFile(oFile, "Cp1251");
+                                    String sData = getFromFile(oFile, null);
                                     oLog.info("[replacePatterns]:sData="+sData);
                                     if(sData!=null){
                                         sExpression=sExpression.replaceAll("\\Q["+sName+"]\\E", sData);
                                         oLog.info("[replacePatterns]:sExpression="+sExpression);
                                         //setStringFromFieldExpression(osBody, execution, sExpression);
-                                        execution.setVariable("sBody", sExpression);
-                                        oLog.info("[replacePatterns]:Ok!");
+//                                        execution.setVariable("sBody", sExpression);
+//                                        execution.setVariable("sBody0", sExpression);
+//                                        task.setVariable("sBody", sExpression);
+//                                        task.setVariable("sBody0", sExpression);
+                                        oLog.info("[replacePatterns]:1-Ok!");
+                                        
+                                        execution.getEngineServices().getRuntimeService()
+                                                .setVariable(task.getProcessInstanceId(), "sBody", sExpression);
+                                        //task.getName();
+                                        oLog.info("[replacePatterns]:2-Ok:"+execution.getEngineServices().getRuntimeService()
+                                                .getVariable(task.getProcessInstanceId(), "sBody"));
+                                        //task.getId()
+                                        
+                                        oLog.info("[replacePatterns]:3-Ok!");
                                     }
                                 }else{
                                     oLog.info("[replacePatterns]:oFile.getAbsolutePath()="+oFile.getAbsolutePath());
@@ -150,7 +206,6 @@ public final class Util {
                             }
                         }
                     }
-                
                 }catch(Exception oException){
                     oLog.error("[replacePatterns]",oException);
                 }            
@@ -172,13 +227,13 @@ public final class Util {
 
             InputStream is = new FileInputStream(file);
 
-            // Получаем размер файла
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             long length = file.length();
 
-            // Создаем массив для хранения данных
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             byte[] bytes = new byte[(int)length];
 
-            // Считываем
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             int offset = 0;
 
             int numRead = 0;
@@ -189,12 +244,12 @@ public final class Util {
                 offset += numRead;
             }
 
-            // Проверяем, все ли прочитано
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             if (offset < bytes.length) {
                 throw new IOException("Could not completely read file "+file.getName());
             }
 
-            // Закрываем и возвращаем
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             is.close();
 
             return bytes;
