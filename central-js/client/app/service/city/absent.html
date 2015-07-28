@@ -1,5 +1,7 @@
 <div class="row">
     <div class="col-md-12 text-center">
+                        <div ng-intl-tel-input ng-tattr="aaa">яяя</div>
+
         <strong>На жаль, поки що у Вашому регіоні неможливе надання цієї послуги в електронному вигляді.</strong>
         <a class="ctrls-admin ctrls-srvc-add" href="" ng-if="bAdmin" title="Додати послугу в цьому місті"><span class="glyphicon glyphicon-plus"></span> Додати послугу</a>
     </div>
@@ -43,7 +45,6 @@
                         <span class="error" ng-if="absentMessageForm.email.$error.email">Введіть коректну email адресу</span>
                     </div>
 
-                    <div ng-intl-tel-input>
 <!--                         type="text"
                         data-ng-model="absentMessage.email" 
                         name="email" 
