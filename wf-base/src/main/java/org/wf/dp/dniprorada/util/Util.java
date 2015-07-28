@@ -175,20 +175,22 @@ public final class Util {
                                 }
                                 oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
                                 if(oFile.exists()){
-                                    String sData = getFromFile(oFile, "Cp1251");
+                                    //String sData = getFromFile(oFile, "Cp1251");
+                                    String sData = getFromFile(oFile, null);
                                     oLog.info("[replacePatterns]:sData="+sData);
                                     if(sData!=null){
                                         sExpression=sExpression.replaceAll("\\Q["+sName+"]\\E", sData);
                                         oLog.info("[replacePatterns]:sExpression="+sExpression);
                                         //setStringFromFieldExpression(osBody, execution, sExpression);
-                                        execution.setVariable("sBody", sExpression);
-                                        execution.setVariable("sBody0", sExpression);
-                                        task.setVariable("sBody", sExpression);
-                                        task.setVariable("sBody0", sExpression);
+//                                        execution.setVariable("sBody", sExpression);
+//                                        execution.setVariable("sBody0", sExpression);
+//                                        task.setVariable("sBody", sExpression);
+//                                        task.setVariable("sBody0", sExpression);
                                         oLog.info("[replacePatterns]:1-Ok!");
                                         
                                         execution.getEngineServices().getRuntimeService()
                                                 .setVariable(task.getProcessInstanceId(), "sBody", sExpression);
+                                        //task.getName();
                                         oLog.info("[replacePatterns]:2-Ok:"+execution.getEngineServices().getRuntimeService()
                                                 .getVariable(task.getProcessInstanceId(), "sBody"));
                                         //task.getId()
