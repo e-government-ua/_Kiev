@@ -134,11 +134,11 @@ public final class Util {
 	                	for (FormProperty property : taskformData.getFormProperties()) {
 	                		if (property.getId().equals("sBody") ){
 	                			oLog.info("[replacePatterns]:Found necessary property.getValue()=" + property.getValue());
-	                			sExpression = property.getValue();
-	                			oLog.info("[replacePatterns]:Found necessary property.getValue()=" + property.getName());
-                                                if( sExpression==null || "".equals(sExpression.trim()) || "${sBody}".equals(sExpression.trim())){
+	                			//sExpression = property.getValue();
+	                			oLog.info("[replacePatterns]:Found necessary property.getName()=" + property.getName());
+                                                //if( sExpression==null || "".equals(sExpression.trim()) || "${sBody}".equals(sExpression.trim())){
                                                     sExpression = property.getName();
-                                                }
+                                                //}
 	                		} else {
 	                			oLog.info("[replacePatterns]:Property =" + property.getId());
 	                		}
@@ -189,9 +189,11 @@ public final class Util {
                                         
                                         execution.getEngineServices().getRuntimeService()
                                                 .setVariable(task.getProcessInstanceId(), "sBody", sExpression);
+                                        oLog.info("[replacePatterns]:2-Ok:"+execution.getEngineServices().getRuntimeService()
+                                                .getVariable(task.getProcessInstanceId(), "sBody"));
                                         //task.getId()
                                         
-                                        oLog.info("[replacePatterns]:2-Ok!");
+                                        oLog.info("[replacePatterns]:3-Ok!");
                                     }
                                 }else{
                                     oLog.info("[replacePatterns]:oFile.getAbsolutePath()="+oFile.getAbsolutePath());

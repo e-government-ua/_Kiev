@@ -48,7 +48,7 @@
           <activiti:value id="attr1" name="відправлені запроси, очікують відповіді"></activiti:value>
           <activiti:value id="attr2" name="відповідь отримана, винесено рішення, повідомити громадянина"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/subsidy.html]" type="invisible" variable="${sBody}" default="[pattern/print/subsidy.html]" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/subsidy.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
     </userTask>
