@@ -111,7 +111,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="issue-487-PK" author="dgroup" dbms="h2">
+    <changeSet id="issue-487-PK" author="dgroup">
         <addAutoIncrement tableName="SubjectOrganJoin" columnName="nID" startWith="1000" columnDataType="bigint"/>
     </changeSet>
 
@@ -287,6 +287,62 @@
 
     <!-- ####################################################################################################### -->
 
+    <changeSet id="issue-573" author="dgroup">
+        <!-- -->
+        <createTable tableName="PlaceType">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="sName"  type="varchar(30)"/>
+            <column name="nOrder" type="number"/>
+            <column name="bArea"  type="boolean"/>
+            <column name="bRoot"  type="boolean"/>
+        </createTable>
+        <addAutoIncrement tableName     = "PlaceType"
+                          columnName    = "nID"
+                          startWith     = "100"
+                          columnDataType= "bigint"/>
+        <!-- -->
+        <createTable tableName="Place">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="sName" type="varchar(30)"/>
+            <column name="nID_PlaceType" type="bigint">
+                <constraints nullable               = "false"
+                             foreignKeyName         = "FK_Place_PlaceType"
+                             referencedTableName    = "PlaceType"
+                             referencedColumnNames  = "nID"
+                             deleteCascade          = "true"/>
+            </column>
+            <column name="sID_UA"        type="varchar(100)"/>
+            <column name="sNameOriginal" type="varchar(200)"/>
+        </createTable>
+        <addAutoIncrement tableName     = "Place"
+                          columnName    = "nID"
+                          startWith     = "100"
+                          columnDataType= "bigint"/>
+        <!-- -->
+        <createTable tableName="PlaceTree">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="nID_Place" type="bigint">
+                <constraints nullable               = "false"
+                             foreignKeyName         = "FK_PlaceTree_Place"
+                             referencedTableName    = "Place"
+                             referencedColumnNames  = "nID"
+                             deleteCascade          = "true"/>
+            </column>
+            <column name="nID_Place_Root"   type="number"/>
+            <column name="nID_Place_Area"   type="number"/>
+            <column name="nID_Place_Parent" type="number"/>
+        </createTable>
+        <addAutoIncrement tableName     = "PlaceTree"
+                          columnName    = "nID"
+                          startWith     = "100"
+                          columnDataType= "bigint"/>
+    </changeSet>
 
 
 </databaseChangeLog>
