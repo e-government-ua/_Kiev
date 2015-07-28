@@ -143,7 +143,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[noreply@igov.org.ua]]></activiti:expression>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Отримання довідки про доходи (розмір пенсії)]]></activiti:string>
