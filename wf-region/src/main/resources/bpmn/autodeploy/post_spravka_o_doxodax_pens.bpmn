@@ -70,7 +70,6 @@
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Примітки; тут ви можете написати текст для громадянина, який буде відправлений йому на електронну пошту" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="sIDPayment" name="ID платежа за послугу" type="string" default="${sID_Payment}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="testfile" name="приложение к письму" type="file" default=" "></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -125,7 +124,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string>Довідка про доходи (пенсійний фонд)</activiti:string>
@@ -140,16 +139,16 @@
     <serviceTask id="servicetask2" name="відправка імейла для сплати" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Отримання довідки про доходи (розмір пенсії)]]></activiti:string>
+          <activiti:string>Отримання довідки про доходи (розмір пенсії)</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), .
+          <activiti:expression>Шановний(-а), "${bankIdfirstName}" "${bankIdmiddleName}".
 
 Для отримання послуги Вам необхідно сплатити її протягом 1 дня з моменту подачі заяви.
 Для сплати натисніть цю кнопку:
