@@ -177,6 +177,9 @@ public final class Util {
                                         oLog.info("[replacePatterns]:sExpression="+sExpression);
                                         //setStringFromFieldExpression(osBody, execution, sExpression);
                                         execution.setVariable("sBody", sExpression);
+                                        execution.setVariable("sBody0", sExpression);
+                                        task.setVariable("sBody", sExpression);
+                                        task.setVariable("sBody0", sExpression);
                                         oLog.info("[replacePatterns]:Ok!");
                                     }
                                 }else{
