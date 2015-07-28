@@ -149,7 +149,7 @@
           <activiti:string><![CDATA[Отримання довідки про доходи (розмір пенсії)]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), "${bankIdfirstName}" "${bankIdmiddleName}".
+          <activiti:expression>Шановний(-а), .
 
 Для отримання послуги Вам необхідно сплатити її протягом 1 дня з моменту подачі заяви.
 Для сплати натисніть цю кнопку:
