@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="post_spravka_o_doxodax_pens" name="Отримання довідки про доходи (пенсійний фонд)" isExecutable="true" activiti:candidateStarterGroups="post_spravka_o_doxodax_pens">
+  <process id="post_spravka_o_doxodax_pens" name="Отримання довідки про доходи (пенсійний фонд)" isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -187,13 +187,14 @@
 Рахунок для сплати знаходиться в додатку до цього листа.</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>" "</activiti:expression>
+          <activiti:expression>"${pens} "</activiti:expression>
         </activiti:field>
+        <activiti:executionListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:executionListener>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow16" sourceRef="startevent1" targetRef="servicetask3"></sequenceFlow>
-    <sequenceFlow id="flow17" sourceRef="servicetask3" targetRef="servicetask1"></sequenceFlow>
-    <sequenceFlow id="flow18" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow16" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <sequenceFlow id="flow18" sourceRef="servicetask3" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow19" sourceRef="servicetask1" targetRef="servicetask3"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_post_spravka_o_doxodax_pens">
     <bpmndi:BPMNPlane bpmnElement="post_spravka_o_doxodax_pens" id="BPMNPlane_post_spravka_o_doxodax_pens">
@@ -231,7 +232,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="94.0" y="250.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
-        <omgdc:Bounds height="55.0" width="105.0" x="128.0" y="47.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="128.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
         <omgdi:waypoint x="455.0" y="67.0"></omgdi:waypoint>
@@ -276,16 +277,16 @@
         <omgdi:waypoint x="111.0" y="250.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
-        <omgdi:waypoint x="55.0" y="74.0"></omgdi:waypoint>
-        <omgdi:waypoint x="128.0" y="74.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
-        <omgdi:waypoint x="180.0" y="102.0"></omgdi:waypoint>
+        <omgdi:waypoint x="37.0" y="92.0"></omgdi:waypoint>
         <omgdi:waypoint x="180.0" y="168.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="233.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="67.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
         <omgdi:waypoint x="180.0" y="168.0"></omgdi:waypoint>
-        <omgdi:waypoint x="402.0" y="95.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="95.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
