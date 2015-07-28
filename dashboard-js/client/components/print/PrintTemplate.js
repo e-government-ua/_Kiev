@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dashboardJsApp').factory('PrintTemplate', function() {
+angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
   var PrintTemplate = function() {
     this.task = undefined;
     this.form = undefined;
@@ -59,7 +59,7 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function() {
       printTemplate = this.processPrintTemplate(this.form, printTemplate, /(\[label=(\w+)])/g, function (item) {
         return item.name;
       });
-      return printTemplate;
+      return $sce.trustAsHtml(printTemplate);
     }
   };
 
