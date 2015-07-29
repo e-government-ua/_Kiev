@@ -307,7 +307,7 @@
             <column name="nID" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="sName" type="varchar(30)"/>
+            <column name="sName" type="varchar(200)"/>
             <column name="nID_PlaceType" type="bigint">
                 <constraints nullable               = "false"
                              foreignKeyName         = "FK_Place_PlaceType"
