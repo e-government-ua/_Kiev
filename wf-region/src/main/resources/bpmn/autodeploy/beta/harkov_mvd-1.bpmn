@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_mvd_1" name="Днепропетровск - Надання довідки про відсутність або наявніcть судимості" isExecutable="true">
+  <process id="harkov_mvd_1" name="Харків - Надання довідки про відсутність або наявніcть судимості" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -31,7 +31,7 @@
         <activiti:formProperty id="phone" name="Контактний телефон; у форматі 380...." type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-      </extensionElements>
+ </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування додаткових документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
@@ -54,7 +54,7 @@
 
 Дякуємо, що скористалися Інтернет-сервісом замовлення довідки про наявність або відсутніть судимості! Ваш запит успішно зареєстровано.
 
-Ви зможете забрати Вашу довідку приблизно за 20 робочих днів за адресою вул.Ворошилова 21.
+Ви зможете забрати Вашу довідку приблизно за 20 робочих днів за адресою _________
 
 Підкреслюємо, що поки що забрати довідку Ви можете лише в паперовому вигляді.
 
@@ -70,7 +70,7 @@
     </boundaryEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask1" name="Надання послуги" activiti:candidateGroups="dnepr_mvd_fo1">
+    <userTask id="usertask1" name="Надання послуги" activiti:candidateGroups="harkov_mvd_fo1">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я " type="string" writable="false"></activiti:formProperty>
@@ -85,7 +85,7 @@
           <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки (піклування), створення прийомної сім'ї або дитячого будинку cімейного типу"></activiti:value>
           <activiti:value id="attr2" name="Оформлення документів в органи соціального забезпечення."></activiti:value>
           <activiti:value id="attr3" name="Оформлення візи для виїзду за кордон."></activiti:value>
-          <activiti:value id="attr4" name="Надання в установи іноземних держав, працевлаштування за кордоном."></activiti:value>
+          <activiti:value id="attr4" name="ОНадання в установи іноземних держав, працевлаштування за кордоном."></activiti:value>
           <activiti:value id="attr5" name="Оформлення на роботу."></activiti:value>
           <activiti:value id="attr6" name="Оформлення дозволу на зброю, оформлення ліцензії на роботу з вибуховими речовинами."></activiti:value>
           <activiti:value id="attr7" name="Оформлення ліцензії на роботу з наркотичними засобами, психотропними речовинами та прекурсорами."></activiti:value>
@@ -159,8 +159,8 @@
 
 Ваш запит успішно оброблено.
 
-Ви можете отримати довідку за адресою м.Дніпропетровськ  вул.Ворошилова 21. 
-Графік прийому: з 15:00 до 17: 00 (крім вихідних)
+Ви можете отримати довідку за адресою _______
+Графік прийому: _______
 
 З повагою,
 Міністерство Внутрішніх Справ,
@@ -171,8 +171,8 @@
     <sequenceFlow id="flow9" sourceRef="mailtask3" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow10" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_mvd_1">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_mvd_1" id="BPMNPlane_dnepr_mvd_1">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_harkov_mvd_1">
+    <bpmndi:BPMNPlane bpmnElement="harkov_mvd_1" id="BPMNPlane_harkov_mvd_1">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="110.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>

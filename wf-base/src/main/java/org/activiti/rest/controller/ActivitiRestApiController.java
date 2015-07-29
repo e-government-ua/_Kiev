@@ -13,9 +13,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import javax.activation.DataSource;
 import javax.mail.MessagingException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -192,16 +192,28 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	String atachId = null;
 		try {
 			atachId = redisService.putAttachments(AbstractModelTask.multipartFileToByteArray(file).toByteArray());
-		//}catch (RedisException e) {
 		}catch (Exception e) {
-			 //throw new ActivitiIOException(ActivitiIOException.Error.REDIS_ERROR,e.getMessage());
 			 throw e;
-		/*} catch (IOException e) {
-			throw new ActivitiIOException(ActivitiIOException.Error.REDIS_ERROR,e.getMessage());*/
 		}
 		return atachId;
     }
-    
+    /*
+    @RequestMapping(value = "/file/upload_file_to_redis", method = RequestMethod.POST)
+    @Transactional
+    public
+    @ResponseBody
+    String putAttachmentsToRedis(@RequestParam("file") MultipartFile file) throws ActivitiIOException  {
+    	String atachId = null;
+		try {
+			atachId = redisService.putAttachments(file.getBytes());
+		}catch (RedisException e) {
+			 throw new ActivitiIOException(ActivitiIOException.Error.REDIS_ERROR,e.getMessage());
+		} catch (IOException e) {
+			throw new ActivitiIOException(ActivitiIOException.Error.REDIS_ERROR,e.getMessage());
+		}
+		return atachId;
+    }
+    */
     
     @RequestMapping(value = "/file/download_file_from_redis", method = RequestMethod.GET)
     @Transactional

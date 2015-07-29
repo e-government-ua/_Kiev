@@ -29,12 +29,12 @@ import org.wf.dp.dniprorada.util.Mail;
  * @author BW
  * 
  */
-@Component("mailTaskWithoutAttachment")
+@Component("MailTaskWithoutAttachment")
 public class MailTaskWithoutAttachment extends Abstract_MailTaskCustom {
 
     private final static Logger log = LoggerFactory.getLogger(MailTaskWithoutAttachment.class);
 
-    private Expression saAttachmentsForSend;
+    //private Expression saAttachmentsForSend;
 
     @Override
     public void execute(DelegateExecution oExecution) throws Exception {
