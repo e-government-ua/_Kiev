@@ -93,7 +93,7 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
                 
                 
 		List<BuilderAtachModel> listModel = new ArrayList<BuilderAtachModel>();
-		if (false && !asFieldValue.isEmpty()) {
+		if (!asFieldValue.isEmpty()) {
 			for (String sKeyRedis : asFieldValue) {
                                 LOG.info("_sKeyRedis="+sKeyRedis);
 				if (sKeyRedis != null && !sKeyRedis.isEmpty() && !"".equals(sKeyRedis.trim()) && !"null".equals(sKeyRedis.trim())) {
