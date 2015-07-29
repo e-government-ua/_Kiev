@@ -93,7 +93,7 @@
 					<path>/wf-central</path>
 					<systemProperties>
 						<com.sun.management.jmxremote.port>4000</com.sun.management.jmxremote.port>
-						<spring.profiles.active>test</spring.profiles.active>
+						<spring.profiles.active>local</spring.profiles.active>
 					</systemProperties>
 				</configuration>
 			</plugin>

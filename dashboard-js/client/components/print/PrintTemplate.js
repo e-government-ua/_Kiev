@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dashboardJsApp').factory('PrintTemplate', function() {
+angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
   var PrintTemplate = function() {
     this.task = undefined;
     this.form = undefined;
@@ -20,16 +20,12 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function() {
 
   PrintTemplate.prototype.processPrintTemplate = function (form, printTemplate, reg, fieldGetter) {
     var _printTemplate = printTemplate;
-    var templatesAndIDs = _printTemplate.match(reg);
-    if (templatesAndIDs) {
-
-      var templates = templatesAndIDs.filter(function (item, i) {
-        return i % 2 !== 0;
-      });
-      var ids = templatesAndIDs.filter(function (item, i) {
-        return i !== 0 && i % 2 === 0;
-      });
-
+    var templates = [], ids = [], found;
+    while (found = reg.exec(_printTemplate)) {
+      templates.push(found[1]);
+      ids.push(found[2]);
+    }
+    if (templates.length > 0 && ids.length > 0) {
       templates.forEach(function (templateID, i) {
         var id = ids[i];
         if (id) {
@@ -41,10 +37,8 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function() {
           }
         }
       });
-      return this.processPrintTemplate(form, _printTemplate, reg, fieldGetter);
-    } else {
-      return _printTemplate;
     }
+    return _printTemplate;
   };
 
   PrintTemplate.prototype.getPrintTemplate = function () {
@@ -52,7 +46,7 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function() {
       return "";
     } else {
       var printTemplate = this.findPrintTemplate(this.form);
-      printTemplate = this.processPrintTemplate(this.form, printTemplate, /(\[(\w+)])/, function (item) {
+      printTemplate = this.processPrintTemplate(this.form, printTemplate, /(\[(\w+)])/g, function (item) {
         if (item.type === 'enum') {
           var enumID = item.value;
           return item.enumValues.filter(function (enumObj) {
@@ -62,10 +56,10 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function() {
           return item.value;
         }
       });
-      printTemplate = this.processPrintTemplate(this.form, printTemplate, /(\[label=(\w+)])/, function (item) {
+      printTemplate = this.processPrintTemplate(this.form, printTemplate, /(\[label=(\w+)])/g, function (item) {
         return item.name;
       });
-      return printTemplate;
+      return $sce.trustAsHtml(printTemplate);
     }
   };
 

@@ -73,7 +73,9 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
         
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
-
+                /*if(1==1){
+                    return;
+                }*/
 		StartFormData startformData = execution.getEngineServices()
 				.getFormService()
 				.getStartFormData(execution.getProcessDefinitionId());
