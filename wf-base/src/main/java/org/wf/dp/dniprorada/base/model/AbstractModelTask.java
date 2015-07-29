@@ -280,9 +280,9 @@ public abstract class AbstractModelTask {
 			throws IOException {
             
                 String sFilename = file.getOriginalFilename();
-                System.out.println("sFilename=" + file.getOriginalFilename());
+                System.out.println("sFilename=" + sFilename);
                 sFilename = Renamer.sRenamed(sFilename);
-                System.out.println("sFilename(new)=" + file.getOriginalFilename());
+                System.out.println("sFilename(new)=" + sFilename);
             
 		ByteArrayMultipartFile byteArrayMultipartFile  
 				= new ByteArrayMultipartFile(
