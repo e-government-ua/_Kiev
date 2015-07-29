@@ -184,7 +184,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
      * @return
      * @throws org.activiti.rest.controller.ActivitiIOException
      */
-    /*@RequestMapping(value = "/file/upload_file_to_redis", method = RequestMethod.POST)
+    @RequestMapping(value = "/file/upload_file_to_redis", method = RequestMethod.POST)
     @Transactional
     public
     @ResponseBody
@@ -196,8 +196,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 			 throw e;
 		}
 		return atachId;
-    }*/
-    
+    }
+    /*
     @RequestMapping(value = "/file/upload_file_to_redis", method = RequestMethod.POST)
     @Transactional
     public
@@ -213,7 +213,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 		}
 		return atachId;
     }
-    
+    */
     
     @RequestMapping(value = "/file/download_file_from_redis", method = RequestMethod.GET)
     @Transactional
