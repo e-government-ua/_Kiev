@@ -8,7 +8,7 @@
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPhone" name="Телефон; в форматі 380..." type="long" default="380" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Адрес" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Адреса" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета звернення" type="enum" required="true">
           <activiti:value id="item1" name="визначення розміру земельного податку при  міні  або  даруванні  земельних  ділянок"></activiti:value>
           <activiti:value id="item2" name="визначення розміру земельного податку при  спадкуванні   земельних  ділянок"></activiti:value>
@@ -20,9 +20,10 @@
         <activiti:formProperty id="file1" name="Копія паспорта" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Копія ідентифікаційного номеру" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file3" name="Копія державного акту/ свідоцтва про право власності/ договору оренди на земельну ділянку" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Запит нотаріуса або адвоката; потрібно лише в разі оформлення спадщини" default=" " type="file"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копія свідоцтва про смерть попереднього власника; потрібно лише в разі оформлення спадщини"  default=" " type="file"></activiti:formProperty>
+        <activiti:formProperty id="file4" name="Запит нотаріуса або адвоката; потрібно лише в разі оформлення спадщини" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Копія свідоцтва про смерть попереднього власника; потрібно лише в разі оформлення спадщини" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
+                <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
@@ -43,8 +44,7 @@
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
 На жаль змушені Вам відмовити в наданні послуги
-Підстава:
-${reason}</activiti:expression>
+Причина відмови: ${reason}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -76,10 +76,10 @@ ${reason}</activiti:expression>
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -88,7 +88,18 @@ ${reason}</activiti:expression>
           <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
 
 Ваше звернення оброблено.
-Ви можете отримати витяг з рішення виконавчого комітету Ммр щодо взяття на соціальний квартирний облік.</activiti:expression>
+Ви можете отримати витяг за адресою Адреса:  м.Калуш, вул. В. Стуса, 2 (приміщення податкової інспекції) 77300.
+
+Графік прийому громадян:
+Понеділок  9:00-16:00
+Вівторок    9:00-16:00
+Середа       13:00-20:00
+Четвер        13:00-20:00
+П’ятниця   9:00-16:00
+Субота       8:00-15:00
+Неділя        Вихідний день
+
+телефон для довідок: 2-36-48</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

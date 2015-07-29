@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_mvd_1" name="Днепропетровск - Надання довідки про відсутність або наявніcть судимості" isExecutable="true">
+  <process id="dnepr_mvd_10" name="Днепропетровск - Надання довідки про відсутність або наявніcть судимості (Наслідувані атачменти)" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -29,9 +29,10 @@
         </activiti:formProperty>
         <activiti:formProperty id="text3" name="Контактні данні" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон; у форматі 380...." type="long" default="380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="inheritedAttachments" name="Копія довідки з місця роботи; додається тільки у випадку пільгової квартирної черги" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-      </extensionElements>
+</extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування додаткових документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
@@ -85,7 +86,7 @@
           <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки (піклування), створення прийомної сім'ї або дитячого будинку cімейного типу"></activiti:value>
           <activiti:value id="attr2" name="Оформлення документів в органи соціального забезпечення."></activiti:value>
           <activiti:value id="attr3" name="Оформлення візи для виїзду за кордон."></activiti:value>
-          <activiti:value id="attr4" name="Надання в установи іноземних держав, працевлаштування за кордоном."></activiti:value>
+          <activiti:value id="attr4" name="ОНадання в установи іноземних держав, працевлаштування за кордоном."></activiti:value>
           <activiti:value id="attr5" name="Оформлення на роботу."></activiti:value>
           <activiti:value id="attr6" name="Оформлення дозволу на зброю, оформлення ліцензії на роботу з вибуховими речовинами."></activiti:value>
           <activiti:value id="attr7" name="Оформлення ліцензії на роботу з наркотичними засобами, психотропними речовинами та прекурсорами."></activiti:value>
@@ -102,6 +103,11 @@
         <activiti:formProperty id="comment" name="В разі  неможливості надання послуги вкажіть причину. Ця інформація буде відправлена на e-mail заявника" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="footer" name="footerToPrint" type="invisible" default="&lt;p dir=&quot;ltr&quot; id=&quot;docs-internal-guid-a39915a5-e7ca-0f06-b3d2-dea92937c812&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt;&lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;---------------------------------------------------------------------------------------------------------------------------------------&lt;/span&gt;&lt;/p&gt;&lt;p dir=&quot;ltr&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt; &lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;Довідку№ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримав (ПІБ)_________________________&lt;/span&gt;&lt;/p&gt;&lt;br /&gt;&lt;p dir=&quot;tr&quot; style=&quot;line-height:1.38;margin-top:0pt;margin-bottom:0pt;&quot;&gt;&lt;span style=&quot;font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:normal;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;&quot;&gt;Дата &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Підпис &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_________________________&lt;/span&gt;&lt;/p&gt;" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+			<activiti:field name="aFieldInheritedAttachmentID">
+				<activiti:expression>${inheritedAttachments}</activiti:expression>
+			</activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>

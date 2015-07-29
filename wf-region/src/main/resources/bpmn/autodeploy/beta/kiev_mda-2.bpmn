@@ -9,16 +9,17 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" required="true">
-          <activiti:value id="kiev_rda1" name="Деснянський"></activiti:value>
+          <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
+          <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="attr2" name="Тип квартиної черги" type="enum" required="true">
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="attr3" name="Копія довідки з місця роботи; додається тільки у випадку пільгової квартирної черги" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Документ, що підтверджує право на пільгову чергу; додається тільки у випадку пільгової квартирної черги" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="warningMessage" name="Увага!" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="Новий запит" readable="false"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -39,17 +40,88 @@
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-Ваш запит на отримання довідки про перебування на квартирному обліку   успішно зареєстровано. Ви отримаєте відповідь протягом ____ робочих днів на цю email-адресу.
+        <activiti:field name="html">
+          <activiti:expression>﻿&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head lang="ru"&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+    &lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;
+                                        Ваш запит на отримання довідки про перебування на квартирному обліку  громадян, які потребують поліпшення житлових умов, зареєстровано. 
+                                    &lt;/p&gt;
+                                    &lt;p&gt;
+ 										Інформація про стан опрацювання запиту буде надсилатись електронною поштою.
+                                    &lt;/p&gt;
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        Центр надання адміністративних послуг  м. Киів,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
 
-З повагою,
-Міська рада міста Київ
-Команда Порталу державних послу iGov.org.ua</activiti:expression>
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="Взяття в роботу ЦНАП" activiti:candidateGroups="kiev_mr_0">
+    <userTask id="usertask1" name="Взяття в роботу ЦНАП" activiti:candidateGroups="${rdaList}_cnap">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -57,8 +129,8 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
-          <activiti:value id="kiev_rda1" name="Деснянський"></activiti:value>
-          <activiti:value id="kiev_rda2" name="Соломенскй"></activiti:value>
+          <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
+          <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="attr2" name="Тип квартиної черги" type="enum" writable="false">
           <activiti:value id="type1" name="Загальна"></activiti:value>
@@ -67,77 +139,49 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide1" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Почати формування пакету документів.Замовити Форму-3"></activiti:value>
-          <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment" name="Підстава для відмови в наданні послуги" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="На опрацюванні в ЦНАП" readable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${file1}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="usertask3" name="Формування пакету документів в ЦНАП" activiti:candidateGroups="kiev_mr_0">
+    <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="usertask3"></sequenceFlow>
+    <userTask id="usertask3" name="Формування пакету документів в ЦНАП" activiti:candidateGroups="${rdaList}_cnap">
       <extensionElements>
+        <activiti:formProperty id="form_number" name="Номер справи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
-          <activiti:value id="kiev_rda1" name="Деснянський"></activiti:value>
-          <activiti:value id="kiev_rda2" name="Соломенскй"></activiti:value>
+          <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
+          <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="attr2" name="Тип квартиної черги" type="enum" writable="false">
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decide1" name="Рішення про надання послуги" type="enum" writable="false">
-          <activiti:value id="accept" name="Ухвалити надання послуги. Почати формування пакету документів."></activiti:value>
-          <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="docToSend" name="Завантажте копію форми-3 для передачі в РДА" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="На опрацюванні в ЦНАП" readable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${file1}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow8" name="${decide1=='accept'}" sourceRef="exclusivegateway1" targetRef="usertask3">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide1=='accept'}]]></conditionExpression>
-    </sequenceFlow>
-    <serviceTask id="mailtask2" name="Повідомлення про відмову" activiti:type="mail">
-      <extensionElements>
-        <activiti:field name="to">
-          <activiti:expression>${email}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання довідки про перебування на квартирному обліку]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
-На жаль, змушені відмовити Вам у наданні послуги.
-Підтсава: ${comment}
-
-З повагою,
-Міська рада міста Київ</activiti:expression>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
-    <sequenceFlow id="flow11" name="${decide1=='reject'}" sourceRef="exclusivegateway1" targetRef="mailtask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide1=='reject'}]]></conditionExpression>
-    </sequenceFlow>
-    <endEvent id="endevent1" name="End"></endEvent>
-    <sequenceFlow id="flow12" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
     <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
       <errorEventDefinition></errorEventDefinition>
     </boundaryEvent>
     <endEvent id="endevent4" name="End"></endEvent>
     <sequenceFlow id="flow17" sourceRef="boundaryerror1" targetRef="endevent4"></sequenceFlow>
-    <userTask id="usertask4" name="Перевірка пакету документів в РДА" activiti:candidateGroups="kiev_rda_1">
+    <userTask id="usertask4" name="Перевірка пакету документів в РДА" activiti:candidateGroups="${rdaList}">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -145,47 +189,45 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
-          <activiti:value id="kiev_rda1" name="Деснянський"></activiti:value>
-          <activiti:value id="kiev_rda2" name="Соломенскй"></activiti:value>
+          <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
+          <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="attr2" name="Тип квартиної черги" type="enum" writable="false">
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decide1" name="Рішення про надання послуги в ЦНАП" type="enum" writable="false">
-          <activiti:value id="accept" name="Ухвалити надання послуги. Почати формування пакету документів."></activiti:value>
-          <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="На опрацюванні РДА" readable="false"></activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат перевірки документів в РДА" type="enum">
           <activiti:value id="accept" name="Документи перевірено. Зауваження відсутні."></activiti:value>
           <activiti:value id="reject" name="Документи не пройшли перевірку. Відмовити в наданні послуги."></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment2" name="Підстава для відмови в наданні послуги. Коментар буде відправлено громадянину на e-mail" type="textArea"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${file1},${docToSend}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow18" sourceRef="usertask3" targetRef="usertask4"></sequenceFlow>
-    <userTask id="usertask5" name="Підтвердження отримання ЦНАПом оригіналу довідки" activiti:candidateGroups="kiev_mr_0">
+    <userTask id="usertask5" name="Підтвердження отримання ЦНАПом оригіналу довідки" activiti:candidateGroups="${rdaList}_cnap">
       <extensionElements>
+        <activiti:formProperty id="form_number" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
-          <activiti:value id="kiev_rda1" name="Деснянський"></activiti:value>
-          <activiti:value id="kiev_rda2" name="Соломенскй"></activiti:value>
+          <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
+          <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="attr2" name="Тип квартиної черги" type="enum" writable="false">
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decide1" name="Рішення про надання послуги в ЦНАП" type="enum" writable="false">
-          <activiti:value id="accept" name="Ухвалити надання послуги. Почати формування пакету документів."></activiti:value>
-          <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат перевірки документів в РДА" type="enum" writable="false">
           <activiti:value id="accept" name="Документи перевірено. Зауваження відсутні."></activiti:value>
           <activiti:value id="reject" name="Документи не пройшли перевірку. Відмовити в наданні послуги."></activiti:value>
@@ -194,9 +236,14 @@
         <activiti:formProperty id="confirm" name="ЦНАП отримав документи від РДА?" type="enum" required="true">
           <activiti:value id="accept" name="Підтверджую отримання докуметіи від РДА. Сповістити громадянина, що довідка підготовлена до отримання"></activiti:value>
         </activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${file1},${docToSend},${result_file}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <serviceTask id="mailtask3" name="Повідомлення громадянина" activiti:type="mail">
+    <serviceTask id="mailtask3" name="Повідомлення громадянина (Деснянський РДА)" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -210,38 +257,106 @@
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+        <activiti:field name="html">
+          <activiti:expression>﻿&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head lang="ru"&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+    &lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;
+                                        Підготовка довідки про перебування на квартирному обліку громадян, які потребують поліпшення житлових умов, успішно завершена!&lt;br /&gt;
+										Оригінал документу Ви можете отримати в Центрі надання адміністративних послуг Деснянського району, що знаходиться за адресою: м.Київ, пр. Маяковського, 29
+                                  
+                                    &lt;/p&gt;
+                                    &lt;p&gt;
+ 										У випадку, якщо Ви перебуваєте на пільговій квартирній черзі, при собі необхідно мати оригінал документу, який підтверджує це (наприклад, Довідка з місця роботи).
+                                    &lt;/p&gt;
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        Центр надання адміністративних послуг Деснянського району м.Киів,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
 
-Ви можете отримати Вашу довідку.
-
-
-З повагою,
-Міська рада міста Київ</activiti:expression>
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow22" sourceRef="usertask5" targetRef="mailtask3"></sequenceFlow>
-    <userTask id="usertask6" name="Надання довідки громадянину та перевірка оригіналів документів" activiti:candidateGroups="kiev_mr_0">
+    <userTask id="usertask6" name="Надання довідки громадянину та перевірка оригіналів документів" activiti:candidateGroups="${rdaList}_cnap">
       <extensionElements>
+        <activiti:formProperty id="form_number" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
-          <activiti:value id="kiev_rda1" name="Деснянський"></activiti:value>
-          <activiti:value id="kiev_rda2" name="Соломенскй"></activiti:value>
+          <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
+          <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="attr2" name="Тип квартиної черги" type="enum" writable="false">
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decide1" name="Рішення про надання послуги в ЦНАП" type="enum" writable="false">
-          <activiti:value id="accept" name="Ухвалити надання послуги. Почати формування пакету документів."></activiti:value>
-          <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат перевірки документів в РДА" type="enum" writable="false">
           <activiti:value id="accept" name="Документи перевірено. Зауваження відсутні."></activiti:value>
           <activiti:value id="reject" name="Документи не пройшли перевірку. Відмовити в наданні послуги."></activiti:value>
@@ -256,31 +371,33 @@
         <activiti:formProperty id="confirm_cnap2" name="Оригінал довідки з місця працевлаштування  відправлено до РДА?" type="enum" required="true">
           <activiti:value id="accept" name="Підтвердити, що  документ відправлено в РДА"></activiti:value>
         </activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${file1},${docToSend},${result_file}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow23" name="${attr2=='type2'}" sourceRef="exclusivegateway3" targetRef="usertask6">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${attr2=='type2'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask7" name="Підтвердження  отримання оригіналів документів в РДА" activiti:candidateGroups="kiev_rda_1">
+    <userTask id="usertask7" name="Підтвердження  отримання оригіналів документів в РДА" activiti:candidateGroups="${rdaList}">
       <extensionElements>
+        <activiti:formProperty id="form_number" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
-          <activiti:value id="kiev_rda1" name="Деснянський"></activiti:value>
-          <activiti:value id="kiev_rda2" name="Соломенскй"></activiti:value>
+          <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
+          <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="attr2" name="Тип квартиної черги" type="enum" writable="false">
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decide1" name="Рішення про надання послуги в ЦНАП" type="enum" writable="false">
-          <activiti:value id="accept" name="Ухвалити надання послуги. Почати формування пакету документів."></activiti:value>
-          <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат перевірки документів в РДА" type="enum" writable="false">
           <activiti:value id="accept" name="Документи перевірено. Зауваження відсутні."></activiti:value>
           <activiti:value id="reject" name="Документи не пройшли перевірку. Відмовити в наданні послуги."></activiti:value>
@@ -298,6 +415,11 @@
         <activiti:formProperty id="confirm_rda" name="Оригінал довідки з місця правцевлаштування громадянина  отримано з ЦНАПу?" type="enum" required="true">
           <activiti:value id="accept" name="Підтвердити, що оригінал довідки отриманий"></activiti:value>
         </activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${file1},${docToSend},${result_file}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow24" sourceRef="usertask6" targetRef="usertask7"></sequenceFlow>
@@ -323,13 +445,84 @@
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
-На жаль, змушені відмовити Вам у наданні послуги.
-Підтсава: ${comment2}
+        <activiti:field name="html">
+          <activiti:expression>﻿&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head lang="ru"&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+    &lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;
+                                        На жаль, змушені відмовити Вам у наданні послуги: "Надання довідки про перебування на обліку громадян, які потребують поліпшення житлових умов".
+                                    &lt;/p&gt;
+                                    &lt;p&gt;
+ 										Підстава: ${comment2}
+                                    &lt;/p&gt;
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        Центр надання адміністративних послуг  м. Киів,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
 
-З повагою,
-Міська рада міста Київ</activiti:expression>
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -338,57 +531,56 @@
     </sequenceFlow>
     <endEvent id="endevent6" name="End"></endEvent>
     <sequenceFlow id="flow32" sourceRef="mailtask7" targetRef="endevent6"></sequenceFlow>
-    <userTask id="usertask8" name="Формування довідки в РДА" activiti:candidateGroups="kiev_rda_1">
+    <userTask id="usertask8" name="Формування довідки в РДА" activiti:candidateGroups="${rdaList}">
       <extensionElements>
+        <activiti:formProperty id="form_number" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
-          <activiti:value id="kiev_rda1" name="Деснянський"></activiti:value>
-          <activiti:value id="kiev_rda2" name="Соломенскй"></activiti:value>
+          <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
+          <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="attr2" name="Тип квартиної черги" type="enum" writable="false">
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decide1" name="Рішення про надання послуги в ЦНАП" type="enum" writable="false">
-          <activiti:value id="accept" name="Ухвалити надання послуги. Почати формування пакету документів."></activiti:value>
-          <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат перевірки документів в РДА" type="enum" writable="false">
           <activiti:value id="accept" name="Документи перевірено. Зауваження відсутні."></activiti:value>
           <activiti:value id="reject" name="Документи не пройшли перевірку. Відмовити в наданні послуги."></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="result_file" name="Завантажте копію довідки про перебування на квартирному обліку для передачі в ЦНАП" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="На опрацюванні РДА" readable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${file1},${docToSend}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow33" sourceRef="usertask8" targetRef="usertask5"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow34" sourceRef="mailtask3" targetRef="exclusivegateway3"></sequenceFlow>
-    <userTask id="usertask9" name="Надання довідки громадянину " activiti:candidateGroups="kiev_mr_0">
+    <userTask id="usertask9" name="Надання довідки громадянину " activiti:candidateGroups="${rdaList}_cnap">
       <extensionElements>
+        <activiti:formProperty id="form_number" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
-          <activiti:value id="kiev_rda1" name="Деснянський"></activiti:value>
-          <activiti:value id="kiev_rda2" name="Соломенскй"></activiti:value>
+          <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
+          <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="attr2" name="Тип квартиної черги" type="enum" writable="false">
           <activiti:value id="type1" name="Загальна"></activiti:value>
           <activiti:value id="type2" name="Пільгова"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decide1" name="Рішення про надання послуги в ЦНАП" type="enum" writable="false">
-          <activiti:value id="accept" name="Ухвалити надання послуги. Почати формування пакету документів."></activiti:value>
-          <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="decide2" name="Результат перевірки документів в РДА" type="enum" writable="false">
           <activiti:value id="accept" name="Документи перевірено. Зауваження відсутні."></activiti:value>
           <activiti:value id="reject" name="Документи не пройшли перевірку. Відмовити в наданні послуги."></activiti:value>
@@ -400,6 +592,11 @@
         <activiti:formProperty id="confirm_cnap" name="Громадянин отримав довідку?" type="enum">
           <activiti:value id="accept" name="Підтвердити, що громадянин отримав довідку."></activiti:value>
         </activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${file1},${docToSend},${result_file}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow35" name="${attr2=='type1'}" sourceRef="exclusivegateway3" targetRef="usertask9">
@@ -407,6 +604,112 @@
     </sequenceFlow>
     <endEvent id="endevent7" name="End"></endEvent>
     <sequenceFlow id="flow36" sourceRef="usertask9" targetRef="endevent7"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow37" sourceRef="usertask5" targetRef="exclusivegateway4"></sequenceFlow>
+    <sequenceFlow id="flow38" name="${rdaList == 'kiev_rda_1'}" sourceRef="exclusivegateway4" targetRef="mailtask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${rdaList == 'kiev_rda_1'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="mailtask8" name="Повідомлення громадянина (Солом'нський РДА)" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему: Надання довідки про перебування на квартирному обліку]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>﻿&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head lang="ru"&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+    &lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;
+                                        Підготовка довідки про перебування на квартирному обліку громадян, які потребують поліпшення житлових умов, успішно завершена!&lt;br /&gt;
+										Оригінал документу Ви можете отримати в Центрі надання адміністративних послуг Солом'янського району, що знаходиться за адресою: м.Київ, пр. Повітрофлотський, 41
+                                  
+                                    &lt;/p&gt;
+                                    &lt;p&gt;
+ 										У випадку, якщо Ви перебуваєте на пільговій квартирній черзі, при собі необхідно мати оригінал документу, який підтверджує це (наприклад, Довідка з місця роботи).
+                                    &lt;/p&gt;
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        Центр надання адміністративних послуг Солом'янського району м.Киів,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow39" name="${rdaList == 'kiev_rda_3'}" sourceRef="exclusivegateway4" targetRef="mailtask8">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${rdaList == 'kiev_rda_3'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow40" sourceRef="mailtask8" targetRef="exclusivegateway3"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_mda_2">
     <bpmndi:BPMNPlane bpmnElement="kiev_mda_2" id="BPMNPlane_kiev_mda_2">
@@ -425,17 +728,8 @@
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="55.0" width="191.0" x="605.0" y="133.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
-        <omgdc:Bounds height="40.0" width="40.0" x="884.0" y="140.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
         <omgdc:Bounds height="55.0" width="215.0" x="1010.0" y="133.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="55.0" width="181.0" x="814.0" y="34.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="887.0" y="-30.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
         <omgdc:Bounds height="35.0" width="35.0" x="250.0" y="-30.0"></omgdc:Bounds>
@@ -447,16 +741,16 @@
         <omgdc:Bounds height="55.0" width="215.0" x="1370.0" y="279.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="55.0" width="215.0" x="1370.0" y="363.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="215.0" x="1530.0" y="441.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask6" id="BPMNShape_usertask6">
-        <omgdc:Bounds height="68.0" width="212.0" x="1610.0" y="427.0"></omgdc:Bounds>
+        <omgdc:Bounds height="68.0" width="212.0" x="1610.0" y="580.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask7" id="BPMNShape_usertask7">
-        <omgdc:Bounds height="71.0" width="212.0" x="1610.0" y="520.0"></omgdc:Bounds>
+        <omgdc:Bounds height="71.0" width="212.0" x="1610.0" y="673.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent5" id="BPMNShape_endevent5">
-        <omgdc:Bounds height="35.0" width="35.0" x="1698.0" y="610.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="1698.0" y="763.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="1097.0" y="286.0"></omgdc:Bounds>
@@ -471,13 +765,19 @@
         <omgdc:Bounds height="55.0" width="171.0" x="1180.0" y="279.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
-        <omgdc:Bounds height="40.0" width="40.0" x="1457.0" y="440.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="1457.0" y="593.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask9" id="BPMNShape_usertask9">
-        <omgdc:Bounds height="55.0" width="171.0" x="1180.0" y="433.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="171.0" x="1180.0" y="586.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent7" id="BPMNShape_endevent7">
-        <omgdc:Bounds height="35.0" width="35.0" x="1248.0" y="520.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="1248.0" y="673.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
+        <omgdc:Bounds height="40.0" width="40.0" x="1457.0" y="390.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask8" id="BPMNShape_mailtask8">
+        <omgdc:Bounds height="55.0" width="166.0" x="1300.0" y="441.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="85.0" y="54.0"></omgdi:waypoint>
@@ -489,25 +789,8 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
         <omgdi:waypoint x="796.0" y="160.0"></omgdi:waypoint>
-        <omgdi:waypoint x="884.0" y="160.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="924.0" y="160.0"></omgdi:waypoint>
+        <omgdi:waypoint x="899.0" y="160.0"></omgdi:waypoint>
         <omgdi:waypoint x="1010.0" y="160.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="913.0" y="160.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
-        <omgdi:waypoint x="904.0" y="140.0"></omgdi:waypoint>
-        <omgdi:waypoint x="904.0" y="89.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="95.0" x="893.0" y="113.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="904.0" y="34.0"></omgdi:waypoint>
-        <omgdi:waypoint x="904.0" y="5.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
         <omgdi:waypoint x="327.0" y="24.0"></omgdi:waypoint>
@@ -517,24 +800,20 @@
         <omgdi:waypoint x="1117.0" y="188.0"></omgdi:waypoint>
         <omgdi:waypoint x="1117.0" y="212.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
-        <omgdi:waypoint x="1477.0" y="334.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1477.0" y="363.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
-        <omgdi:waypoint x="1497.0" y="460.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1610.0" y="461.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1497.0" y="613.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1610.0" y="614.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="79.0" x="1507.0" y="460.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="79.0" x="1507.0" y="613.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
-        <omgdi:waypoint x="1716.0" y="495.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1716.0" y="520.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1716.0" y="648.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1716.0" y="673.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
-        <omgdi:waypoint x="1716.0" y="591.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1715.0" y="610.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1716.0" y="744.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1715.0" y="763.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
         <omgdi:waypoint x="475.0" y="89.0"></omgdi:waypoint>
@@ -568,19 +847,47 @@
         <omgdi:waypoint x="1370.0" y="306.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow34" id="BPMNEdge_flow34">
-        <omgdi:waypoint x="1477.0" y="418.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1477.0" y="440.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1637.0" y="496.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1636.0" y="555.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1476.0" y="555.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1477.0" y="593.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
-        <omgdi:waypoint x="1457.0" y="460.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1351.0" y="460.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1457.0" y="613.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1351.0" y="613.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="79.0" x="1363.0" y="467.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="79.0" x="1363.0" y="620.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
-        <omgdi:waypoint x="1265.0" y="488.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1265.0" y="520.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1265.0" y="641.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1265.0" y="673.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="1477.0" y="334.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1477.0" y="390.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="1497.0" y="410.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1637.0" y="410.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1637.0" y="441.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="1645.0" y="390.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
+        <omgdi:waypoint x="1457.0" y="410.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1382.0" y="410.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1383.0" y="441.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="1311.0" y="390.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="1383.0" y="496.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1382.0" y="560.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1477.0" y="560.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1477.0" y="593.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
