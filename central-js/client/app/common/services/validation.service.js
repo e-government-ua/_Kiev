@@ -4,11 +4,12 @@
  * markers: {
  *  "validate":{
  *    "PhoneUA":{
- *      "aField_ID":["tel","workPhone"]
+ *      "aField_ID":["privatePhone","workPhone"]
  *    }, "Mail":{
- *      "aField_ID":["email", "myEmail"]
+ *      "aField_ID":["privateMail"]
  *    }
  * }
+ *
  * Где "privatePhone" и "workPhone" - это ИД-шники тех полей, которые нужно валидировать
  * См.: /i/issues/375
  */
@@ -24,7 +25,7 @@ angular.module('app').service('ValidationService', function () {
     var EMAIL_REGEXP = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
     // alternative re: /^([\w-]+(?:.[\w-]+))@((?:[\w-]+.)\w[\w-]{0,66}).([a-z]{2,6}(?:.[a-z]{2})?)$/i;
 
-    // return if there's no markers set, so it won't prevent validation
+    // return true if there's no markers set, so it won't prevent validation
     if ( !markers || !emailCtrl ) {
       return;
     }
@@ -49,9 +50,6 @@ angular.module('app').service('ValidationService', function () {
   };
 
   this.validateTelephoneByMarker = function( telCtrl, markers ) {
-    if ( !markers || !telCtrl ) {
-      return;
-    }    
     // the telephone validator is set in the tel.js directive
     // validate it
     telCtrl.$validate();
