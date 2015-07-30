@@ -156,6 +156,8 @@ public final class Util {
                     if(sExpression!=null){
                         String[] asPatterns = {
                                 "pattern/print/subsidy.html"
+                                ,"pattern/print/subsidy_zayava.html"
+                                ,"pattern/print/subsidy_declaration.html"
                                 ,"pattern/print/1.html"
                                 ,"pattern/print/2.html"
                                 ,"pattern/print/3.html"
