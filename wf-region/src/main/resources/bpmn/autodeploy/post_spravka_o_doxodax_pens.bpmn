@@ -146,7 +146,7 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
                                         Ваше звернення щодо отримання довідки про доходи фізичних осіб прийнято в роботу.&lt;/p&gt;
 &lt;p&gt; Ви отримаєте відповідь протягом 3 робочих днів.
@@ -245,7 +245,7 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
                                         Ваша довідка про доходи (пенсійний фонд) готова та направлена Вам на пошту:&lt;/p&gt;
 &lt;p&gt; ${adress}&lt;/p&gt;
@@ -323,7 +323,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;igov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -332,7 +332,7 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
                                         Для отримання послуги Вам необхідно сплатити її протягом 1 дня з моменту подачі заяви.&lt;br /&gt;Для сплати натисніть цю кнопку:                                  
                                     &lt;/p&gt;
