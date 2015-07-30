@@ -10,7 +10,13 @@ angular.module('order').controller('OrderSearchController', function($rootScope,
                 if (!data) {
                     $scope.messages = ['Неверный номер!'];
                 } else if (data.hasOwnProperty('message')) {
-                    $scope.messages = ['Завявка не знайдена'];
+                    if (data.message.indexOf('CRC Error') > -1) {
+                        $scope.messages = ['Неверный номер!'];
+                    } else if (data.message.indexOf('Record not found') > -1) {
+                        $scope.messages = ['Заявка не знайдена'];
+                    } else {
+                        $scope.messages = ['Заявка не знайдена'];
+                    }
                 } else {
                     if (typeof data === 'object') {
                         data.sDateEdit = new Date();
