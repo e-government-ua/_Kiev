@@ -8,6 +8,15 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="chapter1" name="Деталі" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
+          <activiti:value id="attr1_and" name="Амур-Нижньодніпровський"></activiti:value>
+          <activiti:value id="attr2_babush" name="Бабушкінський"></activiti:value>
+          <activiti:value id="attr3_zhovt" name="Жовтневий"></activiti:value>
+          <activiti:value id="attr4_indust" name="Індустріальний"></activiti:value>
+          <activiti:value id="attr5_kirov" name="Кіровський"></activiti:value>
+          <activiti:value id="attr6_lenin" name="Ленінський"></activiti:value>
+          <activiti:value id="attr7_samar" name="Самарський"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="place_of_living" name="Місце проживання; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Е-мейл" type="string" default="email@email.com" required="true"></activiti:formProperty>
@@ -70,15 +79,6 @@
         <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені протягом 12 місяців перед зверненням за призначенням житлової субсидії; перерахуйте з нового рядка ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг; ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         <activiti:formProperty id="sBody" name="sBody" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
-          <activiti:value id="attr1_and" name="Амур-Нижньодніпровський"></activiti:value>
-          <activiti:value id="attr2_babush" name="Бабушкінський"></activiti:value>
-          <activiti:value id="attr3_zhovt" name="Жовтневий"></activiti:value>
-          <activiti:value id="attr4_indust" name="Індустріальний"></activiti:value>
-          <activiti:value id="attr5_kirov" name="Кіровський"></activiti:value>
-          <activiti:value id="attr6_lenin" name="Ленінський"></activiti:value>
-          <activiti:value id="attr7_samar" name="Самарський"></activiti:value>
-        </activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="dnepr_upzsn">

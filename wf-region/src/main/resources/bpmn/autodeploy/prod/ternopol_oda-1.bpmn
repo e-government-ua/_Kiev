@@ -44,7 +44,7 @@
         <activiti:formProperty id="file3" name="копія сертифікату про походження товару або експертний висновок з визначенням країни походження та коду товару відповідно до УКТ ЗЕД (подаються тільки для одержання ліцензій на експорт товарів). " type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dateView" name="Бажана дата отримання ліцензії" type="date"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Відправляючи звернення Ви підтверджуєете достовірність зазначених персональних данних"></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -64,7 +64,7 @@
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
 
 Ваша заява успішно зареєстрована.
 
@@ -159,7 +159,6 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow5" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow6" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="mailtask2">
@@ -180,7 +179,7 @@
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
 
 Вам відмовлено в наданні послуги.
 Підстава: ${comment}
@@ -253,7 +252,7 @@
           <activiti:string><![CDATA[Ліцензування експортно-імпортних операцій (видача разових індивідуальних ліцензій), в межах делегованих повноважень]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), "${bankIdfirstName}" "${bankIdmiddleName}".
+          <activiti:expression>Шановний(-а) "${bankIdfirstName}" "${bankIdmiddleName}".
 
 Для отримання ліцензії Вам потрібно сплатити державний збір.
 Рахунок Ви можете знайти в додатку до цього листа.</activiti:expression>
@@ -336,13 +335,16 @@
           <activiti:string><![CDATA[Отримання разової (індивідуальної) ліцензії на зовнішньоекономічну операцію]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
 
 Вам відмовлено в наданні послуги.
 Підстава: ${comment2}
 
 З повагою,
 Державна Адміністрація Тернопільскої області</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -360,20 +362,117 @@
           <activiti:string><![CDATA[Отримання разової (індивідуальної) ліцензії на зовнішньоекономічну операцію]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
 
 Ваш запит успішно оброблено.
 
-Ви можете отримати Вашу лцензію за адресою м.Тернопіль  вул. Грушевського 8, каб.846
+Ви можете отримати Вашу ліцензію за адресою м.Тернопіль  вул. Грушевського 8, каб.846
 Графік прийому:  08:00-17:00 (щодня окрім вихідних)
 
 З повагою,
 Державна Адміністрація Тернопільскої області,
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow21" sourceRef="mailtask4" targetRef="endevent6"></sequenceFlow>
+    <serviceTask id="mailtask5" name="Повідомлення держслужбовця про нову заявку" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:string><![CDATA[internationalrelations.te@gmail.com]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Отримання разової (індивідуальної) ліцензії на зовнішньоекономічну операцію]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:string><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p > label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov</b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                    <h3>Шановний колего!</h3>
+                                    <p>
+                                       У Вас в черзі на обробку  зареєстровано нове звернення щодо отримання разової (індивідуальної) ліцензії на зовнішньоекономічну операцію.<br />
+                                        Відпрацюйте це звернення на порталі <a href="#current-page">region.igov.org.ua/admin</a>
+                                    </p>
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                        З повагою,<br />
+                                        Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
+                                    </p>
+                                </td>
+                            </tr>
+                           
+                          
+
+                        </table>
+                     
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow22" sourceRef="mailtask1" targetRef="mailtask5"></sequenceFlow>
+    <sequenceFlow id="flow23" sourceRef="mailtask5" targetRef="usertask1"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>ternopol_oda1</text>
     </textAnnotation>
@@ -443,6 +542,9 @@
       <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
         <omgdc:Bounds height="73.0" width="185.0" x="376.0" y="672.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
+        <omgdc:Bounds height="55.0" width="211.0" x="710.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="50.0" width="100.0" x="196.0" y="230.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -463,10 +565,6 @@
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
         <omgdi:waypoint x="279.0" y="93.0"></omgdi:waypoint>
         <omgdi:waypoint x="278.0" y="55.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="468.0" y="165.0"></omgdi:waypoint>
-        <omgdi:waypoint x="468.0" y="220.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="561.0" y="247.0"></omgdi:waypoint>
@@ -542,6 +640,14 @@
       <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
         <omgdi:waypoint x="468.0" y="745.0"></omgdi:waypoint>
         <omgdi:waypoint x="468.0" y="800.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="561.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="710.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="815.0" y="165.0"></omgdi:waypoint>
+        <omgdi:waypoint x="468.0" y="220.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
         <omgdi:waypoint x="296.0" y="608.0"></omgdi:waypoint>

@@ -33,13 +33,17 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
                 aField_ID:['privatePhone','workPhone', 'phone']
             }, Mail:{
                 aField_ID:['privateMail','email']
+//            }, AutoVIN:{
+//                aField_ID:['vin_code', 'vin_code1', 'vin']
             }
         }
     };
 
+
     //var aID_FieldPhoneUA = $scope.data.formData.params.markers.validate.PhoneUA.aField_ID;
     var aID_FieldPhoneUA = $scope.markers.validate.PhoneUA.aField_ID;
     var aID_FieldMail = $scope.markers.validate.Mail.aField_ID;
+//    var aID_FieldAutoVIN = $scope.markers.validate.AutoVIN.aField_ID;
 
     angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {
         var sField = value.name;
@@ -62,6 +66,11 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
         if (_.indexOf(aID_FieldPhoneUA, value.id) !== -1){
             value.sFieldType='tel';
         }
+/*        
+        if (_.indexOf(aID_FieldAutoVIN, value.id) !== -1){
+            value.sFieldType='AutoVIN';
+        }
+*/        
   });
 
   $scope.submit = function(form) {
@@ -83,6 +92,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
         }*/
 
         ValidationService.validateEmailByMarker( form.email, $scope.markers );
+//        ValidationService.validateAutoVIN( form.vin, $scope.markers );
 
         if (form.$valid && bValid) {//
             ActivitiService
