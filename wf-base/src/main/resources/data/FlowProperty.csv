@@ -1,2 +1,4 @@
 nID;nID_FlowPropertyClass;sData;nID_Flow_ServiceData
 1;1;{"0 0/15 8-15 ? * MON-FRI *":"PT15M"};1
+2;1;{"0 0/15 8-15 ? * MON-FRI *":"PT15M"};2
+3;1;{"0 0/15 8-15 ? * MON-FRI *":"PT15M"};3

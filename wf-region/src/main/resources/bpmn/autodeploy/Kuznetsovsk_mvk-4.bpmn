@@ -8,9 +8,9 @@
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="docType" name="Тип документа" type="enum" required="true">
-          <activiti:value id="doc1" name="Копія рішення виконавчого комітету міської ради"></activiti:value>
-          <activiti:value id="doc2" name="Копія рішення міської ради"></activiti:value>
-          <activiti:value id="doc3" name="Копія розпорядження міського голови"></activiti:value>
+          <activiti:value id="Копія рішення виконавчого комітету міської ради" name="Копія рішення виконавчого комітету міської ради"></activiti:value>
+          <activiti:value id="Копія рішення міської ради" name="Копія рішення міської ради"></activiti:value>
+          <activiti:value id="Копія розпорядження міського голови" name="Копія розпорядження міського голови"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="docDate" name="Дата прийняття документа; в форматі ДД.ММ.РРРР" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="docNumber" name="Номер документа" type="long"></activiti:formProperty>
@@ -87,7 +87,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
+          <activiti:expression>Звернення на тему - Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
@@ -109,7 +109,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
+          <activiti:string>Звернення на тему - Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.</activiti:string>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>
@@ -216,7 +216,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
+          <activiti:string>Звернення на тему</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -281,7 +281,7 @@
 										&lt;li&gt;Неправильно або неповністю заповнена заява; &lt;/li&gt;
 										&lt;li&gt;Неспроможність відкрити ваші документи;&lt;/li&gt;
 										&lt;li&gt;Ви не належите до категорії громадян, для яких ця послуга діє;&lt;/li&gt;
-										&lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov; &lt;li&gt;
+										&lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov; &lt;/li&gt;
 										&lt;/ol&gt;
 										&lt;p&gt;&lt;/p&gt;
 										Коментар Державного службовця: &lt;br /&gt;
@@ -321,7 +321,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
+          <activiti:string>Звернення на тему - Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -414,7 +414,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
+          <activiti:string>Звернення на тему - Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -474,11 +474,12 @@
 									&lt;p&gt;&lt;/p&gt;
 										Ймовірні причини:  &lt;br /&gt;
 										&lt;ol&gt;
+										&lt;li&gt;Документ не було знайдено; &lt;/li&gt;
 										&lt;li&gt;Недостатня аргументація Вашого запиту; &lt;/li&gt;
 										&lt;li&gt;Неправильно або неповністю заповнена заява; &lt;/li&gt;
 										&lt;li&gt;Неспроможність відкрити ваші документи;&lt;/li&gt;
 										&lt;li&gt;Ви не належите до категорії громадян, для яких ця послуга діє;&lt;/li&gt;
-										&lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov; &lt;li&gt;
+										&lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov; &lt;/li&gt;
 										&lt;/ol&gt;
 										&lt;p&gt;&lt;/p&gt;
 										Коментар Державного службовця: &lt;br /&gt;
@@ -531,7 +532,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
-        <omgdc:Bounds height="73.0" width="138.0" x="350.0" y="438.0"></omgdc:Bounds>
+        <omgdc:Bounds height="73.0" width="138.0" x="374.0" y="438.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="940.0" y="454.0"></omgdc:Bounds>
@@ -589,7 +590,7 @@
         <omgdi:waypoint x="770.0" y="276.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
-        <omgdi:waypoint x="488.0" y="474.0"></omgdi:waypoint>
+        <omgdi:waypoint x="512.0" y="474.0"></omgdi:waypoint>
         <omgdi:waypoint x="540.0" y="474.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
@@ -624,10 +625,10 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
         <omgdi:waypoint x="432.0" y="345.0"></omgdi:waypoint>
-        <omgdi:waypoint x="419.0" y="438.0"></omgdi:waypoint>
+        <omgdi:waypoint x="443.0" y="438.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
-        <omgdi:waypoint x="350.0" y="474.0"></omgdi:waypoint>
+        <omgdi:waypoint x="374.0" y="474.0"></omgdi:waypoint>
         <omgdi:waypoint x="240.0" y="510.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
