@@ -71,7 +71,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 70;624;2;NULL;1;{};https://dniprorada.igov.org.ua;FALSE;1;TRUE;;BankID,EDS
 71;625;2;NULL;1;{};https://dniprorada.igov.org.ua;FALSE;1;TRUE;;BankID,EDS
 72;626;2;NULL;1;{};https://dniprorada.igov.org.ua;FALSE;1;TRUE;;BankID,EDS
-73;627;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mda_2:1:595058"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+73;627;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mda_2:1:595058"}};https://region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
 74;628;2;NULL;1;{};https://dniprorada.igov.org.ua;false;1;TRUE;;BankID,EDS
 75;629;NULL;NULL;1;{};http://geoinf.kiev.ua/wp/interaktyvni-karty-spetsdozvoliv.htm;FALSE;1;FALSE;За наступним посиланням Ви зможете переглянути інтерактивну карту із можливістю фільтрації на різні типи шарів та за різноманітними атрибутами. Веріфікація не потрібна;BankID,EDS
 76;630;NULL;NULL;1;{};http://geoinf.kiev.ua/wp/interaktyvna-karta-rodovyshch-korysnykh-kopalyn.htm;FALSE;1;FALSE;За наступним посиланням Ви зможете переглянути інтерактивну карту із можливістю фільтрації на різні типи шарів та за різноманітними атрибутами. Веріфікація не потрібна;BankID,EDS
@@ -119,7 +119,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 118;666;10;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_short5:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 119;15;14;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zaporoshye_mvk_1a:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 120;667;8;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk_5:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-121;668;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mda_3:1:595058"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+121;668;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mda_3:1:595058"}};https://region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
 122;15;2;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kr_rig_mvk_1:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 123;159;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_mreo_1:1:58"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 124;669;14;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zaporoshye_mvk_1b:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
