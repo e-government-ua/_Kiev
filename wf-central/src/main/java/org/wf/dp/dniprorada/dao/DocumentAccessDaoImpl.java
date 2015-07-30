@@ -92,8 +92,10 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		StringBuilder os = new StringBuilder();
 		Random ran = new Random();
 		for (int i = 1; i <= 4; i++) {
-                    int big = ran.nextInt((57 - 48) + 1) + 48;
-                    os.append((char) big);
+                    //int big = ran.nextInt((57 - 48) + 1) + 48;
+                    //os.append((char) big);
+                    int n = ran.nextInt(9);
+                    os.append(n);
                     break;
 		}
                 String s=os.toString();
