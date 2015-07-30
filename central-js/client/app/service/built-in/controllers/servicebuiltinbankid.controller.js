@@ -33,13 +33,17 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
                 aField_ID:['privatePhone','workPhone', 'phone', 'tel']
             }, Mail:{
                 aField_ID:['privateMail','email']
+//            }, AutoVIN:{
+//                aField_ID:['vin_code', 'vin_code1', 'vin']
             }
         }
     };
 
+
     //var aID_FieldPhoneUA = $scope.data.formData.params.markers.validate.PhoneUA.aField_ID;
     var aID_FieldPhoneUA = $scope.markers.validate.PhoneUA.aField_ID;
     var aID_FieldMail = $scope.markers.validate.Mail.aField_ID;
+//    var aID_FieldAutoVIN = $scope.markers.validate.AutoVIN.aField_ID;
 
     angular.forEach($scope.ActivitiForm.formProperties, function(value, key) {
         var sField = value.name;
@@ -63,6 +67,11 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
             // перетворити звичайний input на поле вводу телефону, контрольоване директивою form/directives/tel.js:
             value.type='tel';
         }
+/*        
+        if (_.indexOf(aID_FieldAutoVIN, value.id) !== -1){
+            value.sFieldType='AutoVIN';
+        }
+*/        
   });
 
   $scope.submit = function(form) {
@@ -71,6 +80,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
         ValidationService.validateEmailByMarker( form.email, $scope.markers );
         ValidationService.validateTelephoneByMarker( form.phone, $scope.markers );
+//        ValidationService.validateAutoVIN( form.vin, $scope.markers );
 
         if (form.$valid) {//
             ActivitiService
