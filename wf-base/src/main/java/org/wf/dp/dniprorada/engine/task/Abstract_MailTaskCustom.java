@@ -39,12 +39,12 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     
 
     //private static final String LIQPAY_CALLBACK_URL = "https://test.region.igov.org.ua/wf-region/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=Liqpay&sData=";
-    private static final String LIQPAY_CALLBACK_URL = new GeneralConfig().sHost() + "/wf-region/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=Liqpay&sData=";
+    private final String LIQPAY_CALLBACK_URL = generalConfig.sHost() + "/wf-region/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=Liqpay&sData=";
     private static final String TAG_nID_SUBJECT = "[nID_Subject]";
     private static final String TAG_sACCESS_KEY = "[sAccessKey]";
     private static final String TAG_sURL_SERVICE_MESSAGE = "[sURL_ServiceMessage]";
     //private static final String URL_SERVICE_MESSAGE = "https://test.igov.org.ua/wf-central/service/messages/setMessage";
-    private static final String URL_SERVICE_MESSAGE = new GeneralConfig().sHostCentral() + "/wf-central/service/messages/setMessage";
+    private final String URL_SERVICE_MESSAGE = generalConfig.sHostCentral() + "/wf-central/service/messages/setMessage";
 
     
     
