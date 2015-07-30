@@ -148,7 +148,7 @@
           <activiti:value id="warning" name="Авто підлягає арешту. Надіслати громадянину повідомлення про час / дату візиту"></activiti:value>
           <activiti:value id="reject" name="Знайдені обтяження. Відмовити громадянину в наданні послуги."></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment" name="В разі відмови в наданні послуги,  вкажіть причину." type="textArea" ></activiti:formProperty>
+        <activiti:formProperty id="comment" name="В разі відмови в наданні послуги,  вкажіть причину." type="textArea"></activiti:formProperty>
         <activiti:formProperty id="billToPay" name="Завантажте квитацїю для сплати  збору за надання послуги" type="file" default=" "></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
@@ -388,8 +388,7 @@
           <activiti:string><![CDATA[Реєстрація авто]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>
- &lt;style type="text/css"&gt;
+          <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -493,9 +492,7 @@
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>
-
-    &lt;style type="text/css"&gt;
+          <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -568,17 +565,14 @@
         &lt;/td&gt;
     &lt;/tr&gt;
     &lt;/tbody&gt;
-&lt;/table&gt;
-</activiti:expression>
+&lt;/table&gt;</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
     <serviceTask id="mailtask4" name="Повідомлення співробітника держоргану" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
-          <activiti:string><![CDATA[
-
-    <style type="text/css">
+          <activiti:string><![CDATA[<style type="text/css">
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -643,8 +637,7 @@
         </td>
     </tr>
     </tbody>
-</table>
-]]></activiti:string>
+</table>]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -656,7 +649,7 @@
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[kyrbatsky@gmail.com]]></activiti:string>
+          <activiti:string><![CDATA[galichenko@gai.dp.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="cc">
           <activiti:string><![CDATA[pavel.kurbatskij@privatbank.ua, vladimir.zimenko@privatbank.ua]]></activiti:string>
