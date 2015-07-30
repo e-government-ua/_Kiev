@@ -101,6 +101,12 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                 String s=os.toString();
                 if(s.length()>4){
                     s=s.substring(0, 5);
+                }else if(s.length()==3){
+                    s="0"+s;
+                }else if(s.length()==2){
+                    s="00"+s;
+                }else if(s.length()==1){
+                    s="000"+s;
                 }
 		return s;
 	}        
