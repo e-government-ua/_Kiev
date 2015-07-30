@@ -8,6 +8,15 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="chapter1" name="Деталі" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
+          <activiti:value id="attr1_and" name="Амур-Нижньодніпровський"></activiti:value>
+          <activiti:value id="attr2_babush" name="Бабушкінський"></activiti:value>
+          <activiti:value id="attr3_zhovt" name="Жовтневий"></activiti:value>
+          <activiti:value id="attr4_indust" name="Індустріальний"></activiti:value>
+          <activiti:value id="attr5_kirov" name="Кіровський"></activiti:value>
+          <activiti:value id="attr6_lenin" name="Ленінський"></activiti:value>
+          <activiti:value id="attr7_samar" name="Самарський"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="place_of_living" name="Місце проживання; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Е-мейл" type="string" default="email@email.com" required="true"></activiti:formProperty>
@@ -79,6 +88,15 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="chapter1" name="Деталі" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" writable="false">
+          <activiti:value id="attr1_and" name="Амур-Нижньодніпровський"></activiti:value>
+          <activiti:value id="attr2_babush" name="Бабушкінський"></activiti:value>
+          <activiti:value id="attr3_zhovt" name="Жовтневий"></activiti:value>
+          <activiti:value id="attr4_indust" name="Індустріальний"></activiti:value>
+          <activiti:value id="attr5_kirov" name="Кіровський"></activiti:value>
+          <activiti:value id="attr6_lenin" name="Ленінський"></activiti:value>
+          <activiti:value id="attr7_samar" name="Самарський"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="place_of_living" name="Місце проживання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="book" name="Номер облікової картки" type="string" writable="false"></activiti:formProperty>
@@ -143,7 +161,7 @@
           <activiti:value id="attr1" name="відправлені запроси, очікують відповіді"></activiti:value>
           <activiti:value id="attr2" name="відповідь отримана, винесено рішення, повідомити громадянина"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/subsidy.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/subsidy_zayava.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
     </userTask>

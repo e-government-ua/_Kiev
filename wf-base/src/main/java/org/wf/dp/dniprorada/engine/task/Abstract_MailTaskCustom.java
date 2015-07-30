@@ -175,6 +175,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         
         //Mail oMail = new Mail();
         oMail
+        .reset();
+        
+        oMail
         ._From(mailAddressNoreplay)
         ._To(saToMail)
         ._Head(sHead)
