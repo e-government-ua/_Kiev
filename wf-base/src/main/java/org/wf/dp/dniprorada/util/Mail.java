@@ -55,6 +55,11 @@ public class Mail extends Abstract_Mail{
             
     private final static Logger log = LoggerFactory.getLogger(Mail.class);
     
+    
+    public void reset() throws EmailException{
+        oMultiparts = new MimeMultipart();
+    }
+    
     @Override
     public void send() throws EmailException{
         /*oProps.clear();//"10.1.100.70"//"true"

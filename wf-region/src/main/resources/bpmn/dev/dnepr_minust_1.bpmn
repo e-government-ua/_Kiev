@@ -33,10 +33,11 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-Ваш запит _________  успішно зареєстровано. Ви отримаєте відповідь протягом п'яти робочих днів на цю email-адресу.
+Ваш запит _________  успішно зареєстровано. 
+Ви отримаєте відповідь протягом _____ робочих днів на цю email-адресу.
 
 З повагою,
-Міська рада міста _______
+%держОрган%
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
@@ -115,7 +116,7 @@
 Підтсава: ${comment}
 
 З повагою,
-Міська рада міста ______________</activiti:expression>
+%держОрган%</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -124,10 +125,10 @@
     </sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow12" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
-    <serviceTask id="servicetask2" name="Повідомлення про обробку звернення" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask2" name="Повідомлення про обробку звернення" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
@@ -135,16 +136,13 @@
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему:</activiti:expression>
         </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${docToSend}"</activiti:expression>
-        </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-Щодо Вашого запиту на отримання ________________________________
+Щодо Вашого запиту 
 Документ знаходиться у додатку до цього листа.
 
 З повагою,
-Міська рада міста _________________
+%держОрган%
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
       </extensionElements>
@@ -167,17 +165,17 @@
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему:</activiti:expression>
         </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${billToPay}"</activiti:expression>
-        </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-Щодо Вашого запиту на отримання ________________________________
-Документ знаходиться у додатку до цього листа.
+Щодо Вашого запиту
+
 
 З повагою,
-Міська рада міста _________________
+%держОрган%
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${billToPay}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
