@@ -34,11 +34,13 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
 
   // mock markers
   $scope.markers = {
-       validate: {
-           Mail: {
+      validate: {
+        PhoneUA:{
+          aField_ID: ['tel']
+        },Mail: {
                aField_ID: ['email']
-           }
-       }
+        }
+      }
   };
 
   $scope.emailKeydown = function( e, absentMessageForm, absentMessage )  {
@@ -52,6 +54,8 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
   $scope.sendAbsentMessage = function(absentMessageForm, absentMessage) {
 
     ValidationService.validateEmailByMarker( absentMessageForm.email, $scope.markers );
+
+    ValidationService.validateTelephoneByMarker( absentMessageForm.tel, $scope.markers );
 
     if (false === absentMessageForm.$valid) {
       $scope.absentMessage.showErrors = true;
