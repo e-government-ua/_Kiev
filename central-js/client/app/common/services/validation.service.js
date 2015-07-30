@@ -54,6 +54,7 @@ angular.module('app').service('ValidationService', function () {
   /**
    * Validate email if it can be found in markers list by name:
    */
+/*  
   this.validateAutoVIN = function( field, markers ) {
 
     // alternative re: /^([\w-]+(?:.[\w-]+))@((?:[\w-]+.)\w[\w-]{0,66}).([a-z]{2,6}(?:.[a-z]{2})?)$/i;
@@ -106,6 +107,6 @@ angular.module('app').service('ValidationService', function () {
     // and revalidate it
     field.$validate();
   };
-
+*/
 
 });
