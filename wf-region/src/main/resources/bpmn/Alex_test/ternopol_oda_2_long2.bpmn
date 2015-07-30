@@ -21,13 +21,13 @@
         <activiti:formProperty id="citizenTypeExtended" name="Для інваліда/представника інваліда вказати групу і причину інвалідності" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpTo" name="Прошу надати матеріальну допомогу" type="enum" required="true">
           <activiti:value id="me" name="Мені"></activiti:value>
-          <activiti:value id="helpee" name="На мого підопічного"></activiti:value>
-          <activiti:value id="other" name="Інша категорія"></activiti:value>
+          <activiti:value id="helpee" name="На підопічного"></activiti:value>
+          <activiti:value id="other" name="На дитину-інваліда"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="helpeeSurname" name="Прізвище підопічного; Необхідно заповнити вказані поля, якщо допомогу Ви оформлюєте для свого підопічного, якщо ні - залишіть їх порожніми" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpeeName" name="Ім'я підопічного" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpeeMiddleName" name="По батькові підопічного" type="string"></activiti:formProperty>
-        <activiti:formProperty id="helpeeAddress" name="Адреса прописки підопічного" type="string"></activiti:formProperty>
+        <activiti:formProperty id="helpeeAddress" name="Місце проживання (реєстрації) підопічного" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpeePassport" name="Дані паспорта / свідоцтва про народження підопічного" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpeeINN" name="ІПН підопічного; якщо є" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpReason" name="Допомога потрібна у зв’язку з" type="enum" required="true">
@@ -36,14 +36,14 @@
           <activiti:value id="disaster" name="Стихійним лихом"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорта заявника" type="file"></activiti:formProperty>
-        <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера або одержувача Державної соціальної допомоги/ Висновок медико-соціальної експертної комісії, лікувально-консультативної комісії лікувально-профілактичного закладу (для дітей-інвалідів) про встановлення інвалідності" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера або отримувача державної соціальної допомоги/ Висновок медико-соціальної експертної комісії, лікувально-консультативної комісії лікувально-профілактичного закладу (для дітей-інвалідів) про встановлення інвалідності" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="repProof" name="Документ, що засвідчує повноваження законного представника" type="file"></activiti:formProperty>
         <activiti:formProperty id="helpeePassportScan" name="Скан-копія паспорта / свідоцтва про народження підопічного; Сторінки 1, 2 і 11" type="file"></activiti:formProperty>
         <activiti:formProperty id="scanINN" name="Скан-копія ІПН підопічного; Якщо є" type="file"></activiti:formProperty>
         <activiti:formProperty id="helpeeIncome" name="Акт обстеження матеріально-побутових умов проживання" type="file"></activiti:formProperty>
         <activiti:formProperty id="otherDocs" name="Інші підтверджуючі документи (за наявності); Якщо їх більше 1-го, будь ласька завантажте ZIP архів." type="file"></activiti:formProperty>
         <activiti:formProperty id="transferMethod" name="Яким способом бажаєте отримати допомогу" type="enum" required="true">
-          <activiti:value id="bank" name="На особовий Банківський рахунок"></activiti:value>
+          <activiti:value id="bank" name="На особовий банківський рахунок"></activiti:value>
           <activiti:value id="mail" name="Поштовим перерказом"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="transferComment" name="Додатковий коментар; якщо бажаєте отримати допомогу поштою, введіть №. Якщо через банк - №, МФО, код, назва банку" type="textArea" required="true"></activiti:formProperty>
@@ -73,25 +73,25 @@
         <activiti:formProperty id="citizenTypeExtended" name="Для інваліда/представника інваліда вказати групу і причину інвалідності" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpTo" name="Прошу надати матеріальну допомогу" type="enum" writable="false">
           <activiti:value id="me" name="Мені"></activiti:value>
-          <activiti:value id="helpee" name="На мого підопічного"></activiti:value>
-          <activiti:value id="other" name="Інша категорія"></activiti:value>
+          <activiti:value id="helpee" name="На підопічного"></activiti:value>
+          <activiti:value id="other" name="На дитину-інваліда"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="helpeeSurname" name="Прізвище підопічного; Необхідно заповнити вказані поля, якщо допомогу Ви оформлюєте для свого підопічного, якщо ні - залишіть їх порожніми" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeName" name="Ім'я підопічного" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeMiddleName" name="По батькові підопічного" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeeAddress" name="Адреса прописки підопічного" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="helpeeAddress" name="Місце проживання (реєстрації) підопічного" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeePassport" name="Дані паспорта / свідоцтва про народження підопічного" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeINN" name="ІПН підопічного; якщо є" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpReason" name="Допомога потрібна у зв’язку з" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорта заявника" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера або одержувача Державної соціальної допомоги/ Висновок медико-соціальної експертної комісії, лікувально-консультативної комісії лікувально-профілактичного закладу (для дітей-інвалідів) про встановлення інвалідності" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера або отримувача державної соціальної допомоги/ Висновок медико-соціальної експертної комісії, лікувально-консультативної комісії лікувально-профілактичного закладу (для дітей-інвалідів) про встановлення інвалідності" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="repProof" name="Документ, що засвідчує повноваження законного представника" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeePassportScan" name="Скан-копія паспорта / свідоцтва про народження підопічного; Сторінки 1, 2 і 11" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="scanINN" name="Скан-копія ІПН підопічного; Якщо є" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeIncome" name="Акт обстеження матеріально-побутових умов проживання" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="otherDocs" name="Інші підтверджуючі документи; За наявності" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="transferMethod" name="Яким спосібом бажаєте отримати допомогу" type="enum" writable="false">
-          <activiti:value id="bank" name="На особовий Банківський рахунок"></activiti:value>
+          <activiti:value id="bank" name="На особовий банківський рахунок"></activiti:value>
           <activiti:value id="mail" name="Поштовим перерказом"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="transferComment" name="Додатковий коментар: якщо бажаєте отримати допомогу поштою, введіть №. Якщо через банк - №, МФО, код, назва банку" type="textArea" writable="false"></activiti:formProperty>

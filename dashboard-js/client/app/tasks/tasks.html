@@ -17,10 +17,10 @@
               #{{task.id}} ({{ sDateShort(task.createTime) }}) {{ getProcessName(task.processDefinitionId)
               }} | {{ task.name }}
             </a>
-              
+
             <!--li ng-repeat="service in subcategory.aService | orderBy: '-nSub' | limitTo: limit as services"-->
-              
-              
+
+
           </div>
         </div>
       </div>
@@ -140,7 +140,7 @@
 <print-modal show='printTemplate.showPrintModal'
              info='printTemplate.showPrintModal'>
   <div>
-    <div ng-hide="printTemplate.containsPrintTemplate()">
+    <div  ng-if="!printTemplate.containsPrintTemplate()">
       <p>Звернення: {{getProcessName(printTemplate.task.processDefinitionId)}}</p>
 
       <p>джерело: igov.org.ua</p>
@@ -162,7 +162,7 @@
 
       <p>Дата _________________________ Підпис _________________________</p>
     </div>
-    <div ng-show="printTemplate.containsPrintTemplate()">
+    <div ng-if="printTemplate.containsPrintTemplate()">
       <div ng-bind-html="printTemplate.getPrintTemplate()"></div>
     </div>
   </div>

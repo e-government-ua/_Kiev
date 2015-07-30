@@ -279,10 +279,10 @@ public abstract class AbstractModelTask {
 	public static ByteArrayOutputStream multipartFileToByteArray(MultipartFile file)
 			throws IOException {
             
-                String sFilename = file.getOriginalFilename();
-                System.out.println("sFilename=" + file.getOriginalFilename());
+                String sFilename = new String(file.getOriginalFilename().getBytes(),"Cp1251");//UTF-8
+                System.out.println("sFilename=" + sFilename);
                 sFilename = Renamer.sRenamed(sFilename);
-                System.out.println("sFilename(new)=" + file.getOriginalFilename());
+                System.out.println("sFilename(new)=" + sFilename);
             
 		ByteArrayMultipartFile byteArrayMultipartFile  
 				= new ByteArrayMultipartFile(
