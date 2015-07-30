@@ -94,7 +94,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		for (int i = 1; i <= 4; i++) {
                     //int big = ran.nextInt((57 - 48) + 1) + 48;
                     //os.append((char) big);
-                    int n = ran.nextInt(9);
+                    int n = ran.nextInt(9999);
                     os.append(n);
                     break;
 		}
