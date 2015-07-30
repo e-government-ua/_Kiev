@@ -30,7 +30,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     $scope.markers = {
         validate:{
             PhoneUA:{
-                aField_ID:['privatePhone','workPhone', 'phone']
+                aField_ID:['privatePhone','workPhone', 'phone', 'tel']
             }, Mail:{
                 aField_ID:['privateMail','email']
             }
@@ -60,36 +60,17 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
         value.sFieldNotes = s;
 
         if (_.indexOf(aID_FieldPhoneUA, value.id) !== -1){
-            value.sFieldType='tel';
+            // перетворити звичайний input на поле вводу телефону, контрольоване директивою form/directives/tel.js:
+            value.type='tel';
         }
   });
 
   $scope.submit = function(form) {
         $scope.isSending = true;
         form.$setSubmitted();
-        var bValid=true;
-
-        //$($('input[type=tel]')[0]).removeClass('has-error');
-        /*if (!$($('input[type=tel]')[0]).intlTelInput('isValidNumber')){//bValid &&
-            bValid = false;
-            //$($('input[type=tel]')[0]).addClass('has-error');
-            alert('Неверный формат телефона!');
-            return;
-        }*/
-        /*
-        .has-error .form-control {
-          border-color: #a94442;
-          box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-        }*/
-
-        var telInput = $($('input[type=tel]')[0]);
-
-        if (!telInput.intlTelInput('isValidNumber')){
-            //telInput.addClass('has-error');
-            alert('Неверный формат телефона!');
-        }       
 
         ValidationService.validateEmailByMarker( form.email, $scope.markers );
+        ValidationService.validateTelephoneByMarker( form.phone, $scope.markers );
 
         if (form.$valid) {//
             ActivitiService

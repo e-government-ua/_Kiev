@@ -1371,10 +1371,11 @@ label .snippet {
   }
 }
 
-input.ng-invalid-email {
+input.ng-invalid-email, input.ng-invalid-tel {
   border: 1px solid $invalid-input-border-color;
   background-color: $invalid-input-bg-color;
 }
+
 .validation-message {
   color: $invalid-label-text-color;
 }

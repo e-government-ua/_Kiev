@@ -38,7 +38,7 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
         PhoneUA:{
           aField_ID: ['tel']
         },Mail: {
-               aField_ID: ['email']
+          aField_ID: ['email']
         }
       }
   };
@@ -54,8 +54,6 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
   $scope.sendAbsentMessage = function(absentMessageForm, absentMessage) {
 
     ValidationService.validateEmailByMarker( absentMessageForm.email, $scope.markers );
-
-    ValidationService.validateTelephoneByMarker( absentMessageForm.tel, $scope.markers );
 
     if (false === absentMessageForm.$valid) {
       $scope.absentMessage.showErrors = true;

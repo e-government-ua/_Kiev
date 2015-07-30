@@ -1,3 +1,17 @@
+/**
+ * Поле телефонного номеру для форми з валідацією на основі jQuery-плагіну intlTelInput
+ *
+ * Приклад використання:
+ * <input 
+	    type="tel"
+	    data-ng-model="absentMessage.tel"
+	    ng-tel-field="{ defaultCountry: 'auto', autoFormat: true, allowExtensions: false, preferredCountries: ['ua'], autoPlaceholder: false }"
+	    ng-model-options="{ updateOn: 'blur' }"
+	    name="tel"
+	    required
+	    class="form-control">
+ *
+ */
 angular.module('app').directive('ngTelField', function() {
 	'use strict';
   	return {
