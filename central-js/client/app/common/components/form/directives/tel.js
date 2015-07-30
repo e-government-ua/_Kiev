@@ -18,7 +18,6 @@ angular.module('app').directive('ngTelField', function() {
   		require: '?ngModel',
     	restrict: 'A',
     	link: function link( scope, element, attrs, ngModel ) {
-    		
 			if (!ngModel) { 
 				return;
 			}
@@ -26,18 +25,15 @@ angular.module('app').directive('ngTelField', function() {
 			var elmt = angular.element(element);
 
 			// Set tel input validator to cotnrol (ngModel), 
-			ngModel.$validators.tel = function( modelValue ) {
-
-	    		var isEmpty = ngModel.$isEmpty( modelValue );
-
-	    		// Validate using intlTelInput's method like $(element).intlTelInput("isValidNumber")
-				var isValid = elmt.intlTelInput( 'isValidNumber' );
-
+			// it will validate like $(element).intlTelInput("isValidNumber")
+			ngModel.$validators.tel = function(modelValue) {
+	    		var isEmpty = ngModel.$isEmpty(modelValue);
+				var isValid = elmt.intlTelInput('isValidNumber');
 				return !isEmpty && isValid;
 			};
 
-			// Сreate Angular telephone input field from jQuery's plugin, intlTelInput, 
-			// See: amitgharat.wordpress.com/2013/02/03/an-approach-to-use-jquery-plugins-with-angularjs/
+			// Сreate Angular telephone input field from jQuery's plugin, intlTelInput/
+			// Just like described here: amitgharat.wordpress.com/2013/02/03/an-approach-to-use-jquery-plugins-with-angularjs/
 			elmt.intlTelInput(scope.$eval(attrs.ngTelField));
 		}
   	};
