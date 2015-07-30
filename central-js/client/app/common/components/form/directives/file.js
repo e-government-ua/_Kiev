@@ -5,11 +5,21 @@ angular.module('app').directive('fileField', function() {
     link: function(scope, element, attrs, ngModel) {
       var fileField = element.find('input');
 
+      
+      console.log('data.formData.params[property.id].fileName='+data.formData.params[property.id].fileName);
+      try{
+        data.formData.params[property.id].fileName="123"+data.formData.params[property.id].fileName
+      }catch(_){
+        console.log('ERROR:data.formData.params[property.id].fileName:'+_);
+      }
+      console.log('data.formData.params[property.id].fileName='+data.formData.params[property.id].fileName);
+
       fileField.bind('change', function(event) {
         scope.$apply(function() {
           var oFile = scope.data.formData.params[ngModel.$name];
           oFile.setFiles(event.target.files);
           oFile.upload(scope.oServiceData);
+          console.log('ngModel.$name='+ngModel.$name);
         });
       });
 
