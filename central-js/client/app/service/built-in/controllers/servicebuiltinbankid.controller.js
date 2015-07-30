@@ -30,7 +30,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     $scope.markers = {
         validate:{
             PhoneUA:{
-                aField_ID:['privatePhone','workPhone', 'phone', 'tel']
+                aField_ID:['privatePhone','workPhone', 'phone']
             }, Mail:{
                 aField_ID:['privateMail','email']
 //            }, AutoVIN:{
@@ -64,8 +64,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
         value.sFieldNotes = s;
 
         if (_.indexOf(aID_FieldPhoneUA, value.id) !== -1){
-            // перетворити звичайний input на поле вводу телефону, контрольоване директивою form/directives/tel.js:
-            value.type='tel';
+            value.sFieldType='tel';
         }
 /*        
         if (_.indexOf(aID_FieldAutoVIN, value.id) !== -1){
@@ -77,12 +76,25 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.submit = function(form) {
         $scope.isSending = true;
         form.$setSubmitted();
+        var bValid=true;
+
+        //$($('input[type=tel]')[0]).removeClass('has-error');
+        /*if (!$($('input[type=tel]')[0]).intlTelInput('isValidNumber')){//bValid &&
+            bValid = false;
+            //$($('input[type=tel]')[0]).addClass('has-error');
+            alert('Неверный формат телефона!');
+            return;
+        }*/
+        /*
+        .has-error .form-control {
+          border-color: #a94442;
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        }*/
 
         ValidationService.validateEmailByMarker( form.email, $scope.markers );
-        ValidationService.validateTelephoneByMarker( form.phone, $scope.markers );
 //        ValidationService.validateAutoVIN( form.vin, $scope.markers );
 
-        if (form.$valid) {//
+        if (form.$valid && bValid) {//
             ActivitiService
                 .submitForm(oServiceData, $scope.data.formData)
                 .then(function(result) {
@@ -142,7 +154,6 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   };
 
   $scope.files = {};
-
   $scope.addFile = function(propertyId, event) {
     var files = event.target.files;
     if (files && files.length === 1) {
@@ -153,5 +164,21 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     }
     $scope.$apply();
   };
+
+    $timeout(function () {
+        $('input[type=tel]').intlTelInput({
+            defaultCountry: 'auto',
+            autoFormat: true,
+            allowExtensions: true,
+            preferredCountries: ['ua'],
+            autoPlaceholder: false,
+            geoIpLookup: function(callback) {
+                $.get('http://ipinfo.io', function() {}, 'jsonp').always(function(resp) {
+                    var countryCode = (resp && resp.country) ? resp.country : '';
+                    callback(countryCode);
+                });
+            }
+        });
+    });
 
 });

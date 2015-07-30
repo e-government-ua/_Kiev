@@ -4,14 +4,9 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import 'font-awesome/scss/font-awesome';
 
-/** 
- * Variables to share some values
- */
-
+// Validation style
 $invalid-input-bg-color: #fcc;
 $invalid-input-border-color: #e10;
-$invalid-label-text-color: #a94442;
-
 
 /**
  * App-wide Styles
@@ -657,7 +652,7 @@ label .snippet {
 }
 
 .error {
-  color: $invalid-label-text-color;
+  color: red;
 }
 
 html {
@@ -1299,6 +1294,10 @@ label .snippet {
   padding-top: 15px;
 }
 
+.error {
+  color: red;
+}
+
 .service-description {
   border-top: 1px solid #ddd;
   margin: 10px -15px;
@@ -1352,14 +1351,6 @@ label .snippet {
   padding-left:30px;
 }
 
-.site-preloader {
-  margin-top: 5em;
-}
-
-.section-preloader {
-  margin-top: 5em;
-}
-
 /**
 * Validation Styles
 */
@@ -1371,13 +1362,12 @@ label .snippet {
   }
 }
 
-input.ng-invalid-email, input.ng-invalid-tel {
-  border: 1px solid $invalid-input-border-color;
+input.ng-invalid-email {
+  border: 2px solid $invalid-input-border-color;
   background-color: $invalid-input-bg-color;
 }
-
 .validation-message {
-  color: $invalid-label-text-color;
+  color: #a94442;
 }
 
 .kyiv-header-container .container {

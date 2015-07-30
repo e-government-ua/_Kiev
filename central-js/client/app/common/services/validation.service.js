@@ -49,12 +49,6 @@ angular.module('app').service('ValidationService', function () {
     emailCtrl.$validate();
   };
 
-  this.validateTelephoneByMarker = function( telCtrl, markers ) {
-    // the telephone validator is set in the tel.js directive
-    // validate it
-    telCtrl.$validate();
-  };
-
 
 
   /**
