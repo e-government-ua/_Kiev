@@ -96,7 +96,11 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     os.append((char) big);
                     break;
 		}
-		return os.toString();
+                String s=os.toString();
+                if(s.length()>4){
+                    s=s.substring(0, 5);
+                }
+		return s;
 	}        
 
 	private String writeRow(DocumentAccess o) throws Exception{
