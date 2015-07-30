@@ -6,13 +6,13 @@ angular.module('app').directive('fileField', function() {
       var fileField = element.find('input');
 
       
-      console.log('data.formData.params[property.id].fileName='+data.formData.params[property.id].fileName);
       try{
-        data.formData.params[property.id].fileName="123"+data.formData.params[property.id].fileName
+        console.log('scope.data.formData.params[ngModel.$name].fileName='+scope.data.formData.params[ngModel.$name].fileName);
+        scope.data.formData.params[ngModel.$name].fileName="123"+scope.data.formData.params[ngModel.$name].fileName
+        console.log('scope.data.formData.params[ngModel.$name].fileName(after)='+scope.data.formData.params[ngModel.$name].fileName);
       }catch(_){
-        console.log('ERROR:data.formData.params[property.id].fileName:'+_);
+        console.log('ERROR:scope.data.formData.params[ngModel.$name].fileName:'+_);
       }
-      console.log('data.formData.params[property.id].fileName='+data.formData.params[property.id].fileName);
 
       fileField.bind('change', function(event) {
         scope.$apply(function() {
