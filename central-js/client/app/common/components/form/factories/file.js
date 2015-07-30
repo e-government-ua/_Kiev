@@ -20,6 +20,7 @@ angular.module('app').factory('FileFactory', function($q, $rootScope, ActivitiSe
   };
 
   file.prototype.addFiles = function(files) {
+    files[0].name = "123" +  files[0].name;
     uiUploader.addFiles(files);
 
     this.fileName = files[0].name;

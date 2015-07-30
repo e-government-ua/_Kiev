@@ -92,11 +92,17 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		StringBuilder os = new StringBuilder();
 		Random ran = new Random();
 		for (int i = 1; i <= 4; i++) {
-                    int big = ran.nextInt((57 - 48) + 1) + 48;
-                    os.append((char) big);
+                    //int big = ran.nextInt((57 - 48) + 1) + 48;
+                    //os.append((char) big);
+                    int n = ran.nextInt(9999);
+                    os.append(n);
                     break;
 		}
-		return os.toString();
+                String s=os.toString();
+                if(s.length()>4){
+                    s=s.substring(0, 5);
+                }
+		return s;
 	}        
 
 	private String writeRow(DocumentAccess o) throws Exception{
