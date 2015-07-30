@@ -60,7 +60,7 @@ public class LiqBuy {
         paramMerchant.put("sAccessKey", sAccessKey_Merchant);
         
         //String soJSON_Merchant = HttpRequester.get("https://test.igov.org.ua/wf-central/service/merchant/getMerchant", paramMerchant);
-        String soJSON_Merchant = HttpRequester.get(new GeneralConfig().sHostCentral() + "/wf-central/service/merchant/getMerchant", paramMerchant);
+        String soJSON_Merchant = HttpRequester.get(generalConfig.sHostCentral() + "/wf-central/service/merchant/getMerchant", paramMerchant);
         log.info("soJSON_Merchant="+soJSON_Merchant);
         
         JSONParser parser = new JSONParser();

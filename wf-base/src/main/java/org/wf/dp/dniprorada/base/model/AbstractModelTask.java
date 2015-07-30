@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.base.model;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -279,10 +280,21 @@ public abstract class AbstractModelTask {
 	public static ByteArrayOutputStream multipartFileToByteArray(MultipartFile file)
 			throws IOException {
             
-                String sFilename = file.getOriginalFilename();
-                System.out.println("sFilename=" + file.getOriginalFilename());
-                sFilename = Renamer.sRenamed(sFilename);
-                System.out.println("sFilename(new)=" + file.getOriginalFilename());
+                String sFilename = new String(file.getOriginalFilename().getBytes(),"Cp1251");//UTF-8
+                System.out.println("sFilename=" + sFilename);
+                
+                String sFilename1 = new String(file.getOriginalFilename().getBytes(Charset.forName("UTF-8")));//UTF-8
+                System.out.println("sFilename1=" + sFilename1);
+                String sFilename2 = new String(file.getOriginalFilename().getBytes(),"UTF-8");//UTF-8
+                System.out.println("sFilename2=" + sFilename2);
+                String sFilename3 = new String(file.getOriginalFilename().getBytes(Charset.forName("Cp1251")));//UTF-8
+                System.out.println("sFilename3=" + sFilename3);
+                String sFilename4 = new String(file.getOriginalFilename().getBytes());//UTF-8
+                System.out.println("sFilename4=" + sFilename4);
+                
+                
+                sFilename = Renamer.sRenamed(sFilename1);
+                System.out.println("sFilename(new)=" + sFilename);
             
 		ByteArrayMultipartFile byteArrayMultipartFile  
 				= new ByteArrayMultipartFile(
