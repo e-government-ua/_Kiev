@@ -130,6 +130,16 @@
                                        class="form-control"
                                        value="">
 
+                                <input ng-switch-when="tel"
+                                      type="text"
+                                      name="{{property.id}}"
+                                      ng-model="data.formData.params[property.id].value"
+                                      ng-tel-field="{ defaultCountry: 'auto', autoFormat: true, allowExtensions: false, preferredCountries: ['ua'], autoPlaceholder: true }"
+                                      ng-required="property.required"
+                                      class="form-control"
+                                      value=""
+                                      >
+
                                 <p class="input-group"
                                    ng-switch-when="date">
                                     <input type="text"
@@ -195,6 +205,7 @@
                                  ng-messages="form[property.id].$error">
                                 <div ng-message="required">Необхідно заповнити.</div>
                                 <div ng-message="pattern">Значення має бути числом.</div>
+                                <div ng-message="tel">Помилка в номері телефону.</div>
                                 <div ng-message="email">Помилка в email.</div>
                             </div>
                         </div>
