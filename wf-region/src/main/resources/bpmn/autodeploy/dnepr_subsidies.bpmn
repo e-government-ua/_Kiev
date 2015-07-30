@@ -86,7 +86,7 @@
         <activiti:formProperty id="card2" name="Реєстраційний номер облікової картки платника податків" type="string"></activiti:formProperty>
         <activiti:formProperty id="comment2" name="Примітки" type="string"></activiti:formProperty>
         <activiti:formProperty id="income2" name="Вид доходу" type="string"></activiti:formProperty>
-        <activiti:formProperty id="org3" name="Найменування організації, де отримує дохід; для фізичних осіб-підприємців - група платника єдиного податку" type="string"></activiti:formProperty>
+        <activiti:formProperty id="org2" name="Найменування організації, де отримує дохід; для фізичних осіб-підприємців - група платника єдиного податку" type="string"></activiti:formProperty>
         <activiti:formProperty id="man3" name="Особа 3" type="label"></activiti:formProperty>
         <activiti:formProperty id="fio3" name="Прізвище, ім'я, по-батькові; Наприклад: Остапчук Остап Остапович" type="string"></activiti:formProperty>
         <activiti:formProperty id="date3" name="Дата народження" type="date"></activiti:formProperty>
@@ -184,7 +184,7 @@
         <activiti:formProperty id="card2" name="Реєстраційний номер облікової картки платника податків" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment2" name="Примітки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="income2" name="Вид доходу" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="org3" name="Найменування організації, де отримує дохід; для фізичних осіб-підприємців - група платника єдиного податку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="org2" name="Найменування організації, де отримує дохід; для фізичних осіб-підприємців - група платника єдиного податку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="man3" name="Особа 3" type="label" writable="false"></activiti:formProperty>
         <activiti:formProperty id="fio3" name="Прізвище, ім'я, по-батькові; Наприклад: Остапчук Остап Остапович" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date3" name="Дата народження" type="date" writable="false"></activiti:formProperty>
