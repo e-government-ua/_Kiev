@@ -292,8 +292,23 @@ public abstract class AbstractModelTask {
                 String sFilename4 = new String(file.getOriginalFilename().getBytes());//UTF-8
                 System.out.println("sFilename4=" + sFilename4);
                 
+
+                String sFilename0 = file.getOriginalFilename();//UTF-8
+                System.out.println("sFilename0=" + sFilename0);
                 
-                sFilename = Renamer.sRenamed(sFilename1);
+                //sFilename = Renamer.sRenamed(sFilename0);
+                String sFilenameNew0 = Renamer.sRenamed(sFilename0);
+                System.out.println("sFilenameNew0=" + sFilenameNew0);
+                String sFilenameNew1 = Renamer.sRenamed(sFilename1);
+                System.out.println("sFilenameNew1=" + sFilenameNew1);
+                String sFilenameNew2 = Renamer.sRenamed(sFilename2);
+                System.out.println("sFilenameNew2=" + sFilenameNew2);
+                String sFilenameNew3 = Renamer.sRenamed(sFilename3);
+                System.out.println("sFilenameNew3=" + sFilenameNew3);
+                String sFilenameNew4 = Renamer.sRenamed(sFilename4);
+                System.out.println("sFilenameNew4=" + sFilenameNew4);
+                
+                //sFilename=sFilenameNew;
                 System.out.println("sFilename(new)=" + sFilename);
             
 		ByteArrayMultipartFile byteArrayMultipartFile  
