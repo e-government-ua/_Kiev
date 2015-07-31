@@ -1352,7 +1352,7 @@ label .snippet {
 }
 
 /**
-* Validation Styles
+* Validation Styles Start
 */
 
 .email-absent-form {
@@ -1369,6 +1369,22 @@ input.ng-invalid-email {
 .validation-message {
   color: #a94442;
 }
+
+/* Override the path to flags.png for intlTelInput */
+
+.iti-flag {
+  background-image: url("/assets/images/icons/flags.png");
+
+  /* flags@2x.png for retina devices: */ 
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+    background-image: url("/assets/images/icons/flags@2x1.png");
+  }
+}
+
+/**
+* Validation Styles End
+*/
 
 .kyiv-header-container .container {
   height: 175px;

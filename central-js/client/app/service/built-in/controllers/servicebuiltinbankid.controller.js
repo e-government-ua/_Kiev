@@ -92,6 +92,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
         }*/
 
         ValidationService.validateEmailByMarker( form.email, $scope.markers );
+        ValidationService.validateTelephoneByMarker( form.phone, $scope.markers );
 //        ValidationService.validateAutoVIN( form.vin, $scope.markers );
 
         if (form.$valid && bValid) {//
