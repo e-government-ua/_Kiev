@@ -71,7 +71,7 @@
         <activiti:formProperty id="floors" name="Кількість поверхів" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="total_place" name="Загальна площа, кв. м." type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="notice3" name="Примітка" type="label" default="Особи, які зареєстровані (для орендарів — особи, які фактично проживають) у житловому приміщенні/будинку ті їх прибутки (перерахуйте з нового рядка: ПІБ, ДР, Номер облікової книжки, Вид прибутку, Сума прибутку без урахування податку з доходів фізичних осіб, Джерело прибутку)"></activiti:formProperty>
-        <activiti:formProperty id="man1" name="Особа 1" type="label"></activiti:formProperty>
+        <activiti:formProperty id="man1" name="Особа 1" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="fio1" name="Прізвище, ім'я, по-батькові; Наприклад: Остапчук Остап Остапович" type="string"></activiti:formProperty>
         <activiti:formProperty id="date1" name="Дата народження; наприклад: 01.01.1960" type="string"></activiti:formProperty>
         <activiti:formProperty id="passport1" name="Серія та номер паспорту; Наприклад: АА 111111" type="string"></activiti:formProperty>
@@ -79,7 +79,7 @@
         <activiti:formProperty id="comment1" name="Примітки" type="string"></activiti:formProperty>
         <activiti:formProperty id="income1" name="Вид доходу" type="string"></activiti:formProperty>
         <activiti:formProperty id="org1" name="Найменування організації, де отримує дохід; для фізичних осіб-підприємців - група платника єдиного податку" type="string"></activiti:formProperty>
-        <activiti:formProperty id="man2" name="Особа 2" type="label"></activiti:formProperty>
+        <activiti:formProperty id="man2" name="Особа 2" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="fio2" name="Прізвище, ім'я, по-батькові; Наприклад: Остапчук Остап Остапович" type="string"></activiti:formProperty>
         <activiti:formProperty id="date2" name="Дата народження; наприклад: 01.01.1960" type="string"></activiti:formProperty>
         <activiti:formProperty id="passport2" name="Серія та номер паспорту; Наприклад: АА 111111" type="string"></activiti:formProperty>
@@ -87,7 +87,7 @@
         <activiti:formProperty id="comment2" name="Примітки" type="string"></activiti:formProperty>
         <activiti:formProperty id="income2" name="Вид доходу" type="string"></activiti:formProperty>
         <activiti:formProperty id="org2" name="Найменування організації, де отримує дохід; для фізичних осіб-підприємців - група платника єдиного податку" type="string"></activiti:formProperty>
-        <activiti:formProperty id="man3" name="Особа 3" type="label"></activiti:formProperty>
+        <activiti:formProperty id="man3" name="Особа 3" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="fio3" name="Прізвище, ім'я, по-батькові; Наприклад: Остапчук Остап Остапович" type="string"></activiti:formProperty>
         <activiti:formProperty id="date3" name="Дата народження; наприклад: 01.01.1960" type="string"></activiti:formProperty>
         <activiti:formProperty id="passport3" name="Серія та номер паспорту; Наприклад: АА 111111" type="string"></activiti:formProperty>
@@ -169,7 +169,7 @@
         <activiti:formProperty id="floors" name="Кількість поверхів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="total_place" name="Загальна площа" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="notice3" name="Примітка" type="label" default="Особи, які зареєстровані (для орендарів — особи, які фактично проживають) у житловому приміщенні/будинку ті їх прибутки (перерахуйте з нового рядка: ПІБ, ДР, Номер облікової книжки, Вид прибутку, Сума прибутку без урахування податку з доходів фізичних осіб, Джерело прибутку)" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="man1" name="Особа 1" type="label" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="man1" name="Особа 1" type="label" default=" " writable="false"></activiti:formProperty>
         <activiti:formProperty id="fio1" name="Прізвище, ім'я, по-батькові; Наприклад: Остапчук Остап Остапович" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date1" name="Дата народження; наприклад: 01.01.1960" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="passport1" name="Серія та номер паспорту; Наприклад: АА 111111" type="string" writable="false"></activiti:formProperty>
@@ -177,7 +177,7 @@
         <activiti:formProperty id="comment1" name="Примітки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="income1" name="Вид доходу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="org1" name="Найменування організації, де отримує дохід; для фізичних осіб-підприємців - група платника єдиного податку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="man2" name="Особа 2" type="label" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="man2" name="Особа 2" type="label" default=" " writable="false"></activiti:formProperty>
         <activiti:formProperty id="fio2" name="Прізвище, ім'я, по-батькові; Наприклад: Остапчук Остап Остапович" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date2" name="Дата народження; наприклад: 01.01.1960" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="passport2" name="Серія та номер паспорту; Наприклад: АА 111111" type="string" writable="false"></activiti:formProperty>
@@ -185,7 +185,7 @@
         <activiti:formProperty id="comment2" name="Примітки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="income2" name="Вид доходу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="org2" name="Найменування організації, де отримує дохід; для фізичних осіб-підприємців - група платника єдиного податку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="man3" name="Особа 3" type="label" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="man3" name="Особа 3" type="label" default=" " writable="false"></activiti:formProperty>
         <activiti:formProperty id="fio3" name="Прізвище, ім'я, по-батькові; Наприклад: Остапчук Остап Остапович" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date3" name="Дата народження; наприклад: 01.01.1960" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="passport3" name="Серія та номер паспорту; Наприклад: АА 111111" type="string" writable="false"></activiti:formProperty>
@@ -246,7 +246,7 @@
         <omgdc:Bounds height="40.0" width="40.0" x="320.0" y="17.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="405.0" y="10.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="410.0" y="20.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="565.0" y="20.0"></omgdc:Bounds>
@@ -262,13 +262,13 @@
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
         <omgdi:waypoint x="360.0" y="37.0"></omgdi:waypoint>
         <omgdi:waypoint x="384.0" y="37.0"></omgdi:waypoint>
-        <omgdi:waypoint x="405.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="47.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="14.0" width="95.0" x="349.0" y="70.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="510.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="515.0" y="47.0"></omgdi:waypoint>
         <omgdi:waypoint x="565.0" y="37.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
