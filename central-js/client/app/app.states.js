@@ -84,6 +84,11 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
     })
     .state('index.service.instruction', {
       url: '/instruction',
+      resolve: {
+        service: function ($stateParams, ServiceService) {
+          return ServiceService.get($stateParams.id);
+        }
+	  },
       views: {
         'main@': {
           templateUrl: 'app/service/instruction.html',
