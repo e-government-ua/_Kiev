@@ -8,8 +8,6 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія і номер)" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту; Сторінки № 1, 2 і 11" type="file"></activiti:formProperty>
-        <activiti:formProperty id="bankIdinn" name="ІПН " type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file"></activiti:formProperty>
         <activiti:formProperty id="officialAddress" name="Адреса проживання " type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Прошу видати мені довідку про" type="enum" required="true">
           <activiti:value id="noHelp" name="Не перебування на обліку як отримувач всіх видів допомог"></activiti:value>
@@ -129,8 +127,6 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія і номер)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту; Або будь-якого посвідчення особистості" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdinn" name="ІПН " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="officialAddress" name="Адреса проживання " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Прошу видати мені довідку про" type="enum" writable="false">
           <activiti:value id="noHelp" name="Не перебування на обліку як отримувач всіх видів допомог"></activiti:value>

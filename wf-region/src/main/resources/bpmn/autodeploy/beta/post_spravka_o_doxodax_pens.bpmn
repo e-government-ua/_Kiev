@@ -186,7 +186,7 @@
         <activiti:field name="subject">
           <activiti:string>Отримання довідки про доходи (розмір пенсії)</activiti:string>
         </activiti:field>
-        <activiti:field name="html">
+        <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
