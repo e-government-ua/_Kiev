@@ -345,4 +345,8 @@
     </changeSet>
 
 
+    <changeSet id="issue-573_fix" author="dgroup_and_bw">
+        <modifyDataType tableName="Place" columnName="sName" newDataType="varchar(200)" />
+    </changeSet>
+
 </databaseChangeLog>

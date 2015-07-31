@@ -8,8 +8,6 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія і номер)" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту; Або будь-якого посвідчення особистості" type="file"></activiti:formProperty>
-        <activiti:formProperty id="bankIdinn" name="ІПН " type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_inn" name="Скан-копія ІПН" type="file"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса прописки" type="file"></activiti:formProperty>
         <activiti:formProperty id="DOB" name="Дата народження; Формат - ДД/ММ/РРРР" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="POB" name="Місце народження; Країна і місто" type="string" required="true"></activiti:formProperty>

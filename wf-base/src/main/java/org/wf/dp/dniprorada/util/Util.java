@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.util;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Constants;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -132,8 +133,12 @@ public final class Util {
                 	if (taskformData != null){
 	                	for (FormProperty property : taskformData.getFormProperties()) {
 	                		if (property.getId().equals("sBody") ){
-	                			oLog.info("[replacePatterns]:Found necessary property=" + property.getValue());
-	                			sExpression = property.getValue();
+	                			oLog.info("[replacePatterns]:Found necessary property.getValue()=" + property.getValue());
+	                			//sExpression = property.getValue();
+	                			oLog.info("[replacePatterns]:Found necessary property.getName()=" + property.getName());
+                                                //if( sExpression==null || "".equals(sExpression.trim()) || "${sBody}".equals(sExpression.trim())){
+                                                    sExpression = property.getName();
+                                                //}
 	                		} else {
 	                			oLog.info("[replacePatterns]:Property =" + property.getId());
 	                		}
@@ -151,6 +156,8 @@ public final class Util {
                     if(sExpression!=null){
                         String[] asPatterns = {
                                 "pattern/print/subsidy.html"
+                                ,"pattern/print/subsidy_zayava.html"
+                                ,"pattern/print/subsidy_declaration.html"
                                 ,"pattern/print/1.html"
                                 ,"pattern/print/2.html"
                                 ,"pattern/print/3.html"
@@ -170,14 +177,27 @@ public final class Util {
                                 }
                                 oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
                                 if(oFile.exists()){
-                                    String sData = getFromFile(oFile, "Cp1251");
+                                    //String sData = getFromFile(oFile, "Cp1251");
+                                    String sData = getFromFile(oFile, null);
                                     oLog.info("[replacePatterns]:sData="+sData);
                                     if(sData!=null){
                                         sExpression=sExpression.replaceAll("\\Q["+sName+"]\\E", sData);
                                         oLog.info("[replacePatterns]:sExpression="+sExpression);
                                         //setStringFromFieldExpression(osBody, execution, sExpression);
-                                        execution.setVariable("sBody", sExpression);
-                                        oLog.info("[replacePatterns]:Ok!");
+//                                        execution.setVariable("sBody", sExpression);
+//                                        execution.setVariable("sBody0", sExpression);
+//                                        task.setVariable("sBody", sExpression);
+//                                        task.setVariable("sBody0", sExpression);
+                                        oLog.info("[replacePatterns]:1-Ok!");
+                                        
+                                        execution.getEngineServices().getRuntimeService()
+                                                .setVariable(task.getProcessInstanceId(), "sBody", sExpression);
+                                        //task.getName();
+                                        oLog.info("[replacePatterns]:2-Ok:"+execution.getEngineServices().getRuntimeService()
+                                                .getVariable(task.getProcessInstanceId(), "sBody"));
+                                        //task.getId()
+                                        
+                                        oLog.info("[replacePatterns]:3-Ok!");
                                     }
                                 }else{
                                     oLog.info("[replacePatterns]:oFile.getAbsolutePath()="+oFile.getAbsolutePath());

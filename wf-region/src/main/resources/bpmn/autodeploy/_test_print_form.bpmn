@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="_test_print_form" name="Тест печатной формы" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="chapter1" name="Деталі" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="place_of_living" name="Місце проживання; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Е-мейл" type="string" default="email@email.com" required="true"></activiti:formProperty>
+        <activiti:formProperty id="book" name="Номер облікової карти" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="subsidy" name="Тип субсидії" type="enum">
+          <activiti:value id="1" name="Оплата житлово-комунальних послуг"></activiti:value>
+          <activiti:value id="2" name="Оплата зрідженого газу, твердого та рідкого палива"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="name_services" name="Наіменування послуг" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="house" name="Утримання дому та придомової території" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="house_number" name="Номер особового рахунка" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="house_name" name="Назваорганізації" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="house_notice" name="Примітки" type="string"></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="sBody" type="invisible" default=" "></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="dnepr_upzsn">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Им'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="chapter1" name="Деталі" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="place_of_living" name="Місце проживання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="book" name="Номер облікової картки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="subsidy" name="Тип субсидії" type="enum" writable="false">
+          <activiti:value id="1" name="Оплата житлово-комунальних послуг"></activiti:value>
+          <activiti:value id="2" name="Оплата скрапленого газу, твердого/рідкого палива"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="name_services" name="Наіменування послуг" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="house" name="Утримання будинку та придомової території" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="house_number" name="Номер особового рахунка" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="house_name" name="Назва організації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="house_notice" name="Примітки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="Примітки" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="selection" name="Стан" type="enum" required="true">
+          <activiti:value id="attr1" name="відправлені запроси, очікують відповіді"></activiti:value>
+          <activiti:value id="attr2" name="відповідь отримана, винесено рішення, повідомити громадянина"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/subsidy.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow3" name="${selection=='attr2'}" sourceRef="exclusivegateway1" targetRef="mailtask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr2'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="mailtask1" name="Отправка " activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему "Отримання субсидії"]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний ${bankIdfirstName}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow5" sourceRef="mailtask1" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow6" name="${selection=='attr1'}" sourceRef="exclusivegateway1" targetRef="usertask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr1'}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram__test_print_form">
+    <bpmndi:BPMNPlane bpmnElement="_test_print_form" id="BPMNPlane__test_print_form">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="80.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="17.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="320.0" y="17.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="405.0" y="10.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="565.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="115.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="44.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="265.0" y="44.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="37.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="360.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="384.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="405.0" y="37.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="95.0" x="349.0" y="70.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="510.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="565.0" y="37.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="340.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="339.0" y="168.0"></omgdi:waypoint>
+        <omgdi:waypoint x="279.0" y="168.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="168.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="72.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="95.0" x="230.0" y="170.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
