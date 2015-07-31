@@ -120,11 +120,6 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 124;669;14;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zaporoshye_mvk_1b:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 125;29;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_dms_1:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 126;26;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_dms_2:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-127;670;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_mailer:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-128;671;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_dependence_form:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-129;672;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_dnepr_mvd_1_auto:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-130;673;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_print_form:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-131;674;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_liqpay:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 132;675;9;NULL;1;{};http://www.ap.lutsk.ua/uk/info/service/2683/details;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Луцьк;BankID,EDS
 133;10;9;NULL;1;{};http://www.ap.lutsk.ua/uk/info/service/2802/details;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Луцьк;BankID,EDS
 134;676;9;NULL;1;{};http://www.ap.lutsk.ua/uk/info/service/2805/details;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Луцьк;BankID,EDS
