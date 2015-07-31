@@ -87,15 +87,6 @@
     <sequenceFlow id="flow5" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
     <serviceTask id="mailtask2" name="Відповідь після надсилання довідки поштою" activiti:type="mail">
       <extensionElements>
-        <activiti:field name="text">
-          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
-
-Ваша довідка про доходи (пенсійний фонд) готова та направлена Вам на пошту ${adress}. Ви отримаєте листа протягом 5 днів.
-
-З повагою,
-Укрпошта,
-Команда Порталу державних послу iGov.org.ua</activiti:expression>
-        </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
@@ -141,7 +132,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -195,7 +186,7 @@
         <activiti:field name="subject">
           <activiti:string>Отримання довідки про доходи (розмір пенсії)</activiti:string>
         </activiti:field>
-        <activiti:field name="text">
+        <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
@@ -282,15 +273,6 @@
         <activiti:field name="subject">
           <activiti:string>Довідка про доходи (пенсійний фонд)</activiti:string>
         </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.
-
-Ваше звернення щодо отримання довідки про доходи фізичних осіб відхилено, так як Ви не сплатили послуги протягом 3-х днів. Ви можете подати ще одну заяву на порталі igov.org.ua
-
-З повагою,
-Укрпошта
-Команда Порталу державних послу iGov.org.ua</activiti:expression>
-        </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
@@ -327,7 +309,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -412,7 +394,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -452,6 +434,9 @@
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${pens}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Отримання довідки про доходи (пенсійний фонд)</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
