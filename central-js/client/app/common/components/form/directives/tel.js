@@ -27,6 +27,9 @@ angular.module('app').directive('ngTelField', function() {
 			// Set tel input validator to cotnrol (ngModel), 
 			// it will validate like $(element).intlTelInput("isValidNumber")
 			ngModel.$validators.tel = function(modelValue) {
+				if ( !ngModel.$touched ) {
+					return true;
+				}
 	    		var isEmpty = ngModel.$isEmpty(modelValue);
 				var isValid = elmt.intlTelInput('isValidNumber');
 				return !isEmpty && isValid;

@@ -647,10 +647,6 @@ label .snippet {
   padding-top: 15px;
 }
 
-.error {
-  color: $invalid-label-text-color;
-}
-
 html {
   position: relative;
   min-height: 100%;
@@ -1354,6 +1350,10 @@ label .snippet {
 $invalid-input-bg-color: #fcc;
 $invalid-input-border-color: #e10;
 $invalid-label-text-color: #a94442;
+
+.error {
+  color: $invalid-label-text-color;
+}
 
 .email-absent-form {
   margin-top: 44px;
