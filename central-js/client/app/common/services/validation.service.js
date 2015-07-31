@@ -49,7 +49,13 @@ angular.module('app').service('ValidationService', function () {
     emailCtrl.$validate();
   };
 
-
+  this.validateTelephoneByMarker = function( telCtrl, markers ) {
+    if ( !markers || !telCtrl ) {
+      return;
+    }    
+    // validate it, the phone validator is set in the tel.js directive
+    telCtrl.$validate();
+  };
 
   /**
    * Validate email if it can be found in markers list by name:
