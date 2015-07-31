@@ -8,7 +8,7 @@
             <div class="col-md-11 form-inline">
                 <span class="step">Крок 1. Оберіть свій регіон </span>
 
-                <div style="display:inline-block">
+                <div class="select-list-label">
                     <span>Область</span>
                     <select class="form-control"
                             name="region"
@@ -16,7 +16,7 @@
                             ng-options="region as region.sName for region in [data.region] | orderBy:'sName'"
                             ng-disabled="data.city"></select>
                 </div>
-                <div style="display:inline-block"
+                <div class="select-list-label"
                      ng-if="data.region">
                     <span>Місто</span>
                     <select class="form-control"
