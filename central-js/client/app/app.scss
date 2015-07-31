@@ -1402,3 +1402,15 @@ input.ng-invalid-email, input.ng-invalid-tel  {
   margin-bottom: 3px;
   background-size: cover;
 }
+
+/**
+ * Form labels
+ */
+
+.select-list-label {
+  display: inline-block;
+  padding-right: 0.5em;
+}
+
+/* Dev only: uncomment to see the element scopes' visually: .ng-scope { border: 1px solid #000; padding: 5px; } */
+
