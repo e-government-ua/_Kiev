@@ -34,11 +34,13 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
 
   // mock markers
   $scope.markers = {
-       validate: {
-           Mail: {
-               aField_ID: ['email']
-           }
-       }
+      validate: {
+        PhoneUA:{
+          aField_ID: ['tel']
+        },Mail: {
+          aField_ID: ['email']
+        }
+      }
   };
 
   $scope.emailKeydown = function( e, absentMessageForm, absentMessage )  {
