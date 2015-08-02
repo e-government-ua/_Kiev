@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.rest.controller.adapter.MultiReaderHttpServletResponse;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,15 +99,19 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         			|| request.getRequestURL().toString().indexOf("/start-process/") > 0
         			|| (request.getRequestURL().toString().indexOf("runtime/process-instances") > 0 
         					&& "POST".equalsIgnoreCase(request.getMethod().trim())))){
-        		//достаем ид
-        		Map params = new HashMap();
-        		params.put("nID_Task", "1");
-        		params.put("sStatus", "Заявка подана");
-        		//params.put("nID_Subject", mParamRequest.get("nID_Subject"));
-        		//params.put("sID_Status", "");
-        		logger.info("addHistoryEvent_Service: " + generalConfig.sHostCentral() + "/wf-central/services/addHistoryEvent_Service " + params);
-        		String soResponse = HttpRequester.get("https://poligon.igov.org.ua" + "/wf-central/services/addHistoryEvent_Service", params);
-        		logger.info("soJSON = " + soResponse);
+        		JSONParser parser = new JSONParser();
+                JSONObject jsonObject = (JSONObject) parser.parse(responseBody);
+                String sID_Task = (String) jsonObject.get("id");
+                if (sID_Task != null) {
+                	Map params = new HashMap();
+            		params.put("nID_Task", Long.parseLong(sID_Task));
+            		params.put("sStatus", "Заявка подана");
+            		//params.put("nID_Subject", mParamRequest.get("nID_Subject"));
+            		//params.put("sID_Status", "");
+            		logger.info("addHistoryEvent_Service: " + generalConfig.sHostCentral() + "/wf-central/services/addHistoryEvent_Service " + params);
+            		String soResponse = HttpRequester.get("https://poligon.igov.org.ua" + "/wf-central/services/addHistoryEvent_Service", params);
+            		logger.info("soJSON = " + soResponse);
+                }
         	}
         }
         catch(Exception ex){
