@@ -48,7 +48,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     $scope.markers = {
         validate:{
             PhoneUA:{
-                aField_ID:['privatePhone','workPhone', 'phone']
+                aField_ID:['privatePhone','workPhone', 'phone', 'tel']
             }, Mail:{
                 aField_ID:['privateMail','email']
 //            }, AutoVIN:{
@@ -82,7 +82,9 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
         value.sFieldNotes = s;
 
         if (_.indexOf(aID_FieldPhoneUA, value.id) !== -1){
-            value.sFieldType='tel';
+          // перетворити input на поле вводу телефону, контрольоване директивою form/directives/tel.js:
+          value.type='tel';
+          value.sFieldType='tel';
         }
 /*        
         if (_.indexOf(aID_FieldAutoVIN, value.id) !== -1){
@@ -110,6 +112,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
         }*/
 
         ValidationService.validateEmailByMarker( form.email, $scope.markers );
+        ValidationService.validateTelephoneByMarker( form.phone, $scope.markers );
 //        ValidationService.validateAutoVIN( form.vin, $scope.markers );
 
         if (form.$valid && bValid) {//
@@ -183,20 +186,20 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     $scope.$apply();
   };
 
-    $timeout(function () {
-        $('input[type=tel]').intlTelInput({
-            defaultCountry: 'auto',
-            autoFormat: true,
-            allowExtensions: true,
-            preferredCountries: ['ua'],
-            autoPlaceholder: false,
-            geoIpLookup: function(callback) {
-                $.get('http://ipinfo.io', function() {}, 'jsonp').always(function(resp) {
-                    var countryCode = (resp && resp.country) ? resp.country : '';
-                    callback(countryCode);
-                });
-            }
-        });
-    });
+    // $timeout(function () {
+    //     $('input[type=tel]').intlTelInput({
+    //         defaultCountry: 'auto',
+    //         autoFormat: true,
+    //         allowExtensions: true,
+    //         preferredCountries: ['ua'],
+    //         autoPlaceholder: false,
+    //         geoIpLookup: function(callback) {
+    //             $.get('http://ipinfo.io', function() {}, 'jsonp').always(function(resp) {
+    //                 var countryCode = (resp && resp.country) ? resp.country : '';
+    //                 callback(countryCode);
+    //             });
+    //         }
+    //     });
+    // });
 
 });

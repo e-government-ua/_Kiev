@@ -2,14 +2,14 @@
  * Поле телефонного номеру для форми з валідацією на основі jQuery-плагіну intlTelInput
  *
  * Приклад використання:
- * <input 
-	    type="tel"
-	    data-ng-model="absentMessage.tel"
-	    ng-tel-field="{ defaultCountry: 'auto', autoFormat: true, allowExtensions: false, preferredCountries: ['ua'], autoPlaceholder: false }"
-	    ng-model-options="{ updateOn: 'blur' }"
-	    name="tel"
-	    required
-	    class="form-control">
+ * 
+ <input type="tel"
+        data-ng-model="absentMessage.tel"
+        ng-tel-field="{ defaultCountry: 'ua', autoFormat: true, allowExtensions: false, preferredCountries: ['ua'], autoPlaceholder: true }"
+        ng-model-options="{ updateOn: 'blur' }"
+        name="tel"
+        required="required"
+        class="form-control"> 
  *
  */
 angular.module('app').directive('ngTelField', function() {
@@ -27,6 +27,9 @@ angular.module('app').directive('ngTelField', function() {
 			// Set tel input validator to cotnrol (ngModel), 
 			// it will validate like $(element).intlTelInput("isValidNumber")
 			ngModel.$validators.tel = function(modelValue) {
+				if ( !ngModel.$touched ) {
+					return true;
+				}
 	    		var isEmpty = ngModel.$isEmpty(modelValue);
 				var isValid = elmt.intlTelInput('isValidNumber');
 				return !isEmpty && isValid;
