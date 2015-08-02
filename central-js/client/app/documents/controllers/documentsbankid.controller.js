@@ -3,7 +3,7 @@ angular.module('documents').controller('DocumentsBankIdController', function($sc
   $scope.error = undefined;
 
   $scope.loginWithBankId = function() {
-    var stateForRedirect = $state.href('index.documents.bankid', {error: ''});
+    var stateForRedirect = $state.href('index.documents.user', {error: ''});
     var redirectURI = $location.protocol() +
       '://' + $location.host() + ':'
       + $location.port()
@@ -12,7 +12,7 @@ angular.module('documents').controller('DocumentsBankIdController', function($sc
   };
 
     $scope.loginWithEds = function () {
-        var stateForRedirect = $state.href('index.documents.bankid', {error: ''});
+        var stateForRedirect = $state.href('index.documents.user', {error: ''});
         var redirectURI = $location.protocol() +
             '://' + $location.host() + ':'
             + $location.port()
