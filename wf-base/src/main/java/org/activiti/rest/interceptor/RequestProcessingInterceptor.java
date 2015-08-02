@@ -85,7 +85,8 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         }
 
         logger.info("mParamRequest: " + mParamRequest);
-        logger.info("sResponseBody: " + response.toString());
+        String responseBody  = response.toString();
+        logger.info("sResponseBody: " + responseBody);
         
         //-------------------------------
         //Проверяем наш ли это случай: добавление таски или закрыта, асигнута - дергаем соответственный методы
@@ -96,13 +97,15 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         			|| request.getRequestURL().toString().indexOf("/start-process/") > 0
         			|| (request.getRequestURL().toString().indexOf("runtime/process-instances") > 0 
         					&& "POST".equalsIgnoreCase(request.getMethod().trim())))){
+        		//достаем ид
         		Map params = new HashMap();
         		params.put("nID_Task", "1");
         		params.put("sStatus", "Заявка подана");
         		params.put("nID_Subject", mParamRequest.get("nID_Subject"));
         		//params.put("sID_Status", "");
-        		String soResponse = HttpRequester.get(generalConfig.sHostCentral() + "/wf-central/services/addHistoryEvent_Service", params);
-        		logger.info("soJSON_Merchant = " + soResponse);
+        		logger.info("addHistoryEvent_Service: " + generalConfig.sHostCentral() + "/wf-central/services/addHistoryEvent_Service " + params);
+        		String soResponse = HttpRequester.get("https://poligon.igov.org.ua" + "/wf-central/services/addHistoryEvent_Service", params);
+        		logger.info("soJSON = " + soResponse);
         	}
         }
         catch(Exception ex){
