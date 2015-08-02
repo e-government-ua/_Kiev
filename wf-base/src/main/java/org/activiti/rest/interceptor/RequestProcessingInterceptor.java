@@ -16,8 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.activiti.rest.controller.adapter.MultiReaderHttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.wf.dp.dniprorada.rest.HttpRequester;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 
 /**
  *
@@ -27,6 +30,9 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger logger = LoggerFactory
             .getLogger(RequestProcessingInterceptor.class);
+    
+    @Autowired
+    GeneralConfig generalConfig;
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -36,7 +42,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         logger.info("[preHandle] Request URL = " + request.getRequestURL().toString()
                 + ":: Start Time = " + System.currentTimeMillis());
         request.setAttribute("startTime", startTime);
-        testReadFromRequest(request, response);
+        testReadFromRequest(request, response, false);
         return true;
     }
 
@@ -56,10 +62,10 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 + ":: Time Taken = " + (System.currentTimeMillis() - (Long) request.getAttribute("startTime")));
         response = ((MultiReaderHttpServletResponse)request.getAttribute("responseMultiRead") != null ? 
         		(MultiReaderHttpServletResponse)request.getAttribute("responseMultiRead") : response);
-        testReadFromRequest(request, response);
+        testReadFromRequest(request, response, true);
     }
 
-    private void testReadFromRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void testReadFromRequest(HttpServletRequest request, HttpServletResponse response, boolean saveHistory) throws IOException {
         Map mParamRequest = new HashMap();
         Enumeration paramsName = request.getParameterNames();
         while (paramsName.hasMoreElements()) {
@@ -80,5 +86,26 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
 
         logger.info("mParamRequest: " + mParamRequest);
         logger.info("sResponseBody: " + response.toString());
+        
+        //-------------------------------
+        //Проверяем наш ли это случай: добавление таски или закрыта, асигнута - дергаем соответственный методы
+        
+        try{
+        	logger.info("checkSaveHistory!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        	if(request.getRequestURL().toString().indexOf("/start-process/") > 0
+        			|| (request.getRequestURL().toString().indexOf("runtime/process-instances") > 0 
+        					&& "POST".equalsIgnoreCase(request.getMethod().trim()))){
+        		Map params = new HashMap();
+        		params.put("nID_Task", "1");
+        		params.put("sStatus", "Заявка подана");
+        		params.put("nID_Subject", mParamRequest.get("nID_Subject"));
+        		//params.put("sID_Status", "");
+        		String soResponse = HttpRequester.get(generalConfig.sHostCentral() + "/wf-central/services/addHistoryEvent_Service", params);
+        		logger.info("soJSON_Merchant = " + soResponse);
+        	}
+        }
+        catch(Exception ex){
+        	logger.error("************************Error!!!!", ex);
+        }
     }
 }
