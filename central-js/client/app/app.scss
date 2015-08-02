@@ -764,7 +764,22 @@ a {
   color: #ffffff
 }
 
-.menu-item {
+.nav {
+  .menu-item {
+    height: 90px;
+    a {
+      margin-top: 5px;
+    }
+  }
+}
+
+.i-nav {
+  .container {
+    height: 90px;
+    .navbar-brand {
+      margin-top: 10px;
+    }
+  }
 }
 
 .menu-item.selected {
