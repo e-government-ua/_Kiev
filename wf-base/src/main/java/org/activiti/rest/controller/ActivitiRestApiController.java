@@ -733,6 +733,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 				process.put("sName", processDef.getName());
 				log.info(String.format("Added record to response %s", process.toString()));
 				res.add(process);
+				break;
 			} else {
 				log.info(String.format("user %s is not in group %s", sLogin, currGroup));
 			}
