@@ -2,32 +2,28 @@
 <div style="margin-bottom:20px; font-size:18px;color:#cccccc;">{{service.sSubjectOperatorName}}</div-->
 
 <div class="list-group">
-    <div class="list-group-item"
-         ng-class="{'disabled': data.city}">
+    <div class="list-group-item disabled">
         <div class="row no-margin-bottom">
             <div class="col-md-11 form-inline">
                 <span class="step">Крок 1. Оберіть свій регіон </span>
 
                 <div class="select-list-label">
                     <span>Область</span>
-                    <select class="form-control"
+                    <select class="form-control disabled"
                             name="region"
                             ng-model="data.region"
-                            ng-options="region as region.sName for region in [data.region] | orderBy:'sName'"
-                            ng-disabled="data.city"></select>
+                            ng-options="region as region.sName for region in [data.region] | orderBy:'sName'" disabled></select>
                 </div>
                 <div class="select-list-label"
-                     ng-if="data.region">
+                     ng-if="ngIfCity()">
                     <span>Місто</span>
-                    <select class="form-control"
+                    <select class="form-control disabled"
                             name="city"
                             ng-model="data.city"
-                            ng-options="city as city.sName for city in [data.city] | orderBy:'sName'"
-                            ng-disabled="data.city"></select>
+                            ng-options="city as city.sName for city in [data.city] | orderBy:'sName'" disabled></select>
                 </div>
             </div>
-            <div class="col-md-1"
-                 ng-if="data.city">
+            <div class="col-md-1">
                 <div class="link-button">
                     <a ng-click="step1()">Змінити</a>
                 </div>
@@ -102,9 +98,16 @@
                                        ng-required="property.required"
                                        class="form-control_">{{data.formData.params[property.id].value}}</label>
 
+                                <dropdown-country ng-switch-when="string"
+                                                  ng-if="property.id==='resident'"
+                                                  ng-model="data.formData.params[property.id].value"
+                                                  service-data="oServiceData"
+                                                  ng-required="property.required"></dropdown-country>
+
                                 <input ng-switch-when="string"
                                        type="text"
                                        name="{{property.id}}"
+                                       ng-hide="property.id==='resident'"
                                        ng-model="data.formData.params[property.id].value"
                                        ng-required="property.required"
                                        class="form-control"

@@ -24,6 +24,24 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   var currentState = $state.$current;
   $scope.data.region = currentState.data.region;
   $scope.data.city = currentState.data.city;
+  
+  $scope.ngIfCity = function() {
+	if($state.current.name === 'index.service.general.city.built-in') {
+		if($scope.data.city) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	if($state.current.name === 'index.service.general.city.built-in.bankid') {
+		if($scope.data.city) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	return $scope.data.region ? true: false;
+  };
 
     //mock markers
     //$scope.data.formData.params.markers = {

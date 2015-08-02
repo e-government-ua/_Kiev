@@ -9,6 +9,28 @@ angular.module('app').config(function($stateProvider) {
         }
       }
     })
+    .state('index.service.general.region.built-in.region', {
+      url: '/{region:int}/region',
+      data: {
+        region: null,
+        city: null
+      },
+      resolve: {
+        region: function($state, $stateParams, PlacesService) {
+          return PlacesService.getRegion($stateParams.region).then(function(response) {
+            var currentState = $state.get('index.service.general.region.built-in.region');
+            currentState.data.region = response.data;
+            return response.data;
+          });
+        }
+	  },
+      views: {
+        'content@index.service.general.region': {
+          templateUrl: 'app/service/region/built-in/index.html',
+          controller: 'ServiceBuiltInController'
+        }
+      }
+    })
     .state('index.service.general.region.built-in.bankid', {
       url: '/built-in/region/{region:int}/?code',
       parent: 'index.service.general.region',
