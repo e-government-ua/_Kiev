@@ -92,9 +92,10 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         
         try{
         	logger.info("checkSaveHistory!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        	if(request.getRequestURL().toString().indexOf("/start-process/") > 0
+        	if(saveHistory && (request.getRequestURL().toString().indexOf("/form/form-data") > 0
+        			|| request.getRequestURL().toString().indexOf("/start-process/") > 0
         			|| (request.getRequestURL().toString().indexOf("runtime/process-instances") > 0 
-        					&& "POST".equalsIgnoreCase(request.getMethod().trim()))){
+        					&& "POST".equalsIgnoreCase(request.getMethod().trim())))){
         		Map params = new HashMap();
         		params.put("nID_Task", "1");
         		params.put("sStatus", "Заявка подана");
