@@ -26,7 +26,7 @@ angular.module('documents').controller('DocumentsBankIdController', function($sc
       BankIDService.isLoggedIn().then(function() {
         $scope.authProcess = true;
         return $state.go('index.documents.content').catch(function(fallback) {
-          $state.go('index.documents.bankid', {error: fallback.error});
+          $state.go('index.documents.user', {error: fallback.error});
         }).finally(function() {
           $scope.authProcess = false;
         });
