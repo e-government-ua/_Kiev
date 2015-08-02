@@ -10,9 +10,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.activation.DataSource;
 import javax.mail.MessagingException;
@@ -21,6 +23,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import liquibase.util.csv.CSVWriter;
 
+import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.FlowElement;
+import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.FormService;
 import org.activiti.engine.HistoryService;
@@ -28,7 +33,6 @@ import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
@@ -73,7 +77,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import org.wf.dp.dniprorada.engine.task.FileTaskUpload;
-import org.wf.dp.dniprorada.engine.task.MailTaskWithAttachments;
 import org.wf.dp.dniprorada.model.BuilderAtachModel;
 import org.wf.dp.dniprorada.model.ByteArrayMultipartFileOld;
 import org.wf.dp.dniprorada.util.Mail;
@@ -699,28 +702,16 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	List<ProcessDefinition> processDefinitionsList = repositoryService.createProcessDefinitionQuery().active().latestVersion().list();
     	if (!processDefinitionsList.isEmpty() && processDefinitionsList.size() > 0){
 			log.info(String.format("Found %d active process definitions", processDefinitionsList.size()));
+			
 			for (ProcessDefinition processDef : processDefinitionsList) {
-				List<IdentityLink> identityLinks = repositoryService.getIdentityLinksForProcessDefinition(processDef.getId());
-				log.info(String.format("Found %d identity links for the process %s", identityLinks.size(), processDef.getKey()));
-				for (IdentityLink identity : identityLinks){
-				if (IdentityLinkType.CANDIDATE.equals(identity.getType())){
-					String groupId = identity.getGroupId();
-					log.info(String.format("Found identity link for process %s type Candidate with value %s. will check "
-							+ "whether user %s belongs to this group", identity.getProcessDefinitionId(), groupId, sLogin));
-					User user = identityService.createUserQuery().userId(sLogin).memberOfGroup(groupId).singleResult();
-					if (user != null){
-						Map<String, String> process = new HashMap<String, String>();
-						process.put("sID", processDef.getKey());
-						process.put("sName", processDef.getName());
-						log.info(String.format("Added record to response %s", process.toString()));
-						res.add(process);
-					} else {
-						log.info(String.format("user %s is not in group %s", sLogin, groupId));
-					}
-				} else {
-					log.info(String.format("Indentity link for process %s is of type %s. skipping from checking it", identity.getProcessDefinitionId(), identity.getType()));
-				}
-				}
+				log.info("process definition id: " + processDef.getId());
+				
+				Set<String> candidateCroupsToCheck = new HashSet<String>();
+				loadCandidateGroupsFromTasks(processDef, candidateCroupsToCheck);
+				
+				loadCandidateStarterGroup(processDef, candidateCroupsToCheck);
+
+				findUsersGroups(sLogin, res, processDef, candidateCroupsToCheck); 
 			}
 		} else {
 			log.info("Have not found ative process definitions.");
@@ -730,6 +721,50 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	log.info("Result" + jsonRes);
     	return jsonRes;
     }
+
+	protected void findUsersGroups(String sLogin,
+			List<Map<String, String>> res, ProcessDefinition processDef, Set<String> candidateCroupsToCheck) {
+		for (String currGroup : candidateCroupsToCheck){
+			log.info(String.format("Checking whether user %s belongs to the group %s", sLogin, currGroup));
+			User user = identityService.createUserQuery().userId(sLogin).memberOfGroup(currGroup).singleResult();
+			if (user != null){
+				Map<String, String> process = new HashMap<String, String>();
+				process.put("sID", processDef.getKey());
+				process.put("sName", processDef.getName());
+				log.info(String.format("Added record to response %s", process.toString()));
+				res.add(process);
+			} else {
+				log.info(String.format("user %s is not in group %s", sLogin, currGroup));
+			}
+		}
+	}
+
+	protected void loadCandidateStarterGroup(ProcessDefinition processDef, Set<String> candidateCroupsToCheck) {
+		List<IdentityLink> identityLinks = repositoryService.getIdentityLinksForProcessDefinition(processDef.getId());
+		log.info(String.format("Found %d identity links for the process %s", identityLinks.size(), processDef.getKey()));
+		for (IdentityLink identity : identityLinks){
+			if (IdentityLinkType.CANDIDATE.equals(identity.getType())){
+				String groupId = identity.getGroupId();
+				candidateCroupsToCheck.add(groupId);
+				log.info(String.format("Added candidate starter group %s ", groupId));
+			}
+		}
+	}
+
+	protected void loadCandidateGroupsFromTasks(ProcessDefinition processDef, Set<String> candidateCroupsToCheck) {
+		BpmnModel bpmnModel = repositoryService.getBpmnModel(processDef.getId());
+		
+		for (FlowElement flowElement: bpmnModel.getMainProcess().getFlowElements()){
+			if (flowElement instanceof UserTask) {
+				UserTask userTask = (UserTask)flowElement;
+				List<String> candidateGroups = userTask.getCandidateGroups();
+				if (candidateGroups != null && !candidateGroups.isEmpty()) {
+					candidateCroupsToCheck.addAll(candidateGroups);
+					log.info(String.format("Added candidate groups %s from user task %s", candidateGroups, userTask.getId()));
+				}
+			}
+		}
+	}
 
 
     
