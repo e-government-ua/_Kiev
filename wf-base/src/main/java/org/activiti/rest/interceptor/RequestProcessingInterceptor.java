@@ -90,11 +90,8 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         String responseBody  = response.toString();
         logger.info("sResponseBody: " + responseBody);
         
-        //-------------------------------
-        //Проверяем наш ли это случай: добавление таски или закрыта, асигнута - дергаем соответственный методы
-        
         try{
-        	logger.info("checkSaveHistory!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        	logger.info("checkSaveHistoryEvent!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         	if(saveHistory && (request.getRequestURL().toString().indexOf("/form/form-data") > 0
         			|| request.getRequestURL().toString().indexOf("/start-process/") > 0
         			|| (request.getRequestURL().toString().indexOf("runtime/process-instances") > 0 
@@ -103,7 +100,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 JSONObject jsonObject = (JSONObject) parser.parse(responseBody);
                 String sID_Task = (String) jsonObject.get("id");
                 if (sID_Task != null) {
-                	Map params = new HashMap();
+                	Map<String, String> params = new HashMap<String, String>();
             		params.put("nID_Task", sID_Task);
             		params.put("sStatus", "Заявка подана");
             		//params.put("nID_Subject", mParamRequest.get("nID_Subject"));
