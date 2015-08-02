@@ -42,11 +42,11 @@
                     </div>
                 </div>
                 <div style="display:inline-block"
-                     ng-if="data.region">
+                     ng-if="ngIfCity()">
                     <span>Місто</span>
                 </div>
                 <div style="display:inline-block"
-                     ng-if="data.region">
+                     ng-if="ngIfCity()">
                     <div style="position:relative"
                          dropdown
                          is-open="localityList.dropdown.isOpen">
@@ -96,6 +96,6 @@
         </div>
     </div>
     <div class="list-group-item"
-         ng-show="data.city"
+         ng-show="ngIfStep2()"
          ui-view="status"></div>
 </div>

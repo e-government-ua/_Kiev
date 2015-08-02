@@ -14,7 +14,7 @@
                             ng-disabled="data.city"></select>
                 </div>
                 <div style="display:inline-block"
-                     ng-if="data.region">
+                     ng-if="ngIfCity()">
                     <span>Місто</span>
                     <select class="form-control"
                             name="city"
@@ -32,8 +32,8 @@
         </div>
     </div>
     <service-auth-block
-            ng-if="data.city"
+            ng-if="ngIfStep2()"
             n-step="2"
-            redirect-uri="{{$state.href('index.service.general.city.built-in.bankid', {'id': service.nID, 'region': data.region.nID, 'city': data.city.nID})}}"
+            redirect-uri="{{$state.href('index.service.general.city.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}"
             ></service-auth-block>
 </div>
