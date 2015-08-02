@@ -14,7 +14,10 @@ angular.module('documents').config(function ($stateProvider, statesRepositoryPro
       .state('index.documents.user', {
         url: '/user',
         views: {
-          'content': {templateUrl: 'app/documents/user/index.html'}
+          'content': {
+            templateUrl: 'app/documents/user/index.html',
+            controller: 'DocumentsUserController'
+          }
         }
       })
       .state('index.documents.bankid', {

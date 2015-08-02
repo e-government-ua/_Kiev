@@ -64,7 +64,7 @@
 
     <div class="text-center"
          ng-if="false">
-        <img class="text-center"
+        <img class="text-center site-preloader"
              src="assets/images/loading.gif"
              alt="Loading"/>
     </div>
@@ -117,10 +117,12 @@
 <script src="app/common/components/errors/directives/mod.js"></script>
 <script src="app/common/components/errors/errors.controller.js"></script>
 <script src="app/common/components/errors/factories/errors.factory.js"></script>
+<script src="app/common/components/form/directives/dropdownCountry/dropdownCountry.js"></script>
 <script src="app/common/components/form/directives/dropdownOrgan/dropdownOrgan.js"></script>
 <script src="app/common/components/form/directives/file.js"></script>
 <script src="app/common/components/form/directives/file2.js"></script>
 <script src="app/common/components/form/directives/slotPicker.js"></script>
+<script src="app/common/components/form/directives/tel.js"></script>
 <script src="app/common/components/form/factories/datepicker.js"></script>
 <script src="app/common/components/form/factories/file.js"></script>
 <script src="app/common/components/form/factories/formData.js"></script>
@@ -128,6 +130,7 @@
 <script src="app/common/components/select/directives/optionsClass.js"></script>
 <script src="app/common/components/typeahead/directives/typeaheadEmpty.js"></script>
 <script src="app/common/components/typeahead/factories/typeahead.js"></script>
+<script src="app/common/factories/countrylist.factory.js"></script>
 <script src="app/common/factories/localitylist.factory.js"></script>
 <script src="app/common/factories/organlist.factory.js"></script>
 <script src="app/common/factories/regionlist.factory.js"></script>
@@ -143,6 +146,7 @@
 <script src="app/documents/controllers/documentsbankid.controller.js"></script>
 <script src="app/documents/controllers/documentscontent.controller.js"></script>
 <script src="app/documents/controllers/documentssearch.controller.js"></script>
+<script src="app/documents/controllers/documentsuser.controller.js"></script>
 <script src="app/documents/controllers/modal.controller.js"></script>
 <script src="app/documents/document.js"></script>
 <script src="app/documents/factories/bankiddocuments.factory.js"></script>
@@ -165,6 +169,7 @@
 <script src="app/service/country/controllers/states.js"></script>
 <script src="app/service/country/link/script.js"></script>
 <script src="app/service/country/script.js"></script>
+<script src="app/service/index/index.controller.js"></script>
 <script src="app/service/index/service.controller.js"></script>
 <script src="app/service/link/controllers/link.js"></script>
 <script src="app/service/region/built-in/script.js"></script>

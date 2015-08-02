@@ -6,7 +6,7 @@ nID;nID_UA;sID_Two;sID_Three;sNameShort_UA;sNameShort_EN;sReference_LocalISO
 1004;16;AS;ASM;Американське Самоа;American Samoa;ISO 3166-2:AS
 1005;20;AD;AND;Андорра;Andorra;ISO 3166-2:AD
 1006;24;AO;AGO;Ангола;Angola;ISO 3166-2:AO
-1007;28;AG;ATG;Анти?уа І Барбуда;Antigua and Barbuda;ISO 3166-2:AG
+1007;28;AG;ATG;Антигуа І Барбуда;Antigua and Barbuda;ISO 3166-2:AG
 1008;31;AZ;AZE;Азербайджан;Azerbaijan;ISO 3166-2:AZ
 1009;32;AR;ARG;Аргентина;Argentina;ISO 3166-2:AR
 1011;40;AT;AUT;Австрія;Austria;ISO 3166-2:AT
@@ -15,7 +15,7 @@ nID;nID_UA;sID_Two;sID_Three;sNameShort_UA;sNameShort_EN;sReference_LocalISO
 1014;50;BD;BGD;Бангладеш;Bangladesh;ISO 3166-2:BD
 1015;51;AM;ARM;Вірменія;Armenia;ISO 3166-2:AM
 1016;52;BB;BRB;Барбадос;Barbados;ISO 3166-2:BB
-1017;56;BE;BEL;Бель?ія;Belgium;ISO 3166-2:BE
+1017;56;BE;BEL;Бельгія;Belgium;ISO 3166-2:BE
 1018;60;BM;BMU;Бермудські Острови;Bermuda;ISO 3166-2:BM
 1019;64;BT;BTN;Бутан;Bhutan;ISO 3166-2:BT
 1020;68;BO;BOL;Болівія;Bolivia, Plurinational State of;ISO 3166-2:BO
@@ -73,7 +73,7 @@ nID;nID_UA;sID_Two;sID_Three;sNameShort_UA;sNameShort_EN;sReference_LocalISO
 1072;246;FI;FIN;Фінляндія;Finland;ISO 3166-2:FI
 1073;248;AX;ALA;Аландські Острови;Aland Islands;ISO 3166-2:AX
 1074;250;FR;FRA;Франція;France;ISO 3166-2:FR
-1075;254;GF;GUF;Французька ?віана;French Guiana;ISO 3166-2:GF
+1075;254;GF;GUF;Французька Гвіана;French Guiana;ISO 3166-2:GF
 1076;258;PF;PYF;Французька Полінезія;French Polynesia;ISO 3166-2:PF
 1077;260;TF;ATF;Французькі Південні Території;French Southern Territories;ISO 3166-2:TF
 1078;262;DJ;DJI;Джібуті;Djibouti;ISO 3166-2:DJ
@@ -83,16 +83,16 @@ nID;nID_UA;sID_Two;sID_Three;sNameShort_UA;sNameShort_EN;sReference_LocalISO
 1082;275;PS;PSE;Палестина;State of Palestine;ISO 3166-2:PS
 1083;276;DE;DEU;Німеччина;Germany;ISO 3166-2:DE
 1084;288;GH;GHA;Гана;Ghana;ISO 3166-2:GH
-1085;292;GI;GIB;?ібралтар;Gibraltar;ISO 3166-2:GI
+1085;292;GI;GIB;Гібралтар;Gibraltar;ISO 3166-2:GI
 1086;296;KI;KIR;Кірібаті;Kiribati;ISO 3166-2:KI
 1087;300;GR;GRC;Греція;Greece;ISO 3166-2:GR
-1088;304;GL;GRL;?ренландія;Greenland;ISO 3166-2:GL
-1089;308;GD;GRD;?ренада;Grenada;ISO 3166-2:GD
-1090;312;GP;GLP;?ваделупа;Guadeloupe;ISO 3166-2:GP
-1091;316;GU;GUM;?уам;Guam;ISO 3166-2:GU
-1092;320;GT;GTM;?ватемала;Guatemala;ISO 3166-2:GT
+1088;304;GL;GRL;Гренландія;Greenland;ISO 3166-2:GL
+1089;308;GD;GRD;Гренада;Grenada;ISO 3166-2:GD
+1090;312;GP;GLP;Гваделупа;Guadeloupe;ISO 3166-2:GP
+1091;316;GU;GUM;Гуам;Guam;ISO 3166-2:GU
+1092;320;GT;GTM;Гватемала;Guatemala;ISO 3166-2:GT
 1093;324;GN;GIN;Гвінея;Guinea;ISO 3166-2:GN
-1094;328;GY;GUY;?айана;Guyana;ISO 3166-2:GY
+1094;328;GY;GUY;Гайана;Guyana;ISO 3166-2:GY
 1095;332;HT;HTI;Гаїті;Haiti;ISO 3166-2:HT
 1096;334;HM;HMD;Острів Герд І Острови Макдоналд;Heard Island and McDonald Islands;ISO 3166-2:HM
 1097;336;VA;VAT;Святий Престол (Держава-Місто Ватикан);Holly See (Vatican City State);ISO 3166-2:VA
@@ -125,7 +125,7 @@ nID;nID_UA;sID_Two;sID_Three;sNameShort_UA;sNameShort_EN;sReference_LocalISO
 1124;434;LY;LBY;Лівія;Libya;ISO 3166-2:LY
 1125;438;LI;LIE;Ліхтенштейн;Liechtenstein;ISO 3166-2:LI
 1126;440;LT;LTU;Литва;Lithuania;ISO 3166-2:LT
-1127;442;LU;LUX;Люксембур?;Luxembourg;ISO 3166-2:LU
+1127;442;LU;LUX;Люксембург;Luxembourg;ISO 3166-2:LU
 1128;446;MO;MAC;Макао;Macao;ISO 3166-2:MO
 1129;450;MG;MDG;Мадагаскар;Madagascar;ISO 3166-2:MG
 1130;454;MW;MWI;Малаві;Malawi;ISO 3166-2:MW
@@ -150,7 +150,7 @@ nID;nID_UA;sID_Two;sID_Three;sNameShort_UA;sNameShort_EN;sReference_LocalISO
 1149;524;NP;NPL;Непал;Nepal;ISO 3166-2:NP
 1150;528;NL;NLD;Нідерланди;Netherlands;ISO 3166-2:NL
 1151;530;AN;ANT;Нідерландські Антильські острови;Netherlands Antilles;ISO 3166-2:AN
-1152;531;CW;CUW;Кюрасао;Cura?ao;ISO 3166-2:CW
+1152;531;CW;CUW;Кюрасао;Curasao;ISO 3166-2:CW
 1153;533;AW;ABW;Аруба;Aruba;ISO 3166-2:AW
 1154;534;SX;SXM;Сінт-Мартен (Нідерландська Частина);Sint-Maarten (Dutch part);ISO 3166-2:SX
 1155;535;BQ;BES;Бонайре, Сінт-Естатіус І Саба;Bonaire, Saint Eustatius and Saba;ISO 3166-2:BQ
@@ -162,7 +162,7 @@ nID;nID_UA;sID_Two;sID_Three;sNameShort_UA;sNameShort_EN;sReference_LocalISO
 1161;566;NG;NGA;Нігерія;Nigeria;ISO 3166-2:NG
 1162;570;NU;NIU;Ніуе;Niue;ISO 3166-2:NU
 1163;574;NF;NFK;Острів Норфолк;Norfolk Island;ISO 3166-2:NF
-1164;578;NO;NOR;Норве?ія;Norway;ISO 3166-2:NO
+1164;578;NO;NOR;Норвегія;Norway;ISO 3166-2:NO
 1165;580;MP;MNP;Північні Маріанські Острови;Northern Mariana Islands;ISO 3166-2:MP
 1166;581;UM;UMI;Малі Віддалені Острови Сша;United States Minor Outlying Islands;ISO 3166-2:UM
 1167;583;FM;FSM;Мікронезія, Федеративні Штати;Micronesia, Federated States of;ISO 3166-2:FM
@@ -170,13 +170,13 @@ nID;nID_UA;sID_Two;sID_Three;sNameShort_UA;sNameShort_EN;sReference_LocalISO
 1169;585;PW;PLW;Палау;Palau;ISO 3166-2:PW
 1170;586;PK;PAK;Пакистан;Pakistan;ISO 3166-2:PK
 1171;591;PA;PAN;Панама;Panama;ISO 3166-2:PA
-1172;598;PG;PNG;Папуа-Нова ?вінея;Papua New Guinea;ISO 3166-2:PG
-1173;600;PY;PRY;Пара?вай;Paraguay;ISO 3166-2:PY
+1172;598;PG;PNG;Папуа-Нова Гвінея;Papua New Guinea;ISO 3166-2:PG
+1173;600;PY;PRY;Парагвай;Paraguay;ISO 3166-2:PY
 1174;604;PE;PER;Перу;Peru;ISO 3166-2:PE
 1175;608;PH;PHL;Філіппіни;Philippines;ISO 3166-2:PH
 1176;612;PN;PCN;Піткерн;Pitcairn;ISO 3166-2:PN
 1177;616;PL;POL;Польща;Poland;ISO 3166-2:PL
-1178;620;PT;PRT;Порту?алія;Portugal;ISO 3166-2:PT
+1178;620;PT;PRT;Португалія;Portugal;ISO 3166-2:PT
 1179;624;GW;GNB;Гвінея-Бісау;Guinea-Bissau;ISO 3166-2:GW
 1180;626;TL;TLS;Тімор-Лешті;Timor-Leste;ISO 3166-2:TL
 1181;630;PR;PRI;Пуерто-Ріко;Puerto Rico;ISO 3166-2:PR
@@ -188,11 +188,11 @@ nID;nID_UA;sID_Two;sID_Three;sNameShort_UA;sNameShort_EN;sReference_LocalISO
 1187;652;BL;BLM;Сен-Бартелемі;Saint Barth lemy;ISO 3166-2:BL
 1188;654;SH;SHN;Острів Святої Єлени;Saint Helena;ISO 3166-2:SH
 1189;659;KN;KNA;Сент-Кітс І Невіс;Saint Kitts and Nevis;ISO 3166-2:KN
-1190;660;AI;AIA;Ан?ілья;Anguilla;ISO 3166-2:AI
+1190;660;AI;AIA;Ангілья;Anguilla;ISO 3166-2:AI
 1191;662;LC;LCA;Сент-Люсія;Saint Lucia;ISO 3166-2:LC
 1192;663;MF;MAF;Сен-Мартен (Французька Частина);Saint Martin (French part);ISO 3166-2:MF
 1193;666;PM;SPM;Сен-П'Єр І Мікелон;Saint Pierre and Miquelon;ISO 3166-2:PM
-1194;670;VC;VCT;Сент-Вінсент І ?ренадіни;Saint Vincent and the Grenadines;ISO 3166-2:VC
+1194;670;VC;VCT;Сент-Вінсент І Гренадіни;Saint Vincent and the Grenadines;ISO 3166-2:VC
 1195;674;SM;SMR;Сан-Маріно;San Marino;ISO 3166-2:SM
 1196;678;ST;STP;Сан-Томе І Прінсіпі;San Tome and Principe;ISO 3166-2:ST
 1197;682;SA;SAU;Саудівська Аравія;Saudi Arabia;ISO 3166-2:SA
@@ -212,7 +212,7 @@ nID;nID_UA;sID_Two;sID_Three;sNameShort_UA;sNameShort_EN;sReference_LocalISO
 1211;729;SD;SDN;Судан;Sudan;ISO 3166-2:SD
 1212;732;EH;ESH;Західна Сахара;Western Sahara;ISO 3166-2:EH
 1213;740;SR;SUR;Сурінам;Suriname;ISO 3166-2:SR
-1214;744;SJ;SJM;Шпіцбер?ен Та Ян-Маєн;Svalbard and Jan Mayen;ISO 3166-2:SJ
+1214;744;SJ;SJM;Шпіцберген Та Ян-Маєн;Svalbard and Jan Mayen;ISO 3166-2:SJ
 1215;748;SZ;SWZ;Свазіленд;Swaziland;ISO 3166-2:SZ
 1216;752;SE;SWE;Швеція;Sweden;ISO 3166-2:SE
 1217;756;CH;CHE;Швейцарія;Switzerland;ISO 3166-2:CH
@@ -221,8 +221,8 @@ nID;nID_UA;sID_Two;sID_Three;sNameShort_UA;sNameShort_EN;sReference_LocalISO
 1220;764;TH;THA;Таїланд;Thailand;ISO 3166-2:TH
 1221;768;TG;TGO;Того;Togo;ISO 3166-2:TG
 1222;772;TK;TKL;Токелау;Tokelau;ISO 3166-2:TK
-1223;776;TO;TON;Тон?а;Tonga;ISO 3166-2:TO
-1224;780;TT;TTO;Трінідад І Тоба?о;Trinidad and Tobago;ISO 3166-2:TT
+1223;776;TO;TON;Тонга;Tonga;ISO 3166-2:TO
+1224;780;TT;TTO;Трінідад І Тобаго;Trinidad and Tobago;ISO 3166-2:TT
 1225;784;AE;ARE;Об'Єднані Арабські Емірати;United Arab Emirates;ISO 3166-2:AE
 1226;788;TN;TUN;Туніс;Tunisia;ISO 3166-2:TN
 1227;792;TR;TUR;Туреччина;Turkey;ISO 3166-2:TR
@@ -234,14 +234,14 @@ nID;nID_UA;sID_Two;sID_Three;sNameShort_UA;sNameShort_EN;sReference_LocalISO
 1233;807;MK;MKD;Колишня Югославська Республіка Македонія;The former Yugoslav Republic of Macedonia;ISO 3166-2:MK
 1234;818;EG;EGY;Єгипет;Egypt;ISO 3166-2:EG
 1235;826;GB;GBR;Велика Британія;United Kingdom;ISO 3166-2:GB
-1236;831;GG;GGY;?ернсі;Guernsey;ISO 3166-2:GG
+1236;831;GG;GGY;Гернсі;Guernsey;ISO 3166-2:GG
 1237;832;JE;JEY;Джерсі;Jersey;ISO 3166-2:JE
 1238;833;IM;IMN;Острів Мен;Isle of Man;ISO 3166-2:IM
 1239;834;TZ;TZA;Танзанія, Об'Єднана Республіка;Tanzania, United Republic of;ISO 3166-2:TZ
-1240;840;US;USA;Сша;United States;ISO 3166-2:US
-1241;850;VI;VIR;Вір?інські Острови (Сша);Virgin Islands, U.S.;ISO 3166-2:VI
+1240;840;US;USA;США;United States;ISO 3166-2:US
+1241;850;VI;VIR;Віргінські Острови (Сша);Virgin Islands, U.S.;ISO 3166-2:VI
 1242;854;BF;BFA;Буркіна-Фасо;Burkina Faso;ISO 3166-2:BF
-1243;858;UY;URY;Уру?вай;Uruguay;ISO 3166-2:UY
+1243;858;UY;URY;Уругвай;Uruguay;ISO 3166-2:UY
 1244;860;UZ;UZB;Узбекистан;Uzbekistan;ISO 3166-2:UZ
 1245;862;VE;VEN;Венесуела;Venezuela (Bolivarian Republic of);ISO 3166-2:VE
 1246;876;WF;WLF;Уолліс І Футуна;Wallis and Futuna Islands;ISO 3166-2:WF

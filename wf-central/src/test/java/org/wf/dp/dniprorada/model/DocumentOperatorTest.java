@@ -37,7 +37,7 @@ public class DocumentOperatorTest {
     }
 
     @Test
-    public void buildHandlerForDummyOperator() throws Exception{
+    public void buildHandlerForDummyOperator() {
         DocumentOperator_SubjectOrgan operator =
             documentDao.getOperator(DUMMY_OPERATOR_ID);
 
