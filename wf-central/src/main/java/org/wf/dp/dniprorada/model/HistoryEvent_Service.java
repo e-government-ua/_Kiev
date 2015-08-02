@@ -1,7 +1,14 @@
 package org.wf.dp.dniprorada.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 import org.wf.dp.dniprorada.base.model.Entity;
+import org.wf.dp.dniprorada.base.util.JsonDateDeserializer;
+import org.wf.dp.dniprorada.base.util.JsonDateSerializer;
 
 import javax.persistence.Column;
 
@@ -31,6 +38,13 @@ public class HistoryEvent_Service extends Entity {
     @JsonProperty(value="sID_Status")
     @Column
     private String sID_Status;
+    
+    @JsonProperty(value="sDate")
+	@JsonSerialize(using= JsonDateSerializer.class)
+	@JsonDeserialize(using= JsonDateDeserializer.class)
+    @Type(type=DATETIME_TYPE)
+	@Column(name = "sDate", nullable = true) 
+	private DateTime sDate;
 
     public String getsID() {
         return sID;
@@ -79,4 +93,12 @@ public class HistoryEvent_Service extends Entity {
     public void setsID_Status(String sID_Status) {
         this.sID_Status = sID_Status;
     }
+
+	public DateTime getsDate() {
+		return sDate;
+	}
+
+	public void setsDate(DateTime sDate) {
+		this.sDate = sDate;
+	}
 }
