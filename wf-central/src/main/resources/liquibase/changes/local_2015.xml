@@ -349,13 +349,13 @@
         <modifyDataType tableName="Place" columnName="sName" newDataType="varchar(200)" />
     </changeSet>
     
-    <changeSet id="issue-607" author="olga"> <!-- ИД-строка кода классификатора КОАТУУ -->
+    <!--changeSet id="issue-607" author="olga">
         <addColumn tableName="HistoryEvent_Service">
             <column name="sDate" type="timestamp">
                 <constraints nullable="true"/>
             </column>
         </addColumn>
-    </changeSet>
+    </changeSet-->
     
     <changeSet id="issue-605" author="askosyr"> <!-- ИД-строка кода классификатора КОАТУУ -->
         <addColumn tableName="HistoryEvent_Service">
