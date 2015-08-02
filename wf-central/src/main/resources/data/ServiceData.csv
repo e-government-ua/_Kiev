@@ -110,7 +110,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 109;4;27;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zhitomir_mvk_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
 110;23;27;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zhitomir_mvk_2:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
 111;661;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"post_spravka_o_doxodax_pens:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-112;628;10;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_long2:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+112;628;NULL;2;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_long2:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 113;1;14;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_mvd_10:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID
 119;15;14;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zaporoshye_mvk_1a:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 120;667;8;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk_5:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
