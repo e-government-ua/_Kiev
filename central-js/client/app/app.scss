@@ -254,6 +254,10 @@ ul.dropdown-menu {
   text-align: center;
 }
 
+.main.full-height {
+    margin-bottom: 185px;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -764,7 +768,21 @@ a {
   color: #ffffff
 }
 
-.menu-item {
+.nav {
+  .menu-item {
+    a {
+      margin-top: 5px;
+    }
+  }
+}
+
+.i-nav {
+  .container {
+    min-height: 90px;
+    .navbar-brand {
+      margin-top: 10px;
+    }
+  }
 }
 
 .menu-item.selected {
