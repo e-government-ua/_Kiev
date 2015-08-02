@@ -100,11 +100,11 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 JSONObject jsonObject = (JSONObject) parser.parse(responseBody);
                 String sID_Task = (String) jsonObject.get("id");
                 if (sID_Task != null) {
+                	String status = "Заявка подана";
                 	Map<String, String> params = new HashMap<String, String>();
             		params.put("nID_Task", sID_Task);
-            		params.put("sStatus", "Заявка подана");
-            		//params.put("nID_Subject", mParamRequest.get("nID_Subject"));
-            		//params.put("sID_Status", "");
+            		params.put("sStatus", status);
+            		params.put("sID_Status", status);
             		logger.info("addHistoryEvent_Service: " + generalConfig.sHostCentral() + "/wf-central/services/addHistoryEvent_Service " + params);
             		String soResponse = HttpRequester.get(//"https://poligon.igov.org.ua" 
             				generalConfig.sHostCentral() + "/wf-central/service/services/addHistoryEvent_Service", params);
