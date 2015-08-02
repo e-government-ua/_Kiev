@@ -74,30 +74,12 @@
                              referencedTableName="FlowPropertyClass" referencedColumnNames="nID" deleteCascade="true"/>
             </column>
             <column name="sData" type="varchar(100)">
-                <constraints nullable="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="nID_Flow_ServiceData" type="bigint">
                 <constraints nullable="false"
                              foreignKeyName="FK_FlowProperty_Flow_ServiceData"
                              referencedTableName="Flow_ServiceData" referencedColumnNames="nID" deleteCascade="true"/>
-            </column>            
-            <column name="bExclude" type="boolean" >
-                <constraints nullable="true"/>
-            </column>
-            <column name="sName" type="varchar(100)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="sRegionTime" type="varchar(20)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="saRegionWeekDay" type="varchar(20)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="sDateTimeAt" type="varchar(20)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="sDateTimeTo" type="varchar(20)">
-                <constraints nullable="true"/>
             </column>
         </createTable>
 
