@@ -33,13 +33,13 @@
        
        
        <addColumn tableName="FlowProperty">
-            <column name="sDateTimeAt" type="varchar(20)">
+            <column name="sDateTimeAt" type="varchar(25)">
                 <constraints nullable="true"/>
             </column>
        </addColumn>
        
        <addColumn tableName="FlowProperty">
-            <column name="sDateTimeTo" type="varchar(20)">
+            <column name="sDateTimeTo" type="varchar(25)">
                 <constraints nullable="true"/>
             </column>
        </addColumn>
