@@ -104,7 +104,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 String sID_Task = (String) jsonObject.get("id");
                 if (sID_Task != null) {
                 	Map params = new HashMap();
-            		params.put("nID_Task", Long.parseLong(sID_Task));
+            		params.put("nID_Task", sID_Task);
             		params.put("sStatus", "Заявка подана");
             		//params.put("nID_Subject", mParamRequest.get("nID_Subject"));
             		//params.put("sID_Status", "");
