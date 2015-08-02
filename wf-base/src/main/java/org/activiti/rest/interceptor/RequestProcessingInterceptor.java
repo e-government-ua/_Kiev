@@ -107,7 +107,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             		//params.put("sID_Status", "");
             		logger.info("addHistoryEvent_Service: " + generalConfig.sHostCentral() + "/wf-central/services/addHistoryEvent_Service " + params);
             		String soResponse = HttpRequester.get(//"https://poligon.igov.org.ua" 
-            				generalConfig.sHostCentral() + "/wf-central/services/addHistoryEvent_Service", params);
+            				generalConfig.sHostCentral() + "/wf-central/service/services/addHistoryEvent_Service", params);
             		logger.info("soJSON = " + soResponse);
                 }
         	}
