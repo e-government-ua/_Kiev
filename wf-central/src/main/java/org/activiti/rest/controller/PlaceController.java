@@ -18,6 +18,7 @@ import java.util.List;
  */
 @Controller
 public class PlaceController {
+    private static final String JSON_TYPE = "Accept=application/json";
 
     @Autowired
     private PlaceDao placeDao;
@@ -29,8 +30,7 @@ public class PlaceController {
      * @param deep != 0, if deep = 0 then i wasn't specified
      */
     @RequestMapping(value   = "/getPlacesTree",
-            method  = RequestMethod.GET,
-            headers = {"Accept=application/json"})
+                    method  = RequestMethod.GET, headers = { JSON_TYPE })
     public  @ResponseBody Tree<Place> getPlacesTree(
             @RequestParam(value = "nID",            required = false) Long      placeId,
             @RequestParam(value = "sID_UA",         required = false) String    uaId,
@@ -39,13 +39,12 @@ public class PlaceController {
             @RequestParam(value = "bRoot",          required = false) Boolean   root,
             @RequestParam(value = "nDeep",          required = false) Integer   deep
     ) {
-        return placeDao.findPlacesTreeBy(placeId, uaId, typeId, area, root, deep);
+        return placeDao.getPlaces(placeId, uaId, typeId, area, root, deep);
     }
 
 
     @RequestMapping(value   = "/getPlace",
-            method  = RequestMethod.GET,
-            headers = {"Accept=application/json"})
+                    method  = RequestMethod.GET, headers = { JSON_TYPE })
     public  @ResponseBody List<Place> getPlace(
             @RequestParam(value = "nID",    required = false) Long      placeId,
             @RequestParam(value = "sID_UA", required = false) String    uaId,
@@ -54,20 +53,19 @@ public class PlaceController {
         return placeDao.findBy(placeId, uaId, tree);
     }
 
+
     @RequestMapping(value   = "/getPlaceType",
-            method  = RequestMethod.GET,
-            headers = { "Accept=application/json" })
+                    method  = RequestMethod.GET, headers = { JSON_TYPE })
     public  @ResponseBody PlaceType getPlaceType(
             @RequestParam(value = "nID") Long placeTypeId
     ) {
         return baseEntityDao.getById(PlaceType.class, placeTypeId);
     }
 
+
     @RequestMapping(value   = "/setPlaceType",
-            method  = RequestMethod.POST,
-            headers = { "Accept=application/json" })
+                    method  = RequestMethod.POST, headers = { JSON_TYPE })
     public  @ResponseBody void setPlaceType( @RequestBody String entity ) {
         baseEntityDao.saveOrUpdate( JsonRestUtils.readObject(entity, PlaceType.class) );
     }
-
 }

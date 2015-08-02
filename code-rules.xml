@@ -285,6 +285,16 @@
     <!-- Should be customized to < 2 from < 3 -->
     <rule ref="rulesets/java/naming.xml/ShortVariable">
         <priority>3</priority>
+        <properties>
+            <property name="xpath">
+                <value>
+                    //VariableDeclaratorId[(string-length(@Image) &lt; 3) and (not (@Image='id'))
+                    and (not (@Image='in')) and (not (@Image='out'))]
+                    [not(ancestor::ForInit)]
+                    [not((ancestor::FormalParameter) and (ancestor::TryStatement))]
+                </value>
+            </property>
+        </properties>
     </rule>
 
 
