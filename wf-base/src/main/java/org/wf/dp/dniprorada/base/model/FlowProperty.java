@@ -1,5 +1,7 @@
 package org.wf.dp.dniprorada.base.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Column;
@@ -17,7 +19,7 @@ import javax.persistence.ManyToOne;
 @javax.persistence.Entity
 public class FlowProperty extends Entity {
 
-   @JsonProperty(value = "nID_Flow_ServiceData")
+	@JsonIgnore
    @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "nID_Flow_ServiceData")
    private Flow_ServiceData oFlow_ServiceData;
@@ -29,6 +31,18 @@ public class FlowProperty extends Entity {
 
    @Column
    private String sData;
+   @Column(nullable=true)
+   private Boolean bExclude;
+   @Column(nullable=true)
+   private String sName;
+   @Column(nullable=true)
+   private String sRegionTime;
+   @Column(nullable=true)
+   private String saRegionWeekDay;
+   @Column(nullable=true)
+   private String sDateTimeAt;
+   @Column(nullable=true)
+   private String sDateTimeTo;
 
    public Flow_ServiceData getoFlow_ServiceData() {
       return oFlow_ServiceData;
@@ -50,4 +64,40 @@ public class FlowProperty extends Entity {
    public void setsData(String sData) {
       this.sData = sData;
    }
+	public Boolean getbExclude() {
+		return bExclude;
+	}
+	public void setbExclude(Boolean bExclude) {
+		this.bExclude = bExclude;
+	}
+	public String getsName() {
+		return sName;
+	}
+	public void setsName(String sName) {
+		this.sName = sName;
+	}
+	public String getsRegionTime() {
+		return sRegionTime;
+	}
+	public void setsRegionTime(String sRegionTime) {
+		this.sRegionTime = sRegionTime;
+	}
+	public String getSaRegionWeekDay() {
+		return saRegionWeekDay;
+	}
+	public void setSaRegionWeekDay(String saRegionWeekDay) {
+		this.saRegionWeekDay = saRegionWeekDay;
+	}
+	public String getsDateTimeAt() {
+		return sDateTimeAt;
+	}
+	public void setsDateTimeAt(String sDateTimeAt) {
+		this.sDateTimeAt = sDateTimeAt;
+	}
+	public String getsDateTimeTo() {
+		return sDateTimeTo;
+	}
+	public void setsDateTimeTo(String sDateTimeTo) {
+		this.sDateTimeTo = sDateTimeTo;
+	}
 }

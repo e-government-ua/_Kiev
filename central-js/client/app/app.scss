@@ -117,6 +117,10 @@ a {
   color: #ffffff
 }
 
+.navbar-default .navbar-nav {
+  margin: 0 -15px 0 -15px;
+}
+
 .navbar-default .navbar-nav > li > a {
   color: #ffffff
 }
@@ -126,9 +130,12 @@ a {
   color: #ffffff
 }
 
-.menu-item {
-  /*background-color: #8FD3F7;*/
-  /*background-color: red;*/
+.menu-item h4 {
+  line-height: 88px;
+}
+
+.i-nav .navbar-collapse > .navbar-nav > .menu-item:hover {
+  background-color: #87caf0;
 }
 
 .menu-item.selected {
@@ -217,7 +224,7 @@ a {
     left: 15px;
   }
 
-  h4 {
+  .menu-item h4 {
     margin: 0px 0px 0px 0px;
     line-height: 40px;
   }
