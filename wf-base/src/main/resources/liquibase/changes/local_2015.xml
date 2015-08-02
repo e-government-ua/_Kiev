@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="issue-605" author="askosyr"> 
+	
+		<addColumn tableName="FlowProperty">
+           <column name="bExclude" type="boolean">
+               <constraints nullable="true"/>
+           </column>
+        </addColumn>
+        
+		<addColumn tableName="FlowProperty">        
+            <column name="sName" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        
+        <addColumn tableName="FlowProperty">
+            <column name="sRegionTime" type="varchar(20)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        
+        <addColumn tableName="FlowProperty">
+            <column name="saRegionWeekDay" type="varchar(20)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+       
+       
+       <addColumn tableName="FlowProperty">
+            <column name="sDateTimeAt" type="varchar(20)">
+                <constraints nullable="true"/>
+            </column>
+       </addColumn>
+       
+       <addColumn tableName="FlowProperty">
+            <column name="sDateTimeTo" type="varchar(20)">
+                <constraints nullable="true"/>
+            </column>
+       </addColumn>
+       
+       <dropNotNullConstraint 
+            columnDataType="varchar(100)"
+            columnName="sData"
+            tableName="FlowProperty"/>
+	
+    </changeSet>
+
+</databaseChangeLog>
