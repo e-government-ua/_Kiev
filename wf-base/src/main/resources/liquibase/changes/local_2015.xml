@@ -50,5 +50,11 @@
             tableName="FlowProperty"/>
 	
     </changeSet>
+    
+    <changeSet id="issue-605-dates-size" author="askosyr">
+        <modifyDataType tableName="FlowProperty" columnName="sDateTimeAt" newDataType="varchar(30)" />
+        <modifyDataType tableName="FlowProperty" columnName="sDateTimeTo" newDataType="varchar(30)" />
+    </changeSet>
+    
 
 </databaseChangeLog>
