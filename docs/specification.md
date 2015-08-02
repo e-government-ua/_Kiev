@@ -26,7 +26,9 @@
 <a href="#24_getBPForUsers"> 24. Получение расписаний включений </a><br/>
 <a href="#25_getSheduleFlowIncludes"> 25. Добавление/изменение расписания включений </a><br/>
 <a href="#26_removeSheduleFlowInclude"> 26. Удаление расписания включений </a><br/>
-
+<a href="#27_getSheduleFlowExcludes"> 27. Получение расписаний исключений </a><br/>
+<a href="#28_getSheduleFlowExcludes"> 28. Добавление/изменение расписания исключения </a><br/>
+<a href="#29_removeSheduleFlowExclude"> 29. Удаление расписания исключений </a><br/>
 
 ### iGov.ua APIs
 
@@ -2047,4 +2049,80 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowInclude?
 
 ```
 {"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}
+```
+
+<a name="27_getSheduleFlowExcludes">
+#### 27. Получение расписаний исключений
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=[flowId]
+
+* {flowId} - ID потока
+
+Пример:
+```
+https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=1
+```
+
+Пример результата
+
+```
+[{"sData":null,"bExclude":true,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}},{"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"10:30\"","sDateTimeTo":"\"12:30\"","nID":20364,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}]
+```
+
+<a name="28_getSheduleFlowExcludes">
+#### 28. Добавление/изменение расписания исключения
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&sName=[sName]&sRegionTime=[sRegionTime]&sDateTimeAt=[sDateTimeAt]&sDateTimeTo=[sDateTimeTo]&saRegionWeekDay=[saRegionWeekDay]
+
+* nID - ИД-номер //опциональный ,если задан - редактирование
+* nID_Flow_ServiceData - ИД-номер потока 
+* sName - Строка-название ("Вечерний прием")
+* sRegionTime - Строка период времени ("14:16-16-30")
+* saRegionWeekDay - Массив дней недели ("su,mo,tu")
+* sDateTimeAt - Строка-дата начала(на) в формате YYYY-MM-DD hh:mm:ss ("2015-07-31 19:00:00")
+* sDateTimeTo - Строка-дата конца(к) в формате YYYY-MM-DD hh:mm:ss ("2015-07-31 23:00:00")
+
+Пример:
+```
+https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowExclude?nID_Flow_ServiceData=1&sName=Test&sRegionTime=%2210:30-11:30%22&sDateTimeAt=%222010-08-01%2010:10:30%22&sDateTimeTo=%222010-08-01%2018:10:00%22&saRegionWeekDay=%22mo,tu%22
+```
+
+Пример результата
+
+```
+{"sData":null,"bExclude":true,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}
+```
+
+
+<a name="29_removeSheduleFlowExclude">
+#### 29. Удаление расписания исключений
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&nID=[nID]
+
+* nID_Flow_ServiceData - ИД-номер потока 
+* nID - ИД-номер
+Ответ:
+Массив объектов сущности расписаний исключений
+
+Пример:
+```
+https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowExclude?nID_Flow_ServiceData=1&nID=20367
+```
+
+Пример результата
+
+```
+{"sData":null,"bExclude":true,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}
 ```
