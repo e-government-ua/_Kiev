@@ -55,9 +55,23 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
         a=a.concat([{sID:"sBody_0".id,sLabel:"-"}])
     }
     console.log("[aPatternPrint]a.length="+a.length)
-    if(form){
+    
+    var aForm = [];
+    
+    if(this.form){
+        aForm = this.form.filter(function (item) {
+          return item && item.id && item.id.indexOf("sBody")>=0;
+        });
+    }
+
+    console.log("[aPatternPrint]0_");
+      
+    //if(this.form){
+    if(aForm){
+        
+    //if(form){
         console.log("[aPatternPrint]0_");
-        form.forEach(function (item, i) {
+        aForm.forEach(function (item, i) {//this.form
             console.log("[aPatternPrint]i="+i);
             console.log("[aPatternPrint]item!=null:"+(item!=null));
           if(item){
