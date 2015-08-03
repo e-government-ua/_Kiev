@@ -8,7 +8,7 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
   };
 
   PrintTemplate.prototype.findPrintTemplate = function (form, sCustomFieldID) {
-    sCustomFieldID = ((sCustomFieldID!==null && sCustomFieldID!==undefined && sCustomFieldID!=='-') ? sCustomFieldID : 'sBody');
+    sCustomFieldID = ((sCustomFieldID!==null && sCustomFieldID !== undefined && sCustomFieldID!=='-') ? sCustomFieldID : 'sBody');
     //$('.aPatternPrint').val();
     var printTemplateResult = form.filter(function (item) {
       return item.id === sCustomFieldID;
@@ -16,12 +16,12 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
     return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
   };
   
-  /*
+  
   PrintTemplate.prototype.containsPrintTemplate = function () {
     return this.form && this.findPrintTemplate(this.form) !== "";
   };
-  */
-
+  
+  /*
   //PrintTemplate.prototype.containsPrintTemplate = function (sCustomFieldID) {
   PrintTemplate.prototype.containsPrintTemplate = function () {
     if(!this.form){
@@ -30,15 +30,11 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
     var printTemplateResult = this.form.filter(function (item) {
       return item.id.indexOf("sBody")>=0;
     });
-    /*if(sCustomFieldID === null || sCustomFieldID === undefined){
-      sCustomFieldID = $('.aPatternPrint').val();
-    }
-    return this.form && this.findPrintTemplate(this.form, sCustomFieldID) !== "";
-    */
     return printTemplateResult.length > 0 && printTemplateResult[0].value !== "";
   };
-
-  PrintTemplate.prototype.aPatternPrint = function () {
+  */
+ 
+  /*PrintTemplate.prototype.aPatternPrint = function () {
     var form = this.form;
     var a=[];
     if(form){
@@ -54,7 +50,7 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
         a=a.concat([{sID:"sBody_0".id,sLabel:"-"}])
     }
     return a;
-  };
+  };*/
 
 
   PrintTemplate.prototype.processPrintTemplate = function (form, printTemplate, reg, fieldGetter) {
