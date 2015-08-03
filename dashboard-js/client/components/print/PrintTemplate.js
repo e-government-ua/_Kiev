@@ -24,6 +24,9 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
 
   //PrintTemplate.prototype.containsPrintTemplate = function (sCustomFieldID) {
   PrintTemplate.prototype.containsPrintTemplate = function () {
+    if(!this.form){
+        return false;
+    }
     var printTemplateResult = this.form.filter(function (item) {
       return item.id.indexOf("sBody")>=0;
     });
