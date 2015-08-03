@@ -42,11 +42,13 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
     var form = this.form;
     var a=[];
     if(form){
+        /*
         form.forEach(function (item, i) {
           if(item && item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
               a=a.concat([{sID:item.id,sLabel:item.name}])
           }
         });    
+        */
     }
     if(a.length===0){
         a=a.concat([{sID:"sBody_0".id,sLabel:"-"}])
