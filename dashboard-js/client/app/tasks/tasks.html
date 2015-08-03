@@ -130,6 +130,12 @@
                     ng-click="print()"
                     class="btn btn-success">Роздрукувати
             </button>
+
+            <select class="aPatternPrint form-control_"
+                    ng-hide="!printTemplate.containsPrintTemplate()"
+                    ng-options="oPatternPrint.sID as oPatternPrint.sLabel for oPatternPrint in printTemplate.aPatternPrint()"
+                    ng-model="'sBody_0'"></select>
+              
           </p>
         </div>
       </div>
