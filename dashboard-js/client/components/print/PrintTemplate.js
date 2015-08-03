@@ -51,9 +51,6 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
           }
         });    
     }*/
-    if(a.length===0){
-        a=a.concat([{sID:"sBody_0".id,sLabel:"-"}])
-    }
     console.log("[aPatternPrint]a.length="+a.length)
     
     var aForm = [];
@@ -64,27 +61,36 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
         });
     }
 
-    console.log("[aPatternPrint]0_");
+    console.log("[aPatternPrint]0_aForm.length="+aForm.length);
       
     //if(this.form){
     if(aForm){
-        
     //if(form){
         console.log("[aPatternPrint]0_");
-        aForm.forEach(function (item, i) {//this.form
-            console.log("[aPatternPrint]i="+i);
-            console.log("[aPatternPrint]item!=null:"+(item!=null));
-          if(item){
-            //if(item && item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
-            console.log("[aPatternPrint]item.id="+item.id);
-            console.log("[aPatternPrint]item.value="+item.value);
-            if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
-                console.log("[aPatternPrint]ADD");
-                a=a.concat([{sID:item.id,sLabel:item.name}])
-            }
-          }
-        });    
+        if (aForm.length > 0) {
+            aForm.forEach(function (item, i) {//this.form
+                console.log("[aPatternPrint]i="+i);
+                console.log("[aPatternPrint]item!=null:"+(item!=null));
+              if(item){
+                //if(item && item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
+                console.log("[aPatternPrint]item.id="+item.id);
+                console.log("[aPatternPrint]item.value="+item.value);
+                if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
+                    console.log("[aPatternPrint]ADD");
+//                    a=a.concat([{sID:item.id,sLabel:item.name}])
+                    a.push({sID:item.id,sLabel:item.name});
+                }
+              }
+            });               
+        }
     }
+    
+    console.log("[aPatternPrint]a.length(before)="+a.length)
+    if(a.length===0){
+        a=a.concat([{sID:"sBody_0".id,sLabel:"-"}])
+    }
+    console.log("[aPatternPrint]a.length(after)="+a.length)
+    
     return a;
   };
 
