@@ -20,6 +20,20 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     count: 0
   }];
 
+  $scope.predicate = 'createTime';
+  $scope.reverse = false;
+  $scope.sort_order = 'order_increase';
+  $scope.order = function(predicate, reverse) {
+    $scope.reverse = reverse;
+    $scope.predicate = predicate;
+  };
+  $scope.sortOrder = function() {
+    switch($scope.sort_order) {
+      case 'order_increase': $scope.reverse = false; break;
+      case 'order_decrease': $scope.reverse = true; break;
+    }
+  }
+
   $scope.printTemplate = new PrintTemplate();
 
   $scope.print = function () {
