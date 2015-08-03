@@ -254,11 +254,11 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
 
 
-  $scope.aPatternPrintNew = function () {
+  $scope.aPatternPrintNew = function (taskForm) {
     console.log("[aPatternPrintNew]")
     var printTemplateResult = null;
-    if(this.form){
-        printTemplateResult = this.form.filter(function (item) {//form
+    if(taskForm){//this.form
+        printTemplateResult = taskForm.filter(function (item) {//form//this.form
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
           return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
         });
