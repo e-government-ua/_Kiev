@@ -140,18 +140,18 @@
                     class="btn btn-success">Роздрукувати
             </button>
 
-            <select class="aPatternPrint form-control_"
-                    ng-hide="!printTemplate.containsPrintTemplate()"
-                    ng-options="oPatternPrint.sID as oPatternPrint.sLabel for oPatternPrint in printTemplate.aPatternPrint()"
-                    ng-model="'sBody_0'"></select>
-              
             <!--select class="aPatternPrint form-control_"
                     ng-hide="!printTemplate.containsPrintTemplate()"
-                    >
-              <option ng-repeat="oPatternPrint in printTemplate.aPatternPrint()"
-                  value="{{oPatternPrint.sID}}" selected="{{oPatternPrint.sID=='sBody_0'?'selected':''}}">{{oPatternPrint.sLabel}}</option>
-            </select-->
+                    ng-options="oPatternPrint.sID as oPatternPrint.sLabel for oPatternPrint in printTemplate.aPatternPrint()"
+                    ng-model="'sBody_0'"></select-->
               
+            <select class="aPatternPrint form-control_"
+                    ng-hide="!printTemplate.containsPrintTemplate()"
+                    >
+              <option ng-repeat="oPatternPrint in printTemplate.aPatternPrint()" value="{{oPatternPrint.sID}}">{{oPatternPrint.sLabel}}</option>
+            </select>
+              
+            <!--value="{{oPatternPrint.sID}}" selected="{{oPatternPrint.sID=='sBody_0'?'selected':''}}">{{oPatternPrint.sLabel}}</option-->
               
           </p>
         </div>
