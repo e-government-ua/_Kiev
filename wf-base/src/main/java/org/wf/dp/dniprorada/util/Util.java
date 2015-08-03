@@ -123,22 +123,87 @@ public final class Util {
                     oLog.info("[replacePatterns]:task.getVariable(\"sBody\")="+task.getVariable("sBody"));
                     oLog.info("[replacePatterns]:execution.getVariable(\"sBody\")="+execution.getVariable("sBody"));
                             
-                	TaskFormData taskformData = execution.getEngineServices()
+                	TaskFormData oTaskFormData = execution.getEngineServices()
                 		    .getFormService()
                 		    .getTaskFormData(task.getId());
                 		    //.getTaskFormData(execution.getId());
                 	
-                	oLog.info("[replacePatterns]:Found taskformData=" + taskformData);
+                	oLog.info("[replacePatterns]:Found taskformData=" + oTaskFormData);
                 	String sExpression = null;
-                	if (taskformData != null){
-	                	for (FormProperty property : taskformData.getFormProperties()) {
-	                		if (property.getId().equals("sBody") ){
+                	if (oTaskFormData != null){
+	                	for (FormProperty property : oTaskFormData.getFormProperties()) {
+	                		//if (property.getId().equals("sBody") ){
+                                        String sFieldID=property.getId();
+                                        
+                                        oLog.info("[replacePatterns]:sFieldID=" + sFieldID);
+	                		if (sFieldID!=null && sFieldID.startsWith("sBody") ){
 	                			oLog.info("[replacePatterns]:Found necessary property.getValue()=" + property.getValue());
 	                			//sExpression = property.getValue();
 	                			oLog.info("[replacePatterns]:Found necessary property.getName()=" + property.getName());
                                                 //if( sExpression==null || "".equals(sExpression.trim()) || "${sBody}".equals(sExpression.trim())){
                                                     sExpression = property.getName();
                                                 //}
+                                                    
+                                                    oLog.info("[replacePatterns]:sExpression="+sExpression);
+                                                    if(sExpression!=null){
+                                                        String[] asPatterns = {
+                                                                "pattern/print/subsidy.html"
+                                                                ,"pattern/print/subsidy_zayava.html"
+                                                                ,"pattern/print/subsidy_declaration.html"
+                                                                ,"pattern/print/1.html"
+                                                                ,"pattern/print/2.html"
+                                                                ,"pattern/print/3.html"
+                                                                ,"pattern/print/4.html"
+                                                                ,"pattern/print/5.html"
+                                                        };
+                                                        for(String sName:asPatterns){
+                                                            if(sExpression.contains("["+sName+"]")){
+                                                                oLog.info("[replacePatterns]:sName="+sName);
+                                                                //String sFullPath = sName.replaceAll("\\.", "/").replaceLast(sName, sName);
+                                                                File oFile = new File(sName);//"pattern/print/subsidy.html"
+                                                                oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
+                                                                if(!oFile.exists()){
+                                                                    //oFile = new File("class/"+sName);
+                                                                    // /sybase/tomcat_wf-region/bin/class/pattern/print/subsidy.html                                    
+                                                                    oFile = new File("../webapps/wf-region/WEB-INF/classes/"+sName);
+                                                                }
+                                                                oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
+                                                                if(oFile.exists()){
+                                                                    //String sData = getFromFile(oFile, "Cp1251");
+                                                                    String sData = getFromFile(oFile, null);
+                                                                    oLog.info("[replacePatterns]:sData="+sData);
+                                                                    if(sData!=null){
+                                                                        sExpression=sExpression.replaceAll("\\Q["+sName+"]\\E", sData);
+                                                                        oLog.info("[replacePatterns]:sExpression="+sExpression);
+                                                                        //setStringFromFieldExpression(osBody, execution, sExpression);
+                                //                                        execution.setVariable("sBody", sExpression);
+                                //                                        execution.setVariable("sBody0", sExpression);
+                                //                                        task.setVariable("sBody", sExpression);
+                                //                                        task.setVariable("sBody0", sExpression);
+                                                                        oLog.info("[replacePatterns](sFieldID="+sFieldID+"):1-Ok!");
+                                                                        
+                                                                        
+                                                                        execution.getEngineServices().getRuntimeService()
+                                                                                .setVariable(task.getProcessInstanceId(), sFieldID, sExpression);
+                                                                                //.setVariable(task.getProcessInstanceId(), "sBody", sExpression);
+                                                                        //task.getName();
+                                                                        oLog.info("[replacePatterns](sFieldID="+sFieldID+"):2-Ok:"+execution.getEngineServices().getRuntimeService()
+                                                                                .getVariable(task.getProcessInstanceId(), sFieldID));
+                                                                                //.getVariable(task.getProcessInstanceId(), "sBody"));
+                                                                        //task.getId()
+
+                                                                        oLog.info("[replacePatterns](sFieldID="+sFieldID+"):3-Ok!");
+                                                                    }
+                                                                }else{
+                                                                    oLog.info("[replacePatterns]:oFile.getAbsolutePath()="+oFile.getAbsolutePath());
+                                                                    oLog.info("[replacePatterns]:oFile.getCanonicalPath()="+oFile.getCanonicalPath());
+                                                                    oLog.info("[replacePatterns]:oFile.getPath()="+oFile.getPath());
+                                                                    oLog.info("[replacePatterns]:oFile.getName()="+oFile.getName());
+                                                                }
+                                                            }
+                                                        }
+                                                    }                                                    
+                                                    
 	                		} else {
 	                			oLog.info("[replacePatterns]:Property =" + property.getId());
 	                		}
@@ -153,61 +218,7 @@ public final class Util {
                     }*/
                     
                     
-                    if(sExpression!=null){
-                        String[] asPatterns = {
-                                "pattern/print/subsidy.html"
-                                ,"pattern/print/subsidy_zayava.html"
-                                ,"pattern/print/subsidy_declaration.html"
-                                ,"pattern/print/1.html"
-                                ,"pattern/print/2.html"
-                                ,"pattern/print/3.html"
-                                ,"pattern/print/4.html"
-                                ,"pattern/print/5.html"
-                        };
-                        for(String sName:asPatterns){
-                            if(sExpression.contains("["+sName+"]")){
-                                oLog.info("[replacePatterns]:sName="+sName);
-                                //String sFullPath = sName.replaceAll("\\.", "/").replaceLast(sName, sName);
-                                File oFile = new File(sName);//"pattern/print/subsidy.html"
-                                oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
-                                if(!oFile.exists()){
-                                    //oFile = new File("class/"+sName);
-                                    // /sybase/tomcat_wf-region/bin/class/pattern/print/subsidy.html                                    
-                                    oFile = new File("../webapps/wf-region/WEB-INF/classes/"+sName);
-                                }
-                                oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
-                                if(oFile.exists()){
-                                    //String sData = getFromFile(oFile, "Cp1251");
-                                    String sData = getFromFile(oFile, null);
-                                    oLog.info("[replacePatterns]:sData="+sData);
-                                    if(sData!=null){
-                                        sExpression=sExpression.replaceAll("\\Q["+sName+"]\\E", sData);
-                                        oLog.info("[replacePatterns]:sExpression="+sExpression);
-                                        //setStringFromFieldExpression(osBody, execution, sExpression);
-//                                        execution.setVariable("sBody", sExpression);
-//                                        execution.setVariable("sBody0", sExpression);
-//                                        task.setVariable("sBody", sExpression);
-//                                        task.setVariable("sBody0", sExpression);
-                                        oLog.info("[replacePatterns]:1-Ok!");
-                                        
-                                        execution.getEngineServices().getRuntimeService()
-                                                .setVariable(task.getProcessInstanceId(), "sBody", sExpression);
-                                        //task.getName();
-                                        oLog.info("[replacePatterns]:2-Ok:"+execution.getEngineServices().getRuntimeService()
-                                                .getVariable(task.getProcessInstanceId(), "sBody"));
-                                        //task.getId()
-                                        
-                                        oLog.info("[replacePatterns]:3-Ok!");
-                                    }
-                                }else{
-                                    oLog.info("[replacePatterns]:oFile.getAbsolutePath()="+oFile.getAbsolutePath());
-                                    oLog.info("[replacePatterns]:oFile.getCanonicalPath()="+oFile.getCanonicalPath());
-                                    oLog.info("[replacePatterns]:oFile.getPath()="+oFile.getPath());
-                                    oLog.info("[replacePatterns]:oFile.getName()="+oFile.getName());
-                                }
-                            }
-                        }
-                    }
+
                 }catch(Exception oException){
                     oLog.error("[replacePatterns]",oException);
                 }            
