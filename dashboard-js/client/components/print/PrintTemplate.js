@@ -8,11 +8,14 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
   };
 
   PrintTemplate.prototype.findPrintTemplate = function (form, sCustomFieldID) {
-    sCustomFieldID = ((sCustomFieldID!==null && sCustomFieldID !== undefined && sCustomFieldID!=='-') ? sCustomFieldID : 'sBody');
+    console.log("[findPrintTemplate]")
+    var s = ((sCustomFieldID!==null && sCustomFieldID !== undefined && sCustomFieldID!=='-') ? sCustomFieldID : 'sBody');
+    console.log("[findPrintTemplate]s="+s)
     //$('.aPatternPrint').val();
     var printTemplateResult = form.filter(function (item) {
-      return item.id === sCustomFieldID;
+      return item.id === s;
     });
+    console.log("[findPrintTemplate]printTemplateResult.length="+printTemplateResult.length)
     return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
   };
   
@@ -25,19 +28,23 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
   //PrintTemplate.prototype.containsPrintTemplate = function (sCustomFieldID) {
   PrintTemplate.prototype.containsPrintTemplate = function () {
     if(this.form){
+        console.log("[containsPrintTemplate]")
         var printTemplateResult = this.form.filter(function (item) {
           return item && item.id && item.id.indexOf("sBody")>=0;
         });
+        console.log("[containsPrintTemplate]printTemplateResult.length="+printTemplateResult.length)
         return printTemplateResult.length > 0 && printTemplateResult[0].value !== "";
     }else{
+        console.log("[containsPrintTemplate]")
         return false;
     }
   };
 
   PrintTemplate.prototype.aPatternPrint = function () {
+    console.log("[aPatternPrint]")
     var form = this.form;
     var a=[];
-    if(form){
+    /*if(form){
         form.forEach(function (item, i) {
           if(item && item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
               a=a.concat([{sID:item.id,sLabel:item.name}])
@@ -46,7 +53,7 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
     }
     if(a.length===0){
         a=a.concat([{sID:"sBody_0".id,sLabel:"-"}])
-    }
+    }*/
     return a;
   };
 
@@ -82,12 +89,16 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
       /*if(sCustomFieldID === null || sCustomFieldID === undefined){
         sCustomFieldID = $('.aPatternPrint').val();
       }*/
+      console.log("[getPrintTemplate]1");
       var sCustomFieldID = $('.aPatternPrint').val();
+      console.log("[getPrintTemplate]sCustomFieldID="+sCustomFieldID);
       if(sCustomFieldID === null || sCustomFieldID === undefined || sCustomFieldID === "" || sCustomFieldID === "-"){
           alert("Не обран шаблон для друку!");
-          return;
+          //return;
       }
+      //console.log("[getPrintTemplate]sCustomFieldID="+sCustomFieldID);
         
+      console.log("[getPrintTemplate]2");
       var printTemplate = this.findPrintTemplate(this.form, sCustomFieldID);
       printTemplate = this.processPrintTemplate(this.form, printTemplate, /(\[(\w+)])/g, function (item) {
         if (item.type === 'enum') {
