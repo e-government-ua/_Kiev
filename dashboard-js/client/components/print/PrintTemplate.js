@@ -50,10 +50,11 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
               a=a.concat([{sID:item.id,sLabel:item.name}])
           }
         });    
-    }
+    }*/
     if(a.length===0){
         a=a.concat([{sID:"sBody_0".id,sLabel:"-"}])
-    }*/
+    }
+    console.log("[aPatternPrint]a.length="+a.length)
     return a;
   };
 
