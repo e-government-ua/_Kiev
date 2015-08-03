@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Archiver-Version: Plexus Archiver
-Created-By: Apache Maven
-Built-By: olya
-Build-Jdk: 1.8.0_45
-PluginVersion: 1.0.0a-SNAPSHOT
-

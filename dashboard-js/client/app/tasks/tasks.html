@@ -7,10 +7,19 @@
     <div class="row">
       <div class="col-xs-5 sidebar">
         <div class="tasks">
-          <div class="list-group">
+
+          <div class="sort-select" align="right">
+            Сортувати за датою
+            <select ng-model="sort_order" ng-change="sortOrder()">
+              <option value="order_increase" selected>Від найдавніших</option>
+              <option value="order_decrease">Від найновіших</option>
+            </select>
+          </div>
+
+          <div class="list-group">          
             <a class="list-group-item task {{ sTaskClass(task.taskDefinitionKey) }}"
                href=""
-               ng-repeat="task in tasks"
+               ng-repeat="task in tasks | orderBy:predicate:reverse"
                tooltip="{{task.description}}"
                ng-click="selectTask(task)"
                ng-class="{'active': isTaskSelected(task)}">
@@ -130,6 +139,26 @@
                     ng-click="print()"
                     class="btn btn-success">Роздрукувати
             </button>
+
+            <!--select class="aPatternPrint form-control_"
+                    ng-hide="!printTemplate.containsPrintTemplate()"
+                    ng-options="oPatternPrint.sID as oPatternPrint.sLabel for oPatternPrint in printTemplate.aPatternPrint()"
+                    ng-model="'sBody_0'"></select-->
+              
+            <select class="aPatternPrint form-control_"
+                    ng-hide="!printTemplate.containsPrintTemplate()"
+                    >
+                    <!--ng-model="sort_order"
+                    ng-change="sortOrder()"-->
+                    
+              <option ng-repeat="oPatternPrint in printTemplate.aPatternPrint()"
+                  value="{{oPatternPrint.sID}}" selected="{{oPatternPrint.sID=='sBody_0'?'selected':''}}">{{oPatternPrint.sLabel}}</option>
+                
+              <!--option value="order_increase" selected>Від найдавніших</option>
+              <option value="order_decrease">Від найновіших</option-->
+            </select>
+              
+              
           </p>
         </div>
       </div>

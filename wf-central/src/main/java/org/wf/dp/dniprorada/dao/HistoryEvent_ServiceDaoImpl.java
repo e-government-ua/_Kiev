@@ -4,6 +4,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Required;
 import org.wf.dp.dniprorada.model.EntityNotFoundException;
 import org.wf.dp.dniprorada.model.HistoryEvent_Service;
@@ -62,6 +63,7 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
         event_service.setsStatus(sStatus);
         event_service.setsID_Status(sID_status);
         event_service.setnID_Subject(nID_subject);
+        event_service.setsDate(new DateTime());
 //        SimpleDateFormat sdf = new SimpleDateFormat("_yyyy-MM-dd_HH:mm:ss");
 //        event_service.setsID(sdf.format(new Date()));
         //event_service.setnID_Protected(1L);
@@ -92,6 +94,7 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
             isChanged = true;
         }
         if (isChanged) {
+        	event_service.setsDate(new DateTime());
             getSession().saveOrUpdate(event_service);
         }
     }
