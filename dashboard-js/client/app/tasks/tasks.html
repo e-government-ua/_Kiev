@@ -144,10 +144,14 @@
                     ng-hide="!printTemplate.containsPrintTemplate()"
                     ng-options="oPatternPrint.sID as oPatternPrint.sLabel for oPatternPrint in printTemplate.aPatternPrint()"
                     ng-model="'sBody_0'"></select-->
+<!--            
+                                ng-hide="!printTemplate.containsPrintTemplate()"
+-->
               
             <select class="aPatternPrint form-control_"
+                    ng-hide="aPatternPrintNew(taskForm)===null || aPatternPrintNew(taskForm).length===0"
                     >
-              <option ng-repeat="oPatternPrint in printTemplate.aPatternPrintNew()" value="{{oPatternPrint.id}}">{{oPatternPrint.name}}</option>
+              <option ng-repeat="oPatternPrint in aPatternPrintNew(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.name}}</option>
               <!--option ng-repeat="oPatternPrint in printTemplate.aPatternPrint()" value="{{oPatternPrint.sID}}">{{oPatternPrint.sLabel}}</option-->
               
               
