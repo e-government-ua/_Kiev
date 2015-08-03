@@ -46,7 +46,7 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
       }
     });    
     if(a.length===0){
-        a=a.concat([{sID:"-".id,sLabel:"-"}])
+        a=a.concat([{sID:"sBody_0".id,sLabel:"-"}])
     }
     return a;
   };
