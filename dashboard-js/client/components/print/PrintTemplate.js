@@ -42,8 +42,8 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
     var form = this.form;
     var a=[];
     if(form){
-        this.form.forEach(function (item, i) {
-          if(item.id.indexOf('sBody') >= 0 && item.value !== "" ){
+        form.forEach(function (item, i) {
+          if(item && item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
               a=a.concat([{sID:item.id,sLabel:item.name}])
           }
         });    
