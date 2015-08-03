@@ -18,7 +18,23 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
     console.log("[findPrintTemplate]printTemplateResult.length="+printTemplateResult.length)
     return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
   };
+
   
+  PrintTemplate.prototype.aPatternPrintNew = function (form, sCustomFieldID) {
+    console.log("[aPatternPrintNew]")
+    var s = ((sCustomFieldID!==null && sCustomFieldID !== undefined && sCustomFieldID!=='-') ? sCustomFieldID : 'sBody');
+    console.log("[aPatternPrintNew]s="+s)
+    //$('.aPatternPrint').val();
+    var printTemplateResult = form.filter(function (item) {
+        //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
+      return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
+    });
+    console.log("[aPatternPrintNew]printTemplateResult.length="+printTemplateResult.length)
+    //return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
+    return printTemplateResult.length !== 0 ? printTemplateResult : [];
+  };
+
+    
   /*
   PrintTemplate.prototype.containsPrintTemplate = function () {
     return this.form && this.findPrintTemplate(this.form) !== "";

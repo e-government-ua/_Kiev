@@ -147,7 +147,10 @@
               
             <select class="aPatternPrint form-control_"
                     >
-              <option ng-repeat="oPatternPrint in printTemplate.aPatternPrint()" value="{{oPatternPrint.sID}}">{{oPatternPrint.sLabel}}</option>
+              <option ng-repeat="oPatternPrint in printTemplate.aPatternPrintNew()" value="{{oPatternPrint.id}}">{{oPatternPrint.name}}</option>
+              <!--option ng-repeat="oPatternPrint in printTemplate.aPatternPrint()" value="{{oPatternPrint.sID}}">{{oPatternPrint.sLabel}}</option-->
+              
+              
             </select>
               
             <!--        ng-hide="!printTemplate.containsPrintTemplate()" -->
