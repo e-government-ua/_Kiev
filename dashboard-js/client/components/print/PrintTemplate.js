@@ -25,13 +25,16 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
     var s = ((sCustomFieldID!==null && sCustomFieldID !== undefined && sCustomFieldID!=='-') ? sCustomFieldID : 'sBody');
     console.log("[aPatternPrintNew]s="+s)
     //$('.aPatternPrint').val();
-    var printTemplateResult = form.filter(function (item) {
-        //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
-      return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
-    });
-    console.log("[aPatternPrintNew]printTemplateResult.length="+printTemplateResult.length)
+    var printTemplateResult = null;
+    if(this.form){
+        printTemplateResult = this.form.filter(function (item) {//form
+            //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
+          return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
+        });
+        console.log("[aPatternPrintNew]printTemplateResult.length="+printTemplateResult.length)
+    }
     //return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
-    return printTemplateResult.length !== 0 ? printTemplateResult : [];
+    return (printTemplateResult!==null && printTemplateResult.length !== 0) ? printTemplateResult : [];
   };
 
     
