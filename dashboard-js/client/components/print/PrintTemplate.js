@@ -16,41 +16,39 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
     return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
   };
   
-  
+  /*
   PrintTemplate.prototype.containsPrintTemplate = function () {
     return this.form && this.findPrintTemplate(this.form) !== "";
   };
-  
-  /*
+  */
+
   //PrintTemplate.prototype.containsPrintTemplate = function (sCustomFieldID) {
   PrintTemplate.prototype.containsPrintTemplate = function () {
-    if(!this.form){
+    if(this.form){
+        var printTemplateResult = this.form.filter(function (item) {
+          return item && item.id && item.id.indexOf("sBody")>=0;
+        });
+        return printTemplateResult.length > 0 && printTemplateResult[0].value !== "";
+    }else{
         return false;
     }
-    var printTemplateResult = this.form.filter(function (item) {
-      return item.id.indexOf("sBody")>=0;
-    });
-    return printTemplateResult.length > 0 && printTemplateResult[0].value !== "";
   };
-  */
- 
-  /*PrintTemplate.prototype.aPatternPrint = function () {
+
+  PrintTemplate.prototype.aPatternPrint = function () {
     var form = this.form;
     var a=[];
     if(form){
-        
         form.forEach(function (item, i) {
           if(item && item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
               a=a.concat([{sID:item.id,sLabel:item.name}])
           }
         });    
-        
     }
     if(a.length===0){
         a=a.concat([{sID:"sBody_0".id,sLabel:"-"}])
     }
     return a;
-  };*/
+  };
 
 
   PrintTemplate.prototype.processPrintTemplate = function (form, printTemplate, reg, fieldGetter) {
