@@ -39,12 +39,15 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
   };
 
   PrintTemplate.prototype.aPatternPrint = function () {
+    var form = this.form;
     var a=[];
-    this.form.forEach(function (item, i) {
-      if(item.id.indexOf('sBody') >= 0 && item.value !== "" ){
-          a=a.concat([{sID:item.id,sLabel:item.name}])
-      }
-    });    
+    if(this.form){
+        this.form.forEach(function (item, i) {
+          if(item.id.indexOf('sBody') >= 0 && item.value !== "" ){
+              a=a.concat([{sID:item.id,sLabel:item.name}])
+          }
+        });    
+    }
     if(a.length===0){
         a=a.concat([{sID:"sBody_0".id,sLabel:"-"}])
     }
