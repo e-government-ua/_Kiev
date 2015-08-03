@@ -55,6 +55,22 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
         a=a.concat([{sID:"sBody_0".id,sLabel:"-"}])
     }
     console.log("[aPatternPrint]a.length="+a.length)
+    if(form){
+        console.log("[aPatternPrint]0_");
+        form.forEach(function (item, i) {
+            console.log("[aPatternPrint]i="+i);
+            console.log("[aPatternPrint]item!=null:"+(item!=null));
+          if(item){
+            //if(item && item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
+            console.log("[aPatternPrint]item.id="+item.id);
+            console.log("[aPatternPrint]item.value="+item.value);
+            if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
+                console.log("[aPatternPrint]ADD");
+                a=a.concat([{sID:item.id,sLabel:item.name}])
+            }
+          }
+        });    
+    }
     return a;
   };
 
