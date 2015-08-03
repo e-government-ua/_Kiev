@@ -8,14 +8,14 @@ angular.module('order').controller('OrderSearchController', function($rootScope,
                 $scope.messages = {};
                 $scope.orders = {};
                 if (!data) {
-                    $scope.messages = ['Неверный номер!'];
+                    $scope.messages = ['Невірний номер!'];
                 } else if (data.hasOwnProperty('message')) {
                     if (data.message.indexOf('CRC Error') > -1) {
-                        $scope.messages = ['Неверный номер!'];
+                        $scope.messages = ['Невірний номер!'];
                     } else if (data.message.indexOf('Record not found') > -1) {
-                        $scope.messages = ['Заявка не знайдена'];
+                        $scope.messages = ['Заявку не знайдено'];
                     } else {
-                        $scope.messages = ['Заявка не знайдена'];
+                        $scope.messages = ['Заявку не знайдено'];
                     }
                 } else {
                     if (typeof data === 'object') {

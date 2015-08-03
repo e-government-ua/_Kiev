@@ -7,10 +7,19 @@
     <div class="row">
       <div class="col-xs-5 sidebar">
         <div class="tasks">
-          <div class="list-group">
+
+          <div class="sort-select" align="right">
+            Сортувати за датою
+            <select ng-model="sort_order" ng-change="sortOrder()">
+              <option value="order_increase" selected>Від найдавніших</option>
+              <option value="order_decrease">Від найновіших</option>
+            </select>
+          </div>
+
+          <div class="list-group">          
             <a class="list-group-item task {{ sTaskClass(task.taskDefinitionKey) }}"
                href=""
-               ng-repeat="task in tasks"
+               ng-repeat="task in tasks | orderBy:predicate:reverse"
                tooltip="{{task.description}}"
                ng-click="selectTask(task)"
                ng-class="{'active': isTaskSelected(task)}">
