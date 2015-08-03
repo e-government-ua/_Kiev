@@ -1572,6 +1572,7 @@ http://test.igov.org.ua/wf-central/service/services/updateHistoryEvent_Service?n
 * nID_ServiceData - ID сущности ServiceData (обязательный)
 * bAll - если false то из возвращаемого объекта исключаются элементы, содержащие "bHasFree":false "bFree":false (опциональный, по умолчанию false)
 * nDays - колличество дней от сегодняшего включительно, до nDays в будующее за который нужно вернуть слоты (опциональный, по умолчанию 60)
+* sDate - опциональный параметр, определяющие дату в формате "yyyy-MM-dd", за которую выбрать слоты. При наличии этого параметра слоты возвращаются только за указанный день.
 
 Пример:
 https://test.igov.org.ua/wf-central/service/flow/getFlowSlots_ServiceData?nID_ServiceData=1
