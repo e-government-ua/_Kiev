@@ -102,7 +102,6 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
         /*if (!$($('input[type=tel]')[0]).intlTelInput('isValidNumber')){//bValid &&
             bValid = false;
             //$($('input[type=tel]')[0]).addClass('has-error');
-            alert('Неверный формат телефона!');
             return;
         }*/
         /*
