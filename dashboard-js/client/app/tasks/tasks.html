@@ -140,10 +140,24 @@
                     class="btn btn-success">Роздрукувати
             </button>
 
-            <select class="aPatternPrint form-control_"
+            <!--select class="aPatternPrint form-control_"
                     ng-hide="!printTemplate.containsPrintTemplate()"
                     ng-options="oPatternPrint.sID as oPatternPrint.sLabel for oPatternPrint in printTemplate.aPatternPrint()"
-                    ng-model="'sBody_0'"></select>
+                    ng-model="'sBody_0'"></select-->
+              
+            <select class="aPatternPrint form-control_"
+                    ng-hide="!printTemplate.containsPrintTemplate()"
+                    >
+                    <!--ng-model="sort_order"
+                    ng-change="sortOrder()"-->
+                    
+              <option ng-repeat="oPatternPrint in printTemplate.aPatternPrint()"
+                  value="{{oPatternPrint.sID}}" selected="{{oPatternPrint.sID=='sBody_0'?'selected':''}}">{{oPatternPrint.sLabel}}</option>
+                
+              <!--option value="order_increase" selected>Від найдавніших</option>
+              <option value="order_decrease">Від найновіших</option-->
+            </select>
+              
               
           </p>
         </div>
