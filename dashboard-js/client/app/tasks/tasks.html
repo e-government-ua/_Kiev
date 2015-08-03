@@ -140,20 +140,22 @@
                     class="btn btn-success">Роздрукувати
             </button>
 
-            <select class="aPatternPrint form-control_"
-                    ng-hide="!printTemplate.containsPrintTemplate()"
-                    ng-options="oPatternPrint.id as oPatternPrint.name for oPatternPrint in printTemplate.aPatternPrintNew()"
-                    ng-model="'sBody_0'"></select>
-
-                <!--    ng-options="oPatternPrint.sID as oPatternPrint.sLabel for oPatternPrint in printTemplate.aPatternPrint()" -->
-              
             <!--select class="aPatternPrint form-control_"
-                    -->
-              <!--option ng-repeat="oPatternPrint in printTemplate.aPatternPrintNew()" value="{{oPatternPrint.id}}">{{oPatternPrint.name}}</option-->
+                    ng-hide="!printTemplate.containsPrintTemplate()"
+                    ng-options="oPatternPrint.sID as oPatternPrint.sLabel for oPatternPrint in printTemplate.aPatternPrint()"
+                    ng-model="'sBody_0'"></select-->
+<!--            
+                                ng-hide="!printTemplate.containsPrintTemplate()"
+-->
+              
+            <select class="aPatternPrint form-control_"
+                    ng-hide="aPatternPrintNew()!==null && aPatternPrintNew().length>0"
+                    >
+              <option ng-repeat="oPatternPrint in aPatternPrintNew()" value="{{oPatternPrint.id}}">{{oPatternPrint.name}}</option>
               <!--option ng-repeat="oPatternPrint in printTemplate.aPatternPrint()" value="{{oPatternPrint.sID}}">{{oPatternPrint.sLabel}}</option-->
               
               
-            <!--/select-->
+            </select>
               
             <!--        ng-hide="!printTemplate.containsPrintTemplate()" -->
             <!--value="{{oPatternPrint.sID}}" selected="{{oPatternPrint.sID=='sBody_0'?'selected':''}}">{{oPatternPrint.sLabel}}</option-->
