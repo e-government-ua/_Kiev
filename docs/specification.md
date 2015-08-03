@@ -23,11 +23,11 @@
 <a href="#21">21. Работа со странами </a><br/>
 <a href="#22">22. Загрузка данных по задачам </a><br/>
 <a href="#23_getBPForUsers"> 23. Получение списка бизнес процессов к которым у пользователя есть доступ </a><br/>
-<a href="#24_getBPForUsers"> 24. Получение расписаний включений </a><br/>
-<a href="#25_getSheduleFlowIncludes"> 25. Добавление/изменение расписания включений </a><br/>
+<a href="#24_getSheduleFlowIncludes"> 24. Получение расписаний включений </a><br/>
+<a href="#25_setSheduleFlowInclude"> 25. Добавление/изменение расписания включений </a><br/>
 <a href="#26_removeSheduleFlowInclude"> 26. Удаление расписания включений </a><br/>
 <a href="#27_getSheduleFlowExcludes"> 27. Получение расписаний исключений </a><br/>
-<a href="#28_getSheduleFlowExcludes"> 28. Добавление/изменение расписания исключения </a><br/>
+<a href="#28_setSheduleFlowExclude"> 28. Добавление/изменение расписания исключения </a><br/>
 <a href="#29_removeSheduleFlowExclude"> 29. Удаление расписания исключений </a><br/>
 
 ### iGov.ua APIs
@@ -1997,7 +1997,7 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nI
 [{"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}},{"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"10:30\"","sDateTimeTo":"\"12:30\"","nID":20364,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}]
 ```
 
-<a name="25_getSheduleFlowIncludes">
+<a name="25_setSheduleFlowInclude">
 #### 25. Добавление/изменение расписания включений
 </a><a href="#0_contents">↑Up</a><br/>
 
@@ -2073,7 +2073,7 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nI
 [{"sData":null,"bExclude":true,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}},{"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"10:30\"","sDateTimeTo":"\"12:30\"","nID":20364,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}]
 ```
 
-<a name="28_getSheduleFlowExcludes">
+<a name="28_setSheduleFlowExclude">
 #### 28. Добавление/изменение расписания исключения
 </a><a href="#0_contents">↑Up</a><br/>
 
