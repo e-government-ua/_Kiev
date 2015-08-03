@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-static-top i-nav">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#i-nav" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" aria-expanded="false" ng-click="navBarIsCollapsed = !navBarIsCollapsed">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -11,7 +11,7 @@
             <br>
             <p class="sitename">портал державних послуг</p>
         </div>
-        <div class="collapse navbar-collapse" id="i-nav">
+        <div class="collapse navbar-collapse" collapse="navBarIsCollapsed">
             <ul class="nav navbar-nav navbar-right">
                 <li class="menu-item" ng-class="{selected: state.is('index')}">
                     <a ui-sref="index">
