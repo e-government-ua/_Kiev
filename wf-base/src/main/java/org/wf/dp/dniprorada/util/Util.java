@@ -1,37 +1,30 @@
 package org.wf.dp.dniprorada.util;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.Constants;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.Arrays;
-
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
-
-import sun.misc.BASE64Encoder;
-import sun.misc.BASE64Decoder;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
-import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getStringFromFieldExpression;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.Arrays;
 
 public final class Util {
 
-	private final static Logger log = LoggerFactory.getLogger(Util.class);
+    private final static Logger log = LoggerFactory.getLogger(Util.class);
+    public static final String FILE_PATH_BEGIN = "../webapps/wf-region/WEB-INF/classes/pattern/";
+    public static final String DEFAULT_CONTENT_TYPE = "text/plain";
 
-	private Util() {
+    private Util() {
 	}
 
 	public static String sData(byte[] a) {
@@ -275,6 +268,52 @@ public final class Util {
 		}
 		return null;
 	}        
-        
-        
+
+    /**1) Сервис назвать getPatternFile
+Параметры:
+sSingleFolder - строковое название папки
+sFullName - строковое название файла
+sContentType - строковой тип контента
+Возвращать контент указанного файла.
+(у этого cthdbcf должна быть и простая возможность вызова как обычного метода из явы)
+2) Папки смотреть начиная с корня классов (т.е. "\i\wf-region\src\main\resources\patterns",
+и убедиться, что в продеплоеном виде берется именно этот каталог в качестве исходного
+3) создать в проекте соответствующую папку "patterns" по пути "\i\wf-region\src\main\resources\patterns"
+4) Не допускать, чтоб в параметре "sSingleFolder" и sFullName встречались слеши или обратные слеши, которые позволят сослаться на папку, уровнем выше.
+5) задавая в хеадере респонса тот контенттайп, что указан в "sContentType" - отдавать контент файла.
+5) описать в доке с АПИ*/
+
+    public static String getPatternFile(String sPathFile, String sContentType)
+            throws IOException {
+//        System.out.println("begin test");//src/main/resources/pattern/print/subsidy_zayava.html
+     ///temp
+//   if (sPathFile .contains("..")/* || sPathFile.charAt(0) == '/' || sPathFile.charAt(0) == '\\'*/){
+//            throw new IllegalArgumentException("incorrect sPathFile!");
+//        }
+//        //get File
+        String fullFileName = //FILE_PATH_BEGIN "../webapps/wf-region/WEB-INF/classes/pattern/" +
+                sPathFile;
+        File file = new File(fullFileName);
+//        //FileInputStream fis = new FileInputStream(file);
+//
+//        //System.out.println("Total file size to read (in bytes) : "+ fis.available());
+
+//        int content;
+//        while ((content = fis.read()) != -1) {
+//            // convert to char and display it
+//            System.out.print((char) content);
+//        }
+        String content = Files.toString(file, Charsets.UTF_8);
+        return content;
+
+    }
+
+    public static void main(String[] args) {
+        try {
+            String s = getPatternFile("report","report1.html");//"/";
+            System.out.println(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
