@@ -850,7 +850,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
 
     @RequestMapping(value = "/getPatternFile", method = RequestMethod.GET)
-    public @ResponseBody String getPatternFile(
+    public String getPatternFile(
             @RequestParam(value = "sPathFile ") String sPathFile ,
             @RequestParam(value = "sContentType", required = false) String sContentType,
             HttpServletRequest request, HttpServletResponse response) throws ActivitiRestException {
