@@ -8,6 +8,8 @@ public interface HistoryEvent_ServiceDao {
 	public HistoryEvent_Service getHistoryEvent_ServiceBynID(Long nID);
 	
     public HistoryEvent_Service getHistoryEvent_ServiceBysID(String sID) ;
+    
+    public HistoryEvent_Service getHistoryEvent_ServiceBynID_Task(Long nID_Task);
 
     public HistoryEvent_Service getHistoryEvent_ServiceByID_Protected(Long nID_Protected);
 
