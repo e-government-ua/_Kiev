@@ -1,4 +1,4 @@
-angular.module('app').factory('FormDataFactory', function(ParameterFactory, DatepickerFactory, FileFactory, BankIDDocumentsFactory) {
+angular.module('app').factory('FormDataFactory', function(ParameterFactory, DatepickerFactory, FileFactory, BankIDDocumentsFactory, CountryService, $q) {
   var FormDataFactory = function() {
     this.processDefinitionId = null;
 
@@ -23,6 +23,19 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
           this.params[property.id] = new ParameterFactory();
           this.params[property.id].value = property.value;
           break;
+      }
+      var self = this;
+      // автоподстановка значения в поле "гражданство" из поля bankIdsID_Country если в форме оно не установлено
+      if(property.id == 'resident' && !this.params[property.id].value) {
+        angular.forEach(ActivitiForm.formProperties, function(prop)
+        {
+          if (prop.id == 'bankIdsID_Country') {
+            var param = self.params[property.id];
+            CountryService.getCountryBy_sID_Three(prop.value).then(function(response){
+              param.value = response.data.sNameShort_UA;
+            });
+          }
+        });
       }
     }
   };
