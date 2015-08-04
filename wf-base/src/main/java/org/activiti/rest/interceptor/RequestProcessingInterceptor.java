@@ -91,25 +91,32 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         logger.info("sResponseBody: " + responseBody);
         
         try{
-        	logger.info("checkSaveHistoryEvent!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        	if(saveHistory && (request.getRequestURL().toString().indexOf("/form/form-data") > 0
-        			|| request.getRequestURL().toString().indexOf("/start-process/") > 0
-        			|| (request.getRequestURL().toString().indexOf("runtime/process-instances") > 0 
-        					&& "POST".equalsIgnoreCase(request.getMethod().trim())))){
+        	String serviceName = null;
+        	String taskName = null;
+        	if(saveHistory && request.getRequestURL().toString().indexOf("/form/form-data") > 0
+        			&& "POST".equalsIgnoreCase(request.getMethod().trim())){
+        		serviceName = "addHistoryEvent_Service";
+        		taskName = "Заявка подана";
+        	} else if(saveHistory && request.getRequestURL().toString().indexOf("/runtime/tasks") > 0
+        			&& "PUT".equalsIgnoreCase(request.getMethod().trim())){
+        		serviceName = "updateHistoryEvent_Service";
+        	}
+        	if(serviceName != null){
         		JSONParser parser = new JSONParser();
-                JSONObject jsonObject = (JSONObject) parser.parse(responseBody);
-                String sID_Task = (String) jsonObject.get("id");
-                if (sID_Task != null) {
-                	String status = "Заявка подана";
-                	Map<String, String> params = new HashMap<String, String>();
-            		params.put("nID_Task", sID_Task);
-            		params.put("sStatus", status);
-            		params.put("sID_Status", status);
-            		logger.info("addHistoryEvent_Service: " + generalConfig.sHostCentral() + "/wf-central/services/addHistoryEvent_Service " + params);
-            		String soResponse = HttpRequester.get(//"https://poligon.igov.org.ua" 
-            				generalConfig.sHostCentral() + "/wf-central/service/services/addHistoryEvent_Service", params);
-            		logger.info("soJSON = " + soResponse);
-                }
+        		JSONObject jsonObject = (JSONObject) parser.parse(responseBody);
+        		String sID_Task = (String) jsonObject.get("id");
+        		if (sID_Task != null) {
+        			logger.info("call service HistoryEvent_Service!!!!!!!!!!!");
+        			String URL = generalConfig.sHostCentral() + "/wf-central/service/services/" + serviceName;
+        			String status = taskName != null ? taskName : (String) jsonObject.get("name");
+        			Map<String, String> params = new HashMap<String, String>();
+        			params.put("nID_Task", sID_Task);
+        			params.put("sStatus", status);
+        			params.put("sID_Status", status);
+        			logger.info(URL + ": " + params);
+        			String soResponse = HttpRequester.get(URL, params);
+        			logger.info("ok! soJSON = " + soResponse);
+        		}
         	}
         }
         catch(Exception ex){
