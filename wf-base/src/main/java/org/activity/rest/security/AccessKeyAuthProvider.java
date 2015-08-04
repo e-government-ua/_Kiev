@@ -82,16 +82,25 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
     }
 
     private boolean authenticatedByGeneralCredentials(Authentication authentication) {
-        return generalAccessKey.equals(authentication.getName()) &&
+        log.info("[authenticatedByGeneralCredentials]:generalAccessKey="+generalAccessKey+",generalSubjectId="+generalSubjectId);
+        log.info("[authenticatedByGeneralCredentials]:generalAccessKey="+generalAccessKey+",generalSubjectId="+generalSubjectId);
+        boolean bReturn = generalAccessKey.equals(authentication.getName()) &&
                 generalSubjectId.equals(authentication.getCredentials());
+        log.info("[authenticatedByGeneralCredentials]:bReturn="+bReturn);
+        return bReturn;
     }
 
     private boolean generalCredentialsExists() {
-        return StringUtils.isNotBlank(generalAccessKey) &&
+        log.info("[generalCredentialsExists]:generalAccessKey="+generalAccessKey+",generalSubjectId="+generalSubjectId);
+        boolean bReturn = StringUtils.isNotBlank(generalAccessKey) &&
                 StringUtils.isNotBlank(generalSubjectId);
+        log.info("[generalCredentialsExists]:bReturn="+bReturn);
+        return bReturn;
     }
 
     private Authentication authenticatedToken(Authentication authentication) {
+        log.info("[generalCredentialsExists]:authentication.getName()="+authentication.getName()
+                +",authentication.getCredentials().toString()="+authentication.getCredentials().toString());
         return new AccessKeyAuthenticationToken(authentication.getName(),
                 authentication.getCredentials().toString(),
                 Arrays.asList(new SimpleGrantedAuthority(GENERAL_ROLE)));
@@ -99,6 +108,8 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return AccessKeyAuthenticationToken.class.equals(authentication);
+        boolean bReturn = AccessKeyAuthenticationToken.class.equals(authentication);
+        log.info("[supports]:bReturn="+bReturn);
+        return bReturn;
     }
 }

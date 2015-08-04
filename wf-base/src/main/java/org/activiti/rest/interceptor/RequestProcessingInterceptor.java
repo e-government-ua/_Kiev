@@ -79,6 +79,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         }
 
         logger.info("mParamRequest: " + mParamRequest);
-        logger.info("sResponseBody: " + response.toString());
+        //logger.info("sResponseBody: " + response.toString());
+        logger.info("sResponseBody: " + (response!=null?response.toString().length():"null"));
     }
 }
