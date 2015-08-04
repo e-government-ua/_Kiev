@@ -12,6 +12,16 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     uiUploader ) {
 
     'use strict';
+
+  // Удалить это после теста задачи #584
+  ActivitiForm.formProperties.push({
+    id: "bankIdsID_Country",
+    name: "Громадянство",
+    type: "invisible",
+    value: "UKR",
+    readable: true
+  });
+
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount;
   $scope.ActivitiForm = ActivitiForm;

@@ -21,6 +21,7 @@ angular.module('app').directive('dropdownCountry', function (CountryListFactory)
       scope.countryList.initialize();
       scope.countryList.load(scope.serviceData, null).then(function (countryList) {
         scope.countryList.initialize(countryList);
+        scope.countryList.typeahead.model = scope.ngModel;
       });
     }
   };
