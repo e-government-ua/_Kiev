@@ -460,27 +460,27 @@ public class ActivitiRestDocumentController {
 
     @RequestMapping(value   = "/setDocumentType",  method  = RequestMethod.GET)
     public  @ResponseBody
-    ResponseEntity<DocumentType> setDocumentType (
+    ResponseEntity setDocumentType (
             @RequestParam(value = "nID")   Long     nID,
             @RequestParam(value = "sName") String sName,
             @RequestParam(value = "bHidden", required = false) Boolean bHidden
     ) {
-        ResponseEntity<DocumentType> result;
+        ResponseEntity result;
         try {
             DocumentType documentType = documentTypeDao.setDocumentType(nID, sName, bHidden);
             result = JsonRestUtils.toJsonResponse(documentType);
         } catch (RuntimeException e) {
-            result = toJsonErrorResponse(403, e.getMessage());
+            result = toJsonErrorResponse(HttpStatus.FORBIDDEN, e.getMessage());
         }
         return result;
     }
 
-    private ResponseEntity toJsonErrorResponse(int httpCode, String eMessage) {//todo move to JsonRestUtils
+    private ResponseEntity toJsonErrorResponse(HttpStatus httpStatus, String eMessage) {//todo move to JsonRestUtils
         HttpHeaders headers = new HttpHeaders();
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         headers.setContentType(mediaType);
         headers.set("Reason", eMessage);
-        return new ResponseEntity<>(headers, HttpStatus.valueOf(httpCode));
+        return new ResponseEntity<>(headers, httpStatus);
     }
 
     @RequestMapping(value   = "/removeDocumentType", method  = RequestMethod.GET)
@@ -507,16 +507,16 @@ public class ActivitiRestDocumentController {
 
     @RequestMapping(value   = "/setDocumentContentType",  method  = RequestMethod.GET)
     public  @ResponseBody
-    ResponseEntity<DocumentContentType> setDocumentContentType (
+    ResponseEntity setDocumentContentType (
             @RequestParam(value = "nID")   Long     nID,
             @RequestParam(value = "sName") String sName
     ) {
-        ResponseEntity<DocumentContentType> result;
+        ResponseEntity result;
         try {
             DocumentContentType documentType = documentContentTypeDao.setDocumentContentType(nID, sName);
             result = JsonRestUtils.toJsonResponse(documentType);
         } catch (RuntimeException e) {
-            result = toJsonErrorResponse(403, e.getMessage());
+            result = toJsonErrorResponse(HttpStatus.FORBIDDEN, e.getMessage());
         }
         return result;
     }

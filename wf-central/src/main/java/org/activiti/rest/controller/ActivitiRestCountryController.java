@@ -71,7 +71,7 @@ public class ActivitiRestCountryController {
     @RequestMapping(value = "/getCountry", method = RequestMethod.GET)
     public
     @ResponseBody
-    ResponseEntity<Country> getCountry(
+    ResponseEntity<String> getCountry(
             @RequestParam(value = "nID", required = false) Long nID,
             @RequestParam(value = "nID_UA", required = false) Long nID_UA,
             @RequestParam(value = "sID_Two", required = false) String sID_Two,
@@ -84,7 +84,7 @@ public class ActivitiRestCountryController {
                     "(nID, nID_UA, sID_Two, sID_Three)!");
             return null;
         }
-        ResponseEntity<Country> result = null;
+        ResponseEntity<String> result = null;
         try {
             Country country = countryDao.getByKey(nID, nID_UA, sID_Two, sID_Three);
             result = JsonRestUtils.toJsonResponse(country);
@@ -111,7 +111,7 @@ public class ActivitiRestCountryController {
     @RequestMapping(value = "/setCountry", method = RequestMethod.GET)
     public
     @ResponseBody
-    ResponseEntity<Country> setCountry(
+    ResponseEntity<String> setCountry(
             @RequestParam(value = "nID", required = false) Long nID,
             @RequestParam(value = "nID_UA", required = false) Long nID_UA,
             @RequestParam(value = "sID_Two", required = false) String sID_Two,
@@ -128,7 +128,7 @@ public class ActivitiRestCountryController {
                     "(nID, nID_UA, sID_Two, sID_Three, sNameShort_UA, sNameShort_EN)!");
         }
 
-        ResponseEntity<Country> result = null;
+        ResponseEntity<String> result = null;
 
         try {
             Country country = countryDao.setCountry(nID, nID_UA, sID_Two, sID_Three,
