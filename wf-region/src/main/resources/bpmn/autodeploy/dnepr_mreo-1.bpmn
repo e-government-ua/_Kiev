@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="dnepr_mreo_1" name="Днепропетровск - Реєстрація авто з пробігом в МРЕВ" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -13,7 +13,9 @@
         <activiti:formProperty id="vin" name="VIN-номер авто;можна знайти у свідоцтві про реєстрацію чи в технічному паспорті транспортного засобу. Приклад: 1HGEG644387712345" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="brand" name="Марка авто; наприклад: Audi, BMW, Ford" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="model" name="Модель авто" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="number" name="Держ.номер, що зараз встановлений на авто" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="number" name="Існуючий держ.номер авто" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="trans_number" name="транзитний номер авто; зазначте  у разі наявності" type="string"></activiti:formProperty>
+        <activiti:formProperty id="regDocData" name="Серія та номер свідоцтва про реєстрацію авто" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="visitDate" name="Бажана дата візиту до МРЕВ" type="queueData" required="true"></activiti:formProperty>
@@ -32,13 +34,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Реєстрація авто.]]></activiti:string>
+          <activiti:string>Реєстрація авто.</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -139,25 +141,28 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="brand" name="Марка авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="model" name="Модель авто" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="number" name="Попередній держ.номер авто" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="number" name="Існуючий держ.номер авто" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="trans_number" name="транзитний номер авто" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="regDocData" name="Серія та номер свідоцтва про реєстрацію авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="visitDate" name="Бажана дата тех.огляду авто" type="queueData" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decide" name="Результат перевірки наявності обтяжень" type="enum" required="true">
+        <activiti:formProperty id="decide" name="Рішення про надання послуги та результат перевірки наявності обтяжень" type="enum" required="true">
           <activiti:value id="accept" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"></activiti:value>
           <activiti:value id="warning" name="Авто підлягає арешту. Надіслати громадянину повідомлення про час / дату візиту"></activiti:value>
           <activiti:value id="reject" name="Знайдені обтяження. Відмовити громадянину в наданні послуги."></activiti:value>
+          <activiti:value id="reject2" name="Відмовити громадянину в наданні послуги; звернення містить невірні дані "></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment" name="В разі відмови в наданні послуги,  вкажіть причину." type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="billToPay" name="Завантажте квитацїю для сплати  збору за надання послуги" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="comment" name="В разі відмови в наданні послуги, вкажіть причину. (Інформація буде спрямована громадянину на e-mail)" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="billToPay" name="Завантажити реквізити для оплати (Інформація буде спрямована громадянину на e-mail)" type="file" default=" "></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow5" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <sequenceFlow id="flow6" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="mailtask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
+    <sequenceFlow id="flow6" name="${decide == 'reject' || decide == 'reject2' }" sourceRef="exclusivegateway1" targetRef="mailtask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject' || decide == 'reject2' }]]></conditionExpression>
     </sequenceFlow>
     <serviceTask id="mailtask2" name="Повідомлення про відмову в наданні послуги" activiti:type="mail">
       <extensionElements>
@@ -165,13 +170,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Реєстрація авто]]></activiti:string>
+          <activiti:string>Реєстрація авто</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -271,7 +276,9 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="brand" name="Марка авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="model" name="Модель авто" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="number" name="Попередній держ.номер авто" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="number" name="Існуючий держ.номер авто" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="trans_number" name="транзитний номер авто" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="regDocData" name="Серія та номер свідоцтва про реєстрацію авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="visitDate" name="Бажана дата тех.огляду авто" type="queueData" writable="false"></activiti:formProperty>
@@ -299,7 +306,9 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="brand" name="Марка авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="model" name="Модель авто" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="number" name="Попередній держ.номер авто" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="number" name="Існуючий держ.номер авто" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="trans_number" name="транзитний номер авто" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="regDocData" name="Серія та номер свідоцтва про реєстрацію авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="visitDate" name="Бажана дата тех.огляду авто" type="queueData" writable="false"></activiti:formProperty>
@@ -349,7 +358,9 @@
         <activiti:formProperty id="vin" name="VIN-номер авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="brand" name="Марка авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="model" name="Модель авто" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="number" name="Попередній держ.номер авто" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="number" name="Існуючий держ.номер авто" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="trans_number" name="транзитний номер авто" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="regDocData" name="Серія та номер свідоцтва про реєстрацію авто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="visitDate" name="Бажана дата тех.огляду авто" type="queueData" writable="false"></activiti:formProperty>
@@ -380,13 +391,13 @@
     <serviceTask id="servicetask2" name="Повідомлення громадянина сплату послуги" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Реєстрація авто: рахунок на оплату та дата/час візиту]]></activiti:string>
+          <activiti:string>Реєстрація авто: рахунок на оплату та дата/час візиту</activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -494,13 +505,13 @@ ${visitDate}&lt;br /&gt;
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Реєстрація авто: рахунок на оплату та дата/час візиту]]></activiti:string>
+          <activiti:string>Реєстрація авто: рахунок на оплату та дата/час візиту</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -678,19 +689,19 @@ ${visitDate}&lt;br /&gt;
 &lt;/html&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Реєстрація авто. Нове  звернення.]]></activiti:string>
+          <activiti:string>Реєстрація авто. Нове  звернення.</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[kyrbatsky@gmail.com]]></activiti:string>
+          <activiti:string>kyrbatsky@gmail.com</activiti:string>
         </activiti:field>
         <activiti:field name="bcc">
-          <activiti:string><![CDATA[pavel.kurbatskij@privatbank.ua, vladimir.zimenko@privatbank.ua]]></activiti:string>
+          <activiti:string>pavel.kurbatskij@privatbank.ua, vladimir.zimenko@privatbank.ua</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -780,7 +791,7 @@ ${visitDate}&lt;br /&gt;
         <omgdi:waypoint x="648.0" y="359.0"></omgdi:waypoint>
         <omgdi:waypoint x="753.0" y="359.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="95.0" x="642.0" y="332.0"></omgdc:Bounds>
+          <omgdc:Bounds height="56.0" width="100.0" x="642.0" y="332.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">

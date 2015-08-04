@@ -152,9 +152,9 @@
           <activiti:value id="accept" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"></activiti:value>
           <activiti:value id="warning" name="Авто підлягає арешту. Надіслати громадянину повідомлення про час / дату візиту"></activiti:value>
           <activiti:value id="reject" name="Знайдені обтяження. Відмовити громадянину в наданні послуги."></activiti:value>
-          <activiti:value id="reject2" name="Відмовити громадянину в наданні послуги "></activiti:value>
+          <activiti:value id="reject2" name="Відмовити громадянину в наданні послуги; звернення містить невірні дані "></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment" name="В разі відмови в наданні послуги, вкажіть причину" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="В разі відмови в наданні послуги, вкажіть причину. (Інформація буде спрямована громадянину на e-mail)" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="billToPay" name="Завантажити реквізити для оплати (Інформація буде спрямована громадянину на e-mail)" type="file" default=" "></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
