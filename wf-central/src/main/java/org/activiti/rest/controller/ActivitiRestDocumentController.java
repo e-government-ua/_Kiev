@@ -460,12 +460,12 @@ public class ActivitiRestDocumentController {
 
     @RequestMapping(value   = "/setDocumentType",  method  = RequestMethod.GET)
     public  @ResponseBody
-    ResponseEntity<DocumentType> setDocumentType (
+    ResponseEntity setDocumentType (
             @RequestParam(value = "nID")   Long     nID,
             @RequestParam(value = "sName") String sName,
             @RequestParam(value = "bHidden", required = false) Boolean bHidden
     ) {
-        ResponseEntity<DocumentType> result;
+        ResponseEntity result;
         try {
             DocumentType documentType = documentTypeDao.setDocumentType(nID, sName, bHidden);
             result = JsonRestUtils.toJsonResponse(documentType);
@@ -507,11 +507,11 @@ public class ActivitiRestDocumentController {
 
     @RequestMapping(value   = "/setDocumentContentType",  method  = RequestMethod.GET)
     public  @ResponseBody
-    ResponseEntity<DocumentContentType> setDocumentContentType (
+    ResponseEntity setDocumentContentType (
             @RequestParam(value = "nID")   Long     nID,
             @RequestParam(value = "sName") String sName
     ) {
-        ResponseEntity<DocumentContentType> result;
+        ResponseEntity result;
         try {
             DocumentContentType documentType = documentContentTypeDao.setDocumentContentType(nID, sName);
             result = JsonRestUtils.toJsonResponse(documentType);
