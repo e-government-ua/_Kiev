@@ -10,6 +10,7 @@ import java.net.URLEncoder;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.wf.dp.dniprorada.liqPay.LiqBuyUtil;
 
 public class HttpRequester {
 
@@ -26,8 +27,16 @@ public class HttpRequester {
 		BufferedReader in;
 		HttpURLConnection con;
 		con = (HttpURLConnection) obj.openConnection();
-		con.setRequestProperty("authorization",
-				"Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=");
+		//con.setRequestProperty("authorization",
+		//		"Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=");
+                
+                /*
+                String sUser="";
+                String sPassword="";
+                String sAuth = LiqBuyUtil.base64_encode(sUser+":"+sPassword);
+		con.setRequestProperty("authorization", "Basic "+sAuth);
+                */
+                
 		con.setRequestMethod("POST");
 		con.setDoOutput(false);
 		wr = new DataOutputStream(con.getOutputStream());
@@ -63,8 +72,12 @@ public class HttpRequester {
 		BufferedReader bf;
 		HttpURLConnection con;
 		con = (HttpURLConnection) obj.openConnection();
+                
+                /*
 		con.setRequestProperty("authorization",
 				"Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=");
+                */
+                
 		con.setRequestMethod(RequestMethod.GET.name());
 		con.setDoInput(true); 
 		con.setDoOutput(true);
