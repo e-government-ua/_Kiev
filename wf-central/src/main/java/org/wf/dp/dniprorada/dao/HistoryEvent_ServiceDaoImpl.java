@@ -91,7 +91,7 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
     }
 
     @Override
-    public void updateHistoryEvent_Service(
+    public HistoryEvent_Service updateHistoryEvent_Service(
     		//Long nID_Protected, 
     		Long nID_Task,
     		String sStatus, String sID_status) {
@@ -115,6 +115,7 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
         	event_service.setsDate(new DateTime());
             getSession().saveOrUpdate(event_service);
         }
+        return event_service;
     }
 
 }

@@ -99,7 +99,7 @@ public class ActivitiRestHistoryEventController {
     @RequestMapping(value = "/updateHistoryEvent_Service", method = RequestMethod.GET)
     public
     @ResponseBody
-    void updateHistoryEvent_Service(
+    HistoryEvent_Service updateHistoryEvent_Service(
     		@RequestParam(value = "nID", required = false) Long nID_Task,
             //@RequestParam(value = "nID_Protected", required = false) Long nID_Protected, 
             @RequestParam(value = "sStatus") String sStatus,
@@ -107,12 +107,13 @@ public class ActivitiRestHistoryEventController {
             HttpServletResponse response) {
 
         try {
-            historyEventServiceDao.updateHistoryEvent_Service(nID_Task,
+            return historyEventServiceDao.updateHistoryEvent_Service(nID_Task,
             		//nID_Protected
             		sStatus, sID_Status);
         } catch (RuntimeException e) {
             response.setStatus(403);
             response.setHeader("Reason", e.getMessage());
+            return null;
         }
     }
 
