@@ -100,13 +100,14 @@ public class ActivitiRestHistoryEventController {
     public
     @ResponseBody
     HistoryEvent_Service updateHistoryEvent_Service(
-    		@RequestParam(value = "nID", required = false) Long nID_Task,
+    		@RequestParam(value = "nID_Task", required = false) Long nID_Task,
             //@RequestParam(value = "nID_Protected", required = false) Long nID_Protected, 
             @RequestParam(value = "sStatus") String sStatus,
             @RequestParam(value = "sID_Status", required = false) String sID_Status,
             HttpServletResponse response) {
 
         try {
+        	log.info("updateHistoryEvent_Service!!!!!!!!!!!!!");
             return historyEventServiceDao.updateHistoryEvent_Service(nID_Task,
             		//nID_Protected
             		sStatus, sID_Status);
