@@ -16,8 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.activiti.rest.controller.adapter.MultiReaderHttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 
 /**
  *
@@ -25,6 +27,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  */
 public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
 
+    @Autowired
+    GeneralConfig generalConfig;
+    
     private static final Logger logger = LoggerFactory
             .getLogger(RequestProcessingInterceptor.class);
 
@@ -79,7 +84,17 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         }
 
         logger.info("mParamRequest: " + mParamRequest);
-        //logger.info("sResponseBody: " + response.toString());
-        logger.info("sResponseBody: " + (response!=null?response.toString().length():"null"));
+        //logger.info("sResponseBody: " + sResponseBody);
+        String sResponseBody = response.toString();
+        if(generalConfig.bTest()){
+            if(sResponseBody!=null){
+                logger.info("sResponseBody: " + sResponseBody.substring(0, sResponseBody.length()<100?sResponseBody.length():99));
+            }else{
+                logger.info("sResponseBody: null");
+            }
+            logger.info("sResponseBody: " + sResponseBody);
+        }else{
+            logger.info("sResponseBody: " + (sResponseBody!=null?sResponseBody.length():"null"));
+        }
     }
 }
