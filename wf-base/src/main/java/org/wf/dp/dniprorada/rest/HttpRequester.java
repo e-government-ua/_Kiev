@@ -18,7 +18,7 @@ import org.wf.dp.dniprorada.util.GeneralConfig;
 public class HttpRequester {
 
     @Autowired
-    GeneralConfig generalConfig;
+    static GeneralConfig generalConfig;
         
 	public static String post(String url, Map<String, String> params)
 			throws Exception {
