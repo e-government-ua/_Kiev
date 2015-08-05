@@ -125,7 +125,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 if(sResponseBody != null){
                 	jsonObject = (JSONObject) parser.parse(sResponseBody);
                 } else{
-                	jsonObject = (JSONObject) parser.parse(sResponseBody);
+                	jsonObject = (JSONObject) parser.parse(sRequestBody);
                 }
               
                 String ID = (String) jsonObject.get("id");
