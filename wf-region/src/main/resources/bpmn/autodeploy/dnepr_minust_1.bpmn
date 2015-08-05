@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_minust_1" name="Днепроперовск МинЮст - Зміни до відомостей про юридичну особу, які не пов'язані із змінами, що вносяться до установчих документів" isExecutable="true">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="dnepr_minust_1" name="Днепроперовск МинЮст - Внесення змін до відомостей про юридичну особу, які містяться в Єдиному державному реєстрі юридичних осіб та фізичних осіб – підприємців, що не пов'язані із змінами, що вносяться до установчих документів юридичної особи, або не підлягають державній реєстрації" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -30,16 +30,16 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Зміни до відомостей про юридичну особу, які не пов'язані із змінами, що вносяться до установчих документів]]></activiti:string>
+          <activiti:string>Звернення на тему: Зміни до відомостей про юридичну особу, які не пов'язані із змінами, що вносяться до установчих документів</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>﻿&lt;!DOCTYPE html&gt;
+          <activiti:expression>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head lang="ru"&gt;
     &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
@@ -77,11 +77,8 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
                     &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-=======
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch 'test' of https://github.com/e-government-ua/i.git
+
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -93,7 +90,7 @@
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
                                        Ваше звернення успішно зареєстровано. &lt;br /&gt;
-									   Ви отримаєте відповідь протягом %% робочих днів на цю email-адресу.
+									   Ви отримаєте відповідь протягом _____ робочих днів на цю email-адресу.
                                                                          
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -118,18 +115,19 @@
     &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/body&gt;
-&lt;/html&gt;</activiti:expression>
+&lt;/html&gt;
+</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="Прийняття рішення про надання послуги (1)" activiti:candidateGroups="sales">
+    <userTask id="usertask1" name="Прийняття рішення про надання послуги (1)" activiti:candidateGroups="dnepr_minust_1">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide1" name="Результат перевірки документів" type="enum" required="true">
           <activiti:value id="accept" name="Документи пройшли перевірку. Послуга може бути надана."></activiti:value>
           <activiti:value id="reject" name="Послуга не може бути надана."></activiti:value>
@@ -141,25 +139,25 @@
           <activiti:value id="Документи подані особою, яка не має відповідних повноважень." name="Документи подані особою, яка не має відповідних повноважень."></activiti:value>
           <activiti:value id="До державного реєстратору надійшло рішення суду щодо заборони проведення реєстраційних дій,  яке набрало законної сили." name="До державного реєстратору надійшло рішення суду щодо заборони проведення реєстраційних дій,  яке набрало законної сили."></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="billToPay" name="Завантажте рахунок для сплати" type="file"></activiti:formProperty>
         <activiti:formProperty id="cost" name=" зміни до відомостей про юридичну особу, які містяться в Єдиному державному реєстрі юридичних осіб та фізичних осіб – підприємців, пов’язані із зміною місцезнаходження юридичної особи, зміною найменування юридичної особи, зменшенням статутного капіталу (статутного або складеного капіталу) юридичної особи ?" type="enum">
           <activiti:value id="yes" name="Так (справляється плата за публікацію повідомлень у спеціалізованому друкованому засобі масової інформації в розмірі трьох неоподаткованих мінімумів доходів громадян (51 грн.))"></activiti:value>
           <activiti:value id="no" name="Ні (послуга надається безкоштовно)"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="billToPay" name="Завантажте рахунок для сплати (буде відправлено громадянину на e-mail)" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="usertask3" name="Внесення до ЄДР запису про зміну  до відомостей" activiti:candidateGroups="sales">
+    <userTask id="usertask3" name="Внесення до ЄДР запису про зміну  до відомостей" activiti:candidateGroups="dnepr_minust_1">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide1" name="Результат" type="enum">
           <activiti:value id="accept" name="Ухвалити"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
@@ -182,13 +180,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Зміни до відомостей про юридичну особу, які не пов'язані із змінами, що вносяться до установчих документів]]></activiti:string>
+          <activiti:string>Звернення на тему: Зміни до відомостей про юридичну особу, які не пов'язані із змінами, що вносяться до установчих документів</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>﻿&lt;!DOCTYPE html&gt;
@@ -229,11 +227,9 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+
                     &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-=======
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch 'test' of https://github.com/e-government-ua/i.git
+
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -280,7 +276,7 @@
     <serviceTask id="servicetask2" name="Повідомлення про обробку звернення" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
@@ -309,7 +305,7 @@
     <serviceTask id="servicetask3" name="Повідомлення про рахунок до сплати" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+          <activiti:string>admin@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
