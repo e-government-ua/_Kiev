@@ -851,7 +851,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
 
     @RequestMapping(value = "/getPatternFile", method = RequestMethod.GET)
-    public byte[] getPatternFile(
+    public Object  getPatternFile(
             @RequestParam(value = "sPathFile") String sPathFile ,
             @RequestParam(value = "sContentType", required = false) String sContentType,
             HttpServletRequest request, HttpServletResponse response) throws ActivitiRestException {
@@ -869,7 +869,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 //            HttpHeaders headers = new HttpHeaders();
 //            headers.setContentType(mediaType);
             //get file
-            byte[] resultObj = Util.getPatternFile(sPathFile, contentType);
+            String resultObj = Util.getPatternFile(sPathFile, contentType);
 //            log.info(">>>>>>result file=" + resultStr);
             //result
 //            ResponseEntity<String> result = new ResponseEntity<>(resultStr, headers, HttpStatus.OK);
