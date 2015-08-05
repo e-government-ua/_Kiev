@@ -61,8 +61,8 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
                 aField_ID:['privatePhone','workPhone', 'phone', 'tel']
             }, Mail:{
                 aField_ID:['privateMail','email']
-//            }, AutoVIN:{
-//                aField_ID:['vin_code', 'vin_code1', 'vin']
+            }, AutoVIN:{
+                aField_ID:['vin_code', 'vin_code1', 'vin']
             }
         }
     };
@@ -122,7 +122,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
         ValidationService.validateEmailByMarker( form.email, $scope.markers );
         ValidationService.validateTelephoneByMarker( form.phone, $scope.markers );
-//        ValidationService.validateAutoVIN( form.vin, $scope.markers );
+        ValidationService.validateAutoVIN( form.vin, $scope.markers );
 
         if (form.$valid && bValid) {//
             ActivitiService
