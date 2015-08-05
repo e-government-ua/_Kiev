@@ -283,7 +283,7 @@ sContentType - строковой тип контента
 5) задавая в хеадере респонса тот контенттайп, что указан в "sContentType" - отдавать контент файла.
 5) описать в доке с АПИ*/
 
-    public static String getPatternFile(String sPathFile, String sContentType)
+    public static File getPatternFile(String sPathFile, String sContentType)
             throws IOException {
 //        System.out.println("begin test");//src/main/resources/pattern/print/subsidy_zayava.html
      ///temp
@@ -314,16 +314,16 @@ sContentType - строковой тип контента
 //        }
         String content = Files.toString(file, Charsets.UTF_8);
         log.info("content of file=" + content);
-        return content;
+        return file;
 
     }
 
-    public static void main(String[] args) {
-        try {
-            String s = getPatternFile("report","report1.html");//"/";
-            System.out.println(s);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void main(String[] args) {
+//        try {
+//            String s = getPatternFile("report","report1.html");//"/";
+//            System.out.println(s);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

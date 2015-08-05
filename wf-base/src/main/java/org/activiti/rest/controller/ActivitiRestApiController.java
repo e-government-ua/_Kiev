@@ -50,6 +50,7 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -853,7 +854,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
 
     @RequestMapping(value = "/getPatternFile", method = RequestMethod.GET)
-    public ResponseEntity<String> getPatternFile(
+    public ResponseEntity<File> getPatternFile(
             @RequestParam(value = "sPathFile") String sPathFile ,
             @RequestParam(value = "sContentType", required = false) String sContentType,
             HttpServletRequest request, HttpServletResponse response) throws ActivitiRestException {
@@ -871,10 +872,10 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(mediaType);
             //get file
-            String resultStr = Util.getPatternFile(sPathFile, contentType);
-            log.info(">>>>>>>>>>>>>result file=" + resultStr);
+            File resultStr = Util.getPatternFile(sPathFile, contentType);
+           // log.info(">>>>>>>>>>>>>result file=" + resultStr);
             //result
-            ResponseEntity<String> result = new ResponseEntity<>(resultStr, headers, HttpStatus.OK);
+            ResponseEntity<File> result = new ResponseEntity<>(resultStr, headers, HttpStatus.OK);
             //response.setContentType(contentType);
             return result;
         } catch (IllegalArgumentException e) {
