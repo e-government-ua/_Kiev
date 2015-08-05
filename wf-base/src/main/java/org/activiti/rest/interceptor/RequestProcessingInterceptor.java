@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.activiti.rest.interceptor; 
+package org.activiti.rest.interceptor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +12,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.activiti.engine.ActivitiObjectNotFoundException;
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.history.HistoricTaskInstance;
 
 import org.activiti.rest.controller.adapter.MultiReaderHttpServletResponse;
 import org.json.simple.JSONObject;
@@ -32,9 +35,12 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger logger = LoggerFactory
             .getLogger(RequestProcessingInterceptor.class);
-    
+
     @Autowired
     GeneralConfig generalConfig;
+
+    @Autowired
+    private HistoryService historyService;
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -62,8 +68,8 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             throws Exception {
         logger.info("[afterCompletion] Request URL = " + request.getRequestURL().toString()
                 + ":: Time Taken = " + (System.currentTimeMillis() - (Long) request.getAttribute("startTime")));
-        response = ((MultiReaderHttpServletResponse)request.getAttribute("responseMultiRead") != null ? 
-        		(MultiReaderHttpServletResponse)request.getAttribute("responseMultiRead") : response);
+        response = ((MultiReaderHttpServletResponse) request.getAttribute("responseMultiRead") != null
+                ? (MultiReaderHttpServletResponse) request.getAttribute("responseMultiRead") : response);
         testReadFromRequest(request, response, true);
     }
 
@@ -87,40 +93,51 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         }
 
         logger.info("mParamRequest: " + mParamRequest);
-        String responseBody  = response.toString();
+        String responseBody = response.toString();
         logger.info("sResponseBody: " + responseBody);
-        
-        try{
-        	String serviceName = null;
-        	String taskName = null;
-        	if(saveHistory && request.getRequestURL().toString().indexOf("/form/form-data") > 0
-        			&& "POST".equalsIgnoreCase(request.getMethod().trim())){
-        		serviceName = "addHistoryEvent_Service";
-        		taskName = "Заявка подана";
-        	} else if(saveHistory && request.getRequestURL().toString().indexOf("/runtime/tasks") > 0
-        			&& "PUT".equalsIgnoreCase(request.getMethod().trim())){
-        		serviceName = "updateHistoryEvent_Service";
-        	}
-        	if(serviceName != null){
-        		JSONParser parser = new JSONParser();
-        		JSONObject jsonObject = (JSONObject) parser.parse(responseBody);
-        		String sID_Task = (String) jsonObject.get("id");
-        		if (sID_Task != null) {
-        			logger.info("call service HistoryEvent_Service!!!!!!!!!!!");
-        			String URL = generalConfig.sHostCentral() + "/wf-central/service/services/" + serviceName;
-        			String status = taskName != null ? taskName : (String) jsonObject.get("name");
-        			Map<String, String> params = new HashMap<String, String>();
-        			params.put("nID_Task", sID_Task);
-        			params.put("sStatus", status);
-        			params.put("sID_Status", status);
-        			logger.info(URL + ": " + params);
-        			String soResponse = HttpRequester.get(URL, params);
-        			logger.info("ok! soJSON = " + soResponse);
-        		}
-        	}
-        }
-        catch(Exception ex){
-        	logger.error("************************Error!!!!", ex);
+
+        try {
+            boolean setTask = request.getRequestURL().toString().indexOf("/form/form-data") > 0
+                    && "POST".equalsIgnoreCase(request.getMethod().trim());
+            boolean updateTask = request.getRequestURL().toString().indexOf("/runtime/tasks") > 0
+                    && "PUT".equalsIgnoreCase(request.getMethod().trim());
+            if (saveHistory && (setTask || updateTask)) {
+                logger.info("call service HistoryEvent_Service!!!!!!!!!!!");
+                JSONParser parser = new JSONParser();
+                JSONObject jsonObject = (JSONObject) parser.parse(responseBody);
+                String task_ID = (String) jsonObject.get("id");
+                String serviceName = null;
+                String taskName = null;
+                if (setTask) {
+                    serviceName = "addHistoryEvent_Service";
+                    taskName = "Заявка подана";
+                } else if (updateTask) {
+                    serviceName = "updateHistoryEvent_Service";
+                    HistoricTaskInstance historicTaskInstance = historyService.createHistoricTaskInstanceQuery().taskId(task_ID).singleResult();
+                    String processInstanceId = historicTaskInstance.getProcessInstanceId();
+                    if (processInstanceId == null) {
+                        throw new ActivitiObjectNotFoundException(
+                                "ProcessInstanceId for taskId '" + task_ID + "' not found.",
+                                RequestProcessingInterceptor.class);
+                    }
+                    historicTaskInstance = historyService.createHistoricTaskInstanceQuery().processInstanceId(processInstanceId).orderByHistoricTaskInstanceStartTime().asc().singleResult();
+                    task_ID = historicTaskInstance.getId();
+                }
+                if (serviceName != null && task_ID != null) {
+                    String URL = generalConfig.sHostCentral() + "/wf-central/service/services/" + serviceName;
+                    String status = taskName != null ? taskName : (String) jsonObject.get("name");
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("nID_Task", task_ID);
+                    params.put("sStatus", status);
+                    params.put("sID_Status", status);
+                    logger.info(URL + ": " + params);
+                    String soResponse = HttpRequester.get(URL, params);
+                    logger.info("ok! soJSON = " + soResponse);
+                }
+
+            }
+        } catch (Exception ex) {
+            logger.error("************************Error!!!!", ex);
         }
     }
 }
