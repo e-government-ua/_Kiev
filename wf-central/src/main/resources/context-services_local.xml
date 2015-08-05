@@ -94,6 +94,8 @@
         </bean>
 
         <bean id="sqlStorage" class="org.wf.dp.dniprorada.util.queryloader.QueryLoader"/>
+        
+        <bean id="httpRequester" class="org.wf.dp.dniprorada.rest.HttpRequester"></bean>
 
     </beans>
 
