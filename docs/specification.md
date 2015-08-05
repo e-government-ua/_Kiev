@@ -1645,8 +1645,8 @@ http://test.igov.org.ua/wf-central/service/flow/setFlowSlot_ServiceData
 **HTTP Metod: POST**
 
 Параметры:
-* nID_Flow_ServiceData - номер-ИД потока по данным сервиса (по которому удаляются слоты) (обязательный если нет sID_BP)
-* sID_BP - строка-ИД бизнес-процесса потока по данным сервиса (по которому удаляются слоты) (обязательный если нет nID_Flow_ServiceData)
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
 * sDateStart - дата "начиная с такого-то момента времени", в формате "2015-06-28 12:12:56.001" (опциональный)
 * sDateStop - дата "заканчивая к такому-то моменту времени", в формате "2015-07-28 12:12:56.001" (опциональный)
 
@@ -1690,8 +1690,8 @@ http://test.igov.org.ua/wf-central/service/flow/buildFlowSlots
 **HTTP Metod: DELETE**
 
 Параметры:
-* nID_Flow_ServiceData - номер-ИД потока по данным сервиса (по которому удаляются слоты) (обязательный если нет sID_BP)
-* sID_BP - строка-ИД бизнес-процесса потока по данным сервиса (по которому удаляются слоты) (обязательный если нет nID_Flow_ServiceData)
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
 * sDateStart - дата "начиная с такого-то момента времени", в формате "2015-06-28 12:12:56.001" (обязательный)
 * sDateStop - дата "заканчивая к такому-то моменту времени", в формате "2015-07-28 12:12:56.001" (обязательный)
 * bWithTickets - удалять ли слоты с тикетами, отвязывая тикеты от слотов? (опциональный, по умолчанию false)
@@ -2010,7 +2010,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nI
 **HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowInclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&sName=[sName]&sRegionTime=[sRegionTime]&sDateTimeAt=[sDateTimeAt]&sDateTimeTo=[sDateTimeTo]&saRegionWeekDay=[saRegionWeekDay]
 
 * nID - ИД-номер //опциональный ,если задан - редактирование
-* nID_Flow_ServiceData - ИД-номер потока 
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
 * sName - Строка-название ("Вечерний прием")
 * sRegionTime - Строка период времени ("14:16-16-30")
 * saRegionWeekDay - Массив дней недели ("su,mo,tu")
@@ -2038,7 +2039,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowInclude?nID
 
 **HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowInclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&nID=[nID]
 
-* nID_Flow_ServiceData - ИД-номер потока 
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
 * nID - ИД-номер
 Ответ:
 Массив объектов сущности расписаний включений
@@ -2086,7 +2088,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nI
 **HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&sName=[sName]&sRegionTime=[sRegionTime]&sDateTimeAt=[sDateTimeAt]&sDateTimeTo=[sDateTimeTo]&saRegionWeekDay=[saRegionWeekDay]
 
 * nID - ИД-номер //опциональный ,если задан - редактирование
-* nID_Flow_ServiceData - ИД-номер потока 
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
 * sName - Строка-название ("Вечерний прием")
 * sRegionTime - Строка период времени ("14:16-16-30")
 * saRegionWeekDay - Массив дней недели ("su,mo,tu")
@@ -2114,7 +2117,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowExclude?nID
 
 **HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&nID=[nID]
 
-* nID_Flow_ServiceData - ИД-номер потока 
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
 * nID - ИД-номер
 Ответ:
 Массив объектов сущности расписаний исключений
