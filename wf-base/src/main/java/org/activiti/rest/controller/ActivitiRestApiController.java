@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -47,8 +48,6 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.filechooser.FileSystemView;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -852,22 +851,18 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
 
     @RequestMapping(value = "/getPatternFile", method = RequestMethod.GET)
-    public String getPatternFile(
+    public ResponseEntity<String> getPatternFile(
             @RequestParam(value = "sPathFile") String sPathFile ,
             @RequestParam(value = "sContentType", required = false) String sContentType,
             HttpServletRequest request, HttpServletResponse response) throws ActivitiRestException {
 
-        log.info("--------------");
-        log.info(">>>>>>>>>>> root=" + FileSystemView.getFileSystemView().getHomeDirectory());
-        log.info(">>>>>>>>>>> root=" + FileSystemView.getFileSystemView().getRoots()[0]);
-        log.info(">>>>>>>>>>> root=" + System.getProperty("user.dir"));
-        log.info(">>>>>>>>>>> root=" + File.listRoots()[0].getAbsolutePath());
-        log.info("--------------");
 
         try{
             String contentType = sContentType == null ? Util.DEFAULT_CONTENT_TYPE : sContentType;
-            String result = Util.getPatternFile(sPathFile, contentType);
-            response.setContentType(contentType);
+            String resultStr = Util.getPatternFile(sPathFile, contentType);
+            log.info("result file=" + resultStr);
+            ResponseEntity<String> result = new ResponseEntity<>(resultStr, HttpStatus.OK);
+            //response.setContentType(contentType);
             return result;
         } catch (IllegalArgumentException e) {
             log.error(e.getMessage());
