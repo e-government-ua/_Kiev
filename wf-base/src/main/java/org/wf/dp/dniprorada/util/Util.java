@@ -313,6 +313,7 @@ sContentType - строковой тип контента
 //            System.out.print((char) content);
 //        }
         String content = Files.toString(file, Charsets.UTF_8);
+        log.info("content of file=" + content);
         return content;
 
     }
