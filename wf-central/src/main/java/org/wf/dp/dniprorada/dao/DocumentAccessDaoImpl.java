@@ -178,7 +178,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		Session oSession = getSession();
 		boolean bSent = false;
 		try{
-                    DocumentAccess oDocumentAccess = (DocumentAccess) getSession()
+                    DocumentAccess oDocumentAccess = (DocumentAccess) oSession
 				.createCriteria(DocumentAccess.class)
 				.add(Restrictions.eq("sCode", sCode))
 				.uniqueResult();
