@@ -19,6 +19,8 @@
                 </mvc:interceptor>
         </mvc:interceptors>
         
+        <bean id="httpRequester" class="org.wf.dp.dniprorada.rest.HttpRequester"></bean>
+        
     </beans>
     
 </beans>
