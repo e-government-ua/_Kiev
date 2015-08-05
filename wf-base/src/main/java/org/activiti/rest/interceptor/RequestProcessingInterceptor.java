@@ -139,7 +139,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     String task_ID = (String) jsonObject.get("taskId");
                     HistoricTaskInstance historicTaskInstance = historyService.createHistoricTaskInstanceQuery().taskId(task_ID).singleResult();
                     ID = historicTaskInstance.getProcessInstanceId();
-                    taskName = historicTaskInstance.getName();
+                    taskName = "Заявка выполнена";
                 } else if (updateTask){
                     serviceName = "updateHistoryEvent_Service";
                     ID = (String) jsonObject.get("processInstanceId");
