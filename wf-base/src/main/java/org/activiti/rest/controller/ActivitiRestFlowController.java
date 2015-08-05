@@ -10,6 +10,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,7 +83,9 @@ public class ActivitiRestFlowController {
    @RequestMapping(value = "/buildFlowSlots", method = RequestMethod.POST)
    public
    @ResponseBody
-   ResponseEntity buildFlowSlots(@RequestParam(value = "nID_Flow_ServiceData") Long nID_Flow_ServiceData,
+   ResponseEntity buildFlowSlots(
+           @RequestParam(value = "nID_Flow_ServiceData", required = false) Long nID_Flow_ServiceData,
+           @RequestParam(value = "sID_BP", required = false) String sID_BP,
                                     @RequestParam(value = "sDateStart", required = false) String sDateStart,
                                     @RequestParam(value = "sDateStop", required = false) String sDateStop) {
 
@@ -96,6 +99,21 @@ public class ActivitiRestFlowController {
          stopDate = JsonDateTimeSerializer.DATETIME_FORMATTER.parseDateTime(sDateStop);
       }
 
+      if(nID_Flow_ServiceData==null){
+        if(sID_BP!=null){
+            nID_Flow_ServiceData = flowService.nID_Flow_ServiceData(sID_BP);
+        }else{
+            String sError = "nID_Flow_ServiceData==null and sID_BP==null";
+            log.error(sError);
+            return new ResponseEntity<>(sError, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+      }
+      if(nID_Flow_ServiceData==null){
+            String sError = "nID_Flow_ServiceData==null";
+            log.error(sError);
+            return new ResponseEntity<>(sError, HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+          
       List<FlowSlotVO> res = flowService.buildFlowSlots(nID_Flow_ServiceData, startDate, stopDate);
 
       return JsonRestUtils.toJsonResponse(res);
@@ -104,7 +122,9 @@ public class ActivitiRestFlowController {
    @RequestMapping(value = "/clearFlowSlots", method = RequestMethod.DELETE)
    public
    @ResponseBody
-   ResponseEntity clearFlowSlots(@RequestParam(value = "nID_Flow_ServiceData") Long nID_Flow_ServiceData,
+   ResponseEntity clearFlowSlots(
+                                 @RequestParam(value = "nID_Flow_ServiceData", required = false) Long nID_Flow_ServiceData,
+                                 @RequestParam(value = "sID_BP", required = false) String sID_BP,
                                  @RequestParam(value = "sDateStart") String sDateStart,
                                  @RequestParam(value = "sDateStop") String sDateStop,
                                  @RequestParam(value ="bWithTickets", required = false, defaultValue = "false")
@@ -119,6 +139,22 @@ public class ActivitiRestFlowController {
          stopDate = JsonDateTimeSerializer.DATETIME_FORMATTER.parseDateTime(sDateStop);
       }
 
+      if(nID_Flow_ServiceData==null){
+        if(sID_BP!=null){
+            nID_Flow_ServiceData = flowService.nID_Flow_ServiceData(sID_BP);
+        }else{
+            String sError = "nID_Flow_ServiceData==null and sID_BP==null";
+            log.error(sError);
+            return new ResponseEntity<>(sError, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+      }
+      if(nID_Flow_ServiceData==null){
+            String sError = "nID_Flow_ServiceData==null";
+            log.error(sError);
+            return new ResponseEntity<>(sError, HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+      
+      
       ClearSlotsResult res = flowService.clearFlowSlots(nID_Flow_ServiceData, startDate, stopDate, bWithTickets);
       return JsonRestUtils.toJsonResponse(res);
    }
