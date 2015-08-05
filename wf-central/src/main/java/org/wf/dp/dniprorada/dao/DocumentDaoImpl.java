@@ -65,10 +65,11 @@ public class DocumentDaoImpl implements DocumentDao {
 		return contentByte != null ? contentByte : contentMock.getBytes();
 	}
 
+        @Override
 	public Long setDocument(Long nID_Subject, Long nID_Subject_Upload, String sID_Subject_Upload,
                             String sSubjectName_Upload, String sName, Long nID_DocumentType,
                             Long nID_DocumentContentType, String sFileName,
-                            String sFileContentType, byte[] aoContent, String oSignData) throws IOException {
+                            String sFileContentType, byte[] aoContent, String soSignData) throws IOException {
 
 		Document document = new Document();
 		document.setsID_subject_Upload(sID_Subject_Upload);
@@ -100,7 +101,8 @@ public class DocumentDaoImpl implements DocumentDao {
 		document.setFile(sFileName);
 		document.setDate_Upload(new DateTime());
 
-        document.setoSignData(oSignData);
+                document.setoSignData(soSignData);
+                
 		getSession().saveOrUpdate(document);
 		return document.getId();
 

@@ -77,8 +77,8 @@ public class Document extends NamedEntity {
         return oSignData;
     }
 
-    public void setoSignData(String oSignData) {
-        this.oSignData = (oSignData == null || oSignData == "") ? "{}" : oSignData;
+    public void setoSignData(String soSignData) {
+        this.oSignData = (soSignData == null || "".equals(soSignData.trim() )) ? "{}" : soSignData;
     }
 
     public String getContentKey() {
