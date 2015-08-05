@@ -283,24 +283,14 @@ sContentType - строковой тип контента
 5) задавая в хеадере респонса тот контенттайп, что указан в "sContentType" - отдавать контент файла.
 5) описать в доке с АПИ*/
 
-    public static File getPatternFile(String sPathFile, String sContentType)
+    public static byte[] getPatternFile(String sPathFile, String sContentType)
             throws IOException {
-//        System.out.println("begin test");//src/main/resources/pattern/print/subsidy_zayava.html
-     ///temp
-//   if (sPathFile .contains("..")/* || sPathFile.charAt(0) == '/' || sPathFile.charAt(0) == '\\'*/){
-//            throw new IllegalArgumentException("incorrect sPathFile!");
-//        }
+
+       if (sPathFile.contains("..") ){//|| sPathFile.charAt(0) == '/' || sPathFile.charAt(0) == '\\'
+            throw new IllegalArgumentException("incorrect sPathFile!");
+        }
 //        //get File
-        String fullFileName = FILE_PATH_BEGIN  + //"../webapps/wf-region/WEB-INF/classes/pattern/" +
-                sPathFile;
-//        log.info("--------------");
-//        log.info(">>>>>>>>>>> root=" + FileSystemView.getFileSystemView().getHomeDirectory());
-//        log.info(">>>>>>>>>>> root=" + FileSystemView.getFileSystemView().getRoots()[0]);
-//        log.info(">>>>>>>>>>> root=" + System.getProperty("user.dir"));
-//        log.info(">>>>>>>>>>> root=" + File.listRoots()[0].getAbsolutePath());
-//        log.info("--------------");
-        log.info(">>>>>>>>>>> file path=" + fullFileName);
-        log.info("--------------");
+        String fullFileName = FILE_PATH_BEGIN  + sPathFile;
 
         File file = new File(fullFileName);
 //        //FileInputStream fis = new FileInputStream(file);
@@ -312,18 +302,10 @@ sContentType - строковой тип контента
 //            // convert to char and display it
 //            System.out.print((char) content);
 //        }
+        byte[] bytes = Files.toByteArray(file);
         String content = Files.toString(file, Charsets.UTF_8);
-        log.info("content of file=" + content);
-        return file;
+        log.info("content of file=" + bytes);
+        return bytes;
 
     }
-
-//    public static void main(String[] args) {
-//        try {
-//            String s = getPatternFile("report","report1.html");//"/";
-//            System.out.println(s);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
