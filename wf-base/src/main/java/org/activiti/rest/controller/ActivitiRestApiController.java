@@ -47,6 +47,8 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -851,9 +853,16 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     @RequestMapping(value = "/getPatternFile", method = RequestMethod.GET)
     public String getPatternFile(
-            @RequestParam(value = "sPathFile ") String sPathFile ,
+            @RequestParam(value = "sPathFile") String sPathFile ,
             @RequestParam(value = "sContentType", required = false) String sContentType,
             HttpServletRequest request, HttpServletResponse response) throws ActivitiRestException {
+
+        log.info("--------------");
+        log.info(">>>>>>>>>>> root=" + FileSystemView.getFileSystemView().getHomeDirectory());
+        log.info(">>>>>>>>>>> root=" + FileSystemView.getFileSystemView().getRoots()[0]);
+        log.info(">>>>>>>>>>> root=" + System.getProperty("user.dir"));
+        log.info(">>>>>>>>>>> root=" + File.listRoots()[0].getAbsolutePath());
+        log.info("--------------");
 
         try{
             String contentType = sContentType == null ? Util.DEFAULT_CONTENT_TYPE : sContentType;
@@ -872,5 +881,4 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         }
     }
-    
 }
