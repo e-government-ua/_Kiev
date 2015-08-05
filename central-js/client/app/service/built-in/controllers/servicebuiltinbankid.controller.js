@@ -132,7 +132,24 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
                     var state = $state.$current;
 
                     var submitted = $state.get(state.name + '.submitted');
-                    submitted.data.id = result.id;
+/*                    
+    private static int sumDigitsByLuna(Long inputNumber) {
+        int factor = 1;
+        int sum = 0;
+        int addend;
+        while (inputNumber != 0){
+            addend = (int) (factor * (inputNumber % 10));
+            factor = (factor == 2) ? 1 : 2;
+            addend = addend > 9 ? addend - 9 : addend;
+            sum += addend;
+            inputNumber /= 10;
+        }
+        return sum;
+    }
+*/                    
+                    submitted.data.id = result.id+11111111;
+                    
+                    
 
                     $scope.isSending = false;
                     $scope.$root.data = $scope.data;
