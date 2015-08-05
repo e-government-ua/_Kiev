@@ -105,7 +105,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 logger.info("call service HistoryEvent_Service!!!!!!!!!!!");
                 JSONParser parser = new JSONParser();
                 JSONObject jsonObject = (JSONObject) parser.parse(responseBody);
-                String task_ID = (String) jsonObject.get("id");
+                String ID = (String) jsonObject.get("id");
                 String serviceName = null;
                 String taskName = null;
                 if (setTask) {
@@ -113,21 +113,22 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     taskName = "Заявка подана";
                 } else if (updateTask) {
                     serviceName = "updateHistoryEvent_Service";
-                    HistoricTaskInstance historicTaskInstance = historyService.createHistoricTaskInstanceQuery().taskId(task_ID).singleResult();
+                    /*HistoricTaskInstance historicTaskInstance = historyService.createHistoricTaskInstanceQuery().taskId(ID).singleResult();
                     String processInstanceId = historicTaskInstance.getProcessInstanceId();
                     if (processInstanceId == null) {
                         throw new ActivitiObjectNotFoundException(
-                                "ProcessInstanceId for taskId '" + task_ID + "' not found.",
+                                "ProcessInstanceId for taskId '" + ID + "' not found.",
                                 RequestProcessingInterceptor.class);
                     }
                     historicTaskInstance = historyService.createHistoricTaskInstanceQuery().processInstanceId(processInstanceId).orderByHistoricTaskInstanceStartTime().asc().singleResult();
-                    task_ID = historicTaskInstance.getId();
+                    ID = historicTaskInstance.getId();*/
+                    ID = (String) jsonObject.get("processInstanceId");
                 }
-                if (serviceName != null && task_ID != null) {
+                if (serviceName != null && ID != null) {
                     String URL = generalConfig.sHostCentral() + "/wf-central/service/services/" + serviceName;
                     String status = taskName != null ? taskName : (String) jsonObject.get("name");
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("nID_Task", task_ID);
+                    params.put("nID_Task", ID);
                     params.put("sStatus", status);
                     params.put("sID_Status", status);
                     logger.info(URL + ": " + params);
