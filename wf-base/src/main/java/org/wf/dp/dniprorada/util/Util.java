@@ -283,7 +283,7 @@ sContentType - строковой тип контента
 5) задавая в хеадере респонса тот контенттайп, что указан в "sContentType" - отдавать контент файла.
 5) описать в доке с АПИ*/
 
-    public static String getPatternFile(String sPathFile, String sContentType)
+    public static byte[] getPatternFile(String sPathFile, String sContentType)
             throws IOException {
 
        if (sPathFile.contains("..") ){//|| sPathFile.charAt(0) == '/' || sPathFile.charAt(0) == '\\'
@@ -293,6 +293,7 @@ sContentType - строковой тип контента
         String fullFileName = FILE_PATH_BEGIN  + sPathFile;
 
         File file = new File(fullFileName);
+
 //        //FileInputStream fis = new FileInputStream(file);
 //
 //        //System.out.println("Total file size to read (in bytes) : "+ fis.available());
@@ -305,7 +306,7 @@ sContentType - строковой тип контента
         byte[] bytes = Files.toByteArray(file);
         String content = Files.toString(file, Charsets.UTF_8);
         log.info("content of file=" + bytes);
-        return content;
+        return bytes;
 
     }
 }
