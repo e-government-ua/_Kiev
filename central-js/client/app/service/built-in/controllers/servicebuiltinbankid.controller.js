@@ -147,9 +147,26 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
         return sum;
     }
 */                    
-                    submitted.data.id = result.id+11111111;
-                    
-                    
+        //TODO: Fix Alhoritm Luna
+        //Number 2187501 must give CRC=3
+        //Check: http://planetcalc.ru/2464/
+        //var inputNumber = 3;
+        var n = parseInt(result.id);
+        var nFactor = 1;
+        var nCRC = 0;
+        var nAddend;
+        while (n !== 0){
+            nAddend = Math.round(nFactor * (n % 10));
+            //alert("addend(1)="+addend);
+            //alert("addend(2)="+Math.round(addend));
+            nFactor = (nFactor === 2) ? 1 : 2;
+            nAddend = nAddend > 9 ? nAddend - 9 : nAddend;
+            nCRC += nAddend;
+            n /= 10;
+        }
+        nCRC=Math.round(nCRC/10)
+        //alert(nCRC);
+                    submitted.data.id = result.id+nCRC;//11111111
 
                     $scope.isSending = false;
                     $scope.$root.data = $scope.data;
