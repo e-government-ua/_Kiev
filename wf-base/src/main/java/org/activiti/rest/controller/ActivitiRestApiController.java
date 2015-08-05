@@ -30,7 +30,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -858,14 +860,24 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
 
         try{
+            //content type
             String contentType = sContentType == null ? Util.DEFAULT_CONTENT_TYPE : sContentType;
+            MediaType mediaType = MediaType.TEXT_PLAIN;
+            try {
+                mediaType = MediaType.valueOf(contentType);
+            } catch (Exception e){
+                log.error("incorrect contentType: " + contentType);
+            }
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(mediaType);
+            //get file
             String resultStr = Util.getPatternFile(sPathFile, contentType);
-            log.info("result file=" + resultStr);
-            ResponseEntity<String> result = new ResponseEntity<>(resultStr, HttpStatus.OK);
+            log.info(">>>>>>>>>>>>>result file=" + resultStr);
+            //result
+            ResponseEntity<String> result = new ResponseEntity<>(resultStr, headers, HttpStatus.OK);
             //response.setContentType(contentType);
             return result;
         } catch (IllegalArgumentException e) {
-            log.error(e.getMessage());
             ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR", e.getMessage(), e);
             newErr.setHttpStatus(HttpStatus.FORBIDDEN);
             throw newErr;
@@ -873,7 +885,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR", e.getMessage(), e);
             newErr.setHttpStatus(HttpStatus.FORBIDDEN);
             throw newErr;
-
         }
 
 
