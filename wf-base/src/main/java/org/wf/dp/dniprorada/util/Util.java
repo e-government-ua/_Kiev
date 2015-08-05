@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-import javax.swing.filechooser.FileSystemView;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -294,12 +293,12 @@ sContentType - строковой тип контента
 //        //get File
         String fullFileName = FILE_PATH_BEGIN  + //"../webapps/wf-region/WEB-INF/classes/pattern/" +
                 sPathFile;
-        log.info("--------------");
-        log.info(">>>>>>>>>>> root=" + FileSystemView.getFileSystemView().getHomeDirectory());
-        log.info(">>>>>>>>>>> root=" + FileSystemView.getFileSystemView().getRoots()[0]);
-        log.info(">>>>>>>>>>> root=" + System.getProperty("user.dir"));
-        log.info(">>>>>>>>>>> root=" + File.listRoots()[0].getAbsolutePath());
-        log.info("--------------");
+//        log.info("--------------");
+//        log.info(">>>>>>>>>>> root=" + FileSystemView.getFileSystemView().getHomeDirectory());
+//        log.info(">>>>>>>>>>> root=" + FileSystemView.getFileSystemView().getRoots()[0]);
+//        log.info(">>>>>>>>>>> root=" + System.getProperty("user.dir"));
+//        log.info(">>>>>>>>>>> root=" + File.listRoots()[0].getAbsolutePath());
+//        log.info("--------------");
         log.info(">>>>>>>>>>> file path=" + fullFileName);
         log.info("--------------");
 
