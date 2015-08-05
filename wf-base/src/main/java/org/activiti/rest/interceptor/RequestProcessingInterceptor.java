@@ -93,8 +93,20 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         }
 
         logger.info("mParamRequest: " + mParamRequest);
-        String responseBody = response.toString();
-        logger.info("sResponseBody: " + responseBody);
+        //String responseBody = response.toString();
+        //logger.info("sResponseBody: " + responseBody);
+        //logger.info("sResponseBody: " + sResponseBody);
+        String sResponseBody = response.toString();
+        if(generalConfig.bTest()){
+            if(sResponseBody!=null){
+                logger.info("sResponseBody: " + sResponseBody.substring(0, sResponseBody.length()<100?sResponseBody.length():99));
+            }else{
+                logger.info("sResponseBody: null");
+            }
+            logger.info("sResponseBody: " + sResponseBody);
+        }else{
+            logger.info("sResponseBody: " + (sResponseBody!=null?sResponseBody.length():"null"));
+        }
 
         try {
             boolean setTask = request.getRequestURL().toString().indexOf("/form/form-data") > 0
@@ -104,7 +116,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             if (saveHistory && (setTask || updateTask)) {
                 logger.info("call service HistoryEvent_Service!!!!!!!!!!!");
                 JSONParser parser = new JSONParser();
-                JSONObject jsonObject = (JSONObject) parser.parse(responseBody);
+                JSONObject jsonObject = (JSONObject) parser.parse(sResponseBody);
                 String ID = (String) jsonObject.get("id");
                 String serviceName = null;
                 String taskName = null;
