@@ -293,6 +293,7 @@ sContentType - строковой тип контента
         String fullFileName = FILE_PATH_BEGIN  + sPathFile;
 
         File file = new File(fullFileName);
+
 //        //FileInputStream fis = new FileInputStream(file);
 //
 //        //System.out.println("Total file size to read (in bytes) : "+ fis.available());

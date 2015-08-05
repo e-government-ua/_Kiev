@@ -30,8 +30,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -851,7 +853,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
 
     @RequestMapping(value = "/getPatternFile", method = RequestMethod.GET)
-    public Object  getPatternFile(
+    public  ResponseEntity<String>  getPatternFile(
             @RequestParam(value = "sPathFile") String sPathFile ,
             @RequestParam(value = "sContentType", required = false) String sContentType,
             HttpServletRequest request, HttpServletResponse response) throws ActivitiRestException {
@@ -866,16 +868,16 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             } catch (Exception e){
                 log.error("incorrect contentType: " + contentType);
             }
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.setContentType(mediaType);
-            //get file
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(mediaType);
+
             String resultObj = Util.getPatternFile(sPathFile, contentType);
 //            log.info(">>>>>>result file=" + resultStr);
             //result
-//            ResponseEntity<String> result = new ResponseEntity<>(resultStr, headers, HttpStatus.OK);
+            ResponseEntity<String> result = new ResponseEntity<>(resultObj, headers, HttpStatus.OK);
             response.setContentType(contentType);
 
-            return resultObj;
+            return result;
         } catch (IllegalArgumentException e) {
             ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR", e.getMessage(), e);
             newErr.setHttpStatus(HttpStatus.FORBIDDEN);
