@@ -11,8 +11,7 @@ import org.wf.dp.dniprorada.model.HistoryEvent_Service;
 import org.wf.dp.dniprorada.util.AlgorithmLuna;
 import org.apache.log4j.Logger;
 
-
-public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
+public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao {
 
     private SessionFactory sessionFactory;
     private static final Logger log = Logger.getLogger(HistoryEvent_ServiceDaoImpl.class);
@@ -36,14 +35,14 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
         criteria.add(Restrictions.eq("id", nID));
         return (HistoryEvent_Service) criteria.uniqueResult();
     }
-    
+
     @Override
     public HistoryEvent_Service getHistoryEvent_ServiceBynID_Task(Long nID_Task) {
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
-        criteria.add(Restrictions.eq("id", nID_Task));
+        criteria.add(Restrictions.eq("nID_Task", nID_Task));
         return (HistoryEvent_Service) criteria.uniqueResult();
     }
-    
+
     @Override
     public HistoryEvent_Service getHistoryEvent_ServiceBysID(String sID) {
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
@@ -91,31 +90,9 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
     }
 
     @Override
-    public HistoryEvent_Service updateHistoryEvent_Service(
-    		//Long nID_Protected, 
-    		Long nID_Task,
-    		String sStatus, String sID_status) {
-        HistoryEvent_Service event_service;
-        try {
-            //event_service = getHistoryEvent_ServiceByID_Protected(nID_Protected);
-        	event_service = getHistoryEvent_ServiceBynID_Task(nID_Task);
-        } catch (RuntimeException e){
-            throw new RuntimeException(e.getMessage(), e);
-        }
-        boolean isChanged = false;
-        if (!event_service.getsStatus().equals(sStatus)){
-            event_service.setsStatus(sStatus);
-            isChanged = true;
-        }
-        if (sID_status != null && !sID_status.equals(event_service.getsID_Status())) {
-            event_service.setsID_Status(sID_status);
-            isChanged = true;
-        }
-        if (isChanged) {
-        	event_service.setsDate(new DateTime());
-            getSession().saveOrUpdate(event_service);
-        }
+    public HistoryEvent_Service updateHistoryEvent_Service(HistoryEvent_Service event_service) {
+        event_service.setsDate(new DateTime());
+        getSession().saveOrUpdate(event_service);
         return event_service;
     }
-
 }
