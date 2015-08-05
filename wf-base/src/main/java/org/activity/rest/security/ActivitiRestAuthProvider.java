@@ -54,11 +54,13 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+                log.info("generalUsername="+generalUsername+",generalPassword="+generalPassword);
 		validateAuthenticationInformation(authentication);
 		String username = authentication.getName();
 		String password = authentication.getCredentials().toString();
+                log.info("username="+username+",password="+password);
 		if (username.equals(generalUsername) && password.equals(generalPassword)) {
-                        log.info("generalUsername!!!1test: tech_mvd,getIdentityService="+getIdentityService().getUserInfo("tech_mvd", "tech_mvd"));
+                        /*log.info("generalUsername!!!1test: tech_mvd,getIdentityService="+getIdentityService().getUserInfo("tech_mvd", "tech_mvd"));
                         Authentication oAuthentication=createBasicAuthUsernameAndPasswordToken("tech_mvd", "tech_mvd");
                         log.info("generalUsername!!!2test: tech_mvd,oAuthentication!=mull:"+(oAuthentication!=null));
                         if(oAuthentication!=null){
@@ -66,10 +68,13 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
                                     + ",oAuthentication.getName()="+oAuthentication.getName()
                                     + ",oAuthentication.getDetails="+oAuthentication.getDetails()
                             );
-                        }
+                        }*/
+                        log.info("username.equals(generalUsername) && password.equals(generalPassword)");
 			return createBasicAuthUsernameAndPasswordToken(username, password);
 		} else {
-			if (getIdentityService().checkPassword(username, password)) {
+                        boolean bCheckPassword = getIdentityService().checkPassword(username, password);
+                        log.info("bCheckPassword="+bCheckPassword);
+			if (bCheckPassword) {
                                 log.info("username="+username+",getIdentityService="+getIdentityService().getUserInfo(username, password));
 				return createBasicAuthUsernameAndPasswordToken(username, password);
 			} else {
@@ -86,9 +91,13 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
 
 	private void validateAuthenticationInformation(Authentication authentication) throws AuthenticationException {
 		boolean isAuthInfoInvalid = authentication == null;
+                log.info("isAuthInfoInvalid0="+isAuthInfoInvalid);
 		isAuthInfoInvalid = isAuthInfoInvalid || StringUtils.isBlank(authentication.getName());
+                log.info("isAuthInfoInvalid1="+isAuthInfoInvalid);
 		isAuthInfoInvalid = isAuthInfoInvalid || authentication.getCredentials() == null;
+                log.info("isAuthInfoInvalid2="+isAuthInfoInvalid);
 		isAuthInfoInvalid = isAuthInfoInvalid || StringUtils.isBlank(authentication.getCredentials().toString());
+                log.info("isAuthInfoInvalid3="+isAuthInfoInvalid);
 		if (isAuthInfoInvalid) {
 			throw new BadCredentialsException("User or password not valid");
 		}
