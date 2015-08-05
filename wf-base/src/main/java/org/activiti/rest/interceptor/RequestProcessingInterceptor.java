@@ -53,7 +53,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         logger.info("[preHandle] Request URL = " + request.getRequestURL().toString()
                 + ":: Start Time = " + System.currentTimeMillis());
         request.setAttribute("startTime", startTime);
-        testReadFromRequest(request, response, false);
+        saveHistory(request, response, false);
         return true;
     }
 
@@ -71,7 +71,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 + ":: Time Taken = " + (System.currentTimeMillis() - (Long) request.getAttribute("startTime")));
         response = ((MultiReaderHttpServletResponse) request.getAttribute("responseMultiRead") != null
                 ? (MultiReaderHttpServletResponse) request.getAttribute("responseMultiRead") : response);
-        testReadFromRequest(request, response, true);
+        saveHistory(request, response, true);
     }
 
     private void saveHistory(HttpServletRequest request, HttpServletResponse response, boolean saveHistory) throws IOException {
@@ -92,7 +92,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             //mParamRequest.put("requestBody", buffer.toString()); 
             //TODO temp
         }
-        String sResponseBody = buffer.toString();
+        String sRequestBody = buffer.toString();
 
         logger.info("mParamRequest: " + mParamRequest);
         
@@ -129,7 +129,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     ID = (String) jsonObject.get("processInstanceId");
                 }
                 
-                log.info("sResponseBody: " + sResponseBody);
+                logger.info("sRequestBody: " + sRequestBody);
                 
                 if (serviceName != null && ID != null) {
                     String URL = generalConfig.sHostCentral() + "/wf-central/service/services/" + serviceName;

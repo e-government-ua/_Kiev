@@ -30,7 +30,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +50,7 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -851,21 +854,31 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
 
     @RequestMapping(value = "/getPatternFile", method = RequestMethod.GET)
-    public ResponseEntity<String> getPatternFile(
+    public ResponseEntity<File> getPatternFile(
             @RequestParam(value = "sPathFile") String sPathFile ,
             @RequestParam(value = "sContentType", required = false) String sContentType,
             HttpServletRequest request, HttpServletResponse response) throws ActivitiRestException {
 
 
         try{
+            //content type
             String contentType = sContentType == null ? Util.DEFAULT_CONTENT_TYPE : sContentType;
-            String resultStr = Util.getPatternFile(sPathFile, contentType);
-            log.info("result file=" + resultStr);
-            ResponseEntity<String> result = new ResponseEntity<>(resultStr, HttpStatus.OK);
+            MediaType mediaType = MediaType.TEXT_PLAIN;
+            try {
+                mediaType = MediaType.valueOf(contentType);
+            } catch (Exception e){
+                log.error("incorrect contentType: " + contentType);
+            }
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(mediaType);
+            //get file
+            File resultStr = Util.getPatternFile(sPathFile, contentType);
+           // log.info(">>>>>>>>>>>>>result file=" + resultStr);
+            //result
+            ResponseEntity<File> result = new ResponseEntity<>(resultStr, headers, HttpStatus.OK);
             //response.setContentType(contentType);
             return result;
         } catch (IllegalArgumentException e) {
-            log.error(e.getMessage());
             ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR", e.getMessage(), e);
             newErr.setHttpStatus(HttpStatus.FORBIDDEN);
             throw newErr;
@@ -873,7 +886,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR", e.getMessage(), e);
             newErr.setHttpStatus(HttpStatus.FORBIDDEN);
             throw newErr;
-
         }
 
 
