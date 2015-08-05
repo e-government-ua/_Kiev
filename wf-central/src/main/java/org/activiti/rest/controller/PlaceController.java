@@ -65,7 +65,21 @@ public class PlaceController {
 
     @RequestMapping(value   = "/setPlaceType",
                     method  = RequestMethod.POST, headers = { JSON_TYPE })
-    public  @ResponseBody void setPlaceType( @RequestBody String entity ) {
-        baseEntityDao.saveOrUpdate( JsonRestUtils.readObject(entity, PlaceType.class) );
+    public  @ResponseBody void setPlaceType(
+            @RequestParam(value = "nID",    required = false)   Long    placeTypeId,
+            @RequestParam(value = "sName",  required = false)   String  name,
+            @RequestParam(value = "nOrder", required = false)   Long    order,
+            @RequestParam(value = "bArea",  required = false)   Boolean area,
+            @RequestParam(value = "bRoot",  required = false)   Boolean root
+    ) {
+        baseEntityDao.saveOrUpdate( new PlaceType(placeTypeId, name, order, area, root) );
+    }
+
+    @RequestMapping(value   = "/removePlaceType",
+                    method  = RequestMethod.POST, headers = { JSON_TYPE })
+    public  @ResponseBody void removePlaceType(
+            @RequestParam(value = "nID") Long placeTypeId
+    ) {
+        baseEntityDao.remove( baseEntityDao.getById(PlaceType.class, placeTypeId) );
     }
 }
