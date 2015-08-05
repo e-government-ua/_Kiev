@@ -25,6 +25,17 @@ public class PlaceType extends NamedEntity {
     @JsonProperty("bRoot")
     private boolean root; // "Корень" (true = административная еденица страны)
 
+    public PlaceType(){
+        // no action required
+    }
+    public PlaceType(Long placeTypeId, String name, Long order, Boolean area, Boolean root) {
+        setId(placeTypeId);
+        setName(name);
+        setOrder(order);
+        setArea(area);
+        setRoot(root);
+    }
+
 
     public Long getOrder() {
         return order;
