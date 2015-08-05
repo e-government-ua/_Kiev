@@ -291,8 +291,17 @@ sContentType - строковой тип контента
 //            throw new IllegalArgumentException("incorrect sPathFile!");
 //        }
 //        //get File
-        String fullFileName = //FILE_PATH_BEGIN "../webapps/wf-region/WEB-INF/classes/pattern/" +
+        String fullFileName = FILE_PATH_BEGIN  + //"../webapps/wf-region/WEB-INF/classes/pattern/" +
                 sPathFile;
+//        log.info("--------------");
+//        log.info(">>>>>>>>>>> root=" + FileSystemView.getFileSystemView().getHomeDirectory());
+//        log.info(">>>>>>>>>>> root=" + FileSystemView.getFileSystemView().getRoots()[0]);
+//        log.info(">>>>>>>>>>> root=" + System.getProperty("user.dir"));
+//        log.info(">>>>>>>>>>> root=" + File.listRoots()[0].getAbsolutePath());
+//        log.info("--------------");
+        log.info(">>>>>>>>>>> file path=" + fullFileName);
+        log.info("--------------");
+
         File file = new File(fullFileName);
 //        //FileInputStream fis = new FileInputStream(file);
 //

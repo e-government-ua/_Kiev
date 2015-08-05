@@ -29,10 +29,13 @@ public class AccessKeyAuthFilter extends GenericFilterBean {
         
         if (StringUtils.isNotBlank(accessKey) && StringUtils.isNotBlank(subjectId)) {
             log.info("accessKey&subjectId is Not Blank");
-            SecurityContextHolder.getContext().setAuthentication(new AccessKeyAuthenticationToken(accessKey, subjectId));
+            AccessKeyAuthenticationToken oAccessKeyAuthenticationToken=new AccessKeyAuthenticationToken(accessKey, subjectId);
+            log.info("oAccessKeyAuthenticationToken!=null:"+(oAccessKeyAuthenticationToken!=null));
+            SecurityContextHolder.getContext().setAuthentication(oAccessKeyAuthenticationToken);
         }else{
             log.info("accessKey&subjectId is Blank!!!");
         }
+        log.info("filterChain.doFilter");
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }

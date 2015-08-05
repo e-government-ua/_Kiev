@@ -318,7 +318,7 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "nID_DocumentType") Long nID_DocumentType,
             @RequestParam(value = "nID_DocumentContentType", required = false) Long nID_DocumentContentType,
             @RequestParam(value = "oFile", required = true) MultipartFile oFile,
-            @RequestParam(value = "oSignData") String oSignData,//todo required?? (issue587)
+//            @RequestParam(value = "oSignData", required = true) String soSignData,//todo required?? (issue587)
             //@RequestBody byte[] content,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
 
@@ -351,6 +351,10 @@ public class ActivitiRestDocumentController {
         byte[] aoContent = oFile.getBytes();
 
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
+        
+        String soSignData = null;
+        //TODO: по другому пункту issue587 - проставлять soSignData
+        
         Long nID_Document = documentDao.setDocument(
                         nID_Subject,
                         subject_Upload.getId(),
@@ -362,7 +366,7 @@ public class ActivitiRestDocumentController {
                         sFileName,
                         sFileContentType,
                         aoContent,
-                        oSignData);
+                        soSignData);
         createHistoryEvent(HistoryEventType.SET_DOCUMENT_INTERNAL,
                 nID_Subject, sSubjectName_Upload, nID_Document, null);
         return nID_Document;
