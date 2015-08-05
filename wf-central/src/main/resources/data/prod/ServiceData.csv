@@ -130,3 +130,8 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 139;681;9;NULL;1;{};http://www.ap.lutsk.ua/uk/info/service/2507/details;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Луцьк;BankID,EDS
 140;628;9;NULL;1;{};http://www.ap.lutsk.ua/uk/info/service/2505/details;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Луцьк;BankID,EDS
 141;682;9;NULL;1;{};http://www.ap.lutsk.ua/uk/info/service/2639/details;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Луцьк;BankID,EDS
+146;685;4;NULL;1;{};http://www.cnap.if.ua/posl/3745;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Івано-Франківська;BankID,EDS
+147;4;4;NULL;1;{};http://www.cnap.if.ua/posl/3434;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Івано-Франківська;BankID,EDS
+148;686;4;NULL;1;{};http://www.cnap.if.ua/posl/2010;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Івано-Франківська;BankID,EDS
+149;9;4;NULL;1;{};http://www.cnap.if.ua/posl/2011;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Івано-Франківська;BankID,EDS
+150;687;4;NULL;1;{};http://www.cnap.if.ua/posl/4064;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Івано-Франківська;BankID,EDS
