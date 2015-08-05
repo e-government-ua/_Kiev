@@ -110,12 +110,14 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         }
 
         try {
-            boolean setTask = request.getRequestURL().toString().indexOf("/form/form-data") > 0
+            boolean setTask = sResponseBody != null && request.getRequestURL().toString().indexOf("/form/form-data") > 0
+                    && "POST".equalsIgnoreCase(request.getMethod().trim());
+            boolean closeTask = sResponseBody == null && request.getRequestURL().toString().indexOf("/form/form-data") > 0
                     && "POST".equalsIgnoreCase(request.getMethod().trim());
             boolean updateTask = request.getRequestURL().toString().indexOf("/runtime/tasks") > 0
                     && "PUT".equalsIgnoreCase(request.getMethod().trim());
             logger.info("sRequestBody: " + sRequestBody);
-            if (saveHistory && (setTask || updateTask)) {
+            if (saveHistory && (setTask || closeTask || updateTask)) {
                 logger.info("call service HistoryEvent_Service!!!!!!!!!!!");
                 JSONParser parser = new JSONParser();
                 JSONObject jsonObject = (JSONObject) parser.parse(sResponseBody);
@@ -125,7 +127,15 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 if (setTask) {
                     serviceName = "addHistoryEvent_Service";
                     taskName = "Заявка подана";
-                } else if (updateTask) {
+                } else if (closeTask) {
+                    serviceName = "updateHistoryEvent_Service";
+                    JSONParser parserRequest = new JSONParser();
+                    JSONObject jsonObjectRequest = (JSONObject) parserRequest.parse(sResponseBody);
+                    String task_ID = (String) jsonObjectRequest.get("taskId");
+                    HistoricTaskInstance historicTaskInstance = historyService.createHistoricTaskInstanceQuery().taskId(task_ID).singleResult();
+                    ID = historicTaskInstance.getProcessInstanceId();
+                    taskName = historicTaskInstance.getName();
+                } else if (updateTask){
                     serviceName = "updateHistoryEvent_Service";
                     ID = (String) jsonObject.get("processInstanceId");
                 }
