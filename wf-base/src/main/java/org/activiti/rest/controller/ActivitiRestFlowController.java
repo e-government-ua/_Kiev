@@ -166,10 +166,13 @@ public class ActivitiRestFlowController {
     */
 	@RequestMapping(value = "/getSheduleFlowIncludes", method = RequestMethod.GET)
 	public @ResponseBody List<FlowProperty> getSheduleFlowIncludes(
-			@RequestParam(value = "nID_Flow_ServiceData") Long nID_Flow_ServiceData) {
+                        @RequestParam(value = "nID_Flow_ServiceData", required = false) Long nID_Flow_ServiceData,
+                        @RequestParam(value = "sID_BP", required = false) String sID_BP
+        
+        ) {
 		if (nID_Flow_ServiceData != null) {
 			log.info("nID_Flow_ServiceData is not null. Getting flow property for the flow with ID: " + nID_Flow_ServiceData);
-			return getFilteredFlowPropertiesForFlowServiceData(nID_Flow_ServiceData, Boolean.FALSE);
+			return getFilteredFlowPropertiesForFlowServiceData(nID_Flow_ServiceData, sID_BP, Boolean.FALSE);
 		}
 		return new LinkedList<FlowProperty>();
 	}
@@ -181,10 +184,12 @@ public class ActivitiRestFlowController {
 	 */
 	@RequestMapping(value = "/getSheduleFlowExcludes", method = RequestMethod.GET)
 	public @ResponseBody List<FlowProperty> getSheduleFlowExcludes(
-			@RequestParam(value = "nID_Flow_ServiceData") Long nID_Flow_ServiceData) {
+                        @RequestParam(value = "nID_Flow_ServiceData", required = false) Long nID_Flow_ServiceData,
+                        @RequestParam(value = "sID_BP", required = false) String sID_BP
+        ) {
 		if (nID_Flow_ServiceData != null) {
 			log.info("nID_Flow_ServiceData is not null. Getting flow property for the flow with ID: " + nID_Flow_ServiceData);
-			return getFilteredFlowPropertiesForFlowServiceData(nID_Flow_ServiceData, Boolean.TRUE);
+			return getFilteredFlowPropertiesForFlowServiceData(nID_Flow_ServiceData, sID_BP, Boolean.TRUE);
 		}
 		return new LinkedList<FlowProperty>();
 	}
@@ -201,12 +206,13 @@ public class ActivitiRestFlowController {
 	@RequestMapping(value = "/setSheduleFlowInclude", method = RequestMethod.GET)
 	public @ResponseBody FlowProperty setSheduleFlowInclude(
 			@RequestParam(value = "nID", required = false) Long nID,
-			@RequestParam(value = "nID_Flow_ServiceData") Long nID_Flow_ServiceData,
+                        @RequestParam(value = "nID_Flow_ServiceData", required = false) Long nID_Flow_ServiceData,
+                        @RequestParam(value = "sID_BP", required = false) String sID_BP,
 			@RequestParam(value = "sName") String sName,
 			@RequestParam(value = "sRegionTime") String sRegionTime,
 			@RequestParam(value = "saRegionWeekDay") String saRegionWeekDay,
 			@RequestParam(value = "sDateTimeAt") String sDateTimeAt,
-			@RequestParam(value = "sDateTimeTo") String sDateTimeTo) {
+			@RequestParam(value = "sDateTimeTo") String sDateTimeTo) throws Exception {
 		FlowProperty flowProperty = null;
 		if (nID != null) {
 			log.info("nID is not null. Updating existing FLowProperty with parameters");
@@ -222,6 +228,23 @@ public class ActivitiRestFlowController {
 				log.info("Have not found FlowProperty object with ID: " + nID);
 			}
 		} else {
+                    
+                    
+                        if(nID_Flow_ServiceData==null){
+                          if(sID_BP!=null){
+                              nID_Flow_ServiceData = flowService.nID_Flow_ServiceData(sID_BP);
+                          }else{
+                              String sError = "nID_Flow_ServiceData==null and sID_BP==null";
+                              log.error(sError);
+                              throw new Exception(sError);
+                          }
+                        }
+                        if(nID_Flow_ServiceData==null){
+                              String sError = "nID_Flow_ServiceData==null";
+                              log.error(sError);
+                              throw new Exception(sError);
+                        }
+                    
 			log.info("Creating new flow property for the flow with ID: "
 					+ nID_Flow_ServiceData);
 			flowProperty = new FlowProperty();
@@ -262,12 +285,13 @@ public class ActivitiRestFlowController {
 	@RequestMapping(value = "/setSheduleFlowExclude", method = RequestMethod.GET)
 	public @ResponseBody FlowProperty setSheduleFlowExclude(
 			@RequestParam(value = "nID", required = false) Long nID,
-			@RequestParam(value = "nID_Flow_ServiceData") Long nID_Flow_ServiceData,
+                        @RequestParam(value = "nID_Flow_ServiceData", required = false) Long nID_Flow_ServiceData,
+                        @RequestParam(value = "sID_BP", required = false) String sID_BP,
 			@RequestParam(value = "sName") String sName,
 			@RequestParam(value = "sRegionTime") String sRegionTime,
 			@RequestParam(value = "saRegionWeekDay") String saRegionWeekDay,
 			@RequestParam(value = "sDateTimeAt") String sDateTimeAt,
-			@RequestParam(value = "sDateTimeTo") String sDateTimeTo) {
+			@RequestParam(value = "sDateTimeTo") String sDateTimeTo) throws Exception {
 		FlowProperty flowProperty = null;
 		if (nID != null) {
 			log.info("nID is not null. Updating existing FLowProperty with parameters");
@@ -283,6 +307,22 @@ public class ActivitiRestFlowController {
 				log.info("Have not found FlowProperty object with ID: " + nID);
 			}
 		} else {
+                    
+                        if(nID_Flow_ServiceData==null){
+                          if(sID_BP!=null){
+                              nID_Flow_ServiceData = flowService.nID_Flow_ServiceData(sID_BP);
+                          }else{
+                              String sError = "nID_Flow_ServiceData==null and sID_BP==null";
+                              log.error(sError);
+                              throw new Exception(sError);
+                          }
+                        }
+                        if(nID_Flow_ServiceData==null){
+                              String sError = "nID_Flow_ServiceData==null";
+                              log.error(sError);
+                              throw new Exception(sError);
+                        }                    
+                    
 			log.info("Creating new flow property for the flow with ID: "
 					+ nID_Flow_ServiceData);
 			flowProperty = new FlowProperty();
@@ -308,7 +348,25 @@ public class ActivitiRestFlowController {
 	@RequestMapping(value = "/removeSheduleFlowInclude", method = RequestMethod.GET)
 	public @ResponseBody List<FlowProperty> removeSheduleFlowInclude(
 			@RequestParam(value = "nID") Long nID,
-			@RequestParam(value = "nID_Flow_ServiceData") Long nID_Flow_ServiceData) {
+                        @RequestParam(value = "nID_Flow_ServiceData", required = false) Long nID_Flow_ServiceData,
+                        @RequestParam(value = "sID_BP", required = false) String sID_BP
+        ) throws Exception {
+            
+                if(nID_Flow_ServiceData==null){
+                  if(sID_BP!=null){
+                      nID_Flow_ServiceData = flowService.nID_Flow_ServiceData(sID_BP);
+                  }else{
+                      String sError = "nID_Flow_ServiceData==null and sID_BP==null";
+                      log.error(sError);
+                      throw new Exception(sError);
+                  }
+                }
+                if(nID_Flow_ServiceData==null){
+                      String sError = "nID_Flow_ServiceData==null";
+                      log.error(sError);
+                      throw new Exception(sError);
+                }                    
+            
 		if (nID_Flow_ServiceData != null && nID != null) {
 			log.info("nID_Flow_ServiceData is not null. Removing flow property with bExclude=false and ID:" + nID);
 			
@@ -341,7 +399,25 @@ public class ActivitiRestFlowController {
 	@RequestMapping(value = "/removeSheduleFlowExclude", method = RequestMethod.GET)
 	public @ResponseBody List<FlowProperty> removeSheduleFlowExclude(
 			@RequestParam(value = "nID") Long nID,
-			@RequestParam(value = "nID_Flow_ServiceData") Long nID_Flow_ServiceData) {
+                        @RequestParam(value = "nID_Flow_ServiceData", required = false) Long nID_Flow_ServiceData,
+                        @RequestParam(value = "sID_BP", required = false) String sID_BP
+        ) throws Exception {
+            
+                if(nID_Flow_ServiceData==null){
+                  if(sID_BP!=null){
+                      nID_Flow_ServiceData = flowService.nID_Flow_ServiceData(sID_BP);
+                  }else{
+                      String sError = "nID_Flow_ServiceData==null and sID_BP==null";
+                      log.error(sError);
+                      throw new Exception(sError);
+                  }
+                }
+                if(nID_Flow_ServiceData==null){
+                      String sError = "nID_Flow_ServiceData==null";
+                      log.error(sError);
+                      throw new Exception(sError);
+                }                    
+            
 		if (nID_Flow_ServiceData != null && nID != null) {
 			log.info("nID_Flow_ServiceData is not null. Removing flow property with bExclude=true and ID:" + nID);
 			
@@ -371,7 +447,24 @@ public class ActivitiRestFlowController {
 		return new LinkedList<FlowProperty>();
 	}
 	
-	protected List<FlowProperty> getFilteredFlowPropertiesForFlowServiceData(Long nID_Flow_ServiceData, Boolean bExclude) {
+	protected List<FlowProperty> getFilteredFlowPropertiesForFlowServiceData(Long nID_Flow_ServiceData, String sID_BP, Boolean bExclude) throws Exception {
+            
+                if(nID_Flow_ServiceData==null){
+                  if(sID_BP!=null){
+                      nID_Flow_ServiceData = flowService.nID_Flow_ServiceData(sID_BP);
+                  }else{
+                      String sError = "nID_Flow_ServiceData==null and sID_BP==null";
+                      log.error(sError);
+                      throw new Exception(sError);
+                  }
+                }
+                if(nID_Flow_ServiceData==null){
+                      String sError = "nID_Flow_ServiceData==null";
+                      log.error(sError);
+                      throw new Exception(sError);
+                }
+            
+            
 		Flow_ServiceData flowServiceData = flowService.getBaseEntityDao().getById(Flow_ServiceData.class, nID_Flow_ServiceData);
 		List<FlowProperty> res = new LinkedList<FlowProperty>();
 		if (flowServiceData != null) {
