@@ -114,6 +114,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     && "POST".equalsIgnoreCase(request.getMethod().trim());
             boolean updateTask = request.getRequestURL().toString().indexOf("/runtime/tasks") > 0
                     && "PUT".equalsIgnoreCase(request.getMethod().trim());
+            logger.info("sRequestBody: " + sRequestBody);
             if (saveHistory && (setTask || updateTask)) {
                 logger.info("call service HistoryEvent_Service!!!!!!!!!!!");
                 JSONParser parser = new JSONParser();
@@ -128,8 +129,6 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     serviceName = "updateHistoryEvent_Service";
                     ID = (String) jsonObject.get("processInstanceId");
                 }
-                
-                logger.info("sRequestBody: " + sRequestBody);
                 
                 if (serviceName != null && ID != null) {
                     String URL = generalConfig.sHostCentral() + "/wf-central/service/services/" + serviceName;
