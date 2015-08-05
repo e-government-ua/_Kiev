@@ -32,6 +32,8 @@
         <aop:pointcut id="base.service.flow" expression="execution(* org.wf.dp.dniprorada.base.service.flow.*.*(..))"/>
         <aop:advisor pointcut-ref="base.service.flow" advice-ref="txAdvice"/>
     </aop:config>
+    
+    <bean id="httpRequester" class="org.wf.dp.dniprorada.rest.HttpRequester"></bean>
 
     <import resource="classpath:context-services_local.xml"/>
         
