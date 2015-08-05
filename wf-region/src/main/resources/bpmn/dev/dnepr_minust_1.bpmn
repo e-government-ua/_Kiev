@@ -16,7 +16,7 @@
         <activiti:formProperty id="scan_4" name="Завантажте копію рішення уповноваженого органу управління  юридичної  особи  про  внесення  змін, які пов’язані  із  зміною місцезнаходження та/або найменування юридичної особи; у разі, якщо зміни до відомостей про юридичну особу, які містяться в Єдиному державному реєстрі юридичних осіб та фізичних осіб – підприємців, вносяться у зв'язку із зміною місцезнаходження та/або найменування юридичної особи, утвореної на підставі модельного статуту." type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="scan_5" name="Завантажте копію рішення уповноваженого органу управління  юридичної особи  про зміни, які пов’язані із зміною статутного капіталу (статутного або складеного капіталу) юридичної особи;  у разі, якщо зміни до відомостей про юридичну особу, які містяться в Єдиному  державному реєстрі юридичних осіб та фізичних осіб – підприємців, пов'язані із зміною статутного капіталу (статутного або складеного капіталу) юридичної особи, що діє на підставі  модельного статуту, затвердженого Кабінетом Міністрів України.  " type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="scan_6" name="Завантажте копію рішення уповноваженого органу  управління юридичної особи про зміни, які пов’язані  із   зміною обмежень щодо представництва від імені юридичної особи; у разі, якщо зміни до відомостей про юридичну особу, які містяться в Єдиному державному  реєстрі юридичних осіб та фізичних осіб - підприємців, пов'язані із  зміною обмежень  щодо  представництва  від імені юридичної особи. " type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warningMessage" name="Увага!" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
       </extensionElements>
@@ -115,8 +115,7 @@
     &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/body&gt;
-&lt;/html&gt;
-</activiti:expression>
+&lt;/html&gt;</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -127,7 +126,7 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide1" name="Результат перевірки документів" type="enum" required="true">
           <activiti:value id="accept" name="Документи пройшли перевірку. Послуга може бути надана."></activiti:value>
           <activiti:value id="reject" name="Послуга не може бути надана."></activiti:value>
@@ -157,7 +156,7 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide1" name="Результат" type="enum">
           <activiti:value id="accept" name="Ухвалити"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
@@ -165,7 +164,7 @@
         <activiti:formProperty id="docToSend" name="Завантажте копію для відправлення громадянину" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${file_id}</activiti:expression>
+            <activiti:expression>${scan_form4},${scan_1},${scan_2},${scan_3},${scan_4},${scan_5},${scan_6}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
