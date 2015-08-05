@@ -37,7 +37,7 @@ public class ActivitiRestHistoryEventController {
     @RequestMapping(value = "/addHistoryEvent_Service", method = RequestMethod.GET)
     public
     @ResponseBody
-    ResponseEntity<HistoryEvent_Service> addHistoryEvent_Service(
+    ResponseEntity<String> addHistoryEvent_Service(
             @RequestParam(value = "nID_Task") Long nID_Task,
             @RequestParam(value = "sStatus") String sStatus,
             @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
@@ -60,11 +60,11 @@ public class ActivitiRestHistoryEventController {
     @RequestMapping(value = "/getHistoryEvent_Service", method = RequestMethod.GET)
     public
     @ResponseBody
-    ResponseEntity<HistoryEvent_Service> getHistoryEvent_Service(
+    ResponseEntity<String> getHistoryEvent_Service(
             @RequestParam(value = "nID_Protected") Long nID_Protected) throws ActivitiRestException {
 
         HistoryEvent_Service event_service = null;
-        ResponseEntity<HistoryEvent_Service> result;
+        ResponseEntity<String> result;
         try {
             event_service = historyEventServiceDao.getHistoryEvent_ServiceByID_Protected(nID_Protected);
             result = JsonRestUtils.toJsonResponse(event_service);
@@ -99,17 +99,22 @@ public class ActivitiRestHistoryEventController {
     @RequestMapping(value = "/updateHistoryEvent_Service", method = RequestMethod.GET)
     public
     @ResponseBody
-    void updateHistoryEvent_Service(
-            @RequestParam(value = "nID_Protected") Long nID_Protected,
+    HistoryEvent_Service updateHistoryEvent_Service(
+    		@RequestParam(value = "nID_Task", required = false) Long nID_Task,
+            //@RequestParam(value = "nID_Protected", required = false) Long nID_Protected, 
             @RequestParam(value = "sStatus") String sStatus,
             @RequestParam(value = "sID_Status", required = false) String sID_Status,
             HttpServletResponse response) {
 
         try {
-            historyEventServiceDao.updateHistoryEvent_Service(nID_Protected, sStatus, sID_Status);
+        	log.info("updateHistoryEvent_Service!!!!!!!!!!!!!");
+            return historyEventServiceDao.updateHistoryEvent_Service(nID_Task,
+            		//nID_Protected
+            		sStatus, sID_Status);
         } catch (RuntimeException e) {
             response.setStatus(403);
             response.setHeader("Reason", e.getMessage());
+            return null;
         }
     }
 

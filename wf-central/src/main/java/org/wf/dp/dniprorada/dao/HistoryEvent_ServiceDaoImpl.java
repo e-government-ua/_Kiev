@@ -31,6 +31,20 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
     }
 
     @Override
+    public HistoryEvent_Service getHistoryEvent_ServiceBynID(Long nID) {
+        Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
+        criteria.add(Restrictions.eq("id", nID));
+        return (HistoryEvent_Service) criteria.uniqueResult();
+    }
+    
+    @Override
+    public HistoryEvent_Service getHistoryEvent_ServiceBynID_Task(Long nID_Task) {
+        Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
+        criteria.add(Restrictions.eq("id", nID_Task));
+        return (HistoryEvent_Service) criteria.uniqueResult();
+    }
+    
+    @Override
     public HistoryEvent_Service getHistoryEvent_ServiceBysID(String sID) {
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
         criteria.add(Restrictions.eq("sID", sID));
@@ -77,10 +91,14 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
     }
 
     @Override
-    public void updateHistoryEvent_Service(Long nID_Protected, String sStatus, String sID_status) {
+    public HistoryEvent_Service updateHistoryEvent_Service(
+    		//Long nID_Protected, 
+    		Long nID_Task,
+    		String sStatus, String sID_status) {
         HistoryEvent_Service event_service;
         try {
-            event_service = getHistoryEvent_ServiceByID_Protected(nID_Protected);
+            //event_service = getHistoryEvent_ServiceByID_Protected(nID_Protected);
+        	event_service = getHistoryEvent_ServiceBynID_Task(nID_Task);
         } catch (RuntimeException e){
             throw new RuntimeException(e.getMessage(), e);
         }
@@ -97,6 +115,7 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
         	event_service.setsDate(new DateTime());
             getSession().saveOrUpdate(event_service);
         }
+        return event_service;
     }
 
 }
