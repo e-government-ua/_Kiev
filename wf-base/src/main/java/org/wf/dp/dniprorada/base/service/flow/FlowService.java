@@ -138,6 +138,23 @@ public class FlowService implements ApplicationContextAware {
       return oFlowSlotTicket;
    }
 
+   
+   /**
+    * Generates FlowSlots in given interval for specified flow. Slots will not be generated if they are already exist.
+     * @param sID_BP
+    * @return 
+    */
+   public Long nID_Flow_ServiceData(String sID_BP) {
+      List<Flow_ServiceData> aFlow = baseEntityDao.getAll(Flow_ServiceData.class);
+       for(Flow_ServiceData oFlow : aFlow){
+           if (oFlow.getsID_BP().equalsIgnoreCase(sID_BP)){
+               return oFlow.getId();
+           }
+       }
+       return null;
+   }
+
+           
    /**
     * Generates FlowSlots in given interval for specified flow. Slots will not be generated if they are already exist.
     * @param nID_Flow_ServiceData ID of flow
