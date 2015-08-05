@@ -41,6 +41,9 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
     private HistoryService historyService;
+    
+    @Autowired
+    HttpRequester httpRequester;
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -144,7 +147,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     params.put("sStatus", status);
                     params.put("sID_Status", status);
                     logger.info(URL + ": " + params);
-                    String soResponse = HttpRequester.get(URL, params);
+                    String soResponse = httpRequester.get(URL, params);
                     logger.info("ok! soJSON = " + soResponse);
                 }
 

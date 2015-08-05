@@ -15,5 +15,5 @@ public interface HistoryEvent_ServiceDao {
 
     public HistoryEvent_Service addHistoryEvent_Service(Long nID_Task, String sStatus, Long nID_Subject, String sID_Status);
 
-    public HistoryEvent_Service updateHistoryEvent_Service(Long nID, String sStatus, String sID_status);
+    public HistoryEvent_Service updateHistoryEvent_Service(HistoryEvent_Service historyEvent_Service);
 }
