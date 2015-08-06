@@ -50,12 +50,12 @@ module.exports.submit = function(req, res) {
 		res.end();
 	};
 
-        var nID_Subject=0;
+        var nID_Subject=req.session.subject.nID;
 	var properties = [];
 	for(var id in options.formData.params) {
     var value = options.formData.params[id];
     if(id === 'nID_Subject'){
-      nID_Subject = req.session.subject.nID;
+      //nID_Subject = req.session.subject.nID;
       value = nID_Subject;
       
     }
