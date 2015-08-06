@@ -169,7 +169,7 @@ public class FlowService implements ApplicationContextAware {
       List<FlowSlotVO> res = new ArrayList<>();
 
       for (FlowProperty flowProperty : flow.getFlowProperties()) {
-        if(!flowProperty.getbExclude()){
+        if(flowProperty.getbExclude()==null || !flowProperty.getbExclude()){
             Class<FlowPropertyHandler> flowPropertyHandlerClass = getFlowPropertyHandlerClass(flowProperty);
             if (BaseFlowSlotScheduler.class.isAssignableFrom(flowPropertyHandlerClass)) {
 
