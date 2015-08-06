@@ -57,7 +57,8 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao {
             throw new IllegalArgumentException("CRC Error");
         }
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
-        criteria.add(Restrictions.eq("id", nID_Protected / 10));
+        //criteria.add(Restrictions.eq("id", nID_Protected / 10));
+        criteria.add(Restrictions.eq("nID_Task", nID_Protected / 10));
         HistoryEvent_Service event_service = (HistoryEvent_Service) criteria.uniqueResult();
         if (event_service == null) {
             log.warn("Record not found");
@@ -84,7 +85,13 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao {
         session.saveOrUpdate(event_service);
         Long nID = event_service.getId();
 //        event_service.setsID(AlgorithmLuna.getProtectedString(nID, nID_subject, sID_status));
-        event_service.setnID_Protected(AlgorithmLuna.getProtectedNumber(nID));
+//        event_service.setnID_Protected(AlgorithmLuna.getProtectedNumber(nID));
+        
+        long nID_Reference = (long) 1000000000;
+        //nID_Reference+=nID_task;
+        nID_Reference=nID_task;
+        event_service.setnID_Protected(AlgorithmLuna.getProtectedNumber(nID_Reference));
+        
 //        session.saveOrUpdate(event_service);
         return event_service;
     }

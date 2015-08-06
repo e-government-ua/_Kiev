@@ -110,34 +110,48 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         }
 
         try {
-            boolean setTask = request.getRequestURL().toString().indexOf("/form/form-data") > 0
+            boolean setTask = sResponseBody != null && request.getRequestURL().toString().indexOf("/form/form-data") > 0
+                    && "POST".equalsIgnoreCase(request.getMethod().trim());
+            boolean closeTask = sResponseBody == null && request.getRequestURL().toString().indexOf("/form/form-data") > 0
                     && "POST".equalsIgnoreCase(request.getMethod().trim());
             boolean updateTask = request.getRequestURL().toString().indexOf("/runtime/tasks") > 0
                     && "PUT".equalsIgnoreCase(request.getMethod().trim());
-            if (saveHistory && (setTask || updateTask)) {
+            logger.info("sRequestBody: " + sRequestBody);
+            if (saveHistory && (setTask || closeTask || updateTask)) {
                 logger.info("call service HistoryEvent_Service!!!!!!!!!!!");
                 JSONParser parser = new JSONParser();
-                JSONObject jsonObject = (JSONObject) parser.parse(sResponseBody);
+                JSONObject jsonObject;
+                
+                if(sResponseBody != null){
+                	jsonObject = (JSONObject) parser.parse(sResponseBody);
+                } else{
+                	jsonObject = (JSONObject) parser.parse(sRequestBody);
+                }
+              
                 String ID = (String) jsonObject.get("id");
                 String serviceName = null;
                 String taskName = null;
                 if (setTask) {
                     serviceName = "addHistoryEvent_Service";
                     taskName = "Заявка подана";
-                } else if (updateTask) {
+                } else if (closeTask) {
+                    serviceName = "updateHistoryEvent_Service";
+                    String task_ID = (String) jsonObject.get("taskId");
+                    HistoricTaskInstance historicTaskInstance = historyService.createHistoricTaskInstanceQuery().taskId(task_ID).singleResult();
+                    ID = historicTaskInstance.getProcessInstanceId();
+                    taskName = "Заявка выполнена";
+                } else if (updateTask){
                     serviceName = "updateHistoryEvent_Service";
                     ID = (String) jsonObject.get("processInstanceId");
+                    taskName = (String) jsonObject.get("name");
                 }
-                
-                logger.info("sRequestBody: " + sRequestBody);
                 
                 if (serviceName != null && ID != null) {
                     String URL = generalConfig.sHostCentral() + "/wf-central/service/services/" + serviceName;
-                    String status = taskName != null ? taskName : (String) jsonObject.get("name");
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("nID_Task", ID);
-                    params.put("sStatus", status);
-                    params.put("sID_Status", status);
+                    params.put("sStatus", taskName);
+                    params.put("sID_Status", taskName);
                     logger.info(URL + ": " + params);
                     String soResponse = httpRequester.get(URL, params);
                     logger.info("ok! soJSON = " + soResponse);
