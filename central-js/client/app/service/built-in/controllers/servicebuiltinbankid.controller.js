@@ -152,19 +152,21 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
         //Check: http://planetcalc.ru/2464/
         //var inputNumber = 3;
         var n = parseInt(result.id);
+        //var n = parseInt(2187501);
         var nFactor = 1;
         var nCRC = 0;
         var nAddend;
         while (n !== 0){
             nAddend = Math.round(nFactor * (n % 10));
-            //alert("addend(1)="+addend);
-            //alert("addend(2)="+Math.round(addend));
             nFactor = (nFactor === 2) ? 1 : 2;
             nAddend = nAddend > 9 ? nAddend - 9 : nAddend;
             nCRC += nAddend;
-            n /= 10;
+            n = parseInt(n / 10);
         }
-        nCRC=Math.round(nCRC/10)
+        nCRC=nCRC%10;
+//alert(nCRC%10);
+//nCRC=Math.round(nCRC/10)
+//alert(nCRC%10);
         //alert(nCRC);
                     submitted.data.id = result.id+nCRC;//11111111
 
