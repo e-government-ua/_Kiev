@@ -50,11 +50,14 @@ module.exports.submit = function(req, res) {
 		res.end();
 	};
 
+        var nID_Subject=0;
 	var properties = [];
 	for(var id in options.formData.params) {
     var value = options.formData.params[id];
     if(id === 'nID_Subject'){
-      value = req.session.subject.nID;
+      nID_Subject = req.session.subject.nID;
+      value = nID_Subject;
+      
     }
 		properties.push({
 			'id': id,
@@ -71,7 +74,8 @@ module.exports.submit = function(req, res) {
 		'body': {
 			'processDefinitionId': options.formData.processDefinitionId,
 			'businessKey': "key",
-			'properties': properties
+			'properties': properties,
+                        'nID_Subject': nID_Subject
 		},
 		'json': true
 	}, callback);
