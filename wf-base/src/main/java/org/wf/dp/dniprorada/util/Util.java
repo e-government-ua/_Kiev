@@ -1,6 +1,5 @@
 package org.wf.dp.dniprorada.util;
 
-import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.DelegateTask;
@@ -21,11 +20,21 @@ import java.util.Arrays;
 public final class Util {
 
     private final static Logger log = LoggerFactory.getLogger(Util.class);
-    public static final String FILE_PATH_BEGIN = "../webapps/wf-region/WEB-INF/classes/pattern/";
-    public static final String DEFAULT_CONTENT_TYPE = "text/plain";
+    public static final String PATTERN_FILE_PATH_BEGIN = "../webapps/wf-region/WEB-INF/classes/pattern/";
+    public static final String PATTERN_DEFAULT_CONTENT_TYPE = "text/plain";
 
     private Util() {
 	}
+
+
+    public static byte[] getPatternFile(String sPathFile)  throws IOException {
+        if (sPathFile.contains("..") ){
+            throw new IllegalArgumentException("incorrect sPathFile!");
+        }
+        String fullFileName = PATTERN_FILE_PATH_BEGIN + sPathFile;
+        File file = new File(fullFileName);
+        return Files.toByteArray(file);
+    }
 
 	public static String sData(byte[] a) {
 		// Charset.forName("UTF-8")
@@ -274,44 +283,4 @@ public final class Util {
 		return null;
 	}        
 
-    /**1) Сервис назвать getPatternFile
-Параметры:
-sSingleFolder - строковое название папки
-sFullName - строковое название файла
-sContentType - строковой тип контента
-Возвращать контент указанного файла.
-(у этого cthdbcf должна быть и простая возможность вызова как обычного метода из явы)
-2) Папки смотреть начиная с корня классов (т.е. "\i\wf-region\src\main\resources\patterns",
-и убедиться, что в продеплоеном виде берется именно этот каталог в качестве исходного
-3) создать в проекте соответствующую папку "patterns" по пути "\i\wf-region\src\main\resources\patterns"
-4) Не допускать, чтоб в параметре "sSingleFolder" и sFullName встречались слеши или обратные слеши, которые позволят сослаться на папку, уровнем выше.
-5) задавая в хеадере респонса тот контенттайп, что указан в "sContentType" - отдавать контент файла.
-5) описать в доке с АП�?*/
-
-    public static byte[] getPatternFile(String sPathFile, String sContentType)
-            throws IOException {
-
-       if (sPathFile.contains("..") ){//|| sPathFile.charAt(0) == '/' || sPathFile.charAt(0) == '\\'
-            throw new IllegalArgumentException("incorrect sPathFile!");
-        }
-//        //get File
-        String fullFileName = FILE_PATH_BEGIN  + sPathFile;
-
-        File file = new File(fullFileName);
-
-//        //FileInputStream fis = new FileInputStream(file);
-//
-//        //System.out.println("Total file size to read (in bytes) : "+ fis.available());
-
-//        int content;
-//        while ((content = fis.read()) != -1) {
-//            // convert to char and display it
-//            System.out.print((char) content);
-//        }
-        byte[] bytes = Files.toByteArray(file);
-        String content = Files.toString(file, Charsets.UTF_8);
-        log.info("content of file=" + bytes);
-        return bytes;
-
-    }
 }

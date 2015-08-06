@@ -1,19 +1,25 @@
 angular.module('app').controller('ServiceBuiltInBankIDController', function(
-    $state, 
-    $stateParams, 
-    $scope, 
-    $timeout, 
-    FormDataFactory, 
-    ActivitiService, 
-    ValidationService, 
-    oServiceData, 
-    BankIDAccount, 
-    ActivitiForm, 
+    $state,
+    $stateParams,
+    $scope,
+    $timeout,
+    FormDataFactory,
+    ActivitiService,
+    ValidationService,
+    oServiceData,
+    BankIDAccount,
+    ActivitiForm,
     uiUploader ) {
 
     'use strict';
 
     // FXME: Удалить это после теста задачи #584
+  var bankIdFound = false;
+  angular.forEach(ActivitiForm.formProperties, function(prop) {
+    if (prop.id == 'bankIdsID_Country')
+      bankIdFound = true;
+  });
+  if (!bankIdFound)
     ActivitiForm.formProperties.push({
       id: 'bankIdsID_Country',
       name: 'Громадянство',
@@ -34,7 +40,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     var currentState = $state.$current;
     $scope.data.region = currentState.data.region;
     $scope.data.city = currentState.data.city;
-    
+  
     $scope.ngIfCity = function() {
   	if($state.current.name === 'index.service.general.city.built-in') {
   		if($scope.data.city) {
