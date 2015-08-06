@@ -2146,12 +2146,13 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowExclude?
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=[full-path-file]&sContentType=[content-type]
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=[full-path-file]&sContentType=[content-type]**
 --возвращает содержимое указанного файла с указанным типом контента (если он задан).
 
 * sPathFile - полный путь к файлу, например: folder/file.html.
 * sContentType - тип контента (опционально, по умолчанию обычный текст: text/plain)
 
+Если указанный путь неверен и файл не найден -- вернется соответствующая ошибка.
 
 Примеры:
 
