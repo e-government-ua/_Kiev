@@ -1,26 +1,32 @@
 angular.module('app').controller('ServiceBuiltInBankIDController', function(
-    $state, 
-    $stateParams, 
-    $scope, 
-    $timeout, 
-    FormDataFactory, 
-    ActivitiService, 
-    ValidationService, 
-    oServiceData, 
-    BankIDAccount, 
-    ActivitiForm, 
+    $state,
+    $stateParams,
+    $scope,
+    $timeout,
+    FormDataFactory,
+    ActivitiService,
+    ValidationService,
+    oServiceData,
+    BankIDAccount,
+    ActivitiForm,
     uiUploader ) {
 
     'use strict';
 
   // Удалить это после теста задачи #584
-  ActivitiForm.formProperties.push({
-    id: "bankIdsID_Country",
-    name: "Громадянство",
-    type: "invisible",
-    value: "UKR",
-    readable: true
+  var bankIdFound = false;
+  angular.forEach(ActivitiForm.formProperties, function(prop) {
+    if (prop.id == 'bankIdsID_Country')
+      bankIdFound = true;
   });
+  if (!bankIdFound)
+    ActivitiForm.formProperties.push({
+      id: "bankIdsID_Country",
+      name: "Громадянство",
+      type: "invisible",
+      value: "UKR",
+      readable: true
+    });
 
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount;
@@ -34,7 +40,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   var currentState = $state.$current;
   $scope.data.region = currentState.data.region;
   $scope.data.city = currentState.data.city;
-  
+
   $scope.ngIfCity = function() {
 	if($state.current.name === 'index.service.general.city.built-in') {
 		if($scope.data.city) {
@@ -96,11 +102,11 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
           value.type='tel';
           value.sFieldType='tel';
         }
-/*        
+/*
         if (_.indexOf(aID_FieldAutoVIN, value.id) !== -1){
             value.sFieldType='AutoVIN';
         }
-*/        
+*/
   });
 
   $scope.submit = function(form) {
