@@ -7,8 +7,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.wf.dp.dniprorada.base.model.Entity;
-import org.wf.dp.dniprorada.base.util.JsonDateDeserializer;
-import org.wf.dp.dniprorada.base.util.JsonDateSerializer;
+import org.wf.dp.dniprorada.base.util.JsonDateTimeDeserializer;
+import org.wf.dp.dniprorada.base.util.JsonDateTimeSerializer;
 
 import javax.persistence.Column;
 
@@ -40,9 +40,9 @@ public class HistoryEvent_Service extends Entity {
     private String sID_Status;
     
     @JsonProperty(value="sDate")
-	@JsonSerialize(using= JsonDateSerializer.class)
-	@JsonDeserialize(using= JsonDateDeserializer.class)
-    @Type(type=DATETIME_TYPE)
+	@JsonSerialize(using= JsonDateTimeSerializer.class)
+	@JsonDeserialize(using= JsonDateTimeDeserializer.class)
+    @Type(type = DATETIME_TYPE)
 	@Column(name = "sDate", nullable = true) 
 	private DateTime sDate;
 
