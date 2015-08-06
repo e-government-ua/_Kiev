@@ -132,7 +132,43 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
                     var state = $state.$current;
 
                     var submitted = $state.get(state.name + '.submitted');
-                    submitted.data.id = result.id;
+/*                    
+    private static int sumDigitsByLuna(Long inputNumber) {
+        int factor = 1;
+        int sum = 0;
+        int addend;
+        while (inputNumber != 0){
+            addend = (int) (factor * (inputNumber % 10));
+            factor = (factor == 2) ? 1 : 2;
+            addend = addend > 9 ? addend - 9 : addend;
+            sum += addend;
+            inputNumber /= 10;
+        }
+        return sum;
+    }
+*/                    
+        //TODO: Fix Alhoritm Luna
+        //Number 2187501 must give CRC=3
+        //Check: http://planetcalc.ru/2464/
+        //var inputNumber = 3;
+        var n = parseInt(result.id);
+        //var n = parseInt(2187501);
+        var nFactor = 1;
+        var nCRC = 0;
+        var nAddend;
+        while (n !== 0){
+            nAddend = Math.round(nFactor * (n % 10));
+            nFactor = (nFactor === 2) ? 1 : 2;
+            nAddend = nAddend > 9 ? nAddend - 9 : nAddend;
+            nCRC += nAddend;
+            n = parseInt(n / 10);
+        }
+        nCRC=nCRC%10;
+//alert(nCRC%10);
+//nCRC=Math.round(nCRC/10)
+//alert(nCRC%10);
+        //alert(nCRC);
+                    submitted.data.id = result.id+nCRC;//11111111
 
                     $scope.isSending = false;
                     $scope.$root.data = $scope.data;

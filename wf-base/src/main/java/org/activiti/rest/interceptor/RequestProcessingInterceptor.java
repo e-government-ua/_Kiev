@@ -53,7 +53,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         logger.info("[preHandle] Request URL = " + request.getRequestURL().toString()
                 + ":: Start Time = " + System.currentTimeMillis());
         request.setAttribute("startTime", startTime);
-        testReadFromRequest(request, response, false);
+        saveHistory(request, response, false);
         return true;
     }
 
@@ -61,8 +61,6 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
     public void postHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
-        //logger.info("Request URL::" + request.getRequestURL().toString()
-        //        + " Sent to Handler :: Current Time=" + System.currentTimeMillis());
     }
 
     @Override
@@ -73,10 +71,10 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 + ":: Time Taken = " + (System.currentTimeMillis() - (Long) request.getAttribute("startTime")));
         response = ((MultiReaderHttpServletResponse) request.getAttribute("responseMultiRead") != null
                 ? (MultiReaderHttpServletResponse) request.getAttribute("responseMultiRead") : response);
-        testReadFromRequest(request, response, true);
+        saveHistory(request, response, true);
     }
 
-    private void testReadFromRequest(HttpServletRequest request, HttpServletResponse response, boolean saveHistory) throws IOException {
+    private void saveHistory(HttpServletRequest request, HttpServletResponse response, boolean saveHistory) throws IOException {
         Map mParamRequest = new HashMap();
         Enumeration paramsName = request.getParameterNames();
         while (paramsName.hasMoreElements()) {
@@ -94,58 +92,66 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             //mParamRequest.put("requestBody", buffer.toString()); 
             //TODO temp
         }
+        String sRequestBody = buffer.toString();
 
         logger.info("mParamRequest: " + mParamRequest);
-        //String responseBody = response.toString();
-        //logger.info("sResponseBody: " + responseBody);
-        //logger.info("sResponseBody: " + sResponseBody);
+        
         String sResponseBody = response.toString();
+        
         if(generalConfig.bTest()){
             if(sResponseBody!=null){
-                logger.info("sResponseBody: " + sResponseBody.substring(0, sResponseBody.length()<100?sResponseBody.length():99));
+                logger.info("sResponseBody: " + sResponseBody.substring(0, sResponseBody.length() < 100 ? sResponseBody.length() : 99));
             }else{
                 logger.info("sResponseBody: null");
             }
             logger.info("sResponseBody: " + sResponseBody);
-        }else{
-            logger.info("sResponseBody: " + (sResponseBody!=null?sResponseBody.length():"null"));
+        } else {
+            logger.info("sResponseBody: " + (sResponseBody != null ? sResponseBody.length() : "null"));
         }
 
         try {
-            boolean setTask = request.getRequestURL().toString().indexOf("/form/form-data") > 0
+            boolean setTask = sResponseBody != null && request.getRequestURL().toString().indexOf("/form/form-data") > 0
+                    && "POST".equalsIgnoreCase(request.getMethod().trim());
+            boolean closeTask = sResponseBody == null && request.getRequestURL().toString().indexOf("/form/form-data") > 0
                     && "POST".equalsIgnoreCase(request.getMethod().trim());
             boolean updateTask = request.getRequestURL().toString().indexOf("/runtime/tasks") > 0
                     && "PUT".equalsIgnoreCase(request.getMethod().trim());
-            if (saveHistory && (setTask || updateTask)) {
+            logger.info("sRequestBody: " + sRequestBody);
+            if (saveHistory && (setTask || closeTask || updateTask)) {
                 logger.info("call service HistoryEvent_Service!!!!!!!!!!!");
                 JSONParser parser = new JSONParser();
-                JSONObject jsonObject = (JSONObject) parser.parse(sResponseBody);
+                JSONObject jsonObject;
+                
+                if(sResponseBody != null){
+                	jsonObject = (JSONObject) parser.parse(sResponseBody);
+                } else{
+                	jsonObject = (JSONObject) parser.parse(sRequestBody);
+                }
+              
                 String ID = (String) jsonObject.get("id");
                 String serviceName = null;
                 String taskName = null;
                 if (setTask) {
                     serviceName = "addHistoryEvent_Service";
                     taskName = "Заявка подана";
-                } else if (updateTask) {
+                } else if (closeTask) {
                     serviceName = "updateHistoryEvent_Service";
-                    /*HistoricTaskInstance historicTaskInstance = historyService.createHistoricTaskInstanceQuery().taskId(ID).singleResult();
-                    String processInstanceId = historicTaskInstance.getProcessInstanceId();
-                    if (processInstanceId == null) {
-                        throw new ActivitiObjectNotFoundException(
-                                "ProcessInstanceId for taskId '" + ID + "' not found.",
-                                RequestProcessingInterceptor.class);
-                    }
-                    historicTaskInstance = historyService.createHistoricTaskInstanceQuery().processInstanceId(processInstanceId).orderByHistoricTaskInstanceStartTime().asc().singleResult();
-                    ID = historicTaskInstance.getId();*/
+                    String task_ID = (String) jsonObject.get("taskId");
+                    HistoricTaskInstance historicTaskInstance = historyService.createHistoricTaskInstanceQuery().taskId(task_ID).singleResult();
+                    ID = historicTaskInstance.getProcessInstanceId();
+                    taskName = "Заявка выполнена";
+                } else if (updateTask){
+                    serviceName = "updateHistoryEvent_Service";
                     ID = (String) jsonObject.get("processInstanceId");
+                    taskName = (String) jsonObject.get("name");
                 }
+                
                 if (serviceName != null && ID != null) {
                     String URL = generalConfig.sHostCentral() + "/wf-central/service/services/" + serviceName;
-                    String status = taskName != null ? taskName : (String) jsonObject.get("name");
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("nID_Task", ID);
-                    params.put("sStatus", status);
-                    params.put("sID_Status", status);
+                    params.put("sStatus", taskName);
+                    params.put("sID_Status", taskName);
                     logger.info(URL + ": " + params);
                     String soResponse = httpRequester.get(URL, params);
                     logger.info("ok! soJSON = " + soResponse);

@@ -1,5 +1,6 @@
 package org.activiti.rest.controller;
 
+import com.google.common.base.Charsets;
 import liquibase.util.csv.CSVWriter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
@@ -33,7 +34,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -853,7 +853,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
 
     @RequestMapping(value = "/getPatternFile", method = RequestMethod.GET)
-    public ResponseEntity<String> getPatternFile(
+    public  void  getPatternFile(
             @RequestParam(value = "sPathFile") String sPathFile ,
             @RequestParam(value = "sContentType", required = false) String sContentType,
             HttpServletRequest request, HttpServletResponse response) throws ActivitiRestException {
@@ -870,13 +870,15 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             }
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(mediaType);
-            //get file
-            String resultStr = Util.getPatternFile(sPathFile, contentType);
-            log.info(">>>>>>>>>>>>>result file=" + resultStr);
+
+            byte[] resultObj = Util.getPatternFile(sPathFile, contentType);
+//            log.info(">>>>>>result file=" + resultStr);
             //result
-            ResponseEntity<String> result = new ResponseEntity<>(resultStr, headers, HttpStatus.OK);
-            //response.setContentType(contentType);
-            return result;
+            //ResponseEntity<String> result = new ResponseEntity<>(resultObj, headers, HttpStatus.OK);
+            response.setContentType(contentType);
+            response.setCharacterEncoding(Charsets.UTF_8.toString());
+            response.getOutputStream().write(resultObj);
+         //   return resultObj;
         } catch (IllegalArgumentException e) {
             ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR", e.getMessage(), e);
             newErr.setHttpStatus(HttpStatus.FORBIDDEN);
@@ -885,7 +887,11 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR", e.getMessage(), e);
             newErr.setHttpStatus(HttpStatus.FORBIDDEN);
             throw newErr;
-        }
+        } catch (Exception e) {
+        ActivitiRestException newErr = new ActivitiRestException("SYSTEM_ERR", e.getMessage(), e);
+        newErr.setHttpStatus(HttpStatus.FORBIDDEN);
+        throw newErr;
+    }
 
 
     }
