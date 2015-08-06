@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.activiti.rest.interceptor; 
+package org.activiti.rest.interceptor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +12,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.activiti.engine.ActivitiObjectNotFoundException;
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.history.HistoricTaskInstance;
 
 import org.activiti.rest.controller.adapter.MultiReaderHttpServletResponse;
 import org.json.simple.JSONObject;
@@ -32,9 +35,15 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger logger = LoggerFactory
             .getLogger(RequestProcessingInterceptor.class);
-    
+
     @Autowired
     GeneralConfig generalConfig;
+
+    @Autowired
+    private HistoryService historyService;
+    
+    @Autowired
+    HttpRequester httpRequester;
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -44,7 +53,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         logger.info("[preHandle] Request URL = " + request.getRequestURL().toString()
                 + ":: Start Time = " + System.currentTimeMillis());
         request.setAttribute("startTime", startTime);
-        testReadFromRequest(request, response, false);
+        saveHistory(request, response, false);
         return true;
     }
 
@@ -52,8 +61,6 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
     public void postHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
-        //logger.info("Request URL::" + request.getRequestURL().toString()
-        //        + " Sent to Handler :: Current Time=" + System.currentTimeMillis());
     }
 
     @Override
@@ -62,12 +69,12 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             throws Exception {
         logger.info("[afterCompletion] Request URL = " + request.getRequestURL().toString()
                 + ":: Time Taken = " + (System.currentTimeMillis() - (Long) request.getAttribute("startTime")));
-        response = ((MultiReaderHttpServletResponse)request.getAttribute("responseMultiRead") != null ? 
-        		(MultiReaderHttpServletResponse)request.getAttribute("responseMultiRead") : response);
-        testReadFromRequest(request, response, true);
+        response = ((MultiReaderHttpServletResponse) request.getAttribute("responseMultiRead") != null
+                ? (MultiReaderHttpServletResponse) request.getAttribute("responseMultiRead") : response);
+        saveHistory(request, response, true);
     }
 
-    private void testReadFromRequest(HttpServletRequest request, HttpServletResponse response, boolean saveHistory) throws IOException {
+    private void saveHistory(HttpServletRequest request, HttpServletResponse response, boolean saveHistory) throws IOException {
         Map mParamRequest = new HashMap();
         Enumeration paramsName = request.getParameterNames();
         while (paramsName.hasMoreElements()) {
@@ -85,35 +92,74 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             //mParamRequest.put("requestBody", buffer.toString()); 
             //TODO temp
         }
+        String sRequestBody = buffer.toString();
 
         logger.info("mParamRequest: " + mParamRequest);
-        String responseBody  = response.toString();
-        logger.info("sResponseBody: " + responseBody);
         
-        try{
-        	logger.info("checkSaveHistoryEvent!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        	if(saveHistory && (request.getRequestURL().toString().indexOf("/form/form-data") > 0
-        			|| request.getRequestURL().toString().indexOf("/start-process/") > 0
-        			|| (request.getRequestURL().toString().indexOf("runtime/process-instances") > 0 
-        					&& "POST".equalsIgnoreCase(request.getMethod().trim())))){
-        		JSONParser parser = new JSONParser();
-                JSONObject jsonObject = (JSONObject) parser.parse(responseBody);
-                String sID_Task = (String) jsonObject.get("id");
-                if (sID_Task != null) {
-                	String status = "Заявка подана";
-                	Map<String, String> params = new HashMap<String, String>();
-            		params.put("nID_Task", sID_Task);
-            		params.put("sStatus", status);
-            		params.put("sID_Status", status);
-            		logger.info("addHistoryEvent_Service: " + generalConfig.sHostCentral() + "/wf-central/services/addHistoryEvent_Service " + params);
-            		String soResponse = HttpRequester.get(//"https://poligon.igov.org.ua" 
-            				generalConfig.sHostCentral() + "/wf-central/service/services/addHistoryEvent_Service", params);
-            		logger.info("soJSON = " + soResponse);
-                }
-        	}
+        String sResponseBody = response.toString();
+        
+        if(generalConfig.bTest()){
+            if(sResponseBody!=null){
+                logger.info("sResponseBody: " + sResponseBody.substring(0, sResponseBody.length() < 100 ? sResponseBody.length() : 99));
+            }else{
+                logger.info("sResponseBody: null");
+            }
+            logger.info("sResponseBody: " + sResponseBody);
+        } else {
+            logger.info("sResponseBody: " + (sResponseBody != null ? sResponseBody.length() : "null"));
         }
-        catch(Exception ex){
-        	logger.error("************************Error!!!!", ex);
+
+        try {
+            boolean setTask = sResponseBody != null && request.getRequestURL().toString().indexOf("/form/form-data") > 0
+                    && "POST".equalsIgnoreCase(request.getMethod().trim());
+            boolean closeTask = sResponseBody == null && request.getRequestURL().toString().indexOf("/form/form-data") > 0
+                    && "POST".equalsIgnoreCase(request.getMethod().trim());
+            boolean updateTask = request.getRequestURL().toString().indexOf("/runtime/tasks") > 0
+                    && "PUT".equalsIgnoreCase(request.getMethod().trim());
+            logger.info("sRequestBody: " + sRequestBody);
+            if (saveHistory && (setTask || closeTask || updateTask)) {
+                logger.info("call service HistoryEvent_Service!!!!!!!!!!!");
+                JSONParser parser = new JSONParser();
+                JSONObject jsonObject;
+                
+                if(sResponseBody != null){
+                	jsonObject = (JSONObject) parser.parse(sResponseBody);
+                } else{
+                	jsonObject = (JSONObject) parser.parse(sRequestBody);
+                }
+              
+                String ID = (String) jsonObject.get("id");
+                String serviceName = null;
+                String taskName = null;
+                if (setTask) {
+                    serviceName = "addHistoryEvent_Service";
+                    taskName = "Заявка подана";
+                } else if (closeTask) {
+                    serviceName = "updateHistoryEvent_Service";
+                    String task_ID = (String) jsonObject.get("taskId");
+                    HistoricTaskInstance historicTaskInstance = historyService.createHistoricTaskInstanceQuery().taskId(task_ID).singleResult();
+                    ID = historicTaskInstance.getProcessInstanceId();
+                    taskName = "Заявка выполнена";
+                } else if (updateTask){
+                    serviceName = "updateHistoryEvent_Service";
+                    ID = (String) jsonObject.get("processInstanceId");
+                    taskName = (String) jsonObject.get("name");
+                }
+                
+                if (serviceName != null && ID != null) {
+                    String URL = generalConfig.sHostCentral() + "/wf-central/service/services/" + serviceName;
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("nID_Task", ID);
+                    params.put("sStatus", taskName);
+                    params.put("sID_Status", taskName);
+                    logger.info(URL + ": " + params);
+                    String soResponse = httpRequester.get(URL, params);
+                    logger.info("ok! soJSON = " + soResponse);
+                }
+
+            }
+        } catch (Exception ex) {
+            logger.error("************************Error!!!!", ex);
         }
     }
 }

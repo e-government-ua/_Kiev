@@ -21,12 +21,12 @@ import javax.servlet.http.HttpServletResponse;
 public class ActivitiRestHistoryEventController {
 
     private static final Logger log = Logger.getLogger(ActivitiRestHistoryEventController.class);
-
     @Autowired
     private HistoryEvent_ServiceDao historyEventServiceDao;
 
     /**
      * add the object of HistoryEvent_Service to db
+     *
      * @param nID_Task -- ID of Task
      * @param sStatus -- string of status
      * @param nID_Subject -- SubjectID (optional)
@@ -35,9 +35,8 @@ public class ActivitiRestHistoryEventController {
      * @return the created object
      */
     @RequestMapping(value = "/addHistoryEvent_Service", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    ResponseEntity<HistoryEvent_Service> addHistoryEvent_Service(
+    public @ResponseBody
+    ResponseEntity<String> addHistoryEvent_Service(
             @RequestParam(value = "nID_Task") Long nID_Task,
             @RequestParam(value = "sStatus") String sStatus,
             @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
@@ -46,34 +45,33 @@ public class ActivitiRestHistoryEventController {
 
         return JsonRestUtils.toJsonResponse(
                 historyEventServiceDao.addHistoryEvent_Service(
-                        nID_Task, sStatus, nID_Subject, sID_Status));
+                nID_Task, sStatus, nID_Subject, sID_Status));
     }
 
-
     /**
-     * check the correctness of nID_Protected (by algorithm Luna)
-     * and return the object of HistoryEvent_Service
+     * check the correctness of nID_Protected (by algorithm Luna) and return the
+     * object of HistoryEvent_Service
+     *
      * @param nID_Protected -- string ID of event
-     * @return the object (if nID is correct and record exists)
-     * otherwise return 403. CRC Error (wrong nID_Protected) or 403. "Record not found"
+     * @return the object (if nID is correct and record exists) otherwise return
+     * 403. CRC Error (wrong nID_Protected) or 403. "Record not found"
      */
     @RequestMapping(value = "/getHistoryEvent_Service", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    ResponseEntity<HistoryEvent_Service> getHistoryEvent_Service(
+    public @ResponseBody
+    ResponseEntity<String> getHistoryEvent_Service(
             @RequestParam(value = "nID_Protected") Long nID_Protected) throws ActivitiRestException {
 
         HistoryEvent_Service event_service = null;
-        ResponseEntity<HistoryEvent_Service> result;
+        ResponseEntity<String> result;
         try {
             event_service = historyEventServiceDao.getHistoryEvent_ServiceByID_Protected(nID_Protected);
             result = JsonRestUtils.toJsonResponse(event_service);
         } catch (EntityNotFoundException e) {
-            ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR","Record not found", e);
+            ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR", "Record not found", e);
             newErr.setHttpStatus(HttpStatus.FORBIDDEN);
             throw newErr;
         } catch (IllegalArgumentException e) {
-            ActivitiRestException newErr =new ActivitiRestException("BUSINESS_ERR", e.getMessage(), e);
+            ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR", e.getMessage(), e);
             newErr.setHttpStatus(HttpStatus.FORBIDDEN);
             throw newErr;
         } catch (RuntimeException e) {
@@ -88,32 +86,42 @@ public class ActivitiRestHistoryEventController {
     }
 
     /**
-     * check the correctness of nID_Protected (by algorithm Luna)
-     * and update the object of HistoryEvent_Service in db
+     * check the correctness of nID_Protected (by algorithm Luna) and update the
+     * object of HistoryEvent_Service in db
+     *
      * @param nID_Protected -- nID_Protected of event_service
      * @param sStatus -- string of status
      * @param sID_Status -- string-status (optional)
-     * @param response
-     * return 200ok or "Record not found"
+     * @param response return 200ok or "Record not found"
      */
     @RequestMapping(value = "/updateHistoryEvent_Service", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    void updateHistoryEvent_Service(
-            @RequestParam(value = "nID_Protected") Long nID_Protected,
+    public @ResponseBody
+    HistoryEvent_Service updateHistoryEvent_Service(
+            @RequestParam(value = "nID_Task", required = false) Long nID_Task,
+            //@RequestParam(value = "nID_Protected", required = false) Long nID_Protected, 
             @RequestParam(value = "sStatus") String sStatus,
             @RequestParam(value = "sID_Status", required = false) String sID_Status,
             HttpServletResponse response) {
 
-        try {
-            historyEventServiceDao.updateHistoryEvent_Service(nID_Protected, sStatus, sID_Status);
-        } catch (RuntimeException e) {
-            response.setStatus(403);
-            response.setHeader("Reason", e.getMessage());
+        log.info("updateHistoryEvent_Service!!!!!!!!!!!!!");
+        HistoryEvent_Service historyEvent_Service = historyEventServiceDao.getHistoryEvent_ServiceBynID_Task(nID_Task);
+        log.info("updateHistoryEvent_Service!!!!!!!!!!!!!");
+        if (historyEvent_Service != null) {
+            boolean isChanged = false;
+            if (!historyEvent_Service.getsStatus().equals(sStatus)) {
+                historyEvent_Service.setsStatus(sStatus);
+                isChanged = true;
+            }
+            if (sID_Status != null && !sID_Status.equals(historyEvent_Service.getsID_Status())) {
+                historyEvent_Service.setsID_Status(sID_Status);
+                isChanged = true;
+            }
+            if (isChanged) {
+            	log.info("updateHistoryEvent_Service!!!!!!!!!!!!!");
+                historyEventServiceDao.updateHistoryEvent_Service(historyEvent_Service);
+                log.info("updateHistoryEvent_Service!!!!!!!!!!!!!");
+            }
         }
+        return historyEvent_Service;
     }
-
-
-
-
 }

@@ -26,6 +26,12 @@ public class GeneralConfig {
     public static Boolean bTest=null;
     
     
+	@Value("${general.auth.login}")
+	private String generalUsername;
+	@Value("${general.auth.password}")
+	private String generalPassword;
+    
+    
     public String sHost(){
         //general.sHost=https://test-version.region.igov.org.ua    
         return sHost!=null?sHost:"https://test.region.igov.org.ua";
@@ -36,7 +42,14 @@ public class GeneralConfig {
         return sHostCentral!=null?sHostCentral:"https://test.igov.org.ua";
     }
     
+    public String sAuthLogin(){
+        return generalUsername;
+    }
+    public String sAuthPassword(){
+        return generalPassword;
+    }
 
+    
     //static public boolean bTest=false;
     public boolean bTest(){
         //return true;

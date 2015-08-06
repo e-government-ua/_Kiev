@@ -1,5 +1,6 @@
 package org.activiti.rest.controller;
 
+import com.google.common.base.Charsets;
 import liquibase.util.csv.CSVWriter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
@@ -850,27 +851,25 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
 
     @RequestMapping(value = "/getPatternFile", method = RequestMethod.GET)
-    public String getPatternFile(
-            @RequestParam(value = "sPathFile ") String sPathFile ,
+    public  void  getPatternFile(
+            @RequestParam(value = "sPathFile") String sPathFile ,
             @RequestParam(value = "sContentType", required = false) String sContentType,
-            HttpServletRequest request, HttpServletResponse response) throws ActivitiRestException {
+            HttpServletResponse response) throws ActivitiRestException {
 
         try{
-            String contentType = sContentType == null ? Util.DEFAULT_CONTENT_TYPE : sContentType;
-            String result = Util.getPatternFile(sPathFile, contentType);
+            String contentType = sContentType == null ? Util.PATTERN_DEFAULT_CONTENT_TYPE : sContentType;
             response.setContentType(contentType);
-            return result;
-        } catch (IllegalArgumentException e) {
-            log.error(e.getMessage());
+            response.setCharacterEncoding(Charsets.UTF_8.toString());
+            byte[] resultObj = Util.getPatternFile(sPathFile);
+            response.getOutputStream().write(resultObj);
+        } catch (IllegalArgumentException | IOException e) {
             ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR", e.getMessage(), e);
             newErr.setHttpStatus(HttpStatus.FORBIDDEN);
             throw newErr;
-        } catch (IOException e) {
-            ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR", e.getMessage(), e);
+        } catch (Exception e) {
+            ActivitiRestException newErr = new ActivitiRestException("SYSTEM_ERR", e.getMessage(), e);
             newErr.setHttpStatus(HttpStatus.FORBIDDEN);
             throw newErr;
-
         }
     }
-    
 }

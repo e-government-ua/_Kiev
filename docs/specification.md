@@ -29,6 +29,7 @@
 <a href="#27_getSheduleFlowExcludes"> 27. Получение расписаний исключений </a><br/>
 <a href="#28_setSheduleFlowExclude"> 28. Добавление/изменение расписания исключения </a><br/>
 <a href="#29_removeSheduleFlowExclude"> 29. Удаление расписания исключений </a><br/>
+<a href="#30_workWithPatternFiles"> 30. Работа с файлами-шаблонами </a><br/>
 
 ### iGov.ua APIs
 
@@ -1645,7 +1646,8 @@ http://test.igov.org.ua/wf-central/service/flow/setFlowSlot_ServiceData
 **HTTP Metod: POST**
 
 Параметры:
-* nID_Flow_ServiceData - номер-ИД потока по данным сервиса (по которому генерируется слоты) (обязательный)
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
 * sDateStart - дата "начиная с такого-то момента времени", в формате "2015-06-28 12:12:56.001" (опциональный)
 * sDateStop - дата "заканчивая к такому-то моменту времени", в формате "2015-07-28 12:12:56.001" (опциональный)
 
@@ -1689,7 +1691,8 @@ http://test.igov.org.ua/wf-central/service/flow/buildFlowSlots
 **HTTP Metod: DELETE**
 
 Параметры:
-* nID_Flow_ServiceData - номер-ИД потока по данным сервиса (по которому удаляются слоты) (обязательный)
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
 * sDateStart - дата "начиная с такого-то момента времени", в формате "2015-06-28 12:12:56.001" (обязательный)
 * sDateStop - дата "заканчивая к такому-то моменту времени", в формате "2015-07-28 12:12:56.001" (обязательный)
 * bWithTickets - удалять ли слоты с тикетами, отвязывая тикеты от слотов? (опциональный, по умолчанию false)
@@ -2008,7 +2011,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nI
 **HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowInclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&sName=[sName]&sRegionTime=[sRegionTime]&sDateTimeAt=[sDateTimeAt]&sDateTimeTo=[sDateTimeTo]&saRegionWeekDay=[saRegionWeekDay]
 
 * nID - ИД-номер //опциональный ,если задан - редактирование
-* nID_Flow_ServiceData - ИД-номер потока 
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
 * sName - Строка-название ("Вечерний прием")
 * sRegionTime - Строка период времени ("14:16-16-30")
 * saRegionWeekDay - Массив дней недели ("su,mo,tu")
@@ -2036,7 +2040,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowInclude?nID
 
 **HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowInclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&nID=[nID]
 
-* nID_Flow_ServiceData - ИД-номер потока 
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
 * nID - ИД-номер
 Ответ:
 Массив объектов сущности расписаний включений
@@ -2084,7 +2089,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nI
 **HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&sName=[sName]&sRegionTime=[sRegionTime]&sDateTimeAt=[sDateTimeAt]&sDateTimeTo=[sDateTimeTo]&saRegionWeekDay=[saRegionWeekDay]
 
 * nID - ИД-номер //опциональный ,если задан - редактирование
-* nID_Flow_ServiceData - ИД-номер потока 
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
 * sName - Строка-название ("Вечерний прием")
 * sRegionTime - Строка период времени ("14:16-16-30")
 * saRegionWeekDay - Массив дней недели ("su,mo,tu")
@@ -2112,7 +2118,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowExclude?nID
 
 **HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&nID=[nID]
 
-* nID_Flow_ServiceData - ИД-номер потока 
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
 * nID - ИД-номер
 Ответ:
 Массив объектов сущности расписаний исключений
@@ -2127,3 +2134,36 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowExclude?
 ```
 {"sData":null,"bExclude":true,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}
 ```
+
+
+----------------------
+
+
+<a name="30_workWithPatternFiles">
+#### 30. Работа с файлами-шаблонами
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=[full-path-file]&sContentType=[content-type]**
+--возвращает содержимое указанного файла с указанным типом контента (если он задан).
+
+* sPathFile - полный путь к файлу, например: folder/file.html.
+* sContentType - тип контента (опционально, по умолчанию обычный текст: text/plain)
+
+Если указанный путь неверен и файл не найден -- вернется соответствующая ошибка.
+
+Примеры:
+
+https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=print//subsidy_zayava.html
+
+ответ: вернется текст исходного кода файла-шаблона
+
+https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=print//subsidy_zayava.html&sContentType=text/html
+
+ответ: файл-шаблон будет отображаться в виде html-страницы
+
+
+----------------------
+

@@ -11,8 +11,7 @@ import org.wf.dp.dniprorada.model.HistoryEvent_Service;
 import org.wf.dp.dniprorada.util.AlgorithmLuna;
 import org.apache.log4j.Logger;
 
-
-public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
+public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao {
 
     private SessionFactory sessionFactory;
     private static final Logger log = Logger.getLogger(HistoryEvent_ServiceDaoImpl.class);
@@ -31,6 +30,20 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
     }
 
     @Override
+    public HistoryEvent_Service getHistoryEvent_ServiceBynID(Long nID) {
+        Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
+        criteria.add(Restrictions.eq("id", nID));
+        return (HistoryEvent_Service) criteria.uniqueResult();
+    }
+
+    @Override
+    public HistoryEvent_Service getHistoryEvent_ServiceBynID_Task(Long nID_Task) {
+        Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
+        criteria.add(Restrictions.eq("nID_Task", nID_Task));
+        return (HistoryEvent_Service) criteria.uniqueResult();
+    }
+
+    @Override
     public HistoryEvent_Service getHistoryEvent_ServiceBysID(String sID) {
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
         criteria.add(Restrictions.eq("sID", sID));
@@ -44,7 +57,8 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
             throw new IllegalArgumentException("CRC Error");
         }
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
-        criteria.add(Restrictions.eq("id", nID_Protected / 10));
+        //criteria.add(Restrictions.eq("id", nID_Protected / 10));
+        criteria.add(Restrictions.eq("nID_Task", nID_Protected / 10));
         HistoryEvent_Service event_service = (HistoryEvent_Service) criteria.uniqueResult();
         if (event_service == null) {
             log.warn("Record not found");
@@ -71,32 +85,21 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao{
         session.saveOrUpdate(event_service);
         Long nID = event_service.getId();
 //        event_service.setsID(AlgorithmLuna.getProtectedString(nID, nID_subject, sID_status));
-        event_service.setnID_Protected(AlgorithmLuna.getProtectedNumber(nID));
+//        event_service.setnID_Protected(AlgorithmLuna.getProtectedNumber(nID));
+        
+        long nID_Reference = (long) 1000000000;
+        //nID_Reference+=nID_task;
+        nID_Reference=nID_task;
+        event_service.setnID_Protected(AlgorithmLuna.getProtectedNumber(nID_Reference));
+        
 //        session.saveOrUpdate(event_service);
         return event_service;
     }
 
     @Override
-    public void updateHistoryEvent_Service(Long nID_Protected, String sStatus, String sID_status) {
-        HistoryEvent_Service event_service;
-        try {
-            event_service = getHistoryEvent_ServiceByID_Protected(nID_Protected);
-        } catch (RuntimeException e){
-            throw new RuntimeException(e.getMessage(), e);
-        }
-        boolean isChanged = false;
-        if (!event_service.getsStatus().equals(sStatus)){
-            event_service.setsStatus(sStatus);
-            isChanged = true;
-        }
-        if (sID_status != null && !sID_status.equals(event_service.getsID_Status())) {
-            event_service.setsID_Status(sID_status);
-            isChanged = true;
-        }
-        if (isChanged) {
-        	event_service.setsDate(new DateTime());
-            getSession().saveOrUpdate(event_service);
-        }
+    public HistoryEvent_Service updateHistoryEvent_Service(HistoryEvent_Service event_service) {
+        event_service.setsDate(new DateTime());
+        getSession().saveOrUpdate(event_service);
+        return event_service;
     }
-
 }

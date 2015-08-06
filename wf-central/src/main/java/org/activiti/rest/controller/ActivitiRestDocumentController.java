@@ -318,7 +318,7 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "nID_DocumentType") Long nID_DocumentType,
             @RequestParam(value = "nID_DocumentContentType", required = false) Long nID_DocumentContentType,
             @RequestParam(value = "oFile", required = true) MultipartFile oFile,
-            @RequestParam(value = "oSignData") String oSignData,//todo required?? (issue587)
+//            @RequestParam(value = "oSignData", required = true) String soSignData,//todo required?? (issue587)
             //@RequestBody byte[] content,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
 
@@ -351,6 +351,10 @@ public class ActivitiRestDocumentController {
         byte[] aoContent = oFile.getBytes();
 
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
+        
+        String soSignData = null;
+        //TODO: по другому пункту issue587 - проставлять soSignData
+        
         Long nID_Document = documentDao.setDocument(
                         nID_Subject,
                         subject_Upload.getId(),
@@ -362,7 +366,7 @@ public class ActivitiRestDocumentController {
                         sFileName,
                         sFileContentType,
                         aoContent,
-                        oSignData);
+                        soSignData);
         createHistoryEvent(HistoryEventType.SET_DOCUMENT_INTERNAL,
                 nID_Subject, sSubjectName_Upload, nID_Document, null);
         return nID_Document;
@@ -460,27 +464,27 @@ public class ActivitiRestDocumentController {
 
     @RequestMapping(value   = "/setDocumentType",  method  = RequestMethod.GET)
     public  @ResponseBody
-    ResponseEntity<DocumentType> setDocumentType (
+    ResponseEntity setDocumentType (
             @RequestParam(value = "nID")   Long     nID,
             @RequestParam(value = "sName") String sName,
             @RequestParam(value = "bHidden", required = false) Boolean bHidden
     ) {
-        ResponseEntity<DocumentType> result;
+        ResponseEntity result;
         try {
             DocumentType documentType = documentTypeDao.setDocumentType(nID, sName, bHidden);
             result = JsonRestUtils.toJsonResponse(documentType);
         } catch (RuntimeException e) {
-            result = toJsonErrorResponse(403, e.getMessage());
+            result = toJsonErrorResponse(HttpStatus.FORBIDDEN, e.getMessage());
         }
         return result;
     }
 
-    private ResponseEntity toJsonErrorResponse(int httpCode, String eMessage) {//todo move to JsonRestUtils
+    private ResponseEntity toJsonErrorResponse(HttpStatus httpStatus, String eMessage) {//todo move to JsonRestUtils
         HttpHeaders headers = new HttpHeaders();
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         headers.setContentType(mediaType);
         headers.set("Reason", eMessage);
-        return new ResponseEntity<>(headers, HttpStatus.valueOf(httpCode));
+        return new ResponseEntity<>(headers, httpStatus);
     }
 
     @RequestMapping(value   = "/removeDocumentType", method  = RequestMethod.GET)
@@ -507,16 +511,16 @@ public class ActivitiRestDocumentController {
 
     @RequestMapping(value   = "/setDocumentContentType",  method  = RequestMethod.GET)
     public  @ResponseBody
-    ResponseEntity<DocumentContentType> setDocumentContentType (
+    ResponseEntity setDocumentContentType (
             @RequestParam(value = "nID")   Long     nID,
             @RequestParam(value = "sName") String sName
     ) {
-        ResponseEntity<DocumentContentType> result;
+        ResponseEntity result;
         try {
             DocumentContentType documentType = documentContentTypeDao.setDocumentContentType(nID, sName);
             result = JsonRestUtils.toJsonResponse(documentType);
         } catch (RuntimeException e) {
-            result = toJsonErrorResponse(403, e.getMessage());
+            result = toJsonErrorResponse(HttpStatus.FORBIDDEN, e.getMessage());
         }
         return result;
     }

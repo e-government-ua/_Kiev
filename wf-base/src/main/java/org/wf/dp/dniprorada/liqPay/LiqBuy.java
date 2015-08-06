@@ -26,6 +26,9 @@ public class LiqBuy {
     @Autowired
     GeneralConfig generalConfig;
     
+    @Autowired
+    HttpRequester httpRequester;
+    
     
     private static final Logger log = LoggerFactory.getLogger(LiqBuy.class);
     private static final String sURL_Liqpay = "https://www.liqpay.com/api/checkout";
@@ -59,8 +62,8 @@ public class LiqBuy {
         paramMerchant.put("nID_Subject", String.valueOf(nID_Subject));
         paramMerchant.put("sAccessKey", sAccessKey_Merchant);
         
-        //String soJSON_Merchant = HttpRequester.get("https://test.igov.org.ua/wf-central/service/merchant/getMerchant", paramMerchant);
-        String soJSON_Merchant = HttpRequester.get(generalConfig.sHostCentral() + "/wf-central/service/merchant/getMerchant", paramMerchant);
+        //String soJSON_Merchant = httpRequester.get("https://test.igov.org.ua/wf-central/service/merchant/getMerchant", paramMerchant);
+        String soJSON_Merchant = httpRequester.get(generalConfig.sHostCentral() + "/wf-central/service/merchant/getMerchant", paramMerchant);
         log.info("soJSON_Merchant="+soJSON_Merchant);
         
         JSONParser parser = new JSONParser();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_minust_1" name="Днепроперовск МинЮст - Внесення змін до відомостей про юридичну особу, що не пов'язані із змінами установчих документів " isExecutable="true">
+  <process id="dnepr_minust_1" name="Днепроперовск МинЮст - Внесення змін до відомостей про юридичну особу, які містяться в Єдиному державному реєстрі юридичних осіб та фізичних осіб – підприємців, що не пов'язані із змінами, що вносяться до установчих документів юридичної особи, або не підлягають державній реєстрації" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -10,12 +10,12 @@
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="scan_form4" name="Завайнтажте відскановану копію заповненої Форми-4;  зразок форми-4 можна знайти за посіланням http://www.drsu.gov.ua/file/12848 " type="file" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="scan_1" name="Завантажте копію рішення уповноваженого  органу  управління юридичної особи  про  зміну  керівника  або осіб, що обираються до органу управління юридичної особи або мають право вчиняти дії від імені юридичної особи  без  довіреності" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="scan_2" name="Завантажте копію рішення уповноваженого  органу управління юридичної особи про внесення змін до складу засновників (учасників) " type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="scan_3" name="Завантажте копію одного з документів, передбачених частиною третьою статті 29 Закону України &quot;Про державну реєстрацію юридичних осіб та фізичних осіб – підприємців&quot;" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="scan_4" name="Завантажте копію рішення уповноваженого органу управління  юридичної  особи  про  внесення  змін, які пов’язані  із  зміною місцезнаходження та/або найменування юридичної особи" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="scan_5" name="Завантажте копію рішення уповноваженого органу управління  юридичної особи  про зміни, які пов’язані із зміною статутного капіталу (статутного або складеного капіталу) юридичної особи " type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="scan_6" name="Завантажте копію рішення уповноваженого органу  управління юридичної особи про зміни, які пов’язані  із   зміною обмежень щодо представництва від імені юридичної особи" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="scan_1" name="Завантажте копію рішення уповноваженого  органу  управління юридичної особи  про  зміну  керівника  або осіб, що обираються (призначаються) до органу управління юридичної особи,  або осіб, які мають право вчиняти дії від імені юридичної особи  без  довіреності, у тому числі підписувати договори, або копію розпорядчого документа про їх призначення; у разі, якщо зміни до відомостей про юридичну особу, які містяться в Єдиному державному реєстрі юридичних осіб та фізичних осіб - підприємців,  пов'язані із зміною  керівника  або осіб, що обираються (призначаються) до органу управління юридичної особи, або осіб, які мають право вчиняти дії від імені юридичної особи  без  довіреності, у тому числі підписувати договори." type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="scan_2" name="Завантажте копію рішення уповноваженого  органу управління юридичної особи про внесення змін до складу засновників (учасників) ; у разі, якщо зміни вносяться у зв'язку із зміною складу засновників (учасників)  юридичної особи, утвореної на підставі модельного статуту. " type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="scan_3" name="Завантажте копію одного з документів, передбачених частиною третьою статті 29 Закону України &quot;Про державну реєстрацію юридичних осіб та фізичних осіб – підприємців&quot;; у разі, якщо зміни вносяться у зв'язку із зміною складу засновників (учасників)  юридичної особи, утвореної на підставі модельного статуту. " type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="scan_4" name="Завантажте копію рішення уповноваженого органу управління  юридичної  особи  про  внесення  змін, які пов’язані  із  зміною місцезнаходження та/або найменування юридичної особи; у разі, якщо зміни до відомостей про юридичну особу, які містяться в Єдиному державному реєстрі юридичних осіб та фізичних осіб – підприємців, вносяться у зв'язку із зміною місцезнаходження та/або найменування юридичної особи, утвореної на підставі модельного статуту." type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="scan_5" name="Завантажте копію рішення уповноваженого органу управління  юридичної особи  про зміни, які пов’язані із зміною статутного капіталу (статутного або складеного капіталу) юридичної особи;  у разі, якщо зміни до відомостей про юридичну особу, які містяться в Єдиному  державному реєстрі юридичних осіб та фізичних осіб – підприємців, пов'язані із зміною статутного капіталу (статутного або складеного капіталу) юридичної особи, що діє на підставі  модельного статуту, затвердженого Кабінетом Міністрів України.  " type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="scan_6" name="Завантажте копію рішення уповноваженого органу  управління юридичної особи про зміни, які пов’язані  із   зміною обмежень щодо представництва від імені юридичної особи; у разі, якщо зміни до відомостей про юридичну особу, які містяться в Єдиному державному  реєстрі юридичних осіб та фізичних осіб - підприємців, пов'язані із  зміною обмежень  щодо  представництва  від імені юридичної особи. " type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warningMessage" name="Увага!" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
@@ -96,7 +96,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Державна реєстраційна служба,&lt;br /&gt;
+                                        Державна реєстраційна служба,
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -144,11 +144,6 @@
         </activiti:formProperty>
         <activiti:formProperty id="billToPay" name="Завантажте рахунок для сплати (буде відправлено громадянину на e-mail)" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
-          <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${scan_form4},${scan_1},${scan_2},${scan_3},${scan_4},${scan_5},${scan_6}</activiti:expression>
-          </activiti:field>
-        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
@@ -163,12 +158,13 @@
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide1" name="Результат" type="enum">
-          <activiti:value id="accept" name="Повідомити громадянина. що зміни до відомостей занесені успішно"></activiti:value>
+          <activiti:value id="accept" name="Ухвалити"></activiti:value>
+          <activiti:value id="reject" name="Відмовити"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="docToSend" name="Завантажте копію для відправлення громадянину" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${scan_form4},${scan_1},${scan_2},${scan_3},${scan_4},${scan_5},${scan_6},${bankId_scan_passport}</activiti:expression>
+            <activiti:expression>${scan_form4},${scan_1},${scan_2},${scan_3},${scan_4},${scan_5},${scan_6}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -290,7 +286,7 @@
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
 Щодо Вашого запиту 
-%повідомлення про обробку звернення. Час та дату візиту%
+Документ знаходиться у додатку до цього листа.
 
 З повагою,
 %держОрган%
@@ -314,13 +310,11 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: Зміни до відомостей про юридичну особу, які не пов'язані із змінами, що вносяться до установчих документів</activiti:expression>
+          <activiti:expression>Звернення на тему:</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-
-
-Щодо Вашого запиту %повідомлення про сплату збору %
+Щодо Вашого запиту
 
 
 З повагою,
