@@ -143,12 +143,17 @@ public final class Util {
                                                                 "pattern/print/subsidy.html"
                                                                 ,"pattern/print/subsidy_zayava.html"
                                                                 ,"pattern/print/subsidy_declaration.html"
+                                                                ,"pattern/print/kalush_rda_1_zayava.html"
                                                                 ,"pattern/print/1.html"
                                                                 ,"pattern/print/2.html"
                                                                 ,"pattern/print/3.html"
                                                                 ,"pattern/print/4.html"
                                                                 ,"pattern/print/5.html"
                                                         };
+                                                        
+                                                                    //oFile = new File("../webapps/wf-region/WEB-INF/classes/"+sName);
+                                                        
+                                                        
                                                         for(String sName:asPatterns){
                                                             if(sExpression.contains("["+sName+"]")){
                                                                 oLog.info("[replacePatterns]:sName="+sName);
@@ -281,7 +286,7 @@ sContentType - строковой тип контента
 3) создать в проекте соответствующую папку "patterns" по пути "\i\wf-region\src\main\resources\patterns"
 4) Не допускать, чтоб в параметре "sSingleFolder" и sFullName встречались слеши или обратные слеши, которые позволят сослаться на папку, уровнем выше.
 5) задавая в хеадере респонса тот контенттайп, что указан в "sContentType" - отдавать контент файла.
-5) описать в доке с АПИ*/
+5) описать в доке с АП�?*/
 
     public static byte[] getPatternFile(String sPathFile, String sContentType)
             throws IOException {
