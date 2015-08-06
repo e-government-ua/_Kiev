@@ -53,7 +53,7 @@
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>    &lt;style type="text/css"&gt;
+          <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -109,10 +109,7 @@
 Без перерви на обід&lt;br /&gt;
 &lt;br /&gt;
 Підкреслюємо, що поки що забрати довідку Ви можете лише в паперовому вигляді.&lt;br /&gt;
-&lt;br /&gt;
-З повагою&lt;br /&gt;,
-Виконавчий комітет Кузнецовської міської ради,&lt;br /&gt;
-Команда Порталу державних послу iGov.org.ua&lt;br /&gt;
+
  									&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -135,8 +132,7 @@
         &lt;/td&gt;
     &lt;/tr&gt;
     &lt;/tbody&gt;
-&lt;/table&gt;
-</activiti:expression>
+&lt;/table&gt;</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -155,7 +151,7 @@
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>    &lt;style type="text/css"&gt;
+          <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -187,7 +183,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -209,10 +205,7 @@
 										Без перерви на обід&lt;br /&gt;
 										&lt;br /&gt;
 										Підкреслюємо, що поки що забрати довідку Ви можете лише в паперовому вигляді.&lt;br /&gt;
-										&lt;br /&gt;
-										З повагою&lt;br /&gt;,
-										Виконавчий комітет Кузнецовської міської ради,&lt;br /&gt;
-										Команда Порталу державних послу iGov.org.ua&lt;br /&gt;
+								
  									&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -235,8 +228,7 @@
         &lt;/td&gt;
     &lt;/tr&gt;
     &lt;/tbody&gt;
-&lt;/table&gt;
-</activiti:expression>
+&lt;/table&gt;</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -281,14 +273,13 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                          &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
@@ -343,7 +334,9 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow52" sourceRef="exclusivegateway3" targetRef="mailtask6"></sequenceFlow>
+    <sequenceFlow id="flow52" name="${decide == 'reject'}" sourceRef="exclusivegateway3" targetRef="mailtask6">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="flow53" sourceRef="mailtask6" targetRef="endevent5"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ для пред’явлення в Кузнецовський міський центр зайнятості</text>
@@ -394,7 +387,7 @@
         <omgdi:waypoint x="580.0" y="469.0"></omgdi:waypoint>
         <omgdi:waypoint x="710.0" y="471.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="48.0" width="87.0" x="518.0" y="473.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="87.0" x="518.0" y="473.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow44" id="BPMNEdge_flow44">
@@ -421,6 +414,9 @@
         <omgdi:waypoint x="560.0" y="449.0"></omgdi:waypoint>
         <omgdi:waypoint x="560.0" y="332.0"></omgdi:waypoint>
         <omgdi:waypoint x="670.0" y="332.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="95.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow53" id="BPMNEdge_flow53">
         <omgdi:waypoint x="749.0" y="290.0"></omgdi:waypoint>
