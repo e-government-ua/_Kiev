@@ -29,6 +29,7 @@
 <a href="#27_getSheduleFlowExcludes"> 27. Получение расписаний исключений </a><br/>
 <a href="#28_setSheduleFlowExclude"> 28. Добавление/изменение расписания исключения </a><br/>
 <a href="#29_removeSheduleFlowExclude"> 29. Удаление расписания исключений </a><br/>
+<a href="#30_workWithPatternFiles"> 30. Работа с файлами-шаблонами </a><br/>
 
 ### iGov.ua APIs
 
@@ -2133,3 +2134,36 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowExclude?
 ```
 {"sData":null,"bExclude":true,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}
 ```
+
+
+----------------------
+
+
+<a name="30_workWithPatternFiles">
+#### 30. Работа с файлами-шаблонами
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=[full-path-file]&sContentType=[content-type]**
+--возвращает содержимое указанного файла с указанным типом контента (если он задан).
+
+* sPathFile - полный путь к файлу, например: folder/file.html.
+* sContentType - тип контента (опционально, по умолчанию обычный текст: text/plain)
+
+Если указанный путь неверен и файл не найден -- вернется соответствующая ошибка.
+
+Примеры:
+
+https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=print//subsidy_zayava.html
+
+ответ: вернется текст исходного кода файла-шаблона
+
+https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=print//subsidy_zayava.html&sContentType=text/html
+
+ответ: файл-шаблон будет отображаться в виде html-страницы
+
+
+----------------------
+

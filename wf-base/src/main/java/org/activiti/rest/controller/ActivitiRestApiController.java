@@ -31,9 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -856,43 +854,22 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     public  void  getPatternFile(
             @RequestParam(value = "sPathFile") String sPathFile ,
             @RequestParam(value = "sContentType", required = false) String sContentType,
-            HttpServletRequest request, HttpServletResponse response) throws ActivitiRestException {
-
+            HttpServletResponse response) throws ActivitiRestException {
 
         try{
-            //content type
-            String contentType = sContentType == null ? Util.DEFAULT_CONTENT_TYPE : sContentType;
-            MediaType mediaType = MediaType.TEXT_PLAIN;
-            try {
-                mediaType = MediaType.valueOf(contentType);
-            } catch (Exception e){
-                log.error("incorrect contentType: " + contentType);
-            }
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(mediaType);
-
-            byte[] resultObj = Util.getPatternFile(sPathFile, contentType);
-//            log.info(">>>>>>result file=" + resultStr);
-            //result
-            //ResponseEntity<String> result = new ResponseEntity<>(resultObj, headers, HttpStatus.OK);
+            String contentType = sContentType == null ? Util.PATTERN_DEFAULT_CONTENT_TYPE : sContentType;
             response.setContentType(contentType);
             response.setCharacterEncoding(Charsets.UTF_8.toString());
+            byte[] resultObj = Util.getPatternFile(sPathFile);
             response.getOutputStream().write(resultObj);
-         //   return resultObj;
-        } catch (IllegalArgumentException e) {
-            ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR", e.getMessage(), e);
-            newErr.setHttpStatus(HttpStatus.FORBIDDEN);
-            throw newErr;
-        } catch (IOException e) {
+        } catch (IllegalArgumentException | IOException e) {
             ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR", e.getMessage(), e);
             newErr.setHttpStatus(HttpStatus.FORBIDDEN);
             throw newErr;
         } catch (Exception e) {
-        ActivitiRestException newErr = new ActivitiRestException("SYSTEM_ERR", e.getMessage(), e);
-        newErr.setHttpStatus(HttpStatus.FORBIDDEN);
-        throw newErr;
-    }
-
-
+            ActivitiRestException newErr = new ActivitiRestException("SYSTEM_ERR", e.getMessage(), e);
+            newErr.setHttpStatus(HttpStatus.FORBIDDEN);
+            throw newErr;
+        }
     }
 }
