@@ -144,6 +144,11 @@
         </activiti:formProperty>
         <activiti:formProperty id="billToPay" name="Завантажте рахунок для сплати (буде відправлено громадянину на e-mail)" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${scan_form4},${scan_1},${scan_2},${scan_3},${scan_4},${scan_5},${scan_6}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
@@ -286,7 +291,7 @@
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
 Щодо Вашого запиту 
-Документ знаходиться у додатку до цього листа.
+%повідомлення про обробку звернення. Час та дату візиту%
 
 З повагою,
 %держОрган%
@@ -314,7 +319,7 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-Щодо Вашого запиту
+Щодо Вашого запиту %повідомлення про сплату збору %
 
 
 З повагою,
