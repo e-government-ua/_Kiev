@@ -698,7 +698,7 @@ ${visitDate}&lt;br /&gt;
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string>kyrbatsky@gmail.com</activiti:string>
+          <activiti:string>galichenko@gai.dp.ua</activiti:string>
         </activiti:field>
         <activiti:field name="bcc">
           <activiti:string>pavel.kurbatskij@privatbank.ua, vladimir.zimenko@privatbank.ua</activiti:string>
@@ -791,7 +791,7 @@ ${visitDate}&lt;br /&gt;
         <omgdi:waypoint x="648.0" y="359.0"></omgdi:waypoint>
         <omgdi:waypoint x="753.0" y="359.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="56.0" width="100.0" x="642.0" y="332.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="642.0" y="332.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
