@@ -7,11 +7,18 @@ serves static files from 'client' and provides api endpoints. The api endpoint
 is only an proxy/adaptor for the real back-end server.
 
 
-## Pre-requisites
-Ubuntu:
-sudo apt-get install npm ruby-sass
-sudo npm install -g bower grunt
+## Install
+### Pre-requisites
+You need to have `npm`. Also you need to have `ruby-sass` installed in order
+to provide SASS support.
+You have to install `bower` js package manager and `grunt` task runner in order
+to launch the project.
 
+Example:
+    sudo apt-get install npm ruby-sass
+    sudo npm install -g bower grunt-cli
+
+### Install project dependencies
     npm install
     bower install
     grunt serve
