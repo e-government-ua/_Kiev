@@ -10,7 +10,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 9;627;4;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo3:4:12548"}};https://test-version.region.igov.org.ua/wf-region/;true;1;true;;BankID,EDS
 10;9;4;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo4:4:12557"}};https://test-version.region.igov.org.ua/wf-region/;true;1;true;;BankID,EDS
 11;10;5;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"monetaryValuationOfLand:4:12568"}};https://test-version.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-12;101;5;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo13:4:12550"}};https://test-version.region.igov.org.ua/wf-region/;true;1;true;;BankID,EDS
+12;101;NULL;NULL;1;{};http://map.land.gov.ua/kadastrova-karta;false;1;false;Ви можете отримати послугу на сайті Публічної кадастрової карти України;BankID,EDS
 13;12;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mda_1:4:12570"}};https://test-version.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 14;627;3;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo6:1:60057"}};https://test-version.region.igov.org.ua/wf-region/;true;1;true;;BankID,EDS
 15;14;3;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo7:1:60063"}};https://test-version.region.igov.org.ua/wf-region/;true;1;true;;BankID,EDS
@@ -39,7 +39,6 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 38;627;2;NULL;1;{};https://dniprorada.igov.org.ua;FALSE;1;TRUE;;BankID,EDS
 39;9;2;NULL;1;{};https://dniprorada.igov.org.ua;FALSE;1;TRUE;;BankID,EDS
 40;10;2;NULL;1;{};https://dniprorada.igov.org.ua;FALSE;1;TRUE;;BankID,EDS
-41;101;2;NULL;1;{};https://dniprorada.igov.org.ua;FALSE;1;TRUE;;BankID,EDS
 42;12;2;NULL;1;{};https://dniprorada.igov.org.ua;FALSE;1;TRUE;;BankID,EDS
 43;16;2;NULL;1;{};https://dniprorada.igov.org.ua;FALSE;1;TRUE;;BankID,EDS
 44;17;2;NULL;1;{};https://dniprorada.igov.org.ua;FALSE;1;TRUE;;BankID,EDS
