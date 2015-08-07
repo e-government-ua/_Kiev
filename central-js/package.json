@@ -95,7 +95,6 @@
     "inherits":"2.0.1",
     "isarray":"0.0.1",
     "string_decoder":"0.10.31",
-    "lodash": "3.8.0",
     "chalk":"1.1.0"
   },
   "engines": {
