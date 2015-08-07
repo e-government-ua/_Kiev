@@ -32,6 +32,9 @@ angular.module('app').directive('ngTelField', function() {
 				}
 	    		var isEmpty = ngModel.$isEmpty(modelValue);
 				var isValid = elmt.intlTelInput('isValidNumber');
+
+				// Don't let numbers like this: 380xxxxxx
+				isValid = isValid && modelValue.indexOf('380') === 0 && modelValue.length >= 12;
 				return !isEmpty && isValid;
 			};
 
