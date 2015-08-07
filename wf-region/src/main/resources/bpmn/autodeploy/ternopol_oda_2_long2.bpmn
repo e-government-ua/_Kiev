@@ -38,7 +38,7 @@
           <activiti:value id="Стихійним лихом" name="Стихійним лихом"></activiti:value>
           <activiti:value id="Інші особливі обставини" name="Інші особливі обставини"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="fileAttachLabel" name="Документи, що додаються" type="label" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fileAttachLabel" name="Документи, що додаються" type="label"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорта заявника" type="file"></activiti:formProperty>
         <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера або отримувача державної соціальної допомоги/ Висновок медико-соціальної експертної комісії, лікувально-консультативної комісії лікувально-профілактичного закладу (для дітей-інвалідів) про встановлення інвалідності" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="repProof" name="Документ, що засвідчує повноваження законного представника" type="file"></activiti:formProperty>
