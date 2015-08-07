@@ -1,6 +1,20 @@
-npm install <br>
-bower install <br>
-grunt serve <br>
+## What is this?
+This is the front end for igov.org.ua portal. It's also called a main portal
+(ru: "главный портал")
+It consist of the 'client' part which is the SPA (single page application)
+written in JS/Angular, and a 'server' part which is a node js server which
+serves static files from 'client' and provides api endpoints. The api endpoint
+is only an proxy/adaptor for the real back-end server.
+
+
+## Pre-requisites
+Ubuntu:
+sudo apt-get install npm ruby-sass
+sudo npm install -g bower grunt
+
+    npm install
+    bower install
+    grunt serve
 
 
 If you need to customize settings in config.js locally, don't change the file locally, but create local_config.js and define section to be updated, for example:
