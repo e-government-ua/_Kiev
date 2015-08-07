@@ -7,6 +7,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Ваш ІПН" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район; в якому вам буде зручно отримати довідку" type="enum">
           <activiti:value id="and" name="АНД (пров. Універсальний, 12)|0461"></activiti:value>
           <activiti:value id="babush" name="Бабушкінський (вул. Героїв Сталінграду, 25)|0462"></activiti:value>
@@ -32,6 +33,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Ваш ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район; де вам буде зручно отримати довідку" type="enum" writable="false">
           <activiti:value id="and" name="АНД (пров. Універсальний, 12)|0461"></activiti:value>
           <activiti:value id="babush" name="Бабушкінський (вул. Героїв Сталінграду, 25)|0462"></activiti:value>
