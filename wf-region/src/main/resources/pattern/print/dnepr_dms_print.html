@@ -1,9 +1,8 @@
 <div>
-	
-	<style type="text/css">
-	html, body {margin: 0; padding: 0; height: 100%; font: 400 14px/16px 'Tahoma';}
+        <style type="text/css">
+            html, body {margin: 0; padding: 0; height: 100%; font: 400 14px/16px 'Tahoma';}
 
-.print_wrap {width: 705px; padding: 35px 25px 85px 35px; min-height: 100%; height: 100%; margin: 0 auto;}
+       .print_wrap {width: 705px; padding: 35px 25px 85px 35px; min-height: 100%; height: 100%; margin: 0 auto;}
 
 .ta-r {text-align: right !important;}
 .ta-l {text-align: left !important;}
@@ -34,6 +33,7 @@
 
 .m-t-15 {margin-top: 15px !important;}
 .m-t-25 {margin-top: 25px !important;}
+.m-l-65 {margin-left: 65px !important;}
 .m-l-120 {margin-left: 120px !important;}
 .m-l-180 {margin-left: 180px !important;}
 .m-l-250 {margin-left: 250px !important;}
@@ -93,76 +93,126 @@ table.zit_v-form2 tr td {border: 1px solid black; padding: 3px 8px;}
 p {font-size: 11px;}
 
 .clear {clear: both;}
-	</style>
 
-    <div class="line_col ta-r">
-        <div class="under_field w350 ta-l"><i>Начальникові</i><span>(найменування</span></div><br />
-        <div class="under_field w350 ta-l"><i></i><span>територіального підрозділу ДМС України)</span></div><br />
-        <div class="under_field w350 ta-l"><i></i><span>(прізвище, ім'я, по батькові заявника, дата і місце</span></div><br />
-        <div class="under_field w350 ta-l"><i></i><span>народження, громадянство/підданство)</span></div>
-    </div>
-    <div class="line_col ta-c m-t-25">
-        <b>ЗАЯВА<br />про реєстрацію місця проживання</b><br />
-        <div class="under_field_line ta-l"><i>Я,</i><span>(прізвище, ім’я, по батькові)</span></div>
-        <div class="under_field_line ta-l"><span>(дата і місце народження)</span></div>
-        <div class="under_field_line ta-l"><span>(громадянство / підданство)</span></div>
-        <div class="under_field_line ta-l"></div>
-        <div class="ta-l">прошу зареєструвати моє місце проживання/місце проживання моєї дитини (зайве закреслити)</div>
-        <div class="under_field_line ta-l"><span>(прізвище, ім'я, по батькові дитини)</span></div>
-        <div class="under_field_line ta-l"><span>(дата і місце народження)</span></div>
-        <div class="under_field_line ta-l"><span>(громадянство / підданство)</span></div>
-        <div class="under_field_line ta-l"><i>за адресою:</i><span>(найменування адміністративно-територіальної одиниці)</span></div>
-        <div class="under_field_line ta-l"><i>вул.</i>
-            <div class="under_field_line ta-l m-l-380 gtp">
-                <i>, буд.</i>
-                <div class="under_field_line ta-l m-l-120 gtp">
-                    <i>, корп.</i>
-                    <div class="under_field_line ta-l m-l-120 gtp">
-                        <i>, кв.</i>
-                    </div>
-                </div>
+
+
+            @media print {
+                * {
+                    -webkit-print-color-adjust: exact;
+                    print-color-adjust: exact;
+                }
+
+                html {
+                    text-rendering: optimizeLegibility !important;
+                    -webkit-font-smoothing: antialiased !important;
+                }
+
+                body {
+                    font-family: georgia, serif;
+                    font-size: 1em;
+                    font-smooth: 1em;
+                    -moz-font-smooth: 1em;
+                    -webkit-font-smooth: 1em;
+
+                    column-count: 2;
+                    column-gap: 2em;
+                    column-rule: thin solid black;
+                }
+
+                a[href^="http://"]:after, a[href^="ftp://"]:after {
+                    content: " (" attr(href) ")";
+                    color: blue;
+                    font-size: small;
+                }
+
+                section {page-break-after: always;}
+                h1 {page-break-after: avoid;}
+                p {page-break-inside: avoid; orphans:3; widows:2;}
+                ul, img {page-break-inside: avoid;}
+            }
+        </style>
+        <div class="line_col ta-r">
+            <div class="under_field w350 ta-l"><i>[area]</i><span>(найменування структурного підрозділу</span></div><br />
+            <div class="under_field w350 ta-l"><i>у м. Дніпропетровську</i><span>з питань соціального захисту населення)</span></div>
+        </div>
+        <div class="line_col ta-c m-t-25">
+            ЗАЯВА<br />
+            про призначення житлової субсидії<br />
+            <div class="under_field_line ta-l"><i>Від</i>[bankIdlastName] [bankIdfirstName] [bankIdmiddleName]<span>(прізвище, ім’я, по батькові)</span></div>
+            <div class="under_field_line ta-l"><i>зареєстроване (для орендарів — фактичне) місце проживання:</i>[place_of_living]</div>
+            <div class="under_field_line ta-l"><i>контактний телефон</i>[phone]</div>
+            <div class="under_field_line ta-l b-b-0"><i>паспорт:</i></div>
+            <div class="under_field_line ta-l b-b-0">[bankIdPassport]<span>(ким і коли виданий)</span></div>
+            <div class="under_field_line ta-l"><i>реєстраційний номер облікової картки платника податків:</i>[book]<span>(крім осіб, які мають відмітку у паспорті про право здійснювати платежі за серією та номером паспорта)</span></div>
+            <div class="under_field_line wub ta-l ti-15 m-t-25">Прошу призначити субсидію для відшкодування витрат на оплату житлово-комунальних послуг, на придбання скрапленого газу, твердого та рідкого пічного побутового палива (необхідне підкреслити).</div>
+            <div class="under_field_line wub ta-l ti-15">Відомості про житлово-комунальні послуги, якими користуються особи, які зареєстровані (фактично проживають) у житловому приміщенні/будинку.</div>
+            <table class="zit_v-form">
+                <tr>
+                    <td class="w225">Вид послуги</td>
+                    <td class="w145">Номер особового рахунка</td>
+                    <td class="w185">Найменування організації, що надає послуги</td>
+                    <td>Примітки</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Утримання будинків і споруд та прибудинкових територій</td>
+                    <td>[house_number]</td>
+                    <td>[house_name]</td>
+                    <td>[house_number]</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Газопостачання</td>
+                    <td>[gas_number]</td>
+                    <td>[gas_name]</td>
+                    <td>[gas_notice]</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Централізоване постачання холодної води</td>
+                    <td>[coolwater_number]</td>
+                    <td>[coolwater_name]</td>
+                    <td>[coolwater_notice]</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Централізоване постачання гарячої води</td>
+                    <td>[hotwater_number]</td>
+                    <td>[hotwater_name]</td>
+                    <td>[hotwater_notice]</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Водовідведення</td>
+                    <td>[waterback_number]</td>
+                    <td>[waterback_name]</td>
+                    <td>[waterback_notice]</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Централізоване опалення</td>
+                    <td>[warming_number]</td>
+                    <td>[warming_name]</td>
+                    <td>[warming_notice]</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Електропостачання</td>
+                    <td>[electricity_number]</td>
+                    <td>[electricity_name]</td>
+                    <td>[electricity_notice]</td>
+                </tr>
+                <tr>
+                    <td class="ta-l">Вивезення побутових відходів</td>
+                    <td>[garbage_number]</td>
+                    <td>[garbage_name]</td>
+                    <td>[garbage_notice]</td>
+                </tr>
+            </table>
+            <div class="under_field_line wub ta-l ti-15">У разі коли прийняття рішення щодо моєї заяви потребує окремого рішення місцевих органів виконавчої влади/місцевого самоврядування або утвореної ними комісії, прошу розглянути/не розглядати мою заяву відповідними органами або утвореною ними комісією ([notice]).</div>
+            <div class="under_field_line wub ta-l ti-15">Я та особи, які зареєстровані (фактично проживають) у житловому приміщенні/будинку, даємо згоду на обробку персональних даних про сім’ю, доходи, майно, що необхідні для призначення житлової субсидії, та оприлюднення відомостей щодо її призначення.</div>
+            <div class="under_field_line wub ta-l ti-15">У разі зміни обставин, які можуть вплинути на отримання житлової субсидії (зміни складу осіб, які зареєстровані (фактично проживають), джерел доходу, переліку отримуваних житлово-комунальних послуг, придбання майна, товарів або оплати послуг на суму, що перевищує 50 тис. гривень), зобов’язуюся протягом місяця повідомити про це структурний підрозділ з питань соціального захисту населення.</div>
+
+            <div class="date_subm">
+                <div class="month-fl-sm"><span></span><span></span>20<span></span>р.</div>
+                <div class="signature"><span>(підпис)</span></div>
+                <div class="clear"></div>
             </div>
-        </div>
-        <div class="under_field_line ta-l"><i>Паспортний документ</i><span>(серія, номер, дата видачі,</span></div>
-        <div class="under_field_line ta-l"><span>найменування органу, який його видав)</span></div>
-        <div class="under_field_line ta-l w500 hint-l-220"><div class="month-fl left"><span></span><span></span><span></span>р.</div><span>(підпис заявника)</span></div>
-        <p class="ta-l">Примітка. Особи, що досягли 14-річного віку, подають заяву особисто.</p>
-        <div class="ta-l">Підставою для реєстрації місця проживання заявника/його</div>
-        <div class="under_field_line ta-l"><i>неповнолітньої дитини за зазначеною адресою є</i></div>
-        <div class="under_field_line ta-l"><span>(ордер, свідоцтво про право власності, договір найму</span></div>
-        <div class="under_field_line ta-l"><span>(піднайму, оренди) або інші документи)</span></div>
-        <div class="under_field_line ta-l"></div>
-        <div class="under_field_line ta-l"></div>
-        <div class="ta-l">Згода власника/співвласників житла або їх уповноважених органів,<br />
-            наймача та членів його сім'ї на реєстрацію місця проживання<br />
-            заявника у разі відсутності документів, зазначених як підстава<br />
-            для реєстрації*
-        </div>
-        <div class="under_field_line ta-l"><span>(згоден / не згоден)</span></div>
-        <div class="under_field_line ta-l"><div class="month-fl"><span></span><span></span><span></span>р.</div><span>(ініціали та прізвище, підпис)</span></div>
-        <div class="under_field_line ta-l"><i>Заяву прийняв, документи перевірив</i><span class="ta-r">(посада та найменування територіального підрозділу ДМС України)</span></div>
-        <div class="under_field_line ta-l"><span>(ініціали та прізвище, підпис)</span></div>
-        <div class="ta-l">М.П.</div>
-        <div class="date_subm">
-            <div class="month-fl-sm"><span></span><span></span>20<span></span>р.</div>
             <div class="clear"></div>
+            <p>Примітка. Ця заява заповнюється особою, на яку відкрито особовий рахунок із сплати житлово-комунальних послуг (особою, яка фактично сплачує вартість одержуваних послуг).</p>
         </div>
-        <div class="ta-l">Місце проживання заявника/його неповнолітньої дитини (зайве закреслити) зареєстровано</div>
-        <div class="under_field_line ta-l"><span>(найменування територіального підрозділу ДМС України, що здійснив реєстрацію)</span></div>
-        <div class="under_field_line ta-l"></div>
-        <div class="under_field_line ta-l"></div>
-        <div class="under_field_line ta-l"></div>
-        <div class="under_field_line ta-l w350 right_side"><span>(посада, ініціали та прізвище, підпис)</span></div>
-        <div class="clear"></div>
-        <div class="date_subm">
-            <div class="month-fl-sm"><span></span><span></span>20<span></span>р.</div>
-            <div class="clear"></div>
-        </div>
-        <div class="under_field_line ta-l"><i>Службові відмітки</i></div>
-        <div class="under_field_line ta-l"></div>
-        <div class="under_field_line ta-l"></div>
-        <div class="under_field_line ta-l"></div>
-        <div class="under_field_line ta-l w225"></div>
-        <div class="ta-l">* Підпис власника/співвласників житла або їх уповноважених органів,  наймача та членів його сім'ї не потрібен у разі вселення до батьків їх неповнолітніх дітей. </div>
     </div>
-</div>
+
