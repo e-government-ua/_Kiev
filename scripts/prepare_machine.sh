@@ -33,15 +33,15 @@ else
     rm $DOWNLOAD_DIR/$MAVEN_DIST
 fi
 
-TOMCAT_HOME=$PROGRAMS_HOME/apache-tomcat-8.0.22
-echo installing Tomcat to $TOMCAT_HOME
+TOMCAT_HOME=$PROGRAMS_HOME/apache-tomcat-8.0.24
+echo "installing Tomcat to $TOMCAT_HOME"
 #Ubuntu repository ATM contains only Tomcat 6 - so using direct download to get something more up-to-date
 if [ -e $TOMCAT_HOME ]
 then
-    echo already installed, skip
+    echo "already installed, skip"
 else
-    TOMCAT_DIST=apache-tomcat-8.0.22.tar.gz
-    wget -P $DOWNLOAD_DIR http://apache.cp.if.ua/tomcat/tomcat-8/v8.0.22/bin/$TOMCAT_DIST
+    TOMCAT_DIST=apache-tomcat-8.0.24.tar.gz
+    wget -nv -P $DOWNLOAD_DIR http://apache.cp.if.ua/tomcat/tomcat-8/v8.0.24/bin/$TOMCAT_DIST
     tar -xvzf $DOWNLOAD_DIR/$TOMCAT_DIST -C $PROGRAMS_HOME
     rm $DOWNLOAD_DIR/$TOMCAT_DIST
     chown -R vagrant $TOMCAT_HOME
