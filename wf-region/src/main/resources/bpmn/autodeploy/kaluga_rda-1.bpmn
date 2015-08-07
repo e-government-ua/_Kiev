@@ -108,7 +108,7 @@
     </serviceTask>
     <userTask id="usertask7" name="Підготовка відповіді на запит: підготовка витягу" activiti:candidateGroups="kalush_cnap1">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Автор звернення " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPhone" name="Телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адрес" type="string" writable="false"></activiti:formProperty>
