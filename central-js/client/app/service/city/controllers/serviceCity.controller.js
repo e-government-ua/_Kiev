@@ -105,7 +105,10 @@ angular.module('app').controller('ServiceCityController', function($state,AdminS
       if (value.nID_Region && value.nID_Region.nID == $scope.data.region.nID) {
         serviceType = value.nID_ServiceType;
         $scope.serviceData = value;
-        $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
+		if($scope.serviceData.bNoteTrusted == false) {
+			$scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
+			$scope.serviceData.sNoteTrusted = true;
+		}
       }
     });
 	return serviceType;
@@ -118,7 +121,10 @@ angular.module('app').controller('ServiceCityController', function($state,AdminS
       if (value.nID_City && value.nID_City.nID == $scope.data.city.nID) {
         serviceType = value.nID_ServiceType;
         $scope.serviceData = value;
-        $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
+		if($scope.serviceData.bNoteTrusted == false) {
+			$scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
+			$scope.serviceData.sNoteTrusted = true;
+		}
       }
     });
 	return serviceType;
