@@ -160,7 +160,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 if (serviceName != null && sID_Proccess != null) {
                     String URL = generalConfig.sHostCentral() + "/wf-central/service/services/" + serviceName;
                     params.put("nID_Proccess", sID_Proccess);
-                    params.put("nID_Subject", String.valueOf((Long) jsonObjectRequest.get("nID_Subject")));
+                    params.put("nID_Subject", jsonObjectRequest.get("nID_Subject") != null ? String.valueOf((Long) jsonObjectRequest.get("nID_Subject")) : "1");
                     params.put("sID_Status", taskName);
                     logger.info(URL + ": " + params);
                     String soResponse = httpRequester.get(URL, params);
