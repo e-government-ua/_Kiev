@@ -25,17 +25,34 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
           break;
       }
       var self = this;
-      // автоподстановка значения в поле "гражданство" из поля bankIdsID_Country если в форме оно не установлено
-      if(property.id == 'resident' && !this.params[property.id].value) {
-        angular.forEach(ActivitiForm.formProperties, function(prop)
-        {
-          if (prop.id == 'bankIdsID_Country') {
-            var param = self.params[property.id];
-            CountryService.getCountryBy_sID_Three(prop.value).then(function(response){
-              param.value = response.data.sNameShort_UA;
-            });
-          }
-        });
+      if (property.id == 'resident') {
+        // todo: #584 для теста п.2 закомментировать эту строку. после теста - удалить
+        this.params[property.id].value = 'Україна';
+        if (this.params[property.id].value) {
+          // #584 п.3 автоподстановка зачения sID_Three в поле sID_Country
+          angular.forEach(ActivitiForm.formProperties, function (prop) {
+            if (prop.id == 'sID_Country') {
+              var param = self.params[property.id];
+              CountryService.getCountries().then(function(list)
+              {
+                angular.forEach(list, function(country) {
+                  if (country.sNameShort_UA == param.value)
+                    self.params[prop.id].value = country.sID_Three;
+                });
+              })
+            }
+          });
+        } else {
+          // #584 п.2 автоподстановка значения в поле "гражданство" из поля bankIdsID_Country если в форме оно не установлено
+          angular.forEach(ActivitiForm.formProperties, function (prop) {
+            if (prop.id == 'bankIdsID_Country') {
+              var param = self.params[property.id];
+              CountryService.getCountryBy_sID_Three(prop.value).then(function (response) {
+                param.value = response.data.sNameShort_UA;
+              });
+            }
+          });
+        }
       }
     }
   };

@@ -28,6 +28,22 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       readable: true
     });
 
+  // todo: Удалить после теста задачи #584 п.3
+  var sID_Country_found = false;
+  angular.forEach(ActivitiForm.formProperties, function(prop) {
+    if (prop.id == 'sID_Country')
+      sID_Country_found = true;
+  });
+  if (!sID_Country_found)
+    ActivitiForm.formProperties.push({
+      id: 'sID_Country',
+      name: 'Country Code',
+      type: 'string',
+      value: '',
+      readable: true,
+      writable: true
+    });
+
     $scope.oServiceData = oServiceData;
     $scope.account = BankIDAccount;
     $scope.ActivitiForm = ActivitiForm;
@@ -40,7 +56,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     var currentState = $state.$current;
     $scope.data.region = currentState.data.region;
     $scope.data.city = currentState.data.city;
-  
+
     $scope.ngIfCity = function() {
   	if($state.current.name === 'index.service.general.city.built-in') {
   		if($scope.data.city) {
@@ -78,10 +94,10 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     // var aID_FieldAutoVIN = $scope.markers.validate.AutoVIN.aField_ID;
 
     angular.forEach($scope.ActivitiForm.formProperties, function(field) {
-      
+
       var sFieldName = field.name || '';
 
-      // 'Як працює послуга; посилання на інструкцію' буде розбито на частини по ';' - 
+      // 'Як працює послуга; посилання на інструкцію' буде розбито на частини по ';' -
       var aNameParts = sFieldName.split(';');
       var sFieldNotes = aNameParts[0].trim();
 
@@ -102,7 +118,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
         field.type = 'tel';
         field.sFieldType = 'tel';
       }
-      
+
       // if (_.indexOf(aID_FieldAutoVIN, field.id) !== -1){
       //    field.sFieldType = 'AutoVIN';
       // }
@@ -130,7 +146,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
           //TODO: Fix Alhoritm Luna
           var nCRC = ValidationService.getLunaValue( result.id );
-          
+
           submitted.data.id = result.id + nCRC; //11111111
 
           $scope.isSending = false;
