@@ -53,61 +53,51 @@
 angular.module('app').service('ValidationService', function () {
   'use strict';
 
+  // var aID_FieldPhoneUA = markers.validate.PhoneUA.aField_ID;
+  // var aID_FieldMail = markers.validate.Mail.aField_ID;
+  // var aID_FieldAutoVIN = markers.validate.AutoVIN.aField_ID;
+  // var aID_FieldTextUA = markers.validate.TextUA.aField_ID;
+  // var aID_FieldTextRU = markers.validate.TextRU.aField_ID;
+  // var aID_FieldDateFormat = markers.validate.DateFormat.aField_ID;
+  // var aID_FieldDateElapsed = markers.validate.DateElapsed.aField_ID;
+
   this.validateByMarkers = function( form, $scope ) {
+
+    var validatorByName = { 
+      'Mail': 'email',
+      'AutoVIN': 'autovin',
+      'PhoneUA': 'tel',
+      'TextUA': 'textua',
+      'TextRU': 'textru',
+      'DateFormat': 'dateformat',
+      'DateElapsed': 'dateelapsed'
+    };
+
     var markers = $scope.markers;
+
     if ( !markers || !markers.validate || markers.validate.length < 1 ) {
       return;
     }
-    // 'PhoneUA'
-    // function validate( ctrlName ) {
-    //   var vals = {};
-    //   var ctrl = markers.validate[ctrlName];
-    //   if ( ctrl ) {
-    //     vals['aID_Field' + ctrlName] = ctrl['aField_ID'];
-    //     console.log('ctrlName = ', ctrlName, 'ctrl = ', ctrl, vals['aID_Field' + ctrlName] );
-    //   }
-    //   return vals['aID_Field' + ctrlName];
-    // }
+
+    // markers are here, so we can check if field is marked by it's name: 
     
-    // var aID_FieldPhoneUA = getValidate('PhoneUA');
-    // var aID_FieldMail = getValidate('Mail');
-    // var aID_FieldAutoVIN = getValidate('AutoVIN');
-    // var aID_FieldTextUA = getValidate('TextUA');
-    // var aID_FieldTextRU = getValidate('TextRU');
-    // var aID_FieldDateFormat = getValidate('DateFormat');
-    // var aID_FieldDateElapsed = getValidate('DateElapsed');
-
-    // var aID_FieldPhoneUA = markers.validate.PhoneUA.aField_ID;
-    // var aID_FieldMail = markers.validate.Mail.aField_ID;
-    // var aID_FieldAutoVIN = markers.validate.AutoVIN.aField_ID;
-    // var aID_FieldTextUA = markers.validate.TextUA.aField_ID;
-    // var aID_FieldTextRU = markers.validate.TextRU.aField_ID;
-    // var aID_FieldDateFormat = markers.validate.DateFormat.aField_ID;
-    // var aID_FieldDateElapsed = markers.validate.DateElapsed.aField_ID;
-
     var oValidators = {};
 
     angular.forEach( markers.validate, function ( validator, validatorName ) {
 
-      // var aFieldsToValidate = validator['aField_ID'];
-
       console.log( 'validator: ', validatorName, ' = ', validator );
 
-      // EMAIL
-      // markers are here, so we can check if field is marked by it's name: 
-      var validatorByName = { 
-        'Mail': 'email'
-      };
-
       function validateByName( validatorName, field ) {
+
         var validatorFunctionByName = {
           
           'Mail': function( modelValue ) {
+            console.log('Validate email: ', modelValue );
             var EMAIL_REGEXP = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
             return field.$isEmpty(modelValue) || EMAIL_REGEXP.test(modelValue);
           },
           
-          'AutoVIN': function(sValue) {
+          'AutoVIN': function( sValue ) {
             // Логика: набор из 17 символов.
             // Разрешено использовать все арабские цифры и латинские буквы (А В C D F Е G Н J К L N М Р R S Т V W U X Y Z),
             // За исключением букв Q, O, I. (Эти буквы запрещены для использования, поскольку O и Q похожи между собой, а I и O можно спутать с 0 и 1.)
@@ -123,14 +113,49 @@ angular.module('app').service('ValidationService', function () {
             bValid = bValid && (sValue.indexOf('q') < 0 && sValue.indexOf('o') < 0 && sValue.indexOf('i') < 0);
             bValid = bValid && (sValue.indexOf('Q') < 0 && sValue.indexOf('O') < 0 && sValue.indexOf('I') < 0);
 
+            console.log('AutoVIN: ', sValue, bValid );
+
             return bValid;
           },
 
-          'PhoneUA': function() {
-            //field.$validate();
-              return null;
-            }
-          };
+          'PhoneUA': null,
+
+          /* 'TextUA' - Усі українскі літери, без цифр, можливий мінус (дефіс) та пробіл
+           * Текст помилки: 'Текст може містити тількі українські літери або мінус чи пробіл'
+           */
+          'TextUA': function( modelValue ) {
+            console.log('Validate TextUA: ', modelValue );
+            var TEXTUA_REGEXP = /[[Є-ЯҐ][а-їґ]-\s+]/;
+            return TEXTUA_REGEXP.test( modelValue );
+          },
+
+          /* 'TextRU' - Усі російські літери, без цифр, можливий мінус (дефіс) та пробіл
+           * Текст помилки: 'Текст може містити тількі російські літери або мінус че пробіл'
+           */
+          'TextRU': function( modelValue ) {
+            console.log('Validate TextRU: ', modelValue );
+            return /[[Є-ЯҐ][а-їґ]-\s+]/.test( modelValue );
+          },
+
+          /* 'DateFormat' - Дата у заданому форматі DATE_FORMAT
+           * Текст помилки: 'Дата може бути тільки формату DATE_FORMAT'
+           */
+          'DateFormat': function( modelValue ) {
+            console.log('Validate DateFormat: ', modelValue );
+            return true;
+          },
+
+          /* 'DateElapsed' - З/до дати у полі з/після поточної, більше/менше днів/місяців/років
+           * Текст помилки: 'З/до дати з/після сьогоднішньої, має бути більше/менше ніж х-днів, х-місяців, х-років.
+           * х-___        - підставляти тільки, якщо x не дорівнює 0
+           * З/До         - в залежності від bFuture
+           * більше/менше - в залежності від bLess
+           */
+          'DateElapsed': function( modelValue ) {
+            console.log('Validate DateElapsed: ', modelValue );
+            return true;
+          }
+        };
 
         console.log('validatorFunctionByName = ', validatorName, validatorFunctionByName[validatorName]);
         return validatorFunctionByName[validatorName] ? validatorFunctionByName[validatorName] : null;
@@ -144,12 +169,10 @@ angular.module('app').service('ValidationService', function () {
           // overwrite the default Angular field validator
           if( !field.$validators[validatorByName[validatorName]] ) {
 
-            var validatorFunction = validateByName(validatorName, field);
-          
-            field.$validators[validatorByName[validatorName]] = validatorFunction;
+            field.$validators[validatorByName[validatorName]] = validateByName(validatorName, field);
           
             // and validate it
-            // field.$validate();
+            field.$validate();
           }
 
         }
@@ -161,28 +184,6 @@ angular.module('app').service('ValidationService', function () {
 
     // console.log(oValidators);
 
- /* - Усі українскі літери, без цифр, можливий мінус (дефіс) та пробіл
- * Текст помилки: 'Текст може містити тількі українські літери або мінус чи пробіл'
- */
-  // validate('TextUA');
-/**
- * 2) 'TextRU' - Усі російські літери, без цифр, можливий мінус (дефіс) та пробіл
- * Текст помилки: 'Текст може містити тількі російські літери або мінус че пробіл'
- */
- // validate('TextRU');
-/*
- * 3) 'DateFormat' - Дата у заданому форматі DATE_FORMAT
- * Текст помилки: 'Дата може бути тільки формату DATE_FORMAT'
- */
- // validate('DateFormat');
-/**
- * 4) 'DateElapsed' - З/до дати у полі з/після поточної, більше/менше днів/місяців/років
- * Текст помилки: 'З/до дати з/після сьогоднішньої, має бути більше/менше ніж х-днів, х-місяців, х-років.
- *
- * х-___        - підставляти тільки, якщо x не дорівнює 0
- * З/До         - в залежності від bFuture
- * більше/менше - в залежності від bLess
- */
  // validate('DateElapsed');
 
   };

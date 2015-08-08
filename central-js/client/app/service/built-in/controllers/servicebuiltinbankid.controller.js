@@ -13,7 +13,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
     'use strict';
 
-    // FXME: Удалить это после теста задачи #584
+    // FIXME: Удалить это после теста задачи #584
   var bankIdFound = false;
   angular.forEach(ActivitiForm.formProperties, function(prop) {
     if (prop.id == 'bankIdsID_Country')
@@ -54,29 +54,29 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     $scope.data.formData.setBankIDAccount(BankIDAccount);
 
     var currentState = $state.$current;
+    
     $scope.data.region = currentState.data.region;
     $scope.data.city = currentState.data.city;
 
     $scope.ngIfCity = function() {
-  	if($state.current.name === 'index.service.general.city.built-in') {
-  		if($scope.data.city) {
-  			return true;
-  		} else {
-  			return false;
-  		}
-  	}
-  	if($state.current.name === 'index.service.general.city.built-in.bankid') {
-  		if($scope.data.city) {
-  			return true;
-  		} else {
-  			return false;
-  		}
-  	}
-  	return $scope.data.region ? true: false;
+    	if($state.current.name === 'index.service.general.city.built-in') {
+    		if($scope.data.city) {
+    			return true;
+    		} else {
+    			return false;
+    		}
+    	}
+    	if($state.current.name === 'index.service.general.city.built-in.bankid') {
+    		if($scope.data.city) {
+    			return true;
+    		} else {
+    			return false;
+    		}
+    	}
+    	return $scope.data.region ? true: false;
     };
 
-    //mock markers
-    //$scope.data.formData.params.markers = {
+    // mock markers
     $scope.markers = {
         validate:{
             PhoneUA:{
@@ -85,19 +85,29 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
                 aField_ID:['privateMail','email']
             }, AutoVIN:{
                 aField_ID:['vin_code', 'vin_code1', 'vin']
+            }, TextUA: { 
+              aField_ID: ['bankIdaddress']
+            }, TextRU: {
+              aField_ID: ['bankIdaddress']
+            }, DateFormat: {
+              aField_ID: ['fio'],
+              sFormat: 'YYYY-MM-DD' //
+            }, DateElapsed: {
+              aField_ID: ['dateOrder'],
+              bFuture: false, //если true то дата должна быть в будущем
+              bLess: true, //если true то 'дельта' между датами должна быть 'менее чем' (указана нижними параметрами)
+              nDays: 3,
+              nMounths: 0,
+              nYears: 1
             }
         }
     };
-
-    var aID_FieldPhoneUA = $scope.markers.validate.PhoneUA.aField_ID;
-    // var aID_FieldMail = $scope.markers.validate.Mail.aField_ID;
-    // var aID_FieldAutoVIN = $scope.markers.validate.AutoVIN.aField_ID;
 
     angular.forEach($scope.ActivitiForm.formProperties, function(field) {
 
       var sFieldName = field.name || '';
 
-      // 'Як працює послуга; посилання на інструкцію' буде розбито на частини по ';' -
+      // 'Як працює послуга; посилання на інструкцію' буде розбито на частини по ';'
       var aNameParts = sFieldName.split(';');
       var sFieldNotes = aNameParts[0].trim();
 
