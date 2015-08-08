@@ -1,21 +1,102 @@
 /**
- * Если в поле типа 'markers' содержится объект, в элементах которого фигурирует ссылка на какие-то поля, как требующие валидации 'по формату телефона' - проводить их валидацию после ввода содержимого этого поля, и отображать справа текст об ошибке формата, если ошибка будет.
- * Пример объекта:
- * markers: {
- *  'validate':{
- *    'PhoneUA':{
- *      'aField_ID':['privatePhone','workPhone']
- *    }, 'Mail':{
- *      'aField_ID':['privateMail']
- *    }
- * }
+ * Поле типу 'markers' є об'єктом з посиланнями на поля, що потребують валідації по певному формату.
  *
- * Где 'privatePhone' и 'workPhone' - это ИД-шники тех полей, которые нужно валидировать
- * См.: /i/issues/375
+ * Див: i/issues/375, 654
+ *
+ * Важливо: різні маркери можуть призначатися одним і тим же полям.
+ *
+ * Валідатори: 
+ *
+ * 1) 'TextUA' 
+ * Усі українскі літери, без цифр, можливий мінус (дефіс) та пробіл
+ * Текст помилки: 'Текст може містити тількі українські літери або мінус чи пробіл'
+ *
+ * 2) 'TextRU' 
+ * Усі російські літери, без цифр, можливий мінус (дефіс) та пробіл
+ * Текст помилки: 'Текст може містити тількі російські літери або мінус че пробіл'
+ *
+ * 3) 'DateFormat'
+ * Дата у заданому форматі DATE_FORMAT
+ * Текст помилки: 'Дата може бути тільки формату DATE_FORMAT'
+ *
+ * 4) 'DateElapsed'
+ * З/до дати у полі з/після поточної, більше/менше днів/місяців/років
+ * Текст помилки: 'З/до дати з/після сьогоднішньої, має бути більше/менше ніж х-днів, х-місяців, х-років.
+ * 
+ * Примітки:
+ * х-___        - підставляти тільки, якщо x не дорівнює 0
+ * З/До         - в залежності від bFuture
+ * більше/менше - в залежності від bLess
+ *
+ * Приклад об'єкту markers:
+ * var markers = {
+ *  'validate': {
+ *    'PhoneUA': {
+ *      'aField_ID': ['privatePhone','workPhone']
+ *    }, 'Mail': {
+ *      'aField_ID': ['privateMail', 'someMail']
+ *    }, 'TextUA': { 
+ *      'aField_ID': ['fio']
+ *    }, 'TextRU': {
+ *      'aField_ID': ['fio_RU']
+ *    }, 'DateFormat': {
+ *      'aField_ID': ['fio'],
+ *      'sFormat': 'YYYY-MM-DD' //
+ *    }, 'DateElapsed': {
+ *      'aField_ID': ['dateOrder'],
+ *      'bFuture': false, //если true то дата должна быть в будущем
+ *      'bLess': true, //если true то 'дельта' между датами должна быть 'менее чем' (указана нижними параметрами)
+ *      'nDays': 3,
+ *      'nMounths': 0,
+ *      'nYears': 1
+ *    }
+ *  }
+ * };
+ * Де 'privatePhone' і 'workPhone' - це назви полів, яку треба валідувати.
  */
 angular.module('app').service('ValidationService', function () {
-
   'use strict';
+
+  this.validateByMarkers = function( form, $scope ) {
+    var markers = $scope.markers;
+    if ( !markers || !markers.validate || markers.validate.length < 1 ) {
+      return;
+    }
+
+    // 'PhoneUA'
+    function getValidate( ctrlName ) {
+      var vals = {};
+      var ctrl = markers.validate[ctrlName];
+      if ( ctrl ) {
+        vals['aID_Field' + ctrlName] = ctrl['aField_ID'];
+        console.log('ctrlName = ', ctrlName, 'ctrl = ', ctrl, vals['aID_Field' + ctrlName] );
+      }
+      return vals['aID_Field' + ctrlName];
+    }
+    
+var aID_FieldPhoneUA = getValidate('PhoneUA');
+var aID_FieldMail = getValidate('Mail');
+var aID_FieldAutoVIN = getValidate('AutoVIN');
+var aID_FieldTextUA = getValidate('TextUA');
+var aID_FieldTextRU = getValidate('TextRU');
+var aID_FieldDateFormat = getValidate('DateFormat');
+var aID_FieldDateElapsed = getValidate('DateElapsed');
+
+    // var aID_FieldPhoneUA = markers.validate.PhoneUA.aField_ID;
+    // var aID_FieldMail = markers.validate.Mail.aField_ID;
+    // var aID_FieldAutoVIN = markers.validate.AutoVIN.aField_ID;
+    // var aID_FieldTextUA = markers.validate.TextUA.aField_ID;
+    // var aID_FieldTextRU = markers.validate.TextRU.aField_ID;
+    // var aID_FieldDateFormat = markers.validate.DateFormat.aField_ID;
+    // var aID_FieldDateElapsed = markers.validate.DateElapsed.aField_ID;
+
+    angular.forEach( markers.validate, function ( validator ) {
+      console.log( 'validator' );
+      console.log( validator );
+
+    });
+  };
+
 
   /**
    * Validate email if it can be found in the form by name given in the markers list:
