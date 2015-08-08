@@ -111,6 +111,7 @@
           <activiti:value id="decline" name="Відмовити"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Додатковий коментар/причина відмови" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="docID" name="ID-номер заяви" type="string"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -462,6 +463,7 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
     </sequenceFlow>
     <userTask id="usertask3" name="Заява поступає в роботу комісії">
       <extensionElements>
+        <activiti:formProperty id="docID" name="ID-номер заяви" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище заявника; Одержувача допомоги АБО його законного представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По батькові заявника" type="string" writable="false"></activiti:formProperty>
