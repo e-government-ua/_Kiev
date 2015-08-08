@@ -228,9 +228,9 @@ public class ActivitiRestServicesController {
       return JsonRestUtils.toJsonResponse(regions);
    }
    
-    private static final String SERVICE_NAME_TEST_PREFIX = "_";
+    public static final String SERVICE_NAME_TEST_PREFIX = "_";
 
-    private static final List<String> SUPPORTED_PLACE_IDS = new ArrayList<>();
+    public static final List<String> SUPPORTED_PLACE_IDS = new ArrayList<>();
     static {
         SUPPORTED_PLACE_IDS.add(String.valueOf(KOATUU.KYIVSKA_OBLAST.getId()));
         SUPPORTED_PLACE_IDS.add(String.valueOf(KOATUU.KYIV.getId()));
