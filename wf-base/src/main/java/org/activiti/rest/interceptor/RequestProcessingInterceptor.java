@@ -15,8 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.HistoryService;
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.rest.controller.adapter.MultiReaderHttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -42,6 +44,9 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
     private HistoryService historyService;
+    
+    @Autowired
+    private RepositoryService repositoryService;
 
     @Autowired
     HttpRequester httpRequester;
@@ -139,7 +144,12 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     taskName = "Заявка подана";
                     HistoricProcessInstance historicProcessInstance = 
                             historyService.createHistoricProcessInstanceQuery().processInstanceId(sID_Proccess).singleResult();
-                    params.put("sProcessInstanceName", historicProcessInstance.getName() != null ? historicProcessInstance.getName() + "!" : "Non name!");
+                    logger.info("**********" + historicProcessInstance.getName() + "_" + historicProcessInstance.getProcessDefinitionId());
+                    //params.put("sProcessInstanceName", historicProcessInstance.getName() != null ? historicProcessInstance.getName() + "!" : "Non name!");
+                    ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
+                          .processDefinitionId(historicProcessInstance.getProcessDefinitionId()).singleResult();
+                    params.put("sProcessInstanceName", processDefinition.getName() != null ? processDefinition.getName() + "!" : "Non name!");
+                    params.put("nID_Subject", String.valueOf((Long) jsonObjectRequest.get("nID_Subject")));
                 } else if (closeTask) {
                     //sID_Proccess = (String) jsonObjectRequest.get("id");
                     serviceName = "updateHistoryEvent_Service";
@@ -149,7 +159,6 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     taskName = "Заявка выполнена";
                     //params.put("nID_Task", task_ID);
                 } else if (updateTask) {
-                    
                     serviceName = "updateHistoryEvent_Service";
                     sID_Proccess = (String) jsonObjectResponse.get("processInstanceId");
                     taskName = (String) jsonObjectResponse.get("name");
@@ -160,7 +169,6 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 if (serviceName != null && sID_Proccess != null) {
                     String URL = generalConfig.sHostCentral() + "/wf-central/service/services/" + serviceName;
                     params.put("nID_Proccess", sID_Proccess);
-                    params.put("nID_Subject", jsonObjectRequest.get("nID_Subject") != null ? String.valueOf((Long) jsonObjectRequest.get("nID_Subject")) : "1");
                     params.put("sID_Status", taskName);
                     logger.info(URL + ": " + params);
                     String soResponse = httpRequester.get(URL, params);
