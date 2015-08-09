@@ -28,18 +28,16 @@ public class PlaceController {
     @Autowired
     private BaseEntityDao baseEntityDao;
 
-    /**
-     * @param deep != 0, if deep = 0 then i wasn't specified
-     */
+
     @RequestMapping(value   = "/getPlacesTree",
                     method  = RequestMethod.GET, headers = { JSON_TYPE })
     public  @ResponseBody Tree<Place> getPlacesTree(
-            @RequestParam(value = "nID",            required = false) Long      placeId,
-            @RequestParam(value = "sID_UA",         required = false) String    uaId,
-            @RequestParam(value = "nID_PlaceType",  required = false) Long      typeId,
-            @RequestParam(value = "bArea",          required = false) Boolean   area,
-            @RequestParam(value = "bRoot",          required = false) Boolean   root,
-            @RequestParam(value = "nDeep",          required = false) Integer   deep
+            @RequestParam(value = "nID",            required = false)       Long    placeId,
+            @RequestParam(value = "sID_UA",         required = false)       String  uaId,
+            @RequestParam(value = "nID_PlaceType",  required = false)       Long    typeId,
+            @RequestParam(value = "bArea",          defaultValue = "false") Boolean area,
+            @RequestParam(value = "bRoot",          defaultValue = "false") Boolean root,
+            @RequestParam(value = "nDeep",          defaultValue = "1")     Integer deep
     ) {
         return placeDao.getPlaces(placeId, uaId, typeId, area, root, deep);
     }
@@ -48,9 +46,9 @@ public class PlaceController {
     @RequestMapping(value   = "/getPlace",
                     method  = RequestMethod.GET, headers = { JSON_TYPE })
     public  @ResponseBody List<Place> getPlace(
-            @RequestParam(value = "nID",    required = false) Long      placeId,
-            @RequestParam(value = "sID_UA", required = false) String    uaId,
-            @RequestParam(value = "bTree ", required = false) Boolean   tree
+            @RequestParam(value = "nID",    required = false)       Long    placeId,
+            @RequestParam(value = "sID_UA", required = false)       String  uaId,
+            @RequestParam(value = "bTree ", defaultValue = "false") Boolean tree
     ) {
         return placeDao.findBy(placeId, uaId, tree);
     }
@@ -68,11 +66,11 @@ public class PlaceController {
     @RequestMapping(value   = "/setPlaceType",
                     method  = RequestMethod.POST, headers = { JSON_TYPE })
     public  @ResponseBody void setPlaceType(
-            @RequestParam(value = "nID",    required = false)   Long    placeTypeId,
-            @RequestParam(value = "sName",  required = false)   String  name,
-            @RequestParam(value = "nOrder", required = false)   Long    order,
-            @RequestParam(value = "bArea",  required = false)   Boolean area,
-            @RequestParam(value = "bRoot",  required = false)   Boolean root
+            @RequestParam(value = "nID",    required = false)       Long    placeTypeId,
+            @RequestParam(value = "sName",  required = false)       String  name,
+            @RequestParam(value = "nOrder", required = false)       Long    order,
+            @RequestParam(value = "bArea",  defaultValue = "false") Boolean area,
+            @RequestParam(value = "bRoot",  defaultValue = "false") Boolean root
     ) {
         baseEntityDao.saveOrUpdate( new PlaceType(placeTypeId, name, order, area, root) );
     }

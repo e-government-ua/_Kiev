@@ -60,7 +60,7 @@ public class PlaceDaoImpl implements PlaceDao {
                                  Boolean root,
                                  Integer deep) {
         String sql = buildQueryForPlaceTree(placeId, uaId, typeId, area, root, deep);
-        LOG.warn("Execute sql {}", sql);
+        LOG.info("Got sql for execution: \n\r {}", sql);
 
         Query query = sessionFactory
             .getCurrentSession()
@@ -69,14 +69,13 @@ public class PlaceDaoImpl implements PlaceDao {
         if (specified(placeId))
             query = query.setLong("placeId", placeId);
 
-        List<Object[]> res = query.list();
-
-        // Just for debug, delete it later
+        // #################################################
+        // ###  TODO: Just for debug, delete it later   ####
         List<String> text = new ArrayList<>();
-        for(Object[] obj : res)
+        for(Object[] obj : (List<Object[]>) query.list())
             text.add( Arrays.toString(obj) );
-        // ----------------------------------
-        LOG.warn("Result {}", text);
+        LOG.info("Result {}", text);
+        // #################################################
 
         return null;
     }
