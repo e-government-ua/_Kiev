@@ -2,9 +2,11 @@ package org.activiti.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
-import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.model.Place;
 import org.wf.dp.dniprorada.model.PlaceType;
@@ -80,6 +82,6 @@ public class PlaceController {
     public  @ResponseBody void removePlaceType(
             @RequestParam(value = "nID") Long placeTypeId
     ) {
-        baseEntityDao.remove( baseEntityDao.getById(PlaceType.class, placeTypeId) );
+        baseEntityDao.remove(baseEntityDao.getById(PlaceType.class, placeTypeId));
     }
 }

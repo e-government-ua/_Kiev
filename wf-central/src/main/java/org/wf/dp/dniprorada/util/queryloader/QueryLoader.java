@@ -5,8 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 /**
  * This class allow to store sql/hql queries in external files
@@ -22,7 +24,7 @@ public class QueryLoader {
 
 
     public QueryLoader(){
-        this("queryloader/");
+        this("/queryloader/");
     }
 
     public QueryLoader(String directory) {
@@ -58,15 +60,17 @@ public class QueryLoader {
 
 
     private static InputStream getResource(String file) {
-        ClassLoader classLoader = null;
-        try {
-            classLoader = Thread.currentThread().getContextClassLoader();
-        } catch (SecurityException sex) {
-            LOG.warn("Unable to receive context classloader", sex);
-        } finally {
-            classLoader = ClassLoader.getSystemClassLoader();
-        }
-        return classLoader.getResourceAsStream(file);
+        LOG.warn("Full path {}", new File("Tolia.txt").getAbsolutePath());
+        return QueryLoader.class.getResourceAsStream(file);
+//        ClassLoader classLoader = null;
+//        try {
+//            classLoader = Thread.currentThread().getContextClassLoader();
+//        } catch (SecurityException sex) {
+//            LOG.warn("Unable to receive context classloader", sex);
+//        } finally {
+//            classLoader = ClassLoader.getSystemClassLoader();
+//        }
+//        return classLoader.getResourceAsStream(file);
     }
 
 
