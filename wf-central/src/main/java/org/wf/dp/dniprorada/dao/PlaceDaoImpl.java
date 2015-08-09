@@ -60,6 +60,8 @@ public class PlaceDaoImpl implements PlaceDao {
                                  Boolean root,
                                  Integer deep) {
         String sql = buildQueryForPlaceTree(placeId, uaId, typeId, area, root, deep);
+        LOG.warn("Execute sql {}", sql);
+
         Query query = sessionFactory
             .getCurrentSession()
             .createSQLQuery(sql);
@@ -74,8 +76,7 @@ public class PlaceDaoImpl implements PlaceDao {
         for(Object[] obj : res)
             text.add( Arrays.toString(obj) );
         // ----------------------------------
-
-        LOG.debug("Result {}", text);
+        LOG.warn("Result {}", text);
 
         return null;
     }
