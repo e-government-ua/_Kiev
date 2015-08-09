@@ -175,8 +175,6 @@ angular.module('app').service('ValidationService', function () {
 
     // console.log(oValidators);
 
- // validate('DateElapsed');
-
   };
 
   /**
