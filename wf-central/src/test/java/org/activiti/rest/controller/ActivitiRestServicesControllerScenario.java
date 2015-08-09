@@ -1,5 +1,15 @@
 package org.activiti.rest.controller;
 
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,16 +22,14 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.model.Category;
 import org.wf.dp.dniprorada.model.Region;
 import org.wf.dp.dniprorada.model.Service;
+import org.wf.dp.dniprorada.model.ServiceData;
+import org.wf.dp.dniprorada.model.Subcategory;
 import org.wf.dp.dniprorada.service.TableDataService;
-import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.viewobject.TableData;
-
-import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -87,6 +95,52 @@ public class ActivitiRestServicesControllerScenario {
         Assert.assertEquals(subcategoryName, categoriesAfterChange[0].getSubcategories().get(0).getName());
     }
 
+    @Test
+    public void shouldSuccessfullyFilterServicesTreeByPlaceId() throws Exception {
+        boolean wrongPlaceId = false;
+        for (String supportedPlaceId : ActivitiRestServicesController.SUPPORTED_PLACE_IDS) {
+            String jsonData = mockMvc
+                    .perform(get("/services/getServicesTree").param("asID_Place_UA", supportedPlaceId))
+                    .andExpect(status().isOk()).andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8))
+                    .andReturn().getResponse().getContentAsString();
+            Category[] categories = JsonRestUtils.readObject(jsonData, Category[].class);
+            if (categories.length == 0) {
+                continue;
+            }
+
+            for (int i = 0; i < categories.length; i++) {
+                Category category = categories[i];
+                for (Subcategory subcategory : category.getSubcategories()) {
+                    for (Service service : subcategory.getServices()) {
+                        String serviceJsonData = mockMvc
+                                .perform(get("/services/getService").param("nID", service.getId().toString()))
+                                .andExpect(status().isOk())
+                                .andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).andReturn()
+                                .getResponse().getContentAsString();
+                        Service serviceFromJson = JsonRestUtils.readObject(serviceJsonData, Service.class);
+                        if (serviceFromJson.getServiceDataList() != null) {
+                            boolean hasPlaceId = false;
+                            for (ServiceData serviceData : serviceFromJson.getServiceDataList()) {
+                                if (serviceData.getRegion() != null
+                                        && serviceData.getRegion().getsID_UA().equals(supportedPlaceId)) {
+                                    hasPlaceId = true;
+                                }
+                                if (serviceData.getCity() != null
+                                        && serviceData.getCity().getsID_UA().equals(supportedPlaceId)) {
+                                    hasPlaceId = true;
+                                }
+                            }
+                            if (hasPlaceId == false) {
+                                wrongPlaceId = true;
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+        }
+        Assert.assertEquals(false, wrongPlaceId);
+    }
 
     @Test
     public void shouldSuccessfullyGetAndSetService() throws Exception {

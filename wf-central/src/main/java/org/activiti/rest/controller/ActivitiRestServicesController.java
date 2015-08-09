@@ -228,9 +228,9 @@ public class ActivitiRestServicesController {
       return JsonRestUtils.toJsonResponse(regions);
    }
    
-    private static final String SERVICE_NAME_TEST_PREFIX = "_";
+    public static final String SERVICE_NAME_TEST_PREFIX = "_";
 
-    private static final List<String> SUPPORTED_PLACE_IDS = new ArrayList<>();
+    public static final List<String> SUPPORTED_PLACE_IDS = new ArrayList<>();
     static {
         SUPPORTED_PLACE_IDS.add(String.valueOf(KOATUU.KYIVSKA_OBLAST.getId()));
         SUPPORTED_PLACE_IDS.add(String.valueOf(KOATUU.KYIV.getId()));
@@ -301,19 +301,23 @@ public class ActivitiRestServicesController {
     private void filterServicesByPlaceIds(List<Category> categories, List<String> placeIds) {
         for (Category category : categories) {
             for (Subcategory subcategory : category.getSubcategories()) {
-                for (Iterator<Service> serviceIterator = subcategory.getServices().iterator(); serviceIterator.hasNext();) {
+                for (Iterator<Service> serviceIterator = subcategory.getServices().iterator(); serviceIterator
+                        .hasNext();) {
                     Service service = serviceIterator.next();
                     boolean isPlaceMatched = false;
-                    for (ServiceData serviceData : service.getServiceDataList()) {
-                        City city = serviceData.getCity();
-                        if (city != null && placeIds.contains(city.getsID_UA())) {
-                            isPlaceMatched = true;
-                            break;
-                        }
-                        Region region = serviceData.getRegion();
-                        if (region != null && placeIds.contains(region.getsID_UA())) {
-                            isPlaceMatched = true;
-                            break;
+                    List<ServiceData> serviceDatas = service.getServiceDataFiltered(generalConfig.bTest());
+                    if (serviceDatas != null) {
+                        for (ServiceData serviceData : serviceDatas) {
+                            City city = serviceData.getCity();
+                            if (city != null && placeIds.contains(city.getsID_UA())) {
+                                isPlaceMatched = true;
+                                break;
+                            }
+                            Region region = serviceData.getRegion();
+                            if (region != null && placeIds.contains(region.getsID_UA())) {
+                                isPlaceMatched = true;
+                                break;
+                            }
                         }
                     }
                     if (!isPlaceMatched) {

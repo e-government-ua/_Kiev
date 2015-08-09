@@ -349,20 +349,12 @@
         <modifyDataType tableName="Place" columnName="sName" newDataType="varchar(200)" />
     </changeSet>
     
-    <!--changeSet id="issue-607" author="olga">
+    <changeSet id="issue-607" author="olga">
         <addColumn tableName="HistoryEvent_Service">
             <column name="sDate" type="timestamp">
                 <constraints nullable="true"/>
             </column>
         </addColumn>
-    </changeSet-->
+    </changeSet>
     
-    <!--changeSet id="issue-605" author="askosyr">
-        <addColumn tableName="HistoryEvent_Service">
-            <column name="sDate" type="timestamp">
-                <constraints nullable="true"/>
-            </column>
-        </addColumn>
-    </changeSet-->
-
 </databaseChangeLog>
