@@ -88,9 +88,9 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
             }, TextUA: { 
               aField_ID: ['bankIdaddress']
             }, TextRU: {
-              aField_ID: ['bankIdaddress']
+              aField_ID: []
             }, DateFormat: {
-              aField_ID: ['fio'],
+              aField_ID: ['bankIdaddress'],
               sFormat: 'YYYY-MM-DD' //
             }, DateElapsed: {
               aField_ID: ['dateOrder'],

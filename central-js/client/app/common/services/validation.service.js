@@ -111,7 +111,7 @@ angular.module('app').service('ValidationService', function () {
            */
           'TextUA': function( modelValue ) {
             console.log('Validate TextUA: ', modelValue );
-            var TEXTUA_REGEXP = /([Є-ЯҐ]|[а-їґ]|-)+\s?/g;
+            var TEXTUA_REGEXP = /([Є-ЯҐ]|[а-їґ]|-|\s)*/g;
             return TEXTUA_REGEXP.test( modelValue );
           },
 
@@ -120,7 +120,7 @@ angular.module('app').service('ValidationService', function () {
            */
           'TextRU': function( modelValue ) {
             console.log('Validate TextRU: ', modelValue );
-            return /([А-яЁё]|-)+\s?/g.test( modelValue );
+            return /([А-яЁё]|-|\s)*/g.test( modelValue );
           },
 
           /* 'DateFormat' - Дата у заданому форматі DATE_FORMAT
@@ -130,6 +130,7 @@ angular.module('app').service('ValidationService', function () {
             console.log('Validate DateFormat: ', modelValue );
             
             // sFormat': 'YYYY-MM-DD' //
+            console.log( 'sFormat = ', validator.sFormat );
           
             return true;
           },
