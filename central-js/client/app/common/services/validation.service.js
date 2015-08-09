@@ -9,7 +9,7 @@
  * Текст помилки: 'Текст може містити тількі українські літери або мінус чи пробіл'
  *
  * 2) 'TextRU' - Усі російські літери, без цифр, можливий мінус (дефіс) та пробіл
- * Текст помилки: 'Текст може містити тількі російські літери або мінус че пробіл'
+ * Текст помилки: 'Текст може містити тількі російські літери або мінус чи пробіл'
  *
  * 3) 'DateFormat' - Дата у заданому форматі DATE_FORMAT
  * Текст помилки: 'Дата може бути тільки формату DATE_FORMAT'
@@ -53,14 +53,6 @@
 angular.module('app').service('ValidationService', function () {
   'use strict';
 
-  // var aID_FieldPhoneUA = markers.validate.PhoneUA.aField_ID;
-  // var aID_FieldMail = markers.validate.Mail.aField_ID;
-  // var aID_FieldAutoVIN = markers.validate.AutoVIN.aField_ID;
-  // var aID_FieldTextUA = markers.validate.TextUA.aField_ID;
-  // var aID_FieldTextRU = markers.validate.TextRU.aField_ID;
-  // var aID_FieldDateFormat = markers.validate.DateFormat.aField_ID;
-  // var aID_FieldDateElapsed = markers.validate.DateElapsed.aField_ID;
-
   this.validateByMarkers = function( form, $scope ) {
 
     var validatorByName = { 
@@ -87,7 +79,7 @@ angular.module('app').service('ValidationService', function () {
 
       console.log( 'validator: ', validatorName, ' = ', validator );
 
-      function validateByName( validatorName, field ) {
+      function getValidatorByName( validatorName, field ) {
 
         var validatorFunctionByName = {
           
@@ -103,19 +95,13 @@ angular.module('app').service('ValidationService', function () {
             // За исключением букв Q, O, I. (Эти буквы запрещены для использования, поскольку O и Q похожи между собой, а I и O можно спутать с 0 и 1.)
             var bValid = true;
 
-            if( field.$isEmpty( sValue ) ) {
-                return true;
-            }
-
             bValid = bValid && (sValue !== null);
             bValid = bValid && (sValue.length === 17);
             bValid = bValid && (/^[a-zA-Z0-9]+$/.test(sValue));
             bValid = bValid && (sValue.indexOf('q') < 0 && sValue.indexOf('o') < 0 && sValue.indexOf('i') < 0);
             bValid = bValid && (sValue.indexOf('Q') < 0 && sValue.indexOf('O') < 0 && sValue.indexOf('I') < 0);
 
-            console.log('AutoVIN: ', sValue, bValid );
-
-            return bValid;
+            return field.$isEmpty( sValue ) || bValid;
           },
 
           'PhoneUA': null,
@@ -125,7 +111,7 @@ angular.module('app').service('ValidationService', function () {
            */
           'TextUA': function( modelValue ) {
             console.log('Validate TextUA: ', modelValue );
-            var TEXTUA_REGEXP = /[[Є-ЯҐ][а-їґ]-\s+]/;
+            var TEXTUA_REGEXP = /([Є-ЯҐ]|[а-їґ]|-)+\s?/g;
             return TEXTUA_REGEXP.test( modelValue );
           },
 
@@ -134,7 +120,7 @@ angular.module('app').service('ValidationService', function () {
            */
           'TextRU': function( modelValue ) {
             console.log('Validate TextRU: ', modelValue );
-            return /[[Є-ЯҐ][а-їґ]-\s+]/.test( modelValue );
+            return /([А-яЁё]|-)+\s?/g.test( modelValue );
           },
 
           /* 'DateFormat' - Дата у заданому форматі DATE_FORMAT
@@ -142,6 +128,9 @@ angular.module('app').service('ValidationService', function () {
            */
           'DateFormat': function( modelValue ) {
             console.log('Validate DateFormat: ', modelValue );
+            
+            // sFormat': 'YYYY-MM-DD' //
+          
             return true;
           },
 
@@ -157,7 +146,8 @@ angular.module('app').service('ValidationService', function () {
           }
         };
 
-        console.log('validatorFunctionByName = ', validatorName, validatorFunctionByName[validatorName]);
+        // console.log('validatorFunctionByName = ', validatorName, validatorFunctionByName[validatorName]);
+
         return validatorFunctionByName[validatorName] ? validatorFunctionByName[validatorName] : null;
       }
       
@@ -169,7 +159,7 @@ angular.module('app').service('ValidationService', function () {
           // overwrite the default Angular field validator
           if( !field.$validators[validatorByName[validatorName]] ) {
 
-            field.$validators[validatorByName[validatorName]] = validateByName(validatorName, field);
+            field.$validators[validatorByName[validatorName]] = getValidatorByName(validatorName, field);
           
             // and validate it
             field.$validate();
@@ -188,101 +178,10 @@ angular.module('app').service('ValidationService', function () {
 
   };
 
-
-  /**
-   * Validate email if it can be found in the form by name given in the markers list:
-   */
-  // this.validateEmailByMarker = function( form, $scope ) {
-  //   var markers = $scope.markers;
-  //   if (!markers) {
-  //     return;
-  //   }
-
-  //   // markers are here, so we can check if field is marked by it's name: 
-  //   var EMAIL_REGEXP = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
-
-  //   angular.forEach( form, function ( field ) {
-  //     if ( field && field.$name && _.indexOf( markers.validate.Mail.aField_ID, field.$name ) !== -1 ) {
-  //       // overwrite the default Angular email validator
-  //       field.$validators.email = function( modelValue ) {
-  //         return field.$isEmpty(modelValue) || EMAIL_REGEXP.test(modelValue);
-  //       };
-  //       // and validate it
-  //       field.$validate();
-  //     }
-  //   });
-  // };
-
-  // this.validatePhoneByMarker = function( form, $scope ) {
-  //   var markers = $scope.markers;
-  //   if (!markers) {
-  //     return;
-  //   }
-
-  //   // markers are here, so we can check if field is marked by it's name: 
-  //   angular.forEach( form, function ( field ) {
-  //     if ( field && field.$name && _.indexOf( markers.validate.PhoneUA.aField_ID, field.$name ) !== -1 ) {
-  //       // validate it, the phone validator is set in the tel.js directive
-  //       field.$validate();
-  //     }
-  //   });
-  // };
-
-  /**
-   * Validate Auto VIN if it can be found in the form by name given in the markers list:
-   */
-  // this.validateAutoVINByMarker = function( form, $scope ) {
-  //   var markers = $scope.markers;
-  //   if (!markers) {
-  //     return;
-  //   }
-
-  //   angular.forEach( form, function ( field ) {
-  //     if ( field && field.$name && _.indexOf( markers.validate.AutoVIN.aField_ID, field.$name ) !== -1 ) {
-
-  //       field.$validators.autovin = function(sValue) {
-  //         // Логика: набор из 17 символов.
-  //         // Разрешено использовать все арабские цифры и латинские буквы (А В C D F Е G Н J К L N М Р R S Т V W U X Y Z),
-  //         // За исключением букв Q, O, I. (Эти буквы запрещены для использования, поскольку O и Q похожи между собой, а I и O можно спутать с 0 и 1.)
-  //         var bValid = true;
-
-  //         if(field.$isEmpty(sValue)){
-  //             return true;
-  //         }
-
-  //         bValid = bValid && (sValue !== null);
-  //         bValid = bValid && (sValue.length === 17);
-  //         bValid = bValid && (/^[a-zA-Z0-9]+$/.test(sValue));
-  //         bValid = bValid && (sValue.indexOf('q') < 0 && sValue.indexOf('o') < 0 && sValue.indexOf('i') < 0);
-  //         bValid = bValid && (sValue.indexOf('Q') < 0 && sValue.indexOf('O') < 0 && sValue.indexOf('I') < 0);
-
-  //         return bValid;
-  //       };
-
-  //       // and revalidate it
-  //       field.$validate();
-  //     }
-  //   });
-  // };
-
   /**
    * What is it? Check here: http://planetcalc.ru/2464/
    */
   this.getLunaValue = function ( id ) {
-    // private static int sumDigitsByLuna(Long inputNumber) {
-    //     int factor = 1;
-    //     int sum = 0;
-    //     int addend;
-    //     while (inputNumber != 0){
-    //         addend = (int) (factor * (inputNumber % 10));
-    //         factor = (factor == 2) ? 1 : 2;
-    //         addend = addend > 9 ? addend - 9 : addend;
-    //         sum += addend;
-    //         inputNumber /= 10;
-    //     }
-    //     return sum;
-    // }
-                
     //TODO: Fix Alhoritm Luna
     //Number 2187501 must give CRC=3
     //Check: http://planetcalc.ru/2464/
@@ -290,6 +189,7 @@ angular.module('app').service('ValidationService', function () {
 
     var n = parseInt(id);
     //var n = parseInt(2187501);
+
     var nFactor = 1;
     var nCRC = 0;
     var nAddend;

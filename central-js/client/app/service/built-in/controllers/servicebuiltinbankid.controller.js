@@ -54,7 +54,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     $scope.data.formData.setBankIDAccount(BankIDAccount);
 
     var currentState = $state.$current;
-    
+
     $scope.data.region = currentState.data.region;
     $scope.data.city = currentState.data.city;
 
@@ -102,6 +102,8 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
             }
         }
     };
+
+    var aID_FieldPhoneUA = $scope.markers.validate.PhoneUA.aField_ID;
 
     angular.forEach($scope.ActivitiForm.formProperties, function(field) {
 
