@@ -74,12 +74,6 @@ public class ActivitiRestDocumentController {
     @Autowired
     private HandlerFactory handlerFactory;
     
-    @Value("#{bankId_clientId:testIgov}")
-	private String CLIENT_ID;
-    
-    @Value("#{bankId_clientSecret:testIgovSecret}")
-	private String CLIENT_SECRET;
-    
     @Autowired
     GeneralConfig generalConfig;
     
@@ -269,7 +263,7 @@ public class ActivitiRestDocumentController {
         
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
 
-        oSignData = BankIDUtils.checkECP(CLIENT_ID, CLIENT_SECRET, generalConfig.sHostCentral(), aoContent, sName);
+        oSignData = BankIDUtils.checkECP(generalConfig.sHostCentral(), aoContent, sName);
         
         return documentDao.setDocument(
                 nID_Subject,
@@ -333,7 +327,7 @@ public class ActivitiRestDocumentController {
 
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
         
-        String soSignData = BankIDUtils.checkECP(CLIENT_ID, CLIENT_SECRET, generalConfig.sHostCentral(), aoContent, sName);
+        String soSignData = BankIDUtils.checkECP(generalConfig.sHostCentral(), aoContent, sName);
         
         Long nID_Document = documentDao.setDocument(
                         nID_Subject,
