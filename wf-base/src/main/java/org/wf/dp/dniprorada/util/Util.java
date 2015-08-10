@@ -153,6 +153,7 @@ public final class Util {
                                                                 ,"pattern/print/subsidy_zayava.html"
                                                                 ,"pattern/print/subsidy_declaration.html"
                                                                 ,"pattern/print/kalush_rda_1_zayava.html"
+                                                                ,"pattern/print/dnepr_dms_print.html"
                                                                 ,"pattern/print/1.html"
                                                                 ,"pattern/print/2.html"
                                                                 ,"pattern/print/3.html"
