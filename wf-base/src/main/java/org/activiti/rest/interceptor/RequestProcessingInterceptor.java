@@ -157,7 +157,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 } else if (updateTask) {
                     serviceName = "updateHistoryEvent_Service";
                     sID_Proccess = (String) jsonObjectResponse.get("processInstanceId");
-                    taskName = (String) jsonObjectResponse.get("name") + " (в работе)";
+                    taskName = (String) jsonObjectResponse.get("name") + " (у роботi)";
                 } else if (closeTask) {
                     serviceName = "updateHistoryEvent_Service";
                     String task_ID = (String) jsonObjectRequest.get("taskId");
@@ -165,7 +165,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     sID_Proccess = historicTaskInstance.getProcessInstanceId();
                     List<Task> tasks = taskService.createTaskQuery().processInstanceId(sID_Proccess).list();
                     if(tasks == null || tasks.size() == 0){
-                    	taskName = "Заявка выполнена";	
+                    	taskName = "Заявка виконана";	
                     } else{
                     	taskName = tasks.get(0).getName();
                     }
