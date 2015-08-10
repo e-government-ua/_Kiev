@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -29,6 +30,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.wf.dp.dniprorada.rest.HttpRequester;
 import org.wf.dp.dniprorada.util.GeneralConfig;
+import java.util.List;
+import org.activiti.engine.task.Task;
 
 /**
  *
@@ -47,6 +50,9 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
     
     @Autowired
     private RepositoryService repositoryService;
+    
+    @Autowired
+    private TaskService taskService;
 
     @Autowired
     HttpRequester httpRequester;
@@ -144,26 +150,25 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     taskName = "Заявка подана";
                     HistoricProcessInstance historicProcessInstance = 
                             historyService.createHistoricProcessInstanceQuery().processInstanceId(sID_Proccess).singleResult();
-                    logger.info("**********" + historicProcessInstance.getName() + "_" + historicProcessInstance.getProcessDefinitionId());
-                    //params.put("sProcessInstanceName", historicProcessInstance.getName() != null ? historicProcessInstance.getName() + "!" : "Non name!");
                     ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
                           .processDefinitionId(historicProcessInstance.getProcessDefinitionId()).singleResult();
                     params.put("sProcessInstanceName", processDefinition.getName() != null ? processDefinition.getName() + "!" : "Non name!");
                     params.put("nID_Subject", String.valueOf((Long) jsonObjectRequest.get("nID_Subject")));
+                } else if (updateTask) {
+                    serviceName = "updateHistoryEvent_Service";
+                    sID_Proccess = (String) jsonObjectResponse.get("processInstanceId");
+                    taskName = (String) jsonObjectResponse.get("name") + " (у роботi)";
                 } else if (closeTask) {
-                    //sID_Proccess = (String) jsonObjectRequest.get("id");
                     serviceName = "updateHistoryEvent_Service";
                     String task_ID = (String) jsonObjectRequest.get("taskId");
                     HistoricTaskInstance historicTaskInstance = historyService.createHistoricTaskInstanceQuery().taskId(task_ID).singleResult();
                     sID_Proccess = historicTaskInstance.getProcessInstanceId();
-                    taskName = "Заявка выполнена";
-                    //params.put("nID_Task", task_ID);
-                } else if (updateTask) {
-                    serviceName = "updateHistoryEvent_Service";
-                    sID_Proccess = (String) jsonObjectResponse.get("processInstanceId");
-                    taskName = (String) jsonObjectResponse.get("name");
-                    //Long nID_Task = Long.parseLong((String) jsonObjectResponse.get("id"));
-                    //params.put("nID_Task", String.valueOf(nID_Task));
+                    List<Task> tasks = taskService.createTaskQuery().processInstanceId(sID_Proccess).list();
+                    if(tasks == null || tasks.size() == 0){
+                    	taskName = "Заявка виконана";	
+                    } else{
+                    	taskName = tasks.get(0).getName();
+                    }
                 } 
 
                 if (serviceName != null && sID_Proccess != null) {
