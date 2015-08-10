@@ -30,24 +30,31 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 public class BankIDUtils {
 
 	private static final String EMPTY_JSON = "{}";
 	private static final Logger log = LoggerFactory.getLogger(ActivitiRestApiController.class);
+    
+    @Value("#{bankId_clientId:testIgov}")
+	private static String clientId;
+    
+    @Value("#{bankId_clientSecret:testIgovSecret}")
+	private static String clientSecret;
 
-	public static String checkECP(String clientID, String clientSecret, String redirectUrl, byte[] fileByteArray, String fileName) {
+	public static String checkECP(String redirectUrl, byte[] fileByteArray, String fileName) {
 
-		log.info("clientID:" + clientID + " clientSecret:" + clientSecret + " redirectUrl:" + redirectUrl);
+		log.info("clientID:" + clientId + " clientSecret:" + clientSecret + " redirectUrl:" + redirectUrl);
 		
 		try {
 			HttpClientContext context = HttpClientContext.create();
 
 			CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 			
-			String code = doAuthorizeCall(clientID, clientSecret, redirectUrl, context, httpClient);
+			String code = doAuthorizeCall(clientId, clientSecret, redirectUrl, context, httpClient);
 
-			String accessToken = doGetAccessToken(clientID, clientSecret, redirectUrl, context, httpClient, code);
+			String accessToken = doGetAccessToken(clientId, clientSecret, redirectUrl, context, httpClient, code);
 
 			if (accessToken != null) {
 				String json = submitDocumentForCheckingECP(fileByteArray, fileName, accessToken);

@@ -26,6 +26,7 @@ import org.wf.dp.dniprorada.liqPay.LiqBuy;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.model.document.HandlerFactory;
 import org.wf.dp.dniprorada.util.BankIDUtils;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
@@ -73,15 +74,8 @@ public class ActivitiRestDocumentController {
     @Autowired
     private HandlerFactory handlerFactory;
     
-    @Value("${bankId_clientId}")
-	private String CLIENT_ID;
-    
-    @Value("${bankId_clientSecret}")
-	private String CLIENT_SECRET;
-    
-    @Value("${bankId_redirectUrl}")
-	private String REDIRECT_URL;
-    
+    @Autowired
+    GeneralConfig generalConfig;
     
     @RequestMapping(value = "/getDocument", method = RequestMethod.GET)
     public
@@ -269,7 +263,7 @@ public class ActivitiRestDocumentController {
         
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
 
-        oSignData = BankIDUtils.checkECP(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, aoContent, sName);
+        oSignData = BankIDUtils.checkECP(generalConfig.sHostCentral(), aoContent, sName);
         
         return documentDao.setDocument(
                 nID_Subject,
@@ -333,7 +327,7 @@ public class ActivitiRestDocumentController {
 
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
         
-        String soSignData = BankIDUtils.checkECP(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, aoContent, sName);
+        String soSignData = BankIDUtils.checkECP(generalConfig.sHostCentral(), aoContent, sName);
         
         Long nID_Document = documentDao.setDocument(
                         nID_Subject,
