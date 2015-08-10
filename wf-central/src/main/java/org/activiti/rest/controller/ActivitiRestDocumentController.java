@@ -25,6 +25,7 @@ import org.wf.dp.dniprorada.dao.*;
 import org.wf.dp.dniprorada.liqPay.LiqBuy;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.model.document.HandlerFactory;
+import org.wf.dp.dniprorada.util.BankIDConfig;
 import org.wf.dp.dniprorada.util.BankIDUtils;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Util;
@@ -76,6 +77,9 @@ public class ActivitiRestDocumentController {
     
     @Autowired
     GeneralConfig generalConfig;
+    
+    @Autowired
+    BankIDConfig bankIDConfig;
     
     @RequestMapping(value = "/getDocument", method = RequestMethod.GET)
     public
@@ -263,7 +267,7 @@ public class ActivitiRestDocumentController {
         
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
 
-        oSignData = BankIDUtils.checkECP(generalConfig.sHostCentral(), aoContent, sName);
+        oSignData = BankIDUtils.checkECP(bankIDConfig.sClientId(), bankIDConfig.sClientSecret(), generalConfig.sHostCentral(), aoContent, sName);
         
         return documentDao.setDocument(
                 nID_Subject,
@@ -327,7 +331,7 @@ public class ActivitiRestDocumentController {
 
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
         
-        String soSignData = BankIDUtils.checkECP(generalConfig.sHostCentral(), aoContent, sName);
+        String soSignData = BankIDUtils.checkECP(bankIDConfig.sClientId(), bankIDConfig.sClientSecret(), generalConfig.sHostCentral(), aoContent, sName);
         
         Long nID_Document = documentDao.setDocument(
                         nID_Subject,
