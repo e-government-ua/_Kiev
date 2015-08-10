@@ -73,13 +73,13 @@ public class ActivitiRestDocumentController {
     @Autowired
     private HandlerFactory handlerFactory;
     
-    @Value("${bankId_clientId}")
+    @Value("${bankId_clientId:testIgov}")
 	private String CLIENT_ID;
     
-    @Value("${bankId_clientSecret}")
+    @Value("${bankId_clientSecret:testIgovSecret}")
 	private String CLIENT_SECRET;
     
-    @Value("${bankId_redirectUrl}")
+    @Value("${bankId_redirectUrl:'http://igov.org.ua'}")
 	private String REDIRECT_URL;
     
     
