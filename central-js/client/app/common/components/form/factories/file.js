@@ -30,9 +30,9 @@ angular.module('app').factory('FileFactory', function($q, $rootScope, ActivitiSe
   file.prototype.upload = function(oServiceData) {
     var self = this;
     var scope = $rootScope.$new(true, $rootScope);
-
     uiUploader.startUpload({
-      url: ActivitiService.getUploadFileURL(oServiceData),
+      url: ActivitiService.getUploadFileURL(oServiceData)+'&originalFilename='+encodeURIComponent(this.fileName),
+      data: {'originalFilename': this.fileName},
       concurrency: 1,
       onProgress: function(file) {
         scope.$apply(function() {
@@ -42,6 +42,9 @@ angular.module('app').factory('FileFactory', function($q, $rootScope, ActivitiSe
         scope.$apply(function() {
           self.value = response;
         });
+      },
+      onCompletedAll: function() {
+        console.log('All files loaded successfully');
       }
     });
   };

@@ -15,7 +15,7 @@ public class QueryLoaderTest {
 
     private static final String SQL_FILE = "query1.sql";
     private static final String MISSING_SQL_FILE = "ababagalamaga.sql";
-    private static final String SQL_HOME_DIRECTORY = "queryloader/sql-files/";
+    private static final String SQL_HOME_DIRECTORY = "/queryloader/sql-files/";
 
     @Test
     public void shouldDetectQuery(){
