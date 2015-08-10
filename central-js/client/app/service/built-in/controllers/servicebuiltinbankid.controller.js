@@ -141,7 +141,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     form.$setSubmitted();
     var bValid=true;
 
-    ValidationService.validateByMarkers( form, $scope );
+    ValidationService.validateByMarkers( form, $scope.markers );
 
     // ValidationService.validateEmailByMarker( form, $scope );
     // ValidationService.validatePhoneByMarker( form, $scope );
