@@ -116,7 +116,7 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-								&lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
 &lt;p&gt;&lt;/p&gt;
 Текст відповіді державного органу на Ваш запит: &lt;br /&gt;
 
@@ -136,8 +136,9 @@
 &lt;p&gt;
 З повагою,&lt;br /&gt;
 
-Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
+Міська рада міста Кузнецовськ&lt;br/&gt;
 Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+
                                 &lt;/td&gt;
                             &lt;/tr&gt;
                            
@@ -220,7 +221,7 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-								&lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
 &lt;p&gt;&lt;/p&gt;
 Нажаль, державний орган не може надати вам цю послугу в даний момент. 
 &lt;p&gt;&lt;/p&gt;
@@ -234,6 +235,14 @@
 &lt;p&gt;&lt;/p&gt;
 Коментар Державного службовця: &lt;br /&gt;
 &lt;i&gt;${decisionComment}&lt;/i&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+&lt;p&gt;
+З повагою,&lt;br /&gt;
+
+Міська рада міста Кузнецовськ&lt;br/&gt;
+Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+
                                 &lt;/td&gt;
                             &lt;/tr&gt;
                            
@@ -295,33 +304,36 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
-                &lt;tr&gt;
+&lt;tr&gt;
                     &lt;td align="center"&gt;
-                      
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;&lt;/p&gt;
-										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
-										
-										Спеціалісти із Державного Органу повинні дати відповідь найближчим часом. 
-									&lt;p&gt;&lt;/p&gt;
-										Залишайтесь з нами. 	
-                                    &lt;p&gt;&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
-                                    &lt;/p&gt;
+&lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;p&gt;&lt;/p&gt;
+Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
+
+Спеціалісти з Державного Органу повинні дати відповідь найближчим часом. 
+&lt;p&gt;&lt;/p&gt;
+Залишайтесь з нами. 
+&lt;p&gt;&lt;/p&gt;
+&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+&lt;p&gt;
+З повагою,&lt;br /&gt;
+
+Міська рада міста Кузнецовськ&lt;br/&gt;
+Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                            &lt;/table&gt;
-                        &lt;/form&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
                     &lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--content end--&gt;

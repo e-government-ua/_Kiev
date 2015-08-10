@@ -53,7 +53,11 @@
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>&lt;style type="text/css"&gt;
+          <activiti:expression>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head lang="ru"&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+    &lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -78,6 +82,8 @@
         #mailer-body textarea:focus {outline: 0;}
         #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
     &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
 &lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
     &lt;tbody&gt;
     &lt;tr&gt;
@@ -89,35 +95,36 @@
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
-                &lt;tr&gt;
+&lt;tr&gt;
                     &lt;td align="center"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
 
-									&lt;br /&gt;
-									Дякуємо, що скористалися Інтернет-сервісом замовлення довідки про відсутність земельних ділянок для ведення ОСГ!&lt;br /&gt;
-									Ваш запит успішно зареєстровано.&lt;br /&gt;
-									&lt;br /&gt;
-									Ви зможете забрати Вашу довідку приблизно за 2 робочих дня у Центрі надання адміністративних послуг за адресою м.Кузнецовськ, майдан Незалежності, 2, каб. №105-1.&lt;br /&gt;
-									&lt;br /&gt;
-									Графік  роботи:&lt;br /&gt;
-									Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
-									Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
-									П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
-									Без перерви на обід&lt;br /&gt;
-									&lt;br /&gt;
-									Підкреслюємо, що поки що забрати довідку Ви можете лише в паперовому вигляді.&lt;br /&gt;
+								
+									&lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;br /&gt;
+Дякуємо, що скористалися Інтернет-сервісом замовлення довідки про відсутність земельних ділянок для ведення ОСГ!&lt;br /&gt;
+Ваш запит успішно зареєстровано.&lt;br /&gt;
+&lt;br /&gt;
+Ви зможете забрати Вашу довідку приблизно за 2 робочих дня у Центрі надання адміністративних послуг за адресою м.Кузнецовськ, майдан Незалежності, 2, каб. №105-1.&lt;br /&gt;
+&lt;br /&gt;
+Графік  роботи:&lt;br /&gt;
+Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+&lt;br /&gt;
+Підкреслюємо, що поки що забрати довідку Ви можете лише в паперовому вигляді.&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+&lt;p&gt;
+З повагою,&lt;br /&gt;
 
- 									&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        &lt;!-- З повагою,&lt;br /&gt;
-                                        
-										Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;. --&gt;
-                                    &lt;/p&gt;
+Міська рада міста Кузнецовськ&lt;br/&gt;
+Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+									
+									
                                 &lt;/td&gt;
                             &lt;/tr&gt;
                            
@@ -132,7 +139,9 @@
         &lt;/td&gt;
     &lt;/tr&gt;
     &lt;/tbody&gt;
-&lt;/table&gt;</activiti:expression>
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -151,7 +160,11 @@
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>&lt;style type="text/css"&gt;
+          <activiti:expression>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head lang="ru"&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+    &lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -176,6 +189,8 @@
         #mailer-body textarea:focus {outline: 0;}
         #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
     &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
 &lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
     &lt;tbody&gt;
     &lt;tr&gt;
@@ -183,37 +198,36 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
-                &lt;tr&gt;
+&lt;tr&gt;
                     &lt;td align="center"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;br /&gt;
+Ваша довідка підготовлена до отримання. &lt;br /&gt;
+Ви можете отримати довідку у Центрі надання адміністративних послуг за адресою м.Кузнецовськ, майдан Незалежності, 2, каб. №105-1&lt;br /&gt;
+&lt;br /&gt;
+Графік  роботи:&lt;br /&gt;
+Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+&lt;br /&gt;
+Підкреслюємо, що поки що забрати довідку Ви можете лише в паперовому вигляді.&lt;br /&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+&lt;p&gt;
+З повагою,&lt;br /&gt;
 
-										&lt;br /&gt;
-										Ваша довідка підготовлена до отримання. &lt;br /&gt;
-										Ви можете отримати довідку у Центрі надання адміністративних послуг за адресою м.Кузнецовськ, майдан Незаложності, 2, каб. №105-1&lt;br /&gt;
-										&lt;br /&gt;
-										Графік  роботи:&lt;br /&gt;
-										Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
-										Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
-										П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
-										Без перерви на обід&lt;br /&gt;
-										&lt;br /&gt;
-										Підкреслюємо, що поки що забрати довідку Ви можете лише в паперовому вигляді.&lt;br /&gt;
-								
- 									&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        
-										Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
-                                    &lt;/p&gt;
+Міська рада міста Кузнецовськ&lt;br/&gt;
+Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+									
+									
                                 &lt;/td&gt;
                             &lt;/tr&gt;
                            
@@ -228,7 +242,9 @@
         &lt;/td&gt;
     &lt;/tr&gt;
     &lt;/tbody&gt;
-&lt;/table&gt;</activiti:expression>
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -273,42 +289,47 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
-                &lt;tr&gt;
+&lt;tr&gt;
                     &lt;td align="center"&gt;
-                          &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;&lt;/p&gt;
-										Нажаль, державний орган не може надати вам цю послугу в даний момент. 
-									&lt;p&gt;&lt;/p&gt;
-										Ймовірні причини:  &lt;br /&gt;
-										&lt;ol&gt;
-										&lt;li&gt;Неправильно або неповністю заповнена заява; &lt;/li&gt;
-										&lt;li&gt;Неспроможність відкрити ваші документи;&lt;/li&gt;
-										&lt;li&gt;Ви не належите до категорії громадян, для яких ця послуга діє;&lt;/li&gt;
-										&lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov; &lt;li&gt;
-										&lt;/ol&gt;
-										&lt;p&gt;&lt;/p&gt;
-										Коментар Державного службовця: &lt;br /&gt;
-											&lt;i&gt;${decisionComment}&lt;/i&gt;
-										&lt;p&gt;&lt;/p&gt;
-										Вибачте за незручність. &lt;!-- Спробуйте подати заяву через півгодини. --&gt;
-                                    &lt;p&gt;&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-&lt;!--                                         З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;. --&gt;
-                                    &lt;/p&gt;
+&lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;p&gt;&lt;/p&gt;
+Нажаль, державний орган не може надати вам цю послугу в даний момент. 
+&lt;p&gt;&lt;/p&gt;
+Вірогідні причини:  &lt;br /&gt;
+&lt;ol&gt;
+&lt;li&gt;Неправильно або неповністю заповнена заява; &lt;/li&gt;
+&lt;li&gt;Неспроможність відкрити ваші документи;&lt;/li&gt;
+&lt;li&gt;Ви не належите до категорії громадян, для яких ця послуга діє;&lt;/li&gt;
+&lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov;&lt;li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;/p&gt;
+Коментар Державного службовця: &lt;br /&gt;
+	&lt;i&gt;${decisionComment}&lt;/i&gt;
+&lt;p&gt;&lt;/p&gt;
+Вибачте за незручність.
+&lt;p&gt;&lt;/p&gt;
+&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+&lt;p&gt;
+З повагою,&lt;br /&gt;
+
+Міська рада міста Кузнецовськ&lt;br/&gt;
+Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+									
+									
                                 &lt;/td&gt;
                             &lt;/tr&gt;
                            
+                          
+
                         &lt;/table&gt;
-                        &lt;/form&gt;
+                     
                     &lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--content end--&gt;
