@@ -31,7 +31,7 @@ angular.module('app').factory('FileFactory', function($q, $rootScope, ActivitiSe
     var self = this;
     var scope = $rootScope.$new(true, $rootScope);
     uiUploader.startUpload({
-      url: ActivitiService.getUploadFileURL(oServiceData),
+      url: ActivitiService.getUploadFileURL(oServiceData)+'&originalFilename='+encodeURIComponent(this.fileName),
       data: {'originalFilename': this.fileName},
       concurrency: 1,
       onProgress: function(file) {
