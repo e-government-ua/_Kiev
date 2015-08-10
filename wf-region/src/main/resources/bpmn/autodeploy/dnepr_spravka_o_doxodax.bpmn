@@ -152,9 +152,9 @@
     </serviceTask>
     <sequenceFlow id="flow5" sourceRef="startevent1" targetRef="scripttask1"></sequenceFlow>
     <scriptTask id="scripttask1" name="User Task" scriptFormat="groovy" activiti:autoStoreVariables="true">
-      <script>execution.setVariable("date_start1", execution.getVariable("date_start").format("dd.mm.yyyy"))
+      <script>execution.setVariable("date_start1", execution.getVariable("date_start").format("dd.MM.yyyy"))
 
-execution.setVariable("date_stop1", execution.getVariable("date_stop").format("dd.mm.yyyy"))</script>
+execution.setVariable("date_stop1", execution.getVariable("date_stop").format("dd.MM.yyyy"))</script>
     </scriptTask>
     <sequenceFlow id="flow6" sourceRef="scripttask1" targetRef="usertask1"></sequenceFlow>
   </process>
