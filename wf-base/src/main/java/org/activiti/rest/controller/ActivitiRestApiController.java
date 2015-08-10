@@ -165,10 +165,13 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     @Transactional
     public
     @ResponseBody
-    String putAttachmentsToRedis(@RequestParam("file") MultipartFile file) throws ActivitiIOException, Exception  {
+    String putAttachmentsToRedis(@RequestParam(required = true, value = "file") MultipartFile file
+                                , @RequestParam(required = false, value = "originalFilename") String sFileName
+    ) throws ActivitiIOException, Exception  {
     	String atachId = null;
 		try {
-			atachId = redisService.putAttachments(AbstractModelTask.multipartFileToByteArray(file).toByteArray());
+			atachId = redisService.putAttachments(AbstractModelTask.multipartFileToByteArray(file, sFileName).toByteArray());
+                       
 		}catch (Exception e) {
 			 throw e;
 		}
@@ -441,7 +444,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     	CSVWriter csvWriter = new CSVWriter(httpResponse.getWriter());
     	
-    	String[] header = { "Assignee", "Start Time", "Duration in millis", "Duration in hours", "Name of Task" };
+    	//String[] header = { "Assignee", "Start Time", "Duration in millis", "Duration in hours", "Name of Task" };
+    	String[] header = { "nID_Process", "sLoginAssignee", "sDateTimeStart", "nDurationMS", "nDurationHour", "sName" };
     	csvWriter.writeNext(header);
     	
     	SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
@@ -449,15 +453,15 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 	    	log.debug(String.format("Found {0} completed tasks for business process {1} for date period {2} - {3}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt), 
 	    			sdfDate.format(dateTo)));
 	        for (HistoricTaskInstance currTask : foundResults) {
-	        	String[] line = new String[5];
-	        	line[0] = currTask.getAssignee();
+                    String[] line = new String[6];
+	            line[0] = currTask.getProcessInstanceId();
+                    line[1] = currTask.getAssignee();
 	            Date startDate = currTask.getStartTime();
-	            line[1] = sdfDate.format(startDate);
-	            line[2] = String.valueOf(currTask.getDurationInMillis());
+	            line[2] = sdfDate.format(startDate);
+	            line[3] = String.valueOf(currTask.getDurationInMillis());
 	            long durationInHours = currTask.getDurationInMillis() / (1000 * 60 * 60);
-	            line[3] = String.valueOf(durationInHours);
-	            line[4] = currTask.getName();
-	            
+	            line[4] = String.valueOf(durationInHours);
+	            line[5] = currTask.getName();
 	            csvWriter.writeNext(line);
 	        }
     	} else {

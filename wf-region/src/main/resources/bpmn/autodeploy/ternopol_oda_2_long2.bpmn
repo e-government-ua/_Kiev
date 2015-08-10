@@ -10,13 +10,15 @@
         <activiti:formProperty id="bankIdAddress" name="Місце проживання (реєстрації); Одержувача допомоги АБО його законного представника" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdInn" name="ІПН заявника; Одержувача допомоги АБО його законного представника" type="string"></activiti:formProperty>
         <activiti:formProperty id="organID" name="До якого державного органу Ви звертаєтесь" type="enum" required="true">
-          <activiti:value id="ternopil_oda3" name="Департамент соцзахисту Тернопільської ОДА"></activiti:value>
+          <activiti:value id="ternopil_oda3" name="Департамент соціального захисту населення Тернопільської ОДА"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="citizenType" name="До якої категорії громадян Ви належите" type="enum" required="true">
           <activiti:value id="poor" name="Малозабезпечена непрацююча особа"></activiti:value>
           <activiti:value id="disabled" name="Інвалід"></activiti:value>
           <activiti:value id="old" name="Пенсіонер"></activiti:value>
           <activiti:value id="rep" name="Законний представник отримувача допомоги"></activiti:value>
+          <activiti:value id="ato" name="Особа, яка брала участь в АТО"></activiti:value>
+          <activiti:value id="activist" name="Особа, яка брала участь в акціях громадського протесту"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="citizenTypeExtended" name="Для інваліда/представника інваліда вказати групу і причину інвалідності" type="string"></activiti:formProperty>
         <activiti:formProperty id="helpTo" name="Прошу надати матеріальну допомогу" type="enum" required="true">
@@ -34,17 +36,18 @@
           <activiti:value id="sick" name="Тривалою хворобою"></activiti:value>
           <activiti:value id="death" name="Смертю близьких родичів (одного з подружжя, батьків, дітей)"></activiti:value>
           <activiti:value id="disaster" name="Стихійним лихом"></activiti:value>
+          <activiti:value id="other" name="Інші особливі обставини"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="warning2" type="label" default="Документи, що додаються:"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорта заявника" type="file"></activiti:formProperty>
         <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера або отримувача державної соціальної допомоги/ Висновок медико-соціальної експертної комісії, лікувально-консультативної комісії лікувально-профілактичного закладу (для дітей-інвалідів) про встановлення інвалідності" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="repProof" name="Документ, що засвідчує повноваження законного представника" type="file"></activiti:formProperty>
         <activiti:formProperty id="helpeePassportScan" name="Скан-копія паспорта / свідоцтва про народження підопічного; Сторінки 1, 2 і 11" type="file"></activiti:formProperty>
         <activiti:formProperty id="scanINN" name="Скан-копія ІПН підопічного; Якщо є" type="file"></activiti:formProperty>
-        <activiti:formProperty id="helpeeIncome" name="Акт обстеження матеріально-побутових умов проживання" type="file"></activiti:formProperty>
-        <activiti:formProperty id="otherDocs" name="Інші підтверджуючі документи (за наявності); Якщо їх більше 1-го, будь ласька завантажте ZIP архів." type="file"></activiti:formProperty>
+        <activiti:formProperty id="otherDocs" name="Інші підтверджуючі документи (за наявності); Якщо їх більше 1-го, будь ласка, завантажте ZIP архів" type="file"></activiti:formProperty>
         <activiti:formProperty id="transferMethod" name="Яким способом бажаєте отримати допомогу" type="enum" required="true">
           <activiti:value id="bank" name="На особовий банківський рахунок"></activiti:value>
-          <activiti:value id="mail" name="Поштовим перерказом"></activiti:value>
+          <activiti:value id="mail" name="Поштовим переказом"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="transferComment" name="Додатковий коментар; якщо бажаєте отримати допомогу поштою, введіть №. Якщо через банк - №, МФО, код, назва банку" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
@@ -62,13 +65,15 @@
         <activiti:formProperty id="bankIdAddress" name="Місце проживання (реєстрації); Одержувача допомоги АБО його законного представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdInn" name="ІПН заявника; Одержувача допомоги АБО його законного представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="organID" name="До якого державного органу Ви звертаєтесь" type="enum" writable="false">
-          <activiti:value id="ternopil_oda3" name="Департамент соцзахисту Тернопільської ОДА"></activiti:value>
+          <activiti:value id="ternopil_oda3" name="Департамент соціального захисту населення Тернопільської ОДА"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="citizenType" name="До якої категорії громадян Ви належите" type="enum" writable="false">
           <activiti:value id="poor" name="Малозабезпечена непрацююча особа"></activiti:value>
           <activiti:value id="disabled" name="Інвалід"></activiti:value>
           <activiti:value id="old" name="Пенсіонер"></activiti:value>
           <activiti:value id="rep" name="Законний представник отримувача допомоги"></activiti:value>
+          <activiti:value id="ato" name="Особа, яка брала участь в АТО"></activiti:value>
+          <activiti:value id="activist" name="Особа, яка брала участь в акціях громадського протесту"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="citizenTypeExtended" name="Для інваліда/представника інваліда вказати групу і причину інвалідності" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpTo" name="Прошу надати матеріальну допомогу" type="enum" writable="false">
@@ -82,26 +87,31 @@
         <activiti:formProperty id="helpeeAddress" name="Місце проживання (реєстрації) підопічного" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeePassport" name="Дані паспорта / свідоцтва про народження підопічного" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeINN" name="ІПН підопічного; якщо є" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpReason" name="Допомога потрібна у зв’язку з" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="helpReason" name="Допомога потрібна у зв’язку з" type="enum" writable="false">
+          <activiti:value id="sick" name="Тривалою хворобою"></activiti:value>
+          <activiti:value id="death" name="Смертю близьких родичів (одного з подружжя, батьків, дітей)"></activiti:value>
+          <activiti:value id="disaster" name="Стихійним лихом"></activiti:value>
+          <activiti:value id="other" name="Інші особливі обставини"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорта заявника" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера або отримувача державної соціальної допомоги/ Висновок медико-соціальної експертної комісії, лікувально-консультативної комісії лікувально-профілактичного закладу (для дітей-інвалідів) про встановлення інвалідності" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="repProof" name="Документ, що засвідчує повноваження законного представника" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeePassportScan" name="Скан-копія паспорта / свідоцтва про народження підопічного; Сторінки 1, 2 і 11" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="scanINN" name="Скан-копія ІПН підопічного; Якщо є" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeeIncome" name="Акт обстеження матеріально-побутових умов проживання" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="otherDocs" name="Інші підтверджуючі документи; За наявності" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="transferMethod" name="Яким спосібом бажаєте отримати допомогу" type="enum" writable="false">
           <activiti:value id="bank" name="На особовий банківський рахунок"></activiti:value>
-          <activiti:value id="mail" name="Поштовим перерказом"></activiti:value>
+          <activiti:value id="mail" name="Поштовим переказом"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="transferComment" name="Додатковий коментар: якщо бажаєте отримати допомогу поштою, введіть №. Якщо через банк - №, МФО, код, назва банку" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="workerDecision" name="Рішення комісії" type="enum" required="true">
-          <activiti:value id="accept" name="Надати послугу"></activiti:value>
+        <activiti:formProperty id="workerDecision" name="Рішення операціоніста" type="enum" required="true">
+          <activiti:value id="accept" name="Передати заяву в роботу комісії"></activiti:value>
           <activiti:value id="decline" name="Відмовити"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Додатковий коментар/причина відмови" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="docID" name="ID-номер заяви" type="string"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -170,12 +180,10 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
+										Послуга "Надання одноразової матеріальної допомоги громадянам" була успішно надана. Ви отримаєте результат обраним Вами способом &lt;br /&gt;
 										
-										Спеціалісти із Державного Органу повинні дати відповідь найближчим часом. &lt;br /&gt;
-										
-										Інформація яку Ви надали:
-										
+										Інформація яку Ви надали: &lt;br /&gt;
+										&lt;br /&gt;
 										       		
 Прізвище заявника -	&lt;i&gt;${bankIdlastName} &lt;/i&gt; &lt;br /&gt;
 Ім'я заявника - 	&lt;i&gt;${bankIdfirstName} &lt;/i&gt; &lt;br /&gt;
@@ -183,8 +191,8 @@
 Паспортні дані заявника - &lt;i&gt;${bankIdPassport} &lt;/i&gt; &lt;br /&gt;
 Адреса прописки заявника -  &lt;i&gt;${bankIdAddress} &lt;/i&gt; &lt;br /&gt;
 ІПН заявника; Одержувача допомоги АБО його законного представника - &lt;i&gt;${bankIdInn} &lt;/i&gt; &lt;br /&gt;
-До якого державного органу Ви звертаєтесь - &lt;i&gt;${organID} &lt;/i&gt; &lt;br /&gt;
-До якої категорії громадян Ви належите - &lt;i&gt;${citizenType} &lt;/i&gt; &lt;br /&gt;
+&lt;!-- До якого державного органу Ви звертаєтесь - &lt;i&gt;${organID} &lt;/i&gt; &lt;br /&gt; --&gt;
+&lt;!-- До якої категорії громадян Ви належите - &lt;i&gt;${citizenType} &lt;/i&gt; &lt;br /&gt;
 Для інваліда/представника інваліда вказати групу і причину інвалідності - &lt;i&gt;${citizenTypeExtended} &lt;/i&gt; &lt;br /&gt;
 Прошу видати матеріальну допомогу -  &lt;i&gt;${helpTo} &lt;/i&gt; &lt;br /&gt;
 Прізвище підопічного -    &lt;i&gt;${helpeeSurname} &lt;/i&gt; &lt;br /&gt;
@@ -192,9 +200,9 @@
 По батькові підопічного -  &lt;i&gt;${helpeeMiddleName} &lt;/i&gt; &lt;br /&gt;
 Адреса прописки підопічного -  &lt;i&gt;${helpeeAddress} &lt;/i&gt; &lt;br /&gt;
 ІПН підопічного; якщо є -  &lt;i&gt;${helpeeINN} &lt;/i&gt; &lt;br /&gt;
-Допомога потрібна у зв’язку з - &lt;i&gt;${helpReason} &lt;/i&gt; &lt;br /&gt;	
-Яким спосібом бажаєте отримати допомогу - &lt;i&gt;${transferMethod} &lt;/i&gt; &lt;br /&gt;
-Додатковий коментар - &lt;i&gt;${transferComment} &lt;/i&gt; &lt;br /&gt;
+Допомога потрібна у зв’язку з - &lt;i&gt;${helpReason} &lt;/i&gt; &lt;br /&gt; --&gt;	
+&lt;!-- Яким спосібом бажаєте отримати допомогу - &lt;i&gt;${transferMethod} &lt;/i&gt; &lt;br /&gt; --&gt;
+&lt;!-- Додатковий коментар - &lt;i&gt;${transferComment} &lt;/i&gt; &lt;br /&gt; --&gt;
 E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&gt; &lt;br /&gt;
 Контактний телефон -  &lt;i&gt;${phone} &lt;/i&gt; &lt;br /&gt;
 	
@@ -400,9 +408,8 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
 										&lt;/ol&gt;
 										&lt;p&gt;&lt;/p&gt;
 										Коментар Державного службовця: &lt;br /&gt;
-											&lt;i&gt;'${decisionComment}'&lt;/i&gt;
-										&lt;p&gt;&lt;/p&gt;
-										Вибачте за незручність. Спробуйте подати заяву через півгодини.
+											&lt;i&gt;${decisionComment}&lt;/i&gt;
+										
                                     &lt;p&gt;&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -436,7 +443,7 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
     <sequenceFlow id="flow2" sourceRef="servicetask1" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow3" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
     <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
-    <sequenceFlow id="flow5" name="${workerDecision=='accept'}" sourceRef="exclusivegateway1" targetRef="usertask2">
+    <sequenceFlow id="flow5" name="${workerDecision=='accept'}" sourceRef="exclusivegateway1" targetRef="usertask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow6" name="${workerDecision=='decline'}" sourceRef="exclusivegateway1" targetRef="mailtask3">
@@ -446,8 +453,17 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
     <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow9" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="usertask2" name="Заява поступає в роботу комісії" activiti:candidateGroups="${organID}">
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow10" sourceRef="usertask3" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow11" name="${workerDecision=='accept'}" sourceRef="exclusivegateway2" targetRef="mailtask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow12" name="${workerDecision=='decline'}" sourceRef="exclusivegateway2" targetRef="mailtask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='decline'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="usertask3" name="Заява поступає в роботу комісії">
       <extensionElements>
+        <activiti:formProperty id="docID" name="ID-номер заяви" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище заявника; Одержувача допомоги АБО його законного представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По батькові заявника" type="string" writable="false"></activiti:formProperty>
@@ -455,13 +471,15 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
         <activiti:formProperty id="bankIdAddress" name="Місце проживання (реєстрації); Одержувача допомоги АБО його законного представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdInn" name="ІПН заявника; Одержувача допомоги АБО його законного представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="organID" name="До якого державного органу Ви звертаєтесь" type="enum" writable="false">
-          <activiti:value id="ternopil_oda3" name="Департамент соцзахисту Тернопільської ОДА"></activiti:value>
+          <activiti:value id="ternopil_oda3" name="Департамент соціального захисту населення Тернопільської ОДА"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="citizenType" name="До якої категорії громадян Ви належите" type="enum" writable="false">
           <activiti:value id="poor" name="Малозабезпечена непрацююча особа"></activiti:value>
           <activiti:value id="disabled" name="Інвалід"></activiti:value>
           <activiti:value id="old" name="Пенсіонер"></activiti:value>
           <activiti:value id="rep" name="Законний представник отримувача допомоги"></activiti:value>
+          <activiti:value id="ato" name="Особа, яка брала участь в АТО"></activiti:value>
+          <activiti:value id="activist" name="Особа, яка брала участь в акціях громадського протесту"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="citizenTypeExtended" name="Для інваліда/представника інваліда вказати групу і причину інвалідності" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpTo" name="Прошу надати матеріальну допомогу" type="enum" writable="false">
@@ -475,17 +493,21 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
         <activiti:formProperty id="helpeeAddress" name="Місце проживання (реєстрації) підопічного" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeePassport" name="Дані паспорта / свідоцтва про народження підопічного" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeINN" name="ІПН підопічного; якщо є" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpReason" name="Допомога потрібна у зв’язку з" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="helpReason" name="Допомога потрібна у зв’язку з" type="enum" writable="false">
+          <activiti:value id="sick" name="Тривалою хворобою"></activiti:value>
+          <activiti:value id="death" name="Смертю близьких родичів (одного з подружжя, батьків, дітей)"></activiti:value>
+          <activiti:value id="disaster" name="Стихійном лихом"></activiti:value>
+          <activiti:value id="other" name="Інші особливі обставини"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорта заявника" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера або отримувача державної соціальної допомоги/ Висновок медико-соціальної експертної комісії, лікувально-консультативної комісії лікувально-профілактичного закладу (для дітей-інвалідів) про встановлення інвалідності" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="repProof" name="Документ, що засвідчує повноваження законного представника" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeePassportScan" name="Скан-копія паспорта / свідоцтва про народження підопічного; Сторінки 1, 2 і 11" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="scanINN" name="Скан-копія ІПН підопічного; Якщо є" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="helpeeIncome" name="Акт обстеження матеріально-побутових умов проживання" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="otherDocs" name="Інші підтверджуючі документи; За наявності" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="transferMethod" name="Яким спосібом бажаєте отримати допомогу" type="enum" writable="false">
           <activiti:value id="bank" name="На особовий банківський рахунок"></activiti:value>
-          <activiti:value id="mail" name="Поштовим перерказом"></activiti:value>
+          <activiti:value id="mail" name="Поштовим переказом"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="transferComment" name="Додатковий коментар: якщо бажаєте отримати допомогу поштою, введіть №. Якщо через банк - №, МФО, код, назва банку" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
@@ -495,17 +517,10 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
           <activiti:value id="decline" name="Відмовити"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Додатковий коментар/причина відмови" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="docID" name="ID номер заяви" type="string"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow10" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow11" name="${workerDecision=='accept'}" sourceRef="exclusivegateway2" targetRef="mailtask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept'}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow12" name="${workerDecision=='decline'}" sourceRef="exclusivegateway2" targetRef="mailtask3">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='decline'}]]></conditionExpression>
-    </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_ternopol_2_long2">
     <bpmndi:BPMNPlane bpmnElement="ternopol_2_long2" id="BPMNPlane_ternopol_2_long2">
@@ -539,11 +554,11 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="797.0" y="264.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
-        <omgdc:Bounds height="85.0" width="146.0" x="330.0" y="335.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="382.0" y="467.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+        <omgdc:Bounds height="85.0" width="146.0" x="330.0" y="335.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="75.0" y="132.0"></omgdi:waypoint>

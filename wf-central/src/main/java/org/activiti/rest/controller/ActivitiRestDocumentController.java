@@ -28,6 +28,7 @@ import org.wf.dp.dniprorada.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Enumeration;
@@ -53,13 +54,13 @@ public class ActivitiRestDocumentController {
     private SubjectOrganDao subjectOrganDao;
 
     @Autowired
-    private HistoryEventDao historyEventDao;
-
-    @Autowired
     private DocumentContentTypeDao documentContentTypeDao;
     
     @Autowired
     private DocumentTypeDao documentTypeDao;
+    
+    @Autowired
+	private HistoryEventDao historyEventDao;
     
     //@Autowired
     //private AccessDataDao accessDataDao;
@@ -127,13 +128,6 @@ public class ActivitiRestDocumentController {
     }
 
 
-    @RequestMapping(value = "/getHistoryEvent", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    HistoryEvent getHistoryEvent(@RequestParam(value = "nID") Long id) {
-        return historyEventDao.getHistoryEvent(id);
-    }
-
     @RequestMapping(value = "/getDocumentContent", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -147,34 +141,7 @@ public class ActivitiRestDocumentController {
         }
     }
 
-    @RequestMapping(value = "/getHistoryEvents", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<HistoryEvent> getHistoryEvents(
-            @RequestParam(value = "nID_Subject") long nID_Subject) {
-        return historyEventDao.getHistoryEvents(nID_Subject);
-    }
-
-    @RequestMapping(value = "/setHistoryEvent", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    Long setHistoryEvent(
-            @RequestParam(value = "nID_Subject", required = false) long nID_Subject,
-            @RequestParam(value = "nID_HistoryEventType", required = false) Long nID_HistoryEventType,
-            @RequestParam(value = "sEventName", required = false) String sEventName_Custom,
-            @RequestParam(value = "sMessage") String sMessage,
-
-            HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
-
-
-        return historyEventDao.setHistoryEvent(
-                nID_Subject,
-                nID_HistoryEventType,
-                sEventName_Custom,
-                sMessage);
-
-    }
-
+    
 
     @RequestMapping(value = "/getDocumentFile", method = RequestMethod.GET)
     public
@@ -380,26 +347,7 @@ public class ActivitiRestDocumentController {
     	return subject_Upload;
     }
 
-    private void createHistoryEvent(HistoryEventType eventType, Long nID_Subject,
-                                    String sSubjectName_Upload, Long nID_Document,
-                                    Document document) {
-        Map<String, String> values = new HashMap<>();
-        try {
-            Document oDocument = document == null ? documentDao.getDocument(nID_Document) : document;
-            values.put(HistoryEventMessage.DOCUMENT_TYPE, oDocument.getDocumentType().getName());
-            values.put(HistoryEventMessage.DOCUMENT_NAME, oDocument.getName());
-            values.put(HistoryEventMessage.ORGANIZATION_NAME, sSubjectName_Upload);
-        } catch (Throwable e) {
-            log.warn("can't get document info!", e);
-        }
-        try {
-            String eventMessage = HistoryEventMessage.createJournalMessage(eventType, values);
-            historyEventDao.setHistoryEvent(nID_Subject, eventType.getnID(),
-                    eventMessage, eventMessage);
-        } catch (IOException e) {
-            log.error("error during creating HistoryEvent", e);
-        }
-    }
+   
 
     @RequestMapping(value   = "/getSubjectOrganJoins",
                     method  = RequestMethod.GET,
@@ -442,6 +390,31 @@ public class ActivitiRestDocumentController {
         soj.setCityId(cityID);
         subjectOrganDao.add( soj );
     }
+    
+    private void createHistoryEvent(HistoryEventType eventType,
+			Long nID_Subject, String sSubjectName_Upload, Long nID_Document,
+			Document document) {
+		Map<String, String> values = new HashMap<>();
+		try {
+			Document oDocument = document == null ? documentDao
+					.getDocument(nID_Document) : document;
+			values.put(HistoryEventMessage.DOCUMENT_TYPE, oDocument
+					.getDocumentType().getName());
+			values.put(HistoryEventMessage.DOCUMENT_NAME, oDocument.getName());
+			values.put(HistoryEventMessage.ORGANIZATION_NAME,
+					sSubjectName_Upload);
+		} catch (Throwable e) {
+			log.warn("can't get document info!", e);
+		}
+		try {
+			String eventMessage = HistoryEventMessage.createJournalMessage(
+					eventType, values);
+			historyEventDao.setHistoryEvent(nID_Subject, eventType.getnID(),
+					eventMessage, eventMessage);
+		} catch (IOException e) {
+			log.error("error during creating HistoryEvent", e);
+		}
+	}
 
     @RequestMapping(value   = "/removeSubjectOrganJoins",
                     method  = RequestMethod.GET,
