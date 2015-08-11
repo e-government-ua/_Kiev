@@ -73,8 +73,8 @@
         <activiti:formProperty id="total_place" name="Загальна площа; кв. м." type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="warming_place" name="Опалювальна площа; кв.м." type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="notice3" name="Примітка" type="label" default="Особи, які зареєстровані (для орендарів — особи, які фактично проживають) у житловому приміщенні/будинку ті їх прибутки (перерахуйте з нового рядка: ПІБ, ДР, Номер облікової книжки, Вид прибутку, Сума прибутку без урахування податку з доходів фізичних осіб, Джерело прибутку)"></activiti:formProperty>
-        <activiti:formProperty id="date_from" name="період з" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_to" name="період по" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_from" name="Період, за який Ви заповнюєте декларацію, з" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_to" name="Період, за який Ви заповнюєте декларацію, по " type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="income0" name="Ваш вид доходу" type="enum" required="true">
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
@@ -218,8 +218,8 @@
         <activiti:formProperty id="total_place" name="Загальна площа" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="warming_place" name="Опалювальна площа; кв.м." type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="notice3" name="Примітка" type="label" default="Особи, які зареєстровані (для орендарів — особи, які фактично проживають) у житловому приміщенні/будинку ті їх прибутки (перерахуйте з нового рядка: ПІБ, ДР, Номер облікової книжки, Вид прибутку, Сума прибутку без урахування податку з доходів фізичних осіб, Джерело прибутку)" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_from" name="період з" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_to" name="період по" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_from" name="Період, за який Ви заповнюєте деклацію, з" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_to" name="Період, за який Ви заповнюєте декларацію, по" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="income0" name="Ваш вид доходу" type="enum" writable="false">
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
