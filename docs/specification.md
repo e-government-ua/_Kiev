@@ -36,11 +36,10 @@
 
 <a name="1">
 <a href="1"><h3>1. Аутентификация пользователя</h3></a>
-<a href="#0_contents">↑Up</a>
 <br/>
 
 <a href="1"><h4>Логин пользователя:</h4></a>
-
+<a href="#0_contents">↑Up</a>
 **HTTP Metod: POST**
 
 **HTTP Context: https://server:port/wf-region/service/auth/login**
@@ -70,7 +69,7 @@ false - Имя пользователя или пароль не коррект�
 <br/>
 
 <a href="1"><h4>Логаут пользователя (наличие cookie JSESSIONID):</h4></a>
-
+<a href="#0_contents">↑Up</a>
 **HTTP Metod: POST/DELETE**
 
 **HTTP Context: https://server:port/wf-region/service/auth/logout**
@@ -84,11 +83,10 @@ false - Имя пользователя или пароль не коррект�
 
 <a name="2">
 <a href="2"><h3>2. Activiti</h3></a>
-<a href="#0_contents">↑Up</a>
-
 <br/>
 
 <a href="2"><h4>Запуск процесса Activiti:</h4></a>
+<a href="#0_contents">↑Up</a>
 
 **HTTP Metod: GET**
 
@@ -112,6 +110,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/start-process/citizensReq
 <br/>
 
 <a href="2"><h4>Загрузка задач из Activiti:</h4></a>
+<a href="#0_contents">↑Up</a>
 
 **HTTP Metod: GET**
 
@@ -128,7 +127,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/tasks/kermit
 
 ```json
 	[                                                
-  		{
+  	  {
     		"delegationState": "RESOLVED",             
 		    "id": "38",                                  
 		    "name": "Первый процесс пользователя kermit",
@@ -154,6 +153,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/tasks/kermit
 <br/>
 
 <a href="2"><h4>Загрузка каталога сервисов из Activiti:</h4></a>
+<a href="#0_contents">↑Up</a>
 
 **HTTP Metod: GET**
 
@@ -181,7 +181,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/process-definitions
 		    "diagramResourceName": "dnepr-2.CivilCardAccountlRequest.png",   
 		    "tenantId": "diver",                                              
 		    "suspended": true                                                 
-	  }
+	   }
 	]
 ```
 <a name="5">
