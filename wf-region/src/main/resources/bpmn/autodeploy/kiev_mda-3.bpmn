@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="kiev_mda_3" name=" Київ МДА - Надання довідки про участь в приватизації житла державного житлового фонду" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -26,13 +26,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Надання довідки про участь в приватизації житла державного житлового фонду</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання довідки про участь в приватизації житла державного житлового фонду]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>﻿&lt;!DOCTYPE html&gt;
@@ -157,7 +157,7 @@
     </boundaryEvent>
     <endEvent id="endevent4" name="End"></endEvent>
     <sequenceFlow id="flow17" sourceRef="boundaryerror1" targetRef="endevent4"></sequenceFlow>
-    <userTask id="usertask4" name="Перевірка пакету документів в РДА" activiti:candidateGroups="${rdaList}">
+    <userTask id="usertask4" name="Перевірка пакету документів в РДА" activiti:candidateGroups="${rdaList}_dep2">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -217,13 +217,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Надання довідки про участь в приватизації житла державного житлового фонду</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання довідки про участь в приватизації житла державного житлового фонду]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>﻿&lt;!DOCTYPE html&gt;
@@ -276,7 +276,7 @@
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
                                         Підготовка довідки про участь в приватизації житла державного житлового фонду, успішно завершена!&lt;br /&gt;
-										Оригінал документу Ви можете отримати в Центрі надання адміністративних послуг ${kiev_rda_1} району, що знаходиться за адресою: м.Київ, пр. Маяковського, 29
+										Оригінал документу Ви можете отримати в Центрі надання адміністративних послуг Деснянського району, що знаходиться за адресою: м.Київ, пр. Маяковського, 29
                                   
                                     &lt;/p&gt;
                                     &lt;p&gt;
@@ -285,7 +285,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Центр надання адміністративних послуг ${kiev_rda_1} району м.Киів,&lt;br /&gt;
+                                        Центр надання адміністративних послуг Деснянського  району м.Киів,&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -320,13 +320,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Надання довідки про участь в приватизації житла державного житлового фонду</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання довідки про участь в приватизації житла державного житлового фонду]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>﻿&lt;!DOCTYPE html&gt;
@@ -414,7 +414,7 @@
     </sequenceFlow>
     <endEvent id="endevent6" name="End"></endEvent>
     <sequenceFlow id="flow32" sourceRef="mailtask7" targetRef="endevent6"></sequenceFlow>
-    <userTask id="usertask8" name="Формування довідки в РДА" activiti:candidateGroups="${rdaList}">
+    <userTask id="usertask8" name="Формування довідки в РДА" activiti:candidateGroups="${rdaList}_dep2">
       <extensionElements>
         <activiti:formProperty id="form_number" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -485,13 +485,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Надання довідки про участь в приватизації житла державного житлового фонду</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання довідки про участь в приватизації житла державного житлового фонду]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>﻿&lt;!DOCTYPE html&gt;
@@ -532,7 +532,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -544,7 +544,7 @@
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
                                         Підготовка довідки про участь в приватизації житла державного житлового фонду, успішно завершена!&lt;br /&gt;
-										Оригінал документу Ви можете отримати в Центрі надання адміністративних послуг  ${kiev_rda_3} району, що знаходиться за адресою: м.Київ, пр. Повітрофлотський, 41
+										Оригінал документу Ви можете отримати в Центрі надання адміністративних послуг Солом'янського  району, що знаходиться за адресою: м.Київ, пр. Повітрофлотський, 41
                                   
                                     &lt;/p&gt;
                                     &lt;p&gt;
@@ -553,7 +553,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Центр надання адміністративних послуг ${kiev_rda_3} району м.Киів,&lt;br /&gt;
+                                        Центр надання адміністративних послуг Солом'янського району м.Киів,&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -581,9 +581,7 @@
     </sequenceFlow>
     <sequenceFlow id="flow40" sourceRef="mailtask8" targetRef="usertask9"></sequenceFlow>
     <sequenceFlow id="flow41" sourceRef="usertask8" targetRef="usertask5"></sequenceFlow>
-    <serviceTask id="servicetask2" name="Установка значений enam" activiti:async="true" activiti:delegateExpression="${enamTask}"></serviceTask>
-    <sequenceFlow id="flow42" sourceRef="servicetask1" targetRef="servicetask2"></sequenceFlow>
-    <sequenceFlow id="flow43" sourceRef="servicetask2" targetRef="mailtask1"></sequenceFlow>
+    <sequenceFlow id="flow42" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_mda_3">
     <bpmndi:BPMNPlane bpmnElement="kiev_mda_3" id="BPMNPlane_kiev_mda_3">
@@ -597,7 +595,7 @@
         <omgdc:Bounds height="30.0" width="30.0" x="300.0" y="10.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
-        <omgdc:Bounds height="69.0" width="191.0" x="605.0" y="-32.0"></omgdc:Bounds>
+        <omgdc:Bounds height="69.0" width="191.0" x="605.0" y="20.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="55.0" width="191.0" x="605.0" y="133.0"></omgdc:Bounds>
@@ -641,9 +639,6 @@
       <bpmndi:BPMNShape bpmnElement="mailtask8" id="BPMNShape_mailtask8">
         <omgdc:Bounds height="55.0" width="166.0" x="1300.0" y="441.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="55.0" width="131.0" x="410.0" y="27.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="85.0" y="54.0"></omgdi:waypoint>
         <omgdi:waypoint x="170.0" y="54.0"></omgdi:waypoint>
@@ -662,8 +657,7 @@
         <omgdi:waypoint x="1117.0" y="212.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
-        <omgdi:waypoint x="700.0" y="37.0"></omgdi:waypoint>
-        <omgdi:waypoint x="700.0" y="54.0"></omgdi:waypoint>
+        <omgdi:waypoint x="700.0" y="89.0"></omgdi:waypoint>
         <omgdi:waypoint x="700.0" y="133.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
@@ -730,12 +724,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow42" id="BPMNEdge_flow42">
         <omgdi:waypoint x="341.0" y="54.0"></omgdi:waypoint>
-        <omgdi:waypoint x="410.0" y="54.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow43" id="BPMNEdge_flow43">
-        <omgdi:waypoint x="475.0" y="27.0"></omgdi:waypoint>
-        <omgdi:waypoint x="474.0" y="2.0"></omgdi:waypoint>
-        <omgdi:waypoint x="605.0" y="2.0"></omgdi:waypoint>
+        <omgdi:waypoint x="605.0" y="54.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
