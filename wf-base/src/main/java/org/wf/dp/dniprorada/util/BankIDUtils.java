@@ -35,24 +35,33 @@ public class BankIDUtils {
 
 	private static final String EMPTY_JSON = "{}";
 	private static final Logger log = LoggerFactory.getLogger(ActivitiRestApiController.class);
+    
+	public static String checkECP(String clientId, String clientSecret, String redirectUrl, byte[] fileByteArray, String fileName) {
 
-	public static String checkECP(String clientID, String clientSecret, String redirectUrl, byte[] fileByteArray, String fileName) {
-
-		log.info("clientID:" + clientID + " clientSecret:" + clientSecret + " redirectUrl:" + redirectUrl);
+		log.info("clientID:" + clientId + " clientSecret:" + clientSecret + " redirectUrl:" + redirectUrl);
 		
 		try {
 			HttpClientContext context = HttpClientContext.create();
 
 			CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 			
-			String code = doAuthorizeCall(clientID, clientSecret, redirectUrl, context, httpClient);
+			String code = doAuthorizeCall(clientId, clientSecret, redirectUrl, context, httpClient);
 
-			String accessToken = doGetAccessToken(clientID, clientSecret, redirectUrl, context, httpClient, code);
+			String accessToken = doGetAccessToken(clientId, clientSecret, redirectUrl, context, httpClient, code);
 
 			if (accessToken != null) {
 				String json = submitDocumentForCheckingECP(fileByteArray, fileName, accessToken);
 
-				return json.isEmpty() ? EMPTY_JSON : json;
+				if (json != null){
+					JSONParser parser = new JSONParser();
+					JSONObject ecpJson = (JSONObject) parser.parse(json);
+					if (ecpJson.containsKey("state") && ecpJson.get("state").equals("ok")){
+						// correct ecp
+						return json;
+					}
+				}
+				log.info("ecp is not found. returning empty json string");
+				return EMPTY_JSON;
 			}
 
 		} catch (ClientProtocolException e) {
@@ -114,13 +123,13 @@ public class BankIDUtils {
 		String responseString = writer.toString();
 
 		JSONParser parser = new JSONParser();
-		JSONObject lev1 = (JSONObject) parser.parse(responseString);
+		JSONObject accessTokenJson = (JSONObject) parser.parse(responseString);
 		String accessToken = null;
-		if (lev1.containsKey("access_token")) {
-			accessToken = (String) lev1.get("access_token");
+		if (accessTokenJson.containsKey("access_token")) {
+			accessToken = (String) accessTokenJson.get("access_token");
 			log.info("Successfully received access token");
-		} else if (lev1.containsKey("error")) {
-			log.error("Error occurred while getting access token" + lev1.get("error"));
+		} else if (accessTokenJson.containsKey("error")) {
+			log.error("Error occurred while getting access token" + accessTokenJson.get("error"));
 		}
 		return accessToken;
 	}

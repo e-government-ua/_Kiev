@@ -25,7 +25,9 @@ import org.wf.dp.dniprorada.dao.*;
 import org.wf.dp.dniprorada.liqPay.LiqBuy;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.model.document.HandlerFactory;
+import org.wf.dp.dniprorada.util.BankIDConfig;
 import org.wf.dp.dniprorada.util.BankIDUtils;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
@@ -73,15 +75,11 @@ public class ActivitiRestDocumentController {
     @Autowired
     private HandlerFactory handlerFactory;
     
-    @Value("${bankId_clientId}")
-	private String CLIENT_ID;
+    @Autowired
+    GeneralConfig generalConfig;
     
-    @Value("${bankId_clientSecret}")
-	private String CLIENT_SECRET;
-    
-    @Value("${bankId_redirectUrl}")
-	private String REDIRECT_URL;
-    
+    @Autowired
+    BankIDConfig bankIDConfig;
     
     @RequestMapping(value = "/getDocument", method = RequestMethod.GET)
     public
@@ -242,7 +240,7 @@ public class ActivitiRestDocumentController {
             //@RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
             @RequestParam(value = "sDocumentContentType", required = false) String documentContentTypeName,
             @RequestParam(value = "soDocumentContent") String sContent,
-            @RequestParam(value = "oSignData") String oSignData,//todo required?? (issue587)
+            @RequestParam(value = "oSignData", required = false) String oSignData,
             //@RequestParam(value = "oFile", required = false) MultipartFile oFile,
             //@RequestBody byte[] content,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
@@ -269,7 +267,7 @@ public class ActivitiRestDocumentController {
         
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
 
-        oSignData = BankIDUtils.checkECP(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, aoContent, sName);
+        oSignData = BankIDUtils.checkECP(bankIDConfig.sClientId(), bankIDConfig.sClientSecret(), generalConfig.sHostCentral(), aoContent, sName);
         
         return documentDao.setDocument(
                 nID_Subject,
@@ -333,7 +331,7 @@ public class ActivitiRestDocumentController {
 
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
         
-        String soSignData = BankIDUtils.checkECP(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, aoContent, sName);
+        String soSignData = BankIDUtils.checkECP(bankIDConfig.sClientId(), bankIDConfig.sClientSecret(), generalConfig.sHostCentral(), aoContent, sName);
         
         Long nID_Document = documentDao.setDocument(
                         nID_Subject,
