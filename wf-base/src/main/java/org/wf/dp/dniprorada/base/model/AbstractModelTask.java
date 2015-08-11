@@ -320,7 +320,7 @@ public abstract class AbstractModelTask {
             
 		ByteArrayMultipartFile byteArrayMultipartFile  
 				= new ByteArrayMultipartFile(
-						file.getBytes(), file.getName(), sFileNameReal==null?sFilename:sFileNameReal, file.getContentType());
+						file.getBytes(), file.getName(), sFileNameReal==null?sFilename1:sFileNameReal, file.getContentType());
 		 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		 ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
 		 oos.writeObject(byteArrayMultipartFile);
