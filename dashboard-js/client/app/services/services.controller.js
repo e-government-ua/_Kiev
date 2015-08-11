@@ -3,7 +3,7 @@
 angular.module('dashboardJsApp')
   .controller('ServicesCtrl', function ($scope, $modal, services, processes) {
     $scope.statistic = {};
-    $scope.statistic.sBP = '';
+    $scope.statistic.sBP = 'kiev_mreo_1';
 
     $scope.list = {};
 
@@ -43,7 +43,7 @@ angular.module('dashboardJsApp')
           modalInstance.result.then(function (editedSlot) {
             services.setSchedule($scope.statistic.sBP, editedSlot)
               .then(function (createdSlot) {
-                for (var i = 1; i < schedule.length; i ++){
+                for (var i = 0; i < schedule.length; i ++){
                   if (schedule[i].nID === createdSlot.nID){
                     schedule[i] = createdSlot;
                     return;
@@ -71,8 +71,9 @@ angular.module('dashboardJsApp')
           openModal(scheduleItem);
           // flow/setSheduleFlowInclude
         },
-        delete: function(row){
-          // /flow/removeSheduleFlowIncludes
+        delete: function(slot){
+          services.deleteSchedule($scope.statistic.sBP, slot)
+            .then(fillData);
         }
       }
     })();
@@ -128,12 +129,5 @@ angular.module('dashboardJsApp')
       }
     })();
 
-
-
-    // CURRENT SCHEDULE
-    $scope.currentSchedule = [];
-
-    $scope.getCurrentSchedule = function(){
-      //   /flow/getFlowSlots_ServiceData
-    }
+    $scope.workingHours.change();
   });

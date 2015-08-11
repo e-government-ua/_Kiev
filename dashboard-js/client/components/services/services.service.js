@@ -3,7 +3,7 @@
 angular.module('dashboardJsApp')
   .factory('services', function services($http, $q, $rootScope, uiUploader) {
 
-    var stringToArray = function(str){
+    var stringToWeekDays = function(str){
       var weekDays = {
         mo: false,
         tu: false,
@@ -14,7 +14,7 @@ angular.module('dashboardJsApp')
         su: false
       };
 
-      var keys = str.split(",");
+      var keys = str.split(',');
       keys.forEach(function(key){
         weekDays[key] = true;
       });
@@ -22,70 +22,35 @@ angular.module('dashboardJsApp')
       return weekDays;
     };
 
+    var clearDateTime = function(dateStr){
+      var date = dateStr.replace(/['"]+/g, '');
+      var parsed = Date.parse(date);
+      var dateObject = new Date(parsed);
+      return dateObject.toUTCString();
+    };
 
     var clearAndConvert = function (slot){
-      slot.sDateTimeAt = slot.sDateTimeAt.replace(/['"]+/g, '');
-      slot.sDateTimeTo = slot.sDateTimeTo.replace(/['"]+/g, '');
+      slot.sDateTimeAt = clearDateTime(slot.sDateTimeAt)
+      slot.sDateTimeTo = clearDateTime(slot.sDateTimeTo)
+
       slot.saRegionWeekDay = slot.saRegionWeekDay.replace(/['"]+/g, '');
+      slot.saRegionWeekDay = stringToWeekDays(slot.saRegionWeekDay);
+    };
 
-      slot.saRegionWeekDay = stringToArray(slot.saRegionWeekDay);
-    }
-
-    var arrayToString = function(weekDays){
-      var str = "";
+    var weekDaysToString = function(weekDays){
+      var days = [];
       var keys = Object.keys(weekDays);
 
       keys.forEach(function(key){
         if (weekDays[key]){
-          str += key + ',';
+          days.push(key);
         }
       });
 
-      return str.substring(0, str.length - 1);;
+      return days.join();
     };
 
-
     return {
-      filterTypes: {
-        selfAssigned: 'selfAssigned',
-        unassigned: 'unassigned',
-        finished: 'finished'
-      },
-      /**
-       * Get service slots grouped by days
-       *
-       * @param  {Function} callback - optional
-       * @return {Promise}
-       */
-      getServiceSlots: function(nID_ServiceData, bAll, nDays, sDate, callback) {
-        var cb = callback || angular.noop;
-        var deferred = $q.defer();
-
-        var request = {
-          method: 'GET',
-          url: '/api/services',
-          data: {},
-          params: {
-            nID_ServiceData: nID_ServiceData,
-            bAll: bAll,
-            nDays: nDays,
-            sDate: sDate,
-          }
-        };
-
-        $http(request).
-          success(function(data) {
-            var data = angular.fromJson(data);
-            deferred.resolve(data);
-            return cb();
-          }).
-          error(function(err) {
-            deferred.reject(err);
-            return cb(err);
-          }.bind(this));
-
-        return deferred.promise;
-      },
       /**
        * Get service slots grouped by days
        *
@@ -123,14 +88,14 @@ angular.module('dashboardJsApp')
         var cb = callback || angular.noop;
         var deferred = $q.defer();
 
-        var stringWeekDays = arrayToString(slot.saRegionWeekDay);
+        var stringWeekDays = weekDaysToString(slot.saRegionWeekDay);
 
         var request = {
           method: 'POST',
           url: '/api/services/schedule',
-          data: {},
           params: {
             sID_BP: sID_BP,
+            nID: slot.nID,
             sName: slot.sName,
             sRegionTime: slot.sRegionTime,
             saRegionWeekDay: stringWeekDays,
@@ -152,6 +117,67 @@ angular.module('dashboardJsApp')
           }.bind(this));
 
         return deferred.promise;
-      }
+      },
+      deleteSchedule: function(sID_BP, slot, callback) {
+        var cb = callback || angular.noop;
+        var deferred = $q.defer();
+
+        var request = {
+          method: 'DELETE',
+          url: '/api/services/schedule',
+          params: {
+            sID_BP: sID_BP,
+            nID: slot.nID
+          }
+        };
+
+        $http(request).
+          success(function (data) {
+            data = angular.fromJson(data);
+            deferred.resolve(data);
+            return cb();
+          }).
+          error(function (err) {
+            deferred.reject(err);
+            return cb(err);
+          }.bind(this));
+
+        return deferred.promise;
+      },
+      /**
+       * Get service slots grouped by days
+       *
+       * @param  {Function} callback - optional
+       * @return {Promise}
+       */
+      getServiceSlots: function(nID_ServiceData, bAll, nDays, sDate, callback) {
+        var cb = callback || angular.noop;
+        var deferred = $q.defer();
+
+        var request = {
+          method: 'GET',
+          url: '/api/services',
+          data: {},
+          params: {
+            nID_ServiceData: nID_ServiceData,
+            bAll: bAll,
+            nDays: nDays,
+            sDate: sDate,
+          }
+        };
+
+        $http(request).
+          success(function(data) {
+            var data = angular.fromJson(data);
+            deferred.resolve(data);
+            return cb();
+          }).
+          error(function(err) {
+            deferred.reject(err);
+            return cb(err);
+          }.bind(this));
+
+        return deferred.promise;
+      },
     };
   });

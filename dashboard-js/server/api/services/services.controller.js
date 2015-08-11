@@ -41,6 +41,7 @@ exports.setSchedule = function(req, res) {
     path: '/flow/setSheduleFlowInclude',
     query: {
       sID_BP: req.query.sID_BP,
+      nID: req.query.nID,
       sName: req.query.sName,
       sRegionTime: req.query.sRegionTime,
       saRegionWeekDay: req.query.saRegionWeekDay,
@@ -62,8 +63,8 @@ exports.deleteSchedule = function(req, res) {
   var options = {
     path: '/flow/removeSheduleFlowInclude',
     query: {
-      'nID_Flow_ServiceData': req.query.nID_Flow_ServiceData,
-      'sID_BP ': req.query.sID_BP,
+      sID_BP: req.query.sID_BP,
+      nID: req.query.nID,
     }
   };
 
