@@ -41,7 +41,7 @@
  *      'bFuture': false, //если true то дата должна быть в будущем
  *      'bLess': true, //если true то 'дельта' между датами должна быть 'менее чем' (указана нижними параметрами)
  *      'nDays': 3,
- *      'nMounths': 0,
+ *      'nMonths': 0,
  *      'nYears': 1
  *    }
  *  }
@@ -77,25 +77,25 @@ function ValidationService ( moment ) {
         if ( fieldByFieldId(formField) ) {
           var ffield = formField.$validators[fieldByName];
           // overwrite the default Angular field validator
+          //
+          //  ONLY ONCE
+          //
           if( !ffield ) {
             ffield = self.getValidatorByName(validatorName, formField );
 
             // switch ( validatorName ) {
-
             //   case 'DateFormat': 
-            //     // ffield.sFormat = marked['sFormat'];
-
+            //     ffield.sFormat = marked['sFormat'];
             //     break;
             //   case 'DateElapsed':
-
-            //     // ffield.bFuture = marked['bFuture']; // 'bFuture': false, //если true то дата должна быть в будущем
-            //     // ffield.bLess = marked['bLess']; // : true, //если true то 'дельта' между датами должна быть 'менее чем' (указана нижними параметрами)
-            //     // ffield.nDays = marked['nDays'];  // 3,
-            //     // ffield.nMounths = marked['nMounths']; // : 0,
-            //     // ffield.nYears = marked['nYears']; //: 1
+            //     ffield.bFuture = marked['bFuture']; // 'bFuture': false, //если true то дата должна быть в будущем
+            //     ffield.bLess = marked['bLess']; // : true, //если true то 'дельта' между датами должна быть 'менее чем' (указана нижними параметрами)
+            //     ffield.nDays = marked['nDays'];  // 3,
+            //     ffield.nMonths = marked['nMonths']; // : 0,
+            //     ffield.nYears = marked['nYears']; //: 1
             //     break;
-
             // }
+
             // and validate it
             formField.$validate();
           }
@@ -123,10 +123,11 @@ function ValidationService ( moment ) {
       // console.log( 'validationService.getValidatorByName: ', validatorName, ' = ', fValidator );
       var fValidator = self.validatorFunctionsByFieldId[validatorName];
 
-      var fValidatorModule = function( modelValue, sFormat, a, b, c, d, e, f ) {
+      // FIXME options .format, o.a, o.b, o.c, o.d, o.e, o.f
+      var fValidatorModule = function( modelValue, options ) {
         var result = null;
         if ( fValidator ) {
-          result = fValidator.call( self, modelValue, sFormat, a, b, c, d, e, f );
+          result = fValidator.call( self, modelValue, options );
         }
         return result;
       };
@@ -192,8 +193,12 @@ function ValidationService ( moment ) {
        * Текст помилки: 'Дата може бути тільки формату DATE_FORMAT'
        * Для валідації формату використовується  moment.js
        */
-      'DateFormat': function( modelValue, sFormat ) {
-        var bValid = moment( modelValue, sFormat ).isValid();
+      'DateFormat': function( modelValue, options ) {
+        if ( !options.sFormat ) {
+          return false;
+        }
+
+        var bValid = moment( modelValue, options.sFormat ).isValid();
 
         // console.log('Validate DateFomat: ' + modelValue + ' is valid Date: ' + bValid + ' in ' + sFormat, ' format' );
       
@@ -207,7 +212,7 @@ function ValidationService ( moment ) {
        *  bFuture: false,  // якщо true, то дата modelValue має бути у майбутньому
        *  bLess: true,     // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
        *  nDays: 3,
-       *  nMounths: 0,
+       *  nMonths: 0,
        *  nYears: 1
        *       
        * Текст помилки: 'Від/до дати до/після сьогоднішньої має бути більше/менше ніж х-днів, х-місяців, х-років.
@@ -215,13 +220,16 @@ function ValidationService ( moment ) {
        * З/До         - в залежності від bFuture
        * більше/менше - в залежності від bLess
        */
-      'DateElapsed': function( modelValue, bFuture, bLess, nDays, nMounths, nYears ) {
+      'DateElapsed': function( modelValue, options ) {
+
+        // bFuture, bLess, nDays, nMonths, nYears
+        var o = options;
+
         var bValid = true;
 
         var fmt = 'DD-MM-YYYY';
 
         // FIXME Check Date Validity First
-        
         var now = moment();
         var modelMoment = moment( modelValue, fmt );
 
@@ -233,29 +241,27 @@ function ValidationService ( moment ) {
         var message = '{VID_DO} дати у полі {DO_PISLYA} поточної має бути {BIL_MEN} ніж {N_DAYS} днів, {N_MONTHES} місяців, {N_YEARS} років.';
 
         // VID_DO: Від/до
-        var sVidDo = bFuture ? 'До' : 'Від';
-
+        var sVidDo = o.bFuture ? 'До' : 'Від';
         // DO_PISLYA: до/після
-        var sDoPislya = bFuture ? 'після' : 'до';
-
+        var sDoPislya = o.bFuture ? 'після' : 'до';
         // BIL_MEN: більше/менше
-        var sBilMen = bLess ? 'менше' : 'більше';
+        var sBilMen = o.bLess ? 'менше' : 'більше';
 
-        if ( diffDays > nDays ){
-          // diffMonthes > nMounths && diffYears > nYears;
-          message = message
+        if ( diffDays > o.nDays ){
+          bValid = false; // diffMonthes > nMonths && diffYears > nYears;
+          message = '\n Error: ' + message
             .replace( '{VID_DO}', sVidDo )
             .replace( '{DO_PISLYA}', sDoPislya )
             .replace( '{BIL_MEN}', sBilMen )
-            .replace( 'N_DAYS', nDays )
-            .replace( 'N_MONTHES', nMounths )
-            .replace( 'N_YEARS', nYears );
+            .replace( '{N_DAYS}', o.nDays )
+            .replace( '{N_MONTHES}', o.nMonths )
+            .replace( '{N_YEARS}', o.nYears );
         } else {
-          message = 'OK';
+          message = ' - OK';
         }
 
         console.log('DateElapsed. Now: ' + now.format( fmt ) + ' vs. ' + modelMoment.format( fmt ) + ', diff D:' + 
-          diffDays + '|' + nDays + ', M: ' + diffMonthes + '|' + nMounths + ', Y: ' + diffYears + '|' + nYears + ', message: \n' +
+          diffDays + '|' + o.nDays + ', M: ' + diffMonthes + '|' + o.nMonths + ', Y: ' + diffYears + '|' + o.nYears + 
           message );
 
         return bValid;

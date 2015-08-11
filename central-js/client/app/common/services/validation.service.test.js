@@ -69,8 +69,6 @@ describe('ValidationService Tests', function() {
     it('Should be defined: ValidationService and Moment', function() {
       // ValidationService.validateByMarkers( form, mockScope.markers );
       expect(validationService).toBeDefined();
-      // expect(validationService.validateByMarkers).toBeDefined();
-      //expect(moment).toBeDefined();
     });
 
     it('Mail validation:', function() {
@@ -89,41 +87,61 @@ describe('ValidationService Tests', function() {
 
       //field.$validators[fieldByName] = self.getValidatorByName(validatorName, field);
 
-      function validate( validatorName, value, toBeOrNotToBe, format, a, b, c, d, e, f ) {
+      function validate( validatorName, value, toBeOrNotToBe, options ) {
+
         var fValidator = validationService.getValidatorByName( validatorName );
+
         if ( typeof fValidator === 'function' ) {
+
           if ( toBeOrNotToBe !== undefined ) {
-            expect( fValidator.call( this, value, format, a, b, c, d, e, f )).toBe( toBeOrNotToBe );
+
+            expect( fValidator.call( this, value, options )).toBe( toBeOrNotToBe );
+
           } else {
-            expect( fValidator.call( this, value, format, a, b, c, d, e, f )).toBeDefined();
+
+            expect( fValidator.call( this, value, options )).toBeDefined();
+
           }
+
         }
+
       }
 
-      function prevalidate( validatorName, value, format, a, b, c, d, e, f ) {
+      function prevalidate( validatorName, value, options ) {
+
         var fValidator = validationService.getValidatorByName( validatorName );
         var result = null;
+
         if ( typeof fValidator === 'function' ) {
-          result = fValidator.call( self, value, format, a, b, c, d, e, f );
+          result = fValidator.call( self, value, options );
         }
+
         return result;
       }
 
-      function validateArray( arrayToValidate, validatorName, toBeOrNotToBe, format, a, b, c, d, e, f ) {
-        console.log( colorlog('\n=== Array Validation by ' + validatorName + ' validator' + ' to be ' + toBeOrNotToBe + ':', 'green' ) );
+      function validateArray( arrayToValidate, validatorName, toBeOrNotToBe, options ) {
+
+        var cl = colr( toBeOrNotToBe, toBeOrNotToBe ? 'green' : 'red' );
+
+        console.log( colr('\n=== Array Validation by ' + validatorName + ' validator' + ' to be ' + cl + ':', 'white' ) );
+
         for ( var value in arrayToValidate ) {
-          validate( validatorName, arrayToValidate[value], toBeOrNotToBe, format, a, b, c, d, e, f );
-          console.log(' ' + validatorName + ', ' + arrayToValidate[value] + ' is valid: ' + prevalidate( validatorName, arrayToValidate[value], format, a, b, c, d, e, f ) );
+
+          validate( validatorName, arrayToValidate[value], toBeOrNotToBe, options );
+          
+          var isValid = prevalidate( validatorName, arrayToValidate[value], options );
+          
+          var val = isValid ? colr(  ' is valid.', 'green' ) : colr( ' is invalid', 'red' );
+          
+          console.log( ' ' + validatorName + ', ' + arrayToValidate[value] + val );
         }
+
       }
 
       // Validate Emails:
 
       var emailRight = [ 'hello@email.org', 'a12@email.org' ];
       var emailWrong = [ 'hello@email', '@email.org', 'asfasail.org', 'a', ''];
-
-      validateArray( emailRight, 'Mail', true );
-      validateArray( emailWrong, 'Mail', false );
 
       // Validate Ukrainian Texts:
 
@@ -137,9 +155,6 @@ describe('ValidationService Tests', function() {
         'ЁёЪъЫыЭэ'
       ];
 
-      validateArray( textUASamplesRight, 'TextUA', true );
-      validateArray( textUASamplesWrong, 'TextUA', false );
-
       // Validate Russian Texts:
 
       var textRUSamplesRight = [
@@ -151,9 +166,6 @@ describe('ValidationService Tests', function() {
         'Їжак чує грім', 
         'ҐЄІЇґєії'
       ];
-
-      validateArray( textRUSamplesRight, 'TextRU', true );
-      validateArray( textRUSamplesWrong, 'TextRU', false );
 
       // Validate Dates:
 
@@ -169,40 +181,57 @@ describe('ValidationService Tests', function() {
         '11 Aug 2015'
       ];
 
-      validateArray( datesRight, 'DateFormat', true, 'DD-MM-YYYY' );
-      validateArray( datesWrong, 'DateFormat', false, 'DD-MM-YYYY' );
-
       // Validate Date Elapsed:
 
       var eDatesRight = [
         '08-08-2015', 
-        '12-08-2015',
-        '15-08-2015'
+        '07-08-2015'
+        // '15-08-2015'
       ];
 
-      function colorlog ( msg, sColor, toLog ) {
-        var color = sColor || 'red';
-        var colors = {
-          red: '\u001b[31;1m\u001b {TEXT} \u001b[0m',
-          blue: '\u001b[34;1m\u001b {TEXT} \u001b[0m',
-          purple: '\u001b[35;1m\u001b {TEXT} \u001b[0m',
-          green: '\u001b[32;1m\u001b {TEXT} \u001b[0m'
-        };
-        msg = colors[color].replace( '{TEXT}', msg );
-        if ( toLog ) {
-          console.log( msg );
-        }
-        return msg;
-      }
-
-
-      // validateArray( eDatesRight, 'DateElapsed', toBe: true, bFuture, bLess, days, months, years );
+      // validateArray( emailRight, 'Mail', true );
+      // validateArray( emailWrong, 'Mail', false );
+      // validateArray( textUASamplesRight, 'TextUA', true );
+      // validateArray( textUASamplesWrong, 'TextUA', false );
+      // validateArray( textRUSamplesRight, 'TextRU', true );
+      // validateArray( textRUSamplesWrong, 'TextRU', false );
       
-      validateArray( eDatesRight, 'DateElapsed', true, false, true, 0, 0, 0 );
+      validateArray( datesRight, 'DateFormat', true, { sFormat: 'DD-MM-YYYY' } );
+      validateArray( datesWrong, 'DateFormat', false, { sFormat:'DD-MM-YYYY' } );
+
+      // SAMPLE: validateArray( eDatesRight, 'DateElapsed', toBe: true, bFuture, bLess, days, months, years );
+      
+      // validateArray( eDatesRight, 'DateElapsed', true, false, true, 0, 0, 0 );
+      //function validate( validatorName, value, toBeOrNotToBe, options ) {
+      // WRIGHT:
+      validate( 'DateElapsed', '12-08-2015', true, { bFuture: false, bLess: true, nDays: 0, nMonths: 0, nYears: 0 } );
+
+      // WRONG:
+      validate( 'DateElapsed', '07-08-2015', false, { bFuture: true, bLess: true, nDays: 0, nMonths: 0, nYears: 0 } );
+      validate( 'DateElapsed', '07-08-2015', false, { bFuture: true, bLess: false, nDays: 0, nMonths: 0, nYears: 0 } );
+      validate( 'DateElapsed', '07-08-2015', false, { bFuture: false, bLess: false, nDays: 0, nMonths: 0, nYears: 0 } );
+
+      // validate( 'DateElapsed', '17-08-2015', false, { bFuture: false, bLess: true, nDays: 0, nMonths: 0, nYears: 0 } );
       // validateArray( eDatesRight, 'DateElapsed', true, false, false, 1, 0, 0 );
       // validateArray( eDatesRight, 'DateElapsed', true, true, false, 1, 0, 0 );
       // validateArray( eDatesRight, 'DateElapsed', true, true, true, 1, 0, 0 );
-     
+
+      function colr ( msg, sColor ) {
+        var colrs = {
+          reset: '\u001B[0m',
+          black: '\u001B[30m',
+          red: '\u001B[31m', //\u001b[31;1m
+          green: '\u001B[32m',
+          yellow: '\u001B[33m',
+          blue: '\u001B[34m',
+          purple: '\u001B[35m',
+          cyan: '\u001B[36m',
+          white: '\u001B[37m'
+        };
+        var pattrn = colrs[sColor] + '\u001b{TEXT}\u001b[0m';
+        return pattrn.replace( '{TEXT}', msg );
+      }
+
     });
 
   // });
