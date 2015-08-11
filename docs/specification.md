@@ -38,6 +38,8 @@
 <a name="1">
 ###<span style="color:orange;">1. Аутентификация пользователя</span>
 
+<br/>
+
 #### Логин пользователя:
 </a><a href="#0_contents">↑Up</a>
 
