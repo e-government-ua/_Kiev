@@ -10,19 +10,19 @@ import org.springframework.stereotype.Component;
 @Component("bankIDConfig")
 public class BankIDConfig {
 
-    @Value("#{bankId_clientId:testIgov}")
-	private static String clientId;
+    @Value("${bankId_clientId}")
+	private String clientId;
     
-    @Value("#{bankId_clientSecret:testIgovSecret}")
-	private static String clientSecret;
+    @Value("${bankId_clientSecret}")
+	private String clientSecret;
     
     
     public String sClientId(){
-        return clientId;
+        return clientId != null ? clientId : "testIgov";
     }
     
     public String sClientSecret(){
-        return clientSecret;
+        return clientSecret != null ? clientSecret : "testIgovSecret";
     }
     
 }
