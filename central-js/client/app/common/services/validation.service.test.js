@@ -88,54 +88,40 @@ describe('ValidationService Tests', function() {
       //field.$validators[fieldByName] = self.getValidatorByName(validatorName, field);
 
       function validate( validatorName, value, toBeOrNotToBe, options ) {
-
         var fValidator = validationService.getValidatorByName( validatorName );
-
+        var fValidatorCall;
         if ( typeof fValidator === 'function' ) {
-
+          fValidatorCall = fValidator.call( this, value, options );
           if ( toBeOrNotToBe !== undefined ) {
-
-            expect( fValidator.call( this, value, options )).toBe( toBeOrNotToBe );
-
+            expect( fValidatorCall ).toBe( toBeOrNotToBe );
           } else {
-
-            expect( fValidator.call( this, value, options )).toBeDefined();
-
+            expect( fValidatorCall ).toBeDefined();
           }
-
         }
-
       }
 
-      function prevalidate( validatorName, value, options ) {
-
+      function prevalidate( validatorName, value, toBeOrNotToBe, options ) {
         var fValidator = validationService.getValidatorByName( validatorName );
         var result = null;
-
         if ( typeof fValidator === 'function' ) {
           result = fValidator.call( self, value, options );
         }
-
         return result;
       }
 
       function validateArray( arrayToValidate, validatorName, toBeOrNotToBe, options ) {
-
         var cl = colr( toBeOrNotToBe, toBeOrNotToBe ? 'green' : 'red' );
 
         console.log( colr('\n=== Array Validation by ' + validatorName + ' validator' + ' to be ' + cl + ':', 'white' ) );
 
         for ( var value in arrayToValidate ) {
-
           validate( validatorName, arrayToValidate[value], toBeOrNotToBe, options );
-          
-          var isValid = prevalidate( validatorName, arrayToValidate[value], options );
-          
-          var val = isValid ? colr(  ' is valid.', 'green' ) : colr( ' is invalid', 'red' );
-          
-          console.log( ' ' + validatorName + ', ' + arrayToValidate[value] + val );
-        }
 
+          var isValid = prevalidate( validatorName, arrayToValidate[value], null, options );
+          var sValid = isValid ? colr(  ' is valid.', 'green' ) : colr( ' is invalid', 'red' );
+
+          console.log( '' + validatorName + ' ' + arrayToValidate[value] + sValid );
+        }
       }
 
       // Validate Emails:
@@ -189,27 +175,58 @@ describe('ValidationService Tests', function() {
         // '15-08-2015'
       ];
 
-      // validateArray( emailRight, 'Mail', true );
-      // validateArray( emailWrong, 'Mail', false );
-      // validateArray( textUASamplesRight, 'TextUA', true );
-      // validateArray( textUASamplesWrong, 'TextUA', false );
-      // validateArray( textRUSamplesRight, 'TextRU', true );
-      // validateArray( textRUSamplesWrong, 'TextRU', false );
+      validateArray( emailRight, 'Mail', true );
+      validateArray( emailWrong, 'Mail', false );
+      validateArray( textUASamplesRight, 'TextUA', true );
+      validateArray( textUASamplesWrong, 'TextUA', false );
+      validateArray( textRUSamplesRight, 'TextRU', true );
+      validateArray( textRUSamplesWrong, 'TextRU', false );
       
       validateArray( datesRight, 'DateFormat', true, { sFormat: 'DD-MM-YYYY' } );
       validateArray( datesWrong, 'DateFormat', false, { sFormat:'DD-MM-YYYY' } );
 
       // SAMPLE: validateArray( eDatesRight, 'DateElapsed', toBe: true, bFuture, bLess, days, months, years );
       
-      // validateArray( eDatesRight, 'DateElapsed', true, false, true, 0, 0, 0 );
-      //function validate( validatorName, value, toBeOrNotToBe, options ) {
-      // WRIGHT:
-      validate( 'DateElapsed', '12-08-2015', true, { bFuture: false, bLess: true, nDays: 0, nMonths: 0, nYears: 0 } );
 
-      // WRONG:
-      validate( 'DateElapsed', '07-08-2015', false, { bFuture: true, bLess: true, nDays: 0, nMonths: 0, nYears: 0 } );
-      validate( 'DateElapsed', '07-08-2015', false, { bFuture: true, bLess: false, nDays: 0, nMonths: 0, nYears: 0 } );
-      validate( 'DateElapsed', '07-08-2015', false, { bFuture: false, bLess: false, nDays: 0, nMonths: 0, nYears: 0 } );
+      //  function validate( validatorName, value, toBeOrNotToBe, options ) {
+      //  Параметри:
+      // *  bFuture: false  - якщо true, то дата modelValue має бути у майбутньому
+      // *  bLess: true     - якщо true, то diff між modelValue та now  має бути 'менше ніж' вказано у нижніх параметрах:
+      // *  nDays: 3
+      // *  nMonths: 0
+      // *  nYears: 1
+      validate( 'DateElapsed', 
+                '12-08-2015', 
+                true, 
+                { 
+                  bFuture: false,
+                  bLess: true,
+                  nDays: 0,
+                  nMonths: 0,
+                  nYears: 0
+                });
+      
+      prevalidate( 'DateElapsed', 
+                '20-08-2015', 
+                null, 
+                { 
+                  bFuture: false,
+                  bLess: true, 
+                  nDays: 0, 
+                  nMonths: 0, 
+                  nYears: 0
+                });
+
+      prevalidate( 'DateElapsed', 
+                '20-08-2015', 
+                null, 
+                { 
+                  bFuture: true,
+                  bLess: false, 
+                  nDays: 0, 
+                  nMonths: 0, 
+                  nYears: 0
+                });
 
       // validate( 'DateElapsed', '17-08-2015', false, { bFuture: false, bLess: true, nDays: 0, nMonths: 0, nYears: 0 } );
       // validateArray( eDatesRight, 'DateElapsed', true, false, false, 1, 0, 0 );

@@ -247,21 +247,23 @@ function ValidationService ( moment ) {
         // BIL_MEN: більше/менше
         var sBilMen = o.bLess ? 'менше' : 'більше';
 
-        if ( diffDays > o.nDays ){
-          bValid = false; // diffMonthes > nMonths && diffYears > nYears;
-          message = '\n Error: ' + message
-            .replace( '{VID_DO}', sVidDo )
-            .replace( '{DO_PISLYA}', sDoPislya )
-            .replace( '{BIL_MEN}', sBilMen )
-            .replace( '{N_DAYS}', o.nDays )
-            .replace( '{N_MONTHES}', o.nMonths )
-            .replace( '{N_YEARS}', o.nYears );
-        } else {
-          message = ' - OK';
-        }
+        // if ( o.bLess ) {
+          if ( Math.abs(diffDays) > o.nDays ){
+            bValid = false; // diffMonthes > nMonths && diffYears > nYears;
+            message = '\n\t\tError: ' + message
+              .replace( '{VID_DO}', sVidDo )
+              .replace( '{DO_PISLYA}', sDoPislya )
+              .replace( '{BIL_MEN}', sBilMen )
+              .replace( '{N_DAYS}', o.nDays )
+              .replace( '{N_MONTHES}', o.nMonths )
+              .replace( '{N_YEARS}', o.nYears );
+          } else {
+            message = ' - OK';
+          }
+        // }
 
-        console.log('DateElapsed. Now: ' + now.format( fmt ) + ' vs. ' + modelMoment.format( fmt ) + ', diff D:' + 
-          diffDays + '|' + o.nDays + ', M: ' + diffMonthes + '|' + o.nMonths + ', Y: ' + diffYears + '|' + o.nYears + 
+        var dateStr = bValid ? '' + now.format( fmt ) + ' = ' + modelMoment.format( fmt ) : '\n\t\tnow  = ' + now.format( fmt ) + '\n\t\tdate = ' + modelMoment.format( fmt );
+        console.log('DateElapsed, ' + dateStr + '\n\t\tdiff = ' + diffDays + '|' + o.nDays + ':' + diffMonthes + '|' + o.nMonths + ':' + diffYears + '|' + o.nYears + 
           message );
 
         return bValid;
