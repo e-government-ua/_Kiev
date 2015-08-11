@@ -111,21 +111,27 @@ p {font-size: 11px;}
     <div class="line_col ta-c m-t-25">
         <b>ЗАЯВА<br />про реєстрацію місця проживання</b><br />
         <div class="under_field_line ta-l"><i>Я,</i>  [bankIdlastName] [bankIdfirstName] [bankIdmiddleName] <span>(прізвище, ім’я, по батькові)</span></div>
-        <div class="under_field_line ta-l"> [DOB] [POB]<span>(дата і місце народження)</span></div>
+        <div class="under_field_line ta-l"> [DOB] ; [POB]<span>(дата і місце народження)</span></div>
         <div class="under_field_line ta-l"> [citizenship] <span>(громадянство / підданство)</span></div>
         <div class="under_field_line ta-l"></div>
         <!-- <div class="ta-l">прошу зареєструвати моє місце проживання/місце проживання моєї дитини (зайве закреслити)</div> -->
-		<div class="ta-l"> [kids] <span>Чи є у вас дитина молодша 14-и років яку Ви бажаєте заєреструвати</span></div>
-        <div class="under_field_line ta-l">[kidsName] [kidsFirstName] [kidsMiddleName] <span>(прізвище, ім'я, по батькові дитини, якщо Ви бажаєте зареєструвати дитину)</span></div>
-        <div class="under_field_line ta-l"> [kidsPOB] [kidsDOB] <span>(дата і місце народження)</span></div>
+		<div class="ta-l">  <span>Чи є у вас дитина молодша 14-и років яку Ви бажаєте заєреструвати</span></div>
+        <div class="under_field_line ta-l"> [kids] ; [kidsName]  [kidsFirstName] [kidsMiddleName] <span>(прізвище, ім'я, по батькові дитини, якщо Ви бажаєте зареєструвати дитину)</span></div>
+        <div class="under_field_line ta-l"> [kidsPOB] _  [kidsDOB] <span>(дата і місце народження)</span></div>
         <div class="under_field_line ta-l">[kidsCitizenship] <span>(громадянство / підданство)</span></div>
         <div class="under_field_line ta-l"><i>за адресою: [newCity]</i><span>(найменування адміністративно-територіальної одиниці)</span></div>
         <div class="under_field_line ta-l"><i>вул. [newStreet]</i>
             <div class="under_field_line ta-l m-l-380 gtp">
                 <i>, буд. [newHouse]</i>
-                <div class="under_field_line ta-l m-l-120 gtp">
+<!--                 <div class="under_field_line ta-l m-l-120 gtp">
                     <i>, корп. [newCorp]</i>
                     <div class="under_field_line ta-l m-l-120 gtp">
+                        <i>, кв. [newApartment]</i>
+                    </div>
+                </div> -->
+				<div class="under_field_line ta-l m-l-80 gtp">
+                    <i>, корп. [newCorp]</i>
+                    <div class="under_field_line ta-l m-l-80 gtp">
                         <i>, кв. [newApartment]</i>
                     </div>
                 </div>
@@ -146,7 +152,7 @@ p {font-size: 11px;}
             заявника у разі відсутності документів, зазначених як підстава<br />
             для реєстрації*
         </div>
-        <div class="under_field_line ta-l"><span>(згоден / не згоден)</span></div>
+        <div class="under_field_line ta-l">Згоден<span>(згоден / не згоден)</span></div>
         <div class="under_field_line ta-l"><div class="month-fl"><span></span><span></span><span></span>р.</div><span>(ініціали та прізвище, підпис)</span></div>
         <div class="under_field_line ta-l"><i>Заяву прийняв, документи перевірив</i><span class="ta-r">(посада та найменування територіального підрозділу ДМС України)</span></div>
         <div class="under_field_line ta-l"><span>(ініціали та прізвище, підпис)</span></div>

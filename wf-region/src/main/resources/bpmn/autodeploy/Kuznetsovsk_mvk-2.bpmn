@@ -6,16 +6,16 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="officialAddress" name="Місце проживання (реєстрації)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="officialAddress" name="Ваша адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="topic" name="Тема звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="messageText" name="Текст Заяви" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="addFile" name="Додати скан-копію документа; Якщо документів більше 1-го - зробіть ZIP-архів" type="file"></activiti:formProperty>
-        <activiti:formProperty id="email" name="E-Mail для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phoneNumber" name="Номер телефона" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="replyForm" name="Форма відповіді" type="enum" required="true">
           <activiti:value id="physcial" name="Фізична копія"></activiti:value>
           <activiti:value id="digital" name="Електронна версія"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phoneNumber" name="Номер телефона" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -24,7 +24,7 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="officialAddress" name="Місце проживання (реєстрації)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="officialAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="topic" name="Тема звернення" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="messageText" name="Текст Заяви" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="addFile" name="Скан-копія документа; Якщо документів більше 1-го - має бути ZIP-архів" type="file" writable="false"></activiti:formProperty>

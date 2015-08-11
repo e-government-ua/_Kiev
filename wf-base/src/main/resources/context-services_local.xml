@@ -18,7 +18,12 @@
                     <bean class="org.activiti.rest.interceptor.RequestProcessingInterceptor" />
                 </mvc:interceptor>
         </mvc:interceptors>
-        
+
+        <!-- ==============================   DAO   ============================= -->
+        <!--???-->
+        <bean id="escalationRuleFunctionDao" class="org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDaoImpl">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
     </beans>
     
 </beans>

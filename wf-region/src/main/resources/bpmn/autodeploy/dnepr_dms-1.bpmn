@@ -156,13 +156,8 @@
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="unRegisterDoc" name="Талон зняття з реєстрація с місця проживання" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="militaryDoc" name="Військовий квиток АБО посвідчення про приписку; Для віськовозобов'язенних" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kids" name="Чи є у вас дитина (молодша 14 років) яку Ви бажаєте зареєструвати за цією адресою; Якщо дитині більше 14 років або її реєструвати не треба - виберіть поле НІ. Діти старші 14 років подають заяву самостійно." type="enum" writable="false">
-          <activiti:value id="yes" name="Так"></activiti:value>
-          <activiti:value id="no" name="Ні"></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="kidsName" name="Прізвище дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsFirstName" name="Ім'я дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsMiddleName" name="По-Батькові дитини" type="string" writable="false"></activiti:formProperty>
@@ -174,7 +169,7 @@
         <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="oldAddress" name="Ваша стара адреса реєстрації; Населений пункт / Вулиця / Будинок / Корпус / Квартира" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="oldAddress" name="Стара адреса реєстрації; Населений пункт / Вулиця / Будинок / Корпус / Квартира" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bringDoc" name="Підставою для реєстрації місця проживання заявника є; Вкажіть документи які ви принесете держоргану для розгляду " type="enum" writable="false">
           <activiti:value id="order" name="Ордер"></activiti:value>
           <activiti:value id="ownDoc" name="Свідоцтво про право власності"></activiti:value>
