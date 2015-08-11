@@ -452,6 +452,7 @@ public class ActivitiRestFlowController {
                 if(nID_Flow_ServiceData==null){
                   if(sID_BP!=null){
                       nID_Flow_ServiceData = flowService.nID_Flow_ServiceData(sID_BP);
+                      log.info("[getFilteredFlowPropertiesForFlowServiceData](sID_BP="+sID_BP+",nID_Flow_ServiceData="+nID_Flow_ServiceData+")");
                   }else{
                       String sError = "nID_Flow_ServiceData==null and sID_BP==null";
                       log.error(sError);
@@ -465,6 +466,7 @@ public class ActivitiRestFlowController {
                 }
             
             
+                log.info("[getFilteredFlowPropertiesForFlowServiceData](nID_Flow_ServiceData="+nID_Flow_ServiceData+")");
 		Flow_ServiceData flowServiceData = flowService.getBaseEntityDao().getById(Flow_ServiceData.class, nID_Flow_ServiceData);
 		List<FlowProperty> res = new LinkedList<FlowProperty>();
 		if (flowServiceData != null) {
