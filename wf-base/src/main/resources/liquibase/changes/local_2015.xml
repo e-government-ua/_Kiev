@@ -55,6 +55,45 @@
         <modifyDataType tableName="FlowProperty" columnName="sDateTimeAt" newDataType="varchar(30)" />
         <modifyDataType tableName="FlowProperty" columnName="sDateTimeTo" newDataType="varchar(30)" />
     </changeSet>
-    
+
+    <!-- ####################################################################################################### -->
+
+    <changeSet id="issue-658" author="LamronNu">
+        <!--EscalationRuleFunction-->
+        <createTable tableName="EscalationRuleFunction">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="sName" type="varchar">
+                <constraints nullable="false" />
+            </column>
+            <column name="sBeanHandler" type="varchar"/>
+        </createTable>
+        <addAutoIncrement
+                tableName="EscalationRuleFunction" columnName="nID"
+                startWith="100" columnDataType="bigint"/>
+
+        <!--EscalationRule-->
+        <createTable tableName="EscalationRule">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="sID_BP" type="varchar">
+                <constraints unique="true" />
+            </column>
+            <column name="sCondition" type="varchar(200)"/>
+            <column name="soData" type="varchar(500)"/>
+            <column name="sPatternFile" type="varchar"/>
+            <column name="nID_EscalationRuleFunction" type="bigint">
+                <constraints foreignKeyName         = "FK_EscalationRule_EscalationRuleFunction"
+                             referencedTableName    = "EscalationRuleFunction"
+                             referencedColumnNames  = "nID"/>
+            </column>
+
+        </createTable>
+        <addAutoIncrement
+                tableName="EscalationRule" columnName="nID"
+                startWith="100" columnDataType="bigint"/>
+    </changeSet>
 
 </databaseChangeLog>
