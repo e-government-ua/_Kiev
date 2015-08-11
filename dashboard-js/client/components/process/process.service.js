@@ -69,8 +69,9 @@ angular.module('dashboardJsApp')
 
       getProcessName: function (processDefinitionId) {
           
+        //var deferred = $q.defer();
           
-        if (processesDefinitions === null) {
+        /*if (processesDefinitions === null) {
           var req = {
             method: 'GET',
             url: '/api/processes',
@@ -90,7 +91,7 @@ angular.module('dashboardJsApp')
               deferred.reject(err);
               return cb(err);
             }.bind(this));
-        }
+        }*/
           
         var sID=processDefinitionId;
         console.log("[getProcessName]sID(before)="+sID);
@@ -116,7 +117,7 @@ angular.module('dashboardJsApp')
 
       getProcessDescription: function (processDefinitionId) {
           
-        if (processesDefinitions === null) {
+        /*if (processesDefinitions === null) {
           var req = {
             method: 'GET',
             url: '/api/processes',
@@ -136,7 +137,7 @@ angular.module('dashboardJsApp')
               deferred.reject(err);
               return cb(err);
             }.bind(this));
-        }
+        }*/
         
         
         var sID=processDefinitionId;
