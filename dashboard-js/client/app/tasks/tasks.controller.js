@@ -326,6 +326,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.init = function () {
+    console("$scope.init");  
     loadTaskCounters();
     loadSelfAssignedTasks();
   };
@@ -341,7 +342,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   }
 
   function loadSelfAssignedTasks() {
+    console("[loadSelfAssignedTasks]");  
     processes.list().then(function (processesDefinitions) {
+        console("[loadSelfAssignedTasks]processesDefinitions="+processesDefinitions);  
       $scope.applyTaskFilter($scope.$storage.menuType);
     }).catch(function (err) {
       err = JSON.parse(err);

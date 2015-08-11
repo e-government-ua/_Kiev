@@ -36,9 +36,10 @@ angular.module('dashboardJsApp')
 
         //if (processesDefinitions && processesDefinitions!=null) {
         if (processesDefinitions !== null) {
-          console.log("processesDefinitions="+processesDefinitions);
+          console.log("processesDefinitions(!== null)="+processesDefinitions);
           deferred.resolve(processesDefinitions);
         } else {
+          console.log("processesDefinitions(=== null)="+processesDefinitions);
             
             
           var req = {
@@ -50,6 +51,7 @@ angular.module('dashboardJsApp')
 
           $http(req).
             success(function (result) {
+              console.log("result="+result);
               console.log("JSON.parse(result)="+JSON.parse(result));
               processesDefinitions = idToProcessMap(JSON.parse(result).data);
               console.log("processesDefinitions(reloaded)="+processesDefinitions);
@@ -69,9 +71,8 @@ angular.module('dashboardJsApp')
 
       getProcessName: function (processDefinitionId) {
           
-        //var deferred = $q.defer();
-          
-        /*if (processesDefinitions === null) {
+        /*var deferred = $q.defer();
+        if (processesDefinitions === null) {
           var req = {
             method: 'GET',
             url: '/api/processes',
@@ -92,27 +93,38 @@ angular.module('dashboardJsApp')
               return cb(err);
             }.bind(this));
         }*/
+        
+        
+        processes.list().then(function (processesDefinitions) {
+          //$scope.applyTaskFilter($scope.$storage.menuType);
+
+            var sID=processDefinitionId;
+            console.log("[getProcessName]sID(before)="+sID);
+            console.log("[getProcessName]processesDefinitions="+processesDefinitions);
+            if(sID!==null){//"_test_dependence_form:2:87617"
+              var nAt=sID.indexOf("\:");
+              if(nAt>=0){
+                sID=sID.substr(0,nAt);
+              }
+            }
+            console.log("[getProcessName]sID(after)="+sID);
+            /*if (processesDefinitions && processesDefinitions[processDefinitionId]) {
+              return processesDefinitions[processDefinitionId].name;
+            } else {
+              return processDefinitionId;
+            }*/
+            if (processesDefinitions && processesDefinitions[sID]) {
+              return processesDefinitions[sID].name;
+            } else {
+              return sID;//+"("+processesDefinitions.length+")";
+            }            
+            
+        }).catch(function (err) {
+          //err = JSON.parse(err);
+          //$scope.error = err;
+        });
           
-        var sID=processDefinitionId;
-        console.log("[getProcessName]sID(before)="+sID);
-        console.log("[getProcessName]processesDefinitions="+processesDefinitions);
-        if(sID!==null){//"_test_dependence_form:2:87617"
-          var nAt=sID.indexOf("\:");
-          if(nAt>=0){
-            sID=sID.substr(0,nAt);
-          }
-        }
-        console.log("[getProcessName]sID(after)="+sID);
-        /*if (processesDefinitions && processesDefinitions[processDefinitionId]) {
-          return processesDefinitions[processDefinitionId].name;
-        } else {
-          return processDefinitionId;
-        }*/
-        if (processesDefinitions && processesDefinitions[sID]) {
-          return processesDefinitions[sID].name;
-        } else {
-          return sID;//+"("+processesDefinitions.length+")";
-        }
+
       },
 
       getProcessDescription: function (processDefinitionId) {
@@ -139,27 +151,35 @@ angular.module('dashboardJsApp')
             }.bind(this));
         }*/
         
+        processes.list().then(function (processesDefinitions) {
+          //$scope.applyTaskFilter($scope.$storage.menuType);
         
-        var sID=processDefinitionId;
-        console.log("[getProcessDescription]sID(before)="+sID);
-        console.log("[getProcessDescription]processesDefinitions="+processesDefinitions);
-        if(sID!==null){//"_test_dependence_form:2:87617"
-          var nAt=sID.indexOf("\:");
-          if(nAt>=0){
-            sID=sID.substr(0,nAt);
-          }
-        }
-        console.log("[getProcessDescription]sID(after)="+sID);
-        /*if (processesDefinitions && processesDefinitions[processDefinitionId]) {
-          return processesDefinitions[processDefinitionId].description;
-        } else {
-          return processDefinitionId;ґ
-        }*/
-        if (processesDefinitions && processesDefinitions[sID]) {
-          return processesDefinitions[sID].description;
-        } else {
-          return sID;//+"("+processesDefinitions.length+")";
-        }
+            var sID=processDefinitionId;
+            console.log("[getProcessDescription]sID(before)="+sID);
+            console.log("[getProcessDescription]processesDefinitions="+processesDefinitions);
+            if(sID!==null){//"_test_dependence_form:2:87617"
+              var nAt=sID.indexOf("\:");
+              if(nAt>=0){
+                sID=sID.substr(0,nAt);
+              }
+            }
+            console.log("[getProcessDescription]sID(after)="+sID);
+            /*if (processesDefinitions && processesDefinitions[processDefinitionId]) {
+              return processesDefinitions[processDefinitionId].description;
+            } else {
+              return processDefinitionId;ґ
+            }*/
+            if (processesDefinitions && processesDefinitions[sID]) {
+              return processesDefinitions[sID].description;
+            } else {
+              return sID;//+"("+processesDefinitions.length+")";
+            }
+        
+        }).catch(function (err) {
+          //err = JSON.parse(err);
+          //$scope.error = err;
+        });
+        
       }
     };
   });
