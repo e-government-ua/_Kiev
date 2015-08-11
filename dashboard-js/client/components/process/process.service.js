@@ -71,7 +71,7 @@ angular.module('dashboardJsApp')
 
       getProcessName: function (processDefinitionId) {
           
-        var deferred = $q.defer();
+        /*var deferred = $q.defer();
         if (processesDefinitions === null) {
           var req = {
             method: 'GET',
@@ -92,7 +92,7 @@ angular.module('dashboardJsApp')
               deferred.reject(err);
               return cb(err);
             }.bind(this));
-        }
+        }*/
         
         
 //        processes.list().then(function (processesDefinitions) {
@@ -129,7 +129,7 @@ angular.module('dashboardJsApp')
 
       getProcessDescription: function (processDefinitionId) {
           
-        var deferred = $q.defer();
+        /*var deferred = $q.defer();
         if (processesDefinitions === null) {
           var req = {
             method: 'GET',
@@ -150,7 +150,7 @@ angular.module('dashboardJsApp')
               deferred.reject(err);
               return cb(err);
             }.bind(this));
-        }
+        }*/
         
 //        processes.list().then(function (processesDefinitions) {
           //$scope.applyTaskFilter($scope.$storage.menuType);
