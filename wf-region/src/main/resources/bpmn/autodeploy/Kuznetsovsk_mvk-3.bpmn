@@ -13,8 +13,8 @@
         <activiti:formProperty id="eventTime" name="Час проведення заходу" type="string"></activiti:formProperty>
         <activiti:formProperty id="eventEntertainment" name="Захід включатиме " type="string"></activiti:formProperty>
         <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="contactPhone" name="Контактний номер телефона" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="orgEmail" name="e-Mail для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефона" type="string" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="needPhysicalCopy?" name="Чи потрібна Вам фізична копія документа?" type="enum" required="true">
           <activiti:value id="digital" name="Тільки Електронна версія"></activiti:value>
           <activiti:value id="physical" name="Фізична+Електронна копія  "></activiti:value>
@@ -34,8 +34,8 @@
         <activiti:formProperty id="eventTime" name="Час проведення заходу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventEntertainment" name="Захід включатиме" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="orgEmail" name="e-Mail адреса організатора " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="contactPhone" name="Контактний номер телефона" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail адреса організатора " type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="needPhysicalCopy?" name="Форма відповіді" type="enum" writable="false">
           <activiti:value id="digital" name="Тільки Електронна версія"></activiti:value>
           <activiti:value id="physical" name="Фізична + Електронна версія"></activiti:value>
