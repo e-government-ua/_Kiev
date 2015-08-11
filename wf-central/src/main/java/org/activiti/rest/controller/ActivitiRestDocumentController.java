@@ -5,6 +5,7 @@ import org.activiti.redis.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +25,9 @@ import org.wf.dp.dniprorada.dao.*;
 import org.wf.dp.dniprorada.liqPay.LiqBuy;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.model.document.HandlerFactory;
+import org.wf.dp.dniprorada.util.BankIDConfig;
+import org.wf.dp.dniprorada.util.BankIDUtils;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,7 +74,13 @@ public class ActivitiRestDocumentController {
 
     @Autowired
     private HandlerFactory handlerFactory;
-
+    
+    @Autowired
+    GeneralConfig generalConfig;
+    
+    @Autowired
+    BankIDConfig bankIDConfig;
+    
     @RequestMapping(value = "/getDocument", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -230,7 +240,7 @@ public class ActivitiRestDocumentController {
             //@RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
             @RequestParam(value = "sDocumentContentType", required = false) String documentContentTypeName,
             @RequestParam(value = "soDocumentContent") String sContent,
-            @RequestParam(value = "oSignData") String oSignData,//todo required?? (issue587)
+            @RequestParam(value = "oSignData", required = false) String oSignData,
             //@RequestParam(value = "oFile", required = false) MultipartFile oFile,
             //@RequestBody byte[] content,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
@@ -257,6 +267,8 @@ public class ActivitiRestDocumentController {
         
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
 
+        oSignData = BankIDUtils.checkECP(bankIDConfig.sClientId(), bankIDConfig.sClientSecret(), generalConfig.sHostCentral(), aoContent, sName);
+        
         return documentDao.setDocument(
                 nID_Subject,
                 subject_Upload.getId(),
@@ -319,8 +331,7 @@ public class ActivitiRestDocumentController {
 
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
         
-        String soSignData = null;
-        //TODO: по другому пункту issue587 - проставлять soSignData
+        String soSignData = BankIDUtils.checkECP(bankIDConfig.sClientId(), bankIDConfig.sClientSecret(), generalConfig.sHostCentral(), aoContent, sName);
         
         Long nID_Document = documentDao.setDocument(
                         nID_Subject,

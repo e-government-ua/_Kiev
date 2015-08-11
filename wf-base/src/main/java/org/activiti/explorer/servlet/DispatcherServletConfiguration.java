@@ -100,6 +100,7 @@ public class DispatcherServletConfiguration extends WebMvcConfigurationSupport {
 	@Bean
 	public MultipartResolver multipartResolver() {
 		PutAwareCommonsMultipartResolver multipartResolver = new PutAwareCommonsMultipartResolver();
+		multipartResolver.setDefaultEncoding("utf-8");
 		return multipartResolver;
 	}
 
