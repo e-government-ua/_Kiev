@@ -52,13 +52,13 @@
 * sLogin - Логин пользователя
 * sPassword - Пароль пользователя
 
-**Request**
+**Request:**
 
 ```text
     sLogin=user&sPassword=password
 ```
 
-**Response**
+**Response:**
 
 ```json
 	{"session":"true"}
@@ -76,7 +76,7 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Context: https://server:port/wf-region/service/auth/logout**
 
-**Response**
+**Response:**
 
 ```json
 	{"session":"97AE7CA414A5DA85749FE379CC843796"}
@@ -97,11 +97,11 @@ false - Имя пользователя или пароль не коррект�
 * key - Ключ процесса
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
-**Request**
+**Request:**
 
 https://test.region.igov.org.ua/wf-region/service/rest/start-process/citizensRequest
 
-**Response**
+**Response:**
 
 ```json
 	{
@@ -121,11 +121,11 @@ https://test.region.igov.org.ua/wf-region/service/rest/start-process/citizensReq
 * assignee - Владелец
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
-**Request**
+**Request:**
 
 https://test.region.igov.org.ua/wf-region/service/rest/tasks/kermit
 
-**Response**
+**Response:**
 
 ```json
 	[                                                
@@ -163,11 +163,11 @@ https://test.region.igov.org.ua/wf-region/service/rest/tasks/kermit
 
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
-**Request**
+**Request:**
 
 https://test.region.igov.org.ua/wf-region/service/rest/process-definitions
 
-**Response**
+**Response:**
 
 ```json
 	[											                            
