@@ -40,6 +40,7 @@
 
 <a href="#1"><h4>Логин пользователя:</h4></a>
 <a href="#0_contents">↑Up</a>
+
 **HTTP Metod: POST**
 
 **HTTP Context: https://server:port/wf-region/service/auth/login**
@@ -70,6 +71,7 @@ false - Имя пользователя или пароль не коррект�
 
 <a href="#1"><h4>Логаут пользователя (наличие cookie JSESSIONID):</h4></a>
 <a href="#0_contents">↑Up</a>
+
 **HTTP Metod: POST/DELETE**
 
 **HTTP Context: https://server:port/wf-region/service/auth/logout**
