@@ -14,7 +14,6 @@
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
       <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-      <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -23,6 +22,7 @@
       <link rel="stylesheet" href="app/app.css">
       <link rel="stylesheet" href="app/main/main.css">
       <link rel="stylesheet" href="app/reports/reports.css">
+      <link rel="stylesheet" href="app/services/services.css">
       <link rel="stylesheet" href="app/tasks/tasks.css">
       <link rel="stylesheet" href="components/modal/modal.css">
       <link rel="stylesheet" href="components/print/PrintModal.css">
@@ -72,6 +72,10 @@
           <script src="app/main/main.js"></script>
           <script src="app/reports/reports.controller.js"></script>
           <script src="app/reports/reports.js"></script>
+          <script src="app/services/directives/weekdays.directive.js"></script>
+          <script src="app/services/services.controller.js"></script>
+          <script src="app/services/services.js"></script>
+          <script src="app/services/working_hours/modal.controller.js"></script>
           <script src="app/tasks/tasks.controller.js"></script>
           <script src="app/tasks/tasks.file.directive.js"></script>
           <script src="app/tasks/tasks.js"></script>
@@ -84,6 +88,7 @@
           <script src="components/print/PrintTemplate.js"></script>
           <script src="components/process/process.service.js"></script>
           <script src="components/report/reports.service.js"></script>
+          <script src="components/services/services.service.js"></script>
           <script src="components/task/task.service.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->

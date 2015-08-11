@@ -1,0 +1,33 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th>№</th>
+    <th>Дні тижня</th>
+    <th>Проміжок часу</th>
+    <th>Дii</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr ng-repeat="one in list.aDay">
+    <th scope="row">{{one.aSlot[0].nID}}</th>
+    <td>{{one.sDate}}</td>
+    <td> о {{one.aSlot[0].sTime}}</td>
+    <td>
+      <div class="btn-group" dropdown>
+        <button type="button" class="btn btn-default">Редагувати</button>
+        <button type="button" class="btn btn-danger" dropdown-toggle>
+          <i class="glyphicon glyphicon-trash"></i>
+        </button>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <th scope="row"></th>
+    <td></td>
+    <td></td>
+    <td><button class="btn btn-primary">Добавити</button></td>
+  </tr>
+  </tbody>
+</table>

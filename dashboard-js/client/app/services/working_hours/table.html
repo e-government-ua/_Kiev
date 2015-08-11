@@ -1,0 +1,41 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th>№</th>
+    <th>Дні тижня</th>
+    <th>Проміжок часу</th>
+    <th>Дii</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr ng-repeat="slot in workingHours.get()">
+    <th scope="row">{{slot.nID}}</th>
+    <td>
+      <p ng-show="slot.saRegionWeekDay.mo" >Понеділок</p>
+      <p ng-show="slot.saRegionWeekDay.tu">Вівторок</p>
+      <p ng-show="slot.saRegionWeekDay.we">Середа</p>
+      <p ng-show="slot.saRegionWeekDay.th">Четвер</p>
+      <p ng-show="slot.saRegionWeekDay.fr">П'ятниця</p>
+      <p ng-show="slot.saRegionWeekDay.sa">Субота</p>
+      <p ng-show="slot.saRegionWeekDay.su">Неділя</p>
+    </td>
+    <td> з {{slot.sDateTimeAt}} до {{slot.sDateTimeTo}}</td>
+    <td>
+      <div class="btn-group">
+        <button type="button" class="btn btn-default" ng-click="workingHours.edit(slot)">Редагувати</button>
+        <button type="button" class="btn btn-danger" ng-click="workingHours.delete()">
+          <i class="glyphicon glyphicon-trash"></i>
+        </button>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <th scope="row"></th>
+    <td></td>
+    <td></td>
+    <td><button class="btn btn-primary" ng-click="workingHours.add()">Добавити</button></td>
+  </tr>
+  </tbody>
+</table>
