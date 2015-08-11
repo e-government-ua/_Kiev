@@ -240,7 +240,7 @@ public class ActivitiRestDocumentController {
             //@RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
             @RequestParam(value = "sDocumentContentType", required = false) String documentContentTypeName,
             @RequestParam(value = "soDocumentContent") String sContent,
-            @RequestParam(value = "oSignData") String oSignData,//todo required?? (issue587)
+            @RequestParam(value = "oSignData", required = false) String oSignData,
             //@RequestParam(value = "oFile", required = false) MultipartFile oFile,
             //@RequestBody byte[] content,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
