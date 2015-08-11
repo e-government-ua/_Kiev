@@ -1,28 +1,27 @@
-### iGov.ua APIs
- <a name="0_contents">*Contents*</a><br/>
-<a href="#1_userLogin">1. Логин пользователя</a><br/>
-<a href="#2_userLogout">2. Логаут пользователя</a><br/>
-<a href="#3_activitiRun">3. Запуск процесса Activiti</a><br/>
-<a href="#4_activitiRunTasks">4. Загрузка задач из Activiti</a><br/>
-<a href="#5_activitiRunServices">5. Загрузка каталога сервисов из Activiti</a><br/>
-<a href="#6_loadFileFromDb">6. Загрузки прикрепленного к заявке файла из постоянной базы</a><br/>
-<a href="#7_workWithMerchants">7. Работа с мерчантами</a><br/>
-<a href="#8_workWithTables">8. Бэкап/восстановление данных таблиц сервисов и мест</a><br/>
-<a href="#9_workWithDocuments">9. Работа с документами</a><br/>
-<a href="#10_workWithSubjects">10. Работа с субъектами</a><br/>
-<a href="#11_accessDocuments">11. Предоставление и проверка доступа к документам</a><br/>
-<a href="#12_workWithMessages">12. Работа с сообщениями</a><br/>
-<a href="#13_workWithHistoryEvents">13. Работа с историей (Мой журнал)</a><br/>
-<a href="#14_uploadFileToDb">14. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti</a><br/>
-<a href="#15_workWithServices">15. Работа с каталогом сервисов</a><br/>
-<a href="#16_getWorkflowStatistics">16. Получение статистики по задачам в рамках бизнес процесса</a><br/>
-<a href="#17_workWithHistoryEvent_Services">17. Работа с обьектами событий по услугам</a><br/>
-<a href="#18_workWithFlowSlot">18. Работа со слотами потока</a><br/>
-<a href="#19">19. Работа с джоинами суьтектами (отделениями/филиалами)</a><br/>
-<a href="#20">20. Получение кнопки для оплаты через Liqpay</a><br/>
-<a href="#21">21. Работа со странами </a><br/>
-<a href="#22">22. Загрузка данных по задачам </a><br/>
-<a href="#23_getBPForUsers"> 23. Получение списка бизнес процессов к которым у пользователя есть доступ </a><br/>
+## iGov.ua APIs
+<a name="0_contents">*Contents*</a><br/>
+<a href="#1_userLogin">1. Аутентификация пользователя</a><br/>
+<a href="#2_activitiRun">2. Запуск процесса Activiti</a><br/>
+<a href="#3_activitiRunTasks">3. Загрузка задач из Activiti</a><br/>
+<a href="#4_activitiRunServices">4. Загрузка каталога сервисов из Activiti</a><br/>
+<a href="#5_loadFileFromDb">5. Загрузки прикрепленного к заявке файла из постоянной базы</a><br/>
+<a href="#6_workWithMerchants">6. Работа с мерчантами</a><br/>
+<a href="#7_workWithTables">7. Бэкап/восстановление данных таблиц сервисов и мест</a><br/>
+<a href="#8_workWithDocuments">8. Работа с документами</a><br/>
+<a href="#9_workWithSubjects">9. Работа с субъектами</a><br/>
+<a href="#10_accessDocuments">10. Предоставление и проверка доступа к документам</a><br/>
+<a href="#11_workWithMessages">11. Работа с сообщениями</a><br/>
+<a href="#12_workWithHistoryEvents">12. Работа с историей (Мой журнал)</a><br/>
+<a href="#13_uploadFileToDb">13. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti</a><br/>
+<a href="#14_workWithServices">14. Работа с каталогом сервисов</a><br/>
+<a href="#15_getWorkflowStatistics">15. Получение статистики по задачам в рамках бизнес процесса</a><br/>
+<a href="#16_workWithHistoryEvent_Services">16. Работа с обьектами событий по услугам</a><br/>
+<a href="#17_workWithFlowSlot">17. Работа со слотами потока</a><br/>
+<a href="#18">18. Работа с джоинами суьтектами (отделениями/филиалами)</a><br/>
+<a href="#19">19. Получение кнопки для оплаты через Liqpay</a><br/>
+<a href="#20">20. Работа со странами </a><br/>
+<a href="#21">21. Загрузка данных по задачам </a><br/>
+<a href="#22_getBPForUsers"> 22. Получение списка бизнес процессов к которым у пользователя есть доступ </a><br/>
 
 ### iGov.ua APIs
 
