@@ -170,11 +170,11 @@ public class ActivitiRestFlowController {
                         @RequestParam(value = "sID_BP", required = false) String sID_BP
         
         ) throws Exception {
-		if (nID_Flow_ServiceData != null) {
-			log.info("nID_Flow_ServiceData is not null. Getting flow property for the flow with ID: " + nID_Flow_ServiceData);
+		//if (nID_Flow_ServiceData != null) {
+			//log.info("nID_Flow_ServiceData is not null. Getting flow property for the flow with ID: " + nID_Flow_ServiceData);
 			return getFilteredFlowPropertiesForFlowServiceData(nID_Flow_ServiceData, sID_BP, Boolean.FALSE);
-		}
-		return new LinkedList<FlowProperty>();
+		//}
+		//return new LinkedList<FlowProperty>();
 	}
    
 	/**
@@ -187,11 +187,11 @@ public class ActivitiRestFlowController {
                         @RequestParam(value = "nID_Flow_ServiceData", required = false) Long nID_Flow_ServiceData,
                         @RequestParam(value = "sID_BP", required = false) String sID_BP
         ) throws Exception {
-		if (nID_Flow_ServiceData != null) {
-			log.info("nID_Flow_ServiceData is not null. Getting flow property for the flow with ID: " + nID_Flow_ServiceData);
+		//if (nID_Flow_ServiceData != null) {
+			//log.info("nID_Flow_ServiceData is not null. Getting flow property for the flow with ID: " + nID_Flow_ServiceData);
 			return getFilteredFlowPropertiesForFlowServiceData(nID_Flow_ServiceData, sID_BP, Boolean.TRUE);
-		}
-		return new LinkedList<FlowProperty>();
+		//}
+		//return new LinkedList<FlowProperty>();
 	}
 
    /**
