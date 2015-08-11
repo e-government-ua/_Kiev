@@ -23,7 +23,7 @@
 <a href="#21">21. Загрузка данных по задачам </a><br/>
 <a href="#22_getBPForUsers"> 22. Получение списка бизнес процессов к которым у пользователя есть доступ </a><br/>
 
-### iGov.ua APIs
+## iGov.ua APIs
 
 ##### Mandatory HTTP Headers
 
@@ -63,7 +63,6 @@
 true - Пользователь авторизирован   
 false - Имя пользователя или пароль не корректны
 
-<a name="2_userLogout">
 #### 2. Логаут пользователя:
 </a><a href="#0_contents">↑Up</a>
 
@@ -83,7 +82,7 @@ true - Пользователь авторизирован
 false - Имя пользователя или пароль не корректны
 
 
-<a name="3_activitiRun">
+<a name="2_activitiRun">
 #### 3. Запуск процесса Activiti:
 </a><a href="#0_contents">↑Up</a>
 
@@ -102,7 +101,7 @@ false - Имя пользователя или пароль не коррект�
 	}
 ```
 
-<a name="4_activitiRunTasks">
+<a name="3_activitiRunTasks">
 ####4. Загрузка задач из Activiti
 </a><a href="#0_contents">↑Up</a><br/>
 
@@ -140,7 +139,7 @@ false - Имя пользователя или пароль не коррект�
 	]
 ```
 
-<a name="5_activitiRunServices">
+<a name="4_activitiRunServices">
 ####5. Загрузка каталога сервисов из Activiti
 </a><a href="#0_contents">↑Up</a><br/>
 
@@ -169,7 +168,7 @@ false - Имя пользователя или пароль не коррект�
 	  }
 	]
 ```
-<a name="6_loadFileFromDb">
+<a name="5_loadFileFromDb">
 ####6. Загрузки прикрепленного к заявке файла из постоянной базы
 </a><a href="#0_contents">↑Up</a><br/>
 
@@ -186,7 +185,7 @@ false - Имя пользователя или пароль не коррект�
 https://test.igov.org.ua/wf-region/service/rest/file/download_file_from_db?taskId=82596&attachmentId=6726532&nFile=7
 
 
-<a name="7_workWithMerchants">
+<a name="6_workWithMerchants">
 ####7. Работа с мерчантами
 </a><a href="#0_contents">↑Up</a><br/>
 
@@ -310,7 +309,7 @@ https://test.igov.org.ua/wf-central/service/merchant/setMerchant?sID=Test_sID3&s
 
 
 
-<a name="8_workWithTables">
+<a name="7_workWithTables">
 ####8. Бэкап/восстановление данных таблиц сервисов и мест
 </a><a href="#0_contents">↑Up</a><br/>
 
@@ -362,7 +361,7 @@ https://test.igov.org.ua/wf-central/service/merchant/setMerchant?sID=Test_sID3&s
 
 ----------------------------------------------------------------------------------------------------------------------------
 
-<a name="9_workWithDocuments">
+<a name="8_workWithDocuments">
 ####9. Работа с документами
 </a><a href="#0_contents">↑Up</a><br/>
 
@@ -658,7 +657,7 @@ https://test.igov.org.ua/wf-central/service/services/removeDocumentContentType?n
 --------------------------------------------------------------------------------------------------------------------------
 
 
-<a name="10_workWithSubjects">
+<a name="9_workWithSubjects">
 ####10. Работа с субъектами
 </a><a href="#0_contents">↑Up</a><br/>
 
@@ -712,7 +711,7 @@ https://test.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 ```
 --------------------------------------------------------------------------------------------------------------------------
 
-<a name="11_accessDocuments">
+<a name="10_accessDocuments">
 ####11. Предоставление и проверка доступа к документам
 </a><a href="#0_contents">↑Up</a><br/>
 
@@ -810,7 +809,7 @@ https://seriver:port/wf-central/service/setDocumentAccess - Установка �
 ```
 
 
-<a name="12_workWithMessages">
+<a name="11_workWithMessages">
 ####12. Работа с сообщениями
 </a><a href="#0_contents">↑Up</a><br/>
 
@@ -900,7 +899,7 @@ https://test.igov.org.ua/wf-central/service/messages/setMessage?sHead=name&sBody
 --------------------------------------------------------------------------------------------------------------------------
 
 
-<a name="13_workWithHistoryEvents">
+<a name="12_workWithHistoryEvents">
 ####13. Работа с историей (Мой журнал)
 </a><a href="#0_contents">↑Up</a><br/>
 
@@ -938,7 +937,7 @@ https://test.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Subjec
 
 --------------------------------------------------------------------------------------------------------------------------
 
-<a name="14_uploadFileToDb">
+<a name="13_uploadFileToDb">
 ####14. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti
 </a><a href="#0_contents">↑Up</a><br/>
 
@@ -966,7 +965,7 @@ ID созданного attachment - "id":"45"
 
 --------------------------------------------------------------------------------------------------------------------------
 
-<a name="15_workWithServices">
+<a name="14_workWithServices">
 ####15. Работа с каталогом сервисов
 </a><a href="#0_contents">↑Up</a><br/>
 
@@ -1453,7 +1452,7 @@ https://test.igov.org.ua/wf-central/service/services/setServicesTree
 ]
 ```
 
-<a name="16_getWorkflowStatistics">
+<a name="15_getWorkflowStatistics">
 #### 16. Получение статистики по задачам в рамках бизнес процесса
 </a><a href="#0_contents">↑Up</a><br/>
 
@@ -1488,7 +1487,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?s
 ```
 
 
-<a name="17_workWithHistoryEvent_Services">
+<a name="16_workWithHistoryEvent_Services">
 #### 17. Работа с обьектами событий по услугам
 </a><a href="#0_contents">↑Up</a><br/>
 **HTTP Metod: GET**
@@ -1553,7 +1552,7 @@ http://test.igov.org.ua/wf-central/service/services/addHistoryEvent_Service?nID_
 http://test.igov.org.ua/wf-central/service/services/updateHistoryEvent_Service?nID_Protected=11&sStatus=finish
 
 
-<a name="18_workWithFlowSlot">
+<a name="17_workWithFlowSlot">
 #### 18. Работа со слотами потока
 </a><a href="#0_contents">↑Up</a><br/>
 
@@ -1715,7 +1714,7 @@ http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceD
 }
 ```
 
-<a name="19">
+<a name="18">
 #### 19. Работа с джоинами субьектами (отделениями/филиалами)
 </a><a href="#0_contents">↑Up</a><br/>
 (таска: https://github.com/e-government-ua/i/issues/487)
@@ -1795,7 +1794,7 @@ https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoin?nID_Sub
 https://test.igov.org.ua/wf-central/service/services/removeSubjectOrganJoins?nID_SubjectOrgan=1&asID_Public=130505,130506,130507,130508
 
 
-<a name="20">
+<a name="19">
 #### 20. Получение кнопки для оплаты через LiqPay
 <br><a href="#0_contents">↑Up</a>
 **Method: GET**
@@ -1817,7 +1816,7 @@ https://test.igov.org.ua/wf-central/service/services/removeSubjectOrganJoins?nID
 Пример:
 https://test.igov.org.ua/wf-central/service/services/getPayButtonHTML_LiqPay?sID_Merchant=i10172968078&sSum=55,00&oID_Currency=UAH&oLanguage=RUSSIAN&sDescription=test&sID_Order=12345&sURL_CallbackStatusNew=&sURL_CallbackPaySuccess=&nID_Subject=1&bTest=true
 
-<a name="21">
+<a name="20">
 ####21. Работа со странами
 </a><a href="#0_contents">↑Up</a>
 
@@ -1888,7 +1887,7 @@ Eсли задано два ключа от разных записей -- ве�
  удаляет обьект по одному из четырех ключей (nID, nID_UA, sID_Two, sID_Three) или кидает ошибку ```403. Record not found!```.
 
 
-<a name="22">
+<a name="21">
 ####22. Загрузка данных по задачам
 </a><a href="#0_contents">↑Up</a>
 
@@ -1932,7 +1931,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?&s
 
 
 
-<a name="23_getBPForUsers">
+<a name="22_getBPForUsers">
 #### 23. Получение списка бизнес процессов к которым у пользователя есть доступ
 </a><a href="#0_contents">↑Up</a><br/>
 
