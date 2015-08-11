@@ -270,16 +270,23 @@ public abstract class AbstractModelTask {
 		}
 		return filedName;
 	}
-	
+
+	public static ByteArrayOutputStream multipartFileToByteArray(MultipartFile file) throws IOException {
+                return multipartFileToByteArray(file, null);
+        }
+        
 	/**
 	 * multipartFile To ByteArray
 	 * @param file
 	 * @return
 	 * @throws java.io.IOException
 	 */
-	public static ByteArrayOutputStream multipartFileToByteArray(MultipartFile file)
+	public static ByteArrayOutputStream multipartFileToByteArray(MultipartFile file, String sFileNameReal)
 			throws IOException {
             
+            
+                System.out.println("sFileNameReal=" + sFileNameReal);
+                
                 String sFilename = new String(file.getOriginalFilename().getBytes(),"Cp1251");//UTF-8
                 System.out.println("sFilename=" + sFilename);
                 
@@ -313,7 +320,7 @@ public abstract class AbstractModelTask {
             
 		ByteArrayMultipartFile byteArrayMultipartFile  
 				= new ByteArrayMultipartFile(
-						file.getBytes(), file.getName(), sFilename, file.getContentType());
+						file.getBytes(), file.getName(), sFileNameReal==null?sFilename:sFileNameReal, file.getContentType());
 		 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		 ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
 		 oos.writeObject(byteArrayMultipartFile);

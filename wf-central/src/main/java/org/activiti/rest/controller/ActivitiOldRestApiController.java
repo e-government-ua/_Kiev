@@ -44,10 +44,10 @@ import org.wf.dp.dniprorada.model.ByteArrayMultipartFile;
  */
 @Controller
 @RequestMapping(value = "/restOldVersion")
-public class ActivitiRestApiController extends ExecutionBaseResource {
+public class ActivitiOldRestApiController extends ExecutionBaseResource {
 
     @SuppressWarnings("unused")
-    private final Logger log = LoggerFactory.getLogger(ActivitiRestApiController.class);
+    private final Logger log = LoggerFactory.getLogger(ActivitiOldRestApiController.class);
     @Autowired
     private RuntimeService runtimeService;
     @Autowired

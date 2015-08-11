@@ -22,8 +22,9 @@
     "jquery.cookie": "~1.4.1",
     "ng-clip": "~0.2.6",
     "zeroclipboard": "~2.2.0",
-    "angular-ui-utils": "~0.2.3",
-    "intl-tel-input" : "~6.0.4"
+    "intl-tel-input": "~6.0.4",
+    "angular-ui-uploader": "~1.1.1",
+    "angular-ui-event": "~1.0.0"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

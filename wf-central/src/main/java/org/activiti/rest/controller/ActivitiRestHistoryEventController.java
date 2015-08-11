@@ -133,20 +133,18 @@ public class ActivitiRestHistoryEventController {
 	HistoryEvent_Service updateHistoryEvent_Service(
 			@RequestParam(value = "nID_Proccess", required = false) Long nID_Proccess,
 			@RequestParam(value = "sID_Status") String sID_Status,
-			@RequestParam(value = "nID_Subject") Long nID_Subject,
+			//@RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
 			//@RequestParam(value = "nID_Task") Long nID_Task,
 			//@RequestParam(value = "sHistoryEventType") HistoryEventType sHistoryEventType,
 			HttpServletResponse response) {
-
+		Long nID_Protected = AlgorithmLuna.getProtectedNumber(nID_Proccess);
+		Long nID_Subject = historyEventServiceDao.getHistoryEvent_ServiceBynID_Task(nID_Proccess).getnID_Subject();
 		Map<String, String> mParamMessage = new HashMap<String, String>();
 	    mParamMessage.put(HistoryEventMessage.SERVICE_STATE, sID_Status);
-	    mParamMessage.put(HistoryEventMessage.TASK_NUMBER, String.valueOf(AlgorithmLuna.getProtectedNumber(nID_Proccess)));
+	    mParamMessage.put(HistoryEventMessage.TASK_NUMBER, String.valueOf(nID_Protected));
 		setHistoryEvent(HistoryEventType.ACTIVITY_STATUS_NEW, nID_Subject, mParamMessage);
-		
-		log.info("updateHistoryEvent_Service!!!!!!!!!!!!!");
 		HistoryEvent_Service historyEvent_Service = historyEventServiceDao
 				.getHistoryEvent_ServiceBynID_Task(nID_Proccess);
-		log.info("updateHistoryEvent_Service!!!!!!!!!!!!!");
 		if (historyEvent_Service != null) {
 			boolean isChanged = false;
 			if (!historyEvent_Service.getsStatus().equals(sID_Status)) {
@@ -159,10 +157,8 @@ public class ActivitiRestHistoryEventController {
 				isChanged = true;
 			}
 			if (isChanged) {
-				log.info("updateHistoryEvent_Service!!!!!!!!!!!!!");
 				historyEventServiceDao
 						.updateHistoryEvent_Service(historyEvent_Service);
-				log.info("updateHistoryEvent_Service!!!!!!!!!!!!!");
 			}
 		}
 		return historyEvent_Service;
