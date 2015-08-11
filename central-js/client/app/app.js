@@ -8,6 +8,8 @@ angular.module('appBoilerPlate', ['ngCookies',
   'ngMessages',
   'ui.uploader',
   'ui.event',
+  'moment',
+  'angularMoment',
   'ngClipboard']);
 
 angular.module('documents', ['appBoilerPlate']);

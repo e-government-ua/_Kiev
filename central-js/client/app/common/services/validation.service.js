@@ -52,9 +52,13 @@
 
 'use strict';
 
-angular.module('app').service('ValidationService', function () {
+angular.module('app').service('ValidationService', ['angularMoment', ValidationService] );
+
+  function ValidationService ( angularMoment ) {
 
   var self = this;
+
+  console.log( '!!!!!!!!!!vaserevirel, ', angularMoment );
 
   self.validateByMarkers = function( form, $scope ) {
 
@@ -254,4 +258,4 @@ angular.module('app').service('ValidationService', function () {
 
   };
 
-});
+}

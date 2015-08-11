@@ -3,6 +3,8 @@
 describe('ValidationService Tests', function() {
 
   var validationService;
+  var moment;
+
   // var mockScope =  {
   //   markers: {
   //     validate:{
@@ -37,18 +39,20 @@ describe('ValidationService Tests', function() {
 
   beforeEach(inject(function (_ValidationService_) {
     validationService = _ValidationService_;
+    //console.log('ARGS: ', arguments );
+    //moment = _moment_;
   }));
 
   // describe('ValidationService', function(){
 
-    it('Should be defined', function() {
+    it('Should be defined: ValidationService and Moment', function() {
+      // ValidationService.validateByMarkers( form, mockScope.markers );
       expect(validationService).toBeDefined();
+      // expect(validationService.validateByMarkers).toBeDefined();
+      //expect(moment).toBeDefined();
     });
 
-    it('Should be defined: ValidationService', function() {
-      // ValidationService.validateByMarkers( form, mockScope.markers );
-      expect(validationService.validateByMarkers).toBeDefined();
-    });
+    return;
 
     it('Mail validation:', function() {
 
