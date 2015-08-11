@@ -12,13 +12,14 @@ angular.module('dashboardJsApp')
           //if(nAt)
           //sID=
           map[sKey] = data[i];
-          console.log("sKey="+sKey);
+          console.log("i="+i+",sKey="+sKey);
         //map[data[i].id] = data[i];
       }
       return map;
     };
 
-    var processesDefinitions;
+    //var processesDefinitions;
+    var processesDefinitions = null;
 
     return {
       getUserProcesses: function () {
@@ -33,9 +34,13 @@ angular.module('dashboardJsApp')
         var cb = callback || angular.noop;
         var deferred = $q.defer();
 
-        if (processesDefinitions) {
+        //if (processesDefinitions && processesDefinitions!=null) {
+        if (processesDefinitions !== null) {
+          console.log("processesDefinitions="+processesDefinitions);
           deferred.resolve(processesDefinitions);
         } else {
+            
+            
           var req = {
             method: 'GET',
             url: '/api/processes',
@@ -45,7 +50,10 @@ angular.module('dashboardJsApp')
 
           $http(req).
             success(function (result) {
+              console.log("JSON.parse(result)="+JSON.parse(result));
               processesDefinitions = idToProcessMap(JSON.parse(result).data);
+              console.log("processesDefinitions(reloaded)="+processesDefinitions);
+              
               deferred.resolve(processesDefinitions);
               return cb();
             }).
@@ -60,8 +68,33 @@ angular.module('dashboardJsApp')
       },
 
       getProcessName: function (processDefinitionId) {
+          
+          
+        if (processesDefinitions === null) {
+          var req = {
+            method: 'GET',
+            url: '/api/processes',
+            cache: true,
+            data: {}
+          };
+          $http(req).
+            success(function (result) {
+              console.log("1JSON.parse(result)="+JSON.parse(result));
+              processesDefinitions = idToProcessMap(JSON.parse(result).data);
+              console.log("processesDefinitions(reloaded)="+processesDefinitions);
+              
+              deferred.resolve(processesDefinitions);
+              return cb();
+            }).
+            error(function (err) {
+              deferred.reject(err);
+              return cb(err);
+            }.bind(this));
+        }
+          
         var sID=processDefinitionId;
         console.log("[getProcessName]sID(before)="+sID);
+        console.log("[getProcessName]processesDefinitions="+processesDefinitions);
         if(sID!==null){//"_test_dependence_form:2:87617"
           var nAt=sID.indexOf("\:");
           if(nAt>=0){
@@ -77,13 +110,38 @@ angular.module('dashboardJsApp')
         if (processesDefinitions && processesDefinitions[sID]) {
           return processesDefinitions[sID].name;
         } else {
-          return sID+"("+processesDefinitions.length+")";
+          return sID;//+"("+processesDefinitions.length+")";
         }
       },
 
       getProcessDescription: function (processDefinitionId) {
+          
+        if (processesDefinitions === null) {
+          var req = {
+            method: 'GET',
+            url: '/api/processes',
+            cache: true,
+            data: {}
+          };
+          $http(req).
+            success(function (result) {
+              console.log("1JSON.parse(result)="+JSON.parse(result));
+              processesDefinitions = idToProcessMap(JSON.parse(result).data);
+              console.log("processesDefinitions(reloaded)="+processesDefinitions);
+              
+              deferred.resolve(processesDefinitions);
+              return cb();
+            }).
+            error(function (err) {
+              deferred.reject(err);
+              return cb(err);
+            }.bind(this));
+        }
+        
+        
         var sID=processDefinitionId;
         console.log("[getProcessDescription]sID(before)="+sID);
+        console.log("[getProcessDescription]processesDefinitions="+processesDefinitions);
         if(sID!==null){//"_test_dependence_form:2:87617"
           var nAt=sID.indexOf("\:");
           if(nAt>=0){
@@ -99,7 +157,7 @@ angular.module('dashboardJsApp')
         if (processesDefinitions && processesDefinitions[sID]) {
           return processesDefinitions[sID].description;
         } else {
-          return sID+"("+processesDefinitions.length+")";
+          return sID;//+"("+processesDefinitions.length+")";
         }
       }
     };
