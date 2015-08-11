@@ -6,6 +6,7 @@ exports.index = function (req, res) {
 
   var query = {};
   query.size = 500;
+  query.latest = true;
 
   var options = {
     path: 'repository/process-definitions',

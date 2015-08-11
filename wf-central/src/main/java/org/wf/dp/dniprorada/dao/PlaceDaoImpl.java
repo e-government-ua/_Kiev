@@ -13,11 +13,10 @@ import org.wf.dp.dniprorada.model.Place;
 import org.wf.dp.dniprorada.util.Tree;
 import org.wf.dp.dniprorada.util.queryloader.QueryLoader;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.wf.dp.dniprorada.dao.PlaceHibernateResultTransformer.toTree;
 
 /**
  * @author dgroup
@@ -64,20 +63,16 @@ public class PlaceDaoImpl implements PlaceDao {
 
         Query query = sessionFactory
             .getCurrentSession()
-            .createSQLQuery(sql);
+            .createSQLQuery(sql)
+            .setResultTransformer( new PlaceHibernateResultTransformer() );
 
         if (specified(placeId))
             query = query.setLong("placeId", placeId);
 
-        // #################################################
-        // ###  TODO: Just for debug, delete it later   ####
-        List<String> text = new ArrayList<>();
-        for(Object[] obj : (List<Object[]>) query.list())
-            text.add( Arrays.toString(obj) );
-        LOG.info("Result {}", text);
-        // #################################################
+        if (specified(typeId))
+            query = query.setLong("typeId", typeId);
 
-        return null;
+        return toTree( query.list() );
     }
 
     @Cacheable("ext-file-PlaceTree")
@@ -91,25 +86,25 @@ public class PlaceDaoImpl implements PlaceDao {
 //            sql = sql + " where ";
 //
 //        if (specified(typeId))
-//            sql += " type_id = " + typeId;
+//            sql += " type_id = :typeId";
 //
 //        if (area != null && specified(typeId))
 //            sql += " and ";
 //
 //        if (area != null)
-//            sql += " area = " + area;
+//            sql += " area = :area";
 //
 //        if (root != null && (specified(typeId) || area !=null) )
 //            sql += " and ";
 //
 //        if (root != null)
-//            sql += " root = " + root;
+//            sql += " root = :root";
 //
 //        if (specified(deep) && (specified(typeId) || area != null || root != null))
 //            sql += " and ";
 //
 //        if (specified(deep))
-//            sql += " and level <= " + deep;
+//            sql += " and level <= :deep";
 
         LOG.debug("Final query {}", sql);
 

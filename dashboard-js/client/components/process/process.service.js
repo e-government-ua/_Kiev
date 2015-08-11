@@ -5,7 +5,14 @@ angular.module('dashboardJsApp')
     var idToProcessMap = function (data) {
       var map = {};
       for (var i = 0; i < data.length; i++) {
-        map[data[i].id] = data[i];
+          //"_test_dependence_form:2:87617"
+          //var sID=data[i].id;
+          var sKey=data[i].key;
+          //var nAt=sID.indexOf("\:")
+          //if(nAt)
+          //sID=
+        map[sKey] = data[i];
+        //map[data[i].id] = data[i];
       }
       return map;
     };
@@ -52,18 +59,46 @@ angular.module('dashboardJsApp')
       },
 
       getProcessName: function (processDefinitionId) {
-        if (processesDefinitions && processesDefinitions[processDefinitionId]) {
+        var sID=processDefinitionId;
+        console.log("[getProcessName]sID(before)="+sID);
+        if(sID!==null){//"_test_dependence_form:2:87617"
+          var nAt=sID.indexOf("\:");
+          if(nAt>=0){
+            sID=sID.substr(0,nAt);
+          }
+        }
+        console.log("[getProcessName]sID(after)="+sID);
+        /*if (processesDefinitions && processesDefinitions[processDefinitionId]) {
           return processesDefinitions[processDefinitionId].name;
         } else {
           return processDefinitionId;
+        }*/
+        if (processesDefinitions && processesDefinitions[sID]) {
+          return processesDefinitions[sID].name;
+        } else {
+          return sID;
         }
       },
 
       getProcessDescription: function (processDefinitionId) {
-        if (processesDefinitions && processesDefinitions[processDefinitionId]) {
+        var sID=processDefinitionId;
+        console.log("[getProcessDescription]sID(before)="+sID);
+        if(sID!==null){//"_test_dependence_form:2:87617"
+          var nAt=sID.indexOf("\:");
+          if(nAt>=0){
+            sID=sID.substr(0,nAt);
+          }
+        }
+        console.log("[getProcessDescription]sID(after)="+sID);
+        /*if (processesDefinitions && processesDefinitions[processDefinitionId]) {
           return processesDefinitions[processDefinitionId].description;
         } else {
           return processDefinitionId;
+        }*/
+        if (processesDefinitions && processesDefinitions[sID]) {
+          return processesDefinitions[sID].description;
+        } else {
+          return sID;
         }
       }
     };
