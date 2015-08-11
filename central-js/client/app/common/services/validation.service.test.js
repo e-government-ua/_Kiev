@@ -2,8 +2,8 @@
 
 describe('ValidationService Tests', function() {
 
-  var validationService;
-  var moment;
+  var $rootScope, $compile, $window, $filter, moment, amTimeAgoConfig, originalTimeAgoConfig, angularMomentConfig,
+    originalAngularMomentConfig, amMoment;
 
   // var mockScope =  {
   //   markers: {
@@ -35,12 +35,33 @@ describe('ValidationService Tests', function() {
 
   beforeEach(function(){
     module('app');
+    module('angularMoment');
   });
 
-  beforeEach(inject(function (_ValidationService_) {
-    validationService = _ValidationService_;
-    //console.log('ARGS: ', arguments );
-    //moment = _moment_;
+  var validationService;
+  // var angularMoment;
+
+  beforeEach(inject(function ( $injector ) {
+    validationService = $injector.get('ValidationService');
+
+    $rootScope = $injector.get('$rootScope');
+    $compile = $injector.get('$compile');
+    $window = $injector.get('$window');
+    $filter = $injector.get('$filter');
+    moment = $injector.get('moment');
+    amMoment = $injector.get('amMoment');
+    amTimeAgoConfig = $injector.get('amTimeAgoConfig');
+    angularMomentConfig = $injector.get('angularMomentConfig');
+    originalTimeAgoConfig = angular.copy(amTimeAgoConfig);
+    originalAngularMomentConfig = angular.copy(angularMomentConfig);
+
+    // Ensure the locale of moment.js is set to en by default
+    (moment.locale || moment.lang)('en');
+    // Add a sample timezones for tests
+    // moment.tz.add('UTC|UTC|0|0|');
+    // moment.tz.add('Pacific/Tahiti|LMT TAHT|9W.g a0|01|-2joe1.I');
+
+    //console.log('angularMomentConfig = ', angularMomentConfig );
   }));
 
   // describe('ValidationService', function(){
@@ -51,8 +72,6 @@ describe('ValidationService Tests', function() {
       // expect(validationService.validateByMarkers).toBeDefined();
       //expect(moment).toBeDefined();
     });
-
-    return;
 
     it('Mail validation:', function() {
 
@@ -91,7 +110,7 @@ describe('ValidationService Tests', function() {
       }
 
       function validateArray( arrayToValidate, validatorName, toBeOrNotToBe, format, a, b, c, d, e, f ) {
-        console.log('\n=== Array Validation by ' + validatorName + ' validator' + ' to be ' + toBeOrNotToBe + ':' );
+        console.log( colorlog('\n=== Array Validation by ' + validatorName + ' validator' + ' to be ' + toBeOrNotToBe + ':', 'green' ) );
         for ( var value in arrayToValidate ) {
           validate( validatorName, arrayToValidate[value], toBeOrNotToBe, format, a, b, c, d, e, f );
           console.log(' ' + validatorName + ', ' + arrayToValidate[value] + ' is valid: ' + prevalidate( validatorName, arrayToValidate[value], format, a, b, c, d, e, f ) );
@@ -103,8 +122,8 @@ describe('ValidationService Tests', function() {
       var emailRight = [ 'hello@email.org', 'a12@email.org' ];
       var emailWrong = [ 'hello@email', '@email.org', 'asfasail.org', 'a', ''];
 
-      // validateArray( emailRight, 'Mail', true );
-      // validateArray( emailWrong, 'Mail', false );
+      validateArray( emailRight, 'Mail', true );
+      validateArray( emailWrong, 'Mail', false );
 
       // Validate Ukrainian Texts:
 
@@ -118,8 +137,8 @@ describe('ValidationService Tests', function() {
         'ЁёЪъЫыЭэ'
       ];
 
-      // validateArray( textUASamplesRight, 'TextUA', true );
-      // validateArray( textUASamplesWrong, 'TextUA', false );
+      validateArray( textUASamplesRight, 'TextUA', true );
+      validateArray( textUASamplesWrong, 'TextUA', false );
 
       // Validate Russian Texts:
 
@@ -133,8 +152,8 @@ describe('ValidationService Tests', function() {
         'ҐЄІЇґєії'
       ];
 
-      // validateArray( textRUSamplesRight, 'TextRU', true );
-      // validateArray( textRUSamplesWrong, 'TextRU', false );
+      validateArray( textRUSamplesRight, 'TextRU', true );
+      validateArray( textRUSamplesWrong, 'TextRU', false );
 
       // Validate Dates:
 
@@ -145,27 +164,44 @@ describe('ValidationService Tests', function() {
 
       var datesWrong = [
         '0-2015', 
-        '-1-2015'
+        '-1-2015',
+        'August 11 2015',
+        '11 Aug 2015'
       ];
 
       validateArray( datesRight, 'DateFormat', true, 'DD-MM-YYYY' );
-      // FIXME 
       validateArray( datesWrong, 'DateFormat', false, 'DD-MM-YYYY' );
 
       // Validate Date Elapsed:
 
       var eDatesRight = [
-        '10-10-2015', 
-        '1-1-2015'
+        '08-08-2015', 
+        '12-08-2015',
+        '15-08-2015'
       ];
 
-      var eDatesWrong = [
-        '0-0-2015', 
-        '-1-2015'
-      ];
+      function colorlog ( msg, sColor, toLog ) {
+        var color = sColor || 'red';
+        var colors = {
+          red: '\u001b[31;1m\u001b {TEXT} \u001b[0m',
+          blue: '\u001b[34;1m\u001b {TEXT} \u001b[0m',
+          purple: '\u001b[35;1m\u001b {TEXT} \u001b[0m',
+          green: '\u001b[32;1m\u001b {TEXT} \u001b[0m'
+        };
+        msg = colors[color].replace( '{TEXT}', msg );
+        if ( toLog ) {
+          console.log( msg );
+        }
+        return msg;
+      }
 
-      validateArray( eDatesRight, 'DateElapsed', true, false, true, 3, 0, 1 );
-      // FIXME validateArray( eDatesWrong, 'DateElapsed', true, false, true, 3, 0, 1 );
+
+      // validateArray( eDatesRight, 'DateElapsed', toBe: true, bFuture, bLess, days, months, years );
+      
+      validateArray( eDatesRight, 'DateElapsed', true, false, true, 0, 0, 0 );
+      // validateArray( eDatesRight, 'DateElapsed', true, false, false, 1, 0, 0 );
+      // validateArray( eDatesRight, 'DateElapsed', true, true, false, 1, 0, 0 );
+      // validateArray( eDatesRight, 'DateElapsed', true, true, true, 1, 0, 0 );
      
     });
 

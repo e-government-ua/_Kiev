@@ -18,6 +18,10 @@ module.exports = function(config) {
       'client/bower_components/angular-cookies/angular-cookies.js',
       'client/bower_components/angular-sanitize/angular-sanitize.js',
       'client/bower_components/angular-route/angular-route.js',
+      'client/bower_components/moment/moment.js',
+      'bower_components/moment/{locale,lang}/fr.js',
+      'bower_components/moment-timezone/moment-timezone.js',
+      'client/bower_components/angular-moment/angular-moment.js',
       'client/bower_components/angular-messages/angular-messages.js',
       'client/bower_components/angular-ui-utils/ui-utils.js',
       'client/bower_components/ng-clip/dest/ng-clip.min.js',
@@ -41,6 +45,12 @@ module.exports = function(config) {
       '**/*.jade': 'ng-jade2js',
       '**/*.html': 'html2js',
       '**/*.coffee': 'coffee',
+      'client/bower_components/angular-moment/angular-moment.js': 'coverage'
+    },
+
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'coverage/'
     },
 
     ngHtml2JsPreprocessor: {

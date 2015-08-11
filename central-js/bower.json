@@ -12,8 +12,6 @@
     "angular-cookies": ">=1.2.*",
     "angular-sanitize": ">=1.2.*",
     "angular-bootstrap": "~0.12.1",
-    "moment": "~2.10.6",
-    "angular-moment": "~0.10.2",
     "font-awesome": ">=4.1.0",
     "lodash": "~2.4.1",
     "angular-ui": "~0.4.0",
@@ -24,6 +22,7 @@
     "ng-clip": "~0.2.6",
     "zeroclipboard": "~2.2.0",
     "intl-tel-input": "~6.0.4",
+    "angular-moment": "~0.10.2",
     "angular-ui-uploader": "~1.1.1",
     "angular-ui-event": "~1.0.0"
   },

@@ -52,13 +52,12 @@
 
 'use strict';
 
-angular.module('app').service('ValidationService', ['angularMoment', ValidationService] );
+angular.module('app').service( 'ValidationService', [ 'moment', 'angularMomentConfig', ValidationService ] );
 
-  function ValidationService ( angularMoment ) {
+// angularMomentConfig
+function ValidationService ( moment ) {
 
   var self = this;
-
-  console.log( '!!!!!!!!!!vaserevirel, ', angularMoment );
 
   self.validateByMarkers = function( form, $scope ) {
 
@@ -69,40 +68,34 @@ angular.module('app').service('ValidationService', ['angularMoment', ValidationS
     }
 
     angular.forEach( markers.validate, function ( validator, validatorName ) {
-
       var fieldByName = self.validatorByName[validatorName];
-
       var marked = markers.validate[validatorName];
-      
-      function fieldByFieldId( field, validatorName ) {
+      function fieldByFieldId( field ) {
         return field && field.$name && _.indexOf( marked['aField_ID'], field.$name ) !== -1;
       }
-      
       angular.forEach(form, function (formField) {
-
         if ( fieldByFieldId(formField) ) {
-
           var ffield = formField.$validators[fieldByName];
           // overwrite the default Angular field validator
           if( !ffield ) {
             ffield = self.getValidatorByName(validatorName, formField );
 
-            switch ( validatorName ) {
+            // switch ( validatorName ) {
 
-              case 'DateFormat': 
-                ffield.sFormat = marked['sFormat'];
+            //   case 'DateFormat': 
+            //     // ffield.sFormat = marked['sFormat'];
 
-                break;
-              case 'DateElapsed':
+            //     break;
+            //   case 'DateElapsed':
 
-                ffield.bFuture = marked['bFuture']; // 'bFuture': false, //если true то дата должна быть в будущем
-                ffield.bLess = marked['bLess']; // : true, //если true то 'дельта' между датами должна быть 'менее чем' (указана нижними параметрами)
-                ffield.nDays = marked['nDays'];  // 3,
-                ffield.nMounths = marked['nMounths']; // : 0,
-                ffield.nYears = marked['nYears']; //: 1
-                break;
+            //     // ffield.bFuture = marked['bFuture']; // 'bFuture': false, //если true то дата должна быть в будущем
+            //     // ffield.bLess = marked['bLess']; // : true, //если true то 'дельта' между датами должна быть 'менее чем' (указана нижними параметрами)
+            //     // ffield.nDays = marked['nDays'];  // 3,
+            //     // ffield.nMounths = marked['nMounths']; // : 0,
+            //     // ffield.nYears = marked['nYears']; //: 1
+            //     break;
 
-            }
+            // }
             // and validate it
             formField.$validate();
           }
@@ -122,10 +115,11 @@ angular.module('app').service('ValidationService', ['angularMoment', ValidationS
     };
 
     /**
-     * Повертає null для неіснуючого валідатора
+     * formField - додатковий параметр.
+     * Повертає null для неіснуючого валідатора.
      */
-    self.getValidatorByName = function( validatorName, formField ) {
-      
+    self.getValidatorByName = function( validatorName ) {
+
       // console.log( 'validationService.getValidatorByName: ', validatorName, ' = ', fValidator );
       var fValidator = self.validatorFunctionsByFieldId[validatorName];
 
@@ -196,27 +190,74 @@ angular.module('app').service('ValidationService', ['angularMoment', ValidationS
       /**
        * 'DateFormat' - Дата у заданому форматі DATE_FORMAT
        * Текст помилки: 'Дата може бути тільки формату DATE_FORMAT'
+       * Для валідації формату використовується  moment.js
        */
       'DateFormat': function( modelValue, sFormat ) {
-        var bValid = true;
+        var bValid = moment( modelValue, sFormat ).isValid();
 
-        var DATE_REGEX = /[0-9]{1,2}\-[0-9]{1,2}\-[0-9]{2,4}/g;
-
-        bValid = DATE_REGEX.test( modelValue );
+        // console.log('Validate DateFomat: ' + modelValue + ' is valid Date: ' + bValid + ' in ' + sFormat, ' format' );
       
         return bValid;
       },
 
       /**
        * 'DateElapsed' - З/до дати у полі з/після поточної, більше/менше днів/місяців/років
-       * Текст помилки: 'З/до дати з/після сьогоднішньої, має бути більше/менше ніж х-днів, х-місяців, х-років.
+       *
+       *  Параметри:
+       *  bFuture: false,  // якщо true, то дата modelValue має бути у майбутньому
+       *  bLess: true,     // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
+       *  nDays: 3,
+       *  nMounths: 0,
+       *  nYears: 1
+       *       
+       * Текст помилки: 'Від/до дати до/після сьогоднішньої має бути більше/менше ніж х-днів, х-місяців, х-років.
        * х-___        - підставляти тільки, якщо x не дорівнює 0
        * З/До         - в залежності від bFuture
        * більше/менше - в залежності від bLess
        */
-      'DateElapsed': function( modelValue ) {
+      'DateElapsed': function( modelValue, bFuture, bLess, nDays, nMounths, nYears ) {
         var bValid = true;
-        // console.log('Validate DateElapsed: ' + modelValue + ' is valid Date: ' + bValid );
+
+        var fmt = 'DD-MM-YYYY';
+
+        // FIXME Check Date Validity First
+        
+        var now = moment();
+        var modelMoment = moment( modelValue, fmt );
+
+        //var timeFromNow = now.from( modelMoment );
+        var diffDays = now.diff( modelMoment, 'days' );
+        var diffMonthes = now.diff( modelMoment, 'months' );
+        var diffYears = now.diff( modelMoment, 'years' );
+
+        var message = '{VID_DO} дати у полі {DO_PISLYA} поточної має бути {BIL_MEN} ніж {N_DAYS} днів, {N_MONTHES} місяців, {N_YEARS} років.';
+
+        // VID_DO: Від/до
+        var sVidDo = bFuture ? 'До' : 'Від';
+
+        // DO_PISLYA: до/після
+        var sDoPislya = bFuture ? 'після' : 'до';
+
+        // BIL_MEN: більше/менше
+        var sBilMen = bLess ? 'менше' : 'більше';
+
+        if ( diffDays > nDays ){
+          // diffMonthes > nMounths && diffYears > nYears;
+          message = message
+            .replace( '{VID_DO}', sVidDo )
+            .replace( '{DO_PISLYA}', sDoPislya )
+            .replace( '{BIL_MEN}', sBilMen )
+            .replace( 'N_DAYS', nDays )
+            .replace( 'N_MONTHES', nMounths )
+            .replace( 'N_YEARS', nYears );
+        } else {
+          message = 'OK';
+        }
+
+        console.log('DateElapsed. Now: ' + now.format( fmt ) + ' vs. ' + modelMoment.format( fmt ) + ', diff D:' + 
+          diffDays + '|' + nDays + ', M: ' + diffMonthes + '|' + nMounths + ', Y: ' + diffYears + '|' + nYears + ', message: \n' +
+          message );
+
         return bValid;
       }
     };    
