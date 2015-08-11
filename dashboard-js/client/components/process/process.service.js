@@ -71,7 +71,7 @@ angular.module('dashboardJsApp')
 
       getProcessName: function (processDefinitionId) {
           
-        /*var deferred = $q.defer();
+        var deferred = $q.defer();
         if (processesDefinitions === null) {
           var req = {
             method: 'GET',
@@ -92,10 +92,10 @@ angular.module('dashboardJsApp')
               deferred.reject(err);
               return cb(err);
             }.bind(this));
-        }*/
+        }
         
         
-        processes.list().then(function (processesDefinitions) {
+//        processes.list().then(function (processesDefinitions) {
           //$scope.applyTaskFilter($scope.$storage.menuType);
 
             var sID=processDefinitionId;
@@ -119,17 +119,18 @@ angular.module('dashboardJsApp')
               return sID;//+"("+processesDefinitions.length+")";
             }            
             
-        }).catch(function (err) {
+//        }).catch(function (err) {
           //err = JSON.parse(err);
           //$scope.error = err;
-        });
+//        });
           
 
       },
 
       getProcessDescription: function (processDefinitionId) {
           
-        /*if (processesDefinitions === null) {
+        var deferred = $q.defer();
+        if (processesDefinitions === null) {
           var req = {
             method: 'GET',
             url: '/api/processes',
@@ -149,9 +150,9 @@ angular.module('dashboardJsApp')
               deferred.reject(err);
               return cb(err);
             }.bind(this));
-        }*/
+        }
         
-        processes.list().then(function (processesDefinitions) {
+//        processes.list().then(function (processesDefinitions) {
           //$scope.applyTaskFilter($scope.$storage.menuType);
         
             var sID=processDefinitionId;
@@ -175,10 +176,10 @@ angular.module('dashboardJsApp')
               return sID;//+"("+processesDefinitions.length+")";
             }
         
-        }).catch(function (err) {
+//        }).catch(function (err) {
           //err = JSON.parse(err);
           //$scope.error = err;
-        });
+//        });
         
       }
     };
