@@ -1,7 +1,4 @@
-```css h3 {
-  color: red; }
-```  
-
+ 
 
 # iGov.ua APIs
 <a name="0_contents">*Contents*</a><br/>
