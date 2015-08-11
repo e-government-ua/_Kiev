@@ -11,7 +11,8 @@ angular.module('dashboardJsApp')
           //var nAt=sID.indexOf("\:")
           //if(nAt)
           //sID=
-        map[sKey] = data[i];
+          map[sKey] = data[i];
+          console.log("sKey="+sKey);
         //map[data[i].id] = data[i];
       }
       return map;
@@ -76,7 +77,7 @@ angular.module('dashboardJsApp')
         if (processesDefinitions && processesDefinitions[sID]) {
           return processesDefinitions[sID].name;
         } else {
-          return sID;
+          return sID+"("+processesDefinitions.length+")";
         }
       },
 
@@ -93,12 +94,12 @@ angular.module('dashboardJsApp')
         /*if (processesDefinitions && processesDefinitions[processDefinitionId]) {
           return processesDefinitions[processDefinitionId].description;
         } else {
-          return processDefinitionId;
+          return processDefinitionId;ґ
         }*/
         if (processesDefinitions && processesDefinitions[sID]) {
           return processesDefinitions[sID].description;
         } else {
-          return sID;
+          return sID+"("+processesDefinitions.length+")";
         }
       }
     };
