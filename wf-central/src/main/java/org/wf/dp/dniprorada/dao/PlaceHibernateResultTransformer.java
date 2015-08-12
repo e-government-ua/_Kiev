@@ -8,7 +8,7 @@ import org.wf.dp.dniprorada.util.Tree;
 
 import java.util.List;
 
-import static java.util.Arrays.asList;
+import static java.util.Arrays.binarySearch;
 
 /**
  * @author dgroup
@@ -19,9 +19,22 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
 
 
     @Override
-    public Object transformTuple(Object[] objects, String[] strings) {
-        return asList(objects).addAll( asList(strings) );
+    public PlaceHierarchyRecord transformTuple(Object[] objects, String[] strings) {
+        PlaceHierarchyRecord phr = new PlaceHierarchyRecord();
+
+        phr.setPlaceId( longVal(objects, strings, "id"));
+        phr.setTypeId( longVal(objects, strings, "type_id"));
+        phr.setUaID( stringVal(objects, strings, "ua_id"));
+        phr.setName( stringVal(objects, strings, "name"));
+        phr.setOriginalName( stringVal(objects, strings, "original_name"));
+        phr.setParentId( longVal(objects, strings, "parent_id"));
+        phr.setArea( boolVal(objects, strings, "area"));
+        phr.setRoot( boolVal(objects, strings, "root"));
+        phr.setDeep( longVal(objects, strings, "level") );
+
+        return phr;
     }
+
 
     @Override
     public List transformList(List list) {
@@ -35,5 +48,18 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         LOG.info("Result {}", dataRows);
         // #################################################
         return new Tree<>();
+    }
+
+
+    private boolean boolVal(Object[] objects, String[] strings, String column) {
+        return Boolean.valueOf( stringVal(objects,strings,column) );
+    }
+
+    private String stringVal(Object[] objects, String[] strings, String column) {
+        return objects[binarySearch(strings, column)].toString();
+    }
+
+    private long longVal(Object[] objects, String[] strings, String column) {
+        return Long.valueOf( stringVal(objects, strings, column) );
     }
 }
