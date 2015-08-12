@@ -178,6 +178,8 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
         $scope.selectedTasks[$scope.menus[0].type] = $scope.selectedTask;
         $scope.applyTaskFilter($scope.menus[0].type);
+        selectTask($scope.selectedTask);
+        //location.reload();
       }, 'Задача у вас в роботі');
     })
       .catch(function (err) {
