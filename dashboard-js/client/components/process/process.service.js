@@ -12,7 +12,7 @@ angular.module('dashboardJsApp')
           //if(nAt)
           //sID=
           map[sKey] = data[i];
-          console.log("i="+i+",sKey="+sKey);
+//          console.log("i="+i+",sKey="+sKey);
         //map[data[i].id] = data[i];
       }
       return map;
