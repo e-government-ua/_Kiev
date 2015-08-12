@@ -586,7 +586,7 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        
+                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
@@ -607,7 +607,7 @@
 										Коментар державного службовця: &lt;br /&gt;
 											&lt;i&gt;${decisionComment}&lt;/i&gt;
 										&lt;p&gt;&lt;/p&gt;
-										Вибачте за незручність. Спробуйте подати заяву через півгодини.
+										Вибачте за незручність. 
                                     &lt;p&gt;&lt;/p&gt;
 																		
 Центр надання адміністратиних послуг Кузнецовської міської ради &lt;br /&gt;
@@ -674,7 +674,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
-        <omgdc:Bounds height="73.0" width="138.0" x="374.0" y="438.0"></omgdc:Bounds>
+        <omgdc:Bounds height="73.0" width="138.0" x="364.0" y="438.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="940.0" y="454.0"></omgdc:Bounds>
@@ -741,7 +741,7 @@
         <omgdi:waypoint x="770.0" y="276.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
-        <omgdi:waypoint x="512.0" y="474.0"></omgdi:waypoint>
+        <omgdi:waypoint x="502.0" y="474.0"></omgdi:waypoint>
         <omgdi:waypoint x="540.0" y="474.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
@@ -776,10 +776,10 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
         <omgdi:waypoint x="432.0" y="345.0"></omgdi:waypoint>
-        <omgdi:waypoint x="443.0" y="438.0"></omgdi:waypoint>
+        <omgdi:waypoint x="433.0" y="438.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
-        <omgdi:waypoint x="374.0" y="474.0"></omgdi:waypoint>
+        <omgdi:waypoint x="364.0" y="474.0"></omgdi:waypoint>
         <omgdi:waypoint x="240.0" y="510.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
