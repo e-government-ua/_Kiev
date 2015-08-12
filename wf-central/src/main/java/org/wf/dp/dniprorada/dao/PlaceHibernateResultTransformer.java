@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.wf.dp.dniprorada.model.Place;
 import org.wf.dp.dniprorada.util.Tree;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Arrays.binarySearch;
@@ -22,8 +23,8 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
     public PlaceHierarchyRecord transformTuple(Object[] objects, String[] strings) {
         PlaceHierarchyRecord phr = new PlaceHierarchyRecord();
 
-        LOG.info("Labels {}", strings);
-        LOG.info("Data {}", objects);
+        LOG.info("Labels {}", Arrays.toString(strings));
+        LOG.info("Data {}", Arrays.toString(objects));
 
 //        phr.setPlaceId( longVal(objects, strings, "id"));
 //        phr.setTypeId( longVal(objects, strings, "type_id"));
