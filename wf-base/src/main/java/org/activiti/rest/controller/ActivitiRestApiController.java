@@ -165,10 +165,12 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     @Transactional
     public
     @ResponseBody
-    String putAttachmentsToRedis(@RequestParam("file") MultipartFile file) throws ActivitiIOException, Exception  {
+    String putAttachmentsToRedis(@RequestParam(required = true, value = "file") MultipartFile file) throws ActivitiIOException, Exception  {
     	String atachId = null;
 		try {
-			atachId = redisService.putAttachments(AbstractModelTask.multipartFileToByteArray(file).toByteArray());
+			atachId = redisService.putAttachments(AbstractModelTask.multipartFileToByteArray(file,
+                 file.getOriginalFilename()).toByteArray());
+                       
 		}catch (Exception e) {
 			 throw e;
 		}
