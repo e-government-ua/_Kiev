@@ -38,8 +38,8 @@
  *      'sFormat': 'YYYY-MM-DD' //
  *    }, 'DateElapsed': {
  *      'aField_ID': ['dateOrder'],
- *      'bFuture': false, //если true то дата должна быть в будущем
- *      'bLess': true, //если true то 'дельта' между датами должна быть 'менее чем' (указана нижними параметрами)
+ *      'bFuture': false, // якщо true, то дата modelValue має бути у майбутньому
+ *      'bLess': true,    // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
  *      'nDays': 3,
  *      'nMonths': 0,
  *      'nYears': 1
@@ -237,6 +237,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       // bFuture, bLess, nDays, nMonths, nYears
       var o = options;
       var bValid = true;
+      var errors = [];
       var fmt = self.sFormat;
       var now = moment();
       var modelMoment = moment(modelValue, fmt);
@@ -257,25 +258,31 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       }
 
       var dateStr = now.format(fmt) + ' vs. ' + modelMoment.format(fmt) + ', diff = ' + getDiffStr();
-      console.log('\nDateElapsed: ' + dateStr + ' ', o);
+      console.log('\nDateElapsed: ' + dateStr + '\n', o);
 
       // Просто: перевірка, чи виконується bFuture:
-      if ( o.bFuture === true && diffDays < 1 ) {
-        doError('Дата має бути у майбутньому, а ця відрізняється на ' + getDiffStr());
-        return false;
-      } else if ( o.bFuture === false && diffDays > 1 ) {
-        doError('Дата має бути у минулому, а ця відрізняється на ' + getDiffStr());
-        return false;
-      }
-      
-      // Інших опцій немає - повертаємо true:
-      if (!o.bLess || !o.nDays) {
-        console.log('+++');
-        // console.log('bFuture: true');
-        return true;
+      if (o.bFuture === true && diffDays < 1) {
+        addError('1.1. Дата має бути у майбутньому, а ця відрізняється на ' + getDiffStr());
+        //return false;
+        bValid = false;
+      } else if (o.bFuture === false && diffDays > 1) {
+        addError('1.2. Дата має бути у минулому, а ця відрізняється на ' + getDiffStr());
+        // return false;
+        bValid = false;
       }
 
-      var message = '{VID_DO} дати у полі {DO_PISLYA} поточної має бути {BIL_MEN} ніж {N_DAYS} {N_MONTHES} {N_YEARS}.';
+      // Інших опцій немає - повертаємо результат:
+      if (!o.bLess || !o.nDays) {
+        console.log('OK');
+        finalize();
+        return bValid;
+      }
+
+      function finalize( ) {
+        for ( var errorName in errors ) {
+          doError( errors[errorName] );
+        }
+      }
 
       // VID_DO: Від/до
       var sVidDo = o.bFuture ? 'До' : 'Від';
@@ -284,23 +291,11 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       // BIL_MEN: більше/менше
       var sBilMen = o.bLess ? 'менше' : 'більше';
 
-      function doError(msg) {
-        console.log('Error: ' + msg);
-      }
-
-      function getDiffStr() {
-        var d = self.pluralize(diffDays, 'days');
-        var m = self.pluralize(diffMonths, 'months');
-        var y = self.pluralize(diffYears, 'years');
-        return (d ? d : '') + (m ? ', ' + m : '') + (y ? ', ' + y : '');
-      }
-
-      function diffTooBig() {
-        return o.bLess && Math.abs(diffDays) > o.nDays;
-      }
+      var message = '{VID_DO} дати у полі {DO_PISLYA} поточної має бути {BIL_MEN} ніж {N_DAYS} {N_MONTHES} {N_YEARS}.';
 
       if (diffTooBig()) {
-        message = '\n\tError: ' + message
+        bValid = false;
+        message = '' + message
           .replace('{VID_DO}', sVidDo)
           .replace('{DO_PISLYA}', sDoPislya)
           .replace('{BIL_MEN}', sBilMen)
@@ -314,12 +309,47 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
         message = '';
       }
 
-
       var diffStr = bValid ? '' : '' + '\n\t\tdiff = ' + diffDays + '|' + o.nDays + ':' + diffMonths + '|' + o.nMonths + ':' + diffYears + '|' + o.nYears;
 
-      console.log('\tДата має бути у ' + (o.bFuture ? 'майбутньому' : 'минулому') + ' та відрізнятися ' + (o.bLess ? 'менше' : 'більше' + ', ніж на ') + self.pluralize(o.nDays, 'days') + ', ' + self.pluralize(o.nMonths, 'months') + self.pluralize(o.nYears, 'years'));
+      var messageFull = [
+        '2.1 Дата має бути у ',
+        '' + (o.bFuture ? 'майбутньому' : 'минулому'),
+        ' та відрізнятися ',
+        '' + (o.bLess ? 'менше' : 'більше'),
+        ', ніж на ' + getGivenDiffStr(o), 
+        diffStr,
+        message
+      ].join('');
 
-      console.log(diffStr + message);
+      addError( message );
+
+      finalize();
+
+      function doError( msg ) {
+        console.log('Error: ' + msg);
+      }
+
+      function addError( msg ) {
+        errors.push( msg );
+      }
+
+      function getDiffStr() {
+        var d = self.pluralize(diffDays, 'days');
+        var m = self.pluralize(diffMonths, 'months');
+        var y = self.pluralize(diffYears, 'years');
+        return (d ? d : '') + (m ? ', ' + m : '') + (y ? ', ' + y : '');
+      }
+
+      function getGivenDiffStr( opts ) {
+        var d = self.pluralize(opts.nDays, 'days');
+        var m = self.pluralize(opts.nMonths, 'months');
+        var y = self.pluralize(opts.nYears, 'years');
+        return (d ? d : '') + (m ? ', ' + m : '') + (y ? ', ' + y : '');
+      }
+
+      function diffTooBig() {
+        return o.bLess && Math.abs(diffDays) > o.nDays;
+      }
 
       return bValid;
     }
@@ -327,13 +357,16 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
 
   self.fromDateToDate = function(dateA, dateB, fmt) {
     var sFormat = fmt ? fmt : self.sFormat;
-    //return moment.relativeTimeWithPlural( nUnits, true, key );
     return moment(dateA, sFormat).from(moment(dateB, sFormat));
   };
 
-  // UNUSED. for reference only
+  /**
+   * Перетворює числа nUnits та ключ key на слова такі як: 
+   * - 1 день, 2 дні, 5 днів, 
+   * - 1 місяць, 3 місяці, 10 місяців
+   * - 1 рік, 4 роки, 5 років
+   */
   self.pluralize = function(nUnits, key) {
-
     var types = {
       'days': {
         single: 'день',
@@ -351,14 +384,10 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
         multiple: 'років'
       }
     };
-
-    var form = nUnits === 0 ? '' : nUnits === 1 ? types[key].single : nUnits < 5 ? types[key].about : types[key].multiple;
-
+    var form = nUnits === 0 ? '' : Math.abs(nUnits) === 1 ? types[key].single : Math.abs(nUnits) < 5 ? types[key].about : types[key].multiple;
     form = form === '' ? '' : nUnits + ' ' + form;
-
     return form;
   };
-
 
   /**
    * What is it? Check here: http://planetcalc.ru/2464/

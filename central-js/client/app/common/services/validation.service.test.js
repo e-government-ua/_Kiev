@@ -26,7 +26,7 @@ describe('ValidationService Tests', function() {
   //           bFuture: false, //если true то дата должна быть в будущем
   //           bLess: true, //если true то 'дельта' между датами должна быть 'менее чем' (указана нижними параметрами)
   //           nDays: 3,
-  //           nMounths: 0,
+  //           nMonths: 0,
   //           nYears: 1
   //         }
   //     }
@@ -87,17 +87,23 @@ describe('ValidationService Tests', function() {
 
     //field.$validators[fieldByName] = self.getValidatorByName(validatorName, field);
 
+    var isDebugMode = true;
+
     function doValidate(validatorName, value, toBeOrNotToBe, options) {
       var fValidator = validationService.getValidatorByName(validatorName);
       var fValidatorCall;
       if (typeof fValidator === 'function') {
-
-        //var isValid = prevalidate(validatorName, value, toBeOrNotToBe, options);
-        //var sValid = isValid ? colr(' is valid.', 'green') : colr(' is invalid', 'red');
-        //console.log('', validatorName, (options ? options : ''), value, sValid);
-
-        fValidatorCall = fValidator.call( this, value, options );
-        expect( fValidatorCall ).toBe( toBeOrNotToBe );
+        if (isDebugMode) {
+          var isValid = prevalidate(validatorName, value, toBeOrNotToBe, options);
+          var sValid = isValid ? colr(' is valid.', 'green') : colr(' is invalid', 'red');
+          var sExpectedValid = toBeOrNotToBe ? colr('to be valid.', 'green') : colr('to be invalid', 'red');
+          var validationFail = isValid === toBeOrNotToBe ? colr(' - validator OK', 'green') : colr(' - validatir FAILED FAILED FAILED', 'red');
+            //, (options ? options : ''),
+          console.log('' + validatorName + ', value of ' + value + sValid + ' - ' + sExpectedValid + validationFail );
+        } else {
+          fValidatorCall = fValidator.call(this, value, options);
+          expect(fValidatorCall).toBe(toBeOrNotToBe);
+        }
       }
     }
 
@@ -188,17 +194,17 @@ describe('ValidationService Tests', function() {
     // *  nMonths: 0
     // *  nYears: 1
     var now = moment();
-    var oneDayAfter = moment().add(  1, 'd' );
-    var weekAfter = moment().add(    1, 'w' );
-    var monthAfter = moment().add(   1, 'M' );
-    var yearAfter = moment().add(    1, 'y' );
+    var oneDayAfter = moment().add(1, 'd');
+    var weekAfter = moment().add(1, 'w');
+    var monthAfter = moment().add(1, 'M');
+    var yearAfter = moment().add(1, 'y');
 
-    var oneDayBefore = moment().subtract( 1, 'd' );
-    var weekBefore = moment().subtract(   1, 'w' );
-    var monthBefore = moment().subtract(  1, 'M' );
-    var yearBefore = moment().subtract(   1, 'y' );
+    var oneDayBefore = moment().subtract(1, 'd');
+    var weekBefore = moment().subtract(1, 'w');
+    var monthBefore = moment().subtract(1, 'M');
+    var yearBefore = moment().subtract(1, 'y');
 
-    function m( mValue ) {
+    function m(mValue) {
       return mValue.format('YYYY-MM-DD');
     }
 
@@ -227,9 +233,23 @@ describe('ValidationService Tests', function() {
       bFuture: true
     });
 
+    console.log( colr( 'BLESS BLESS BLESS', 'blue') );
+
+    // bLess:
+    
+    // Дата має бути у майбутньому, різниця - менш ніж 1 день.
+    // monthAfter - на місяць уперед: 
+    doValidate('DateElapsed', m(monthAfter), false, {
+      bFuture: true,
+      bLess: true,
+      nDays: 1,
+      nMonths: 0,
+      nYears: 0
+    });
+
+    console.log( colr( 'BFUTURE = FALSE = BFUTURE = FALSE = BFUTURE = FALSE', 'blue') );
 
     // минуле:
-
 
     // Дата не має бути у майбутньому, а ця - рік тому: 
     doValidate('DateElapsed', m(yearBefore), true, {
@@ -256,6 +276,17 @@ describe('ValidationService Tests', function() {
       bFuture: false
     });
 
+    console.log( colr( 'BFUTURE = FALSE - BLESS = TRUE', 'blue') );
+
+    // Дата має бути у минулому, різниця - менш ніж 1 день.
+    // Дана monthAfter - на місяць уперед, помилкова:
+    doValidate('DateElapsed', m(monthAfter), false, {
+      bFuture: false,
+      bLess: true,
+      nDays: 1,
+      nMonths: 0,
+      nYears: 0
+    });
 
     // Від сьогодні до 19-08 має пройти менше, ніж 0 днів.
     // validate( 'DateElapsed',
