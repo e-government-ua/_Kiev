@@ -22,10 +22,9 @@ import javax.servlet.http.HttpServletResponse;
 @ControllerAdvice
 public class ActivitiExceptionController {
 
+    public static final String SYSTEM_ERROR_CODE = "SYSTEM_ERR";
+    public static final String BUSINESS_ERROR_CODE = "BUSINESS_ERR";
     private static final Logger LOGGER = LoggerFactory.getLogger(ActivitiExceptionController.class);
-
-    private static final String SYSTEM_ERROR_CODE = "SYSTEM_ERR";
-    private static final String BUSINESS_ERROR_CODE = "BUSINESS_ERR";
 
     @ExceptionHandler(value = ActivitiRestException.class)
     public @ResponseBody ErrorResponseI catchActivitiRestException(ActivitiRestException exception, HttpServletResponse response) {

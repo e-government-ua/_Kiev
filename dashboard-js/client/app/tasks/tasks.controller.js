@@ -87,7 +87,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     tasks.downloadDocument($scope.selectedTask.id);
   };
 
-  $scope.applyTaskFilter = function (menuType) {
+  $scope.applyTaskFilter = function (menuType, nID_Task) {
     $scope.sSelectedTask = $scope.$storage.menuType;
     $scope.selectedTask = $scope.selectedTasks[menuType];
     $scope.$storage.menuType = menuType;
@@ -102,7 +102,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
       .then(function (result) {
         result = JSON.parse(result);
         $scope.tasks = result.data;
-        updateTaskSelection();
+        updateTaskSelection(nID_Task);
       })
       .catch(function (err) {
         $scope.errors.other = err.message;
@@ -176,10 +176,20 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
         $scope.selectedTasks[$scope.$storage.menuType] = null;
         loadTaskCounters();
 
+        //$scope.tasks[0]
+        console.log("$scope.selectedTask.id="+$scope.selectedTask.id)
+        $scope.applyTaskFilter($scope.menus[0].type, $scope.selectedTask.id);
+        /*
         $scope.selectedTasks[$scope.menus[0].type] = $scope.selectedTask;
         $scope.applyTaskFilter($scope.menus[0].type);
         $scope.selectedTasks[$scope.menus[0].type] = $scope.selectedTask;
-        $scope.selectTask($scope.selectedTask);
+        */
+       
+        //$('#selfAssigned').click();
+        //$('.selfAssigned_task-'+$scope.selectedTask.id).click();
+//        $('.task.selfAssigned_'+$scope.selectedTask.id).click();
+        //task {{sSelectedTask}}_{{task.id}}
+        //
         //location.reload();
       }, 'Задача у вас в роботі');
     })
@@ -366,11 +376,29 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     });
   }
 
-  function updateTaskSelection() {
-    if ($scope.selectedTask) {
-      $scope.selectTask($scope.selectedTask);
-    } else if ($scope.tasks[0]) {
-      $scope.selectTask($scope.tasks[0]);
+  function updateTaskSelection(nID_Task) {
+    console.log("[updateTaskSelection]nID_Task="+nID_Task);
+    if(nID_Task !== null && nID_Task !== undefined){// && $scope.tasks.length >0
+        var s = null;
+        _.forEach($scope.tasks, function (oItem) {
+            console.log("[updateTaskSelection]oItem.id="+oItem.id)
+          if (oItem.id === nID_Task) {
+            s = nID_Task;//oItem.name;
+          }
+        });
+        console.log("[updateTaskSelection]s="+s);
+        if(s === null){
+            nID_Task=null;
+        }//return s;
+    }else{
+        nID_Task=null;
+    }
+    if(nID_Task === null || nID_Task === undefined){
+        if ($scope.selectedTask) {
+          $scope.selectTask($scope.selectedTask);
+        } else if ($scope.tasks[0]) {
+          $scope.selectTask($scope.tasks[0]);
+        }
     }
   }
 });

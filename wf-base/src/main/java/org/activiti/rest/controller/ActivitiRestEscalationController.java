@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDao;
 import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
 
@@ -18,45 +19,14 @@ import java.util.List;
 public class ActivitiRestEscalationController {
 
     private static final Logger log = Logger.getLogger(ActivitiRestEscalationController.class);
+
     @Autowired
     private EscalationRuleFunctionDao escalationRuleFunctionDao;
 
-    //util??
-    private void throwActivitiEx(String errorCode, String message, Throwable e)
-            throws ActivitiRestException {
-        if (isEmpty(message)) {
-            message = "error!";
-        }
-        ActivitiRestException newErr =
-                e == null ? new ActivitiRestException(errorCode, message)
-                        : new ActivitiRestException(errorCode, message, e);
-        newErr.setHttpStatus(HttpStatus.FORBIDDEN);//??
-        throw newErr;
-    }
-
-    private boolean isEmpty(String str) {
-        return str == null || "".equals(str);
-    }
-
-    private void throwActivitiEx(String message, Throwable e)
-            throws ActivitiRestException {
-        throwActivitiEx("BUSINESS_ERR", message, e);
-    }
-
-    private void throwActivitiEx(String message)
-            throws ActivitiRestException {
-        throwActivitiEx("BUSINESS_ERR", message, null);
-    }
-
-    //---------------
-
-    private void throwActivitiEx(String errorCode, String message)
-            throws ActivitiRestException {
-        throwActivitiEx(errorCode, message, null);
-    }
-
     @RequestMapping(value = "/setEscalationRuleFunction", method = RequestMethod.GET)
-    public EscalationRuleFunction setEscalationRuleFunction(
+    public
+    @ResponseBody
+    EscalationRuleFunction setEscalationRuleFunction(
             @RequestParam(value = "nID", required = false) Long nID ,
             @RequestParam(value = "sName") String sName ,
             @RequestParam(value = "sBeanHandler", required = false) String sBeanHandler)
@@ -65,31 +35,32 @@ public class ActivitiRestEscalationController {
         try {
             return escalationRuleFunctionDao.saveOrUpdate(nID, sName, sBeanHandler);
         } catch (Exception e){
-            log.error("ex in controller!", e);
             throw new ActivitiRestException("ex in controller!", e);
         }
 
     }
 
     @RequestMapping(value = "/getEscalationRuleFunction", method = RequestMethod.GET)
-    public EscalationRuleFunction getEscalationRuleFunction(
+    public
+    @ResponseBody
+    EscalationRuleFunction getEscalationRuleFunction(
             @RequestParam(value = "nID") Long nID) throws ActivitiRestException {
 
-        try {
-            EscalationRuleFunction ruleFunction = escalationRuleFunctionDao.getById(nID);
-            if (ruleFunction == null) {
-                throwActivitiEx("Record not found. No such ruleFunction with nID=" + nID);
-            }
-            return ruleFunction;
-        } catch (Exception e){
-            log.error("ex in controller!", e);
-            throw new ActivitiRestException("ex in controller!", e);
+        EscalationRuleFunction ruleFunction = escalationRuleFunctionDao.getById(nID);
+        if (ruleFunction == null) {
+            throw new ActivitiRestException(
+                    ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                    "Record not found. No such EscalationRuleFunction with nID=" + nID,
+                    HttpStatus.FORBIDDEN);
         }
+        return ruleFunction;
     }
 
 
     @RequestMapping(value = "/getEscalationRuleFunctions", method = RequestMethod.GET)
-    public List<EscalationRuleFunction> getEscalationRuleFunctions()
+    public
+    @ResponseBody
+    List<EscalationRuleFunction> getEscalationRuleFunctions()
             throws ActivitiRestException {
 
         try {
@@ -100,16 +71,22 @@ public class ActivitiRestEscalationController {
     }
 
     @RequestMapping(value = "/removeEscalationRuleFunction", method = RequestMethod.GET)
-    public void removeEscalationRuleFunction(
+    public
+    @ResponseBody
+    void removeEscalationRuleFunction(
             @RequestParam(value = "nID") Long nID) throws ActivitiRestException {
 
         try {
             escalationRuleFunctionDao.delete(nID);
         } catch (EntityNotFoundException e) {
-            throwActivitiEx(e.getMessage(), e);
+            throw new ActivitiRestException(
+                    ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                    "Record not found. No such EscalationRuleFunction with nID=" + nID,
+                    e, HttpStatus.FORBIDDEN);
         } catch (Exception e) {
             throw new ActivitiRestException("ex in controller!", e);
         }
     }
+
 
 }
