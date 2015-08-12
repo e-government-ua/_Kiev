@@ -52,8 +52,9 @@ angular.module('dashboardJsApp')
           $http(req).
             success(function (result) {
               console.log("result="+result);
-              console.log("JSON.parse(result)="+JSON.parse(result));
-              processesDefinitions = idToProcessMap(JSON.parse(result).data);
+              //console.log("JSON.parse(result)="+JSON.parse(result));
+//              processesDefinitions = idToProcessMap(JSON.parse(result).data);
+              processesDefinitions = idToProcessMap(result.data);
               console.log("processesDefinitions(reloaded)="+processesDefinitions);
               
               deferred.resolve(processesDefinitions);
