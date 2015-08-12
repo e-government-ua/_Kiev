@@ -393,7 +393,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     }else{
         nID_Task=null;
     }
-    if(nID_Task === null){
+    if(nID_Task === null || nID_Task === undefined){
         if ($scope.selectedTask) {
           $scope.selectTask($scope.selectedTask);
         } else if ($scope.tasks[0]) {
