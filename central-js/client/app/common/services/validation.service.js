@@ -272,8 +272,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       }
 
       // Інших опцій немає - повертаємо результат:
-      if (!o.bLess || !o.nDays) {
-        console.log('OK');
+      if ( !bValid || !o.bLess || !o.nDays) {
         finalize();
         return bValid;
       }

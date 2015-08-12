@@ -300,7 +300,7 @@ describe('ValidationService Tests', function() {
 
     // Дата має бути у минулому, різниця - менш ніж 60 днів.
     // Дана monthAfter - на місяць уперед: - ПОМИЛКОВА
-    doValidate('DateElapsed', m(monthAfter), true, {
+    doValidate('DateElapsed', m(monthAfter), false, {
       bFuture: false,
       bLess: true,
       nDays: 60,
