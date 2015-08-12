@@ -16,14 +16,14 @@
             </select>
           </div>
 
-          <div class="list-group">          
+          <div class="list-group">
             <a class="list-group-item task {{sSelectedTask}}_{{task.id}} {{ sTaskClass(task.taskDefinitionKey) }}"
                href=""
                ng-repeat="task in tasks | orderBy:predicate:reverse"
                tooltip="{{task.description}}"
                ng-click="selectTask(task)"
                ng-class="{'active': isTaskSelected(task)}">
-              #{{task.id}} ({{ sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }}) {{ getProcessName(task.processDefinitionId)
+              #{{task.id}} ({{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }}) {{ getProcessName(task.processDefinitionId)
               }} | {{ task.name }}
             </a>
 
@@ -144,22 +144,22 @@
                     ng-hide="!printTemplate.containsPrintTemplate()"
                     ng-options="oPatternPrint.sID as oPatternPrint.sLabel for oPatternPrint in printTemplate.aPatternPrint()"
                     ng-model="'sBody_0'"></select-->
-<!--            
+<!--
                                 ng-hide="!printTemplate.containsPrintTemplate()"
 -->
-              
+
             <select class="aPatternPrint form-control_"
                     ng-hide="aPatternPrintNew(taskForm)===null || aPatternPrintNew(taskForm).length===0"
                     >
               <option ng-repeat="oPatternPrint in aPatternPrintNew(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.name}}</option>
               <!--option ng-repeat="oPatternPrint in printTemplate.aPatternPrint()" value="{{oPatternPrint.sID}}">{{oPatternPrint.sLabel}}</option-->
-              
-              
+
+
             </select>
-              
+
             <!--        ng-hide="!printTemplate.containsPrintTemplate()" -->
             <!--value="{{oPatternPrint.sID}}" selected="{{oPatternPrint.sID=='sBody_0'?'selected':''}}">{{oPatternPrint.sLabel}}</option-->
-              
+
           </p>
         </div>
       </div>
