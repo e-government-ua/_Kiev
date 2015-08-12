@@ -377,13 +377,16 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   }
 
   function updateTaskSelection(nID_Task) {
+    console.log("[updateTaskSelection]nID_Task="+nID_Task);
     if(nID_Task !== null && nID_Task !== undefined){// && $scope.tasks.length >0
         var s = null;
         _.forEach($scope.tasks, function (oItem) {
+            console.log("[updateTaskSelection]oItem.id="+oItem.id)
           if (oItem.id === nID_Task) {
             s = nID_Task;//oItem.name;
           }
         });
+        console.log("[updateTaskSelection]s="+s);
         if(s === null){
             nID_Task=null;
         }//return s;
