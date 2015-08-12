@@ -182,7 +182,6 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     String soResponse = httpRequester.get(URL, params);
                     logger.info("ok! soJSON = " + soResponse);
                 }
-
             }
         } catch (Exception ex) {
             logger.error("************************Error!!!!", ex);
