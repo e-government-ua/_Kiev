@@ -233,7 +233,7 @@ describe('ValidationService Tests', function() {
       bFuture: true
     });
 
-    console.log( colr( 'BLESS BLESS BLESS', 'blue') );
+    console.log( colr( 'BLESS === TRUE === BLESS === TRUE', 'blue') );
 
     // bLess:
     
@@ -243,6 +243,16 @@ describe('ValidationService Tests', function() {
       bFuture: true,
       bLess: true,
       nDays: 1,
+      nMonths: 0,
+      nYears: 0
+    });
+
+    // Дата має бути у майбутньому, різниця - менш ніж 60 днів.
+    // Дана monthAfter - на місяць уперед: - ПРАВИЛЬНА
+    doValidate('DateElapsed', m(monthAfter), true, {
+      bFuture: true,
+      bLess: true,
+      nDays: 60,
       nMonths: 0,
       nYears: 0
     });
@@ -279,11 +289,21 @@ describe('ValidationService Tests', function() {
     console.log( colr( 'BFUTURE = FALSE - BLESS = TRUE', 'blue') );
 
     // Дата має бути у минулому, різниця - менш ніж 1 день.
-    // Дана monthAfter - на місяць уперед, помилкова:
+    // Дана monthAfter - на місяць уперед, ПОМИЛКОВА:
     doValidate('DateElapsed', m(monthAfter), false, {
       bFuture: false,
       bLess: true,
       nDays: 1,
+      nMonths: 0,
+      nYears: 0
+    });
+
+    // Дата має бути у минулому, різниця - менш ніж 60 днів.
+    // Дана monthAfter - на місяць уперед: - ПОМИЛКОВА
+    doValidate('DateElapsed', m(monthAfter), true, {
+      bFuture: false,
+      bLess: true,
+      nDays: 60,
       nMonths: 0,
       nYears: 0
     });

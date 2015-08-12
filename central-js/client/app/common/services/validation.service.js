@@ -262,11 +262,11 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
 
       // Просто: перевірка, чи виконується bFuture:
       if (o.bFuture === true && diffDays < 1) {
-        addError('1.1. Дата має бути у майбутньому, а ця відрізняється на ' + getDiffStr());
+        addError('1.1. Дата має бути у майбутньому, а ця — менша на ' + getDiffStr());
         //return false;
         bValid = false;
       } else if (o.bFuture === false && diffDays > 1) {
-        addError('1.2. Дата має бути у минулому, а ця відрізняється на ' + getDiffStr());
+        addError('1.2. Дата має бути у минулому, а ця — більша на ' + getDiffStr());
         // return false;
         bValid = false;
       }
