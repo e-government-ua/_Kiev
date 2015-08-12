@@ -6,10 +6,10 @@ import org.slf4j.LoggerFactory;
 import org.wf.dp.dniprorada.model.Place;
 import org.wf.dp.dniprorada.util.Tree;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Arrays.binarySearch;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
  * @author dgroup
@@ -23,18 +23,18 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
     public PlaceHierarchyRecord transformTuple(Object[] objects, String[] strings) {
         PlaceHierarchyRecord phr = new PlaceHierarchyRecord();
 
-        LOG.info("Labels {}", Arrays.toString(strings));
-        LOG.info("Data {}", Arrays.toString(objects));
+//        LOG.info("Labels {}", Arrays.toString(strings));
+//        LOG.info("Data {}", Arrays.toString(objects));
 
-//        phr.setPlaceId( longVal(objects, strings, "id"));
-//        phr.setTypeId( longVal(objects, strings, "type_id"));
-//        phr.setUaID( stringVal(objects, strings, "ua_id"));
-//        phr.setName( stringVal(objects, strings, "name"));
-//        phr.setOriginalName( stringVal(objects, strings, "original_name"));
-//        phr.setParentId( longVal(objects, strings, "parent_id"));
-//        phr.setArea( boolVal(objects, strings, "area"));
-//        phr.setRoot( boolVal(objects, strings, "root"));
-//        phr.setDeep( longVal(objects, strings, "level") );
+        phr.setPlaceId( longVal(objects, strings, "id"));
+        phr.setTypeId( longVal(objects, strings, "type_id"));
+        phr.setUaID( stringVal(objects, strings, "ua_id"));
+        phr.setName( stringVal(objects, strings, "name"));
+        phr.setOriginalName( stringVal(objects, strings, "original_name"));
+        phr.setParentId( longVal(objects, strings, "parent_id"));
+        phr.setArea( boolVal(objects, strings, "area"));
+        phr.setRoot( boolVal(objects, strings, "root"));
+        phr.setDeep( longVal(objects, strings, "level") );
 
         return phr;
     }
@@ -57,14 +57,17 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
 
 
     private boolean boolVal(Object[] objects, String[] strings, String column) {
-        return Boolean.valueOf( stringVal(objects,strings,column) );
+        String val = stringVal(objects,strings,column);
+        return isNotBlank(val) ? Boolean.valueOf( val ) : false;
     }
 
     private String stringVal(Object[] objects, String[] strings, String column) {
-        return objects[binarySearch(strings, column)].toString();
+        int index = binarySearch(strings, column);
+        return index >= 0 ? objects[index].toString() : "";
     }
 
     private long longVal(Object[] objects, String[] strings, String column) {
-        return Long.valueOf( stringVal(objects, strings, column) );
+        String val = stringVal(objects, strings, column);
+        return isNotBlank(val) ? Long.valueOf( val ) : 0L;
     }
 }
