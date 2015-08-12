@@ -1,6 +1,6 @@
 nID;sName;nID_ServiceData;nID_SubjectOrganDepartment;sID_BP
 1;Test Flow;1;1;Test sID_BP
-2;Test Flow2;29;1;kiev_mreo-1
-3;Test Flow2;123;1;dnepr_mreo-1
+2;Test Flow2;29;1;kiev_mreo_1
+3;Test Flow2;123;1;dnepr_mreo_1
 4;Test Flow2;63;1;dnepr_dms_passport
 

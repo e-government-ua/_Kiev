@@ -178,6 +178,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
         $scope.selectedTasks[$scope.menus[0].type] = $scope.selectedTask;
         $scope.applyTaskFilter($scope.menus[0].type);
+        $scope.selectedTasks[$scope.menus[0].type] = $scope.selectedTask;
+        $scope.selectTask($scope.selectedTask);
+        //location.reload();
       }, 'Задача у вас в роботі');
     })
       .catch(function (err) {
@@ -255,14 +258,14 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
 
   $scope.aPatternPrintNew = function (taskForm) {
-    console.log("[aPatternPrintNew]")
+//    console.log("[aPatternPrintNew]")
     var printTemplateResult = null;
     if(taskForm){//this.form
         printTemplateResult = taskForm.filter(function (item) {//form//this.form
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
           return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
         });
-        console.log("[aPatternPrintNew]printTemplateResult.length="+printTemplateResult.length)
+//        console.log("[aPatternPrintNew]printTemplateResult.length="+printTemplateResult.length)
     }
     //return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
     return (printTemplateResult!==null && printTemplateResult.length !== 0) ? printTemplateResult : [];
@@ -326,6 +329,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.init = function () {
+    console.log("$scope.init");  
     loadTaskCounters();
     loadSelfAssignedTasks();
   };
@@ -341,7 +345,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   }
 
   function loadSelfAssignedTasks() {
+    console.log("[loadSelfAssignedTasks]");  
     processes.list().then(function (processesDefinitions) {
+        console.log("[loadSelfAssignedTasks]processesDefinitions="+processesDefinitions);  
       $scope.applyTaskFilter($scope.$storage.menuType);
     }).catch(function (err) {
       err = JSON.parse(err);

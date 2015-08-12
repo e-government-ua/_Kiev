@@ -3,19 +3,19 @@
   <process id="kuznetsovsk_mvk_2" name="Кузнецьовський МВК - Звернення громадян до міського голови" isExecutable="true">
     <startEvent id="startevent2" name="Start" activiti:initiator="initiator">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="officialAddress" name="Місце проживання (реєстрації)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="officialAddress" name="Ваша адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="topic" name="Тема звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="messageText" name="Текст Заяви" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="addFile" name="Додати скан-копію документа; Якщо документів більше 1-го - зробіть ZIP-архів" type="file"></activiti:formProperty>
-        <activiti:formProperty id="email" name="E-Mail для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phoneNumber" name="Номер телефона" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="replyForm" name="Форма відповіді" type="enum" required="true">
           <activiti:value id="physcial" name="Фізична копія"></activiti:value>
           <activiti:value id="digital" name="Електронна версія"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -24,11 +24,11 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="officialAddress" name="Місце проживання (реєстрації)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="officialAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="topic" name="Тема звернення" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="messageText" name="Текст Заяви" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="addFile" name="Скан-копія документа; Якщо документів більше 1-го - має бути ZIP-архів" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phoneNumber" name="Номер телефона" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="replyForm" name="Форма відповіді" type="enum" writable="false">
           <activiti:value id="physcial" name="Фізична копія"></activiti:value>
@@ -111,39 +111,41 @@
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
-                &lt;tr&gt;
+&lt;tr&gt;
                     &lt;td align="center"&gt;
-                       
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;&lt;/p&gt;
-										Текст відповіді державного органу на Ваш запит: &lt;br /&gt;
-										
-										&lt;i&gt;${decisionComment}&lt;/i&gt;&lt;br /&gt;
-										&lt;br /&gt;
-										Якщо Ви вибрали опцію забрати Фізичну копію відповіді  - зверніться, будь ласка, до Кузнецовської міської ради &lt;br /&gt;
-																				&lt;br /&gt;
-										Графік  роботи:&lt;br /&gt;
-										Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
-										Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
-										П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
-										Без перерви на обід&lt;br /&gt;
-										
-                                    &lt;p&gt;&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        
-										Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
-                                    &lt;/p&gt;
+&lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;p&gt;&lt;/p&gt;
+Текст відповіді державного органу на Ваш запит: &lt;br /&gt;
+
+&lt;i&gt;${decisionComment}&lt;/i&gt;&lt;br /&gt;
+&lt;br /&gt;
+Якщо Ви вибрали опцію забрати Фізичну копію відповіді  - зверніться, будь ласка, до Центру надання адміністратиних послуг Кузнецовської міської ради за адресою: м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105 &lt;br /&gt;
+							&lt;br /&gt;
+Графік  роботи:&lt;br /&gt;
+Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+Телефон: (03636) 2-23-73 &lt;br /&gt; 
+
+&lt;p&gt;&lt;/p&gt;
+&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+&lt;p&gt;
+З повагою,&lt;br /&gt;
+
+Міська рада міста Кузнецовськ&lt;br/&gt;
+Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+
                                 &lt;/td&gt;
                             &lt;/tr&gt;
                            
+                          
+
                         &lt;/table&gt;
-                        &lt;/form&gt;
+                     
                     &lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--content end--&gt;
@@ -214,39 +216,40 @@
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
-                &lt;tr&gt;
+&lt;tr&gt;
                     &lt;td align="center"&gt;
-                        
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;&lt;/p&gt;
-										На жаль, державний орган не може надати вам цю послугу в даний момент. 
-									&lt;p&gt;&lt;/p&gt;
-										Ймовірні причини:  &lt;br /&gt;
-										&lt;ol&gt;
-										&lt;li&gt;Неправильно або неповністю заповнена заява; &lt;/li&gt;
-										&lt;li&gt;Неспроможність відкрити ваші документи;&lt;/li&gt;
-										&lt;li&gt;Ви не належите до категорії громадян, для яких ця послуга діє;&lt;/li&gt;
-										&lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov; &lt;li&gt;
-										&lt;/ol&gt;
-										&lt;p&gt;&lt;/p&gt;
-										Коментар Державного службовця: &lt;br /&gt;
-											&lt;i&gt;${decisionComment}&lt;/i&gt;
-										&lt;p&gt;&lt;/p&gt;
-										Вибачте за незручність. Спробуйте подати заяву через півгодини.
-                                    &lt;p&gt;&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
-                                    &lt;/p&gt;
+&lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;p&gt;&lt;/p&gt;
+Нажаль, державний орган не може надати вам цю послугу в даний момент. 
+&lt;p&gt;&lt;/p&gt;
+Вірогідні причини:  &lt;br /&gt;
+&lt;ol&gt;
+&lt;li&gt;Неправильно або неповністю заповнена заява; &lt;/li&gt;
+&lt;li&gt;Неспроможність відкрити ваші документи;&lt;/li&gt;
+&lt;li&gt;Ви не належите до категорії громадян, для яких ця послуга діє;&lt;/li&gt;
+&lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov; &lt;li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;/p&gt;
+Коментар Державного службовця: &lt;br /&gt;
+&lt;i&gt;${decisionComment}&lt;/i&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+&lt;p&gt;
+З повагою,&lt;br /&gt;
+
+Міська рада міста Кузнецовськ&lt;br/&gt;
+Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+
                                 &lt;/td&gt;
                             &lt;/tr&gt;
                            
+                          
+
                         &lt;/table&gt;
-                        &lt;/form&gt;
+                     
                     &lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--content end--&gt;
@@ -301,33 +304,36 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
-                &lt;tr&gt;
+&lt;tr&gt;
                     &lt;td align="center"&gt;
-                      
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;&lt;/p&gt;
-										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
-										
-										Спеціалісти із Державного Органу повинні дати відповідь найближчим часом. 
-									&lt;p&gt;&lt;/p&gt;
-										Залишайтесь з нами. 	
-                                    &lt;p&gt;&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
-                                    &lt;/p&gt;
+&lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;p&gt;&lt;/p&gt;
+Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
+
+Спеціалісти з Державного Органу повинні дати відповідь найближчим часом. 
+&lt;p&gt;&lt;/p&gt;
+Залишайтесь з нами. 
+&lt;p&gt;&lt;/p&gt;
+&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+&lt;p&gt;
+З повагою,&lt;br /&gt;
+
+Міська рада міста Кузнецовськ&lt;br/&gt;
+Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                            &lt;/table&gt;
-                        &lt;/form&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
                     &lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--content end--&gt;
@@ -398,7 +404,7 @@
         <omgdi:waypoint x="496.0" y="367.0"></omgdi:waypoint>
         <omgdi:waypoint x="303.0" y="420.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="95.0" x="-88.0" y="-50.0"></omgdc:Bounds>
+          <omgdc:Bounds height="48.0" width="95.0" x="-88.0" y="-50.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
@@ -406,7 +412,7 @@
         <omgdi:waypoint x="497.0" y="367.0"></omgdi:waypoint>
         <omgdi:waypoint x="752.0" y="421.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="89.0" x="40.0" y="-39.0"></omgdc:Bounds>
+          <omgdc:Bounds height="48.0" width="89.0" x="40.0" y="-39.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
