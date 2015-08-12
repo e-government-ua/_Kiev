@@ -173,16 +173,16 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   $scope.assignTask = function () {
     tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id).then(function (result) {
       Modal.assignTask(function (event) {
-//        $scope.selectedTasks[$scope.$storage.menuType] = null;
+        $scope.selectedTasks[$scope.$storage.menuType] = null;
         loadTaskCounters();
 
-//        $scope.selectedTasks[$scope.menus[0].type] = $scope.selectedTask;
-//        $scope.applyTaskFilter($scope.menus[0].type);
-//        $scope.selectedTasks[$scope.menus[0].type] = $scope.selectedTask;
+        $scope.selectedTasks[$scope.menus[0].type] = $scope.selectedTask;
+        $scope.applyTaskFilter($scope.menus[0].type);
+        $scope.selectedTasks[$scope.menus[0].type] = $scope.selectedTask;
         
+        console.log("$scope.selectedTask.id="+$scope.selectedTask.id)
         $('#selfAssigned').click();
         //$('.selfAssigned_task-'+$scope.selectedTask.id).click();
-        console.log("$scope.selectedTask.id="+$scope.selectedTask.id)
         $('.task.selfAssigned_'+$scope.selectedTask.id).click();
         //task {{sSelectedTask}}_{{task.id}}
         //
