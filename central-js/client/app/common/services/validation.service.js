@@ -53,11 +53,11 @@
 'use strict';
 
 angular.module('app').service('ValidationService', ['moment', 'amMoment', 'angularMomentConfig', ValidationService])
-   .constant('angularMomentConfig', {
-       preprocess: 'utc',
-       timezone: 'Europe/Kiev',
-       format: 'HH:mm:ss, MM-DD-YYYY',
-   });
+  .constant('angularMomentConfig', {
+    preprocess: 'utc',
+    timezone: 'Europe/Kiev',
+    format: 'HH:mm:ss, YYYY-MM-DD',
+  });
 
 // angularMomentConfig
 function ValidationService(moment, amMoment, angularMomentConfig) {
@@ -68,6 +68,8 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
   amMoment.changeLocale('uk');
 
   var self = this;
+
+  self.sFormat = 'YYYY-MM-DD';
 
   self.validateByMarkers = function(form, $scope) {
 
@@ -234,25 +236,46 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
 
       // bFuture, bLess, nDays, nMonths, nYears
       var o = options;
-
       var bValid = true;
-
-      var fmt = 'DD-MM-YYYY';
-
-      // FIXME Check Date Validity First
+      var fmt = self.sFormat;
       var now = moment();
       var modelMoment = moment(modelValue, fmt);
 
-      //var timeFromNow = now.from( modelMoment );
-      var diffDays = now.diff(modelMoment, 'days');
-      var diffMonths = now.diff(modelMoment, 'months');
-      var diffYears = now.diff(modelMoment, 'years');
+      // Повертаємо помилку, якщо дата невалідна: 
+      if (!modelMoment.isValid()) {
+        return false;
+      }
 
+      // Визначаємо різницю між датами: 
+      var diffDays = modelMoment.diff(now, 'days');
+      var diffMonths = modelMoment.diff(now, 'months');
+      var diffYears = modelMoment.diff(now, 'years');
+
+      // Повертаємо true, якщо різниці між датами немає:
       if (diffDays === diffMonths === diffYears === 0) {
         return true;
       }
 
-      var message = '{VID_DO} дати у полі {DO_PISLYA} поточної має бути {BIL_MEN} ніж {N_DAYS}{N_MONTHES}{N_YEARS}.';
+      var dateStr = now.format(fmt) + ' vs. ' + modelMoment.format(fmt) + ', diff = ' + getDiffStr();
+      console.log('\nDateElapsed: ' + dateStr + ' ', o);
+
+      // Просто: перевірка, чи виконується bFuture:
+      if ( o.bFuture === true && diffDays < 1 ) {
+        doError('Дата має бути у майбутньому, а ця відрізняється на ' + getDiffStr());
+        return false;
+      } else if ( o.bFuture === false && diffDays > 1 ) {
+        doError('Дата має бути у минулому, а ця відрізняється на ' + getDiffStr());
+        return false;
+      }
+      
+      // Інших опцій немає - повертаємо true:
+      if (!o.bLess || !o.nDays) {
+        console.log('+++');
+        // console.log('bFuture: true');
+        return true;
+      }
+
+      var message = '{VID_DO} дати у полі {DO_PISLYA} поточної має бути {BIL_MEN} ніж {N_DAYS} {N_MONTHES} {N_YEARS}.';
 
       // VID_DO: Від/до
       var sVidDo = o.bFuture ? 'До' : 'Від';
@@ -261,32 +284,51 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       // BIL_MEN: більше/менше
       var sBilMen = o.bLess ? 'менше' : 'більше';
 
-      // if ( o.bLess ) {
-      if (Math.abs(diffDays) > o.nDays) {
-        bValid = false; // diffMonths > nMonths && diffYears > nYears;
-        message = '\n\t\tError: ' + message
+      function doError(msg) {
+        console.log('Error: ' + msg);
+      }
+
+      function getDiffStr() {
+        var d = self.pluralize(diffDays, 'days');
+        var m = self.pluralize(diffMonths, 'months');
+        var y = self.pluralize(diffYears, 'years');
+        return (d ? d : '') + (m ? ', ' + m : '') + (y ? ', ' + y : '');
+      }
+
+      function diffTooBig() {
+        return o.bLess && Math.abs(diffDays) > o.nDays;
+      }
+
+      if (diffTooBig()) {
+        message = '\n\tError: ' + message
           .replace('{VID_DO}', sVidDo)
           .replace('{DO_PISLYA}', sDoPislya)
           .replace('{BIL_MEN}', sBilMen)
           .replace('{N_DAYS}', self.pluralize(o.nDays, 'days'))
           .replace('{N_MONTHES}', self.pluralize(o.nMonths, 'months'))
           .replace('{N_YEARS}', self.pluralize(o.nYears, 'years'));
+        // if ( o.bFuture ) {
+        //   bValid = false; // diffMonths > nMonths && diffYears > nYears;
+        // }
       } else {
-        message = ' - OK';
+        message = '';
       }
-      // }
 
-      var dateStr = bValid ? '' + now.format(fmt) + ' = ' + modelMoment.format(fmt) : '\n\t\tnow  = ' + now.format(fmt) + '\n\t\tdate = ' + modelMoment.format(fmt);
-      console.log('DateElapsed, ' + dateStr + '\n\t\tdiff = ' + diffDays + '|' + o.nDays + ':' + diffMonths + '|' + o.nMonths + ':' + diffYears + '|' + o.nYears + message);
+
+      var diffStr = bValid ? '' : '' + '\n\t\tdiff = ' + diffDays + '|' + o.nDays + ':' + diffMonths + '|' + o.nMonths + ':' + diffYears + '|' + o.nYears;
+
+      console.log('\tДата має бути у ' + (o.bFuture ? 'майбутньому' : 'минулому') + ' та відрізнятися ' + (o.bLess ? 'менше' : 'більше' + ', ніж на ') + self.pluralize(o.nDays, 'days') + ', ' + self.pluralize(o.nMonths, 'months') + self.pluralize(o.nYears, 'years'));
+
+      console.log(diffStr + message);
 
       return bValid;
     }
   };
 
-  self.fromDateToDate = function( dateA, dateB, fmt ) {
-    var sFormat = fmt ? fmt : 'MM-DD-YYYY';
+  self.fromDateToDate = function(dateA, dateB, fmt) {
+    var sFormat = fmt ? fmt : self.sFormat;
     //return moment.relativeTimeWithPlural( nUnits, true, key );
-    return moment(dateA, sFormat).from( moment( dateB, sFormat ) );
+    return moment(dateA, sFormat).from(moment(dateB, sFormat));
   };
 
   // UNUSED. for reference only
@@ -300,7 +342,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       },
       'months': {
         single: 'місяць',
-        about: 'місяця',
+        about: 'місяці',
         multiple: 'місяців'
       },
       'years': {
@@ -312,7 +354,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
 
     var form = nUnits === 0 ? '' : nUnits === 1 ? types[key].single : nUnits < 5 ? types[key].about : types[key].multiple;
 
-    form = form === '' ? '' : nUnits + ' ' + form; 
+    form = form === '' ? '' : nUnits + ' ' + form;
 
     return form;
   };
