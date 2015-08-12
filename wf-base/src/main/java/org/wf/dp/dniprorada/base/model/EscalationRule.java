@@ -14,6 +14,13 @@ public class EscalationRule extends Entity {
     @Column(unique = true)
     private String sID_BP;
 
+    /**
+     * - ИД-строка юзертаски бизнеспроцесса
+     */
+    @JsonProperty(value = "sID_UserTask")
+    @Column
+    private String sID_UserTask;
+
     /**строка, до 200 символов ()     */
     @JsonProperty(value="sCondition")
     @Column(length = 200)
@@ -41,6 +48,14 @@ public class EscalationRule extends Entity {
 
     public void setsID_BP(String sID_BP) {
         this.sID_BP = sID_BP;
+    }
+
+    public String getsID_UserTask() {
+        return sID_UserTask;
+    }
+
+    public void setsID_UserTask(String sID_UserTask) {
+        this.sID_UserTask = sID_UserTask;
     }
 
     public String getsCondition() {

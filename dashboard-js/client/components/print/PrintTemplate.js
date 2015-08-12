@@ -8,22 +8,22 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
   };
 
   PrintTemplate.prototype.findPrintTemplate = function (form, sCustomFieldID) {
-    console.log("[findPrintTemplate]")
+//    console.log("[findPrintTemplate]")
     var s = ((sCustomFieldID!==null && sCustomFieldID !== undefined && sCustomFieldID!=='-') ? sCustomFieldID : 'sBody');
-    console.log("[findPrintTemplate]s="+s)
+//    console.log("[findPrintTemplate]s="+s)
     //$('.aPatternPrint').val();
     var printTemplateResult = form.filter(function (item) {
       return item.id === s;
     });
-    console.log("[findPrintTemplate]printTemplateResult.length="+printTemplateResult.length)
+//    console.log("[findPrintTemplate]printTemplateResult.length="+printTemplateResult.length)
     return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
   };
 
   
   PrintTemplate.prototype.aPatternPrintNew = function (form, sCustomFieldID) {
-    console.log("[aPatternPrintNew]")
+//    console.log("[aPatternPrintNew]")
     var s = ((sCustomFieldID!==null && sCustomFieldID !== undefined && sCustomFieldID!=='-') ? sCustomFieldID : 'sBody');
-    console.log("[aPatternPrintNew]s="+s)
+//    console.log("[aPatternPrintNew]s="+s)
     //$('.aPatternPrint').val();
     var printTemplateResult = null;
     if(this.form){
@@ -31,7 +31,7 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
           return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
         });
-        console.log("[aPatternPrintNew]printTemplateResult.length="+printTemplateResult.length)
+//        console.log("[aPatternPrintNew]printTemplateResult.length="+printTemplateResult.length)
     }
     //return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
     return (printTemplateResult!==null && printTemplateResult.length !== 0) ? printTemplateResult : [];
@@ -47,20 +47,20 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
   //PrintTemplate.prototype.containsPrintTemplate = function (sCustomFieldID) {
   PrintTemplate.prototype.containsPrintTemplate = function () {
     if(this.form){
-        console.log("[containsPrintTemplate]")
+//        console.log("[containsPrintTemplate]")
         var printTemplateResult = this.form.filter(function (item) {
           return item && item.id && item.id.indexOf("sBody")>=0;
         });
-        console.log("[containsPrintTemplate]printTemplateResult.length="+printTemplateResult.length)
+//        console.log("[containsPrintTemplate]printTemplateResult.length="+printTemplateResult.length)
         return printTemplateResult.length > 0 && printTemplateResult[0].value !== "";
     }else{
-        console.log("[containsPrintTemplate]")
+//        console.log("[containsPrintTemplate]")
         return false;
     }
   };
 
   PrintTemplate.prototype.aPatternPrint = function () {
-    console.log("[aPatternPrint]")
+//    console.log("[aPatternPrint]")
     var form = this.form;
     var a=[];
     /*if(form){
@@ -70,7 +70,7 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
           }
         });    
     }*/
-    console.log("[aPatternPrint]a.length="+a.length)
+//    console.log("[aPatternPrint]a.length="+a.length)
     
     var aForm = [];
     
@@ -80,22 +80,22 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
         });
     }
 
-    console.log("[aPatternPrint]0_aForm.length="+aForm.length);
+//    console.log("[aPatternPrint]0_aForm.length="+aForm.length);
       
     //if(this.form){
     if(aForm){
     //if(form){
-        console.log("[aPatternPrint]0_");
+//        console.log("[aPatternPrint]0_");
         if (aForm.length > 0) {
             aForm.forEach(function (item, i) {//this.form
-                console.log("[aPatternPrint]i="+i);
-                console.log("[aPatternPrint]item!=null:"+(item!=null));
+//                console.log("[aPatternPrint]i="+i);
+//                console.log("[aPatternPrint]item!=null:"+(item!=null));
               if(item){
                 //if(item && item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
-                console.log("[aPatternPrint]item.id="+item.id);
-                console.log("[aPatternPrint]item.value="+item.value);
+//                console.log("[aPatternPrint]item.id="+item.id);
+//                console.log("[aPatternPrint]item.value="+item.value);
                 if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
-                    console.log("[aPatternPrint]ADD");
+//                    console.log("[aPatternPrint]ADD");
 //                    a=a.concat([{sID:item.id,sLabel:item.name}])
                     a.push({sID:item.id,sLabel:item.name});
                 }
@@ -104,11 +104,11 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
         }
     }
     
-    console.log("[aPatternPrint]a.length(before)="+a.length)
+//    console.log("[aPatternPrint]a.length(before)="+a.length)
     if(a.length===0){
         a=a.concat([{sID:"sBody_0".id,sLabel:"-"}])
     }
-    console.log("[aPatternPrint]a.length(after)="+a.length)
+//    console.log("[aPatternPrint]a.length(after)="+a.length)
     
     return a;
   };
@@ -145,16 +145,16 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
       /*if(sCustomFieldID === null || sCustomFieldID === undefined){
         sCustomFieldID = $('.aPatternPrint').val();
       }*/
-      console.log("[getPrintTemplate]1");
+//      console.log("[getPrintTemplate]1");
       var sCustomFieldID = $('.aPatternPrint').val();
-      console.log("[getPrintTemplate]sCustomFieldID="+sCustomFieldID);
+//      console.log("[getPrintTemplate]sCustomFieldID="+sCustomFieldID);
       if(sCustomFieldID === null || sCustomFieldID === undefined || sCustomFieldID === "" || sCustomFieldID === "-"){
           alert("Не обран шаблон для друку!");
           //return;
       }
       //console.log("[getPrintTemplate]sCustomFieldID="+sCustomFieldID);
         
-      console.log("[getPrintTemplate]2");
+//      console.log("[getPrintTemplate]2");
       var printTemplate = this.findPrintTemplate(this.form, sCustomFieldID);
       printTemplate = this.processPrintTemplate(this.form, printTemplate, /(\[(\w+)])/g, function (item) {
         if (item.type === 'enum') {

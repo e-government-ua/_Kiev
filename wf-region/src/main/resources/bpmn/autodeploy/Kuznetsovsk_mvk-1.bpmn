@@ -8,7 +8,7 @@
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Cкан-копія паспорта" type="file"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
@@ -104,7 +104,8 @@
 								
 									&lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
 &lt;br /&gt;
-Дякуємо, що скористалися Інтернет-сервісом замовлення довідки про відсутність земельних ділянок для ведення ОСГ!&lt;br /&gt;
+Дякуємо, що скористалися Інтернет-сервісом замовлення довідки про відсутність земельних ділянок для ведення ОСГ&lt;br /&gt;
+&lt;br /&gt;
 Ваш запит успішно зареєстровано.&lt;br /&gt;
 &lt;br /&gt;
 Ви зможете забрати Вашу довідку приблизно за 2 робочих дня у Центрі надання адміністративних послуг за адресою м.Кузнецовськ, майдан Незалежності, 2, каб. №105-1.&lt;br /&gt;
@@ -114,6 +115,7 @@
 Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
 П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
 Без перерви на обід&lt;br /&gt;
+Телефон: (03636) 2-23-73 &lt;br /&gt; 
 &lt;br /&gt;
 Підкреслюємо, що поки що забрати довідку Ви можете лише в паперовому вигляді.&lt;br /&gt;
 &lt;p&gt;&lt;/p&gt;
