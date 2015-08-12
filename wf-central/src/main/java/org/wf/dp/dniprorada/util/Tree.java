@@ -1,5 +1,7 @@
 package org.wf.dp.dniprorada.util;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.AbstractCollection;
 import java.util.Iterator;
 import java.util.List;
@@ -10,10 +12,16 @@ import java.util.List;
  */
 public class Tree<T> extends AbstractCollection<T> {
     // where 1 = root, oblast
-
+    @JsonProperty
     private Integer levelOfArea;
+
+    @JsonProperty
     private Integer level;
+
+    @JsonProperty
     private T node;
+
+    @JsonProperty
     private List<Tree<T>> children;
 
 

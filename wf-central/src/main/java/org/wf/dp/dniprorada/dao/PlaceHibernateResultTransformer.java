@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.wf.dp.dniprorada.model.Place;
 import org.wf.dp.dniprorada.util.Tree;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Arrays.binarySearch;
@@ -22,15 +23,18 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
     public PlaceHierarchyRecord transformTuple(Object[] objects, String[] strings) {
         PlaceHierarchyRecord phr = new PlaceHierarchyRecord();
 
-        phr.setPlaceId( longVal(objects, strings, "id"));
-        phr.setTypeId( longVal(objects, strings, "type_id"));
-        phr.setUaID( stringVal(objects, strings, "ua_id"));
-        phr.setName( stringVal(objects, strings, "name"));
-        phr.setOriginalName( stringVal(objects, strings, "original_name"));
-        phr.setParentId( longVal(objects, strings, "parent_id"));
-        phr.setArea( boolVal(objects, strings, "area"));
-        phr.setRoot( boolVal(objects, strings, "root"));
-        phr.setDeep( longVal(objects, strings, "level") );
+        LOG.info("Labels {}", Arrays.toString(strings));
+        LOG.info("Data {}", Arrays.toString(objects));
+
+//        phr.setPlaceId( longVal(objects, strings, "id"));
+//        phr.setTypeId( longVal(objects, strings, "type_id"));
+//        phr.setUaID( stringVal(objects, strings, "ua_id"));
+//        phr.setName( stringVal(objects, strings, "name"));
+//        phr.setOriginalName( stringVal(objects, strings, "original_name"));
+//        phr.setParentId( longVal(objects, strings, "parent_id"));
+//        phr.setArea( boolVal(objects, strings, "area"));
+//        phr.setRoot( boolVal(objects, strings, "root"));
+//        phr.setDeep( longVal(objects, strings, "level") );
 
         return phr;
     }
@@ -38,6 +42,7 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
 
     @Override
     public List transformList(List list) {
+        LOG.info("Got {}", list);
         return list;
     }
 
