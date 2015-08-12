@@ -384,6 +384,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
             console.log("[updateTaskSelection]oItem.id="+oItem.id)
           if (oItem.id === nID_Task) {
             s = nID_Task;//oItem.name;
+            $scope.selectTask(oItem);
           }
         });
         console.log("[updateTaskSelection]s="+s);
