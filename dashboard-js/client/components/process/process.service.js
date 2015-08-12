@@ -97,17 +97,20 @@ angular.module('dashboardJsApp')
         
 //        processes.list().then(function (processesDefinitions) {
           //$scope.applyTaskFilter($scope.$storage.menuType);
-
             var sID=processDefinitionId;
-            console.log("[getProcessName]sID(before)="+sID);
-            console.log("[getProcessName]processesDefinitions="+processesDefinitions);
+//            console.log("[getProcessDescription]sID(before)="+sID);
+//            console.log("[getProcessDescription]processesDefinitions="+processesDefinitions);
+            if(sID===null){
+                console.log("[getProcessDescription]sID is null!");
+                return sID;
+            }
             if(sID!==null){//"_test_dependence_form:2:87617"
               var nAt=sID.indexOf("\:");
               if(nAt>=0){
                 sID=sID.substr(0,nAt);
               }
             }
-            console.log("[getProcessName]sID(after)="+sID);
+//            console.log("[getProcessName]sID(after)="+sID);
             /*if (processesDefinitions && processesDefinitions[processDefinitionId]) {
               return processesDefinitions[processDefinitionId].name;
             } else {
@@ -156,15 +159,19 @@ angular.module('dashboardJsApp')
           //$scope.applyTaskFilter($scope.$storage.menuType);
         
             var sID=processDefinitionId;
-            console.log("[getProcessDescription]sID(before)="+sID);
-            console.log("[getProcessDescription]processesDefinitions="+processesDefinitions);
+//            console.log("[getProcessDescription]sID(before)="+sID);
+//            console.log("[getProcessDescription]processesDefinitions="+processesDefinitions);
+            if(sID===null){
+                console.log("[getProcessDescription]sID is null!");
+                return sID;
+            }
             if(sID!==null){//"_test_dependence_form:2:87617"
               var nAt=sID.indexOf("\:");
               if(nAt>=0){
                 sID=sID.substr(0,nAt);
               }
             }
-            console.log("[getProcessDescription]sID(after)="+sID);
+//            console.log("[getProcessDescription]sID(after)="+sID);
             /*if (processesDefinitions && processesDefinitions[processDefinitionId]) {
               return processesDefinitions[processDefinitionId].description;
             } else {
