@@ -100,16 +100,16 @@ angular.module('dashboardJsApp')
             var sID=processDefinitionId;
 //            console.log("[getProcessDescription]sID(before)="+sID);
 //            console.log("[getProcessDescription]processesDefinitions="+processesDefinitions);
-            if(sID===null){
-                console.log("[getProcessDescription]sID is null!");
+            if(sID === null || sID === undefined){
+                console.log("[getProcessDescription]sID is "+ sID);
                 return sID;
             }
-            if(sID!==null){//"_test_dependence_form:2:87617"
+            //if(sID!==null){//"_test_dependence_form:2:87617"
               var nAt=sID.indexOf("\:");
               if(nAt>=0){
                 sID=sID.substr(0,nAt);
               }
-            }
+            //}
 //            console.log("[getProcessName]sID(after)="+sID);
             /*if (processesDefinitions && processesDefinitions[processDefinitionId]) {
               return processesDefinitions[processDefinitionId].name;
@@ -161,16 +161,16 @@ angular.module('dashboardJsApp')
             var sID=processDefinitionId;
 //            console.log("[getProcessDescription]sID(before)="+sID);
 //            console.log("[getProcessDescription]processesDefinitions="+processesDefinitions);
-            if(sID===null){
+            if(sID === null || sID === undefined){
                 console.log("[getProcessDescription]sID is null!");
                 return sID;
             }
-            if(sID!==null){//"_test_dependence_form:2:87617"
+            //if(sID!==null){//"_test_dependence_form:2:87617"
               var nAt=sID.indexOf("\:");
               if(nAt>=0){
                 sID=sID.substr(0,nAt);
               }
-            }
+            //}
 //            console.log("[getProcessDescription]sID(after)="+sID);
             /*if (processesDefinitions && processesDefinitions[processDefinitionId]) {
               return processesDefinitions[processDefinitionId].description;
