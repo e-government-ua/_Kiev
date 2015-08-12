@@ -1,6 +1,10 @@
 // Karma configuration
 // http://karma-runner.github.io/0.10/config/configuration-file.html
 
+/* global module */
+
+'use strict';
+
 module.exports = function(config) {
   config.set({
     // base path, that will be used to resolve files and exclude
@@ -19,8 +23,10 @@ module.exports = function(config) {
       'client/bower_components/angular-sanitize/angular-sanitize.js',
       'client/bower_components/angular-route/angular-route.js',
       'client/bower_components/moment/moment.js',
-      'bower_components/moment/{locale,lang}/fr.js',
-      'bower_components/moment-timezone/moment-timezone.js',
+      'client/bower_components/moment/locale/uk.js',
+      'client/bower_components/moment/locale/ru.js',
+      'client/bower_components/moment/locale/en.js',
+      'client/bower_components/moment-timezone/moment-timezone.js',
       'client/bower_components/angular-moment/angular-moment.js',
       'client/bower_components/angular-messages/angular-messages.js',
       'client/bower_components/angular-ui-utils/ui-utils.js',

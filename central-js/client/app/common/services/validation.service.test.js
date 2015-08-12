@@ -56,7 +56,7 @@ describe('ValidationService Tests', function() {
     originalAngularMomentConfig = angular.copy(angularMomentConfig);
 
     // Ensure the locale of moment.js is set to en by default
-    (moment.locale || moment.lang)('en');
+    // (moment.locale || moment.lang)('uk');
     // Add a sample timezones for tests
     // moment.tz.add('UTC|UTC|0|0|');
     // moment.tz.add('Pacific/Tahiti|LMT TAHT|9W.g a0|01|-2joe1.I');
@@ -195,10 +195,11 @@ describe('ValidationService Tests', function() {
       // *  nDays: 3
       // *  nMonths: 0
       // *  nYears: 1
+
       validate( 'DateElapsed', 
                 '12-08-2015', 
                 true, 
-                { 
+                {
                   bFuture: false,
                   bLess: true,
                   nDays: 0,
@@ -206,16 +207,17 @@ describe('ValidationService Tests', function() {
                   nYears: 0
                 });
       
-      prevalidate( 'DateElapsed', 
-                '20-08-2015', 
-                null, 
-                { 
-                  bFuture: false,
-                  bLess: true, 
-                  nDays: 0, 
-                  nMonths: 0, 
-                  nYears: 0
-                });
+      // Від сьогодні до 20-08 має пройти менше, ніж 0 днів.
+      // validate( 'DateElapsed',
+      //           '20-08-2015',
+      //           true, 
+      //           { 
+      //             bFuture: true,
+      //             bLess: true, 
+      //             nDays: 0, 
+      //             nMonths: 0, 
+      //             nYears: 0
+      //           });
 
       prevalidate( 'DateElapsed', 
                 '20-08-2015', 
@@ -223,7 +225,7 @@ describe('ValidationService Tests', function() {
                 { 
                   bFuture: true,
                   bLess: false, 
-                  nDays: 0, 
+                  nDays: 10, 
                   nMonths: 0, 
                   nYears: 0
                 });
@@ -232,6 +234,33 @@ describe('ValidationService Tests', function() {
       // validateArray( eDatesRight, 'DateElapsed', true, false, false, 1, 0, 0 );
       // validateArray( eDatesRight, 'DateElapsed', true, true, false, 1, 0, 0 );
       // validateArray( eDatesRight, 'DateElapsed', true, true, true, 1, 0, 0 );
+
+      console.log ( colr( validationService.pluralize( 0, 'days' ), 'green' )); 
+      console.log ( colr( validationService.pluralize( 1, 'days' ), 'green' )); // день
+      console.log ( colr( validationService.pluralize( 4, 'days' ), 'green' )); // дні
+      console.log ( colr( validationService.pluralize( 5, 'days' ), 'green' )); // днів
+      console.log ( colr( validationService.pluralize( 0, 'months' ), 'green' )); 
+      console.log ( colr( validationService.pluralize( 1, 'months' ), 'green' )); // день
+      console.log ( colr( validationService.pluralize( 4, 'months' ), 'green' )); // дні
+      console.log ( colr( validationService.pluralize( 5, 'months' ), 'green' )); // днів
+      console.log ( colr( validationService.pluralize( 0, 'years' ), 'green' )); 
+      console.log ( colr( validationService.pluralize( 1, 'years' ), 'green' )); // день
+      console.log ( colr( validationService.pluralize( 4, 'years' ), 'green' )); // дні
+      console.log ( colr( validationService.pluralize( 5, 'years' ), 'green' )); // днів
+
+      console.log ( colr( 'validationService.fromDateToDate', 'white' )); 
+
+
+      console.log ( colr( validationService.fromDateToDate( '12-08-2015', '12-08-2015' ), 'green' )); 
+      console.log ( colr( validationService.fromDateToDate( '12-08-2015', '13-08-2015' ), 'green' )); 
+      console.log ( colr( validationService.fromDateToDate( '12-08-2015', '14-08-2015' ), 'green' )); 
+      console.log ( colr( validationService.fromDateToDate( '12-08-2015', '15-08-2015' ), 'green' )); 
+      console.log ( colr( validationService.fromDateToDate( '12-08-2015', '16-08-2015' ), 'green' )); 
+      console.log ( colr( validationService.fromDateToDate( '12-08-2015', '17-08-2015' ), 'green' )); 
+      console.log ( colr( validationService.fromDateToDate( '12-08-2015', '18-08-2015' ), 'green' )); 
+      console.log ( colr( validationService.fromDateToDate( '12-08-2015', '18-09-2015' ), 'green' )); 
+      console.log ( colr( validationService.fromDateToDate( '12-08-2015', '18-09-2016' ), 'green' )); 
+      console.log ( colr( validationService.fromDateToDate( '12-08-2015', '18-09-2026' ), 'green' )); 
 
       function colr ( msg, sColor ) {
         var colrs = {
