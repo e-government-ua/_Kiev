@@ -87,7 +87,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему - Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.</activiti:expression>
+          <activiti:expression>Звернення на тему: Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${docToSend}"</activiti:expression>
@@ -162,7 +162,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-										Міська рада міста Кузнецовськ,&lt;br /&gt;
+										Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                     
@@ -190,7 +190,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему - Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.</activiti:string>
+          <activiti:string>Звернення на тему: Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.</activiti:string>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>
@@ -267,7 +267,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-										Міська рада міста Кузнецовськ,&lt;br /&gt;
+										Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -376,7 +376,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-										Міська рада міста Кузнецовськ,&lt;br /&gt;
+										Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -406,7 +406,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему - Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.</activiti:string>
+          <activiti:string>Звернення на тему: Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -462,7 +462,9 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-										Ваше звернення успішно зареєстровано и буде разглянуто на протязі 5 робочих днів.&lt;br /&gt; 
+										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
+
+										Спеціалісти з Державного Органу повинні дати відповідь найближчим часом. &lt;br /&gt;
 										
 										
 									&lt;/p&gt;
@@ -471,7 +473,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
+										Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -500,7 +502,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему - Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.</activiti:string>
+          <activiti:string>Звернення на тему: Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -556,9 +558,9 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-										На жаль, державний орган не може надати вам цю послугу в даний момент. 
+										Нажаль, державний орган не може надати вам цю послугу в даний момент. 
 									&lt;p&gt;&lt;/p&gt;
-										Ймовірні причини:  &lt;br /&gt;
+										Вірогідні причини:  &lt;br /&gt;
 										&lt;ol&gt;
 										&lt;li&gt;Документ не було знайдено; &lt;/li&gt;
 										&lt;li&gt;Недостатня аргументація Вашого запиту; &lt;/li&gt;
@@ -576,7 +578,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
+										Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;

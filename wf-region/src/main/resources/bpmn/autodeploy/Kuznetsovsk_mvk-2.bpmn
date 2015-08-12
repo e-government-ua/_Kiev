@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="kuznetsovsk_mvk_2" name="Кузнецьовський МВК - Звернення громадян до міського голови" isExecutable="true">
+  <process id="kuznetsovsk_mvk_2" name="Кузнецьовський МВК - Відправити звернення до міського голови" isExecutable="true">
     <startEvent id="startevent2" name="Start" activiti:initiator="initiator">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -135,8 +135,7 @@
 &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
 &lt;p&gt;
 З повагою,&lt;br /&gt;
-
-Міська рада міста Кузнецовськ&lt;br/&gt;
+Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
 Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
 
                                 &lt;/td&gt;
@@ -230,7 +229,7 @@
 &lt;li&gt;Неправильно або неповністю заповнена заява; &lt;/li&gt;
 &lt;li&gt;Неспроможність відкрити ваші документи;&lt;/li&gt;
 &lt;li&gt;Ви не належите до категорії громадян, для яких ця послуга діє;&lt;/li&gt;
-&lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov; &lt;li&gt;
+&lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov; &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;/p&gt;
 Коментар Державного службовця: &lt;br /&gt;
@@ -239,8 +238,7 @@
 &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
 &lt;p&gt;
 З повагою,&lt;br /&gt;
-
-Міська рада міста Кузнецовськ&lt;br/&gt;
+Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
 Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
 
                                 &lt;/td&gt;
@@ -263,7 +261,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask6" name="Повідомле6ння про успішну реєстрацію звернення" activiti:type="mail">
+    <serviceTask id="mailtask6" name="Повідомлення про успішну реєстрацію звернення" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -324,8 +322,7 @@
 &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
 &lt;p&gt;
 З повагою,&lt;br /&gt;
-
-Міська рада міста Кузнецовськ&lt;br/&gt;
+Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
 Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                 &lt;/td&gt;
                             &lt;/tr&gt;
