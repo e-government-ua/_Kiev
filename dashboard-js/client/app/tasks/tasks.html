@@ -17,7 +17,7 @@
           </div>
 
           <div class="list-group">          
-            <a class="list-group-item task {{ sTaskClass(task.taskDefinitionKey) }}"
+            <a class="list-group-item task {{sSelectedTask}}_{{task.id}} {{ sTaskClass(task.taskDefinitionKey) }}"
                href=""
                ng-repeat="task in tasks | orderBy:predicate:reverse"
                tooltip="{{task.description}}"
