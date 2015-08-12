@@ -87,6 +87,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
     }
 
     private void saveHistory(HttpServletRequest request, HttpServletResponse response, boolean saveHistory) throws IOException {
+        
         Map mParamRequest = new HashMap();
         Enumeration paramsName = request.getParameterNames();
         while (paramsName.hasMoreElements()) {
@@ -129,7 +130,8 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             boolean updateTask = request.getRequestURL().toString().indexOf("/runtime/tasks") > 0
                     && "PUT".equalsIgnoreCase(request.getMethod().trim());
             logger.info("sRequestBody: " + sRequestBody);
-            if (saveHistory && (setTask || closeTask || updateTask)) {
+            if (saveHistory && (setTask || closeTask || updateTask)
+                    && response.getStatus() >= 200 && response.getStatus() < 400) {
                 logger.info("call service HistoryEvent_Service!!!!!!!!!!!");
                 JSONParser parser = new JSONParser();
                 JSONObject jsonObjectRequest = null, jsonObjectResponse = null;
@@ -148,10 +150,11 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     sID_Proccess = (String) jsonObjectResponse.get("id");
                     serviceName = "addHistoryEvent_Service";
                     taskName = "Заявка подана";
-                    List<HistoricProcessInstance> historicProcessInstances = 
-                            historyService.createHistoricProcessInstanceQuery().processInstanceId(sID_Proccess).list();
+                    
+                    HistoricProcessInstance historicProcessInstances = 
+                            historyService.createHistoricProcessInstanceQuery().processInstanceId(sID_Proccess).singleResult();
                     ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
-                          .processDefinitionId(historicProcessInstances.get(0).getProcessDefinitionId()).singleResult();
+                          .processDefinitionId(historicProcessInstances.getProcessDefinitionId()).singleResult();
                     params.put("sProcessInstanceName", processDefinition.getName() != null ? processDefinition.getName() + "!" : "Non name!");
                     params.put("nID_Subject", String.valueOf((Long) jsonObjectRequest.get("nID_Subject")));
                 } else if (updateTask) {
