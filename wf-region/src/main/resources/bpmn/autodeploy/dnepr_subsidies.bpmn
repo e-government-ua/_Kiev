@@ -94,7 +94,7 @@
         <activiti:formProperty id="card1" name="Реєстраційний номер облікової картки платника податків" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="comment1" name="Примітки" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="income1" name="Ваш вид доходу" type="enum" default="attr0">
-          <activiti:value id="attr0" name="нічого не вибрано"></activiti:value>
+          <activiti:value id="attr0" name=" "></activiti:value>
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
           <activiti:value id="attr3" name="пенсія"></activiti:value>
@@ -113,7 +113,7 @@
         <activiti:formProperty id="card2" name="Реєстраційний номер облікової картки платника податків" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="comment2" name="Примітки" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="income2" name="Ваш вид доходу" type="enum" default=" attr0">
-          <activiti:value id="attr0" name="нічого не вибрано"></activiti:value>
+          <activiti:value id="attr0" name=" "></activiti:value>
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
           <activiti:value id="attr3" name="пенсія"></activiti:value>
@@ -132,7 +132,7 @@
         <activiti:formProperty id="card3" name="Реєстраційний номер облікової картки платника податків" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="comment3" name="Примітки" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="income3" name="Ваш вид доходу" type="enum" default="attr0">
-          <activiti:value id="attr0" name="нічого не вибрано"></activiti:value>
+          <activiti:value id="attr0" name=" "></activiti:value>
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
           <activiti:value id="attr3" name="пенсія"></activiti:value>
