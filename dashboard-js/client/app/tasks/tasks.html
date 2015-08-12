@@ -23,7 +23,7 @@
                tooltip="{{task.description}}"
                ng-click="selectTask(task)"
                ng-class="{'active': isTaskSelected(task)}">
-              #{{task.id}} ({{ sDateShort(task.createTime) }}) {{ getProcessName(task.processDefinitionId)
+              #{{task.id}} ({{ sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }}) {{ getProcessName(task.processDefinitionId)
               }} | {{ task.name }}
             </a>
 
