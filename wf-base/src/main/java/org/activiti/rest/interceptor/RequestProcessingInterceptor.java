@@ -148,10 +148,10 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     sID_Proccess = (String) jsonObjectResponse.get("id");
                     serviceName = "addHistoryEvent_Service";
                     taskName = "Заявка подана";
-                    HistoricProcessInstance historicProcessInstance = 
-                            historyService.createHistoricProcessInstanceQuery().processInstanceId(sID_Proccess).singleResult();
+                    List<HistoricProcessInstance> historicProcessInstances = 
+                            historyService.createHistoricProcessInstanceQuery().processInstanceId(sID_Proccess).list();
                     ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
-                          .processDefinitionId(historicProcessInstance.getProcessDefinitionId()).singleResult();
+                          .processDefinitionId(historicProcessInstances.get(0).getProcessDefinitionId()).singleResult();
                     params.put("sProcessInstanceName", processDefinition.getName() != null ? processDefinition.getName() + "!" : "Non name!");
                     params.put("nID_Subject", String.valueOf((Long) jsonObjectRequest.get("nID_Subject")));
                 } else if (updateTask) {
