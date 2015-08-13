@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="kuznetsovsk_mvk_5" name="Кузнецовськ МВК - Узгодження графіка роботи підприємства торгівлі/обслуговування" isExecutable="true" activiti:candidateStarterGroups="kuznets_mvk_5">
+  <process id="kuznetsovsk_mvk_5" name="Кузнецовськ МВК - Встановлення за погодженням з власником режиму роботи підприємств торгівлі, ресторанного господарства та сфери послуг незалежно від форм власності" isExecutable="true" activiti:candidateStarterGroups="kuznets_mvk_5">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -81,7 +81,8 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: Узгодження графіку роботи підприємства торгівлі/обслуговування.</activiti:expression>
+          <activiti:expression>Звернення на тему: Встановлення за погодженням з власником режиму роботи підприємств торгівлі, ресторанного господарства та сфери послуг незалежно від форм власності
+</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${decision}"</activiti:expression>
@@ -191,7 +192,8 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: Узгодження графіку роботи підприємства торгівлі/обслуговування.</activiti:expression>
+          <activiti:expression>Звернення на тему: Встановлення за погодженням з власником режиму роботи підприємств торгівлі, ресторанного господарства та сфери послуг незалежно від форм власності
+</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${decision}"</activiti:expression>
@@ -389,7 +391,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Узгодження графіку роботи підприємства торгівлі/обслуговування.</activiti:string>
+          <activiti:string>Звернення на тему: Встановлення за погодженням з власником режиму роботи підприємств торгівлі, ресторанного господарства та сфери послуг незалежно від форм власності</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
