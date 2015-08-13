@@ -4,16 +4,19 @@
 # It should not build and deploy project - this is responsibility of separate scripts
 #
 
-echo Provisioning the machine
+echo "Provisioning the machine"
 
 PROGRAMS_HOME=/opt
 
-echo ******************************************************************
-echo ** Setting up tools for backend \(Jave\)                          **
-echo ******************************************************************
+echo "update apt-get repository indices"
+apt-get update
+
+echo "******************************************************************"
+echo "** Setting up tools for backend (Java)                          **"
+echo "******************************************************************"
 echo
 
-echo installing JDK
+echo "installing JDK"
 # --no-install-recommends avoids installing X11 stuff.
 apt-get -y --no-install-recommends install openjdk-7-jdk
 
@@ -21,33 +24,33 @@ DOWNLOAD_DIR=/tmp/egov/download
 mkdir -p $DOWNLOAD_DIR
 
 MAVEN_HOME=$PROGRAMS_HOME/apache-maven-3.3.1
-echo installing Maven to $MAVEN_HOME
+echo "installing Maven to $MAVEN_HOME"
 #using direct download because Ubuntu package has too many unnecessary dependencies
 if [ -e $MAVEN_HOME ]
 then
-    echo already installed, skip
+    echo "already installed, skip"
 else
     MAVEN_DIST=apache-maven-3.3.1-bin.tar.gz
-    wget -P $DOWNLOAD_DIR http://apache.volia.net/maven/maven-3/3.3.1/binaries/$MAVEN_DIST
+    wget -nv -P $DOWNLOAD_DIR http://apache.volia.net/maven/maven-3/3.3.1/binaries/$MAVEN_DIST
     tar -xvzf $DOWNLOAD_DIR/$MAVEN_DIST -C $PROGRAMS_HOME
     rm $DOWNLOAD_DIR/$MAVEN_DIST
 fi
 
-TOMCAT_HOME=$PROGRAMS_HOME/apache-tomcat-8.0.22
-echo installing Tomcat to $TOMCAT_HOME
+TOMCAT_HOME=$PROGRAMS_HOME/apache-tomcat-8.0.24
+echo "installing Tomcat to $TOMCAT_HOME"
 #Ubuntu repository ATM contains only Tomcat 6 - so using direct download to get something more up-to-date
 if [ -e $TOMCAT_HOME ]
 then
-    echo already installed, skip
+    echo "already installed, skip"
 else
-    TOMCAT_DIST=apache-tomcat-8.0.22.tar.gz
-    wget -P $DOWNLOAD_DIR http://apache.cp.if.ua/tomcat/tomcat-8/v8.0.22/bin/$TOMCAT_DIST
+    TOMCAT_DIST=apache-tomcat-8.0.24.tar.gz
+    wget -nv -P $DOWNLOAD_DIR http://apache.cp.if.ua/tomcat/tomcat-8/v8.0.24/bin/$TOMCAT_DIST
     tar -xvzf $DOWNLOAD_DIR/$TOMCAT_DIST -C $PROGRAMS_HOME
     rm $DOWNLOAD_DIR/$TOMCAT_DIST
     chown -R vagrant $TOMCAT_HOME
 fi
 
-echo installing Redis
+echo "installing Redis"
 apt-get -y install redis-server
 REDIS_CONF=/etc/redis/redis.conf
 REDIS_CONF_BKUP=${REDIS_CONF}.bkup
@@ -61,34 +64,32 @@ service redis-server restart
 
 
 
-echo ******************************************************************
-echo ** Setting up central-js  and dashboard-js  components          **
-echo ******************************************************************
+echo "******************************************************************"
+echo "** Setting up central-js  and dashboard-js  components          **"
+echo "******************************************************************"
 if ! dpkg --list nodejs | egrep -q ^ii; 
 then
-    echo add node js PPA  ...
+    echo "add node js PPA  ..."
     curl -sL https://deb.nodesource.com/setup | sudo bash -      
 fi
 
 apt-get install -y nodejs git g++ screen
 
-echo updating npm
+echo "updating npm"
 npm install npm -g
 npm --version
-echo updating npm global modules
+echo "updating npm global modules"
 npm update -g
-echo npm installing bower
+echo "npm installing bower"
 npm install -g bower
-echo npm installing grunt
+echo "npm installing grunt"
 npm install -g grunt-cli
-echo npm installing yo
+echo "npm installing yo"
 npm install -g yo
-echo npm installing yo
-npm install -g gulp
-
-echo npm installing grunt-contrib-imagemin
-npm install -g grunt-contrib-imagemin
-
+echo "npm installing gem"
+npm intall -g gem
+echo "installing sass plugin ..." 
+gem install sass
 
 echo "copy dev ssl certificate/key to /sybase/cert/ folder "
 mkdir -p /sybase/cert/
@@ -96,11 +97,10 @@ cp /project/scripts/config/dev_ssl.crt /sybase/cert/server.crt
 cp /project/scripts/config/dev_ssl.key /sybase/cert/server.key
 
 
-echo creating local config for central-js
-cp /project/central-js/server/config/index.js /project/central-js/server/local_config.js
+echo "creating local config for central-js"
+cp /project/central-js/server/config/local.env.sample.js /project/central-js/server/config/local.env.js
 
-echo ** Setting up dashboard-js:  **
-echo creating local config 
+echo "creating local config for dashboard-js"
 cp /project/dashboard-js/server/config/local.env.sample.js /project/dashboard-js/server/config/local.env.js
 
 echo "*************************************************"
@@ -110,10 +110,10 @@ echo
 echo "***** SETTING UP nginx     **********************"
 if ! dpkg --list nginx | egrep -q ^ii; 
 then
-    echo installing nginx  ...
+    echo "installing nginx  ..."
     apt-get install -y nginx    
 else
-   echo nginx already installed
+   echo "nginx already installed"
 fi
 
 echo "copy dev ssl certificate/key to /etc/nginx/ssl/ folder "
@@ -139,30 +139,29 @@ else
 fi
 
 echo "Add new Vhost(e-gov-ua.dev) to nginx"
-rm /etc/nginx/sites-enabled/e-gov-ua.dev
-
+rm /etc/nginx/sites-enabled/e-gov-ua.dev 2> /dev/null
 cp /project/scripts/config/e-gov-ua.dev /etc/nginx/sites-available/e-gov-ua.dev
 ln -s /etc/nginx/sites-available/e-gov-ua.dev /etc/nginx/sites-enabled/
 
 echo "Add new Vhost(admin.e-gov-ua.dev) to nginx"
-rm /etc/nginx/sites-enabled/admin.e-gov-ua.dev
-
+rm /etc/nginx/sites-enabled/admin.e-gov-ua.dev 2> /dev/null
 cp /project/scripts/config/admin.e-gov-ua.dev /etc/nginx/sites-available/admin.e-gov-ua.dev
 ln -s /etc/nginx/sites-available/admin.e-gov-ua.dev /etc/nginx/sites-enabled/
 
 service nginx restart
+echo "*************************************************"
 echo "e-gov-ua.dev , admin.e-gov-ua.dev now avaliable !" 
 echo "*************************************************"
 echo    
 
 
 
-echo ******************************************************************
-echo ** Finalizing setup                                             **
-echo ******************************************************************
+echo "******************************************************************"
+echo "** Finalizing setup                                             **"
+echo "******************************************************************"
 echo
 
-echo setting up environment
+echo "setting up environment"
 
 ENV_FILE=/etc/profile.d/egov-env.sh
 echo "#!/bin/sh
@@ -172,8 +171,8 @@ export TOMCAT_HOME=$TOMCAT_HOME
 export PATH=$PATH:\$MAVEN_HOME/bin:\$TOMCAT_HOME/bin
 " > $ENV_FILE
 
-echo ******************************************************************
-echo ** Provisioning complete, ready to build and deploy projects    **
-echo ******************************************************************
+echo "******************************************************************"
+echo "** Provisioning complete, ready to build and deploy projects    **"
+echo "******************************************************************"
 
 
