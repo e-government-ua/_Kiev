@@ -16,7 +16,7 @@ import java.io.InputStream;
  */
 @Component
 public class QueryLoader {
-    private static final Logger LOG = LoggerFactory.getLogger(QueryLoader.class);
+
 
     private String homeDirectory;
 
@@ -78,11 +78,9 @@ public class QueryLoader {
         Postgres("/"), H2("H2/");
 
         private String path;
-
         TypeDB(String path) {
             this.path = path;
         }
-
         public String getPath() {
             return path;
         }

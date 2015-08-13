@@ -3,10 +3,11 @@
   <process id="kuznetsovsk_mvk_4" name="Кузнецовськ МВК- Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом." isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file"></activiti:formProperty>
         <activiti:formProperty id="docType" name="Тип документа" type="enum" required="true">
           <activiti:value id="Копія рішення виконавчого комітету міської ради" name="Копія рішення виконавчого комітету міської ради"></activiti:value>
           <activiti:value id="Копія рішення міської ради" name="Копія рішення міської ради"></activiti:value>
@@ -29,13 +30,17 @@
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clPassport" name="Паспортні дані" type="string" default="${bankIdPassport}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запитуваний документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Перейти до надання послуги"></activiti:value>
           <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="footer" name="footerToPrint" type="invisible" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
@@ -56,8 +61,11 @@
           <activiti:value id="digital" name="Електронна версія"></activiti:value>
           <activiti:value id="physical" name="Фізична версія"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="footer" name="footerToPrint" type="invisible" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="footer" name="footerToPrint" type="invisible" writable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <endEvent id="endevent5" name="End"></endEvent>
@@ -76,7 +84,7 @@
     <sequenceFlow id="flow47" name="${searchResult == 'found' &amp;&amp; deliverType == 'digital'}" sourceRef="exclusivegateway2" targetRef="servicetask1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult == 'found' && deliverType == 'digital'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow49" sourceRef="startevent1" targetRef="mailtask8"></sequenceFlow>
+    <sequenceFlow id="flow49" sourceRef="startevent1" targetRef="servicetask2"></sequenceFlow>
     <sequenceFlow id="flow50" sourceRef="mailtask8" targetRef="usertask4"></sequenceFlow>
     <serviceTask id="servicetask1" name="Відправка відповіді на запит користувачу" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
@@ -147,22 +155,22 @@
 									&lt;br /&gt;
 									Документ знаходиться у додатку до цього листа.&lt;br /&gt;
 									
-									Якщо Ви бажаєте отримати Фізичну копію цього документа - зверніться до центру надання адміністративних послуг за адресою: &lt;br /&gt;
-									Місто Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
-									
-									
+									Якщо Ви бажаєте отримати фізичну копію цього документа - зверніться до центру надання адміністративних послуг &lt;br /&gt;
 &lt;br /&gt;
-										Графік  роботи ЦНАП-у:&lt;br /&gt;
-										Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
-										Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
-										П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
-										Без перерви на обід&lt;br /&gt;
-										Телефон: (03636) 2-23-73 &lt;br /&gt; 
+Адреса: &lt;br /&gt;
+м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
+&lt;br /&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+Телефон: (03636) 2-23-73 &lt;br /&gt; 
                                     &lt;p&gt;&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-										Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
+										Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                     
@@ -254,20 +262,23 @@
 
 
 Цей документ готовий і Ви маєте можливість його забрати у міській раді міста Кузнецовськ у часи його роботи. &lt;br /&gt;
+&lt;br /&gt;									
+Центр надання адміністратиних послуг Кузнецовської міської ради &lt;br /&gt;
 &lt;br /&gt;
-										Графік  роботи:&lt;br /&gt;
-										Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
-										Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
-										П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
-										Без перерви на обід&lt;br /&gt;
-										Телефон: (03636) 2-23-73 &lt;br /&gt; 
+Адреса: &lt;br /&gt;
+м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
+&lt;br /&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+Телефон: (03636) 2-23-73 &lt;br /&gt; 
                                     &lt;p&gt;&lt;/p&gt;
-									
-									Адреса центру надання адміністратиних послуг Кузнецовської міської ради: м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-										Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
+										Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -368,15 +379,27 @@
 										&lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov; &lt;/li&gt;
 										&lt;/ol&gt;
 										&lt;p&gt;&lt;/p&gt;
-										Коментар Державного службовця: &lt;br /&gt;
+										Коментар державного службовця: &lt;br /&gt;
 											&lt;i&gt;${decisionComment}&lt;/i&gt;
 										&lt;p&gt;&lt;/p&gt;
 										Вибачте за незручність. 
                                     &lt;p&gt;&lt;/p&gt;
+																		
+Центр надання адміністратиних послуг Кузнецовської міської ради &lt;br /&gt;
+&lt;br /&gt;
+Адреса: &lt;br /&gt;
+м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
+&lt;br /&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+Телефон: (03636) 2-23-73 &lt;br /&gt; 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-										Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
+										Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -460,20 +483,32 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;
-										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
+&lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;p&gt;
+Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
 
-										Спеціалісти з Державного Органу повинні дати відповідь найближчим часом. &lt;br /&gt;
-										
-										
-									&lt;/p&gt;
-										Залишайтесь з нами. 	
-                                    &lt;p&gt;&lt;/p&gt;
+Спеціалісти з державного Органу повинні дати відповідь найближчим часом. &lt;br /&gt;
+
+&lt;/p&gt;
+Залишайтеся з нами. 	
+&lt;p&gt;&lt;/p&gt;
+									
+Центр надання адміністратиних послуг Кузнецовської міської ради &lt;br /&gt;
+&lt;br /&gt;
+Адреса: &lt;br /&gt;
+м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
+&lt;br /&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+Телефон: (03636) 2-23-73 &lt;br /&gt; 
+
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-										Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
+										Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -490,6 +525,9 @@
 &lt;/table&gt;
 &lt;/body&gt;
 &lt;/html&gt;</activiti:expression>
+        </activiti:field>
+        <activiti:field name="bcc">
+          <activiti:string>cnap@kuznetsovsk-rada.gov.ua</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -552,7 +590,7 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        
+                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
@@ -570,15 +608,27 @@
 										&lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov; &lt;/li&gt;
 										&lt;/ol&gt;
 										&lt;p&gt;&lt;/p&gt;
-										Коментар Державного службовця: &lt;br /&gt;
+										Коментар державного службовця: &lt;br /&gt;
 											&lt;i&gt;${decisionComment}&lt;/i&gt;
 										&lt;p&gt;&lt;/p&gt;
-										Вибачте за незручність. Спробуйте подати заяву через півгодини.
+										Вибачте за незручність. 
                                     &lt;p&gt;&lt;/p&gt;
+																		
+Центр надання адміністратиних послуг Кузнецовської міської ради &lt;br /&gt;
+&lt;br /&gt;
+Адреса: &lt;br /&gt;
+м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
+&lt;br /&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+Телефон: (03636) 2-23-73 &lt;br /&gt; 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-										Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
+										Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -601,6 +651,13 @@
     </serviceTask>
     <sequenceFlow id="flow52" sourceRef="mailtask6" targetRef="endevent6"></sequenceFlow>
     <sequenceFlow id="flow53" sourceRef="mailtask7" targetRef="endevent6"></sequenceFlow>
+    <serviceTask id="servicetask2" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <sequenceFlow id="flow54" sourceRef="servicetask2" targetRef="mailtask8"></sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask2">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <endEvent id="endevent7" name="End"></endEvent>
+    <sequenceFlow id="flow55" sourceRef="boundaryerror1" targetRef="endevent7"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Пользователь портала  отправляет выбирает услугу:
 Надання копій рішень міської ради та її виконкому, розпоряджень міського голови за зверненням юридичних та фізичних осіб, правоохоронних органів,адвокатів</text>
@@ -621,7 +678,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
-        <omgdc:Bounds height="73.0" width="138.0" x="374.0" y="438.0"></omgdc:Bounds>
+        <omgdc:Bounds height="73.0" width="138.0" x="364.0" y="438.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="940.0" y="454.0"></omgdc:Bounds>
@@ -662,6 +719,15 @@
       <bpmndi:BPMNShape bpmnElement="mailtask9" id="BPMNShape_mailtask9">
         <omgdc:Bounds height="55.0" width="105.0" x="610.0" y="249.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="77.0" width="141.0" x="190.0" y="214.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="280.0" y="253.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent7" id="BPMNShape_endevent7">
+        <omgdc:Bounds height="35.0" width="35.0" x="230.0" y="440.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
         <omgdi:waypoint x="960.0" y="454.0"></omgdi:waypoint>
         <omgdi:waypoint x="959.0" y="258.0"></omgdi:waypoint>
@@ -679,7 +745,7 @@
         <omgdi:waypoint x="770.0" y="276.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
-        <omgdi:waypoint x="512.0" y="474.0"></omgdi:waypoint>
+        <omgdi:waypoint x="502.0" y="474.0"></omgdi:waypoint>
         <omgdi:waypoint x="540.0" y="474.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
@@ -709,15 +775,15 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
-        <omgdi:waypoint x="432.0" y="215.0"></omgdi:waypoint>
-        <omgdi:waypoint x="432.0" y="290.0"></omgdi:waypoint>
+        <omgdi:waypoint x="415.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="260.0" y="214.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
         <omgdi:waypoint x="432.0" y="345.0"></omgdi:waypoint>
-        <omgdi:waypoint x="443.0" y="438.0"></omgdi:waypoint>
+        <omgdi:waypoint x="433.0" y="438.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
-        <omgdi:waypoint x="374.0" y="474.0"></omgdi:waypoint>
+        <omgdi:waypoint x="364.0" y="474.0"></omgdi:waypoint>
         <omgdi:waypoint x="240.0" y="510.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
@@ -738,6 +804,14 @@
         <omgdi:waypoint x="1161.0" y="259.0"></omgdi:waypoint>
         <omgdi:waypoint x="1307.0" y="259.0"></omgdi:waypoint>
         <omgdi:waypoint x="1307.0" y="457.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow54" id="BPMNEdge_flow54">
+        <omgdi:waypoint x="331.0" y="252.0"></omgdi:waypoint>
+        <omgdi:waypoint x="432.0" y="290.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow55" id="BPMNEdge_flow55">
+        <omgdi:waypoint x="295.0" y="283.0"></omgdi:waypoint>
+        <omgdi:waypoint x="247.0" y="440.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

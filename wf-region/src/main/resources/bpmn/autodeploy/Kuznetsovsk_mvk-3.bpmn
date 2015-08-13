@@ -3,8 +3,8 @@
   <process id="kuznetsovsk_mvk_3" name="Кузнецьовський МВК - Звернення про надання дозволу на проведення публічних богослужінь" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище організатора-громадянина" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я організатора-громадянина" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище організатора-громадянина" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я організатора-громадянина" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string"></activiti:formProperty>
         <activiti:formProperty id="orgName" name="Назва релігійної громади/організації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="eventName" name="Назва заходу" type="string" required="true"></activiti:formProperty>
@@ -56,7 +56,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${orgEmail}"</activiti:expression>
+          <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему: "${eventName}"</activiti:expression>
@@ -124,11 +124,25 @@
 &lt;i&gt;	${decisionComment} &lt;/i&gt;
 &lt;p&gt;&lt;/p&gt;
 
+
+Центр надання адміністратиних послуг Кузнецовської міської ради &lt;br /&gt;
+&lt;br /&gt;
+Адреса: &lt;br /&gt;
+м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
+&lt;br /&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+Телефон: (03636) 2-23-73 &lt;br /&gt; 
+
+
 &lt;p&gt;&lt;/p&gt;
 &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
 &lt;p&gt;
 З повагою,&lt;br /&gt;
-Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
+Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
 Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
 
                                 &lt;/td&gt;
@@ -159,7 +173,7 @@
     <serviceTask id="mailtask2" name="Емейл підтвердження" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>${orgEmail}</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>
@@ -222,14 +236,27 @@
 &lt;p&gt;&lt;/p&gt;
 Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
 
-Спеціалісти із Державного Органу повинні дати відповідь протягом 10-и діб. 
+Спеціалісти із державного Органу повинні дати відповідь протягом 10-и діб. 
 &lt;p&gt;&lt;/p&gt;
-Залишайтесь з нами. 	
+Залишайтеся з нами. 	
 &lt;p&gt;&lt;/p&gt;
+
+Центр надання адміністратиних послуг Кузнецовської міської ради &lt;br /&gt;
+&lt;br /&gt;
+Адреса: &lt;br /&gt;
+м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
+&lt;br /&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+Телефон: (03636) 2-23-73 &lt;br /&gt; 
+
 &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
 &lt;p&gt;
 З повагою,&lt;br /&gt;
-Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
+Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
 Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
 
                                 &lt;/td&gt;
@@ -250,6 +277,9 @@
 &lt;/body&gt;
 &lt;/html&gt;</activiti:expression>
         </activiti:field>
+        <activiti:field name="bcc">
+          <activiti:string>cnap@kuznetsovsk-rada.gov.ua</activiti:string>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
@@ -257,13 +287,13 @@
     <serviceTask id="mailtask3" name="Емейл відмова" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>${orgEmail}</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: </activiti:string>
+          <activiti:string>Звернення на тему:</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -328,15 +358,30 @@
 &lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov; &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;/p&gt;
-Коментар Державного службовця: &lt;br /&gt;
+Коментар державного службовця: &lt;br /&gt;
 &lt;i&gt;${decisionComment}&lt;/i&gt;
 &lt;p&gt;&lt;/p&gt;
 Вибачте за незручність. Спробуйте подати заяву через півгодини.
 &lt;p&gt;&lt;/p&gt;
+
+
+Центр надання адміністратиних послуг Кузнецовської міської ради &lt;br /&gt;
+&lt;br /&gt;
+Адреса: &lt;br /&gt;
+м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
+&lt;br /&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+Телефон: (03636) 2-23-73 &lt;br /&gt; 
+
+
 &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
 &lt;p&gt;
 З повагою,&lt;br /&gt;
-Виконавчий комітет міської ради міста Кузнецовськ&lt;br/&gt;
+Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
 Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
 
                                 &lt;/td&gt;

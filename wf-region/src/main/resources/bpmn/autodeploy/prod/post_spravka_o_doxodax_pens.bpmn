@@ -73,6 +73,11 @@
         <activiti:formProperty id="code" name="Штрих-код відправленого листа; цей штрих-код буде надісланий громадянину на e-mail" type="string"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Примітки; тут ви можете написати текст для громадянина, який буде відправлений йому на електронну пошту в разі відмови" type="textArea"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+      <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${pens}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
