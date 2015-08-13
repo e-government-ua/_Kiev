@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.dao.PlaceDao;
+import org.wf.dp.dniprorada.dao.PlaceHierarchyRecord;
 import org.wf.dp.dniprorada.model.Place;
 import org.wf.dp.dniprorada.model.PlaceType;
 import org.wf.dp.dniprorada.util.Tree;
@@ -31,7 +32,7 @@ public class PlaceController {
 
     @RequestMapping(value   = "/getPlacesTree",
                     method  = RequestMethod.GET, headers = { JSON_TYPE })
-    public  @ResponseBody Tree<Place> getPlacesTree(
+    public  @ResponseBody Tree<PlaceHierarchyRecord> getPlacesTree (
             @RequestParam(value = "nID",            required = false)       Long    placeId,
             @RequestParam(value = "sID_UA",         required = false)       String  uaId,
             @RequestParam(value = "nID_PlaceType",  required = false)       Long    typeId,

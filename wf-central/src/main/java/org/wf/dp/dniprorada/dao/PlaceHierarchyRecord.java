@@ -1,21 +1,39 @@
 package org.wf.dp.dniprorada.dao;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author dgroup
  * @since  12.08.2015
  */
 public class PlaceHierarchyRecord {
 
+    @JsonProperty
     private long placeId;
+
+    @JsonProperty
     private long typeId;
+
+    @JsonProperty
     private String uaID;
+
+    @JsonProperty
     private String name;
+
+    @JsonProperty
     private String originalName;
-    private boolean area;
-    private boolean root;
+
+    @JsonProperty
     private long rootId;
+
+    @JsonProperty
     private long parentId;
+
+    @JsonProperty
     private long deep;
+
+    @JsonProperty
+    private long areaId;
 
     public long getPlaceId() {
         return placeId;
@@ -52,20 +70,6 @@ public class PlaceHierarchyRecord {
         this.originalName = originalName;
     }
 
-    public boolean isArea() {
-        return area;
-    }
-    public void setArea(boolean area) {
-        this.area = area;
-    }
-
-    public boolean isRoot() {
-        return root;
-    }
-    public void setRoot(boolean root) {
-        this.root = root;
-    }
-
     public long getRootId() {
         return rootId;
     }
@@ -87,19 +91,10 @@ public class PlaceHierarchyRecord {
         this.deep = deep;
     }
 
-    @Override
-    public String toString() {
-        return "PlaceHierarchyRecord{" +
-                "placeId=" + placeId +
-                ", typeId=" + typeId +
-                ", uaID='" + uaID + '\'' +
-                ", name='" + name + '\'' +
-                ", originalName='" + originalName + '\'' +
-                ", area=" + area +
-                ", root=" + root +
-                ", rootId=" + rootId +
-                ", parentId=" + parentId +
-                ", deep=" + deep +
-                '}';
+    public long getAreaId() {
+        return areaId;
+    }
+    public void setAreaId(long areaId) {
+        this.areaId = areaId;
     }
 }

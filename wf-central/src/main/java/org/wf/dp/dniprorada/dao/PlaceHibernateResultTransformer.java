@@ -3,7 +3,6 @@ package org.wf.dp.dniprorada.dao;
 import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wf.dp.dniprorada.model.Place;
 import org.wf.dp.dniprorada.util.Tree;
 
 import java.util.Arrays;
@@ -32,8 +31,8 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         phr.setName( stringVal(objects, strings, "name"));
         phr.setOriginalName( stringVal(objects, strings, "original_name"));
         phr.setParentId( longVal(objects, strings, "parent_id"));
-        phr.setArea( boolVal(objects, strings, "area"));
-        phr.setRoot( boolVal(objects, strings, "root"));
+        phr.setAreaId( longVal(objects, strings, "area_id"));
+        phr.setRootId(longVal(objects, strings, "root_id"));
         phr.setDeep( longVal(objects, strings, "level") );
 
         return phr;
@@ -43,15 +42,6 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
     @Override
     public List transformList(List list) {
         return list;
-    }
-
-
-    public static Tree<Place> toTree(List dataRows) {
-        // #################################################
-        // ###  TODO: Just for debug, delete it later   ####
-        LOG.info("Result {}", dataRows);
-        // #################################################
-        return new Tree<>();
     }
 
 
@@ -76,4 +66,15 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         String val = stringVal(objects,labels,column);
         return isNotBlank(val) ? Boolean.valueOf( val ) : false;
     }
+
+    public static Tree<PlaceHierarchyRecord> toTree(List dataRows) {
+        // #################################################
+        // ###  TODO: Just for debug, delete it later   ####
+        LOG.info("Result {}", dataRows);
+        // #################################################
+        Tree<PlaceHierarchyRecord> tree = new Tree<>();
+        tree.setChildren(dataRows);
+        return tree;
+    }
+
 }
