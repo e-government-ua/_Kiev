@@ -6,9 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.wf.dp.dniprorada.model.Place;
 import org.wf.dp.dniprorada.util.Tree;
 
+import java.util.Arrays;
 import java.util.List;
 
-import static java.util.Arrays.binarySearch;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
@@ -23,8 +23,8 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
     public PlaceHierarchyRecord transformTuple(Object[] objects, String[] strings) {
         PlaceHierarchyRecord phr = new PlaceHierarchyRecord();
 
-//        LOG.info("Labels {}", Arrays.toString(strings));
-//        LOG.info("Data {}", Arrays.toString(objects));
+        LOG.info("Labels {}", Arrays.toString(strings));
+        LOG.info("Data {}", Arrays.toString(objects));
 
         phr.setPlaceId( longVal(objects, strings, "id"));
         phr.setTypeId( longVal(objects, strings, "type_id"));
@@ -42,7 +42,6 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
 
     @Override
     public List transformList(List list) {
-        LOG.info("Got {}", list);
         return list;
     }
 
@@ -56,18 +55,25 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
     }
 
 
-    private boolean boolVal(Object[] objects, String[] strings, String column) {
-        String val = stringVal(objects,strings,column);
-        return isNotBlank(val) ? Boolean.valueOf( val ) : false;
+    private int getIndex(String[] labels, String key){
+        for(int i=0; i < labels.length; i++)
+            if (key.equals( labels[i] ))
+                return i;
+        return -1;
     }
 
-    private String stringVal(Object[] objects, String[] strings, String column) {
-        int index = binarySearch(strings, column);
+    private String stringVal(Object[] objects, String[] labels, String column) {
+        int index = getIndex(labels, column);
         return index >= 0 ? objects[index].toString() : "";
     }
 
-    private long longVal(Object[] objects, String[] strings, String column) {
-        String val = stringVal(objects, strings, column);
+    private long longVal(Object[] objects, String[] labels, String column) {
+        String val = stringVal(objects, labels, column);
         return isNotBlank(val) ? Long.valueOf( val ) : 0L;
+    }
+
+    private boolean boolVal(Object[] objects, String[] labels, String column) {
+        String val = stringVal(objects,labels,column);
+        return isNotBlank(val) ? Boolean.valueOf( val ) : false;
     }
 }
