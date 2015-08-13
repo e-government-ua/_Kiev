@@ -3,17 +3,19 @@
   <process id="common_mvd_1" name="(загальна)- Надання довідки про відсутність або наявніcть судимості" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
+      
+        <activiti:formProperty id="text2" name="Увага" default="Довідка буде оформлена протягом 10-20 робочих днів" type="label"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Індивідуальний податковий номер" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження; у форматі ДД.ММ.РРРР" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження; країна, область/регіон, населений пункт" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="resident" name="Громадянство" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text1" name="Якщо змінювались  прізвище, ім'я та по-батькові, обов'язково вкажіть попередні ПІБ  на обох мовах (укр. та рос.)" type="label" default="-------------------"></activiti:formProperty>
-        <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string"></activiti:formProperty>
-        <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string"></activiti:formProperty>
-        <activiti:formProperty id="text4" name="Додаткова інформація" type="label" default="-------------------"></activiti:formProperty>
+
+        <activiti:formProperty id="bankIdsID_Country" name="Громадянство" type="invisible" default="UKR"></activiti:formProperty>
+        <activiti:formProperty id="sID_Country" name="Country Code" type="string"></activiti:formProperty>
+
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="enum" required="true">
           <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки (піклування), створення прийомної сім'ї або дитячого будинку cімейного типу"></activiti:value>
           <activiti:value id="attr2" name="Оформлення документів в органи соціального забезпечення."></activiti:value>
@@ -27,9 +29,57 @@
           <activiti:value id="attr10" name="Оформлення або поновлення документів."></activiti:value>
           <activiti:value id="attr11" name="Інша"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="text3" name="Контактні данні" type="label" default="-------------------"></activiti:formProperty>
+
+		<activiti:formProperty id="corruption" name="Потрібна додаткова перевірка щодо коррупції" type="enum" required="true">
+          <activiti:value id="attr1" name="Так, перевірка потрібна"></activiti:value>
+          <activiti:value id="attr2" name="Ні, перевірка не потрібна"></activiti:value>
+        </activiti:formProperty>
+
         <activiti:formProperty id="phone" name="Контактний телефон; у форматі 380...." type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
+        
+        
+        
+        
+        
+        
+        
+        <activiti:formProperty id="text1" name="Якщо змінювались  прізвище, ім'я та по-батькові, обов'язково вкажіть попередні ПІБ  на обох мовах (укр. та рос.)" type="label" default="-------------------"></activiti:formProperty>
+        <activiti:formProperty id="lastName_UA1" name="1. Попереднє прізвище (укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="lastName_RU1" name="1. Предыдущая фамилия (рус.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="firstName_UA1" name="1. Попереднє ім'я(укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="firstName_RU1" name="1. Предыдущее имя (рус.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="middleName_UA1" name="1. Попереднє по-батькові(укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="middleName_RU1" name="1. Предыдущее отчество (рус.)" type="string"></activiti:formProperty>
+        
+        <activiti:formProperty id="lastName_UA2" name="2. Попереднє прізвище (укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="lastName_RU2" name="2. Предыдущая фамилия (рус.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="firstName_UA2" name="2. Попереднє ім'я(укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="firstName_RU2" name="2. Предыдущее имя (рус.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="middleName_UA2" name="2. Попереднє по-батькові(укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="middleName_RU2" name="2. Предыдущее отчество (рус.)" type="string"></activiti:formProperty>
+        
+        <activiti:formProperty id="lastName_UA3" name="3. Попереднє прізвище (укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="lastName_RU3" name="3. Предыдущая фамилия (рус.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="firstName_UA3" name="3. Попереднє ім'я(укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="firstName_RU3" name="3. Предыдущее имя (рус.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="middleName_UA3" name="3. Попереднє по-батькові(укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="middleName_RU3" name="3. Предыдущее отчество (рус.)" type="string"></activiti:formProperty>
+        
+        <activiti:formProperty id="lastName_UA4" name="4. Попереднє прізвище (укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="lastName_RU4" name="4. Предыдущая фамилия (рус.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="firstName_UA4" name="4. Попереднє ім'я(укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="firstName_RU4" name="4. Предыдущее имя (рус.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="middleName_UA4" name="4. Попереднє по-батькові(укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="middleName_RU4" name="4. Предыдущее отчество (рус.)" type="string"></activiti:formProperty>
+        
+        <activiti:formProperty id="lastName_UA5" name="5. Попереднє прізвище (укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="lastName_RU5" name="5. Предыдущая фамилия (рус.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="firstName_UA5" name="5. Попереднє ім'я(укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="firstName_RU5" name="5. Предыдущее имя (рус.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="middleName_UA5" name="5. Попереднє по-батькові(укр.)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="middleName_RU5" name="5. Предыдущее отчество (рус.)" type="string"></activiti:formProperty>
+               
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -146,15 +196,25 @@
     <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
     <userTask id="usertask1" name="Надання послуги" activiti:candidateGroups="dnepr_mvd_fo1">
       <extensionElements>
+      <activiti:formProperty id="cert_Number" name="Номер довідки" type="invisible"></activiti:formProperty>
+      <activiti:formProperty id="cert_Date" name="Дата оформлення довідки" type="invisible"></activiti:formProperty>
+      <activiti:formProperty id="state_Name" name="Назва державної установи" type="invisible"></activiti:formProperty>
+      <activiti:formProperty id="state_Address" name="Адреса державної установи" type="invisible"></activiti:formProperty>
+      <activiti:formProperty id="state_schedule" name="Приймальні години" type="invisible"></activiti:formProperty>
+      <activiti:formProperty id="state_phone" name="Телефон для довідок" type="invisible"></activiti:formProperty>
+      <activiti:formProperty id="request_Number" name="Номер запиту" type="invisible"></activiti:formProperty>
+      
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Індивідуальний податковий номер" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="resident" name="Громадянство" type="string" writable="false"></activiti:formProperty>
+
+        <activiti:formProperty id="bankIdsID_Country" name="Громадянство" type="invisible" default="UKR" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sID_Country" name="Country Code" type="string" writable="false"></activiti:formProperty>
+        
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="enum" writable="false">
           <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки (піклування), створення прийомної сім'ї або дитячого будинку cімейного типу"></activiti:value>
           <activiti:value id="attr2" name="Оформлення документів в органи соціального забезпечення."></activiti:value>
@@ -168,6 +228,47 @@
           <activiti:value id="attr10" name="Оформлення або поновлення документів."></activiti:value>
           <activiti:value id="attr11" name="Інша"></activiti:value>
         </activiti:formProperty>
+        
+        <activiti:formProperty id="corruption" name="Потрібна додаткова перевірка щодо коррупції" type="enum"  writable="false">
+          <activiti:value id="attr1" name="Так, перевірка потрібна"></activiti:value>
+          <activiti:value id="attr2" name="Ні, перевірка не потрібна"></activiti:value>
+        </activiti:formProperty>
+        
+        <activiti:formProperty id="lastName_UA1" name="1. Попереднє прізвище (укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="lastName_RU1" name="1. Предыдущая фамилия (рус.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="firstName_UA1" name="1. Попереднє ім'я(укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="firstName_RU1" name="1. Предыдущее имя (рус.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="middleName_UA1" name="1. Попереднє по-батькові(укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="middleName_RU1" name="1. Предыдущее отчество (рус.)" type="string" writable="false"></activiti:formProperty>
+        
+        <activiti:formProperty id="lastName_UA2" name="2. Попереднє прізвище (укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="lastName_RU2" name="2. Предыдущая фамилия (рус.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="firstName_UA2" name="2. Попереднє ім'я(укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="firstName_RU2" name="2. Предыдущее имя (рус.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="middleName_UA2" name="2. Попереднє по-батькові(укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="middleName_RU2" name="2. Предыдущее отчество (рус.)" type="string" writable="false"></activiti:formProperty>
+        
+        <activiti:formProperty id="lastName_UA3" name="3. Попереднє прізвище (укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="lastName_RU3" name="3. Предыдущая фамилия (рус.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="firstName_UA3" name="3. Попереднє ім'я(укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="firstName_RU3" name="3. Предыдущее имя (рус.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="middleName_UA3" name="3. Попереднє по-батькові(укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="middleName_RU3" name="3. Предыдущее отчество (рус.)" type="string" writable="false"></activiti:formProperty>
+        
+        <activiti:formProperty id="lastName_UA4" name="4. Попереднє прізвище (укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="lastName_RU4" name="4. Предыдущая фамилия (рус.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="firstName_UA4" name="4. Попереднє ім'я(укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="firstName_RU4" name="4. Предыдущее имя (рус.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="middleName_UA4" name="4. Попереднє по-батькові(укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="middleName_RU4" name="4. Предыдущее отчество (рус.)" type="string" writable="false"></activiti:formProperty>
+        
+        <activiti:formProperty id="lastName_UA5" name="5. Попереднє прізвище (укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="lastName_RU5" name="5. Предыдущая фамилия (рус.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="firstName_UA5" name="5. Попереднє ім'я(укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="firstName_RU5" name="5. Предыдущее имя (рус.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="middleName_UA5" name="5. Попереднє по-батькові(укр.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="middleName_RU5" name="5. Предыдущее отчество (рус.)" type="string" writable="false"></activiti:formProperty>
+        
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Результат обробки звернення" type="enum" required="true">
           <activiti:value id="accept" name="Сповістити громадянина про дату отримання довідки"></activiti:value>
