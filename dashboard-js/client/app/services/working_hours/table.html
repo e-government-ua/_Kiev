@@ -20,7 +20,7 @@
       <p ng-show="slot.saRegionWeekDay.sa">Субота</p>
       <p ng-show="slot.saRegionWeekDay.su">Неділя</p>
     </td>
-    <td> з {{slot.sDateTimeAt | date: 'HH:mm'}} до {{slot.sDateTimeTo | date: 'HH:mm'}}</td>
+    <td> з {{slot.sDateTimeAt | amDateFormat:'HH:mm'}} до {{slot.sDateTimeTo | amDateFormat:'HH:mm'}}</td>
     <td>
       <div class="btn-group">
         <button type="button" class="btn btn-default" ng-click="workingHours.edit(slot)">Редагувати</button>

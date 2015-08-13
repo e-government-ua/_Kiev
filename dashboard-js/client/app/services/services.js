@@ -5,6 +5,9 @@ angular.module('dashboardJsApp')
     $routeProvider
       .when('/services', {
         templateUrl: 'app/services/services.html',
-        controller: 'ServicesCtrl'
+        controller: 'ServicesCtrl',
+        access: {
+          requiresLogin: true
+        }
       });
   });

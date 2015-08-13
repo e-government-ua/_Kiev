@@ -9,14 +9,22 @@
   </thead>
   <tbody>
 
-  <tr ng-repeat="one in list.aDay">
-    <th scope="row">{{one.aSlot[0].nID}}</th>
-    <td>{{one.sDate}}</td>
-    <td> о {{one.aSlot[0].sTime}}</td>
+  <tr ng-repeat="slot in exemptions.get()">
+    <th scope="row">{{slot.nID}}</th>
     <td>
-      <div class="btn-group" dropdown>
-        <button type="button" class="btn btn-default">Редагувати</button>
-        <button type="button" class="btn btn-danger" dropdown-toggle>
+      <p ng-show="slot.saRegionWeekDay.mo" >Понеділок</p>
+      <p ng-show="slot.saRegionWeekDay.tu">Вівторок</p>
+      <p ng-show="slot.saRegionWeekDay.we">Середа</p>
+      <p ng-show="slot.saRegionWeekDay.th">Четвер</p>
+      <p ng-show="slot.saRegionWeekDay.fr">П'ятниця</p>
+      <p ng-show="slot.saRegionWeekDay.sa">Субота</p>
+      <p ng-show="slot.saRegionWeekDay.su">Неділя</p>
+    </td>
+    <td> з {{slot.sDateTimeAt | amDateFormat:'HH:mm'}} до {{slot.sDateTimeTo | amDateFormat:'HH:mm'}}</td>
+    <td>
+      <div class="btn-group">
+        <button type="button" class="btn btn-default" ng-click="exemptions.edit(slot)">Редагувати</button>
+        <button type="button" class="btn btn-danger" ng-click="exemptions.delete(slot)">
           <i class="glyphicon glyphicon-trash"></i>
         </button>
       </div>
@@ -27,7 +35,7 @@
     <th scope="row"></th>
     <td></td>
     <td></td>
-    <td><button class="btn btn-primary">Добавити</button></td>
+    <td><button class="btn btn-primary" ng-click="exemptions.add()">Добавити</button></td>
   </tr>
   </tbody>
 </table>

@@ -13,10 +13,10 @@
             <select id="bpID"
                     class="form-control"
                     name="bpID"
-                    ng-model="statistic.sBP"
-                    ng-options="processDefinition.sID as processDefinition.sName for processDefinition in processesList"
+                    ng-model="bp.chosenBp"
+                    ng-options="processDefinition as processDefinition.sName for processDefinition in processesList"
                     ng-required="true"
-                    ng-change="workingHours.change()">
+                    ng-change="bp.change()">
             </select>
           </div>
         </div>
@@ -25,43 +25,74 @@
   </div>
 
   <div class="panel panel-default">
+    <div class="panel-heading">Розклад</div>
     <div class="panel-body">
-      <tabset>
 
+
+
+      <tabset >
         <tab heading="Робочоий час тижня">
           <div class="spacer15"></div>
-          <div ng-include src="'app/services/working_hours/table.html'"></div>
-
+          <div ng-show="workingHours.isShowWarning()">
+            <h3 class="text-center">Оберіть бізнес-процес, що включено до Flow_ServiceData.csv у проекті wf-base</h3>
+            <h5 class="text-center">Наразі це бізнес-процеси з наступними Id: "Test sID_BP", "kiev_mreo_1", "dnepr_mreo_1", "dnepr_dms_passport"</h5>
+          </div>
+          <div ng-show="workingHours.isInProgress()">
+            <h3 class="text-center">Заждіть</h3>
+          </div>
+          <div ng-show="workingHours.isShowData()"
+               ng-include src="'app/services/working_hours/table.html'"></div>
         </tab>
 
         <tab heading="Винятки робочого часу">
           <div class="spacer15"></div>
-          <div ng-include src="'app/services/exclusions/table.html'"></div>
+          <div ng-show="exemptions.isShowWarning()">
+            <h3 class="text-center">Оберіть бізнес-процес, що включено до Flow_ServiceData.csv у проекті wf-base</h3>
+            <h5 class="text-center">Наразі це бізнес-процеси з наступними Id: "Test sID_BP", "kiev_mreo_1", "dnepr_mreo_1", "dnepr_dms_passport"</h5>
+          </div>
+          <div ng-show="exemptions.isInProgress()">
+            <h3 class="text-center">Заждіть</h3>
+          </div>
+          <div ng-show="exemptions.isShowData()"
+               ng-include src="'app/services/exclusions/table.html'"></div>
         </tab>
 
         <tab heading="Генерація слотів роскладу">
           <div class="spacer15"></div>
-          <form class="form-inline">
+          <div ng-show="flowSlots.isInProgress()">
+            <h3 class="text-center">Заждіть</h3>
+          </div>
+          <form class="form-inline" ng-show="flowSlots.isShowData()">
             <div class="form-group">
-              <label for="exampleInputName2">Період:</label>
-              <input type="datetime" class="form-control" id="exampleInputName2" placeholder="з">
+              <label>Період з</label>
+              <datepicker ng-model="flowSlots.data.sDateStart"
+                          show-weeks="true"
+                          class="well well-sm"></datepicker>
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail2">Email</label>
-              <input type="datetime" class="form-control" id="exampleInputEmail2" placeholder="до">
+              <label>до</label>
+              <datepicker ng-model="flowSlots.data.sDateStop"
+                          show-weeks="true"
+                          class="well well-sm"></datepicker>
             </div>
-            <button type="submit" class="btn btn-success">Згенерувати</button>
-            <button class="btn btn-danger">Видалиті згенероване</button>
+            <button type="submit" class="btn btn-success" ng-click="flowSlots.generate()">Згенерувати</button>
+            <button class="btn btn-danger" ng-click="flowSlots.delete()">Видалиті згенероване</button>
           </form>
         </tab>
 
         <tab heading="Переглянути наявний грфік та заняті слоти">
           <div class="spacer15"></div>
-          <div class="col-xs-6 col-sm-2">
-            <input class="form-control" ng-model="statistic.from" ng-required="true">
+          <div ng-show="resultSchedule.isInProgress()">
+            <h3 class="text-center">Заждіть</h3>
           </div>
+          <form class="form-inline" ng-show="resultSchedule.isShowData()">
+            <div class="form-group">
+              <label>Дата</label>
+              <datepicker ng-model="resultSchedule.data.sDate" show-weeks="true" class="well well-sm"></datepicker>
+            </div>
+            <button type="submit" class="btn btn-success" ng-click="resultSchedule.get()">Згенерувати</button>
+          </form>
         </tab>
-
       </tabset>
     </div>
   </div>
