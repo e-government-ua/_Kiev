@@ -1,11 +1,9 @@
-package org.wf.dp.dniprorada.dao;
+package org.wf.dp.dniprorada.dao.place;
 
 import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wf.dp.dniprorada.util.Tree;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
@@ -21,9 +19,6 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
     @Override
     public PlaceHierarchyRecord transformTuple(Object[] objects, String[] strings) {
         PlaceHierarchyRecord phr = new PlaceHierarchyRecord();
-
-        LOG.info("Labels {}", Arrays.toString(strings));
-        LOG.info("Data {}", Arrays.toString(objects));
 
         phr.setPlaceId( longVal(objects, strings, "id"));
         phr.setTypeId( longVal(objects, strings, "type_id"));
@@ -67,13 +62,19 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         return isNotBlank(val) ? Boolean.valueOf( val ) : false;
     }
 
-    public static Tree<PlaceHierarchyRecord> toTree(List dataRows) {
+    public static PlaceTree toTree(List<PlaceHierarchyRecord> dataRows) {
+
         // #################################################
         // ###  TODO: Just for debug, delete it later   ####
         LOG.info("Result {}", dataRows);
         // #################################################
-        Tree<PlaceHierarchyRecord> tree = new Tree<>();
-        tree.setChildren(dataRows);
+
+        PlaceTree tree = new PlaceTree();
+        PlaceHierarchyRecord phr = dataRows.iterator().next();
+
+        tree.setPlace( phr.toPlace() );
+        tree.setLevel( phr.getDeep() );
+
         return tree;
     }
 

@@ -1,6 +1,6 @@
-package org.wf.dp.dniprorada.dao;
+package org.wf.dp.dniprorada.dao.place;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.wf.dp.dniprorada.model.Place;
 
 /**
  * @author dgroup
@@ -8,31 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class PlaceHierarchyRecord {
 
-    @JsonProperty
     private long placeId;
-
-    @JsonProperty
     private long typeId;
-
-    @JsonProperty
     private String uaID;
-
-    @JsonProperty
     private String name;
-
-    @JsonProperty
     private String originalName;
-
-    @JsonProperty
     private long rootId;
-
-    @JsonProperty
     private long parentId;
-
-    @JsonProperty
     private long deep;
-
-    @JsonProperty
     private long areaId;
 
     public long getPlaceId() {
@@ -96,5 +79,15 @@ public class PlaceHierarchyRecord {
     }
     public void setAreaId(long areaId) {
         this.areaId = areaId;
+    }
+
+    public Place toPlace() {
+        Place place = new Place();
+        place.setId( getPlaceId() );
+        place.setName( getName() );
+        place.setUaId( getUaID() );
+        place.setPlaceTypeId( getTypeId() );
+        place.setOriginalName( getOriginalName() );
+        return place;
     }
 }
