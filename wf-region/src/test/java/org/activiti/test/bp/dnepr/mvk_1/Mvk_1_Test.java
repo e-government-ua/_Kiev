@@ -45,7 +45,7 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 
 	@Before
 	public void injectDependencies() throws Exception {
-            /*
+            
 		MockitoAnnotations.initMocks(this);
 		Mockitos.register(this);
 
@@ -63,14 +63,14 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 				.getIdentityService(), activitiRule.getProcessEngine()
 				.getManagementService(), activitiRule.getProcessEngine()
 				.getFormService());
-            */
+            
 	}
 
 	@After
 	public void cleanUp() {
 
 	}
-/*
+
 	private Map<String, Object> createStartFormVariables() {
 		Map<String, Object> procVars = new HashMap<String, Object>();
 
@@ -91,8 +91,7 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 		return procVars;
 	}
 
-	@Skip
-        @Test
+        //@Test
 	@Deployment(resources = { PROCESS_RESOURCE })
 	public void startProcessInstance() throws InterruptedException {
 		Map<String, Object> procVars = createStartFormVariables();
@@ -111,8 +110,7 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 
 	}
 
-	@Skip
-        @Test
+        //@Test
 	@Deployment(resources = { PROCESS_RESOURCE })
 	public void processRejected() throws InterruptedException {
 		Map<String, Object> procVars = createStartFormVariables();
@@ -158,5 +156,5 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 				.createProcessInstanceQuery().count());
 
 	}
-*/
+
 }
