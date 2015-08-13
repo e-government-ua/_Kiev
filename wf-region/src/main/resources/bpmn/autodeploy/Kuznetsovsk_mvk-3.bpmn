@@ -56,7 +56,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${orgEmail}"</activiti:expression>
+          <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему: "${eventName}"</activiti:expression>
@@ -173,7 +173,7 @@
     <serviceTask id="mailtask2" name="Емейл підтвердження" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>${orgEmail}</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>
@@ -287,13 +287,13 @@
     <serviceTask id="mailtask3" name="Емейл відмова" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>${orgEmail}</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: </activiti:string>
+          <activiti:string>Звернення на тему:</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
