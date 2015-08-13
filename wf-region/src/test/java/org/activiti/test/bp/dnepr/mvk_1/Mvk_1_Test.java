@@ -36,7 +36,7 @@ import net.sf.brunneng.jom.annotations.Skip;
 		"classpath:META-INF/spring/dnepr/mvk/1/activiti.cfg.scan.xml",
 		"classpath:context_test-region.xml" })
 public class Mvk_1_Test extends PluggableActivitiTestCase {
-
+/*
 	static final String PROCESS_KEY = "CivilCopyDocRequest";
 	static final String PROCESS_RESOURCE = "bpmn/autodeploy/dnepr_mvk-1.bpmn";
 
@@ -156,5 +156,5 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 				.createProcessInstanceQuery().count());
 
 	}
-
+*/
 }
