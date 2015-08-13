@@ -29,7 +29,7 @@ import org.wf.dp.dniprorada.util.Util;
  * @author askosyr
  */
 @Component("fileTaskInheritance")
-public class FileTaskInheritance extends AbstractModelTask  implements TaskListener {
+public class FileTaskInheritance extends AbstractModelTask implements TaskListener {
 
 	private static final long serialVersionUID = 1L;
 
