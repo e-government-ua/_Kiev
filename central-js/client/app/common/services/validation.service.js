@@ -71,44 +71,37 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
 
   self.sFormat = 'YYYY-MM-DD';
 
-  self.validateByMarkers = function(form, $scope) {
+  self.setValidatorsByMarkers = function(form, markers) {
+    console.log('I VALIDATE: ', form, markers);
+  };
 
-    var markers = $scope.markers;
+  self.validateByMarkers = function(form, markers) {
 
     if (!markers || !markers.validate || markers.validate.length < 1) {
       return;
     }
-
+    // console.log('f:', form);
     angular.forEach(markers.validate, function(validator, validatorName) {
+
       var fieldByName = self.validatorByName[validatorName];
       var marked = markers.validate[validatorName];
 
-      function fieldByFieldId(field) {
-        return field && field.$name && _.indexOf(marked['aField_ID'], field.$name) !== -1;
+      function fieldByFieldId(formField) {
+        return formField && formField.$name && _.indexOf(marked['aField_ID'], formField.$name) !== -1;        
       }
+
       angular.forEach(form, function(formField) {
+        //console.log('m:', marked, formField);
         if (fieldByFieldId(formField)) {
+          
           var ffield = formField.$validators[fieldByName];
+
           // overwrite the default Angular field validator
           //
           //  ONLY ONCE
           //
           if (!ffield) {
             ffield = self.getValidatorByName(validatorName, formField);
-
-            // switch ( validatorName ) {
-            //   case 'DateFormat': 
-            //     ffield.sFormat = marked['sFormat'];
-            //     break;
-            //   case 'DateElapsed':
-            //     ffield.bFuture = marked['bFuture']; // 'bFuture': false, //если true то дата должна быть в будущем
-            //     ffield.bLess = marked['bLess']; // : true, //если true то 'дельта' между датами должна быть 'менее чем' (указана нижними параметрами)
-            //     ffield.nDays = marked['nDays'];  // 3,
-            //     ffield.nMonths = marked['nMonths']; // : 0,
-            //     ffield.nYears = marked['nYears']; //: 1
-            //     break;
-            // }
-
             // and validate it
             formField.$validate();
           }

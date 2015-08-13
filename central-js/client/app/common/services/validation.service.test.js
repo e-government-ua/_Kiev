@@ -168,17 +168,20 @@ describe('ValidationService Tests', function() {
     ];
 
     // Validate Dates:
-
     var datesRight = [
       '2015-08-12',
-      '2015-1-1'
+      '2015-1-1',
+      '1902-8-12',
+      '1902-08-1'
     ];
 
     var datesWrong = [
       '0-2015',
       '-1-2015',
       'August 11 2015',
-      '11 Aug 2015'
+      '11 Aug 2015',
+      '1902-0-1',
+      '1902-1-0'
     ];
 
     // Validate Date Elapsed:
@@ -190,8 +193,8 @@ describe('ValidationService Tests', function() {
     // validateArray( textRUSamplesRight, 'TextRU', true );
     // validateArray( textRUSamplesWrong, 'TextRU', false );
 
-    // validateArray( datesRight, 'DateFormat', true, { sFormat: 'DD-MM-YYYY' } );
-    // validateArray( datesWrong, 'DateFormat', false, { sFormat:'DD-MM-YYYY' } );
+    // validateArray( datesRight, 'DateFormat', true, { sFormat: 'YYYY-MM-DD' } );
+    // validateArray( datesWrong, 'DateFormat', false, { sFormat:'YYYY-MM-DD' } );
 
     //  function doValidate( validatorName, value, toBeOrNotToBe, options ) {
     //  Параметри:
