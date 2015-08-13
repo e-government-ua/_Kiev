@@ -2,6 +2,9 @@
 
 describe('ValidationService Tests', function() {
 
+  // set it to true to enable pre-validation and tracing messages: 
+  var isDebugMode = false;
+
   var $rootScope, $compile, $window, $filter, moment, amTimeAgoConfig, originalTimeAgoConfig, angularMomentConfig,
     originalAngularMomentConfig, amMoment;
 
@@ -87,19 +90,23 @@ describe('ValidationService Tests', function() {
 
     //field.$validators[fieldByName] = self.getValidatorByName(validatorName, field);
 
-    var isDebugMode = true;
-
     function doValidate(validatorName, value, toBeOrNotToBe, options) {
       var fValidator = validationService.getValidatorByName(validatorName);
       var fValidatorCall;
       if (typeof fValidator === 'function') {
         if (isDebugMode) {
+          if (options.bDebug) {
+            logHeader('DEBUG - THIS - DEBUG - THIS - DEBUG - THIS - DEBUG - THIS - DEBUG - THIS', 3);
+          }
           var isValid = prevalidate(validatorName, value, toBeOrNotToBe, options);
-          var sValid = isValid ? colr(' is valid.', 'green') : colr(' is invalid', 'red');
+          var sValid = isValid ? colr(' is valid', 'green') : colr(' is invalid', 'red');
           var sExpectedValid = toBeOrNotToBe ? colr('to be valid.', 'green') : colr('to be invalid', 'red');
-          var validationFail = isValid === toBeOrNotToBe ? colr(' - validator OK', 'green') : colr(' - validatir FAILED FAILED FAILED', 'red');
-            //, (options ? options : ''),
-          console.log('' + validatorName + ', value of ' + value + sValid + ' - ' + sExpectedValid + validationFail );
+          var validationFail = isValid === toBeOrNotToBe ? colr(' - validator OK', 'green') : colr(' - validator FAILED, FAILED, FAILED!', 'red');
+          //, (options ? options : ''),
+          console.log('' + validatorName + ', value of ' + value + sValid + ' - ' + sExpectedValid + validationFail);
+          if (options.bDebug) {
+            logHeader('DEBUG END - DEBUG END - DEBUG END - DEBUG END - DEBUG END', 3);
+          }
         } else {
           fValidatorCall = fValidator.call(this, value, options);
           expect(fValidatorCall).toBe(toBeOrNotToBe);
@@ -204,52 +211,64 @@ describe('ValidationService Tests', function() {
     var monthBefore = moment().subtract(1, 'M');
     var yearBefore = moment().subtract(1, 'y');
 
-    function m(mValue) {
+    function momentToString(mValue) {
       return mValue.format('YYYY-MM-DD');
     }
 
+    logHeader('BFUTURE === TRUE, NO BLESS');
+
     // Дата має бути у майбутньому, а ця - рік тому: 
-    doValidate('DateElapsed', m(yearBefore), false, {
+    doValidate('DateElapsed', momentToString(yearBefore), false, {
       bFuture: true
     });
 
     // Дата має бути у майбутньому, а ця - учора: 
-    doValidate('DateElapsed', m(oneDayBefore), false, {
+    doValidate('DateElapsed', momentToString(oneDayBefore), false, {
       bFuture: true
     });
 
     // Дата має бути у майбутньому, а ця - сьогодні: 
-    doValidate('DateElapsed', m(now), false, {
+    doValidate('DateElapsed', momentToString(now), false, {
       bFuture: true
     });
 
-    // Дата має бути у майбутньому, і ця - післязавтра: 
-    doValidate('DateElapsed', m(oneDayAfter.add(1, 'd')), true, {
+    doValidate('DateElapsed', momentToString(oneDayAfter.add(1, 'd')), true, {
+      sDebug: 'Дата має бути у майбутньому, і ця - післязавтра: ',
       bFuture: true
     });
 
     // Дата має бути у майбутньому, і ця - на місяць уперед: 
-    doValidate('DateElapsed', m(monthAfter), true, {
+    doValidate('DateElapsed', momentToString(monthAfter), true, {
       bFuture: true
     });
 
-    console.log( colr( 'BLESS === TRUE === BLESS === TRUE', 'blue') );
+    logHeader('BLESS === TRUE');
 
     // bLess:
-    
+
     // Дата має бути у майбутньому, різниця - менш ніж 1 день.
-    // monthAfter - на місяць уперед: 
-    doValidate('DateElapsed', m(monthAfter), false, {
+    // monthAfter - на місяць уперед - ПРАВИЛЬНА 
+    doValidate('DateElapsed', momentToString(monthAfter), false, {
       bFuture: true,
       bLess: true,
       nDays: 1,
       nMonths: 0,
+      nYears: 0
+    });
+
+    // Дата має бути у майбутньому, різниця - менш ніж 1 місяць.
+    // Дана weekAfter - на тиждень уперед - ПРАВИЛЬНА
+    doValidate('DateElapsed', momentToString(weekAfter), true, {
+      bFuture: true,
+      bLess: true,
+      nDays: 0,
+      nMonths: 1,
       nYears: 0
     });
 
     // Дата має бути у майбутньому, різниця - менш ніж 60 днів.
     // Дана monthAfter - на місяць уперед: - ПРАВИЛЬНА
-    doValidate('DateElapsed', m(monthAfter), true, {
+    doValidate('DateElapsed', momentToString(monthAfter), true, {
       bFuture: true,
       bLess: true,
       nDays: 60,
@@ -257,40 +276,52 @@ describe('ValidationService Tests', function() {
       nYears: 0
     });
 
-    console.log( colr( 'BFUTURE = FALSE = BFUTURE = FALSE = BFUTURE = FALSE', 'blue') );
+    logHeader('BLESS === FALSE'); // --------------------------
+
+    // Дата має бути у майбутньому (bFuture: true), різниця - більше, ніж 1 день (bLess: false).
+    // monthAfter - на місяць уперед - ПРАВИЛЬНА:
+    doValidate('DateElapsed', momentToString(monthAfter), true, {
+      bFuture: true,
+      bLess: false,
+      nDays: 1,
+      nMonths: 0,
+      nYears: 0
+    });
+
+    logHeader('BFUTURE = FALSE, NO BLESS');
 
     // минуле:
 
     // Дата не має бути у майбутньому, а ця - рік тому: 
-    doValidate('DateElapsed', m(yearBefore), true, {
+    doValidate('DateElapsed', momentToString(yearBefore), true, {
       bFuture: false
     });
 
     // Дата не має бути у майбутньому, а ця - учора: 
-    doValidate('DateElapsed', m(oneDayBefore), true, {
+    doValidate('DateElapsed', momentToString(oneDayBefore), true, {
       bFuture: false
     });
 
     // Дата не має бути у майбутньому, а ця - сьогодні: 
-    doValidate('DateElapsed', m(now), true, {
+    doValidate('DateElapsed', momentToString(now), true, {
       bFuture: false
     });
 
     // Дата не має бути у майбутньому, і ця - післязавтра: 
-    doValidate('DateElapsed', m(oneDayAfter.add(1, 'd')), false, {
+    doValidate('DateElapsed', momentToString(oneDayAfter.add(1, 'd')), false, {
       bFuture: false
     });
 
     // Дата не має бути у майбутньому, і ця - на місяць уперед: 
-    doValidate('DateElapsed', m(monthAfter), false, {
+    doValidate('DateElapsed', momentToString(monthAfter), false, {
       bFuture: false
     });
 
-    console.log( colr( 'BFUTURE = FALSE - BLESS = TRUE', 'blue') );
+    logHeader('BFUTURE === FALSE, BLESS = TRUE');
 
     // Дата має бути у минулому, різниця - менш ніж 1 день.
     // Дана monthAfter - на місяць уперед, ПОМИЛКОВА:
-    doValidate('DateElapsed', m(monthAfter), false, {
+    doValidate('DateElapsed', momentToString(monthAfter), false, {
       bFuture: false,
       bLess: true,
       nDays: 1,
@@ -298,9 +329,19 @@ describe('ValidationService Tests', function() {
       nYears: 0
     });
 
+    // Дата має бути у минулому, різниця - менш ніж 1 місяць.
+    // Дана weekAfter - на тиждень уперед: - ПОМИЛКОВА
+    doValidate('DateElapsed', momentToString(weekAfter), false, {
+      bFuture: false,
+      bLess: true,
+      nDays: 0,
+      nMonths: 1,
+      nYears: 0
+    });
+
     // Дата має бути у минулому, різниця - менш ніж 60 днів.
     // Дана monthAfter - на місяць уперед: - ПОМИЛКОВА
-    doValidate('DateElapsed', m(monthAfter), false, {
+    doValidate('DateElapsed', momentToString(monthAfter), false, {
       bFuture: false,
       bLess: true,
       nDays: 60,
@@ -308,35 +349,94 @@ describe('ValidationService Tests', function() {
       nYears: 0
     });
 
-    // Від сьогодні до 19-08 має пройти менше, ніж 0 днів.
-    // validate( 'DateElapsed',
-    //           '19-08-2015',
-    //           true,
-    //           {
-    //             bFuture: true,
-    //             bLess: true, 
-    //             nDays: 0, 
-    //             nMonths: 0, 
-    //             nYears: 0
-    //           });
+    logHeader('BFUTURE === FALSE, BLESS === FALSE'); // --------------------------
 
-    // validate( 'DateElapsed', 
-    //           '20-08-2015', 
-    //           false, 
-    //           { 
-    //             bFuture: true,
-    //             bLess: false, 
-    //             nDays: 10, 
-    //             nMonths: 0, 
-    //             nYears: 0
-    //           });
+    // Дата має бути у минулому (bFuture: false), різниця - більше, ніж 1 день (bLess: false)
+    // monthAfter - на місяць уперед - ПОМИЛКОВА:
+    doValidate('DateElapsed', momentToString(monthAfter), false, {
+      bFuture: false,
+      bLess: false,
+      nDays: 1,
+      nMonths: 0,
+      nYears: 0
+    });
 
-    // validate( 'DateElapsed', '17-08-2015', false, { bFuture: false, bLess: true, nDays: 0, nMonths: 0, nYears: 0 } );
+    // Дата має бути у минулому (bFuture: false), різниця - більше, ніж 1 день (bLess: false)
+    // monthBefore - на місяць назад - ПРАВИЛЬНА:
+    doValidate('DateElapsed', momentToString(monthBefore), true, {
+      bFuture: false,
+      bLess: false,
+      nDays: 1,
+      nMonths: 0,
+      nYears: 0
+    });
+
+    doValidate('DateElapsed', momentToString(weekAfter.add(1, 'd')), true, {
+      sDebug: 'Уведіть дату у майбутньому, більш ніж на тиждень пізнішу за сьогодні.',
+      bDebug: true,
+      bFuture: true,
+      bLess: false,
+      nDays: 7,
+      nMonths: 0,
+      nYears: 0
+    });
+
+    // TO ERROR:
+    // Use case: "Уведіть дату у майбутньому, більш ніж на тиждень пізнішу за сьогодні":
+    doValidate('DateElapsed', momentToString(weekBefore), false, {
+      bFuture: true,
+      bLess: false,
+      nDays: 7,
+      nMonths: 0,
+      nYears: 0
+    });
+
+    // TO ERROR:
+    // Use case: "Уведіть дату у минулому, більш ніж на тиждень ранішу за сьогодні":
+    doValidate('DateElapsed', momentToString(oneDayAfter), false, {
+      bFuture: false,
+      bLess: false,
+      nDays: 7,
+      nMonths: 0,
+      nYears: 0
+    });
+
+    // TO ERROR:
+    // Use case: "Уведіть дату у минулому, менш ніж на рік ранішу від поточної":
+    doValidate('DateElapsed', momentToString(yearBefore), false, {
+      bFuture: false,
+      bLess: true,
+      nDays: 0,
+      nMonths: 10,
+      nYears: 0
+    });
+
+    // TO ERROR:
+    doValidate('DateElapsed', momentToString(weekAfter), false, {
+      sDebug: 'Уведіть заплановану дату шлюбу" (не раніше, ніж за місяць від сьогодні)',
+      bFuture: true,
+      bLess: false,
+      nDays: 0,
+      nMonths: 1,
+      nYears: 0
+    });
+
+    // TO ERROR:
+    doValidate('DateElapsed', momentToString(yearAfter), false, {
+      sDebug: 'Уведіть заплановану дату візиту" (не пізніше, ніж за півроку від сьогодні)',
+      bFuture: true,
+      bLess: true,
+      nDays: 10,
+      nMonths: 6,
+      nYears: 0
+    });
+
+    // doValidate( 'DateElapsed', '17-08-2015', false, { bFuture: false, bLess: true, nDays: 0, nMonths: 0, nYears: 0 } );
     // validateArray( eDatesRight, 'DateElapsed', true, false, false, 1, 0, 0 );
     // validateArray( eDatesRight, 'DateElapsed', true, true, false, 1, 0, 0 );
     // validateArray( eDatesRight, 'DateElapsed', true, true, true, 1, 0, 0 );
 
-    /* Uncomment to check moment pluralizations 
+    /* Перевірити, як утворюється множина (pluralization) 
     console.log ( colr( validationService.pluralize( 0, 'days' ), 'green' )); 
     console.log ( colr( validationService.pluralize( 1, 'days' ), 'green' )); // день
     console.log ( colr( validationService.pluralize( 4, 'days' ), 'green' )); // дні
@@ -363,6 +463,7 @@ describe('ValidationService Tests', function() {
     console.log ( colr( validationService.fromDateToDate( '12-08-2015', '18-09-2016' ), 'green' )); 
     console.log ( colr( validationService.fromDateToDate( '12-08-2015', '18-09-2026' ), 'green' )); */
 
+    // Допоміжня функція - розфарбовує консоль
     function colr(msg, sColor) {
       var colrs = {
         reset: '\u001B[0m',
@@ -379,7 +480,19 @@ describe('ValidationService Tests', function() {
       return pattrn.replace('{TEXT}', msg);
     }
 
-  });
+    // Допоміжня функція - виводить заголовок:
+    function logHeader(str, level) {
+      var l = str.length;
+      var maxLength = 150;
+      var spaceLength = Math.floor((maxLength - l) / 2);
+      var spacer = '-';
+      str = ' ' + str + ' ';
+      for (var i = 0; i < spaceLength - 1; i += spacer.length) {
+        str = spacer + str + spacer;
+      }
+      console.log(colr(str, 'white'));
+    }
 
+  });
   // });
 });

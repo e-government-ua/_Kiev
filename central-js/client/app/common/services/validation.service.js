@@ -238,119 +238,141 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       var o = options;
       var bValid = true;
       var errors = [];
-      var fmt = self.sFormat;
       var now = moment();
+      var fmt = self.sFormat;
       var modelMoment = moment(modelValue, fmt);
+
+      // базовий парсинг опцій
+      var nDays = o.nDays || 0;
+      var nMonths = o.nMonths || 0;
+      var nYears = o.nYears || 0;
 
       // Повертаємо помилку, якщо дата невалідна: 
       if (!modelMoment.isValid()) {
         return false;
       }
 
-      // Визначаємо різницю між датами: 
-      var diffDays = modelMoment.diff(now, 'days');
-      var diffMonths = modelMoment.diff(now, 'months');
-      var diffYears = modelMoment.diff(now, 'years');
+      // Визначаємо різницю між датами
+      var deltaDays = modelMoment.diff(now, 'days');
+      var deltaMonths = modelMoment.diff(now, 'months');
+      var deltaYears = modelMoment.diff(now, 'years');
 
-      // Повертаємо true, якщо різниці між датами немає:
-      if (diffDays === diffMonths === diffYears === 0) {
-        return true;
-      }
+      // // Повертаємо false, якщо різниці між датами немає:
+      // if (deltaDays === deltaMonths === deltaYears === 0) {
+      //   return true;
+      // }
 
-      var dateStr = now.format(fmt) + ' vs. ' + modelMoment.format(fmt) + ', diff = ' + getDiffStr();
-      console.log('\nDateElapsed: ' + dateStr + '\n', o);
+      // myLog(('DateElapsed: ' + o), 3);
+      myLog((o.sDebug ? o.sDebug : '') + ' - зараз: ' + now.format(fmt) + ', ви увели: ' + modelMoment.format(fmt) + ', різниця: ' + deltaDays, 2);
 
-      // Просто: перевірка, чи виконується bFuture:
-      if (o.bFuture === true && diffDays < 1) {
-        addError('1.1. Дата має бути у майбутньому, а ця — менша на ' + getDiffStr());
-        //return false;
+      // Перевірка, чи виконується bFuture (дата має бути у майбутньому):
+      var errorSuffix;
+
+      if (o.bFuture === true && deltaDays < 1) {
+        addError('Дата має бути у майбутньому, а ця — ' + (deltaDays === 0 ? 'ні' : getRealDeltaStr(true)));
         bValid = false;
-      } else if (o.bFuture === false && diffDays > 1) {
-        addError('1.2. Дата має бути у минулому, а ця — більша на ' + getDiffStr());
-        // return false;
+      } else if (o.bFuture === false && deltaDays >= 1) {
+        addError('Дата має бути у минулому, а ця — ' + (deltaDays === 0 ? 'ні' : getRealDeltaStr()));
         bValid = false;
       }
 
-      // Інших опцій немає - повертаємо результат:
-      if ( !bValid || !o.bLess || !o.nDays) {
-        finalize();
-        return bValid;
-      }
-
-      function finalize( ) {
-        for ( var errorName in errors ) {
-          doError( errors[errorName] );
+      function finalize() {
+        for (var errorName in errors) {
+          myLog(errors[errorName], 1);
         }
       }
 
-      // VID_DO: Від/до
-      var sVidDo = o.bFuture ? 'До' : 'Від';
-      // DO_PISLYA: до/після
-      var sDoPislya = o.bFuture ? 'після' : 'до';
-      // BIL_MEN: більше/менше
-      var sBilMen = o.bLess ? 'менше' : 'більше';
-
-      var message = '{VID_DO} дати у полі {DO_PISLYA} поточної має бути {BIL_MEN} ніж {N_DAYS} {N_MONTHES} {N_YEARS}.';
-
-      if (diffTooBig()) {
-        bValid = false;
-        message = '' + message
-          .replace('{VID_DO}', sVidDo)
-          .replace('{DO_PISLYA}', sDoPislya)
-          .replace('{BIL_MEN}', sBilMen)
-          .replace('{N_DAYS}', self.pluralize(o.nDays, 'days'))
-          .replace('{N_MONTHES}', self.pluralize(o.nMonths, 'months'))
-          .replace('{N_YEARS}', self.pluralize(o.nYears, 'years'));
-        // if ( o.bFuture ) {
-        //   bValid = false; // diffMonths > nMonths && diffYears > nYears;
-        // }
-      } else {
-        message = '';
+      // Якщо вже є помилка - повертаємо помилку, далі перевіряти немає сенсу:
+      if (bValid === false) {
+        finalize();
+        // myLog('-------------break ---------------', 2);
+        return bValid;
       }
 
-      var diffStr = bValid ? '' : '' + '\n\t\tdiff = ' + diffDays + '|' + o.nDays + ':' + diffMonths + '|' + o.nMonths + ':' + diffYears + '|' + o.nYears;
+      // Якщо інших опцій немає - повертаємо рез-т
+      if (typeof o.bLess === 'undefined') {
+        return bValid;
+      }
 
-      var messageFull = [
-        '2.1 Дата має бути у ',
-        '' + (o.bFuture ? 'майбутньому' : 'минулому'),
-        ' та відрізнятися ',
-        '' + (o.bLess ? 'менше' : 'більше'),
-        ', ніж на ' + getGivenDiffStr(o), 
-        diffStr,
-        message
-      ].join('');
-
-      addError( message );
+      addError(getErrorMessage());
 
       finalize();
 
-      function doError( msg ) {
-        console.log('Error: ' + msg);
-      }
-
-      function addError( msg ) {
-        errors.push( msg );
-      }
-
-      function getDiffStr() {
-        var d = self.pluralize(diffDays, 'days');
-        var m = self.pluralize(diffMonths, 'months');
-        var y = self.pluralize(diffYears, 'years');
-        return (d ? d : '') + (m ? ', ' + m : '') + (y ? ', ' + y : '');
-      }
-
-      function getGivenDiffStr( opts ) {
-        var d = self.pluralize(opts.nDays, 'days');
-        var m = self.pluralize(opts.nMonths, 'months');
-        var y = self.pluralize(opts.nYears, 'years');
-        return (d ? d : '') + (m ? ', ' + m : '') + (y ? ', ' + y : '');
-      }
-
-      function diffTooBig() {
-        return o.bLess && Math.abs(diffDays) > o.nDays;
-      }
-
       return bValid;
+
+      // Допоміжні функції:
+
+      // Генеруємо повідомлення про помилку
+      function getErrorMessage() {
+        // VID_DO: Від/до
+        var sVidDo = o.bFuture ? 'До' : 'Від';
+        // DO_PISLYA: до/після
+        var sDoPislya = o.bFuture ? 'після' : 'до';
+        // BIL_MEN: більше/менше
+        var sBilMen = o.bLess ? 'менше' : 'більше';
+
+        var maxDelta = moment.duration({
+          days: nDays,
+          months: nMonths,
+          years: nYears
+        }).as('days');
+
+        var message = '{VID_DO} дати у полі {DO_PISLYA} поточної має бути {BIL_MEN} ніж {N_DAYS}{N_MONTHES}{N_YEARS}'; // - max Delta = ' + maxDelta
+
+        // delta занадто велика - а o.bLess каже, що має бути менша:
+        // TODO test it more
+        if (o.bLess === true && Math.abs(deltaDays) > maxDelta || o.bLess === false && Math.abs(deltaDays) < maxDelta) {
+          bValid = false;
+          message = '' + message
+            .replace('{VID_DO}', sVidDo)
+            .replace('{DO_PISLYA}', sDoPislya)
+            .replace('{BIL_MEN}', sBilMen)
+            .replace('{N_DAYS}', self.pluralize(nDays, 'days'))
+            .replace('{N_MONTHES}', self.pluralize(nMonths, 'months'))
+            .replace('{N_YEARS}', self.pluralize(nYears, 'years'));
+        } else {
+          message = null;
+        }
+        return message;
+      }
+
+      // Альтеративний формат відображення помилки:
+      function getAlternativeErrorMessage() {
+        return [
+          'Дата має бути у ',
+          '' + (o.bFuture ? 'майбутньому' : 'минулому'),
+          ' та відрізнятися ',
+          '' + (o.bLess ? 'менше' : 'більше'),
+          ', ніж на ' + getDeltaStr(options)
+        ].join('');
+      }
+
+      function addError(msg) {
+        if (msg) {
+          errors.push(msg);
+        }
+      }
+
+      // Використовуємо Moment для отримання рядків типу "рік тому", "за два дні" etc.
+      function getRealDeltaStr(getFrom) {
+        return getFrom ? modelMoment.from(now) : modelMoment.to(now);
+      }
+
+      function getDeltaStr() {
+        var d = self.pluralize(nDays, 'days');
+        var m = self.pluralize(nMonths, 'months');
+        var y = self.pluralize(nYears, 'years');
+        return (d ? d : '') + (m ? ', ' + m : '') + (y ? ', ' + y : '');
+      }
+
+      // FIXME disable in release - it's dev only
+      function myLog(sMessage, l) {
+        // чим більший рівень, тим більше інфи у консолі
+        var logLevel = 1;
+        if (l <= logLevel) {
+          console.log('\t\t' + sMessage);
+        }
+      }
     }
   };
 
@@ -384,7 +406,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       }
     };
     var form = nUnits === 0 ? '' : Math.abs(nUnits) === 1 ? types[key].single : Math.abs(nUnits) < 5 ? types[key].about : types[key].multiple;
-    form = form === '' ? '' : nUnits + ' ' + form;
+    form = form === '' ? '' : Math.abs(nUnits) + ' ' + form;
     return form;
   };
 
