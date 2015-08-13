@@ -4,8 +4,11 @@ import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import static org.apache.commons.lang3.StringUtils.contains;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
@@ -57,23 +60,42 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         return isNotBlank(val) ? Long.valueOf( val ) : 0L;
     }
 
-    private boolean boolVal(Object[] objects, String[] labels, String column) {
-        String val = stringVal(objects,labels,column);
-        return isNotBlank(val) ? Boolean.valueOf( val ) : false;
-    }
 
-    public static PlaceTree toTree(List<PlaceHierarchyRecord> dataRows) {
+    // TODO: Implement algorithm for transformation list to tree....
+    public static PlaceHierarchy toTree(List<PlaceHierarchyRecord> dataRows) {
+        LOG.info("Got {}", dataRows);
 
-        // #################################################
-        // ###  TODO: Just for debug, delete it later   ####
-        LOG.info("Result {}", dataRows);
-        // #################################################
+        PlaceHierarchy tree = new PlaceHierarchy();
 
-        PlaceTree tree = new PlaceTree();
-        PlaceHierarchyRecord phr = dataRows.iterator().next();
+        for(int i=0; i<dataRows.size(); i++){
+            PlaceHierarchyRecord phr = dataRows.get(i);
+            if (i==0){
+                tree.setPlace( phr.toPlace() );
+                tree.setLevel( phr.getDeep() );
+            } else {
+                long currentPlaceId = phr.getPlaceId();
+                List<PlaceHierarchy> children = new ArrayList<>();
 
-        tree.setPlace( phr.toPlace() );
-        tree.setLevel( phr.getDeep() );
+                for(int j=i; j<dataRows.size(); j++){
+                    PlaceHierarchyRecord hr = dataRows.get(j);
+
+                    if (hr.isAlreadyIncluded())
+                        continue;
+
+                    if (currentPlaceId == hr.getParentId()) {
+                        PlaceHierarchy ph = new PlaceHierarchy();
+                        ph.setPlace( hr.toPlace() );
+                        ph.setLevel(hr.getDeep());
+                        hr.setAlreadyIncluded(true);
+                        children.add(ph);
+                    }
+                }
+
+
+
+            }
+            phr.setAlreadyIncluded(true);
+        }
 
         return tree;
     }

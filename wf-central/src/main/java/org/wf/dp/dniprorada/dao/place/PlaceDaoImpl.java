@@ -47,7 +47,7 @@ public class PlaceDaoImpl implements PlaceDao {
     }
 
     @SuppressWarnings("unchecked")
-    public PlaceTree getPlaces(Long placeId,
+    public PlaceHierarchy getPlaces(Long placeId,
                                  String uaId,
                                  Long typeId,
                                  Boolean area,

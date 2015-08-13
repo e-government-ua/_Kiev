@@ -17,6 +17,7 @@ public class PlaceHierarchyRecord {
     private long parentId;
     private long deep;
     private long areaId;
+    private boolean alreadyIncluded;
 
     public long getPlaceId() {
         return placeId;
@@ -81,13 +82,20 @@ public class PlaceHierarchyRecord {
         this.areaId = areaId;
     }
 
+    public boolean isAlreadyIncluded() {
+        return alreadyIncluded;
+    }
+    public void setAlreadyIncluded(boolean alreadyIncluded) {
+        this.alreadyIncluded = alreadyIncluded;
+    }
+
     public Place toPlace() {
         Place place = new Place();
-        place.setId( getPlaceId() );
-        place.setName( getName() );
-        place.setUaId( getUaID() );
-        place.setPlaceTypeId( getTypeId() );
-        place.setOriginalName( getOriginalName() );
+        place.setId(getPlaceId());
+        place.setName(getName());
+        place.setUaId(getUaID());
+        place.setPlaceTypeId(getTypeId());
+        place.setOriginalName(getOriginalName());
         return place;
     }
 }

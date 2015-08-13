@@ -9,7 +9,7 @@ import java.util.List;
  * @author dgroup
  * @since  22.07.2015
  */
-public class PlaceTree  {
+public class PlaceHierarchy {
     @JsonProperty
     private Long levelOfArea;
 
@@ -20,7 +20,7 @@ public class PlaceTree  {
     private Place place;
 
     @JsonProperty
-    private List<PlaceTree> children;
+    private List<PlaceHierarchy> children;
 
 
     public Long getLevelOfArea() {
@@ -44,10 +44,10 @@ public class PlaceTree  {
         this.place = place;
     }
 
-    public List<PlaceTree> getChildren() {
+    public List<PlaceHierarchy> getChildren() {
         return children;
     }
-    public void setChildren(List<PlaceTree> children) {
+    public void setChildren(List<PlaceHierarchy> children) {
         this.children = children;
     }
 }
