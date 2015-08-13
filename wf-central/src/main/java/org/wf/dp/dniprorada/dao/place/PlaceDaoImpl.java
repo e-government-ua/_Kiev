@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.dao;
+package org.wf.dp.dniprorada.dao.place;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -8,15 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
+import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.model.Place;
-import org.wf.dp.dniprorada.util.Tree;
 import org.wf.dp.dniprorada.util.queryloader.QueryLoader;
 
 import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.wf.dp.dniprorada.dao.PlaceHibernateResultTransformer.toTree;
 
 /**
  * @author dgroup
@@ -27,9 +25,6 @@ public class PlaceDaoImpl implements PlaceDao {
 
     @Autowired
     private SessionFactory sessionFactory;
-
-    @Autowired
-    private BaseEntityDao baseEntityDao;
 
     @Autowired
     private QueryLoader sqlStorage;
@@ -52,7 +47,7 @@ public class PlaceDaoImpl implements PlaceDao {
     }
 
     @SuppressWarnings("unchecked")
-    public Tree<Place> getPlaces(Long placeId,
+    public PlaceHierarchy getPlaces(Long placeId,
                                  String uaId,
                                  Long typeId,
                                  Boolean area,
@@ -72,7 +67,7 @@ public class PlaceDaoImpl implements PlaceDao {
         if (specified(typeId))
             query = query.setLong("typeId", typeId);
 
-        return toTree( query.list() );
+        return PlaceHibernateResultTransformer.toTree(query.list());
     }
 
     @Cacheable("ext-file-PlaceTree")

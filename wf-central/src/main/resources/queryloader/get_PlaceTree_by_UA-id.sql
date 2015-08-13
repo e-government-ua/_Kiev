@@ -38,8 +38,8 @@ FROM (
          p."sName"             AS name,
          p."sNameOriginal"     AS original_name,
          ap."nID_Place_Parent" AS parent_id,
-         ap."nID_Place_Area"   AS area,
-         ap."nID_Place_Root"   AS root,
+         ap."nID_Place_Area"   AS area_id,
+         ap."nID_Place_Root"   AS root_id,
          ap.level
        FROM
          all_places ap

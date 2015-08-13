@@ -1,14 +1,14 @@
-package org.wf.dp.dniprorada.dao;
+package org.wf.dp.dniprorada.dao.place;
 
 import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wf.dp.dniprorada.model.Place;
-import org.wf.dp.dniprorada.util.Tree;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import static org.apache.commons.lang3.StringUtils.contains;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
@@ -23,17 +23,14 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
     public PlaceHierarchyRecord transformTuple(Object[] objects, String[] strings) {
         PlaceHierarchyRecord phr = new PlaceHierarchyRecord();
 
-        LOG.info("Labels {}", Arrays.toString(strings));
-        LOG.info("Data {}", Arrays.toString(objects));
-
         phr.setPlaceId( longVal(objects, strings, "id"));
         phr.setTypeId( longVal(objects, strings, "type_id"));
         phr.setUaID( stringVal(objects, strings, "ua_id"));
         phr.setName( stringVal(objects, strings, "name"));
         phr.setOriginalName( stringVal(objects, strings, "original_name"));
         phr.setParentId( longVal(objects, strings, "parent_id"));
-        phr.setArea( boolVal(objects, strings, "area"));
-        phr.setRoot( boolVal(objects, strings, "root"));
+        phr.setAreaId( longVal(objects, strings, "area_id"));
+        phr.setRootId(longVal(objects, strings, "root_id"));
         phr.setDeep( longVal(objects, strings, "level") );
 
         return phr;
@@ -43,15 +40,6 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
     @Override
     public List transformList(List list) {
         return list;
-    }
-
-
-    public static Tree<Place> toTree(List dataRows) {
-        // #################################################
-        // ###  TODO: Just for debug, delete it later   ####
-        LOG.info("Result {}", dataRows);
-        // #################################################
-        return new Tree<>();
     }
 
 
@@ -72,8 +60,44 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         return isNotBlank(val) ? Long.valueOf( val ) : 0L;
     }
 
-    private boolean boolVal(Object[] objects, String[] labels, String column) {
-        String val = stringVal(objects,labels,column);
-        return isNotBlank(val) ? Boolean.valueOf( val ) : false;
+
+    // TODO: Implement algorithm for transformation list to tree....
+    public static PlaceHierarchy toTree(List<PlaceHierarchyRecord> dataRows) {
+        LOG.info("Got {}", dataRows);
+
+        PlaceHierarchy tree = new PlaceHierarchy();
+
+        for(int i=0; i<dataRows.size(); i++){
+            PlaceHierarchyRecord phr = dataRows.get(i);
+            if (i==0){
+                tree.setPlace( phr.toPlace() );
+                tree.setLevel( phr.getDeep() );
+            } else {
+                long currentPlaceId = phr.getPlaceId();
+                List<PlaceHierarchy> children = new ArrayList<>();
+
+                for(int j=i; j<dataRows.size(); j++){
+                    PlaceHierarchyRecord hr = dataRows.get(j);
+
+                    if (hr.isAlreadyIncluded())
+                        continue;
+
+                    if (currentPlaceId == hr.getParentId()) {
+                        PlaceHierarchy ph = new PlaceHierarchy();
+                        ph.setPlace( hr.toPlace() );
+                        ph.setLevel(hr.getDeep());
+                        hr.setAlreadyIncluded(true);
+                        children.add(ph);
+                    }
+                }
+
+
+
+            }
+            phr.setAlreadyIncluded(true);
+        }
+
+        return tree;
     }
+
 }

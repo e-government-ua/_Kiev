@@ -1,4 +1,6 @@
-package org.wf.dp.dniprorada.dao;
+package org.wf.dp.dniprorada.dao.place;
+
+import org.wf.dp.dniprorada.model.Place;
 
 /**
  * @author dgroup
@@ -11,11 +13,11 @@ public class PlaceHierarchyRecord {
     private String uaID;
     private String name;
     private String originalName;
-    private boolean area;
-    private boolean root;
     private long rootId;
     private long parentId;
     private long deep;
+    private long areaId;
+    private boolean alreadyIncluded;
 
     public long getPlaceId() {
         return placeId;
@@ -52,20 +54,6 @@ public class PlaceHierarchyRecord {
         this.originalName = originalName;
     }
 
-    public boolean isArea() {
-        return area;
-    }
-    public void setArea(boolean area) {
-        this.area = area;
-    }
-
-    public boolean isRoot() {
-        return root;
-    }
-    public void setRoot(boolean root) {
-        this.root = root;
-    }
-
     public long getRootId() {
         return rootId;
     }
@@ -87,19 +75,27 @@ public class PlaceHierarchyRecord {
         this.deep = deep;
     }
 
-    @Override
-    public String toString() {
-        return "PlaceHierarchyRecord{" +
-                "placeId=" + placeId +
-                ", typeId=" + typeId +
-                ", uaID='" + uaID + '\'' +
-                ", name='" + name + '\'' +
-                ", originalName='" + originalName + '\'' +
-                ", area=" + area +
-                ", root=" + root +
-                ", rootId=" + rootId +
-                ", parentId=" + parentId +
-                ", deep=" + deep +
-                '}';
+    public long getAreaId() {
+        return areaId;
+    }
+    public void setAreaId(long areaId) {
+        this.areaId = areaId;
+    }
+
+    public boolean isAlreadyIncluded() {
+        return alreadyIncluded;
+    }
+    public void setAlreadyIncluded(boolean alreadyIncluded) {
+        this.alreadyIncluded = alreadyIncluded;
+    }
+
+    public Place toPlace() {
+        Place place = new Place();
+        place.setId(getPlaceId());
+        place.setName(getName());
+        place.setUaId(getUaID());
+        place.setPlaceTypeId(getTypeId());
+        place.setOriginalName(getOriginalName());
+        return place;
     }
 }
