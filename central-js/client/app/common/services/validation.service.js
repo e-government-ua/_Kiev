@@ -317,7 +317,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
           years: nYears
         }).as('days');
 
-        var message = '{VID_DO} дати у полі {DO_PISLYA} поточної має бути {BIL_MEN} ніж {N_DAYS}{N_MONTHES}{N_YEARS}'; // - max Delta = ' + maxDelta
+        var message = '{VID_DO} дати у полі {DO_PISLYA} поточної має бути {BIL_MEN} ніж {N_DAYS} {N_MONTHES} {N_YEARS}'; // - max Delta = ' + maxDelta
 
         // delta занадто велика - а o.bLess каже, що має бути менша:
         // TODO test it more

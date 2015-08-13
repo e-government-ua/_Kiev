@@ -426,7 +426,7 @@ describe('ValidationService Tests', function() {
       sDebug: 'Уведіть заплановану дату візиту" (не пізніше, ніж за півроку від сьогодні)',
       bFuture: true,
       bLess: true,
-      nDays: 10,
+      nDays: 2,
       nMonths: 6,
       nYears: 0
     });
