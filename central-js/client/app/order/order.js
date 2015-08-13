@@ -1,6 +1,6 @@
 angular.module('order').config(function ($stateProvider, statesRepositoryProvider) {
   statesRepositoryProvider.init(window.location.host);
-  if (statesRepositoryProvider.isCentral()) {
+//  if (statesRepositoryProvider.isCentral()) {
     $stateProvider
       .state('index.order', {
         url: 'order',
@@ -21,6 +21,6 @@ angular.module('order').config(function ($stateProvider, statesRepositoryProvide
           }
         }
       });
-  }
+//  }
 });
 

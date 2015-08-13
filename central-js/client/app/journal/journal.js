@@ -1,6 +1,6 @@
 angular.module('journal').config(function ($stateProvider, statesRepositoryProvider) {
   statesRepositoryProvider.init(window.location.host);
-  if (statesRepositoryProvider.isCentral()) {
+//  if (statesRepositoryProvider.isCentral()) {
     $stateProvider
       .state('index.journal', {
         url: 'journal',
@@ -43,6 +43,6 @@ angular.module('journal').config(function ($stateProvider, statesRepositoryProvi
           }
         }
       });
-  }
+//  }
 });
 
