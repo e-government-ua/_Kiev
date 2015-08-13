@@ -17,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import org.wf.dp.dniprorada.util.Mail;
 
 @Repository
 public class DocumentAccessDaoImpl implements DocumentAccessDao {
@@ -29,6 +30,10 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	@Autowired
 	GeneralConfig generalConfig;
 	
+    @Autowired
+    Mail oMail;
+        
+        
 	@Autowired
 	public DocumentAccessDaoImpl(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
@@ -57,6 +62,38 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		osURL.append("sSecret=");
 		osURL.append(oDocumentAccess.getSecret());*/
 		//return osURL.toString();
+             
+                String saToMail = sMail;
+                String sHead = "Доступ до документу";
+                String sBody = "Вам надано доступ до документу на Порталі державних послуг iGov.org.ua.<br>" +
+                                "<br>" +
+                                "<b>Код документу:</b> %"+id+"%<br>" +
+                                "<br>" +
+                                "Щоб переглянути цей документ, зайдіть на <a href=\""+generalConfig.sHostCentral() +"\">iGov.org.ua</a>, пункт меню <b>Документи</b>, вкладка <b>Пошук документу за кодом</b>. Там оберіть тип документу, того, хто його надає та введіть код.<br>" +
+                                "<br>" +
+                                "З повагою,<br>" +
+                                "команда порталу державних послу iGov";
+        oMail
+        .reset();
+        
+        oMail
+        //._From(mailAddressNoreplay)
+        ._To(saToMail)
+        ._Head(sHead)
+        ._Body(sBody)
+        //._AuthUser(mailServerUsername)
+        //._AuthPassword(mailServerPassword)
+        //._Host(mailServerHost)
+        //._Port(Integer.valueOf(mailServerPort))
+        //._SSL(true)
+        //._TLS(true)
+        ;                
+                
+                //Mail oMail = new Mail();
+                //oMail._Head("")
+                //sMail
+        oMail.send();
+                
                 return id;
                 
 	}
