@@ -211,7 +211,8 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
         
         
         @Override
-	public boolean bSentDocumentAccessOTP(String sCode) throws Exception {
+	public String sSentDocumentAccessOTP_Phone(String sCode) throws Exception {
+                String sPhoneSent=null;
 		Session oSession = getSession();
 		boolean bSent = false;
 		try{
@@ -237,6 +238,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                         String sPhone = "";
                         String sAnswer = "";
                         sPhone = oDocumentAccess.getTelephone();
+                        sPhoneSent=sPhone;
                         log.info("[bSentDocumentAccessOTP]sPhone="+sPhone);
                         
                         //Generate random 4xDigits answercode
@@ -275,7 +277,8 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 				oSession.close();
 			}
 		}
-		return  bSent;
+		//return  bSent;
+		return sPhoneSent;
 	}        
         
         
