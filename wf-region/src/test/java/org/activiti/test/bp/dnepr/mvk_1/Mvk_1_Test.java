@@ -27,6 +27,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.plexiti.activiti.test.fluent.ActivitiFluentTestHelper;
 import com.plexiti.activiti.test.fluent.mocking.Mockitos;
+import net.sf.brunneng.jom.annotations.Skip;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("default")
@@ -88,7 +89,8 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 		return procVars;
 	}
 
-	@Test
+	@Skip
+        @Test
 	@Deployment(resources = { PROCESS_RESOURCE })
 	public void startProcessInstance() throws InterruptedException {
 		Map<String, Object> procVars = createStartFormVariables();
@@ -107,7 +109,8 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 
 	}
 
-	@Test
+	@Skip
+        @Test
 	@Deployment(resources = { PROCESS_RESOURCE })
 	public void processRejected() throws InterruptedException {
 		Map<String, Object> procVars = createStartFormVariables();
