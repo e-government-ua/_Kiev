@@ -3,10 +3,10 @@
   <process id="kuznetsovsk_mvk_5" name="Кузнецовськ МВК - Узгодження графіка роботи підприємства торгівлі/обслуговування" isExecutable="true" activiti:candidateStarterGroups="kuznets_mvk_5">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress" name="Ваша адреса; область, місто, вулиця, дім, квартира" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
@@ -15,11 +15,12 @@
         <activiti:formProperty id="name" name="Назва закладу" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса закладу" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="time" name="Режим роботи; час роботи з .. по, вихідні, обідня перерва" type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file1" name="Свідоцтво про державну реєстрацію фізичної особи-підприємця; сканована копія" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Свідоцтво про реєстрацію платника податку на додану вартість; сканована копія" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Дозвіл СЕС; сканована копія" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Досвід пожежного нагляду; сканована копія" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Договір оренди (купівлі) приміщення та земельної ділянки; сканована копія" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Свідоцтво про державну реєстрацію фізичної особи-підприємця" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file2" name="Свідоцтво про реєстрацію платника податку на додану вартість" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file3" name="Дозвіл Санепідслужби; Для закладів громадського харчування" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file4" name="Досвід пожежного нагляду; Якщо приміщення у власності" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Документи на приміщення; Свідоцтво про право власності, договір купівлі-продажу або договір оренди приміщення" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file6" name="Документи на земельну ділянку; Свідоцтво про право власності, державний акт або договір оренди земельної ділянки" type="file"></activiti:formProperty>
         <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum" required="true">
           <activiti:value id="attr1_yes" name="Отримаю власноруч"></activiti:value>
           <activiti:value id="attr2_no" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
@@ -43,11 +44,12 @@
         <activiti:formProperty id="name" name="Назва закладу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса закладу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="time" name="Режим роботи; час роботи з .. по, вихідні, обідня перерва" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file1" name="Свідоцтво про державну реєстрацію фізичної особи-підприємця; сканована копія" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Свідоцтво про реєстрацію платника податку на додану вартість; сканована копія" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Дозвіл СЕС; сканована копія" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Досвід пожежного нагляду; сканована копія" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Договір оренди (купівлі) приміщення та земельної ділянки; сканована копія" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Свідоцтво про державну реєстрацію фізичної особи-підприємця" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file2" name="Свідоцтво про реєстрацію платника податку на додану вартість" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file3" name="Дозвіл Санепідслужби; Для закладів громадського харчування" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file4" name="Досвід пожежного нагляду; Якщо приміщення у власності" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Документи на приміщення; Свідоцтво про право власності, договір купівлі-продажу або договір оренди приміщення" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="file6" name="Документи на земельну ділянку; Свідоцтво про право власності, державний акт або договір оренди земельної ділянки" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum" writable="false">
           <activiti:value id="attr1_yes" name="Отримаю власноруч"></activiti:value>
           <activiti:value id="attr2_no" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
@@ -79,12 +81,12 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Узгодження графіка роботи підприємства торгівлі/обслуговування</activiti:expression>
+          <activiti:expression>Звернення на тему: Узгодження графіку роботи підприємства торгівлі/обслуговування.</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${decision}"</activiti:expression>
         </activiti:field>
-        <activiti:field name="text">
+        <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head lang="ru"&gt;
@@ -133,15 +135,28 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;
+                                    &lt;br /&gt;
                                        
-										Ваше звернення щодо узгодження графіка роботи підприємства торгівлі/обслуговування опрацьоване. &lt;br /&gt;
-										Ви отримаєте друковану копію в листі за адресою ${adress}  &lt;/p&gt;
+										Ваше звернення щодо узгодження графіка роботи підприємства торгівлі/обслуговування опрацьовано. &lt;br /&gt;
+										Ви отримаєте друковану копію в листі за адресою: &lt;br /&gt;
+										&lt;i&gt;${adress} &lt;/i&gt; &lt;br /&gt;
+										&lt;br /&gt;
+Центр надання адміністратиних послуг Кузнецовської міської ради &lt;br /&gt;
+&lt;br /&gt;
+Адреса: &lt;br /&gt;
+м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
+&lt;br /&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+Телефон: (03636) 2-23-73 &lt;br /&gt; 
                                  
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Міська рада міста Кузнецовськ,&lt;br /&gt;
+                                        Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -176,12 +191,12 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Узгодження графіка роботи підприємства торгівлі/обслуговування</activiti:expression>
+          <activiti:expression>Звернення на тему: Узгодження графіку роботи підприємства торгівлі/обслуговування.</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${decision}"</activiti:expression>
         </activiti:field>
-        <activiti:field name="text">
+        <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head lang="ru"&gt;
@@ -232,21 +247,24 @@
                                  &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
                                        
-										Ваше звернення щодо узгодження графіка роботи підприємтсва торгівлі/обслуговування опрацьоване. &lt;br /&gt;
-										Для отримання друкованої копії Вам необхідно звернутися до Центру надання адміністратиних послуг Кузнецовської міської ради за адресою: м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105
-&lt;br /&gt; 
+										Ваше звернення щодо узгодження графіка роботи підприємтсва торгівлі/обслуговування опрацьовано. &lt;br /&gt;
+										Для отримання друкованої копії Вам необхідно звернутися до Центру надання адміністратиних послуг Кузнецовської міської ради&lt;br /&gt; 
 										&lt;br /&gt;
-										Графік  роботи:&lt;br /&gt;
-										Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
-										Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
-										П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
-										Без перерви на обід&lt;br /&gt;
-										Тел. (03636) 2-23-73 &lt;br /&gt; 
+&lt;br /&gt;
+Адреса: &lt;br /&gt;
+м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
+&lt;br /&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+Телефон: (03636) 2-23-73 &lt;br /&gt; 
                                  
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Міська рада міста Кузнецовськ,&lt;br /&gt;
+                                        Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -328,14 +346,25 @@
                                     &lt;p&gt;&lt;/p&gt;
 										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
 										
-										Спеціалісти із Державного Органу повинні дати відповідь найближчим часом. 
+										Спеціалісти із державного Органу повинні дати відповідь найближчим часом. 
 									&lt;p&gt;&lt;/p&gt;
-										Залишайтесь з нами. 	
+										Залишайтеся з нами. 	
                                     &lt;p&gt;&lt;/p&gt;
+Центр надання адміністратиних послуг Кузнецовської міської ради &lt;br /&gt;
+&lt;br /&gt;
+Адреса: &lt;br /&gt;
+м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
+&lt;br /&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+Телефон: (03636) 2-23-73 &lt;br /&gt; 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                        З повагою,
-&lt;br&gt;                               Міська рада міста Кузнецовськ&lt;/br&gt;
+                                        З повагою, &lt;br /&gt;
+										Виконавчий комітет Кузнецовської міської ради,&lt;br/&gt;
                                         &lt;br&gt;Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.&lt;/br&gt;
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -360,10 +389,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення щодо: Узгодження графіку роботи підприємства торгівлі/обслуговування</activiti:string>
+          <activiti:string>Звернення на тему: Узгодження графіку роботи підприємства торгівлі/обслуговування.</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
+        <activiti:field name="bcc">
+          <activiti:string>cnap@kuznetsovsk-rada.gov.ua</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>

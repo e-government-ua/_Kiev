@@ -64,7 +64,8 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
 
   StatesRepository.prototype.getIDPlaces = function(){
     if(this.mode === 'kyiv' || this.mode === 'kiev'){
-      return ['123','456'];
+      return ['3200000000','8000000000'];
+      //return ['123','456'];
     }
     return [];
   };
