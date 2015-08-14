@@ -21,7 +21,7 @@ public interface FlowSlotDao extends EntityDao<FlowSlot> {
     * @param stopDate end date of interval (exclusive)
     * @return flow slots
     */
-   List<FlowSlot> findFlowSlotsByServiceData(Long nID_ServiceData, DateTime startDate, DateTime stopDate);
+   List<FlowSlot> findFlowSlotsByServiceData(Long nID_ServiceData, String sID_BP, DateTime startDate, DateTime stopDate) throws Exception;
 
    /**
     *

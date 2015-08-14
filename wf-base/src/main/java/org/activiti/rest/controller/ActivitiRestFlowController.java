@@ -48,22 +48,26 @@ public class ActivitiRestFlowController {
    @RequestMapping(value = "/getFlowSlots_ServiceData", method = RequestMethod.GET)
    public
    @ResponseBody
-   ResponseEntity getFlowSlots(@RequestParam(value = "nID_ServiceData") Long nID_ServiceData,
+   ResponseEntity getFlowSlots(@RequestParam(value = "nID_ServiceData", required = false) Long nID_ServiceData,
+                               @RequestParam(value = "sID_BP", required = false) String sID_BP,
                                @RequestParam(value = "bAll", required = false, defaultValue = "false") boolean bAll,
                                @RequestParam(value = "nDays", required = false, defaultValue = "60") int nDays,
-                               @RequestParam(value = "sDate", required = false) String sDate) {
+                               @RequestParam(value = "sDateStart", required = false) String sDateStart
+   ) throws Exception {
 
 
-      DateTime startDate = DateTime.now().withTimeAtStartOfDay();
-      DateTime endDate = startDate.plusDays(nDays);
+      DateTime oDateStart = DateTime.now().withTimeAtStartOfDay();
+      oDateStart = oDateStart.plusDays(2);
+      DateTime oDateEnd = oDateStart.plusDays(nDays);
       
-      if (sDate != null){
+      if (sDateStart != null){
     	  DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
-    	  startDate = DateTime.parse(sDate, dtf);
-    	  endDate = startDate.plusDays(1);
+    	  oDateStart = DateTime.parse(sDateStart, dtf);
+    	  oDateEnd = oDateStart.plusDays(nDays);
       }
 
-      Days res = flowService.getFlowSlots(nID_ServiceData, startDate, endDate, bAll);
+        
+      Days res = flowService.getFlowSlots(nID_ServiceData, sID_BP, oDateStart, oDateEnd, bAll);
 
       return JsonRestUtils.toJsonResponse(res);
    }
@@ -170,11 +174,11 @@ public class ActivitiRestFlowController {
                         @RequestParam(value = "sID_BP", required = false) String sID_BP
         
         ) throws Exception {
-		if (nID_Flow_ServiceData != null) {
-			log.info("nID_Flow_ServiceData is not null. Getting flow property for the flow with ID: " + nID_Flow_ServiceData);
+		//if (nID_Flow_ServiceData != null) {
+			//log.info("nID_Flow_ServiceData is not null. Getting flow property for the flow with ID: " + nID_Flow_ServiceData);
 			return getFilteredFlowPropertiesForFlowServiceData(nID_Flow_ServiceData, sID_BP, Boolean.FALSE);
-		}
-		return new LinkedList<FlowProperty>();
+		//}
+		//return new LinkedList<FlowProperty>();
 	}
    
 	/**
@@ -187,11 +191,11 @@ public class ActivitiRestFlowController {
                         @RequestParam(value = "nID_Flow_ServiceData", required = false) Long nID_Flow_ServiceData,
                         @RequestParam(value = "sID_BP", required = false) String sID_BP
         ) throws Exception {
-		if (nID_Flow_ServiceData != null) {
-			log.info("nID_Flow_ServiceData is not null. Getting flow property for the flow with ID: " + nID_Flow_ServiceData);
+		//if (nID_Flow_ServiceData != null) {
+			//log.info("nID_Flow_ServiceData is not null. Getting flow property for the flow with ID: " + nID_Flow_ServiceData);
 			return getFilteredFlowPropertiesForFlowServiceData(nID_Flow_ServiceData, sID_BP, Boolean.TRUE);
-		}
-		return new LinkedList<FlowProperty>();
+		//}
+		//return new LinkedList<FlowProperty>();
 	}
 
    /**
@@ -452,6 +456,7 @@ public class ActivitiRestFlowController {
                 if(nID_Flow_ServiceData==null){
                   if(sID_BP!=null){
                       nID_Flow_ServiceData = flowService.nID_Flow_ServiceData(sID_BP);
+                      log.info("[getFilteredFlowPropertiesForFlowServiceData](sID_BP="+sID_BP+",nID_Flow_ServiceData="+nID_Flow_ServiceData+")");
                   }else{
                       String sError = "nID_Flow_ServiceData==null and sID_BP==null";
                       log.error(sError);
@@ -465,6 +470,7 @@ public class ActivitiRestFlowController {
                 }
             
             
+                log.info("[getFilteredFlowPropertiesForFlowServiceData](nID_Flow_ServiceData="+nID_Flow_ServiceData+")");
 		Flow_ServiceData flowServiceData = flowService.getBaseEntityDao().getById(Flow_ServiceData.class, nID_Flow_ServiceData);
 		List<FlowProperty> res = new LinkedList<FlowProperty>();
 		if (flowServiceData != null) {

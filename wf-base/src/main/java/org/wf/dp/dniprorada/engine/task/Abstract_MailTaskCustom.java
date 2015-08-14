@@ -106,6 +106,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             //String sSum = getStringFromFieldExpression(this.sSum, execution);
             String sSum = execution.getVariable("sSum").toString();
             LOG.info("sSum="+sSum);
+            if(sSum!=null){
+                sSum=sSum.replaceAll(",", ".");
+            }
             
             
             //String sID_Currency = getStringFromFieldExpression(this.sID_Currency, execution);

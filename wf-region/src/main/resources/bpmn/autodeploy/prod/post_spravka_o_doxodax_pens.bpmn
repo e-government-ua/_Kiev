@@ -21,12 +21,9 @@
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
-        <activiti:formProperty id="notice" name="Прошу надати мені довідку про доходи (розмір пенсії) за такий період:" type="enum" required="true">
-          <activiti:value id="year" name="за рік"></activiti:value>
-          <activiti:value id="month" name="за місяць"></activiti:value>
-          <activiti:value id="date" name="на відповідну дату"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="date" name="Відповідна дата; заповніть її, якщо Ви вибрали такий вид довідки вище" type="date"></activiti:formProperty>
+        <activiti:formProperty id="period" name="Надати довідку за наступний період:" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="date_from" name="початок періоду" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_to" name="кінець періоду" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="pens" name="Копія пенсійного посвідчення; завантажте копію пенсійного посвідчення " type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default=" "></activiti:formProperty>
         <activiti:formProperty id="nID_Subject" name="ИД-номер субъекта" type="invisible" default="0"></activiti:formProperty>
@@ -56,12 +53,9 @@
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="notice" name="Прошу надати мені довідку про доходи (розмір пенсії) за такий період:" type="enum" writable="false">
-          <activiti:value id="year" name="за рік"></activiti:value>
-          <activiti:value id="month" name="за місяць"></activiti:value>
-          <activiti:value id="date" name="на відповідну дату"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="date" name="Відповідна дата; заповніть її, якщо Ви вибрали такий вид довідки вище" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="period" name="Надати довідку за наступний період:" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="date_from" name="початок періоду" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_to" name="кінець періоду" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pens" name="Копія пенсійного посвідчення; завантажте копію пенсійного посвідчення " type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision" name="Стан заяви" type="enum" required="true">
           <activiti:value id="attr1_doc_ok" name="Документи правильні, відправити листа для сплати"></activiti:value>
@@ -73,6 +67,11 @@
         <activiti:formProperty id="code" name="Штрих-код відправленого листа; цей штрих-код буде надісланий громадянину на e-mail" type="string"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Примітки; тут ви можете написати текст для громадянина, який буде відправлений йому на електронну пошту в разі відмови" type="textArea"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${pens}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>

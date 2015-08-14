@@ -5,10 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 
 /**
  * This class allow to store sql/hql queries in external files
@@ -18,18 +16,24 @@ import java.nio.file.Files;
  */
 @Component
 public class QueryLoader {
-    private static final Logger LOG = LoggerFactory.getLogger(QueryLoader.class);
+
 
     private String homeDirectory;
 
 
     public QueryLoader(){
-        this("/queryloader/");
+        this(TypeDB.Postgres, "/queryloader");
+    }
+    public QueryLoader(String directory) {
+        this.homeDirectory = directory;
+    }
+    public QueryLoader(TypeDB type) {
+        this(type, "/queryloader");
+    }
+    public QueryLoader(TypeDB type, String directory) {
+        homeDirectory = directory + type.getPath();
     }
 
-    public QueryLoader(String directory) {
-        homeDirectory = directory;
-    }
 
 
     /**
@@ -67,5 +71,18 @@ public class QueryLoader {
 
     public String getHomeDirectory(){
         return homeDirectory;
+    }
+
+
+    public enum TypeDB {
+        Postgres("/"), H2("H2/");
+
+        private String path;
+        TypeDB(String path) {
+            this.path = path;
+        }
+        public String getPath() {
+            return path;
+        }
     }
 }

@@ -7,7 +7,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" required="true">
+        <activiti:formProperty id="rdaList" name="Район реєстрації у м.Києві" type="enum" required="true">
           <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
           <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
@@ -73,7 +73,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -84,7 +84,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Ваш запит на отримання довідки пропро участь в приватизації житла державного житлового фонду, зареєстровано. 
+                                        Ваш запит на отримання довідки про участь в приватизації житла державного житлового фонду, зареєстровано. 
                                     &lt;/p&gt;
                                     &lt;p&gt;
  										Інформація про стан опрацювання запиту буде надсилатись електронною поштою.
@@ -117,11 +117,12 @@
     </serviceTask>
     <userTask id="usertask1" name="Взяття в роботу ЦНАП" activiti:candidateGroups="${rdaList}_cnap">
       <extensionElements>
+        <activiti:formProperty id="form_number" name="Номер справи" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
+        <activiti:formProperty id="rdaList" name="Район реєстрації у м.Києві" type="enum" writable="false">
           <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
           <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
@@ -137,13 +138,13 @@
     <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="usertask3"></sequenceFlow>
     <userTask id="usertask3" name="Формування пакету документів в ЦНАП" activiti:candidateGroups="${rdaList}_cnap">
       <extensionElements>
-        <activiti:formProperty id="form_number" name="Номер справи" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="form_number" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
+        <activiti:formProperty id="rdaList" name="Район реєстрації у м.Києві" type="enum" writable="false">
           <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
           <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
@@ -159,12 +160,13 @@
     <sequenceFlow id="flow17" sourceRef="boundaryerror1" targetRef="endevent4"></sequenceFlow>
     <userTask id="usertask4" name="Перевірка пакету документів в РДА" activiti:candidateGroups="${rdaList}_dep2">
       <extensionElements>
+        <activiti:formProperty id="form_number" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
+        <activiti:formProperty id="rdaList" name="Район реєстрації у м.Києві" type="enum" writable="false">
           <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
           <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
@@ -174,7 +176,11 @@
           <activiti:value id="accept" name="Документи перевірено. Зауваження відсутні."></activiti:value>
           <activiti:value id="reject" name="Документи не пройшли перевірку. Відмовити в наданні послуги."></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment2" name="Підстава для відмови в наданні послуги. Коментар буде відправлено громадянину на e-mail" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="comment2" name="Підстава для відмови в наданні послуги. Коментар буде відправлено громадянину на e-mail" type="enum">
+          <activiti:value id="Документи надані не в повному обсязі" name="Документи надані не в повному обсязі"></activiti:value>
+          <activiti:value id="Надані документи оформлені за змістом та формою неналежним чином" name="Надані документи оформлені за змістом та формою неналежним чином"></activiti:value>
+          <activiti:value id="Звернулася особа, яка не має повноважень, підтверджених в установленому порядку" name="Звернулася особа, яка не має повноважень, підтверджених в установленому порядку"></activiti:value>
+        </activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
             <activiti:expression>${docToSend}</activiti:expression>
@@ -190,7 +196,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
+        <activiti:formProperty id="rdaList" name="Район реєстрації у м.Києві" type="enum" writable="false">
           <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
           <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
@@ -202,7 +208,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="На опрацюванні в ЦНАП" readable="false"></activiti:formProperty>
         <activiti:formProperty id="confirm" name="ЦНАП отримав документи від РДА?" type="enum" required="true">
-          <activiti:value id="accept" name="Підтверджую отримання докуметіи від РДА. Сповістити громадянина, що довідка підготовлена до отримання"></activiti:value>
+          <activiti:value id="accept" name="Підтверджую отримання документів від РДА. Сповістити громадянина, що довідка підготовлена до отримання"></activiti:value>
         </activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -264,7 +270,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -367,7 +373,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -421,7 +427,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
+        <activiti:formProperty id="rdaList" name="Район реєстрації у м.Києві" type="enum" writable="false">
           <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
           <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
@@ -448,7 +454,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="rdaList" name="Район реєстрації у м.Київі" type="enum" writable="false">
+        <activiti:formProperty id="rdaList" name="Район реєстрації у м.Києві" type="enum" writable="false">
           <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
           <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
         </activiti:formProperty>
@@ -459,7 +465,7 @@
           <activiti:value id="reject" name="Документи не пройшли перевірку. Відмовити в наданні послуги."></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="confirm" name="ЦНАП отримав документи від РДА?" type="enum" writable="false">
-          <activiti:value id="accept" name="Підтверджую отримання докуметіи від РДА. Сповістити громадянина, що довідка підготовлена до отримання"></activiti:value>
+          <activiti:value id="accept" name="Підтверджую отримання документів від РДА. Сповістити громадянина, що довідка підготовлена до отримання"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="На опрацюванні в ЦНАП" readable="false"></activiti:formProperty>
         <activiti:formProperty id="confirm_cnap" name="Громадянин отримав довідку?" type="enum">

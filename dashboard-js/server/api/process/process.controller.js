@@ -1,11 +1,14 @@
 'use strict';
 
 var activiti = require('../../components/activiti');
+//var logger = require('../../components/logger').setup();
+      //logger.info('Express server listening on %d, in %s mode', config.port, app.get('env'));
 
 exports.index = function (req, res) {
 
   var query = {};
-  query.size = 500;
+  query.size = 750;
+  query.latest = true;
 
   var options = {
     path: 'repository/process-definitions',
@@ -16,6 +19,9 @@ exports.index = function (req, res) {
     if (error) {
       res.send(error);
     } else {
+        
+      //logger.info('Express server listening on %d, in %s mode', config.port, app.get('env'));
+//      logger.info('result='+result);
       res.status(200).send(result);
     }
   });

@@ -1,13 +1,10 @@
 package org.activiti.rest.controller;
 
 import com.google.gson.Gson;
-import com.google.gwt.user.server.Base64Utils;
-import com.mongodb.util.JSON;
 import com.sun.mail.util.BASE64DecoderStream;
-
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
-import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricVariableInstance;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.apache.log4j.Logger;
@@ -21,15 +18,12 @@ import org.wf.dp.dniprorada.model.LiqpayCallbackModel;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-import org.activiti.engine.TaskService;
-import org.activiti.engine.task.Task;
+import org.wf.dp.dniprorada.base.dao.AccessDataDao;
+import org.wf.dp.dniprorada.util.GeneralConfig;
+import org.wf.dp.dniprorada.util.Mail;
 
 @Controller
 public class ActivitiPaymentRestController {
-
-    private static final Logger log = Logger.getLogger(ActivitiPaymentRestController.class);
 
     public static final String LIQPAY_PAYMENT_SYSTEM = "Liqpay";
     public static final String LIQPAY_FIELD_TRANSACTION_ID = "transaction_id";
@@ -37,18 +31,36 @@ public class ActivitiPaymentRestController {
     public static final String TASK_MARK = "TaskActiviti_";
     public static final String PAYMENT_SUCCESS = "success";
     public static final String PAYMENT_SUCCESS_TEST = "sandbox";
-
+    private static final Logger log = Logger.getLogger(ActivitiPaymentRestController.class);
+    private final String sID_PaymentSystem = "Liqpay";
 //    @Autowired
 //    TaskService taskService;
     @Autowired
     private TaskService taskService;
-    
     @Autowired
     private RuntimeService runtimeService;
     @Autowired
     private HistoryService historyService;
-    private final String sID_PaymentSystem = "Liqpay";
 
+	@Autowired
+	GeneralConfig generalConfig;
+	
+    @Autowired
+    Mail oMail;
+    
+    @Autowired
+    AccessDataDao accessDataDao;
+    
+    
+    
+    public static void main(String[] args) throws Exception {
+        Map values = new HashMap<String, String>();
+        values.put(LIQPAY_FIELD_TRANSACTION_ID, "123");
+        values.put(LIQPAY_FIELD_PAYMENT_STATUS, "success");
+        ActivitiPaymentRestController controller = new ActivitiPaymentRestController();
+        controller.setPaymentStatus("TaskActiviti_12345", new JSONObject(values).toString(), LIQPAY_PAYMENT_SYSTEM);
+    }
+    
     @RequestMapping(value = "/setPaymentStatus_TaskActiviti", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
 			@RequestParam String sID_Order,
@@ -58,24 +70,135 @@ public class ActivitiPaymentRestController {
 			@RequestParam(value = "signature", required = false) String signature
 			//@RequestParam byte[] data,
 			//@RequestParam byte[] signature
-			){
+			) throws Exception{
 
+            log.info("/setPaymentStatus_TaskActiviti");
+            
             log.info("sID_Order="+sID_Order);
             log.info("sID_PaymentSystem="+sID_PaymentSystem);
             log.info("sData="+sData);
-            
+
             log.info("data="+data);
             log.info("signature="+signature);
             String sDataDecoded = null;
-            if(data != null){
-                sDataDecoded = new String(BASE64DecoderStream.decode(data.getBytes()));
-                log.info("sDataDecoded="+sDataDecoded);
-            }
-            setPaymentStatus(sID_Order, sDataDecoded, sID_PaymentSystem);
-            //setPaymentStatus(sID_Order, null, sID_PaymentSystem);
+            
+            try{
+                if(data != null){
+                    sDataDecoded = new String(BASE64DecoderStream.decode(data.getBytes()));
+                    log.info("sDataDecoded="+sDataDecoded);
+                }
+                setPaymentStatus(sID_Order, sDataDecoded, sID_PaymentSystem);
+                //setPaymentStatus(sID_Order, null, sID_PaymentSystem);                
+            }catch(Exception oException){
+                log.error("/setPaymentStatus_TaskActiviti", oException);
+                String snID_Subject="0";
+                String sAccessKey=null;
+                try{
+                    sAccessKey = accessDataDao.setAccessData(snID_Subject);
+                }catch(Exception oException1){
+                    log.error("/setPaymentStatus_TaskActiviti:sAccessKey=", oException1);
+                }
+
+                //generalConfig.sHost() + "/wf-region/service/setPaymentStatus_TaskActiviti_Direct?sID_Order="+sID_Order+"&sID_PaymentSystem="+sID_PaymentSystem+"&sData=&sID_Transaction=&sStatus_Payment="            
+                String sURL = new StringBuilder(generalConfig.sHost())
+                        .append("/wf-region/service/setPaymentStatus_TaskActiviti_Direct?")
+                        .append("sID_Order=").append(sID_Order)
+                        .append("&sID_PaymentSystem=").append(sID_PaymentSystem)
+                        .append("&sData=").append("")
+                        //.append("&sID_Transaction=").append("")
+                        //.append("&sStatus_Payment=").append("")
+                        .append("nID_Subject=").append(snID_Subject)
+                        .append("&sAccessKey=").append(sAccessKey)
+                        .toString();
+
+                    String sFormHTML = new StringBuilder()
+                            .append("<form method=\"GET\" action=\"")//POST
+                            .append(sURL)
+                            .append("\" ")
+                            .append("accept-charset=\"utf-8\">")
+                            .append("<input type=\"text\" name=\"sID_Transaction\" value=\"\"/>")
+                            .append("<input type=\"text\" name=\"sStatus_Payment\" value=\"\"/>")
+                            .append("<input type=\"submit\" value=\"Выполнить ручное сохранение!\"/>")
+                            .append("</form>").toString();
+
+
+                    String saToMail = "bvv4ik@gmail.com,dmitrij.zabrudskij@privatbank.ua";
+                    String sHead = (generalConfig.bTest()?"(test)":"(PROD)")+"/setPaymentStatus_TaskActiviti:Ошибка при попытке провести сохранить информацию о плетеде в активити-задачу!";
+                    String sBody = "oException.getMessage()="+oException.getMessage()+"<br>" +
+                                    "<br>" +
+
+                                    "sID_Order="+sID_Order+"<br>"+
+                                    "sID_PaymentSystem="+sID_PaymentSystem+"<br>"+
+                                    "sData="+sData+"<br>"+
+                                    "data="+data+"<br>"+
+                                    "signature="+signature+"<br>"+
+                                    "<br>" +
+                                    "Чтоб вручную провести эту операцию нажмите:<br>" +
+                                    sFormHTML + "<br>" +
+                                    "<br>" +
+                                    "Если не получается, перейдите по <a href=\"" + sURL + "&sID_Transaction=&sStatus_Payment=" + "\" target=\"_top\">этой ссылке</a>, и подставьте реальній ИД транзакции(sID_Transaction) и статус(sStatus_Payment). введя, при необходимости авторизационные логин и пароль (можно получить у админа)<br>" +
+                                    "(" + sURL + "&sID_Transaction=&sStatus_Payment=" + ")<br>" +
+                                    "<br>"
+                                    ;
+                    oMail
+                    .reset();
+                    oMail
+                    //._From(mailAddressNoreplay)
+                    ._To(saToMail)
+                    ._Head(sHead)
+                    ._Body(sBody)
+                    ;                
+                    oMail.send();
+                    throw oException;
+                }
             return sData;
 	}
-    
+
+    @RequestMapping(value = "/setPaymentStatus_TaskActiviti_Direct", method = RequestMethod.GET, headers = { "Accept=application/json" })
+	public @ResponseBody String setPaymentStatus_TaskActiviti_Direct(
+			@RequestParam String sID_Order,
+			@RequestParam String sID_PaymentSystem,
+			@RequestParam String sData,
+                        
+			//@RequestParam String snID_Task,
+			@RequestParam String sID_Transaction,
+			@RequestParam String sStatus_Payment
+                        
+			) throws Exception{
+
+            
+            log.info("/setPaymentStatus_TaskActiviti_Direct");
+            log.info("sID_Order="+sID_Order);
+            log.info("sID_PaymentSystem="+sID_PaymentSystem);
+            log.info("sData="+sData);
+
+            log.info("sID_Transaction="+sID_Transaction);
+            log.info("sStatus_Payment="+sStatus_Payment);
+
+            //String snID_Task=sID_Order;
+            
+            Long nID_Task = null;
+            try {
+                if (sID_Order.contains(TASK_MARK)) {
+                    nID_Task = Long.decode(sID_Order.replace(TASK_MARK, ""));
+                }
+            } catch (NumberFormatException e) {
+                log.error("incorrect sID_Order! can't invoke task_id: " + sID_Order);
+            }
+            String snID_Task = ""+nID_Task;
+            log.info("snID_Task="+snID_Task);
+
+            if("Liqpay".equals(sID_PaymentSystem)){
+                setPaymentTransaction_ToActiviti(snID_Task, sID_Transaction, sStatus_Payment);
+                sData="Ok";
+            }else{
+                sData="Fail";
+            }
+            //sID_Order=TaskActiviti_105123&sID_PaymentSystem=Liqpay&sData=&nID_Subject=25447
+            return sData;
+	}                
+        
+        
     @RequestMapping(value = "/setPaymentStatus_TaskActiviti_", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
 			@RequestParam String sID_Order,
@@ -83,7 +206,7 @@ public class ActivitiPaymentRestController {
 			@RequestParam String sData,
 			@RequestParam byte[] data,
 			@RequestParam byte[] signature
-			){
+			) throws Exception{
 
             log.info("sID_Order="+sID_Order);
             log.info("sID_PaymentSystem="+sID_PaymentSystem);
@@ -95,11 +218,12 @@ public class ActivitiPaymentRestController {
             setPaymentStatus(sID_Order, sDataDecoded, sID_PaymentSystem);
             return sData;
 	}
+
     @RequestMapping(value = "/setPaymentStatus_TaskActiviti2/", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatusNew_TaskActiviti(
 			@RequestParam byte[] data,
 			@RequestParam byte[] signature
-			){
+			) throws Exception{
 
             log.info("data="+data);
             log.info("signature="+signature);
@@ -114,14 +238,15 @@ public class ActivitiPaymentRestController {
             return sFullData;
 	}
 
-    private void setPaymentStatus(String sID_Order, String sData, String sID_PaymentSystem) {
+    private void setPaymentStatus(String sID_Order, String sData, String sID_PaymentSystem) throws Exception {
         if (!LIQPAY_PAYMENT_SYSTEM.equals(sID_PaymentSystem)) {
-            log.info("not liqpay system");
-            return;
+            log.error("not liqpay system");
+            throw new Exception("not liqpay system");
+            //return;
         }
 
         log.info("sData=" + sData);
-        
+
         Long nID_Task = null;
         try {
             if (sID_Order.contains(TASK_MARK)) {
@@ -131,7 +256,7 @@ public class ActivitiPaymentRestController {
             log.error("incorrect sID_Order! can't invoke task_id: " + sID_Order);
         }
         String snID_Task = ""+nID_Task;
-        
+
         //https://test.region.igov.org.ua/wf-region/service/setPaymentStatus_TaskActiviti0?sID_Order=TaskActiviti_1485001&sID_PaymentSystem=Liqpay&sData=&nID_Subject=20045&sAccessKey=b32d9855-dce0-44df-bbe0-dd0e41958cde
         //data=eyJwYXltZW50X2lkIjo2MzQ0NDcxOCwidHJhbnNhY3Rpb25faWQiOjYzNDQ0NzE4LCJzdGF0dXMiOiJzYW5kYm94IiwidmVyc2lvbiI6MywidHlwZSI6ImJ1eSIsInB1YmxpY19rZXkiOiJpMTAxNzI5NjgwNzgiLCJhY3FfaWQiOjQxNDk2Mywib3JkZXJfaWQiOiJUYXNrQWN0aXZpdGlfMTQ4NTAwMSIsImxpcXBheV9vcmRlcl9pZCI6IjQwMXUxNDM3MzI1MDIyMTgzMzAzIiwiZGVzY3JpcHRpb24iOiLQotC10YHRgtC+0LLQsNGPINGC0YDQsNC90LfQsNC60YbQuNGPIiwic2VuZGVyX3Bob25lIjoiMzgwOTc5MTM4MDA3IiwiYW1vdW50IjowLjAxLCJjdXJyZW5jeSI6IlVBSCIsInNlbmRlcl9jb21taXNzaW9uIjowLjAsInJlY2VpdmVyX2NvbW1pc3Npb24iOjAuMCwiYWdlbnRfY29tbWlzc2lvbiI6MC4wLCJhbW91bnRfZGViaXQiOjAuMDEsImFtb3VudF9jcmVkaXQiOjAuMDEsImNvbW1pc3Npb25fZGViaXQiOjAuMCwiY29tbWlzc2lvbl9jcmVkaXQiOjAuMCwiY3VycmVuY3lfZGViaXQiOiJVQUgiLCJjdXJyZW5jeV9jcmVkaXQiOiJVQUgiLCJzZW5kZXJfYm9udXMiOjAuMCwiYW1vdW50X2JvbnVzIjowLjB9
         //signature=z77CQeBn3Z75n5UpJqXKG+KjZyI=
@@ -156,9 +281,10 @@ public class ActivitiPaymentRestController {
                 log.info("oLiqpayCallbackModel.getStatus()="+sStatus_Payment);
             } catch (Exception e) {
                 log.error("can't parse json! reason:" + e.getMessage());
+                throw new Exception("can't parse json! reason:" + e.getMessage());
                 /*int nAt;
                 int nTo;
-                
+
                 String sFieldName = LIQPAY_FIELD_TRANSACTION_ID;//"transaction_id"
                 log.info("sFieldName="+sFieldName+",sID_Transaction="+sID_Transaction);
                 try {
@@ -176,7 +302,7 @@ public class ActivitiPaymentRestController {
                 } catch (Exception e1) {
                     log.error("can't get field json!(sFieldName="+sFieldName + "):" + e.getMessage());
                 }
-                
+
                 try {
                     sFieldName = LIQPAY_FIELD_PAYMENT_STATUS;//"status"
                     log.info("sFieldName="+sFieldName+",sStatus_Payment="+sStatus_Payment);
@@ -211,13 +337,19 @@ public class ActivitiPaymentRestController {
             log.error("incorrect sStatus_Payment: " + "nID_Task=" + snID_Task
                     + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
         }
-        
+
         if (nID_Task == null) {
             log.error("incorrect primary input data(BREAKED): " + "snID_Task=" + snID_Task
                      + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
-            return;
+            //return;
+            throw new Exception("incorrect primary input data(BREAKED): " + "snID_Task=" + snID_Task
+                     + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
         }
         
+        
+        setPaymentTransaction_ToActiviti(snID_Task, sID_Transaction, sStatus_Payment);
+    }
+    private void setPaymentTransaction_ToActiviti(String snID_Task, String sID_Transaction, String sStatus_Payment) throws Exception{
         //save info to process
         try {
             log.info("try to get task. snID_Task=" + snID_Task);
@@ -242,11 +374,10 @@ public class ActivitiPaymentRestController {
             runtimeService.setVariable(snID_Process, "sID_Payment", sID_Payment);
             log.info("completed set sID_Payment="+sID_Payment+" to: snID_Process=" + snID_Process);
         } catch (Exception e){
-            log.error("during changing: nID_Task=" + nID_Task
+            log.error("during changing: snID_Task=" + snID_Task
                     + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment, e);
+            throw e;
         }
-
-
     }
 
 
@@ -259,13 +390,5 @@ public class ActivitiPaymentRestController {
                 .processInstanceId(processInstance_ID)
                 .variableName(variableName).singleResult();
         return (Object) historicVariableInstance.getValue();
-    }
-
-    public static void main(String[] args) {
-        Map values = new HashMap<String, String>();
-        values.put(LIQPAY_FIELD_TRANSACTION_ID, "123");
-        values.put(LIQPAY_FIELD_PAYMENT_STATUS, "success");
-        ActivitiPaymentRestController controller = new ActivitiPaymentRestController();
-        controller.setPaymentStatus("TaskActiviti_12345", new JSONObject(values).toString(), LIQPAY_PAYMENT_SYSTEM);
     }
 }

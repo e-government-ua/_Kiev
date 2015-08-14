@@ -6,6 +6,7 @@ import org.wf.dp.dniprorada.util.queryloader.QueryLoader;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.wf.dp.dniprorada.util.queryloader.QueryLoader.TypeDB.H2;
 
 /**
  * @author dgroup
@@ -29,5 +30,15 @@ public class QueryLoaderTest {
     @Test(expected = MissingResourceException.class)
     public void queryShouldBeAbsent(){
         new QueryLoader(SQL_HOME_DIRECTORY).get(MISSING_SQL_FILE);
+    }
+
+    @Test
+    public void shouldDetectQueryWithProfile(){
+        String expectedSQL  = "select CURRENT_TIME()";
+        String actualSQL = new QueryLoader( H2, SQL_HOME_DIRECTORY )
+            .get(SQL_FILE);
+
+        assertNotNull(SQL_FILE + " not found", actualSQL);
+        assertEquals("SQL queries aren't match", expectedSQL, actualSQL.trim());
     }
 }
