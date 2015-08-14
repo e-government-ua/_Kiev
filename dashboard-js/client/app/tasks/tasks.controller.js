@@ -101,7 +101,10 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
       .list(menuType)
       .then(function (result) {
         result = JSON.parse(result);
-        $scope.tasks = result.data;
+        var tasks = _.filter(result.data, function (task) {
+          return task.endTime !== null;
+        });
+        $scope.tasks = tasks;
         updateTaskSelection(nID_Task);
       })
       .catch(function (err) {
