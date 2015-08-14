@@ -73,7 +73,7 @@ public class QueryLoader {
 
 
     public enum TypeDB {
-        Postgres("/PostgreSQL"), H2("H2/");
+        Postgres("PostgreSQL/"), H2("H2/");
 
         private String path;
         TypeDB(String path) {
