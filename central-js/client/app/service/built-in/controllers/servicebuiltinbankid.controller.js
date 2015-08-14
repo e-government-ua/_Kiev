@@ -14,13 +14,13 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   'use strict';
 
   // FIXME: Удалить это после теста задачи #584
-  var bankIdFound = false;
+  /*var bankIdFound = false;
   angular.forEach(ActivitiForm.formProperties, function(prop) {
     if (prop.id === 'bankIdsID_Country') {
       bankIdFound = true;
     }
-  });
-  if (!bankIdFound) {
+  });*/
+  /*if (!bankIdFound) {
     ActivitiForm.formProperties.push({
       id: 'bankIdsID_Country',
       name: 'Громадянство',
@@ -28,16 +28,16 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       value: 'UKR',
       readable: true
     });
-  }
+  }*/
 
   // todo: Удалить после теста задачи #584 п.3
-  var sID_Country_found = false;
+  /*var sID_Country_found = false;
   angular.forEach(ActivitiForm.formProperties, function(prop) {
     if (prop.id === 'sID_Country') {
       sID_Country_found = true;
     }
-  });
-  if (!sID_Country_found) {
+  });*/
+  /*if (!sID_Country_found) {
     ActivitiForm.formProperties.push({
       id: 'sID_Country',
       name: 'Country Code',
@@ -46,7 +46,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       readable: true,
       writable: true
     });
-  }
+  }*/
 
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount;
