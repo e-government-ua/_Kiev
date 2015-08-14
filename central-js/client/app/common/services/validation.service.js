@@ -64,14 +64,12 @@ angular.module('app').service('ValidationService', ['moment', 'amMoment', 'angul
 
 function ValidationService(moment, amMoment, angularMomentConfig) {
 
-  // Це для того, щоб бачити дати в українському форматі
-  // FIXME: hardcoded locale value
+  var self = this;
+  self.sFormat = 'YYYY-MM-DD';
+
+  // Це для того, щоб бачити дати в українському форматі. FIXME: hardcoded locale value
   (moment.locale || moment.lang)('uk');
   amMoment.changeLocale('uk');
-
-  var self = this;
-
-  self.sFormat = 'YYYY-MM-DD';
 
   self.markers = {
     validate: {
@@ -96,12 +94,13 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       },
       DateElapsed: {
         aField_ID: ['dateOrder'],
-        bFuture: true, // якщо true, то дата modelValue має бути у майбутньому
-        bLess: true, // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
+        bFuture: true,  // якщо true, то дата modelValue має бути у майбутньому
+        bLess: true,    // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
         nDays: 10,
         nMonths: 0,
         nYears: 0
-          //,sDebug: 'Додаткова опція - інформація для дебагу'
+        //,sDebug: 'Додаткова опція - інформація для дебагу'
+        //,bDebug: false; // Опція для дебагу
       }
     }
   };
@@ -110,10 +109,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
     return self.markers;
   };
 
-  self.validateByMarkers = function(form, markers) {
-
-    // збережемо на формі поля, які будуть валідуватися за маркерами
-    // form.fieldsValidatedByMarkers = {};
+  self.validateByMarkers = function(form, markers, forceValidation) {
 
     // Якщо маркери валідації прийшли зовні - то використати їх
     function _resolveValidationMarkers(markers) {
@@ -153,12 +149,12 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
 
             formField.$validators[keyByMarkerName] = self.getValidatorByName(markerName, markerOptions, formField);
 
-            console.log('set validator, marker name:', markerName, ', form field name:', formField.$name);
-
-            // form.fieldsValidatedByMarkers[formField.$name] = formField;
+            // console.log('set validator, marker name:', markerName, ', form field name:', formField.$name);
 
             // і проводимо валідацію
-            // formField.$validate();
+            if ( forceValidation === true ) {
+              formField.$validate();
+            }
           }
         }
       });
@@ -190,7 +186,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       if (fValidator) {
         result = fValidator.call(self, modelValue, viewValue, savedOptions);
         // Якщо валідатор зберіг помилку у savedOptions.lastError - привласнити її полю форми
-        if ( formField && formField.$error && savedOptions.lastError) {
+        if (formField && formField.$error && savedOptions.lastError) {
           formField.lastErrorMessage = savedOptions.lastError;
         }
       }
@@ -267,12 +263,14 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
         return false;
       }
 
+      options.lastError = '';
+
       // Строга відповідніcть (нестрога - var bValid = moment(modelValue, options.sFormat).isValid())
       var bValid = (moment(modelValue, options.sFormat).format(options.sFormat) === modelValue);
 
       // console.log('Validate DateFomat: ' + modelValue + ' is valid Date: ' + bValid + ' in ' + sFormat, ' format' );
 
-      if ( bValid === false ) {
+      if (bValid === false) {
         options.lastError = 'Дата може бути тільки формату ' + options.sFormat;
       }
 
@@ -304,9 +302,11 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       var fmt = self.sFormat;
       var modelMoment = moment(modelValue, fmt);
 
-      if (o.bDebug) {
-        console.log((o.sDebug ? o.sDebug : '') + ' - зараз: ' + now.format(fmt) + ', ви увели: ' + modelMoment.format(fmt) + ', різниця: ' + deltaDays);
-      }
+      // if (o.bDebug) {
+      //   console.log((o.sDebug ? o.sDebug : '') + ' - зараз: ' + now.format(fmt) + ', ви увели: ' + modelMoment.format(fmt) + ', різниця: ' + deltaDays);
+      // }
+
+      options.lastError = '';
 
       // Повертаємо помилку, якщо опції не вказані або дата невалідна:
       if (!o || typeof o.bFuture === 'undefined' || !modelMoment.isValid()) {
@@ -338,7 +338,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       function finalize() {
         // зберегти повідомлення про помилку у зовніщньому об'єкті опцій - замикання
         for (var errorName in errors) {
-          myLog(errors[errorName], 1);
+          // myLog(errors[errorName], 1);
           o.lastError = errors[errorName];
         }
       }
@@ -427,13 +427,13 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       }
 
       // FIXME disable in release - it's dev only
-      function myLog(sMessage, l) {
-        // чим більший рівень, тим більше інфи у консолі
-        var logLevel = 1;
-        if (l <= logLevel) {
-          console.log('\t\t' + sMessage);
-        }
-      }
+      // function myLog(sMessage, l) {
+      //   // чим більший рівень, тим більше інфи у консолі
+      //   var logLevel = 1;
+      //   if (l <= logLevel) {
+      //     console.log('\t\t' + sMessage);
+      //   }
+      // }
     }
   };
 

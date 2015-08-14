@@ -1,12 +1,16 @@
 <div class="container">
     <style>
-    .test-form .ng-invalid {
+    .test-form .ng-untouched.ng-invalid {
+        background-color: inherit;
+        border-color: inherit;
+    }
+    .test-form .ng-touched.ng-invalid {
         background-color: #fee;
         border-color: #f99;
     }
     </style>
     <div class="row">
-        <div>
+        <div class="text-center">
             <h4>Перевірка валідаторів</h4>
         </div>
     </div>
@@ -50,6 +54,7 @@
                         <label for="dateFormat" class="col-sm-2 control-label">Date Format:</label>
                         <div class="col-sm-6">
                             <input type="text" name="dateFormat" ng-model="formData.dateFormat" class="form-control" required>
+                            <p class="help-block">Уведіть дату у форматі YYYY-MM-DD</p>
                         </div>
                         <div class="col-sm-4" ng-messages="testForm.dateFormat.$error" role="alert">
                             <div ng-message="dateformat">{{testForm.dateFormat.lastErrorMessage}}</div>
@@ -59,30 +64,29 @@
                         <label for="dateOrder" class="col-sm-2 control-label">Date Order:</label>
                         <div class="col-sm-6">
                             <input type="text" name="dateOrder" ng-model="formData.dateOrder" class="form-control" required>
-                            <p>Будь ласка, уведіть дату у майбутньому, але не пізнішу, ніж за місяць від сьогодні</p>
+                            <p class="help-block">Уведіть дату у майбутньому, але не пізнішу, ніж за місяць від поточної</p>
                         </div>
                         <div class="col-sm-4" ng-messages="testForm.dateOrder.$error" role="alert">
                             <div ng-message="dateelapsed">{{testForm.dateOrder.lastErrorMessage}}</div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <input type="submit" class="btn btn-default" ng-click="formSubmit(formData)" value="ОК" ng-disabled="testForm.$invalid" >
+                            <button class="btn" ng-click="reset()">Скинути</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <input type="submit" class="btn btn-default" ng-click="formSubmit(formData)">
-                    <button class="btn" ng-click="reset()">Reset</button>
-                </div>
+        </div>
+        <!-- /row -->
+        <div class="row">
+            <div class="col-sm-6">
+                <pre>testForm.dateOrder = {{testForm.dateOrder | json}}</pre>
             </div>
-            </form>
+            <div class="col-sm-6">
+                <pre>testForm.dateFormat = {{testForm.dateFormat | json}}</pre>
+            </div>
         </div>
     </div>
-</div>
-<!-- /row -->
-<div class="row">
-    <div class="col-sm-6">
-        <pre>testForm.dateOrder = {{testForm.dateOrder | json}}</pre>
-    </div>
-    <div class="col-sm-6">
-        <pre>testForm.dateFormat = {{testForm.dateFormat | json}}</pre>
-    </div>
-</div>
 </div>
