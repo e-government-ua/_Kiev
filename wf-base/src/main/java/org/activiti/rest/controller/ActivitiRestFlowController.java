@@ -57,6 +57,7 @@ public class ActivitiRestFlowController {
 
 
       DateTime oDateStart = DateTime.now().withTimeAtStartOfDay();
+      oDateStart = oDateStart.plusDays(2);
       DateTime oDateEnd = oDateStart.plusDays(nDays);
       
       if (sDateStart != null){
