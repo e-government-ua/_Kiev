@@ -19,16 +19,19 @@ angular.module('documents').controller('DocumentsSearchController',
                 $scope.documents = {};
                 $scope.messages = {};
                 if (data.hasOwnProperty('message')) {
-                    if (data.message.indexOf('Document Access password') > -1) {
-                        if ($scope.smsPass) {
-                            $scope.messages = ['Неправильний код'];
-                        }
-                        $scope.showSmsPass = true;
-                    } else if (data.message.indexOf('Document Access not found') > -1) {
-                        $scope.messages = ['Документи не знайдені'];
-                    } else {
-                        $scope.messages = [data.message];
-                    }
+                  var startsWith = function (str) { return data.message.indexOf(str) > -1; };
+                  if (startsWith('Document Access password wrong')) {
+                    if ($scope.smsPass)
+                      $scope.messages = ['Неправильний код'];
+                  } else if (startsWith('Document Access password need - sent SMS')) {
+                    var phone = data.message.match(/\([^\)]+/)[0].substring(1);
+                    $scope.blurredPhone  = phone.slice(0, -7) + '*****' + phone.slice(-2);
+                    $scope.showSmsPass = true;
+                  } else if (startsWith('Document Access not found')) {
+                      $scope.messages = ['Документи не знайдені'];
+                  } else {
+                      $scope.messages = [data.message];
+                  }
                 } else {
                     if (typeof data === 'object') {
                         data = [data];
