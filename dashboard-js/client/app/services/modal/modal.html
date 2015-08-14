@@ -5,33 +5,31 @@
   <form class="form-horizontal">
 
     <div class="form-group">
-      <label for="inputName" class="col-md-3 control-label">Назва</label>
-      <div class="col-md-9">
+      <label for="inputName" class="col-md-3 col-xs-3 control-label">Назва</label>
+      <div class="col-md-9 col-xs-9">
         <input class="form-control" id="inputName" ng-model="slot.sName" placeholder="Введіть назву будь ласка">
       </div>
     </div>
 
     <div class="form-group">
-      <div class="col-md-3">
+      <div class="col-md-3 col-xs-3">
         <div class="spacer35"></div>
         <label class="control-label pull-right">Час прийому з </label>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 col-xs-3">
         <timepicker ng-model="slot.sDateTimeAt" minute-step="5" show-meridian="false"></timepicker>
-        <!-- <input class="form-control" id="fromTime" placeholder="Оберіть час" ng-model="slot.sDateTimeAt"> -->
       </div>
-      <div class="col-md-1">
+      <div class="col-md-1 col-xs-1">
         <div class="spacer35"></div>
         <label class="control-label">до </label>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 col-xs-3">
         <timepicker ng-model="slot.sDateTimeTo" minute-step="5" show-meridian="false"></timepicker>
-        <!-- <input class="form-control" id="toTime" placeholder="Оберіть час" ng-model="slot.sDateTimeTo"> -->
       </div>
     </div>
 
     <div class="form-group">
-      <div class="col-md-offset-3 col-md-9">
+      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
         <div class="checkbox">
           <label>
             <input type="checkbox" ng-model="slot.saRegionWeekDay.mo"> Понеділок
@@ -41,7 +39,7 @@
     </div>
 
     <div class="form-group">
-      <div class="col-md-offset-3 col-md-9">
+      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
         <div class="checkbox">
           <label>
             <input type="checkbox" ng-model="slot.saRegionWeekDay.tu"> Вівторок
@@ -51,7 +49,7 @@
     </div>
 
     <div class="form-group">
-      <div class="col-md-offset-3 col-md-9">
+      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
         <div class="checkbox">
           <label>
             <input type="checkbox" ng-model="slot.saRegionWeekDay.we"> Середа
@@ -61,7 +59,7 @@
     </div>
 
     <div class="form-group">
-      <div class="col-md-offset-3 col-md-9">
+      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
         <div class="checkbox">
           <label>
             <input type="checkbox" ng-model="slot.saRegionWeekDay.th"> Четвер
@@ -71,7 +69,7 @@
     </div>
 
     <div class="form-group">
-      <div class="col-md-offset-3 col-md-9">
+      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
         <div class="checkbox">
           <label>
             <input type="checkbox" ng-model="slot.saRegionWeekDay.fr"> П'ятниця
@@ -81,7 +79,7 @@
     </div>
 
     <div class="form-group">
-      <div class="col-md-offset-3 col-md-9">
+      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
         <div class="checkbox">
           <label>
             <input type="checkbox" ng-model="slot.saRegionWeekDay.sa"> Субота
@@ -91,7 +89,7 @@
     </div>
 
     <div class="form-group">
-      <div class="col-md-offset-3 col-md-9">
+      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
         <div class="checkbox">
           <label>
             <input type="checkbox" ng-model="slot.saRegionWeekDay.su"> Неділя
@@ -100,8 +98,10 @@
       </div>
     </div>
 
+    <div class="alert alert-warning" role="alert" ng-hide="atLeastOneWeekDayChosen()">Будь ласка, оберіть хоча б один день тижня</div>
+
     <div class="modal-footer">
-      <button type="submit" class="btn btn-primary" ng-click="save()">Сохранити</button>
+      <button type="submit" class="btn btn-primary" ng-show="atLeastOneWeekDayChosen()" ng-click="save()">Сохранити</button>
       <button class="btn btn-warning" type="button" ng-click="cancel()">Відмінити</button>
     </div>
   </form>

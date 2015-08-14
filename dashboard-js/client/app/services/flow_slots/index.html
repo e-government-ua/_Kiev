@@ -1,0 +1,84 @@
+<div ng-controller="FlowSlotsCtrl">
+
+  <div ng-show="isInProgress">
+    <h3 class="text-center">Заждіть</h3>
+  </div>
+
+  <div ng-show="!isInProgress">
+
+    <div class="row">
+      <form class="form-horizontal col-md-12">
+        <div class="form-group">
+          <label class="col-md-1 control-label">Період з</label>
+          <div class="col-md-3">
+            <p class="input-group">
+              <input type="date"
+                     class="form-control"
+                     datepicker-popup
+                     ng-model="data.sDateStart"
+                     is-open="isDatepickerOpened"
+                     ng-required="true"
+                     close-text="Close" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="openDatepicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+          </div>
+          <label class="col-md-1 control-label">до</label>
+          <div class="col-md-3">
+            <p class="input-group">
+              <input type="date"
+                     class="form-control"
+                     datepicker-popup
+                     ng-model="data.sDateStop"
+                     is-open="isDatepickerOpened"
+                     ng-required="true"
+                     close-text="Close" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="openDatepicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+          </div>
+          <button type="submit" class="btn btn-success" ng-click="generate()">Згенерувати</button>
+          <button class="btn btn-danger" ng-click="delete()">Видалити згенероване</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="row">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>№</th>
+          <th>Проміжок</th>
+          <th>Статус</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr ng-repeat="one in list.aDay">
+          <th scope="row">{{one.aSlot[0].nID}}</th>
+          <td>{{one.sDate}}</td>
+          <td> о {{one.aSlot[0].sTime}}</td>
+          <td>
+            <div class="btn-group" dropdown>
+              <button type="button" class="btn btn-default">Редагувати</button>
+              <button type="button" class="btn btn-danger" dropdown-toggle>
+                <i class="glyphicon glyphicon-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row"></th>
+          <td></td>
+          <td></td>
+          <td><button class="btn btn-primary" ng-click="open()">Добавити</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

@@ -5,11 +5,11 @@ angular.module('dashboardJsApp')
 
     var stringToWeekDays = function(str){
       var weekDays = {
-        mo: true,
-        tu: true,
-        we: true,
-        th: true,
-        fr: true,
+        mo: false,
+        tu: false,
+        we: false,
+        th: false,
+        fr: false,
         sa: false,
         su: false
       };
@@ -140,22 +140,22 @@ angular.module('dashboardJsApp')
 
     return {
       getSchedule: function(sID_BP, callback) {
-        return getTime('/api/services/schedule', sID_BP, callback);
+        return getTime('/api/schedule/schedule', sID_BP, callback);
       },
       setSchedule: function(sID_BP, slot, callback) {
-        return setTime('/api/services/schedule', sID_BP, slot, callback);
+        return setTime('/api/schedule/schedule', sID_BP, slot, callback);
       },
       deleteSchedule: function(sID_BP, slotId, callback) {
-        return deleteTime('/api/services/schedule', sID_BP, slotId, callback);
+        return deleteTime('/api/schedule/schedule', sID_BP, slotId, callback);
       },
       getExemptions: function(sID_BP, callback) {
-        return getTime('/api/services/exemption', sID_BP, callback);
+        return getTime('/api/schedule/exemption', sID_BP, callback);
       },
       setExemption: function(sID_BP, slot, callback) {
-        return setTime('/api/services/exemption', sID_BP, slot, callback);
+        return setTime('/api/schedule/exemption', sID_BP, slot, callback);
       },
       deleteExemption: function(sID_BP, slotId, callback) {
-        return deleteTime('/api/services/exemption', sID_BP, slotId, callback);
+        return deleteTime('/api/schedule/exemption', sID_BP, slotId, callback);
       },
       /**
        * Get service slots grouped by days
@@ -169,7 +169,7 @@ angular.module('dashboardJsApp')
 
         var request = {
           method: 'GET',
-          url: '/api/flowSlots',
+          url: '/api/schedule/flowSlots',
           params: {
             sID_BP: sID_BP,
             bAll: bAll,
@@ -198,7 +198,7 @@ angular.module('dashboardJsApp')
 
         var request = {
           method: 'POST',
-          url: '/api/buildFlowSlots',
+          url: '/api/schedule/buildFlowSlots',
           data: {},
           params: {
             sID_BP: sID_BP,
@@ -227,7 +227,7 @@ angular.module('dashboardJsApp')
 
         var request = {
           method: 'DELETE',
-          url: '/api/flowSlots',
+          url: '/api/schedule/flowSlots',
           params: {
             sID_BP: sID_BP,
             sDateStart: sDateStart,

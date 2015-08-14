@@ -14,9 +14,9 @@
                     class="form-control"
                     name="bpID"
                     ng-model="bp.chosenBp"
-                    ng-options="processDefinition as processDefinition.sName for processDefinition in processesList"
+                    ng-options="processDefinition as processDefinition.sName for processDefinition in bp.processesList"
                     ng-required="true"
-                    ng-change="bp.change()">
+                    ng-change="bp.onChangeCallback()">
             </select>
           </div>
         </div>
@@ -28,70 +28,25 @@
     <div class="panel-heading">Розклад</div>
     <div class="panel-body">
 
-
-
       <tabset >
         <tab heading="Робочоий час тижня">
           <div class="spacer15"></div>
-          <div ng-show="workingHours.isShowWarning()">
-            <h3 class="text-center">Оберіть бізнес-процес, що включено до Flow_ServiceData.csv у проекті wf-base</h3>
-            <h5 class="text-center">Наразі це бізнес-процеси з наступними Id: "Test sID_BP", "kiev_mreo_1", "dnepr_mreo_1", "dnepr_dms_passport"</h5>
-          </div>
-          <div ng-show="workingHours.isInProgress()">
-            <h3 class="text-center">Заждіть</h3>
-          </div>
-          <div ng-show="workingHours.isShowData()"
-               ng-include src="'app/services/working_hours/table.html'"></div>
+          <schedule funcs="workHours"></schedule>
         </tab>
 
         <tab heading="Винятки робочого часу">
           <div class="spacer15"></div>
-          <div ng-show="exemptions.isShowWarning()">
-            <h3 class="text-center">Оберіть бізнес-процес, що включено до Flow_ServiceData.csv у проекті wf-base</h3>
-            <h5 class="text-center">Наразі це бізнес-процеси з наступними Id: "Test sID_BP", "kiev_mreo_1", "dnepr_mreo_1", "dnepr_dms_passport"</h5>
-          </div>
-          <div ng-show="exemptions.isInProgress()">
-            <h3 class="text-center">Заждіть</h3>
-          </div>
-          <div ng-show="exemptions.isShowData()"
-               ng-include src="'app/services/exclusions/table.html'"></div>
+          <schedule funcs="exemptions"></schedule>
         </tab>
 
         <tab heading="Генерація слотів роскладу">
           <div class="spacer15"></div>
-          <div ng-show="flowSlots.isInProgress()">
-            <h3 class="text-center">Заждіть</h3>
-          </div>
-          <form class="form-inline" ng-show="flowSlots.isShowData()">
-            <div class="form-group">
-              <label>Період з</label>
-              <datepicker ng-model="flowSlots.data.sDateStart"
-                          show-weeks="true"
-                          class="well well-sm"></datepicker>
-            </div>
-            <div class="form-group">
-              <label>до</label>
-              <datepicker ng-model="flowSlots.data.sDateStop"
-                          show-weeks="true"
-                          class="well well-sm"></datepicker>
-            </div>
-            <button type="submit" class="btn btn-success" ng-click="flowSlots.generate()">Згенерувати</button>
-            <button class="btn btn-danger" ng-click="flowSlots.delete()">Видалиті згенероване</button>
-          </form>
+          <div ng-include src="'app/services/flow_slots/index.html'"></div>
         </tab>
 
         <tab heading="Переглянути наявний грфік та заняті слоти">
           <div class="spacer15"></div>
-          <div ng-show="resultSchedule.isInProgress()">
-            <h3 class="text-center">Заждіть</h3>
-          </div>
-          <form class="form-inline" ng-show="resultSchedule.isShowData()">
-            <div class="form-group">
-              <label>Дата</label>
-              <datepicker ng-model="resultSchedule.data.sDate" show-weeks="true" class="well well-sm"></datepicker>
-            </div>
-            <button type="submit" class="btn btn-success" ng-click="resultSchedule.get()">Згенерувати</button>
-          </form>
+          <div ng-include src="'app/services/calendar/index.html'"></div>
         </tab>
       </tabset>
     </div>
