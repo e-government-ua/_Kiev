@@ -30,7 +30,6 @@
     "moment": {
       "main": [
         "moment.js",
-        "locale/en.js",
         "locale/uk.js",
         "locale/ru.js"
       ]

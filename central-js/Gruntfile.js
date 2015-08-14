@@ -63,7 +63,6 @@ module.exports = function (grunt) {
           '<%= yeoman.client %>/{app,components}/**/*.js',
           '!<%= yeoman.client %>/{app,components}/**/*.spec.js',
           '!<%= yeoman.client %>/{app,components}/**/*.mock.js',
-          '!<%= yeoman.client %>/{app,components}/**/*.test.js',
           '!<%= yeoman.client %>/app/app.js'],
         tasks: ['injector:scripts']
       },
@@ -490,7 +489,9 @@ module.exports = function (grunt) {
             ['{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
               '!{.tmp,<%= yeoman.client %>}/app/app.js',
               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
-              '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
+              '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js',
+              '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.test.js'
+            ]
           ]
         }
       },
@@ -610,6 +611,12 @@ module.exports = function (grunt) {
     grunt.task.run(['serve']);
   });
 
+  grunt.registerTask('karma-only', function (target) {
+    grunt.task.run([
+        'karma',
+      ]);
+  });
+
   grunt.registerTask('test', function (target) {
     if (target === 'server') {
       return grunt.task.run([
@@ -644,6 +651,12 @@ module.exports = function (grunt) {
         'autoprefixer',
         'express:dev',
         'protractor'
+      ]);
+    }
+
+    else if (target === 'karma') {
+      return grunt.task.run([
+        'karma'
       ]);
     }
 
