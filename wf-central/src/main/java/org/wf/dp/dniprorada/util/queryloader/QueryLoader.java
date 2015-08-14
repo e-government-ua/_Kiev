@@ -16,7 +16,7 @@ import java.io.InputStream;
  * @since  02.08.15
  */
 @Component
-@Resource.Classpath("queryloader.properties")
+@Resource.Classpath("/queryloader/config.properties")
 public class QueryLoader {
 
     @Property("db.profile")
@@ -82,6 +82,9 @@ public class QueryLoader {
 
     public String getDbProfile() {
         return dbProfile;
+    }
+    public void setDbProfile(String dbProfile) {
+        this.dbProfile = dbProfile;
     }
 
     public enum TypeDB {
