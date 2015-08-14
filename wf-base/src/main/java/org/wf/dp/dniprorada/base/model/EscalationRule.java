@@ -9,14 +9,14 @@ import javax.persistence.ManyToOne;
 @javax.persistence.Entity
 public class EscalationRule extends Entity {
 
-    /** ИД-строка бизнеспроцесса (уникальный)     */
+    /**
+     * ИД-строка бизнеспроцесса
+     */
     @JsonProperty(value="sID_BP")
-    @Column(unique = true)
+    @Column
     private String sID_BP;
 
-    /**
-     * - ИД-строка юзертаски бизнеспроцесса
-     */
+    /** ИД-строка юзертаски бизнеспроцесса     */
     @JsonProperty(value = "sID_UserTask")
     @Column
     private String sID_UserTask;
@@ -40,7 +40,7 @@ public class EscalationRule extends Entity {
     @JsonProperty(value="nID_EscalationRuleFunction")
     @ManyToOne(targetEntity = EscalationRuleFunction.class)//??, fetch = FetchType.EAGER)
     @JoinColumn(name = "nID_EscalationRuleFunction")
-    private Long nID_EscalationRuleFunction;
+    private EscalationRuleFunction oEscalationRuleFunction;
 
     public String getsID_BP() {
         return sID_BP;
@@ -82,11 +82,11 @@ public class EscalationRule extends Entity {
         this.sPatternFile = sPatternFile;
     }
 
-    public Long getnID_EscalationRuleFunction() {
-        return nID_EscalationRuleFunction;
+    public EscalationRuleFunction getoEscalationRuleFunction() {
+        return oEscalationRuleFunction;
     }
 
-    public void setnID_EscalationRuleFunction(Long nID_EscalationRuleFunction) {
-        this.nID_EscalationRuleFunction = nID_EscalationRuleFunction;
+    public void setoEscalationRuleFunction(EscalationRuleFunction oEscalationRuleFunction) {
+        this.oEscalationRuleFunction = oEscalationRuleFunction;
     }
 }

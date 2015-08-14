@@ -5,8 +5,8 @@ import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
 import javax.persistence.EntityNotFoundException;
 
 public class EscalationRuleFunctionDaoImpl extends AbstractEntityDao<EscalationRuleFunction>
-        implements EscalationRuleFunctionDao
-{
+        implements EscalationRuleFunctionDao {
+
     protected EscalationRuleFunctionDaoImpl() {
         super(EscalationRuleFunction.class);
     }

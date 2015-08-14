@@ -104,6 +104,13 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="issue-658_remove-unique-index" author="LamronNu">
+        <dropColumn columnName="sID_BP" tableName="EscalationRule"/>
+        <addColumn tableName="EscalationRule">
+            <column name="sID_BP" type="varchar"/>
+        </addColumn>
+    </changeSet>
+
     <!-- ####################################################################################################### -->
 
 </databaseChangeLog>
