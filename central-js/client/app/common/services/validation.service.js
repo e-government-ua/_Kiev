@@ -23,30 +23,39 @@
  *
  * Приклад об'єкту markers:
  *
- * var markers = {
- *  'validate': {
- *    'PhoneUA': {
- *      'aField_ID': ['privatePhone','workPhone']
- *    }, 'Mail': {
- *      'aField_ID': ['privateMail', 'someMail']
- *    }, 'TextUA': { 
- *      'aField_ID': ['fio']
- *    }, 'TextRU': {
- *      'aField_ID': ['fio_RU']
- *    }, 'DateFormat': {
- *      'aField_ID': ['fio'],
- *      'sFormat': 'YYYY-MM-DD' //
- *    }, 'DateElapsed': {
- *      'aField_ID': ['dateOrder'],
- *      'bFuture': false, // якщо true, то дата modelValue має бути у майбутньому
- *      'bLess': true,    // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
- *      'nDays': 3,
- *      'nMonths': 0,
- *      'nYears': 1,
- *       'sDebug': Додаткова опція - інформація для дебагу
- *    }
- *  }
- * };
+ * var markers = .markers = {
+    validate: {
+      PhoneUA: {
+        aField_ID: ['privatePhone', 'workPhone', 'phone', 'tel']
+      },
+      Mail: {
+        aField_ID: ['privateMail', 'email']
+      },
+      AutoVIN: {
+        aField_ID: ['vin_code', 'vin_code1', 'vin']
+      },
+      TextUA: {
+        aField_ID: ['textUa']
+      },
+      TextRU: {
+        aField_ID: ['textRu']
+      },
+      DateFormat: {
+        aField_ID: ['dateFormat'],
+        sFormat: 'YYYY-MM-DD'
+      },
+      DateElapsed: {
+        aField_ID: ['dateOrder'],
+        bFuture: true, // якщо true, то дата modelValue має бути у майбутньому
+        bLess: true, // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
+        nDays: 10,
+        nMonths: 0,
+        nYears: 0
+          //,sDebug: 'Додаткова опція - інформація для дебагу'
+          //,bDebug: false; // Опція для дебагу
+      }
+    }
+  };
  *
  * Де 'privatePhone' і 'workPhone' - це назви полів, яку треба валідувати.
  */
@@ -59,7 +68,7 @@ angular.module('app').service('ValidationService', ['moment', 'amMoment', 'angul
     timezone: 'Europe/Kiev',
     format: 'HH:mm:ss, YYYY-MM-DD',
   });
-// FIXME
+// TOFO
 // .value('defaultDateFormat', 'YYYY-MM-DD' );
 
 function ValidationService(moment, amMoment, angularMomentConfig) {
@@ -94,13 +103,13 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       },
       DateElapsed: {
         aField_ID: ['dateOrder'],
-        bFuture: true,  // якщо true, то дата modelValue має бути у майбутньому
-        bLess: true,    // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
+        bFuture: true, // якщо true, то дата modelValue має бути у майбутньому
+        bLess: true, // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
         nDays: 10,
         nMonths: 0,
         nYears: 0
-        //,sDebug: 'Додаткова опція - інформація для дебагу'
-        //,bDebug: false; // Опція для дебагу
+          //,sDebug: 'Додаткова опція - інформація для дебагу'
+          //,bDebug: false; // Опція для дебагу
       }
     }
   };
@@ -152,7 +161,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
             // console.log('set validator, marker name:', markerName, ', form field name:', formField.$name);
 
             // і проводимо валідацію
-            if ( forceValidation === true ) {
+            if (forceValidation === true) {
               formField.$validate();
             }
           }
@@ -426,7 +435,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
         return (d ? d : '') + (m ? ', ' + m : '') + (y ? ', ' + y : '');
       }
 
-      // FIXME disable in release - it's dev only
+      // TODO disable in release - it's dev only
       // function myLog(sMessage, l) {
       //   // чим більший рівень, тим більше інфи у консолі
       //   var logLevel = 1;

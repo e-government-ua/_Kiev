@@ -80,7 +80,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     return $scope.data.region ? true : false;
   };
 
-  // FIXME try markers override here
+  // TODO try markers override here
   $scope.markers = ValidationService.getValidationMarkers();
   var aID_FieldPhoneUA = $scope.markers.validate.PhoneUA.aField_ID;
 
