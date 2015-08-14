@@ -18,6 +18,9 @@ import org.wf.dp.dniprorada.model.LiqpayCallbackModel;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.wf.dp.dniprorada.base.dao.AccessDataDao;
+import org.wf.dp.dniprorada.util.GeneralConfig;
+import org.wf.dp.dniprorada.util.Mail;
 
 @Controller
 public class ActivitiPaymentRestController {
@@ -39,7 +42,18 @@ public class ActivitiPaymentRestController {
     @Autowired
     private HistoryService historyService;
 
-    public static void main(String[] args) {
+	@Autowired
+	GeneralConfig generalConfig;
+	
+    @Autowired
+    Mail oMail;
+    
+    @Autowired
+    AccessDataDao accessDataDao;
+    
+    
+    
+    public static void main(String[] args) throws Exception {
         Map values = new HashMap<String, String>();
         values.put(LIQPAY_FIELD_TRANSACTION_ID, "123");
         values.put(LIQPAY_FIELD_PAYMENT_STATUS, "success");
@@ -56,25 +70,91 @@ public class ActivitiPaymentRestController {
 			@RequestParam(value = "signature", required = false) String signature
 			//@RequestParam byte[] data,
 			//@RequestParam byte[] signature
-			){
+			) throws Exception{
 
+            log.info("/setPaymentStatus_TaskActiviti");
+            
             log.info("sID_Order="+sID_Order);
             log.info("sID_PaymentSystem="+sID_PaymentSystem);
             log.info("sData="+sData);
 
-        log.info("data="+data);
+            log.info("data="+data);
             log.info("signature="+signature);
             String sDataDecoded = null;
-            if(data != null){
-                sDataDecoded = new String(BASE64DecoderStream.decode(data.getBytes()));
-                log.info("sDataDecoded="+sDataDecoded);
-            }
-            setPaymentStatus(sID_Order, sDataDecoded, sID_PaymentSystem);
-            //setPaymentStatus(sID_Order, null, sID_PaymentSystem);
+            
+            try{
+                if(data != null){
+                    sDataDecoded = new String(BASE64DecoderStream.decode(data.getBytes()));
+                    log.info("sDataDecoded="+sDataDecoded);
+                }
+                setPaymentStatus(sID_Order, sDataDecoded, sID_PaymentSystem);
+                //setPaymentStatus(sID_Order, null, sID_PaymentSystem);                
+            }catch(Exception oException){
+                log.error("/setPaymentStatus_TaskActiviti", oException);
+                String snID_Subject="0";
+                String sAccessKey=null;
+                try{
+                    sAccessKey = accessDataDao.setAccessData(snID_Subject);
+                }catch(Exception oException1){
+                    log.error("/setPaymentStatus_TaskActiviti:sAccessKey=", oException1);
+                }
+
+                //generalConfig.sHost() + "/wf-region/service/setPaymentStatus_TaskActiviti_Direct?sID_Order="+sID_Order+"&sID_PaymentSystem="+sID_PaymentSystem+"&sData=&sID_Transaction=&sStatus_Payment="            
+                String sURL = new StringBuilder(generalConfig.sHost())
+                        .append("/wf-region/service/setPaymentStatus_TaskActiviti_Direct?")
+                        .append("sID_Order=").append(sID_Order)
+                        .append("&sID_PaymentSystem=").append(sID_PaymentSystem)
+                        .append("&sData=").append("")
+                        //.append("&sID_Transaction=").append("")
+                        //.append("&sStatus_Payment=").append("")
+                        .append("nID_Subject=").append(snID_Subject)
+                        .append("&sAccessKey=").append(sAccessKey)
+                        .toString();
+
+                    String sFormHTML = new StringBuilder()
+                            .append("<form method=\"GET\" action=\"")//POST
+                            .append(sURL)
+                            .append("\" ")
+                            .append("accept-charset=\"utf-8\">")
+                            .append("<input type=\"text\" name=\"sID_Transaction\" value=\"\"/>")
+                            .append("<input type=\"text\" name=\"sStatus_Payment\" value=\"\"/>")
+                            .append("<input type=\"submit\" value=\"Выполнить ручное сохранение!\"/>")
+                            .append("</form>").toString();
+
+
+                    String saToMail = "bvv4ik@gmail.com,dmitrij.zabrudskij@privatbank.ua";
+                    String sHead = (generalConfig.bTest()?"(test)":"(PROD)")+"/setPaymentStatus_TaskActiviti:Ошибка при попытке провести сохранить информацию о плетеде в активити-задачу!";
+                    String sBody = "oException.getMessage()="+oException.getMessage()+"<br>" +
+                                    "<br>" +
+
+                                    "sID_Order="+sID_Order+"<br>"+
+                                    "sID_PaymentSystem="+sID_PaymentSystem+"<br>"+
+                                    "sData="+sData+"<br>"+
+                                    "data="+data+"<br>"+
+                                    "signature="+signature+"<br>"+
+                                    "<br>" +
+                                    "Чтоб вручную провести эту операцию нажмите:<br>" +
+                                    sFormHTML + "<br>" +
+                                    "<br>" +
+                                    "Если не получается, перейдите по <a href=\"" + sURL + "&sID_Transaction=&sStatus_Payment=" + "\" target=\"_top\">этой ссылке</a>, и подставьте реальній ИД транзакции(sID_Transaction) и статус(sStatus_Payment). введя, при необходимости авторизационные логин и пароль (можно получить у админа)<br>" +
+                                    "(" + sURL + "&sID_Transaction=&sStatus_Payment=" + ")<br>" +
+                                    "<br>"
+                                    ;
+                    oMail
+                    .reset();
+                    oMail
+                    //._From(mailAddressNoreplay)
+                    ._To(saToMail)
+                    ._Head(sHead)
+                    ._Body(sBody)
+                    ;                
+                    oMail.send();
+                    throw oException;
+                }
             return sData;
 	}
 
-    @RequestMapping(value = "/setPaymentStatus_TaskActiviti_Direct", method = RequestMethod.POST, headers = { "Accept=application/json" })
+    @RequestMapping(value = "/setPaymentStatus_TaskActiviti_Direct", method = RequestMethod.GET, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatus_TaskActiviti_Direct(
 			@RequestParam String sID_Order,
 			@RequestParam String sID_PaymentSystem,
@@ -84,7 +164,7 @@ public class ActivitiPaymentRestController {
 			@RequestParam String sID_Transaction,
 			@RequestParam String sStatus_Payment
                         
-			){
+			) throws Exception{
 
             
             log.info("/setPaymentStatus_TaskActiviti_Direct");
@@ -126,7 +206,7 @@ public class ActivitiPaymentRestController {
 			@RequestParam String sData,
 			@RequestParam byte[] data,
 			@RequestParam byte[] signature
-			){
+			) throws Exception{
 
             log.info("sID_Order="+sID_Order);
             log.info("sID_PaymentSystem="+sID_PaymentSystem);
@@ -143,7 +223,7 @@ public class ActivitiPaymentRestController {
 	public @ResponseBody String setPaymentStatusNew_TaskActiviti(
 			@RequestParam byte[] data,
 			@RequestParam byte[] signature
-			){
+			) throws Exception{
 
             log.info("data="+data);
             log.info("signature="+signature);
@@ -158,10 +238,11 @@ public class ActivitiPaymentRestController {
             return sFullData;
 	}
 
-    private void setPaymentStatus(String sID_Order, String sData, String sID_PaymentSystem) {
+    private void setPaymentStatus(String sID_Order, String sData, String sID_PaymentSystem) throws Exception {
         if (!LIQPAY_PAYMENT_SYSTEM.equals(sID_PaymentSystem)) {
-            log.info("not liqpay system");
-            return;
+            log.error("not liqpay system");
+            throw new Exception("not liqpay system");
+            //return;
         }
 
         log.info("sData=" + sData);
@@ -200,6 +281,7 @@ public class ActivitiPaymentRestController {
                 log.info("oLiqpayCallbackModel.getStatus()="+sStatus_Payment);
             } catch (Exception e) {
                 log.error("can't parse json! reason:" + e.getMessage());
+                throw new Exception("can't parse json! reason:" + e.getMessage());
                 /*int nAt;
                 int nTo;
 
@@ -259,13 +341,15 @@ public class ActivitiPaymentRestController {
         if (nID_Task == null) {
             log.error("incorrect primary input data(BREAKED): " + "snID_Task=" + snID_Task
                      + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
-            return;
+            //return;
+            throw new Exception("incorrect primary input data(BREAKED): " + "snID_Task=" + snID_Task
+                     + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
         }
         
         
         setPaymentTransaction_ToActiviti(snID_Task, sID_Transaction, sStatus_Payment);
     }
-    private void setPaymentTransaction_ToActiviti(String snID_Task, String sID_Transaction, String sStatus_Payment){
+    private void setPaymentTransaction_ToActiviti(String snID_Task, String sID_Transaction, String sStatus_Payment) throws Exception{
         //save info to process
         try {
             log.info("try to get task. snID_Task=" + snID_Task);
@@ -292,6 +376,7 @@ public class ActivitiPaymentRestController {
         } catch (Exception e){
             log.error("during changing: snID_Task=" + snID_Task
                     + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment, e);
+            throw e;
         }
     }
 
