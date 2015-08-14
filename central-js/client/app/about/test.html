@@ -1,7 +1,8 @@
 <div class="container">
     <style>
     .test-form .ng-invalid {
-        background-color: #fcc;
+        /*background-color: #fee;*/
+        border-color: #f99;
     }
     </style>
     <div class="row">
@@ -17,8 +18,7 @@
                     <div class="form-group">
                         <label for="email" class="col-sm-2 control-label">Phone UA:</label>
                         <div class="col-sm-6">
-                            <input type="text" ng-tel-field="{defaultCountry:'ua', autoFormat:true, allowExtensions:false, preferredCountries:['ua'], autoPlaceholder:true}"
-                             name="privatePhone" ng-model="formData.privatePhone" class="form-control" required>
+                            <input type="text" ng-tel-field="{defaultCountry:'ua', autoFormat:true, allowExtensions:false, preferredCountries:['ua'], autoPlaceholder:true}" name="privatePhone" ng-model="formData.privatePhone" class="form-control" required>
                         </div>
                         <div class="col-sm-4" ng-messages="testForm.privatePhone.$error" role="alert">
                             <div ng-message="required">You did not enter a field</div>

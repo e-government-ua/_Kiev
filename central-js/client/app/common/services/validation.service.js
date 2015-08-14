@@ -229,7 +229,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
      * Текст помилки: 'Текст може містити тількі українські літери або мінус чи пробіл'
      */
     'TextUA': function(modelValue, viewValue) {
-      var TEXTUA_REGEXP = /[ААБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя]|-|\s+/g;
+      var TEXTUA_REGEXP = /^[ААБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя-\s]+/g;
       var TEXTRU_ONLY = /[ЁёЪъЫыЭэ]+/g;
       var bValid = TEXTUA_REGEXP.test(modelValue) && !TEXTRU_ONLY.test(modelValue);
       //console.log('Validate TextUA: ' + modelValue + ' is valid: ' + bValid );
@@ -241,7 +241,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
      * Текст помилки: 'Текст може містити тількі російські літери або мінус че пробіл'
      */
     'TextRU': function(modelValue, viewValue) {
-      var TEXTRU_REGEXP = /[АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя]|-|\s+/g;
+      var TEXTRU_REGEXP = /^[АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя-\s]+/g;
       var TEXTUA_ONLY = /[ҐЄІЇґєії]+/g;
       var bValid = TEXTRU_REGEXP.test(modelValue) && !TEXTUA_ONLY.test(modelValue);
       // console.log('Validate TextRU: ' + modelValue + ' is valid: ' + bValid );
