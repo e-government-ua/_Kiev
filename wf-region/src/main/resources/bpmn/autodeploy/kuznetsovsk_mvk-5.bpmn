@@ -86,7 +86,7 @@
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${decision}"</activiti:expression>
         </activiti:field>
-        <activiti:field name="html">
+        <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head lang="ru"&gt;
@@ -196,7 +196,7 @@
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${decision}"</activiti:expression>
         </activiti:field>
-        <activiti:field name="html">
+        <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head lang="ru"&gt;

@@ -95,7 +95,7 @@
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${docToSend}"</activiti:expression>
         </activiti:field>
-        <activiti:field name="html">
+        <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head lang="ru"&gt;
