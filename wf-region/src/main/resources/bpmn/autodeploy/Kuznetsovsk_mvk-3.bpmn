@@ -406,7 +406,7 @@
     </sequenceFlow>
     <sequenceFlow id="flow17" sourceRef="servicetask2" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow18" sourceRef="mailtask4" targetRef="endevent1"></sequenceFlow>
-    <serviceTask id="servicetask3" name="Надати послугу [без файлу]" activiti:delegateExpression="#MailTaskWithoutAttachment}">
+    <serviceTask id="servicetask3" name="Надати послугу [без файлу]" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>
