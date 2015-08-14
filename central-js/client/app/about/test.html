@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div>
+                <form novalidate name="testForm" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">Email:</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="someMail" ng-model="formData.email" class="form-control" required>
+                            <!-- <div ng-show="testForm.$submitted || testForm.someMail.$touched">
+                                <div ng-show="testForm.someMail.$error.required">Вкажіть email, будь ласка</div>
+                                <div ng-show="testForm.someMail.$error.email">Email невірний</div>
+                            </div> -->
+                        </div>
+                        <div class="col-sm-4" ng-messages="testForm.someMail.$error" role="alert">
+                            <div ng-message="required">You did not enter a field</div>
+                            <div ng-message="email">Your field is too short</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="textUa" class="col-sm-2 control-label">Text Ua:</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="textUa" ng-model="formData.textUa" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="textRu" class="col-sm-2 control-label">Text Ru:</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="textRu" ng-model="formData.textRu" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateFormat" class="col-sm-2 control-label">Date Format:</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="dateFormat" ng-model="formData.dateFormat" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateOrder" class="col-sm-2 control-label">Date Order:</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="dateOrder" ng-model="formData.dateOrder" class="form-control" required>
+                        </div>
+                        <div class="col-sm-4" ng-messages="testForm.dateOrder.$error" role="alert">
+                            <div ng-message="dateelapsed">Is elapsed</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <input type="submit" class="btn btn-default" ng-click="formSubmit(formData)">
+                            <button class="btn" ng-click="reset()">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /row -->
+    <div class="row">
+        <div class="col-sm-6">
+            <pre>form = {{testForm.dateOrder.$error | json}}</pre>
+        </div>
+        <div class="col-sm-6">
+            <pre>form = {{formData.dateOrder | json}}</pre>
+        </div>
+    </div>
+</div>

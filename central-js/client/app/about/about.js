@@ -9,6 +9,15 @@ angular.module('about').config(function ($stateProvider, statesRepositoryProvide
             templateUrl: 'app/about/about.html'
           }
         }
+      })
+      .state('index.test', {
+        url: 'test',
+        views: {
+          'main@': {
+            templateUrl: 'app/about/test.html',
+            controller: 'TestController'
+          }
+        }
       });
   }
 });

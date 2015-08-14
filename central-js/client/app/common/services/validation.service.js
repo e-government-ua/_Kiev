@@ -58,6 +58,8 @@ angular.module('app').service('ValidationService', ['moment', 'amMoment', 'angul
     timezone: 'Europe/Kiev',
     format: 'HH:mm:ss, YYYY-MM-DD',
   });
+// FIXME
+// .value('defaultDateFormat', 'YYYY-MM-DD' );
 
 // angularMomentConfig
 function ValidationService(moment, amMoment, angularMomentConfig) {
@@ -71,37 +73,29 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
 
   self.sFormat = 'YYYY-MM-DD';
 
-  self.setValidatorsByMarkers = function(form, markers) {
-    console.log('I VALIDATE: ', form, markers);
-  };
-
   self.validateByMarkers = function(form, markers) {
-
+    // немає маркерів - виходимо
     if (!markers || !markers.validate || markers.validate.length < 1) {
       return;
     }
-    // console.log('f:', form);
-    angular.forEach(markers.validate, function(validator, validatorName) {
+    angular.forEach(markers.validate, function(marker, markerName) {
 
-      var fieldByName = self.validatorByName[validatorName];
-      var marked = markers.validate[validatorName];
-
-      function fieldByFieldId(formField) {
-        return formField && formField.$name && _.indexOf(marked['aField_ID'], formField.$name) !== -1;        
-      }
+      var fieldByName = self.validatorNameByMarkerName[markerName];
 
       angular.forEach(form, function(formField) {
-        //console.log('m:', marked, formField);
-        if (fieldByFieldId(formField)) {
-          
-          var ffield = formField.$validators[fieldByName];
 
-          // overwrite the default Angular field validator
-          //
-          //  ONLY ONCE
-          //
-          if (!ffield) {
-            ffield = self.getValidatorByName(validatorName, formField);
+        function fieldNameIsListedInMarker(formField) {
+          return formField && formField.$name && _.indexOf(marker['aField_ID'], formField.$name) !== -1;
+        }
+
+        if (fieldNameIsListedInMarker(formField)) {
+
+          var existingValidator = formField.$validators[fieldByName];
+          // overwrite the default Angular field validator - ONLY ONCE 
+          if (!existingValidator) {
+
+            formField.$validators[fieldByName] = self.getValidatorByName(markerName, formField);
+            console.log('set validator: ', existingValidator, ', marker name:', markerName, ', form field name:', formField.$name);
             // and validate it
             formField.$validate();
           }
@@ -110,7 +104,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
     });
   };
 
-  self.validatorByName = {
+  self.validatorNameByMarkerName = {
     'Mail': 'email',
     'AutoVIN': 'autovin',
     'PhoneUA': 'tel',
@@ -129,11 +123,10 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
     // console.log( 'validationService.getValidatorByName: ', validatorName, ' = ', fValidator );
     var fValidator = self.validatorFunctionsByFieldId[validatorName];
 
-    // FIXME options .format, o.a, o.b, o.c, o.d, o.e, o.f
-    var fValidatorModule = function(modelValue, options) {
+    var fValidatorModule = function(modelValue, viewValue, options) {
       var result = null;
       if (fValidator) {
-        result = fValidator.call(self, modelValue, options);
+        result = fValidator.call(self, modelValue, viewValue, options);
       }
       return result;
     };
@@ -142,7 +135,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
   };
 
   self.validatorFunctionsByFieldId = {
-    'Mail': function(modelValue) {
+    'Mail': function(modelValue, viewValue) {
       var bValid = true;
       var EMAIL_REGEXP = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
       bValid = bValid && EMAIL_REGEXP.test(modelValue);
@@ -173,7 +166,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
      * 'TextUA' - Усі українскі літери, без цифр, можливий мінус (дефіс) та пробіл
      * Текст помилки: 'Текст може містити тількі українські літери або мінус чи пробіл'
      */
-    'TextUA': function(modelValue) {
+    'TextUA': function(modelValue, viewValue) {
       var TEXTUA_REGEXP = /[ААБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя]|-|\s+/g;
       var TEXTRU_ONLY = /[ЁёЪъЫыЭэ]+/g;
       var bValid = TEXTUA_REGEXP.test(modelValue) && !TEXTRU_ONLY.test(modelValue);
@@ -185,7 +178,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
      * 'TextRU' - Усі російські літери, без цифр, можливий мінус (дефіс) та пробіл
      * Текст помилки: 'Текст може містити тількі російські літери або мінус че пробіл'
      */
-    'TextRU': function(modelValue) {
+    'TextRU': function(modelValue, viewValue) {
       var TEXTRU_REGEXP = /[АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя]|-|\s+/g;
       var TEXTUA_ONLY = /[ҐЄІЇґєії]+/g;
       var bValid = TEXTRU_REGEXP.test(modelValue) && !TEXTUA_ONLY.test(modelValue);
@@ -198,8 +191,8 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
      * Текст помилки: 'Дата може бути тільки формату DATE_FORMAT'
      * Для валідації формату використовується  moment.js
      */
-    'DateFormat': function(modelValue, options) {
-      if (!options.sFormat) {
+    'DateFormat': function(modelValue, viewValue, options) {
+      if (!options || !options.sFormat) {
         return false;
       }
 
@@ -225,7 +218,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
      * З/До         - в залежності від bFuture
      * більше/менше - в залежності від bLess
      */
-    'DateElapsed': function(modelValue, options) {
+    'DateElapsed': function(modelValue, viewValue, options) {
 
       // bFuture, bLess, nDays, nMonths, nYears
       var o = options;
@@ -235,15 +228,14 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       var fmt = self.sFormat;
       var modelMoment = moment(modelValue, fmt);
 
-      // базовий парсинг опцій
+      // Повертаємо помилку, якщо опції не вказані або дата невалідна:
+      if (!options || !o.bFuture || !modelMoment.isValid()) {
+        return false;
+      }
+
       var nDays = o.nDays || 0;
       var nMonths = o.nMonths || 0;
       var nYears = o.nYears || 0;
-
-      // Повертаємо помилку, якщо дата невалідна: 
-      if (!modelMoment.isValid()) {
-        return false;
-      }
 
       // Визначаємо різницю між датами
       var deltaDays = modelMoment.diff(now, 'days');
@@ -255,7 +247,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       //   return true;
       // }
 
-      // myLog(('DateElapsed: ' + o), 3);
+      console.log('DateElapsed: ', o);
       myLog((o.sDebug ? o.sDebug : '') + ' - зараз: ' + now.format(fmt) + ', ви увели: ' + modelMoment.format(fmt) + ', різниця: ' + deltaDays, 2);
 
       // Перевірка, чи виконується bFuture (дата має бути у майбутньому):

@@ -3,7 +3,7 @@
 describe('ValidationService Tests', function() {
 
   // set it to true to enable pre-validation and tracing messages: 
-  var isDebugMode = false;
+  var isDebugMode = true;
 
   var $rootScope, $compile, $window, $filter, moment, amTimeAgoConfig, originalTimeAgoConfig, angularMomentConfig,
     originalAngularMomentConfig, amMoment;
@@ -108,7 +108,7 @@ describe('ValidationService Tests', function() {
             logHeader('DEBUG END - DEBUG END - DEBUG END - DEBUG END - DEBUG END', 3);
           }
         } else {
-          fValidatorCall = fValidator.call(this, value, options);
+          fValidatorCall = fValidator.call(this, value, value, options);
           expect(fValidatorCall).toBe(toBeOrNotToBe);
         }
       }
@@ -118,7 +118,7 @@ describe('ValidationService Tests', function() {
       var fValidator = validationService.getValidatorByName(validatorName);
       var result = null;
       if (typeof fValidator === 'function') {
-        result = fValidator.call(self, value, options);
+        result = fValidator.call(self, value, value, options);
       }
       return result;
     }
