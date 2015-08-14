@@ -76,6 +76,7 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         // We want to transform the list of Hibernate entities into hierarchy tree
         for(int i=0; i<dataRows.size(); i++){
             PlaceHierarchyRecord node = dataRows.get(i);
+            LOG.info("Handling of {} started", node);
             if (i==0){ // It's a root element
                 register( node.toTree(), tempParents);
             } else if (!node.isAlreadyIncluded()) {
@@ -95,6 +96,7 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
                 // Now we need to find all children of current node. Thus, start from the next element in data rows
                 for(int j=i+1; j<dataRows.size(); j++){
                     PlaceHierarchyRecord hr = dataRows.get(j);
+                    LOG.info("Index of current node {}, index of next node {}, the node {}", i, j, hr);
 
                     if (hr.isAlreadyIncluded()) // It's already belongs to our result tree
                         continue;
@@ -107,7 +109,11 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
                 }
             }
             node.setAlreadyIncluded(true);                                       // Disable node for the next iteration
+            LOG.info("Node handled {}", node);
+            LOG.info("Current tree {}", tree);
         }
+        LOG.info("Whole tree {}", tree);
+        LOG.info("Temp. parent storage {}", tempParents);
         tempParents.clear();                                                    // We don't need it anymore because
         return tree;                                                            // the hierarchy was build successfully
     }
@@ -127,6 +133,7 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
      * */
     private static void register(PlaceHierarchy node, Map<Long, PlaceHierarchy> asTemporaryParents) {
         asTemporaryParents.put(node.getPlace().getId(), node);
+        LOG.info("Node {} registered in temp. storage", node);
     }
 
 }

@@ -106,4 +106,20 @@ public class PlaceHierarchyRecord {
         node.setLevel(getDeep());
         return node;
     }
+
+    @Override
+    public String toString() {
+        return "PlaceHierarchyRecord{" +
+                "placeId=" + placeId +
+                ", typeId=" + typeId +
+                ", uaID='" + uaID + '\'' +
+                ", name='" + name + '\'' +
+                ", originalName='" + originalName + '\'' +
+                ", rootId=" + rootId +
+                ", parentId=" + parentId +
+                ", deep=" + deep +
+                ", areaId=" + areaId +
+                ", alreadyIncluded=" + alreadyIncluded +
+                '}';
+    }
 }
