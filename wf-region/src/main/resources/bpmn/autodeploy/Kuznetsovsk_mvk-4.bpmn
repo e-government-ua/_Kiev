@@ -39,7 +39,7 @@
           <activiti:value id="accept" name="Перейти до надання послуги"></activiti:value>
           <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="string"></activiti:formProperty>
         <activiti:formProperty id="footer" name="footerToPrint" type="invisible" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
