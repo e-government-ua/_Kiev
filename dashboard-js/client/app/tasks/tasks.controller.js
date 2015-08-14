@@ -119,17 +119,32 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     $scope.error = null;
     $scope.taskAttachments = null;
 
-    tasks
-      .taskForm(task.id)
-      .then(function (result) {
-        result = JSON.parse(result);
-        $scope.taskForm = result.formProperties;
-        $scope.taskForm = addIndexForFileItems($scope.taskForm);
-      })
-      .catch(function (err) {
-        err = JSON.parse(err);
-        $scope.error = err;
-      });
+    if (task.endTime) {
+      tasks
+        .taskFormFromHistory(task.id)
+        .then(function (result) {
+          result = JSON.parse(result);
+          $scope.taskForm = result.data[0].variables;
+          $scope.taskForm = addIndexForFileItems($scope.taskForm);
+        })
+        .catch(function (err) {
+          err = JSON.parse(err);
+          $scope.error = err;
+        });
+    }
+    else {
+      tasks
+        .taskForm(task.id)
+        .then(function (result) {
+          result = JSON.parse(result);
+          $scope.taskForm = result.formProperties;
+          $scope.taskForm = addIndexForFileItems($scope.taskForm);
+        })
+        .catch(function (err) {
+          err = JSON.parse(err);
+          $scope.error = err;
+        });
+    }
 
     tasks
       .taskAttachments(task.id)
@@ -184,7 +199,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
         $scope.applyTaskFilter($scope.menus[0].type);
         $scope.selectedTasks[$scope.menus[0].type] = $scope.selectedTask;
         */
-       
+
         //$('#selfAssigned').click();
         //$('.selfAssigned_task-'+$scope.selectedTask.id).click();
 //        $('.task.selfAssigned_'+$scope.selectedTask.id).click();
@@ -240,7 +255,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     }*/
     //"_10" - подкрашивать строку - красным цветом
     //"_5" - подкрашивать строку - желтым цветом
-    //"_1" - подкрашивать строку - зеленым цветом      
+    //"_1" - подкрашивать строку - зеленым цветом
     var sClass="";
     if(endsWith(sUserTask, "_red")){
         return "bg_red";
@@ -339,7 +354,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.init = function () {
-    console.log("$scope.init");  
+    console.log("$scope.init");
     loadTaskCounters();
     loadSelfAssignedTasks();
   };
@@ -355,9 +370,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   }
 
   function loadSelfAssignedTasks() {
-    console.log("[loadSelfAssignedTasks]");  
+    console.log("[loadSelfAssignedTasks]");
     processes.list().then(function (processesDefinitions) {
-        console.log("[loadSelfAssignedTasks]processesDefinitions="+processesDefinitions);  
+        console.log("[loadSelfAssignedTasks]processesDefinitions="+processesDefinitions);
       $scope.applyTaskFilter($scope.$storage.menuType);
     }).catch(function (err) {
       err = JSON.parse(err);
