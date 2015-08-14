@@ -1,13 +1,31 @@
 <div class="container">
     <style>
-        .test-form .ng-invalid {
-            background-color: #fcc;
-        }
+    .test-form .ng-invalid {
+        background-color: #fcc;
+    }
     </style>
+    <div class="row">
+        <div>
+            <h4>Перевірка валідаторів</h4>
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-12">
             <div>
                 <form novalidate name="testForm" class="form-horizontal test-form">
+                    <!-- PhoneUA -->
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">Phone UA:</label>
+                        <div class="col-sm-6">
+                            <input type="text" ng-tel-field="{defaultCountry:'ua', autoFormat:true, allowExtensions:false, preferredCountries:['ua'], autoPlaceholder:true}"
+                             name="privatePhone" ng-model="formData.privatePhone" class="form-control" required>
+                        </div>
+                        <div class="col-sm-4" ng-messages="testForm.privatePhone.$error" role="alert">
+                            <div ng-message="required">You did not enter a field</div>
+                            <div ng-message="phone">Your field is too short</div>
+                        </div>
+                    </div>
+                    <!-- Mail -->
                     <div class="form-group">
                         <label for="email" class="col-sm-2 control-label">Email:</label>
                         <div class="col-sm-6">
@@ -21,7 +39,7 @@
                     <div class="form-group">
                         <label for="autoVin" class="col-sm-2 control-label">Auto VIN:</label>
                         <div class="col-sm-6">
-                            <input type="text" name="autoVin" ng-model="formData.autoVin" class="form-control" required>
+                            <input type="text" name="vin_code" ng-model="formData.autoVin" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group">

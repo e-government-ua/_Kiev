@@ -208,6 +208,9 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
      * За исключением букв Q, O, I. (Эти буквы запрещены для использования, поскольку O и Q похожи между собой, а I и O можно спутать с 0 и 1.)
      */
     'AutoVIN': function(sValue) {
+      if ( !sValue ) {
+        return false;
+      }
 
       var bValid = true;
       bValid = bValid && (sValue !== null);
