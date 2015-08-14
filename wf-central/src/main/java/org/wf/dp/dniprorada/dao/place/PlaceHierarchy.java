@@ -61,4 +61,14 @@ public class PlaceHierarchy {
 
         children.add(childNode);
     }
+
+    @Override
+    public String toString() {
+        return "PlaceHierarchy{" +
+                "levelOfArea=" + levelOfArea +
+                ", level=" + level +
+                ", place=" + place +
+                ", children=" + children +
+                '}';
+    }
 }

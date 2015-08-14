@@ -1,8 +1,6 @@
 package org.wf.dp.dniprorada.util.queryloader;
 
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -75,7 +73,7 @@ public class QueryLoader {
 
 
     public enum TypeDB {
-        Postgres("/"), H2("H2/");
+        Postgres("/PostgreSQL"), H2("H2/");
 
         private String path;
         TypeDB(String path) {
