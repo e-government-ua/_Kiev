@@ -1,34 +1,11 @@
 package org.activiti.rest.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.nio.charset.Charset;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import javax.activation.DataSource;
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.google.common.base.Charsets;
 import liquibase.util.csv.CSVWriter;
-
-import org.activiti.engine.ActivitiObjectNotFoundException;
-import org.activiti.engine.FormService;
-import org.activiti.engine.HistoryService;
-import org.activiti.engine.IdentityService;
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
-import org.activiti.engine.delegate.DelegateExecution;
+import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.FlowElement;
+import org.activiti.bpmn.model.UserTask;
+import org.activiti.engine.*;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
@@ -36,22 +13,14 @@ import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.task.Attachment;
-import org.activiti.engine.task.DelegationState;
-import org.activiti.engine.task.IdentityLink;
-import org.activiti.engine.task.IdentityLinkType;
-import org.activiti.engine.task.Task;
-import org.activiti.engine.task.TaskQuery;
+import org.activiti.engine.task.*;
 import org.activiti.redis.exception.RedisException;
 import org.activiti.redis.service.RedisService;
 import org.activiti.rest.controller.adapter.AttachmentEntityAdapter;
 import org.activiti.rest.controller.adapter.ProcDefinitionAdapter;
 import org.activiti.rest.controller.adapter.TaskAssigneeAdapter;
-import org.activiti.rest.controller.entity.AttachmentEntityI;
-import org.activiti.rest.controller.entity.ProcDefinitionI;
+import org.activiti.rest.controller.entity.*;
 import org.activiti.rest.controller.entity.Process;
-import org.activiti.rest.controller.entity.ProcessI;
-import org.activiti.rest.controller.entity.TaskAssigneeI;
 import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.ByteArrayDataSource;
@@ -62,21 +31,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import org.wf.dp.dniprorada.engine.task.FileTaskUpload;
-import org.wf.dp.dniprorada.engine.task.MailTaskWithAttachments;
 import org.wf.dp.dniprorada.model.BuilderAtachModel;
 import org.wf.dp.dniprorada.model.ByteArrayMultipartFileOld;
 import org.wf.dp.dniprorada.util.Mail;
+import org.wf.dp.dniprorada.util.Util;
+
+import javax.activation.DataSource;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * ...wf-region/service/...
@@ -188,10 +165,12 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     @Transactional
     public
     @ResponseBody
-    String putAttachmentsToRedis(@RequestParam("file") MultipartFile file) throws ActivitiIOException, Exception  {
+    String putAttachmentsToRedis(@RequestParam(required = true, value = "file") MultipartFile file) throws ActivitiIOException, Exception  {
     	String atachId = null;
 		try {
-			atachId = redisService.putAttachments(AbstractModelTask.multipartFileToByteArray(file).toByteArray());
+			atachId = redisService.putAttachments(AbstractModelTask.multipartFileToByteArray(file,
+                 file.getOriginalFilename()).toByteArray());
+                       
 		}catch (Exception e) {
 			 throw e;
 		}
@@ -464,7 +443,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     	CSVWriter csvWriter = new CSVWriter(httpResponse.getWriter());
     	
-    	String[] header = { "Assignee", "Start Time", "Duration in millis", "Duration in hours", "Name of Task" };
+    	//String[] header = { "Assignee", "Start Time", "Duration in millis", "Duration in hours", "Name of Task" };
+    	String[] header = { "nID_Process", "sLoginAssignee", "sDateTimeStart", "nDurationMS", "nDurationHour", "sName" };
     	csvWriter.writeNext(header);
     	
     	SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
@@ -472,15 +452,15 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 	    	log.debug(String.format("Found {0} completed tasks for business process {1} for date period {2} - {3}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt), 
 	    			sdfDate.format(dateTo)));
 	        for (HistoricTaskInstance currTask : foundResults) {
-	        	String[] line = new String[5];
-	        	line[0] = currTask.getAssignee();
+                    String[] line = new String[6];
+	            line[0] = currTask.getProcessInstanceId();
+                    line[1] = currTask.getAssignee();
 	            Date startDate = currTask.getStartTime();
-	            line[1] = sdfDate.format(startDate);
-	            line[2] = String.valueOf(currTask.getDurationInMillis());
+	            line[2] = sdfDate.format(startDate);
+	            line[3] = String.valueOf(currTask.getDurationInMillis());
 	            long durationInHours = currTask.getDurationInMillis() / (1000 * 60 * 60);
-	            line[3] = String.valueOf(durationInHours);
-	            line[4] = currTask.getName();
-	            
+	            line[4] = String.valueOf(durationInHours);
+	            line[5] = currTask.getName();
 	            csvWriter.writeNext(line);
 	        }
     	} else {
@@ -699,28 +679,16 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	List<ProcessDefinition> processDefinitionsList = repositoryService.createProcessDefinitionQuery().active().latestVersion().list();
     	if (!processDefinitionsList.isEmpty() && processDefinitionsList.size() > 0){
 			log.info(String.format("Found %d active process definitions", processDefinitionsList.size()));
+			
 			for (ProcessDefinition processDef : processDefinitionsList) {
-				List<IdentityLink> identityLinks = repositoryService.getIdentityLinksForProcessDefinition(processDef.getId());
-				log.info(String.format("Found %d identity links for the process %s", identityLinks.size(), processDef.getKey()));
-				for (IdentityLink identity : identityLinks){
-				if (IdentityLinkType.CANDIDATE.equals(identity.getType())){
-					String groupId = identity.getGroupId();
-					log.info(String.format("Found identity link for process %s type Candidate with value %s. will check "
-							+ "whether user %s belongs to this group", identity.getProcessDefinitionId(), groupId, sLogin));
-					User user = identityService.createUserQuery().userId(sLogin).memberOfGroup(groupId).singleResult();
-					if (user != null){
-						Map<String, String> process = new HashMap<String, String>();
-						process.put("sID", processDef.getKey());
-						process.put("sName", processDef.getName());
-						log.info(String.format("Added record to response %s", process.toString()));
-						res.add(process);
-					} else {
-						log.info(String.format("user %s is not in group %s", sLogin, groupId));
-					}
-				} else {
-					log.info(String.format("Indentity link for process %s is of type %s. skipping from checking it", identity.getProcessDefinitionId(), identity.getType()));
-				}
-				}
+				log.info("process definition id: " + processDef.getId());
+				
+				Set<String> candidateCroupsToCheck = new HashSet<String>();
+				loadCandidateGroupsFromTasks(processDef, candidateCroupsToCheck);
+				
+				loadCandidateStarterGroup(processDef, candidateCroupsToCheck);
+
+				findUsersGroups(sLogin, res, processDef, candidateCroupsToCheck); 
 			}
 		} else {
 			log.info("Have not found ative process definitions.");
@@ -730,6 +698,51 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	log.info("Result" + jsonRes);
     	return jsonRes;
     }
+
+	protected void findUsersGroups(String sLogin,
+			List<Map<String, String>> res, ProcessDefinition processDef, Set<String> candidateCroupsToCheck) {
+		for (String currGroup : candidateCroupsToCheck){
+			log.info(String.format("Checking whether user %s belongs to the group %s", sLogin, currGroup));
+			User user = identityService.createUserQuery().userId(sLogin).memberOfGroup(currGroup).singleResult();
+			if (user != null){
+				Map<String, String> process = new HashMap<String, String>();
+				process.put("sID", processDef.getKey());
+				process.put("sName", processDef.getName());
+				log.info(String.format("Added record to response %s", process.toString()));
+				res.add(process);
+				break;
+			} else {
+				log.info(String.format("user %s is not in group %s", sLogin, currGroup));
+			}
+		}
+	}
+
+	protected void loadCandidateStarterGroup(ProcessDefinition processDef, Set<String> candidateCroupsToCheck) {
+		List<IdentityLink> identityLinks = repositoryService.getIdentityLinksForProcessDefinition(processDef.getId());
+		log.info(String.format("Found %d identity links for the process %s", identityLinks.size(), processDef.getKey()));
+		for (IdentityLink identity : identityLinks){
+			if (IdentityLinkType.CANDIDATE.equals(identity.getType())){
+				String groupId = identity.getGroupId();
+				candidateCroupsToCheck.add(groupId);
+				log.info(String.format("Added candidate starter group %s ", groupId));
+			}
+		}
+	}
+
+	protected void loadCandidateGroupsFromTasks(ProcessDefinition processDef, Set<String> candidateCroupsToCheck) {
+		BpmnModel bpmnModel = repositoryService.getBpmnModel(processDef.getId());
+		
+		for (FlowElement flowElement: bpmnModel.getMainProcess().getFlowElements()){
+			if (flowElement instanceof UserTask) {
+				UserTask userTask = (UserTask)flowElement;
+				List<String> candidateGroups = userTask.getCandidateGroups();
+				if (candidateGroups != null && !candidateGroups.isEmpty()) {
+					candidateCroupsToCheck.addAll(candidateGroups);
+					log.info(String.format("Added candidate groups %s from user task %s", candidateGroups, userTask.getId()));
+				}
+			}
+		}
+	}
 
 
     
@@ -836,10 +849,10 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             }
             
             oMail.send();
-    }    
+    }
+
+
+
+
     
-    
-    
-    
-    
-}
+        }

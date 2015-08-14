@@ -270,16 +270,23 @@ public abstract class AbstractModelTask {
 		}
 		return filedName;
 	}
-	
+
+	public static ByteArrayOutputStream multipartFileToByteArray(MultipartFile file) throws IOException {
+                return multipartFileToByteArray(file, null);
+        }
+        
 	/**
 	 * multipartFile To ByteArray
 	 * @param file
 	 * @return
 	 * @throws java.io.IOException
 	 */
-	public static ByteArrayOutputStream multipartFileToByteArray(MultipartFile file)
+	public static ByteArrayOutputStream multipartFileToByteArray(MultipartFile file, String sFileNameReal)
 			throws IOException {
             
+            
+                System.out.println("sFileNameReal=" + sFileNameReal);
+                
                 String sFilename = new String(file.getOriginalFilename().getBytes(),"Cp1251");//UTF-8
                 System.out.println("sFilename=" + sFilename);
                 
@@ -313,7 +320,7 @@ public abstract class AbstractModelTask {
             
 		ByteArrayMultipartFile byteArrayMultipartFile  
 				= new ByteArrayMultipartFile(
-						file.getBytes(), file.getName(), sFilename, file.getContentType());
+						file.getBytes(), file.getName(), sFileNameReal==null?sFilename1:sFileNameReal, file.getContentType());
 		 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		 ObjectOutputStream oos = new ObjectOutputStream(byteArrayOutputStream);
 		 oos.writeObject(byteArrayMultipartFile);
@@ -377,9 +384,15 @@ public abstract class AbstractModelTask {
                         }
                         String sFileName = null;
                         try {
-                            sFileName = new String(oByteArrayMultipartFile
+                            /*sFileName = new String(oByteArrayMultipartFile
                                     .getOriginalFilename().getBytes(
-                                            "ISO-8859-1"), "UTF-8");
+                                            "ISO-8859-1"), "UTF-8");*/
+                            sFileName = new String(oByteArrayMultipartFile
+                                    .getOriginalFilename().getBytes());
+                            LOG.info("sFileName(1)=" + sFileName);
+                            sFileName = new String(oByteArrayMultipartFile
+                                    .getOriginalFilename().getBytes(), "UTF-8");
+                            LOG.info("sFileName(2)=" + sFileName);
                         } catch (java.io.UnsupportedEncodingException e) {
                             throw new ActivitiException(e.getMessage(), e);
                         }
