@@ -5,10 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static org.apache.commons.lang3.StringUtils.contains;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
@@ -61,42 +61,54 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
     }
 
 
-    // TODO: Implement algorithm for transformation list to tree....
+    /**
+     * Transform the list of Hibernate result entities. Each entity from that list should be build via
+     *  {@link org.wf.dp.dniprorada.dao.place.PlaceHibernateResultTransformer#transformTuple}.
+     *
+     * @return unexpected result for list if it wasn't created via build method above
+     **/
     public static PlaceHierarchy toTree(List<PlaceHierarchyRecord> dataRows) {
         LOG.info("Got {}", dataRows);
 
+        Map<Long, PlaceHierarchy> tempParents = new HashMap<>();
         PlaceHierarchy tree = new PlaceHierarchy();
 
+        // We want to transform the list of Hibernate entities into hierarchy tree
         for(int i=0; i<dataRows.size(); i++){
             PlaceHierarchyRecord phr = dataRows.get(i);
-            if (i==0){
-                tree.setPlace( phr.toPlace() );
-                tree.setLevel( phr.getDeep() );
-            } else {
-                long currentPlaceId = phr.getPlaceId();
-                List<PlaceHierarchy> children = new ArrayList<>();
+            if (i==0){ // It's a root element
+                tree = phr.toTree();
+                tempParents.put(tree.getPlace().getId(), tree);
+            } else if (!phr.isAlreadyIncluded()) {
+                /*
+                    It means that:
+                    - it's general node of our tree (isn't a root)
+                    - this node isn't included in result tree yet, hence, it should be included (with children)
+                 */
+                PlaceHierarchy parent = tempParents.get( phr.getParentId() );   // Get the parent node
+                PlaceHierarchy currnt = phr.toTree();                           // Get the current node
+                parent.addChild(currnt);                                        // Link them as parent-child
 
-                for(int j=i; j<dataRows.size(); j++){
+                List<PlaceHierarchy> children = new ArrayList<>();              // Create a container for children
+                currnt.setChildren(children);                                   // of our current element
+
+                // Now we need to find all children of current node. Thus, start from the next element in data rows
+                for(int j=i+1; j<dataRows.size(); j++){
                     PlaceHierarchyRecord hr = dataRows.get(j);
 
-                    if (hr.isAlreadyIncluded())
+                    if (hr.isAlreadyIncluded()) // It's already belongs to our result tree
                         continue;
 
-                    if (currentPlaceId == hr.getParentId()) {
-                        PlaceHierarchy ph = new PlaceHierarchy();
-                        ph.setPlace( hr.toPlace() );
-                        ph.setLevel(hr.getDeep());
-                        hr.setAlreadyIncluded(true);
-                        children.add(ph);
+                    if (currnt.getPlace().getId().equals(hr.getParentId())) {   // One child was found
+                        PlaceHierarchy itsMySon = hr.toTree();                  // Get child
+                        hr.setAlreadyIncluded(true);                            // Disable child for the next iteration
+                        children.add( itsMySon );                               // Append child to the children list
                     }
                 }
-
-
-
             }
-            phr.setAlreadyIncluded(true);
+            phr.setAlreadyIncluded(true);                                       // Disable node for the next iteration
         }
-
+        tempParents.clear(); // we don't need it anymore, the hierarchy was build successfully
         return tree;
     }
 
