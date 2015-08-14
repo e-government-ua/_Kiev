@@ -3,6 +3,7 @@ package org.wf.dp.dniprorada.util.queryloader;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 import ru.qatools.properties.Property;
+import ru.qatools.properties.PropertyLoader;
 import ru.qatools.properties.Resource;
 
 import java.io.IOException;
@@ -19,24 +20,27 @@ import java.io.InputStream;
 public class QueryLoader {
 
     @Property("db.profile")
-    private String dbProfie;
-
+    private String dbProfile;
     private String homeDirectory;
 
 
     public QueryLoader(){
-        this(TypeDB.Postgres, "/queryloader");
+        PropertyLoader.newInstance().populate(this);
+        calculatePath( TypeDB.define(dbProfile), "/queryloader/");
     }
     public QueryLoader(String directory) {
         this.homeDirectory = directory;
     }
     public QueryLoader(TypeDB type) {
-        this(type, "/queryloader");
+        calculatePath(type, "/queryloader/");
     }
     public QueryLoader(TypeDB type, String directory) {
-        homeDirectory = directory + type.getPath();
+        calculatePath(type, directory);
     }
 
+    private final void calculatePath(TypeDB type, String directory) {
+        homeDirectory = directory + type.getPath();
+    }
 
 
     /**
@@ -76,6 +80,9 @@ public class QueryLoader {
         return homeDirectory;
     }
 
+    public String getDbProfile() {
+        return dbProfile;
+    }
 
     public enum TypeDB {
         Postgres("PostgreSQL"), H2("H2");
@@ -97,7 +104,7 @@ public class QueryLoader {
         public String getName() {
             return name;
         }
-        public TypeDB define(String name){
+        public static final TypeDB define(String name){
             for(TypeDB type : values())
                 if (type.getName().equals(name))
                     return type;
