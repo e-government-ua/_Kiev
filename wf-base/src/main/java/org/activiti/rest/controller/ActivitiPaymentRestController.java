@@ -74,6 +74,51 @@ public class ActivitiPaymentRestController {
             return sData;
 	}
 
+    @RequestMapping(value = "/setPaymentStatus_TaskActiviti_Direct", method = RequestMethod.POST, headers = { "Accept=application/json" })
+	public @ResponseBody String setPaymentStatus_TaskActiviti_Direct(
+			@RequestParam String sID_Order,
+			@RequestParam String sID_PaymentSystem,
+			@RequestParam String sData,
+                        
+			//@RequestParam String snID_Task,
+			@RequestParam String sID_Transaction,
+			@RequestParam String sStatus_Payment
+                        
+			){
+
+            
+            log.info("/setPaymentStatus_TaskActiviti_Direct");
+            log.info("sID_Order="+sID_Order);
+            log.info("sID_PaymentSystem="+sID_PaymentSystem);
+            log.info("sData="+sData);
+
+            log.info("sID_Transaction="+sID_Transaction);
+            log.info("sStatus_Payment="+sStatus_Payment);
+
+            //String snID_Task=sID_Order;
+            
+            Long nID_Task = null;
+            try {
+                if (sID_Order.contains(TASK_MARK)) {
+                    nID_Task = Long.decode(sID_Order.replace(TASK_MARK, ""));
+                }
+            } catch (NumberFormatException e) {
+                log.error("incorrect sID_Order! can't invoke task_id: " + sID_Order);
+            }
+            String snID_Task = ""+nID_Task;
+            log.info("snID_Task="+snID_Task);
+
+            if("Liqpay".equals(sID_PaymentSystem)){
+                setPaymentTransaction_ToActiviti(snID_Task, sID_Transaction, sStatus_Payment);
+                sData="Ok";
+            }else{
+                sData="Fail";
+            }
+            //sID_Order=TaskActiviti_105123&sID_PaymentSystem=Liqpay&sData=&nID_Subject=25447
+            return sData;
+	}                
+        
+        
     @RequestMapping(value = "/setPaymentStatus_TaskActiviti_", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
 			@RequestParam String sID_Order,
@@ -216,14 +261,18 @@ public class ActivitiPaymentRestController {
                      + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment);
             return;
         }
-
+        
+        
+        setPaymentTransaction_ToActiviti(snID_Task, sID_Transaction, sStatus_Payment);
+    }
+    private void setPaymentTransaction_ToActiviti(String snID_Task, String sID_Transaction, String sStatus_Payment){
         //save info to process
         try {
             log.info("try to get task. snID_Task=" + snID_Task);
             /*
             HistoricTaskInstance oTask = historyService.createHistoricTaskInstanceQuery().taskId("" + nID_Task).singleResult();
             //HistoricTaskInstance oTask = runtimeService.createExecutionQuery(). createExecutionQuery().taskId("" + nID_Task).singleResult();
-
+            
             log.info("try to set sID_Payment to processInstance of task, getProcessInstanceId=" + oTask.getProcessInstanceId());
             runtimeService.setVariable(oTask.getProcessInstanceId(), "sID_Payment", sID_Transaction);
             runtimeService.setVariable("" + nID_Task, "sID_Payment", sID_Transaction);
@@ -233,20 +282,20 @@ public class ActivitiPaymentRestController {
 
 //=            Task oTask = taskService.createTaskQuery().taskId(""+nID_Task).singleResult();
 //=            String snID_Process = oTask.getProcessInstanceId();
-
-//TODO пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+            
+//TODO разобраться почему приходит ИД процесса а не таски
             String snID_Process = snID_Task;
             String sID_Payment = sID_Transaction+"_"+sStatus_Payment;
             log.info("try to set: sID_Payment="+sID_Payment);
             runtimeService.setVariable(snID_Process, "sID_Payment", sID_Payment);
             log.info("completed set sID_Payment="+sID_Payment+" to: snID_Process=" + snID_Process);
         } catch (Exception e){
-            log.error("during changing: nID_Task=" + nID_Task
+            log.error("during changing: snID_Task=" + snID_Task
                     + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment, e);
         }
-
-
     }
+
+
 
     private Object getProccessVariableValue(String processInstance_ID,
                                             String variableName) {
