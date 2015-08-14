@@ -60,6 +60,8 @@ public class ActivitiPaymentRestController {
 			//@RequestParam byte[] signature
 			){
 
+            log.info("/setPaymentStatus_TaskActiviti");
+            
             log.info("sID_Order="+sID_Order);
             log.info("sID_PaymentSystem="+sID_PaymentSystem);
             log.info("sData="+sData);
@@ -75,6 +77,53 @@ public class ActivitiPaymentRestController {
             //setPaymentStatus(sID_Order, null, sID_PaymentSystem);
             return sData;
 	}
+        
+    @RequestMapping(value = "/setPaymentStatus_TaskActiviti_Direct", method = RequestMethod.POST, headers = { "Accept=application/json" })
+	public @ResponseBody String setPaymentStatus_TaskActiviti_Direct(
+			@RequestParam String sID_Order,
+			@RequestParam String sID_PaymentSystem,
+			@RequestParam String sData,
+                        
+			//@RequestParam String snID_Task,
+			@RequestParam String sID_Transaction,
+			@RequestParam String sStatus_Payment
+                        
+			){
+
+            
+            log.info("/setPaymentStatus_TaskActiviti_Direct");
+            log.info("sID_Order="+sID_Order);
+            log.info("sID_PaymentSystem="+sID_PaymentSystem);
+            log.info("sData="+sData);
+
+            log.info("sID_Transaction="+sID_Transaction);
+            log.info("sStatus_Payment="+sStatus_Payment);
+
+            //String snID_Task=sID_Order;
+            
+            Long nID_Task = null;
+            try {
+                if (sID_Order.contains(TASK_MARK)) {
+                    nID_Task = Long.decode(sID_Order.replace(TASK_MARK, ""));
+                }
+            } catch (NumberFormatException e) {
+                log.error("incorrect sID_Order! can't invoke task_id: " + sID_Order);
+            }
+            String snID_Task = ""+nID_Task;
+            log.info("snID_Task="+snID_Task);
+
+            if("Liqpay".equals(sID_PaymentSystem)){
+                setPaymentTransaction_ToActiviti(snID_Task, sID_Transaction, sStatus_Payment);
+                sData="Ok";
+            }else{
+                sData="Fail";
+            }
+            //sID_Order=TaskActiviti_105123&sID_PaymentSystem=Liqpay&sData=&nID_Subject=25447
+            return sData;
+	}        
+        
+//2015-08-14_12:30:51.535 127.0.0.1 - - "POST /wf-region/service/setPaymentStatus_TaskActiviti?sID_Order=TaskActiviti_105123&sID_PaymentSystem=Liqpay&sData=&nID_Subject=25447&sAccessKey=5d1184c7-2d84-4931-a8f5-1032b50ed699 HTTP/1.0" 401 10        
+        
     
     @RequestMapping(value = "/setPaymentStatus_TaskActiviti_", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
@@ -218,6 +267,10 @@ public class ActivitiPaymentRestController {
             return;
         }
         
+        
+        setPaymentTransaction_ToActiviti(snID_Task, sID_Transaction, sStatus_Payment);
+    }
+    private void setPaymentTransaction_ToActiviti(String snID_Task, String sID_Transaction, String sStatus_Payment){
         //save info to process
         try {
             log.info("try to get task. snID_Task=" + snID_Task);
@@ -242,11 +295,9 @@ public class ActivitiPaymentRestController {
             runtimeService.setVariable(snID_Process, "sID_Payment", sID_Payment);
             log.info("completed set sID_Payment="+sID_Payment+" to: snID_Process=" + snID_Process);
         } catch (Exception e){
-            log.error("during changing: nID_Task=" + nID_Task
+            log.error("during changing: snID_Task=" + snID_Task
                     + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment, e);
         }
-
-
     }
 
 
