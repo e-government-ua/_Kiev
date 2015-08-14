@@ -34,12 +34,13 @@
         <activiti:formProperty id="request" name="Запитуваний документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Перейти до надання послуги"></activiti:value>
           <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="string"></activiti:formProperty>
         <activiti:formProperty id="footer" name="footerToPrint" type="invisible" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -52,18 +53,18 @@
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запитуваній документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="searchResult" name="Результат обробки запиту" type="enum" required="true">
-          <activiti:value id="found" name="Документ знайдено"></activiti:value>
-          <activiti:value id="notFound" name="Документ не знайдено"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="docToSend" name="Завантажте  копію документа для відправлення заявнику" type="file"></activiti:formProperty>
         <activiti:formProperty id="deliverType" name="Формат відповіді" type="enum" writable="false">
           <activiti:value id="digital" name="Електронна версія"></activiti:value>
           <activiti:value id="physical" name="Фізична версія"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="searchResult" name="Результат обробки запиту" type="enum" required="true">
+          <activiti:value id="found" name="Документ знайдено"></activiti:value>
+          <activiti:value id="notFound" name="Документ не знайдено"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="docToSend" name="Завантажте  копію документа для відправлення заявнику" type="file"></activiti:formProperty>
         <activiti:formProperty id="footer" name="footerToPrint" type="invisible" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
