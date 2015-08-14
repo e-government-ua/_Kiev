@@ -2,6 +2,8 @@ package org.wf.dp.dniprorada.util.queryloader;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
+import ru.qatools.properties.Property;
+import ru.qatools.properties.Resource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,8 +15,11 @@ import java.io.InputStream;
  * @since  02.08.15
  */
 @Component
+@Resource.Classpath("queryloader.properties")
 public class QueryLoader {
 
+    @Property("db.profile")
+    private String dbProfie;
 
     private String homeDirectory;
 
@@ -73,14 +78,30 @@ public class QueryLoader {
 
 
     public enum TypeDB {
-        Postgres("PostgreSQL/"), H2("H2/");
+        Postgres("PostgreSQL"), H2("H2");
 
         private String path;
-        TypeDB(String path) {
+        private String name;
+
+        TypeDB(String name) {
+            this(name, name + '/');
+        }
+        TypeDB(String name, String path) {
+            this.name = name;
             this.path = path;
         }
+
         public String getPath() {
             return path;
+        }
+        public String getName() {
+            return name;
+        }
+        public TypeDB define(String name){
+            for(TypeDB type : values())
+                if (type.getName().equals(name))
+                    return type;
+            throw new IllegalArgumentException("Database type " + name + " not found");
         }
     }
 }
