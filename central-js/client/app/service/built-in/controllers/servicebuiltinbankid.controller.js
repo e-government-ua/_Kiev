@@ -1,25 +1,26 @@
 angular.module('app').controller('ServiceBuiltInBankIDController', function(
-    $state,
-    $stateParams,
-    $scope,
-    $timeout,
-    FormDataFactory,
-    ActivitiService,
-    ValidationService,
-    oServiceData,
-    BankIDAccount,
-    ActivitiForm,
-    uiUploader ) {
+  $state,
+  $stateParams,
+  $scope,
+  $timeout,
+  FormDataFactory,
+  ActivitiService,
+  ValidationService,
+  oServiceData,
+  BankIDAccount,
+  ActivitiForm,
+  uiUploader) {
 
-    'use strict';
+  'use strict';
 
-    // FXME: Удалить это после теста задачи #584
+  // FIXME: Удалить это после теста задачи #584
   var bankIdFound = false;
   angular.forEach(ActivitiForm.formProperties, function(prop) {
-    if (prop.id == 'bankIdsID_Country')
+    if (prop.id === 'bankIdsID_Country') {
       bankIdFound = true;
+    }
   });
-  if (!bankIdFound)
+  if (!bankIdFound) {
     ActivitiForm.formProperties.push({
       id: 'bankIdsID_Country',
       name: 'Громадянство',
@@ -27,14 +28,16 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       value: 'UKR',
       readable: true
     });
+  }
 
   // todo: Удалить после теста задачи #584 п.3
   var sID_Country_found = false;
   angular.forEach(ActivitiForm.formProperties, function(prop) {
-    if (prop.id == 'sID_Country')
+    if (prop.id === 'sID_Country') {
       sID_Country_found = true;
+    }
   });
-  if (!sID_Country_found)
+  if (!sID_Country_found) {
     ActivitiForm.formProperties.push({
       id: 'sID_Country',
       name: 'Country Code',
@@ -43,97 +46,79 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       readable: true,
       writable: true
     });
+  }
 
-    $scope.oServiceData = oServiceData;
-    $scope.account = BankIDAccount;
-    $scope.ActivitiForm = ActivitiForm;
+  $scope.oServiceData = oServiceData;
+  $scope.account = BankIDAccount;
+  $scope.ActivitiForm = ActivitiForm;
 
-    $scope.data = $scope.data || {};
-    $scope.data.formData = new FormDataFactory();
-    $scope.data.formData.initialize(ActivitiForm);
-    $scope.data.formData.setBankIDAccount(BankIDAccount);
+  $scope.data = $scope.data || {};
+  $scope.data.formData = new FormDataFactory();
+  $scope.data.formData.initialize(ActivitiForm);
+  $scope.data.formData.setBankIDAccount(BankIDAccount);
 
-    var currentState = $state.$current;
-    $scope.data.region = currentState.data.region;
-    $scope.data.city = currentState.data.city;
+  var currentState = $state.$current;
 
-    $scope.ngIfCity = function() {
-  	if($state.current.name === 'index.service.general.city.built-in') {
-  		if($scope.data.city) {
-  			return true;
-  		} else {
-  			return false;
-  		}
-  	}
-  	if($state.current.name === 'index.service.general.city.built-in.bankid') {
-  		if($scope.data.city) {
-  			return true;
-  		} else {
-  			return false;
-  		}
-  	}
-  	return $scope.data.region ? true: false;
-    };
+  $scope.data.region = currentState.data.region;
+  $scope.data.city = currentState.data.city;
 
-    //mock markers
-    //$scope.data.formData.params.markers = {
-    $scope.markers = {
-        validate:{
-            PhoneUA:{
-                aField_ID:['privatePhone','workPhone', 'phone', 'tel']
-            }, Mail:{
-                aField_ID:['privateMail','email']
-            }, AutoVIN:{
-                aField_ID:['vin_code', 'vin_code1', 'vin']
-            }
-        }
-    };
-
-    var aID_FieldPhoneUA = $scope.markers.validate.PhoneUA.aField_ID;
-    // var aID_FieldMail = $scope.markers.validate.Mail.aField_ID;
-    // var aID_FieldAutoVIN = $scope.markers.validate.AutoVIN.aField_ID;
-
-    angular.forEach($scope.ActivitiForm.formProperties, function(field) {
-
-      var sFieldName = field.name || '';
-
-      // 'Як працює послуга; посилання на інструкцію' буде розбито на частини по ';' -
-      var aNameParts = sFieldName.split(';');
-      var sFieldNotes = aNameParts[0].trim();
-
-      field.sFieldLabel = sFieldNotes;
-
-      sFieldNotes = null;
-
-      if (aNameParts.length > 1) {
-        sFieldNotes = aNameParts[1].trim();
-        if (sFieldNotes === '') {
-          sFieldNotes = null;
-        }
+  $scope.ngIfCity = function() {
+    if ($state.current.name === 'index.service.general.city.built-in') {
+      if ($scope.data.city) {
+        return true;
+      } else {
+        return false;
       }
-      field.sFieldNotes = sFieldNotes;
-
-      // перетворити input на поле вводу телефону, контрольоване директивою form/directives/tel.js:
-      if (_.indexOf(aID_FieldPhoneUA, field.id) !== -1){
-        field.type = 'tel';
-        field.sFieldType = 'tel';
+    }
+    if ($state.current.name === 'index.service.general.city.built-in.bankid') {
+      if ($scope.data.city) {
+        return true;
+      } else {
+        return false;
       }
+    }
+    return $scope.data.region ? true : false;
+  };
 
-      // if (_.indexOf(aID_FieldAutoVIN, field.id) !== -1){
-      //    field.sFieldType = 'AutoVIN';
-      // }
+  // TODO try markers override here
+  $scope.markers = ValidationService.getValidationMarkers();
+  var aID_FieldPhoneUA = $scope.markers.validate.PhoneUA.aField_ID;
+
+  angular.forEach($scope.ActivitiForm.formProperties, function(field) {
+
+    var sFieldName = field.name || '';
+
+    // 'Як працює послуга; посилання на інструкцію' буде розбито на частини по ';'
+    var aNameParts = sFieldName.split(';');
+    var sFieldNotes = aNameParts[0].trim();
+
+    field.sFieldLabel = sFieldNotes;
+
+    sFieldNotes = null;
+
+    if (aNameParts.length > 1) {
+      sFieldNotes = aNameParts[1].trim();
+      if (sFieldNotes === '') {
+        sFieldNotes = null;
+      }
+    }
+    field.sFieldNotes = sFieldNotes;
+
+    // перетворити input на поле вводу телефону, контрольоване директивою form/directives/tel.js:
+    if (_.indexOf(aID_FieldPhoneUA, field.id) !== -1) {
+      field.type = 'tel';
+      field.sFieldType = 'tel';
+    }
   });
 
   $scope.submit = function(form) {
     $scope.isSending = true;
     form.$setSubmitted();
-    var bValid=true;
+    var bValid = true;
 
-    ValidationService.validateEmailByMarker( form, $scope );
-    ValidationService.validatePhoneByMarker( form, $scope );
-    ValidationService.validateAutoVINByMarker( form, $scope );
+    ValidationService.validateByMarkers(form, null, true);
 
-    if (form.$valid && bValid) {//
+    if (form.$valid && bValid) { //
       ActivitiService
         .submitForm(oServiceData, $scope.data.formData)
         .then(function(result) {
@@ -145,7 +130,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
           var submitted = $state.get(state.name + '.submitted');
 
           //TODO: Fix Alhoritm Luna
-          var nCRC = ValidationService.getLunaValue( result.id );
+          var nCRC = ValidationService.getLunaValue(result.id);
 
           submitted.data.id = result.id + nCRC; //11111111
 
@@ -216,20 +201,20 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     $scope.$apply();
   };
 
-    // $timeout(function () {
-    //     $('input[type=tel]').intlTelInput({
-    //         defaultCountry: 'auto',
-    //         autoFormat: true,
-    //         allowExtensions: true,
-    //         preferredCountries: ['ua'],
-    //         autoPlaceholder: false,
-    //         geoIpLookup: function(callback) {
-    //             $.get('http://ipinfo.io', function() {}, 'jsonp').always(function(resp) {
-    //                 var countryCode = (resp && resp.country) ? resp.country : '';
-    //                 callback(countryCode);
-    //             });
-    //         }
-    //     });
-    // });
+  // $timeout(function () {
+  //     $('input[type=tel]').intlTelInput({
+  //         defaultCountry: 'auto',
+  //         autoFormat: true,
+  //         allowExtensions: true,
+  //         preferredCountries: ['ua'],
+  //         autoPlaceholder: false,
+  //         geoIpLookup: function(callback) {
+  //             $.get('http://ipinfo.io', function() {}, 'jsonp').always(function(resp) {
+  //                 var countryCode = (resp && resp.country) ? resp.country : '';
+  //                 callback(countryCode);
+  //             });
+  //         }
+  //     });
+  // });
 
 });

@@ -886,8 +886,6 @@ a {
   }
 }
 
-/* FIXME: possible code duplication */
-
 .add0-cat, .add0-subcat, .add0-srvc {
   color: #b8a927;
 }
@@ -1039,8 +1037,8 @@ label .snippet {
 * Validation Styles Start
 */
 
-$invalid-input-bg-color: #fcc;
-$invalid-input-border-color: #e10;
+$invalid-input-bg-color: #fff;
+$invalid-input-border-color: #a94442;
 $invalid-label-text-color: #a94442;
 
 .error {
@@ -1054,10 +1052,11 @@ $invalid-label-text-color: #a94442;
   }
 }
 
-input.ng-invalid-email, input.ng-invalid-tel  {
-  border: 1px solid $invalid-input-border-color;
+input.ng-touched.ng-invalid-email, input.ng-touched.ng-invalid-tel  {
+  border-color: $invalid-input-border-color;
   background-color: $invalid-input-bg-color;
 }
+
 .validation-message {
   color: $invalid-label-text-color;
 }

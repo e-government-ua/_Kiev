@@ -8,7 +8,7 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Ваш ІПН" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_of_birth" name="Ваша дата народження" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string"></activiti:formProperty>
         <activiti:formProperty id="chapter1" name="Деталі" type="label" default="--------------------"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
           <activiti:value id="attr1_and" name="Амур-Нижньодніпровський"></activiti:value>
@@ -157,7 +157,7 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Ваш ІПН" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_of_birth" name="Ваша дата народження" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="chapter1" name="Деталі" type="label" default="--------------------" writable="false"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" writable="false">
           <activiti:value id="attr1_and" name="Амур-Нижньодніпровський"></activiti:value>

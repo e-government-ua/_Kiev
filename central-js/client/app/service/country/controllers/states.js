@@ -78,7 +78,8 @@ angular.module('app').controller('ServiceCountryAbsentController', function($sta
 
   $scope.sendAbsentMessage = function(absentMessageForm, absentMessage) {
 
-    ValidationService.validateEmailByMarker( absentMessageForm.email, $scope.markers );
+    // TODO Test it here
+    // ValidationService.validateByMarkers( absentMessageForm );
 
     if (false === absentMessageForm.$valid) {
       console.log( 'states absentMessageForm', absentMessageForm );
