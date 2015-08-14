@@ -234,7 +234,7 @@
 Державний Орган успішно опрацював Вашу заяву. &lt;br /&gt;
 
 &lt;p&gt;&lt;/p&gt;	
-&lt;i&gt;	${decisionComment} &lt;/i&gt;
+&lt;i&gt;	${reasonForAnswer} &lt;/i&gt;
 &lt;p&gt;&lt;/p&gt;
 
 
@@ -353,7 +353,7 @@
 &lt;/ol&gt;
 &lt;p&gt;&lt;/p&gt;
 Коментар державного службовця: &lt;br /&gt;
-&lt;i&gt;${decisionComment}&lt;/i&gt;
+&lt;i&gt;${reasonForAnswer}&lt;/i&gt;
 &lt;p&gt;&lt;/p&gt;
 
 Центр надання адміністративних послуг Кузнецовської міської ради &lt;br /&gt;
