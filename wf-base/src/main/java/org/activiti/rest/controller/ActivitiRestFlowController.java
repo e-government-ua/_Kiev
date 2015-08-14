@@ -53,7 +53,7 @@ public class ActivitiRestFlowController {
                                @RequestParam(value = "bAll", required = false, defaultValue = "false") boolean bAll,
                                @RequestParam(value = "nDays", required = false, defaultValue = "60") int nDays,
                                @RequestParam(value = "sDateStart", required = false) String sDateStart
-   ) {
+   ) throws Exception {
 
 
       DateTime oDateStart = DateTime.now().withTimeAtStartOfDay();
