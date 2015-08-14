@@ -21,39 +21,10 @@ angular.module('app').controller('TestController', ['$scope', '$timeout', 'Valid
 		$scope.formData = angular.copy($scope.masterData);
 	};
 
-	$scope.markers = {
-		'validate': {
-			'PhoneUA': {
-				'aField_ID': ['privatePhone', 'workPhone']
-			},
-			'Mail': {
-				'aField_ID': ['privateMail', 'someMail']
-			},
-			'TextUA': {
-				'aField_ID': ['textUa']
-			},
-			'TextRU': {
-				'aField_ID': ['textRu']
-			},
-			'DateFormat': {
-				'aField_ID': ['dateFormat'],
-				'sFormat': 'YYYY-MM-DD' //
-			},
-			'DateElapsed': {
-				'aField_ID': ['dateOrder'],
-				'bFuture': false, // якщо true, то дата modelValue має бути у майбутньому
-				'bLess': true, // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
-				'nDays': 10,
-				'nMonths': 0,
-				'nYears': 0
-			}
-		}
-	};
-
 	$scope.reset();
 
 	// $timeout(function() {
-	// 	ValidationService.validateByMarkers($scope.testForm, $scope.markers);
+	// 	ValidationService.validateByMarkers($scope.testForm);
 	// }, 0);
 
 }]);

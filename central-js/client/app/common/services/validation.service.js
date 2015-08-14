@@ -42,7 +42,8 @@
  *      'bLess': true,    // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
  *      'nDays': 3,
  *      'nMonths': 0,
- *      'nYears': 1
+ *      'nYears': 1,
+ *       'sDebug': Додаткова опція - інформація для дебагу
  *    }
  *  }
  * };
@@ -61,7 +62,6 @@ angular.module('app').service('ValidationService', ['moment', 'amMoment', 'angul
 // FIXME
 // .value('defaultDateFormat', 'YYYY-MM-DD' );
 
-// angularMomentConfig
 function ValidationService(moment, amMoment, angularMomentConfig) {
 
   // Це для того, щоб бачити дати в українському форматі
@@ -73,11 +73,61 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
 
   self.sFormat = 'YYYY-MM-DD';
 
+  self.markers = {
+    validate: {
+      PhoneUA: {
+        aField_ID: ['privatePhone', 'workPhone', 'phone', 'tel']
+      },
+      Mail: {
+        aField_ID: ['privateMail', 'email']
+      },
+      AutoVIN: {
+        aField_ID: ['vin_code', 'vin_code1', 'vin']
+      },
+      TextUA: {
+        aField_ID: ['textUa']
+      },
+      TextRU: {
+        aField_ID: ['textRu']
+      },
+      DateFormat: {
+        aField_ID: ['dateFormat'],
+        sFormat: 'YYYY-MM-DD'
+      },
+      DateElapsed: {
+        aField_ID: ['dateOrder'],
+        bFuture: true, // якщо true, то дата modelValue має бути у майбутньому
+        bLess: true, // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
+        nDays: 10,
+        nMonths: 0,
+        nYears: 0
+          //,sDebug: 'Додаткова опція - інформація для дебагу'
+      }
+    }
+  };
+
+  self.getValidationMarkers = function() {
+    return self.markers;
+  };
+
   self.validateByMarkers = function(form, markers) {
+
+
+    // Якщо маркери валідації прийшли зовні - то використати їх
+    function _resolveValidationMarkers(markers) {
+      if (markers) {
+        self.markers = markers;
+      }
+      return self.markers;
+    }
+
+    markers = _resolveValidationMarkers(markers);
+
     // немає маркерів - виходимо
     if (!markers || !markers.validate || markers.validate.length < 1) {
       return;
     }
+
     angular.forEach(markers.validate, function(marker, markerName) {
 
       var fieldByName = self.validatorNameByMarkerName[markerName];
@@ -91,12 +141,18 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
         if (fieldNameIsListedInMarker(formField)) {
 
           var existingValidator = formField.$validators[fieldByName];
+
           // overwrite the default Angular field validator - ONLY ONCE 
           if (!existingValidator) {
 
-            formField.$validators[fieldByName] = self.getValidatorByName(markerName, formField);
+            // запам'ятовуємо опції маркера - це важливо для того, щоб передати параметри, такі як, sFormat, bFuture, bLess, nDays ітн.
+            var markerOptions = angular.copy(marker);
+
+            formField.$validators[fieldByName] = self.getValidatorByName(markerName, formField, markerOptions);
+
             console.log('set validator: ', existingValidator, ', marker name:', markerName, ', form field name:', formField.$name);
-            // and validate it
+
+            // і проводимо валідацію
             formField.$validate();
           }
         }
@@ -116,25 +172,28 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
 
   /**
    * formField - додатковий параметр.
-   * Повертає null для неіснуючого валідатора.
+   * Важливо: функція повертає null для неіснуючого валідатора (тобто такого, що не знаходиться за даним markerName).
    */
-  self.getValidatorByName = function(validatorName) {
-
-    // console.log( 'validationService.getValidatorByName: ', validatorName, ' = ', fValidator );
-    var fValidator = self.validatorFunctionsByFieldId[validatorName];
-
-    var fValidatorModule = function(modelValue, viewValue, options) {
+  self.getValidatorByName = function(markerName, formField, markerOptions) {
+    // console.log( 'validationService.getValidatorByName: ', markerName, ' = ', fValidator );
+    var fValidator = self.validatorFunctionsByFieldId[markerName];
+    // замикання для збереження опцій
+    var validationClosure = function(modelValue, viewValue) {
       var result = null;
+      // зберігаємо опції
+      var savedOptions = markerOptions;
       if (fValidator) {
-        result = fValidator.call(self, modelValue, viewValue, options);
+        result = fValidator.call(self, modelValue, viewValue, savedOptions);
       }
       return result;
     };
-
-    return fValidatorModule;
+    return validationClosure;
   };
 
   self.validatorFunctionsByFieldId = {
+    /**
+     * 'Mail' - перевіряє адресу електронної пошти
+     */
     'Mail': function(modelValue, viewValue) {
       var bValid = true;
       var EMAIL_REGEXP = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
@@ -247,8 +306,8 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       //   return true;
       // }
 
-      console.log('DateElapsed: ', o);
-      myLog((o.sDebug ? o.sDebug : '') + ' - зараз: ' + now.format(fmt) + ', ви увели: ' + modelMoment.format(fmt) + ', різниця: ' + deltaDays, 2);
+      // myLog('DateElapsed: ', o);
+      // myLog((o.sDebug ? o.sDebug : '') + ' - зараз: ' + now.format(fmt) + ', ви увели: ' + modelMoment.format(fmt) + ', різниця: ' + deltaDays, 2);
 
       // Перевірка, чи виконується bFuture (дата має бути у майбутньому):
       var errorSuffix;

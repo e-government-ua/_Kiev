@@ -8,34 +8,6 @@ describe('ValidationService Tests', function() {
   var $rootScope, $compile, $window, $filter, moment, amTimeAgoConfig, originalTimeAgoConfig, angularMomentConfig,
     originalAngularMomentConfig, amMoment;
 
-  // var mockScope =  {
-  //   markers: {
-  //     validate:{
-  //         PhoneUA:{
-  //             aField_ID:['privatePhone','workPhone', 'phone', 'tel']
-  //         }, Mail:{
-  //             aField_ID:['privateMail','email']
-  //         }, AutoVIN:{
-  //             aField_ID:['vin_code', 'vin_code1', 'vin']
-  //         }, TextUA: { 
-  //           aField_ID: ['bankIdaddress']
-  //         }, TextRU: {
-  //           aField_ID: []
-  //         }, DateFormat: {
-  //           aField_ID: ['bankIdaddress'],
-  //           sFormat: 'YYYY-MM-DD' //
-  //         }, DateElapsed: {
-  //           aField_ID: ['dateOrder'],
-  //           bFuture: false, //если true то дата должна быть в будущем
-  //           bLess: true, //если true то 'дельта' между датами должна быть 'менее чем' (указана нижними параметрами)
-  //           nDays: 3,
-  //           nMonths: 0,
-  //           nYears: 1
-  //         }
-  //     }
-  //   }
-  // };
-
   beforeEach(function() {
     module('app');
     module('angularMoment');
@@ -70,7 +42,6 @@ describe('ValidationService Tests', function() {
   // describe('ValidationService', function(){
 
   it('Should be defined: ValidationService and Moment', function() {
-    // ValidationService.validateByMarkers( form, mockScope.markers );
     expect(validationService).toBeDefined();
   });
 

@@ -76,32 +76,8 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     	return $scope.data.region ? true: false;
     };
 
-    // mock markers
-    $scope.markers = {
-        validate:{
-            PhoneUA:{
-                aField_ID:['privatePhone','workPhone', 'phone', 'tel']
-            }, Mail:{
-                aField_ID:['privateMail','email']
-            }, AutoVIN:{
-                aField_ID:['vin_code', 'vin_code1', 'vin']
-            }, TextUA: { 
-              aField_ID: ['bankIdaddress']
-            }, TextRU: {
-              aField_ID: []
-            }, DateFormat: {
-              aField_ID: ['bankIdaddress'],
-              sFormat: 'YYYY-MM-DD' //
-            }, DateElapsed: {
-              aField_ID: ['dateOrder'],
-              bFuture: false, //если true то дата должна быть в будущем
-              bLess: true, //если true то 'дельта' между датами должна быть 'менее чем' (указана нижними параметрами)
-              nDays: 3,
-              nMounths: 0,
-              nYears: 1
-            }
-        }
-    };
+    // FIXME try markers override here
+    // $scope.markers = ValidationService.getValidationMarkers();
 
     var aID_FieldPhoneUA = $scope.markers.validate.PhoneUA.aField_ID;
 
@@ -141,7 +117,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     form.$setSubmitted();
     var bValid=true;
 
-    ValidationService.validateByMarkers( form, $scope.markers );
+    ValidationService.validateByMarkers( form );
 
     // ValidationService.validateEmailByMarker( form, $scope );
     // ValidationService.validatePhoneByMarker( form, $scope );
