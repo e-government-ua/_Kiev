@@ -35,11 +35,7 @@ describe('ValidationService Tests', function() {
     // Add a sample timezones for tests
     // moment.tz.add('UTC|UTC|0|0|');
     // moment.tz.add('Pacific/Tahiti|LMT TAHT|9W.g a0|01|-2joe1.I');
-
-    //console.log('angularMomentConfig = ', angularMomentConfig );
   }));
-
-  // describe('ValidationService', function(){
 
   it('Should be defined: ValidationService and Moment', function() {
     expect(validationService).toBeDefined();
@@ -59,14 +55,16 @@ describe('ValidationService Tests', function() {
       'DateElapsed': 'dateelapsed'
     };
 
-    //field.$validators[fieldByName] = self.getValidatorByName(validatorName, field);
-
     function doValidate(validatorName, value, toBeOrNotToBe, options) {
-      var fValidator = validationService.getValidatorByName(validatorName);
+      var bDebug = options ? options.bDebug : false;
+
+      // запам'ятовуємо опції маркера - це важливо для того, щоб передати параметри, такі як, sFormat, bFuture, bLess, nDays ітн.
+
+      var fValidator = validationService.getValidatorByName(validatorName, angular.copy(options));
       var fValidatorCall;
       if (typeof fValidator === 'function') {
         if (isDebugMode) {
-          if (options.bDebug) {
+          if (bDebug) {
             logHeader('DEBUG - THIS - DEBUG - THIS - DEBUG - THIS - DEBUG - THIS - DEBUG - THIS', 3);
           }
           var isValid = prevalidate(validatorName, value, toBeOrNotToBe, options);
@@ -75,7 +73,7 @@ describe('ValidationService Tests', function() {
           var validationFail = isValid === toBeOrNotToBe ? colr(' - validator OK', 'green') : colr(' - validator FAILED, FAILED, FAILED!', 'red');
           //, (options ? options : ''),
           console.log('' + validatorName + ', value of ' + value + sValid + ' - ' + sExpectedValid + validationFail);
-          if (options.bDebug) {
+          if (bDebug) {
             logHeader('DEBUG END - DEBUG END - DEBUG END - DEBUG END - DEBUG END', 3);
           }
         } else {
@@ -86,7 +84,7 @@ describe('ValidationService Tests', function() {
     }
 
     function prevalidate(validatorName, value, toBeOrNotToBe, options) {
-      var fValidator = validationService.getValidatorByName(validatorName);
+      var fValidator = validationService.getValidatorByName(validatorName, angular.copy(options));
       var result = null;
       if (typeof fValidator === 'function') {
         result = fValidator.call(self, value, value, options);
@@ -115,25 +113,28 @@ describe('ValidationService Tests', function() {
 
     var textUASamplesRight = [
       'Їжак чує грім',
+      'Їжак чує - там грім',
       'ААБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя'
     ];
 
     var textUASamplesWrong = [
       'Ёжик слышит гром',
       'ЁёЪъЫыЭэ',
-      'P.S. Вже написавши цей комент, я зрозумів, що Сергій уже йде.'
+      'P.S. Сергій уже йде.', // english - не можна
+      'Їжак то не Ёжик'
     ];
 
     // Validate Russian Texts:
 
     var textRUSamplesRight = [
-      'Ёжик слышит гром, но не боится',
+      'Ёжик слышит гром - но не боится',
       'АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя'
     ];
 
     var textRUSamplesWrong = [
       'Ёжик Їжак',
-      'ЄЁ', // FIXME
+      'ЄЁ',
+      'Ёжик - hog',
       'Їжак чує грім',
       'ҐЄІЇґєії'
     ];
@@ -141,12 +142,14 @@ describe('ValidationService Tests', function() {
     // Validate Dates:
     var datesRight = [
       '2015-08-12',
-      '2015-1-1',
-      '1902-8-12',
-      '1902-08-1'
+      '2015-01-01',
+      '1902-08-12',
+      '1902-08-11'
     ];
 
     var datesWrong = [
+      '2015-8-12',
+      '2015-01-1',
       '0-2015',
       '-1-2015',
       'August 11 2015',
@@ -157,15 +160,19 @@ describe('ValidationService Tests', function() {
 
     // Validate Date Elapsed:
 
-    // validateArray( emailRight, 'Mail', true );
-    // validateArray( emailWrong, 'Mail', false );
-    // validateArray( textUASamplesRight, 'TextUA', true );
-    // validateArray( textUASamplesWrong, 'TextUA', false );
-    // validateArray( textRUSamplesRight, 'TextRU', true );
-    // validateArray( textRUSamplesWrong, 'TextRU', false );
+    validateArray( emailRight, 'Mail', true );
+    validateArray( emailWrong, 'Mail', false );
+    validateArray(textUASamplesRight, 'TextUA', true);
+    validateArray(textUASamplesWrong, 'TextUA', false);
+    validateArray(textRUSamplesRight, 'TextRU', true);
+    validateArray(textRUSamplesWrong, 'TextRU', false);
 
-    // validateArray( datesRight, 'DateFormat', true, { sFormat: 'YYYY-MM-DD' } );
-    // validateArray( datesWrong, 'DateFormat', false, { sFormat:'YYYY-MM-DD' } );
+    validateArray(datesRight, 'DateFormat', true, {
+      sFormat: 'YYYY-MM-DD'
+    });
+    validateArray(datesWrong, 'DateFormat', false, {
+      sFormat: 'YYYY-MM-DD'
+    });
 
     //  function doValidate( validatorName, value, toBeOrNotToBe, options ) {
     //  Параметри:
@@ -266,27 +273,28 @@ describe('ValidationService Tests', function() {
 
     // минуле:
 
-    // Дата не має бути у майбутньому, а ця - рік тому: 
     doValidate('DateElapsed', momentToString(yearBefore), true, {
+      sDebug: 'Дата має бути у минулому, і ця - рік тому',
+      bDebug: true,
       bFuture: false
     });
 
-    // Дата не має бути у майбутньому, а ця - учора: 
+    // Дата має бути у минулому, і ця - учора: 
     doValidate('DateElapsed', momentToString(oneDayBefore), true, {
       bFuture: false
     });
 
-    // Дата не має бути у майбутньому, а ця - сьогодні: 
+    // Дата має бути у минулому, а ця - сьогодні: 
     doValidate('DateElapsed', momentToString(now), true, {
       bFuture: false
     });
 
-    // Дата не має бути у майбутньому, і ця - післязавтра: 
+    // Дата має бути у минулому, а ця - післязавтра: 
     doValidate('DateElapsed', momentToString(oneDayAfter.add(1, 'd')), false, {
       bFuture: false
     });
 
-    // Дата не має бути у майбутньому, і ця - на місяць уперед: 
+    // Дата має бути у минулому, а ця - на місяць уперед: 
     doValidate('DateElapsed', momentToString(monthAfter), false, {
       bFuture: false
     });
@@ -346,8 +354,8 @@ describe('ValidationService Tests', function() {
     });
 
     doValidate('DateElapsed', momentToString(weekAfter.add(1, 'd')), true, {
-      sDebug: 'Уведіть дату у майбутньому, більш ніж на тиждень пізнішу за сьогодні.',
-      bDebug: true,
+      // sDebug: 'Уведіть дату у майбутньому, більш ніж на тиждень пізнішу за сьогодні.',
+      // bDebug: true,
       bFuture: true,
       bLess: false,
       nDays: 7,
@@ -405,12 +413,8 @@ describe('ValidationService Tests', function() {
       nYears: 0
     });
 
-    // doValidate( 'DateElapsed', '17-08-2015', false, { bFuture: false, bLess: true, nDays: 0, nMonths: 0, nYears: 0 } );
-    // validateArray( eDatesRight, 'DateElapsed', true, false, false, 1, 0, 0 );
-    // validateArray( eDatesRight, 'DateElapsed', true, true, false, 1, 0, 0 );
-    // validateArray( eDatesRight, 'DateElapsed', true, true, true, 1, 0, 0 );
 
-    /* Перевірити, як утворюється множина (pluralization) 
+    // Перевірити, як утворюється множина (pluralization) 
     console.log ( colr( validationService.pluralize( 0, 'days' ), 'green' )); 
     console.log ( colr( validationService.pluralize( 1, 'days' ), 'green' )); // день
     console.log ( colr( validationService.pluralize( 4, 'days' ), 'green' )); // дні
@@ -424,8 +428,6 @@ describe('ValidationService Tests', function() {
     console.log ( colr( validationService.pluralize( 4, 'years' ), 'green' )); // дні
     console.log ( colr( validationService.pluralize( 5, 'years' ), 'green' )); // днів
 
-    console.log ( colr( 'validationService.fromDateToDate', 'white' )); 
-
     console.log ( colr( validationService.fromDateToDate( '12-08-2015', '12-08-2015' ), 'green' )); 
     console.log ( colr( validationService.fromDateToDate( '12-08-2015', '13-08-2015' ), 'green' )); 
     console.log ( colr( validationService.fromDateToDate( '12-08-2015', '14-08-2015' ), 'green' )); 
@@ -435,7 +437,7 @@ describe('ValidationService Tests', function() {
     console.log ( colr( validationService.fromDateToDate( '12-08-2015', '18-08-2015' ), 'green' )); 
     console.log ( colr( validationService.fromDateToDate( '12-08-2015', '18-09-2015' ), 'green' )); 
     console.log ( colr( validationService.fromDateToDate( '12-08-2015', '18-09-2016' ), 'green' )); 
-    console.log ( colr( validationService.fromDateToDate( '12-08-2015', '18-09-2026' ), 'green' )); */
+    console.log ( colr( validationService.fromDateToDate( '12-08-2015', '18-09-2026' ), 'green' ));
 
     // Допоміжня функція - розфарбовує консоль
     function colr(msg, sColor) {
@@ -468,5 +470,5 @@ describe('ValidationService Tests', function() {
     }
 
   });
-  // });
+
 });

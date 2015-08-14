@@ -1,7 +1,7 @@
 <div class="container">
     <style>
     .test-form .ng-invalid {
-        /*background-color: #fee;*/
+        background-color: #fee;
         border-color: #f99;
     }
     </style>
@@ -20,20 +20,12 @@
                         <div class="col-sm-6">
                             <input type="text" ng-tel-field="{defaultCountry:'ua', autoFormat:true, allowExtensions:false, preferredCountries:['ua'], autoPlaceholder:true}" name="privatePhone" ng-model="formData.privatePhone" class="form-control" required>
                         </div>
-                        <div class="col-sm-4" ng-messages="testForm.privatePhone.$error" role="alert">
-                            <div ng-message="required">You did not enter a field</div>
-                            <div ng-message="phone">Your field is too short</div>
-                        </div>
                     </div>
                     <!-- Mail -->
                     <div class="form-group">
                         <label for="email" class="col-sm-2 control-label">Email:</label>
                         <div class="col-sm-6">
                             <input type="text" name="privateMail" ng-model="formData.email" class="form-control" required>
-                        </div>
-                        <div class="col-sm-4" ng-messages="testForm.privateMail.$error" role="alert">
-                            <div ng-message="required">You did not enter a field</div>
-                            <div ng-message="email">Your field is too short</div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -59,33 +51,38 @@
                         <div class="col-sm-6">
                             <input type="text" name="dateFormat" ng-model="formData.dateFormat" class="form-control" required>
                         </div>
+                        <div class="col-sm-4" ng-messages="testForm.dateFormat.$error" role="alert">
+                            <div ng-message="dateformat">{{testForm.dateFormat.lastErrorMessage}}</div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="dateOrder" class="col-sm-2 control-label">Date Order:</label>
                         <div class="col-sm-6">
                             <input type="text" name="dateOrder" ng-model="formData.dateOrder" class="form-control" required>
+                            <p>Будь ласка, уведіть дату у майбутньому, але не пізнішу, ніж за місяць від сьогодні</p>
                         </div>
                         <div class="col-sm-4" ng-messages="testForm.dateOrder.$error" role="alert">
-                            <div ng-message="dateelapsed">Is elapsed</div>
+                            <div ng-message="dateelapsed">{{testForm.dateOrder.lastErrorMessage}}</div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <input type="submit" class="btn btn-default" ng-click="formSubmit(formData)">
-                            <button class="btn" ng-click="reset()">Reset</button>
-                        </div>
-                    </div>
-                </form>
             </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="submit" class="btn btn-default" ng-click="formSubmit(formData)">
+                    <button class="btn" ng-click="reset()">Reset</button>
+                </div>
+            </div>
+            </form>
         </div>
     </div>
-    <!-- /row -->
-    <div class="row">
-        <div class="col-sm-6">
-            <pre>form = {{testForm.dateOrder.$error | json}}</pre>
-        </div>
-        <div class="col-sm-6">
-            <pre>form = {{formData.dateOrder | json}}</pre>
-        </div>
+</div>
+<!-- /row -->
+<div class="row">
+    <div class="col-sm-6">
+        <pre>testForm.dateOrder = {{testForm.dateOrder | json}}</pre>
     </div>
+    <div class="col-sm-6">
+        <pre>testForm.dateFormat = {{testForm.dateFormat | json}}</pre>
+    </div>
+</div>
 </div>

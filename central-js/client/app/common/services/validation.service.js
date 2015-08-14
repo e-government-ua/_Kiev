@@ -112,6 +112,8 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
 
   self.validateByMarkers = function(form, markers) {
 
+    // збережемо на формі поля, які будуть валідуватися за маркерами
+    // form.fieldsValidatedByMarkers = {};
 
     // Якщо маркери валідації прийшли зовні - то використати їх
     function _resolveValidationMarkers(markers) {
@@ -130,7 +132,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
 
     angular.forEach(markers.validate, function(marker, markerName) {
 
-      var fieldByName = self.validatorNameByMarkerName[markerName];
+      var keyByMarkerName = self.validatorNameByMarkerName[markerName];
 
       angular.forEach(form, function(formField) {
 
@@ -140,20 +142,23 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
 
         if (fieldNameIsListedInMarker(formField)) {
 
-          var existingValidator = formField.$validators[fieldByName];
+          var existingValidator = formField.$validators[keyByMarkerName];
 
           // overwrite the default Angular field validator - ONLY ONCE 
           if (!existingValidator) {
 
             // запам'ятовуємо опції маркера - це важливо для того, щоб передати параметри, такі як, sFormat, bFuture, bLess, nDays ітн.
-            var markerOptions = angular.copy(marker);
+            var markerOptions = angular.copy(marker) || {};
+            markerOptions.key = keyByMarkerName;
 
-            formField.$validators[fieldByName] = self.getValidatorByName(markerName, formField, markerOptions);
+            formField.$validators[keyByMarkerName] = self.getValidatorByName(markerName, markerOptions, formField);
 
-            console.log('set validator: ', existingValidator, ', marker name:', markerName, ', form field name:', formField.$name);
+            console.log('set validator, marker name:', markerName, ', form field name:', formField.$name);
+
+            // form.fieldsValidatedByMarkers[formField.$name] = formField;
 
             // і проводимо валідацію
-            formField.$validate();
+            // formField.$validate();
           }
         }
       });
@@ -174,16 +179,20 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
    * formField - додатковий параметр.
    * Важливо: функція повертає null для неіснуючого валідатора (тобто такого, що не знаходиться за даним markerName).
    */
-  self.getValidatorByName = function(markerName, formField, markerOptions) {
-    // console.log( 'validationService.getValidatorByName: ', markerName, ' = ', fValidator );
+  self.getValidatorByName = function(markerName, markerOptions, formField) {
+
     var fValidator = self.validatorFunctionsByFieldId[markerName];
     // замикання для збереження опцій
     var validationClosure = function(modelValue, viewValue) {
       var result = null;
       // зберігаємо опції
-      var savedOptions = markerOptions;
+      var savedOptions = markerOptions || {};
       if (fValidator) {
         result = fValidator.call(self, modelValue, viewValue, savedOptions);
+        // Якщо валідатор зберіг помилку у savedOptions.lastError - привласнити її полю форми
+        if ( formField && formField.$error && savedOptions.lastError) {
+          formField.lastErrorMessage = savedOptions.lastError;
+        }
       }
       return result;
     };
@@ -208,7 +217,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
      * За исключением букв Q, O, I. (Эти буквы запрещены для использования, поскольку O и Q похожи между собой, а I и O можно спутать с 0 и 1.)
      */
     'AutoVIN': function(sValue) {
-      if ( !sValue ) {
+      if (!sValue) {
         return false;
       }
 
@@ -229,7 +238,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
      * Текст помилки: 'Текст може містити тількі українські літери або мінус чи пробіл'
      */
     'TextUA': function(modelValue, viewValue) {
-      var TEXTUA_REGEXP = /^[ААБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя-\s]+/g;
+      var TEXTUA_REGEXP = /^[ААБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя-\s]+$/g;
       var TEXTRU_ONLY = /[ЁёЪъЫыЭэ]+/g;
       var bValid = TEXTUA_REGEXP.test(modelValue) && !TEXTRU_ONLY.test(modelValue);
       //console.log('Validate TextUA: ' + modelValue + ' is valid: ' + bValid );
@@ -241,7 +250,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
      * Текст помилки: 'Текст може містити тількі російські літери або мінус че пробіл'
      */
     'TextRU': function(modelValue, viewValue) {
-      var TEXTRU_REGEXP = /^[АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя-\s]+/g;
+      var TEXTRU_REGEXP = /^[АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя-\s]+$/g;
       var TEXTUA_ONLY = /[ҐЄІЇґєії]+/g;
       var bValid = TEXTRU_REGEXP.test(modelValue) && !TEXTUA_ONLY.test(modelValue);
       // console.log('Validate TextRU: ' + modelValue + ' is valid: ' + bValid );
@@ -258,9 +267,14 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
         return false;
       }
 
-      var bValid = moment(modelValue, options.sFormat).isValid();
+      // Строга відповідніcть (нестрога - var bValid = moment(modelValue, options.sFormat).isValid())
+      var bValid = (moment(modelValue, options.sFormat).format(options.sFormat) === modelValue);
 
       // console.log('Validate DateFomat: ' + modelValue + ' is valid Date: ' + bValid + ' in ' + sFormat, ' format' );
+
+      if ( bValid === false ) {
+        options.lastError = 'Дата може бути тільки формату ' + options.sFormat;
+      }
 
       return bValid;
     },
@@ -290,8 +304,12 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       var fmt = self.sFormat;
       var modelMoment = moment(modelValue, fmt);
 
+      if (o.bDebug) {
+        console.log((o.sDebug ? o.sDebug : '') + ' - зараз: ' + now.format(fmt) + ', ви увели: ' + modelMoment.format(fmt) + ', різниця: ' + deltaDays);
+      }
+
       // Повертаємо помилку, якщо опції не вказані або дата невалідна:
-      if (!options || !o.bFuture || !modelMoment.isValid()) {
+      if (!o || typeof o.bFuture === 'undefined' || !modelMoment.isValid()) {
         return false;
       }
 
@@ -304,13 +322,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       var deltaMonths = modelMoment.diff(now, 'months');
       var deltaYears = modelMoment.diff(now, 'years');
 
-      // // Повертаємо false, якщо різниці між датами немає:
-      // if (deltaDays === deltaMonths === deltaYears === 0) {
-      //   return true;
-      // }
-
       // myLog('DateElapsed: ', o);
-      // myLog((o.sDebug ? o.sDebug : '') + ' - зараз: ' + now.format(fmt) + ', ви увели: ' + modelMoment.format(fmt) + ', різниця: ' + deltaDays, 2);
 
       // Перевірка, чи виконується bFuture (дата має бути у майбутньому):
       var errorSuffix;
@@ -324,8 +336,10 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       }
 
       function finalize() {
+        // зберегти повідомлення про помилку у зовніщньому об'єкті опцій - замикання
         for (var errorName in errors) {
           myLog(errors[errorName], 1);
+          o.lastError = errors[errorName];
         }
       }
 

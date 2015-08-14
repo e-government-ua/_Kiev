@@ -8,7 +8,7 @@ angular.module('app').controller('TestController', ['$scope', '$timeout', 'Valid
 		console.log('Form submit:', formData);
 		$scope.masterData = angular.copy(formData);
 
-		ValidationService.validateByMarkers($scope.testForm, $scope.markers);
+		//ValidationService.validateByMarkers($scope.testForm, $scope.markers);
 	};
 
 	$scope.reset = function() {
@@ -23,8 +23,10 @@ angular.module('app').controller('TestController', ['$scope', '$timeout', 'Valid
 
 	$scope.reset();
 
-	// $timeout(function() {
-	// 	ValidationService.validateByMarkers($scope.testForm);
-	// }, 0);
+
+	$timeout(function() {
+		ValidationService.validateByMarkers($scope.testForm);
+		$scope.testForm.$setPristine();
+	}, 0);
 
 }]);
