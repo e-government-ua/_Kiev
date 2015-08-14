@@ -108,8 +108,8 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
             }
             phr.setAlreadyIncluded(true);                                       // Disable node for the next iteration
         }
-        tempParents.clear(); // we don't need it anymore, the hierarchy was build successfully
-        return tree;
+        tempParents.clear();                                                    // We don't need it anymore because
+        return tree;                                                            // the hierarchy was build successfully
     }
 
 }

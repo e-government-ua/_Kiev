@@ -3,6 +3,7 @@ package org.wf.dp.dniprorada.dao.place;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.wf.dp.dniprorada.model.Place;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,6 +53,12 @@ public class PlaceHierarchy {
     }
 
     public void addChild(PlaceHierarchy childNode) {
+        if (childNode == null)
+            return;
+
+        if (children == null)
+            children = new ArrayList();
+
         children.add(childNode);
     }
 }
