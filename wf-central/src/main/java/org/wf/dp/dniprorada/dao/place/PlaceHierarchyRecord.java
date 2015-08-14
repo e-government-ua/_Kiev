@@ -98,4 +98,12 @@ public class PlaceHierarchyRecord {
         place.setOriginalName(getOriginalName());
         return place;
     }
+
+
+    public PlaceHierarchy toTree() {
+        PlaceHierarchy node = new PlaceHierarchy();
+        node.setPlace(toPlace());
+        node.setLevel(getDeep());
+        return node;
+    }
 }

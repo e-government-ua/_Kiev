@@ -50,4 +50,8 @@ public class PlaceHierarchy {
     public void setChildren(List<PlaceHierarchy> children) {
         this.children = children;
     }
+
+    public void addChild(PlaceHierarchy childNode) {
+        children.add(childNode);
+    }
 }
