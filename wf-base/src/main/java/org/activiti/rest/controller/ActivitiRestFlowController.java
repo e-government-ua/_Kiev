@@ -48,10 +48,12 @@ public class ActivitiRestFlowController {
    @RequestMapping(value = "/getFlowSlots_ServiceData", method = RequestMethod.GET)
    public
    @ResponseBody
-   ResponseEntity getFlowSlots(@RequestParam(value = "nID_ServiceData") Long nID_ServiceData,
+   ResponseEntity getFlowSlots(@RequestParam(value = "nID_ServiceData", required = false) Long nID_ServiceData,
+                               @RequestParam(value = "sID_BP", required = false) String sID_BP,
                                @RequestParam(value = "bAll", required = false, defaultValue = "false") boolean bAll,
                                @RequestParam(value = "nDays", required = false, defaultValue = "60") int nDays,
-                               @RequestParam(value = "sDateStart", required = false) String sDateStart) {
+                               @RequestParam(value = "sDateStart", required = false) String sDateStart
+   ) {
 
 
       DateTime oDateStart = DateTime.now().withTimeAtStartOfDay();
@@ -63,7 +65,8 @@ public class ActivitiRestFlowController {
     	  oDateEnd = oDateStart.plusDays(nDays);
       }
 
-      Days res = flowService.getFlowSlots(nID_ServiceData, oDateStart, oDateEnd, bAll);
+        
+      Days res = flowService.getFlowSlots(nID_ServiceData, sID_BP, oDateStart, oDateEnd, bAll);
 
       return JsonRestUtils.toJsonResponse(res);
    }

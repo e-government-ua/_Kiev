@@ -19,13 +19,20 @@ public class FlowSlotDaoImpl extends AbstractEntityDao<FlowSlot> implements Flow
    }
 
    @Override
-   public List<FlowSlot> findFlowSlotsByServiceData(Long nID_ServiceData, DateTime startDate, DateTime stopDate) {
+   public List<FlowSlot> findFlowSlotsByServiceData(Long nID_ServiceData, String sID_BP, DateTime startDate, DateTime stopDate) throws Exception {
 
       DetachedCriteria criteria = DetachedCriteria.forClass(getEntityClass());
       criteria.add(Restrictions.ge("sDate", startDate));
       criteria.add(Restrictions.lt("sDate", stopDate));
 
-      criteria.createCriteria("flow").add(Restrictions.eq("nID_ServiceData", nID_ServiceData));
+      if(nID_ServiceData!=null){
+        criteria.createCriteria("flow").add(Restrictions.eq("nID_ServiceData", nID_ServiceData));
+      }else if(sID_BP!=null){
+        criteria.createCriteria("flow").add(Restrictions.eq("sID_BP", sID_BP));
+      }else{
+          throw new Exception("nID_ServiceData and sID_BP is null!");
+      }
+      
       criteria.addOrder(Order.asc("sDate"));
 
       return criteria.getExecutableCriteria(getSession()).list();

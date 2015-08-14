@@ -69,8 +69,8 @@ public class FlowService implements ApplicationContextAware {
    }
 
 
-   public Days getFlowSlots(Long nID_ServiceData, DateTime startDate, DateTime endDate, boolean bAll) {
-      List<FlowSlot> flowSlots = flowSlotDao.findFlowSlotsByServiceData(nID_ServiceData, startDate, endDate);
+   public Days getFlowSlots(Long nID_ServiceData, String sID_BP, DateTime startDate, DateTime endDate, boolean bAll) {
+      List<FlowSlot> flowSlots = flowSlotDao.findFlowSlotsByServiceData(nID_ServiceData, sID_BP, startDate, endDate);
 
       Map<DateTime, Day> daysMap = new TreeMap<>();
       if (bAll) {
