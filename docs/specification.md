@@ -1575,7 +1575,8 @@ http://test.igov.org.ua/wf-central/service/services/updateHistoryEvent_Service?n
 **HTTP Metod: GET**
 
 Параметры:
-* nID_ServiceData - ID сущности ServiceData (обязательный)
+* nID_ServiceData - ID сущности ServiceData (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса (обязательный если нет nID_ServiceData)
 * bAll - если false то из возвращаемого объекта исключаются элементы, содержащие "bHasFree":false "bFree":false (опциональный, по умолчанию false)
 * nDays - колличество дней от сегодняшего включительно(или sDateStart, если задан), до nDays в будующее за который нужно вернуть слоты (опциональный, по умолчанию 60)
 * sDateStart - опциональный параметр, определяющие дату начала в формате "yyyy-MM-dd", с которую выбрать слоты. При наличии этого параметра слоты возвращаются только за указанный период(число дней задается nDays).

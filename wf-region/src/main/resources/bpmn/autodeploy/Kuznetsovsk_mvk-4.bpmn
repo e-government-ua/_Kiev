@@ -34,12 +34,13 @@
         <activiti:formProperty id="request" name="Запитуваний документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Перейти до надання послуги"></activiti:value>
           <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="string"></activiti:formProperty>
         <activiti:formProperty id="footer" name="footerToPrint" type="invisible" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -52,30 +53,25 @@
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запитуваній документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="searchResult" name="Результат обробки запиту" type="enum" required="true">
-          <activiti:value id="found" name="Документ знайдено"></activiti:value>
-          <activiti:value id="notFound" name="Документ не знайдено"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="docToSend" name="Завантажте  копію документа для відправлення заявнику" type="file"></activiti:formProperty>
         <activiti:formProperty id="deliverType" name="Формат відповіді" type="enum" writable="false">
           <activiti:value id="digital" name="Електронна версія"></activiti:value>
           <activiti:value id="physical" name="Фізична версія"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="searchResult" name="Результат обробки запиту" type="enum" required="true">
+          <activiti:value id="found" name="Документ знайдено"></activiti:value>
+          <activiti:value id="notFound" name="Документ не знайдено"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="docToSend" name="Завантажте  копію документа для відправлення заявнику" type="file"></activiti:formProperty>
         <activiti:formProperty id="footer" name="footerToPrint" type="invisible" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <endEvent id="endevent5" name="End"></endEvent>
     <sequenceFlow id="flow31" sourceRef="usertask7" targetRef="exclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow35" sourceRef="mailtask9" targetRef="endevent5"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow38" sourceRef="usertask4" targetRef="exclusivegateway3"></sequenceFlow>
-    <sequenceFlow id="flow39" name="decide == 'reject'" sourceRef="exclusivegateway3" targetRef="mailtask9">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
-    </sequenceFlow>
     <sequenceFlow id="flow40" name="decide == 'accept'" sourceRef="exclusivegateway3" targetRef="usertask7">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
@@ -100,7 +96,7 @@
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${docToSend}"</activiti:expression>
         </activiti:field>
-        <activiti:field name="html">
+        <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head lang="ru"&gt;
@@ -263,7 +259,7 @@
 
 Цей документ готовий і Ви маєте можливість його забрати у міській раді міста Кузнецовськ у часи його роботи. &lt;br /&gt;
 &lt;br /&gt;									
-Центр надання адміністратиних послуг Кузнецовської міської ради &lt;br /&gt;
+Центр надання адміністративних послуг Кузнецовської міської ради &lt;br /&gt;
 &lt;br /&gt;
 Адреса: &lt;br /&gt;
 м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
@@ -385,7 +381,7 @@
 										Вибачте за незручність. 
                                     &lt;p&gt;&lt;/p&gt;
 																		
-Центр надання адміністратиних послуг Кузнецовської міської ради &lt;br /&gt;
+Центр надання адміністративних послуг Кузнецовської міської ради &lt;br /&gt;
 &lt;br /&gt;
 Адреса: &lt;br /&gt;
 м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
@@ -493,7 +489,7 @@
 Залишайтеся з нами. 	
 &lt;p&gt;&lt;/p&gt;
 									
-Центр надання адміністратиних послуг Кузнецовської міської ради &lt;br /&gt;
+Центр надання адміністративних послуг Кузнецовської міської ради &lt;br /&gt;
 &lt;br /&gt;
 Адреса: &lt;br /&gt;
 м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
@@ -531,20 +527,17 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask9" name="Емейл відмова" activiti:type="mail">
+    <sequenceFlow id="flow52" sourceRef="mailtask6" targetRef="endevent6"></sequenceFlow>
+    <sequenceFlow id="flow53" sourceRef="mailtask7" targetRef="endevent6"></sequenceFlow>
+    <serviceTask id="servicetask2" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <sequenceFlow id="flow54" sourceRef="servicetask2" targetRef="mailtask8"></sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask2">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <endEvent id="endevent7" name="End"></endEvent>
+    <sequenceFlow id="flow55" sourceRef="boundaryerror1" targetRef="endevent7"></sequenceFlow>
+    <serviceTask id="mailtask10" name="Відмова" activiti:type="mail">
       <extensionElements>
-        <activiti:field name="to">
-          <activiti:expression>${email}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.</activiti:string>
-        </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
-        </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -614,7 +607,7 @@
 										Вибачте за незручність. 
                                     &lt;p&gt;&lt;/p&gt;
 																		
-Центр надання адміністратиних послуг Кузнецовської міської ради &lt;br /&gt;
+Центр надання адміністративних послуг Кузнецовської міської ради &lt;br /&gt;
 &lt;br /&gt;
 Адреса: &lt;br /&gt;
 м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
@@ -647,17 +640,25 @@
 &lt;/body&gt;
 &lt;/html&gt;</activiti:expression>
         </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Звернення на тему: Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.</activiti:string>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow52" sourceRef="mailtask6" targetRef="endevent6"></sequenceFlow>
-    <sequenceFlow id="flow53" sourceRef="mailtask7" targetRef="endevent6"></sequenceFlow>
-    <serviceTask id="servicetask2" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <sequenceFlow id="flow54" sourceRef="servicetask2" targetRef="mailtask8"></sequenceFlow>
-    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask2">
-      <errorEventDefinition></errorEventDefinition>
-    </boundaryEvent>
-    <endEvent id="endevent7" name="End"></endEvent>
-    <sequenceFlow id="flow55" sourceRef="boundaryerror1" targetRef="endevent7"></sequenceFlow>
+    <sequenceFlow id="flow56" name="${decide == 'reject'}" sourceRef="exclusivegateway3" targetRef="mailtask10">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endevent8" name="End"></endEvent>
+    <sequenceFlow id="flow57" sourceRef="mailtask10" targetRef="endevent8"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Пользователь портала  отправляет выбирает услугу:
 Надання копій рішень міської ради та її виконкому, розпоряджень міського голови за зверненням юридичних та фізичних осіб, правоохоронних органів,адвокатів</text>
@@ -686,9 +687,6 @@
       <bpmndi:BPMNShape bpmnElement="usertask7" id="BPMNShape_usertask7">
         <omgdc:Bounds height="55.0" width="161.0" x="707.0" y="447.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent5" id="BPMNShape_endevent5">
-        <omgdc:Bounds height="35.0" width="35.0" x="770.0" y="259.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
         <omgdc:Bounds height="40.0" width="40.0" x="540.0" y="454.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -716,9 +714,6 @@
       <bpmndi:BPMNShape bpmnElement="mailtask8" id="BPMNShape_mailtask8">
         <omgdc:Bounds height="55.0" width="105.0" x="380.0" y="290.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask9" id="BPMNShape_mailtask9">
-        <omgdc:Bounds height="55.0" width="105.0" x="610.0" y="249.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
         <omgdc:Bounds height="77.0" width="141.0" x="190.0" y="214.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -727,6 +722,12 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent7" id="BPMNShape_endevent7">
         <omgdc:Bounds height="35.0" width="35.0" x="230.0" y="440.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask10" id="BPMNShape_mailtask10">
+        <omgdc:Bounds height="55.0" width="105.0" x="508.0" y="276.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent8" id="BPMNShape_endevent8">
+        <omgdc:Bounds height="35.0" width="35.0" x="700.0" y="286.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
         <omgdi:waypoint x="960.0" y="454.0"></omgdi:waypoint>
@@ -740,21 +741,9 @@
         <omgdi:waypoint x="868.0" y="474.0"></omgdi:waypoint>
         <omgdi:waypoint x="940.0" y="474.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
-        <omgdi:waypoint x="715.0" y="276.0"></omgdi:waypoint>
-        <omgdi:waypoint x="770.0" y="276.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
         <omgdi:waypoint x="502.0" y="474.0"></omgdi:waypoint>
         <omgdi:waypoint x="540.0" y="474.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
-        <omgdi:waypoint x="560.0" y="454.0"></omgdi:waypoint>
-        <omgdi:waypoint x="560.0" y="275.0"></omgdi:waypoint>
-        <omgdi:waypoint x="610.0" y="276.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="48.0" width="81.0" x="566.0" y="446.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
         <omgdi:waypoint x="580.0" y="474.0"></omgdi:waypoint>
@@ -812,6 +801,17 @@
       <bpmndi:BPMNEdge bpmnElement="flow55" id="BPMNEdge_flow55">
         <omgdi:waypoint x="295.0" y="283.0"></omgdi:waypoint>
         <omgdi:waypoint x="247.0" y="440.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow56" id="BPMNEdge_flow56">
+        <omgdi:waypoint x="560.0" y="454.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="331.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="48.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow57" id="BPMNEdge_flow57">
+        <omgdi:waypoint x="613.0" y="303.0"></omgdi:waypoint>
+        <omgdi:waypoint x="700.0" y="303.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
