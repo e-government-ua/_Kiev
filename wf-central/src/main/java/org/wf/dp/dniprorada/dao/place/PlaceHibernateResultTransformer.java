@@ -67,11 +67,11 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
      *
      * @return unexpected result for list if it wasn't created via build method above
      **/
-    public static PlaceHierarchy toTree(List<PlaceHierarchyRecord> dataRows) {
+    public static PlaceHierarchyTree toTree(List<PlaceHierarchyRecord> dataRows) {
         LOG.debug("Got {}", dataRows);
 
-        Map<Long, PlaceHierarchy> tempParents = new HashMap<>();
-        PlaceHierarchy tree = new PlaceHierarchy();
+        Map<Long, PlaceHierarchyTree> tempParents = new HashMap<>();
+        PlaceHierarchyTree tree = new PlaceHierarchyTree();
 
         // We want to transform the list of Hibernate entities into hierarchy tree
         for(int i=0; i<dataRows.size(); i++){
@@ -86,11 +86,11 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
                     - it's general node of our tree (isn't a root)
                     - this node isn't included in result tree yet, hence, it should be included (with children)
                  */
-                PlaceHierarchy parent = tempParents.get( node.getParentId() );  // Get the parent node
-                PlaceHierarchy currnt = node.toTree();                          // Get the current node
-                register(currnt, tempParents);                                  // Register curnt node in temp. storage
-                currnt.setChildren( getChildren(dataRows, i+1, currnt) );
-                parent.addChild(currnt);
+                PlaceHierarchyTree parent  = tempParents.get( node.getParentId() ); // Get the parent node
+                PlaceHierarchyTree current = node.toTree();                         // Get the current node
+                register(current, tempParents);                                  // Register curnt node in temp. storage
+                current.setChildren(getChildren(dataRows, i + 1, current));
+                parent.addChild(current);
             }
             node.setAlreadyIncluded(true);                                      // Disable node for the next iteration
         }
@@ -105,10 +105,10 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
      * @param startElement its a start position. We need to check only unread nodes.
      * @param node our current node
      **/
-    private static List<PlaceHierarchy> getChildren( List<PlaceHierarchyRecord> dataRows,
+    private static List<PlaceHierarchyTree> getChildren( List<PlaceHierarchyRecord> dataRows,
                                                      int startElement,
-                                                     PlaceHierarchy node ){
-        List<PlaceHierarchy> children = new ArrayList<>();
+                                                     PlaceHierarchyTree node ){
+        List<PlaceHierarchyTree> children = new ArrayList<>();
         for(int j=startElement; j<dataRows.size(); j++){
             PlaceHierarchyRecord hr = dataRows.get(j);
 
@@ -116,7 +116,7 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
                 continue;
 
             if (node.getPlace().getId().equals(hr.getParentId())) {     // One child was found
-                PlaceHierarchy itsMySon = hr.toTree();                  // Get child
+                PlaceHierarchyTree itsMySon = hr.toTree();              // Get child
                 hr.setAlreadyIncluded(true);                            // Disable child for the next iteration
                 children.add( itsMySon );                               // Append child to the children list
             }
@@ -137,7 +137,7 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
      * @param node which should be registered in temporary storage
      * @param asTemporaryParents is a temporary storage just for quick detection of known parent node.
      * */
-    private static void register(PlaceHierarchy node, Map<Long, PlaceHierarchy> asTemporaryParents) {
+    private static void register(PlaceHierarchyTree node, Map<Long, PlaceHierarchyTree> asTemporaryParents) {
         asTemporaryParents.put(node.getPlace().getId(), node);
         LOG.info("Node {} registered in temp. storage", node);
     }

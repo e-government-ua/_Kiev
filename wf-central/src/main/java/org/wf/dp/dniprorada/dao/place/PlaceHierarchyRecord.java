@@ -100,8 +100,8 @@ public class PlaceHierarchyRecord {
     }
 
 
-    public PlaceHierarchy toTree() {
-        PlaceHierarchy node = new PlaceHierarchy();
+    public PlaceHierarchyTree toTree() {
+        PlaceHierarchyTree node = new PlaceHierarchyTree();
         node.setPlace(toPlace());
         node.setLevel(getDeep());
         return node;

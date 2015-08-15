@@ -47,7 +47,7 @@ public class PlaceDaoImpl implements PlaceDao {
     }
 
     @SuppressWarnings("unchecked")
-    public PlaceHierarchy getPlaces(Long placeId,
+    public PlaceHierarchyTree getPlaces(Long placeId,
                                  String uaId,
                                  Long typeId,
                                  Boolean area,
@@ -67,6 +67,15 @@ public class PlaceDaoImpl implements PlaceDao {
         if (specified(typeId))
             query = query.setLong("typeId", typeId);
 
+//        if (specified(area))
+//            query = query.setBoolean("area", area);
+//
+//        if (specified(root))
+//            query = query.setBoolean("root", root);
+
+        if (specified(deep))
+            query = query.setLong("deep", deep);
+
         return PlaceHibernateResultTransformer.toTree(query.list());
     }
 
@@ -74,15 +83,14 @@ public class PlaceDaoImpl implements PlaceDao {
     private String buildQueryForPlaceTree(Long placeId, String uaId,  Long typeId,
                                           Boolean area, Boolean root, Integer deep) {
         String sql = sqlStorage.get(
-            placeId != null ? "get_PlaceTree_by_id.sql" :
-            isNotBlank(uaId)? "get_PlaceTree_by_UA-id.sql" : "get_PlaceTree-s.sql");
+            placeId != null ? "get_PlaceTree_by_id.sql" : "get_PlaceTree_by_UA-id.sql");
 
-//        if (specified(typeId) || area != null || root != null || specified(deep))
-//            sql = sql + " where ";
-//
-//        if (specified(typeId))
-//            sql += " type_id = :typeId";
-//
+        if (specified(typeId) || area != null || root != null || specified(deep))
+            sql = sql + " where ";
+
+        if (specified(typeId))
+            sql += " type_id = :typeId";
+
 //        if (area != null && specified(typeId))
 //            sql += " and ";
 //
@@ -94,12 +102,12 @@ public class PlaceDaoImpl implements PlaceDao {
 //
 //        if (root != null)
 //            sql += " root = :root";
-//
-//        if (specified(deep) && (specified(typeId) || area != null || root != null))
-//            sql += " and ";
-//
-//        if (specified(deep))
-//            sql += " and level <= :deep";
+
+        if (specified(deep) && (specified(typeId) || area != null || root != null))
+            sql += " and ";
+
+        if (specified(deep))
+            sql += " and level <= :deep";
 
         LOG.debug("Final query {}", sql);
 
@@ -108,5 +116,11 @@ public class PlaceDaoImpl implements PlaceDao {
 
     private boolean specified(Long value) {
         return value != null && value > 0;
+    }
+    private boolean specified(Integer value) {
+        return value != null && value > 0;
+    }
+    private boolean specified(Boolean value) {
+        return value != null;
     }
 }
