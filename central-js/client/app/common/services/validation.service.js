@@ -11,7 +11,7 @@
     validate: {
       PhoneUA: {
         aField_ID: ['privatePhone', 'workPhone', 'phone', 'tel']
-    desc: 'Український номер телефону'
+        desc: 'Український номер телефону'
       },
       Mail: {
         aField_ID: ['privateMail', 'email'],
@@ -65,15 +65,7 @@ angular.module('app').service('ValidationService', ['moment', 'amMoment', 'angul
 // .value('defaultDateFormat', 'YYYY-MM-DD' );
 
 function ValidationService(moment, amMoment, angularMomentConfig) {
-
-  var self = this;
-  self.sFormat = 'YYYY-MM-DD';
-
-  // Це для того, щоб бачити дати в українському форматі. FIXME: hardcoded locale value
-  (moment.locale || moment.lang)('uk');
-  amMoment.changeLocale('uk');
-
-  self.markers = {
+  this.markers = {
     validate: {
       PhoneUA: {
         aField_ID: ['privatePhone', 'workPhone', 'phone', 'tel']
@@ -106,6 +98,13 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       }
     }
   };
+
+  var self = this;
+  self.sFormat = 'YYYY-MM-DD';
+
+  // Це для того, щоб бачити дати в українському форматі. FIXME: hardcoded locale value
+  (moment.locale || moment.lang)('uk');
+  amMoment.changeLocale('uk');
 
   self.getValidationMarkers = function() {
     return self.markers;
