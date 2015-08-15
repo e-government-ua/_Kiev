@@ -73,8 +73,8 @@ public class PlaceDaoImpl implements PlaceDao {
 //        if (specified(root))
 //            query = query.setBoolean("root", root);
 
-        if (specified(deep))
-            query = query.setLong("deep", deep);
+//        if (specified(deep))
+//            query = query.setLong("deep", deep);
 
         return PlaceHibernateResultTransformer.toTree(query.list());
     }
@@ -103,11 +103,11 @@ public class PlaceDaoImpl implements PlaceDao {
 //        if (root != null)
 //            sql += " root = :root";
 
-        if (specified(deep) && (specified(typeId) || area != null || root != null))
-            sql += " and ";
-
-        if (specified(deep))
-            sql += " and level <= :deep";
+//        if (specified(deep) && (specified(typeId) || area != null || root != null))
+//            sql += " and ";
+//
+//        if (specified(deep))
+//            sql += " level <= :deep";
 
         LOG.debug("Final query {}", sql);
 
