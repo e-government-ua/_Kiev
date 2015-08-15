@@ -22,7 +22,6 @@ import static org.springframework.util.Assert.notNull;
 @Component
 @Resource.Classpath("/queryloader/config.properties")
 public class QueryLoader {
-    private static final Logger LOG = LoggerFactory.getLogger(QueryLoader.class);
 
     @Property("db.profile")
     private String dbProfile;
@@ -35,10 +34,7 @@ public class QueryLoader {
 
     public QueryLoader(){
         PropertyLoader.newInstance().populate(this);
-        homeDirectory = "/queryloader/PostgreSQL/"; // TODO remove hard code
-
-        LOG.info("Root: {}, DB profile: {}", rootFolder, dbProfile);
-//        homeDirectory = rootFolder + TypeDB.define(dbProfile).getPath();
+        homeDirectory = rootFolder + TypeDB.define(dbProfile).getPath();
     }
 
     public QueryLoader(String directory) {

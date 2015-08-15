@@ -68,7 +68,7 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
      * @return unexpected result for list if it wasn't created via build method above
      **/
     public static PlaceHierarchy toTree(List<PlaceHierarchyRecord> dataRows) {
-        LOG.info("Got {}", dataRows);
+        LOG.debug("Got {}", dataRows);
 
         Map<Long, PlaceHierarchy> tempParents = new HashMap<>();
         PlaceHierarchy tree = new PlaceHierarchy();
@@ -76,47 +76,52 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         // We want to transform the list of Hibernate entities into hierarchy tree
         for(int i=0; i<dataRows.size(); i++){
             PlaceHierarchyRecord node = dataRows.get(i);
-            LOG.info("Handling of {} started", node);
+            LOG.debug("Handling of {} started", node);
             if (i==0){ // It's a root element
                 register( node.toTree(), tempParents );
                 tree = tempParents.get( node.getPlaceId() );
-            } else if (!node.isAlreadyIncluded()) {
+            } else if ( !node.isAlreadyIncluded() ){
                 /*
                     It means that:
                     - it's general node of our tree (isn't a root)
                     - this node isn't included in result tree yet, hence, it should be included (with children)
                  */
-                PlaceHierarchy parent = tempParents.get( node.getParentId() );   // Get the parent node
-                PlaceHierarchy currnt = node.toTree();                           // Get the current node
+                PlaceHierarchy parent = tempParents.get( node.getParentId() );  // Get the parent node
+                PlaceHierarchy currnt = node.toTree();                          // Get the current node
                 register(currnt, tempParents);                                  // Register curnt node in temp. storage
-
-                List<PlaceHierarchy> children = new ArrayList<>();              // Create a container for children
-
-                // Now we need to find all children of current node. Thus, start from the next element in data rows
-                for(int j=i+1; j<dataRows.size(); j++){
-                    PlaceHierarchyRecord hr = dataRows.get(j);
-                    LOG.info("Index of current node {}, index of next node {}, the node {}", i, j, hr);
-
-                    if (hr.isAlreadyIncluded()) // It's already belongs to our result tree
-                        continue;
-
-                    if (currnt.getPlace().getId().equals(hr.getParentId())) {   // One child was found
-                        PlaceHierarchy itsMySon = hr.toTree();                  // Get child
-                        hr.setAlreadyIncluded(true);                            // Disable child for the next iteration
-                        children.add( itsMySon );                               // Append child to the children list
-                    }
-                }
-                currnt.setChildren(children);
+                currnt.setChildren( getChildren(dataRows, i+1, currnt) );
                 parent.addChild(currnt);
             }
-            node.setAlreadyIncluded(true);                                       // Disable node for the next iteration
-            LOG.info("Node handled {}", node);
-            LOG.info("Current tree {}", tree);
+            node.setAlreadyIncluded(true);                                      // Disable node for the next iteration
         }
-        LOG.info("Whole tree {}", tree);
-        LOG.info("Temp. parent storage {}", tempParents);
+        LOG.debug("Whole tree {}", tree);
         tempParents.clear();                                                    // We don't need it anymore because
         return tree;                                                            // the hierarchy was build successfully
+    }
+
+    /**
+     * Allows to find all children for current node.
+     * @param dataRows collection of all nodes
+     * @param startElement its a start position. We need to check only unread nodes.
+     * @param node our current node
+     **/
+    private static List<PlaceHierarchy> getChildren( List<PlaceHierarchyRecord> dataRows,
+                                                     int startElement,
+                                                     PlaceHierarchy node ){
+        List<PlaceHierarchy> children = new ArrayList<>();
+        for(int j=startElement; j<dataRows.size(); j++){
+            PlaceHierarchyRecord hr = dataRows.get(j);
+
+            if (hr.isAlreadyIncluded()) // It's already belongs to our result tree
+                continue;
+
+            if (node.getPlace().getId().equals(hr.getParentId())) {     // One child was found
+                PlaceHierarchy itsMySon = hr.toTree();                  // Get child
+                hr.setAlreadyIncluded(true);                            // Disable child for the next iteration
+                children.add( itsMySon );                               // Append child to the children list
+            }
+        }
+        return children;
     }
 
 
