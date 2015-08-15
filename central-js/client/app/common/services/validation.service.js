@@ -1,48 +1,43 @@
 /**
- * Поле 'markers' має посиланнями на поля, що потребують валідації по певному формату.
- * Важливо: різні маркери можуть призначатися одним і тим же полям. 
+ * markers має посилання на поля, що потребують валідації.
+ * Валідатори пов'язуються з полями форми через назви ($name) у масиві aField_ID.
+ *
+ * Різні маркери можуть призначатися одним і тим же полям. 
  * Див. i/issues/375, 654
+ *  
+ * PhoneUA, Mail, AutoVIN, TextUA, 'TextRU', 'DateFormat', 'DateElapsed' 
  *
- * Валідатори:
- *
- * 1) 'TextUA' - Усі українскі літери, без цифр, можливий мінус (дефіс) та пробіл
- * Текст помилки: 'Текст може містити тількі українські літери або мінус чи пробіл'
- *
- * 2) 'TextRU' - Усі російські літери, без цифр, можливий мінус (дефіс) та пробіл
- * Текст помилки: 'Текст може містити тількі російські літери або мінус чи пробіл'
- *
- * 3) 'DateFormat' - Дата у заданому форматі DATE_FORMAT
- * Текст помилки: 'Дата може бути тільки формату DATE_FORMAT'
- *
- * 4) 'DateElapsed' - З/до дати у полі з/після поточної, більше/менше днів/місяців/років
- * Текст помилки: 'З/до дати з/після сьогоднішньої, має бути більше/менше ніж х-днів, х-місяців, х-років.
- *
- * х-___        - підставляти тільки, якщо x не дорівнює 0
- * З/До         - в залежності від bFuture
- * більше/менше - в залежності від bLess
- *
- * Приклад об'єкту markers:
- *
- * var markers = .markers = {
+ * var markers = {
     validate: {
       PhoneUA: {
         aField_ID: ['privatePhone', 'workPhone', 'phone', 'tel']
+    desc: 'Український номер телефону'
       },
       Mail: {
-        aField_ID: ['privateMail', 'email']
+        aField_ID: ['privateMail', 'email'],
+        desc: 'Адреса електронної пошти',
+        error: 'Невірна адреса електронної пошти'
       },
       AutoVIN: {
-        aField_ID: ['vin_code', 'vin_code1', 'vin']
+        aField_ID: ['vin_code', 'vin_code1', 'vin'],
+        desc: 'Номер авто VIN',
+        error: 'Помилка у номері авто VIN'
       },
       TextUA: {
-        aField_ID: ['textUa']
+        aField_ID: ['textUa'],
+        desc: 'Тільки українські літери, без цифр, можливий мінус (дефіс) та пробіл',
+        error: 'Текст може містити тількі українські літери або мінус чи пробіл'
       },
       TextRU: {
-        aField_ID: ['textRu']
+        aField_ID: ['textRu'],
+        desc: 'Тільки російські літери, без цифр, можливий мінус (дефіс) та пробіл',
+        error: 'Текст може містити тількі російські літери або мінус чи пробіл'
       },
       DateFormat: {
         aField_ID: ['dateFormat'],
-        sFormat: 'YYYY-MM-DD'
+        sFormat: 'YYYY-MM-DD',
+        desc: 'Дата у заданому форматі {DATE_FORMAT}',
+        error: 'Дата може бути тільки формату {DATE_FORMAT}'
       },
       DateElapsed: {
         aField_ID: ['dateOrder'],
@@ -56,8 +51,6 @@
       }
     }
   };
- *
- * Де 'privatePhone' і 'workPhone' - це назви полів, яку треба валідувати.
  */
 
 'use strict';
@@ -68,7 +61,7 @@ angular.module('app').service('ValidationService', ['moment', 'amMoment', 'angul
     timezone: 'Europe/Kiev',
     format: 'HH:mm:ss, YYYY-MM-DD',
   });
-// TOFO
+// TODO
 // .value('defaultDateFormat', 'YYYY-MM-DD' );
 
 function ValidationService(moment, amMoment, angularMomentConfig) {
@@ -142,7 +135,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
       angular.forEach(form, function(formField) {
 
         function fieldNameIsListedInMarker(formField) {
-          return formField && formField.$name && _.indexOf(marker['aField_ID'], formField.$name) !== -1;
+          return formField && formField.$name && _.indexOf(marker.aField_ID, formField.$name) !== -1;
         }
 
         if (fieldNameIsListedInMarker(formField)) {
