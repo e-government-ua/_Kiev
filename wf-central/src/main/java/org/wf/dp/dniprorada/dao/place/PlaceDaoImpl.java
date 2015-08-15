@@ -76,7 +76,7 @@ public class PlaceDaoImpl implements PlaceDao {
 //        if (specified(deep))
 //            query = query.setLong("deep", deep);
 
-        return PlaceHibernateResultTransformer.toTree(query.list());
+        return PlaceHibernateResultTransformer.toTree( query.list() );
     }
 
     @Cacheable("ext-file-PlaceTree")
@@ -85,11 +85,11 @@ public class PlaceDaoImpl implements PlaceDao {
         String sql = sqlStorage.get(
             placeId != null ? "get_PlaceTree_by_id.sql" : "get_PlaceTree_by_UA-id.sql");
 
-        if (specified(typeId) || area != null || root != null || specified(deep))
-            sql = sql + " where ";
-
-        if (specified(typeId))
-            sql += " type_id = :typeId";
+//        if (specified(typeId) || area != null || root != null || specified(deep))
+//            sql = sql + " where ";
+//
+//        if (specified(typeId))
+//            sql += " type_id = :typeId";
 
 //        if (area != null && specified(typeId))
 //            sql += " and ";
