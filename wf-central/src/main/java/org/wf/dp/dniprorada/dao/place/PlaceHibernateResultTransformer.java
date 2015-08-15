@@ -106,7 +106,7 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
                     }
                 }
                 currnt.setChildren(children);
-                parent.addChild(currnt);                                        // Link parent and its child
+                parent.addChild(currnt);
             }
             node.setAlreadyIncluded(true);                                       // Disable node for the next iteration
             LOG.info("Node handled {}", node);
