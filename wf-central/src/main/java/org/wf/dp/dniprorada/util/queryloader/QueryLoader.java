@@ -1,8 +1,6 @@
 package org.wf.dp.dniprorada.util.queryloader;
 
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import ru.qatools.properties.Property;
 import ru.qatools.properties.PropertyLoader;
@@ -20,7 +18,7 @@ import static org.springframework.util.Assert.notNull;
  * @since  02.08.15
  */
 @Component
-@Resource.Classpath("/queryloader/config.properties")
+@Resource.Classpath("queryloader.properties")
 public class QueryLoader {
 
     @Property("db.profile")
@@ -69,29 +67,12 @@ public class QueryLoader {
     }
 
 
-
     public String getHomeDirectory(){
         return homeDirectory;
     }
 
 
-    public String getDbProfile() {
-        return dbProfile;
-    }
-    public void setDbProfile(String dbProfile) {
-        this.dbProfile = dbProfile;
-    }
-
-
-    public String getRootFolder() {
-        return rootFolder;
-    }
-    public void setRootFolder(String rootFolder) {
-        this.rootFolder = rootFolder;
-    }
-
-
-    public enum TypeDB {
+    private enum TypeDB {
         Postgres("PostgreSQL"), H2("H2");
 
         private String profile;

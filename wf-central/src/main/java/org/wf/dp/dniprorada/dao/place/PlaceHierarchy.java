@@ -21,7 +21,7 @@ public class PlaceHierarchy {
     private Place place;
 
     @JsonProperty
-    private List<PlaceHierarchy> children;
+    private List<PlaceHierarchy> children = new ArrayList<>();
 
 
     public Long getLevelOfArea() {
@@ -55,10 +55,6 @@ public class PlaceHierarchy {
     public void addChild(PlaceHierarchy childNode) {
         if (childNode == null)
             return;
-
-        if (children == null)
-            children = new ArrayList();
-
         children.add(childNode);
     }
 
