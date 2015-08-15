@@ -87,11 +87,9 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
                  */
                 PlaceHierarchy parent = tempParents.get( node.getParentId() );   // Get the parent node
                 PlaceHierarchy currnt = node.toTree();                           // Get the current node
-                parent.addChild(currnt);                                        // Link them as parent-child
                 register(currnt, tempParents);                                  // Register curnt node in temp. storage
 
                 List<PlaceHierarchy> children = new ArrayList<>();              // Create a container for children
-                currnt.setChildren(children);                                   // of our current element
 
                 // Now we need to find all children of current node. Thus, start from the next element in data rows
                 for(int j=i+1; j<dataRows.size(); j++){
@@ -107,6 +105,8 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
                         children.add( itsMySon );                               // Append child to the children list
                     }
                 }
+                currnt.setChildren(children);
+                parent.addChild(currnt);                                        // Link parent and its child
             }
             node.setAlreadyIncluded(true);                                       // Disable node for the next iteration
             LOG.info("Node handled {}", node);

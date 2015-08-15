@@ -9,6 +9,8 @@ import ru.qatools.properties.Resource;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static org.springframework.util.Assert.notNull;
+
 /**
  * This class allow to store sql/hql queries in external files
  *
@@ -21,26 +23,22 @@ public class QueryLoader {
 
     @Property("db.profile")
     private String dbProfile;
+
+    @Property("root.folder")
+    private String rootFolder;
+
     private String homeDirectory;
 
 
     public QueryLoader(){
         PropertyLoader.newInstance().populate(this);
-        calculatePath( TypeDB.define(dbProfile), "/queryloader/");
+        homeDirectory = rootFolder + TypeDB.define(dbProfile).getPath();
     }
+
     public QueryLoader(String directory) {
         this.homeDirectory = directory;
     }
-    public QueryLoader(TypeDB type) {
-        calculatePath(type, "/queryloader/");
-    }
-    public QueryLoader(TypeDB type, String directory) {
-        calculatePath(type, directory);
-    }
 
-    private final void calculatePath(TypeDB type, String directory) {
-        homeDirectory = directory + type.getPath();
-    }
 
 
     /**
@@ -70,15 +68,10 @@ public class QueryLoader {
 
 
 
-    private static void notNull(Object obj, String errMsg){
-        if (obj == null) {
-            throw new IllegalArgumentException(errMsg);
-        }
-    }
-
     public String getHomeDirectory(){
         return homeDirectory;
     }
+
 
     public String getDbProfile() {
         return dbProfile;
@@ -87,31 +80,34 @@ public class QueryLoader {
         this.dbProfile = dbProfile;
     }
 
-    public enum TypeDB {
+
+    public String getRootFolder() {
+        return rootFolder;
+    }
+    public void setRootFolder(String rootFolder) {
+        this.rootFolder = rootFolder;
+    }
+
+
+    private enum TypeDB {
         Postgres("PostgreSQL"), H2("H2");
 
-        private String path;
-        private String name;
+        private String profile;
 
-        TypeDB(String name) {
-            this(name, name + '/');
-        }
-        TypeDB(String name, String path) {
-            this.name = name;
-            this.path = path;
+        private TypeDB(String profile) {
+            this.profile = profile;
         }
 
         public String getPath() {
-            return path;
+            return profile + '/';
         }
-        public String getName() {
-            return name;
-        }
-        public static final TypeDB define(String name){
+
+        public static final TypeDB define(String profile){
+            notNull(profile, "Profile can't be empty");
             for(TypeDB type : values())
-                if (type.getName().equals(name))
+                if (type.getPath().startsWith(profile))
                     return type;
-            throw new IllegalArgumentException("Database type " + name + " not found");
+            throw new IllegalArgumentException("Database type " + profile + " not found");
         }
     }
 }

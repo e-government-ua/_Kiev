@@ -45,4 +45,13 @@ public class Place extends NamedEntity {
     public void setOriginalName(String originalName) {
         this.originalName = originalName;
     }
+
+    @Override
+    public String toString() {
+        return "Place{" +
+                "placeTypeId=" + placeTypeId +
+                ", uaId='" + uaId + '\'' +
+                ", originalName='" + originalName + '\'' +
+                '}';
+    }
 }
