@@ -49,7 +49,9 @@ public class Place extends NamedEntity {
     @Override
     public String toString() {
         return "Place{" +
-                "placeTypeId=" + placeTypeId +
+                ", id=" + getId() +
+                ", name=" + getName() +
+                ", placeTypeId=" + placeTypeId +
                 ", uaId='" + uaId + '\'' +
                 ", originalName='" + originalName + '\'' +
                 '}';

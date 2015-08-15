@@ -78,7 +78,8 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
             PlaceHierarchyRecord node = dataRows.get(i);
             LOG.info("Handling of {} started", node);
             if (i==0){ // It's a root element
-                register( node.toTree(), tempParents);
+                register( node.toTree(), tempParents );
+                tree = tempParents.get( node.getPlaceId() );
             } else if (!node.isAlreadyIncluded()) {
                 /*
                     It means that:

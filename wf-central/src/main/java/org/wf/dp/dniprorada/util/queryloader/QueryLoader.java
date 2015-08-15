@@ -20,7 +20,7 @@ import static org.springframework.util.Assert.notNull;
  * @since  02.08.15
  */
 @Component
-@Resource.Classpath("config.properties")
+@Resource.Classpath("/queryloader/config.properties")
 public class QueryLoader {
     private static final Logger LOG = LoggerFactory.getLogger(QueryLoader.class);
 
