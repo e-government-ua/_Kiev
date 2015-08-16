@@ -92,10 +92,10 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
         aField_ID: ['vin_code', 'vin_code1', 'vin']
       },
       TextUA: {
-        aField_ID: ['textUa']
+        aField_ID: ['textUa','lastName_UA1','firstName_UA1','middleName_UA1']
       },
       TextRU: {
-        aField_ID: ['textRu']
+        aField_ID: ['textRu','lastName_RU1','firstName_RU1','middleName_RU1']
       },
       DateFormat: {
         aField_ID: ['dateFormat'],
