@@ -43,15 +43,22 @@ public class PlaceController {
             @RequestParam(value = "bRoot",          required = false)   Boolean root, // для фильтра
             @RequestParam(value = "nDeep",          defaultValue = "1") Integer deep
     ) {
-        PlaceHierarchyRecord rootRecord = new PlaceHierarchyRecord();
-        rootRecord.setPlaceId(placeId);
-        rootRecord.setUaID(uaId);
-        rootRecord.setTypeId(typeId);
-        rootRecord.setArea(area);
-        rootRecord.setRoot(root);
-        rootRecord.setDeep(deep);
-        LOG.info("Got {}", rootRecord);
-        return placeDao.getTree(rootRecord);
+        try {
+            LOG.warn("Started {}, {}, {}, {}, {}, {}", placeId, uaId, typeId, area, root, deep);
+            PlaceHierarchyRecord rootRecord = new PlaceHierarchyRecord();
+            rootRecord.setPlaceId(placeId);
+            rootRecord.setUaID(uaId);
+            rootRecord.setTypeId(typeId);
+            rootRecord.setArea(area);
+            rootRecord.setRoot(root);
+            rootRecord.setDeep(deep);
+            LOG.warn("Got {}", rootRecord);
+            return placeDao.getTree(rootRecord);
+
+        } catch (Exception e) { // TODO just for test, remove later
+            LOG.error("Where is my stacktrace? Life is suck!", e);
+            return null;
+        }
     }
 
 
