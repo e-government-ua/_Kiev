@@ -13,9 +13,12 @@
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження; у форматі ДД.ММ.РРРР" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження; країна, область/регіон, населений пункт" type="string" required="true"></activiti:formProperty>
 
-        <activiti:formProperty id="bankIdsID_Country" name="Громадянство" type="invisible" default="UKR"></activiti:formProperty>
-        <activiti:formProperty id="sID_Country" name="Country Code" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdsID_Country" name="Громадянство (Code)" type="invisible" default="UA"></activiti:formProperty>
+        <activiti:formProperty id="sID_Country" name="Country Code (Code)" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="sCountry" name="Громадянство" type="string"></activiti:formProperty>
 
+        <activiti:formProperty id="sID_Public_SubjectOrganJoin" name="Отделение" type="select" default="0"></activiti:formProperty>
+                
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="enum" required="true">
           <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки (піклування), створення прийомної сім'ї або дитячого будинку cімейного типу"></activiti:value>
           <activiti:value id="attr2" name="Оформлення документів в органи соціального забезпечення."></activiti:value>
