@@ -99,7 +99,7 @@
                                        class="form-control_">{{data.formData.params[property.id].value}}</label>
 
                                 <dropdown-country ng-switch-when="string"
-                                                  ng-if="property.id==='resident'"
+                                                  ng-if="property.id==='resident' || property.id === 'sCountry'"
                                                   ng-model="data.formData.params[property.id].value"
                                                   service-data="oServiceData"
                                                   ng-required="property.required"></dropdown-country>
@@ -107,7 +107,7 @@
                                 <input ng-switch-when="string"
                                        type="text"
                                        name="{{property.id}}"
-                                       ng-hide="property.id==='resident'"
+                                       ng-hide="property.id==='resident' || property.id === 'sCountry'"
                                        ng-model="data.formData.params[property.id].value"
                                        ng-required="property.required"
                                        class="form-control"
