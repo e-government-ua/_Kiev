@@ -4,27 +4,30 @@ FROM (
            "nID_Place",
            "nID_Place_Parent",
            "nID_Place_Area",
-           "nID_Place_Root") AS (
+           "nID_Place_Root",
+           level) AS (
          SELECT
            t1."nID_Place",
            t1."nID_Place_Parent",
            t1."nID_Place_Area",
            t1."nID_Place_Root",
-           0 AS depth
+           0
          FROM
            "PlaceTree" t1
+         WHERE
+           t1."nID_Place" = :placeId
          UNION
          SELECT
            t2."nID_Place",
            t2."nID_Place_Parent",
            t2."nID_Place_Area",
            t2."nID_Place_Root",
-           depth + 1
+           level + 1
          FROM
            "PlaceTree" t2
            , all_places ap
          WHERE
-           t2."nID_Place_Parent" = ap."nID_Place"
+           ap."nID_Place" = t2."nID_Place_Parent"
        )
        SELECT
          p."nID"               AS id,
@@ -33,13 +36,13 @@ FROM (
          p."sName"             AS name,
          p."sNameOriginal"     AS original_name,
          ap."nID_Place_Parent" AS parent_id,
-         ap."nID_Place_Area"   AS area,
-         ap."nID_Place_Root"   AS root,
-         ap.depth
+         ap."nID_Place_Area"   AS area_id,
+         ap."nID_Place_Root"   AS root_id,
+         ap.level
        FROM
          all_places ap
          , "Place" p
        WHERE
          ap."nID_Place" = p."nID"
+       ORDER BY ap.level
      ) the_places
-

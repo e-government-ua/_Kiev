@@ -1,14 +1,15 @@
 package org.wf.dp.dniprorada.util.queryloader;
 
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import ru.qatools.properties.Property;
+import ru.qatools.properties.PropertyLoader;
+import ru.qatools.properties.Resource;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
+
+import static org.springframework.util.Assert.notNull;
 
 /**
  * This class allow to store sql/hql queries in external files
@@ -17,19 +18,27 @@ import java.nio.file.Files;
  * @since  02.08.15
  */
 @Component
+@Resource.Classpath("queryloader.properties")
 public class QueryLoader {
-    private static final Logger LOG = LoggerFactory.getLogger(QueryLoader.class);
+
+    @Property("db.profile")
+    private String dbProfile;
+
+    @Property("root.folder")
+    private String rootFolder;
 
     private String homeDirectory;
 
 
     public QueryLoader(){
-        this("/queryloader/");
+        PropertyLoader.newInstance().populate(this);
+        homeDirectory = rootFolder + TypeDB.define(dbProfile).getPath();
     }
 
     public QueryLoader(String directory) {
-        homeDirectory = directory;
+        this.homeDirectory = directory;
     }
+
 
 
     /**
@@ -58,14 +67,30 @@ public class QueryLoader {
     }
 
 
-
-    private static void notNull(Object obj, String errMsg){
-        if (obj == null) {
-            throw new IllegalArgumentException(errMsg);
-        }
-    }
-
     public String getHomeDirectory(){
         return homeDirectory;
+    }
+
+
+    private enum TypeDB {
+        Postgres("PostgreSQL"), H2("H2");
+
+        private String profile;
+
+        private TypeDB(String profile) {
+            this.profile = profile;
+        }
+
+        public String getPath() {
+            return profile + '/';
+        }
+
+        public static final TypeDB define(String profile){
+            notNull(profile, "Profile can't be empty");
+            for(TypeDB type : values())
+                if (type.getPath().startsWith(profile))
+                    return type;
+            throw new IllegalArgumentException("Database type " + profile + " not found");
+        }
     }
 }

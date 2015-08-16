@@ -1,6 +1,6 @@
 angular.module('documents').config(function ($stateProvider, statesRepositoryProvider) {
   statesRepositoryProvider.init(window.location.host);
-  if (statesRepositoryProvider.isCentral()) {
+//  if (statesRepositoryProvider.isCentral()) {
     $stateProvider
       .state('index.documents', {
         url: 'documents',
@@ -78,5 +78,5 @@ angular.module('documents').config(function ($stateProvider, statesRepositoryPro
           }
         }
       });
-  }
+//  }
 });

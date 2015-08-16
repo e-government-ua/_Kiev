@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.dao;
+package org.wf.dp.dniprorada.dao.place;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -8,15 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
+import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.model.Place;
-import org.wf.dp.dniprorada.util.Tree;
 import org.wf.dp.dniprorada.util.queryloader.QueryLoader;
 
 import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.wf.dp.dniprorada.dao.PlaceHibernateResultTransformer.toTree;
 
 /**
  * @author dgroup
@@ -27,9 +25,6 @@ public class PlaceDaoImpl implements PlaceDao {
 
     @Autowired
     private SessionFactory sessionFactory;
-
-    @Autowired
-    private BaseEntityDao baseEntityDao;
 
     @Autowired
     private QueryLoader sqlStorage;
@@ -52,7 +47,7 @@ public class PlaceDaoImpl implements PlaceDao {
     }
 
     @SuppressWarnings("unchecked")
-    public Tree<Place> getPlaces(Long placeId,
+    public PlaceHierarchyTree getPlaces(Long placeId,
                                  String uaId,
                                  Long typeId,
                                  Boolean area,
@@ -72,22 +67,30 @@ public class PlaceDaoImpl implements PlaceDao {
         if (specified(typeId))
             query = query.setLong("typeId", typeId);
 
-        return toTree( query.list() );
+//        if (specified(area))
+//            query = query.setBoolean("area", area);
+//
+//        if (specified(root))
+//            query = query.setBoolean("root", root);
+
+//        if (specified(deep))
+//            query = query.setLong("deep", deep);
+
+        return PlaceHibernateResultTransformer.toTree( query.list() );
     }
 
     @Cacheable("ext-file-PlaceTree")
     private String buildQueryForPlaceTree(Long placeId, String uaId,  Long typeId,
                                           Boolean area, Boolean root, Integer deep) {
         String sql = sqlStorage.get(
-            placeId != null ? "get_PlaceTree_by_id.sql" :
-            isNotBlank(uaId)? "get_PlaceTree_by_UA-id.sql" : "get_PlaceTree-s.sql");
+            placeId != null ? "get_PlaceTree_by_id.sql" : "get_PlaceTree_by_UA-id.sql");
 
 //        if (specified(typeId) || area != null || root != null || specified(deep))
 //            sql = sql + " where ";
 //
 //        if (specified(typeId))
 //            sql += " type_id = :typeId";
-//
+
 //        if (area != null && specified(typeId))
 //            sql += " and ";
 //
@@ -99,12 +102,12 @@ public class PlaceDaoImpl implements PlaceDao {
 //
 //        if (root != null)
 //            sql += " root = :root";
-//
+
 //        if (specified(deep) && (specified(typeId) || area != null || root != null))
 //            sql += " and ";
 //
 //        if (specified(deep))
-//            sql += " and level <= :deep";
+//            sql += " level <= :deep";
 
         LOG.debug("Final query {}", sql);
 
@@ -113,5 +116,11 @@ public class PlaceDaoImpl implements PlaceDao {
 
     private boolean specified(Long value) {
         return value != null && value > 0;
+    }
+    private boolean specified(Integer value) {
+        return value != null && value > 0;
+    }
+    private boolean specified(Boolean value) {
+        return value != null;
     }
 }

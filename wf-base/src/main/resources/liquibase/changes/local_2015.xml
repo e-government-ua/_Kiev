@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
@@ -95,5 +95,22 @@
                 tableName="EscalationRule" columnName="nID"
                 startWith="100" columnDataType="bigint"/>
     </changeSet>
+
+    <changeSet id="issue-658_add-column" author="LamronNu">
+        <addColumn tableName="EscalationRule">
+            <column name="sID_UserTask" type="varchar">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="issue-658_remove-unique-index" author="LamronNu">
+        <dropColumn columnName="sID_BP" tableName="EscalationRule"/>
+        <addColumn tableName="EscalationRule">
+            <column name="sID_BP" type="varchar"/>
+        </addColumn>
+    </changeSet>
+
+    <!-- ####################################################################################################### -->
 
 </databaseChangeLog>

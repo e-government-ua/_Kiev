@@ -48,22 +48,26 @@ public class ActivitiRestFlowController {
    @RequestMapping(value = "/getFlowSlots_ServiceData", method = RequestMethod.GET)
    public
    @ResponseBody
-   ResponseEntity getFlowSlots(@RequestParam(value = "nID_ServiceData") Long nID_ServiceData,
+   ResponseEntity getFlowSlots(@RequestParam(value = "nID_ServiceData", required = false) Long nID_ServiceData,
+                               @RequestParam(value = "sID_BP", required = false) String sID_BP,
                                @RequestParam(value = "bAll", required = false, defaultValue = "false") boolean bAll,
                                @RequestParam(value = "nDays", required = false, defaultValue = "60") int nDays,
-                               @RequestParam(value = "sDate", required = false) String sDate) {
+                               @RequestParam(value = "sDateStart", required = false) String sDateStart
+   ) throws Exception {
 
 
-      DateTime startDate = DateTime.now().withTimeAtStartOfDay();
-      DateTime endDate = startDate.plusDays(nDays);
+      DateTime oDateStart = DateTime.now().withTimeAtStartOfDay();
+      oDateStart = oDateStart.plusDays(2);
+      DateTime oDateEnd = oDateStart.plusDays(nDays);
       
-      if (sDate != null){
+      if (sDateStart != null){
     	  DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
-    	  startDate = DateTime.parse(sDate, dtf);
-    	  endDate = startDate.plusDays(1);
+    	  oDateStart = DateTime.parse(sDateStart, dtf);
+    	  oDateEnd = oDateStart.plusDays(nDays);
       }
 
-      Days res = flowService.getFlowSlots(nID_ServiceData, startDate, endDate, bAll);
+        
+      Days res = flowService.getFlowSlots(nID_ServiceData, sID_BP, oDateStart, oDateEnd, bAll);
 
       return JsonRestUtils.toJsonResponse(res);
    }

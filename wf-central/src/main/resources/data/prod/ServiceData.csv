@@ -23,7 +23,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 22;21;5;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo2:1:60054"}};https://region.igov.org.ua/wf-region/;true;1;true;;BankID,EDS
 23;21;NULL;6;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo11:4:12554"}};https://region.igov.org.ua/wf-region/;true;1;true;;BankID,EDS
 24;22;NULL;6;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo10:4:12563"}};https://region.igov.org.ua/wf-region/;true;1;true;;BankID,EDS
-25;23;8;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk_1:4:12562"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+25;23;8;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk_1:4:12562"}};https://region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
 26;4;3;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"lviv_mvk-1:2:12559"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 27;627;3;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"lviv_mvk-2:2:12560"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 28;10;9;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"lutsk_mvk-2:1:12569"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
@@ -102,9 +102,9 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 102;656;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_mvd_2:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 103;657;26;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"khmelnitskij_mvk_2:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 104;658;1;NULL;1;{};http://menr.in.ua/;FALSE;1;FALSE;Для подання декларації Вам знадобляться електронно-цифровий підпис;BankID,EDS
-105;659;8;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk_2:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-106;660;8;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk_3:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-107;4;8;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk_4:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+105;659;8;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk_2:1:1"}};https://region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
+106;660;8;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk_3:1:1"}};https://region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
+107;4;8;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk_4:1:1"}};https://region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
 108;1;21;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"poltava_mvd_1:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 109;4;27;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zhitomir_mvk_1:1:1"}};https://region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
 110;23;27;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zhitomir_mvk_2:1:1"}};https://region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
@@ -112,7 +112,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 112;628;10;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_2_long2:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 113;1;14;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_mvd_10:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID
 119;15;14;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zaporoshye_mvk_1a:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-120;667;8;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk_5:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+120;667;8;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk_5:1:1"}};https://region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
 121;668;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mda_3:1:595058"}};https://region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
 122;15;2;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kr_rig_mvk_1:1:1"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 123;159;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_mreo_1:1:58"}};https://region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS

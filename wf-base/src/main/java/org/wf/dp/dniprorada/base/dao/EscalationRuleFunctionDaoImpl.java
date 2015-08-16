@@ -2,9 +2,11 @@ package org.wf.dp.dniprorada.base.dao;
 
 import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
 
+import javax.persistence.EntityNotFoundException;
+
 public class EscalationRuleFunctionDaoImpl extends AbstractEntityDao<EscalationRuleFunction>
-        implements EscalationRuleFunctionDao
-{
+        implements EscalationRuleFunctionDao {
+
     protected EscalationRuleFunctionDaoImpl() {
         super(EscalationRuleFunction.class);
     }
@@ -22,5 +24,14 @@ public class EscalationRuleFunctionDaoImpl extends AbstractEntityDao<EscalationR
         }
         saveOrUpdate(ruleFunction);
         return ruleFunction;
+    }
+
+    @Override
+    public void delete(Long nID) {
+        EscalationRuleFunction ruleFunction = getById(nID);
+        if (ruleFunction == null) {
+            throw new EntityNotFoundException("Record not found. No such ruleFunction with nID=" + nID);
+        }
+        delete(ruleFunction);
     }
 }

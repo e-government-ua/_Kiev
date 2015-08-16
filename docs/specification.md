@@ -1575,13 +1575,16 @@ http://test.igov.org.ua/wf-central/service/services/updateHistoryEvent_Service?n
 **HTTP Metod: GET**
 
 Параметры:
-* nID_ServiceData - ID сущности ServiceData (обязательный)
+* nID_ServiceData - ID сущности ServiceData (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса (обязательный если нет nID_ServiceData)
 * bAll - если false то из возвращаемого объекта исключаются элементы, содержащие "bHasFree":false "bFree":false (опциональный, по умолчанию false)
-* nDays - колличество дней от сегодняшего включительно, до nDays в будующее за который нужно вернуть слоты (опциональный, по умолчанию 60)
-* sDate - опциональный параметр, определяющие дату в формате "yyyy-MM-dd", за которую выбрать слоты. При наличии этого параметра слоты возвращаются только за указанный день.
+* nDays - колличество дней от сегодняшего включительно(или sDateStart, если задан), до nDays в будующее за который нужно вернуть слоты (опциональный, по умолчанию 60)
+* sDateStart - опциональный параметр, определяющие дату начала в формате "yyyy-MM-dd", с которую выбрать слоты. При наличии этого параметра слоты возвращаются только за указанный период(число дней задается nDays).
 
 Пример:
 https://test.igov.org.ua/wf-central/service/flow/getFlowSlots_ServiceData?nID_ServiceData=1
+или
+https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?sID_BP=kiev_mreo_1
 
 Ответ:  HTTP STATUS 200
 ```json
@@ -1991,7 +1994,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=kermit
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=[flowId]
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=[flowId]
 
 * {flowId} - ID потока
 
@@ -2069,7 +2072,7 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowInclude?
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=[flowId]
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=[flowId]
 
 * {flowId} - ID потока
 

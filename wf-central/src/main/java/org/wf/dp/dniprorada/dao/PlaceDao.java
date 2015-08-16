@@ -1,8 +1,8 @@
 package org.wf.dp.dniprorada.dao;
 
 import org.springframework.stereotype.Service;
+import org.wf.dp.dniprorada.dao.place.PlaceHierarchyTree;
 import org.wf.dp.dniprorada.model.Place;
-import org.wf.dp.dniprorada.util.Tree;
 
 import java.util.List;
 
@@ -13,5 +13,5 @@ import java.util.List;
 @Service
 public interface PlaceDao {
     List<Place> findBy(Long placeId, String uaId, Boolean tree);
-    Tree<Place> getPlaces(Long placeId, String uaId, Long typeId, Boolean area, Boolean root, Integer deep);
+    PlaceHierarchyTree getPlaces(Long placeId, String uaId, Long typeId, Boolean area, Boolean root, Integer deep);
 }

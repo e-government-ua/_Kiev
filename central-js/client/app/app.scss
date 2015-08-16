@@ -281,7 +281,7 @@ ul.dropdown-menu {
 
 .footer-container {
   margin-top: 10px;
-  margin-bottom: 5px; 
+  margin-bottom: 5px;
   line-height: 20px;
   .row>div{
       padding: 0.5em;
@@ -886,8 +886,6 @@ a {
   }
 }
 
-/* FIXME: possible code duplication */
-
 .add0-cat, .add0-subcat, .add0-srvc {
   color: #b8a927;
 }
@@ -1039,8 +1037,8 @@ label .snippet {
 * Validation Styles Start
 */
 
-$invalid-input-bg-color: #fcc;
-$invalid-input-border-color: #e10;
+$invalid-input-bg-color: #fff;
+$invalid-input-border-color: #a94442;
 $invalid-label-text-color: #a94442;
 
 .error {
@@ -1054,10 +1052,11 @@ $invalid-label-text-color: #a94442;
   }
 }
 
-input.ng-invalid-email, input.ng-invalid-tel  {
-  border: 1px solid $invalid-input-border-color;
+input.ng-touched.ng-invalid-email, input.ng-touched.ng-invalid-tel  {
+  border-color: $invalid-input-border-color;
   background-color: $invalid-input-bg-color;
 }
+
 .validation-message {
   color: $invalid-label-text-color;
 }
@@ -1067,7 +1066,7 @@ input.ng-invalid-email, input.ng-invalid-tel  {
 .iti-flag {
   background-image: url("/assets/images/icons/flags.png");
 
-  /* flags@2x.png for retina devices: */ 
+  /* flags@2x.png for retina devices: */
 
   @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
     background-image: url("/assets/images/icons/flags@2x.png");
@@ -1080,6 +1079,41 @@ input.ng-invalid-email, input.ng-invalid-tel  {
 
 .kyiv-header-container .container {
   height: 175px;
+  position: relative;
+
+  .navbar-kyiv {
+    position: absolute;
+    right: 50px;
+    bottom: 65px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+
+    .navbar-right
+    {
+      margin-right: 0;
+
+      .menu-item {
+        &:first-child {
+          border-bottom-left-radius: 5px;
+          border-top-left-radius: 5px;
+        }
+
+        &.selected {
+          text-decoration: underline;
+          background-color: transparent;
+        }
+
+        a {
+          margin-top: 0;
+          padding: 15px 10px;
+        }
+
+        h4 {
+          line-height: 1;
+        }
+      }
+    }
+  }
 }
 
 .kyiv-header {

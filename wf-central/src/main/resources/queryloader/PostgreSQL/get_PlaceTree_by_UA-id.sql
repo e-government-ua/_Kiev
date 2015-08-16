@@ -13,9 +13,11 @@ FROM (
            t1."nID_Place_Root",
            0
          FROM
-           "PlaceTree" t1
+           "PlaceTree" t1,
+           "Place" p
          WHERE
-           t1."nID_Place" = :placeId
+           t1."nID_Place" = p."nID"
+           AND p."sID_UA" = :ua_id
          UNION
          SELECT
            t2."nID_Place",
@@ -36,8 +38,8 @@ FROM (
          p."sName"             AS name,
          p."sNameOriginal"     AS original_name,
          ap."nID_Place_Parent" AS parent_id,
-         ap."nID_Place_Area"   AS area,
-         ap."nID_Place_Root"   AS root,
+         ap."nID_Place_Area"   AS area_id,
+         ap."nID_Place_Root"   AS root_id,
          ap.level
        FROM
          all_places ap

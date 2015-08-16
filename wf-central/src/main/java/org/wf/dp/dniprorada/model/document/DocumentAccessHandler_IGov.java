@@ -61,8 +61,10 @@ public class DocumentAccessHandler_IGov implements DocumentAccessHandler {
             if ("SMS".equalsIgnoreCase(access.getsCodeType())){
                 try {
                     LOG.info("[getAccess]accessCode="+accessCode);
-                    if(documentAccessDao.bSentDocumentAccessOTP(accessCode)){
-                        throw new DocumentAccessException("Document Access password need - sent SMS");
+                    //if(documentAccessDao.bSentDocumentAccessOTP(accessCode)){
+                    String sPhone=documentAccessDao.sSentDocumentAccessOTP_Phone(accessCode);
+                    if(sPhone!=null){
+                        throw new DocumentAccessException("Document Access password need - sent SMS ("+sPhone+")");
                     }else{
                         throw new DocumentAccessException("Document Access password need - cant send SMS");
                     }
