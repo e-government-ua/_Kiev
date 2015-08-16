@@ -17,7 +17,7 @@ public class PlaceHierarchyRecord {
     private Boolean area;
     private Boolean root;
     private Long deep;
-    private Boolean alreadyIncluded;
+    private Boolean alreadyIncluded = false;
 
     public Long getPlaceId() {
         return placeId;

@@ -113,7 +113,7 @@ public class PlaceDaoImpl implements PlaceDao {
         if (specified(phr.getDeep()))
             sql += " level <= :deep";
 
-        LOG.debug("SQL query {}", sql); // TODO decrease log level to debug
+        LOG.debug("SQL query {}", sql);
 
         return sql;
     }
