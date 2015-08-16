@@ -93,7 +93,7 @@
             <constructor-arg name="sessionFactory" ref="sessionFactory"/>
         </bean>
 
-        <bean id="sqlStorage" class="org.wf.dp.dniprorada.util.queryloader.QueryLoader"/>
+        <bean id="sqlStorage" class="org.wf.dp.dniprorada.base.util.queryloader.QueryLoader"/>
 
     </beans>
 

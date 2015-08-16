@@ -11,16 +11,16 @@ import java.util.List;
  * @since  22.07.2015
  */
 public class PlaceHierarchyTree {
-    @JsonProperty
+    @JsonProperty("nLevelArea")
     private Long levelOfArea;
 
-    @JsonProperty
+    @JsonProperty("nLevel")
     private Long level;
 
-    @JsonProperty
+    @JsonProperty("o")
     private Place place;
 
-    @JsonProperty
+    @JsonProperty("a")
     private List<PlaceHierarchyTree> children = new ArrayList<>();
 
 

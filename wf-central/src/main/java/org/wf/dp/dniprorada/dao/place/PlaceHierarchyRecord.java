@@ -8,28 +8,28 @@ import org.wf.dp.dniprorada.model.Place;
  */
 public class PlaceHierarchyRecord {
 
-    private long placeId;
-    private long typeId;
+    private Long placeId;
+    private Long typeId;
     private String uaID;
     private String name;
     private String originalName;
-    private long rootId;
-    private long parentId;
-    private long deep;
-    private long areaId;
-    private boolean alreadyIncluded;
+    private Long parentId;
+    private Boolean area;
+    private Boolean root;
+    private Long deep;
+    private Boolean alreadyIncluded;
 
-    public long getPlaceId() {
+    public Long getPlaceId() {
         return placeId;
     }
-    public void setPlaceId(long placeId) {
+    public void setPlaceId(Long placeId) {
         this.placeId = placeId;
     }
 
-    public long getTypeId() {
+    public Long getTypeId() {
         return typeId;
     }
-    public void setTypeId(long typeId) {
+    public void setTypeId(Long typeId) {
         this.typeId = typeId;
     }
 
@@ -54,39 +54,39 @@ public class PlaceHierarchyRecord {
         this.originalName = originalName;
     }
 
-    public long getRootId() {
-        return rootId;
-    }
-    public void setRootId(long rootId) {
-        this.rootId = rootId;
-    }
-
-    public long getParentId() {
+    public Long getParentId() {
         return parentId;
     }
-    public void setParentId(long parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
-    public long getDeep() {
+    public Long getDeep() {
         return deep;
     }
-    public void setDeep(long deep) {
+    public void setDeep(Long deep) {
         this.deep = deep;
     }
 
-    public long getAreaId() {
-        return areaId;
-    }
-    public void setAreaId(long areaId) {
-        this.areaId = areaId;
-    }
-
-    public boolean isAlreadyIncluded() {
+    public Boolean isAlreadyIncluded() {
         return alreadyIncluded;
     }
-    public void setAlreadyIncluded(boolean alreadyIncluded) {
+    public void setAlreadyIncluded(Boolean alreadyIncluded) {
         this.alreadyIncluded = alreadyIncluded;
+    }
+
+    public Boolean isArea() {
+        return area;
+    }
+    public void setArea(Boolean area) {
+        this.area = area;
+    }
+
+    public Boolean isRoot() {
+        return root;
+    }
+    public void setRoot(Boolean root) {
+        this.root = root;
     }
 
     public Place toPlace() {
@@ -115,10 +115,10 @@ public class PlaceHierarchyRecord {
                 ", uaID='" + uaID + '\'' +
                 ", name='" + name + '\'' +
                 ", originalName='" + originalName + '\'' +
-                ", rootId=" + rootId +
                 ", parentId=" + parentId +
+                ", area=" + area +
+                ", root=" + root +
                 ", deep=" + deep +
-                ", areaId=" + areaId +
                 ", alreadyIncluded=" + alreadyIncluded +
                 '}';
     }

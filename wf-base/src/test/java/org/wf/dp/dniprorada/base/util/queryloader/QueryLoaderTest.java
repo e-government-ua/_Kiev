@@ -1,12 +1,9 @@
-package org.org.wf.dp.dniprorada.util.queryloader;
+package org.wf.dp.dniprorada.base.util.queryloader;
 
+import org.apache.ibatis.jdbc.SQL;
 import org.junit.Test;
-import org.wf.dp.dniprorada.util.queryloader.MissingResourceException;
-import org.wf.dp.dniprorada.util.queryloader.QueryLoader;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * @author dgroup
@@ -20,12 +17,17 @@ public class QueryLoaderTest {
 
     @Test
     public void shouldDetectQuery(){
-        String expectedSQL  = "select * from dual";
+        String expectedSQL  = "select current_time";
         String actualSQL    = new QueryLoader(SQL_HOME_DIRECTORY + "PostgreSQL/")
             .get(SQL_FILE);
 
         assertNotNull(SQL_FILE + " not found", actualSQL);
         assertEquals("SQL queries aren't match", expectedSQL, actualSQL.trim());
+
+        String currTimeSQL = "curr_time.sql";
+        actualSQL = new QueryLoader().get(currTimeSQL);
+        assertNotNull(currTimeSQL + " not found through default constructor", actualSQL);
+        assertEquals("SQL queries aren't match through default constructor", expectedSQL, actualSQL.trim());
     }
 
     @Test(expected = MissingResourceException.class)
@@ -42,16 +44,5 @@ public class QueryLoaderTest {
 
         assertNotNull(SQL_FILE + " not found", actualSQL);
         assertEquals("SQL queries aren't match", expectedSQL, actualSQL.trim());
-    }
-
-
-    @Test
-    public void shouldDetectQueryViaDefaultProfile(){
-        String expectedSQL  = "\"nID_Place\" = :placeId";
-        String sqlFile      = "get_PlaceTree_by_id.sql";
-        String actualSQL    = new QueryLoader().get(sqlFile);
-
-        assertNotNull(sqlFile + " not found",  actualSQL);
-        assertTrue("SQL queries aren't match", actualSQL.trim().contains(expectedSQL));
     }
 }

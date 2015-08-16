@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.model.Place;
-import org.wf.dp.dniprorada.util.queryloader.QueryLoader;
+import org.wf.dp.dniprorada.base.util.queryloader.QueryLoader;
 
 import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.springframework.util.Assert.notNull;
+import static org.wf.dp.dniprorada.dao.place.PlaceHibernateResultTransformer.toTree;
 
 /**
  * @author dgroup
@@ -47,77 +49,76 @@ public class PlaceDaoImpl implements PlaceDao {
     }
 
     @SuppressWarnings("unchecked")
-    public PlaceHierarchyTree getPlaces(Long placeId,
-                                 String uaId,
-                                 Long typeId,
-                                 Boolean area,
-                                 Boolean root,
-                                 Integer deep) {
-        String sql = buildQueryForPlaceTree(placeId, uaId, typeId, area, root, deep);
-        LOG.info("Got sql for execution: \n\r {}", sql);
+    public PlaceHierarchyTree getTree(PlaceHierarchyRecord root) {
+        notNull(root, "Root element can't be a null");
+        String sql = buildQueryForPlaceTree(root);
 
         Query query = sessionFactory
             .getCurrentSession()
             .createSQLQuery(sql)
             .setResultTransformer( new PlaceHibernateResultTransformer() );
 
-        if (specified(placeId))
-            query = query.setLong("placeId", placeId);
+        if (specified(root.getPlaceId()))
+            query = query.setLong("placeId", root.getPlaceId());
 
-        if (specified(typeId))
-            query = query.setLong("typeId", typeId);
+        if (specified(root.getTypeId()))
+            query = query.setLong("typeId", root.getTypeId());
 
-//        if (specified(area))
-//            query = query.setBoolean("area", area);
-//
-//        if (specified(root))
-//            query = query.setBoolean("root", root);
+        if (specified(root.isArea()))
+            query = query.setBoolean("area", root.isArea());
 
-//        if (specified(deep))
-//            query = query.setLong("deep", deep);
+        if (specified(root.isRoot()))
+            query = query.setBoolean("root", root.isRoot());
 
-        return PlaceHibernateResultTransformer.toTree( query.list() );
+        if (specified(root.getDeep()))
+            query = query.setLong("deep", root.getDeep());
+
+        return toTree( query.list() );
     }
 
     @Cacheable("ext-file-PlaceTree")
-    private String buildQueryForPlaceTree(Long placeId, String uaId,  Long typeId,
-                                          Boolean area, Boolean root, Integer deep) {
-        String sql = sqlStorage.get(
-            placeId != null ? "get_PlaceTree_by_id.sql" : "get_PlaceTree_by_UA-id.sql");
+    private String buildQueryForPlaceTree(PlaceHierarchyRecord phr) {
+        String sql = sqlStorage.get( phr.getPlaceId() > 0
+            ? "get_PlaceTree_by_id.sql" : "get_PlaceTree_by_UA-id.sql");
 
-//        if (specified(typeId) || area != null || root != null || specified(deep))
-//            sql = sql + " where ";
-//
-//        if (specified(typeId))
-//            sql += " type_id = :typeId";
+        if (specified(phr.getTypeId()) ||
+            specified(phr.isArea()) ||
+            specified(phr.isRoot()) ||
+            specified(phr.getDeep()))
+            sql = sql + " where ";
 
-//        if (area != null && specified(typeId))
-//            sql += " and ";
-//
-//        if (area != null)
-//            sql += " area = :area";
-//
-//        if (root != null && (specified(typeId) || area !=null) )
-//            sql += " and ";
-//
-//        if (root != null)
-//            sql += " root = :root";
+        if (specified(phr.getTypeId()))
+            sql += " type_id = :typeId";
 
-//        if (specified(deep) && (specified(typeId) || area != null || root != null))
-//            sql += " and ";
-//
-//        if (specified(deep))
-//            sql += " level <= :deep";
+        if (specified(phr.isArea()) && specified(phr.getTypeId()))
+            sql += " and ";
 
-        LOG.debug("Final query {}", sql);
+        if (specified(phr.isArea()))
+            sql += " area = :area";
+
+        if (specified(phr.isRoot()) && (
+            specified(phr.getTypeId()) ||
+            specified(phr.isArea())))
+            sql += " and ";
+
+        if (specified(phr.isRoot()))
+            sql += " root = :root";
+
+        if (specified(phr.getDeep()) && (
+            specified(phr.getTypeId()) ||
+            specified(phr.isArea()) ||
+            specified(phr.isRoot())))
+            sql += " and ";
+
+        if (specified(phr.getDeep()))
+            sql += " level <= :deep";
+
+        LOG.debug("SQL query {}", sql); // TODO decrease log level to debug
 
         return sql;
     }
 
     private boolean specified(Long value) {
-        return value != null && value > 0;
-    }
-    private boolean specified(Integer value) {
         return value != null && value > 0;
     }
     private boolean specified(Boolean value) {
