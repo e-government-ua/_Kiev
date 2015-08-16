@@ -117,7 +117,7 @@ public class ActivitiRestFlowController {
             log.error(sError);
             return new ResponseEntity<>(sError, HttpStatus.INTERNAL_SERVER_ERROR);
       }
-      log.error("sID_BP="+sID_BP+",nID_Flow_ServiceData="+nID_Flow_ServiceData);
+      log.info("sID_BP="+sID_BP+",nID_Flow_ServiceData="+nID_Flow_ServiceData);
           
       List<FlowSlotVO> res = flowService.buildFlowSlots(nID_Flow_ServiceData, startDate, stopDate);
 
@@ -158,6 +158,7 @@ public class ActivitiRestFlowController {
             log.error(sError);
             return new ResponseEntity<>(sError, HttpStatus.INTERNAL_SERVER_ERROR);
       }
+      log.info("sID_BP="+sID_BP+",nID_Flow_ServiceData="+nID_Flow_ServiceData);
       
       
       ClearSlotsResult res = flowService.clearFlowSlots(nID_Flow_ServiceData, startDate, stopDate, bWithTickets);
