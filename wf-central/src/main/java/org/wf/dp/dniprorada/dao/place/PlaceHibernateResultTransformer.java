@@ -137,7 +137,7 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
      * */
     private static void register(PlaceHierarchyTree node, Map<Long, PlaceHierarchyTree> asTemporaryParents) {
         asTemporaryParents.put(node.getPlace().getId(), node);
-        LOG.info("Node {} registered in temp. storage", node);
+        LOG.debug("Node {} registered in temp. storage", node);
     }
 
 }

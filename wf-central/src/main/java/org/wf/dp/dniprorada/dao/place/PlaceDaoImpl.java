@@ -48,32 +48,30 @@ public class PlaceDaoImpl implements PlaceDao {
         return places.list();
     }
 
-    // TODO replace the list of parameters via PlaceHierarchyRecord
-    // TODO replace info log level to debug
     @SuppressWarnings("unchecked")
-    public PlaceHierarchyTree getTree(PlaceHierarchyRecord rootRecord) {
-        notNull(rootRecord, "Root record can't be null");
-        String sql = buildQueryForPlaceTree(rootRecord);
+    public PlaceHierarchyTree getTree(PlaceHierarchyRecord root) {
+        notNull(root, "Root element can't be a null");
+        String sql = buildQueryForPlaceTree(root);
 
         Query query = sessionFactory
             .getCurrentSession()
             .createSQLQuery(sql)
             .setResultTransformer( new PlaceHibernateResultTransformer() );
 
-        if (specified(rootRecord.getPlaceId()))
-            query = query.setLong("placeId", rootRecord.getPlaceId());
+        if (specified(root.getPlaceId()))
+            query = query.setLong("placeId", root.getPlaceId());
 
-        if (specified(rootRecord.getTypeId()))
-            query = query.setLong("typeId", rootRecord.getTypeId());
+        if (specified(root.getTypeId()))
+            query = query.setLong("typeId", root.getTypeId());
 
-//        if (specified(area))
-//            query = query.setBoolean("area", area);
-//
-//        if (specified(root))
-//            query = query.setBoolean("root", root);
+        if (specified(root.isArea()))
+            query = query.setBoolean("area", root.isArea());
 
-//        if (specified(deep))
-//            query = query.setLong("deep", deep);
+        if (specified(root.isRoot()))
+            query = query.setBoolean("root", root.isRoot());
+
+        if (specified(root.getDeep()))
+            query = query.setLong("deep", root.getDeep());
 
         return toTree( query.list() );
     }
@@ -83,39 +81,44 @@ public class PlaceDaoImpl implements PlaceDao {
         String sql = sqlStorage.get( phr.getPlaceId() > 0
             ? "get_PlaceTree_by_id.sql" : "get_PlaceTree_by_UA-id.sql");
 
-//        if (specified(typeId) || area != null || root != null || specified(deep))
-//            sql = sql + " where ";
-//
-//        if (specified(typeId))
-//            sql += " type_id = :typeId";
+        if (specified(phr.getTypeId()) ||
+            specified(phr.isArea()) ||
+            specified(phr.isRoot()) ||
+            specified(phr.getDeep()))
+            sql = sql + " where ";
 
-//        if (area != null && specified(typeId))
-//            sql += " and ";
-//
-//        if (area != null)
-//            sql += " area = :area";
-//
-//        if (root != null && (specified(typeId) || area !=null) )
-//            sql += " and ";
-//
-//        if (root != null)
-//            sql += " root = :root";
+        if (specified(phr.getTypeId()))
+            sql += " type_id = :typeId";
 
-//        if (specified(deep) && (specified(typeId) || area != null || root != null))
-//            sql += " and ";
-//
-//        if (specified(deep))
-//            sql += " level <= :deep";
+        if (specified(phr.isArea()) && specified(phr.getTypeId()))
+            sql += " and ";
 
-        LOG.debug("SQL query {}", sql);
+        if (specified(phr.isArea()))
+            sql += " area = :area";
+
+        if (specified(phr.isRoot()) && (
+            specified(phr.getTypeId()) ||
+            specified(phr.isArea())))
+            sql += " and ";
+
+        if (specified(phr.isRoot()))
+            sql += " root = :root";
+
+        if (specified(phr.getDeep()) && (
+            specified(phr.getTypeId()) ||
+            specified(phr.isArea()) ||
+            specified(phr.isRoot())))
+            sql += " and ";
+
+        if (specified(phr.getDeep()))
+            sql += " level <= :deep";
+
+        LOG.debug("SQL query {}", sql); // TODO decrease log level to debug
 
         return sql;
     }
 
     private boolean specified(Long value) {
-        return value != null && value > 0;
-    }
-    private boolean specified(Integer value) {
         return value != null && value > 0;
     }
     private boolean specified(Boolean value) {

@@ -36,29 +36,21 @@ public class PlaceController {
     @RequestMapping(value   = "/getPlacesTree",
                     method  = RequestMethod.GET, headers = { JSON_TYPE })
     public  @ResponseBody PlaceHierarchyTree getPlacesTree (
-            @RequestParam(value = "nID",            required = false)   Long    placeId,
+            @RequestParam(value = "nID",            required = false)   long    placeId,
             @RequestParam(value = "sID_UA",         required = false)   String  uaId,
             @RequestParam(value = "nID_PlaceType",  required = false)   Long    typeId,
             @RequestParam(value = "bArea",          required = false)   Boolean area, // для фильтра
             @RequestParam(value = "bRoot",          required = false)   Boolean root, // для фильтра
-            @RequestParam(value = "nDeep",          defaultValue = "1") Integer deep
+            @RequestParam(value = "nDeep",          defaultValue = "1") Long    deep
     ) {
-        try {
-            LOG.warn("Started {}, {}, {}, {}, {}, {}", placeId, uaId, typeId, area, root, deep);
-            PlaceHierarchyRecord rootRecord = new PlaceHierarchyRecord();
-            rootRecord.setPlaceId(placeId);
-            rootRecord.setUaID(uaId);
-            rootRecord.setTypeId(typeId);
-            rootRecord.setArea(area);
-            rootRecord.setRoot(root);
-            rootRecord.setDeep(deep);
-            LOG.warn("Got {}", rootRecord);
-            return placeDao.getTree(rootRecord);
-
-        } catch (Exception e) { // TODO just for test, remove later
-            LOG.error("Where is my stacktrace? Life is suck!", e);
-            return null;
-        }
+        PlaceHierarchyRecord rootRecord = new PlaceHierarchyRecord();
+        rootRecord.setPlaceId(placeId);
+        rootRecord.setTypeId(typeId);
+        rootRecord.setUaID(uaId);
+        rootRecord.setArea(area);
+        rootRecord.setRoot(root);
+        rootRecord.setDeep(deep);
+        return placeDao.getTree(rootRecord);
     }
 
 
