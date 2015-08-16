@@ -24,6 +24,9 @@ import org.wf.dp.dniprorada.base.viewobject.flow.FlowSlotVO;
 import javax.xml.datatype.Duration;
 import java.util.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * User: goodg_000
  * Date: 29.06.2015
@@ -31,6 +34,8 @@ import java.util.*;
  */
 public class FlowService implements ApplicationContextAware {
 
+   private static final Logger log = LoggerFactory.getLogger(ActivitiRestFlowController.class);
+    
    private FlowSlotDao flowSlotDao;
    private FlowSlotTicketDao oFlowSlotTicketDao;
    private BaseEntityDao baseEntityDao;
@@ -179,6 +184,8 @@ public class FlowService implements ApplicationContextAware {
                handler.setEndDate(stopDate);
                handler.setFlow(flow);
 
+               log.info("startDate="+startDate+",stopDate="+stopDate+",flowProperty.getsData()="+flowProperty.getsData());
+               
                List<FlowSlot> generatedSlots = handler.generateObjects(flowProperty.getsData());
                for (FlowSlot slot : generatedSlots) {
                   res.add(new FlowSlotVO(slot));

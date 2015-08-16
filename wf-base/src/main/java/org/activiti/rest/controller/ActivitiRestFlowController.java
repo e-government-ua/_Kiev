@@ -117,6 +117,7 @@ public class ActivitiRestFlowController {
             log.error(sError);
             return new ResponseEntity<>(sError, HttpStatus.INTERNAL_SERVER_ERROR);
       }
+      log.error("sID_BP="+sID_BP+",nID_Flow_ServiceData="+nID_Flow_ServiceData);
           
       List<FlowSlotVO> res = flowService.buildFlowSlots(nID_Flow_ServiceData, startDate, stopDate);
 
