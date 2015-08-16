@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.util.queryloader;
+package org.wf.dp.dniprorada.base.util.queryloader;
 
 /**
  * @author dgroup

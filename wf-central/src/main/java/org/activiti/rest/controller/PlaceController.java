@@ -1,5 +1,7 @@
 package org.activiti.rest.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.dao.PlaceDao;
+import org.wf.dp.dniprorada.dao.place.PlaceHierarchyRecord;
 import org.wf.dp.dniprorada.dao.place.PlaceHierarchyTree;
 import org.wf.dp.dniprorada.model.Place;
 import org.wf.dp.dniprorada.model.PlaceType;
@@ -20,6 +23,7 @@ import java.util.List;
  */
 @Controller
 public class PlaceController {
+    private static final Logger LOG = LoggerFactory.getLogger(PlaceController.class);
     private static final String JSON_TYPE = "Accept=application/json";
 
     @Autowired
@@ -32,14 +36,22 @@ public class PlaceController {
     @RequestMapping(value   = "/getPlacesTree",
                     method  = RequestMethod.GET, headers = { JSON_TYPE })
     public  @ResponseBody PlaceHierarchyTree getPlacesTree (
-            @RequestParam(value = "nID",            required = false)       Long    placeId,
-            @RequestParam(value = "sID_UA",         required = false)       String  uaId,
-            @RequestParam(value = "nID_PlaceType",  required = false)       Long    typeId,
-            @RequestParam(value = "bArea",          defaultValue = "false") Boolean area,
-            @RequestParam(value = "bRoot",          defaultValue = "false") Boolean root,
-            @RequestParam(value = "nDeep",          defaultValue = "1")     Integer deep
+            @RequestParam(value = "nID",            required = false)   Long    placeId,
+            @RequestParam(value = "sID_UA",         required = false)   String  uaId,
+            @RequestParam(value = "nID_PlaceType",  required = false)   Long    typeId,
+            @RequestParam(value = "bArea",          required = false)   Boolean area, // для фильтра
+            @RequestParam(value = "bRoot",          required = false)   Boolean root, // для фильтра
+            @RequestParam(value = "nDeep",          defaultValue = "1") Integer deep
     ) {
-        return placeDao.getPlaces(placeId, uaId, typeId, area, root, deep);
+        PlaceHierarchyRecord rootRecord = new PlaceHierarchyRecord();
+        rootRecord.setPlaceId(placeId);
+        rootRecord.setUaID(uaId);
+        rootRecord.setTypeId(typeId);
+        rootRecord.setArea(area);
+        rootRecord.setRoot(root);
+        rootRecord.setDeep(deep);
+        LOG.info("Got {}", rootRecord);
+        return placeDao.getTree(rootRecord);
     }
 
 

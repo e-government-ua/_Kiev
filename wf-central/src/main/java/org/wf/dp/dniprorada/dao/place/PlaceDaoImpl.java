@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.model.Place;
-import org.wf.dp.dniprorada.util.queryloader.QueryLoader;
+import org.wf.dp.dniprorada.base.util.queryloader.QueryLoader;
 
 import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.springframework.util.Assert.notNull;
+import static org.wf.dp.dniprorada.dao.place.PlaceHibernateResultTransformer.toTree;
 
 /**
  * @author dgroup
@@ -46,26 +48,23 @@ public class PlaceDaoImpl implements PlaceDao {
         return places.list();
     }
 
+    // TODO replace the list of parameters via PlaceHierarchyRecord
+    // TODO replace info log level to debug
     @SuppressWarnings("unchecked")
-    public PlaceHierarchyTree getPlaces(Long placeId,
-                                 String uaId,
-                                 Long typeId,
-                                 Boolean area,
-                                 Boolean root,
-                                 Integer deep) {
-        String sql = buildQueryForPlaceTree(placeId, uaId, typeId, area, root, deep);
-        LOG.info("Got sql for execution: \n\r {}", sql);
+    public PlaceHierarchyTree getTree(PlaceHierarchyRecord rootRecord) {
+        notNull(rootRecord, "Root record can't be null");
+        String sql = buildQueryForPlaceTree(rootRecord);
 
         Query query = sessionFactory
             .getCurrentSession()
             .createSQLQuery(sql)
             .setResultTransformer( new PlaceHibernateResultTransformer() );
 
-        if (specified(placeId))
-            query = query.setLong("placeId", placeId);
+        if (specified(rootRecord.getPlaceId()))
+            query = query.setLong("placeId", rootRecord.getPlaceId());
 
-        if (specified(typeId))
-            query = query.setLong("typeId", typeId);
+        if (specified(rootRecord.getTypeId()))
+            query = query.setLong("typeId", rootRecord.getTypeId());
 
 //        if (specified(area))
 //            query = query.setBoolean("area", area);
@@ -76,14 +75,13 @@ public class PlaceDaoImpl implements PlaceDao {
 //        if (specified(deep))
 //            query = query.setLong("deep", deep);
 
-        return PlaceHibernateResultTransformer.toTree( query.list() );
+        return toTree( query.list() );
     }
 
     @Cacheable("ext-file-PlaceTree")
-    private String buildQueryForPlaceTree(Long placeId, String uaId,  Long typeId,
-                                          Boolean area, Boolean root, Integer deep) {
-        String sql = sqlStorage.get(
-            placeId != null ? "get_PlaceTree_by_id.sql" : "get_PlaceTree_by_UA-id.sql");
+    private String buildQueryForPlaceTree(PlaceHierarchyRecord phr) {
+        String sql = sqlStorage.get( phr.getPlaceId() > 0
+            ? "get_PlaceTree_by_id.sql" : "get_PlaceTree_by_UA-id.sql");
 
 //        if (specified(typeId) || area != null || root != null || specified(deep))
 //            sql = sql + " where ";
@@ -109,7 +107,7 @@ public class PlaceDaoImpl implements PlaceDao {
 //        if (specified(deep))
 //            sql += " level <= :deep";
 
-        LOG.debug("Final query {}", sql);
+        LOG.debug("SQL query {}", sql);
 
         return sql;
     }

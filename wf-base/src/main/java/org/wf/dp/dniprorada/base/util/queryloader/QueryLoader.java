@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.util.queryloader;
+package org.wf.dp.dniprorada.base.util.queryloader;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
@@ -18,13 +18,13 @@ import static org.springframework.util.Assert.notNull;
  * @since  02.08.15
  */
 @Component
-@Resource.Classpath("queryloader.properties")
+@Resource.Classpath("db.properties")
 public class QueryLoader {
 
-    @Property("db.profile")
+    @Property("queryloader.db.profile")
     private String dbProfile;
 
-    @Property("root.folder")
+    @Property("queryloader.root.folder")
     private String rootFolder;
 
     private String homeDirectory;

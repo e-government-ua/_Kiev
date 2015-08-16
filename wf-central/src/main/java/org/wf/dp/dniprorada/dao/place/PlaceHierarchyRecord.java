@@ -13,10 +13,10 @@ public class PlaceHierarchyRecord {
     private String uaID;
     private String name;
     private String originalName;
-    private long rootId;
     private long parentId;
+    private boolean area;
+    private boolean root;
     private long deep;
-    private long areaId;
     private boolean alreadyIncluded;
 
     public long getPlaceId() {
@@ -54,13 +54,6 @@ public class PlaceHierarchyRecord {
         this.originalName = originalName;
     }
 
-    public long getRootId() {
-        return rootId;
-    }
-    public void setRootId(long rootId) {
-        this.rootId = rootId;
-    }
-
     public long getParentId() {
         return parentId;
     }
@@ -75,18 +68,25 @@ public class PlaceHierarchyRecord {
         this.deep = deep;
     }
 
-    public long getAreaId() {
-        return areaId;
-    }
-    public void setAreaId(long areaId) {
-        this.areaId = areaId;
-    }
-
     public boolean isAlreadyIncluded() {
         return alreadyIncluded;
     }
     public void setAlreadyIncluded(boolean alreadyIncluded) {
         this.alreadyIncluded = alreadyIncluded;
+    }
+
+    public boolean isArea() {
+        return area;
+    }
+    public void setArea(boolean area) {
+        this.area = area;
+    }
+
+    public boolean isRoot() {
+        return root;
+    }
+    public void setRoot(boolean root) {
+        this.root = root;
     }
 
     public Place toPlace() {
@@ -115,10 +115,10 @@ public class PlaceHierarchyRecord {
                 ", uaID='" + uaID + '\'' +
                 ", name='" + name + '\'' +
                 ", originalName='" + originalName + '\'' +
-                ", rootId=" + rootId +
                 ", parentId=" + parentId +
+                ", area=" + area +
+                ", root=" + root +
                 ", deep=" + deep +
-                ", areaId=" + areaId +
                 ", alreadyIncluded=" + alreadyIncluded +
                 '}';
     }

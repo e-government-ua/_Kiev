@@ -29,8 +29,6 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         phr.setName( stringVal(objects, strings, "name"));
         phr.setOriginalName( stringVal(objects, strings, "original_name"));
         phr.setParentId( longVal(objects, strings, "parent_id"));
-        phr.setAreaId( longVal(objects, strings, "area_id"));
-        phr.setRootId(longVal(objects, strings, "root_id"));
         phr.setDeep( longVal(objects, strings, "level") );
 
         return phr;

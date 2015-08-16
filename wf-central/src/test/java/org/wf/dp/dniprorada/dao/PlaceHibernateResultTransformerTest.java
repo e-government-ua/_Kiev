@@ -18,7 +18,7 @@ public class PlaceHibernateResultTransformerTest {
         String labels [] = {
             "id",   "type_id",      "ua_id",
             "name", "original_name","parent_id",
-            "area", "root",         "level" };
+            "area_id", "root_id",         "level" };
 
         Object data [] = {
             459, 2, "5923500000",
