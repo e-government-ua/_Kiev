@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  */
 public class FlowService implements ApplicationContextAware {
 
-   private static final Logger log = LoggerFactory.getLogger(ActivitiRestFlowController.class);
+   private static final Logger log = LoggerFactory.getLogger(FlowService.class);
     
    private FlowSlotDao flowSlotDao;
    private FlowSlotTicketDao oFlowSlotTicketDao;
