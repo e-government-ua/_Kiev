@@ -186,9 +186,11 @@ public class FlowService implements ApplicationContextAware {
 
                log.info("startDate="+startDate+",stopDate="+stopDate+",flowProperty.getsData()="+flowProperty.getsData());
                
-               List<FlowSlot> generatedSlots = handler.generateObjects(flowProperty.getsData());
-               for (FlowSlot slot : generatedSlots) {
-                  res.add(new FlowSlotVO(slot));
+               if(flowProperty.getsData()!=null && !"".equals(flowProperty.getsData().trim()) ){
+                    List<FlowSlot> generatedSlots = handler.generateObjects(flowProperty.getsData());
+                    for (FlowSlot slot : generatedSlots) {
+                       res.add(new FlowSlotVO(slot));
+                    }
                }
             }
         }
