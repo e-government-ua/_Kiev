@@ -29,6 +29,6 @@ public class PlaceHibernateResultTransformerTest {
             .transformTuple(data, labels);
 
         assertNotNull(phr);
-        assertEquals("ID aren't match", 459L, phr.getPlaceId());
+        assertEquals("ID aren't match", 459L, phr.getPlaceId().longValue());
     }
 }
