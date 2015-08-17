@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 import net.sf.jmimemagic.Magic;
 import net.sf.jmimemagic.MagicException;
@@ -42,6 +43,9 @@ import org.activiti.rest.controller.*;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
+
+import com.google.gson.Gson;
+
 
 public abstract class AbstractModelTask {
 	
@@ -407,15 +411,6 @@ public abstract class AbstractModelTask {
                                             , sDescription
                                             , oInputStream
                                     );
-                            
-                            
-                                            oBuilderAtachModel.setByteToStringContent(contentByteToString(oByteArrayMultipartFile.getBytes()));
-                                            oBuilderAtachModel.setContentType(oByteArrayMultipartFile.getContentType());
-                                            oBuilderAtachModel.setExp(oByteArrayMultipartFile.getExp());
-                                            oBuilderAtachModel.setOriginalFilename(sFileName);
-                                            oBuilderAtachModel.setName(oByteArrayMultipartFile.getName());
-                                            aBuilderAtachModel.add(oBuilderAtachModel);
-                            
                             
                             if(oAttachment!=null){
                                 String nID_Attachment = oAttachment.getId();
