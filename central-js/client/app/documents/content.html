@@ -34,7 +34,7 @@
               <label>Назва документа</label>
             </div>
             <div class="col-md-6">
-              <input name="documentName" type="text" class="form-control" ng-model="file.documentName"
+              <input name="documentNameForUpload" type="text" class="form-control" ng-model="documentNameForUpload"
                      ng-required="true"/>
             </div>
           </div>
@@ -43,9 +43,9 @@
               <label>Тип документа</label>
             </div>
             <div class="col-md-6">
-              <select name="documentType"
-                      ng-model="file.documentType"
-                      ng-options="documentType.sID as documentType.sName for documentType in documentTypes"
+              <select name="documentTypeForUpload"
+                      ng-model="documentTypeForUpload"
+                      ng-options="documentType.nID as documentType.sName for documentType in documentTypes"
                       ng-required="true"
                       class="form-control"></select>
             </div>
@@ -53,7 +53,7 @@
           <div class="col-md-2">
             <button type="button"
                     class="btn btn-success"
-                    ng-click="file.uploadDocument()"
+                    ng-click="uploadDocument(documentTypeForUpload, documentNameForUpload)"
                     ng-disabled="!file.fileName">
               <span>Завантажити</span>
             </button>

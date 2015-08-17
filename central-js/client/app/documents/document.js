@@ -43,6 +43,9 @@ angular.module('documents').config(function ($stateProvider, statesRepositoryPro
         resolve: {
           documents: function ($q, $state, ServiceService) {
             return ServiceService.getOrUploadDocuments();
+          },
+          documentTypes: function ($q, $state, ServiceService) {
+            return ServiceService.getDocumentTypes();
           }
         },
         views: {

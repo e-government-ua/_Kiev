@@ -7,6 +7,7 @@ router.get('/', auth.isAuthenticated(), documents.index);
 router.get('/:nID', documents.getDocument);
 router.get('/download/:nID', auth.isDocumentOwner(), documents.getDocumentFile);
 router.post('/initialUpload', auth.isAuthenticated(), documents.initialUpload);
+router.post('/upload', auth.isAuthenticated(), documents.upload);
 router.get('/:nID/share', auth.isDocumentOwner(), documents.shareDocument);
 router.get('/search/download/:nID/:sCode_DocumentAccess/:nID_DocumentOperator_SubjectOrgan/:nID_DocumentType/:sPass', documents.getDocumentFile);
 router.get('/search/getDocumentTypes', documents.getDocumentTypes);

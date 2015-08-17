@@ -1,4 +1,5 @@
-angular.module('documents').controller('DocumentsContentController', function($scope, $state, documents, FileFactory, ServiceService, $modal) {
+angular.module('documents').controller('DocumentsContentController', function($scope, $state, $stateParams, documents, documentTypes, FileFactory, ServiceService, $modal) {
+  $scope.documentTypes = documentTypes;
   $scope.file = new FileFactory();
 
   angular.forEach(documents, function(item) {
@@ -15,6 +16,16 @@ angular.module('documents').controller('DocumentsContentController', function($s
   $scope.nDaysOptions = [{day: 1, title: '1 день'}, {day: 7, title: '1 тиждень'}, {day: 365, title: '1 рік'}];
   $scope.nDays = $scope.nDaysOptions[1].day;
   $scope.getDocumentLink = ServiceService.getDocumentLink;
+
+  $scope.uploadDocument = function(documentTypeForUpload, documentNameForUpload){
+    $scope.file.uploadDocument(documentTypeForUpload, documentNameForUpload, function(){
+      $state.transitionTo($state.current, $stateParams, {
+        reload: true,
+        inherit: false,
+        notify: true
+      });
+    });
+  };
 
   $scope.showShareTab = function(){
     $scope.shareTab = !$scope.shareTab;
