@@ -179,7 +179,7 @@
         <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги АБО додаткові деталі необхідні для закінчення процессу реєстрації" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="meetDay" name="Назначити день зустрічі" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="meetTime" name="Назначити час зустрічі" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_dms_print_2.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/kiev_dms_print_2.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>

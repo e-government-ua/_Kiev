@@ -6,25 +6,21 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="DOB" name="Дата народження; Формат - ДД/ММ/РРРР" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="POB" name="Місце народження; Країна і місто" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="Dateofbirth" name="Дата народження; Формат - ДД/ММ/РРРР" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="Areabirth" name="Місце народження; Країна і місто" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія і номер)" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту; Або будь-якого посвідчення особистості" type="file"></activiti:formProperty>
-        <activiti:formProperty id="citizenship" name="Ваше громадянство" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="Nationality" name="Ваше громадянство" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kids" name="Чи є у вас дитина (молодша 14 років) яку Ви бажаєте зареєструвати за цією адресою; Якщо дитині більше 14 років або її реєструвати не треба - виберіть поле НІ. Діти старші 14 років подають заяву самостійно." type="enum" required="true">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="text1" name="Зверніть увагу" type="label" default="Будь ласка, вкажіть дані Вашої дитини, якщо її вік перевищую 14 років"></activiti:formProperty>
-        <activiti:formProperty id="kidsName" name="Прізвище дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kidsFirstName" name="Ім'я дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kidsMiddleName" name="По-Батькові дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kidsPOB" name="Місце народження дитини; Країна і місто" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kidsDOB" name="Дата народження дитини; Формат - ДД/ММ/РРРР" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я по батькові дитини" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="oldAddress" name="Ваша стара адреса реєстрації; Населений пункт / Вулиця / Будинок / Корпус / Квартира" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="newAddressLabel" name="Ваша нова адреса реєстрації" type="label" default="Заповніть деталі вашої нової адреси"></activiti:formProperty>
-        <activiti:formProperty id="newCity" name="Населений пункт " type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Населений пункт " type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="newStreet" name="Вулиця " type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="newHouse" name="Будинок" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="newCorp" name="Корпус" type="string" required="true"></activiti:formProperty>
@@ -189,7 +185,7 @@
         <activiti:formProperty id="taxAddress" name="Необхідні реквізити для сплати Державного мита" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="meetDay" name="Назначити день зустрічі" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="meetTime" name="Назначити час зустрічі" type="string"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_dms_print.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/kiev_dms_print.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
