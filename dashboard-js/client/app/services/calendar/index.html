@@ -5,57 +5,57 @@
 
   <div ng-show="!isInProgress">
 
-    <dvi class="row">
-      <form class="form-horizontal col-md-12">
-        <div class="form-group">
-          <label class="col-md-1 control-label">Дата</label>
-          <div class="col-md-3">
-            <p class="input-group">
-              <input type="date"
-                     class="form-control"
-                     datepicker-popup
-                     ng-model="request.sDate"
-                     is-open="isDatepickerOpened"
-                     ng-required="true"
-                     close-text="Close" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="openDatepicker()"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-            </p>
-          </div>
-          <button type="submit" class="btn btn-success" ng-click="get()">Згенерувати</button>
-        </div>
-      </form>
-    </dvi>
-
     <div class="row">
-      <div ng-repeat="day in days" class="col-md-3 col-sm-4 col-xs-6">
+      <div class="col-md-5 col-md-offset-1">
+        <div class="inline-block">
+          <datepicker ng-model="request.sDateStart"
+                      ng-change="get()"
+                      show-weeks="true"
+                      class="well well-sm">
+          </datepicker>
+        </div>
+      </div>
+      <div ng-repeat="day in days" class="col-md-6">
 
-        <h3>{{day.sWeekDay}}</h3>
-        <h4>{{day.sFormattedDate}}</h4>
-        <h4 class="label label-success" ng-show="day.bHasFree">Е вільні слоти</h4>
-        <h4 class="label label-danger" ng-show="!day.bHasFree">>Немае вільних слотів</h4>
+        <div class="row">
+          <div class="col-md-4">
+            <h3>{{day.sWeekDay}}</h3>
+            <h4>{{day.sFormattedDate}}</h4>
+          </div>
+          <div class="col-md-8">
+            <div class="spacer10"></div>
+            <h2>
+              <span class="label label-success" ng-show="day.bHasFree">Е вільні слоти</span>
+              <span class="label label-danger" ng-show="!day.bHasFree">Немае вільних слотів</span>
+            </h2>
+          </div>
+        </div>
 
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Проміжок</th>
-              <th>Статус</th>
-            </tr>
-          </thead>
+        <div class="row">
+          <div class="col-md-7">
+            <table class="table">
+              <thead>
+              <tr>
+                <th>Проміжок</th>
+                <th>Статус</th>
+              </tr>
+              </thead>
 
-          <tbody>
-            <tr ng-repeat="slot in day.aSlot">
-              <td>{{slot.sTime}} - {{slot.sToTime}}</td>
-              <td>
-                <span class="label label-success" ng-show="slot.bFree">Вільно</span>
-                <span class="label label-danger" ng-show="!slot.bFree">Зайнято</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              <tbody>
+              <tr ng-repeat="slot in day.aSlot">
+                <td>{{slot.sTime}} - {{slot.sToTime}}</td>
+                <td>
+                  <span class="label label-success" ng-show="slot.bFree">Вільно</span>
+                  <span class="label label-danger" ng-show="!slot.bFree">Зайнято</span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
       </div>
     </div>
+
   </div>
 </div>

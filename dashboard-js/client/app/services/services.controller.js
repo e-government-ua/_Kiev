@@ -5,7 +5,7 @@ angular.module('dashboardJsApp')
 
     $scope.bp = bpForSchedule.bp;
     $scope.bp.onChangeCallback = function () {
-      $scope.$broadcast('bpChangedEvent')
+      $scope.$broadcast('bpChangedEvent');
     };
 
     $scope.workHours = {

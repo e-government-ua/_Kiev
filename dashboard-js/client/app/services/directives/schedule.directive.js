@@ -57,10 +57,6 @@ angular.module('dashboardJsApp')
         });
       };
 
-      $scope.$on('bpChangedEvent', function () {
-        fillData();
-      })
-
       self.isInProgress = function () {
         return inProgress;
       };
@@ -89,6 +85,16 @@ angular.module('dashboardJsApp')
         deleteFunc(bpForSchedule.bp.chosenBp.sID, slot.nID)
           .then(fillData);
       };
+
+      // Init:
+
+      if (bpForSchedule.bp.chosenBp){
+        fillData();
+      }
+
+      $scope.$on('bpChangedEvent', function () {
+        fillData();
+      })
     };
 
     return{

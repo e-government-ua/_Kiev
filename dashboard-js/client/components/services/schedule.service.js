@@ -163,7 +163,7 @@ angular.module('dashboardJsApp')
        * @param  {Function} callback - optional
        * @return {Promise}
        */
-      getFlowSlots: function(sID_BP, bAll, nDays, sDate, callback){
+      getFlowSlots: function(sID_BP, bAll, nDays, sDateStart, callback){
         var cb = callback || angular.noop;
         var deferred = $q.defer();
 
@@ -174,7 +174,7 @@ angular.module('dashboardJsApp')
             sID_BP: sID_BP,
             bAll: bAll,
             nDays: nDays,
-            sDate: sDate
+            sDateStart: sDateStart
           }
         };
 

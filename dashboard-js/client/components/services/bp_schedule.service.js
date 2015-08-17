@@ -5,8 +5,8 @@ angular.module('dashboardJsApp')
 
     var bp = {
       processesList: [],
-      chosenBp: {},
-      event: function() {}
+      chosenBp: null,
+      onChangeCallback: function() {}
     };
 
     processes.getUserProcesses().then(function (data) {

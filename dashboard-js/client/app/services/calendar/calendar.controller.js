@@ -4,16 +4,12 @@ angular.module('dashboardJsApp')
   .controller('CalendarCtrl', function ($scope, $modal, schedule, bpForSchedule) {
 
     $scope.inProgress = false;
-    $scope.isDatepickerOpened = false;
 
-    $scope.openDatepicker = function(){
-      $scope.isDatepickerOpened = true;
-    };
 
     $scope.request = {
-      bAll: false,
-      nDays: 0,
-      sDate: new Date().toLocaleString()
+      bAll: true,
+      nDays: 1,
+      sDateStart: new Date()
     };
 
     $scope.days = [];
@@ -25,7 +21,7 @@ angular.module('dashboardJsApp')
     };
 
     var formatDate = function(day){
-      var date = moment(day.sDate);
+      var date = moment(new Date(day.sDate));
 
       day.sWeekDay = date.format('dddd');
       day.sFormattedDate = date.format('D MMMM YYYY');
@@ -46,14 +42,20 @@ angular.module('dashboardJsApp')
     };
 
     $scope.get= function(){
+      var date = moment($scope.request.sDateStart);
       schedule.getFlowSlots(bpForSchedule.bp.chosenBp.sID,
                             $scope.request.bAll,
                             $scope.request.nDays,
-                            $scope.request.sDate)
+                            date.format('YYYY-MM-DD')
+                            )
         .then(function(data){
           var days = data.aDay;
           formatData(days);
           $scope.days = days;
         })
     };
+
+    $scope.$on('bpChangedEvent', function () {
+      $scope.get();
+    })
   });
