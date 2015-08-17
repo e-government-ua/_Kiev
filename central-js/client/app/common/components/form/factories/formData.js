@@ -1,4 +1,4 @@
-angular.module('app').factory('FormDataFactory', function(ParameterFactory, DatepickerFactory, FileFactory, BankIDDocumentsFactory, CountryService, $q) {
+angular.module('app').factory('FormDataFactory', function(ParameterFactory, DatepickerFactory, FileFactory, BankIDDocumentsFactory, BankIDAddressesFactory, CountryService, $q) {
   var FormDataFactory = function() {
     this.processDefinitionId = null;
 
@@ -24,14 +24,18 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
           this.params[property.id].value = property.value;
           break;
       }
+        //<activiti:formProperty id="bankIdsID_Country" name="Громадянство (Code)" type="invisible" default="UA"></activiti:formProperty>
+        //<activiti:formProperty id="sID_Country" name="Country Code (Code)" type="invisible"></activiti:formProperty>
+        //<activiti:formProperty id="sCountry" name="Громадянство" type="string"></activiti:formProperty>
+      
       var self = this;
-      if (property.id == 'resident') {
+      if (property.id === 'resident' || property.id === 'sCountry') {
         // todo: #584 для теста п.2 закомментировать эту строку. после теста - удалить
-        this.params[property.id].value = 'Україна';
+        //this.params[property.id].value = 'Україна';
         if (this.params[property.id].value) {
           // #584 п.3 автоподстановка зачения sID_Three в поле sID_Country
           angular.forEach(ActivitiForm.formProperties, function (prop) {
-            if (prop.id == 'sID_Country') {
+            if (prop.id === 'sID_Country') {
               var param = self.params[property.id];
               CountryService.getCountries().then(function(list)
               {
@@ -47,7 +51,8 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
           angular.forEach(ActivitiForm.formProperties, function (prop) {
             if (prop.id == 'bankIdsID_Country') {
               var param = self.params[property.id];
-              CountryService.getCountryBy_sID_Three(prop.value).then(function (response) {
+              //CountryService.getCountryBy_sID_Three(prop.value).then(function (response) {
+              CountryService.getCountryBy_sID_Two(prop.value).then(function (response) {
                 param.value = response.data.sNameShort_UA;
               });
             }
@@ -62,33 +67,61 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
   };
 
   FormDataFactory.prototype.setBankIDAccount = function(BankIDAccount) {
-    return angular.forEach(BankIDAccount.customer, function(value, key) {
-      switch (key) {
+    return angular.forEach(BankIDAccount.customer, function(oValue, sKey) {
+      switch (sKey) {
         case 'documents':
-          var documents = new BankIDDocumentsFactory();
-          documents.initialize(value);
+          var aDocument = new BankIDDocumentsFactory();
+          aDocument.initialize(oValue);
 
-          angular.forEach(documents.list, function(document) {
-            var field = null;
+          angular.forEach(aDocument.list, function(document) {
+            var sFieldName = null;
             switch (document.type) {
               case 'passport':
-                field = 'bankIdPassport';
+                sFieldName = 'bankIdPassport';
             }
-            if (field == null) {
+            if (sFieldName === null) {
               return;
             }
-            if (this.hasParam(field)) {
-              this.fields[field] = true;
-              this.params[field].value = documents.getPassport();
+            if (this.hasParam(sFieldName)) {
+              this.fields[sFieldName] = true;
+              this.params[sFieldName].value = aDocument.getPassport();
             }
           }, this);
           break;
-        default:
-          var field = 'bankId' + key;
 
-          if (this.hasParam(field)) {
-            this.fields[field] = true;
-            this.params[field].value = value;
+        case 'addresses':
+          var aAddress = new BankIDAddressesFactory();
+          aAddress.initialize(oValue);
+
+          angular.forEach(aAddress.list, function(document) {
+            var sFieldName = null;
+            switch (document.type) {
+              case 'factual':
+                sFieldName = 'bankIdAddressFactual';
+                if (this.hasParam(sFieldName)) {
+                  this.fields[sFieldName] = true;
+                  this.params[sFieldName].value = aAddress.getAddress();
+                }
+                sFieldName = 'bankIdsID_Country';
+                if (this.hasParam(sFieldName)) {
+                  this.fields[sFieldName] = true;
+                  this.params[sFieldName].value = aAddress.getCountyCode();
+                }
+              break;
+            }
+            if (sFieldName === null) {
+              return;
+            }
+            
+          }, this);
+          break;
+          
+        default:
+          var sFieldName = 'bankId' + sKey;
+
+          if (this.hasParam(sFieldName)) {
+            this.fields[sFieldName] = true;
+            this.params[sFieldName].value = oValue;
           }
           break;
       }

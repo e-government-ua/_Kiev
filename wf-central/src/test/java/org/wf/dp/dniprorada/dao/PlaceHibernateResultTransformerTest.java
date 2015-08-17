@@ -18,7 +18,7 @@ public class PlaceHibernateResultTransformerTest {
         String labels [] = {
             "id",   "type_id",      "ua_id",
             "name", "original_name","parent_id",
-            "area", "root",         "level" };
+            "area_id", "root_id",         "level" };
 
         Object data [] = {
             459, 2, "5923500000",
@@ -29,6 +29,6 @@ public class PlaceHibernateResultTransformerTest {
             .transformTuple(data, labels);
 
         assertNotNull(phr);
-        assertEquals("ID aren't match", 459L, phr.getPlaceId());
+        assertEquals("ID aren't match", 459L, phr.getPlaceId().longValue());
     }
 }
