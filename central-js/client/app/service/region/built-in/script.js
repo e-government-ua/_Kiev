@@ -4,6 +4,7 @@ angular.module('app').config(function($stateProvider) {
       url: '/built-in',
       views: {
         'content@index.service.general.region': {
+          // FIXME: REPLACE with Place Cotroller
           templateUrl: 'app/service/region/built-in/index.html',
           controller: 'ServiceBuiltInController'
         }
@@ -26,6 +27,7 @@ angular.module('app').config(function($stateProvider) {
 	  },
       views: {
         'content@index.service.general.region': {
+          // FIXME: REPLACE with Place Cotroller
           templateUrl: 'app/service/region/built-in/index.html',
           controller: 'ServiceBuiltInController'
         }
