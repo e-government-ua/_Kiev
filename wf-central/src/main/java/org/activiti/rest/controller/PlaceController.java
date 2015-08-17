@@ -50,18 +50,18 @@ public class PlaceController {
         rootRecord.setArea(area);
         rootRecord.setRoot(root);
         rootRecord.setDeep(deep);
-        return placeDao.getTree(rootRecord);
+        return placeDao.getTreeDown(rootRecord);
     }
 
 
     @RequestMapping(value   = "/getPlace",
                     method  = RequestMethod.GET, headers = { JSON_TYPE })
-    public  @ResponseBody List<Place> getPlace(
+    public  @ResponseBody PlaceHierarchyTree getPlace(
             @RequestParam(value = "nID",    required = false)       Long    placeId,
             @RequestParam(value = "sID_UA", required = false)       String  uaId,
             @RequestParam(value = "bTree ", defaultValue = "false") Boolean tree
     ) {
-        return placeDao.findBy(placeId, uaId, tree);
+        return placeDao.getTreeUp(placeId, uaId, tree);
     }
 
 
