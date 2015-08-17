@@ -1041,7 +1041,7 @@ $invalid-input-bg-color: #fff;
 $invalid-input-border-color: #a94442;
 $invalid-label-text-color: #a94442;
 
-.error {
+.error, [role=alert] div {
   color: $invalid-label-text-color;
 }
 
