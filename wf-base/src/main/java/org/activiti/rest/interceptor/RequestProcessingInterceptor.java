@@ -39,9 +39,6 @@ import org.activiti.engine.task.Task;
  */
 public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
 
-    @Autowired
-    GeneralConfig generalConfig;
-    
     private static final Logger logger = LoggerFactory
             .getLogger(RequestProcessingInterceptor.class);
 
