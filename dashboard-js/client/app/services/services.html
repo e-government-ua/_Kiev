@@ -1,0 +1,55 @@
+<div ng-include="'components/navbar/navbar.html'"
+     class="navbar-static-top"></div>
+
+<div class="container">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Оберіть Бізнес-процес</div>
+    <div class="panel-body">
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label for="bpID" class="col-sm-1 control-label">БП:</label>
+          <div class="col-sm-11">
+            <select id="bpID"
+                    class="form-control"
+                    name="bpID"
+                    ng-model="bp.chosenBp"
+                    ng-options="processDefinition as processDefinition.sName for processDefinition in bp.processesList"
+                    ng-required="true"
+                    ng-change="bp.onChangeCallback()">
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Розклад</div>
+    <div class="panel-body">
+
+      <tabset >
+        <tab heading="Робочоий час тижня">
+          <div class="spacer15"></div>
+          <schedule funcs="workHours"></schedule>
+        </tab>
+
+        <tab heading="Винятки робочого часу">
+          <div class="spacer15"></div>
+          <schedule funcs="exemptions"></schedule>
+        </tab>
+
+        <tab heading="Генерація слотів роскладу">
+          <div class="spacer15"></div>
+          <div ng-include src="'app/services/flow_slots/index.html'"></div>
+        </tab>
+
+        <tab heading="Переглянути наявний грфік та зайняті слоти">
+          <div class="spacer15"></div>
+          <div ng-include src="'app/services/calendar/index.html'"></div>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+
+</div>

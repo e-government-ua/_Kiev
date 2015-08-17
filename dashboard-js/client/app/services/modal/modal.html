@@ -1,0 +1,110 @@
+<div class="modal-header">
+  <h3 class="modal-title">Оберіть робочі дні тижня</h3>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal">
+
+    <div class="form-group">
+      <label for="inputName" class="col-md-3 col-xs-3 control-label">Назва</label>
+      <div class="col-md-9 col-xs-9">
+        <input class="form-control" id="inputName" ng-model="slot.sName" placeholder="Введіть назву будь ласка">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-3 col-xs-3">
+        <div class="spacer35"></div>
+        <label class="control-label pull-right">Час прийому з </label>
+      </div>
+      <div class="col-md-3 col-xs-3">
+        <timepicker ng-model="slot.sDateTimeAt" minute-step="5" show-meridian="false"></timepicker>
+      </div>
+      <div class="col-md-1 col-xs-1">
+        <div class="spacer35"></div>
+        <label class="control-label">до </label>
+      </div>
+      <div class="col-md-3 col-xs-3">
+        <timepicker ng-model="slot.sDateTimeTo" minute-step="5" show-meridian="false"></timepicker>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="slot.saRegionWeekDay.mo"> Понеділок
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="slot.saRegionWeekDay.tu"> Вівторок
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="slot.saRegionWeekDay.we"> Середа
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="slot.saRegionWeekDay.th"> Четвер
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="slot.saRegionWeekDay.fr"> П'ятниця
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="slot.saRegionWeekDay.sa"> Субота
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="slot.saRegionWeekDay.su"> Неділя
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-danger" role="alert" ng-hide="atLeastOneWeekDayChosen()">Будь ласка, оберіть хоча б один день тижня</div>
+    <div class="alert alert-danger" role="alert" ng-hide="timeOrderIsCorrect()">Час закінчення роботі повинен бути пізніший за час початку</div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary" ng-show="showSave()" ng-click="save()">Сохранити</button>
+      <button class="btn btn-warning" type="button" ng-click="cancel()">Відмінити</button>
+    </div>
+  </form>
+
+</div>
