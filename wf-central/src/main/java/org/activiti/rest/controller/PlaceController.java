@@ -1,7 +1,5 @@
 package org.activiti.rest.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +10,7 @@ import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.dao.place.PlaceHierarchyRecord;
 import org.wf.dp.dniprorada.dao.place.PlaceHierarchyTree;
-import org.wf.dp.dniprorada.model.Place;
 import org.wf.dp.dniprorada.model.PlaceType;
-
-import java.util.List;
 
 /**
  * @author dgroup
@@ -23,7 +18,6 @@ import java.util.List;
  */
 @Controller
 public class PlaceController {
-    private static final Logger LOG = LoggerFactory.getLogger(PlaceController.class);
     private static final String JSON_TYPE = "Accept=application/json";
 
     @Autowired
