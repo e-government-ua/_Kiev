@@ -8,19 +8,30 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.wf.dp.dniprorada.liqPay.LiqBuyUtil;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 
 public class HttpRequester {
 
-	public static String post(String url, Map<String, String> list)
+    @Autowired
+    GeneralConfig generalConfig;
+        
+	public String post(String url, Map<String, String> params)
 			throws Exception {
 		String urlParameters = "";
 
-		for (Map.Entry<String, String> entry : list.entrySet())
+		if(params != null){
+			for (Map.Entry<String, String> entry : params.entrySet()){
+				if(entry.getValue() != null){
 			urlParameters += entry.getKey() + "="
 					+ URLEncoder.encode(entry.getValue(), "UTF-8") + "&";
+				}
+			}
+		}
 
 		URL obj = new URL(url);
 		DataOutputStream wr;
@@ -30,12 +41,12 @@ public class HttpRequester {
 		//con.setRequestProperty("authorization",
 		//		"Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=");
                 
-                /*
-                String sUser="";
-                String sPassword="";
+                
+                String sUser=generalConfig.sAuthLogin();
+                String sPassword=generalConfig.sAuthPassword();
                 String sAuth = LiqBuyUtil.base64_encode(sUser+":"+sPassword);
 		con.setRequestProperty("authorization", "Basic "+sAuth);
-                */
+                
                 
 		con.setRequestMethod("POST");
 		con.setDoOutput(false);
@@ -56,18 +67,19 @@ public class HttpRequester {
 		return response.toString();
 	}
 	
-	public static String get(String url, Map<String, String> list) throws Exception {
+	public String get(String url, Map<String, String> params) throws Exception {
 		String urlParameters = "";
 
-		if(list != null){
-			for (Map.Entry<String, String> entry : list.entrySet())
+		if(params != null){
+			for (Map.Entry<String, String> entry : params.entrySet()){
+				if(entry.getValue() != null){
 				urlParameters += entry.getKey() + "="
 						+ URLEncoder.encode(entry.getValue(), "UTF-8") + "&";
 		}
+			}
+		}
 		
-
 		URL obj = new URL(url + "?" + urlParameters);
-		//DataOutputStream wr;
 		InputStream in;
 		BufferedReader bf;
 		HttpURLConnection con;
@@ -78,13 +90,15 @@ public class HttpRequester {
 				"Basic YWN0aXZpdGktbWFzdGVyOlVqaHRKbkV2ZiE=");
                 */
                 
+                String sUser=generalConfig.sAuthLogin();
+                String sPassword=generalConfig.sAuthPassword();
+                String sAuth = LiqBuyUtil.base64_encode(sUser+":"+sPassword);
+		con.setRequestProperty("authorization", "Basic "+sAuth);
+                
 		con.setRequestMethod(RequestMethod.GET.name());
 		con.setDoInput(true); 
 		con.setDoOutput(true);
-		//wr = new DataOutputStream(con.getOutputStream());
-		//wr.writeBytes(urlParameters);
-		//wr.flush();
-		//wr.close();
+
 		if (con.getResponseCode() >= 400) {
 			in = con.getErrorStream();
 		} else {

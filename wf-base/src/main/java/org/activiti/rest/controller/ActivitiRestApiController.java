@@ -176,23 +176,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 		}
 		return atachId;
     }
-    /*
-    @RequestMapping(value = "/file/upload_file_to_redis", method = RequestMethod.POST)
-    @Transactional
-    public
-    @ResponseBody
-    String putAttachmentsToRedis(@RequestParam("file") MultipartFile file) throws ActivitiIOException  {
-    	String atachId = null;
-		try {
-			atachId = redisService.putAttachments(file.getBytes());
-		}catch (RedisException e) {
-			 throw new ActivitiIOException(ActivitiIOException.Error.REDIS_ERROR,e.getMessage());
-		} catch (IOException e) {
-			throw new ActivitiIOException(ActivitiIOException.Error.REDIS_ERROR,e.getMessage());
-		}
-		return atachId;
-    }
-    */
     
     @RequestMapping(value = "/file/download_file_from_redis", method = RequestMethod.GET)
     @Transactional
@@ -853,6 +836,26 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
 
 
+    @RequestMapping(value = "/getPatternFile", method = RequestMethod.GET)
+    public  void  getPatternFile(
+            @RequestParam(value = "sPathFile") String sPathFile ,
+            @RequestParam(value = "sContentType", required = false) String sContentType,
+            HttpServletResponse response) throws ActivitiRestException {
 
-    
+        try{
+            String contentType = sContentType == null ? Util.PATTERN_DEFAULT_CONTENT_TYPE : sContentType;
+            response.setContentType(contentType);
+            response.setCharacterEncoding(Charsets.UTF_8.toString());
+            byte[] resultObj = Util.getPatternFile(sPathFile);
+            response.getOutputStream().write(resultObj);
+        } catch (IllegalArgumentException | IOException e) {
+            ActivitiRestException newErr = new ActivitiRestException("BUSINESS_ERR", e.getMessage(), e);
+            newErr.setHttpStatus(HttpStatus.FORBIDDEN);
+            throw newErr;
+        } catch (Exception e) {
+            ActivitiRestException newErr = new ActivitiRestException("SYSTEM_ERR", e.getMessage(), e);
+            newErr.setHttpStatus(HttpStatus.FORBIDDEN);
+            throw newErr;
         }
+    }
+}

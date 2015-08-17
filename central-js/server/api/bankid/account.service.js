@@ -37,10 +37,17 @@ module.exports.index = function (options, callback) {
         body: {
             "type": "physical",
             "fields": ["firstName", "middleName", "lastName", "phone", "inn", "clId", "clIdText", "birthDay"],
-            "documents": [{
+            
+            "addresses":[
+                {"type":"factual","fields":["country","state","area","city","street","houseNo","flatNo","dateModification"]},
+                {"type":"birth","fields":["country","state","area","city","street","houseNo","flatNo","dateModification"]}
+            ],
+
+           "documents": [{
                 "type": "passport",
                 "fields": ["series", "number", "issue", "dateIssue", "dateExpiration", "issueCountryIso2"]
             }]
+
         }
     }, adminCheckCallback);
 };

@@ -25,6 +25,15 @@ public class ActivitiRestException extends Exception {
         this.errorCode = errorCode;
     }
 
+    public ActivitiRestException(String errorCode, String message, HttpStatus httpStatus) {
+        this(errorCode, message);
+        setHttpStatus(httpStatus);
+    }
+
+    public ActivitiRestException(String errorCode, String message, Throwable throwable, HttpStatus httpStatus) {
+        this(errorCode, message, throwable);
+        setHttpStatus(httpStatus);
+    }
     public String getErrorCode() {
         return errorCode;
     }

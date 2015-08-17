@@ -1,6 +1,6 @@
 angular.module('documents').config(function ($stateProvider, statesRepositoryProvider) {
   statesRepositoryProvider.init(window.location.host);
-  if (statesRepositoryProvider.isCentral()) {
+//  if (statesRepositoryProvider.isCentral()) {
     $stateProvider
       .state('index.documents', {
         url: 'documents',
@@ -14,7 +14,10 @@ angular.module('documents').config(function ($stateProvider, statesRepositoryPro
       .state('index.documents.user', {
         url: '/user',
         views: {
-          'content': {templateUrl: 'app/documents/user/index.html'}
+          'content': {
+            templateUrl: 'app/documents/user/index.html',
+            controller: 'DocumentsUserController'
+          }
         }
       })
       .state('index.documents.bankid', {
@@ -75,5 +78,5 @@ angular.module('documents').config(function ($stateProvider, statesRepositoryPro
           }
         }
       });
-  }
+//  }
 });

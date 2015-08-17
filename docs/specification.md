@@ -1,3 +1,35 @@
+### iGov.ua APIs
+ <a name="0_contents">*Contents*</a><br/>
+<a href="#1_userLogin">1. Логин пользователя</a><br/>
+<a href="#2_userLogout">2. Логаут пользователя</a><br/>
+<a href="#3_activitiRun">3. Запуск процесса Activiti</a><br/>
+<a href="#4_activitiRunTasks">4. Загрузка задач из Activiti</a><br/>
+<a href="#5_activitiRunServices">5. Загрузка каталога сервисов из Activiti</a><br/>
+<a href="#6_loadFileFromDb">6. Загрузки прикрепленного к заявке файла из постоянной базы</a><br/>
+<a href="#7_workWithMerchants">7. Работа с мерчантами</a><br/>
+<a href="#8_workWithTables">8. Бэкап/восстановление данных таблиц сервисов и мест</a><br/>
+<a href="#9_workWithDocuments">9. Работа с документами</a><br/>
+<a href="#10_workWithSubjects">10. Работа с субъектами</a><br/>
+<a href="#11_accessDocuments">11. Предоставление и проверка доступа к документам</a><br/>
+<a href="#12_workWithMessages">12. Работа с сообщениями</a><br/>
+<a href="#13_workWithHistoryEvents">13. Работа с историей (Мой журнал)</a><br/>
+<a href="#14_uploadFileToDb">14. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti</a><br/>
+<a href="#15_workWithServices">15. Работа с каталогом сервисов</a><br/>
+<a href="#16_getWorkflowStatistics">16. Получение статистики по задачам в рамках бизнес процесса</a><br/>
+<a href="#17_workWithHistoryEvent_Services">17. Работа с обьектами событий по услугам</a><br/>
+<a href="#18_workWithFlowSlot">18. Работа со слотами потока</a><br/>
+<a href="#19">19. Работа с джоинами суьтектами (отделениями/филиалами)</a><br/>
+<a href="#20">20. Получение кнопки для оплаты через Liqpay</a><br/>
+<a href="#21">21. Работа со странами </a><br/>
+<a href="#22">22. Загрузка данных по задачам </a><br/>
+<a href="#23_getBPForUsers"> 23. Получение списка бизнес процессов к которым у пользователя есть доступ </a><br/>
+<a href="#24_getSheduleFlowIncludes"> 24. Получение расписаний включений </a><br/>
+<a href="#25_setSheduleFlowInclude"> 25. Добавление/изменение расписания включений </a><br/>
+<a href="#26_removeSheduleFlowInclude"> 26. Удаление расписания включений </a><br/>
+<a href="#27_getSheduleFlowExcludes"> 27. Получение расписаний исключений </a><br/>
+<a href="#28_setSheduleFlowExclude"> 28. Добавление/изменение расписания исключения </a><br/>
+<a href="#29_removeSheduleFlowExclude"> 29. Удаление расписания исключений </a><br/>
+<a href="#30_workWithPatternFiles"> 30. Работа с файлами-шаблонами </a><br/>
 
 # iGov.ua APIs
 <a name="0_contents">*Contents*</a><br/>
@@ -995,10 +1027,15 @@ ID созданного attachment - "id":"45"
 **HTTP Metod: GET**
 
 * sFind - фильтр по имени сервиса (не обязательный параметр). Если задано, то производится фильтрация данных - возвращаются только сервиса в имени которых встречается значение этого параметра, без учета регистра.
+* asID_Place_UA - фильтр по ID места (мест), где надается услуга. Поддерживаемие ID: 3200000000 (КИЇВСЬКА ОБЛАСТЬ/М.КИЇВ), 8000000000 (М.КИЇВ). Если указан другой ID, фильтр не применяется.
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
+**Дополнительно:**
+
+Если general.bTest = false, сервисы, имя которых начинается с "_", не вовращаются.
+
 Пример:
-https://test.igov.org.ua/wf-central/service/services/getServicesTree
+https://test.igov.org.ua/wf-central/service/services/getServicesTree?asID_Place_UA=3200000000,8000000000
 
 Ответ:
 ```json
@@ -1582,9 +1619,11 @@ http://test.igov.org.ua/wf-central/service/services/updateHistoryEvent_Service?n
 **HTTP Metod: GET**
 
 Параметры:
-* nID_ServiceData - ID сущности ServiceData (обязательный)
+* nID_ServiceData - ID сущности ServiceData (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса (обязательный если нет nID_ServiceData)
 * bAll - если false то из возвращаемого объекта исключаются элементы, содержащие "bHasFree":false "bFree":false (опциональный, по умолчанию false)
-* nDays - колличество дней от сегодняшего включительно, до nDays в будующее за который нужно вернуть слоты (опциональный, по умолчанию 60)
+* nDays - колличество дней от сегодняшего включительно(или sDateStart, если задан), до nDays в будующее за который нужно вернуть слоты (опциональный, по умолчанию 60)
+* sDateStart - опциональный параметр, определяющие дату начала в формате "yyyy-MM-dd", с которую выбрать слоты. При наличии этого параметра слоты возвращаются только за указанный период(число дней задается nDays).
 
 Пример:
 https://test.igov.org.ua/wf-central/service/flow/getFlowSlots_ServiceData?nID_ServiceData=1
@@ -1657,7 +1696,8 @@ http://test.igov.org.ua/wf-central/service/flow/setFlowSlot_ServiceData
 **HTTP Metod: POST**
 
 Параметры:
-* nID_Flow_ServiceData - номер-ИД потока по данным сервиса (по которому генерируется слоты) (обязательный)
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
 * sDateStart - дата "начиная с такого-то момента времени", в формате "2015-06-28 12:12:56.001" (опциональный)
 * sDateStop - дата "заканчивая к такому-то моменту времени", в формате "2015-07-28 12:12:56.001" (опциональный)
 
@@ -1701,7 +1741,8 @@ http://test.igov.org.ua/wf-central/service/flow/buildFlowSlots
 **HTTP Metod: DELETE**
 
 Параметры:
-* nID_Flow_ServiceData - номер-ИД потока по данным сервиса (по которому удаляются слоты) (обязательный)
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
 * sDateStart - дата "начиная с такого-то момента времени", в формате "2015-06-28 12:12:56.001" (обязательный)
 * sDateStop - дата "заканчивая к такому-то моменту времени", в формате "2015-07-28 12:12:56.001" (обязательный)
 * bWithTickets - удалять ли слоты с тикетами, отвязывая тикеты от слотов? (опциональный, по умолчанию false)
@@ -1963,7 +2004,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?&s
 
 * {sLogin} - ID пользователя
 
-Метод возвращает json со списком бизнес процессов, которые пользователь может запускать, в формате 
+Метод возвращает json со списком бизнес процессов, к которым у пользователя есть доступ, в формате 
 [
 {
 "sID":"[process definition key]"
@@ -1975,6 +2016,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?&s
 }
 ]
 
+Принадлежность пользователя к процессу проверяется по вхождению в группы, которые могут запускать usertask-и внутри процесса, или по вхождению в группу, которая может стартовать процесс
 
 Пример:
 ```
@@ -1986,3 +2028,192 @@ https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=kermit
 ```
 [{"sID":"dnepr_spravka_o_doxodax","sName":"Дніпропетровськ - Отримання довідки про доходи фіз. осіб"},{"sID":"dnepr_subsidies2","sName":"Отримання субсидії на оплату житлово-комунальних послуг2"},{"sID":"khmelnitskij_mvk_2","sName":"Хмельницький - Надання інформації, що підтверджує відсутність (наявність) земельної ділянки"},{"sID":"khmelnitskij_zemlya","sName":"Заява про наявність земельної ділянки"},{"sID":"kiev_spravka_o_doxodax","sName":"Київ - Отримання довідки про доходи фіз. осіб"},{"sID":"kuznetsovsk_mvk_5","sName":"Кузнецовськ МВК - Узгодження графіка роботи підприємства торгівлі\/обслуговування"},{"sID":"post_spravka_o_doxodax_pens","sName":"Отримання довідки про доходи (пенсійний фонд)"}]
 ```
+
+<a name="24_getSheduleFlowIncludes">
+#### 24. Получение расписаний включений
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=[flowId]
+
+* {flowId} - ID потока
+
+Пример:
+```
+https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=1
+```
+
+Пример результата
+
+```
+[{"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}},{"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"10:30\"","sDateTimeTo":"\"12:30\"","nID":20364,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}]
+```
+
+<a name="25_setSheduleFlowInclude">
+#### 25. Добавление/изменение расписания включений
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowInclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&sName=[sName]&sRegionTime=[sRegionTime]&sDateTimeAt=[sDateTimeAt]&sDateTimeTo=[sDateTimeTo]&saRegionWeekDay=[saRegionWeekDay]
+
+* nID - ИД-номер //опциональный ,если задан - редактирование
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
+* sName - Строка-название ("Вечерний прием")
+* sRegionTime - Строка период времени ("14:16-16-30")
+* saRegionWeekDay - Массив дней недели ("su,mo,tu")
+* sDateTimeAt - Строка-дата начала(на) в формате YYYY-MM-DD hh:mm:ss ("2015-07-31 19:00:00")
+* sDateTimeTo - Строка-дата конца(к) в формате YYYY-MM-DD hh:mm:ss ("2015-07-31 23:00:00")
+
+Пример:
+```
+https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowInclude?nID_Flow_ServiceData=1&sName=Test&sRegionTime=%2210:30-11:30%22&sDateTimeAt=%222010-08-01%2010:10:30%22&sDateTimeTo=%222010-08-01%2018:10:00%22&saRegionWeekDay=%22mo,tu%22
+```
+
+Пример результата
+
+```
+{"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}
+```
+
+
+<a name="26_removeSheduleFlowInclude">
+#### 26. Удаление расписания включений
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowInclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&nID=[nID]
+
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
+* nID - ИД-номер
+Ответ:
+Массив объектов сущности расписаний включений
+
+Пример:
+```
+https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowInclude?nID_Flow_ServiceData=1&nID=20367
+```
+
+Пример результата
+
+```
+{"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}
+```
+
+<a name="27_getSheduleFlowExcludes">
+#### 27. Получение расписаний исключений
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=[flowId]
+
+* {flowId} - ID потока
+
+Пример:
+```
+https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=1
+```
+
+Пример результата
+
+```
+[{"sData":null,"bExclude":true,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}},{"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"10:30\"","sDateTimeTo":"\"12:30\"","nID":20364,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}]
+```
+
+<a name="28_setSheduleFlowExclude">
+#### 28. Добавление/изменение расписания исключения
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&sName=[sName]&sRegionTime=[sRegionTime]&sDateTimeAt=[sDateTimeAt]&sDateTimeTo=[sDateTimeTo]&saRegionWeekDay=[saRegionWeekDay]
+
+* nID - ИД-номер //опциональный ,если задан - редактирование
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
+* sName - Строка-название ("Вечерний прием")
+* sRegionTime - Строка период времени ("14:16-16-30")
+* saRegionWeekDay - Массив дней недели ("su,mo,tu")
+* sDateTimeAt - Строка-дата начала(на) в формате YYYY-MM-DD hh:mm:ss ("2015-07-31 19:00:00")
+* sDateTimeTo - Строка-дата конца(к) в формате YYYY-MM-DD hh:mm:ss ("2015-07-31 23:00:00")
+
+Пример:
+```
+https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowExclude?nID_Flow_ServiceData=1&sName=Test&sRegionTime=%2210:30-11:30%22&sDateTimeAt=%222010-08-01%2010:10:30%22&sDateTimeTo=%222010-08-01%2018:10:00%22&saRegionWeekDay=%22mo,tu%22
+```
+
+Пример результата
+
+```
+{"sData":null,"bExclude":true,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}
+```
+
+
+<a name="29_removeSheduleFlowExclude">
+#### 29. Удаление расписания исключений
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&nID=[nID]
+
+* nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
+* sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
+* nID - ИД-номер
+Ответ:
+Массив объектов сущности расписаний исключений
+
+Пример:
+```
+https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowExclude?nID_Flow_ServiceData=1&nID=20367
+```
+
+Пример результата
+
+```
+{"sData":null,"bExclude":true,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}
+```
+
+
+----------------------
+
+
+<a name="30_workWithPatternFiles">
+#### 30. Работа с файлами-шаблонами
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=[full-path-file]&sContentType=[content-type]**
+--возвращает содержимое указанного файла с указанным типом контента (если он задан).
+
+* sPathFile - полный путь к файлу, например: folder/file.html.
+* sContentType - тип контента (опционально, по умолчанию обычный текст: text/plain)
+
+Если указанный путь неверен и файл не найден -- вернется соответствующая ошибка.
+
+Примеры:
+
+https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=print//subsidy_zayava.html
+
+ответ: вернется текст исходного кода файла-шаблона
+
+https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=print//subsidy_zayava.html&sContentType=text/html
+
+ответ: файл-шаблон будет отображаться в виде html-страницы
+
+
+----------------------
+

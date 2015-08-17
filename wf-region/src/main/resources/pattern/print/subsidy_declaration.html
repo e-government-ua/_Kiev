@@ -114,8 +114,8 @@
         }
     </style>
     <div class="line_col ta-r">
-        <div class="under_field w350 ta-l"><i></i><span>(найменування структурного підрозділу</span></div><br />
-        <div class="under_field w350 ta-l"><i></i><span>з питань соціального захисту населення)</span></div>
+        <div class="under_field w350 ta-l"><i>[area]</i><span>(найменування структурного підрозділу</span></div><br />
+        <div class="under_field w350 ta-l"><i>Дніпропетровська</i><span>з питань соціального захисту населення)</span></div>
     </div>
     <div class="line_col ta-c m-t-25">
         <b>ДЕКЛАРАЦІЯ<br />
@@ -125,11 +125,11 @@
             <tr>
                 <td class="ta-l">
                     Розділ I. Загальні відомості<br />
-                    <div class="under_field_line ta-l fw"><i>1.</i><span>(прізвище, ім’я, по батькові)</span></div>
+                    <div class="under_field_line ta-l fw"><i>1.<u>[bankIdlastName] [bankIdfirstName] [bankIdmiddleName]</u></i><span>(прізвище, ім’я, по батькові)</span></div>
                     <div class="under_field_line wub ta-l">2. Характеристика житлового приміщення/будинку:<br />
-                        загальна площа ____ кв. метрів; опалювальна площа ____ кв. метрів;<br />
-                        будинок індивідуальний чи багатоквартирний (необхідне підкреслити);<br />
-                        кількість поверхів у будинку __________
+                        загальна площа <u>[total_place]</u> кв. метрів; опалювальна площа <u>[warming_place]</u> кв. метрів;<br />
+                        будинок <u>[place_type]</u>;<br />
+                        кількість поверхів у будинку <u>[floors]</u>
                     </div>
                     <div class="under_field_line wub ta-l">3. Особи, які зареєстровані (для орендарів — особи, які фактично проживають) у житловому приміщенні/будинку</div>
                 </td>
@@ -144,32 +144,32 @@
                 <td>Примітки</td>
             </tr>
             <tr>
-                <td class="h10"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="h10"></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="h10">[bankIdlastName] [bankIdfirstName] [bankIdmiddleName]</td>
+                <td>[date_of_birth]</td>
+                <td>[bankIdPassport]</td>
+                <td>[bankIdinn]</td>
                 <td></td>
             </tr>
             <tr>
-                <td class="h10"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="h10">[fio1]</td>
+                <td>[date1]</td>
+                <td>[passport1]</td>
+                <td>[card1]</td>
+                <td>[comment1]</td>
             </tr>
             <tr>
-                <td class="h10"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="h10">[fio2]</td>
+                <td>[date2]</td>
+                <td>[passport2]</td>
+                <td>[card2]</td>
+                <td>[comment2]</td>
+            </tr>
+            <tr>
+                <td class="h10">[fio3]</td>
+                <td>[date3]</td>
+                <td>[passport3]</td>
+                <td>[card3]</td>
+                <td>[comment3]</td>
             </tr>
             <tr>
                 <td class="h10"></td>
@@ -189,7 +189,7 @@
         <table class="zit_v-form2 m-t-unt">
             <tr>
                 <td class="ta-l">
-                    <div class="under_field_line wub ta-l m-clear">Розділ II.<br /> Всі види доходів фактично проживаючих у житловому приміщенні/будинку осіб, які зареєстровані<br /> (не зареєстровані - для орендарів), за період з ________ 20__ р. до __________ 20__ року</div>
+                    <div class="under_field_line wub ta-l m-clear">Розділ II.<br /> Всі види доходів фактично проживаючих у житловому приміщенні/будинку осіб, які зареєстровані<br /> (не зареєстровані - для орендарів), за період з [date_from] р. до [date_to]</div>
                 </td>
             </tr>
         </table>
@@ -209,24 +209,24 @@
                 </td>
             </tr>
             <tr>
-                <td class="h10"></td>
-                <td class="w101 p-clear"></td>
-                <td class="w265"></td>
+                <td class="h10">[bankIdlastName] [bankIdfirstName] [bankIdmiddleName]</td>
+                <td class="w101 p-clear">[income0]</td>
+                <td class="w265">[org0]</td>
             </tr>
             <tr>
-                <td class="h10"></td>
-                <td></td>
-                <td></td>
+                <td class="h10">[fio1]</td>
+                <td>[income1]</td>
+                <td>[org1]</td>
             </tr>
             <tr>
-                <td class="h10"></td>
-                <td></td>
-                <td></td>
+                <td class="h10">[fio2]</td>
+                <td>[income2]</td>
+                <td>[org2]</td>
             </tr>
             <tr>
-                <td class="h10"></td>
-                <td></td>
-                <td></td>
+                <td class="h10">[fio3]</td>
+                <td>[income3]</td>
+                <td>[org3]</td>
             </tr>
             <tr>
                 <td class="h10"></td>

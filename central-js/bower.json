@@ -7,7 +7,7 @@
     "es5-shim": "~3.0.1",
     "jquery": "~1.11.0",
     "bootstrap-sass-official": "~3.1.1",
-    "bootstrap": "~3.3.4",
+    "bootstrap": "~3.3.5",
     "angular-resource": ">=1.2.*",
     "angular-cookies": ">=1.2.*",
     "angular-sanitize": ">=1.2.*",
@@ -21,8 +21,19 @@
     "jquery.cookie": "~1.4.1",
     "ng-clip": "~0.2.6",
     "zeroclipboard": "~2.2.0",
-    "angular-ui-utils": "~0.2.3",
-    "intl-tel-input" : "~6.0.4"
+    "intl-tel-input": "~6.0.4",
+    "angular-moment": "~0.10.2",
+    "angular-ui-uploader": "~1.1.1",
+    "angular-ui-event": "~1.0.0"
+  },
+  "overrides": {
+    "moment": {
+      "main": [
+        "moment.js",
+        "locale/uk.js",
+        "locale/ru.js"
+      ]
+    }
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

@@ -1,31 +1,42 @@
 package org.activiti.rest.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.wf.dp.dniprorada.base.model.Entity;
 import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
-import org.wf.dp.dniprorada.base.viewobject.ResultMessage;
-import org.wf.dp.dniprorada.model.*;
-import org.wf.dp.dniprorada.service.EntityService;
-import org.wf.dp.dniprorada.service.TableDataService;
-import org.wf.dp.dniprorada.util.GeneralConfig;
+import org.wf.dp.dniprorada.base.model.Entity;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.base.util.SerializableResponseEntity;
 import org.wf.dp.dniprorada.base.util.caching.CachedInvocationBean;
+import org.wf.dp.dniprorada.base.viewobject.ResultMessage;
+import org.wf.dp.dniprorada.constant.KOATUU;
+import org.wf.dp.dniprorada.model.Category;
+import org.wf.dp.dniprorada.model.City;
+import org.wf.dp.dniprorada.model.Region;
+import org.wf.dp.dniprorada.model.Service;
+import org.wf.dp.dniprorada.model.ServiceData;
+import org.wf.dp.dniprorada.model.Subcategory;
+import org.wf.dp.dniprorada.service.EntityService;
+import org.wf.dp.dniprorada.service.TableDataService;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.viewobject.TableData;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/services")
@@ -216,53 +227,130 @@ public class ActivitiRestServicesController {
 
       return JsonRestUtils.toJsonResponse(regions);
    }
+   
+    public static final String SERVICE_NAME_TEST_PREFIX = "_";
 
-   @RequestMapping(value = "/getServicesTree", method = RequestMethod.GET)
-   public
-   @ResponseBody
-   ResponseEntity getServicesTree(@RequestParam(value = "sFind", required = false) final String partOfName) {
-      SerializableResponseEntity entity = cachedInvocationBean.invokeUsingCache(
-              new CachedInvocationBean.Callback<SerializableResponseEntity>("getServicesTree", partOfName) {
-         @Override
-         public SerializableResponseEntity execute() {
-            List<Category> categories = new ArrayList<>(baseEntityDao.getAll(Category.class));
+    public static final List<String> SUPPORTED_PLACE_IDS = new ArrayList<>();
+    static {
+        SUPPORTED_PLACE_IDS.add(String.valueOf(KOATUU.KYIVSKA_OBLAST.getId()));
+        SUPPORTED_PLACE_IDS.add(String.valueOf(KOATUU.KYIV.getId()));
+    }
 
-            if (partOfName != null) {
-               filterCategories(categories, partOfName);
+    @RequestMapping(value = "/getServicesTree", method = RequestMethod.GET)
+    public @ResponseBody ResponseEntity<String> getServicesTree(
+            @RequestParam(value = "sFind", required = false) final String partOfName, @RequestParam(
+                    value = "asID_Place_UA",
+                    required = false) final List<String> placeUaIds) {
+        final boolean bTest = generalConfig.bTest();
+        SerializableResponseEntity<String> entity = cachedInvocationBean.invokeUsingCache(new CachedInvocationBean.Callback<SerializableResponseEntity<String>>(
+                "getServicesTree", partOfName, placeUaIds, bTest) {
+            @Override
+            public SerializableResponseEntity<String> execute() {
+                List<Category> categories = new ArrayList<>(baseEntityDao.getAll(Category.class));
+
+                if (!bTest) {
+                    filterOutServicesByServiceNamePrefix(categories, SERVICE_NAME_TEST_PREFIX);
+                }
+
+                if (partOfName != null) {
+                    filterServicesByServiceName(categories, partOfName);
+                }
+
+                if (placeUaIds != null) {
+                    placeUaIds.retainAll(SUPPORTED_PLACE_IDS);
+                    if (!placeUaIds.isEmpty()) {
+                        filterServicesByPlaceIds(categories, placeUaIds);
+                    }
+                }
+
+                cleanEmptyContainers(categories);
+
+                return categoriesToJsonResponse(categories);
             }
+        });
 
-            return categoriesToJsonResponse(categories);
-         }
-      });
+        return entity.toResponseEntity();
+    }
 
-      return entity.toResponseEntity();
-   }
+    private void filterOutServicesByServiceNamePrefix(List<Category> categories, String prefix) {
+        for (Category category : categories) {
+            for (Subcategory subcategory : category.getSubcategories()) {
+                for (Iterator<Service> serviceIterator = subcategory.getServices().iterator(); serviceIterator.hasNext();) {
+                    Service service = serviceIterator.next();
+                    if (service.getName().startsWith(prefix)) {
+                        serviceIterator.remove();
+                    }
+                }
+            }
+        }
+    }
 
-   private void filterCategories(List<Category> categories, @RequestParam(value = "sFind", required = false) String sFind) {
-      for (Iterator<Category> aCategory = categories.iterator(); aCategory.hasNext(); ) {
-         Category oCategory = aCategory.next();
+    private void filterServicesByServiceName(List<Category> categories, String sFind) {
+        for (Category category : categories) {
+            for (Subcategory subcategory : category.getSubcategories()) {
+                for (Iterator<Service> serviceIterator = subcategory.getServices().iterator(); serviceIterator.hasNext();) {
+                    Service service = serviceIterator.next();
+                    if (!isTextMatched(service.getName(), sFind)) {
+                        serviceIterator.remove();
+                    }
+                }
+            }
+        }
+    }
 
-         for (Iterator<Subcategory> aSubcategory = oCategory.getSubcategories().iterator(); aSubcategory.hasNext(); ) {
-            Subcategory oSubcategory = aSubcategory.next();
+    private void filterServicesByPlaceIds(List<Category> categories, List<String> placeIds) {
+        for (Category category : categories) {
+            for (Subcategory subcategory : category.getSubcategories()) {
+                for (Iterator<Service> serviceIterator = subcategory.getServices().iterator(); serviceIterator
+                        .hasNext();) {
+                    Service service = serviceIterator.next();
+                    boolean isPlaceMatched = false;
+                    List<ServiceData> serviceDatas = service.getServiceDataFiltered(generalConfig.bTest());
+                    if (serviceDatas != null) {
+                        for (ServiceData serviceData : serviceDatas) {
+                            City city = serviceData.getCity();
+                            if (city != null && placeIds.contains(city.getsID_UA())) {
+                                isPlaceMatched = true;
+                                break;
+                            }
+                            Region region = serviceData.getRegion();
+                            if (region != null && placeIds.contains(region.getsID_UA())) {
+                                isPlaceMatched = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!isPlaceMatched) {
+                        serviceIterator.remove();
+                    }
+                }
+            }
+        }
+    }
 
-            for (Iterator<Service> aService = oSubcategory.getServices().iterator(); aService.hasNext(); ) {
-               Service oService = aService.next();
-               if (!isTextMatched(oService.getName(), sFind)) {
-                  aService.remove();
+   /**
+    * Filter out empty categories and subcategories
+    *
+    * @param categories
+    */
+   private void cleanEmptyContainers(List<Category> categories) {
+       for (Iterator<Category> categoryIterator = categories.iterator(); categoryIterator.hasNext();) {
+           Category category = categoryIterator.next();
+
+           for (Iterator<Subcategory> subcategoryIterator = category.getSubcategories().iterator(); subcategoryIterator
+                   .hasNext();) {
+               Subcategory subcategory = subcategoryIterator.next();
+               if (subcategory.getServices().isEmpty()) {
+                   subcategoryIterator.remove();
                }
-            }
+           }
 
-            if (oSubcategory.getServices().isEmpty()) {
-               aSubcategory.remove();
-            }
-         }
-
-         if (oCategory.getSubcategories().isEmpty()) {
-            aCategory.remove();
-         }
-      }
+           if (category.getSubcategories().isEmpty()) {
+               categoryIterator.remove();
+           }
+       }
    }
-
+   
    @RequestMapping(value = "/setServicesTree", method = RequestMethod.POST)
    public
    @ResponseBody
@@ -314,7 +402,7 @@ public class ActivitiRestServicesController {
       return sWhere.toLowerCase().contains(sFind.toLowerCase());
    }
 
-   private SerializableResponseEntity categoriesToJsonResponse(List<Category> categories) {
+   private SerializableResponseEntity<String> categoriesToJsonResponse(List<Category> categories) {
       for (Category c : categories) {
          for (Subcategory sc : c.getSubcategories()) {
             sc.setCategory(null);
@@ -334,7 +422,7 @@ public class ActivitiRestServicesController {
          }
       }
 
-      return new SerializableResponseEntity(JsonRestUtils.toJsonResponse(categories));
+      return new SerializableResponseEntity<>(JsonRestUtils.toJsonResponse(categories));
    }
 
 }

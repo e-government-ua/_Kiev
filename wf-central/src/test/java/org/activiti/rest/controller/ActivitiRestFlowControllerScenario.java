@@ -3,6 +3,7 @@ package org.activiti.rest.controller;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,7 @@ public class ActivitiRestFlowControllerScenario {
       mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
    }
 
+   @Ignore
    @Test
    public void shouldSuccessfullyGetFlowSlotsAndSaveTicket() throws Exception {
       String getJsonData = mockMvc.perform(get("/flow/getFlowSlots_ServiceData").
@@ -107,6 +109,7 @@ public class ActivitiRestFlowControllerScenario {
       Assert.assertEquals(ticketId, response.getnID_Ticket());
    }
 
+   @Ignore
    @Test
    public void shouldGenerateAndClearSlots() throws Exception {
       String sDateStart = "2015-06-01 00:00:00.000";

@@ -16,10 +16,8 @@
         <li ng-repeat="menu in menus"
             ng-show="isLoggedIn()"
             ng-class="{active: isTaskFilterActive(menu.type)}">
-          <!--<a ng-attr-id="{{menu.type}}" ng-click="applyTaskFilter(menu.type)">{{menu.title}}-->
-            <a ng-if="menu.type!=='finished'" ng-attr-id="{{menu.type}}" ng-click="applyTaskFilter(menu.type)">{{menu.title}}
-              
-              
+            <a ng-attr-id="{{menu.type}}" ng-click="applyTaskFilter(menu.type)">{{menu.title}}
+            <!--<a ng-if="menu.type!=='finished'" ng-attr-id="{{menu.type}}" ng-click="applyTaskFilter(menu.type)">{{menu.title}}-->
             <span class="label label-info">{{menu.count}}</span>
           </a>
         </li>

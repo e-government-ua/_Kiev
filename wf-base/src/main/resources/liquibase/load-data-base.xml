@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
@@ -26,19 +26,25 @@
             <column name="sBeanName" type="STRING"/>
         </loadUpdateData>
 
-        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/FlowProperty.csv" tableName="FlowProperty" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="nID_FlowPropertyClass" type="NUMERIC"/>
-            <column name="sData" type="STRING"/>
-            <column name="nID_Flow_ServiceData" type="NUMERIC"/>
-        </loadUpdateData>
-
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/FlowSlot.csv" tableName="FlowSlot" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sName" type="STRING"/>
             <column name="sDate" type="DATETIME"/>
             <column name="sData" type="STRING"/>
             <column name="nID_Flow_ServiceData" type="NUMERIC"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/FlowProperty.csv" tableName="FlowProperty" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_FlowPropertyClass" type="NUMERIC"/>
+            <column name="sData" type="STRING"/>
+            <column name="nID_Flow_ServiceData" type="NUMERIC"/>
+            <column name="bExclude" type="BOOLEAN" defaultValueBoolean="true"/>
+            <column name="sName" type="STRING" defaultValue=""/>
+            <column name="sRegionTime" type="STRING" defaultValue=""/>
+            <column name="saRegionWeekDay" type="STRING" defaultValue=""/>
+            <column name="sDateTimeAt" type="STRING" defaultValue=""/>
+            <column name="sDateTimeTo" type="STRING" defaultValue=""/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/FlowSlotTicket.csv" tableName="FlowSlotTicket" separator=";">
@@ -50,6 +56,25 @@
             <column name="sDateFinish" type="DATETIME"/>
             <column name="sDateEdit" type="DATETIME"/>
         </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/EscalationRuleFunction.csv"
+                        tableName="EscalationRuleFunction" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="sBeanHandler" type="STRING"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/EscalationRule.csv"
+                        tableName="EscalationRuleFunction" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sID_BP" type="STRING"/>
+            <column name="sID_UserTask" type="STRING"/>
+            <column name="sCondition" type="STRING"/>
+            <column name="soData" type="STRING"/>
+            <column name="sPatternFile" type="STRING"/>
+            <column name="nID_EscalationRuleFunction" type="NUMERIC"/>
+        </loadUpdateData>
+
     </changeSet>    
 
 

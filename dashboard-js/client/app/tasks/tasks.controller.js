@@ -20,6 +20,20 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     count: 0
   }];
 
+  $scope.predicate = 'createTime';
+  $scope.reverse = false;
+  $scope.sort_order = 'order_increase';
+  $scope.order = function(predicate, reverse) {
+    $scope.reverse = reverse;
+    $scope.predicate = predicate;
+  };
+  $scope.sortOrder = function() {
+    switch($scope.sort_order) {
+      case 'order_increase': $scope.reverse = false; break;
+      case 'order_decrease': $scope.reverse = true; break;
+    }
+  }
+
   $scope.printTemplate = new PrintTemplate();
 
   $scope.print = function () {
@@ -87,7 +101,10 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
       .list(menuType)
       .then(function (result) {
         result = JSON.parse(result);
-        $scope.tasks = result.data;
+        var tasks = _.filter(result.data, function (task) {
+          return task.endTime !== null;
+        });
+        $scope.tasks = tasks;
         updateTaskSelection(nID_Task);
       })
       .catch(function (err) {
@@ -105,17 +122,32 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     $scope.error = null;
     $scope.taskAttachments = null;
 
-    tasks
-      .taskForm(task.id)
-      .then(function (result) {
-        result = JSON.parse(result);
-        $scope.taskForm = result.formProperties;
-        $scope.taskForm = addIndexForFileItems($scope.taskForm);
-      })
-      .catch(function (err) {
-        err = JSON.parse(err);
-        $scope.error = err;
-      });
+    if (task.endTime) {
+      tasks
+        .taskFormFromHistory(task.id)
+        .then(function (result) {
+          result = JSON.parse(result);
+          $scope.taskForm = result.data[0].variables;
+          $scope.taskForm = addIndexForFileItems($scope.taskForm);
+        })
+        .catch(function (err) {
+          err = JSON.parse(err);
+          $scope.error = err;
+        });
+    }
+    else {
+      tasks
+        .taskForm(task.id)
+        .then(function (result) {
+          result = JSON.parse(result);
+          $scope.taskForm = result.formProperties;
+          $scope.taskForm = addIndexForFileItems($scope.taskForm);
+        })
+        .catch(function (err) {
+          err = JSON.parse(err);
+          $scope.error = err;
+        });
+    }
 
     tasks
       .taskAttachments(task.id)
@@ -159,6 +191,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   $scope.assignTask = function () {
     tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id).then(function (result) {
       Modal.assignTask(function (event) {
+        $scope.selectedTasks[$scope.$storage.menuType] = null;
+        loadTaskCounters();
+
         //$scope.tasks[0]
         console.log("$scope.selectedTask.id="+$scope.selectedTask.id)
         $scope.applyTaskFilter($scope.menus[0].type, $scope.selectedTask.id);
@@ -167,7 +202,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
         $scope.applyTaskFilter($scope.menus[0].type);
         $scope.selectedTasks[$scope.menus[0].type] = $scope.selectedTask;
         */
-       
+
         //$('#selfAssigned').click();
         //$('.selfAssigned_task-'+$scope.selectedTask.id).click();
 //        $('.task.selfAssigned_'+$scope.selectedTask.id).click();
@@ -223,7 +258,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     }*/
     //"_10" - подкрашивать строку - красным цветом
     //"_5" - подкрашивать строку - желтым цветом
-    //"_1" - подкрашивать строку - зеленым цветом      
+    //"_1" - подкрашивать строку - зеленым цветом
     var sClass="";
     if(endsWith(sUserTask, "_red")){
         return "bg_red";
@@ -247,6 +282,23 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     }
     return s;
   };
+
+
+
+  $scope.aPatternPrintNew = function (taskForm) {
+//    console.log("[aPatternPrintNew]")
+    var printTemplateResult = null;
+    if(taskForm){//this.form
+        printTemplateResult = taskForm.filter(function (item) {//form//this.form
+            //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
+          return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
+        });
+//        console.log("[aPatternPrintNew]printTemplateResult.length="+printTemplateResult.length)
+    }
+    //return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
+    return (printTemplateResult!==null && printTemplateResult.length !== 0) ? printTemplateResult : [];
+  };
+
 
   $scope.nID_FlowSlotTicket_FieldQueueData = function (sValue) {
     var nAt = sValue.indexOf(":");
@@ -305,6 +357,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.init = function () {
+    console.log("$scope.init");
     loadTaskCounters();
     loadSelfAssignedTasks();
   };
@@ -320,7 +373,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   }
 
   function loadSelfAssignedTasks() {
+    console.log("[loadSelfAssignedTasks]");
     processes.list().then(function (processesDefinitions) {
+        console.log("[loadSelfAssignedTasks]processesDefinitions="+processesDefinitions);
       $scope.applyTaskFilter($scope.$storage.menuType);
     }).catch(function (err) {
       err = JSON.parse(err);

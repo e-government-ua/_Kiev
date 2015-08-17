@@ -33,13 +33,7 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
   };
 
   // mock markers
-  $scope.markers = {
-       validate: {
-           Mail: {
-               aField_ID: ['email']
-           }
-       }
-  };
+  $scope.markers = ValidationService.getValidationMarkers( $scope );
 
   $scope.emailKeydown = function( e, absentMessageForm, absentMessage )  {
     $scope.absentMessage.showErrors = false;
@@ -51,7 +45,7 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
 
   $scope.sendAbsentMessage = function(absentMessageForm, absentMessage) {
 
-    ValidationService.validateEmailByMarker( absentMessageForm.email, $scope.markers );
+    // ValidationService.validateByMarkers( absentMessageForm );
 
     if (false === absentMessageForm.$valid) {
       $scope.absentMessage.showErrors = true;

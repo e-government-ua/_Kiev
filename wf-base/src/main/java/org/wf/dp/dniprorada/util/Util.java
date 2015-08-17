@@ -1,38 +1,40 @@
 package org.wf.dp.dniprorada.util;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.Constants;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.Arrays;
-
+import com.google.common.io.Files;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
-
-import sun.misc.BASE64Encoder;
-import sun.misc.BASE64Decoder;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
-import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getStringFromFieldExpression;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.Arrays;
 
 public final class Util {
 
-	private final static Logger log = LoggerFactory.getLogger(Util.class);
+    private final static Logger log = LoggerFactory.getLogger(Util.class);
+    public static final String PATTERN_FILE_PATH_BEGIN = "../webapps/wf-region/WEB-INF/classes/pattern/";
+    public static final String PATTERN_DEFAULT_CONTENT_TYPE = "text/plain";
 
-	private Util() {
+    private Util() {
 	}
+
+
+    public static byte[] getPatternFile(String sPathFile)  throws IOException {
+        if (sPathFile.contains("..") ){
+            throw new IllegalArgumentException("incorrect sPathFile!");
+        }
+        String fullFileName = PATTERN_FILE_PATH_BEGIN + sPathFile;
+        File file = new File(fullFileName);
+        return Files.toByteArray(file);
+    }
 
 	public static String sData(byte[] a) {
 		// Charset.forName("UTF-8")
@@ -123,22 +125,93 @@ public final class Util {
                     oLog.info("[replacePatterns]:task.getVariable(\"sBody\")="+task.getVariable("sBody"));
                     oLog.info("[replacePatterns]:execution.getVariable(\"sBody\")="+execution.getVariable("sBody"));
                             
-                	TaskFormData taskformData = execution.getEngineServices()
+                	TaskFormData oTaskFormData = execution.getEngineServices()
                 		    .getFormService()
                 		    .getTaskFormData(task.getId());
                 		    //.getTaskFormData(execution.getId());
                 	
-                	oLog.info("[replacePatterns]:Found taskformData=" + taskformData);
+                	oLog.info("[replacePatterns]:Found taskformData=" + oTaskFormData);
                 	String sExpression = null;
-                	if (taskformData != null){
-	                	for (FormProperty property : taskformData.getFormProperties()) {
-	                		if (property.getId().equals("sBody") ){
+                	if (oTaskFormData != null){
+	                	for (FormProperty property : oTaskFormData.getFormProperties()) {
+	                		//if (property.getId().equals("sBody") ){
+                                        String sFieldID=property.getId();
+                                        
+                                        oLog.info("[replacePatterns]:sFieldID=" + sFieldID);
+	                		if (sFieldID!=null && sFieldID.startsWith("sBody") ){
 	                			oLog.info("[replacePatterns]:Found necessary property.getValue()=" + property.getValue());
 	                			//sExpression = property.getValue();
 	                			oLog.info("[replacePatterns]:Found necessary property.getName()=" + property.getName());
                                                 //if( sExpression==null || "".equals(sExpression.trim()) || "${sBody}".equals(sExpression.trim())){
                                                     sExpression = property.getName();
                                                 //}
+                                                    
+                                                    oLog.info("[replacePatterns]:sExpression="+sExpression);
+                                                    if(sExpression!=null){
+                                                        String[] asPatterns = {
+                                                                "pattern/print/subsidy.html"
+                                                                ,"pattern/print/subsidy_zayava.html"
+                                                                ,"pattern/print/subsidy_declaration.html"
+                                                                ,"pattern/print/kalush_rda_1_zayava.html"
+                                                                ,"pattern/print/dnepr_dms_print.html"
+                                                                ,"pattern/print/1.html"
+                                                                ,"pattern/print/2.html"
+                                                                ,"pattern/print/3.html"
+                                                                ,"pattern/print/4.html"
+                                                                ,"pattern/print/5.html"
+                                                        };
+                                                        
+                                                                    //oFile = new File("../webapps/wf-region/WEB-INF/classes/"+sName);
+                                                        
+                                                        
+                                                        for(String sName:asPatterns){
+                                                            if(sExpression.contains("["+sName+"]")){
+                                                                oLog.info("[replacePatterns]:sName="+sName);
+                                                                //String sFullPath = sName.replaceAll("\\.", "/").replaceLast(sName, sName);
+                                                                File oFile = new File(sName);//"pattern/print/subsidy.html"
+                                                                oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
+                                                                if(!oFile.exists()){
+                                                                    //oFile = new File("class/"+sName);
+                                                                    // /sybase/tomcat_wf-region/bin/class/pattern/print/subsidy.html                                    
+                                                                    oFile = new File("../webapps/wf-region/WEB-INF/classes/"+sName);
+                                                                }
+                                                                oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
+                                                                if(oFile.exists()){
+                                                                    //String sData = getFromFile(oFile, "Cp1251");
+                                                                    String sData = getFromFile(oFile, null);
+                                                                    oLog.info("[replacePatterns]:sData="+sData);
+                                                                    if(sData!=null){
+                                                                        sExpression=sExpression.replaceAll("\\Q["+sName+"]\\E", sData);
+                                                                        oLog.info("[replacePatterns]:sExpression="+sExpression);
+                                                                        //setStringFromFieldExpression(osBody, execution, sExpression);
+                                //                                        execution.setVariable("sBody", sExpression);
+                                //                                        execution.setVariable("sBody0", sExpression);
+                                //                                        task.setVariable("sBody", sExpression);
+                                //                                        task.setVariable("sBody0", sExpression);
+                                                                        oLog.info("[replacePatterns](sFieldID="+sFieldID+"):1-Ok!");
+                                                                        
+                                                                        
+                                                                        execution.getEngineServices().getRuntimeService()
+                                                                                .setVariable(task.getProcessInstanceId(), sFieldID, sExpression);
+                                                                                //.setVariable(task.getProcessInstanceId(), "sBody", sExpression);
+                                                                        //task.getName();
+                                                                        oLog.info("[replacePatterns](sFieldID="+sFieldID+"):2-Ok:"+execution.getEngineServices().getRuntimeService()
+                                                                                .getVariable(task.getProcessInstanceId(), sFieldID));
+                                                                                //.getVariable(task.getProcessInstanceId(), "sBody"));
+                                                                        //task.getId()
+
+                                                                        oLog.info("[replacePatterns](sFieldID="+sFieldID+"):3-Ok!");
+                                                                    }
+                                                                }else{
+                                                                    oLog.info("[replacePatterns]:oFile.getAbsolutePath()="+oFile.getAbsolutePath());
+                                                                    oLog.info("[replacePatterns]:oFile.getCanonicalPath()="+oFile.getCanonicalPath());
+                                                                    oLog.info("[replacePatterns]:oFile.getPath()="+oFile.getPath());
+                                                                    oLog.info("[replacePatterns]:oFile.getName()="+oFile.getName());
+                                                                }
+                                                            }
+                                                        }
+                                                    }                                                    
+                                                    
 	                		} else {
 	                			oLog.info("[replacePatterns]:Property =" + property.getId());
 	                		}
@@ -153,61 +226,7 @@ public final class Util {
                     }*/
                     
                     
-                    if(sExpression!=null){
-                        String[] asPatterns = {
-                                "pattern/print/subsidy.html"
-                                ,"pattern/print/subsidy_zayava.html"
-                                ,"pattern/print/subsidy_declaration.html"
-                                ,"pattern/print/1.html"
-                                ,"pattern/print/2.html"
-                                ,"pattern/print/3.html"
-                                ,"pattern/print/4.html"
-                                ,"pattern/print/5.html"
-                        };
-                        for(String sName:asPatterns){
-                            if(sExpression.contains("["+sName+"]")){
-                                oLog.info("[replacePatterns]:sName="+sName);
-                                //String sFullPath = sName.replaceAll("\\.", "/").replaceLast(sName, sName);
-                                File oFile = new File(sName);//"pattern/print/subsidy.html"
-                                oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
-                                if(!oFile.exists()){
-                                    //oFile = new File("class/"+sName);
-                                    // /sybase/tomcat_wf-region/bin/class/pattern/print/subsidy.html                                    
-                                    oFile = new File("../webapps/wf-region/WEB-INF/classes/"+sName);
-                                }
-                                oLog.info("[replacePatterns]:oFile.exists()="+oFile.exists());
-                                if(oFile.exists()){
-                                    //String sData = getFromFile(oFile, "Cp1251");
-                                    String sData = getFromFile(oFile, null);
-                                    oLog.info("[replacePatterns]:sData="+sData);
-                                    if(sData!=null){
-                                        sExpression=sExpression.replaceAll("\\Q["+sName+"]\\E", sData);
-                                        oLog.info("[replacePatterns]:sExpression="+sExpression);
-                                        //setStringFromFieldExpression(osBody, execution, sExpression);
-//                                        execution.setVariable("sBody", sExpression);
-//                                        execution.setVariable("sBody0", sExpression);
-//                                        task.setVariable("sBody", sExpression);
-//                                        task.setVariable("sBody0", sExpression);
-                                        oLog.info("[replacePatterns]:1-Ok!");
-                                        
-                                        execution.getEngineServices().getRuntimeService()
-                                                .setVariable(task.getProcessInstanceId(), "sBody", sExpression);
-                                        //task.getName();
-                                        oLog.info("[replacePatterns]:2-Ok:"+execution.getEngineServices().getRuntimeService()
-                                                .getVariable(task.getProcessInstanceId(), "sBody"));
-                                        //task.getId()
-                                        
-                                        oLog.info("[replacePatterns]:3-Ok!");
-                                    }
-                                }else{
-                                    oLog.info("[replacePatterns]:oFile.getAbsolutePath()="+oFile.getAbsolutePath());
-                                    oLog.info("[replacePatterns]:oFile.getCanonicalPath()="+oFile.getCanonicalPath());
-                                    oLog.info("[replacePatterns]:oFile.getPath()="+oFile.getPath());
-                                    oLog.info("[replacePatterns]:oFile.getName()="+oFile.getName());
-                                }
-                            }
-                        }
-                    }
+
                 }catch(Exception oException){
                     oLog.error("[replacePatterns]",oException);
                 }            
@@ -264,6 +283,5 @@ public final class Util {
 		}
 		return null;
 	}        
-        
-        
+
 }

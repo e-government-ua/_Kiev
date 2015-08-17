@@ -1,0 +1,34 @@
+<div style="position:relative"
+     dropdown
+     is-open="countryList.dropdown.isOpen">
+
+  <div class="input-group">
+
+    <input autocomplete="off"
+           class="form-control"
+           name="country"
+           type="text"
+           ng-model="countryList.typeahead.model"
+           typeahead="country as country.sNameShort_UA for country in loadCountryList($viewValue) | orderBy:'sNameShort_UA'"
+           typeahead-on-select="onSelectCountryList($item)"
+           typeahead-empty
+           ng-required="ngRequired"/>
+
+    <span class="input-group-btn">
+      <button class="btn btn-default"
+              type="button"
+              dropdown-toggle>
+        <span class="caret"></span>
+      </button>
+    </span>
+
+  </div>
+
+  <ul class="dropdown-menu"
+      role="menu">
+    <li ng-repeat="country in countryList.dropdown.list | orderBy:'sNameShort_UA'">
+      <a ng-click="onSelectCountryList(country)">{{country.sNameShort_UA}}</a>
+    </li>
+  </ul>
+
+</div>

@@ -68,6 +68,26 @@ exports.getForm = function(req, res) {
   });
 };
 
+exports.getFormFromHistory = function(req, res) {
+  var options = {
+    path: 'history/historic-task-instances',
+    query: {
+      'taskId': req.params.taskId,
+      'includeTaskLocalVariables': true,
+      'includeProcessVariables': true
+    }
+
+  };
+
+  activiti.get(options, function(error, statusCode, result) {
+    if (error) {
+      res.send(error);
+    } else {
+      res.status(statusCode).json(result);
+    }
+  });
+};
+
 exports.uploadFile = function(req, res) {
   var options = {
     url: activiti.getRequestURL({

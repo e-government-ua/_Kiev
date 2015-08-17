@@ -44,7 +44,11 @@ public enum HistoryEventType {
             "getDocumentAccessByHandler",
             "Кто-то воспользовался доступом к документу, который ему предоставил пользователь",
             "Організація " + HistoryEventMessage.ORGANIZATION_NAME + " скористалась доступом, який Ви надали, та переглянула документ "
-                    + HistoryEventMessage.DOCUMENT_TYPE + " " + HistoryEventMessage.DOCUMENT_NAME + "");
+                    + HistoryEventMessage.DOCUMENT_TYPE + " " + HistoryEventMessage.DOCUMENT_NAME + ""),
+    FINISH_SERVICE(7L,
+            "ActivitiFinish",
+            "Выполнение заявки",
+            "Ваша заявка №" + HistoryEventMessage.TASK_NUMBER + " выполнена");
 
     private Long nID;
     private String sID;

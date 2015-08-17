@@ -5,6 +5,7 @@ import org.activiti.redis.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,10 +25,14 @@ import org.wf.dp.dniprorada.dao.*;
 import org.wf.dp.dniprorada.liqPay.LiqBuy;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.model.document.HandlerFactory;
+import org.wf.dp.dniprorada.util.BankIDConfig;
+import org.wf.dp.dniprorada.util.BankIDUtils;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Enumeration;
@@ -53,13 +58,13 @@ public class ActivitiRestDocumentController {
     private SubjectOrganDao subjectOrganDao;
 
     @Autowired
-    private HistoryEventDao historyEventDao;
-
-    @Autowired
     private DocumentContentTypeDao documentContentTypeDao;
     
     @Autowired
     private DocumentTypeDao documentTypeDao;
+    
+    @Autowired
+	private HistoryEventDao historyEventDao;
     
     //@Autowired
     //private AccessDataDao accessDataDao;
@@ -69,7 +74,13 @@ public class ActivitiRestDocumentController {
 
     @Autowired
     private HandlerFactory handlerFactory;
-
+    
+    @Autowired
+    GeneralConfig generalConfig;
+    
+    @Autowired
+    BankIDConfig bankIDConfig;
+    
     @RequestMapping(value = "/getDocument", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -127,13 +138,6 @@ public class ActivitiRestDocumentController {
     }
 
 
-    @RequestMapping(value = "/getHistoryEvent", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    HistoryEvent getHistoryEvent(@RequestParam(value = "nID") Long id) {
-        return historyEventDao.getHistoryEvent(id);
-    }
-
     @RequestMapping(value = "/getDocumentContent", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -147,34 +151,7 @@ public class ActivitiRestDocumentController {
         }
     }
 
-    @RequestMapping(value = "/getHistoryEvents", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<HistoryEvent> getHistoryEvents(
-            @RequestParam(value = "nID_Subject") long nID_Subject) {
-        return historyEventDao.getHistoryEvents(nID_Subject);
-    }
-
-    @RequestMapping(value = "/setHistoryEvent", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    Long setHistoryEvent(
-            @RequestParam(value = "nID_Subject", required = false) long nID_Subject,
-            @RequestParam(value = "nID_HistoryEventType", required = false) Long nID_HistoryEventType,
-            @RequestParam(value = "sEventName", required = false) String sEventName_Custom,
-            @RequestParam(value = "sMessage") String sMessage,
-
-            HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
-
-
-        return historyEventDao.setHistoryEvent(
-                nID_Subject,
-                nID_HistoryEventType,
-                sEventName_Custom,
-                sMessage);
-
-    }
-
+    
 
     @RequestMapping(value = "/getDocumentFile", method = RequestMethod.GET)
     public
@@ -263,7 +240,7 @@ public class ActivitiRestDocumentController {
             //@RequestParam(value = "nID_DocumentContentType", required = false) Integer nID_DocumentContentType,
             @RequestParam(value = "sDocumentContentType", required = false) String documentContentTypeName,
             @RequestParam(value = "soDocumentContent") String sContent,
-            @RequestParam(value = "oSignData") String oSignData,//todo required?? (issue587)
+            @RequestParam(value = "oSignData", required = false) String oSignData,
             //@RequestParam(value = "oFile", required = false) MultipartFile oFile,
             //@RequestBody byte[] content,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
@@ -290,6 +267,8 @@ public class ActivitiRestDocumentController {
         
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
 
+        oSignData = BankIDUtils.checkECP(bankIDConfig.sClientId(), bankIDConfig.sClientSecret(), generalConfig.sHostCentral(), aoContent, sName);
+        
         return documentDao.setDocument(
                 nID_Subject,
                 subject_Upload.getId(),
@@ -352,8 +331,7 @@ public class ActivitiRestDocumentController {
 
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
         
-        String soSignData = null;
-        //TODO: по другому пункту issue587 - проставлять soSignData
+        String soSignData = BankIDUtils.checkECP(bankIDConfig.sClientId(), bankIDConfig.sClientSecret(), generalConfig.sHostCentral(), aoContent, sName);
         
         Long nID_Document = documentDao.setDocument(
                         nID_Subject,
@@ -380,26 +358,7 @@ public class ActivitiRestDocumentController {
     	return subject_Upload;
     }
 
-    private void createHistoryEvent(HistoryEventType eventType, Long nID_Subject,
-                                    String sSubjectName_Upload, Long nID_Document,
-                                    Document document) {
-        Map<String, String> values = new HashMap<>();
-        try {
-            Document oDocument = document == null ? documentDao.getDocument(nID_Document) : document;
-            values.put(HistoryEventMessage.DOCUMENT_TYPE, oDocument.getDocumentType().getName());
-            values.put(HistoryEventMessage.DOCUMENT_NAME, oDocument.getName());
-            values.put(HistoryEventMessage.ORGANIZATION_NAME, sSubjectName_Upload);
-        } catch (Throwable e) {
-            log.warn("can't get document info!", e);
-        }
-        try {
-            String eventMessage = HistoryEventMessage.createJournalMessage(eventType, values);
-            historyEventDao.setHistoryEvent(nID_Subject, eventType.getnID(),
-                    eventMessage, eventMessage);
-        } catch (IOException e) {
-            log.error("error during creating HistoryEvent", e);
-        }
-    }
+   
 
     @RequestMapping(value   = "/getSubjectOrganJoins",
                     method  = RequestMethod.GET,
@@ -442,6 +401,31 @@ public class ActivitiRestDocumentController {
         soj.setCityId(cityID);
         subjectOrganDao.add( soj );
     }
+    
+    private void createHistoryEvent(HistoryEventType eventType,
+			Long nID_Subject, String sSubjectName_Upload, Long nID_Document,
+			Document document) {
+		Map<String, String> values = new HashMap<>();
+		try {
+			Document oDocument = document == null ? documentDao
+					.getDocument(nID_Document) : document;
+			values.put(HistoryEventMessage.DOCUMENT_TYPE, oDocument
+					.getDocumentType().getName());
+			values.put(HistoryEventMessage.DOCUMENT_NAME, oDocument.getName());
+			values.put(HistoryEventMessage.ORGANIZATION_NAME,
+					sSubjectName_Upload);
+		} catch (Throwable e) {
+			log.warn("can't get document info!", e);
+		}
+		try {
+			String eventMessage = HistoryEventMessage.createJournalMessage(
+					eventType, values);
+			historyEventDao.setHistoryEvent(nID_Subject, eventType.getnID(),
+					eventMessage, eventMessage);
+		} catch (IOException e) {
+			log.error("error during creating HistoryEvent", e);
+		}
+	}
 
     @RequestMapping(value   = "/removeSubjectOrganJoins",
                     method  = RequestMethod.GET,
@@ -464,27 +448,27 @@ public class ActivitiRestDocumentController {
 
     @RequestMapping(value   = "/setDocumentType",  method  = RequestMethod.GET)
     public  @ResponseBody
-    ResponseEntity<DocumentType> setDocumentType (
+    ResponseEntity setDocumentType (
             @RequestParam(value = "nID")   Long     nID,
             @RequestParam(value = "sName") String sName,
             @RequestParam(value = "bHidden", required = false) Boolean bHidden
     ) {
-        ResponseEntity<DocumentType> result;
+        ResponseEntity result;
         try {
             DocumentType documentType = documentTypeDao.setDocumentType(nID, sName, bHidden);
             result = JsonRestUtils.toJsonResponse(documentType);
         } catch (RuntimeException e) {
-            result = toJsonErrorResponse(403, e.getMessage());
+            result = toJsonErrorResponse(HttpStatus.FORBIDDEN, e.getMessage());
         }
         return result;
     }
 
-    private ResponseEntity toJsonErrorResponse(int httpCode, String eMessage) {//todo move to JsonRestUtils
+    private ResponseEntity toJsonErrorResponse(HttpStatus httpStatus, String eMessage) {//todo move to JsonRestUtils
         HttpHeaders headers = new HttpHeaders();
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         headers.setContentType(mediaType);
         headers.set("Reason", eMessage);
-        return new ResponseEntity<>(headers, HttpStatus.valueOf(httpCode));
+        return new ResponseEntity<>(headers, httpStatus);
     }
 
     @RequestMapping(value   = "/removeDocumentType", method  = RequestMethod.GET)
@@ -511,16 +495,16 @@ public class ActivitiRestDocumentController {
 
     @RequestMapping(value   = "/setDocumentContentType",  method  = RequestMethod.GET)
     public  @ResponseBody
-    ResponseEntity<DocumentContentType> setDocumentContentType (
+    ResponseEntity setDocumentContentType (
             @RequestParam(value = "nID")   Long     nID,
             @RequestParam(value = "sName") String sName
     ) {
-        ResponseEntity<DocumentContentType> result;
+        ResponseEntity result;
         try {
             DocumentContentType documentType = documentContentTypeDao.setDocumentContentType(nID, sName);
             result = JsonRestUtils.toJsonResponse(documentType);
         } catch (RuntimeException e) {
-            result = toJsonErrorResponse(403, e.getMessage());
+            result = toJsonErrorResponse(HttpStatus.FORBIDDEN, e.getMessage());
         }
         return result;
     }
