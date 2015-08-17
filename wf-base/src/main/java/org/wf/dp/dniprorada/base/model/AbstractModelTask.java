@@ -408,15 +408,6 @@ public abstract class AbstractModelTask {
                                             , oInputStream
                                     );
                             
-                            
-                                            oBuilderAtachModel.setByteToStringContent(contentByteToString(oByteArrayMultipartFile.getBytes()));
-                                            oBuilderAtachModel.setContentType(oByteArrayMultipartFile.getContentType());
-                                            oBuilderAtachModel.setExp(oByteArrayMultipartFile.getExp());
-                                            oBuilderAtachModel.setOriginalFilename(sFileName);
-                                            oBuilderAtachModel.setName(oByteArrayMultipartFile.getName());
-                                            aBuilderAtachModel.add(oBuilderAtachModel);
-                            
-                            
                             if(oAttachment!=null){
                                 String nID_Attachment = oAttachment.getId();
                                 //LOG.info("nID_Attachment=" + nID_Attachment);
