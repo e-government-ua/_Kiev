@@ -12,7 +12,7 @@
         <activiti:formProperty id="bankIdinn" name="Індивідуальний податковий номер" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження; у форматі ДД.ММ.РРРР" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження; країна, область/регіон, населений пункт" type="string" required="true"></activiti:formProperty>
-
+        
         <activiti:formProperty id="bankIdsID_Country" name="Громадянство (Code)" type="invisible" default="UA"></activiti:formProperty>
         <activiti:formProperty id="sID_Country" name="Country Code (Code)" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="sCountry" name="Громадянство" type="string"></activiti:formProperty>
@@ -33,10 +33,12 @@
           <activiti:value id="attr11" name="Інша"></activiti:value>
         </activiti:formProperty>
 
-		<activiti:formProperty id="corruption" name="Потрібна додаткова перевірка щодо коррупції" type="enum" required="true">
+        <activiti:formProperty id="corruption" name="Потрібна додаткова перевірка щодо коррупції" type="enum" required="true">
           <activiti:value id="attr1" name="Так, перевірка потрібна"></activiti:value>
           <activiti:value id="attr2" name="Ні, перевірка не потрібна"></activiti:value>
         </activiti:formProperty>
+
+        <activiti:formProperty id="nCount" name="Кількість довідок (по замовчанню - 1 максимально 10)" type="long" default="1" required="true"></activiti:formProperty>
 
         <activiti:formProperty id="phone" name="Контактний телефон; у форматі 380...." type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
@@ -236,6 +238,8 @@
           <activiti:value id="attr1" name="Так, перевірка потрібна"></activiti:value>
           <activiti:value id="attr2" name="Ні, перевірка не потрібна"></activiti:value>
         </activiti:formProperty>
+        
+        <activiti:formProperty id="nCount" name="Кількість довідок (по замовчанню - 1 максимально 10)" type="long" writable="false"></activiti:formProperty>
         
         <activiti:formProperty id="lastName_UA1" name="1. Попереднє прізвище (укр.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="lastName_RU1" name="1. Предыдущая фамилия (рус.)" type="string" writable="false"></activiti:formProperty>

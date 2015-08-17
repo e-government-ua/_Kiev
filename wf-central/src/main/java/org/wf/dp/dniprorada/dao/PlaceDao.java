@@ -14,5 +14,7 @@ import java.util.List;
 @Service
 public interface PlaceDao {
     List<Place> findBy(Long placeId, String uaId, Boolean tree);
-    PlaceHierarchyTree getTree(PlaceHierarchyRecord rootRecord);
+
+    PlaceHierarchyTree getTreeDown(PlaceHierarchyRecord rootRecord);
+    PlaceHierarchyTree getTreeUp  (Long placeId, String uaId, Boolean tree);
 }
