@@ -1,4 +1,4 @@
-angular.module('app').factory('FormDataFactory', function(ParameterFactory, DatepickerFactory, FileFactory, BankIDDocumentsFactory, CountryService, $q) {
+angular.module('app').factory('FormDataFactory', function(ParameterFactory, DatepickerFactory, FileFactory, BankIDDocumentsFactory, BankIDAddressesFactory, CountryService, $q) {
   var FormDataFactory = function() {
     this.processDefinitionId = null;
 
