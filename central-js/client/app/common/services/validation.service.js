@@ -92,10 +92,22 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
         aField_ID: ['vin_code', 'vin_code1', 'vin']
       },
       TextUA: {
-        aField_ID: ['textUa']
+        aField_ID: ['textUa'
+            ,'lastName_UA1','firstName_UA1','middleName_UA1'
+            ,'lastName_UA2','firstName_UA2','middleName_UA2'
+            ,'lastName_UA3','firstName_UA3','middleName_UA3'
+            ,'lastName_UA4','firstName_UA4','middleName_UA4'
+            ,'lastName_UA5','firstName_UA5','middleName_UA5'
+        ]
       },
       TextRU: {
-        aField_ID: ['textRu']
+        aField_ID: ['textRu'
+            ,'lastName_RU1','firstName_RU1','middleName_RU1'
+            ,'lastName_RU2','firstName_RU2','middleName_RU2'
+            ,'lastName_RU3','firstName_RU3','middleName_RU3'
+            ,'lastName_RU4','firstName_RU4','middleName_RU4'
+            ,'lastName_RU5','firstName_RU5','middleName_RU5'
+        ]
       },
       DateFormat: {
         aField_ID: ['dateFormat'],
@@ -243,6 +255,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
      * Текст помилки: 'Текст може містити тількі українські літери або мінус чи пробіл'
      */
     'TextUA': function(modelValue, viewValue) {
+      if(modelValue===null || modelValue===""){return true;}
       var TEXTUA_REGEXP = /^[ААБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя-\s]+$/g;
       var TEXTRU_ONLY = /[ЁёЪъЫыЭэ]+/g;
       var bValid = TEXTUA_REGEXP.test(modelValue) && !TEXTRU_ONLY.test(modelValue);
@@ -255,6 +268,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
      * Текст помилки: 'Текст може містити тількі російські літери або мінус че пробіл'
      */
     'TextRU': function(modelValue, viewValue) {
+      if(modelValue===null || modelValue===""){return true;}
       var TEXTRU_REGEXP = /^[АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя-\s]+$/g;
       var TEXTUA_ONLY = /[ҐЄІЇґєії]+/g;
       var bValid = TEXTRU_REGEXP.test(modelValue) && !TEXTUA_ONLY.test(modelValue);

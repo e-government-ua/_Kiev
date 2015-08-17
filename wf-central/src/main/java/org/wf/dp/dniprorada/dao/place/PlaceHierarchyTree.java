@@ -3,24 +3,25 @@ package org.wf.dp.dniprorada.dao.place;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.wf.dp.dniprorada.model.Place;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author dgroup
  * @since  22.07.2015
  */
-public class PlaceHierarchy {
-    @JsonProperty
+public class PlaceHierarchyTree {
+    @JsonProperty("nLevelArea")
     private Long levelOfArea;
 
-    @JsonProperty
+    @JsonProperty("nLevel")
     private Long level;
 
-    @JsonProperty
+    @JsonProperty("o")
     private Place place;
 
-    @JsonProperty
-    private List<PlaceHierarchy> children;
+    @JsonProperty("a")
+    private List<PlaceHierarchyTree> children = new ArrayList<>();
 
 
     public Long getLevelOfArea() {
@@ -44,14 +45,26 @@ public class PlaceHierarchy {
         this.place = place;
     }
 
-    public List<PlaceHierarchy> getChildren() {
+    public List<PlaceHierarchyTree> getChildren() {
         return children;
     }
-    public void setChildren(List<PlaceHierarchy> children) {
+    public void setChildren(List<PlaceHierarchyTree> children) {
         this.children = children;
     }
 
-    public void addChild(PlaceHierarchy childNode) {
+    public void addChild(PlaceHierarchyTree childNode) {
+        if (childNode == null)
+            return;
         children.add(childNode);
+    }
+
+    @Override
+    public String toString() {
+        return "PlaceHierarchy{" +
+                "levelOfArea=" + levelOfArea +
+                ", level=" + level +
+                ", place=" + place +
+                ", children=" + children +
+                '}';
     }
 }

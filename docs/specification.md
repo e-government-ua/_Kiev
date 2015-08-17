@@ -1583,6 +1583,8 @@ http://test.igov.org.ua/wf-central/service/services/updateHistoryEvent_Service?n
 
 Пример:
 https://test.igov.org.ua/wf-central/service/flow/getFlowSlots_ServiceData?nID_ServiceData=1
+или
+https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?sID_BP=kiev_mreo_1
 
 Ответ:  HTTP STATUS 200
 ```json
@@ -1992,7 +1994,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=kermit
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=[flowId]
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=[flowId]
 
 * {flowId} - ID потока
 
@@ -2070,7 +2072,7 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowInclude?
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=[flowId]
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=[flowId]
 
 * {flowId} - ID потока
 
