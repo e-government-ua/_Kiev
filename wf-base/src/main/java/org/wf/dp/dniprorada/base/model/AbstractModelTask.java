@@ -43,6 +43,9 @@ import org.activiti.rest.controller.*;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
+import com.google.gson.Gson;
+
+
 public abstract class AbstractModelTask {
 	
 	static final transient Logger LOG = LoggerFactory
