@@ -6,95 +6,91 @@
     }
     </style>
     <div class="row">
-        <div class="text-center">
+        <div class="col-sm-offset-2">
             <h4>Перевірка валідаторів</h4>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
-            <div>
-                <form novalidate name="testForm" class="form-horizontal test-form">
-                    <!-- PhoneUA -->
-                    <div class="form-group">
-                        <label for="email" class="col-sm-2 control-label">Phone UA:</label>
-                        <div class="col-sm-6">
-                            <input type="text" ng-tel-field="{defaultCountry:'ua', autoFormat:true, allowExtensions:false, preferredCountries:['ua'], autoPlaceholder:true}" name="privatePhone" ng-model="formData.privatePhone" class="form-control" required>
-                        </div>
-                        <div class="col-sm-4" ng-messages="testForm.privatePhone.$error" role="alert">
-                            <div ng-message="required">I'm required</div>
-                            <div ng-message="phone">Будь ласка, правильний номер телефону</div>
-                        </div>
-                    </div>
-                    <!-- Mail -->
-                    <div class="form-group">
-                        <label for="email" class="col-sm-2 control-label">Email:</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="privateMail" ng-model="formData.email" class="form-control" required>
-                        </div>
-                        <div class="col-sm-4" ng-messages="testForm.privateMail.$error" role="alert">
-                            <div ng-message="required">I'm required</div>
-                            <div ng-message="email">Будь ласка, правильну адресу електронної пошти</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="autoVin" class="col-sm-2 control-label">Auto VIN:</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="vin_code" ng-model="formData.autoVin" class="form-control" required>
-                        </div>
-                        <div class="col-sm-4" ng-messages="testForm.vin_code.$error" role="alert">
-                            <div ng-message="required">I'm required</div>
-                            <div ng-message="autovin">Номер Auto VIN невірний - просимо виправити</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="textUa" class="col-sm-2 control-label">Text Ua:</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="textUa" ng-model="formData.textUa" class="form-control" required>
-                        </div>
-                        <div class="col-sm-4" ng-messages="testForm.textUa.$error" role="alert">
-                            <div ng-message="required">I'm required</div>
-                            <div ng-message="textua">Будь ласка, тільки українські літери, пробіл або дефіс</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="textRu" class="col-sm-2 control-label">Text Ru:</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="textRu" ng-model="formData.textRu" class="form-control" required>
-                        </div>
-                        <div class="col-sm-4" ng-messages="testForm.textRu.$error" role="alert">
-                            <div ng-message="required">I'm required</div>
-                            <div ng-message="textua">Будь ласка, тільки російські літери, пробіл або дефіс</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="dateFormat" class="col-sm-2 control-label">Date Format:</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="dateFormat" ng-model="formData.dateFormat" class="form-control" required>
-                            <p class="help-block">Уведіть дату у форматі YYYY-MM-DD</p>
-                        </div>
-                        <div class="col-sm-4" ng-messages="testForm.dateFormat.$error" role="alert">
-                            <div ng-message="dateformat">{{testForm.dateFormat.lastErrorMessage}}</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="dateOrder" class="col-sm-2 control-label">Date Order:</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="dateOrder" ng-model="formData.dateOrder" class="form-control" required>
-                            <p class="help-block">Уведіть дату у майбутньому, але не пізнішу, ніж за 10 днів від поточної</p>
-                        </div>
-                        <div class="col-sm-4" ng-messages="testForm.dateOrder.$error" role="alert">
-                            <div ng-message="dateelapsed">{{testForm.dateOrder.lastErrorMessage}}</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <input type="submit" class="btn btn-default" ng-click="formSubmit(formData)" value="ОК" ng-disabled="testForm.$invalid">
-                            <button class="btn" ng-click="reset()">Скинути</button>
-                        </div>
-                    </div>
-                </form>
+        <form novalidate name="testForm" class="form-horizontal test-form">
+            <!-- PhoneUA -->
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">Phone UA:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="privatePhone" ng-tel-field="{defaultCountry:'ua', autoFormat:true, allowExtensions:false, preferredCountries:['ua'], autoPlaceholder:true}" ng-model="formData.privatePhone" class="form-control" required>
+                </div>
+                <div class="col-sm-4" ng-messages="testForm.privatePhone.$error" role="alert">
+                    <div ng-message="required">Будь ласка, заповніть це поле</div>
+                    <div ng-message="tel">Будь ласка, правильний номер телефону</div>
+                </div>
             </div>
-        </div>
+            <!-- Mail -->
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">Email:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="privateMail" ng-model="formData.email" class="form-control" required>
+                </div>
+                <div class="col-sm-4" ng-messages="testForm.privateMail.$error" role="alert">
+                    <div ng-message="required">Будь ласка, заповніть це поле</div>
+                    <div ng-message="email">Будь ласка, правильну адресу електронної пошти</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="autoVin" class="col-sm-2 control-label">Auto VIN:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="vin_code" ng-model="formData.autoVin" class="form-control" required>
+                </div>
+                <div class="col-sm-4" ng-messages="testForm.vin_code.$error" role="alert">
+                    <div ng-message="required">Будь ласка, заповніть це поле</div>
+                    <div ng-message="autovin">Номер Auto VIN невірний - просимо виправити</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="textUa" class="col-sm-2 control-label">Text Ua:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="textUa" ng-model="formData.textUa" class="form-control" required>
+                </div>
+                <div class="col-sm-4" ng-messages="testForm.textUa.$error" role="alert">
+                    <div ng-message="required">Будь ласка, заповніть це поле</div>
+                    <div ng-message="textua">Будь ласка, тільки українські літери, пробіл або дефіс</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="textRu" class="col-sm-2 control-label">Text Ru:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="textRu" ng-model="formData.textRu" class="form-control" required>
+                </div>
+                <div class="col-sm-4" ng-messages="testForm.textRu.$error" role="alert">
+                    <div ng-message="required">Будь ласка, заповніть це поле</div>
+                    <div ng-message="textua">Будь ласка, тільки російські літери, пробіл або дефіс</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dateFormat" class="col-sm-2 control-label">Date Format:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="dateFormat" ng-model="formData.dateFormat" class="form-control" required>
+                    <p class="help-block">Уведіть дату у форматі YYYY-MM-DD</p>
+                </div>
+                <div class="col-sm-4" ng-messages="testForm.dateFormat.$error" role="alert">
+                    <div ng-message="dateformat">{{testForm.dateFormat.lastErrorMessage}}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dateOrder" class="col-sm-2 control-label">Date Order:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="dateOrder" ng-model="formData.dateOrder" class="form-control" required>
+                    <p class="help-block">Уведіть дату у майбутньому, але не пізнішу, ніж за 10 днів від поточної</p>
+                </div>
+                <div class="col-sm-4" ng-messages="testForm.dateOrder.$error" role="alert">
+                    <div ng-message="dateelapsed">{{testForm.dateOrder.lastErrorMessage}}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="submit" class="btn btn-default" ng-click="formSubmit(formData)" value="ОК" ng-disabled="testForm.$invalid">
+                    <button class="btn" ng-click="reset()">Скинути</button>
+                </div>
+            </div>
+        </form>
     </div>
     <!-- /row -->
     <div class="row">
