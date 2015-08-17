@@ -59,6 +59,7 @@
           <activiti:value id="attr2_finish" name="Рішення отримане, очікуємо громадянина"></activiti:value>
           <activiti:value id="attr3_finish" name="Рішення отримане, відправлене поштою"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="decision" name="Сканкопія рішення" type="file" required="true"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
