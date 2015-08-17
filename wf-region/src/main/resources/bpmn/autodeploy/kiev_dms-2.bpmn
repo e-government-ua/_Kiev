@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_dms_2" name="Дніпропетровськ ДМС - Зняття з реєстрації місця проживання" isExecutable="true">
+  <process id="kiev_dms_2" name="Київська ДМС - Зняття з реєстрації місця проживання" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -16,9 +16,10 @@
         <activiti:formProperty id="milBase" name="Найменування військомату" type="string"></activiti:formProperty>
         <activiti:formProperty id="milRank" name="Військове звання" type="string"></activiti:formProperty>
         <activiti:formProperty id="milSpec" name="Війсково-облікова спеціальність" type="string"></activiti:formProperty>
-        <activiti:formProperty id="eQueue" name="Електронна черга" type="queueData" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="visitDay" name="У який день Вам буде зручно зайти до відділення ДМС; ДМС необхідно поставити відмітку у Ваш паспорт для завершення цієї процедури" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="visitTime" name="У який проміжок часу Вам буде зручно зустрітися; Будь ласка, вкажіть проміжок як мінімум у 2 години" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warning" name=" " type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
         <activiti:formProperty id="sBody" name="sBody" type="invisible"></activiti:formProperty>
       </extensionElements>
@@ -148,7 +149,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="Звернення на тему: Зняття з місця проживання" activiti:candidateGroups="dnepr_dms_2">
+    <userTask id="usertask1" name="Звернення на тему: Зняття з місця проживання" activiti:candidateGroups="kiev_dms_2">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -169,6 +170,8 @@
         <activiti:formProperty id="milSpec" name="Війсково-облікова спеціальність" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="visitDay" name="Бажаний день зустрічі" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="visitTime" name="Бажаний час зустрічі" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення чиновника" type="enum" required="true">
           <activiti:value id="accept" name="Назначити зустріч у відділенні"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
@@ -176,8 +179,7 @@
         <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги АБО додаткові деталі необхідні для закінчення процессу реєстрації" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="meetDay" name="Назначити день зустрічі" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="meetTime" name="Назначити час зустрічі" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="eQueue" name="Електронна черга" type="queueData" required="true"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_dms_print_2.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/kiev_dms_print_2.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -439,8 +441,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='decline'}]]></conditionExpression>
     </sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_dms_2">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_dms_2" id="BPMNPlane_dnepr_dms_2">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_dms_2">
+    <bpmndi:BPMNPlane bpmnElement="kiev_dms_2" id="BPMNPlane_kiev_dms_2">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="40.0" y="130.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
