@@ -3,7 +3,7 @@
 describe('ValidationService Tests', function() {
 
   // set it to true to enable pre-validation and tracing messages: 
-  var isDebugMode = true;
+  var isDebugMode = false;
 
   var $rootScope, $compile, $window, $filter, moment, amTimeAgoConfig, originalTimeAgoConfig, angularMomentConfig,
     originalAngularMomentConfig, amMoment;
