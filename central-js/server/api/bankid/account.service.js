@@ -36,7 +36,7 @@ module.exports.index = function (options, callback) {
         json: true,
         body: {
             "type": "physical",
-            "fields": ["firstName", "middleName", "lastName", "phone", "inn", "clId", "clIdText", "birthDay"],
+            "fields": ["firstName", "middleName", "lastName", "phone", "inn", "clId", "clIdText", "birthDay","email"],
 
             "addresses":[
                 {"type":"factual","fields":["country","state","area","city","street","houseNo","flatNo","dateModification"]},
