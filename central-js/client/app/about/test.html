@@ -71,6 +71,7 @@
                     <p class="help-block">Уведіть дату у форматі YYYY-MM-DD</p>
                 </div>
                 <div class="col-sm-4" ng-messages="testForm.dateFormat.$error" role="alert">
+                    <div ng-message="required">Будь ласка, заповніть це поле</div>
                     <div ng-message="dateformat">{{testForm.dateFormat.lastErrorMessage}}</div>
                 </div>
             </div>
@@ -81,6 +82,7 @@
                     <p class="help-block">Уведіть дату у майбутньому, але не пізнішу, ніж за 10 днів від поточної</p>
                 </div>
                 <div class="col-sm-4" ng-messages="testForm.dateOrder.$error" role="alert">
+                    <div ng-message="required">Будь ласка, заповніть це поле</div>
                     <div ng-message="dateelapsed">{{testForm.dateOrder.lastErrorMessage}}</div>
                 </div>
             </div>
