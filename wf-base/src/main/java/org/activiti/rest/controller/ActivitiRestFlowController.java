@@ -216,6 +216,11 @@ public class ActivitiRestFlowController {
                         @RequestParam(value = "sID_BP", required = false) String sID_BP,
 			@RequestParam(value = "sName") String sName,
 			@RequestParam(value = "sRegionTime") String sRegionTime,
+                        
+			@RequestParam(value = "nLen", required = false) Integer nLen,
+			@RequestParam(value = "sLenType", required = false) String sLenType,
+			@RequestParam(value = "sData", required = false) String sData,
+                        
 			@RequestParam(value = "saRegionWeekDay") String saRegionWeekDay,
 			@RequestParam(value = "sDateTimeAt") String sDateTimeAt,
 			@RequestParam(value = "sDateTimeTo") String sDateTimeTo) throws Exception {
@@ -225,7 +230,7 @@ public class ActivitiRestFlowController {
 			flowProperty = flowService.getBaseEntityDao().getById(FlowProperty.class, nID);
 			if (flowProperty != null) {
 				flowProperty = fillFlowProperty(sName, sRegionTime, saRegionWeekDay,
-						sDateTimeAt, sDateTimeTo, flowProperty);
+						sDateTimeAt, sDateTimeTo, nLen, sLenType, sData, flowProperty);
 				flowProperty.setbExclude(false);
 				
 				flowService.getBaseEntityDao().saveOrUpdate(flowProperty);
@@ -260,7 +265,7 @@ public class ActivitiRestFlowController {
 			Flow_ServiceData flowServiceData = flowService.getBaseEntityDao().getById(Flow_ServiceData.class, nID_Flow_ServiceData);
 			log.info("Loaded flow service data class: " + flowServiceData);
 			
-			flowProperty = fillFlowProperty(sName, sRegionTime, saRegionWeekDay, sDateTimeAt, sDateTimeTo, flowProperty);
+			flowProperty = fillFlowProperty(sName, sRegionTime, saRegionWeekDay, sDateTimeAt, sDateTimeTo, nLen, sLenType, sData, flowProperty);
 			flowProperty.setoFlowPropertyClass(flowPropertyClass);
 			flowProperty.setbExclude(false);
 			flowProperty.setoFlow_ServiceData(flowServiceData);
@@ -295,6 +300,11 @@ public class ActivitiRestFlowController {
                         @RequestParam(value = "sID_BP", required = false) String sID_BP,
 			@RequestParam(value = "sName") String sName,
 			@RequestParam(value = "sRegionTime") String sRegionTime,
+                        
+			@RequestParam(value = "nLen", required = false) Integer nLen,
+			@RequestParam(value = "sLenType", required = false) String sLenType,
+			@RequestParam(value = "sData", required = false) String sData,
+                        
 			@RequestParam(value = "saRegionWeekDay") String saRegionWeekDay,
 			@RequestParam(value = "sDateTimeAt") String sDateTimeAt,
 			@RequestParam(value = "sDateTimeTo") String sDateTimeTo) throws Exception {
@@ -305,7 +315,7 @@ public class ActivitiRestFlowController {
 					FlowProperty.class, nID);
 			if (flowProperty != null) {
 				flowProperty = fillFlowProperty(sName, sRegionTime,
-						saRegionWeekDay, sDateTimeAt, sDateTimeTo, flowProperty);
+						saRegionWeekDay, sDateTimeAt, sDateTimeTo, nLen, sLenType, sData, flowProperty);
 				flowProperty.setbExclude(true);
 				flowService.getBaseEntityDao().saveOrUpdate(flowProperty);
 				log.info("nID is not null. Updating existing FLowProperty with parameters");
@@ -338,7 +348,7 @@ public class ActivitiRestFlowController {
 			Flow_ServiceData flowServiceData = flowService.getBaseEntityDao().getById(Flow_ServiceData.class, nID_Flow_ServiceData);
 			log.info("Loaded flow service data class: " + flowServiceData);
 			
-			flowProperty = fillFlowProperty(sName, sRegionTime, saRegionWeekDay, sDateTimeAt, sDateTimeTo, flowProperty);
+			flowProperty = fillFlowProperty(sName, sRegionTime, saRegionWeekDay, sDateTimeAt, sDateTimeTo, nLen, sLenType, sData, flowProperty);
 			flowProperty.setoFlowPropertyClass(flowPropertyClass);
 			flowProperty.setbExclude(true);
 			flowProperty.setoFlow_ServiceData(flowServiceData);
@@ -495,11 +505,24 @@ public class ActivitiRestFlowController {
 	}
 
 	protected FlowProperty fillFlowProperty(String sName, String sRegionTime,
-			String saRegionWeekDay, String sDateTimeAt, String sDateTimeTo, FlowProperty flowProperty) {
+			String saRegionWeekDay, String sDateTimeAt, String sDateTimeTo,
+			Integer nLen,
+			String sLenType,
+			String sData,
+                        FlowProperty flowProperty) {
 		flowProperty.setbExclude(false);
 		flowProperty.setsName(sName);
 		flowProperty.setsRegionTime(sRegionTime);
 		flowProperty.setSaRegionWeekDay(saRegionWeekDay);
+                if(nLen!=null){
+                    flowProperty.setLen(nLen);
+                }
+                if(sLenType!=null){
+                    flowProperty.setLenType(sLenType);
+                }
+                if(sData!=null){
+                    flowProperty.setsData(sData);
+                }
 		flowProperty.setsDateTimeAt(sDateTimeAt);
 		flowProperty.setsDateTimeTo(sDateTimeTo);
 		return flowProperty;
