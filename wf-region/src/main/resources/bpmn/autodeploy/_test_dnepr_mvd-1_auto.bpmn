@@ -85,6 +85,7 @@
     <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
     <userTask id="usertask1" name="Надання послуги" activiti:candidateGroups="dnepr_mvd_fo1">
       <extensionElements>
+          
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sFamily_UA" name="Прізвище (укр.); якщо Ви побачили помилку в прізвищі,надайте правильний варіант написання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sFamily_RU" name="Фамилия (рус.)" type="string" writable="false"></activiti:formProperty>
@@ -94,6 +95,7 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sSurname_UA" name="По-Батькові (укр.); якщо Ви побачили помилку в прізвищі,надайте правильний варіант написання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sSurname_RU" name="Отчество (рус.)" type="string" writable="false"></activiti:formProperty>
+        
         <activiti:formProperty id="fioUA" name="Попереднє ПІБ (укр.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
