@@ -17,7 +17,6 @@ import org.wf.dp.dniprorada.model.PlaceType;
  * @since  20.07.2015
  */
 @Controller
-@RequestMapping("/service")
 public class PlaceController {
     private static final String JSON_TYPE = "Accept=application/json";
 

@@ -78,7 +78,7 @@ public class PlaceDaoImpl implements PlaceDao {
 
     @SuppressWarnings("unchecked")
     public PlaceHierarchyTree getTreeUp(Long placeId, String uaId, Boolean tree) {
-        if (!specified(placeId) && !isNotBlank(uaId))
+        if (!specified(placeId) && isBlank(uaId))
             throw new IllegalArgumentException("One from main parameters doesn't specified");
 
         String sql = sqlBuilder.getTreeUp(placeId, uaId, tree);

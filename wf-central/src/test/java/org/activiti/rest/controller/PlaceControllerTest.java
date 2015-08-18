@@ -16,6 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.dao.place.PlaceHierarchyTree;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -53,5 +54,19 @@ public class PlaceControllerTest {
             .getContentAsString();
         PlaceHierarchyTree tree = JsonRestUtils.readObject(jsonData, PlaceHierarchyTree.class);
         assertNotNull(tree);
+    }
+
+    @Test @Ignore
+    public void getPlace() throws Exception {
+        String jsonData = mockMvc
+            .perform(get("/getPlace").param("nID", "459"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+        PlaceHierarchyTree tree = JsonRestUtils.readObject(jsonData, PlaceHierarchyTree.class);
+        assertNotNull(tree);
+        assertEquals("IDs aren't match", 459L, tree.getPlace().getId().longValue());
     }
 }
