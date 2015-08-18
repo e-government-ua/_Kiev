@@ -26,7 +26,7 @@
           <activiti:value id="1" name="Оплата житлово-комунальних послуг"></activiti:value>
           <activiti:value id="2" name="Оплата зрідженого газу, твердого та рідкого палива"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="name_services" name="заповніть ці дані, якщо Ви користуєтесь відповідними комунальними послугами" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="name_services" name="Заповніть ці дані, якщо Ви користуєтесь відповідними комунальними послугами" type="label" default="--------------------"></activiti:formProperty>
         <activiti:formProperty id="electricity" name="Електроенергія" type="label" default="--------------------"></activiti:formProperty>
         <activiti:formProperty id="electricity_number" name="Номер особового рахунка" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="electricity_name" name="Назва організації, що надає послугу" type="string" required="true"></activiti:formProperty>
@@ -134,8 +134,7 @@
           <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="org3" name="Найменування організації, де отримує дохід особи3; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені за останні 12 місяців; по кожній покупці напишить: ПІБ особи, що здійснила покупку, що саме придбано; дату та вартість купівлі; інформацію про кожну покупку писати з нового рядку" type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені за останні 12 місяців; по кожній покупці напишить: ПІБ особи, що здійснила покупку, що саме придбано, дату та вартість купівлі, інформацію про кожну покупку писати з нового рядку" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="sBody_2" name="sBody" type="invisible"></activiti:formProperty>
       </extensionElements>
@@ -164,7 +163,7 @@
           <activiti:value id="1" name="Оплата житлово-комунальних послуг"></activiti:value>
           <activiti:value id="2" name="Оплата скрапленого газу, твердого/рідкого палива"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="name_services" name="заповніть ці дані, якщо Ви користуєтесь відповідними комунальними послугами" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="name_services" name="Заповніть ці дані, якщо Ви користуєтесь відповідними комунальними послугами" type="label" default="--------------------" writable="false"></activiti:formProperty>
         <activiti:formProperty id="electricity" name="Електроенергія" type="label" default="--------------------" writable="false"></activiti:formProperty>
         <activiti:formProperty id="electricity_number" name="Номер особового рахунка" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="electricity_name" name="Назва організації, що надає послугу" type="string" writable="false"></activiti:formProperty>
@@ -272,7 +271,7 @@
           <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="org3" name="Найменування організації, де отримує дохід особа3; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені за останні 12 місяців; по кожній покупці напишить: ПІБ особи, що здійснила покупку, що саме придбано; дату та вартість купівлі; інформацію про кожну покупку писати з нового рядку" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені за останні 12 місяців; по кожній покупці напишить: ПІБ особи, що здійснила покупку, що саме придбано, дату та вартість купівлі, інформацію про кожну покупку писати з нового рядку" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Примітки" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="selection" name="Стан" type="enum" required="true">
           <activiti:value id="attr1" name="відправлені запроси, очікують відповіді"></activiti:value>
@@ -623,7 +622,7 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-&lt;p&gt;Ваше звернення щодо отримання  субсидії на оплату житлово-комунальних зареєстроване. Ви отримаєте відповідь протягом 20 робочих днів.&lt;/p&gt;
+&lt;p&gt;Ваше звернення щодо отримання  субсидії на оплату житлово-комунальних послуг зареєстроване. Ви отримаєте відповідь протягом 20 робочих днів.&lt;/p&gt;
 
 
                             
