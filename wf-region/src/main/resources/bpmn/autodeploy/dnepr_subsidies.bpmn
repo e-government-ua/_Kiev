@@ -26,43 +26,39 @@
           <activiti:value id="1" name="Оплата житлово-комунальних послуг"></activiti:value>
           <activiti:value id="2" name="Оплата зрідженого газу, твердого та рідкого палива"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="name_services" name="Наіменування послуг" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="house" name="Утримання дому та придомової території" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="house_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="house_name" name="Назва організації" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="house_notice" name="Примітки" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="gas" name="Газ" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="gas_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="gas_name" name="Назва організації" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="gas_notice" name="Примітки" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="coolwater" name="Холодна вода" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="coolwater_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="coolwater_name" name="Назва організації" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="coolwater_notice" name="Примітки" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="hotwater" name="Гаряча вода" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="hotwater_number" name="Номер особого рахунка" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="hotwater_name" name="Назва організації" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="hotwater_notice" name="Примітки" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="waterback" name="Водовідведення" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="waterback_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="waterback_name" name="Назва організації" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="waterback_notice" name="Примітки" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="warming" name="Опалення" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="warming_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="warming_name" name="Назва організації" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="warming_notice" name="Примітки" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="name_services" name="заповніть ці дані, якщо Ви користуєтесь відповідними комунальними послугами" type="label" default="--------------------"></activiti:formProperty>
         <activiti:formProperty id="electricity" name="Електроенергія" type="label" default="--------------------"></activiti:formProperty>
         <activiti:formProperty id="electricity_number" name="Номер особового рахунка" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="electricity_name" name="Назва організації" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="electricity_notice" name="Примітки" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="electricity_name" name="Назва організації, що надає послугу" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="electricity_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="house" name="Утримання дому та придомової території" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="house_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="house_name" name="Назва організації, що надає послугу" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="house_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="gas" name="Газ" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="gas_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="gas_name" name="Назва організації, що надає послугу" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="gas_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="coolwater" name="Холодна вода" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="coolwater_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="coolwater_name" name="Назва організації, що надає послугу" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="coolwater_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="hotwater" name="Гаряча вода" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="hotwater_number" name="Номер особого рахунка" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="hotwater_name" name="Назва організації, що надає послугу" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="hotwater_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="waterback" name="Водовідведення" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="waterback_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="waterback_name" name="Назва організації, що надає послугу" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="waterback_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="warming" name="Опалення" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="warming_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="warming_name" name="Назва організації, що надає послугу" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="warming_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="garbage" name="Вивіз побутових відходів" type="label" default="--------------------"></activiti:formProperty>
         <activiti:formProperty id="garbage_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="garbage_name" name="Назва організації" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="garbage_notice" name="Примітки" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="notice" name="Розглянути цю заяву відповідними органами або утвореною ними комісією?;У разі коли прийняття рішення щодо моєї заяви потребує окремого рішення місцевих органів виконавчої влади/місцевого самоврядування або утвореної їми комісії, прошу " type="enum" required="true">
-          <activiti:value id="1" name="так"></activiti:value>
-          <activiti:value id="2" name="ні"></activiti:value>
-        </activiti:formProperty>
+        <activiti:formProperty id="garbage_name" name="Назва організації, що надає послугу" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="garbage_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="notice2" name="Примітки" type="label" default="Я та особи, які зареєстровані (фактично проживають) у житловому приміщенні/будинку, даємо згоду на обробку персональних даних про сім’ю, доходи, майно, що необхідні для призначення житлової субсидії, та оприлюднення відомостей щодо її призначення. "></activiti:formProperty>
         <activiti:formProperty id="declaration" name="Дані для декларації" type="label" default="--------------------"></activiti:formProperty>
         <activiti:formProperty id="place_type" name="Тип дома" type="enum" required="true">
@@ -72,10 +68,9 @@
         <activiti:formProperty id="floors" name="Кількість поверхів" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="total_place" name="Загальна площа; кв. м." type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="warming_place" name="Опалювальна площа; кв.м." type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="notice3" name="Примітка" type="label" default="Особи, які зареєстровані (для орендарів — особи, які фактично проживають) у житловому приміщенні/будинку ті їх прибутки (перерахуйте з нового рядка: ПІБ, ДР, Номер облікової книжки, Вид прибутку, Сума прибутку без урахування податку з доходів фізичних осіб, Джерело прибутку)"></activiti:formProperty>
-        <activiti:formProperty id="date_from" name="Період, за який Ви заповнюєте декларацію, з" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_to" name="Період, за який Ви заповнюєте декларацію, по " type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="income0" name="Ваш вид доходу" type="enum" required="true">
+        <activiti:formProperty id="date_from" name="Період, за який Ви заповнюєте декларацію, з" type="date" default="01/01/2014" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_to" name="Період, за який Ви заповнюєте декларацію, по " type="date" default="31/12/2014" required="true"></activiti:formProperty>
+        <activiti:formProperty id="income0" name="Ваш вид доходу" type="enum" default="attr9" required="true">
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
           <activiti:value id="attr3" name="пенсія"></activiti:value>
@@ -86,14 +81,13 @@
           <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
           <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="org0" name="Назва організації, де Ви працюєте" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="man1" name="Особа 1" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="fio1" name="Прізвище, ім'я, по-батькові; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="date1" name="Дата народження; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="passport1" name="Серія та номер паспорту; Наприклад: АА 111111" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="card1" name="Реєстраційний номер облікової картки платника податків" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="comment1" name="Примітки" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="income1" name="Ваш вид доходу" type="enum" default="attr0">
+        <activiti:formProperty id="org0" name="Назва організації, де Ви працюєте" type="string" default="Назва організації" required="true"></activiti:formProperty>
+        <activiti:formProperty id="man1" name="Особи, які мешкають разом з вами (якщо нікого - не заповнюйте цю частину)" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="fio1" name="Прізвище, ім'я, по-батькові особи1; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="date1" name="Дата народження особи1; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="passport1" name="Серія та номер паспорту особи1; Наприклад: АА 111111" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="card1" name="Реєстраційний номер облікової картки платника податків особи1" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="income1" name="Вид доходу особи1" type="enum" default="attr0">
           <activiti:value id="attr0" name=" "></activiti:value>
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
@@ -105,14 +99,12 @@
           <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
           <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="org1" name="Найменування організації, де отримує дохід; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="man2" name="Особа 2" type="label" default="  "></activiti:formProperty>
-        <activiti:formProperty id="fio2" name="Прізвище, ім'я, по-батькові; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="date2" name="Дата народження; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="passport2" name="Серія та номер паспорту; Наприклад: АА 111111" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="card2" name="Реєстраційний номер облікової картки платника податків" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="comment2" name="Примітки" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="income2" name="Ваш вид доходу" type="enum" default=" attr0">
+        <activiti:formProperty id="org1" name="Найменування організації, де отримує дохід особа1; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="fio2" name="Прізвище, ім'я, по-батькові особи2; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="date2" name="Дата народження особи2; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="passport2" name="Серія та номер паспорту особи2; Наприклад: АА 111111" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="card2" name="Реєстраційний номер облікової картки платника податків особи2" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="income2" name="Вид доходу особи2" type="enum" default=" attr0">
           <activiti:value id="attr0" name=" "></activiti:value>
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
@@ -124,14 +116,12 @@
           <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
           <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="org2" name="Найменування організації, де отримує дохід; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="man3" name="Особа 3" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="fio3" name="Прізвище, ім'я, по-батькові; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="date3" name="Дата народження; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="passport3" name="Серія та номер паспорту; Наприклад: АА 111111" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="card3" name="Реєстраційний номер облікової картки платника податків" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="comment3" name="Примітки" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="income3" name="Ваш вид доходу" type="enum" default="attr0">
+        <activiti:formProperty id="org2" name="Найменування організації, де отримує дохід особа1; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="fio3" name="Прізвище, ім'я, по-батькові особи3; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="date3" name="Дата народження особи3; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="passport3" name="Серія та номер паспорту особи3; Наприклад: АА 111111" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="card3" name="Реєстраційний номер облікової картки платника податків особи3" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="income3" name="Вид доходу особи3" type="enum" default="attr0">
           <activiti:value id="attr0" name=" "></activiti:value>
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
@@ -143,8 +133,8 @@
           <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
           <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="org3" name="Найменування організації, де отримує дохід; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені протягом 12 місяців перед зверненням за призначенням житлової субсидії; перерахуйте з нового рядка ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг; ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="org3" name="Найменування організації, де отримує дохід особи3; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені за останні 12 місяців; по кожній покупці напишить: ПІБ особи, що здійснила покупку, що саме придбано; дату та вартість купівлі; інформацію про кожну покупку писати з нового рядку" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="sBody_2" name="sBody" type="invisible"></activiti:formProperty>
@@ -174,43 +164,39 @@
           <activiti:value id="1" name="Оплата житлово-комунальних послуг"></activiti:value>
           <activiti:value id="2" name="Оплата скрапленого газу, твердого/рідкого палива"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="name_services" name="Наіменування послуг" type="label" default="--------------------" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="house" name="Утримання будинку та придомової території" type="label" default="--------------------" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="house_number" name="Номер особового рахунка" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="house_name" name="Назва організації" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="house_notice" name="Примітки" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="gas" name="Газ" type="label" default="--------------------" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="gas_number" name="Номер особового рахунка" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="gas_name" name="Назва організації" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="gas_notice" name="Примітки" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="coolwater" name="Холодна вода" type="label" default="--------------------" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="coolwater_number" name="Номер особового рахунка" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="coolwater_name" name="Назва організації" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="coolwater_notice" name="Примітки" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="hotwater" name="Гаряча вода" type="label" default="--------------------" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="hotwater_number" name="Номер особового рахунка" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="hotwater_name" name="Назва організації" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="hotwater_notice" name="Примітки" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="waterback" name="Водовідведення" type="label" default="--------------------" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="waterback_number" name="Номер особового рахунка" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="waterback_name" name="Назва організації" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="waterback_notice" name="Примітки" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="warming" name="Опалення" type="label" default="--------------------" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="warming_number" name="Номер особового рахунка" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="warming_name" name="Назва організації" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="warming_notice" name="Примітки" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="name_services" name="заповніть ці дані, якщо Ви користуєтесь відповідними комунальними послугами" type="label" default="--------------------" writable="false"></activiti:formProperty>
         <activiti:formProperty id="electricity" name="Електроенергія" type="label" default="--------------------" writable="false"></activiti:formProperty>
         <activiti:formProperty id="electricity_number" name="Номер особового рахунка" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="electricity_name" name="Назва організації" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="electricity_notice" name="Примітки" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="electricity_name" name="Назва організації, що надає послугу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="electricity_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="house" name="Утримання будинку та придомової території" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="house_number" name="Номер особового рахунка" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="house_name" name="Назва організації, що надає послугу" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="house_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="gas" name="Газ" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="gas_number" name="Номер особового рахунка" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="gas_name" name="Назва організації, що надає послугу" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="gas_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="coolwater" name="Холодна вода" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="coolwater_number" name="Номер особового рахунка" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="coolwater_name" name="Назва організації, що надає послугу" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="coolwater_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="hotwater" name="Гаряча вода" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="hotwater_number" name="Номер особового рахунка" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="hotwater_name" name="Назва організації, що надає послугу" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="hotwater_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="waterback" name="Водовідведення" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="waterback_number" name="Номер особового рахунка" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="waterback_name" name="Назва організації, що надає послугу" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="waterback_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="warming" name="Опалення" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="warming_number" name="Номер особового рахунка" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="warming_name" name="Назва організації, що надає послугу" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="warming_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" " writable="false"></activiti:formProperty>
         <activiti:formProperty id="garbage" name="Вивіз побутових відходів" type="label" default="--------------------" writable="false"></activiti:formProperty>
         <activiti:formProperty id="garbage_number" name="Номер особового рахунка" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="garbage_name" name="Назва організації" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="garbage_notice" name="Примітки" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="notice" name="У разі коли прийняття рішення щодо моєї заяви потребує окремого рішення місцевих органів виконавчої влади/місцевого самоврядування або утвореної їми комісії, прошу розглянути мою заяву відповідними органами або утвореною ними комісією" type="enum" writable="false">
-          <activiti:value id="1" name="так"></activiti:value>
-          <activiti:value id="2" name="ні"></activiti:value>
-        </activiti:formProperty>
+        <activiti:formProperty id="garbage_name" name="Назва організації, що надає послугу" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="garbage_notice" name="Примітки; наприклад, показники лічильників" type="string" default=" " writable="false"></activiti:formProperty>
         <activiti:formProperty id="notice2" name="Примітки" type="label" default="Я та особи, які зареєстровані (фактично проживають) у житловому приміщенні/будинку, даємо згоду на обробку персональних даних про сім’ю, доходи, майно, що необхідні для призначення житлової субсидії, та оприлюднення відомостей щодо її призначення. " writable="false"></activiti:formProperty>
         <activiti:formProperty id="declaration" name="Данные для декларации" type="label" default="--------------------" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_type" name="Тип будинку" type="enum" writable="false">
@@ -220,10 +206,9 @@
         <activiti:formProperty id="floors" name="Кількість поверхів" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="total_place" name="Загальна площа" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="warming_place" name="Опалювальна площа; кв.м." type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="notice3" name="Примітка" type="label" default="Особи, які зареєстровані (для орендарів — особи, які фактично проживають) у житловому приміщенні/будинку ті їх прибутки (перерахуйте з нового рядка: ПІБ, ДР, Номер облікової книжки, Вид прибутку, Сума прибутку без урахування податку з доходів фізичних осіб, Джерело прибутку)" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_from" name="Період, за який Ви заповнюєте деклацію, з" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_to" name="Період, за який Ви заповнюєте декларацію, по" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="income0" name="Ваш вид доходу" type="enum" writable="false">
+        <activiti:formProperty id="date_from" name="Період, за який Ви заповнюєте деклацію, з" type="date" default="01/01/2015" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_to" name="Період, за який Ви заповнюєте декларацію, по" type="date" default="31/12/2014" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="income0" name="Ваш вид доходу" type="enum" default="attr9" writable="false">
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
           <activiti:value id="attr3" name="пенсія"></activiti:value>
@@ -234,14 +219,13 @@
           <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
           <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="org0" name="Назва організації, де Ви працюєте" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="man1" name="Особа 1" type="label" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fio1" name="Прізвище, ім'я, по-батькові; Наприклад: Остапчук Остап Остапович" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date1" name="Дата народження; наприклад: 01.01.1960" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="passport1" name="Серія та номер паспорту; Наприклад: АА 111111" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="card1" name="Реєстраційний номер облікової картки платника податків" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="comment1" name="Примітки" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="income1" name="Ваш вид доходу" type="enum" writable="false">
+        <activiti:formProperty id="org0" name="Назва організації, що надає послугу, де Ви працюєте" type="string" default="Назва організації" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="man1" name="Особи, які мешкають разом з вами (якщо нікого - не заповнюйте цю частину)" type="label" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fio1" name="Прізвище, ім'я, по-батькові особи1; Наприклад: Остапчук Остап Остапович" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date1" name="Дата народження особи1; наприклад: 01.01.1960" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="passport1" name="Серія та номер паспорту особи1; Наприклад: АА 111111" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="card1" name="Реєстраційний номер облікової картки платника податків особи1" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="income1" name="Вид доходу особи1" type="enum" writable="false">
           <activiti:value id="attr0" name="нічого не вибрано"></activiti:value>
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
@@ -253,14 +237,12 @@
           <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
           <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="org1" name="Найменування організації, де отримує дохід; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="man2" name="Особа 2" type="label" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fio2" name="Прізвище, ім'я, по-батькові; Наприклад: Остапчук Остап Остапович" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date2" name="Дата народження; наприклад: 01.01.1960" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="passport2" name="Серія та номер паспорту; Наприклад: АА 111111" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="card2" name="Реєстраційний номер облікової картки платника податків" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="comment2" name="Примітки" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="income2" name="Ваш вид доходу" type="enum" writable="false">
+        <activiti:formProperty id="org1" name="Найменування організації, де отримує дохід особа1; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fio2" name="Прізвище, ім'я, по-батькові особи2; Наприклад: Остапчук Остап Остапович" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date2" name="Дата народження особи2; наприклад: 01.01.1960" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="passport2" name="Серія та номер паспорту особи2; Наприклад: АА 111111" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="card2" name="Реєстраційний номер облікової картки платника податків особи2" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="income2" name="Вид доходу особи2" type="enum" writable="false">
           <activiti:value id="attr0" name="нічого не вибрано"></activiti:value>
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
@@ -272,14 +254,12 @@
           <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
           <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="org2" name="Найменування організації, де отримує дохід; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="man3" name="Особа 3" type="label" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fio3" name="Прізвище, ім'я, по-батькові; Наприклад: Остапчук Остап Остапович" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date3" name="Дата народження; наприклад: 01.01.1960" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="passport3" name="Серія та номер паспорту; Наприклад: АА 111111" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="card3" name="Реєстраційний номер облікової картки платника податків" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="comment3" name="Примітки" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="income3" name="Ваш вид доходу" type="enum" writable="false">
+        <activiti:formProperty id="org2" name="Найменування організації, де отримує дохід особа2; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fio3" name="Прізвище, ім'я, по-батькові особи3; Наприклад: Остапчук Остап Остапович" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date3" name="Дата народження особи3; наприклад: 01.01.1960" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="passport3" name="Серія та номер паспорту особи3; Наприклад: АА 111111" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="card3" name="Реєстраційний номер облікової картки платника податків особи3" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="income3" name="Вид доходу особи3" type="enum" writable="false">
           <activiti:value id="attr0" name="нічого не вибрано"></activiti:value>
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
@@ -291,8 +271,8 @@
           <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
           <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="org3" name="Найменування організації, де отримує дохід; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені протягом 12 місяців перед зверненням за призначенням житлової субсидії; перерахуйте з нового рядка ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг; ПІБ, Вид придбаного майна або послуг, вартість в грн, дата здійснення купівлі або оплати послуг" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="org3" name="Найменування організації, де отримує дохід особа3; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені за останні 12 місяців; по кожній покупці напишить: ПІБ особи, що здійснила покупку, що саме придбано; дату та вартість купівлі; інформацію про кожну покупку писати з нового рядку" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Примітки" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="selection" name="Стан" type="enum" required="true">
           <activiti:value id="attr1" name="відправлені запроси, очікують відповіді"></activiti:value>
@@ -306,7 +286,6 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow3" name="${selection=='attr2'}" sourceRef="exclusivegateway1" targetRef="mailtask1">
@@ -582,11 +561,101 @@
     <sequenceFlow id="flow9" sourceRef="servicetask1" targetRef="endevent2"></sequenceFlow>
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow10" sourceRef="servicetask2" targetRef="endevent3"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="startevent1" targetRef="mailtask2"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="mailtask2" targetRef="usertask1"></sequenceFlow>
+    <serviceTask id="mailtask2" name="імейл про успішну реєстрацію заяви" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Звернення на тему "Отримання субсидії на оплату житлово-комунальних послуг"</activiti:string>
+        </activiti:field>
+        <activiti:field name="bcc">
+          <activiti:string>dmitrij.zabrudskij@privatbank.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;p&gt;Ваше звернення щодо отримання  субсидії на оплату житлово-комунальних зареєстроване. Ви отримаєте відповідь протягом 20 робочих днів.&lt;/p&gt;
+
+
+                            
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        Управління соціального захисту у Дніпропетровській області,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_subsidies">
     <bpmndi:BPMNPlane bpmnElement="dnepr_subsidies" id="BPMNPlane_dnepr_subsidies">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="80.0" y="13.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="-20.0" y="13.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="3.0"></omgdc:Bounds>
@@ -612,10 +681,9 @@
       <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
         <omgdc:Bounds height="35.0" width="35.0" x="570.0" y="160.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="115.0" y="30.0"></omgdi:waypoint>
-        <omgdi:waypoint x="160.0" y="30.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="56.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
         <omgdi:waypoint x="265.0" y="30.0"></omgdi:waypoint>
         <omgdi:waypoint x="320.0" y="30.0"></omgdi:waypoint>
@@ -659,6 +727,14 @@
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
         <omgdi:waypoint x="511.0" y="197.0"></omgdi:waypoint>
         <omgdi:waypoint x="570.0" y="177.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="-3.0" y="48.0"></omgdi:waypoint>
+        <omgdi:waypoint x="108.0" y="100.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="108.0" y="100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="58.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
