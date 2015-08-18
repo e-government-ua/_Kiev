@@ -1,3 +1,21 @@
+<div class="list-group">
+
+    <!-- sample place control content was derived from the service/city/content.html and now can be seen inside the placeControl.html -->
+    <place ng-model="PlaceController"></place>
+
+    <!-- step 2 -->
+    <div ng-if="ngIfStep2()">
+        <div class="list-group-item" ui-view="status"></div>
+
+        <!-- STATE: index.service.general.city.built-in -->
+        <service-auth-block 
+          n-step="2" 
+          redirect-uri="{{$state.href('index.service.general.city.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
+        </service-auth-block>
+
+    </div>
+
+</div>
 <!-- CLONE: service/city/built-in/index.html:
   div class="list-group">
     <div class="list-group-item"
@@ -38,24 +56,3 @@
             redirect-uri="{{$state.href('index.service.general.city.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}"
             ></service-auth-block>
 </div -->
-
-<div class="list-group">
-
-    <place ng-model="PlaceController"></place>
-
-<!-- sample place control content was derived from the service/city/content.html and now can be seen inside the placeControl.html -->
-
-    <!-- step 2 -->
-    <div ng-if="ngIfStep2()">
-
-      <div class="list-group-item" 
-      ui-view="status"></div>
-
-      <!-- STATE: index.service.general.city.built-in -->
-      
-      <service-auth-block
-              n-step="2"
-              redirect-uri="{{$state.href('index.service.general.city.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}"
-              ></service-auth-block>
-    </div>
-</div>

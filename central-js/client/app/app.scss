@@ -1155,5 +1155,16 @@ input.ng-touched.ng-invalid-email, input.ng-touched.ng-invalid-tel  {
 }
 /* Place Control End */
 
+/* Service and Operator Name */
+.service-name {
+  margin-top:20px; 
+  font-size:25px;
+}
+
+.operator-name {
+  margin-bottom:20px; 
+  font-size:18px;color:#cccccc;
+}
+
 /* Dev only: uncomment to see the element scopes' visually: .ng-scope { border: 1px solid #000; padding: 5px; } */
 

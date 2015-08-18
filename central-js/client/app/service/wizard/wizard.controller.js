@@ -12,6 +12,10 @@ angular.module('app').controller('WizardController', function($state, AdminServi
   $scope.regions = regions;
   $scope.bAdmin = AdminService.isAdmin();
 
+  $scope.getStateName = function() {
+    return $state.current.name;
+  };
+
   var isStep2 = false;
 
   $scope.step1 = function() {
@@ -25,6 +29,7 @@ angular.module('app').controller('WizardController', function($state, AdminServi
     //   });
     // }
   };
+
 
   $scope.step2 = function() {
     var aServiceData = $scope.service.aServiceData;
@@ -50,6 +55,47 @@ angular.module('app').controller('WizardController', function($state, AdminServi
           location: false
         });
     }
+  };
+
+  $scope.makeStep = function(stepId) {
+    if (stepId) {
+      if (stepId === 'editStep') {
+        console.log('edit step > 2 > 1');
+        isStep2 = false;
+      }
+    }
+  };
+
+  $scope.onPlaceChange = function(serviceType, placeData) {
+    // FIXME:
+
+    function goState(serviceType) {
+      var map = {
+        // Сервіс за посиланням
+        1: 'index.service.general.city.link',
+        // Вбудований сервіс
+        4: 'index.service.general.city.built-in',
+        // Помилка - сервіс відсутній
+        0: 'index.service.general.city.error'
+      };
+
+      var state = map[serviceType.nID];
+      console.log('onPlaceChange:', serviceType, state, placeData);
+
+      if ( state && placeData.city) {
+        console.log('go state:', serviceType);
+        $state.go(state, {
+          id: $scope.service.nID
+        }, {
+          location: false
+        }).then(function() {
+          isStep2 = true;
+        });
+      }
+    }
+
+    goState(serviceType);
+
   };
 
   $scope.ngIfStep2 = function() {

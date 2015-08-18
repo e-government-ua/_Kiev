@@ -1,16 +1,16 @@
-<div class="list-group-item place-control" ng-class="{'disabled': data.city}">
+<div class="list-group-item place-control" ng-class="{'disabled': cityIsChosen()}">
     <div class="row no-margin-bottom">
         <div class="col-md-11 form-inline">
-            <span class="step">Крок 1. Оберіть свій регіон - Place</span>
-            <div class="typeahead-wrapper">
+            <span class="step">Крок 1. Оберіть свій регіон <sup>{{getStateName() + '-' + getRegionId() + ':' + getCityId()}}</sup></span>
+            <div class="inline-wrapper">
                 <span>Область</span>
                 <div class="dropdown-wrapper" dropdown is-open="regionList.dropdown.isOpen">
                     <div class="input-group">
-                        <input autocomplete="off" class="form-control" name="region" type="text" ng-model="regionList.typeahead.model" typeahead="region as region.sName for region in loadRegionList($viewValue)" typeahead-on-select="onSelectRegionList($item)" typeahead-template-url="app/service/region/typeahead-match-region.html" typeahead-empty ng-disabled="data.city" />
+                        <input autocomplete="off" class="form-control" name="region" type="text" ng-model="regionList.typeahead.model" typeahead="region as region.sName for region in loadRegionList($viewValue)" typeahead-on-select="onSelectRegionList($item)" typeahead-template-url="app/service/region/typeahead-match-region.html" typeahead-empty ng-disabled="cityIsChosen()" />
                         <span class="input-group-btn">
                           <button class="btn btn-default"
                                         type="button"
-                                        ng-disabled="data.city"
+                                        ng-disabled="cityIsChosen()"
                                         dropdown-toggle>
                                     <span class="caret"></span>
                         </button>
@@ -23,15 +23,15 @@
                     </ul>
                 </div>
             </div>
-            <div class="inline-wrapper" ng-if="ngIfCityOrRegion()">
+            <div class="inline-wrapper" ng-if="regionIsChosen()">
                 <span> Місто</span>
                 <div class="dropdown-wrapper" dropdown is-open="localityList.dropdown.isOpen">
                     <div class="input-group">
-                        <input autocomplete="off" class="form-control" name="city" type="text" ng-model="localityList.typeahead.model" typeahead="city as city.sName for city in loadLocalityList($viewValue)" typeahead-on-select="onSelectLocalityList($item)" typeahead-template-url="app/service/city/typeahead-match-city.html" typeahead-empty ng-disabled="data.city" />
+                        <input autocomplete="off" class="form-control" name="city" type="text" ng-model="localityList.typeahead.model" typeahead="city as city.sName for city in loadLocalityList($viewValue)" typeahead-on-select="onSelectLocalityList($item)" typeahead-template-url="app/service/city/typeahead-match-city.html" typeahead-empty ng-disabled="cityIsChosen()" />
                         <span class="input-group-btn">
                             <button class="btn btn-default"
                                     type="button"
-                                    ng-disabled="data.city"
+                                    ng-disabled="cityIsChosen()"
                                     dropdown-toggle>
                               <span class="caret"></span>
                         </button>
@@ -49,9 +49,9 @@
                 <a class="ctrls-admin ctrls-srvc-remove" href="" ng-if="bAdmin" title="Видалити послугу в цьому регіоні"><span class="glyphicon glyphicon-remove"></span> Видалити</a>
             </div>
         </div>
-        <div class="col-md-1" ng-if="data.city">
+        <div class="col-md-1" ng-if="cityIsChosen()">
             <div class="link-button">
-                <a href="#" ng-click="step1()">Змінити</a>
+                <a href="#" ng-click="edit()">Змінити</a>
             </div>
         </div>
     </div>
