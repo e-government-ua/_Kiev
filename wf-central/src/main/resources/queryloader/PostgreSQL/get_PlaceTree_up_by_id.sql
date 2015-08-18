@@ -43,4 +43,5 @@ from (
     , "Place" p
   WHERE
     ap."nID_Place" = p."nID"
+  order by ap.level DESC
 ) place_tree_up

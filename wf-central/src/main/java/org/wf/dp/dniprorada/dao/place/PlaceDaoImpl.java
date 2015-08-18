@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.model.Place;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -86,7 +85,7 @@ public class PlaceDaoImpl implements PlaceDao {
         Query query = sessionFactory
             .getCurrentSession()
             .createSQLQuery(sql)
-            .setResultTransformer(new PlaceHibernateResultTransformer());
+            .setResultTransformer( new PlaceHibernateResultTransformer() );
 
         if (specified(placeId))
             query.setLong("placeId", placeId);
@@ -94,16 +93,7 @@ public class PlaceDaoImpl implements PlaceDao {
         if (isNotBlank(uaId) && !specified(placeId))
             query.setString("ua_id", uaId);
 
-        List<PlaceHierarchyRecord> dataRows = query.list();
-        /*
-            Now we have this hierarchy:
-                child > parent > root > etc
-            therefore we need to transform it to
-                root > parent > child
-        */
-        Collections.reverse(dataRows);
-
-        return toTree( dataRows );
+        return toTree( query.list() );
     }
 
 }
