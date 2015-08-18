@@ -56,7 +56,7 @@
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <userTask id="usertask1" name="Заява поступає в роботу операціоніста" activiti:candidateGroups="ternopol_oda3">
+    <userTask id="usertask1" name="Заява поступає в роботу операціоніста" activiti:candidateGroups="ternopil_oda3">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище заявника; Одержувача допомоги АБО його законного представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я заявника" type="string" writable="false"></activiti:formProperty>
@@ -461,7 +461,7 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
     <sequenceFlow id="flow12" name="${workerDecision=='decline'}" sourceRef="exclusivegateway2" targetRef="mailtask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='decline'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask3" name="Заява поступає в роботу комісії" activiti:candidateGroups="ternopol_oda3">
+    <userTask id="usertask3" name="Заява поступає в роботу комісії" activiti:candidateGroups="ternopil_oda3">
       <extensionElements>
         <activiti:formProperty id="docID" name="ID-номер заяви" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище заявника; Одержувача допомоги АБО його законного представника" type="string" writable="false"></activiti:formProperty>
