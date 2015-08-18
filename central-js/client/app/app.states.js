@@ -66,10 +66,12 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
       views: {
         'main@': {
           templateUrl: 'app/service/index.html',
-          controller: 'ServiceCityController'
+          // controller: 'ServiceCityController'
+          controller: 'PlaceController' 
         },
         'content@index.service.general.city': {
-          templateUrl: 'app/service/city/content.html'
+          // templateUrl: 'app/service/city/content.html'
+          templateUrl: 'app/service/place/content.html'
         }
       }
     })
@@ -126,8 +128,10 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
       url: '/built-in',
       views: {
         'content@index.service.general.city': {
-          templateUrl: 'app/service/city/built-in/index.html',
-          controller: 'ServiceBuiltInController'
+          // templateUrl: 'app/service/city/built-in/index.html',
+          // controller: 'ServiceBuiltInController'
+          templateUrl: 'app/service/place/content.html',
+          controller: 'PlaceController'
         }
       }
     })

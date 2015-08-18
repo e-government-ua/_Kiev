@@ -16,7 +16,8 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
     return byState('index.service.general.city.built-in');
   };
 
-  if (byState('index.service.general.city.built-in')) {
+  if (byState('index.service.general.city.built-in') || 
+      byState('')) {
     $scope.$location = $location;
     $scope.$state = $state;
 
@@ -40,7 +41,8 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
       city: null
     };
 
-    //isStep2 = false;
+    // FIXME
+    isStep2 = false;
   }
 
   $scope.initLists = function() {
@@ -148,7 +150,7 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
   };
 
   $scope.ngIfStep2 = function() {
-    console.log('isStep2: ', isStep2);
+    // console.log('isStep2: ', isStep2);
     return isStep2;
   };
 
