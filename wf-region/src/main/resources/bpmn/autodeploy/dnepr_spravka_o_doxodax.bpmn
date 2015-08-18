@@ -18,12 +18,12 @@
           <activiti:value id="lenin" name="Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваша електронна пошта" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваша електронна пошта; на неї Ви будете отримувати повідомлення про стан Вашої заяви" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="book_number" name="Реєстраційний номер облікової картки платника податків" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_living" name="Місце проживання; область, місто, вулиця, дім, квартира" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_start" name="Період з" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_stop" name="Період по" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="aim" name="Мета; для чого або якого органу потрібна дана довідка" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_start" name="Період, за який Ви хочете отримати довідку, з" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_stop" name="Період, за який Ви хочете отримати довідку, по" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="aim" name="Навіщо Вам потрібна ця довідка?; наприклад: за місцем вимоги, для оформлення субсидій, інше" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -44,12 +44,12 @@
           <activiti:value id="lenin" name="Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваша електронна пошта" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваша електронна пошта; на неї Ви будете отримувати повідомлення про стан Вашої заяви" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="book_number" name="Реєстраційний номер облікової картки платника податків" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_living" name="Місце проживання; область, місто, вулиця, дім, квартира" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_start1" name="Період з" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_stop1" name="Період по" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="aim" name="Мета; для чого або якого органу потрібна дана довідка" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_start1" name="Період, за який Ви хочете отримати довідку, з" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_stop1" name="Період, за який Ви хочете отримати довідку, по" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="aim" name="Навіщо Вам потрібна ця довідка?; наприклад: за місцем вимоги, для оформлення субсидій, інше" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Результат обробки" type="textArea" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
