@@ -177,6 +177,25 @@ angular.module('app').service('PlacesService', function($http) {
     'nStatus': 0
   };
 
+  // FIXME зберігати placeData у localStorage і відновлювати для юзера
+  this.placeData = null;
+
+  this.saveLocal = function(placeData) {
+    localStorage.setItem('igPlaceData', JSON.stringify(placeData));
+  }
+
+  this.setPlace = function(placeData) {
+    this.placeData = placeData;
+    this.saveLocal(placeData);
+    console.log('set place data:', JSON.stringify(placeData));
+  }
+
+  this.getPlace = function() {
+    this.placeData = JSON.parse(localStorage.getItem('igPlaceData')) || this.placeData;
+    console.log('get place data:', this.placeData);
+    return this.placeData;
+  }
+
   this.getRegions = function() {
     return $http.get('./api/places/regions');
   };

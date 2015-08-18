@@ -6,7 +6,9 @@
 
 angular.module('app').controller('WizardController', function($state, AdminService, $rootScope, $scope, $location, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, service, regions) {
 
-  console.log('Wizard: state name = ', $scope.state.current.name);
+  var self = this;
+
+  self.isStep2 = self.isStep2 || false;
 
   $scope.service = service;
   $scope.regions = regions;
@@ -16,12 +18,28 @@ angular.module('app').controller('WizardController', function($state, AdminServi
     return $state.current.name;
   };
 
-  var isStep2 = false;
+  var curState = $scope.getStateName();
+
+  console.log('Wizard, state name = ', curState);
+
+  var stateStartupFunction = {
+    'index.service.general.city.built-in': function($location, $state, $rootScope, $scope) {
+      $scope.$location = $location;
+      $scope.$state = $state;
+      self.isStep2 = true;
+    }
+  };
+
+  if (stateStartupFunction[curState]) {
+    stateStartupFunction[curState].call(self, $location, $state, $rootScope, $scope);
+  } else {
+    // default startup
+    $scope.$location = $location;
+    $scope.$state = $state;
+  }
 
   $scope.step1 = function() {
-
-    var isStep2 = false;
-
+    self.isStep2 = false;
     // FIXME
     // if (byState('index.service.general.city')) {
     //   return $state.go('index.service.general.city', {
@@ -30,77 +48,49 @@ angular.module('app').controller('WizardController', function($state, AdminServi
     // }
   };
 
-
   $scope.step2 = function() {
     var aServiceData = $scope.service.aServiceData;
-    var serviceType = $scope.findServiceDataByCity();
 
-    switch (serviceType.nID) {
-      case 1:
-        return $state.go('index.service.general.city.link', {
-          id: $scope.service.nID
-        }, {
-          location: false
-        });
-      case 4:
-        return $state.go('index.service.general.city.built-in', {
-          id: $scope.service.nID
-        }, {
-          location: false
-        });
-      default:
-        return $state.go('index.service.general.city.error', {
-          id: $scope.service.nID
-        }, {
-          location: false
-        });
-    }
+    // console.log('step 2:');
+    self.isStep2 = true;
   };
 
   $scope.makeStep = function(stepId) {
     if (stepId) {
       if (stepId === 'editStep') {
-        console.log('edit step > 2 > 1');
-        isStep2 = false;
+        self.isStep2 = false;
       }
     }
   };
 
   $scope.onPlaceChange = function(serviceType, placeData) {
-    // FIXME:
+    var map = {
+      // Сервіс за посиланням
+      1: 'index.service.general.city.link',
+      // Вбудований сервіс
+      4: 'index.service.general.city.built-in',
+      // Помилка - сервіс відсутній
+      0: 'index.service.general.city.error'
+    };
 
-    function goState(serviceType) {
-      var map = {
-        // Сервіс за посиланням
-        1: 'index.service.general.city.link',
-        // Вбудований сервіс
-        4: 'index.service.general.city.built-in',
-        // Помилка - сервіс відсутній
-        0: 'index.service.general.city.error'
-      };
+    var state = map[serviceType.nID];
+    console.log('onPlaceChange:', state);
 
-      var state = map[serviceType.nID];
-      console.log('onPlaceChange:', serviceType, state, placeData);
-
-      if ( state && placeData.city) {
-        console.log('go state:', serviceType);
-        $state.go(state, {
-          id: $scope.service.nID
-        }, {
-          location: false
-        }).then(function() {
-          isStep2 = true;
-        });
-      }
+    if (state && placeData.city) {
+      self.isStep2 = true;
+      // console.log('go state:', state);
+      $state.go(state, {
+        id: $scope.service.nID
+      }, {
+        location: false
+      }).then(function() {
+        self.isStep2 = true;
+      });
     }
-
-    goState(serviceType);
-
   };
 
   $scope.ngIfStep2 = function() {
-    // console.log('isStep2: ', isStep2);
-    return isStep2;
+    return self.isStep2;
   };
 
   /* Moved to place.controller:

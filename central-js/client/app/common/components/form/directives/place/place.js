@@ -4,12 +4,26 @@
  *
  */
 angular.module('app')
-  .directive('place', function($location, $state, $sce, RegionListFactory, LocalityListFactory) {
+  .directive('place', function($location, $state, $sce, RegionListFactory, LocalityListFactory, PlacesService) {
     return {
       restrict: 'E',
       templateUrl: 'app/common/components/form/directives/place/place.html',
       require: 'ngModel',
       link: function($scope, element, attrs, ngModel) {
+
+        $scope.recallPlaceData = function() {
+          $scope.data = PlacesService.getPlace() || $scope.data;
+
+          // console.log('recall place data: ', $scope.data.region, $scope.data.city.sName);
+
+          if ($scope.regionList) {
+            $scope.regionList.select($scope.data.region);
+          }
+
+          if ($scope.localityList) {
+            $scope.localityList.select($scope.data.city);
+          }
+        };
 
         $scope.resetPlaceData = function() {
           $scope.data = {
@@ -41,12 +55,12 @@ angular.module('app')
           $scope.regionList.initialize($scope.regions);
           $scope.resetPlaceData();
 
+          $scope.recallPlaceData();
+
           console.log('init place controls: ', $scope.data);
         };
 
         $scope.initPlaceControls();
-
-        console.log('$scope.data = ', $scope.data);
 
         $scope.edit = function() {
           $scope.resetPlaceData();
@@ -75,6 +89,8 @@ angular.module('app')
         $scope.processPlaceSelection = function() {
           var serviceType = $scope.cityIsChosen() ? $scope.findServiceDataByCity() : $scope.findServiceDataByRegion();
           console.log('region is chosen: ', $scope.regionIsChosen(), ', city is chosen: ', $scope.cityIsChosen(), ' serviceType:', serviceType);
+          PlacesService.setPlace($scope.data);
+
           // FIXME event must be here
           $scope.onPlaceChange(serviceType, $scope.data);
         };
