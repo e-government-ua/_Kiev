@@ -17,6 +17,7 @@
         <activiti:formProperty id="sID_Country" name="Country Code (Code)" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="sCountry" name="Громадянство" type="string"></activiti:formProperty>
         
+        <activiti:formProperty id="sCountry_UA" name="Країна народження" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="sRegion" name="Регіон" type="string"></activiti:formProperty>
         <activiti:formProperty id="sArea" name="Район" type="string"></activiti:formProperty>
         <activiti:formProperty id="sPlace" name="Населений пункт" type="string" required="true"></activiti:formProperty>
@@ -224,7 +225,8 @@
 
         <activiti:formProperty id="bankIdsID_Country" name="Громадянство" type="invisible" default="UKR" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sID_Country" name="Country Code" type="string" writable="false"></activiti:formProperty>
-        
+
+        <activiti:formProperty id="sCountry_UA" name="Країна народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sRegion" name="Регіон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sArea" name="Район" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sPlace" name="Населений пункт" type="string" writable="false"></activiti:formProperty>
