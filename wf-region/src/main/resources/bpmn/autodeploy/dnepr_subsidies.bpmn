@@ -303,11 +303,7 @@
         <activiti:formProperty id="decision" name="Рішення про надання субсидії" type="file"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/subsidy_zayava.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_2" name="[pattern/print/subsidy_declaration.html]" type="invisible" default="${sBody_2}" writable="false"></activiti:formProperty>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
-          <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${decision}</activiti:expression>
-          </activiti:field>
-        </activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
