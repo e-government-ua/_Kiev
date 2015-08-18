@@ -75,6 +75,9 @@ public class PlaceQueryDaoBuilder {
     public String getTreeUp(Long placeId, String uaId, Boolean tree) {
         String sqlFile = "get_PlaceTree_by_id.sql";
 
+        if (specified(placeId) && isNotBlank(uaId))
+            return sqlFile;
+
         if (specified(placeId) && specified(tree)) {
             sqlFile = "get_PlaceTree_up_by_id.sql";
         }
