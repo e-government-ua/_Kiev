@@ -1,0 +1,72 @@
+<div ng-controller="FlowSlotsCtrl">
+
+  <div ng-show="isInProgress">
+    <h3 class="text-center">Заждіть</h3>
+  </div>
+
+  <div ng-show="!isInProgress">
+
+    <div class="row">
+      <form class="form-horizontal col-md-12">
+        <div class="form-group">
+          <label class="col-md-1 control-label">Період з</label>
+          <div class="col-md-3">
+            <p class="input-group">
+              <input type="text"
+                     class="form-control"
+                     datepicker-popup="dd MMMM yyyy"
+                     ng-model="data.sDateStart"
+                     ng-click="open($event)"
+                     is-open="opened"
+                     close-text="Close" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+          </div>
+          <label class="col-md-1 control-label">до</label>
+          <div class="col-md-3">
+            <p class="input-group">
+              <input type="text"
+                     class="form-control"
+                     datepicker-popup="dd MMMM yyyy"
+                     ng-model="data.sDateStop"
+                     is-open="opened"
+                     ng-click="open($event)"
+                     close-text="Close" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+          </div>
+          <button type="submit" class="btn btn-success" ng-click="generate()">Згенерувати</button>
+          <button class="btn btn-danger" ng-click="delete()">Видалити згенероване</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="row">
+      <div class="col-md-7">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Проміжок</th>
+            <th>Статус</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr ng-repeat="slot in result">
+            <td>{{slot.sTime}} - {{slot.sToTime}}</td>
+            <td>
+              <span class="label label-success" ng-show="slot.bFree">Вільно</span>
+              <span class="label label-danger" ng-show="!slot.bFree">Зайнято</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

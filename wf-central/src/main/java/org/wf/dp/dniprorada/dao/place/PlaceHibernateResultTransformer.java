@@ -139,5 +139,4 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         asTemporaryParents.put(node.getPlace().getId(), node);
         LOG.debug("Node {} registered in temp. storage", node);
     }
-
 }

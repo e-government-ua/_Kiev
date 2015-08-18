@@ -259,7 +259,7 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
      */
     'TextUA': function(modelValue, viewValue) {
       if(modelValue===null || modelValue===''){return true;}
-      var TEXTUA_REGEXP = /^[ААБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя-\s]+$/g;
+      var TEXTUA_REGEXP = /^[ААБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя`'-\s]+$/g;
       var TEXTRU_ONLY = /[ЁёЪъЫыЭэ]+/g;
       var bValid = TEXTUA_REGEXP.test(modelValue) && !TEXTRU_ONLY.test(modelValue);
       //console.log('Validate TextUA: ' + modelValue + ' is valid: ' + bValid );

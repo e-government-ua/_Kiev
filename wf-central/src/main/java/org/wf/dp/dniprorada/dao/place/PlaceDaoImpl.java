@@ -4,38 +4,36 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.model.Place;
-import org.wf.dp.dniprorada.base.util.queryloader.QueryLoader;
 
+import java.util.Collections;
 import java.util.List;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.springframework.util.Assert.notNull;
 import static org.wf.dp.dniprorada.dao.place.PlaceHibernateResultTransformer.toTree;
+import static org.wf.dp.dniprorada.dao.place.PlaceQueryDaoBuilder.specified;
 
 /**
  * @author dgroup
  * @since  20.07.2015
  */
 public class PlaceDaoImpl implements PlaceDao {
-    private static final Logger LOG = LoggerFactory.getLogger(PlaceDaoImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Autowired
-    private QueryLoader sqlStorage;
+    private PlaceQueryDaoBuilder sqlBuilder;
 
     public PlaceDaoImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
     }
 
-
+    // TODO create util method for one parameter
     @SuppressWarnings("unchecked")
     public List<Place> findBy(Long placeId, String uaId, Boolean tree) {
         Criteria places = sessionFactory
@@ -49,9 +47,12 @@ public class PlaceDaoImpl implements PlaceDao {
     }
 
     @SuppressWarnings("unchecked")
-    public PlaceHierarchyTree getTree(PlaceHierarchyRecord root) {
+    public PlaceHierarchyTree getTreeDown(PlaceHierarchyRecord root) {
         notNull(root, "Root element can't be a null");
-        String sql = buildQueryForPlaceTree(root);
+        if (!specified(root.getPlaceId()) && isBlank(root.getUaID()))
+            throw new IllegalArgumentException("PlaceId and UA id are empty");
+
+        String sql = sqlBuilder.getTreeDown(root);
 
         Query query = sessionFactory
             .getCurrentSession()
@@ -59,69 +60,50 @@ public class PlaceDaoImpl implements PlaceDao {
             .setResultTransformer( new PlaceHibernateResultTransformer() );
 
         if (specified(root.getPlaceId()))
-            query = query.setLong("placeId", root.getPlaceId());
+            query.setLong("placeId", root.getPlaceId());
 
         if (specified(root.getTypeId()))
-            query = query.setLong("typeId", root.getTypeId());
+            query.setLong("typeId", root.getTypeId());
 
         if (specified(root.isArea()))
-            query = query.setBoolean("area", root.isArea());
+            query.setBoolean("area", root.isArea());
 
         if (specified(root.isRoot()))
-            query = query.setBoolean("root", root.isRoot());
+            query.setBoolean("root", root.isRoot());
 
         if (specified(root.getDeep()))
-            query = query.setLong("deep", root.getDeep());
+            query.setLong("deep", root.getDeep());
 
         return toTree( query.list() );
     }
 
-    @Cacheable("ext-file-PlaceTree")
-    private String buildQueryForPlaceTree(PlaceHierarchyRecord phr) {
-        String sql = sqlStorage.get( phr.getPlaceId() > 0
-            ? "get_PlaceTree_by_id.sql" : "get_PlaceTree_by_UA-id.sql");
+    @SuppressWarnings("unchecked")
+    public PlaceHierarchyTree getTreeUp(Long placeId, String uaId, Boolean tree) {
+        if (!specified(placeId) && !isNotBlank(uaId))
+            throw new IllegalArgumentException("One from main parameters doesn't specified");
 
-        if (specified(phr.getTypeId()) ||
-            specified(phr.isArea()) ||
-            specified(phr.isRoot()) ||
-            specified(phr.getDeep()))
-            sql = sql + " where ";
+        String sql = sqlBuilder.getTreeUp(placeId, uaId, tree);
+        Query query = sessionFactory
+            .getCurrentSession()
+            .createSQLQuery(sql)
+            .setResultTransformer(new PlaceHibernateResultTransformer());
 
-        if (specified(phr.getTypeId()))
-            sql += " type_id = :typeId";
+        if (specified(placeId))
+            query.setLong("placeId", placeId);
 
-        if (specified(phr.isArea()) && specified(phr.getTypeId()))
-            sql += " and ";
+        if (isNotBlank(uaId) && !specified(placeId))
+            query.setString("ua_id", uaId);
 
-        if (specified(phr.isArea()))
-            sql += " area = :area";
+        List<PlaceHierarchyRecord> dataRows = query.list();
+        /*
+            Now we have this hierarchy:
+                child > parent > root > etc
+            therefore we need to transform it to
+                root > parent > child
+        */
+        Collections.reverse(dataRows);
 
-        if (specified(phr.isRoot()) && (
-            specified(phr.getTypeId()) ||
-            specified(phr.isArea())))
-            sql += " and ";
-
-        if (specified(phr.isRoot()))
-            sql += " root = :root";
-
-        if (specified(phr.getDeep()) && (
-            specified(phr.getTypeId()) ||
-            specified(phr.isArea()) ||
-            specified(phr.isRoot())))
-            sql += " and ";
-
-        if (specified(phr.getDeep()))
-            sql += " level <= :deep";
-
-        LOG.debug("SQL query {}", sql);
-
-        return sql;
+        return toTree( dataRows );
     }
 
-    private boolean specified(Long value) {
-        return value != null && value > 0;
-    }
-    private boolean specified(Boolean value) {
-        return value != null;
-    }
 }
