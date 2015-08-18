@@ -67,11 +67,11 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
         'main@': {
           templateUrl: 'app/service/index.html',
           // controller: 'ServiceCityController'
-          controller: 'PlaceController' 
+          controller: 'WizardController' 
         },
         'content@index.service.general.city': {
           // templateUrl: 'app/service/city/content.html'
-          templateUrl: 'app/service/place/content.html'
+          templateUrl: 'app/service/wizard/wizard.content.html'
         }
       }
     })
@@ -130,8 +130,8 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
         'content@index.service.general.city': {
           // templateUrl: 'app/service/city/built-in/index.html',
           // controller: 'ServiceBuiltInController'
-          templateUrl: 'app/service/place/content.html',
-          controller: 'PlaceController'
+          templateUrl: 'app/service/wizard/wizard.content.html',
+          controller: 'WizardController'
         }
       }
     })

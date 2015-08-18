@@ -1138,5 +1138,22 @@ input.ng-touched.ng-invalid-email, input.ng-touched.ng-invalid-tel  {
   padding-right: 0.5em;
 }
 
+/* Place Control Begin */
+.place-control {
+  .input-group .btn {
+   padding: 6px 12px 7px 12px;
+  }
+  
+  .inline-wrapper {
+    display: inline-block;
+  }
+
+  .dropdown-wrapper {
+    position:relative;
+    display: inline-block;
+  }
+}
+/* Place Control End */
+
 /* Dev only: uncomment to see the element scopes' visually: .ng-scope { border: 1px solid #000; padding: 5px; } */
 
