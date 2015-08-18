@@ -85,7 +85,8 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
             'lastName_UA2','firstName_UA2','middleName_UA2',
             'lastName_UA3','firstName_UA3','middleName_UA3',
             'lastName_UA4','firstName_UA4','middleName_UA4',
-            'lastName_UA5','firstName_UA5','middleName_UA5'
+            'lastName_UA5','firstName_UA5','middleName_UA5',
+            'sFamily_UA','sName_UA','sSurname_UA'
         ]
       },
       TextRU: {
@@ -94,7 +95,8 @@ function ValidationService(moment, amMoment, angularMomentConfig) {
             'lastName_RU2','firstName_RU2','middleName_RU2',
             'lastName_RU3','firstName_RU3','middleName_RU3',
             'lastName_RU4','firstName_RU4','middleName_RU4',
-            'lastName_RU5','firstName_RU5','middleName_RU5'
+            'lastName_RU5','firstName_RU5','middleName_RU5',
+            'sFamily_RU','sName_RU','sSurname_RU'
         ]
       },
       DateFormat: {

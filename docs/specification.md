@@ -2026,6 +2026,9 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nI
 * saRegionWeekDay - Массив дней недели ("su,mo,tu")
 * sDateTimeAt - Строка-дата начала(на) в формате YYYY-MM-DD hh:mm:ss ("2015-07-31 19:00:00")
 * sDateTimeTo - Строка-дата конца(к) в формате YYYY-MM-DD hh:mm:ss ("2015-07-31 23:00:00")
+* sData - Строка с данными(выражением), описывающими формулу расписания (например: {"0 0/30 9-12 ? * TUE-FRI":"PT30M"})
+* nLen - Число, определяющее длительность слота
+* sLenType - Строка определяющее тип длительности слота
 
 Пример:
 ```
@@ -2104,6 +2107,9 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nI
 * saRegionWeekDay - Массив дней недели ("su,mo,tu")
 * sDateTimeAt - Строка-дата начала(на) в формате YYYY-MM-DD hh:mm:ss ("2015-07-31 19:00:00")
 * sDateTimeTo - Строка-дата конца(к) в формате YYYY-MM-DD hh:mm:ss ("2015-07-31 23:00:00")
+* sData - Строка с данными(выражением), описывающими формулу расписания (например: {"0 0/30 9-12 ? * TUE-FRI":"PT30M"})
+* nLen - Число, определяющее длительность слота
+* sLenType - Строка определяющее тип длительности слота
 
 Пример:
 ```
