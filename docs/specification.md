@@ -221,25 +221,25 @@ https://test.region.igov.org.ua/wf-region/service/rest/process-definitions
 
 --------------------------------------------------------------------------------------------------------------------------
 
-<a name="5">
-####5. Загрузки прикрепленного к заявке файла из постоянной базы
+<a name="3">
+####3. Загрузки прикрепленного к заявке файла из постоянной базы
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
 **HTTP Context: https://server:port/wf-region/service/rest/download_file_from_db?taskId=XXX&attachmentId=XXX&nFile=XXX**
 
-* {taskId} - ид задачи
-* {attachmentID} - ID прикрепленного файла
-* {nFile} - порядковый номер прикрепленного файла
-* {nID_Subject} - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
+* taskId - ид задачи
+* attachmentID - ID прикрепленного файла
+* nFile - порядковый номер прикрепленного файла
+* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 Пример:
 https://test.igov.org.ua/wf-region/service/rest/file/download_file_from_db?taskId=82596&attachmentId=6726532&nFile=7
 
 
-<a name="6">
-####6. Работа с мерчантами
+<a name="4">
+####4. Работа с мерчантами
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
@@ -362,8 +362,8 @@ https://test.igov.org.ua/wf-central/service/merchant/setMerchant?sID=Test_sID3&s
 
 
 
-<a name="7">
-####7. Бэкап/восстановление данных таблиц сервисов и мест
+<a name="5">
+####5. Бэкап/восстановление данных таблиц сервисов и мест
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
@@ -414,8 +414,8 @@ https://test.igov.org.ua/wf-central/service/merchant/setMerchant?sID=Test_sID3&s
 
 ----------------------------------------------------------------------------------------------------------------------------
 
-<a name="8">
-####8. Работа с документами
+<a name="6">
+####6. Работа с документами
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -710,8 +710,8 @@ https://test.igov.org.ua/wf-central/service/services/removeDocumentContentType?n
 --------------------------------------------------------------------------------------------------------------------------
 
 
-<a name="9">
-####9. Работа с субъектами
+<a name="7">
+####7. Работа с субъектами
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -764,8 +764,8 @@ https://test.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 ```
 --------------------------------------------------------------------------------------------------------------------------
 
-<a name="10">
-####10. Предоставление и проверка доступа к документам
+<a name="8">
+####8. Предоставление и проверка доступа к документам
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: POST**
@@ -862,8 +862,8 @@ https://seriver:port/wf-central/service/setDocumentAccess - Установка �
 ```
 
 
-<a name="11">
-####11. Работа с сообщениями
+<a name="9">
+####9. Работа с сообщениями
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
@@ -952,8 +952,8 @@ https://test.igov.org.ua/wf-central/service/messages/setMessage?sHead=name&sBody
 --------------------------------------------------------------------------------------------------------------------------
 
 
-<a name="12">
-####12. Работа с историей (Мой журнал)
+<a name="10">
+####10. Работа с историей (Мой журнал)
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
@@ -990,8 +990,8 @@ https://test.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Subjec
 
 --------------------------------------------------------------------------------------------------------------------------
 
-<a name="13">
-####13. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti
+<a name="11">
+####11. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: POST**
@@ -1018,8 +1018,8 @@ ID созданного attachment - "id":"45"
 
 --------------------------------------------------------------------------------------------------------------------------
 
-<a name="14">
-####14. Работа с каталогом сервисов
+<a name="12">
+####12. Работа с каталогом сервисов
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Context: http://server:port/wf-central/service/services/getServicesTree** - Получение делева сервисов
@@ -1510,8 +1510,8 @@ https://test.igov.org.ua/wf-central/service/services/setServicesTree
 ]
 ```
 
-<a name="15">
-#### 15. Получение статистики по задачам в рамках бизнес процесса
+<a name="13">
+#### 13. Получение статистики по задачам в рамках бизнес процесса
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -1545,8 +1545,8 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?s
 ```
 
 
-<a name="16">
-#### 16. Работа с обьектами событий по услугам
+<a name="14">
+#### 14. Работа с обьектами событий по услугам
 </a><a href="#0_contents">↑Up</a><br/>
 **HTTP Metod: GET**
 
@@ -1610,8 +1610,8 @@ http://test.igov.org.ua/wf-central/service/services/addHistoryEvent_Service?nID_
 http://test.igov.org.ua/wf-central/service/services/updateHistoryEvent_Service?nID_Protected=11&sStatus=finish
 
 
-<a name="17">
-#### 17. Работа со слотами потока
+<a name="15">
+#### 15. Работа со слотами потока
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Context: http://server:port/wf-central/service/flow/getFlowSlots_ServiceData** - Получение слотов по сервису сгруппированных по дням.
@@ -1776,8 +1776,8 @@ http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceD
 }
 ```
 
-<a name="18">
-#### 18. Работа с джоинами субьектами (отделениями/филиалами)
+<a name="16">
+#### 16. Работа с джоинами субьектами (отделениями/филиалами)
 </a><a href="#0_contents">↑Up</a><br/>
 (таска: https://github.com/e-government-ua/i/issues/487)
 
@@ -1856,8 +1856,8 @@ https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoin?nID_Sub
 https://test.igov.org.ua/wf-central/service/services/removeSubjectOrganJoins?nID_SubjectOrgan=1&asID_Public=130505,130506,130507,130508
 
 
-<a name="19">
-#### 19. Получение кнопки для оплаты через LiqPay
+<a name="17">
+#### 17. Получение кнопки для оплаты через LiqPay
 <br><a href="#0_contents">↑Up</a>
 **Method: GET**
 
@@ -1878,8 +1878,8 @@ https://test.igov.org.ua/wf-central/service/services/removeSubjectOrganJoins?nID
 Пример:
 https://test.igov.org.ua/wf-central/service/services/getPayButtonHTML_LiqPay?sID_Merchant=i10172968078&sSum=55,00&oID_Currency=UAH&oLanguage=RUSSIAN&sDescription=test&sID_Order=12345&sURL_CallbackStatusNew=&sURL_CallbackPaySuccess=&nID_Subject=1&bTest=true
 
-<a name="20">
-####20. Работа со странами
+<a name="18">
+####18. Работа со странами
 </a><a href="#0_contents">↑Up</a>
 
 ----------------------
@@ -1949,8 +1949,8 @@ Eсли задано два ключа от разных записей -- ве�
  удаляет обьект по одному из четырех ключей (nID, nID_UA, sID_Two, sID_Three) или кидает ошибку ```403. Record not found!```.
 
 
-<a name="21">
-####21. Загрузка данных по задачам
+<a name="19">
+####19. Загрузка данных по задачам
 </a><a href="#0_contents">↑Up</a>
 
 **Method: GET**
@@ -1993,8 +1993,8 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?&s
 
 
 
-<a name="22">
-#### 22. Получение списка бизнес процессов к которым у пользователя есть доступ
+<a name="20">
+#### 20. Получение списка бизнес процессов к которым у пользователя есть доступ
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -2029,8 +2029,8 @@ https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=kermit
 [{"sID":"dnepr_spravka_o_doxodax","sName":"Дніпропетровськ - Отримання довідки про доходи фіз. осіб"},{"sID":"dnepr_subsidies2","sName":"Отримання субсидії на оплату житлово-комунальних послуг2"},{"sID":"khmelnitskij_mvk_2","sName":"Хмельницький - Надання інформації, що підтверджує відсутність (наявність) земельної ділянки"},{"sID":"khmelnitskij_zemlya","sName":"Заява про наявність земельної ділянки"},{"sID":"kiev_spravka_o_doxodax","sName":"Київ - Отримання довідки про доходи фіз. осіб"},{"sID":"kuznetsovsk_mvk_5","sName":"Кузнецовськ МВК - Узгодження графіка роботи підприємства торгівлі\/обслуговування"},{"sID":"post_spravka_o_doxodax_pens","sName":"Отримання довідки про доходи (пенсійний фонд)"}]
 ```
 
-<a name="24_getSheduleFlowIncludes">
-#### 24. Получение расписаний включений
+<a name="21_getSheduleFlowIncludes">
+#### 21. Получение расписаний включений
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -2051,8 +2051,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nI
 [{"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}},{"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"10:30\"","sDateTimeTo":"\"12:30\"","nID":20364,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}]
 ```
 
-<a name="25_setSheduleFlowInclude">
-#### 25. Добавление/изменение расписания включений
+<a name="22_setSheduleFlowInclude">
+#### 22. Добавление/изменение расписания включений
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -2081,8 +2081,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowInclude?nID
 ```
 
 
-<a name="26_removeSheduleFlowInclude">
-#### 26. Удаление расписания включений
+<a name="23_removeSheduleFlowInclude">
+#### 23. Удаление расписания включений
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -2107,8 +2107,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowInclude?
 {"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}
 ```
 
-<a name="27_getSheduleFlowExcludes">
-#### 27. Получение расписаний исключений
+<a name="24_getSheduleFlowExcludes">
+#### 24. Получение расписаний исключений
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -2129,8 +2129,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nI
 [{"sData":null,"bExclude":true,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}},{"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"10:30\"","sDateTimeTo":"\"12:30\"","nID":20364,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}]
 ```
 
-<a name="28_setSheduleFlowExclude">
-#### 28. Добавление/изменение расписания исключения
+<a name="25_setSheduleFlowExclude">
+#### 25. Добавление/изменение расписания исключения
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -2159,8 +2159,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowExclude?nID
 ```
 
 
-<a name="29_removeSheduleFlowExclude">
-#### 29. Удаление расписания исключений
+<a name="26_removeSheduleFlowExclude">
+#### 26. Удаление расписания исключений
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -2189,8 +2189,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowExclude?
 ----------------------
 
 
-<a name="30_workWithPatternFiles">
-#### 30. Работа с файлами-шаблонами
+<a name="27_workWithPatternFiles">
+#### 27. Работа с файлами-шаблонами
 </a><a href="#0_contents">↑Up</a><br/>
 
 
