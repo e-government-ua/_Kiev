@@ -30,7 +30,7 @@
 <a href="#28_setSheduleFlowExclude"> 28. Добавление/изменение расписания исключения </a><br/>
 <a href="#29_removeSheduleFlowExclude"> 29. Удаление расписания исключений </a><br/>
 <a href="#30_workWithPatternFiles"> 30. Работа с файлами-шаблонами </a><br/>
-<a href="#31_getFlowSlotTickets"> 30. Получение активных тикетов</a><br/>
+<a href="#31_getFlowSlotTickets"> 31. Получение активных тикетов</a><br/>
 
 ### iGov.ua APIs
 
