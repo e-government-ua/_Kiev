@@ -1,12 +1,21 @@
 package org.activiti.rest.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.TaskService;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.task.Task;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.json.simple.JSONValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +53,12 @@ public class ActivitiRestFlowController {
 	
    @Autowired
    private FlowService flowService;
+   
+   @Autowired
+   private TaskService taskService;
+   
+   @Autowired
+   private RepositoryService repositoryService;
 
    @RequestMapping(value = "/getFlowSlots_ServiceData", method = RequestMethod.GET)
    public
@@ -461,6 +476,106 @@ public class ActivitiRestFlowController {
 			log.info("nID or nID_Flow_ServiceData are empty. Skipping logic of the method removeSheduleFlowExclude");
 		}
 		return new LinkedList<FlowProperty>();
+	}
+	
+	@RequestMapping(value = "/getFlowSlotTickets", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	public  @ResponseBody String getFlowSlotTickets(
+			@RequestParam(value = "sLogin") String sLogin,
+                        @RequestParam(value = "bEmployeeUnassigned", required = false, defaultValue = "false") Boolean bEmployeeUnassigned,
+                        @RequestParam(value = "sDate", required = false) String sDate
+        ) throws Exception {
+		
+		List<Map<String, String>> res = new LinkedList<Map<String,String>>();
+		
+		List<Task> tasks = new LinkedList<Task>(); 
+				
+		tasks = getTasksForChecking(sLogin, bEmployeeUnassigned);
+		
+		Map<Long, Task> taskActivityIDsMap = new HashMap<Long, Task>();
+		for (Task task : tasks){
+			if (task.getProcessInstanceId() != null){
+				taskActivityIDsMap.put(Long.valueOf(task.getProcessInstanceId()), task);
+			} else {
+				log.info("Task with ID:" + task.getId() + " has null process instance id value");
+			}
+		}
+		
+		log.info("Will check tasks which belong to process definition IDs:" + taskActivityIDsMap.keySet());
+		
+		List<FlowSlotTicket> allFlowSlowTickets = flowService.getFlowSlotTicketDao().getAll();
+		log.info("Found " + (allFlowSlowTickets != null ? allFlowSlowTickets.size(): 0) + " flow slot tickets.");
+		if (allFlowSlowTickets != null){
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss");
+			
+			Date dateOfTasks = null;
+			if (sDate != null){
+				log.info("Checking for flow spot tickets for the date: " + sDate);
+				dateOfTasks = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+			}
+			for (FlowSlotTicket currFlowSlotTicket : allFlowSlowTickets){
+				if (taskActivityIDsMap.keySet().contains(currFlowSlotTicket.getnID_Task_Activiti())){
+					Task tasksByActivitiID = taskActivityIDsMap.get(currFlowSlotTicket.getnID_Task_Activiti());
+						
+					if (dateOfTasks != null && currFlowSlotTicket.getsDateStart().isBefore(dateOfTasks.getTime())
+							&& currFlowSlotTicket.getsDateFinish().isAfter(dateOfTasks.getTime())){
+						addFlowSlowTicketToResult(res, dateFormat, currFlowSlotTicket, tasksByActivitiID);
+					} else {
+						log.info("Skipping flowSlot " + currFlowSlotTicket.getId() + " for the task:" + currFlowSlotTicket.getnID_Task_Activiti() + 
+								" as they have not valid  start-end date" + currFlowSlotTicket.getsDateStart().toString() + ":" + 
+								currFlowSlotTicket.getsDateFinish());
+					}
+				} else {
+					log.info("List of tasks doesn't contain tasks with ID: " + currFlowSlotTicket.getnID_Task_Activiti());
+				}
+			}
+		}
+		
+		String jsonRes = JSONValue.toJSONString(res);
+    	log.info("Result" + jsonRes);
+    	return jsonRes;
+	}
+
+	private void addFlowSlowTicketToResult(List<Map<String, String>> res,
+			SimpleDateFormat dateFormat, FlowSlotTicket currFlowSlowTicket,
+			Task tasksByActivitiID) {
+		Map<String, String> currRes = new HashMap<String, String>();
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("Adding flow slot ticket: ");
+		sb.append(currFlowSlowTicket.getId());
+		sb.append(":");
+		sb.append(currFlowSlowTicket.getnID_Subject());
+		sb.append(":");
+		sb.append(currFlowSlowTicket.getsDateStart());
+		sb.append(":");
+		sb.append(currFlowSlowTicket.getsDateFinish());
+		log.info("Adding flow slot ticket: " + currFlowSlowTicket.getId() + ":");
+		
+		currRes.put("nID", currFlowSlowTicket.getId().toString());
+		currRes.put("nID_FlowSlot", currFlowSlowTicket.getoFlowSlot() != null ? 
+				currFlowSlowTicket.getoFlowSlot().getId().toString() : "");
+		currRes.put("nID_Subject", currFlowSlowTicket.getnID_Subject().toString());
+		currRes.put("sDateStart", dateFormat.format(currFlowSlowTicket.getsDateStart()));
+		currRes.put("sDateFinish", dateFormat.format(currFlowSlowTicket.getsDateFinish()));
+		currRes.put("sDateEdit", dateFormat.format(currFlowSlowTicket.getsDateEdit()));
+		currRes.put("sUserTaskName", tasksByActivitiID.getName());
+		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(tasksByActivitiID.getProcessDefinitionId()).singleResult();
+		currRes.put("sNameBP", processDefinition != null ? processDefinition.getName() : "");
+		currRes.put("sTaskDate", dateFormat.format(tasksByActivitiID.getCreateTime()));
+		res.add(currRes);
+	}
+
+	private List<Task> getTasksForChecking(String sLogin,
+			Boolean bEmployeeUnassigned) {
+		List<Task> tasks;
+		if (bEmployeeUnassigned){
+			tasks = taskService.createTaskQuery().taskUnassigned().list();
+			log.info("Looking for unassigned tasks. Found " + (tasks != null ? tasks.size() : 0) + " tasks");
+		} else {
+			tasks = taskService.createTaskQuery().taskAssignee(sLogin).list();
+			log.info("Looking for tasks assigned to user:" + sLogin + ". Found " + (tasks != null ? tasks.size() : 0) + " tasks");
+		}
+		return tasks;
 	}
 	
 	protected List<FlowProperty> getFilteredFlowPropertiesForFlowServiceData(Long nID_Flow_ServiceData, String sID_BP, Boolean bExclude) throws Exception {
