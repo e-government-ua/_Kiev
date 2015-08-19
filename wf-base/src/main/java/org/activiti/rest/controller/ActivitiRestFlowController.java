@@ -497,6 +497,7 @@ public class ActivitiRestFlowController {
 		}
 		
 		List<FlowSlotTicket> allFlowSlowTickets = flowService.getFlowSlotTicketDao().getAll();
+		log.info("Found " + (allFlowSlowTickets != null ? allFlowSlowTickets.size(): 0) + " flow slot tickets.");
 		if (allFlowSlowTickets != null){
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss");
 			
@@ -517,6 +518,8 @@ public class ActivitiRestFlowController {
 								" as they have not valid  start-end date" + currFlowSlotTicket.getsDateStart().toString() + ":" + 
 								currFlowSlotTicket.getsDateFinish());
 					}
+				} else {
+					log.info("List of tasks doesn't contain tasks with ID: " + currFlowSlotTicket.getnID_Task_Activiti());
 				}
 			}
 		}
