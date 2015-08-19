@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.util;
+package org.wf.dp.dniprorada.util.luna;
 
 import org.apache.log4j.Logger;
 
@@ -55,6 +55,12 @@ public class AlgorithmLuna {
         log.info("getLastDigit(inputNumber)="+getLastDigit(inputNumber));
         log.info("getCheckSumLastDigit(inputNumber / 10)="+getCheckSumLastDigit(inputNumber / 10));
         return getCheckSumLastDigit(inputNumber / 10) == getLastDigit(inputNumber);
+    }
+
+    public static void validateProtectedNumber(Long inputNumber) throws CRCInvalidException {
+        if (!checkProtectedNumber(inputNumber)) {
+            throw new CRCInvalidException();
+        }
     }
 
     public static void main(String[] args) {
