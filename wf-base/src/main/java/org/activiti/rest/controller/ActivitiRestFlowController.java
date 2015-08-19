@@ -493,10 +493,14 @@ public class ActivitiRestFlowController {
 		
 		Map<Long, Task> taskActivityIDsMap = new HashMap<Long, Task>();
 		for (Task task : tasks){
-			taskActivityIDsMap.put(Long.valueOf(task.getId()), task);
+			if (task.getProcessInstanceId() != null){
+				taskActivityIDsMap.put(Long.valueOf(task.getProcessInstanceId()), task);
+			} else {
+				log.info("Task with ID:" + task.getId() + " has null process instance id value");
+			}
 		}
 		
-		log.info("Will check tasks with IDs:" + taskActivityIDsMap.keySet());
+		log.info("Will check tasks which belong to process definition IDs:" + taskActivityIDsMap.keySet());
 		
 		List<FlowSlotTicket> allFlowSlowTickets = flowService.getFlowSlotTicketDao().getAll();
 		log.info("Found " + (allFlowSlowTickets != null ? allFlowSlowTickets.size(): 0) + " flow slot tickets.");
@@ -512,8 +516,8 @@ public class ActivitiRestFlowController {
 				if (taskActivityIDsMap.keySet().contains(currFlowSlotTicket.getnID_Task_Activiti())){
 					Task tasksByActivitiID = taskActivityIDsMap.get(currFlowSlotTicket.getnID_Task_Activiti());
 						
-					if (dateOfTasks != null && currFlowSlotTicket.getsDateStart().isBefore(dateOfTasks.getTime())
-							&& currFlowSlotTicket.getsDateFinish().isAfter(dateOfTasks.getTime())){
+					if (dateOfTasks == null || (currFlowSlotTicket.getsDateStart().isBefore(dateOfTasks.getTime())
+							&& currFlowSlotTicket.getsDateFinish().isAfter(dateOfTasks.getTime()))){
 						addFlowSlowTicketToResult(res, dateFormat, currFlowSlotTicket, tasksByActivitiID);
 					} else {
 						log.info("Skipping flowSlot " + currFlowSlotTicket.getId() + " for the task:" + currFlowSlotTicket.getnID_Task_Activiti() + 
@@ -565,10 +569,10 @@ public class ActivitiRestFlowController {
 			Boolean bEmployeeUnassigned) {
 		List<Task> tasks;
 		if (bEmployeeUnassigned){
-			tasks = taskService.createTaskQuery().taskUnassigned().list();
+			tasks = taskService.createTaskQuery().taskUnassigned().active().list();
 			log.info("Looking for unassigned tasks. Found " + (tasks != null ? tasks.size() : 0) + " tasks");
 		} else {
-			tasks = taskService.createTaskQuery().taskAssignee(sLogin).list();
+			tasks = taskService.createTaskQuery().taskAssignee(sLogin).active().list();
 			log.info("Looking for tasks assigned to user:" + sLogin + ". Found " + (tasks != null ? tasks.size() : 0) + " tasks");
 		}
 		return tasks;
