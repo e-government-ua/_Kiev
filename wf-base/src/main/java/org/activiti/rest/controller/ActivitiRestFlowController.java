@@ -493,7 +493,11 @@ public class ActivitiRestFlowController {
 		
 		Map<Long, Task> taskActivityIDsMap = new HashMap<Long, Task>();
 		for (Task task : tasks){
-			taskActivityIDsMap.put(Long.valueOf(task.getProcessInstanceId()), task);
+			if (task.getProcessInstanceId() != null){
+				taskActivityIDsMap.put(Long.valueOf(task.getProcessInstanceId()), task);
+			} else {
+				log.info("Task with ID:" + task.getId() + " has null process instance id value");
+			}
 		}
 		
 		log.info("Will check tasks which belong to process definition IDs:" + taskActivityIDsMap.keySet());
