@@ -302,13 +302,13 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-                                        Послуга була успішно надана
+                                        Послуга " Надання одноразової матеріальної допомоги громадянам" була успішно надана. &lt;br /&gt;
+										Ви отримаєте результат обраним Вами способом, а саме - &lt;i&gt;${transferMethod}&lt;/i&gt; &lt;br /&gt;
 									&lt;p&gt;&lt;/p&gt;
 										Коментар до рішення:
 									&lt;p&gt;&lt;/p&gt;	
 									&lt;i&gt;	${decisionComment} &lt;/i&gt;&lt;br /&gt;
 									&lt;p&gt;&lt;/p&gt;
-									Матеріальна допомога була відправлена на - &lt;i&gt;${transferMethod}&lt;/i&gt; &lt;br /&gt;
 									Ідентифікаційний номер заяви - &lt;i&gt; ${docID}&lt;/i&gt; 
                                     &lt;p&gt;&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -538,9 +538,6 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
         <activiti:field name="subject">
           <activiti:string>Звернення на тему: Надання соціальної матеріальної допомоги у разі тяжкого матеріального стану</activiti:string>
         </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
-        </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${docFile}"</activiti:expression>
         </activiti:field>
@@ -595,14 +592,15 @@ E-Mail для зворотнього зв'язку - 	&lt;i&gt;${email} &lt;/i&g
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-                                        Послуга була успішно надана
+                                        Послуга " Надання одноразової матеріальної допомоги громадянам" була успішно надана. &lt;br /&gt;
+										Ви отримаєте допомогу обраним Вами способом, а саме - &lt;i&gt;${transferMethod}&lt;/i&gt; &lt;br /&gt;
 									&lt;p&gt;&lt;/p&gt;
 										Коментар до рішення:
 									&lt;p&gt;&lt;/p&gt;	
 									&lt;i&gt;	${decisionComment} &lt;/i&gt;&lt;br /&gt;
 									&lt;p&gt;&lt;/p&gt;
-									Матеріальна допомога була відправлена на - &lt;i&gt;${transferMethod}&lt;/i&gt; &lt;br /&gt;
-									Ідентифікаційний номер заяви - &lt;i&gt; ${docID}&lt;/i&gt; 
+									Ідентифікаційний номер заяви - &lt;i&gt; ${docID}&lt;/i&gt; &lt;br /&gt;
+									Скан-копія рішення знаходиться у додатках до цього листа &lt;br /&gt;
                                     &lt;p&gt;&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
