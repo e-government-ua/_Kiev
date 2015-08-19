@@ -10,7 +10,7 @@
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Києві" type="enum" required="true">
           <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
           <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
-          <activiti:value id="kiev_rda_4" name="Шевченківський"></activiti:value>
+          <activiti:value id="kiev_rda_2" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
@@ -126,7 +126,7 @@
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Києві" type="enum" writable="false">
           <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
           <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
-          <activiti:value id="kiev_rda_4" name="Шевченківський"></activiti:value>
+          <activiti:value id="kiev_rda_2" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
@@ -148,7 +148,7 @@
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Києві" type="enum" writable="false">
           <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
           <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
-          <activiti:value id="kiev_rda_4" name="Шевченківський"></activiti:value>
+          <activiti:value id="kiev_rda_2" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="docToSend" name="Завантажте копію довідки про  період реєстрації за місцем проживання для передачі в РДА" type="file" required="true"></activiti:formProperty>
@@ -171,7 +171,7 @@
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Києві" type="enum" writable="false">
           <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
           <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
-          <activiti:value id="kiev_rda_4" name="Шевченківський"></activiti:value>
+          <activiti:value id="kiev_rda_2" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="На опрацюванні РДА" readable="false"></activiti:formProperty>
@@ -204,7 +204,7 @@
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Києві" type="enum" writable="false">
           <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
           <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
-          <activiti:value id="kiev_rda_4" name="Шевченківський"></activiti:value>
+          <activiti:value id="kiev_rda_2" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
@@ -436,7 +436,7 @@
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Києві" type="enum" writable="false">
           <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
           <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
-          <activiti:value id="kiev_rda_4" name="Шевченківський"></activiti:value>
+          <activiti:value id="kiev_rda_2" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
@@ -464,7 +464,7 @@
         <activiti:formProperty id="rdaList" name="Район реєстрації у м.Києві" type="enum" writable="false">
           <activiti:value id="kiev_rda_1" name="Деснянський"></activiti:value>
           <activiti:value id="kiev_rda_3" name="Солом’янський"></activiti:value>
-          <activiti:value id="kiev_rda_4" name="Шевченківський"></activiti:value>
+          <activiti:value id="kiev_rda_2" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
@@ -692,7 +692,7 @@
     </serviceTask>
     <sequenceFlow id="flow44" sourceRef="mailtask9" targetRef="usertask3"></sequenceFlow>
     <sequenceFlow id="flow45" sourceRef="exclusivegateway4" targetRef="mailtask10">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${rdaList == 'kiev_rda_4'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${rdaList == 'kiev_rda_2'}]]></conditionExpression>
     </sequenceFlow>
     <serviceTask id="mailtask10" name="Повідомлення громадянина (Шевченківський РДА)" activiti:type="mail">
       <extensionElements>
