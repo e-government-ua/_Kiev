@@ -516,8 +516,8 @@ public class ActivitiRestFlowController {
 				if (taskActivityIDsMap.keySet().contains(currFlowSlotTicket.getnID_Task_Activiti())){
 					Task tasksByActivitiID = taskActivityIDsMap.get(currFlowSlotTicket.getnID_Task_Activiti());
 						
-					if (dateOfTasks != null && currFlowSlotTicket.getsDateStart().isBefore(dateOfTasks.getTime())
-							&& currFlowSlotTicket.getsDateFinish().isAfter(dateOfTasks.getTime())){
+					if (dateOfTasks == null || (currFlowSlotTicket.getsDateStart().isBefore(dateOfTasks.getTime())
+							&& currFlowSlotTicket.getsDateFinish().isAfter(dateOfTasks.getTime()))){
 						addFlowSlowTicketToResult(res, dateFormat, currFlowSlotTicket, tasksByActivitiID);
 					} else {
 						log.info("Skipping flowSlot " + currFlowSlotTicket.getId() + " for the task:" + currFlowSlotTicket.getnID_Task_Activiti() + 
