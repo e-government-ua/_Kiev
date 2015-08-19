@@ -2200,4 +2200,13 @@ https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=
 
 https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=kermit
 
+```json
+[{"sDateStart":"2015-08-07T11:00:00","sDateEdit":"2015-07-31T17:12:31","sTaskDate":"2015-07-31T17:13:15","sDateFinish":"2015-08-07T11:00:00","nID_FlowSlot":"20172","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Перевірка наявності обтяжень","nID":"20344"},{"sDateStart":"2015-08-07T15:00:00","sDateEdit":"2015-07-31T15:45:34","sTaskDate":"2015-07-31T15:45:40","sDateFinish":"2015-08-07T15:00:00","nID_FlowSlot":"20265","sNameBP":"Днепропетровск - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Перевірка наявності обтяжень","nID":"20340"}]
+```
+
 https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=kermit&bEmployeeUnassigned=true
+```json
+[{"sDateStart":"2015-08-08T12:00:00","sDateEdit":"2015-08-07T10:27:26","sTaskDate":"2015-08-07T10:39:05","sDateFinish":"2015-08-08T12:00:00","nID_FlowSlot":"20155","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Надання послуги: Огляд авто","nID":"20469"},{"sDateStart":"2015-08-03T08:15:00","sDateEdit":"2015-07-31T21:00:56","sTaskDate":"2015-07-31T21:01:19","sDateFinish":"2015-08-03T08:30:00","nID_FlowSlot":"20023","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Перевірка наявності обтяжень","nID":"20357"}
+```
+
+
