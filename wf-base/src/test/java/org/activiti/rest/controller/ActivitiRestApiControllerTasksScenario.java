@@ -3,9 +3,7 @@ package org.activiti.rest.controller;
 import org.activiti.engine.*;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.history.HistoricTaskInstanceQuery;
-import org.activiti.engine.impl.persistence.entity.HistoricTaskInstanceEntity;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
-import org.activiti.engine.query.Query;
 import org.activiti.engine.task.*;
 import org.junit.*;
 import org.junit.runner.*;
@@ -113,7 +111,7 @@ public class ActivitiRestApiControllerTasksScenario {
    @Test
    public void shouldGetTasksCRCError() throws Exception {
       final String getTasksByOrderUrl = "/rest/tasks/getTasksByOrder";
-      
+
       String jsonData = mockMvc.perform(get(getTasksByOrderUrl).
               param("nID_Protected", "123123")).
               andExpect(status().isForbidden()).
@@ -133,7 +131,7 @@ public class ActivitiRestApiControllerTasksScenario {
               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
               andReturn().getResponse().getContentAsString();
       res = JsonRestUtils.readObject(jsonData, Map.class);
-      Assert.assertEquals(new TaskNotFoundException().getMessage(), res.get("message"));
+      Assert.assertEquals(new RecordNotFoundException().getMessage(), res.get("message"));
 
       HistoricTaskInstance historicTaskInstance = Mockito.mock(HistoricTaskInstance.class);
       String processTaskId = "777";

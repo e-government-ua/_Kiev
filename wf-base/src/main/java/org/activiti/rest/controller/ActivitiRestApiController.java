@@ -863,7 +863,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         try {
             res = getTaskByOrderInternal(nID_Protected);
-        } catch (CRCInvalidException | TaskNotFoundException e) {
+        } catch (CRCInvalidException | RecordNotFoundException e) {
             ActivitiRestException newErr = new ActivitiRestException(
                     "BUSINESS_ERR", e.getMessage(), e);
             newErr.setHttpStatus(HttpStatus.FORBIDDEN);
@@ -873,7 +873,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return res;
     }
 
-    private List<String> getTaskByOrderInternal(Long nID_Protected) throws CRCInvalidException, TaskNotFoundException {
+    private List<String> getTaskByOrderInternal(Long nID_Protected) throws CRCInvalidException, RecordNotFoundException {
         AlgorithmLuna.validateProtectedNumber(nID_Protected);
 
         String task_ID = String.valueOf(nID_Protected / 10);
@@ -881,7 +881,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 task_ID).singleResult();
         if (historicTaskInstance == null) {
             log.error(String.format("Task with id='%s' not found", task_ID));
-            throw new TaskNotFoundException();
+            throw new RecordNotFoundException();
         }
 
         String sID_Process = historicTaskInstance.getProcessInstanceId();
