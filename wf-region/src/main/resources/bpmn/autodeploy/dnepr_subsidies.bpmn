@@ -159,6 +159,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="place_of_living" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Е-мейл" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="subsidy" name="Тип субсидії" type="enum" writable="false">
           <activiti:value id="1" name="Оплата житлово-комунальних послуг"></activiti:value>
           <activiti:value id="2" name="Оплата скрапленого газу, твердого/рідкого палива"></activiti:value>
@@ -278,6 +279,7 @@
           <activiti:value id="attr2" name="відмова в обробці (обов'язково вкажіть причину в коментарі)"></activiti:value>
           <activiti:value id="attr3" name="відповідь отримана (відмовлено у субсидії)"></activiti:value>
           <activiti:value id="attr4" name="відповідь отримана (субсидія погоджена)"></activiti:value>
+          <activiti:value id="attr5" name="відповідь отримана (субсидія потребує розгляду комісії)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decision" name="Рішення про надання субсидії" type="file"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/subsidy_zayava.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
@@ -347,8 +349,9 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-&lt;p&gt;Ваше звернення щодо отримання  субсидії на оплату житлово-комунальних послуг відхилене.&lt;/p&gt;
-&lt;p&gt;Причина в наступному: ${comment}&lt;/p&gt;
+&lt;p&gt;На жаль, Ваше звернення щодо отримання  субсидії на оплату житлово-комунальних послуг відхилене через недостатню або неправильну інформацію..&lt;/p&gt;
+&lt;p&gt;Причина: ${comment}&lt;/p&gt;
+&lt;p&gt;Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;&lt;/p&gt;
 
                             
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -436,7 +439,7 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-&lt;p&gt;Ваше звернення щодо отримання  субсидії на оплату житлово-комунальних послуг відхилене.&lt;/p&gt;
+&lt;p&gt;На жаль, Ваше звернення щодо отримання  субсидії на оплату житлово-комунальних послуг відхилене.&lt;/p&gt;
 &lt;p&gt;Причина вказана у файлі, який прикріплено до цього листа.&lt;/p&gt;
 
 
@@ -527,7 +530,7 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-&lt;p&gt;Ваше звернення щодо отримання  субсидії на оплату житлово-комунальних послуг опрацьоване.&lt;/p&gt;
+&lt;p&gt;Ваше звернення щодо отримання  субсидії на оплату житлово-комунальних послуг опрацьовано.&lt;/p&gt;
 &lt;p&gt;Розмір субсидії вказаний у файлі, який прикріплено до цього листа.&lt;/p&gt;
 
 
@@ -650,6 +653,96 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
+    <sequenceFlow id="flow13" sourceRef="exclusivegateway1" targetRef="servicetask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr5'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endevent4" name="End"></endEvent>
+    <sequenceFlow id="flow14" sourceRef="servicetask3" targetRef="endevent4"></sequenceFlow>
+    <serviceTask id="servicetask3" name="відповідь у разі засідання комісії" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${decision}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Звернення на тему "Отримання субсидії на оплату житлово-комунальних послуг"</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;p&gt;Ваше звернення щодо отримання  субсидії на оплату житлово-комунальних послуг опрацьоване.&lt;/p&gt;
+&lt;p&gt;Ваші документи підлягають комісійному розгляду. Про дату і час засідання комісії Вас буде поінформовано додатково.&lt;/p&gt;
+
+
+                            
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        Управління соціального захисту у Дніпропетровській області,
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_subsidies">
     <bpmndi:BPMNPlane bpmnElement="dnepr_subsidies" id="BPMNPlane_dnepr_subsidies">
@@ -672,7 +765,7 @@
         <omgdc:Bounds height="55.0" width="105.0" x="406.0" y="79.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="55.0" width="105.0" x="406.0" y="170.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="410.0" y="150.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="570.0" y="89.0"></omgdc:Bounds>
@@ -682,6 +775,12 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="55.0" width="105.0" x="56.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="570.0" y="304.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="410.0" y="294.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
         <omgdi:waypoint x="265.0" y="30.0"></omgdi:waypoint>
@@ -717,14 +816,14 @@
         <omgdi:waypoint x="340.0" y="50.0"></omgdi:waypoint>
         <omgdi:waypoint x="340.0" y="185.0"></omgdi:waypoint>
         <omgdi:waypoint x="374.0" y="185.0"></omgdi:waypoint>
-        <omgdi:waypoint x="406.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="177.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
         <omgdi:waypoint x="511.0" y="106.0"></omgdi:waypoint>
         <omgdi:waypoint x="570.0" y="106.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
-        <omgdi:waypoint x="511.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="515.0" y="177.0"></omgdi:waypoint>
         <omgdi:waypoint x="570.0" y="177.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
@@ -734,6 +833,15 @@
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
         <omgdi:waypoint x="108.0" y="100.0"></omgdi:waypoint>
         <omgdi:waypoint x="212.0" y="58.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="340.0" y="50.0"></omgdi:waypoint>
+        <omgdi:waypoint x="340.0" y="319.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="321.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="515.0" y="321.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="321.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

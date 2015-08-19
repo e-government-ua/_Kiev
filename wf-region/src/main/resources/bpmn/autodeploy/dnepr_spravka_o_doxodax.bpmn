@@ -19,7 +19,6 @@
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваша електронна пошта; на неї Ви будете отримувати повідомлення про стан Вашої заяви" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="book_number" name="Реєстраційний номер облікової картки платника податків" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_living" name="Місце проживання; область, місто, вулиця, дім, квартира" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="date_start" name="Період, за який Ви хочете отримати довідку, з" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="date_stop" name="Період, за який Ви хочете отримати довідку, по" type="date" required="true"></activiti:formProperty>
@@ -45,7 +44,6 @@
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваша електронна пошта; на неї Ви будете отримувати повідомлення про стан Вашої заяви" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="book_number" name="Реєстраційний номер облікової картки платника податків" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_living" name="Місце проживання; область, місто, вулиця, дім, квартира" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_start1" name="Період, за який Ви хочете отримати довідку, з" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_stop1" name="Період, за який Ви хочете отримати довідку, по" type="date" writable="false"></activiti:formProperty>
@@ -122,7 +120,8 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-&lt;p&gt;Ваша заява на отримання довідки про доходи прийнята в роботу. Ви отримаєте відповідь на протязі 5 днів. Забрати довідку Ви зможете в тому відділленні податкової служби, яке Ви вказували при замовленні послуги.
+&lt;p&gt;Ваша заява на отримання довідки про доходи прийнята в роботу. &lt;br/&gt;
+Забрати довідку Ви зможете  через 5 робочих днів в тому відділленні податкової служби, яке Ви вказували при замовленні послуги.
 &lt;/p&gt;
 
 
