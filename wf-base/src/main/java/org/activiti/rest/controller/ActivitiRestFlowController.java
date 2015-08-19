@@ -498,7 +498,7 @@ public class ActivitiRestFlowController {
 		
 		List<FlowSlotTicket> allFlowSlowTickets = flowService.getFlowSlotTicketDao().getAll();
 		if (allFlowSlowTickets != null){
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-ddTHH-mm-ss");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss");
 			
 			Date dateOfTasks = null;
 			if (sDate != null){
