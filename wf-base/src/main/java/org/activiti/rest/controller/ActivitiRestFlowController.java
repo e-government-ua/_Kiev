@@ -493,10 +493,10 @@ public class ActivitiRestFlowController {
 		
 		Map<Long, Task> taskActivityIDsMap = new HashMap<Long, Task>();
 		for (Task task : tasks){
-			taskActivityIDsMap.put(Long.valueOf(task.getId()), task);
+			taskActivityIDsMap.put(Long.valueOf(task.getProcessInstanceId()), task);
 		}
 		
-		log.info("Will check tasks with IDs:" + taskActivityIDsMap.keySet());
+		log.info("Will check tasks which belong to process definition IDs:" + taskActivityIDsMap.keySet());
 		
 		List<FlowSlotTicket> allFlowSlowTickets = flowService.getFlowSlotTicketDao().getAll();
 		log.info("Found " + (allFlowSlowTickets != null ? allFlowSlowTickets.size(): 0) + " flow slot tickets.");
