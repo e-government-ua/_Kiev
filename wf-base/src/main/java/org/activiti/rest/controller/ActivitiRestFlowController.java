@@ -555,9 +555,12 @@ public class ActivitiRestFlowController {
 		currRes.put("nID_FlowSlot", currFlowSlowTicket.getoFlowSlot() != null ? 
 				currFlowSlowTicket.getoFlowSlot().getId().toString() : "");
 		currRes.put("nID_Subject", currFlowSlowTicket.getnID_Subject().toString());
-		currRes.put("sDateStart", dateFormat.format(currFlowSlowTicket.getsDateStart()));
-		currRes.put("sDateFinish", dateFormat.format(currFlowSlowTicket.getsDateFinish()));
-		currRes.put("sDateEdit", dateFormat.format(currFlowSlowTicket.getsDateEdit()));
+		Date startDate = new Date(currFlowSlowTicket.getsDateStart().getMillis());
+		currRes.put("sDateStart", dateFormat.format(startDate));
+		Date finishDate = new Date(currFlowSlowTicket.getsDateFinish().getMillis());
+		currRes.put("sDateFinish", dateFormat.format(finishDate));
+		Date editDate = new Date(currFlowSlowTicket.getsDateEdit().getMillis());
+		currRes.put("sDateEdit", dateFormat.format(editDate));
 		currRes.put("sUserTaskName", tasksByActivitiID.getName());
 		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(tasksByActivitiID.getProcessDefinitionId()).singleResult();
 		currRes.put("sNameBP", processDefinition != null ? processDefinition.getName() : "");
