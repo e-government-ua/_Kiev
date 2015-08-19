@@ -30,6 +30,7 @@
 <a href="#28_setSheduleFlowExclude"> 28. Добавление/изменение расписания исключения </a><br/>
 <a href="#29_removeSheduleFlowExclude"> 29. Удаление расписания исключений </a><br/>
 <a href="#30_workWithPatternFiles"> 30. Работа с файлами-шаблонами </a><br/>
+<a href="#31_getFlowSlotTickets"> 30. Получение активных тикетов</a><br/>
 
 ### iGov.ua APIs
 
@@ -2181,3 +2182,22 @@ https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=
 
 ----------------------
 
+<a name="31_getFlowSlotTickets">
+#### 31. Получение активных тикетов
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=[sLogin]&bEmployeeUnassigned=[true|false]&sDate=[yyyy-MM-dd]
+-- возвращает активные тикеты.
+
+* sLogin - имя пользоватеял для которого необходимо вернуть тикеты
+* bEmployeeUnassigned - опциональный параметр (false по умолчанию). Если true - возвращать тикеты не заассайненые на пользователей
+* sDate - опциональный параметр в формате yyyy-MM-dd. Дата за которую выбирать тикеты. Дата должна быть в диапазоне > startDate < endDate тикета.
+
+Примеры:
+
+https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=kermit
+
+https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=kermit&bEmployeeUnassigned=true
