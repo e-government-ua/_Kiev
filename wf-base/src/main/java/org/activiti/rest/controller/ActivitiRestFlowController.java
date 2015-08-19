@@ -549,7 +549,7 @@ public class ActivitiRestFlowController {
 		sb.append(currFlowSlowTicket.getsDateStart());
 		sb.append(":");
 		sb.append(currFlowSlowTicket.getsDateFinish());
-		log.info("Adding flow slot ticket: " + currFlowSlowTicket.getId() + ":");
+		log.info(sb.toString());
 		
 		currRes.put("nID", currFlowSlowTicket.getId().toString());
 		currRes.put("nID_FlowSlot", currFlowSlowTicket.getoFlowSlot() != null ? 
