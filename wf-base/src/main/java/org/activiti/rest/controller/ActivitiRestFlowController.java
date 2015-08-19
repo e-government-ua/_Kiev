@@ -496,6 +496,8 @@ public class ActivitiRestFlowController {
 			taskActivityIDsMap.put(Long.valueOf(task.getId()), task);
 		}
 		
+		log.info("Will check tasks with IDs:" + taskActivityIDsMap.keySet());
+		
 		List<FlowSlotTicket> allFlowSlowTickets = flowService.getFlowSlotTicketDao().getAll();
 		log.info("Found " + (allFlowSlowTickets != null ? allFlowSlowTickets.size(): 0) + " flow slot tickets.");
 		if (allFlowSlowTickets != null){
