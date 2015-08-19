@@ -4,7 +4,7 @@
  *
  */
 angular.module('app')
-  .directive('place', function($location, $state, $sce, RegionListFactory, LocalityListFactory, PlacesService) {
+  .directive('place', function($rootScope, $location, $state, $sce, AdminService, RegionListFactory, LocalityListFactory, PlacesService) {
     return {
       restrict: 'E',
       templateUrl: 'app/common/components/form/directives/place/place.html',
@@ -45,6 +45,8 @@ angular.module('app')
         };
 
         $scope.initPlaceControls = function() {
+          PlacesService.initPlacesByScope(this, $scope, $state, $rootScope, AdminService, $location);
+
           // не ініціюємо, якщо контроли вже є
           if ($scope.regionIsChosen() && $scope.cityIsChosen()) {
             return;

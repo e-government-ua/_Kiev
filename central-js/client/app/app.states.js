@@ -223,7 +223,7 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
         },
         'content@index.service.general.city.built-in.bankid': {
           templateUrl: 'app/service/city/built-in/bankid.html',
-          controller: 'ServiceBuiltInBankIDController'
+          controller: 'ServiceBuiltInBankIDController'// FIXME-0
         }
       }
     })

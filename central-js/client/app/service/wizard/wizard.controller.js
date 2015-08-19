@@ -1,97 +1,109 @@
-/*angular.module('app').controller('ServiceBuiltInController', function($location, $state, $rootScope, $scope) {
-  $scope.$location = $location;
-  $scope.$state = $state;
-});
-*/
-
 angular.module('app').controller('WizardController', function($state, AdminService, $rootScope, $scope, $location, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, service, regions) {
 
   var self = this;
 
-  self.isStep2 = self.isStep2 || false;
-
-  $scope.service = service;
-  $scope.regions = regions;
-  $scope.bAdmin = AdminService.isAdmin();
-
-  $scope.getStateName = function() {
-    return $state.current.name;
-  };
-
-  var curState = $scope.getStateName();
-
-  console.log('Wizard, state name = ', curState);
-
-  var stateStartupFunction = {
-    'index.service.general.city.built-in': function($location, $state, $rootScope, $scope) {
-      $scope.$location = $location;
-      $scope.$state = $state;
-      self.isStep2 = true;
-    }
-  };
-
-  if (stateStartupFunction[curState]) {
-    stateStartupFunction[curState].call(self, $location, $state, $rootScope, $scope);
-  } else {
-    // default startup
+  /*
+  angular.module('app').controller('ServiceBuiltInController', function($location, $state, $rootScope, $scope) {
     $scope.$location = $location;
     $scope.$state = $state;
-  }
+  });
+  */
 
-  $scope.step1 = function() {
-    self.isStep2 = false;
-    // FIXME
-    // if (byState('index.service.general.city')) {
-    //   return $state.go('index.service.general.city', {
-    //     id: $scope.service.nID
-    //   });
-    // }
-  };
+  //
 
-  $scope.step2 = function() {
-    var aServiceData = $scope.service.aServiceData;
+  // PlacesService.initPlacesByScope(self, $scope);
 
-    // console.log('step 2:');
-    self.isStep2 = true;
-  };
+  // self.isStep2 = self.isStep2 || false;
 
-  $scope.makeStep = function(stepId) {
-    if (stepId) {
-      if (stepId === 'editStep') {
-        self.isStep2 = false;
-      }
-    }
-  };
+  // $scope.service = service;
+  // $scope.regions = regions;
 
-  $scope.onPlaceChange = function(serviceType, placeData) {
-    var map = {
-      // Сервіс за посиланням
-      1: 'index.service.general.city.link',
-      // Вбудований сервіс
-      4: 'index.service.general.city.built-in',
-      // Помилка - сервіс відсутній
-      0: 'index.service.general.city.error'
-    };
+  PlacesService.setController({
+    self: self,
+    regions: regions,
+    service: service
+  });
 
-    var state = map[serviceType.nID];
-    console.log('onPlaceChange:', state);
+  // $scope.bAdmin = AdminService.isAdmin();
 
-    if (state && placeData.city) {
-      self.isStep2 = true;
-      // console.log('go state:', state);
-      $state.go(state, {
-        id: $scope.service.nID
-      }, {
-        location: false
-      }).then(function() {
-        self.isStep2 = true;
-      });
-    }
-  };
+  // $scope.getStateName = function() {
+  //   return $state.current.name;
+  // };
 
-  $scope.ngIfStep2 = function() {
-    return self.isStep2;
-  };
+  // var curState = $scope.getStateName();
+
+  // console.log('Wizard, state name = ', curState);
+
+  // var stateStartupFunction = {
+  //   'index.service.general.city.built-in': function($location, $state, $rootScope, $scope) {
+  //     $scope.$location = $location;
+  //     $scope.$state = $state;
+  //     self.isStep2 = true;
+  //   }
+  // };
+
+  // if (stateStartupFunction[curState]) {
+  //   stateStartupFunction[curState].call(self, $location, $state, $rootScope, $scope);
+  // } else {
+  //   // default startup
+  //   $scope.$location = $location;
+  //   $scope.$state = $state;
+  // }
+
+  // $scope.step1 = function() {
+  //   self.isStep2 = false;
+  //   // FIXME
+  //   // if (byState('index.service.general.city')) {
+  //   //   return $state.go('index.service.general.city', {
+  //   //     id: $scope.service.nID
+  //   //   });
+  //   // }
+  // };
+
+  // $scope.step2 = function() {
+  //   var aServiceData = $scope.service.aServiceData;
+
+  //   // console.log('step 2:');
+  //   self.isStep2 = true;
+  // };
+
+  // $scope.makeStep = function(stepId) {
+  //   if (stepId) {
+  //     if (stepId === 'editStep') {
+  //       self.isStep2 = false;
+  //     }
+  //   }
+  // };
+
+  // $scope.onPlaceChange = function(serviceType, placeData) {
+  //   var map = {
+  //     // Сервіс за посиланням
+  //     1: 'index.service.general.city.link',
+  //     // Вбудований сервіс
+  //     4: 'index.service.general.city.built-in',
+  //     // Помилка - сервіс відсутній
+  //     0: 'index.service.general.city.error'
+  //   };
+
+  //   var state = map[serviceType.nID];
+  //   console.log('onPlaceChange:', state);
+
+  //   if (state && placeData.city) {
+  //     self.isStep2 = true;
+  //     // console.log('go state:', state);
+  //     $state.go(state, {
+  //       id: $scope.service.nID
+  //     }, {
+  //       location: false
+  //     }).then(function() {
+  //       self.isStep2 = true;
+  //     });
+  //   }
+  // };
+
+  // $scope.ngIfStep2 = function() {
+  //   return self.isStep2;
+  // };
 
   /* Moved to place.controller:
     $scope.loadRegionList = function(search) { };

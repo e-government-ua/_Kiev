@@ -61,7 +61,7 @@ angular.module('app').config(function($stateProvider) {
       views: {
         'content@index.service.general.country': {
           templateUrl: 'app/service/country/built-in/bankid.html',
-          controller: 'ServiceBuiltInBankIDController'
+          controller: 'ServiceBuiltInBankIDController' // FIXME-0
         }
       }
     })
