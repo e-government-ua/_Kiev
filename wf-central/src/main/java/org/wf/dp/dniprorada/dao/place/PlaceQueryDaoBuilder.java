@@ -72,8 +72,8 @@ public class PlaceQueryDaoBuilder {
 
 
     @Cacheable("ext-file-getTreeUp")
-    public String getTreeUp(Long placeId, String uaId, Boolean tree) {
-        if (specified(placeId) && specified(tree))
+    public String getTreeUp(Long placeId, String uaId, boolean tree) {
+        if (specified(placeId) && tree)
             return load("get_PlaceTree_up_by_id.sql");
 
         String sqlFile = "get_PlaceTree_by_id.sql";
@@ -87,7 +87,7 @@ public class PlaceQueryDaoBuilder {
         if (isNotBlank(uaId))
             sqlFile = "get_PlaceTree_by_UA-id.sql";
 
-        if (isNotBlank(uaId) && specified(tree))
+        if (isNotBlank(uaId) && tree)
             sqlFile = "get_PlaceTree_up_by_UA-id.sql";
 
         return load(sqlFile);
@@ -95,7 +95,7 @@ public class PlaceQueryDaoBuilder {
 
     private String load(String sqlFile) {
         String sqlQuery = sqlStorage.get(sqlFile);
-        LOG.debug("SQL query [{}] loaded.", sqlQuery);
+        LOG.debug("SQL file {} contains '{}' query.", sqlFile, sqlQuery);
         return sqlQuery;
     }
 }
