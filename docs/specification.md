@@ -1476,11 +1476,11 @@ https://test.igov.org.ua/wf-central/service/services/setServicesTree
 
 **HTTP Context: https://server:port/wf-region/service/rest/download_bp_timing?sID_BP_Name=XXX&sDateAt=XXX8&sDateTo=XXX**
 
-* {sID_BP_Name} - ID бизнес процесса
-* {sDateAt} - Дата начала периода для выборки в формате yyyy-MM-dd
-* {sDateTo} - Дата окончания периода для выборки в формате yyyy-MM-dd
-* {nRowsMax} - необязательный параметр. Максимальное значение завершенных задач для возврата. По умолчанию 1000.
-* {nRowStart} - Необязательный параметр. Порядковый номер завершенной задачи в списке для возврата. По умолчанию 0.
+* sID_BP_Name - ID бизнес процесса
+* sDateAt - Дата начала периода для выборки в формате yyyy-MM-dd
+* sDateTo - Дата окончания периода для выборки в формате yyyy-MM-dd
+* nRowsMax - необязательный параметр. Максимальное значение завершенных задач для возврата. По умолчанию 1000.
+* nRowStart - Необязательный параметр. Порядковый номер завершенной задачи в списке для возврата. По умолчанию 0.
 
 Метод возвращает .csv файл со информацией о завершенных задачах в указанном бизнес процессе за период.
 Формат выходного файла
@@ -1961,7 +1961,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?&s
 
 **HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=[userId]
 
-* {sLogin} - ID пользователя
+* sLogin - ID пользователя
 
 Метод возвращает json со списком бизнес процессов, к которым у пользователя есть доступ, в формате 
 [
@@ -1997,7 +1997,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=kermit
 
 **HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=[flowId]
 
-* {flowId} - ID потока
+* flowId - ID потока
 
 Пример:
 ```
@@ -2078,7 +2078,7 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowInclude?
 
 **HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=[flowId]
 
-* {flowId} - ID потока
+* flowId - ID потока
 
 Пример:
 ```
