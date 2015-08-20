@@ -5,6 +5,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.model.Place;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.springframework.util.Assert.*;
 import static org.springframework.util.Assert.notNull;
 import static org.wf.dp.dniprorada.dao.place.PlaceHibernateResultTransformer.toTree;
 import static org.wf.dp.dniprorada.dao.place.PlaceQueryDaoBuilder.specified;
@@ -32,18 +34,6 @@ public class PlaceDaoImpl implements PlaceDao {
         this.sessionFactory = sessionFactory;
     }
 
-    // TODO create util method for one parameter
-    @SuppressWarnings("unchecked")
-    public List<Place> findBy(Long placeId, String uaId, Boolean tree) {
-        Criteria places = sessionFactory
-            .getCurrentSession()
-            .createCriteria(Place.class);
-
-        if(isNotBlank(uaId))
-            places = places.add( Restrictions.eq("uaId", uaId) );
-
-        return places.list();
-    }
 
     @SuppressWarnings("unchecked")
     public PlaceHierarchyTree getTreeDown(PlaceHierarchyRecord root) {
@@ -78,8 +68,10 @@ public class PlaceDaoImpl implements PlaceDao {
 
     @SuppressWarnings("unchecked")
     public PlaceHierarchyTree getTreeUp(Long placeId, String uaId, Boolean tree) {
-        if (!specified(placeId) && isBlank(uaId))
-            throw new IllegalArgumentException("One from main parameters doesn't specified");
+        if (!specified(placeId) && isBlank(uaId)) {
+            notNull(placeId, "PlaceId can't be empty");
+            isTrue(isBlank(uaId), "UA id can't empty.");
+        }
 
         String sql = sqlBuilder.getTreeUp(placeId, uaId, tree);
         Query query = sessionFactory

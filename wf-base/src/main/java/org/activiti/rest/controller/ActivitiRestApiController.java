@@ -876,7 +876,41 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     private List<String> getTaskByOrderInternal(Long nID_Protected) throws CRCInvalidException, RecordNotFoundException {
         AlgorithmLuna.validateProtectedNumber(nID_Protected);
 
-        String task_ID = String.valueOf(nID_Protected / 10);
+        String processInstanseID = String.valueOf(nID_Protected / 10);
+        
+
+        //String sID_Process = taskService.get .getEngineServices().getFormService()
+        //            .getTaskFormData(task_ID).getTask().getProcessInstanceId();//task.getId()
+        log.info("processInstanse_ID=" + processInstanseID);
+        log.info("runtimeService!=null:" + (runtimeService!=null));
+        log.info("repositoryService!=null:" + (repositoryService!=null));
+        log.info("taskService!=null:" + (taskService!=null));
+        log.info("historyService!=null:" + (historyService!=null));
+        log.info("formService!=null:" + (formService!=null));
+        //String sID_Process = formService.getTaskFormData(task_ID).getTask().getProcessInstanceId();//task.getId()
+//        String sID_Process = formService.getTaskFormData(task_ID).getTask().getProcessInstanceId();//task.getId()
+        List<Task> aTask = taskService.createTaskQuery().processInstanceId(processInstanseID).list();
+        if(aTask!=null){
+            log.info("aTask=" + aTask.size());
+        }
+        
+        List<HistoricTaskInstance> aTaskHistory = historyService.createHistoricTaskInstanceQuery().processInstanceId(processInstanseID).list();
+        if(aTaskHistory!=null){
+            log.info("aTaskHistory=" + aTaskHistory.size());
+        }
+
+        //log.info("sID_Process=" + sID_Process);
+        
+//        String sID_Process = formService.getTaskFormData(processInstanseID).getTask().getProcessInstanceId();
+//        log.info("sID_Process=" + sID_Process);
+        
+
+        
+        //-List<Task> tasks = taskService.createTaskQuery().taskId(task_ID).list();
+        //List<Task> tasks = formService.createNativeTaskQuery().taskId(task_ID).list();
+        
+        
+        /*
         HistoricTaskInstance historicTaskInstance = historyService.createHistoricTaskInstanceQuery().taskId(
                 task_ID).singleResult();
         if (historicTaskInstance == null) {
@@ -885,12 +919,34 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         }
 
         String sID_Process = historicTaskInstance.getProcessInstanceId();
-        List<Task> tasks = taskService.createTaskQuery().processInstanceId(sID_Process).list();
-
+        */
+//        List<Task> tasks = taskService.createTaskQuery().processInstanceId(sID_Process).list();
+        
         List<String> res = new ArrayList<>();
-        for (Task task : tasks) {
-            res.add(task.getId());
+        //List<Task> tasks = aTask;
+        if(aTask!=null){// && aTask.size()>0
+            /*if(aTask!=null){
+                log.info("aTask.size()="+aTask.size());
+            }*/
+            if(aTask.size()==0){//aTask==null || 
+                log.error(String.format("Task with id='%s' not found", processInstanseID));
+                throw new RecordNotFoundException();
+            }
+            for (Task task : aTask) {
+                res.add(task.getId());
+            }
+        }else if(aTaskHistory!=null){// && aTaskHistory.size()>0
+            if(aTaskHistory.size()==0){//aTaskHistory==null || 
+                log.error(String.format("Task with id='%s' not found", processInstanseID));
+                throw new RecordNotFoundException();
+            }
+            for (HistoricTaskInstance oHistoricTaskInstance : aTaskHistory) {
+                res.add(oHistoricTaskInstance.getId());
+            }
         }
+
+            log.info("aTaskHistory=" + aTaskHistory.size());
+        
         return res;
     }
 
