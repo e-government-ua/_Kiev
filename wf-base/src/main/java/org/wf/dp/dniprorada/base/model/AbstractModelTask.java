@@ -527,7 +527,13 @@ public abstract class AbstractModelTask {
                         
                         FlowSlotTicket oFlowSlotTicket = baseEntityDao.getById(FlowSlotTicket.class, nID_FlowSlotTicket);
                         if (oFlowSlotTicket == null) {
-                            LOG.error("FlowSlotTicket with id=" + nID_FlowSlotTicket + " is not found!");
+                            String sError = "FlowSlotTicket with id=" + nID_FlowSlotTicket + " is not found!";
+                            LOG.error(sError);
+                            throw new Exception(sError);
+                        }else if (oFlowSlotTicket.getnID_Task_Activiti()!=null) {
+                            String sError = "FlowSlotTicket with id=" + nID_FlowSlotTicket + " has assigned getnID_Task_Activiti()=" + oFlowSlotTicket.getnID_Task_Activiti();
+                            LOG.error(sError);
+                            throw new Exception(sError);
                         }else{
                             long nID_FlowSlot=oFlowSlotTicket.getoFlowSlot().getId();
                             LOG.info("nID_FlowSlot="+nID_FlowSlot);

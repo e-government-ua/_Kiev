@@ -2,6 +2,21 @@
 
 angular.module('dashboardJsApp')
   .factory('tasks', function tasks($http, $q, $rootScope, uiUploader) {
+    function simpleHttpPromise(req, callback) {
+      var cb = callback || angular.noop;
+      var deferred = $q.defer();
+
+      $http(req).then(
+        function(response) {
+          deferred.resolve(response.data);
+          return cb();
+        },
+        function(response) {
+          deferred.reject(response);
+          return cb(response);
+        }.bind(this));
+      return deferred.promise;
+    }
 
     return {
       filterTypes: {
@@ -16,29 +31,13 @@ angular.module('dashboardJsApp')
        * @return {Promise}
        */
       list: function(filterType, callback) {
-        var cb = callback || angular.noop;
-        var deferred = $q.defer();
-
-        var req = {
+        return simpleHttpPromise({
           method: 'GET',
           url: '/api/tasks',
-          data: {},
           params: {
             filterType: filterType
           }
-        };
-
-        $http(req).
-        success(function(data) {
-          deferred.resolve(data);
-          return cb();
-        }).
-        error(function(err) {
-          deferred.reject(err);
-          return cb(err);
-        }.bind(this));
-
-        return deferred.promise;
+        }, callback);
       },
       getEventMap: function() {
         var deferred = $q.defer();
@@ -88,149 +87,51 @@ angular.module('dashboardJsApp')
       },
 
       assignTask: function(taskId, userId, callback) {
-        var cb = callback || angular.noop;
-        var deferred = $q.defer();
-
-        var req = {
+        return simpleHttpPromise({
           method: 'PUT',
           url: '/api/tasks/' + taskId,
           data: {
             assignee: userId
           }
-        };
-
-        $http(req).
-        success(function(data) {
-          deferred.resolve(data);
-          return cb();
-        }).
-        error(function(err) {
-          deferred.reject(err);
-          return cb(err);
-        }.bind(this));
-
-        return deferred.promise;
+        }, callback);
       },
 
       downloadDocument: function(taskId, callback) {
-        var cb = callback || angular.noop;
-        var deferred = $q.defer();
-
-        var req = {
+        return simpleHttpPromise({
           method: 'GET',
-          url: '/api/tasks/' + taskId + '/document',
-          data: {}
-        };
-
-        $http(req).
-        success(function(data) {
-          deferred.resolve(data);
-          return cb();
-        }).
-        error(function(err) {
-          deferred.reject(err);
-          return cb(err);
-        }.bind(this));
-
-        return deferred.promise;
+          url: '/api/tasks/' + taskId + '/document'
+        }, callback);
       },
 
       getTaskAttachments: function(taskId, callback) {
-        var cb = callback || angular.noop;
-        var deferred = $q.defer();
-
-        var req = {
+        return simpleHttpPromise({
           method: 'GET',
-          url: '/api/tasks/' + taskId + '/attachments',
-          data: {}
-        };
-
-        $http(req).
-        success(function(data) {
-          deferred.resolve(data);
-          return cb();
-        }).
-        error(function(err) {
-          deferred.reject(err);
-          return cb(err);
-        }.bind(this));
-
-        return deferred.promise;
+          url: '/api/tasks/' + taskId + '/attachments'
+        }, callback);
       },
 
       taskForm: function(taskId, callback) {
-        var cb = callback || angular.noop;
-        var deferred = $q.defer();
-
-        var req = {
+        return simpleHttpPromise({
           method: 'GET',
-          url: '/api/tasks/' + taskId + '/form',
-          data: {}
-        };
-
-        $http(req).
-        success(function(data) {
-          deferred.resolve(data);
-          return cb();
-        }).
-        error(function(err) {
-          deferred.reject(err);
-          return cb(err);
-        }.bind(this));
-
-        return deferred.promise;
+            url: '/api/tasks/' + taskId + '/form'
+        }, callback);
       },
 
       taskFormFromHistory: function(taskId, callback) {
-        var cb = callback || angular.noop;
-        var deferred = $q.defer();
-
-        var req = {
+        return simpleHttpPromise({
           method: 'GET',
-          url: '/api/tasks/' + taskId + '/form-from-history',
-          data: {}
-        };
-
-        $http(req).
-        success(function(data) {
-          deferred.resolve(data);
-          return cb();
-        }).
-        error(function(err) {
-          deferred.reject(err);
-          return cb(err);
-        }.bind(this));
-
-        return deferred.promise;
+          url: '/api/tasks/' + taskId + '/form-from-history'
+        }, callback);
       },
 
       taskAttachments: function(taskId, callback) {
-        var cb = callback || angular.noop;
-        var deferred = $q.defer();
-
-        var req = {
+        return simpleHttpPromise({
           method: 'GET',
-          url: '/api/tasks/' + taskId + '/attachments',
-          data: {}
-        };
-
-        $http(req).
-        success(function(data) {
-          deferred.resolve(data);
-          return cb();
-        }).
-        error(function(err) {
-          deferred.reject(err);
-          return cb(err);
-        }.bind(this));
-
-        return deferred.promise;
+          url: '/api/tasks/' + taskId + '/attachments'
+        }, callback);
       },
 
       submitTaskForm: function(taskId, formProperties, callback) {
-        var cb = callback || angular.noop;
-        var deferred = $q.defer();
-
         var createProperties = function(formProperties) {
           var properties = new Array();
           for (var i = 0; i < formProperties.length; i++) {
@@ -255,20 +156,8 @@ angular.module('dashboardJsApp')
           url: '/api/tasks/' + taskId + '/form',
           data: submitTaskFormData
         };
-
-        $http(req).
-        success(function(data) {
-          deferred.resolve(data);
-          return cb();
-        }).
-        error(function(err) {
-          deferred.reject(err);
-          return cb(err);
-        }.bind(this));
-
-        return deferred.promise;
+        return simpleHttpPromise(req, callback);
       },
-
       upload: function(files, taskId) {
         var deferred = $q.defer();
 
@@ -301,7 +190,14 @@ angular.module('dashboardJsApp')
         });
 
         return deferred.promise;
+      },
+      getTasksByOrder: function(nID_Protected) {
+        return simpleHttpPromise({
+            method: 'GET',
+            url: '/api/tasks/getTasksByOrder',
+            params: { nID_Protected: nID_Protected }
+          }
+        );
       }
-
     };
   });

@@ -30,11 +30,11 @@ public class PlaceController {
     @RequestMapping(value   = "/getPlacesTree",
                     method  = RequestMethod.GET, headers = { JSON_TYPE })
     public  @ResponseBody PlaceHierarchyTree getPlacesTree (
-            @RequestParam(value = "nID",            required = false)   long    placeId,
+            @RequestParam(value = "nID",            required = false)   Long    placeId,
             @RequestParam(value = "sID_UA",         required = false)   String  uaId,
             @RequestParam(value = "nID_PlaceType",  required = false)   Long    typeId,
-            @RequestParam(value = "bArea",          required = false)   Boolean area, // для фильтра
-            @RequestParam(value = "bRoot",          required = false)   Boolean root, // для фильтра
+            @RequestParam(value = "bArea",          required = false)   Boolean area,
+            @RequestParam(value = "bRoot",          required = false)   Boolean root,
             @RequestParam(value = "nDeep",          defaultValue = "1") Long    deep
     ) {
         PlaceHierarchyRecord rootRecord = new PlaceHierarchyRecord();

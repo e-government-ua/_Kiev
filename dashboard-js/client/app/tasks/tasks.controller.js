@@ -130,10 +130,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           $scope.taskForm = result.data[0].variables;
           $scope.taskForm = addIndexForFileItems($scope.taskForm);
         })
-        .catch(function (err) {
-          err = JSON.parse(err);
-          $scope.error = err;
-        });
+        .catch(defaultErrorHandler);
     }
     else {
       tasks
@@ -143,10 +140,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           $scope.taskForm = result.formProperties;
           $scope.taskForm = addIndexForFileItems($scope.taskForm);
         })
-        .catch(function (err) {
-          err = JSON.parse(err);
-          $scope.error = err;
-        });
+        .catch(defaultErrorHandler);
     }
 
     tasks
@@ -155,17 +149,13 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
         result = JSON.parse(result);
         $scope.attachments = result;
       })
-      .catch(function (err) {
-        console.log(err);
-      });
+      .catch(defaultErrorHandler);
 
     tasks.getTaskAttachments(task.id)
       .then(function (result) {
         $scope.taskAttachments = result;
       })
-      .catch(function (err) {
-        $scope.error = err.message;
-      });
+      .catch(defaultErrorHandler);
   };
 
   $scope.submitTask = function () {
@@ -182,9 +172,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
             $scope.applyTaskFilter($scope.$storage.menuType);
           })('Форму відправлено' + (result && result.length > 0 ? (': ' + result) : ''));
         })
-        .catch(function (err) {
-          Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
-        });
+        .catch(defaultErrorHandler);
     }
   };
 
@@ -193,27 +181,11 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
       Modal.assignTask(function (event) {
         $scope.selectedTasks[$scope.$storage.menuType] = null;
         loadTaskCounters();
-
-        //$scope.tasks[0]
         console.log("$scope.selectedTask.id="+$scope.selectedTask.id)
         $scope.applyTaskFilter($scope.menus[0].type, $scope.selectedTask.id);
-        /*
-        $scope.selectedTasks[$scope.menus[0].type] = $scope.selectedTask;
-        $scope.applyTaskFilter($scope.menus[0].type);
-        $scope.selectedTasks[$scope.menus[0].type] = $scope.selectedTask;
-        */
-
-        //$('#selfAssigned').click();
-        //$('.selfAssigned_task-'+$scope.selectedTask.id).click();
-//        $('.task.selfAssigned_'+$scope.selectedTask.id).click();
-        //task {{sSelectedTask}}_{{task.id}}
-        //
-        //location.reload();
       }, 'Задача у вас в роботі');
     })
-      .catch(function (err) {
-        Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
-      });
+      .catch(defaultErrorHandler());
   };
 
   $scope.upload = function (files, propertyID) {
@@ -249,13 +221,6 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
         return s.indexOf(sSuffix, s.length - sSuffix.length) !== -1;
     }
   $scope.sTaskClass = function (sUserTask) {
-    //sUserTask.stren
-    /*var n=-1;
-    var s="";
-    s="_10";
-    n=sUserTask.lastIndexOf(s);
-    if(n>-1 && n=s){
-    }*/
     //"_10" - подкрашивать строку - красным цветом
     //"_5" - подкрашивать строку - желтым цветом
     //"_1" - подкрашивать строку - зеленым цветом
@@ -362,6 +327,29 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     loadSelfAssignedTasks();
   };
 
+  $scope.searchTaskByOrder = function() {
+    if (!/^\d+$/.test($scope.orderIdInput)) {
+      Modal.inform.error()('ID має складатися тільки з цифр!');
+      return;
+    }
+    tasks.getTasksByOrder($scope.orderIdInput)
+      .then(function (result) {
+        if (result === 'CRC-error') {
+          Modal.inform.error()();
+        } else if(result === 'Record not found') {
+          Modal.inform.error()();
+        } else {
+          var tid = JSON.parse(result)[0];
+          var taskFound = $scope.tasks.some(function(t) {
+            if (t.id == tid)
+              $scope.selectTask(t);
+            return t.id == tid;
+          });
+          if (!taskFound) Modal.inform.warning()('У даному розділі ID не знайдено, спробуйте виконати пошук у суміжних');
+        }
+      }).catch(mapErrorHandler({'CRC Error': 'Неправильний ID', 'Record not found': 'ID не знайдено'}));
+  };
+
   function loadTaskCounters() {
     _.forEach($scope.menus, function (menu) {
       tasks.list(menu.type)
@@ -377,10 +365,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     processes.list().then(function (processesDefinitions) {
         console.log("[loadSelfAssignedTasks]processesDefinitions="+processesDefinitions);
       $scope.applyTaskFilter($scope.$storage.menuType);
-    }).catch(function (err) {
-      err = JSON.parse(err);
-      $scope.error = err;
-    });
+    }).catch(defaultErrorHandler);
   }
 
   function addIndexForFileItems(val) {
@@ -419,5 +404,23 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           $scope.selectTask($scope.tasks[0]);
         }
     }
+  }
+
+  function mapErrorHandler(msgMapping) {
+    return function (response) {defaultErrorHandler(response, msgMapping); };
+  }
+
+  function defaultErrorHandler(response, msgMapping) {
+    var msg = response.status + ' ' + response.statusText + '\n' + response.data;
+    try {
+      var data = JSON.parse(response.data);
+      if (data !== null && data !== undefined && ('code' in data) && ('message' in data)) {
+        if (msgMapping !== undefined && data.message in msgMapping)
+          msg = msgMapping[data.message];
+        else
+          msg = data.code + ' ' + data.message;
+      }
+    } catch (e) { console.log(e); }
+    Modal.inform.error()(msg);
   }
 });

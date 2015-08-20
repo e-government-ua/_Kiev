@@ -43,7 +43,6 @@
         <activiti:formProperty id="sBody2" name="sBody2" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="sBody3" name="sBody3" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="sBody4" name="sBody4" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="sBody5" name="sBody5" type="invisible"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
@@ -193,7 +192,6 @@
         <activiti:formProperty id="sBody2" name="[pattern/print/kiev_dms_print2.html]" type="invisible" default="${sBody2}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody3" name="[pattern/print/kiev_dms_print3.html]" type="invisible" default="${sBody3}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody4" name="[pattern/print/kiev_dms_print4.html]" type="invisible" default="${sBody4}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody5" name="[pattern/print/kiev_dms_print5.html]" type="invisible" default="${sBody5}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
