@@ -17,8 +17,14 @@ exports.index = function(req, res) {
     query.candidateUser = user.id;
     query.unassigned = true;
   } else if (req.query.filterType === 'finished') {
-	path = 'history/historic-task-instances'
+	  path = 'history/historic-task-instances';
     query.taskAssignee = user.id;
+  } else if (req.query.filterType === 'tickets') {
+    path = 'flow/getFlowSlotTickets';
+    query.sLogin = user.id;
+    query.bEmployeeUnassigned = req.query.bEmployeeUnassigned;
+    if (req.query.sDate)
+      query.sDate = req.query.sDate;
   }
 
   var options = {
@@ -30,6 +36,9 @@ exports.index = function(req, res) {
     if (error) {
       res.send(error);
     } else {
+      if (req.query.filterType === 'tickets') {
+        result = JSON.stringify({data:JSON.parse(result)});
+      }
       res.json(result);
     }
   });
@@ -138,6 +147,16 @@ exports.submitForm = function(req, res) {
 };
 
 exports.updateTask = function(req, res) {
+  var options = {
+    path: 'runtime/tasks/' + req.params.taskId
+  };
+  activiti.put(options, function(error, statusCode, result) {
+    res.statusCode = statusCode;
+    res.send(result);
+  }, req.body);
+};
+
+exports.getTask = function(req, res) {
   var options = {
     path: 'runtime/tasks/' + req.params.taskId
   };

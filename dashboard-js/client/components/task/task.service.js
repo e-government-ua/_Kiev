@@ -7,7 +7,8 @@ angular.module('dashboardJsApp')
       filterTypes: {
         selfAssigned: 'selfAssigned',
         unassigned: 'unassigned',
-        finished: 'finished'
+        finished: 'finished',
+        tickets: 'tickets'
       },
       /**
        * Get list of tasks
@@ -15,27 +16,22 @@ angular.module('dashboardJsApp')
        * @param  {Function} callback - optional
        * @return {Promise}
        */
-      list: function(filterType, callback) {
-        var cb = callback || angular.noop;
+      list: function(filterType, params) {
         var deferred = $q.defer();
 
         var req = {
           method: 'GET',
           url: '/api/tasks',
           data: {},
-          params: {
-            filterType: filterType
-          }
+          params: angular.merge({filterType: filterType}, params)
         };
 
         $http(req).
         success(function(data) {
           deferred.resolve(data);
-          return cb();
         }).
         error(function(err) {
           deferred.reject(err);
-          return cb(err);
         }.bind(this));
 
         return deferred.promise;
@@ -299,6 +295,26 @@ angular.module('dashboardJsApp')
             });
           }
         });
+
+        return deferred.promise;
+      },
+
+      getTask: function (taskId) {
+        var deferred = $q.defer();
+
+        var req = {
+          method: 'GET',
+          url: '/api/tasks/' + taskId,
+          data: {}
+        };
+
+        $http(req).
+          success(function (data) {
+            deferred.resolve(data);
+          }).
+          error(function (err) {
+            deferred.reject(err);
+          }.bind(this));
 
         return deferred.promise;
       }

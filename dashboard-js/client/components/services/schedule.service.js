@@ -248,6 +248,30 @@ angular.module('dashboardJsApp')
           }.bind(this));
 
         return deferred.promise;
+      },
+
+      getFlowSlotTickets: function(bEmployeeUnassigned, sDate) {
+        var deferred = $q.defer();
+
+        var request = {
+          method: 'GET',
+          url: '/api/schedule/getFlowSlotTickets',
+          params: {
+            bEmployeeUnassigned: bEmployeeUnassigned,
+            sDate: sDate,
+          }
+        };
+
+        $http(request).
+          success(function(data) {
+            var json = angular.fromJson(data);
+            deferred.resolve(json);
+          }).
+          error(function(err) {
+            deferred.reject(err);
+          });
+
+        return deferred.promise;
       }
     };
   });
