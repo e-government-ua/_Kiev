@@ -50,10 +50,15 @@ public class FlowSlotVO {
    }
 
    
-    public static Boolean bBusy(FlowSlotTicket ticket) {
-        DateTime now = DateTime.now();
-        return ticket.getnID_Task_Activiti() != null
-                || ticket.getsDateEdit().compareTo(now.minusMinutes(TICKET_WITHOUT_TASK_EXPIRATION_TIME_MINUTES)) >= 0;
+    public static Boolean bBusy(FlowSlotTicket oFlowSlotTicket) {
+        return bBusyStatic(oFlowSlotTicket) || bBusyTemp(oFlowSlotTicket);
+    }
+    public static Boolean bBusyStatic(FlowSlotTicket oFlowSlotTicket) {
+        return oFlowSlotTicket.getnID_Task_Activiti() != null;
+    }
+    public static Boolean bBusyTemp(FlowSlotTicket oFlowSlotTicket) {
+        DateTime oDateTimeNow = DateTime.now();
+        return oFlowSlotTicket.getsDateEdit().compareTo(oDateTimeNow.minusMinutes(TICKET_WITHOUT_TASK_EXPIRATION_TIME_MINUTES)) >= 0;
     }
     
    public Long getnID() {

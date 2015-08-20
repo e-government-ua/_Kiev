@@ -506,7 +506,7 @@ public abstract class AbstractModelTask {
                     //String snID_FlowSlotTicket = (String) m.get("nID_FlowSlotTicket");
                     //String snID_FlowSlotTicket = m.get("nID_FlowSlotTicket")+"";
                     //Double
-                    nID_FlowSlotTicket = (Long)(Double)m.get("nID_FlowSlotTicket");
+                    nID_FlowSlotTicket = ((Double)m.get("nID_FlowSlotTicket")).longValue();
                     //LOG.info("snID_FlowSlotTicket=" + snID_FlowSlotTicket);
                     //nID_FlowSlotTicket = Long.valueOf(snID_FlowSlotTicket);
                     LOG.info("nID_FlowSlotTicket=" + nID_FlowSlotTicket);
