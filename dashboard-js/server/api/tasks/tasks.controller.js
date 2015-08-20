@@ -146,3 +146,13 @@ exports.updateTask = function(req, res) {
     res.send(result);
   }, req.body);
 };
+
+exports.getTasksByOrder = function(req, res) {
+  var options = { path: 'rest/tasks/getTasksByOrder',
+    query: { 'nID_Protected': req.query.nID_Protected }
+  };
+
+  activiti.get(options, function(error, statusCode, result) {
+    error ? res.send(error) : res.status(statusCode).json(result);
+  });
+};
