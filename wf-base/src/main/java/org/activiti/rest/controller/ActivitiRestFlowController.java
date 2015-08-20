@@ -1,6 +1,8 @@
 package org.activiti.rest.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,6 +14,7 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.task.Task;
+import org.apache.commons.lang.time.DateUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -505,6 +508,14 @@ public class ActivitiRestFlowController {
 		List<FlowSlotTicket> allFlowSlowTickets = flowService.getFlowSlotTicketDao().getAll();
 		log.info("Found " + (allFlowSlowTickets != null ? allFlowSlowTickets.size(): 0) + " flow slot tickets.");
 		if (allFlowSlowTickets != null){
+			
+			Collections.sort(allFlowSlowTickets, new Comparator<FlowSlotTicket>(){
+				@Override
+				public int compare(FlowSlotTicket ticket1, FlowSlotTicket ticket2) {
+					return ticket1.getsDateStart().compareTo(ticket2.getsDateStart());
+				}
+			});
+			
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			
 			Date dateOfTasks = null;
@@ -516,8 +527,10 @@ public class ActivitiRestFlowController {
 				if (taskActivityIDsMap.keySet().contains(currFlowSlotTicket.getnID_Task_Activiti())){
 					Task tasksByActivitiID = taskActivityIDsMap.get(currFlowSlotTicket.getnID_Task_Activiti());
 						
-					if (dateOfTasks == null || (currFlowSlotTicket.getsDateStart().isBefore(dateOfTasks.getTime())
-							&& currFlowSlotTicket.getsDateFinish().isAfter(dateOfTasks.getTime()))){
+					if (dateOfTasks != null){
+						log.info("Comparing two dates:" + currFlowSlotTicket.getsDateStart().toDate() + " and " + dateOfTasks);
+					}
+					if (dateOfTasks == null || (DateUtils.isSameDay(currFlowSlotTicket.getsDateStart().toDate(), dateOfTasks))){
 						addFlowSlowTicketToResult(res, dateFormat, currFlowSlotTicket, tasksByActivitiID);
 					} else {
 						log.info("Skipping flowSlot " + currFlowSlotTicket.getId() + " for the task:" + currFlowSlotTicket.getnID_Task_Activiti() + 
