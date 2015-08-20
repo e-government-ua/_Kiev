@@ -118,13 +118,32 @@ public class FlowService implements ApplicationContextAware {
       return res;
    }
 
-   public FlowSlotTicket saveFlowSlotTicket(Long nID_FlowSlot, Long nID_Subject, Long nID_Task_Activiti) {
+   public FlowSlotTicket saveFlowSlotTicket(Long nID_FlowSlot, Long nID_Subject, Long nID_Task_Activiti) throws Exception {
 
       FlowSlotTicket oFlowSlotTicket = oFlowSlotTicketDao.findFlowSlotTicket(nID_FlowSlot);
       if (oFlowSlotTicket == null) {
          oFlowSlotTicket = new FlowSlotTicket();
+      }else{
+        //if(oFlowSlotTicket.getnID_Task_Activiti()!=null){
+        if(FlowSlotVO.bBusyStatic(oFlowSlotTicket)){
+                  //oFlowSlotTicket.getnID_Subject(nID_Subject);
+            String sError="FlowSlotTicket with nID_FlowSlot="+nID_FlowSlot+" is bBusyStatic by getnID_Task_Activiti()="+oFlowSlotTicket.getnID_Task_Activiti();
+            log.error(sError);
+            throw new Exception(sError);
+        }else if(FlowSlotVO.bBusyTemp(oFlowSlotTicket)){//oFlowSlotTicket.getsDateEdit(). <oFlowSlotTicket.getsDateEdit()
+            //bBusyStatic
+            log.info("nID_Subject="+nID_Subject);
+            log.info("getnID_Subject()="+oFlowSlotTicket.getnID_Subject());
+            if(!nID_Subject.equals(oFlowSlotTicket.getnID_Subject())){
+                String sError="FlowSlotTicket with nID_FlowSlot="+nID_FlowSlot+" is bBusyTemp from getsDateEdit()="+oFlowSlotTicket.getsDateEdit();
+                log.error(sError);
+                throw new Exception(sError);
+            }
+        }
       }
-
+      
+      //oFlowSlotTicket
+              
       oFlowSlotTicket.setnID_Subject(nID_Subject);
       oFlowSlotTicket.setnID_Task_Activiti(nID_Task_Activiti);
 
