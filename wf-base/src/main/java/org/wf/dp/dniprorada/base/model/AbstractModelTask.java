@@ -525,34 +525,20 @@ public abstract class AbstractModelTask {
                     
                     try{
                         
-                        FlowSlotTicket oFlowSlotTicket = baseEntityDao.getById(FlowSlotTicket.class, nID_FlowSlotTicket);
-                        if (oFlowSlotTicket == null) {
-                            String sError = "FlowSlotTicket with id=" + nID_FlowSlotTicket + " is not found!";
-                            LOG.error(sError);
-                            throw new Exception(sError);
-                        }else if (oFlowSlotTicket.getnID_Task_Activiti()!=null) {
-                            String sError = "FlowSlotTicket with id=" + nID_FlowSlotTicket + " has assigned getnID_Task_Activiti()=" + oFlowSlotTicket.getnID_Task_Activiti();
-                            LOG.error(sError);
-                            throw new Exception(sError);
-                        }else{
-                            long nID_FlowSlot=oFlowSlotTicket.getoFlowSlot().getId();
-                            LOG.info("nID_FlowSlot="+nID_FlowSlot);
-                            long nID_Subject = oFlowSlotTicket.getnID_Subject();
-                            LOG.info("nID_Subject="+nID_Subject);
-                            long nID_Task_Activiti = 1; //TODO set real ID!!!
-                            try{
-                                /*
-                                LOG.info("oExecution.getBusinessKey()="+oExecution.getBusinessKey());
-                                LOG.info("oExecution.getCurrentActivityId()="+oExecution.getCurrentActivityId());
-                                LOG.info("oExecution.getCurrentActivityName()="+oExecution.getCurrentActivityName());
-                                LOG.info("oExecution.getEventName()="+oExecution.getEventName());
-                                LOG.info("oExecution.getId()="+oExecution.getId());
-                                LOG.info("oExecution.getParentId()="+oExecution.getParentId());
-                                LOG.info("oExecution.getProcessBusinessKey()="+oExecution.getProcessBusinessKey());
-                                LOG.info("oExecution.getProcessDefinitionId()="+oExecution.getProcessDefinitionId());
-                                LOG.info("oExecution.getProcessInstanceId()="+oExecution.getProcessInstanceId());//THIS!!!
-                                LOG.info("oExecution.getTenantId()="+oExecution.getTenantId());
-                                */
+                        long nID_Task_Activiti = 1; //TODO set real ID!!!
+                        try{
+                            /*
+                            LOG.info("oExecution.getBusinessKey()="+oExecution.getBusinessKey());
+                            LOG.info("oExecution.getCurrentActivityId()="+oExecution.getCurrentActivityId());
+                            LOG.info("oExecution.getCurrentActivityName()="+oExecution.getCurrentActivityName());
+                            LOG.info("oExecution.getEventName()="+oExecution.getEventName());
+                            LOG.info("oExecution.getId()="+oExecution.getId());
+                            LOG.info("oExecution.getParentId()="+oExecution.getParentId());
+                            LOG.info("oExecution.getProcessBusinessKey()="+oExecution.getProcessBusinessKey());
+                            LOG.info("oExecution.getProcessDefinitionId()="+oExecution.getProcessDefinitionId());
+                            LOG.info("oExecution.getProcessInstanceId()="+oExecution.getProcessInstanceId());//THIS!!!
+                            LOG.info("oExecution.getTenantId()="+oExecution.getTenantId());
+                            */
 /*                                
 2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- oExecution.getBusinessKey()=null
 2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- oExecution.getCurrentActivityId()=servicetask1
@@ -565,18 +551,41 @@ public abstract class AbstractModelTask {
 2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- oExecution.getProcessInstanceId()=955001
 2015-07-05_15:33:11.144 | INFO | org.wf.dp.dniprorada.engine.task.FileTaskUpload- oExecution.getTenantId()=
 */                                
-                                try{
-                                    nID_Task_Activiti = Long.valueOf(oExecution.getProcessInstanceId());
-                                    LOG.info("nID_Task_Activiti:Ok!");
-                                }catch(Exception oException){
-                                    LOG.error(oException.getMessage());
-                                }
-                                //oExecution.getCurrentActivityId()
-                                //nID_Task_Activiti
+                            try{
+                                nID_Task_Activiti = Long.valueOf(oExecution.getProcessInstanceId());
+                                LOG.info("nID_Task_Activiti:Ok!");
                             }catch(Exception oException){
                                 LOG.error(oException.getMessage());
                             }
-                            LOG.info("nID_Task_Activiti="+nID_Task_Activiti);
+                            //oExecution.getCurrentActivityId()
+                            //nID_Task_Activiti
+                        }catch(Exception oException){
+                            LOG.error(oException.getMessage());
+                        }
+                        LOG.info("nID_Task_Activiti="+nID_Task_Activiti);
+                        
+                        
+                        FlowSlotTicket oFlowSlotTicket = baseEntityDao.getById(FlowSlotTicket.class, nID_FlowSlotTicket);
+                        if (oFlowSlotTicket == null) {
+                            String sError = "FlowSlotTicket with id=" + nID_FlowSlotTicket + " is not found!";
+                            LOG.error(sError);
+                            throw new Exception(sError);
+                        }else if (oFlowSlotTicket.getnID_Task_Activiti()!=null) {
+                            if(nID_Task_Activiti == oFlowSlotTicket.getnID_Task_Activiti()){
+                                String sWarn = "FlowSlotTicket with id=" + nID_FlowSlotTicket + " has assigned same getnID_Task_Activiti()=" + oFlowSlotTicket.getnID_Task_Activiti();
+                                LOG.warn(sWarn);
+                            }else{
+                                String sError = "FlowSlotTicket with id=" + nID_FlowSlotTicket + " has assigned getnID_Task_Activiti()=" + oFlowSlotTicket.getnID_Task_Activiti();
+                                LOG.error(sError);
+                                throw new Exception(sError);
+                            }
+                        }else{
+                            long nID_FlowSlot=oFlowSlotTicket.getoFlowSlot().getId();
+                            LOG.info("nID_FlowSlot="+nID_FlowSlot);
+                            long nID_Subject = oFlowSlotTicket.getnID_Subject();
+                            LOG.info("nID_Subject="+nID_Subject);
+
+                            
                             oFlowSlotTicket.setnID_Task_Activiti(nID_Task_Activiti);
                             baseEntityDao.saveOrUpdate(oFlowSlotTicket);
                             LOG.info("JSON:" + JsonRestUtils.toJsonResponse(new SaveFlowSlotTicketResponse(oFlowSlotTicket.getId())));
