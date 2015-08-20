@@ -32,19 +32,35 @@ public class FlowSlotVO {
 
       nMinutes = DurationUtil.parseDuration(flowSlot.getsDuration()).getMinutes();
       
-      DateTime now = DateTime.now();
+      //DateTime now = DateTime.now();
 
       bFree = true;
       for (FlowSlotTicket ticket : flowSlot.getFlowSlotTickets()) {
-         if (ticket.getnID_Task_Activiti() != null || ticket.getsDateEdit().compareTo(now.minusMinutes(
+          if(bBusy(ticket)){
+            bFree = false;
+            break;
+          }
+         /*if (ticket.getnID_Task_Activiti() != null || ticket.getsDateEdit().compareTo(now.minusMinutes(
                  TICKET_WITHOUT_TASK_EXPIRATION_TIME_MINUTES)) >= 0) {
             bFree = false;
             break;
-         }
+         }*/
       }
 
    }
 
+   
+    public static Boolean bBusy(FlowSlotTicket oFlowSlotTicket) {
+        return bBusyStatic(oFlowSlotTicket) || bBusyTemp(oFlowSlotTicket);
+    }
+    public static Boolean bBusyStatic(FlowSlotTicket oFlowSlotTicket) {
+        return oFlowSlotTicket.getnID_Task_Activiti() != null;
+    }
+    public static Boolean bBusyTemp(FlowSlotTicket oFlowSlotTicket) {
+        DateTime oDateTimeNow = DateTime.now();
+        return oFlowSlotTicket.getsDateEdit().compareTo(oDateTimeNow.minusMinutes(TICKET_WITHOUT_TASK_EXPIRATION_TIME_MINUTES)) >= 0;
+    }
+    
    public Long getnID() {
       return nID;
    }
