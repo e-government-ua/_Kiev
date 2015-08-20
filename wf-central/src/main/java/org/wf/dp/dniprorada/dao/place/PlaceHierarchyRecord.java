@@ -6,30 +6,30 @@ import org.wf.dp.dniprorada.model.Place;
  * @author dgroup
  * @since  12.08.2015
  */
-public class PlaceHierarchyRecord {
+public class PlaceHierarchyRecord  {
 
-    private long placeId;
-    private long typeId;
+    private Long placeId;
+    private Long typeId;
     private String uaID;
     private String name;
     private String originalName;
-    private long rootId;
-    private long parentId;
-    private long deep;
-    private long areaId;
-    private boolean alreadyIncluded;
+    private Long parentId;
+    private Boolean area;
+    private Boolean root;
+    private Long deep;
+    private Boolean alreadyIncluded = false;
 
-    public long getPlaceId() {
+    public Long getPlaceId() {
         return placeId;
     }
-    public void setPlaceId(long placeId) {
+    public void setPlaceId(Long placeId) {
         this.placeId = placeId;
     }
 
-    public long getTypeId() {
+    public Long getTypeId() {
         return typeId;
     }
-    public void setTypeId(long typeId) {
+    public void setTypeId(Long typeId) {
         this.typeId = typeId;
     }
 
@@ -54,39 +54,39 @@ public class PlaceHierarchyRecord {
         this.originalName = originalName;
     }
 
-    public long getRootId() {
-        return rootId;
-    }
-    public void setRootId(long rootId) {
-        this.rootId = rootId;
-    }
-
-    public long getParentId() {
+    public Long getParentId() {
         return parentId;
     }
-    public void setParentId(long parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
-    public long getDeep() {
+    public Long getDeep() {
         return deep;
     }
-    public void setDeep(long deep) {
+    public void setDeep(Long deep) {
         this.deep = deep;
     }
 
-    public long getAreaId() {
-        return areaId;
-    }
-    public void setAreaId(long areaId) {
-        this.areaId = areaId;
-    }
-
-    public boolean isAlreadyIncluded() {
+    public Boolean isAlreadyIncluded() {
         return alreadyIncluded;
     }
-    public void setAlreadyIncluded(boolean alreadyIncluded) {
+    public void setAlreadyIncluded(Boolean alreadyIncluded) {
         this.alreadyIncluded = alreadyIncluded;
+    }
+
+    public Boolean isArea() {
+        return area;
+    }
+    public void setArea(Boolean area) {
+        this.area = area;
+    }
+
+    public Boolean isRoot() {
+        return root;
+    }
+    public void setRoot(Boolean root) {
+        this.root = root;
     }
 
     public Place toPlace() {
@@ -115,11 +115,47 @@ public class PlaceHierarchyRecord {
                 ", uaID='" + uaID + '\'' +
                 ", name='" + name + '\'' +
                 ", originalName='" + originalName + '\'' +
-                ", rootId=" + rootId +
                 ", parentId=" + parentId +
+                ", area=" + area +
+                ", root=" + root +
                 ", deep=" + deep +
-                ", areaId=" + areaId +
                 ", alreadyIncluded=" + alreadyIncluded +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PlaceHierarchyRecord)) return false;
+
+        PlaceHierarchyRecord that = (PlaceHierarchyRecord) o;
+
+        if (!alreadyIncluded.equals(that.alreadyIncluded)) return false;
+        if (area != null ? !area.equals(that.area) : that.area != null) return false;
+        if (!deep.equals(that.deep)) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (originalName != null ? !originalName.equals(that.originalName) : that.originalName != null) return false;
+        if (parentId != null ? !parentId.equals(that.parentId) : that.parentId != null) return false;
+        if (placeId != null ? !placeId.equals(that.placeId) : that.placeId != null) return false;
+        if (root != null ? !root.equals(that.root) : that.root != null) return false;
+        if (typeId != null ? !typeId.equals(that.typeId) : that.typeId != null) return false;
+        if (uaID != null ? !uaID.equals(that.uaID) : that.uaID != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = placeId != null ? placeId.hashCode() : 0;
+        result = 31 * result + (typeId != null ? typeId.hashCode() : 0);
+        result = 31 * result + (uaID != null ? uaID.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (originalName != null ? originalName.hashCode() : 0);
+        result = 31 * result + (parentId != null ? parentId.hashCode() : 0);
+        result = 31 * result + (area != null ? area.hashCode() : 0);
+        result = 31 * result + (root != null ? root.hashCode() : 0);
+        result = 31 * result + deep.hashCode();
+        result = 31 * result + alreadyIncluded.hashCode();
+        return result;
     }
 }

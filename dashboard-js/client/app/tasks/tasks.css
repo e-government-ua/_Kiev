@@ -6,7 +6,7 @@
     left: 0;
     z-index: 1000;
     display: block;
-    padding: 20px 20px 20px 60px;
+    padding: 20px 20px 20px 30px;
     overflow-x: hidden;
     overflow-y: auto;
     background-color: whitesmoke;
@@ -31,4 +31,26 @@
 .task-form-property {
   padding-top: 6px;
   padding-right: 6px;
+}
+
+.task-list-header {
+  display: table;
+  width: 100%;
+}
+
+.task-list-header-row {
+  display: table-row;
+  width: 100%;
+}
+.task-list-header-cell {
+  display: table-cell;
+}
+
+.right-aligned {
+  float: right;
+}
+
+.task-list-header-search {
+  font-size: 12px;
+  font-style: italic;
 }

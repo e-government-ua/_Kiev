@@ -14,6 +14,7 @@ router.get('/:taskId/attachments/:attachmentId/content/:nFile', controller.getAt
 router.post('/:taskId/attachments',controller.uploadFile);
 router.post('/:taskId/form', controller.submitForm);
 router.put('/:taskId', controller.updateTask);
+router.get('/getTasksByOrder', controller.getTasksByOrder);
 
 
 module.exports = router;

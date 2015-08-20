@@ -1,12 +1,24 @@
 package org.activiti.rest.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.TaskService;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.task.Task;
+import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.json.simple.JSONValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +56,12 @@ public class ActivitiRestFlowController {
 	
    @Autowired
    private FlowService flowService;
+   
+   @Autowired
+   private TaskService taskService;
+   
+   @Autowired
+   private RepositoryService repositoryService;
 
    @RequestMapping(value = "/getFlowSlots_ServiceData", method = RequestMethod.GET)
    public
@@ -77,7 +95,7 @@ public class ActivitiRestFlowController {
    @ResponseBody
    ResponseEntity saveFlowSlotTicket(@RequestParam(value = "nID_FlowSlot") Long nID_FlowSlot,
                                @RequestParam(value = "nID_Subject") Long nID_Subject,
-                               @RequestParam(value = "nID_Task_Activiti", required = false) Long nID_Task_Activiti) {
+                               @RequestParam(value = "nID_Task_Activiti", required = false) Long nID_Task_Activiti) throws Exception {
 
       FlowSlotTicket oFlowSlotTicket = flowService.saveFlowSlotTicket(nID_FlowSlot, nID_Subject, nID_Task_Activiti);
 
@@ -117,6 +135,7 @@ public class ActivitiRestFlowController {
             log.error(sError);
             return new ResponseEntity<>(sError, HttpStatus.INTERNAL_SERVER_ERROR);
       }
+      log.info("sID_BP="+sID_BP+",nID_Flow_ServiceData="+nID_Flow_ServiceData);
           
       List<FlowSlotVO> res = flowService.buildFlowSlots(nID_Flow_ServiceData, startDate, stopDate);
 
@@ -157,6 +176,7 @@ public class ActivitiRestFlowController {
             log.error(sError);
             return new ResponseEntity<>(sError, HttpStatus.INTERNAL_SERVER_ERROR);
       }
+      log.info("sID_BP="+sID_BP+",nID_Flow_ServiceData="+nID_Flow_ServiceData);
       
       
       ClearSlotsResult res = flowService.clearFlowSlots(nID_Flow_ServiceData, startDate, stopDate, bWithTickets);
@@ -214,6 +234,11 @@ public class ActivitiRestFlowController {
                         @RequestParam(value = "sID_BP", required = false) String sID_BP,
 			@RequestParam(value = "sName") String sName,
 			@RequestParam(value = "sRegionTime") String sRegionTime,
+                        
+			@RequestParam(value = "nLen", required = false) Integer nLen,
+			@RequestParam(value = "sLenType", required = false) String sLenType,
+			@RequestParam(value = "sData", required = false) String sData,
+                        
 			@RequestParam(value = "saRegionWeekDay") String saRegionWeekDay,
 			@RequestParam(value = "sDateTimeAt") String sDateTimeAt,
 			@RequestParam(value = "sDateTimeTo") String sDateTimeTo) throws Exception {
@@ -223,7 +248,7 @@ public class ActivitiRestFlowController {
 			flowProperty = flowService.getBaseEntityDao().getById(FlowProperty.class, nID);
 			if (flowProperty != null) {
 				flowProperty = fillFlowProperty(sName, sRegionTime, saRegionWeekDay,
-						sDateTimeAt, sDateTimeTo, flowProperty);
+						sDateTimeAt, sDateTimeTo, nLen, sLenType, sData, flowProperty);
 				flowProperty.setbExclude(false);
 				
 				flowService.getBaseEntityDao().saveOrUpdate(flowProperty);
@@ -258,7 +283,7 @@ public class ActivitiRestFlowController {
 			Flow_ServiceData flowServiceData = flowService.getBaseEntityDao().getById(Flow_ServiceData.class, nID_Flow_ServiceData);
 			log.info("Loaded flow service data class: " + flowServiceData);
 			
-			flowProperty = fillFlowProperty(sName, sRegionTime, saRegionWeekDay, sDateTimeAt, sDateTimeTo, flowProperty);
+			flowProperty = fillFlowProperty(sName, sRegionTime, saRegionWeekDay, sDateTimeAt, sDateTimeTo, nLen, sLenType, sData, flowProperty);
 			flowProperty.setoFlowPropertyClass(flowPropertyClass);
 			flowProperty.setbExclude(false);
 			flowProperty.setoFlow_ServiceData(flowServiceData);
@@ -293,6 +318,11 @@ public class ActivitiRestFlowController {
                         @RequestParam(value = "sID_BP", required = false) String sID_BP,
 			@RequestParam(value = "sName") String sName,
 			@RequestParam(value = "sRegionTime") String sRegionTime,
+                        
+			@RequestParam(value = "nLen", required = false) Integer nLen,
+			@RequestParam(value = "sLenType", required = false) String sLenType,
+			@RequestParam(value = "sData", required = false) String sData,
+                        
 			@RequestParam(value = "saRegionWeekDay") String saRegionWeekDay,
 			@RequestParam(value = "sDateTimeAt") String sDateTimeAt,
 			@RequestParam(value = "sDateTimeTo") String sDateTimeTo) throws Exception {
@@ -303,7 +333,7 @@ public class ActivitiRestFlowController {
 					FlowProperty.class, nID);
 			if (flowProperty != null) {
 				flowProperty = fillFlowProperty(sName, sRegionTime,
-						saRegionWeekDay, sDateTimeAt, sDateTimeTo, flowProperty);
+						saRegionWeekDay, sDateTimeAt, sDateTimeTo, nLen, sLenType, sData, flowProperty);
 				flowProperty.setbExclude(true);
 				flowService.getBaseEntityDao().saveOrUpdate(flowProperty);
 				log.info("nID is not null. Updating existing FLowProperty with parameters");
@@ -336,7 +366,7 @@ public class ActivitiRestFlowController {
 			Flow_ServiceData flowServiceData = flowService.getBaseEntityDao().getById(Flow_ServiceData.class, nID_Flow_ServiceData);
 			log.info("Loaded flow service data class: " + flowServiceData);
 			
-			flowProperty = fillFlowProperty(sName, sRegionTime, saRegionWeekDay, sDateTimeAt, sDateTimeTo, flowProperty);
+			flowProperty = fillFlowProperty(sName, sRegionTime, saRegionWeekDay, sDateTimeAt, sDateTimeTo, nLen, sLenType, sData, flowProperty);
 			flowProperty.setoFlowPropertyClass(flowPropertyClass);
 			flowProperty.setbExclude(true);
 			flowProperty.setoFlow_ServiceData(flowServiceData);
@@ -451,6 +481,119 @@ public class ActivitiRestFlowController {
 		return new LinkedList<FlowProperty>();
 	}
 	
+	@RequestMapping(value = "/getFlowSlotTickets", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	public  @ResponseBody String getFlowSlotTickets(
+			@RequestParam(value = "sLogin") String sLogin,
+                        @RequestParam(value = "bEmployeeUnassigned", required = false, defaultValue = "false") Boolean bEmployeeUnassigned,
+                        @RequestParam(value = "sDate", required = false) String sDate
+        ) throws Exception {
+		
+		List<Map<String, String>> res = new LinkedList<Map<String,String>>();
+		
+		List<Task> tasks = new LinkedList<Task>(); 
+				
+		tasks = getTasksForChecking(sLogin, bEmployeeUnassigned);
+		
+		Map<Long, Task> taskActivityIDsMap = new HashMap<Long, Task>();
+		for (Task task : tasks){
+			if (task.getProcessInstanceId() != null){
+				taskActivityIDsMap.put(Long.valueOf(task.getProcessInstanceId()), task);
+			} else {
+				log.info("Task with ID:" + task.getId() + " has null process instance id value");
+			}
+		}
+		
+		log.info("Will check tasks which belong to process definition IDs:" + taskActivityIDsMap.keySet());
+		
+		List<FlowSlotTicket> allFlowSlowTickets = flowService.getFlowSlotTicketDao().getAll();
+		log.info("Found " + (allFlowSlowTickets != null ? allFlowSlowTickets.size(): 0) + " flow slot tickets.");
+		if (allFlowSlowTickets != null){
+			
+			Collections.sort(allFlowSlowTickets, new Comparator<FlowSlotTicket>(){
+				@Override
+				public int compare(FlowSlotTicket ticket1, FlowSlotTicket ticket2) {
+					return ticket1.getsDateStart().compareTo(ticket2.getsDateStart());
+				}
+			});
+			
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			
+			Date dateOfTasks = null;
+			if (sDate != null){
+				log.info("Checking for flow spot tickets for the date: " + sDate);
+				dateOfTasks = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+			}
+			for (FlowSlotTicket currFlowSlotTicket : allFlowSlowTickets){
+				if (taskActivityIDsMap.keySet().contains(currFlowSlotTicket.getnID_Task_Activiti())){
+					Task tasksByActivitiID = taskActivityIDsMap.get(currFlowSlotTicket.getnID_Task_Activiti());
+						
+					if (dateOfTasks != null){
+						log.info("Comparing two dates:" + currFlowSlotTicket.getsDateStart().toDate() + " and " + dateOfTasks);
+					}
+					if (dateOfTasks == null || (DateUtils.isSameDay(currFlowSlotTicket.getsDateStart().toDate(), dateOfTasks))){
+						addFlowSlowTicketToResult(res, dateFormat, currFlowSlotTicket, tasksByActivitiID);
+					} else {
+						log.info("Skipping flowSlot " + currFlowSlotTicket.getId() + " for the task:" + currFlowSlotTicket.getnID_Task_Activiti() + 
+								" as they have not valid  start-end date" + currFlowSlotTicket.getsDateStart().toString() + ":" + 
+								currFlowSlotTicket.getsDateFinish());
+					}
+				} else {
+					log.info("List of tasks doesn't contain tasks with ID: " + currFlowSlotTicket.getnID_Task_Activiti());
+				}
+			}
+		}
+		
+		String jsonRes = JSONValue.toJSONString(res);
+    	log.info("Result" + jsonRes);
+    	return jsonRes;
+	}
+
+	private void addFlowSlowTicketToResult(List<Map<String, String>> res,
+			SimpleDateFormat dateFormat, FlowSlotTicket currFlowSlowTicket,
+			Task tasksByActivitiID) {
+		Map<String, String> currRes = new HashMap<String, String>();
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("Adding flow slot ticket: ");
+		sb.append(currFlowSlowTicket.getId());
+		sb.append(":");
+		sb.append(currFlowSlowTicket.getnID_Subject());
+		sb.append(":");
+		sb.append(currFlowSlowTicket.getsDateStart());
+		sb.append(":");
+		sb.append(currFlowSlowTicket.getsDateFinish());
+		log.info(sb.toString());
+		
+		currRes.put("nID", currFlowSlowTicket.getId().toString());
+		currRes.put("nID_FlowSlot", currFlowSlowTicket.getoFlowSlot() != null ? 
+				currFlowSlowTicket.getoFlowSlot().getId().toString() : "");
+		currRes.put("nID_Subject", currFlowSlowTicket.getnID_Subject().toString());
+		Date startDate = new Date(currFlowSlowTicket.getsDateStart().getMillis());
+		currRes.put("sDateStart", dateFormat.format(startDate));
+		Date finishDate = new Date(currFlowSlowTicket.getsDateFinish().getMillis());
+		currRes.put("sDateFinish", dateFormat.format(finishDate));
+		Date editDate = new Date(currFlowSlowTicket.getsDateEdit().getMillis());
+		currRes.put("sDateEdit", dateFormat.format(editDate));
+		currRes.put("sUserTaskName", tasksByActivitiID.getName());
+		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(tasksByActivitiID.getProcessDefinitionId()).singleResult();
+		currRes.put("sNameBP", processDefinition != null ? processDefinition.getName() : "");
+		currRes.put("sTaskDate", dateFormat.format(tasksByActivitiID.getCreateTime()));
+		res.add(currRes);
+	}
+
+	private List<Task> getTasksForChecking(String sLogin,
+			Boolean bEmployeeUnassigned) {
+		List<Task> tasks;
+		if (bEmployeeUnassigned){
+			tasks = taskService.createTaskQuery().taskUnassigned().active().list();
+			log.info("Looking for unassigned tasks. Found " + (tasks != null ? tasks.size() : 0) + " tasks");
+		} else {
+			tasks = taskService.createTaskQuery().taskAssignee(sLogin).active().list();
+			log.info("Looking for tasks assigned to user:" + sLogin + ". Found " + (tasks != null ? tasks.size() : 0) + " tasks");
+		}
+		return tasks;
+	}
+	
 	protected List<FlowProperty> getFilteredFlowPropertiesForFlowServiceData(Long nID_Flow_ServiceData, String sID_BP, Boolean bExclude) throws Exception {
             
                 if(nID_Flow_ServiceData==null){
@@ -493,11 +636,24 @@ public class ActivitiRestFlowController {
 	}
 
 	protected FlowProperty fillFlowProperty(String sName, String sRegionTime,
-			String saRegionWeekDay, String sDateTimeAt, String sDateTimeTo, FlowProperty flowProperty) {
+			String saRegionWeekDay, String sDateTimeAt, String sDateTimeTo,
+			Integer nLen,
+			String sLenType,
+			String sData,
+                        FlowProperty flowProperty) {
 		flowProperty.setbExclude(false);
 		flowProperty.setsName(sName);
 		flowProperty.setsRegionTime(sRegionTime);
 		flowProperty.setSaRegionWeekDay(saRegionWeekDay);
+                if(nLen!=null){
+                    flowProperty.setLen(nLen);
+                }
+                if(sLenType!=null){
+                    flowProperty.setLenType(sLenType);
+                }
+                if(sData!=null){
+                    flowProperty.setsData(sData);
+                }
 		flowProperty.setsDateTimeAt(sDateTimeAt);
 		flowProperty.setsDateTimeTo(sDateTimeTo);
 		return flowProperty;

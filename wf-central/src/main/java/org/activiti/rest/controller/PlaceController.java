@@ -8,11 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.dao.PlaceDao;
+import org.wf.dp.dniprorada.dao.place.PlaceHierarchyRecord;
 import org.wf.dp.dniprorada.dao.place.PlaceHierarchyTree;
-import org.wf.dp.dniprorada.model.Place;
 import org.wf.dp.dniprorada.model.PlaceType;
-
-import java.util.List;
 
 /**
  * @author dgroup
@@ -32,25 +30,32 @@ public class PlaceController {
     @RequestMapping(value   = "/getPlacesTree",
                     method  = RequestMethod.GET, headers = { JSON_TYPE })
     public  @ResponseBody PlaceHierarchyTree getPlacesTree (
-            @RequestParam(value = "nID",            required = false)       Long    placeId,
-            @RequestParam(value = "sID_UA",         required = false)       String  uaId,
-            @RequestParam(value = "nID_PlaceType",  required = false)       Long    typeId,
-            @RequestParam(value = "bArea",          defaultValue = "false") Boolean area,
-            @RequestParam(value = "bRoot",          defaultValue = "false") Boolean root,
-            @RequestParam(value = "nDeep",          defaultValue = "1")     Integer deep
+            @RequestParam(value = "nID",            required = false)   Long    placeId,
+            @RequestParam(value = "sID_UA",         required = false)   String  uaId,
+            @RequestParam(value = "nID_PlaceType",  required = false)   Long    typeId,
+            @RequestParam(value = "bArea",          required = false)   Boolean area,
+            @RequestParam(value = "bRoot",          required = false)   Boolean root,
+            @RequestParam(value = "nDeep",          defaultValue = "1") Long    deep
     ) {
-        return placeDao.getPlaces(placeId, uaId, typeId, area, root, deep);
+        PlaceHierarchyRecord rootRecord = new PlaceHierarchyRecord();
+        rootRecord.setPlaceId(placeId);
+        rootRecord.setTypeId(typeId);
+        rootRecord.setUaID(uaId);
+        rootRecord.setArea(area);
+        rootRecord.setRoot(root);
+        rootRecord.setDeep(deep);
+        return placeDao.getTreeDown(rootRecord);
     }
 
 
     @RequestMapping(value   = "/getPlace",
                     method  = RequestMethod.GET, headers = { JSON_TYPE })
-    public  @ResponseBody List<Place> getPlace(
+    public  @ResponseBody PlaceHierarchyTree getPlace(
             @RequestParam(value = "nID",    required = false)       Long    placeId,
             @RequestParam(value = "sID_UA", required = false)       String  uaId,
             @RequestParam(value = "bTree ", defaultValue = "false") Boolean tree
     ) {
-        return placeDao.findBy(placeId, uaId, tree);
+        return placeDao.getTreeUp(placeId, uaId, tree);
     }
 
 
