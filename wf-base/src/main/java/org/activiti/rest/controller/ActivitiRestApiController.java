@@ -881,6 +881,13 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         //String sID_Process = taskService.get .getEngineServices().getFormService()
         //            .getTaskFormData(task_ID).getTask().getProcessInstanceId();//task.getId()
+        log.info("task_ID=" + task_ID);
+        log.info("runtimeService!=null:" + (runtimeService!=null));
+        log.info("repositoryService!=null:" + (repositoryService!=null));
+        log.info("taskService!=null:" + (taskService!=null));
+        log.info("historyService!=null:" + (historyService!=null));
+        log.info("formService!=null:" + (formService!=null));
+        //String sID_Process = formService.getTaskFormData(task_ID).getTask().getProcessInstanceId();//task.getId()
         String sID_Process = formService.getTaskFormData(task_ID).getTask().getProcessInstanceId();//task.getId()
         log.info("sID_Process=" + sID_Process);
         
