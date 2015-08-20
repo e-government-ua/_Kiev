@@ -40,11 +40,15 @@ FROM (
          ap."nID_Place_Parent" AS parent_id,
          ap."nID_Place_Area"   AS area_id,
          ap."nID_Place_Root"   AS root_id,
+         t."bArea"             AS area,
+         t."bRoot"             AS root,
          ap.level
        FROM
          all_places ap
          , "Place" p
+         , "PlaceType" t
        WHERE
          ap."nID_Place" = p."nID"
+         and t."nID" = p."nID_PlaceType"
        ORDER BY ap.level
      ) the_places

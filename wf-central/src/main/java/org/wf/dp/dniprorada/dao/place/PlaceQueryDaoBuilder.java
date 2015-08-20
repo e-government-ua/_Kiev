@@ -30,7 +30,7 @@ public class PlaceQueryDaoBuilder {
 
     @Cacheable("ext-file-getTreeDown")
     public String getTreeDown(PlaceHierarchyRecord root) {
-        String sql = sqlStorage.get( root.getPlaceId() > 0
+        String sql = load( root.getPlaceId() > 0
             ? "get_PlaceTree_down_by_id.sql" : "get_PlaceTree_down_by_UA-id.sql");
 
         if (specified(root.getTypeId()) ||
@@ -72,28 +72,30 @@ public class PlaceQueryDaoBuilder {
 
 
     @Cacheable("ext-file-getTreeUp")
-    public String getTreeUp(Long placeId, String uaId, Boolean tree) {
+    public String getTreeUp(Long placeId, String uaId, boolean tree) {
+        if (specified(placeId) && tree)
+            return load("get_PlaceTree_up_by_id.sql");
+
         String sqlFile = "get_PlaceTree_by_id.sql";
 
         if (specified(placeId) && isNotBlank(uaId))
-            return sqlFile;
+            return load(sqlFile);
 
-        if (specified(placeId) && specified(tree)) {
-            sqlFile = "get_PlaceTree_up_by_id.sql";
-        }
+        if (specified(placeId))
+            return load(sqlFile);
 
-        if (isNotBlank(uaId)) {
+        if (isNotBlank(uaId))
             sqlFile = "get_PlaceTree_by_UA-id.sql";
-        }
 
-        if (isNotBlank(uaId) && specified(tree)) {
+        if (isNotBlank(uaId) && tree)
             sqlFile = "get_PlaceTree_up_by_UA-id.sql";
-        }
 
+        return load(sqlFile);
+    }
+
+    private String load(String sqlFile) {
         String sqlQuery = sqlStorage.get(sqlFile);
-
-        LOG.debug("SQL query {}", sqlQuery);
-
+        LOG.debug("SQL file {} contains '{}' query.", sqlFile, sqlQuery);
         return sqlQuery;
     }
 }

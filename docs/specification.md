@@ -30,6 +30,7 @@
 <a href="#28_setSheduleFlowExclude"> 28. Добавление/изменение расписания исключения </a><br/>
 <a href="#29_removeSheduleFlowExclude"> 29. Удаление расписания исключений </a><br/>
 <a href="#30_workWithPatternFiles"> 30. Работа с файлами-шаблонами </a><br/>
+<a href="#31_getFlowSlotTickets"> 31. Получение активных тикетов</a><br/>
 
 ### iGov.ua APIs
 
@@ -1475,11 +1476,11 @@ https://test.igov.org.ua/wf-central/service/services/setServicesTree
 
 **HTTP Context: https://server:port/wf-region/service/rest/download_bp_timing?sID_BP_Name=XXX&sDateAt=XXX8&sDateTo=XXX**
 
-* {sID_BP_Name} - ID бизнес процесса
-* {sDateAt} - Дата начала периода для выборки в формате yyyy-MM-dd
-* {sDateTo} - Дата окончания периода для выборки в формате yyyy-MM-dd
-* {nRowsMax} - необязательный параметр. Максимальное значение завершенных задач для возврата. По умолчанию 1000.
-* {nRowStart} - Необязательный параметр. Порядковый номер завершенной задачи в списке для возврата. По умолчанию 0.
+* sID_BP_Name - ID бизнес процесса
+* sDateAt - Дата начала периода для выборки в формате yyyy-MM-dd
+* sDateTo - Дата окончания периода для выборки в формате yyyy-MM-dd
+* nRowsMax - необязательный параметр. Максимальное значение завершенных задач для возврата. По умолчанию 1000.
+* nRowStart - Необязательный параметр. Порядковый номер завершенной задачи в списке для возврата. По умолчанию 0.
 
 Метод возвращает .csv файл со информацией о завершенных задачах в указанном бизнес процессе за период.
 Формат выходного файла
@@ -1960,7 +1961,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?&s
 
 **HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=[userId]
 
-* {sLogin} - ID пользователя
+* sLogin - ID пользователя
 
 Метод возвращает json со списком бизнес процессов, к которым у пользователя есть доступ, в формате 
 [
@@ -1996,7 +1997,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=kermit
 
 **HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=[flowId]
 
-* {flowId} - ID потока
+* flowId - ID потока
 
 Пример:
 ```
@@ -2077,7 +2078,7 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowInclude?
 
 **HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=[flowId]
 
-* {flowId} - ID потока
+* flowId - ID потока
 
 Пример:
 ```
@@ -2180,4 +2181,32 @@ https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=
 
 
 ----------------------
+
+<a name="31_getFlowSlotTickets">
+#### 31. Получение активных тикетов
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=[sLogin]&bEmployeeUnassigned=[true|false]&sDate=[yyyy-MM-dd]
+-- возвращает активные тикеты.
+
+* sLogin - имя пользоватеял для которого необходимо вернуть тикеты
+* bEmployeeUnassigned - опциональный параметр (false по умолчанию). Если true - возвращать тикеты не заассайненые на пользователей
+* sDate - опциональный параметр в формате yyyy-MM-dd. Дата за которую выбирать тикеты. Дата должна быть в диапазоне > startDate < endDate тикета.
+
+Примеры:
+
+https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=kermit
+
+```json
+[{"sDateStart":"2015-08-07T11:00:00","sDateEdit":"2015-07-31T17:12:31","sTaskDate":"2015-07-31T17:13:15","sDateFinish":"2015-08-07T11:00:00","nID_FlowSlot":"20172","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Перевірка наявності обтяжень","nID":"20344"},{"sDateStart":"2015-08-07T15:00:00","sDateEdit":"2015-07-31T15:45:34","sTaskDate":"2015-07-31T15:45:40","sDateFinish":"2015-08-07T15:00:00","nID_FlowSlot":"20265","sNameBP":"Днепропетровск - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Перевірка наявності обтяжень","nID":"20340"}]
+```
+
+https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=kermit&bEmployeeUnassigned=true
+```json
+[{"sDateStart":"2015-08-08T12:00:00","sDateEdit":"2015-08-07T10:27:26","sTaskDate":"2015-08-07T10:39:05","sDateFinish":"2015-08-08T12:00:00","nID_FlowSlot":"20155","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Надання послуги: Огляд авто","nID":"20469"},{"sDateStart":"2015-08-03T08:15:00","sDateEdit":"2015-07-31T21:00:56","sTaskDate":"2015-07-31T21:01:19","sDateFinish":"2015-08-03T08:30:00","nID_FlowSlot":"20023","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Перевірка наявності обтяжень","nID":"20357"}
+```
+
 

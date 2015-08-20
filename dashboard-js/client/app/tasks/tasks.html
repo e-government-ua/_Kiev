@@ -7,15 +7,19 @@
     <div class="row">
       <div class="col-xs-5 sidebar">
         <div class="tasks">
-
-          <div class="sort-select" align="right">
-            Сортувати за датою
-            <select ng-model="sort_order" ng-change="sortOrder()">
-              <option value="order_increase" selected>Від найдавніших</option>
-              <option value="order_decrease">Від найновіших</option>
-            </select>
-          </div>
-
+            <div class="task-list-header">
+              <div class="task-list-header-row">
+                <input ng-model="orderIdInput" class="task-list-header-cell task-list-header-search"
+                       placeholder="Введіть № звернення для пошуку" size="35" ng-keyup="($event.keyCode === 13)?searchTaskByOrder():0" />
+                <div class="right-aligned task-list-header-cell">
+                  Сортувати за датою
+                  <select ng-model="sort_order" ng-change="sortOrder()" >
+                    <option value="order_increase" selected>Від найдавніших</option>
+                    <option value="order_decrease">Від найновіших</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           <div class="list-group">
             <a class="list-group-item task {{sSelectedTask}}_{{task.id}} {{ sTaskClass(task.taskDefinitionKey) }}"
                href=""
@@ -23,8 +27,9 @@
                tooltip="{{task.description}}"
                ng-click="selectTask(task)"
                ng-class="{'active': isTaskSelected(task)}">
-              #{{task.id}} ({{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }}) {{ getProcessName(task.processDefinitionId)
-              }} | {{ task.name }}
+              ({{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }})
+              {{ getProcessName(task.processDefinitionId) }} | {{ task.name }}
+               &nbsp; (#{{task.id}})
             </a>
 
             <!--li ng-repeat="service in subcategory.aService | orderBy: '-nSub' | limitTo: limit as services"-->

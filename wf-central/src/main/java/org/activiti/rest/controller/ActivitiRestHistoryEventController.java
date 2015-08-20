@@ -20,11 +20,11 @@ import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.dao.DocumentDao;
 import org.wf.dp.dniprorada.dao.HistoryEventDao;
 import org.wf.dp.dniprorada.dao.HistoryEvent_ServiceDao;
-import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.EntityNotFoundException;
 import org.wf.dp.dniprorada.model.HistoryEvent;
 import org.wf.dp.dniprorada.model.HistoryEvent_Service;
-import org.wf.dp.dniprorada.util.AlgorithmLuna;
+import org.wf.dp.dniprorada.util.luna.AlgorithmLuna;
+import org.wf.dp.dniprorada.util.luna.CRCInvalidException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -71,7 +71,7 @@ public class ActivitiRestHistoryEventController {
 					"BUSINESS_ERR", "Record not found", e);
 			newErr.setHttpStatus(HttpStatus.FORBIDDEN);
 			throw newErr;
-		} catch (IllegalArgumentException e) {
+		} catch (CRCInvalidException e) {
 			ActivitiRestException newErr = new ActivitiRestException(
 					"BUSINESS_ERR", e.getMessage(), e);
 			newErr.setHttpStatus(HttpStatus.FORBIDDEN);
@@ -179,7 +179,7 @@ public class ActivitiRestHistoryEventController {
 			throws IOException {
 
 		return historyEventDao.setHistoryEvent(nID_Subject,
-				nID_HistoryEventType, sEventName_Custom, sMessage);
+				  nID_HistoryEventType, sEventName_Custom, sMessage);
 
 	}
 	
@@ -207,6 +207,5 @@ public class ActivitiRestHistoryEventController {
 			log.error("error during creating HistoryEvent", e);
 		}
 	}
-	 //################      ###################
 
 }
