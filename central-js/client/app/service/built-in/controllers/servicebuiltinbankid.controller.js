@@ -53,41 +53,6 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     });
   }*/
 
-  // // з wizard.controller:
-  // var self = this;
-
-  // self.isStep2 = self.isStep2 || false;
-
-  // $scope.service = service;
-  // $scope.regions = regions;
-  // $scope.bAdmin = AdminService.isAdmin();
-
-  // $scope.getStateName = function() {
-  //   return $state.current.name;
-  // };
-
-  // var curState = $scope.getStateName();
-
-  // console.log('Wizard, state name = ', curState);
-
-  // var stateStartupFunction = {
-  //   'index.service.general.city.built-in': function($location, $state, $rootScope, $scope) {
-  //     $scope.$location = $location;
-  //     $scope.$state = $state;
-  //     self.isStep2 = true;
-  //   }
-  // };
-
-  // if (stateStartupFunction[curState]) {
-  //   stateStartupFunction[curState].call(self, $location, $state, $rootScope, $scope);
-  // } else {
-  //   // default startup
-  //   $scope.$location = $location;
-  //   $scope.$state = $state;
-  // }
-
-  // // -->
-
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount;
   $scope.ActivitiForm = ActivitiForm;

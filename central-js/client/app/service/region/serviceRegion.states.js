@@ -5,6 +5,7 @@ angular.module('app').config(function($stateProvider) {
       resolve: {
         regions: function($stateParams, PlacesService, service) {
           return PlacesService.getRegions().then(function(response) {
+            // FIXME
             var regions = response.data;
             var aServiceData = service.aServiceData;
 

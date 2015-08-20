@@ -1,10 +1,12 @@
 /**
  * Place.js - компонент, що допомогає вибирати місце - область та місто 
  * - з controllers/serviceCity.controller.js
- *
+ * FIXME: передбачити можливість вибору тільки міста, якщо його назва є унікальною — 
+ * тобто воно належить тільки одній області, і її можна взнати автоматично.
  */
 angular.module('app')
   .directive('place', function($rootScope, $location, $state, $sce, AdminService, RegionListFactory, LocalityListFactory, PlacesService) {
+
     return {
       restrict: 'E',
       templateUrl: 'app/common/components/form/directives/place/place.html',
@@ -38,44 +40,27 @@ angular.module('app')
           return r;
         };
 
+        /**
+         * Ця функція визначає, чи заповнені всі поля, які необхідно заповнити
+         */
+        $scope.isComplete = function() {
+          // FIXME: передбачити випадки, коли треба вибрати тільки 
+          return $scope.regionIsChosen() && $scope.cityIsChosen();
+        };
+
         $scope.regionIsChosen = function() {
           var bResult = $scope.data && ($scope.data.region ? true : false);
           // console.log('region is chosen: ', bResult);
           return bResult;
         };
 
-        $scope.initPlaceControls = function() {
-          PlacesService.initPlacesByScope(this, $scope, $state, $rootScope, AdminService, $location);
-
-          // не ініціюємо, якщо контроли вже є
-          if ($scope.regionIsChosen() && $scope.cityIsChosen()) {
-            return;
-          }
-
-          $scope.regionList = new RegionListFactory();
-          $scope.localityList = new LocalityListFactory();
-          $scope.regionList.initialize($scope.regions);
-          $scope.resetPlaceData();
-
-          $scope.recallPlaceData();
-
-          console.log('init place controls: ', $scope.data);
-        };
-
-        $scope.initPlaceControls();
-
-        $scope.edit = function() {
+        $scope.onEditPlace = function() {
           $scope.resetPlaceData();
 
           $scope.makeStep('editStep');
 
           $scope.regionList.select(null);
           $scope.localityList.select(null);
-        };
-
-        $scope.onSelectLocalityList = function($item, $model, $label) {
-          $scope.data.city = $item;
-          $scope.localityList.select($item, $model, $label);
         };
 
         $scope.loadRegionList = function(search) {
@@ -93,8 +78,35 @@ angular.module('app')
           console.log('region is chosen: ', $scope.regionIsChosen(), ', city is chosen: ', $scope.cityIsChosen(), ' serviceType:', serviceType);
           PlacesService.setPlace($scope.data);
 
-          // FIXME event must be here
-          $scope.onPlaceChange(serviceType, $scope.data);
+          $scope.$emit('onPlaceChange', {
+            serviceType: serviceType,
+            placeData: $scope.data
+          });
+        };
+
+        $scope.initPlaceControls = function() {
+          PlacesService.initPlacesByScope(this, $scope, $state, $rootScope, AdminService, $location);
+
+          // не ініціюємо, якщо контроли вже є
+          // if ( $scope.isComplete() ) {
+          //   return;
+          // }
+
+          // $scope.regionList = $scope.regionList || new RegionListFactory();
+          // $scope.localityList = $scope.localityList || new LocalityListFactory();
+          $scope.regionList = new RegionListFactory();
+          $scope.localityList = new LocalityListFactory();
+          $scope.regionList.initialize( $scope.regions );
+          $scope.resetPlaceData();
+          $scope.recallPlaceData();
+
+          // Якщо форма вже заповнена - наприклад, після відновлення даних з localStorage,
+          // то відправити сигнал про це, щоб бітьківський контролер про це знав
+          if ($scope.isComplete()) {
+            $scope.processPlaceSelection();
+          }
+
+          console.log('init place controls: ', $scope.data);
         };
 
         $scope.onSelectRegionList = function($item, $model, $label) {
@@ -155,6 +167,8 @@ angular.module('app')
           });
           return serviceType;
         };
+
+        $scope.initPlaceControls();
 
         // TODO
         // ngModel.$render = function() {

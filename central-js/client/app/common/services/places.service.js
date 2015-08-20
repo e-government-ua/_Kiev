@@ -8,16 +8,14 @@ angular.module('app').service('PlacesService', function($http) {
   this.initPlacesByScope = function(placeCtrl, $scope, $state, $rootScope, AdminService, $location) {
 
     var o = this.iPlaceControllerOptions;
-    var self = o.self;
-    var service = o.service;
-    var regions = o.regions;
+    var viewCtrl = o.self;
 
     // з wizard.controller:
-    self.isStep2 = self.isStep2 || false;
+    viewCtrl.isStep2 = viewCtrl.isStep2 || false;
 
-    $scope.service = service;
-    $scope.regions = regions;
+    $scope.service = o.service;
     $scope.bAdmin = AdminService.isAdmin();
+    $scope.regions = o.regions;
 
     $scope.getStateName = function() {
       return $state.current.name;
@@ -31,22 +29,20 @@ angular.module('app').service('PlacesService', function($http) {
       'index.service.general.city.built-in': function($location, $state, $rootScope, $scope) {
         $scope.$location = $location;
         $scope.$state = $state;
-        self.isStep2 = true;
+        viewCtrl.isStep2 = true;
       }
     };
 
     if (stateStartupFunction[curState]) {
-      stateStartupFunction[curState].call(self, $location, $state, $rootScope, $scope);
+      stateStartupFunction[curState].call(viewCtrl, $location, $state, $rootScope, $scope);
     } else {
       // default startup
       $scope.$location = $location;
       $scope.$state = $state;
     }
 
-    // -->
-
     $scope.step1 = function() {
-      self.isStep2 = false;
+      viewCtrl.isStep2 = false;
       // FIXME
       // if (byState('index.service.general.city')) {
       //   return $state.go('index.service.general.city', {
@@ -59,19 +55,22 @@ angular.module('app').service('PlacesService', function($http) {
       var aServiceData = $scope.service.aServiceData;
 
       // console.log('step 2:');
-      self.isStep2 = true;
+      viewCtrl.isStep2 = true;
     };
 
     $scope.makeStep = function(stepId) {
       if (stepId) {
         if (stepId === 'editStep') {
-          self.isStep2 = false;
+          viewCtrl.isStep2 = false;
         }
       }
     };
 
-    $scope.onPlaceChange = function(serviceType, placeData) {
-      var map = {
+    /**
+     * params: serviceType, placeData
+     */
+    $scope.$on('onPlaceChange', function(evt, params) {
+      var stateByServiceType = {
         // Сервіс за посиланням
         1: 'index.service.general.city.link',
         // Вбудований сервіс
@@ -80,27 +79,28 @@ angular.module('app').service('PlacesService', function($http) {
         0: 'index.service.general.city.error'
       };
 
-      var state = map[serviceType.nID];
-      console.log('onPlaceChange:', state);
+      var state = stateByServiceType[params.serviceType.nID];
 
-      if (state && placeData.city) {
-        self.isStep2 = true;
+      console.log('on Place сhange:', state);
+
+      if (state && params.placeData.city) {
+        viewCtrl.isStep2 = true;
         // console.log('go state:', state);
         $state.go(state, {
           id: $scope.service.nID
         }, {
           location: false
         }).then(function() {
-          self.isStep2 = true;
+          viewCtrl.isStep2 = true;
         });
       }
-    };
+    });
 
     $scope.ngIfStep2 = function() {
-      return self.isStep2;
+      return viewCtrl.isStep2;
     };
 
-  };
+  }; // initPlacesByScope
 
   // FIXME зберігати placeData у localStorage і відновлювати для юзера
   this.placeData = null;
@@ -119,6 +119,30 @@ angular.module('app').service('PlacesService', function($http) {
     this.placeData = JSON.parse(localStorage.getItem('igPlaceData')) || this.placeData;
     console.log('get place data:', this.placeData);
     return this.placeData;
+  };
+
+  this.getRegionsForService = function(service) {
+    return $http.get('./api/places/regions').then(function(response) {
+      var regions = response.data;
+      var aServiceData = service.aServiceData;
+
+      angular.forEach(regions, function(region) {
+        var color = 'red';
+        angular.forEach(aServiceData, function(oServiceData) {
+          if (oServiceData.hasOwnProperty('nID_City') === false) {
+            return;
+          }
+          var oCity = oServiceData.nID_City;
+          var oRegion = oCity.nID_Region;
+          if (oRegion.nID === region.nID) {
+            color = 'green';
+          }
+        });
+        region.color = color;
+      });
+
+      return regions;
+    });
   };
 
   this.getRegions = function() {

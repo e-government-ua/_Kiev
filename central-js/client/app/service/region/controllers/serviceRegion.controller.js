@@ -1,4 +1,5 @@
 angular.module('app').controller('ServiceRegionController', function($state, $rootScope, $scope, $sce, RegionListFactory, PlacesService, ServiceService, service, regions, AdminService) {
+  // FIXME
   $scope.service = service;
   $scope.regions = regions;
 

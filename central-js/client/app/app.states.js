@@ -39,28 +39,8 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
         service: function ($stateParams, ServiceService) {
           return ServiceService.get($stateParams.id);
         },
-        regions: function ($stateParams, PlacesService, service) {
-          return PlacesService.getRegions().then(function (response) {
-            var regions = response.data;
-            var aServiceData = service.aServiceData;
-
-            angular.forEach(regions, function (region) {
-              var color = 'red';
-              angular.forEach(aServiceData, function (oServiceData) {
-                if (oServiceData.hasOwnProperty('nID_City') == false) {
-                  return;
-                }
-                var oCity = oServiceData.nID_City;
-                var oRegion = oCity.nID_Region;
-                if (oRegion.nID == region.nID) {
-                  color = 'green';
-                }
-              });
-              region.color = color;
-            });
-
-            return regions;
-          });
+        regions: function ( PlacesService, service ) {
+          return PlacesService.getRegionsForService ( service );
         }
       },
       views: {
@@ -219,7 +199,7 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
       views: {
         'main@': {
           templateUrl: 'app/service/index.html',
-          controller: 'BuiltinCityController'
+          controller: 'WizardController'
         },
         'content@index.service.general.city.built-in.bankid': {
           templateUrl: 'app/service/city/built-in/bankid.html',
