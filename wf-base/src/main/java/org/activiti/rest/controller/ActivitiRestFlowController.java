@@ -92,7 +92,7 @@ public class ActivitiRestFlowController {
    @ResponseBody
    ResponseEntity saveFlowSlotTicket(@RequestParam(value = "nID_FlowSlot") Long nID_FlowSlot,
                                @RequestParam(value = "nID_Subject") Long nID_Subject,
-                               @RequestParam(value = "nID_Task_Activiti", required = false) Long nID_Task_Activiti) {
+                               @RequestParam(value = "nID_Task_Activiti", required = false) Long nID_Task_Activiti) throws Exception {
 
       FlowSlotTicket oFlowSlotTicket = flowService.saveFlowSlotTicket(nID_FlowSlot, nID_Subject, nID_Task_Activiti);
 

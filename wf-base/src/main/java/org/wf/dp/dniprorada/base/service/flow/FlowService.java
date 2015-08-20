@@ -118,13 +118,26 @@ public class FlowService implements ApplicationContextAware {
       return res;
    }
 
-   public FlowSlotTicket saveFlowSlotTicket(Long nID_FlowSlot, Long nID_Subject, Long nID_Task_Activiti) {
+   public FlowSlotTicket saveFlowSlotTicket(Long nID_FlowSlot, Long nID_Subject, Long nID_Task_Activiti) throws Exception {
 
       FlowSlotTicket oFlowSlotTicket = oFlowSlotTicketDao.findFlowSlotTicket(nID_FlowSlot);
       if (oFlowSlotTicket == null) {
          oFlowSlotTicket = new FlowSlotTicket();
+      }else{
+        if(oFlowSlotTicket.getnID_Task_Activiti()!=null){
+                  //oFlowSlotTicket.getnID_Subject(nID_Subject);
+            String sError="FlowSlotTicket with nID_FlowSlot="+nID_FlowSlot+" is busy by getnID_Task_Activiti()="+oFlowSlotTicket.getnID_Task_Activiti();
+            log.error(sError);
+            throw new Exception(sError);
+        }else if(FlowSlotVO.bBusy(oFlowSlotTicket)){//oFlowSlotTicket.getsDateEdit(). <oFlowSlotTicket.getsDateEdit()
+            String sError="FlowSlotTicket with nID_FlowSlot="+nID_FlowSlot+" is TEMPORARY busy from getsDateEdit()="+oFlowSlotTicket.getsDateEdit();
+            log.error(sError);
+            throw new Exception(sError);
+        }
       }
-
+      
+      //oFlowSlotTicket
+              
       oFlowSlotTicket.setnID_Subject(nID_Subject);
       oFlowSlotTicket.setnID_Task_Activiti(nID_Task_Activiti);
 
