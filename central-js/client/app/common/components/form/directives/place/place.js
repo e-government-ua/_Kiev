@@ -75,7 +75,7 @@ angular.module('app')
 
         $scope.processPlaceSelection = function() {
           var serviceType = $scope.cityIsChosen() ? $scope.findServiceDataByCity() : $scope.findServiceDataByRegion();
-          console.log('region is chosen: ', $scope.regionIsChosen(), ', city is chosen: ', $scope.cityIsChosen(), ' serviceType:', serviceType);
+          // console.log('region is chosen: ', $scope.regionIsChosen(), ', city is chosen: ', $scope.cityIsChosen(), ' serviceType:', serviceType);
           PlacesService.setPlace($scope.data);
 
           $scope.$emit('onPlaceChange', {
@@ -92,10 +92,8 @@ angular.module('app')
           //   return;
           // }
 
-          // $scope.regionList = $scope.regionList || new RegionListFactory();
-          // $scope.localityList = $scope.localityList || new LocalityListFactory();
-          $scope.regionList = new RegionListFactory();
-          $scope.localityList = new LocalityListFactory();
+          $scope.regionList = $scope.regionList || new RegionListFactory();
+          $scope.localityList = $scope.localityList || new LocalityListFactory();
           $scope.regionList.initialize( $scope.regions );
           $scope.resetPlaceData();
           $scope.recallPlaceData();
@@ -105,8 +103,6 @@ angular.module('app')
           if ($scope.isComplete()) {
             $scope.processPlaceSelection();
           }
-
-          console.log('init place controls: ', $scope.data);
         };
 
         $scope.onSelectRegionList = function($item, $model, $label) {

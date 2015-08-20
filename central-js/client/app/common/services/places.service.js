@@ -23,7 +23,7 @@ angular.module('app').service('PlacesService', function($http) {
 
     var curState = $scope.getStateName();
 
-    console.log('Wizard, state name = ', curState);
+    console.log('Places (wizard), state = ', curState);
 
     var stateStartupFunction = {
       'index.service.general.city.built-in': function($location, $state, $rootScope, $scope) {
@@ -81,18 +81,20 @@ angular.module('app').service('PlacesService', function($http) {
 
       var state = stateByServiceType[params.serviceType.nID];
 
-      console.log('on Place сhange:', state);
+      console.log('on Place сhange:', state, params, ', curState = ', curState );
 
-      if (state && params.placeData.city) {
-        viewCtrl.isStep2 = true;
-        // console.log('go state:', state);
-        $state.go(state, {
-          id: $scope.service.nID
-        }, {
-          location: false
-        }).then(function() {
+      if ( curState === 'index.service.general.city.built-in' || curState === 'index.service.general.city' ) {
+        if (state && params.placeData.city) {
           viewCtrl.isStep2 = true;
-        });
+          // console.log('go state:', state);
+          $state.go(state, {
+            id: $scope.service.nID
+          }, {
+            location: false
+          }).then(function() {
+            viewCtrl.isStep2 = true;
+          });
+        }
       }
     });
 
@@ -112,12 +114,12 @@ angular.module('app').service('PlacesService', function($http) {
   this.setPlace = function(placeData) {
     this.placeData = placeData;
     this.saveLocal(placeData);
-    console.log('set place data:', JSON.stringify(placeData));
+    // console.log('set place data:', JSON.stringify(placeData));
   };
 
   this.getPlace = function() {
     this.placeData = JSON.parse(localStorage.getItem('igPlaceData')) || this.placeData;
-    console.log('get place data:', this.placeData);
+    // console.log('get place data:', this.placeData);
     return this.placeData;
   };
 

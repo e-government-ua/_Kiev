@@ -199,7 +199,7 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
       views: {
         'main@': {
           templateUrl: 'app/service/index.html',
-          controller: 'WizardController'
+          controller: 'WizardController' // 'BuiltinCityController'
         },
         'content@index.service.general.city.built-in.bankid': {
           templateUrl: 'app/service/city/built-in/bankid.html',

@@ -1,6 +1,7 @@
 angular.module('app').controller('WizardController', function(
-  $state, AdminService, $rootScope, $scope, $location, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, service, regions ) {
+  $state, AdminService, $rootScope, $scope, $location, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, service, regions) {
 
+  // Each controller which uses Places Control should tell it:
   PlacesService.setController({
     self: this,
     regions: regions,

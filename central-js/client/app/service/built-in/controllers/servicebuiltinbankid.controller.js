@@ -13,10 +13,20 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   ActivitiForm,
   AdminService,
   uiUploader,
+  PlacesService,
   service,
   regions) {
 
   'use strict';
+
+  // Each controller which uses Places Control should tell it:
+
+  console.log('Hi! From ServiceBuiltInBankIDController ')
+  PlacesService.setController({
+    self: this,
+    regions: regions,
+    service: service
+  });
 
   // FIXME: Удалить это после теста задачи #584
   /*var bankIdFound = false;
