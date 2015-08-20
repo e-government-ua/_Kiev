@@ -1,9 +1,11 @@
 var request = require('request');
 var accountService = require('../bankid/account.service.js');
+var proxy = require('../../components/proxy');
 var _ = require('lodash');
 var FormData = require('form-data');
 var async = require('async');
 var StringDecoder = require('string_decoder').StringDecoder;
+var url = require('url');
 
 module.exports.shareDocument = function (req, res) {
   var params = {
@@ -77,44 +79,27 @@ module.exports.upload = function (req, res) {
   var docType_sName = req.query.documentName;
   var documentFileName = req.query.documentFileName;
 
-  var o = {
-    'url': getUrl('/services/setDocumentFile'),
-    'auth': getAuth(),
-    'qs': {
-      'nID_Subject': nID_Subject,
-      'sID_Subject_Upload': sID_Subject,
-      'sSubjectName_Upload': 'Приватбанк',
-      'sName': docType_sName,
-      'nID_DocumentType': docType_nID
-    }
+  var qs = {
+    'nID_Subject': nID_Subject,
+    'sID_Subject_Upload': sID_Subject,
+    'sSubjectName_Upload': 'Я',
+    'sName': docType_sName,
+    'nID_DocumentType': docType_nID
   };
 
   var fileNameAndExtension = documentFileName.split('.');
-  if(fileNameAndExtension.length > 1){
-    _.merge(o, {sFileExtension: fileNameAndExtension[fileNameAndExtension.length - 1]});
+  if (fileNameAndExtension.length > 1) {
+    _.merge(qs, {sFileExtension: fileNameAndExtension[fileNameAndExtension.length - 1]});
   }
 
-  var form = new FormData();
-  form.append('oFile', req);
-
-  var requestOptionsForUploadContent = _.merge(o, {headers: form.getHeaders()});
-
-
-  var decoder = new StringDecoder('utf8');
-  var result = {};
-  form.pipe(request.post(requestOptionsForUploadContent))
-    .on('response', function (response) {
-      result.statusCode = response.statusCode;
-    }).on('data', function (chunk) {
-      if (result.body) {
-        result.body += decoder.write(chunk);
-      } else {
-        result.body = decoder.write(chunk);
-      }
-    }).on('end', function () {
-      res.send(result);
-      res.end();
+  if(!qs.sFileExtension){
+    res.status(400).send({
+      error: 'cant find file extension'
     });
+    return;
+  }
+
+  proxy.upload(req, res, getUrlWithParameters('/services/setDocumentFile', qs));
 };
 
 /*
@@ -309,6 +294,17 @@ function getOptions() {
 function getUrl(apiURL) {
   var options = getOptions();
   return options.protocol + '://' + options.hostname + options.path + apiURL;
+}
+
+function getUrlWithParameters(apiURL, parameters) {
+  var options = getOptions();
+
+  return url.format({
+    protocol: options.protocol,
+    hostname: options.hostname,
+    pathname: options.path + apiURL,
+    query: parameters
+  });
 }
 
 function getAuth() {
