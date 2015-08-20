@@ -878,11 +878,15 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         String task_ID = String.valueOf(nID_Protected / 10);
         
-        String sID_Process = execution.getEngineServices()
-                    .getFormService()
-                    .getTaskFormData(task_ID).getTask().getProcessInstanceId();//task.getId()
 
-        //List<Task> tasks = taskService.createTaskQuery().taskId(task_ID).list();
+        //String sID_Process = taskService.get .getEngineServices().getFormService()
+        //            .getTaskFormData(task_ID).getTask().getProcessInstanceId();//task.getId()
+        String sID_Process = formService.getTaskFormData(task_ID).getTask().getProcessInstanceId();//task.getId()
+        log.info("sID_Process=" + sID_Process);
+        
+        //-List<Task> tasks = taskService.createTaskQuery().taskId(task_ID).list();
+        //List<Task> tasks = formService.createNativeTaskQuery().taskId(task_ID).list();
+        
         
         /*
         HistoricTaskInstance historicTaskInstance = historyService.createHistoricTaskInstanceQuery().taskId(
@@ -897,7 +901,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         List<Task> tasks = taskService.createTaskQuery().processInstanceId(sID_Process).list();
         
         
-        
+        if(tasks!=null){
+            log.info("tasks.size()="+tasks.size());
+        }
         if(tasks==null || tasks.size()==0){
             log.error(String.format("Task with id='%s' not found", task_ID));
             throw new RecordNotFoundException();
