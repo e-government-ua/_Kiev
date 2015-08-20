@@ -503,7 +503,8 @@ public abstract class AbstractModelTask {
                     
                     //sValue={"nID_FlowSlotTicket":20756,"sDate":"2015-08-22 12:00:00.00"}
                     Map<String, Object> m = new Gson().fromJson(sValue, HashMap.class);
-                    String snID_FlowSlotTicket = (String) m.get("nID_FlowSlotTicket");
+                    //String snID_FlowSlotTicket = (String) m.get("nID_FlowSlotTicket");
+                    String snID_FlowSlotTicket = m.get("nID_FlowSlotTicket")+"";
                     LOG.info("snID_FlowSlotTicket=" + snID_FlowSlotTicket);
                     nID_FlowSlotTicket = Long.valueOf(snID_FlowSlotTicket);
                     LOG.info("nID_FlowSlotTicket=" + nID_FlowSlotTicket);
