@@ -530,8 +530,8 @@ public abstract class AbstractModelTask {
                             String sError = "FlowSlotTicket with id=" + nID_FlowSlotTicket + " is not found!";
                             LOG.error(sError);
                             throw new Exception(sError);
-                        }else if (oFlowSlotTicket.getoFlowSlot().getnID_Task_Activiti()!=null) {
-                            String sError = "FlowSlotTicket with id=" + nID_FlowSlotTicket + " has assigned getnID_Task_Activiti()=" + oFlowSlotTicket.getoFlowSlot().getnID_Task_Activiti();
+                        }else if (oFlowSlotTicket.getnID_Task_Activiti()!=null) {
+                            String sError = "FlowSlotTicket with id=" + nID_FlowSlotTicket + " has assigned getnID_Task_Activiti()=" + oFlowSlotTicket.getnID_Task_Activiti();
                             LOG.error(sError);
                             throw new Exception(sError);
                         }else{
