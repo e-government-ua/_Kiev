@@ -924,22 +924,22 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         
         List<String> res = new ArrayList<>();
         //List<Task> tasks = aTask;
-        if(aTask!=null && aTask.size()){
+        if(aTask!=null){// && aTask.size()>0
             /*if(aTask!=null){
                 log.info("aTask.size()="+aTask.size());
             }*/
-            if(aTask==null || aTask.size()==0){
+            if(aTask.size()==0){//aTask==null || 
                 log.error(String.format("Task with id='%s' not found", task_ID));
                 throw new RecordNotFoundException();
             }
             for (Task task : aTask) {
                 res.add(task.getId());
             }
-        }else if(aTaskHistory!=null && aTaskHistory.size()){
+        }else if(aTaskHistory!=null){// && aTaskHistory.size()>0
             /*if(aTaskHistory!=null){
                 log.info("aTask.size()="+aTask.size());
             }*/
-            if(aTaskHistory==null || aTask.size()==0){
+            if(aTaskHistory.size()==0){//aTaskHistory==null || 
                 log.error(String.format("Task with id='%s' not found", task_ID));
                 throw new RecordNotFoundException();
             }
