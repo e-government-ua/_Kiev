@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="ter" name="Дніпропетровська-ЦНАП. Витяг з технічної документації про нормативну грошову оцінку земельної ділянки" isExecutable="true" activiti:candidateStarterGroups="dnepr_cnap_vityg">
+  <process id="dnepr-vityg-zem" name="Дніпропетровська-ЦНАП. Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки" isExecutable="true" activiti:candidateStarterGroups="dnepr_cnap_vityg">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="Nazvakompani(avt)" name="Назва компанії" type="string"></activiti:formProperty>
@@ -26,7 +26,7 @@
         <activiti:formProperty id="8" name="запит від нотаріуса - у разі оформлення спадщини" type="file" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask1" name="Проверка ЦНАП документов">
+    <userTask id="usertask1" name="Проверка ЦНАП документов" activiti:candidateGroups="dnepr_cnap_vityg">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Nazvakompani" name="Назва компанії" type="string"></activiti:formProperty>
@@ -66,8 +66,8 @@
     <serviceTask id="servicetask1" name="Загрузка файлов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow15" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_ter">
-    <bpmndi:BPMNPlane bpmnElement="ter" id="BPMNPlane_ter">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr-vityg-zem">
+    <bpmndi:BPMNPlane bpmnElement="dnepr-vityg-zem" id="BPMNPlane_dnepr-vityg-zem">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="34.0" y="107.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
