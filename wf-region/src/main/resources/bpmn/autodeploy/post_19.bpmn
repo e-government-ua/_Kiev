@@ -27,13 +27,13 @@
           <activiti:value id="obr1" name="первинне"></activiti:value>
           <activiti:value id="obr2" name="вторинне"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string" required="true">
+        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kuda dengi" name="Прошу в разі призначення допомоги кошти готівкою перераховувати" type="label" required="true"></activiti:formProperty>
-        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long" required="true">
-        <activiti:formProperty id="bankschet" name="на рахунок у банку №" type="long" required="true">
-        <activiti:formProperty id="mfo" name="МФО" type="long" required="true">
-        <activiti:formProperty id="okpo" name="код" type="long" required="true">
-        <activiti:formProperty id="bankchoose" name="банк" type="string" required="true">
+        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankschet" name="на рахунок у банку №" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="mfo" name="МФО" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="okpo" name="код" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankchoose" name="банк" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="scpasp" name="Копія паспорту; завантажте копію паспорту" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="sost" name="Довідка про склад сім'ї; завантажте довідку про склад сім'ї" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="zeml" name="Довідка про наявність та розмір земельної ділянки (паю); завантажте довідку про наявність та розмір земельної ділянки (паю)" type="file" required="true"></activiti:formProperty>
@@ -74,13 +74,13 @@
           <activiti:value id="obr1" name="первинне"></activiti:value>
           <activiti:value id="obr2" name="вторинне"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string" required="true" writable="false">
+        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string" required="true" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kuda dengi" name="Прошу в разі призначення допомоги кошти готівкою перераховувати" type="label" required="true"></activiti:formProperty>
-        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long" required="true">
-        <activiti:formProperty id="bankschet" name="на рахунок у банку №" type="long" required="true" writable="false">
-        <activiti:formProperty id="mfo" name="МФО" type="long" required="true" writable="false">
-        <activiti:formProperty id="okpo" name="код" type="long" required="true" writable="false">
-        <activiti:formProperty id="bankchoose" name="банк" type="string" required="true" writable="false">
+        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankschet" name="на рахунок у банку №" type="long" required="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="mfo" name="МФО" type="long" required="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="okpo" name="код" type="long" required="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankchoose" name="банк" type="string" required="true" writable="false"></activiti:formProperty>
         <activiti:formProperty id="scpasp" name="Копія паспорту; завантажте копію паспорту" type="file" required="true" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sost" name="Довідка про склад сім'ї; завантажте довідку про склад сім'ї" type="file" required="true" writable="false" ></activiti:formProperty>
         <activiti:formProperty id="zeml" name="Довідка про наявність та розмір земельної ділянки (паю); завантажте довідку про наявність та розмір земельної ділянки (паю)" type="file" required="true" writable="false"></activiti:formProperty>
