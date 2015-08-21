@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="ter" name="Витяг з технічної документації про нормативну грошову оцінку земельної ділянки" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="Nazvakompani(avt)" name="Назва компанії" type="string"></activiti:formProperty>
+        <activiti:formProperty id="Nazvakompani" name="Назва компанії" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="string"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Ваша адреса" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="doviren" name="Довіренність №, дата" type="string"></activiti:formProperty>
+        <activiti:formProperty id="adressdilaynku" name="Адреса розташування ділянки" type="string"></activiti:formProperty>
+        <activiti:formProperty id="Cildilaynku" name="Цільове призначення ділянки" type="string"></activiti:formProperty>
+        <activiti:formProperty id="1" name="Копія паспорту; завантажте копію паспорту" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="2" name="Копія ідентифікаційного номера заявника" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="3" name="копія документа, який підтверджує повноваження діяти від імені заявника (у разі подання - заяви уповноваженою заявником особою);" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="4" name="копія паспорта та ідентифікаційного номера уповноваженої особи (у разі подання заяви уповноваженою заявником особою);" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="5" name="копія документа, що підтверджує право на земельну ділянку (за наявності) або- копія рішення (наказу, розпорядження) про затвердження відповідної документації із землеустрою, що є підставою для виникнення права на земельну ділянку)" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="6" name="- копія кадастрового плану" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="7" name="копія збірного кадастрового плану або схеми розташування земельної ділянки (викопіювання) з документації із землеустрою (окрім земельних ділянок, які знаходяться у межах міста)" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="8" name="запит від нотаріуса - у разі оформлення спадщини" type="file" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="usertask1" name="Проверка ЦНАП документов">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Nazvakompani" name="Назва компанії" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="string"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Ваша адреса" type="string"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail" type="string"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38"></activiti:formProperty>
+        <activiti:formProperty id="doviren" name="Довіренність №, дата" type="string"></activiti:formProperty>
+        <activiti:formProperty id="adressdilaynku" name="Адреса розташування ділянки" type="string"></activiti:formProperty>
+        <activiti:formProperty id="Cildilaynku" name="Цільове призначення ділянки" type="string"></activiti:formProperty>
+        <activiti:formProperty id="1" name="Копія паспорту; завантажте копію паспорту" type="file"></activiti:formProperty>
+        <activiti:formProperty id="2" name="Копія ідентифікаційного номера заявника" type="file"></activiti:formProperty>
+        <activiti:formProperty id="3" name="копія документа, який підтверджує повноваження діяти від імені заявника (у разі подання - заяви уповноваженою заявником особою);" type="file"></activiti:formProperty>
+        <activiti:formProperty id="4" name="копія паспорта та ідентифікаційного номера уповноваженої особи (у разі подання заяви уповноваженою заявником особою);" type="file"></activiti:formProperty>
+        <activiti:formProperty id="5" name="копія документа, що підтверджує право на земельну ділянку (за наявності) або- копія рішення (наказу, розпорядження) про затвердження відповідної документації із землеустрою, що є підставою для виникнення права на земельну ділянку)" type="file"></activiti:formProperty>
+        <activiti:formProperty id="6" name="- копія кадастрового плану" type="file"></activiti:formProperty>
+        <activiti:formProperty id="7" name="копія збірного кадастрового плану або схеми розташування земельної ділянки (викопіювання) з документації із землеустрою (окрім земельних ділянок, які знаходяться у межах міста)" type="file"></activiti:formProperty>
+        <activiti:formProperty id="8" name="запит від нотаріуса - у разі оформлення спадщини" type="file"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow4" sourceRef="usertask5" targetRef="usertask6"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow5" sourceRef="usertask6" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <userTask id="usertask5" name="Письмо клиенту с подтверждением верности присланных данных. Ожидайте пожалуйста документ в течении х дней."></userTask>
+    <userTask id="usertask6" name="Присланный на почту документ и возможность забрать оригинал в ЦНАП имея с собой документы"></userTask>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow11" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="exclusivegateway1" targetRef="usertask5"></sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="exclusivegateway1" targetRef="usertask7"></sequenceFlow>
+    <sequenceFlow id="flow14" sourceRef="usertask7" targetRef="endevent1"></sequenceFlow>
+    <userTask id="usertask7" name="Отказ с указанием причины"></userTask>
+    <serviceTask id="servicetask1" name="Загрузка файлов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <sequenceFlow id="flow15" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_ter">
+    <bpmndi:BPMNPlane bpmnElement="ter" id="BPMNPlane_ter">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="34.0" y="107.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="280.0" y="97.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="695.0" y="207.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="515.0" y="98.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask6" id="BPMNShape_usertask6">
+        <omgdc:Bounds height="55.0" width="105.0" x="660.0" y="98.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="430.0" y="105.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask7" id="BPMNShape_usertask7">
+        <omgdc:Bounds height="55.0" width="105.0" x="515.0" y="197.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="104.0" y="98.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="620.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="125.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="712.0" y="153.0"></omgdi:waypoint>
+        <omgdi:waypoint x="712.0" y="207.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="69.0" y="124.0"></omgdi:waypoint>
+        <omgdi:waypoint x="104.0" y="125.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="385.0" y="124.0"></omgdi:waypoint>
+        <omgdi:waypoint x="430.0" y="125.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="470.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="515.0" y="125.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="450.0" y="145.0"></omgdi:waypoint>
+        <omgdi:waypoint x="450.0" y="224.0"></omgdi:waypoint>
+        <omgdi:waypoint x="515.0" y="224.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="620.0" y="224.0"></omgdi:waypoint>
+        <omgdi:waypoint x="695.0" y="224.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="209.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="280.0" y="124.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
