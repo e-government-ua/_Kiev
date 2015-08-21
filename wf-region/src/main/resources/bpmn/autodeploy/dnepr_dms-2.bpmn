@@ -16,7 +16,7 @@
         <activiti:formProperty id="milBase" name="Найменування військомату" type="string"></activiti:formProperty>
         <activiti:formProperty id="milRank" name="Військове звання" type="string"></activiti:formProperty>
         <activiti:formProperty id="milSpec" name="Війсково-облікова спеціальність" type="string"></activiti:formProperty>
-        <activiti:formProperty id="eQueue" name="Електронна черга" type="queueData" required="true"></activiti:formProperty>
+        <activiti:formProperty id="eQueue" name="Електронна черга" type="queueData"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warning" name=" " type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
