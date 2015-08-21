@@ -1,7 +1,12 @@
 angular.module('app')
   .service('PlacesService', function($http) {
 
+    var self = this;
+
     var sequencer = {};
+
+    // Зберігаємо savedPlaceData у localStorage і потім відновлюємо
+    var savedPlaceData = null;
 
     var statesMap = {
       'index.service.general.city.built-in': {
@@ -10,13 +15,7 @@ angular.module('app')
           $scope.$state = $state;
           sequencer.isStep2 = true;
         },
-        viewClass: 'state-normal'
-      },
-      'index.service.general.city.built-in.bankid': {
-        startupFunction: function(sequencer, $location, $state, $rootScope, $scope, placeCtrl) {
-          $scope.state = $state;
-        },
-        viewClass: 'state-collapsed'
+        viewClass: 'state-disabled'
       },
       'index.service.general.city.built-in.bankid.submitted': {
         startupFunction: function(sequencer, $location, $state, $rootScope, $scope, placeCtrl) {
@@ -28,18 +27,34 @@ angular.module('app')
     };
 
     // options: self, regions, service
-    this.setController = function(ctrl) {
-      this.iPlaceController = ctrl;
+    self.setController = function(ctrl) {
+      self.iPlaceController = ctrl;
     };
 
-    this.getClassByState = function($state) {
+    self.getClassByState = function($state) {
       return statesMap[$state.current.name] && statesMap[$state.current.name].viewClass || '';
     };
 
-    this.initPlacesByScopeAndState = function(placeCtrl, $scope, $state, $rootScope, AdminService, $location, $sce) {
+    self.saveLocal = function(oSavedPlaceData) {
+      localStorage.setItem('igSavedPlaceData', JSON.stringify(oSavedPlaceData));
+    };
+
+    self.setPlace = function(oSavedPlaceData) {
+      savedPlaceData = oSavedPlaceData;
+      self.saveLocal(savedPlaceData);
+      // console.log('set place data:', JSON.stringify(savedPlaceData));
+    };
+
+    self.getPlace = function() {
+      savedPlaceData = JSON.parse(localStorage.getItem('igSavedPlaceData')) || savedPlaceData;
+      // console.log('get place data:', savedPlaceData);
+      return savedPlaceData;
+    };
+
+    self.initPlacesByScopeAndState = function(placeCtrl, $scope, $state, $rootScope, AdminService, $location, $sce) {
 
       // wizard controller
-      var ctrl = this.iPlaceController;
+      var ctrl = self.iPlaceController;
       sequencer = ctrl.self;
       sequencer.isStep2 = sequencer.isStep2 || false;
 
@@ -51,17 +66,36 @@ angular.module('app')
         return $state.current.name;
       };
 
+      $scope.getRegionId = function() {
+        var place = self.getPlace();
+        var region = place ? place.region || null : null;
+        return region ? region.nID : 0;
+      };
+
+      $scope.getCityId = function() {
+        var place = self.getPlace();
+        var city = place ? place.city || null : null;
+        return city ? city.nID : 0;
+      };
+
+      console.log('state href: ', $state.href('index.service.general.city.built-in.bankid', {
+        'id': ctrl.service.nID,
+        'region': $scope.getRegionId(),
+        'city': $scope.getCityId()
+      }));
+
       var curState = $scope.getStateName();
 
       console.log('Places (wizard), state = ', curState);
 
-      if (statesMap[curState] && typeof statesMap[curState].startupFunction === 'function') {
+      if (statesMap[curState] && statesMap[curState].startupFunction) {
         statesMap[curState].startupFunction.call(sequencer, $location, $state, $rootScope, $scope, placeCtrl);
       } else {
         // default startup
         $scope.$location = $location;
-        $scope.$state = $state;
       }
+
+      $scope.$state = $state;
 
       $scope.getHtml = function(html) {
         return $sce.trustAsHtml(html);
@@ -127,30 +161,10 @@ angular.module('app')
       $scope.ngIfStep2 = function() {
         return sequencer.isStep2;
       };
-
     };
     // end of init Places By Scope
 
-    // FIXME зберігати placeData у localStorage і відновлювати для юзера
-    this.placeData = null;
-
-    this.saveLocal = function(placeData) {
-      localStorage.setItem('igPlaceData', JSON.stringify(placeData));
-    };
-
-    this.setPlace = function(placeData) {
-      this.placeData = placeData;
-      this.saveLocal(placeData);
-      // console.log('set place data:', JSON.stringify(placeData));
-    };
-
-    this.getPlace = function() {
-      this.placeData = JSON.parse(localStorage.getItem('igPlaceData')) || this.placeData;
-      // console.log('get place data:', this.placeData);
-      return this.placeData;
-    };
-
-    this.getRegionsForService = function(service) {
+    self.getRegionsForService = function(service) {
       return $http.get('./api/places/regions').then(function(response) {
         var regions = response.data;
         var aServiceData = service.aServiceData;
@@ -174,15 +188,15 @@ angular.module('app')
       });
     };
 
-    this.getRegions = function() {
+    self.getRegions = function() {
       return $http.get('./api/places/regions');
     };
 
-    this.getRegion = function(region) {
+    self.getRegion = function(region) {
       return $http.get('./api/places/region/' + region);
     };
 
-    this.getCities = function(region, search) {
+    self.getCities = function(region, search) {
       var data = {
         sFind: search
       };
@@ -192,7 +206,7 @@ angular.module('app')
       });
     };
 
-    this.getCity = function(region, city) {
+    self.getCity = function(region, city) {
       return $http.get('./api/places/region/' + region + '/city/' + city);
     };
   });

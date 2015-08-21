@@ -117,16 +117,6 @@ angular.module('app')
           $scope.processPlaceSelection();
         };
 
-        $scope.getRegionId = function() {
-          var region = $scope.placeData.region;
-          return region ? region.nID : 0;
-        };
-
-        $scope.getCityId = function() {
-          var city = $scope.placeData.city;
-          return city ? city.nID : 0;
-        };
-
         $scope.findServiceDataByRegion = function() {
           var aServiceData = $scope.service.aServiceData;
           var serviceType = {

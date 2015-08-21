@@ -12,7 +12,13 @@
           n-step="2" 
           redirect-uri="{{$state.href('index.service.general.city.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
         </service-auth-block>
+        <!-- 
+        ERROR:
+        http://localhost:9000/://:/auth/bankID?link=://:/service/159/general/city/built-in/region/1/city/1/
+        instead of
+        https://localhost:9000/auth/bankID?link=https://localhost:9000:443/service/159/general/city/built-in/region/1/city/1/
 
+ -->
     </div>
 
 </div>
