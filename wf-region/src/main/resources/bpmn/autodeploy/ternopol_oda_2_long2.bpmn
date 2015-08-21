@@ -180,7 +180,9 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-										Послуга "Надання одноразової матеріальної допомоги громадянам" була успішно надана. Ви отримаєте результат обраним Вами способом &lt;br /&gt;
+										Ваше звернення про "Надання одноразової матеріальної допомоги громадянам" успішно зареєстровано.&lt;br /&gt; 
+										
+										Спеціалісти із Державного Органу повинні дати відповідь найближчим часом. 
 										
 										Інформація яку Ви надали: &lt;br /&gt;
 										&lt;br /&gt;
@@ -189,7 +191,7 @@
 Ім'я заявника - 	&lt;i&gt;${bankIdfirstName} &lt;/i&gt; &lt;br /&gt;
 По батькові заявника -    &lt;i&gt;${bankIdmiddleName} &lt;/i&gt; &lt;br /&gt;
 Паспортні дані заявника - &lt;i&gt;${bankIdPassport} &lt;/i&gt; &lt;br /&gt;
-Адреса прописки заявника -  &lt;i&gt;${bankIdAddress} &lt;/i&gt; &lt;br /&gt;
+Адреса реєстрації заявника -  &lt;i&gt;${bankIdAddress} &lt;/i&gt; &lt;br /&gt;
 ІПН заявника / Одержувача допомоги / його законного представника - &lt;i&gt;${bankIdInn} &lt;/i&gt; &lt;br /&gt;
 До якого державного органу Ви звертаєтесь - &lt;i&gt;${organID} &lt;/i&gt; &lt;br /&gt; 
 До якої категорії громадян Ви належите - &lt;i&gt;${citizenType} &lt;/i&gt; &lt;br /&gt;
@@ -198,7 +200,7 @@
 Прізвище підопічного -    &lt;i&gt;${helpeeSurname} &lt;/i&gt; &lt;br /&gt;
 Ім'я підопічного - &lt;i&gt;${helpeeName} &lt;/i&gt; &lt;br /&gt;
 По батькові підопічного -  &lt;i&gt;${helpeeMiddleName} &lt;/i&gt; &lt;br /&gt;
-Адреса прописки підопічного -  &lt;i&gt;${helpeeAddress} &lt;/i&gt; &lt;br /&gt;
+Адреса реєстрації підопічного -  &lt;i&gt;${helpeeAddress} &lt;/i&gt; &lt;br /&gt;
 ІПН підопічного; якщо є -  &lt;i&gt;${helpeeINN} &lt;/i&gt; &lt;br /&gt;
 Допомога потрібна у зв’язку з - &lt;i&gt;${helpReason} &lt;/i&gt; &lt;br /&gt; 	
 Яким спосібом бажаєте отримати допомогу - &lt;i&gt;${transferMethod} &lt;/i&gt; &lt;br /&gt; 
