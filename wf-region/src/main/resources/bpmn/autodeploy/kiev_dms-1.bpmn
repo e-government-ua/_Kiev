@@ -189,7 +189,7 @@
         <activiti:formProperty id="taxAddress" name="Необхідні реквізити для сплати Державного мита" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="meetDay" name="Назначити день зустрічі" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="meetTime" name="Назначити час зустрічі" type="string"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/kiev_dms_print1.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_dms_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_2" name="[pattern/print/kiev_dms_print2.html]" type="invisible" default="${sBody_2}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_3" name="[pattern/print/kiev_dms_print3.html]" type="invisible" default="${sBody_3}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_4" name="[pattern/print/kiev_dms_print4.html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
