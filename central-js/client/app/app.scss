@@ -1153,6 +1153,27 @@ input.ng-touched.ng-invalid-email, input.ng-touched.ng-invalid-tel  {
     display: inline-block;
   }
 }
+
+.state-collapsed {
+  .place-control {
+    display: inline;
+    * {
+      display: inline;
+      color: #ccc;
+    }
+  }
+}
+
+.state-disabled {
+  .place-control {
+    display: inline;
+    * {
+      display: inline;
+      color: #ccc;
+    }
+  }
+}
+
 /* Place Control End */
 
 /* Service and Operator Name */

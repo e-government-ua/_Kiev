@@ -10,32 +10,36 @@ angular.module('app')
     return {
       restrict: 'E',
       templateUrl: 'app/common/components/form/directives/place/place.html',
-      require: 'ngModel',
-      link: function($scope, element, attrs, ngModel) {
+      link: function($scope, element, attrs) {
+
+        $scope.getClass = function() {
+          return PlacesService.getClassByState($state);
+        };
+
+        $scope.collapse = function() {
+          console.log('collapse: ', this, $scope );
+        };
 
         $scope.recallPlaceData = function() {
-          $scope.data = PlacesService.getPlace() || $scope.data;
-
-          // console.log('recall place data: ', $scope.data.region, $scope.data.city.sName);
-
+          $scope.placeData = PlacesService.getPlace() || $scope.placeData;
+          // console.log('recall place data: ', $scope.placeData.region, $scope.placeData.city.sName);
           if ($scope.regionList) {
-            $scope.regionList.select($scope.data.region);
+            $scope.regionList.select($scope.placeData.region);
           }
-
           if ($scope.localityList) {
-            $scope.localityList.select($scope.data.city);
+            $scope.localityList.select($scope.placeData.city);
           }
         };
 
         $scope.resetPlaceData = function() {
-          $scope.data = {
+          $scope.placeData = {
             region: null,
             city: null
           };
         };
 
         $scope.cityIsChosen = function() {
-          var r = $scope.data && ($scope.data.city ? true : false);
+          var r = $scope.placeData && ($scope.placeData.city ? true : false);
           // console.log('city is chosen: ', r);
           return r;
         };
@@ -49,7 +53,7 @@ angular.module('app')
         };
 
         $scope.regionIsChosen = function() {
-          var bResult = $scope.data && ($scope.data.region ? true : false);
+          var bResult = $scope.placeData && ($scope.placeData.region ? true : false);
           // console.log('region is chosen: ', bResult);
           return bResult;
         };
@@ -68,7 +72,7 @@ angular.module('app')
         };
 
         $scope.loadLocalityList = function(search) {
-          return $scope.localityList.load($scope.service, $scope.data.region.nID, search).then(function(cities) {
+          return $scope.localityList.load($scope.service, $scope.placeData.region.nID, search).then(function(cities) {
             $scope.localityList.typeahead.defaultList = cities;
           });
         };
@@ -76,21 +80,17 @@ angular.module('app')
         $scope.processPlaceSelection = function() {
           var serviceType = $scope.cityIsChosen() ? $scope.findServiceDataByCity() : $scope.findServiceDataByRegion();
           // console.log('region is chosen: ', $scope.regionIsChosen(), ', city is chosen: ', $scope.cityIsChosen(), ' serviceType:', serviceType);
-          PlacesService.setPlace($scope.data);
+          PlacesService.setPlace($scope.placeData);
 
           $scope.$emit('onPlaceChange', {
             serviceType: serviceType,
-            placeData: $scope.data
+            placeData: $scope.placeData
           });
         };
 
         $scope.initPlaceControls = function() {
-          PlacesService.initPlacesByScope(this, $scope, $state, $rootScope, AdminService, $location);
 
-          // не ініціюємо, якщо контроли вже є
-          // if ( $scope.isComplete() ) {
-          //   return;
-          // }
+          PlacesService.initPlacesByScopeAndState(this, $scope, $state, $rootScope, AdminService, $location, $sce);
 
           $scope.regionList = $scope.regionList || new RegionListFactory();
           $scope.localityList = $scope.localityList || new LocalityListFactory();
@@ -98,33 +98,32 @@ angular.module('app')
           $scope.resetPlaceData();
           $scope.recallPlaceData();
 
-          // Якщо форма вже заповнена - наприклад, після відновлення даних з localStorage,
-          // то відправити сигнал про це, щоб бітьківський контролер про це знав
+          // Якщо форма вже заповнена після відновлення даних з localStorage, то повідомити про це
           if ($scope.isComplete()) {
             $scope.processPlaceSelection();
           }
         };
 
         $scope.onSelectRegionList = function($item, $model, $label) {
-          $scope.data.region = $item;
+          $scope.placeData.region = $item;
           $scope.regionList.select($item, $model, $label);
           $scope.loadLocalityList(null);
           $scope.processPlaceSelection();
         };
 
         $scope.onSelectLocalityList = function($item, $model, $label) {
-          $scope.data.city = $item;
+          $scope.placeData.city = $item;
           $scope.localityList.select($item, $model, $label);
           $scope.processPlaceSelection();
         };
 
         $scope.getRegionId = function() {
-          var region = $scope.data.region;
+          var region = $scope.placeData.region;
           return region ? region.nID : 0;
         };
 
         $scope.getCityId = function() {
-          var city = $scope.data.city;
+          var city = $scope.placeData.city;
           return city ? city.nID : 0;
         };
 
@@ -134,7 +133,7 @@ angular.module('app')
             nID: 0
           };
           angular.forEach(aServiceData, function(value, key) {
-            if (value.nID_Region && value.nID_Region.nID === $scope.data.region.nID) {
+            if (value.nID_Region && value.nID_Region.nID === $scope.placeData.region.nID) {
               serviceType = value.nID_ServiceType;
               $scope.serviceData = value;
               if ($scope.serviceData.bNoteTrusted === false) {
@@ -152,7 +151,7 @@ angular.module('app')
             nID: 0
           };
           angular.forEach(aServiceData, function(value, key) {
-            if (value.nID_City && value.nID_City.nID === ($scope.data.city && $scope.data.city.nID)) {
+            if (value.nID_City && value.nID_City.nID === ($scope.placeData.city && $scope.placeData.city.nID)) {
               serviceType = value.nID_ServiceType;
               $scope.serviceData = value;
               if ($scope.serviceData.bNoteTrusted === false) {

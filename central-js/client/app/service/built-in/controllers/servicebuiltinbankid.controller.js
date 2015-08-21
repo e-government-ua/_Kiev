@@ -19,15 +19,6 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
   'use strict';
 
-  // Each controller which uses Places Control should tell it:
-
-  console.log('Hi! From ServiceBuiltInBankIDController ')
-  PlacesService.setController({
-    self: this,
-    regions: regions,
-    service: service
-  });
-
   // FIXME: Удалить это после теста задачи #584
   /*var bankIdFound = false;
   angular.forEach(ActivitiForm.formProperties, function(prop) {
@@ -63,6 +54,16 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     });
   }*/
 
+  // Each controller which uses Places Control should tell it:
+
+  console.log('Hi! I\'m ServiceBuiltInBankIDController.');
+  
+  PlacesService.setController({
+    self: this,
+    regions: regions,
+    service: service
+  });
+
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount;
   $scope.ActivitiForm = ActivitiForm;
@@ -76,6 +77,8 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
   $scope.data.region = currentState.data.region;
   $scope.data.city = currentState.data.city;
+
+  console.log('data.formData.params = ', JSON.stringify($scope.data.formData.params, null, '  '));
 
   $scope.ngIfCity = function() {
     if ($state.current.name === 'index.service.general.city.built-in') {

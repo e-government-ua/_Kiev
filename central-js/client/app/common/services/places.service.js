@@ -1,174 +1,201 @@
-angular.module('app').service('PlacesService', function($http) {
+angular.module('app')
+  .service('PlacesService', function($http) {
 
-  // options: self, regions, service
-  this.setController = function(options) {
-    this.iPlaceControllerOptions = options;
-  };
+    var sequencer = {};
 
-  this.initPlacesByScope = function(placeCtrl, $scope, $state, $rootScope, AdminService, $location) {
-
-    var o = this.iPlaceControllerOptions;
-    var viewCtrl = o.self;
-
-    // з wizard.controller:
-    viewCtrl.isStep2 = viewCtrl.isStep2 || false;
-
-    $scope.service = o.service;
-    $scope.bAdmin = AdminService.isAdmin();
-    $scope.regions = o.regions;
-
-    $scope.getStateName = function() {
-      return $state.current.name;
-    };
-
-    var curState = $scope.getStateName();
-
-    console.log('Places (wizard), state = ', curState);
-
-    var stateStartupFunction = {
-      'index.service.general.city.built-in': function($location, $state, $rootScope, $scope) {
-        $scope.$location = $location;
-        $scope.$state = $state;
-        viewCtrl.isStep2 = true;
+    var statesMap = {
+      'index.service.general.city.built-in': {
+        startupFunction: function(sequencer, $location, $state, $rootScope, $scope, placeCtrl) {
+          $scope.$location = $location;
+          $scope.$state = $state;
+          sequencer.isStep2 = true;
+        },
+        viewClass: 'state-normal'
+      },
+      'index.service.general.city.built-in.bankid': {
+        startupFunction: function(sequencer, $location, $state, $rootScope, $scope, placeCtrl) {
+          $scope.state = $state;
+        },
+        viewClass: 'state-collapsed'
+      },
+      'index.service.general.city.built-in.bankid.submitted': {
+        startupFunction: function(sequencer, $location, $state, $rootScope, $scope, placeCtrl) {
+          $scope.collapse();
+          $scope.state = $state; //.get('index.service.general.city.built-in.bankid.submitted');
+        },
+        viewClass: 'state-collapsed'
       }
     };
 
-    if (stateStartupFunction[curState]) {
-      stateStartupFunction[curState].call(viewCtrl, $location, $state, $rootScope, $scope);
-    } else {
-      // default startup
-      $scope.$location = $location;
-      $scope.$state = $state;
-    }
-
-    $scope.step1 = function() {
-      viewCtrl.isStep2 = false;
-      // FIXME
-      // if (byState('index.service.general.city')) {
-      //   return $state.go('index.service.general.city', {
-      //     id: $scope.service.nID
-      //   });
-      // }
+    // options: self, regions, service
+    this.setController = function(ctrl) {
+      this.iPlaceController = ctrl;
     };
 
-    $scope.step2 = function() {
-      var aServiceData = $scope.service.aServiceData;
-
-      // console.log('step 2:');
-      viewCtrl.isStep2 = true;
+    this.getClassByState = function($state) {
+      return statesMap[$state.current.name] && statesMap[$state.current.name].viewClass || '';
     };
 
-    $scope.makeStep = function(stepId) {
-      if (stepId) {
-        if (stepId === 'editStep') {
-          viewCtrl.isStep2 = false;
-        }
-      }
-    };
+    this.initPlacesByScopeAndState = function(placeCtrl, $scope, $state, $rootScope, AdminService, $location, $sce) {
 
-    /**
-     * params: serviceType, placeData
-     */
-    $scope.$on('onPlaceChange', function(evt, params) {
-      var stateByServiceType = {
-        // Сервіс за посиланням
-        1: 'index.service.general.city.link',
-        // Вбудований сервіс
-        4: 'index.service.general.city.built-in',
-        // Помилка - сервіс відсутній
-        0: 'index.service.general.city.error'
+      // wizard controller
+      var ctrl = this.iPlaceController;
+      sequencer = ctrl.self;
+      sequencer.isStep2 = sequencer.isStep2 || false;
+
+      $scope.service = ctrl.service;
+      $scope.bAdmin = AdminService.isAdmin();
+      $scope.regions = ctrl.regions;
+
+      $scope.getStateName = function() {
+        return $state.current.name;
       };
 
-      var state = stateByServiceType[params.serviceType.nID];
+      var curState = $scope.getStateName();
 
-      console.log('on Place сhange:', state, params, ', curState = ', curState );
+      console.log('Places (wizard), state = ', curState);
 
-      if ( curState === 'index.service.general.city.built-in' || curState === 'index.service.general.city' ) {
-        if (state && params.placeData.city) {
-          viewCtrl.isStep2 = true;
-          // console.log('go state:', state);
-          $state.go(state, {
-            id: $scope.service.nID
-          }, {
-            location: false
-          }).then(function() {
-            viewCtrl.isStep2 = true;
-          });
-        }
+      if (statesMap[curState] && typeof statesMap[curState].startupFunction === 'function') {
+        statesMap[curState].startupFunction.call(sequencer, $location, $state, $rootScope, $scope, placeCtrl);
+      } else {
+        // default startup
+        $scope.$location = $location;
+        $scope.$state = $state;
       }
-    });
 
-    $scope.ngIfStep2 = function() {
-      return viewCtrl.isStep2;
-    };
+      $scope.getHtml = function(html) {
+        return $sce.trustAsHtml(html);
+      };
 
-  }; // initPlacesByScope
+      $scope.step1 = function() {
+        sequencer.isStep2 = false;
+        // FIXME
+        // if (byState('index.service.general.city')) {
+        //   return $state.go('index.service.general.city', {
+        //     id: $scope.service.nID
+        //   });
+        // }
+      };
 
-  // FIXME зберігати placeData у localStorage і відновлювати для юзера
-  this.placeData = null;
+      $scope.step2 = function() {
+        var aServiceData = $scope.service.aServiceData;
 
-  this.saveLocal = function(placeData) {
-    localStorage.setItem('igPlaceData', JSON.stringify(placeData));
-  };
+        // console.log('step 2:');
+        sequencer.isStep2 = true;
+      };
 
-  this.setPlace = function(placeData) {
-    this.placeData = placeData;
-    this.saveLocal(placeData);
-    // console.log('set place data:', JSON.stringify(placeData));
-  };
-
-  this.getPlace = function() {
-    this.placeData = JSON.parse(localStorage.getItem('igPlaceData')) || this.placeData;
-    // console.log('get place data:', this.placeData);
-    return this.placeData;
-  };
-
-  this.getRegionsForService = function(service) {
-    return $http.get('./api/places/regions').then(function(response) {
-      var regions = response.data;
-      var aServiceData = service.aServiceData;
-
-      angular.forEach(regions, function(region) {
-        var color = 'red';
-        angular.forEach(aServiceData, function(oServiceData) {
-          if (oServiceData.hasOwnProperty('nID_City') === false) {
-            return;
+      $scope.makeStep = function(stepId) {
+        if (stepId) {
+          if (stepId === 'editStep') {
+            sequencer.isStep2 = false;
           }
-          var oCity = oServiceData.nID_City;
-          var oRegion = oCity.nID_Region;
-          if (oRegion.nID === region.nID) {
-            color = 'green';
+        }
+      };
+
+      /**
+       * params: serviceType, placeData
+       */
+      $scope.$on('onPlaceChange', function(evt, params) {
+        var stateByServiceType = {
+          // Сервіс за посиланням
+          1: 'index.service.general.city.link',
+          // Вбудований сервіс
+          4: 'index.service.general.city.built-in',
+          // Помилка - сервіс відсутній
+          0: 'index.service.general.city.error'
+        };
+
+        var state = stateByServiceType[params.serviceType.nID];
+
+        console.log('on Place сhange:', state, params, ', curState = ', curState);
+
+        if (curState === 'index.service.general.city.built-in' || curState === 'index.service.general.city') {
+          if (state && params.placeData.city) {
+            sequencer.isStep2 = true;
+            // console.log('go state:', state);
+            $state.go(state, {
+              id: $scope.service.nID
+            }, {
+              location: false
+            }).then(function() {
+              sequencer.isStep2 = true;
+            });
           }
-        });
-        region.color = color;
+        }
       });
 
-      return regions;
-    });
-  };
+      $scope.ngIfStep2 = function() {
+        return sequencer.isStep2;
+      };
 
-  this.getRegions = function() {
-    return $http.get('./api/places/regions');
-  };
-
-  this.getRegion = function(region) {
-    return $http.get('./api/places/region/' + region);
-  };
-
-  this.getCities = function(region, search) {
-    var data = {
-      sFind: search
     };
-    return $http.get('./api/places/region/' + region + '/cities', {
-      params: data,
-      data: data
-    });
-  };
+    // end of init Places By Scope
 
-  this.getCity = function(region, city) {
-    return $http.get('./api/places/region/' + region + '/city/' + city);
-  };
-});
+    // FIXME зберігати placeData у localStorage і відновлювати для юзера
+    this.placeData = null;
+
+    this.saveLocal = function(placeData) {
+      localStorage.setItem('igPlaceData', JSON.stringify(placeData));
+    };
+
+    this.setPlace = function(placeData) {
+      this.placeData = placeData;
+      this.saveLocal(placeData);
+      // console.log('set place data:', JSON.stringify(placeData));
+    };
+
+    this.getPlace = function() {
+      this.placeData = JSON.parse(localStorage.getItem('igPlaceData')) || this.placeData;
+      // console.log('get place data:', this.placeData);
+      return this.placeData;
+    };
+
+    this.getRegionsForService = function(service) {
+      return $http.get('./api/places/regions').then(function(response) {
+        var regions = response.data;
+        var aServiceData = service.aServiceData;
+
+        angular.forEach(regions, function(region) {
+          var color = 'red';
+          angular.forEach(aServiceData, function(oServiceData) {
+            if (oServiceData.hasOwnProperty('nID_City') === false) {
+              return;
+            }
+            var oCity = oServiceData.nID_City;
+            var oRegion = oCity.nID_Region;
+            if (oRegion.nID === region.nID) {
+              color = 'green';
+            }
+          });
+          region.color = color;
+        });
+
+        return regions;
+      });
+    };
+
+    this.getRegions = function() {
+      return $http.get('./api/places/regions');
+    };
+
+    this.getRegion = function(region) {
+      return $http.get('./api/places/region/' + region);
+    };
+
+    this.getCities = function(region, search) {
+      var data = {
+        sFind: search
+      };
+      return $http.get('./api/places/region/' + region + '/cities', {
+        params: data,
+        data: data
+      });
+    };
+
+    this.getCity = function(region, city) {
+      return $http.get('./api/places/region/' + region + '/city/' + city);
+    };
+  });
 
 /**
   @uazure:

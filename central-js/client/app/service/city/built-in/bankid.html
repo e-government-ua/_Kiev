@@ -3,7 +3,7 @@
 
 <div class="list-group">
     
-    <place ng-model="PlaceController"></place>
+    <place></place>
 
     <div class="list-group-item disabled">
         <div class="row no-margin-bottom">
@@ -119,6 +119,7 @@
 
                                 <p class="input-group"
                                    ng-switch-when="date">
+
                                     <input type="text"
                                            name="{{property.id}}"
                                            datepicker-popup="{{data.formData.params[property.id].format}}"

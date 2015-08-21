@@ -1,9 +1,13 @@
 <div class="list-group-item place-control" ng-class="{'disabled': cityIsChosen()}">
+
+    <!-- collapsed -->
+
     <div class="row no-margin-bottom">
-        <div class="col-md-11 form-inline">
+
+        <div class="col-md-11 form-inline {{getClass()}}">
             <span class="step">Крок 1. Оберіть свій регіон <sup>{{getStateName() + ':' + getRegionId() + ':' + getCityId()}}</sup></span>
             <div class="inline-wrapper">
-                <span>Область</span>
+                <span>Область</span>{{region.sName}}
                 <div class="dropdown-wrapper" dropdown is-open="regionList.dropdown.isOpen">
                     <div class="input-group">
                         <input 
@@ -35,7 +39,7 @@
                 </div> <!-- div class="dropdown-wrapper" dropdown  -->
             </div> <!-- <div class="inline-wrapper"> -->
             <div class="inline-wrapper" ng-if="regionIsChosen()">
-                <span>Місто</span>
+                <span>Місто</span>{{city.sName}}
                 <div class="dropdown-wrapper" dropdown is-open="localityList.dropdown.isOpen">
                     <div class="input-group">
                         <input 

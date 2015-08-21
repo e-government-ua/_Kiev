@@ -175,12 +175,12 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
           var sProcessDefinitionKeyWithVersion = oServiceData.oData.oParams.processDefinitionId;
           var sProcessDefinitionKey = sProcessDefinitionKeyWithVersion.split(':')[0];
 
-          var sProcessDefinitionName = "тест";
+          var sProcessDefinitionName = 'тест';
 
           angular.forEach(processDefinitions.data, function (value, key) {
-            if (value.key == sProcessDefinitionKey) {
+            if (value.key === sProcessDefinitionKey) {
               sProcessDefinitionKeyWithVersion = value.id;
-              sProcessDefinitionName = "(" + value.name + ")";
+              sProcessDefinitionName = '(' + value.name + ')';
             }
           });
 
@@ -217,14 +217,8 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
       views: {
         'content@index.service.general.city.built-in.bankid': {
           templateUrl: 'app/service/city/built-in/bankid.submitted.html',
-          controller: function ($state, $scope, $sce) {
-            $scope.state = $state.get('index.service.general.city.built-in.bankid.submitted');
-            $scope.getHtml = function (html) {
-              return $sce.trustAsHtml(html);
-            };
-          }
+          controller: 'WizardController' // function moved to Places' stateStartupFunction
         }
       }
     });
-
-})
+});
