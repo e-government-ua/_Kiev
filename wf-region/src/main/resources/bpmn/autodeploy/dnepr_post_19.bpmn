@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_post_20" name="Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу" isExecutable="true" activiti:candidateStarterGroups="dnepr_social_help">
+  <process id="dnepr_post_19" name="Призначення державної соціальної допомоги малозабезпеченим сім'ям" isExecutable="true" activiti:candidateStarterGroups="dnepr_social_help">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -23,6 +23,17 @@
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="numobr" name="Ваше звернення до районного органу соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
+          <activiti:value id="obr1" name="первинне"></activiti:value>
+          <activiti:value id="obr2" name="вторинне"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="kuda dengi" name="Прошу в разі призначення допомоги кошти готівкою перераховувати" type="label" required="true"></activiti:formProperty>
+        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankschet" name="на рахунок у банку №" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="mfo" name="МФО" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="okpo" name="код" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankchoose" name="банк" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="scpasp" name="Копія паспорту; завантажте копію паспорту" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="sost" name="Довідка про склад сім'ї; завантажте довідку про склад сім'ї" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="zeml" name="Довідка про наявність та розмір земельної ділянки (паю); завантажте довідку про наявність та розмір земельної ділянки (паю)" type="file" required="true"></activiti:formProperty>
@@ -31,7 +42,7 @@
         <activiti:formProperty id="sID_Merchant" name="ИД-строковой мерчанта (магазина)" type="invisible" default="i75116857714"></activiti:formProperty>
         <activiti:formProperty id="sSum" name="сумма платежа" type="invisible" default="17.15"></activiti:formProperty>
         <activiti:formProperty id="sID_Currency" name="ИД-строковой валюты" type="invisible" default="UAH"></activiti:formProperty>
-        <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default="Оплата послуги призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу"></activiti:formProperty>
+        <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default="Оплата послуги призначення державної соціальної допомоги малозабезпеченим сім'ям"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
@@ -59,6 +70,17 @@
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="numobr" name="Ваше звернення до районного органу соціального захисту населення, до якого Ви відноситесь" type="enum" writable="false" required="true">
+          <activiti:value id="obr1" name="первинне"></activiti:value>
+          <activiti:value id="obr2" name="вторинне"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="kuda dengi" name="Прошу в разі призначення допомоги кошти готівкою перераховувати" type="label" required="true"></activiti:formProperty>
+        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankschet" name="на рахунок у банку №" type="long" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="mfo" name="МФО" type="long" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="okpo" name="код" type="long" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankchoose" name="банк" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="scpasp" name="Копія паспорту; завантажте копію паспорту" type="file" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="sost" name="Довідка про склад сім'ї; завантажте довідку про склад сім'ї" type="file" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="zeml" name="Довідка про наявність та розмір земельної ділянки (паю); завантажте довідку про наявність та розмір земельної ділянки (паю)" type="file" writable="false" required="true"></activiti:formProperty>
@@ -93,7 +115,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу</activiti:string>
+          <activiti:string>Призначення державної соціальної допомоги малозабезпеченим сім'ям</activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -181,7 +203,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу</activiti:string>
+          <activiti:string>Призначення державної соціальної допомоги малозабезпеченим сім'ям</activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -227,7 +249,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Ваше звернення щодо призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу забраковане.&lt;/p&gt;
+                                        Ваше звернення щодо призначення державної соціальної допомоги малозабезпеченим сім'ям забраковане.&lt;/p&gt;
 &lt;p&gt;Причина в наступному: 
                                     &lt;/p&gt;
 &lt;p&gt;${comment}&lt;/p&gt;
@@ -276,7 +298,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу</activiti:string>
+          <activiti:string>Призначення державної соціальної допомоги малозабезпеченим сім'ям</activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -321,7 +343,7 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-&lt;p&gt;Ваше звернення щодо призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу відхилено, так як Ви не сплатили послуги протягом 3-х днів. Ви можете подати ще одну заяву на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;igov.org.ua&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Ваше звернення щодо призначення державної соціальної допомоги малозабезпеченим сім'ям відхилено, так як Ви не сплатили послуги протягом 3-х днів. Ви можете подати ще одну заяву на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;igov.org.ua&lt;/a&gt;&lt;/p&gt;
 
 
                             
@@ -366,7 +388,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу</activiti:string>
+          <activiti:string>Призначення державної соціальної допомоги малозабезпеченим сім'ям</activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -412,7 +434,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Ваше звернення щодо призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу знаходиться на розлгяді. Висновок ви отримаєте за адресою:&lt;/p&gt;
+                                        Ваше звернення щодо призначення державної соціальної допомоги малозабезпеченим сім'ям знаходиться на розлгяді. Висновок ви отримаєте за адресою:&lt;/p&gt;
 &lt;p&gt; ${place_of_liv}&lt;/p&gt;
 &lt;p&gt; Надходження висновку очікуйте протягом 20 днів.
                                     &lt;/p&gt;
@@ -444,8 +466,8 @@
     <sequenceFlow id="flow9" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_post_20">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_post_20" id="BPMNPlane_dnepr_post_20">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_post_19">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_post_19" id="BPMNPlane_dnepr_post_19">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="41.0" width="41.0" x="20.0" y="164.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
