@@ -576,7 +576,10 @@ public class ActivitiRestFlowController {
 		currRes.put("sDateEdit", dateFormat.format(editDate));
                 
 		currRes.put("nID_Task_Activiti", tasksByActivitiID.getId());
-		currRes.put("sAssignee", tasksByActivitiID.getAssignee());
+                
+		currRes.put("name", tasksByActivitiID.getName());
+		currRes.put("id", tasksByActivitiID.getId());
+		currRes.put("assignee", tasksByActivitiID.getAssignee());
                 
 		currRes.put("sUserTaskName", tasksByActivitiID.getName());
 		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(tasksByActivitiID.getProcessDefinitionId()).singleResult();
