@@ -111,7 +111,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     }
 
     tasks
-      .list(menuType, data)
+      .list(menuType, null, data)
       .then(function (result) {
         result = JSON.parse(result);
         var tasks = _.filter(result.data, function (task) {
