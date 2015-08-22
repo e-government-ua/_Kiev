@@ -54,7 +54,7 @@
                    ng-click="selectTask(task)"
                    ng-class="{'active': isTaskSelected(task)}">
                   <span class="ticket-date-time">{{task.sDateStart|date:'yyyy-MM-dd HH:mm'}}</span>,
-                  №Заявки: {{task.nID}},
+                  №Заявки: {{task.nID_Instance}}{{lunaService.getLunaValue(task.nID_Instance)}},
                   №Тікета: {{task.nID_FlowSlot}}.<br/>
                   {{task.sNameBP}}.
                   {{task.sUserTaskName}}.

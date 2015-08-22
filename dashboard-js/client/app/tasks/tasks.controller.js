@@ -1,5 +1,6 @@
 'use strict';
-angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $window, tasks, processes, Modal, Auth, PrintTemplate, $localStorage, $filter) {
+angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $window, tasks, processes, Modal, Auth,
+                                                                   PrintTemplate, $localStorage, $filter, lunaService) {
   $scope.tasks = null;
   $scope.selectedTasks = {};
   $scope.sSelectedTask = "";
@@ -388,6 +389,8 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     $scope.ticketsFilter.dateMode = mode;
     $scope.applyTicketsFilter();
   };
+
+  $scope.lunaService = lunaService;
 
   function loadTaskCounters() {
     _.forEach($scope.menus, function (menu) {
