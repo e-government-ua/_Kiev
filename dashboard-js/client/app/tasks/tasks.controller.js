@@ -1,12 +1,17 @@
-'use strict';
-angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $window, tasks, processes, Modal, Auth, PrintTemplate, $localStorage) {
-  $scope.tasks = [];
+﻿'use strict';
+angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $window, tasks, processes, Modal, Auth,
+                                                                   PrintTemplate, $localStorage, $filter, lunaService) {
+  $scope.tasks = null;
   $scope.selectedTasks = {};
   $scope.sSelectedTask = "";
   $scope.$storage = $localStorage.$default({
     menuType: tasks.filterTypes.selfAssigned
   });
   $scope.menus = [{
+    title: 'Тікети',
+    type: tasks.filterTypes.tickets,
+    count: 0
+  }, {
     title: 'В роботі',
     type: tasks.filterTypes.selfAssigned,
     count: 0
@@ -87,9 +92,10 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     tasks.downloadDocument($scope.selectedTask.id);
   };
 
-  $scope.applyTaskFilter = function (menuType, nID_Task) {
+  $scope.applyTaskFilter = function (menuType, nID_Task, resetSelectedTask) {
+    $scope.tasks = null;
     $scope.sSelectedTask = $scope.$storage.menuType;
-    $scope.selectedTask = $scope.selectedTasks[menuType];
+    $scope.selectedTask = resetSelectedTask ? null : $scope.selectedTasks[menuType];
     $scope.$storage.menuType = menuType;
     $scope.taskForm = null;
     $scope.taskId = null;
@@ -97,8 +103,15 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     $scope.error = null;
     $scope.taskAttachments = null;
 
+    var data = {};
+    if ($scope.$storage.menuType == 'tickets'){
+      data.bEmployeeUnassigned = $scope.ticketsFilter.bEmployeeUnassigned;
+      if ($scope.ticketsFilter.dateMode == 'date' && $scope.ticketsFilter.sDate)
+        data.sDate = $filter('date')($scope.ticketsFilter.sDate, 'yyyy-MM-dd');
+    }
+
     tasks
-      .list(menuType)
+      .list(menuType, data)
       .then(function (result) {
         result = JSON.parse(result);
         var tasks = _.filter(result.data, function (task) {
@@ -181,7 +194,6 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
       Modal.assignTask(function (event) {
         $scope.selectedTasks[$scope.$storage.menuType] = null;
         loadTaskCounters();
-        console.log("$scope.selectedTask.id="+$scope.selectedTask.id)
         $scope.applyTaskFilter($scope.menus[0].type, $scope.selectedTask.id);
       }, 'Задача у вас в роботі');
     })
@@ -251,14 +263,12 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
 
   $scope.aPatternPrintNew = function (taskForm) {
-//    console.log("[aPatternPrintNew]")
     var printTemplateResult = null;
     if(taskForm){//this.form
         printTemplateResult = taskForm.filter(function (item) {//form//this.form
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
           return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
         });
-//        console.log("[aPatternPrintNew]printTemplateResult.length="+printTemplateResult.length)
     }
     //return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
     return (printTemplateResult!==null && printTemplateResult.length !== 0) ? printTemplateResult : [];
@@ -322,17 +332,41 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.init = function () {
-    console.log("$scope.init");
     loadTaskCounters();
     loadSelfAssignedTasks();
   };
 
+  $scope.ticketsFilter = {
+    dateMode: 'date',
+    dateModeList: [
+      {key: 'all', title: 'Всі дати'},
+      {key: 'date', title: 'Обрати дату'}
+    ],
+    sDate: new Date(),
+    bEmployeeUnassigned: false
+  };
+
+  $scope.applyTicketsFilter = function () {
+    $scope.applyTaskFilter($scope.$storage.menuType, null, true);
+  };
+
+  $scope.setTicketsDateMode = function (mode) {
+    $scope.ticketsFilter.dateMode = mode;
+    $scope.applyTicketsFilter();
+  };
+
+  $scope.lunaService = lunaService;
+
+  $scope.searchTask = {
+    orderId: null
+  };
+
   $scope.searchTaskByOrder = function() {
-    if (!/^\d+$/.test($scope.orderIdInput)) {
+    if (!/^\d+$/.test($scope.searchTask.orderId)) {
       Modal.inform.error()('ID має складатися тільки з цифр!');
       return;
     }
-    tasks.getTasksByOrder($scope.orderIdInput)
+    tasks.getTasksByOrder($scope.searchTask.orderId)
       .then(function (result) {
         if (result === 'CRC-error') {
           Modal.inform.error()();
@@ -361,7 +395,6 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   }
 
   function loadSelfAssignedTasks() {
-    console.log("[loadSelfAssignedTasks]");
     processes.list().then(function (processesDefinitions) {
         console.log("[loadSelfAssignedTasks]processesDefinitions="+processesDefinitions);
       $scope.applyTaskFilter($scope.$storage.menuType);
@@ -400,7 +433,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     if(nID_Task === null || nID_Task === undefined){
         if ($scope.selectedTask) {
           $scope.selectTask($scope.selectedTask);
-        } else if ($scope.tasks[0]) {
+        } else if ($scope.tasks && $scope.tasks[0]) {
           $scope.selectTask($scope.tasks[0]);
         }
     }
