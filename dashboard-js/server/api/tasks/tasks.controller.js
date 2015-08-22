@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 var _ = require('lodash');
 var activiti = require('../../components/activiti');
@@ -164,4 +164,14 @@ exports.getTask = function(req, res) {
     res.statusCode = statusCode;
     res.send(result);
   }, req.body);
+};
+
+exports.getTasksByOrder = function(req, res) {
+  var options = { path: 'rest/tasks/getTasksByOrder',
+    query: { 'nID_Protected': req.query.nID_Protected }
+  };
+
+  activiti.get(options, function(error, statusCode, result) {
+    error ? res.send(error) : res.status(statusCode).json(result);
+  });
 };

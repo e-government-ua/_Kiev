@@ -43,4 +43,22 @@
 .tasks .ticket-date-time {
   font-weight: bold; }
 
+.task-list-header {
+  display: table;
+  width: 100%; }
+
+.task-list-header-row {
+  display: table-row;
+  width: 100%; }
+
+.task-list-header-cell {
+  display: table-cell; }
+
+.right-aligned {
+  float: right; }
+
+.task-list-header-search {
+  font-size: 12px;
+  font-style: italic; }
+
 /*# sourceMappingURL=tasks.css.map */

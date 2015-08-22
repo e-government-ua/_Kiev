@@ -1,4 +1,4 @@
-<div ng-include="'components/navbar/navbar.html'"
+﻿<div ng-include="'components/navbar/navbar.html'"
      class="navbar-fixed-top"></div>
 <div class="container"
      ng-style="showPrintModal && {'overflow-y':'hidden'}"
@@ -28,12 +28,20 @@
             <div class="clearfix"></div>
           </div>
 
-          <div class="sort-select" align="right" ng-if="sSelectedTask!='tickets'">
-            Сортувати за датою
-            <select ng-model="sort_order" ng-change="sortOrder()">
-              <option value="order_increase" selected>Від найдавніших</option>
-              <option value="order_decrease">Від найновіших</option>
-            </select>
+          <div class="sort-select" ng-if="sSelectedTask!='tickets'">
+            <div class="task-list-header">
+              <div class="task-list-header-row">
+                <input ng-model="searchTask.orderId" class="task-list-header-cell task-list-header-search"
+                       placeholder="Введіть № звернення для пошуку" size="35" ng-keyup="($event.keyCode === 13)?searchTaskByOrder():0" />
+                <div class="right-aligned task-list-header-cell">
+                  Сортувати за датою
+                  <select ng-model="sort_order" ng-change="sortOrder()" >
+                    <option value="order_increase" selected>Від найдавніших</option>
+                    <option value="order_decrease">Від найновіших</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="list-group">
@@ -68,9 +76,9 @@
                    tooltip="{{task.description}}"
                    ng-click="selectTask(task)"
                    ng-class="{'active': isTaskSelected(task)}">
-                  #{{task.id}} ({{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}
-                  {{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }})
-                  {{ getProcessName(task.processDefinitionId)}} | {{ task.name }}
+              ({{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }})
+              {{ getProcessName(task.processDefinitionId) }} | {{ task.name }}
+               &nbsp; (#{{task.id}})
                   </a>
               </div>
 

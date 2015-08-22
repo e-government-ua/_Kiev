@@ -32,13 +32,10 @@ public final class SerializationUtil {
     public static byte[] getByteArrayFromObject(Object obj) {
         byte[] result = null;
 
-        try {
-            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            final ObjectOutputStream oos = new JBossObjectOutputStream(baos);
+        try(final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            final ObjectOutputStream oos     = new JBossObjectOutputStream(baos)){
             oos.writeObject(obj);
             oos.flush();
-            oos.close();
-            baos.close();
             result = baos.toByteArray();
         } catch (IOException ioEx) {
             LOG.error("Error converting object to byteArray", ioEx);
@@ -56,11 +53,9 @@ public final class SerializationUtil {
     public static Object getObjectFromByteArray(byte[] bytes) {
         Object result = null;
 
-        try {
-            final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-            final ObjectInputStream ois = new JBossObjectInputStream(bais);
+        try(final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+            final ObjectInputStream ois     = new JBossObjectInputStream(bais)){
             result = ois.readObject();
-            ois.close();
         } catch (IOException ioEx) {
             LOG.error("Unable to deserialize object from byte array.", ioEx);
         } catch (ClassNotFoundException cnfEx) {

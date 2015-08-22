@@ -3,10 +3,11 @@ package org.wf.dp.dniprorada.dao.place;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
+import org.wf.dp.dniprorada.base.util.caching.EnableCaching;
 import org.wf.dp.dniprorada.base.util.queryloader.QueryLoader;
 
+import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
@@ -28,9 +29,9 @@ public class PlaceQueryDaoBuilder {
     }
 
 
-    @Cacheable("ext-file-getTreeDown")
+    @EnableCaching
     public String getTreeDown(PlaceHierarchyRecord root) {
-        String sql = sqlStorage.get( root.getPlaceId() > 0
+        String sql = load( root.getPlaceId() > 0
             ? "get_PlaceTree_down_by_id.sql" : "get_PlaceTree_down_by_UA-id.sql");
 
         if (specified(root.getTypeId()) ||
@@ -71,29 +72,27 @@ public class PlaceQueryDaoBuilder {
     }
 
 
-    @Cacheable("ext-file-getTreeUp")
-    public String getTreeUp(Long placeId, String uaId, Boolean tree) {
-        String sqlFile = "get_PlaceTree_by_id.sql";
+    @EnableCaching
+    public String getTreeUp(Long placeId, String uaId, boolean tree) {
+        if (specified(placeId) && tree)
+            return load("get_PlaceTree_up_by_id.sql");
 
-        if (specified(placeId) && isNotBlank(uaId))
-            return sqlFile;
+        if (isNotBlank(uaId) && tree)
+            return load("get_PlaceTree_up_by_UA-id.sql");
 
-        if (specified(placeId) && specified(tree)) {
-            sqlFile = "get_PlaceTree_up_by_id.sql";
-        }
+        if (specified(placeId))
+            return load("get_PlaceTree_by_id.sql");
 
-        if (isNotBlank(uaId)) {
-            sqlFile = "get_PlaceTree_by_UA-id.sql";
-        }
+        if (isNotBlank(uaId))
+            return load("get_PlaceTree_by_UA-id.sql");
 
-        if (isNotBlank(uaId) && specified(tree)) {
-            sqlFile = "get_PlaceTree_up_by_UA-id.sql";
-        }
+        throw new IllegalArgumentException(format(
+            "Unexpected set of parameters: %s, %s, %s.", placeId, uaId, tree));
+    }
 
+    private String load(String sqlFile) {
         String sqlQuery = sqlStorage.get(sqlFile);
-
-        LOG.debug("SQL query {}", sqlQuery);
-
+        LOG.debug("SQL file {} contains '{}' query.", sqlFile, sqlQuery);
         return sqlQuery;
     }
 }
