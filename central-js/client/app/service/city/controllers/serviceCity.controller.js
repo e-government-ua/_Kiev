@@ -56,7 +56,9 @@ angular.module('app').controller('ServiceCityController', function($state,AdminS
 		});
 		break;
       default:
-        $state.go('index.service.general.city.error', {id: $scope.service.nID}, {location: false});
+        $state.go('index.service.general.city.error', {id: $scope.service.nID}, {location: false}).then(function() {
+			isStep2 = true;
+		});
     }
   };
 
@@ -140,7 +142,9 @@ angular.module('app').controller('ServiceCityController', function($state,AdminS
     $scope.regionList.initialize(regions);
 
     $scope.localityList.reset();
-    return $state.go('index.service.general.city', {id: $scope.service.nID});
+    return $state.go('index.service.general.city', {id: $scope.service.nID}).then(function() {
+		isStep2 = false;
+	});
   };
 
   $scope.step2 = function() {

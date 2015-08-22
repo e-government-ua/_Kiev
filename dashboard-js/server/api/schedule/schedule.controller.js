@@ -173,3 +173,26 @@ exports.deleteFlowSlots = function(req, res) {
     }
   });
 };
+
+exports.getFlowSlotTickets = function(req, res) {
+  var user = JSON.parse(req.cookies.user);
+  var query = {
+    sLogin: user.id
+  };
+  if (req.query.bEmployeeUnassigned)
+    query.bEmployeeUnassigned = req.query.bEmployeeUnassigned;
+  if (req.query.sDate)
+    query.sDate = req.query.sDate;
+  var options = {
+    path: 'flow/getFlowSlotTickets',
+    query: query
+  };
+
+  activiti.get(options, function(error, statusCode, result) {
+    if (error) {
+      res.send(error);
+    } else {
+      res.status(statusCode).json(result);
+    }
+  });
+};
