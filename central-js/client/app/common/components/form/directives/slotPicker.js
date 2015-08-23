@@ -1,4 +1,4 @@
-angular.module('app').directive('slotPicker', function($http) {
+angular.module('app').directive('slotPicker', function($http, dialogs) {
   return {
     restrict: 'EA',
     templateUrl: 'app/common/components/form/directives/slotPicker.html',
@@ -24,6 +24,13 @@ angular.module('app').directive('slotPicker', function($http) {
               nID_FlowSlotTicket: response.data.nID_Ticket,
               sDate: scope.selected.date.sDate + ' ' + scope.selected.slot.sTime + ':00.00'
             });
+          }, function() {
+            scope.slotsData = {};
+            scope.selected.date = null;
+            scope.selected.slot = null;
+            scope.ngModel = null;
+            scope.loadList();
+            dialogs.error('Помилка', 'Неможливо вибрати час. Спробуйте обрати інший або пізніше, будь ласка');
           });
         }
         else
@@ -32,9 +39,13 @@ angular.module('app').directive('slotPicker', function($http) {
 
       scope.slotsData = {};
 
-      $http.get('/api/service/flow/' + scope.serviceId).then(function(response) {
-        scope.slotsData = response.data;
-      });
+      scope.loadList = function(){
+        return $http.get('/api/service/flow/' + scope.serviceId).then(function(response) {
+          scope.slotsData = response.data;
+        });
+      };
+
+      scope.loadList();
     }
   };
 });
