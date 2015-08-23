@@ -143,7 +143,7 @@ public final class Util {
                 }
 
                 for (File oFile : asPatterns) {
-                    String sName = oFile.getName();
+                    String sName = "pattern/print/"+oFile.getName();
                     oLog.info("[replacePatterns]:sName=" + sName);
 
                     if (sExpression.contains("[" + sName + "]")) {
