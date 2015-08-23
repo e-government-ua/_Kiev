@@ -157,13 +157,13 @@
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="ChildName1" name="Прізвище, ім'я і по батькові дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="oldAddress" name="Стара адреса реєстрації; Населений пункт / Вулиця / Будинок / Корпус / Квартира" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newCity" name="Населений пункт " type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Населений пункт " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newStreet" name="Вулиця " type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="oldAddress" name="Стара адреса реєстрації; Населений пункт / Вулиця / Будинок / Корпус / Квартира" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bringDoc" name="Підставою для реєстрації місця проживання заявника є" type="enum" writable="false">
           <activiti:value id="order" name="Ордер"></activiti:value>
           <activiti:value id="ownDoc" name="Свідоцтво про право власності"></activiti:value>
