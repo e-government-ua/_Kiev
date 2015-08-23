@@ -219,33 +219,5 @@ an - кастить в массив/лист Long
                         "{sUserTask:'1', sDateEdit:'01-01-2015', nDays:0, asList1:['2'], anList2:[10], bBool:true}",
                         "");
 
-
-/**  ScriptEngineManager manager = new ScriptEngineManager();
- ScriptEngine engine = manager.getEngineByName("JavaScript");
- engine.put("sUserTask", "1");
-
- String script = "" +
- "function getResult(obj) { " +
- "   print('sUserTask=' +sUserTask); " +
- //                "   print('sDateEdit=' +sDateEdit); " +
- //                "   print('nDays=' +nDays); " +
- "   return " +
- "   sUserTask=='1';"+// && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays;" +
- "}";
- engine.eval(script);
- Invocable inv1 = (Invocable) engine;
- Object result =  inv1.invokeFunction("getResult");//"1","01-01-2015",10);
- System.out.println("get2=" + result);*/
     }
-    /*выражения там могут быть тольк типа:
-    var bResult="sUserTask=='usertask1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays"
-    т.е., по сути, самый обычный js
-    разве что перед выполнением этого яваскрипна нужно будет перед ним вставить код типа:
-    var sUserTask="";
-    var nDays=2;
-    и т.д...
-    *
-    * */
-
-
 }

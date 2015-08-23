@@ -31,31 +31,37 @@ public class EscalationUtil {
     public String sendMailAlert(Long nID_task_activiti, String sCondition, String soData, String sPatternFile)
             throws NoSuchMethodException, ScriptException, ClassNotFoundException {
 
-        return "" + getResultOfCondition(nID_task_activiti, sCondition, soData);
+        Map<String, Object> taskData = getTaskData(nID_task_activiti);//from task
+        Map<String, Object> jsonData = parseJsonData(soData);//from json
+        taskData.putAll(jsonData); //concat
 
+        return "" + getResultOfCondition(taskData, sCondition);
     }
 
+    private Map<String, Object> getTaskData(Long nID_task_activiti) {
+        // Добавлять в мапу п.п.3.2 параметры из полученной задачи, по ее ИД (параметр nID_Task_Activiti)
+        // todo downloadTasksData
+        return new HashMap<>();
+    }
 
-    private boolean getResultOfCondition(
-            Long nID_task_activiti,
-            String sCondition,
-            String soData) throws ClassNotFoundException, ScriptException, NoSuchMethodException {
+    private Map<String, Object> parseJsonData(String soData) {
+        Map<String, Object> json = (Map<String, Object>) JSON.parse(soData);
+        Map<String, Object> json_ = new Gson().fromJson(soData, HashMap.class);
+        return json;
+    }
+
+    private boolean getResultOfCondition(Map<String, Object> data, String sCondition)
+            throws ClassNotFoundException, ScriptException, NoSuchMethodException {
+
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("JavaScript");
         //----get parameters---
-        Map<String, Object> jsonData = parseJsonData(soData);
-
-        // Добавлять в мапу п.п.3.2 параметры из полученной задачи, по ее ИД (параметр nID_Task_Activiti)
-        // todo downloadTasksData
-//        engine.put("nID_task_activiti", nID_task_activiti); //??
-
-        for (String key : jsonData.keySet()) {
+        for (String key : data.keySet()) {
             //chaeck are present in sCondition??
-            Parameter parameter = new Parameter(key, jsonData.get(key));
+            Parameter parameter = new Parameter(key, data.get(key));
             castValue(parameter);
 //            engine.put(key, Class.forName(getClassName(key)).cast(jsonData.get(key)));
             engine.put(parameter.name, parameter.castValue);
-
         }
         ///---eval script and invoke result----
         String script = getJavaScriptStr(sCondition);
@@ -68,11 +74,6 @@ public class EscalationUtil {
         return result;
     }
 
-    private Map<String, Object> parseJsonData(String soData) {
-        Map<String, Object> json = (Map<String, Object>) JSON.parse(soData);
-        Map<String, Object> json_ = new Gson().fromJson(soData, HashMap.class);
-        return json;
-    }
 
     private String getJavaScriptStr(String sCondition) {
         return "function getResult() { " +
