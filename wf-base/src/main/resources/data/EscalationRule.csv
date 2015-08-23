@@ -1,2 +1,1 @@
 nID;sID_BP;sID_UserTask;sCondition;soData;sPatternFile;nID_EscalationRuleFunction
-1;Test sID_BP;Test sUserTask;sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays;print//subsidy_zayava.html;1
