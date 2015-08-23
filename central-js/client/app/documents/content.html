@@ -101,7 +101,7 @@
                  value="{{doc.sName}}">
         </td>
         <td>
-          {{doc.oSignData.customer.fullName}}
+          {{getSignData(doc)}}
         </td>
         <td>
           <a ng-href="{{getDocumentLink(doc.nID)}}"
