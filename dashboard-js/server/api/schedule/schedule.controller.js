@@ -29,7 +29,10 @@ exports.setSchedule = function(req, res) {
       sRegionTime: req.query.sRegionTime,
       saRegionWeekDay: req.query.saRegionWeekDay,
       sDateTimeAt: req.query.sDateTimeAt,
-      sDateTimeTo: req.query.sDateTimeTo
+      sDateTimeTo: req.query.sDateTimeTo,
+      nLen: req.query.nLen,
+      sLenType: req.query.sLenType,
+      sData: req.query.sData,
     }
   };
 

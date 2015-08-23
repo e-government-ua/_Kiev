@@ -7,7 +7,51 @@
     <div class="form-group">
       <label for="inputName" class="col-md-3 col-xs-3 control-label">Назва</label>
       <div class="col-md-9 col-xs-9">
-        <input class="form-control" id="inputName" ng-model="slot.sName" placeholder="Введіть назву будь ласка">
+        <input class="form-control" id="inputName" ng-model="slot.name" placeholder="Введіть назву, будь ласка">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-3 col-xs-3 control-label">Тип часу дії</label>
+      <div class="col-md-9 col-xs-9">
+        <select class="form-control"
+                ng-model="slot.dateRange.type"
+                ng-options="type as type.label for type in durationTypes">
+          <option value="" disabled selected>Оберіть час діЇ</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group" ng-show="slot.dateRange.type === durationTypes.noEnd">
+      <label class="col-md-3 col-xs-3 control-label">Термін дії з</label>
+      <div class="col-md-9 col-xs-9">
+        <input date-range-picker
+               class="form-control date-picker"
+               type="text"
+               ng-model="slot.dateRange.range"
+               options="singleDateRangePickerOptions"/>
+      </div>
+    </div>
+
+    <div class="form-group" ng-show="slot.dateRange.type === durationTypes.noBeginning">
+      <label class="col-md-3 col-xs-3 control-label">Термін дії до</label>
+      <div class="col-md-9 col-xs-9">
+        <input date-range-picker
+               class="form-control date-picker"
+               type="text"
+               ng-model="slot.dateRange.range"
+               options="singleDateRangePickerOptions"/>
+      </div>
+    </div>
+
+    <div class="form-group" ng-show="slot.dateRange.type === durationTypes.beginningAndEnd">
+      <label class="col-md-3 col-xs-3 control-label">Термін дії з</label>
+      <div class="col-md-9 col-xs-9">
+        <input date-range-picker
+               class="form-control date-picker"
+               type="text"
+               ng-model="slot.dateRange.range"
+               options="dateRangePickerOptions"/>
       </div>
     </div>
 
@@ -17,84 +61,120 @@
         <label class="control-label pull-right">Час прийому з </label>
       </div>
       <div class="col-md-3 col-xs-3">
-        <timepicker ng-model="slot.sDateTimeAt" minute-step="5" show-meridian="false"></timepicker>
+        <timepicker ng-model="slot.timeRange.from" minute-step="5" show-meridian="false"></timepicker>
       </div>
       <div class="col-md-1 col-xs-1">
         <div class="spacer35"></div>
         <label class="control-label">до </label>
       </div>
       <div class="col-md-3 col-xs-3">
-        <timepicker ng-model="slot.sDateTimeTo" minute-step="5" show-meridian="false"></timepicker>
+        <timepicker ng-model="slot.timeRange.to" minute-step="5" show-meridian="false"></timepicker>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 col-xs-3">
+        <div class="spacer75"></div>
+          <label class="control-label pull-right">Дні тижня</label>
+      </div>
+      <div class="col-md-9 col-xs-9">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="slot.weekDays.mo"> Понеділок
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="slot.weekDays.tu"> Вівторок
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="slot.weekDays.we"> Середа
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="slot.weekDays.th"> Четвер
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="slot.weekDays.fr"> П'ятниця
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="slot.weekDays.sa"> Субота
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="slot.weekDays.su"> Неділя
+          </label>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="spacer40"></div>
+
+    <div class="form-group">
+      <label class="col-md-3 col-xs-3 control-label">Тип слота</label>
+      <div class="col-md-9 col-xs-9">
+        <div class="row"></div>
+        <label class="radio-inline">
+          <input type="radio" ng-model="slot.partition.isDividedIntoSlots" ng-value="false"> Весь часовий проміжок
+        </label>
+        <label class="radio-inline">
+          <input type="radio" ng-model="slot.partition.isDividedIntoSlots" ng-value="true"> Розбити на слоти
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group" ng-show="slot.partition.isDividedIntoSlots">
+      <label class="col-md-3 col-xs-3 control-label">Тривалість слота</label>
+      <div class="col-md-3 col-xs-3">
+        Дні
+      </div>
+      <div class="col-md-3 col-xs-3">
+        Години
+      </div>
+      <div class="col-md-3 col-xs-3">
+        Хвилини
+      </div>
+
+      <div class="col-md-2 col-xs-2">
+        <select class="form-control"
+                ng-model="slot.partition.days"
+                ng-options="item as item for item in daysAvailableValues">
+        </select>
+      </div>
+      <div class="col-md-2 col-xs-2 col-md-offset-1 col-xs-offset-1">
+        <select class="form-control"
+                ng-model="slot.partition.hours"
+                ng-options="item as item for item in hoursAvailableValues">
+        </select>
+      </div>
+      <div class="col-md-2 col-xs-2 col-md-offset-1 col-xs-offset-1">
+        <select class="form-control"
+                ng-model="slot.partition.minutes"
+                ng-options="item as item for item in minutesAvailableValues">
+        </select>
       </div>
     </div>
 
     <div class="form-group">
-      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="slot.saRegionWeekDay.mo"> Понеділок
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="slot.saRegionWeekDay.tu"> Вівторок
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="slot.saRegionWeekDay.we"> Середа
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="slot.saRegionWeekDay.th"> Четвер
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="slot.saRegionWeekDay.fr"> П'ятниця
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="slot.saRegionWeekDay.sa"> Субота
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="col-md-offset-3 col-md-9 col-xs-offset-3 col-xs-9">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="slot.saRegionWeekDay.su"> Неділя
-          </label>
-        </div>
+      <label for="inputFormula" class="col-md-3 col-xs-3 control-label">Формула розкладу</label>
+      <div class="col-md-9 col-xs-9">
+        <input class="form-control" id="inputFormula" ng-model="slot.scheduleFormula" placeholder="Наприклад: {&quot;0 0/15 14-15 ? * MON,TUE,THU,FRI&quot;:&quot;PT15M&quot;}">
       </div>
     </div>
 
