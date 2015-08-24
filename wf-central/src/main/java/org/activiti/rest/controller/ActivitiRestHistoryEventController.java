@@ -212,13 +212,13 @@ public class ActivitiRestHistoryEventController {
 	String getStatisticServiceCounts(@RequestParam(value = "nID_Service") Long nID_Service, 
 			@RequestParam(value = "nID_Region") Long nID_Region) {
 		
-		List<Map<String, String>> listOfHistoryEvents = historyEventServiceDao.getHistoryEvent_ServiceBynID_ServicenID_Region(nID_Service, nID_Region);
+		List<Map<String, Long>> listOfHistoryEvents = historyEventServiceDao.getHistoryEvent_ServiceBynID_ServicenID_Region(nID_Service, nID_Region);
 		  
-		List<Map<String, String>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String,String>>();
+		List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String,Object>>();
 		  
-		for (Map<String, String> currMap : listOfHistoryEvents){
+		for (Map<String, Long> currMap : listOfHistoryEvents){
 			  Region region = baseEntityDao.getById(Region.class, currMap.get("sName"));
-			  Map<String, String> currMapWithName = new HashMap<String, String>();
+			  Map<String, Object> currMapWithName = new HashMap<String, Object>();
 			  
 			  currMapWithName.put("sName", region.getName());
 			  currMapWithName.put("nCount", currMap.get("nCount"));

@@ -105,9 +105,9 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao {
     }
 
 	@Override
-	public List<Map<String, String>> getHistoryEvent_ServiceBynID_ServicenID_Region(
+	public List<Map<String, Long>> getHistoryEvent_ServiceBynID_ServicenID_Region(
 			Long nID_Service, Long nID_Region) {
-		List<Map<String, String>> resHistoryEventService = new LinkedList<Map<String, String>>();
+		List<Map<String, Long>> resHistoryEventService = new LinkedList<Map<String, Long>>();
 		Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
         criteria.add(Restrictions.eq("nID_Service", nID_Service));
         criteria.add(Restrictions.eq("nID_Region", nID_Region));
@@ -123,9 +123,9 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao {
         	for(Object item:criteria.list()){
         		Object[] currValue = (Object[]) item;
         		log.info("Curr value:"  + currValue);
-        		Map<String, String> currRes = new HashMap<String, String>();
-        		currRes.put("sName", (String) currValue[0]);
-        		currRes.put("nCount", (String) currValue[1]);
+        		Map<String, Long> currRes = new HashMap<String, Long>();
+        		currRes.put("sName", (Long) currValue[0]);
+        		currRes.put("nCount", (Long) currValue[1]);
         		
         		resHistoryEventService.add(currRes);
         	}

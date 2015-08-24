@@ -21,5 +21,5 @@ public interface HistoryEvent_ServiceDao {
 
     public HistoryEvent_Service updateHistoryEvent_Service(HistoryEvent_Service historyEvent_Service);
     
-    public List<Map<String, String>> getHistoryEvent_ServiceBynID_ServicenID_Region(Long nID_Service, Long nID_Region);
+    public List<Map<String, Long>> getHistoryEvent_ServiceBynID_ServicenID_Region(Long nID_Service, Long nID_Region);
 }
