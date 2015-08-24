@@ -31,7 +31,8 @@ public class EscalationHandler_SendMailAlert
         //create email body
         String sBody = null;
         try {
-            sBody = Util.getPatternFile(sPatternFile).toString();
+            byte[] bytes = Util.getPatternFile(sPatternFile);
+            sBody = Util.sData(bytes);
             log.info(">>>>>>>pattern body=");
             log.info(sBody);
             log.info(">>>>>>>--------");
