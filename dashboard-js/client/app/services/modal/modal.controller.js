@@ -3,39 +3,29 @@
 angular.module('dashboardJsApp')
   .controller('ScheduleModalController', function($scope, $modalInstance, slotToEdit) {
 
-    var dateRangePickerLocale = {
-      format: 'DD.MM.YYYY',
-      separator: " - "
-    };
+    $scope.constants = function(){
 
-    $scope.singleDateRangePickerOptions = {
-      singleDatePicker: true,
-      locale: dateRangePickerLocale
-    };
+      var createArray = function(numberOfElements){
+        var arr = [];
+        for (var i = 0; i <= numberOfElements; i++ ){
+          arr[i] = i;
+        }
+        return arr;
+      };
 
-    $scope.dateRangePickerOptions = {
-      singleDatePicker: false,
-      locale: dateRangePickerLocale
-    };
-
-    $scope.durationTypes = {
-      endless: { label: 'Безстроково'},
-      noEnd: { label: 'Без терміну закінчення'},
-      noBeginning:{ label: 'Без терміну початку'},
-      beginningAndEnd: { label: 'З терміном початку і терміном кінця'}
-    };
-
-    var createArrayStartingWithOne = function(numberOfElements){
-      var arr = [];
-      for (var i = 0; i <= numberOfElements; i++ ){
-        arr[i] = i;
+      return{
+        separator: ' - ',
+        durationTypes: {
+          endless: { label: 'Безстроково'},
+          noEnd: { label: 'Без терміну закінчення'},
+          noBeginning:{ label: 'Без терміну початку'},
+          beginningAndEnd: { label: 'З терміном початку і терміном кінця'}
+        },
+        daysAvailableValues: createArray(31),
+        hoursAvailableValues: createArray(24),
+        minutesAvailableValues: createArray(60)
       }
-      return arr;
-    };
-
-    $scope.daysAvailableValues = createArrayStartingWithOne(31);
-    $scope.hoursAvailableValues = createArrayStartingWithOne(24);
-    $scope.minutesAvailableValues = createArrayStartingWithOne(60);
+    }();
 
     var parser = function(){
       var createTimeObject = function(timeString){
@@ -58,37 +48,25 @@ angular.module('dashboardJsApp')
       var getDateRange = function(slot){
         if (slot.sDateTimeAt && slot.sDateTimeTo){
           return {
-            type: $scope.durationTypes.beginningAndEnd,
-            range: {
-              startDate: new Date(slot.sDateTimeAt),
-              endDate: new Date(slot.sDateTimeTo)
-            }
+            type: $scope.constants.durationTypes.beginningAndEnd,
+            range: slot.sDateTimeAt + $scope.constants.separator + slot.sDateTimeTo
           };
         }
         if (slot.sDateTimeAt){
           return {
-            type: $scope.durationTypes.noEnd,
-            range: {
-              startDate: new Date(slot.sDateTimeAt),
-              endDate: null
-            }
+            type: $scope.constants.durationTypes.noEnd,
+            range: slot.sDateTimeAt
           };
         }
         if (slot.sDateTimeTo){
           return {
-            type: $scope.durationTypes.noBeginning,
-            range: {
-              startDate: new Date(slot.sDateTimeTo),
-              endDate: null
-            }
+            type: $scope.constants.durationTypes.noBeginning,
+            range: slot.sDateTimeTo
           };
         }
         return {
-          type: $scope.durationTypes.endless,
-          range:{
-            startDate: null,
-            endDate: null
-          }
+          type: $scope.constants.durationTypes.endless,
+          range: ''
         };
       };
 
@@ -128,7 +106,7 @@ angular.module('dashboardJsApp')
                 to: createTimeObject('17:00')
               },
               dateRange: {
-                type: $scope.durationTypes.endless,
+                type: $scope.constants.durationTypes.endless,
                 range: {
                   startDate: null,
                   endDate: null
@@ -156,28 +134,6 @@ angular.module('dashboardJsApp')
       }
     }();
 
-    $scope.atLeastOneWeekDayChosen = function () {
-      if (!$scope.slot.weekDays) {
-        return false;
-      }
-
-      return Object.keys($scope.slot.weekDays)
-        .some(function (key) {
-          return $scope.slot.weekDays[key];
-        }
-      );
-    };
-
-    $scope.timeOrderIsCorrect = function(){
-      var at = new Date( $scope.slot.timeRange.from);
-      var to = new Date( $scope.slot.timeRange.to);
-      return at < to;
-    };
-
-    $scope.showSave = function(){
-      return $scope.atLeastOneWeekDayChosen() && $scope.timeOrderIsCorrect();
-    };
-
     var converter = function(){
       var getRegionTime = function(slot){
         var from = moment(slot.timeRange.from).format('HH:mm');
@@ -187,28 +143,29 @@ angular.module('dashboardJsApp')
 
       var getDateForSaving = function(date){
         if(date){
-          return moment(date).format('YYYY-MM-DD');
+          return moment(date).format('YYYY-MM-DD HH:mm:ss');
         }
         return undefined;
       };
 
       var saveDatesFromDuration = function(slot, slotToSave){
-        if (slot.dateRange.type === $scope.durationTypes.beginningAndEnd){
-          slotToSave.sDateTimeAt = getDateForSaving(slot.dateRange.range.startDate);
-          slotToSave.sDateTimeTo = getDateForSaving(slot.dateRange.range.endDate);
+        if (slot.dateRange.type === $scope.constants.durationTypes.beginningAndEnd){
+          var values = slot.dateRange.range.split($scope.constants.separator);
+          slotToSave.sDateTimeAt = getDateForSaving(values[0]);
+          slotToSave.sDateTimeTo = getDateForSaving(values[1]);
           return;
         }
-        if (slot.dateRange.type === $scope.durationTypes.noEnd){
-          slotToSave.sDateTimeAt = getDateForSaving(slot.dateRange.range.startDate);
+        if (slot.dateRange.type === $scope.constants.durationTypes.noEnd){
+          slotToSave.sDateTimeAt = getDateForSaving(slot.dateRange.range);
           slotToSave.sDateTimeTo = undefined;
           return;
         }
-        if (slot.dateRange.type === $scope.durationTypes.noBeginning){
+        if (slot.dateRange.type === $scope.constants.durationTypes.noBeginning){
           slotToSave.sDateTimeAt = undefined;
-          slotToSave.sDateTimeTo = getDateForSaving(slot.dateRange.range.startDate);
+          slotToSave.sDateTimeTo = getDateForSaving(slot.dateRange.range);
           return;
         }
-        if (slot.dateRange.type === $scope.durationTypes.endless){
+        if (slot.dateRange.type === $scope.constants.durationTypes.endless){
           slotToSave.sDateTimeAt = undefined;
           slotToSave.sDateTimeTo = undefined;
         }
@@ -245,6 +202,32 @@ angular.module('dashboardJsApp')
         }
       }
     }();
+
+    $scope.onDurationTypeChange = function(dateRange){
+      dateRange.range = '';
+    };
+
+    $scope.atLeastOneWeekDayChosen = function () {
+      if (!$scope.slot.weekDays) {
+        return false;
+      }
+
+      return Object.keys($scope.slot.weekDays)
+        .some(function (key) {
+          return $scope.slot.weekDays[key];
+        }
+      );
+    };
+
+    $scope.timeOrderIsCorrect = function(){
+      var at = new Date( $scope.slot.timeRange.from);
+      var to = new Date( $scope.slot.timeRange.to);
+      return at < to;
+    };
+
+    $scope.showSave = function(){
+      return $scope.atLeastOneWeekDayChosen() && $scope.timeOrderIsCorrect();
+    };
 
     $scope.save = function () {
       var slotToSave = converter.convert($scope.slot);

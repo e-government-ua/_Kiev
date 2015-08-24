@@ -10,8 +10,7 @@ angular.module('dashboardJsApp', [
   'ui.uploader',
   'ui.event',
   'angularMoment',
-  'ngClipboard',
-  'daterangepicker'
+  'ngClipboard'
 ]).config(function($routeProvider, $locationProvider) {
   $routeProvider
     .otherwise({

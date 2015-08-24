@@ -168,7 +168,7 @@ exports.deleteFlowSlots = function(req, res) {
     }
   };
 
-  activiti.delete(options, function(error, statusCode, result) {
+  activiti.del(options, function(error, statusCode, result) {
     if (error) {
       res.send(error);
     } else {

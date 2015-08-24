@@ -16,42 +16,39 @@
       <div class="col-md-9 col-xs-9">
         <select class="form-control"
                 ng-model="slot.dateRange.type"
-                ng-options="type as type.label for type in durationTypes">
-          <option value="" disabled selected>Оберіть час діЇ</option>
+                ng-options="type as type.label for type in constants.durationTypes"
+                ng-change="onDurationTypeChange(slot.dateRange)">
         </select>
       </div>
     </div>
 
-    <div class="form-group" ng-show="slot.dateRange.type === durationTypes.noEnd">
+    <div class="form-group" ng-show="slot.dateRange.type === constants.durationTypes.noEnd">
       <label class="col-md-3 col-xs-3 control-label">Термін дії з</label>
       <div class="col-md-9 col-xs-9">
-        <input date-range-picker
+        <input datetimepicker
                class="form-control date-picker"
                type="text"
-               ng-model="slot.dateRange.range"
-               options="singleDateRangePickerOptions"/>
+               ng-model="slot.dateRange.range"/>
       </div>
     </div>
 
-    <div class="form-group" ng-show="slot.dateRange.type === durationTypes.noBeginning">
+    <div class="form-group" ng-show="slot.dateRange.type === constants.durationTypes.noBeginning">
       <label class="col-md-3 col-xs-3 control-label">Термін дії до</label>
       <div class="col-md-9 col-xs-9">
-        <input date-range-picker
+        <input datetimepicker
                class="form-control date-picker"
                type="text"
-               ng-model="slot.dateRange.range"
-               options="singleDateRangePickerOptions"/>
+               ng-model="slot.dateRange.range"/>
       </div>
     </div>
 
-    <div class="form-group" ng-show="slot.dateRange.type === durationTypes.beginningAndEnd">
-      <label class="col-md-3 col-xs-3 control-label">Термін дії з</label>
+    <div class="form-group" ng-show="slot.dateRange.type === constants.durationTypes.beginningAndEnd">
+      <label class="col-md-3 col-xs-3 control-label">Термін дії</label>
       <div class="col-md-9 col-xs-9">
-        <input date-range-picker
+        <input datetimerangepicker
                class="form-control date-picker"
                type="text"
-               ng-model="slot.dateRange.range"
-               options="dateRangePickerOptions"/>
+               ng-model="slot.dateRange.range"/>
       </div>
     </div>
 
@@ -154,19 +151,19 @@
       <div class="col-md-2 col-xs-2">
         <select class="form-control"
                 ng-model="slot.partition.days"
-                ng-options="item as item for item in daysAvailableValues">
+                ng-options="item as item for item in constants.daysAvailableValues">
         </select>
       </div>
       <div class="col-md-2 col-xs-2 col-md-offset-1 col-xs-offset-1">
         <select class="form-control"
                 ng-model="slot.partition.hours"
-                ng-options="item as item for item in hoursAvailableValues">
+                ng-options="item as item for item in constants.hoursAvailableValues">
         </select>
       </div>
       <div class="col-md-2 col-xs-2 col-md-offset-1 col-xs-offset-1">
         <select class="form-control"
                 ng-model="slot.partition.minutes"
-                ng-options="item as item for item in minutesAvailableValues">
+                ng-options="item as item for item in constants.minutesAvailableValues">
         </select>
       </div>
     </div>

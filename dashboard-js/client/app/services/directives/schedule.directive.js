@@ -14,17 +14,17 @@ angular.module('dashboardJsApp')
 
       var setDuration = function(slot){
         if (slot.sDateTimeAt && slot.sDateTimeTo){
-          var from = moment(slot.sDateTimeAt).format('DD.MM.YYYY');
-          var to = moment(slot.sDateTimeTo).format('DD.MM.YYYY');
+          var from = moment(slot.sDateTimeAt).format('YYYY.MM.DD HH:mm');
+          var to = moment(slot.sDateTimeTo).format('YYYY.MM.DD HH:mm');
           slot.duration = 'З ' + from + ' по ' + to;
           return;
         }
         if (slot.sDateTimeAt){
-          slot.duration = 'З ' + moment(slot.sDateTimeAt).format('DD.MM.YYYY') + ' безстроково';
+          slot.duration = 'З ' + moment(slot.sDateTimeAt).format('YYYY.MM.DD HH:mm') + ' безстроково';
           return;
         }
         if (slot.sDateTimeTo){
-          slot.duration = 'Безстроково до ' + moment(slot.sDateTimeTo).format('DD.MM.YYYY');
+          slot.duration = 'Безстроково до ' + moment(slot.sDateTimeTo).format('YYYY.MM.DD HH:mm');
           return;
         }
         slot.duration = 'Безстроково';
