@@ -69,6 +69,9 @@ public class AccessKeyAuthFilter extends GenericFilterBean {
     }
     //FIXME Potential bug. If parameter will be in the first place it would never be replaced by this method!
     private String getQueryStringWithoutAccessKey(String queryString, HttpServletRequest request) {
+        if (StringUtils.isBlank(queryString)) {
+            return StringUtils.EMPTY;
+        }
         String key = request.getParameter(ACCESS_KEY);
         if (StringUtils.isBlank(key)) {
             return queryString.replaceAll(PARAM_DELIMITER.concat(ACCESS_KEY), StringUtils.EMPTY);
