@@ -12,7 +12,6 @@ import org.wf.dp.dniprorada.base.dao.EscalationRuleDao;
 import org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDao;
 import org.wf.dp.dniprorada.base.model.EscalationRule;
 import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
-import org.wf.dp.dniprorada.util.EscalationUtil;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -171,53 +170,21 @@ public class ActivitiRestEscalationController {
     //----------Escalation handlers-----------------
 
     //----EscalationHandler_SendMailAlert
-    @RequestMapping(value = "/sendMailAlertByEscalationHandler", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    void sendMailAlertByEscalationHandler(//??
-                                          @RequestParam(value = "nID_Task_Activiti", required = false) Long nID_Task_Activiti,//temp!!!
-                                          @RequestParam(value = "sCondition") String sCondition,
-                                          @RequestParam(value = "soData") String soData,
-                                          @RequestParam(value = "sPatternFile", required = false) String sPatternFile)//temp!!!
-            throws ActivitiRestException {
-
-        try {
-            new EscalationUtil().sendMailAlert(nID_Task_Activiti, sCondition, soData, sPatternFile);
-        } catch (Exception e) {
-            throw new ActivitiRestException("ex during sending mail alert in escalationController!", e);
-        }
-
-    }
-/* 3.2) Помещать параметры из "soData" в мапу мап(распарсить как JSON-объект), ожидая строку вида:
-{"sParam1":"a@a.a","nParam2":456,"bParam3":true,"asMailRecipient":["b@b.b","c@c.c"]}
-при том, если первые символы переменных первого уровня маленькие(при этом следующий символ большой):
-s - кастить в String
-n - кастить в Long
-b - кастить в Boolean
-as - кастить в массив/лист String
-an - кастить в массив/лист Long
-в остальных случаях кастить в стринг
-
- 3.3) Добавлять в мапу п.п.3.2 параметры из полученной задачи, по ее ИД (параметр nID_Task_Activiti), с соблюдением тех-же правил определения типа (кастинг) а п.3.2.
-
- 3.4) По выражению в "sCondition" ,с учетом параметров, полученных в п.п. 3.3. - произвести проверку, при которой если получится True - выполнять дальнейшие действия в п.п.3.5.
-
- 3.5) Выполнить отсылку на электронную почту:
-
- 3.5.1) по адресам, распарсеного подпараметра "asMailRecipient" (из soData)
- 3.5.2) По шаблону тела, взятому с параметра "sPatternFile" (в коде искать метод getPatternFile(String sPathFile))
- 3.5.3) С заголовком, распарсеного подпараметра "sHead" (из soData)
- 3.5.4) Заменой всех найденых вхождений в шаблоне тела, типа [sParam0], где "sParam0" - название параметра (положенного в мапу по п.п. 3.2 и п.п. 3.3):
-* */
-
-
-    public static void main(String[] args) throws Exception {
-
-        new EscalationUtil().sendMailAlert
-                (null,
-                        "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays",
-                        "{sUserTask:'1', sDateEdit:'01-01-2015', nDays:0, asList1:['2'], anList2:[10], bBool:true}",
-                        "");
-
-    }
+//    @RequestMapping(value = "/sendMailAlertByEscalationHandler", method = RequestMethod.GET)
+//    public
+//    @ResponseBody
+//    void sendMailAlertByEscalationHandler(//??
+//                                          @RequestParam(value = "nID_Task_Activiti", required = false) Long nID_Task_Activiti,//temp!!!
+//                                          @RequestParam(value = "sCondition") String sCondition,
+//                                          @RequestParam(value = "soData") String soData,
+//                                          @RequestParam(value = "sPatternFile", required = false) String sPatternFile)//temp!!!
+//            throws ActivitiRestException {
+//
+//        try {
+//            new EscalationUtil().sendMailAlert(nID_Task_Activiti, sCondition, soData, sPatternFile);
+//        } catch (Exception e) {
+//            throw new ActivitiRestException("ex during sending mail alert in escalationController!", e);
+//        }
+//
+//    }
 }

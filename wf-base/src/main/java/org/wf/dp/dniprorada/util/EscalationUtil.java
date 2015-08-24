@@ -27,8 +27,25 @@ public class EscalationUtil {
         }
     }
 
+    public static void main(String[] args) throws Exception {
+
+        new EscalationUtil().sendMailAlert
+                (null,
+                        "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays",
+                        "{sUserTask:'1', sDateEdit:'01-01-2015', nDays:0, asList1:['2'], anList2:[10], bBool:true}",
+                        "");
+
+    }
+
+    public void checkTaskOnEscalation
+            (Map<String, Object> mTaskParam,
+             String sCondition, String soData,
+             String sPatternFile, String sBeanHandler) {
+
+    }
+
     //String -- temp!!!! must be void and not here)
-    public String sendMailAlert(Long nID_task_activiti, String sCondition, String soData, String sPatternFile)
+    private String sendMailAlert(Long nID_task_activiti, String sCondition, String soData, String sPatternFile)
             throws NoSuchMethodException, ScriptException, ClassNotFoundException {
 
         Map<String, Object> taskData = getTaskData(nID_task_activiti);//from task
@@ -37,6 +54,7 @@ public class EscalationUtil {
 
         return "" + getResultOfCondition(taskData, sCondition);
     }
+
 
     private Map<String, Object> getTaskData(Long nID_task_activiti) {
         // Добавлять в мапу п.п.3.2 параметры из полученной задачи, по ее ИД (параметр nID_Task_Activiti)
