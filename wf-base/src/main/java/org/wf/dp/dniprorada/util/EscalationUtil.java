@@ -159,7 +159,7 @@ public class EscalationUtil {
     private String sendMailAlert(Long nID_task_activiti, String sCondition, String soData, String sPatternFile)
             throws NoSuchMethodException, ScriptException, ClassNotFoundException {
 
-        Map<String, Object> taskData = getTaskData(nID_task_activiti);//from task
+        Map<String, Object> taskData = new HashMap();//TODO: временно. ¬ообще весь метод должен быть другой!//  getTaskData(nID_task_activiti);//from task
         Map<String, Object> jsonData = parseJsonData(soData);//from json
         taskData.putAll(jsonData); //concat
 
