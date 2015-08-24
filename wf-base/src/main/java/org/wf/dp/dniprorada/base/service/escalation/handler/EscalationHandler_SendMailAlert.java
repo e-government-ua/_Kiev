@@ -49,7 +49,7 @@ public class EscalationHandler_SendMailAlert
         for (String key : mParam.keySet()) {
             if (sBody.contains(key)) {
                 log.info("replace key [" + key + "] by value " + mParam.get(key));
-                sBody = sBody.replaceAll("[" + key + "]", mParam.get(key).toString());
+                sBody = sBody.replace("[" + key + "]", mParam.get(key).toString());
             }
         }
         log.info(">>>>>>>total sbody=");
@@ -66,6 +66,7 @@ public class EscalationHandler_SendMailAlert
     }
 
     private void sendEmail(String sHead, String sBody, String recipient) throws EmailException {
+        log.info ("oMail=" + oMail );
         oMail.reset();
         oMail
                 //._From(mailAddressNoreply)
