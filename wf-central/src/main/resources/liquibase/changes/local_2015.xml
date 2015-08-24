@@ -474,8 +474,6 @@
     </changeSet>
 
 
-
-
     <changeSet id="no-issue" author="bw"> 
 	
         <addColumn tableName="FlowProperty">
@@ -492,7 +490,27 @@
 	
     </changeSet>    
     
-    
+    <changeSet id="684" author="askosyr"> 
+	
+        <addColumn tableName="HistoryEvent_Service">
+           <column name="nID_Service" type="bigint">
+               <constraints nullable="true"/>
+           </column>
+        </addColumn>
+        
+        <addColumn tableName="HistoryEvent_Service">
+           <column name="nID_Region" type="bigint">
+               <constraints nullable="true"/>
+           </column>
+        </addColumn>
+        
+        <addColumn tableName="HistoryEvent_Service">        
+            <column name="sID_UA" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+	
+    </changeSet>   
     
     
 </databaseChangeLog>
