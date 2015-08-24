@@ -41,8 +41,11 @@ public class AccessKeyAuthFilter extends GenericFilterBean {
         log.info("accessKey="+accessKey);
         log.info("subjectId="+subjectId);
 
+        String sRequest = URLEncodedUtils.format(createNameValueList(servletRequest), "UTF-8");
+        log.info("sRequest="+sRequest);
         if (StringUtils.isNoneBlank(accessControl) && REQUEST.equalsIgnoreCase(accessControl)) {
-            subjectId = URLEncodedUtils.format(createNameValueList(servletRequest), "UTF-8");
+            subjectId = sRequest;
+            log.info("subjectId(NEW)="+subjectId);
         }
         if (StringUtils.isNotBlank(accessKey) && StringUtils.isNotBlank(subjectId)) {
             log.info("accessKey&subjectId is Not Blank");

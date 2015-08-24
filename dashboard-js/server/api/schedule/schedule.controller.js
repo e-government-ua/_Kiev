@@ -29,7 +29,10 @@ exports.setSchedule = function(req, res) {
       sRegionTime: req.query.sRegionTime,
       saRegionWeekDay: req.query.saRegionWeekDay,
       sDateTimeAt: req.query.sDateTimeAt,
-      sDateTimeTo: req.query.sDateTimeTo
+      sDateTimeTo: req.query.sDateTimeTo,
+      nLen: req.query.nLen,
+      sLenType: req.query.sLenType,
+      sData: req.query.sData,
     }
   };
 
@@ -165,7 +168,7 @@ exports.deleteFlowSlots = function(req, res) {
     }
   };
 
-  activiti.delete(options, function(error, statusCode, result) {
+  activiti.del(options, function(error, statusCode, result) {
     if (error) {
       res.send(error);
     } else {
