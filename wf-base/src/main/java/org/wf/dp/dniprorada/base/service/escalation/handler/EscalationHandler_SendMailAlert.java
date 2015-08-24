@@ -32,6 +32,9 @@ public class EscalationHandler_SendMailAlert
         String sBody = null;
         try {
             sBody = Util.getPatternFile(sPatternFile).toString();
+            log.info(">>>>>>>pattern body=");
+            log.info(sBody);
+            log.info(">>>>>>>--------");
         } catch (IOException e) {//??
             log.error("error during finding the pattern file! path=" + sPatternFile, e);
             throw new IllegalArgumentException("wrong pattern path! path=" + sPatternFile, e);
@@ -43,9 +46,14 @@ public class EscalationHandler_SendMailAlert
         String sHead = "Ескалація задачі";
         //
         for (String key : mParam.keySet()) {
-            sBody = sBody.replaceAll(String.format("[%s]", key), mParam.get(key).toString());
+            if (sBody.contains(key)) {
+                log.info("replace key " + key + "by value " + mParam.get(key));
+                sBody = sBody.replaceAll(String.format("[%s]", key), mParam.get(key).toString());
+            }
         }
-
+        log.info(">>>>>>>total sbody=");
+        log.info(sBody);
+        log.info(">>>>>>>--------");
         for (String recipient : asRecipientMail) {
             try {
                 sendEmail(sHead, sBody, recipient);
