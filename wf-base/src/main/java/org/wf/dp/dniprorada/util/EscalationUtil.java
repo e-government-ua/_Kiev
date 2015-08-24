@@ -68,7 +68,7 @@ public class EscalationUtil {
     }
 
     
-    void runEscalationAll() throws ActivitiRestException {
+    public void runEscalationAll() throws ActivitiRestException {
         //@RequestParam(value = "nID", required = false) Long nID ,
         //@RequestParam(value = "sName") String sName ,
         //@RequestParam(value = "sBeanHandler", required = false) String sBeanHandler
