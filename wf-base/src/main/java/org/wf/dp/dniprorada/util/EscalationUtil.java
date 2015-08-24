@@ -3,9 +3,8 @@ package org.wf.dp.dniprorada.util;
 import com.google.gson.Gson;
 import com.mongodb.util.JSON;
 import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler;
+import org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler_SendMailAlert;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
@@ -48,7 +47,7 @@ public class EscalationUtil {
                 "anList2:[10], bBool:true}";
         String file = "print/kiev_dms_print1.html";
 
-        String sCondition = "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays";
+        String sCondition ="nDays == 10";// "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays";
 
         new EscalationUtil().checkTaskOnEscalation
                 (taskParam, sCondition, json, file, "escalationHandler_SendMailAlert");
@@ -78,27 +77,35 @@ public class EscalationUtil {
         mTaskParam.putAll(jsonData); //concat
 
         //2 - check beanHandler        //sendMailAlert(Map mParam, String[] asRecipientMail, String sPatternFile);
-        //if (conditionResult) {
-        EscalationHandler escalationHandler = getHandlerClass(sBeanHandler);
-        escalationHandler.execute(mTaskParam, (String[]) mTaskParam.get("asRecipientMail"), sPatternFile);
-        // }
+        if (conditionResult) {
+            EscalationHandler escalationHandler = getHandlerClass(sBeanHandler);
+            if (escalationHandler != null) {
+                escalationHandler.execute(mTaskParam, (String[]) mTaskParam.get("asRecipientMail"), sPatternFile);
+            }
+        }
 
     }
 
 
     private EscalationHandler getHandlerClass(String sBeanHandler) {
-        try {
-            ApplicationContext context = new ClassPathXmlApplicationContext("context-services.xml");
-            return (EscalationHandler) context.getBean(sBeanHandler);
-        } catch (Exception e) {
-            throw new RuntimeException("Can't find class for handler: " + sBeanHandler, e);
-//            String fullClassName = flowProperty.getoFlowPropertyClass().getsPath();
-//            try {
-//                return (Class<EscalationHandler>) Class.forName(fullClassName);
-//            } catch (ClassNotFoundException e) {
-//                throw new RuntimeException("Can't find class of handler: " + fullClassName, e);
-//            }
-        }
+//        try {
+//            return (EscalationHandler) Class.forName("org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler_SendMailAlert").newInstance();
+//        } catch (InstantiationException | IllegalAccessException e) {
+//            log.error("ex", e);
+//        } catch (ClassNotFoundException e) {
+//            log.error("ex", e);
+//        }
+//        return null;
+//        try {
+//            log.info("get app-context");
+//            ApplicationContext context = new ClassPathXmlApplicationContext("context-services.xml");
+//            log.info("get bean " + sBeanHandler);
+//            return (EscalationHandler) context.getBean(sBeanHandler);
+//        } catch (Exception e) {
+//            log.error("Can't find class for handler: " + sBeanHandler, e);
+            return new EscalationHandler_SendMailAlert();
+            //throw new RuntimeException();
+      //  }
     }
 //String -- temp!!!! must be void and not here)
 
@@ -133,11 +140,13 @@ public class EscalationUtil {
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("JavaScript");
         //----put parameters---
+        log.info("json parameter:");
         for (String key : jsonData.keySet()) {
             //chaeck are present in sCondition??
             Parameter parameter = new Parameter(key, jsonData.get(key));
             castValue(parameter);
 //            engine.put(key, Class.forName(getClassName(key)).cast(jsonData.get(key)));
+            log.info(parameter.name + "=" + parameter.castValue);
             engine.put(parameter.name, parameter.castValue);
             jsonData.put(parameter.name, parameter.castValue);
         }
