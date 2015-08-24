@@ -31,6 +31,7 @@
 <a href="#29_removeSheduleFlowExclude"> 29. Удаление расписания исключений </a><br/>
 <a href="#30_workWithPatternFiles"> 30. Работа с файлами-шаблонами </a><br/>
 <a href="#31_getFlowSlotTickets"> 31. Получение активных тикетов</a><br/>
+<a href="#32_getTasksByOrder"> 32. Получение списка ID пользовательских тасок по номеру заявки</a><br/>
 
 ### iGov.ua APIs
 
@@ -2215,4 +2216,39 @@ https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin
 ```
 
 
+----------------------
+
+<a name="32_getTasksByOrder">
+#### 32. Получение списка ID пользовательских тасок по номеру заявки
+</a><a href="#0_contents">↑Up</a><br/>
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/tasks/getTasksByOrder?nID_Protected=[nID_Protected]
+-- возвращает спискок ID пользовательских тасок по номеру заявки
+
+* nID_Protected - Номер заявки, в котором, все цифры кроме последней - ID процесса в activiti. А последняя цифра - его контрольная сумма зашифрованная по алгоритму Луна.
+
+Примеры:
+
+https://test.region.igov.org.ua/wf-region/service/rest/tasks/getTasksByOrder?nID_Protected=123452
+
+Responce status 403.
+```json
+{"code":"BUSINESS_ERR","message":"CRC Error"}
+```
+
+https://test.region.igov.org.ua/wf-region/service/rest/tasks/getTasksByOrder?nID_Protected=123451
+1) Если процесса с ID 12345 и тасками нет в базе то:
+
+Responce status 403.
+```json
+{"code":"BUSINESS_ERR","message":"Record not found"}
+```
+2) Если процесс с ID 12345 есть в базе с таской ID которой 555, то:
+
+Responce status 200.
+```json
+[ 555 ]
+```
 
