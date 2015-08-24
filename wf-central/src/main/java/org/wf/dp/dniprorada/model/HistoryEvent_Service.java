@@ -47,15 +47,15 @@ public class HistoryEvent_Service extends Entity {
 	private DateTime sDate;
     
     @JsonProperty(value="nID_Service")
-    @Column(nullable = true)
+    @Column(name = "nID_Service", nullable = true)
     private Long nID_Service;
     
     @JsonProperty(value="nID_Region")
-    @Column(nullable = true)
+    @Column(name = "nID_Region", nullable = true)
     private Long nID_Region;
     
     @JsonProperty(value="sID_UA")
-    @Column(nullable = true)
+    @Column(name = "sID_UA", nullable = true)
     private String sID_UA;
 
     public String getsID() {
