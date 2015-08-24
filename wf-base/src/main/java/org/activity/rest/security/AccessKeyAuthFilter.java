@@ -1,9 +1,6 @@
 package org.activity.rest.security;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,10 +10,8 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
 
 /**
  * @author tasman
@@ -28,6 +23,9 @@ public class AccessKeyAuthFilter extends GenericFilterBean {
     public static final String SUBJECT_ID = "nID_Subject";
 
     public static final String REQUEST = "Request";
+    public static final String QUERY_DELIMITER = "?";
+    public static final String VALUE_DELIMITER = "=";
+    public static final String PARAM_DELIMITER = "&";
 
     private final Logger log = LoggerFactory.getLogger(AccessKeyAuthFilter.class);
     
@@ -41,10 +39,10 @@ public class AccessKeyAuthFilter extends GenericFilterBean {
         log.info("accessKey="+accessKey);
         log.info("subjectId="+subjectId);
 
-        String sRequest = URLEncodedUtils.format(createNameValueList(servletRequest), "UTF-8");
-        log.info("sRequest="+sRequest);
+        String query = generateQueryStringByServletRequest(servletRequest);
+        log.info("currentQuery()="+query);
         if (StringUtils.isNoneBlank(accessControl) && REQUEST.equalsIgnoreCase(accessControl)) {
-            subjectId = sRequest;
+            subjectId = query;
             log.info("subjectId(NEW)="+subjectId);
         }
         if (StringUtils.isNotBlank(accessKey) && StringUtils.isNotBlank(subjectId)) {
@@ -59,15 +57,19 @@ public class AccessKeyAuthFilter extends GenericFilterBean {
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    private List<? extends NameValuePair> createNameValueList(ServletRequest servletRequest) {
-        List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
-        Enumeration<String> names = servletRequest.getParameterNames();
-        while (names.hasMoreElements()) {
-            String name = names.nextElement();
-            if (!ACCESS_KEY.equalsIgnoreCase(name)) {
-                parameters.add(new BasicNameValuePair(name, servletRequest.getParameter(name)));
-            }
+    private String generateQueryStringByServletRequest(ServletRequest servletRequest) throws ServletException {
+        if (servletRequest instanceof HttpServletRequest) {
+            HttpServletRequest request = (HttpServletRequest) servletRequest;
+            return request.getContextPath().concat(request.getServletPath()).
+                    concat(request.getPathInfo()).concat(QUERY_DELIMITER).
+                    concat(getQueryStringWithoutAccessKey(request.getQueryString(), request));
+        } else {
+            throw new ServletException("Subject ID generation error. Can't detect servlet request");
         }
-        return parameters;
+    }
+    //FIXME Potential bug. If parameter will be in the first place it would never be replaced by this method!
+    private String getQueryStringWithoutAccessKey(String queryString, HttpServletRequest request) {
+        return queryString.replaceAll(PARAM_DELIMITER.concat(ACCESS_KEY).concat(VALUE_DELIMITER).
+                concat(request.getParameter(ACCESS_KEY)), StringUtils.EMPTY);
     }
 }
