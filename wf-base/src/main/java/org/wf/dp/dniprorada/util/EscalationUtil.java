@@ -3,8 +3,6 @@ package org.wf.dp.dniprorada.util;
 import com.google.gson.Gson;
 import com.mongodb.util.JSON;
 import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler;
 import org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler_SendMailAlert;
 
@@ -98,22 +96,16 @@ public class EscalationUtil {
 //            log.error("ex", e);
 //        }
 //        return null;
-        try {
-            log.info("get app-context");
-            ApplicationContext context = new ClassPathXmlApplicationContext("context-services.xml");
-            log.info("get bean " + sBeanHandler);
-            return (EscalationHandler) context.getBean(sBeanHandler);
-        } catch (Exception e) {
-            log.error("Can't find class for handler: " + sBeanHandler, e);
+//        try {
+//            log.info("get app-context");
+//            ApplicationContext context = new ClassPathXmlApplicationContext("context-services.xml");
+//            log.info("get bean " + sBeanHandler);
+//            return (EscalationHandler) context.getBean(sBeanHandler);
+//        } catch (Exception e) {
+//            log.error("Can't find class for handler: " + sBeanHandler, e);
             return new EscalationHandler_SendMailAlert();
             //throw new RuntimeException();
-//            String fullClassName = flowProperty.getoFlowPropertyClass().getsPath();
-//            try {
-//                return (Class<EscalationHandler>) Class.forName(fullClassName);
-//            } catch (ClassNotFoundException e) {
-//                throw new RuntimeException("Can't find class of handler: " + fullClassName, e);
-//            }
-        }
+      //  }
     }
 //String -- temp!!!! must be void and not here)
 
