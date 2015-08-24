@@ -48,8 +48,8 @@ public class EscalationHandler_SendMailAlert
         //
         for (String key : mParam.keySet()) {
             if (sBody.contains(key)) {
-                log.info("replace key " + key + "by value " + mParam.get(key));
-                sBody = sBody.replaceAll(String.format("[%s]", key), mParam.get(key).toString());
+                log.info("replace key [" + key + "] by value " + mParam.get(key));
+                sBody = sBody.replaceAll("[" + key + "]", mParam.get(key).toString());
             }
         }
         log.info(">>>>>>>total sbody=");

@@ -37,6 +37,7 @@
           scope="prototype">
     </bean>
 
+<bean id="oMail" class="org.wf.dp.dniprorada.util.Mail"/>
 
     <!-- ===========================   SERVICE TRANSACTIONS   ======================= -->
 
