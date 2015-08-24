@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.base.service.escalation;
 
+import java.util.Date;
 import org.activiti.engine.FormService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
@@ -18,6 +19,7 @@ import org.wf.dp.dniprorada.util.EscalationUtil;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.joda.time.DateTime;
 
 public class EscalationService {
     private static final Logger log = Logger.getLogger(EscalationService.class);
@@ -95,12 +97,21 @@ public class EscalationService {
         long nDiffMS = 0;
         if (oTask.getDueDate() != null) {
             nDiffMS = oTask.getDueDate().getTime() - oTask.getCreateTime().getTime();
+        }else{
+            nDiffMS = DateTime.now().toDate().getTime() - oTask.getCreateTime().getTime();
+            //Date oDateTo = DateTime.now().toDate();
         }
         log.info("[getTaskData]:nDiffMS=" + nDiffMS);
+        
         long nElapsedHours = nDiffMS / 1000 / 60 / 60;
-
         log.info("[getTaskData]:nElapsedHours=" + nElapsedHours);
         m.put("nElapsedHours", nElapsedHours);
+        
+        long nElapsedDays = nElapsedHours / 24;
+        log.info("[getTaskData]:nElapsedDays=" + nElapsedDays);
+        m.put("nElapsedDays", nElapsedDays);
+        m.put("nDays", nElapsedDays);
+
 
         TaskFormData oTaskFormData = formService.getTaskFormData(oTask.getId());
         for (FormProperty oFormProperty : oTaskFormData.getFormProperties()) {
