@@ -89,7 +89,7 @@ public class EscalationUtil {
     private EscalationHandler getHandlerClass(String sBeanHandler) {
         try {
             ApplicationContext context = new ClassPathXmlApplicationContext("context-services.xml");
-            return (EscalationHandler) context.getBean("sBeanHandler");
+            return (EscalationHandler) context.getBean(sBeanHandler);
         } catch (Exception e) {
             throw new RuntimeException("Can't find class for handler: " + sBeanHandler, e);
 //            String fullClassName = flowProperty.getoFlowPropertyClass().getsPath();
