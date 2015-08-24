@@ -20,13 +20,13 @@ angular.module('app').factory('OrganListFactory', function($http, $filter, Typea
     var sID_UA = null;
     if (oServiceData.nID_City && oServiceData.nID_City.sID_UA)
       sID_UA = oServiceData.nID_City.sID_UA;
-    else if (oServiceData.nID_City && oServiceData.nID_City.nID_Region && oServiceData.nID_City.nID_Region.sID_UA)
-      sID_UA = oServiceData.nID_City.nID_Region.sID_UA;
+    else if (oServiceData.nID_Region && oServiceData.nID_Region.sID_UA)
+      sID_UA = oServiceData.nID_Region.sID_UA;
 
     var data = {
       sID_UA: sID_UA
     };
-    return this.typeahead.load('./api/organs/' + oServiceData.oSubject_Operator.oSubject.nID, search, data).then(function(organs) {
+    return this.typeahead.load('./api/organs/' + oServiceData.oSubject_Operator.nID, search, data).then(function(organs) {
       if (search && search.length > 0 && search !== '[$empty$]')
         return $filter('filter')(organs, {sNameUa:search});
       else

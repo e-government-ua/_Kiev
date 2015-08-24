@@ -44,6 +44,14 @@ public class FlowProperty extends Entity {
    @Column(nullable=true)
    private String sDateTimeTo;
 
+    @JsonProperty(value="nLen")
+   @Column(nullable=true)
+   private Integer nLen;
+    
+    @JsonProperty(value="sLenType")
+   @Column(nullable=true)
+   private String sLenType;
+   
    public Flow_ServiceData getoFlow_ServiceData() {
       return oFlow_ServiceData;
    }
@@ -88,6 +96,23 @@ public class FlowProperty extends Entity {
 	public void setSaRegionWeekDay(String saRegionWeekDay) {
 		this.saRegionWeekDay = saRegionWeekDay;
 	}
+        
+    @JsonProperty(value = "nLen")
+	public Integer getLen() {
+		return nLen;
+	}
+	public void setLen(Integer nLen) {
+		this.nLen = nLen;
+	}
+
+    @JsonProperty(value = "sLenType")
+	public String getLenType() {
+		return sLenType;
+	}
+	public void setLenType(String sLenType) {
+		this.sLenType = sLenType;
+	}
+        
 	public String getsDateTimeAt() {
 		return sDateTimeAt;
 	}

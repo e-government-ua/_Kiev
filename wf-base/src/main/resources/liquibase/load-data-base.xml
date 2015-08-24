@@ -45,6 +45,8 @@
             <column name="saRegionWeekDay" type="STRING" defaultValue=""/>
             <column name="sDateTimeAt" type="STRING" defaultValue=""/>
             <column name="sDateTimeTo" type="STRING" defaultValue=""/>
+            <column name="nLen" type="NUMERIC"/>
+            <column name="sLenType" type="STRING" defaultValue=""/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/FlowSlotTicket.csv" tableName="FlowSlotTicket" separator=";">

@@ -8,8 +8,9 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Required;
 import org.wf.dp.dniprorada.model.EntityNotFoundException;
 import org.wf.dp.dniprorada.model.HistoryEvent_Service;
-import org.wf.dp.dniprorada.util.AlgorithmLuna;
+import org.wf.dp.dniprorada.util.luna.AlgorithmLuna;
 import org.apache.log4j.Logger;
+import org.wf.dp.dniprorada.util.luna.CRCInvalidException;
 
 public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao {
 
@@ -51,11 +52,9 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao {
     }
 
     @Override
-    public HistoryEvent_Service getHistoryEvent_ServiceByID_Protected(Long nID_Protected) {
-        if (!AlgorithmLuna.checkProtectedNumber(nID_Protected)) {
-            log.warn("CRC Error");
-            throw new IllegalArgumentException("CRC Error");
-        }
+    public HistoryEvent_Service getHistoryEvent_ServiceByID_Protected(Long nID_Protected) throws CRCInvalidException {
+        AlgorithmLuna.validateProtectedNumber(nID_Protected);
+
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
         //criteria.add(Restrictions.eq("id", nID_Protected / 10));
         criteria.add(Restrictions.eq("nID_Task", nID_Protected / 10));

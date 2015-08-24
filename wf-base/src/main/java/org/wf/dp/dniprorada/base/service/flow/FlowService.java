@@ -24,6 +24,9 @@ import org.wf.dp.dniprorada.base.viewobject.flow.FlowSlotVO;
 import javax.xml.datatype.Duration;
 import java.util.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * User: goodg_000
  * Date: 29.06.2015
@@ -31,6 +34,8 @@ import java.util.*;
  */
 public class FlowService implements ApplicationContextAware {
 
+   private static final Logger log = LoggerFactory.getLogger(FlowService.class);
+    
    private FlowSlotDao flowSlotDao;
    private FlowSlotTicketDao oFlowSlotTicketDao;
    private BaseEntityDao baseEntityDao;
@@ -113,13 +118,32 @@ public class FlowService implements ApplicationContextAware {
       return res;
    }
 
-   public FlowSlotTicket saveFlowSlotTicket(Long nID_FlowSlot, Long nID_Subject, Long nID_Task_Activiti) {
+   public FlowSlotTicket saveFlowSlotTicket(Long nID_FlowSlot, Long nID_Subject, Long nID_Task_Activiti) throws Exception {
 
       FlowSlotTicket oFlowSlotTicket = oFlowSlotTicketDao.findFlowSlotTicket(nID_FlowSlot);
       if (oFlowSlotTicket == null) {
          oFlowSlotTicket = new FlowSlotTicket();
+      }else{
+        //if(oFlowSlotTicket.getnID_Task_Activiti()!=null){
+        if(FlowSlotVO.bBusyStatic(oFlowSlotTicket)){
+                  //oFlowSlotTicket.getnID_Subject(nID_Subject);
+            String sError="FlowSlotTicket with nID_FlowSlot="+nID_FlowSlot+" is bBusyStatic by getnID_Task_Activiti()="+oFlowSlotTicket.getnID_Task_Activiti();
+            log.error(sError);
+            throw new Exception(sError);
+        }else if(FlowSlotVO.bBusyTemp(oFlowSlotTicket)){//oFlowSlotTicket.getsDateEdit(). <oFlowSlotTicket.getsDateEdit()
+            //bBusyStatic
+            log.info("nID_Subject="+nID_Subject);
+            log.info("getnID_Subject()="+oFlowSlotTicket.getnID_Subject());
+            if(!nID_Subject.equals(oFlowSlotTicket.getnID_Subject())){
+                String sError="FlowSlotTicket with nID_FlowSlot="+nID_FlowSlot+" is bBusyTemp from getsDateEdit()="+oFlowSlotTicket.getsDateEdit();
+                log.error(sError);
+                throw new Exception(sError);
+            }
+        }
       }
-
+      
+      //oFlowSlotTicket
+              
       oFlowSlotTicket.setnID_Subject(nID_Subject);
       oFlowSlotTicket.setnID_Task_Activiti(nID_Task_Activiti);
 
@@ -179,9 +203,13 @@ public class FlowService implements ApplicationContextAware {
                handler.setEndDate(stopDate);
                handler.setFlow(flow);
 
-               List<FlowSlot> generatedSlots = handler.generateObjects(flowProperty.getsData());
-               for (FlowSlot slot : generatedSlots) {
-                  res.add(new FlowSlotVO(slot));
+               log.info("startDate="+startDate+",stopDate="+stopDate+",flowProperty.getsData()="+flowProperty.getsData());
+               
+               if(flowProperty.getsData()!=null && !"".equals(flowProperty.getsData().trim()) ){
+                    List<FlowSlot> generatedSlots = handler.generateObjects(flowProperty.getsData());
+                    for (FlowSlot slot : generatedSlots) {
+                       res.add(new FlowSlotVO(slot));
+                    }
                }
             }
         }

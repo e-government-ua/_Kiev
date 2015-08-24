@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 var express = require('express');
 var controller = require('./tasks.controller');
@@ -14,6 +14,8 @@ router.get('/:taskId/attachments/:attachmentId/content/:nFile', controller.getAt
 router.post('/:taskId/attachments',controller.uploadFile);
 router.post('/:taskId/form', controller.submitForm);
 router.put('/:taskId', controller.updateTask);
+router.get('/:taskId', controller.getTask);
+router.get('/getTasksByOrder', controller.getTasksByOrder);
 
 
 module.exports = router;
