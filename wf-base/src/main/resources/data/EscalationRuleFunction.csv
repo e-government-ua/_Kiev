@@ -1,2 +1,2 @@
 nID;sName;sBeanHandler
-1;Send Email;TestsBeanHandler
+1;Send Email;escalationHandler_SendMailAlert
