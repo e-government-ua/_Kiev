@@ -105,19 +105,17 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao {
     }
 
 	@Override
-	public List<Map<String, Long>> getHistoryEvent_ServiceBynID_ServicenID_Region(
-			Long nID_Service, Long nID_Region) {
+	public List<Map<String, Long>> getHistoryEvent_ServiceBynID_Service(Long nID_Service) {
 		List<Map<String, Long>> resHistoryEventService = new LinkedList<Map<String, Long>>();
 		Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
         criteria.add(Restrictions.eq("nID_Service", nID_Service));
-        criteria.add(Restrictions.eq("nID_Region", nID_Region));
         criteria.setProjection(Projections.projectionList()
                 .add(Projections.groupProperty("nID_Region"))
                 .add(Projections.count("nID_Service")));           
         Object res = criteria.list();
-        log.info("Received result in getHistoryEvent_ServiceBynID_ServicenID_RegionsID_UA:"  + res);
+        log.info("Received result in getHistoryEvent_ServiceBynID_Service:"  + res);
         if (res == null) {
-            log.warn("List of records based on nID_Service:nID_Regions not found" + nID_Service + ":" + nID_Region);
+            log.warn("List of records based on nID_Service not found" + nID_Service);
             throw new EntityNotFoundException("Record not found");
         } else {
         	for(Object item:criteria.list()){
@@ -129,7 +127,7 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao {
         		
         		resHistoryEventService.add(currRes);
         	}
-            log.info("Found " + resHistoryEventService.size() + " records based on nID_Service:nID_Regions" + nID_Service + ":" + nID_Region);
+            log.info("Found " + resHistoryEventService.size() + " records based on nID_Service " + nID_Service);
         }
         return resHistoryEventService;
 	}

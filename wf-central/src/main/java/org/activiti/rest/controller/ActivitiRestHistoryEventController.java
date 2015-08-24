@@ -209,10 +209,9 @@ public class ActivitiRestHistoryEventController {
 	
 	@RequestMapping(value = "/getStatisticServiceCounts", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	public @ResponseBody
-	String getStatisticServiceCounts(@RequestParam(value = "nID_Service") Long nID_Service, 
-			@RequestParam(value = "nID_Region") Long nID_Region) {
+	String getStatisticServiceCounts(@RequestParam(value = "nID_Service") Long nID_Service) {
 		
-		List<Map<String, Long>> listOfHistoryEvents = historyEventServiceDao.getHistoryEvent_ServiceBynID_ServicenID_Region(nID_Service, nID_Region);
+		List<Map<String, Long>> listOfHistoryEvents = historyEventServiceDao.getHistoryEvent_ServiceBynID_Service(nID_Service);
 		  
 		List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String,Object>>();
 		  
