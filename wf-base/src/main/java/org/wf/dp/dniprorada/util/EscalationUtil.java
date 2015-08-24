@@ -3,6 +3,9 @@ package org.wf.dp.dniprorada.util;
 import com.google.gson.Gson;
 import com.mongodb.util.JSON;
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
@@ -12,39 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import java.util.HashMap;
-import org.activiti.engine.FormService;
-import org.activiti.engine.TaskService;
-import org.activiti.engine.form.FormProperty;
-import org.activiti.engine.form.FormType;
-import org.activiti.engine.form.TaskFormData;
-import org.activiti.engine.task.Task;
-import org.activiti.engine.task.TaskQuery;
-import org.activiti.rest.controller.ActivitiRestException;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.wf.dp.dniprorada.base.dao.EscalationRuleDao;
-import org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDao;
-import org.wf.dp.dniprorada.base.model.EscalationRule;
-import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
-
-
 public class EscalationUtil {
     private static final Logger log = Logger.getLogger(EscalationUtil.class);
 
-    @Autowired
-    private EscalationRuleFunctionDao escalationRuleFunctionDao;
-
-    @Autowired
-    private TaskService taskService;
-    
-    @Autowired
-    private FormService formService;
-    
-    @Autowired
-    private EscalationRuleDao escalationRuleDao;
-    
-    
     class Parameter {
         String name;
         String className;
@@ -57,116 +30,94 @@ public class EscalationUtil {
         }
     }
 
+
     public static void main(String[] args) throws Exception {
+        Map<String, Object> taskParam = new HashMap<>();
+        //[Surname],[Name],[Middlename]
+        taskParam.put("Surname", "Petrenko");
+        taskParam.put("Name", "Petro");
+        taskParam.put("Middlename", "Petrovych");
+        taskParam.put("years", 40L);
 
-        new EscalationUtil().sendMailAlert
-                (null,
-                        "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays",
-                        "{sUserTask:'1', sDateEdit:'01-01-2015', nDays:0, asList1:['2'], anList2:[10], bBool:true}",
-                        "");
+//        String[] recipients = new String[2];
+//        recipients[0] = "olga2012olga@gmail.com";
+//        recipients[1] = "olga.prylypko@gmail.com";
 
-    }
+        String json = "{sUserTask:'1', sDateEdit:'01-01-2015', " +
+                "nDays:10, asRecipientMail:['olga2012olga@gmail.com', 'olga.prylypko@gmail.com'], " +
+                "anList2:[10], bBool:true}";
+        String file = "print/kiev_dms_print1.html";
 
-    
-    public void runEscalationAll() throws ActivitiRestException {
-        //@RequestParam(value = "nID", required = false) Long nID ,
-        //@RequestParam(value = "sName") String sName ,
-        //@RequestParam(value = "sBeanHandler", required = false) String sBeanHandler
-            
-        try {
-            List<EscalationRule> aEscalationRule = escalationRuleDao.getAll();    
-            for(EscalationRule oEscalationRule:aEscalationRule){
-                EscalationRuleFunction oEscalationRuleFunction = oEscalationRule.getoEscalationRuleFunction();
-                
-                String sID_BP=oEscalationRule.getsID_BP();
-                log.info("[getTaskData]:sID_BP=" + sID_BP);
-                TaskQuery oTaskQuery = taskService.createTaskQuery().processDefinitionKey(sID_BP);//.taskCreatedAfter(dateAt).taskCreatedBefore(dateTo)
+        String sCondition = "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays";
 
-                String sID_State_BP = oEscalationRule.getsID_UserTask();
-                log.info("[getTaskData]:sID_State_BP=" + sID_State_BP);
-                if(sID_State_BP != null && !"*".equals(sID_State_BP)){
-                    oTaskQuery = oTaskQuery.taskDefinitionKey(sID_State_BP);
-                }
-                
-                Integer nRowStart=0;
-                Integer nRowsMax=1000;
-                List<Task> aTask = oTaskQuery.listPage(nRowStart, nRowsMax);
-                
-                for(Task oTask:aTask){
-                    //long nID_task_activiti = Long.valueOf(oTask.getId());
-                    //Map<String, Object> mTaskParam = getTaskData(nID_task_activiti);//new HashMap()
-                    Map<String, Object> mTaskParam = getTaskData(oTask);
-                    
-                    log.info("[getTaskData]:checkTaskOnEscalation mTaskParam=" + mTaskParam);
-                    new EscalationUtil().checkTaskOnEscalation(mTaskParam
-                            , oEscalationRule.getsCondition()
-                            , oEscalationRule.getSoData()
-                            , oEscalationRule.getsPatternFile()
-                            , oEscalationRuleFunction.getsBeanHandler()
-                    );
-                }
-                
-            }
-            //return escalationRuleFunctionDao.saveOrUpdate(nID, sName, sBeanHandler);
-        } catch (Exception oException){
-            log.error("[getTaskData]:" + oException);
-            throw new ActivitiRestException("ex in controller!", oException);
-        }
+        new EscalationUtil().checkTaskOnEscalation
+                (taskParam, sCondition, json, file, "escalationHandler_SendMailAlert");
 
     }
-    
-    private Map<String, Object> getTaskData(Task oTask) {//Long nID_task_activiti
-        long nID_task_activiti = Long.valueOf(oTask.getId());
-        log.info("[getTaskData]:nID_task_activiti=" + nID_task_activiti);
-        log.info("[getTaskData]:oTask.getCreateTime().toString()=" + oTask.getCreateTime());
-        log.info("[getTaskData]:oTask.getDueDate().toString()=" + oTask.getDueDate());
 
-        Map<String, Object> m=new HashMap();
-        
-        //Date = Date
-        long nDiffMS=0;
-        if(oTask.getDueDate()!=null){
-            nDiffMS=oTask.getDueDate().getTime() - oTask.getCreateTime().getTime();
-        }
-        log.info("[getTaskData]:nDiffMS=" + nDiffMS);
-        long nElapsedHours=nDiffMS/1000/60/60;
-        
-        log.info("[getTaskData]:nElapsedHours=" + nElapsedHours);
-        m.put("nElapsedHours", nElapsedHours);
-        
-        TaskFormData oTaskFormData = formService.getTaskFormData(oTask.getId());
-        for (FormProperty oFormProperty : oTaskFormData.getFormProperties()) {
-                log.info(String.format("[getTaskData]Matching property %s:%s:%s with fieldNames", oFormProperty.getId(), oFormProperty.getName(), oFormProperty.getType().getName()));
-                if("long".equalsIgnoreCase(oFormProperty.getType().getName())){
-                    m.put(oFormProperty.getId(), Long.valueOf(oFormProperty.getValue()));
-                }else{
-                    m.put(oFormProperty.getId(), oFormProperty.getValue());
-                }
-        }
-        
-        return m;
-    }
-    
-    
     public void checkTaskOnEscalation
             (Map<String, Object> mTaskParam,
              String sCondition, String soData,
              String sPatternFile, String sBeanHandler) {
 
-    }
-
-    //String -- temp!!!! must be void and not here)
-    private String sendMailAlert(Long nID_task_activiti, String sCondition, String soData, String sPatternFile)
-            throws NoSuchMethodException, ScriptException, ClassNotFoundException {
-
-        Map<String, Object> taskData = new HashMap();//TODO: временно. Вообще весь метод должен быть другой!//  getTaskData(nID_task_activiti);//from task
+        //1 -- result of condition
         Map<String, Object> jsonData = parseJsonData(soData);//from json
-        taskData.putAll(jsonData); //concat
+        mTaskParam = mTaskParam != null ? mTaskParam : new HashMap<String, Object>();
 
-        return "" + getResultOfCondition(taskData, sCondition);
+        Boolean conditionResult = false;
+        try {
+            conditionResult = getResultOfCondition(jsonData, mTaskParam, sCondition);
+        } catch (ClassNotFoundException e) {
+            log.error("wrong parameters!", e);
+        } catch (ScriptException e) {
+            log.error("wrong sCondition or parameters! condition=" + sCondition + "params_json=" + soData, e);
+        } catch (NoSuchMethodException e) {
+            log.error("error in script", e);
+        }
+
+        mTaskParam.putAll(jsonData); //concat
+
+        //2 - check beanHandler        //sendMailAlert(Map mParam, String[] asRecipientMail, String sPatternFile);
+        //if (conditionResult) {
+        EscalationHandler escalationHandler = getHandlerClass(sBeanHandler);
+        escalationHandler.execute(mTaskParam, (String[]) mTaskParam.get("asRecipientMail"), sPatternFile);
+        // }
+
     }
 
 
+    private EscalationHandler getHandlerClass(String sBeanHandler) {
+        try {
+            ApplicationContext context = new ClassPathXmlApplicationContext("context-services.xml");
+            return (EscalationHandler) context.getBean("sBeanHandler");
+        } catch (Exception e) {
+            throw new RuntimeException("Can't find class for handler: " + sBeanHandler, e);
+//            String fullClassName = flowProperty.getoFlowPropertyClass().getsPath();
+//            try {
+//                return (Class<EscalationHandler>) Class.forName(fullClassName);
+//            } catch (ClassNotFoundException e) {
+//                throw new RuntimeException("Can't find class of handler: " + fullClassName, e);
+//            }
+        }
+    }
+//String -- temp!!!! must be void and not here)
+
+//    private String sendMailAlert(Long nID_task_activiti, String sCondition, String soData, String sPatternFile)
+//            throws NoSuchMethodException, ScriptException, ClassNotFoundException {
+//
+////        Map<String, Object> taskData = getTaskData(nID_task_activiti);//from task
+////        Map<String, Object> jsonData = parseJsonData(soData);//from json
+////        taskData.putAll(jsonData); //concat
+////
+////        return "" + getResultOfCondition(taskData, sCondition);
+//    }
+
+
+    private Map<String, Object> getTaskData(Long nID_task_activiti) {
+        // Р”РѕР±Р°РІР»СЏС‚СЊ РІ РјР°РїСѓ Рї.Рї.3.2 РїР°СЂР°РјРµС‚СЂС‹ РёР· РїРѕР»СѓС‡РµРЅРЅРѕР№ Р·Р°РґР°С‡Рё, РїРѕ РµРµ РР” (РїР°СЂР°РјРµС‚СЂ nID_Task_Activiti)
+        // todo downloadTasksData
+        return new HashMap<>();
+    }
 
     private Map<String, Object> parseJsonData(String soData) {
         Map<String, Object> json = (Map<String, Object>) JSON.parse(soData);
@@ -174,18 +125,29 @@ public class EscalationUtil {
         return json;
     }
 
-    private boolean getResultOfCondition(Map<String, Object> data, String sCondition)
+    private boolean getResultOfCondition(Map<String, Object> jsonData,
+                                         Map<String, Object> taskData,
+                                         String sCondition)
             throws ClassNotFoundException, ScriptException, NoSuchMethodException {
 
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("JavaScript");
-        //----get parameters---
-        for (String key : data.keySet()) {
+        //----put parameters---
+        for (String key : jsonData.keySet()) {
             //chaeck are present in sCondition??
-            Parameter parameter = new Parameter(key, data.get(key));
+            Parameter parameter = new Parameter(key, jsonData.get(key));
             castValue(parameter);
 //            engine.put(key, Class.forName(getClassName(key)).cast(jsonData.get(key)));
             engine.put(parameter.name, parameter.castValue);
+            jsonData.put(parameter.name, parameter.castValue);
+        }
+        for (String key : taskData.keySet()) {
+            //chaeck are present in sCondition??
+//            Parameter parameter = new Parameter(key, jsonData.get(key));
+//            castValue(parameter);
+//            engine.put(key, Class.forName(getClassName(key)).cast(jsonData.get(key)));
+            engine.put(key, taskData.get(key));
+//            jsonData.put(parameter.name, parameter.castValue);
         }
         ///---eval script and invoke result----
         String script = getJavaScriptStr(sCondition);

@@ -48,7 +48,7 @@ angular.module('dashboardJsApp')
       return days.join();
     };
 
-    var getTime = function(url, sID_BP, callback){
+    var getSlot = function(url, sID_BP, callback){
       var cb = callback || angular.noop;
       var deferred = $q.defer();
 
@@ -76,7 +76,7 @@ angular.module('dashboardJsApp')
       return deferred.promise;
     };
 
-    var setTime = function(url, sID_BP, slot, callback){
+    var setSlot = function(url, sID_BP, slot, callback){
       var cb = callback || angular.noop;
       var deferred = $q.defer();
 
@@ -92,7 +92,10 @@ angular.module('dashboardJsApp')
           sRegionTime: slot.sRegionTime,
           saRegionWeekDay: stringWeekDays,
           sDateTimeAt: slot.sDateTimeAt,
-          sDateTimeTo: slot.sDateTimeTo
+          sDateTimeTo: slot.sDateTimeTo,
+          nLen: slot.nLen,
+          sLenType: slot.sLenType,
+          sData: slot.sData,
         }
       };
 
@@ -111,7 +114,7 @@ angular.module('dashboardJsApp')
       return deferred.promise;
     };
 
-    var deleteTime = function(url, sID_BP, slotId, callback){
+    var deleteSlot = function(url, sID_BP, slotId, callback){
       var cb = callback || angular.noop;
       var deferred = $q.defer();
 
@@ -140,22 +143,22 @@ angular.module('dashboardJsApp')
 
     return {
       getSchedule: function(sID_BP, callback) {
-        return getTime('/api/schedule/schedule', sID_BP, callback);
+        return getSlot('/api/schedule/schedule', sID_BP, callback);
       },
       setSchedule: function(sID_BP, slot, callback) {
-        return setTime('/api/schedule/schedule', sID_BP, slot, callback);
+        return setSlot('/api/schedule/schedule', sID_BP, slot, callback);
       },
       deleteSchedule: function(sID_BP, slotId, callback) {
-        return deleteTime('/api/schedule/schedule', sID_BP, slotId, callback);
+        return deleteSlot('/api/schedule/schedule', sID_BP, slotId, callback);
       },
       getExemptions: function(sID_BP, callback) {
-        return getTime('/api/schedule/exemption', sID_BP, callback);
+        return getSlot('/api/schedule/exemption', sID_BP, callback);
       },
       setExemption: function(sID_BP, slot, callback) {
-        return setTime('/api/schedule/exemption', sID_BP, slot, callback);
+        return setSlot('/api/schedule/exemption', sID_BP, slot, callback);
       },
       deleteExemption: function(sID_BP, slotId, callback) {
-        return deleteTime('/api/schedule/exemption', sID_BP, slotId, callback);
+        return deleteSlot('/api/schedule/exemption', sID_BP, slotId, callback);
       },
       /**
        * Get service slots grouped by days

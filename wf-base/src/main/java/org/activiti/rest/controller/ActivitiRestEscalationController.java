@@ -1,6 +1,5 @@
 package org.activiti.rest.controller;
 
-import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,11 +12,10 @@ import org.wf.dp.dniprorada.base.dao.EscalationRuleDao;
 import org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDao;
 import org.wf.dp.dniprorada.base.model.EscalationRule;
 import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
+import org.wf.dp.dniprorada.base.service.escalation.EscalationService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Map;
-import org.wf.dp.dniprorada.util.EscalationUtil;
 
 @Controller
 @RequestMapping(value = "/escalation")
@@ -31,10 +29,8 @@ public class ActivitiRestEscalationController {
     @Autowired
     private EscalationRuleDao escalationRuleDao;
 
-    //----------EscalationRuleFunction services-----------------
-
-    
-
+    @Autowired
+    private EscalationService escalationService;
 
     @RequestMapping(value = "/runEscalation", method = RequestMethod.GET)
     public
@@ -43,10 +39,11 @@ public class ActivitiRestEscalationController {
         //@RequestParam(value = "nID", required = false) Long nID ,
         //@RequestParam(value = "sName") String sName ,
         //@RequestParam(value = "sBeanHandler", required = false) String sBeanHandler
-        new EscalationUtil().runEscalationAll();
+        escalationService.runEscalationAll();
     }
-    
-    
+
+    //----------EscalationRuleFunction services-----------------
+
     @RequestMapping(value = "/setEscalationRuleFunction", method = RequestMethod.GET)
     public
     @ResponseBody

@@ -1,11 +1,11 @@
-package org.wf.dp.dniprorada.base.util.run;
-import java.util.Date;
+package org.wf.dp.dniprorada.util.run;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Date;
 
 public class Escalation implements Job {
 
@@ -16,6 +16,6 @@ public class Escalation implements Job {
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
         oLog.info("[execute]:In QuartzJob - executing JOB at " + new Date() + " by context.getTrigger().getName()="+context.getTrigger().getName());
-        //TODO: Тут нужно написать вызов запуска эскалации!
+        //TODO: пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!
     }
 }
