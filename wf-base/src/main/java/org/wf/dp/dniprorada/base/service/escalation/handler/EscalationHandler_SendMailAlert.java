@@ -18,6 +18,7 @@ public class EscalationHandler_SendMailAlert
     @Autowired
     Mail oMail;
 
+
     @Override
     public void execute(Map<String, Object> mParam, String[] asRecipientMail, String sPatternFile) {
 //        //check input data
@@ -38,13 +39,14 @@ public class EscalationHandler_SendMailAlert
             log.info(">>>>>>>--------");
         } catch (IOException e) {//??
             log.error("error during finding the pattern file! path=" + sPatternFile, e);
-            throw new IllegalArgumentException("wrong pattern path! path=" + sPatternFile, e);
+            //throw new IllegalArgumentException("wrong pattern path! path=" + sPatternFile, e);
         }
         if (sBody == null) {
-            throw new IllegalArgumentException("wrong pattern data! path=" + sPatternFile);
+            sBody = "test body";
+            //throw new IllegalArgumentException("wrong pattern data! path=" + sPatternFile);
         }
         //??
-        String sHead = "Ескалація задачі";
+        String sHead = "Task escalation";//"Ескалація задачі";//, "UTF-8");
         //
         for (String key : mParam.keySet()) {
             if (sBody.contains(key)) {
@@ -55,6 +57,9 @@ public class EscalationHandler_SendMailAlert
         log.info(">>>>>>>total sbody=");
         log.info(sBody);
         log.info(">>>>>>>--------");
+        log.info ("@Autowired oMail=" + oMail );
+        oMail = oMail == null ? new Mail(): oMail;
+        log.info ("oMail=" + oMail );
         for (String recipient : asRecipientMail) {
             try {
                 sendEmail(sHead, sBody, recipient);
@@ -66,17 +71,17 @@ public class EscalationHandler_SendMailAlert
     }
 
     private void sendEmail(String sHead, String sBody, String recipient) throws EmailException {
-        log.info ("oMail=" + oMail );
+
         oMail.reset();
         oMail
-                //._From(mailAddressNoreply)
+//                ._From("noreplay@gmail.com")
                 ._To(recipient)
                 ._Head(sHead)
                 ._Body(sBody)
         //._AuthUser(mailServerUsername)
         //._AuthPassword(mailServerPassword)
-        //._Host(mailServerHost)
-        //._Port(Integer.valueOf(mailServerPort))
+//        ._Host("gmail.com")
+//                ._Port(Integer.valueOf("gmail.com"))
         //._SSL(true)
         //._TLS(true)
         ;
