@@ -13,9 +13,12 @@ import org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDao;
 import org.wf.dp.dniprorada.base.model.EscalationRule;
 import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
 import org.wf.dp.dniprorada.base.service.escalation.EscalationService;
+import org.wf.dp.dniprorada.util.EscalationUtil;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/escalation")
@@ -41,7 +44,31 @@ public class ActivitiRestEscalationController {
         //@RequestParam(value = "sBeanHandler", required = false) String sBeanHandler
         escalationService.runEscalationAll();
     }
+    @RequestMapping(value = "/sendEmail", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    void sendEmail() throws ActivitiRestException {
+        Map<String, Object> taskParam = new HashMap<>();
+        //[Surname],[Name],[Middlename]
+        taskParam.put("Surname", "Petrenko");
+        taskParam.put("Name", "Petro");
+        taskParam.put("Middlename", "Petrovych");
+        taskParam.put("years", 40L);
 
+//        String[] recipients = new String[2];
+//        recipients[0] = "olga2012olga@gmail.com";
+//        recipients[1] = "olga.prylypko@gmail.com";
+
+        String json = "{sUserTask:'1', sDateEdit:'01-01-2015', " +
+                "nDays:10, asRecipientMail:['olga2012olga@gmail.com', 'olga.prylypko@gmail.com'], " +
+                "anList2:[10], bBool:true}";
+        String file = "print/kiev_dms_print1.html";
+
+        String sCondition ="nDays == 10";// "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays";
+
+        new EscalationUtil().checkTaskOnEscalation
+                (taskParam, sCondition, json, file, "escalationHandler_SendMailAlert");
+    }
     //----------EscalationRuleFunction services-----------------
 
     @RequestMapping(value = "/setEscalationRuleFunction", method = RequestMethod.GET)

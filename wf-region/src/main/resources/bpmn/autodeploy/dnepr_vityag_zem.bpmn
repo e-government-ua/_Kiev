@@ -18,12 +18,12 @@
         <activiti:formProperty id="Cildilaynku" name="Цільове призначення ділянки" type="string"></activiti:formProperty>
         <activiti:formProperty id="1" name="Копія паспорту; завантажте копію паспорту" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="2" name="Копія ідентифікаційного номера заявника" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="3" name="копія документа, який підтверджує повноваження діяти від імені заявника (у разі подання - заяви уповноваженою заявником особою);" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="4" name="копія паспорта та ідентифікаційного номера уповноваженої особи (у разі подання заяви уповноваженою заявником особою);" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="5" name="копія документа, що підтверджує право на земельну ділянку (за наявності) або- копія рішення (наказу, розпорядження) про затвердження відповідної документації із землеустрою, що є підставою для виникнення права на земельну ділянку)" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="6" name="- копія кадастрового плану" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="7" name="копія збірного кадастрового плану або схеми розташування земельної ділянки (викопіювання) з документації із землеустрою (окрім земельних ділянок, які знаходяться у межах міста)" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="8" name="запит від нотаріуса - у разі оформлення спадщини" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="3" name="Копія документа, який підтверджує повноваження діяти від імені заявника (у разі подання - заяви уповноваженою заявником особою);" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="4" name="Копія паспорта та ідентифікаційного номера уповноваженої особи (у разі подання заяви уповноваженою заявником особою);" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="5" name="Копія документа, що підтверджує право на земельну ділянку (за наявності) або- копія рішення (наказу, розпорядження) про затвердження відповідної документації із землеустрою, що є підставою для виникнення права на земельну ділянку)" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="6" name="Копія кадастрового плану" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="7" name="Копія збірного кадастрового плану або схеми розташування земельної ділянки (викопіювання) з документації із землеустрою (окрім земельних ділянок, які знаходяться у межах міста)" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="8" name="Запит від нотаріуса - у разі оформлення спадщини" type="file" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Проверка ЦНАП документов" activiti:candidateGroups="dnepr_cnap_vityag">
@@ -44,11 +44,11 @@
         <activiti:formProperty id="1" name="Копія паспорту; завантажте копію паспорту" type="file"></activiti:formProperty>
         <activiti:formProperty id="2" name="Копія ідентифікаційного номера заявника" type="file"></activiti:formProperty>
         <activiti:formProperty id="3" name="копія документа, який підтверджує повноваження діяти від імені заявника (у разі подання - заяви уповноваженою заявником особою);" type="file"></activiti:formProperty>
-        <activiti:formProperty id="4" name="копія паспорта та ідентифікаційного номера уповноваженої особи (у разі подання заяви уповноваженою заявником особою);" type="file"></activiti:formProperty>
-        <activiti:formProperty id="5" name="копія документа, що підтверджує право на земельну ділянку (за наявності) або- копія рішення (наказу, розпорядження) про затвердження відповідної документації із землеустрою, що є підставою для виникнення права на земельну ділянку)" type="file"></activiti:formProperty>
-        <activiti:formProperty id="6" name="- копія кадастрового плану" type="file"></activiti:formProperty>
-        <activiti:formProperty id="7" name="копія збірного кадастрового плану або схеми розташування земельної ділянки (викопіювання) з документації із землеустрою (окрім земельних ділянок, які знаходяться у межах міста)" type="file"></activiti:formProperty>
-        <activiti:formProperty id="8" name="запит від нотаріуса - у разі оформлення спадщини" type="file"></activiti:formProperty>
+        <activiti:formProperty id="4" name="Копія паспорта та ідентифікаційного номера уповноваженої особи (у разі подання заяви уповноваженою заявником особою);" type="file"></activiti:formProperty>
+        <activiti:formProperty id="5" name="Копія документа, що підтверджує право на земельну ділянку (за наявності) або- копія рішення (наказу, розпорядження) про затвердження відповідної документації із землеустрою, що є підставою для виникнення права на земельну ділянку)" type="file"></activiti:formProperty>
+        <activiti:formProperty id="6" name="Копія кадастрового плану" type="file"></activiti:formProperty>
+        <activiti:formProperty id="7" name="Копія збірного кадастрового плану або схеми розташування земельної ділянки (викопіювання) з документації із землеустрою (окрім земельних ділянок, які знаходяться у межах міста)" type="file"></activiti:formProperty>
+        <activiti:formProperty id="8" name="Запит від нотаріуса - у разі оформлення спадщини" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow4" sourceRef="usertask5" targetRef="usertask6"></sequenceFlow>
