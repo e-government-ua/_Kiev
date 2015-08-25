@@ -55,12 +55,11 @@ public class PlaceController {
     @RequestMapping(value   = "/getPlace",
                     method  = RequestMethod.GET, headers = { JSON_TYPE })
     public  @ResponseBody PlaceHierarchyTree getPlace(
-            @RequestParam(value = "nID",    required = false)       Long    placeId,
-            @RequestParam(value = "sID_UA", required = false)       String  uaId,
-            @RequestParam(value = "bTree ", defaultValue = "false") Boolean tree
+            @RequestParam(value = "nID",    required = false) Long    placeId,
+            @RequestParam(value = "sID_UA", required = false) String  uaId,
+            @RequestParam(value = "bTree ", required = false) Boolean tree
     ) {
-        LOG.warn("Got {}, {}, {}.", placeId, uaId, tree);
-        return placeDao.getTreeUp(placeId, uaId, tree);
+        return placeDao.getTreeUp(placeId, uaId, tree != null? tree : false);
     }
 
 

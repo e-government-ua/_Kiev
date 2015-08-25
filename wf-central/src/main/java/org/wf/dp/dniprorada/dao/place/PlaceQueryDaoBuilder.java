@@ -74,7 +74,7 @@ public class PlaceQueryDaoBuilder {
 
     @EnableCaching
     public String getTreeUp(Long placeId, String uaId, boolean tree) {
-        LOG.warn("Got {}, {}, {}.", placeId, uaId, tree);
+        LOG.debug("Got {}, {}, {}.", placeId, uaId, tree);
 
         if (specified(placeId) && tree)
             return load("get_PlaceTree_up_by_id.sql");
@@ -94,7 +94,7 @@ public class PlaceQueryDaoBuilder {
 
     private String load(String sqlFile) {
         String sqlQuery = sqlStorage.get(sqlFile);
-        LOG.warn("SQL file {} contains '{}' query.", sqlFile, sqlQuery);
+        LOG.debug("SQL file {} contains '{}' query.", sqlFile, sqlQuery);
         return sqlQuery;
     }
 }
