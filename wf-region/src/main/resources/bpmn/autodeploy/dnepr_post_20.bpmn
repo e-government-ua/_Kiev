@@ -23,17 +23,6 @@
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
-        <activiti:formProperty id="numobr" name="Ваше звернення до районного органу соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
-          <activiti:value id="obr1" name="первинне"></activiti:value>
-          <activiti:value id="obr2" name="вторинне"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string""></activiti:formProperty>
-        <activiti:formProperty id="kuda_dengi" name="Прошу в разі призначення допомоги кошти готівкою перераховувати" type="label"></activiti:formProperty>
-        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long"></activiti:formProperty>
-        <activiti:formProperty id="bankschet" name="на рахунок у банку №" type="long"></activiti:formProperty>
-        <activiti:formProperty id="mfo" name="МФО" type="long"></activiti:formProperty>
-        <activiti:formProperty id="okpo" name="код" type="long"></activiti:formProperty>
-        <activiti:formProperty id="bankchoose" name="банк" type="string"></activiti:formProperty>
         <activiti:formProperty id="scpasp" name="Копія паспорту; завантажте копію паспорту" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="sost" name="Довідка про склад сім'ї; завантажте довідку про склад сім'ї" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="vrachkom" name="Висновок лікарської комісії медичного закладу, щодо необхідності постійного стороннього догляду за інвалідом І чи ІІ групи внаслідок психічного розладу; завантажте висновок лікарської комісії медичного закладу, щодо необхідності постійного стороннього догляду за інвалідом І чи ІІ групи внаслідок психічного розладу" type="file" required="true"></activiti:formProperty>
@@ -71,17 +60,6 @@
         </activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail замовника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="numobr" name="Ваше звернення до районного органу соціального захисту населення, до якого Ви відноситесь" type="enum">
-          <activiti:value id="obr1" name="первинне"></activiti:value>
-          <activiti:value id="obr2" name="вторинне"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string""></activiti:formProperty>
-        <activiti:formProperty id="kuda_dengi" name="Прошу в разі призначення допомоги кошти готівкою перераховувати" type="label"></activiti:formProperty>
-        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long"></activiti:formProperty>
-        <activiti:formProperty id="bankschet" name="на рахунок у банку №" type="long"></activiti:formProperty>
-        <activiti:formProperty id="mfo" name="МФО" type="long"></activiti:formProperty>
-        <activiti:formProperty id="okpo" name="код" type="long"></activiti:formProperty>
-        <activiti:formProperty id="bankchoose" name="банк" type="string"></activiti:formProperty>
         <activiti:formProperty id="scpasp" name="Копія паспорту" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sost" name="Довідка про склад сім'ї" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vrachkom" name="Висновок лікарської комісії медичного закладу, щодо необхідностіпостійного стороннього догляду за інвалідом І чи ІІ групи внаслідок психісного розладу" type="file" writable="false"></activiti:formProperty>
