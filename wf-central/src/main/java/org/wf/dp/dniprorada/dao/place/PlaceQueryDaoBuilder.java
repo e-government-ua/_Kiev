@@ -92,7 +92,7 @@ public class PlaceQueryDaoBuilder {
 
     private String load(String sqlFile) {
         String sqlQuery = sqlStorage.get(sqlFile);
-        LOG.debug("SQL file {} contains '{}' query.", sqlFile, sqlQuery);
+        LOG.warn("SQL file {} contains '{}' query.", sqlFile, sqlQuery);
         return sqlQuery;
     }
 }
