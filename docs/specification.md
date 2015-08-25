@@ -32,6 +32,7 @@
 <a href="#30_workWithPatternFiles"> 30. Работа с файлами-шаблонами </a><br/>
 <a href="#31_getFlowSlotTickets"> 31. Получение активных тикетов</a><br/>
 <a href="#32_getTasksByOrder"> 32. Получение списка ID пользовательских тасок по номеру заявки</a><br/>
+<a href="#33_getStatisticServiceCounts"> 33. Получение количества записей HistoryEvent_Service для сервиса по регионам</a><br/>
 
 ### iGov.ua APIs
 
@@ -2253,3 +2254,23 @@ Responce status 200.
 [ 555 ]
 ```
 
+<a href="#33_getStatisticServiceCounts"> </a><br/>
+
+<a name="33_getStatisticServiceCounts">
+#### 33. Получение количества записей HistoryEvent_Service для сервиса по регионам
+</a><a href="#0_contents">↑Up</a><br/>
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?nID_Service=[nID_Service]
+
+* nID_Service - ID сервиса.
+
+Примеры:
+
+https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?nID_Service=1
+
+Результат
+```json
+[{"nCount":1,"sName":"Івано-Франківська"},{"nCount":3,"sName":"Дніпропетровська"},{"nCount":1,"sName":"Львівська"}]
+```

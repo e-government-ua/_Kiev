@@ -1,24 +1,85 @@
 package org.wf.dp.dniprorada.base.dao;
 
+import org.apache.commons.beanutils.PropertyUtils;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.wf.dp.dniprorada.base.model.Entity;
 
-import java.io.Serializable;
+import java.beans.PropertyDescriptor;
 import java.util.List;
 
 /**
- * User: goodg_000
- * Date: 09.05.2015
- * Time: 18:25
+ * Убрать полностью не получилось
+ *
+ * use {@link GenericEntityDao} instead if possible
  */
-public interface BaseEntityDao {
+@Repository
+public class BaseEntityDao {
 
-   <T extends Entity> T getById(Class<T> entityType, Serializable id);
+    private SessionFactory sessionFactory;
 
-   <T extends Entity> List<T> getAll(Class<T> entityClass);
+    private Session getSession() {
+        return sessionFactory.getCurrentSession();
+    }
 
-   <T extends Entity> void saveOrUpdate(T entity);
+    @Autowired
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
-   <T extends Entity> void saveOrUpdateAll(T[] entities);
+    @SuppressWarnings("unchecked")
+    public <T extends Entity> T findById(Class<T> entityType, Long id) {
+        T entity = (T) getSession().get(entityType, id);
 
-   <T extends Entity> void remove(T entity);
+        if (entity == null) {
+            throw new EntityNotFoundException(id);
+        }
+
+        return entity;
+    }
+
+    private <T extends Entity> boolean hasOrderField(Class<T> entityClass, String fieldName) {
+        PropertyDescriptor[] propertyDescriptors = PropertyUtils.getPropertyDescriptors(entityClass);
+
+        boolean res = false;
+        for (PropertyDescriptor pd : propertyDescriptors) {
+            if (pd.getName().equals(fieldName)) {
+                res = true;
+                break;
+            }
+        }
+
+        return res;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends Entity> List<T> findAll(Class<T> entityType) {
+        DetachedCriteria criteria = DetachedCriteria.forClass(entityType);
+
+        final String orderFieldName = "order";
+        if (hasOrderField(entityType, orderFieldName)) {
+            criteria.addOrder(Order.asc(orderFieldName));
+        }
+
+        return criteria.getExecutableCriteria(getSession()).list();
+    }
+
+    public <T extends Entity> void delete(T entity) {
+        getSession().delete(entity);
+    }
+
+    public <T extends Entity> T saveOrUpdate(T entity) {
+        getSession().saveOrUpdate(entity);
+        return entity;
+    }
+
+    public <T extends Entity> void saveOrUpdate(T[] entities) {
+        for (T e : entities) {
+            saveOrUpdate(e);
+        }
+    }
 }

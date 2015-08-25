@@ -2,7 +2,7 @@ package org.activiti.rest.controller;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
+import org.wf.dp.dniprorada.base.dao.EntityDao;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.dao.SubjectMessagesDao;
 import org.wf.dp.dniprorada.model.SubjectMessage;
@@ -26,7 +26,8 @@ public class ActivitiRestSubjectMessageController {
    private SubjectMessagesDao subjectMessagesDao;
 
    @Autowired
-   private BaseEntityDao baseEntityDao;
+   @Qualifier("subjectMessageTypeDao")
+   private EntityDao<SubjectMessageType> subjectMessageTypeDao;
 
    @RequestMapping(value = "/setMessage", method = RequestMethod.POST)
    public
@@ -72,8 +73,7 @@ public class ActivitiRestSubjectMessageController {
       message.setData((sData == null) ? "" : sData);
       message.setDate(new DateTime());
       if (nID_SubjectMessageType != null) {
-         SubjectMessageType subjectMessageType = baseEntityDao.getById(SubjectMessageType.class,
-                 nID_SubjectMessageType);
+         SubjectMessageType subjectMessageType = subjectMessageTypeDao.findByIdExpected(nID_SubjectMessageType);
          message.setSubjectMessageType(subjectMessageType);
       }
 

@@ -30,7 +30,6 @@ from (
            , all_places ap
          WHERE
            ap."nID_Place_Parent" = t2."nID_Place"
-
        )
        SELECT
          p."nID"               AS id,
@@ -46,4 +45,4 @@ from (
        WHERE
          ap."nID_Place" = p."nID"
        order by ap.level DESC
-     ) place_tree_up
+ ) place_tree_up
