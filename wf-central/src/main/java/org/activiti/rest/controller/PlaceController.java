@@ -1,5 +1,7 @@
 package org.activiti.rest.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,8 @@ import org.wf.dp.dniprorada.model.PlaceType;
  */
 @Controller
 public class PlaceController {
+    private static final Logger LOG = LoggerFactory.getLogger(PlaceController.class);
+
     private static final String JSON_TYPE = "Accept=application/json";
 
     @Autowired
@@ -55,6 +59,7 @@ public class PlaceController {
             @RequestParam(value = "sID_UA", required = false)       String  uaId,
             @RequestParam(value = "bTree ", defaultValue = "false") Boolean tree
     ) {
+        LOG.warn("Got {}, {}, {}.", placeId, uaId, tree);
         return placeDao.getTreeUp(placeId, uaId, tree);
     }
 
