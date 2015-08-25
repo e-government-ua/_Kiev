@@ -23,10 +23,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
-        <activiti:formProperty id="numobr" name="Ваше звернення до районного органу соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
-          <activiti:value id="obr1" name="первинне"></activiti:value>
-          <activiti:value id="obr2" name="вторинне"></activiti:value>
-        </activiti:formProperty>
+        
         <activiti:formProperty id="numossp" name="номер основної особової справи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kuda dengi" name="Прошу в разі призначення допомоги кошти готівкою перераховувати" type="label" required="true"></activiti:formProperty>
         <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long" required="true"></activiti:formProperty>
