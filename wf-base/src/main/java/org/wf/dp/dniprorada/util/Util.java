@@ -45,9 +45,9 @@ public final class Util {
      * @return File content. If a passed string was not a smart file path
      * (e.g. it does not start and end with "[" and "]"), then "null" is returned
      */
-    public static String getSmartFieldValue(String smartPath, String basePath, String defaultFilePath) {
+    public static String getSmartPathFileContent(String smartPath, String basePath, String defaultFilePath) {
         if (smartPath == null || smartPath.isEmpty() || !smartPath.startsWith("[") || !smartPath.endsWith("]")){
-            return smartPath;
+            return null;
         }
 
         smartPath = new StringBuilder(smartPath)
@@ -59,9 +59,10 @@ public final class Util {
                 ? Paths.get(basePath, defaultFilePath)
                 : Paths.get(basePath, smartPath);
 
-        URL resource = Util.class.getClassLoader().getResource(path.toString());
+        String pathString = path.toString();
+        URL resource = Util.class.getClassLoader().getResource(pathString);
         if (resource == null) {
-            log.error("[getSmartFieldValue] Cannot find the file " + path);
+            log.error("[getSmartPathFileContent] Cannot find the file " + path);
             return null;
         }
 
@@ -69,7 +70,7 @@ public final class Util {
             path = Paths.get(resource.toURI());
             return new String(Files.toByteArray(path.toFile()), DEFAULT_ENCODING);
         } catch (URISyntaxException | IOException e) {
-            log.error("[getSmartFieldValue] Cannot read file " + path, e);
+            log.error("[getSmartPathFileContent] Cannot read the file " + path, e);
             return null;
         }
     }

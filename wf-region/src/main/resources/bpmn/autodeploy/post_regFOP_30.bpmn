@@ -141,6 +141,9 @@
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <serviceTask id="servicetask4" name="Відповідь у разі нехватки документів" activiti:delegateExpression="#{MailTaskWithAttachments}">
@@ -233,7 +236,7 @@
     <serviceTask id="mailtask1" name="Відповідь у разі відсутності сплати" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>${mail}</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -318,7 +321,7 @@
     <serviceTask id="mailtask2" name="Відповідь після надсилання виписки" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>${mail}</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -429,7 +432,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_post_regFOP_30">
     <bpmndi:BPMNPlane bpmnElement="post_regFOP_30" id="BPMNPlane_post_regFOP_30">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="138.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="99.0" y="142.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
         <omgdc:Bounds height="71.0" width="105.0" x="200.0" y="120.0"></omgdc:Bounds>
@@ -508,7 +511,7 @@
         <omgdi:waypoint x="710.0" y="325.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
-        <omgdi:waypoint x="105.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="134.0" y="159.0"></omgdi:waypoint>
         <omgdi:waypoint x="200.0" y="155.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
