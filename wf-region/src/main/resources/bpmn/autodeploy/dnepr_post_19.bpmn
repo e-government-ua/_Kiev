@@ -22,15 +22,7 @@
           <activiti:value id="sobes8" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
-        
-        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="kuda dengi" name="Прошу в разі призначення допомоги кошти готівкою перераховувати" type="label" required="true"></activiti:formProperty>
-        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankschet" name="на рахунок у банку №" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="mfo" name="МФО" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="okpo" name="код" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankchoose" name="банк" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>   
         <activiti:formProperty id="scpasp" name="Копія паспорту; завантажте копію паспорту" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="sost" name="Довідка про склад сім'ї; завантажте довідку про склад сім'ї" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="zeml" name="Довідка про наявність та розмір земельної ділянки (паю); завантажте довідку про наявність та розмір земельної ділянки (паю)" type="file" required="true"></activiti:formProperty>
@@ -67,17 +59,6 @@
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="numobr" name="Ваше звернення до районного органу соціального захисту населення, до якого Ви відноситесь" type="enum" writable="false" required="true">
-          <activiti:value id="obr1" name="первинне"></activiti:value>
-          <activiti:value id="obr2" name="вторинне"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="kuda dengi" name="Прошу в разі призначення допомоги кошти готівкою перераховувати" type="label" required="true"></activiti:formProperty>
-        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankschet" name="на рахунок у банку №" type="long" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="mfo" name="МФО" type="long" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="okpo" name="код" type="long" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankchoose" name="банк" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="scpasp" name="Копія паспорту; завантажте копію паспорту" type="file" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="sost" name="Довідка про склад сім'ї; завантажте довідку про склад сім'ї" type="file" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="zeml" name="Довідка про наявність та розмір земельної ділянки (паю); завантажте довідку про наявність та розмір земельної ділянки (паю)" type="file" writable="false" required="true"></activiti:formProperty>
