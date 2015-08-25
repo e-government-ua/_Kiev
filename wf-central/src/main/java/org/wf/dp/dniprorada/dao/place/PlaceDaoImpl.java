@@ -1,19 +1,15 @@
 package org.wf.dp.dniprorada.dao.place;
 
-import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
+import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.model.Place;
 
-import java.util.List;
-
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.springframework.util.Assert.*;
+import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 import static org.wf.dp.dniprorada.dao.place.PlaceHibernateResultTransformer.toTree;
 import static org.wf.dp.dniprorada.dao.place.PlaceQueryDaoBuilder.specified;
@@ -22,16 +18,14 @@ import static org.wf.dp.dniprorada.dao.place.PlaceQueryDaoBuilder.specified;
  * @author dgroup
  * @since  20.07.2015
  */
-public class PlaceDaoImpl implements PlaceDao {
-
-    @Autowired
-    private SessionFactory sessionFactory;
+@Repository
+public class PlaceDaoImpl extends GenericEntityDao<Place> implements PlaceDao {
 
     @Autowired
     private PlaceQueryDaoBuilder sqlBuilder;
 
-    public PlaceDaoImpl(SessionFactory sessionFactory){
-        this.sessionFactory = sessionFactory;
+    public PlaceDaoImpl() {
+        super(Place.class);
     }
 
 
@@ -43,8 +37,7 @@ public class PlaceDaoImpl implements PlaceDao {
 
         String sql = sqlBuilder.getTreeDown(root);
 
-        Query query = sessionFactory
-            .getCurrentSession()
+        Query query = getSession()
             .createSQLQuery(sql)
             .setResultTransformer( new PlaceHibernateResultTransformer() );
 
@@ -74,8 +67,7 @@ public class PlaceDaoImpl implements PlaceDao {
         }
 
         String sql = sqlBuilder.getTreeUp(placeId, uaId, tree);
-        Query query = sessionFactory
-            .getCurrentSession()
+        Query query = getSession()
             .createSQLQuery(sql)
             .setResultTransformer( new PlaceHibernateResultTransformer() );
 

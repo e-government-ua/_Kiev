@@ -57,7 +57,7 @@ public class ActivitiRestCountryController {
 //            @RequestParam(value = "sNameShort_EN", required = false) String sNameShort_EN,
             HttpServletResponse response) {
 
-        return countryDao.getAll();
+        return countryDao.findAll();
     }
 
     /**

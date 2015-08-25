@@ -3,12 +3,13 @@ package org.activiti.rest.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.dao.place.PlaceHierarchyRecord;
 import org.wf.dp.dniprorada.dao.place.PlaceHierarchyTree;
@@ -28,7 +29,8 @@ public class PlaceController {
     private PlaceDao placeDao;
 
     @Autowired
-    private BaseEntityDao baseEntityDao;
+    @Qualifier("placeTypeDao")
+    private GenericEntityDao<PlaceType> placeTypeDao;
 
 
     @RequestMapping(value   = "/getPlacesTree",
@@ -68,7 +70,7 @@ public class PlaceController {
     public  @ResponseBody PlaceType getPlaceType(
             @RequestParam(value = "nID") Long placeTypeId
     ) {
-        return baseEntityDao.getById(PlaceType.class, placeTypeId);
+        return placeTypeDao.findByIdExpected(placeTypeId);
     }
 
 
@@ -81,7 +83,7 @@ public class PlaceController {
             @RequestParam(value = "bArea",  defaultValue = "false") Boolean area,
             @RequestParam(value = "bRoot",  defaultValue = "false") Boolean root
     ) {
-        baseEntityDao.saveOrUpdate( new PlaceType(placeTypeId, name, order, area, root) );
+        placeTypeDao.saveOrUpdate( new PlaceType(placeTypeId, name, order, area, root) );
     }
 
     @RequestMapping(value   = "/removePlaceType",
@@ -89,6 +91,6 @@ public class PlaceController {
     public  @ResponseBody void removePlaceType(
             @RequestParam(value = "nID") Long placeTypeId
     ) {
-        baseEntityDao.remove(baseEntityDao.getById(PlaceType.class, placeTypeId));
+        placeTypeDao.delete(placeTypeId);
     }
 }

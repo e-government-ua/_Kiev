@@ -48,6 +48,7 @@
         <tx:advice id="txAdvice" transaction-manager="transactionManager">
             <tx:attributes>
                 <tx:method name="get*" read-only="true"/>
+                <tx:method name="find*" read-only="true"/>
                 <tx:method name="*"/>
             </tx:attributes>
         </tx:advice>
@@ -58,35 +59,20 @@
             <aop:advisor pointcut-ref="base.dao" advice-ref="txAdvice"/>
         </aop:config>
 
+        <aop:aspectj-autoproxy proxy-target-class="true" />
+
         <!-- ==============================   DAO   ============================= -->
 
-        <bean id="abstractEntityDao" class="org.wf.dp.dniprorada.base.dao.AbstractEntityDao" abstract="true">
-            <property name="sessionFactory" ref="sessionFactory"/>
+        <bean id="flowServiceDataDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
+            <constructor-arg value="#{T(org.wf.dp.dniprorada.base.model.Flow_ServiceData)}"/>
         </bean>
 
-        <bean id="baseEntityDao" class="org.wf.dp.dniprorada.base.dao.BaseEntityDaoImpl">
-            <property name="sessionFactory" ref="sessionFactory"/>
+        <bean id="flowPropertyDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
+            <constructor-arg value="#{T(org.wf.dp.dniprorada.base.model.FlowProperty)}"/>
         </bean>
 
-        <bean id="flowSlotDao" class="org.wf.dp.dniprorada.base.dao.FlowSlotDaoImpl">
-            <property name="sessionFactory" ref="sessionFactory"/>
-        </bean>
-
-        <bean id="flowSlotTicketDao" class="org.wf.dp.dniprorada.base.dao.FlowSlotTicketDaoImp">
-            <property name="sessionFactory" ref="sessionFactory"/>
-        </bean>
-        
-        <bean id="accessDataDao" class="org.wf.dp.dniprorada.base.dao.AccessDataDaoImpl">
-            <!--property name="sessionFactory" ref="sessionFactory"/-->
-        </bean>
-
-        <!--escalation-->
-        <bean id="escalationRuleFunctionDao" class="org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDaoImpl">
-            <property name="sessionFactory" ref="sessionFactory"/>
-        </bean>
-
-        <bean id="escalationRuleDao" class="org.wf.dp.dniprorada.base.dao.EscalationRuleDaoImpl">
-            <property name="sessionFactory" ref="sessionFactory"/>
+        <bean id="flowPropertyClassDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
+            <constructor-arg value="#{T(org.wf.dp.dniprorada.base.model.FlowPropertyClass)}"/>
         </bean>
 
         <!-- ============================ LIQUIBASE ============================= -->

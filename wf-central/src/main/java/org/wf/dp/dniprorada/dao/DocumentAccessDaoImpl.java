@@ -9,18 +9,21 @@ import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.util.GeneralConfig;
+import org.wf.dp.dniprorada.util.Mail;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import org.wf.dp.dniprorada.util.Mail;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.Random;
 
 @Repository
-public class DocumentAccessDaoImpl implements DocumentAccessDao {
+public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> implements DocumentAccessDao {
 	private final String sURL = "https://igov.org.ua/index#";	
 	private SessionFactory sessionFactory;
 	private final String urlConn = "https://sms-inner.siteheart.com/api/otp_create_api.cgi";
@@ -29,14 +32,12 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
         
 	@Autowired
 	GeneralConfig generalConfig;
-	
-    @Autowired
-    Mail oMail;
-        
-        
+
 	@Autowired
-	public DocumentAccessDaoImpl(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	Mail oMail;
+	
+	public DocumentAccessDaoImpl() {
+		super(DocumentAccess.class);
 	}
 
 	@Override
@@ -383,28 +384,6 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	//public String getDocumentAccess(Integer nID_Access, String sSecret) throws Exception;
         
         
-	private Session getSession(){
-		return sessionFactory.openSession();
-	}
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-        
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
 	private <T> String sendPasswordOTP(String sPhone, String sPassword) throws Exception{
 		Properties oProperties = new Properties();
 		File oFile = new File(System.getProperty("catalina.base")+"/conf/merch.properties");
@@ -466,16 +445,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		}
 		oBufferedReader.close();
 		return os.toString();
-	}        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+	}
         
 	private <T> String getOtpPassword(DocumentAccess docAcc) throws Exception{
 		Properties prop = new Properties();

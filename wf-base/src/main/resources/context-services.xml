@@ -11,11 +11,6 @@
 
     <!-- ==============================   SERVICES    ============================= -->
 
-    <bean id="flowService" class="org.wf.dp.dniprorada.base.service.flow.FlowService">
-        <property name="flowSlotDao" ref="flowSlotDao"/>
-        <property name="baseEntityDao" ref="baseEntityDao"/>
-        <property name="flowSlotTicketDao" ref="flowSlotTicketDao"/>
-    </bean>
 
     <bean id="escalationService" class="org.wf.dp.dniprorada.base.service.escalation.EscalationService">
         <!--<property name="escalationRuleFunctionDao" ref="escalationRuleFunctionDao"/>-->
@@ -29,7 +24,6 @@
         <property name="defaultIntervalDaysLength" value="60"/>
         <property name="maxGeneratedSlotsCount" value="3333"/>
         <property name="defaultFlowSlotName" value="Рабочее время"/>
-        <property name="flowSlotDao" ref="flowSlotDao"/>
     </bean>
 
     <bean id="escalationHandler_SendMailAlert"

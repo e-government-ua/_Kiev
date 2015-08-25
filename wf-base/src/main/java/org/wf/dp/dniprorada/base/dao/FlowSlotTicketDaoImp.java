@@ -1,7 +1,6 @@
 package org.wf.dp.dniprorada.base.dao;
 
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 import org.wf.dp.dniprorada.base.model.FlowSlotTicket;
 
 /**
@@ -9,19 +8,15 @@ import org.wf.dp.dniprorada.base.model.FlowSlotTicket;
  * Date: 22.06.2015
  * Time: 0:03
  */
-public class FlowSlotTicketDaoImp extends AbstractEntityDao<FlowSlotTicket> implements FlowSlotTicketDao {
+@Repository
+public class FlowSlotTicketDaoImp extends GenericEntityDao<FlowSlotTicket> implements FlowSlotTicketDao {
 
    public FlowSlotTicketDaoImp() {
       super(FlowSlotTicket.class);
    }
 
-
    @Override
    public FlowSlotTicket findFlowSlotTicket(Long nID_FlowSlot) {
-      DetachedCriteria criteria = DetachedCriteria.forClass(getEntityClass());
-
-      criteria.add(Restrictions.eq("oFlowSlot.id", nID_FlowSlot));
-
-      return (FlowSlotTicket) criteria.getExecutableCriteria(getSession()).uniqueResult();
+      return findBy("oFlowSlot.id", nID_FlowSlot).orNull();
    }
 }
