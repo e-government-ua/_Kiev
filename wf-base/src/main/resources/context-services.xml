@@ -17,11 +17,10 @@
         <property name="flowSlotTicketDao" ref="flowSlotTicketDao"/>
     </bean>
 
-    <bean id="escalationService" class="org.wf.dp.dniprorada.base.service.escalation.EscalationService">
-        <!--<property name="escalationRuleFunctionDao" ref="escalationRuleFunctionDao"/>-->
-        <!--<property name="taskService" ref="taskService"/>-->
-        <!--<property name="formService" ref="formService"/>-->
-    </bean>
+    <bean id="escalationService" class="org.wf.dp.dniprorada.base.service.escalation.EscalationService"/>
+
+    <bean id="httpRequester" class="org.wf.dp.dniprorada.rest.HttpRequester"/>
+    <bean id="notificationService" class="org.wf.dp.dniprorada.base.service.notification.NotificationService"/>
 
     <!-- ==============================   HANDLER   ============================= -->
 
@@ -46,8 +45,6 @@
         <aop:advisor pointcut-ref="base.service.flow" advice-ref="txAdvice"/>
     </aop:config>
     
-    <bean id="httpRequester" class="org.wf.dp.dniprorada.rest.HttpRequester"></bean>
-
     <import resource="classpath:context-services_local.xml"/>
         
 </beans>

@@ -107,7 +107,7 @@ public class ActivitiRestHistoryEventController {
 	@RequestMapping(value = "/addHistoryEvent_Service", method = RequestMethod.GET)
 	public @ResponseBody
 	ResponseEntity<String> addHistoryEvent_Service(
-			@RequestParam(value = "nID_Proccess") Long nID_Proccess,
+			@RequestParam(value = "nID_Process") Long nID_Process,
 			@RequestParam(value = "nID_Subject") Long nID_Subject,
 			@RequestParam(value = "sID_Status") String sID_Status,
 			@RequestParam(value = "sProcessInstanceName") String sProcessInstanceName,
@@ -121,7 +121,7 @@ public class ActivitiRestHistoryEventController {
 		setHistoryEvent(HistoryEventType.GET_SERVICE, nID_Subject, mParamMessage);
 
 		return JsonRestUtils.toJsonResponse(historyEventServiceDao
-				.addHistoryEvent_Service(nID_Proccess, sID_Status, nID_Subject,
+				.addHistoryEvent_Service(nID_Process, sID_Status, nID_Subject,
 						sID_Status, nID_Service, nID_Region, sID_UA));
 	}
 
@@ -141,20 +141,20 @@ public class ActivitiRestHistoryEventController {
 	@RequestMapping(value = "/updateHistoryEvent_Service", method = RequestMethod.GET)
 	public @ResponseBody
 	HistoryEvent_Service updateHistoryEvent_Service(
-			@RequestParam(value = "nID_Proccess", required = false) Long nID_Proccess,
+			@RequestParam(value = "nID_Process", required = false) Long nID_Process,
 			@RequestParam(value = "sID_Status") String sID_Status,
 			//@RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
 			//@RequestParam(value = "nID_Task") Long nID_Task,
 			//@RequestParam(value = "sHistoryEventType") HistoryEventType sHistoryEventType,
 			HttpServletResponse response) {
-		Long nID_Protected = AlgorithmLuna.getProtectedNumber(nID_Proccess);
-		Long nID_Subject = historyEventServiceDao.getHistoryEvent_ServiceBynID_Task(nID_Proccess).getnID_Subject();
+		Long nID_Protected = AlgorithmLuna.getProtectedNumber(nID_Process);
+		Long nID_Subject = historyEventServiceDao.getHistoryEvent_ServiceBynID_Task(nID_Process).getnID_Subject();
 		Map<String, String> mParamMessage = new HashMap<String, String>();
 	    mParamMessage.put(HistoryEventMessage.SERVICE_STATE, sID_Status);
 	    mParamMessage.put(HistoryEventMessage.TASK_NUMBER, String.valueOf(nID_Protected));
 		setHistoryEvent(HistoryEventType.ACTIVITY_STATUS_NEW, nID_Subject, mParamMessage);
 		HistoryEvent_Service historyEvent_Service = historyEventServiceDao
-				.getHistoryEvent_ServiceBynID_Task(nID_Proccess);
+				.getHistoryEvent_ServiceBynID_Task(nID_Process);
 		if (historyEvent_Service != null) {
 			boolean isChanged = false;
 			if (!historyEvent_Service.getsStatus().equals(sID_Status)) {
