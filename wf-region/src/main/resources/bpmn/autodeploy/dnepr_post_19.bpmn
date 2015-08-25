@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="dnepr_post_19" name="Призначення державної соціальної допомоги малозабезпеченим сім'ям" isExecutable="true" activiti:candidateStarterGroups="dnepr_social_help">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -22,7 +22,7 @@
           <activiti:value id="sobes8" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>   
         <activiti:formProperty id="numobr" name="Ваше звернення до районного органу соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
           <activiti:value id="obr1" name="первинне"></activiti:value>
           <activiti:value id="obr2" name="вторинне"></activiti:value>
@@ -109,13 +109,13 @@
     <serviceTask id="servicetask2" name="Е-мейл о необходимости оплаты" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Призначення державної соціальної допомоги малозабезпеченим сім'ям</activiti:string>
+          <activiti:string><![CDATA[Призначення державної соціальної допомоги малозабезпеченим сім'ям]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -197,13 +197,13 @@
     <serviceTask id="servicetask3" name="Е-мейл при ошибке в док-х" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Призначення державної соціальної допомоги малозабезпеченим сім'ям</activiti:string>
+          <activiti:string><![CDATA[Призначення державної соціальної допомоги малозабезпеченим сім'ям]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -289,16 +289,16 @@
     <serviceTask id="mailtask1" name="Е-майл об отсутствии оплаты" activiti:type="mail">
       <extensionElements>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Призначення державної соціальної допомоги малозабезпеченим сім'ям</activiti:string>
+          <activiti:string><![CDATA[Призначення державної соціальної допомоги малозабезпеченим сім'ям]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -379,16 +379,16 @@
     <serviceTask id="mailtask2" name="Е-майл об отправке документов в соцзащиту" activiti:type="mail">
       <extensionElements>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Призначення державної соціальної допомоги малозабезпеченим сім'ям</activiti:string>
+          <activiti:string><![CDATA[Призначення державної соціальної допомоги малозабезпеченим сім'ям]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -543,7 +543,7 @@
         <omgdi:waypoint x="539.0" y="214.0"></omgdi:waypoint>
         <omgdi:waypoint x="539.0" y="254.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="59.0" x="400.0" y="205.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="400.0" y="205.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">

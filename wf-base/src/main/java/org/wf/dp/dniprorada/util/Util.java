@@ -16,9 +16,13 @@ import sun.misc.BASE64Encoder;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Collection;
 
 public final class Util {
 
@@ -26,7 +30,48 @@ public final class Util {
     public static final String PATTERN_DEFAULT_CONTENT_TYPE = "text/plain";
     private final static Logger log = LoggerFactory.getLogger(Util.class);
 
+    private static final String DEFAULT_ENCODING = "UTF-8";
+
     private Util() {
+    }
+
+    /**
+     * Resolves file content based on specified smart file path string and base file path.
+     * Examples of the smart paths: "[/custom.html]", "[*]"
+     *
+     * @param smartPath A possible smart path string starting from [
+     * @param basePath Base path to be prepended
+     * @param defaultFilePath If the string equals to "[*]" than this value will be used
+     * @return File content. If a passed string was not a smart file path
+     * (e.g. it does not start and end with "[" and "]"), then "null" is returned
+     */
+    public static String getSmartFieldValue(String smartPath, String basePath, String defaultFilePath) {
+        if (smartPath == null || smartPath.isEmpty() || !smartPath.startsWith("[") || !smartPath.endsWith("]")){
+            return smartPath;
+        }
+
+        smartPath = new StringBuilder(smartPath)
+                .deleteCharAt(smartPath.length() - 1)
+                .deleteCharAt(0)
+                .toString();
+
+        Path path = smartPath.equals("*")
+                ? Paths.get(basePath, defaultFilePath)
+                : Paths.get(basePath, smartPath);
+
+        URL resource = Util.class.getClassLoader().getResource(path.toString());
+        if (resource == null) {
+            log.error("[getSmartFieldValue] Cannot find the file " + path);
+            return null;
+        }
+
+        try {
+            path = Paths.get(resource.toURI());
+            return new String(Files.toByteArray(path.toFile()), DEFAULT_ENCODING);
+        } catch (URISyntaxException | IOException e) {
+            log.error("[getSmartFieldValue] Cannot read file " + path, e);
+            return null;
+        }
     }
 
 
@@ -40,13 +85,13 @@ public final class Util {
     }
 
     public static String sData(byte[] a) {
-        // Charset.forName("UTF-8")
+        // Charset.forName(DEFAULT_ENCODING)
         // byte[] b = {(byte) 99, (byte)97, (byte)116};
         String s = "Not convertable!";
         log.info("[sData]:a.length=" + a.length + ",Arrays.toString(a)="
                 + Arrays.toString(a));
         try {
-            s = new String(a, "UTF-8");
+            s = new String(a, DEFAULT_ENCODING);
         } catch (Exception oException) {
             log.error("[sData]", oException);
         }
@@ -56,7 +101,7 @@ public final class Util {
 
     public static byte[] aData(String s) {
         log.info("[aData]:s=" + s);
-        byte[] a = s.getBytes(Charset.forName("UTF-8"));
+        byte[] a = s.getBytes(Charset.forName(DEFAULT_ENCODING));
         log.info("[aData]:a.length=" + a.length + ",Arrays.toString(a)="
                 + Arrays.toString(a));
         return a;
@@ -176,8 +221,8 @@ public final class Util {
         if (aByte == null) {
             return null;
         }
-        return new String(aByte, sCodepage == null ? "UTF-8" : sCodepage);
-        //Charset.forName("UTF-8")
+        return new String(aByte, sCodepage == null ? DEFAULT_ENCODING : sCodepage);
+        //Charset.forName(DEFAULT_ENCODING)
         //Cp1251
     }
 

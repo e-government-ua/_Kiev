@@ -1,15 +1,5 @@
 package org.activiti.rest.controller;
 
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,16 +10,17 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
-import org.wf.dp.dniprorada.model.Category;
-import org.wf.dp.dniprorada.model.Region;
-import org.wf.dp.dniprorada.model.Service;
-import org.wf.dp.dniprorada.model.ServiceData;
-import org.wf.dp.dniprorada.model.Subcategory;
+import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.service.TableDataService;
 import org.wf.dp.dniprorada.viewobject.TableData;
+
+import static org.hamcrest.Matchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -176,6 +167,69 @@ public class ActivitiRestServicesControllerScenario {
         Assert.assertEquals(serviceName, serviceAfterChange.getName());
         Assert.assertEquals(serviceUrl, serviceAfterChange.getServiceDataList().get(0).getUrl());
     }
+
+    @Test
+    public void getServiceShouldResolveConcreteFileForInfo() throws Exception {
+        assertServiceSmartFilePatternField("{\"nID\":1, \"sInfo\":\"[/test.html]\"}", "$.sInfo", "<html><body><span>info</span></body></html>");
+        assertServiceSmartFilePatternField("{\"nID\":1, \"sFAQ\":\"[/test.html]\"}", "$.sFAQ", "<html><body><span>faq</span></body></html>");
+        assertServiceSmartFilePatternField("{\"nID\":1, \"sLaw\":\"[/test.html]\"}", "$.sLaw", "<html><body><span>law</span></body></html>");
+    }
+
+    @Test
+    public void getServiceShouldResolveFileByIdForSmartFields() throws Exception {
+        assertServiceSmartFilePatternField("{\"nID\":1, \"sInfo\":\"[*]\"}", "$.sInfo", "<html><body><span>info</span></body></html>");
+        assertServiceSmartFilePatternField("{\"nID\":1, \"sFAQ\":\"[*]\"}", "$.sFAQ", "<html><body><span>faq</span></body></html>");
+        assertServiceSmartFilePatternField("{\"nID\":1, \"sLaw\":\"[*]\"}", "$.sLaw", "<html><body><span>law</span></body></html>");
+    }
+
+    @Test
+    public void getServiceShouldReturnSimpleValueIfNotASmartPattern() throws Exception {
+        assertServiceSmartFilePatternField("{\"nID\":1, \"sInfo\":\"somefile.[asdf]info\"}", "$.sInfo", "somefile.[asdf]info");
+        assertServiceSmartFilePatternField("{\"nID\":1, \"sFAQ\":\"somefile.[asdf]faq\"}", "$.sFAQ", "somefile.[asdf]faq");
+        assertServiceSmartFilePatternField("{\"nID\":1, \"sLaw\":\"somefile.[asdf]law\"}", "$.sLaw", "somefile.[asdf]law");
+    }
+
+    @Test
+    public void getServiceShouldThrowIfCustomFileNotFound() throws Exception {
+        assertServiceSmartFilePatternField("{\"nID\":1, \"sInfo\":\"[/some.file]\"}", "$.sInfo", "");
+        assertServiceSmartFilePatternField("{\"nID\":1, \"sFAQ\":\"[/some.file]\"}", "$.sFAQ", "");
+        assertServiceSmartFilePatternField("{\"nID\":1, \"sLaw\":\"[/some.file]\"}", "$.sLaw", "");
+    }
+
+    // region File Pattern Service Helpers
+
+    private void assertServiceSmartFilePatternField(String service, String jsonPath, String expected) throws Exception {
+        assertServiceSmartField(performSetService(service), jsonPath, expected);
+        assertServiceSmartField(performGetService((long) 1), jsonPath, expected);
+    }
+
+    private void assertServiceSmartField(ResultActions ra, String jsonPath, String expected) throws Exception {
+        ra.andExpect(jsonPath(jsonPath, is(expected)));
+    }
+
+    private ResultActions performGetService(Long serviceId) throws Exception {
+        return mockMvc.perform(get("/services/getService").
+                param("nID", serviceId.toString()).
+                contentType(APPLICATION_JSON_CHARSET_UTF_8)).
+                andExpect(status().isOk()).
+                andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8));
+
+    }
+
+    private ResultActions performSetService(String service) throws Exception {
+        return mockMvc.perform(post("/services/setService").content(service).
+                contentType(APPLICATION_JSON_CHARSET_UTF_8).
+                accept(MediaType.APPLICATION_JSON)).
+                andExpect(status().isOk()).
+                andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8));
+    }
+
+    private Service getService(long serviceId) throws Exception {
+        String jsonData = performGetService(serviceId).andReturn().getResponse().getContentAsString();
+        return JsonRestUtils.readObject(jsonData, Service.class);
+    }
+
+    //endregion
 
     @Test
     public void shouldSuccessfullyGetAndSetPlaces() throws Exception {
