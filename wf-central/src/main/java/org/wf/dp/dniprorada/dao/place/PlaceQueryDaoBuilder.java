@@ -74,6 +74,8 @@ public class PlaceQueryDaoBuilder {
 
     @EnableCaching
     public String getTreeUp(Long placeId, String uaId, boolean tree) {
+        LOG.warn("Got {}, {}, {}.", placeId, uaId, tree);
+
         if (specified(placeId) && tree)
             return load("get_PlaceTree_up_by_id.sql");
 
