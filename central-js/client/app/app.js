@@ -9,7 +9,10 @@ angular.module('appBoilerPlate', ['ngCookies',
   'ui.uploader',
   'ui.event',
   'angularMoment',
-  'ngClipboard']);
+  'ngClipboard',
+  'dialogs.main',
+  'pascalprecht.translate',
+  'dialogs.default-translations']);
 
 angular.module('documents', ['appBoilerPlate']);
 angular.module('journal', ['appBoilerPlate']);

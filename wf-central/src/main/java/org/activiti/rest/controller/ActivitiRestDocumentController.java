@@ -296,7 +296,8 @@ public class ActivitiRestDocumentController {
             //@RequestParam(value = "sFile", required = false) String fileName,
             @RequestParam(value = "nID_DocumentType") Long nID_DocumentType,
             @RequestParam(value = "nID_DocumentContentType", required = false) Long nID_DocumentContentType,
-            @RequestParam(value = "oFile", required = true) MultipartFile oFile,
+            @RequestParam(value = "oFile", required = false) MultipartFile oFile,
+            @RequestParam(value = "file", required = false) MultipartFile oFile2,
 //            @RequestParam(value = "oSignData", required = true) String soSignData,//todo required?? (issue587)
             //@RequestBody byte[] content,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
@@ -304,6 +305,11 @@ public class ActivitiRestDocumentController {
         //String sFileName = oFile.getName();
         //String sFileName = oFile.getOriginalFilename();
          //Content-Disposition:attachment; filename=passport.zip
+        
+        if(oFile==null){
+            oFile=oFile2;
+        }        
+        
         String sFileName = request.getHeader("filename");
         if(sFileName==null||"".equals(sFileName.trim())){
             //sFileName = oFile.getOriginalFilename()+".zip";

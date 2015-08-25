@@ -1,8 +1,14 @@
 package org.wf.dp.dniprorada.dao;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Required;
@@ -70,28 +76,24 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao {
     }
 
     @Override
-    public HistoryEvent_Service addHistoryEvent_Service(Long nID_task, String sStatus, Long nID_subject, String sID_status) {
+    public HistoryEvent_Service addHistoryEvent_Service(Long nID_task, String sStatus, Long nID_subject, String sID_status, Long nID_Service, Long nID_Region, String sID_UA) {
         HistoryEvent_Service event_service = new HistoryEvent_Service();
         event_service.setnID_Task(nID_task);
         event_service.setsStatus(sStatus);
         event_service.setsID_Status(sID_status);
         event_service.setnID_Subject(nID_subject);
         event_service.setsDate(new DateTime());
-//        SimpleDateFormat sdf = new SimpleDateFormat("_yyyy-MM-dd_HH:mm:ss");
-//        event_service.setsID(sdf.format(new Date()));
-        //event_service.setnID_Protected(1L);
+        event_service.setnID_Region(nID_Region);
+        event_service.setnID_Service(nID_Service);
+        event_service.setsID_UA(sID_UA);
         Session session = getSession();
         session.saveOrUpdate(event_service);
         Long nID = event_service.getId();
-//        event_service.setsID(AlgorithmLuna.getProtectedString(nID, nID_subject, sID_status));
-//        event_service.setnID_Protected(AlgorithmLuna.getProtectedNumber(nID));
         
         long nID_Reference = (long) 1000000000;
-        //nID_Reference+=nID_task;
         nID_Reference=nID_task;
         event_service.setnID_Protected(AlgorithmLuna.getProtectedNumber(nID_Reference));
         
-//        session.saveOrUpdate(event_service);
         return event_service;
     }
 
@@ -101,4 +103,32 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao {
         getSession().saveOrUpdate(event_service);
         return event_service;
     }
+
+	@Override
+	public List<Map<String, Long>> getHistoryEvent_ServiceBynID_Service(Long nID_Service) {
+		List<Map<String, Long>> resHistoryEventService = new LinkedList<Map<String, Long>>();
+		Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
+        criteria.add(Restrictions.eq("nID_Service", nID_Service));
+        criteria.setProjection(Projections.projectionList()
+                .add(Projections.groupProperty("nID_Region"))
+                .add(Projections.count("nID_Service")));           
+        Object res = criteria.list();
+        log.info("Received result in getHistoryEvent_ServiceBynID_Service:"  + res);
+        if (res == null) {
+            log.warn("List of records based on nID_Service not found" + nID_Service);
+            throw new EntityNotFoundException("Record not found");
+        } else {
+        	for(Object item:criteria.list()){
+        		Object[] currValue = (Object[]) item;
+        		log.info("Curr value:"  + currValue);
+        		Map<String, Long> currRes = new HashMap<String, Long>();
+        		currRes.put("sName", (Long) currValue[0]);
+        		currRes.put("nCount", (Long) currValue[1]);
+        		
+        		resHistoryEventService.add(currRes);
+        	}
+            log.info("Found " + resHistoryEventService.size() + " records based on nID_Service " + nID_Service);
+        }
+        return resHistoryEventService;
+	}
 }

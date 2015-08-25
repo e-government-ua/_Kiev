@@ -16,5 +16,6 @@ router.delete('/exemption', controller.deleteExemption);
 router.get('/flowSlots', controller.getFlowSlots);
 router.post('/buildFlowSlots', controller.buildFlowSlots);
 router.delete('/flowSlots', controller.deleteFlowSlots);
+router.get('/getFlowSlotTickets', controller.getFlowSlotTickets);
 
 module.exports = router;

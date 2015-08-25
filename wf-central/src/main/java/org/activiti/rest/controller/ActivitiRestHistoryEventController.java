@@ -2,10 +2,12 @@ package org.activiti.rest.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.constant.HistoryEventMessage;
 import org.wf.dp.dniprorada.constant.HistoryEventType;
@@ -23,6 +26,7 @@ import org.wf.dp.dniprorada.dao.HistoryEvent_ServiceDao;
 import org.wf.dp.dniprorada.model.EntityNotFoundException;
 import org.wf.dp.dniprorada.model.HistoryEvent;
 import org.wf.dp.dniprorada.model.HistoryEvent_Service;
+import org.wf.dp.dniprorada.model.Region;
 import org.wf.dp.dniprorada.util.luna.AlgorithmLuna;
 import org.wf.dp.dniprorada.util.luna.CRCInvalidException;
 
@@ -41,6 +45,9 @@ public class ActivitiRestHistoryEventController {
 
 	@Autowired
 	private HistoryEventDao historyEventDao;
+	
+	@Autowired
+	private BaseEntityDao baseEntityDao;
 
 	@Autowired
 	private DocumentDao documentDao;
@@ -104,6 +111,9 @@ public class ActivitiRestHistoryEventController {
 			@RequestParam(value = "nID_Subject") Long nID_Subject,
 			@RequestParam(value = "sID_Status") String sID_Status,
 			@RequestParam(value = "sProcessInstanceName") String sProcessInstanceName,
+			@RequestParam(value = "nID_Service", required=false) Long nID_Service,
+			@RequestParam(value = "nID_Region", required=false) Long nID_Region ,
+			@RequestParam(value = "sID_UA", required=false) String sID_UA,
 			HttpServletResponse response) {
 		
 		Map<String, String> mParamMessage = new HashMap<String, String>();
@@ -112,7 +122,7 @@ public class ActivitiRestHistoryEventController {
 
 		return JsonRestUtils.toJsonResponse(historyEventServiceDao
 				.addHistoryEvent_Service(nID_Proccess, sID_Status, nID_Subject,
-						sID_Status));
+						sID_Status, nID_Service, nID_Region, sID_UA));
 	}
 
 	/**
@@ -194,6 +204,28 @@ public class ActivitiRestHistoryEventController {
 	List<HistoryEvent> getHistoryEvents(
 			@RequestParam(value = "nID_Subject") long nID_Subject) {
 		return historyEventDao.getHistoryEvents(nID_Subject);
+	}
+	
+	
+	@RequestMapping(value = "/getStatisticServiceCounts", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getStatisticServiceCounts(@RequestParam(value = "nID_Service") Long nID_Service) {
+		
+		List<Map<String, Long>> listOfHistoryEvents = historyEventServiceDao.getHistoryEvent_ServiceBynID_Service(nID_Service);
+		  
+		List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String,Object>>();
+		  
+		for (Map<String, Long> currMap : listOfHistoryEvents){
+			  Region region = baseEntityDao.getById(Region.class, currMap.get("sName"));
+			  Map<String, Object> currMapWithName = new HashMap<String, Object>();
+			  
+			  currMapWithName.put("sName", region.getName());
+			  currMapWithName.put("nCount", currMap.get("nCount"));
+			  
+			  listOfHistoryEventsWithMeaningfulNames.add(currMapWithName);
+		  } 
+
+		  return JSONValue.toJSONString(listOfHistoryEventsWithMeaningfulNames);
 	}
 	
 	private void setHistoryEvent(HistoryEventType eventType,
