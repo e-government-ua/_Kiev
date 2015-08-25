@@ -13,6 +13,7 @@ import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.dao.place.PlaceHierarchyRecord;
 import org.wf.dp.dniprorada.dao.place.PlaceHierarchyTree;
+import org.wf.dp.dniprorada.model.Place;
 import org.wf.dp.dniprorada.model.PlaceType;
 
 /**
@@ -62,6 +63,27 @@ public class PlaceController {
             @RequestParam(value = "bTree",  defaultValue = "false") Boolean tree
     ) {
         return placeDao.getTreeUp(placeId, uaId, tree);
+    }
+
+
+    @RequestMapping(value   = "/setPlace",
+                    method  = RequestMethod.POST, headers = { JSON_TYPE })
+    public  @ResponseBody void setPlace(
+            @RequestParam(value = "nID",            required = false) Long   placeId,
+            @RequestParam(value = "sName",          required = false) String name,
+            @RequestParam(value = "nID_PlaceType",  required = false) Long   typeId,
+            @RequestParam(value = "sID_UA",         required = false) String uaId,
+            @RequestParam(value = "sNameOriginal",  required = false) String originalName
+    ) {
+        // TODO need to understand which Dao should be used AbstractDaoXX or BaseXXX or GenericXX ...
+        Place place = new Place();
+        place.setId(placeId);
+        place.setName(name);
+        place.setPlaceTypeId(typeId);
+        place.setUaId(uaId);
+        place.setOriginalName(originalName);
+        // placeTypeDao.saveOrUpdate( place ); TODO and now we can't do it because of GenericEntityDao<PlaceType>
+        // Why we need a new DAO class which does not allow us to do basic operation (independent of type at all)?
     }
 
 
