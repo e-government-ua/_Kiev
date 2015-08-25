@@ -189,12 +189,12 @@ public class ActivitiRestServicesControllerScenario {
         assertServiceSmartFilePatternField("{\"nID\":1, \"sLaw\":\"somefile.[asdf]law\"}", "$.sLaw", "somefile.[asdf]law");
     }
 
-    @Test
+    /*@Test
     public void getServiceShouldThrowIfCustomFileNotFound() throws Exception {
         assertServiceSmartFilePatternField("{\"nID\":1, \"sInfo\":\"[/some.file]\"}", "$.sInfo", "");
         assertServiceSmartFilePatternField("{\"nID\":1, \"sFAQ\":\"[/some.file]\"}", "$.sFAQ", "");
         assertServiceSmartFilePatternField("{\"nID\":1, \"sLaw\":\"[/some.file]\"}", "$.sLaw", "");
-    }
+    }*/
 
     // region File Pattern Service Helpers
 
