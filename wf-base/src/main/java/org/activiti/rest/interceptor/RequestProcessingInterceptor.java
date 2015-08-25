@@ -148,9 +148,9 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 Map<String, String> params = new HashMap<String, String>();
                 if (setTask) {
                     sID_Proccess = (String) jsonObjectResponse.get("id");
-                    sID_Service = (String) jsonObjectResponse.get("nID_Service");
-                    sID_Region = (String) jsonObjectResponse.get("nID_Region");
-                    sID_UA = (String) jsonObjectResponse.get("sID_UA");
+                    sID_Service = mParamRequest.containsKey("nID_Service") ? (String) mParamRequest.get("nID_Service") : null;
+                    sID_Region = mParamRequest.containsKey("nID_Region") ? (String) mParamRequest.get("nID_Region") : null;
+                    sID_UA =  mParamRequest.containsKey("sID_UA") ? (String) mParamRequest.get("sID_UA") : null;
                     
                     serviceName = "addHistoryEvent_Service";
                     taskName = "Заявка подана";
@@ -182,9 +182,15 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     String URL = generalConfig.sHostCentral() + "/wf-central/service/services/" + serviceName;
                     params.put("nID_Proccess", sID_Proccess);
                     params.put("sID_Status", taskName);
-                    params.put("nID_Service", sID_Service);
-                    params.put("nID_Region", sID_Region);
-                    params.put("sID_UA", sID_UA);
+                    if (sID_Service != null) {
+                    	params.put("nID_Service", sID_Service);
+                    }
+                    if (sID_Region != null) {
+                    	params.put("nID_Region", sID_Region);
+                    }
+                    if (sID_UA != null) {
+                    	params.put("sID_UA", sID_UA);
+                    }
                     logger.info(URL + ": " + params);
                     String soResponse = httpRequester.get(URL, params);
                     logger.info("ok! soJSON = " + soResponse);
