@@ -23,6 +23,8 @@
                 <array>
                     <value>org.wf.dp.dniprorada.base.model</value>
                     <value>org.wf.dp.dniprorada.model</value>
+                    <!--<value>org.wf.dp.dniprorada.base.service</value>-->
+
                 </array>
             </property>
 

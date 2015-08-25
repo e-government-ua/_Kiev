@@ -1,11 +1,12 @@
 package org.activity.rest.security;
 
-import org.springframework.security.authentication.*;
-import org.springframework.security.core.*;
-
-import java.util.*;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 /**
  * @author tasman
@@ -34,7 +35,7 @@ public class AccessKeyAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getCredentials() {
-        log.info("[getCredentials]:subjectId="+subjectId);
+        log.info("[getCredentials]:subjectId=" + subjectId);
         return subjectId;
     }
 
@@ -42,5 +43,9 @@ public class AccessKeyAuthenticationToken extends AbstractAuthenticationToken {
     public Object getPrincipal() {
         log.info("[getPrincipal]:accessKey="+accessKey);
         return accessKey;
+    }
+
+    public boolean hasCorrectAccessKeyAndSubjectId() {
+        return StringUtils.isNotBlank(subjectId) && StringUtils.isNotBlank(accessKey);
     }
 }

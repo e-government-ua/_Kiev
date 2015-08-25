@@ -12,6 +12,7 @@ import org.wf.dp.dniprorada.base.dao.EscalationRuleDao;
 import org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDao;
 import org.wf.dp.dniprorada.base.model.EscalationRule;
 import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
+import org.wf.dp.dniprorada.base.service.escalation.EscalationService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -27,6 +28,19 @@ public class ActivitiRestEscalationController {
 
     @Autowired
     private EscalationRuleDao escalationRuleDao;
+
+    @Autowired
+    private EscalationService escalationService;
+
+    @RequestMapping(value = "/runEscalation", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    void runEscalation() throws ActivitiRestException {
+        //@RequestParam(value = "nID", required = false) Long nID ,
+        //@RequestParam(value = "sName") String sName ,
+        //@RequestParam(value = "sBeanHandler", required = false) String sBeanHandler
+        escalationService.runEscalationAll();
+    }
 
     //----------EscalationRuleFunction services-----------------
 
@@ -167,5 +181,24 @@ public class ActivitiRestEscalationController {
         }
     }
 
+    //----------Escalation handlers-----------------
 
+    //----EscalationHandler_SendMailAlert
+//    @RequestMapping(value = "/sendMailAlertByEscalationHandler", method = RequestMethod.GET)
+//    public
+//    @ResponseBody
+//    void sendMailAlertByEscalationHandler(//??
+//                                          @RequestParam(value = "nID_Task_Activiti", required = false) Long nID_Task_Activiti,//temp!!!
+//                                          @RequestParam(value = "sCondition") String sCondition,
+//                                          @RequestParam(value = "soData") String soData,
+//                                          @RequestParam(value = "sPatternFile", required = false) String sPatternFile)//temp!!!
+//            throws ActivitiRestException {
+//
+//        try {
+//            new EscalationUtil().sendMailAlert(nID_Task_Activiti, sCondition, soData, sPatternFile);
+//        } catch (Exception e) {
+//            throw new ActivitiRestException("ex during sending mail alert in escalationController!", e);
+//        }
+//
+//    }
 }

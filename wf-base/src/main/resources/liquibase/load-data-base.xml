@@ -67,7 +67,7 @@
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/EscalationRule.csv"
-                        tableName="EscalationRuleFunction" separator=";">
+                        tableName="EscalationRule" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sID_BP" type="STRING"/>
             <column name="sID_UserTask" type="STRING"/>

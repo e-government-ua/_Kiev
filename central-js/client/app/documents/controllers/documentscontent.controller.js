@@ -17,6 +17,11 @@ angular.module('documents').controller('DocumentsContentController', function($s
   $scope.nDays = $scope.nDaysOptions[1].day;
   $scope.getDocumentLink = ServiceService.getDocumentLink;
 
+  $scope.getSignData = function(document){
+    var signData = JSON.parse(document.oSignData);
+    return signData && signData.customer && signData.customer.fullName;
+  };
+
   $scope.uploadDocument = function(documentTypeForUpload, documentNameForUpload){
     $scope.file.uploadDocument(documentTypeForUpload, documentNameForUpload, function(){
       $state.transitionTo($state.current, $stateParams, {
@@ -29,7 +34,7 @@ angular.module('documents').controller('DocumentsContentController', function($s
 
   $scope.showShareTab = function(){
     $scope.shareTab = !$scope.shareTab;
-  }
+  };
 
   $scope.shareLink = function(document, sFIO, sTelephone, sMail, nDays) {
     ServiceService.shareLink($state.nID_Subject, document.nID, sFIO,

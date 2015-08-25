@@ -574,6 +574,14 @@ public class ActivitiRestFlowController {
 		currRes.put("sDateFinish", dateFormat.format(finishDate));
 		Date editDate = new Date(currFlowSlowTicket.getsDateEdit().getMillis());
 		currRes.put("sDateEdit", dateFormat.format(editDate));
+                
+		currRes.put("nID_Task_Activiti", tasksByActivitiID.getId());
+                
+		currRes.put("name", tasksByActivitiID.getName());
+		currRes.put("id", tasksByActivitiID.getId());
+		currRes.put("assignee", tasksByActivitiID.getAssignee());
+		currRes.put("nID_Instance", tasksByActivitiID.getProcessInstanceId());
+                
 		currRes.put("sUserTaskName", tasksByActivitiID.getName());
 		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(tasksByActivitiID.getProcessDefinitionId()).singleResult();
 		currRes.put("sNameBP", processDefinition != null ? processDefinition.getName() : "");

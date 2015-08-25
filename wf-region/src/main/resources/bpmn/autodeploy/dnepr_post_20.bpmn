@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="post_20" name="Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу" isExecutable="true" activiti:candidateStarterGroups="dnepr_social_help">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="dnepr_post_20" name="Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу" isExecutable="true" activiti:candidateStarterGroups="dnepr_social_help">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -87,13 +87,13 @@
     <serviceTask id="servicetask2" name="Е-мейл о необходимости оплаты" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу]]></activiti:string>
+          <activiti:string>Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу</activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -175,13 +175,13 @@
     <serviceTask id="servicetask3" name="Е-мейл при ошибке в док-х" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу]]></activiti:string>
+          <activiti:string>Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу</activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -267,16 +267,16 @@
     <serviceTask id="mailtask1" name="Е-майл об отсутствии оплаты" activiti:type="mail">
       <extensionElements>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу]]></activiti:string>
+          <activiti:string>Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу</activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -357,16 +357,16 @@
     <serviceTask id="mailtask2" name="Е-майл об отправке документов в соцзащиту" activiti:type="mail">
       <extensionElements>
         <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+          <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу]]></activiti:string>
+          <activiti:string>Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу</activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -444,8 +444,8 @@
     <sequenceFlow id="flow9" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_post_20">
-    <bpmndi:BPMNPlane bpmnElement="post_20" id="BPMNPlane_post_20">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_post_20">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_post_20" id="BPMNPlane_dnepr_post_20">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="41.0" width="41.0" x="20.0" y="164.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
