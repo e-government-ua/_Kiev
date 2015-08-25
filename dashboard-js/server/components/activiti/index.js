@@ -32,7 +32,7 @@ var createUploadProxy = function() {
 
 	});
 	return uploadProxy;
-}
+};
 
 var getRequestURL = function(options) {
 	return url.format({
@@ -42,7 +42,7 @@ var getRequestURL = function(options) {
 		pathname: '/' + (options.root || config.activiti.rest) + '/' + options.path,
 		query: options.query
 	});
-}
+};
 
 var getRequestOptions = function(options) {
 	var headers = options.headers;
@@ -71,7 +71,7 @@ var prepareRequest = function(req, options, data) {
 		r = request(getRequestOptions(options));
 	}
 	return r;
-}
+};
 
 var uploadProxy = createUploadProxy();
 
@@ -79,22 +79,21 @@ exports.getRequestURL = getRequestURL;
 exports.getRequestOptions = getRequestOptions;
 
 exports.get = function(options, onResult) {
-	request
-		.get(getRequestOptions(options), function(error, response, body) {
+	request.get(getRequestOptions(options), function(error, response, body) {
 			if (!error) {
 				onResult(null, response.statusCode, body, response.headers);
 			} else {
 				onResult(error, null, null);
 			}
 		});
-}
+};
 
 exports.filedownload = function(req, res, options) {
 	var r = prepareRequest(req, options);
 	req.pipe(r).on('response', function(response) {
 		response.headers['content-type'] = 'application/octet-stream';
 	}).pipe(res);
-}
+};
 
 exports.fileupload = function(req, res, options) {
 	uploadProxy.web(req, res, {
@@ -105,7 +104,7 @@ exports.fileupload = function(req, res, options) {
 
 		}
 	});
-}
+};
 
 exports.pipe = function(req, res, options, data) {
 	var r = null;
@@ -122,7 +121,7 @@ exports.pipe = function(req, res, options, data) {
 		r = request(getRequestOptions(options));
 	}
 	req.pipe(r).pipe(res);
-}
+};
 
 exports.post = function(options, onResult, data) {
 	request.post(_.merge(getRequestOptions(options), data ? {
@@ -138,20 +137,30 @@ exports.post = function(options, onResult, data) {
 				onResult(error, null, null);
 			}
 		});
-}
+};
 
 exports.put = function(options, onResult, data) {
-	request.put(_.merge(getRequestOptions(options), data ? {
-			json: true,
-			body: data
-		} : {
-			json: true
-		}),
-		function(error, response, body) {
-			if (!error) {
-				onResult(null, response.statusCode, body, response.headers);
-			} else {
-				onResult(error, null, null);
-			}
-		});
-}
+  request.put(_.merge(getRequestOptions(options), data ? {
+      json: true,
+      body: data
+    } : {
+      json: true
+    }),
+    function(error, response, body) {
+      if (!error) {
+        onResult(null, response.statusCode, body, response.headers);
+      } else {
+        onResult(error, null, null);
+      }
+    });
+};
+
+exports.del = function(options, onResult) {
+  request.del(getRequestOptions(options), function(error, response, body) {
+      if (!error) {
+        onResult(null, response.statusCode, body, response.headers);
+      } else {
+        onResult(error, null, null);
+      }
+    });
+};

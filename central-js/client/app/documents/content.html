@@ -65,7 +65,7 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th class="col-md-5">
+        <th class="col-md-2">
           <p class="text-muted">Документ</p>
         </th>
         <th class="col-md-3">
@@ -74,7 +74,10 @@
         <th class="col-md-3">
           <p class="text-muted">Ким завантажена копія</p>
         </th>
-        <th class="col-md-1 align-right">
+        <th class="col-md-3">
+          <p class="text-muted">Автор ЕЦП</p>
+        </th>
+        <th class="col-md-3 align-right">
           <p class="text-muted">Дії</p>
         </th>
       </tr>
@@ -96,6 +99,9 @@
                  value="{{doc.nID}}">
           <input type="hidden"
                  value="{{doc.sName}}">
+        </td>
+        <td>
+          {{getSignData(doc)}}
         </td>
         <td>
           <a ng-href="{{getDocumentLink(doc.nID)}}"

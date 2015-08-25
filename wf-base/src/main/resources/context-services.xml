@@ -8,13 +8,19 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
-    
+
     <!-- ==============================   SERVICES    ============================= -->
 
     <bean id="flowService" class="org.wf.dp.dniprorada.base.service.flow.FlowService">
         <property name="flowSlotDao" ref="flowSlotDao"/>
         <property name="baseEntityDao" ref="baseEntityDao"/>
         <property name="flowSlotTicketDao" ref="flowSlotTicketDao"/>
+    </bean>
+
+    <bean id="escalationService" class="org.wf.dp.dniprorada.base.service.escalation.EscalationService">
+        <!--<property name="escalationRuleFunctionDao" ref="escalationRuleFunctionDao"/>-->
+        <!--<property name="taskService" ref="taskService"/>-->
+        <!--<property name="formService" ref="formService"/>-->
     </bean>
 
     <!-- ==============================   HANDLER   ============================= -->
@@ -25,6 +31,13 @@
         <property name="defaultFlowSlotName" value="Рабочее время"/>
         <property name="flowSlotDao" ref="flowSlotDao"/>
     </bean>
+
+    <bean id="escalationHandler_SendMailAlert"
+          class="org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler_SendMailAlert"
+          scope="prototype">
+    </bean>
+
+<bean id="oMail" class="org.wf.dp.dniprorada.util.Mail"/>
 
     <!-- ===========================   SERVICE TRANSACTIONS   ======================= -->
 

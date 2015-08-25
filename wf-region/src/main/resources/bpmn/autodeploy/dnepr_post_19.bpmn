@@ -22,7 +22,7 @@
           <activiti:value id="sobes8" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>   
         <activiti:formProperty id="numobr" name="Ваше звернення до районного органу соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
           <activiti:value id="obr1" name="первинне"></activiti:value>
           <activiti:value id="obr2" name="вторинне"></activiti:value>

@@ -45,6 +45,18 @@ public class HistoryEvent_Service extends Entity {
     @Type(type = DATETIME_TYPE)
 	@Column(name = "sDate", nullable = true) 
 	private DateTime sDate;
+    
+    @JsonProperty(value="nID_Service")
+    @Column(name = "nID_Service", nullable = true)
+    private Long nID_Service;
+    
+    @JsonProperty(value="nID_Region")
+    @Column(name = "nID_Region", nullable = true)
+    private Long nID_Region;
+    
+    @JsonProperty(value="sID_UA")
+    @Column(name = "sID_UA", nullable = true)
+    private String sID_UA;
 
     public String getsID() {
         return sID;
@@ -101,4 +113,30 @@ public class HistoryEvent_Service extends Entity {
 	public void setsDate(DateTime sDate) {
 		this.sDate = sDate;
 	}
+
+	public Long getnID_Service() {
+		return nID_Service;
+	}
+
+	public void setnID_Service(Long nID_Service) {
+		this.nID_Service = nID_Service;
+	}
+
+	public Long getnID_Region() {
+		return nID_Region;
+	}
+
+	public void setnID_Region(Long nID_Region) {
+		this.nID_Region = nID_Region;
+	}
+
+	public String getsID_UA() {
+		return sID_UA;
+	}
+
+	public void setsID_UA(String sID_UA) {
+		this.sID_UA = sID_UA;
+	}
+	
+	
 }

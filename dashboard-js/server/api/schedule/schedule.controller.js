@@ -29,7 +29,10 @@ exports.setSchedule = function(req, res) {
       sRegionTime: req.query.sRegionTime,
       saRegionWeekDay: req.query.saRegionWeekDay,
       sDateTimeAt: req.query.sDateTimeAt,
-      sDateTimeTo: req.query.sDateTimeTo
+      sDateTimeTo: req.query.sDateTimeTo,
+      nLen: req.query.nLen,
+      sLenType: req.query.sLenType,
+      sData: req.query.sData,
     }
   };
 
@@ -165,11 +168,34 @@ exports.deleteFlowSlots = function(req, res) {
     }
   };
 
-  activiti.delete(options, function(error, statusCode, result) {
+  activiti.del(options, function(error, statusCode, result) {
     if (error) {
       res.send(error);
     } else {
      res.status(statusCode).json(result);
+    }
+  });
+};
+
+exports.getFlowSlotTickets = function(req, res) {
+  var user = JSON.parse(req.cookies.user);
+  var query = {
+    sLogin: user.id
+  };
+  if (req.query.bEmployeeUnassigned)
+    query.bEmployeeUnassigned = req.query.bEmployeeUnassigned;
+  if (req.query.sDate)
+    query.sDate = req.query.sDate;
+  var options = {
+    path: 'flow/getFlowSlotTickets',
+    query: query
+  };
+
+  activiti.get(options, function(error, statusCode, result) {
+    if (error) {
+      res.send(error);
+    } else {
+      res.status(statusCode).json(result);
     }
   });
 };

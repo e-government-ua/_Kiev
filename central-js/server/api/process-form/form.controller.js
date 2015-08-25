@@ -24,10 +24,10 @@ module.exports.index = function(req, res) {
 	};
 
 	return request.get({
-		'url': options.params.url,
-		'auth': {
-			'username': options.username,
-			'password': options.password
+		url: options.params.url,
+		auth: {
+			username: options.username,
+			password: options.password
 		}
 	}, callback);
 };
@@ -50,33 +50,36 @@ module.exports.submit = function(req, res) {
 		res.end();
 	};
 
-        var nID_Subject=req.session.subject.nID;
+  var nID_Subject=req.session.subject.nID;
 	var properties = [];
 	for(var id in options.formData.params) {
     var value = options.formData.params[id];
     if(id === 'nID_Subject'){
-      //nID_Subject = req.session.subject.nID;
       value = nID_Subject;
-      
     }
 		properties.push({
-			'id': id,
-			'value': value
+			id: id,
+			value: value
 		});
-	};
+	}
 
 	return request.post({
-		'url': options.formData.url || null,
-		'auth': {
-			'username': options.username,
-			'password': options.password
+		url: options.formData.url || null,
+		auth: {
+			username: options.username,
+			password: options.password
 		},
-		'body': {
-			'processDefinitionId': options.formData.processDefinitionId,
-			'businessKey': "key",
-			'properties': properties,
-                        'nID_Subject': nID_Subject
+		body: {
+			processDefinitionId: options.formData.processDefinitionId,
+			businessKey: "key",
+			properties: properties,
+      nID_Subject: nID_Subject
 		},
-		'json': true
+    qs: {
+      nID_Service : options.formData.nID_Service,
+      nID_Region : options.formData.nID_Region,
+      sID_UA : options.formData.sID_UA
+    },
+		json: true
 	}, callback);
 };

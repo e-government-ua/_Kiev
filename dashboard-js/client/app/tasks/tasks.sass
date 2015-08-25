@@ -8,7 +8,6 @@ $border-radius: 4px
   .sidebar
     position: fixed
     top: 51px
-
     bottom: 0
     left: 0
     z-index: 1000
@@ -18,6 +17,61 @@ $border-radius: 4px
     overflow-y: auto
     background-color: #f5f5f5
     border-right: 1px solid #eee
+
   .main
     padding-top: 20px
     top: 51px
+
+.tasks-form-view
+  overflow-y: auto
+
+.tasks-form-buttons
+  height: 40px
+  padding-top: 6px
+
+.task-form-property
+  padding-top: 6px
+  padding-right: 6px
+
+.tasks
+
+  .tasks-tickets-list-header
+    line-height: 35px
+
+    .tickets-assign
+      float: right
+
+    .tickets-date
+      float: left
+
+      .tickets-date-mode
+        margin-right: 10px
+
+        &.selected
+          font-weight: bold
+          text-decoration: underline
+
+      .form-control
+        display: inline
+        width: auto
+
+  .ticket-date-time
+    font-weight: bold
+
+.task-list-header
+  display: table
+  width: 100%
+
+.task-list-header-row
+  display: table-row
+  width: 100%
+
+.task-list-header-cell
+  display: table-cell
+
+.right-aligned
+  float: right
+
+.task-list-header-search
+  font-size: 12px
+  font-style: italic
