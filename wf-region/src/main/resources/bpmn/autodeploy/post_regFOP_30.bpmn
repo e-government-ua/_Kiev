@@ -141,6 +141,9 @@
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <serviceTask id="servicetask4" name="Відповідь у разі нехватки документів" activiti:delegateExpression="#{MailTaskWithAttachments}">
@@ -233,7 +236,7 @@
     <serviceTask id="mailtask1" name="Відповідь у разі відсутності сплати" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>${mail}</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -318,7 +321,7 @@
     <serviceTask id="mailtask2" name="Відповідь після надсилання виписки" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>${mail}</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>

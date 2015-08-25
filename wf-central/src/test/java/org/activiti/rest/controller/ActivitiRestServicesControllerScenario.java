@@ -169,64 +169,38 @@ public class ActivitiRestServicesControllerScenario {
     }
 
     @Test
-    public void getServiceShouldResolveConcreteFileForInfo() throws Exception {
-        assertServiceSmartFilePatternField("{\"nID\":1, \"sInfo\":\"[/test.html]\"}", "$.sInfo", "<html><body><span>info</span></body></html>");
-        assertServiceSmartFilePatternField("{\"nID\":1, \"sFAQ\":\"[/test.html]\"}", "$.sFAQ", "<html><body><span>faq</span></body></html>");
-        assertServiceSmartFilePatternField("{\"nID\":1, \"sLaw\":\"[/test.html]\"}", "$.sLaw", "<html><body><span>law</span></body></html>");
+    public void getServiceShouldResolveConcreteFileForFieldsWithSmartPaths() throws Exception {
+        testGetSetServiceField("{\"nID\":1, \"sInfo\":\"[/test.html]\"}", "$.sInfo", "<html><body><span>info</span></body></html>");
+        testGetSetServiceField("{\"nID\":1, \"sFAQ\":\"[/test.html]\"}", "$.sFAQ", "<html><body><span>faq</span></body></html>");
+        testGetSetServiceField("{\"nID\":1, \"sLaw\":\"[/test.html]\"}", "$.sLaw", "<html><body><span>law</span></body></html>");
     }
 
     @Test
-    public void getServiceShouldResolveFileByIdForSmartFields() throws Exception {
-        assertServiceSmartFilePatternField("{\"nID\":1, \"sInfo\":\"[*]\"}", "$.sInfo", "<html><body><span>info</span></body></html>");
-        assertServiceSmartFilePatternField("{\"nID\":1, \"sFAQ\":\"[*]\"}", "$.sFAQ", "<html><body><span>faq</span></body></html>");
-        assertServiceSmartFilePatternField("{\"nID\":1, \"sLaw\":\"[*]\"}", "$.sLaw", "<html><body><span>law</span></body></html>");
+    public void getServiceShouldResolveFileByIdForFieldsWithSmartPaths() throws Exception {
+        testGetSetServiceField("{\"nID\":1, \"sInfo\":\"[*]\"}", "$.sInfo", "<html><body><span>info</span></body></html>");
+        testGetSetServiceField("{\"nID\":1, \"sFAQ\":\"[*]\"}", "$.sFAQ", "<html><body><span>faq</span></body></html>");
+        testGetSetServiceField("{\"nID\":1, \"sLaw\":\"[*]\"}", "$.sLaw", "<html><body><span>law</span></body></html>");
     }
 
     @Test
-    public void getServiceShouldReturnSimpleValueIfNotASmartPattern() throws Exception {
-        assertServiceSmartFilePatternField("{\"nID\":1, \"sInfo\":\"somefile.[asdf]info\"}", "$.sInfo", "somefile.[asdf]info");
-        assertServiceSmartFilePatternField("{\"nID\":1, \"sFAQ\":\"somefile.[asdf]faq\"}", "$.sFAQ", "somefile.[asdf]faq");
-        assertServiceSmartFilePatternField("{\"nID\":1, \"sLaw\":\"somefile.[asdf]law\"}", "$.sLaw", "somefile.[asdf]law");
+    public void getServiceShouldResolveInitialValueForFieldsWithoutSmartPaths() throws Exception {
+        testGetSetServiceField("{\"nID\":1, \"sInfo\":\"somefile.[asdf]info\"}", "$.sInfo", "somefile.[asdf]info");
+        testGetSetServiceField("{\"nID\":1, \"sFAQ\":\"somefile.[asdf]faq\"}", "$.sFAQ", "somefile.[asdf]faq");
+        testGetSetServiceField("{\"nID\":1, \"sLaw\":\"somefile.[asdf]law\"}", "$.sLaw", "somefile.[asdf]law");
     }
 
-    /*@Test
-    public void getServiceShouldThrowIfCustomFileNotFound() throws Exception {
-        assertServiceSmartFilePatternField("{\"nID\":1, \"sInfo\":\"[/some.file]\"}", "$.sInfo", "");
-        assertServiceSmartFilePatternField("{\"nID\":1, \"sFAQ\":\"[/some.file]\"}", "$.sFAQ", "");
-        assertServiceSmartFilePatternField("{\"nID\":1, \"sLaw\":\"[/some.file]\"}", "$.sLaw", "");
-    }*/
+    @Test
+    public void setServiceShouldReturnErrorIfContentFilesCannotBeFoundForFieldsWithSmartPaths() throws Exception {
+        testGetSetServiceField("{\"nID\":1, \"sInfo\":\"[/some.file]\"}", "$.sInfo", "[/some.file]");
+        testGetSetServiceField("{\"nID\":1, \"sFAQ\":\"[/some.file]\"}", "$.sFAQ", "[/some.file]");
+        testGetSetServiceField("{\"nID\":1, \"sLaw\":\"[/some.file]\"}", "$.sLaw", "[/some.file]");
+    }
 
     // region File Pattern Service Helpers
 
-    private void assertServiceSmartFilePatternField(String service, String jsonPath, String expected) throws Exception {
-        assertServiceSmartField(performSetService(service), jsonPath, expected);
-        assertServiceSmartField(performGetService((long) 1), jsonPath, expected);
-    }
-
-    private void assertServiceSmartField(ResultActions ra, String jsonPath, String expected) throws Exception {
-        ra.andExpect(jsonPath(jsonPath, is(expected)));
-    }
-
-    private ResultActions performGetService(Long serviceId) throws Exception {
-        return mockMvc.perform(get("/services/getService").
-                param("nID", serviceId.toString()).
-                contentType(APPLICATION_JSON_CHARSET_UTF_8)).
-                andExpect(status().isOk()).
-                andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8));
-
-    }
-
-    private ResultActions performSetService(String service) throws Exception {
-        return mockMvc.perform(post("/services/setService").content(service).
-                contentType(APPLICATION_JSON_CHARSET_UTF_8).
-                accept(MediaType.APPLICATION_JSON)).
-                andExpect(status().isOk()).
-                andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8));
-    }
-
-    private Service getService(long serviceId) throws Exception {
-        String jsonData = performGetService(serviceId).andReturn().getResponse().getContentAsString();
-        return JsonRestUtils.readObject(jsonData, Service.class);
+    private void testGetSetServiceField(String service, String jsonPath, String expected) throws Exception {
+        assertServiceFieldExpected(performSetService(service), jsonPath, expected);
+        assertServiceFieldExpected(performGetService((long) 1), jsonPath, expected);
     }
 
     //endregion
@@ -380,4 +354,27 @@ public class ActivitiRestServicesControllerScenario {
                 andReturn().getResponse().getContentAsString();
         Assert.assertTrue(jsonData.contains("success"));
     }
+
+
+    // region Helpers
+
+    private void assertServiceFieldExpected(ResultActions ra, String jsonPath, String expected) throws Exception {
+        ra.andExpect(status().isOk()).
+                andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
+                andExpect(jsonPath(jsonPath, is(expected)));
+    }
+
+    private ResultActions performGetService(Long serviceId) throws Exception {
+        return mockMvc.perform(get("/services/getService").
+                param("nID", serviceId.toString()).
+                contentType(APPLICATION_JSON_CHARSET_UTF_8));
+    }
+
+    private ResultActions performSetService(String service) throws Exception {
+        return mockMvc.perform(post("/services/setService").content(service).
+                contentType(APPLICATION_JSON_CHARSET_UTF_8).
+                accept(MediaType.APPLICATION_JSON));
+    }
+
+    //endregion
 }
