@@ -73,10 +73,8 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
         event_service.setsID_UA(sID_UA);
         Session session = getSession();
         session.saveOrUpdate(event_service);
-        Long nID = event_service.getId();
-        
-        long nID_Reference = (long) 1000000000;
-        nID_Reference=nID_task;
+
+        long nID_Reference = nID_task;
         event_service.setnID_Protected(AlgorithmLuna.getProtectedNumber(nID_Reference));
         
         return event_service;
