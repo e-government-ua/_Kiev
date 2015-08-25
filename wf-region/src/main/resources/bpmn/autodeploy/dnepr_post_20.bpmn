@@ -23,9 +23,20 @@
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="numobr" name="Ваше звернення до районного органу соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
+          <activiti:value id="obr1" name="первинне"></activiti:value>
+          <activiti:value id="obr2" name="вторинне"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string""></activiti:formProperty>
+        <activiti:formProperty id="kuda_dengi" name="Прошу в разі призначення допомоги кошти готівкою перераховувати" type="label"></activiti:formProperty>
+        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long"></activiti:formProperty>
+        <activiti:formProperty id="bankschet" name="на рахунок у банку №" type="long"></activiti:formProperty>
+        <activiti:formProperty id="mfo" name="МФО" type="long"></activiti:formProperty>
+        <activiti:formProperty id="okpo" name="код" type="long"></activiti:formProperty>
+        <activiti:formProperty id="bankchoose" name="банк" type="string"></activiti:formProperty>
         <activiti:formProperty id="scpasp" name="Копія паспорту; завантажте копію паспорту" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="sost" name="Довідка про склад сім'ї; завантажте довідку про склад сім'ї" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="vrachkom" name="Висновок лікарської комісії медичного закладу, щодо необхідностіпостійного стороннього догляду за інвалідом І чи ІІ групи внаслідок психісного розладу; завантажте висновок лікарської комісії медичного закладу, щодо необхідностіпостійного стороннього догляду за інвалідом І чи ІІ групи внаслідок психісного розладу" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="vrachkom" name="Висновок лікарської комісії медичного закладу, щодо необхідності постійного стороннього догляду за інвалідом І чи ІІ групи внаслідок психічного розладу; завантажте висновок лікарської комісії медичного закладу, щодо необхідності постійного стороннього догляду за інвалідом І чи ІІ групи внаслідок психічного розладу" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="zeml" name="Довідка про наявність і розміри земельних ділянок, виділених для ведення особистого підсобного господарства, городництва, сінокосіння, випасання худоби, та земельної частки, виділеної унаслідок розпаювання землі; завантажте довідку про наявність і розміри земельних ділянок, виділених для ведення особистого підсобного господарства, городництва, сінокосіння, випасання худоби, та земельної частки, виділеної унаслідок розпаювання землі" type="file"></activiti:formProperty>
         <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default=" "></activiti:formProperty>
         <activiti:formProperty id="nID_Subject" name="ИД-номер субъекта" type="invisible" default="0"></activiti:formProperty>
@@ -46,9 +57,9 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="place_of_liv" name="Місце проживання" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="area" name="Районний орган соціального захисту населення, до якого відноситься замовник" type="enum" writable="false" required="true">
+        <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="place_of_liv" name="Місце проживання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Районний орган соціального захисту населення, до якого відноситься замовник" type="enum" writable="false">
           <activiti:value id="sobes1" name="АНД, вул. Радістів, 8"></activiti:value>
           <activiti:value id="sobes2" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
           <activiti:value id="sobes3" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
@@ -58,12 +69,23 @@
           <activiti:value id="sobes7" name="Ленінський, вул. Трудова, 1а"></activiti:value>
           <activiti:value id="sobes8" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваш e-mail" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="e-mail замовника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="scpasp" name="Копія паспорту" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="sost" name="Довідка про склад сім'ї" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="vrachkom" name="Висновок лікарської комісії медичного закладу, щодо необхідностіпостійного стороннього догляду за інвалідом І чи ІІ групи внаслідок психісного розладу" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="zeml" name="Довідка про наявність і розміри земельних ділянок, виділених для ведення особистого підсобного господарства, городництва, сінокосіння, випасання худоби, та земельної частки, виділеної унаслідок розпаювання землі" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="numobr" name="Ваше звернення до районного органу соціального захисту населення, до якого Ви відноситесь" type="enum">
+          <activiti:value id="obr1" name="первинне"></activiti:value>
+          <activiti:value id="obr2" name="вторинне"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string""></activiti:formProperty>
+        <activiti:formProperty id="kuda_dengi" name="Прошу в разі призначення допомоги кошти готівкою перераховувати" type="label"></activiti:formProperty>
+        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long"></activiti:formProperty>
+        <activiti:formProperty id="bankschet" name="на рахунок у банку №" type="long"></activiti:formProperty>
+        <activiti:formProperty id="mfo" name="МФО" type="long"></activiti:formProperty>
+        <activiti:formProperty id="okpo" name="код" type="long"></activiti:formProperty>
+        <activiti:formProperty id="bankchoose" name="банк" type="string"></activiti:formProperty>
+        <activiti:formProperty id="scpasp" name="Копія паспорту" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sost" name="Довідка про склад сім'ї" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="vrachkom" name="Висновок лікарської комісії медичного закладу, щодо необхідностіпостійного стороннього догляду за інвалідом І чи ІІ групи внаслідок психісного розладу" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="zeml" name="Довідка про наявність і розміри земельних ділянок, виділених для ведення особистого підсобного господарства, городництва, сінокосіння, випасання худоби, та земельної частки, виділеної унаслідок розпаювання землі" type="file"></activiti:formProperty>
         <activiti:formProperty id="decision" name="Стан заяви" type="enum" required="true">
           <activiti:value id="attr1_doc_ok" name="Документи правильні, відправити листа для сплати"></activiti:value>
           <activiti:value id="attr2_doc_bad" name="Документи неправильні, надіслати листа для виправлення"></activiti:value>
