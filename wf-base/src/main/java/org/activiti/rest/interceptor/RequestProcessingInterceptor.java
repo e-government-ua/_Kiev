@@ -187,8 +187,10 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         callRestController(sID_Process, serviceName, taskName, params);
 
         String taskCreatorEmail = JsonRequestDataResolver.getEmail(jsonObjectRequest);
-        Long nID_Protected = AlgorithmLuna.getProtectedNumber(Long.parseLong(sID_Process));
-        notificationService.sendTaskCreatedInfoEmail(taskCreatorEmail, nID_Protected);
+        if (taskCreatorEmail != null) {
+            Long nID_Protected = AlgorithmLuna.getProtectedNumber(Long.parseLong(sID_Process));
+            notificationService.sendTaskCreatedInfoEmail(taskCreatorEmail, nID_Protected);
+        }
     }
 
     private void saveClosedTaskInfo(String sRequestBody) throws Exception {
