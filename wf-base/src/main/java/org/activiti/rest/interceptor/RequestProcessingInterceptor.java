@@ -144,10 +144,14 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     jsonObjectResponse = (JSONObject) parser.parse(sResponseBody);
                 }
 
-                String sID_Proccess = null, serviceName = null, taskName = null;
+                String sID_Proccess = null, serviceName = null, taskName = null, sID_Service = null, sID_Region = null, sID_UA = null;
                 Map<String, String> params = new HashMap<String, String>();
                 if (setTask) {
                     sID_Proccess = (String) jsonObjectResponse.get("id");
+                    sID_Service = (String) jsonObjectResponse.get("nID_Service");
+                    sID_Region = (String) jsonObjectResponse.get("nID_Region");
+                    sID_UA = (String) jsonObjectResponse.get("sID_UA");
+                    
                     serviceName = "addHistoryEvent_Service";
                     taskName = "Заявка подана";
                     
@@ -178,6 +182,9 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                     String URL = generalConfig.sHostCentral() + "/wf-central/service/services/" + serviceName;
                     params.put("nID_Proccess", sID_Proccess);
                     params.put("sID_Status", taskName);
+                    params.put("nID_Service", sID_Service);
+                    params.put("nID_Region", sID_Region);
+                    params.put("sID_UA", sID_UA);
                     logger.info(URL + ": " + params);
                     String soResponse = httpRequester.get(URL, params);
                     logger.info("ok! soJSON = " + soResponse);
