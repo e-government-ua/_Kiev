@@ -446,7 +446,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   function defaultErrorHandler(response, msgMapping) {
     var msg = response.status + ' ' + response.statusText + '\n' + response.data;
     try {
-      var data = response.data;
+      var data = JSON.parse(response.data);
       if (data !== null && data !== undefined && ('code' in data) && ('message' in data)) {
         if (msgMapping !== undefined && data.message in msgMapping)
           msg = msgMapping[data.message];
