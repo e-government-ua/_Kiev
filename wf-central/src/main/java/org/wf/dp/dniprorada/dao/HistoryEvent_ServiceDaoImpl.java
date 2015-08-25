@@ -1,60 +1,45 @@
 package org.wf.dp.dniprorada.dao;
 
+import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateTime;
+import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.base.dao.EntityNotFoundException;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
+import org.wf.dp.dniprorada.model.HistoryEvent_Service;
+import org.wf.dp.dniprorada.util.luna.AlgorithmLuna;
+import org.wf.dp.dniprorada.util.luna.CRCInvalidException;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-import org.joda.time.DateTime;
-import org.springframework.beans.factory.annotation.Required;
-import org.wf.dp.dniprorada.model.EntityNotFoundException;
-import org.wf.dp.dniprorada.model.HistoryEvent_Service;
-import org.wf.dp.dniprorada.util.luna.AlgorithmLuna;
-import org.apache.log4j.Logger;
-import org.wf.dp.dniprorada.util.luna.CRCInvalidException;
+@Repository
+public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_Service> implements HistoryEvent_ServiceDao {
 
-public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao {
-
-    private SessionFactory sessionFactory;
     private static final Logger log = Logger.getLogger(HistoryEvent_ServiceDaoImpl.class);
 
-    @Required
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    private Session getSession() {
-        return sessionFactory.getCurrentSession();
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    protected HistoryEvent_ServiceDaoImpl() {
+        super(HistoryEvent_Service.class);
     }
 
     @Override
     public HistoryEvent_Service getHistoryEvent_ServiceBynID(Long nID) {
-        Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
-        criteria.add(Restrictions.eq("id", nID));
-        return (HistoryEvent_Service) criteria.uniqueResult();
+        return findById(nID).orNull();
     }
 
     @Override
     public HistoryEvent_Service getHistoryEvent_ServiceBynID_Task(Long nID_Task) {
-        Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
-        criteria.add(Restrictions.eq("nID_Task", nID_Task));
-        return (HistoryEvent_Service) criteria.uniqueResult();
+        return findBy("nID_Task", nID_Task).orNull();
     }
 
     @Override
     public HistoryEvent_Service getHistoryEvent_ServiceBysID(String sID) {
-        Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
-        criteria.add(Restrictions.eq("sID", sID));
-        return (HistoryEvent_Service) criteria.uniqueResult();
+        return findBy("sID", sID).orNull();
     }
 
     @Override
@@ -100,8 +85,7 @@ public class HistoryEvent_ServiceDaoImpl implements HistoryEvent_ServiceDao {
     @Override
     public HistoryEvent_Service updateHistoryEvent_Service(HistoryEvent_Service event_service) {
         event_service.setsDate(new DateTime());
-        getSession().saveOrUpdate(event_service);
-        return event_service;
+        return saveOrUpdate(event_service);
     }
 
 	@Override

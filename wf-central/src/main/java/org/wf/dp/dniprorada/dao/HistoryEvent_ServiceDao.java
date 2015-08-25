@@ -1,13 +1,14 @@
 package org.wf.dp.dniprorada.dao;
 
 
-import java.util.List;
-import java.util.Map;
-
+import org.wf.dp.dniprorada.base.dao.EntityDao;
 import org.wf.dp.dniprorada.model.HistoryEvent_Service;
 import org.wf.dp.dniprorada.util.luna.CRCInvalidException;
 
-public interface HistoryEvent_ServiceDao {
+import java.util.List;
+import java.util.Map;
+
+public interface HistoryEvent_ServiceDao extends EntityDao<HistoryEvent_Service> {
 
 	public HistoryEvent_Service getHistoryEvent_ServiceBynID(Long nID);
 	

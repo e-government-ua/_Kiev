@@ -1,13 +1,13 @@
 package org.wf.dp.dniprorada.dao;
 
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.util.Assert;
-import org.wf.dp.dniprorada.base.dao.AbstractEntityDao;
+import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.model.Merchant;
 
-public class MerchantDaoImpl extends AbstractEntityDao<Merchant> implements MerchantDao {
+@Repository
+public class MerchantDaoImpl extends GenericEntityDao<Merchant> implements MerchantDao {
+
+	public static final String S_ID = "sID";
 
 	protected MerchantDaoImpl() {
 		super(Merchant.class);
@@ -15,21 +15,10 @@ public class MerchantDaoImpl extends AbstractEntityDao<Merchant> implements Merc
 
 	@Override
 	public Merchant getMerchant(String sID) {
-      DetachedCriteria criteria = DetachedCriteria.forClass(getEntityClass());
-      criteria.add(Restrictions.eq("sID", sID));
-
-      return (Merchant) criteria.getExecutableCriteria(getSession()).uniqueResult();
+      return findBy(S_ID, sID).orNull();
    }
 
-   public boolean deleteMerchant(String sID) {
-      Merchant merchant = getMerchant(sID);
-
-      boolean deleted = false;
-      if (merchant != null) {
-         delete(merchant);
-         deleted = true;
-      }
-
-      return deleted;
-   }
+	public boolean deleteMerchant(String sID) {
+		return deleteBy(S_ID, sID) > 0;
+	}
 }

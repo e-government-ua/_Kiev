@@ -1,13 +1,14 @@
 package org.wf.dp.dniprorada.dao;
 
+import org.wf.dp.dniprorada.base.dao.EntityDao;
 import org.wf.dp.dniprorada.model.SubjectHuman;
 
-public interface SubjectHumanDao {
+public interface SubjectHumanDao extends EntityDao<SubjectHuman> {
 
-	public SubjectHuman getSubjectHuman(String sINN);
+	SubjectHuman getSubjectHuman(String sINN);
 
-	public SubjectHuman setSubjectHuman(String sINN);
+	SubjectHuman setSubjectHuman(String sINN);
 
-	public SubjectHuman saveOrUpdateHuman(SubjectHuman subject);
+	SubjectHuman saveOrUpdateHuman(SubjectHuman subject);
 
 }
