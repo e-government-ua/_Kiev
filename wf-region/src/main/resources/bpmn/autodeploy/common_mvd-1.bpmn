@@ -267,8 +267,6 @@
         
         <activiti:formProperty id="nCount" name="Кількість довідок (по замовчанню - 1 максимально 10)" type="long" writable="false"></activiti:formProperty>
         
-        <activiti:formProperty id="nCount" name="Кількість довідок (по замовчанню - 1 максимально 10)" type="long" writable="false"></activiti:formProperty>
-        
         <activiti:formProperty id="lastName_UA1" name="1. Попереднє прізвище (укр.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="lastName_RU1" name="1. Предыдущая фамилия (рус.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="firstName_UA1" name="1. Попереднє ім'я(укр.)" type="string" writable="false"></activiti:formProperty>
