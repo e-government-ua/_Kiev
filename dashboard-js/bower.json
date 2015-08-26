@@ -25,5 +25,14 @@
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
     "angular-scenario": ">=1.2.*"
+  },
+  "overrides":{
+    "font-awesome" : {
+      "main": [
+        "less/font-awesome.less",
+        "scss/font-awesome.scss",
+        "css/font-awesome.css"
+      ]
+    }
   }
 }
