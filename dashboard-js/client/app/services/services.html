@@ -28,18 +28,27 @@
     <div class="panel-heading">Розклад</div>
     <div class="panel-body">
 
-      <tabset >
-        <tab heading="Робочоий час тижня">
+      <tabset>
+        <tab>
+          <tab-heading class="cursor-pointer">
+            <i class="fa fa-university"></i>&nbsp;Робочоий час тижня
+          </tab-heading>
           <div class="spacer15"></div>
           <schedule funcs="workHours"></schedule>
         </tab>
 
-        <tab heading="Винятки робочого часу">
+        <tab>
+          <tab-heading class="cursor-pointer">
+            <i class="fa fa-home"></i>&nbsp;Винятки робочого часу
+          </tab-heading>
           <div class="spacer15"></div>
           <schedule funcs="exemptions"></schedule>
         </tab>
 
-        <tab heading="Генерація та перегляд графіку">
+        <tab>
+          <tab-heading class="cursor-pointer">
+            <i class="fa fa-calendar-check-o"></i>&nbsp;Генерація та перегляд графіку
+          </tab-heading>
           <div class="spacer15"></div>
           <div ng-include src="'app/services/generation/index.html'"></div>
         </tab>
