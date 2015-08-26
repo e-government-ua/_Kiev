@@ -13,20 +13,26 @@
     "angular-route": ">=1.2.*",
     "angular-bootstrap": "~0.11.0",
     "ng-idle": "1.0.4",
-    "font-awesome": ">=4.1.0",
     "lodash": "~2.4.1",
     "angular-moment": "~0.10.0",
     "ngstorage": "~0.3.3",
     "angular-ui-utils": "~0.2.3",
     "zeroclipboard": "~2.2.0",
     "ng-clip": "~0.2.6",
-    "bootstrap-daterangepicker": "~2.0.9"
+    "bootstrap-daterangepicker": "~2.0.9",
+    "font-awesome": "~4.4.0"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
     "angular-scenario": ">=1.2.*"
   },
-  "resolutions": {
-    "bootstrap-daterangepicker": "~2.0.9"
+  "overrides":{
+    "font-awesome" : {
+      "main": [
+        "less/font-awesome.less",
+        "scss/font-awesome.scss",
+        "css/font-awesome.css"
+      ]
+    }
   }
 }

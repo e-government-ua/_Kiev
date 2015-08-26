@@ -100,6 +100,12 @@ angular.module('dashboardJsApp')
         openModal(slot);
       };
 
+      $scope.copy = function (slot) {
+        var slotCopy = angular.copy(slot);
+        slotCopy.nID = null;
+        openModal(slotCopy);
+      };
+
       $scope.delete = function (slot) {
         deleteFunc(bpForSchedule.bp.chosenBp.sID, slot.nID)
           .then(fillData);
