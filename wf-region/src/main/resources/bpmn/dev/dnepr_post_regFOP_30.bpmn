@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_post_regFOP_30" name="Державна реєстрація фізичної особи, яка має намір стати підприємцем" isExecutable="true" activiti:candidateStarterGroups="pavlograd_derzhavnyi_reestrator">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="dnepr_post_regFOP_30" name="Пошта - Державна реєстрація фізичної особи, яка має намір стати підприємцем" isExecutable="true" activiti:candidateStarterGroups="pavlograd_derzhavnyi_reestrator">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -65,7 +65,7 @@
     <serviceTask id="servicetask3" name="Отправка e-mail для сплати" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="subject">
-          <activiti:string>Державна реєстрація фізичної особи - підприємця.</activiti:string>
+          <activiti:string><![CDATA[Державна реєстрація фізичної особи - підприємця.]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -139,20 +139,20 @@
 &lt;/table&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
     <serviceTask id="servicetask4" name="Відповідь у разі нехватки документів" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Державна реєстрація фізичної особи - підприємця.</activiti:string>
+          <activiti:string><![CDATA[Державна реєстрація фізичної особи - підприємця.]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -236,13 +236,13 @@
           <activiti:expression>${mail}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Державна реєстрація фізичної особи - підприємця.</activiti:string>
+          <activiti:string><![CDATA[Державна реєстрація фізичної особи - підприємця.]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -321,13 +321,13 @@
           <activiti:expression>${mail}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Державна реєстрація фізичної особи - підприємця.</activiti:string>
+          <activiti:string><![CDATA[Державна реєстрація фізичної особи - підприємця.]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -432,7 +432,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="138.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="71.0" width="105.0" x="200.0" y="120.0"></omgdc:Bounds>
+        <omgdc:Bounds height="71.0" width="105.0" x="180.0" y="120.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="71.0" width="105.0" x="332.0" y="120.0"></omgdc:Bounds>
@@ -447,7 +447,7 @@
         <omgdc:Bounds height="83.0" width="105.0" x="570.0" y="114.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="570.0" y="220.0"></omgdc:Bounds>
+        <omgdc:Bounds height="61.0" width="105.0" x="570.0" y="220.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="71.0" width="105.0" x="570.0" y="290.0"></omgdc:Bounds>
@@ -462,7 +462,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="710.0" y="308.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-        <omgdi:waypoint x="305.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="285.0" y="155.0"></omgdi:waypoint>
         <omgdi:waypoint x="332.0" y="155.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
@@ -481,7 +481,7 @@
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
         <omgdi:waypoint x="490.0" y="175.0"></omgdi:waypoint>
         <omgdi:waypoint x="515.0" y="247.0"></omgdi:waypoint>
-        <omgdi:waypoint x="570.0" y="247.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="250.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
         <omgdi:waypoint x="490.0" y="175.0"></omgdi:waypoint>
@@ -500,7 +500,7 @@
         <omgdi:waypoint x="710.0" y="155.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
-        <omgdi:waypoint x="675.0" y="247.0"></omgdi:waypoint>
+        <omgdi:waypoint x="675.0" y="250.0"></omgdi:waypoint>
         <omgdi:waypoint x="710.0" y="247.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
@@ -509,7 +509,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
         <omgdi:waypoint x="105.0" y="155.0"></omgdi:waypoint>
-        <omgdi:waypoint x="200.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="155.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

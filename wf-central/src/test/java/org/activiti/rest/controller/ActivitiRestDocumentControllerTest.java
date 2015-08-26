@@ -116,7 +116,7 @@ public class ActivitiRestDocumentControllerTest {
 
         ErrMessage msg = JsonRestUtils.readObject(jsonData, ErrMessage.class);
         assertNotNull("Expected error message not found", msg);
-        assertEquals("Organ with ID:"+organID+" not found", msg.getMessage());
+        assertEquals("Entity with nID_SubjectOrgan='" + organID + "' not found", msg.getMessage());
     }
 
     @Test

@@ -1,9 +1,10 @@
 package org.wf.dp.dniprorada.dao;
 
+import org.wf.dp.dniprorada.base.dao.EntityDao;
 import org.wf.dp.dniprorada.model.DocumentAccess;
 
 
-public interface DocumentAccessDao {
+public interface DocumentAccessDao extends EntityDao<DocumentAccess> {
 	public Long getIdAccess() throws Exception;
 	public String setDocumentLink(Long nID_Document, String sFIO,String sTarget, String sTelephone, Long nMS, String sMail) throws Exception;
 	public DocumentAccess getDocumentLink(Long nID_Access, String sSecret) throws Exception;
