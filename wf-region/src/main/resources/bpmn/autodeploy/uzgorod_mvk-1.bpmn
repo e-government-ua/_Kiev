@@ -10,9 +10,9 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання" type="string"></activiti:formProperty>
         <activiti:formProperty id="docType" name="Тип документа" type="enum">
-          <activiti:value id="Type1" name="Копія рішення"></activiti:value>
-          <activiti:value id="Type2" name="Витяг з рішення"></activiti:value>
-          <activiti:value id="Type3" name="Ксерокопії матеріалів"></activiti:value>
+          <activiti:value id="Копія рішення" name="Копія рішення"></activiti:value>
+          <activiti:value id="Витяг з рішення" name="Витяг з рішення"></activiti:value>
+          <activiti:value id="Ксерокопії матеріалів" name="Ксерокопії матеріалів"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="docDate" name="Дата прийняття документа; в форматі ДД.ММ.РРРР" type="string"></activiti:formProperty>
         <activiti:formProperty id="docNumber" name="Номер документа" type="string"></activiti:formProperty>
