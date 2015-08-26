@@ -1,11 +1,6 @@
 package org.activiti.rest.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,28 +8,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.dao.MerchantDao;
+import org.wf.dp.dniprorada.dao.SubjectOrganDao;
 import org.wf.dp.dniprorada.model.Merchant;
 import org.wf.dp.dniprorada.model.SubjectOrgan;
 import org.wf.dp.dniprorada.viewobject.MerchantVO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/merchant")
 public class ActivitiRestMerchantController {
 
 	@Autowired
-	@Qualifier(value = "merchantDao")		
 	private MerchantDao merchantDao;
 
 	@Autowired
-	private BaseEntityDao baseEntityDao;
+	private SubjectOrganDao subjectOrganDao;
 	
 	@RequestMapping(value = "/getMerchants", method = RequestMethod.GET)
 	public @ResponseBody
 	ResponseEntity getMerchants(){
-		return JsonRestUtils.toJsonResponse(toVO(merchantDao.getAll()));
+		return JsonRestUtils.toJsonResponse(toVO(merchantDao.findAll()));
 	}
 
 	@RequestMapping(value = "/getMerchant", method = RequestMethod.GET)
@@ -63,7 +60,7 @@ public class ActivitiRestMerchantController {
 			  @RequestParam(value = "sURL_CallbackStatusNew", required = false) String sURL_CallbackStatusNew,
 			  @RequestParam(value = "sURL_CallbackPaySuccess", required = false) String sURL_CallbackPaySuccess) {
 
-		Merchant merchant = nID != null ? merchantDao.getById(nID) : new Merchant();
+		Merchant merchant = nID != null ? merchantDao.findById(nID).orNull() : new Merchant();
 
 		if (merchant == null) {
 			merchant = new Merchant();
@@ -82,7 +79,7 @@ public class ActivitiRestMerchantController {
       }
 
 		if (nID_SubjectOrgan != null) {
-			SubjectOrgan subjectOrgan = baseEntityDao.getById(SubjectOrgan.class, nID_SubjectOrgan);
+			SubjectOrgan subjectOrgan = subjectOrganDao.findByIdExpected(nID_SubjectOrgan);
 			merchant.setOwner(subjectOrgan);
 		}
 
@@ -94,7 +91,7 @@ public class ActivitiRestMerchantController {
 			merchant.setsURL_CallbackPaySuccess(sURL_CallbackPaySuccess);
 		}
 
-		merchantDao.saveOrUpdate(merchant);
+		merchant = merchantDao.saveOrUpdate(merchant);
 		return JsonRestUtils.toJsonResponse(new MerchantVO(merchant));
 	}
 

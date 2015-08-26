@@ -24,52 +24,28 @@ import org.springframework.beans.factory.annotation.Value;
  * @author Belyavtsev Vladimir Vladimirovich (BW)
  */
 public abstract class Abstract_Mail {
-    
-    
-//    @Value("${mailServerHost}")
-    public String mailServerHost;
 
-//    @Value("${mailServerPort}")
-    public String mailServerPort;
-
-//    @Value("${mailServerDefaultFrom}")
-    public String mailServerDefaultFrom;
-
-//    @Value("${mailServerUsername}")
-    public String mailServerUsername;
-
-//    @Value("${mailServerPassword}")
-    public String mailServerPassword;
-
-//    @Value("${mailAddressNoreply}")
-    public String mailAddressNoreplay;    
-    
-    
-    //private final static Logger log = LoggerFactory.getLogger(Abstract_Mail.class);
-
-    
     public Abstract_Mail(){}
     
     @Value("${mailServerDefaultFrom}")
-    private String sFrom = mailServerDefaultFrom; //"noreplay@gmail.com";
+    private String sFrom; //"noreplay@gmail.com";
     @Value("${mailAddressNoreply}")
-    private String saTo = mailAddressNoreplay; //"noreplay@gmail.com";
+    private String saTo; //"noreplay@gmail.com";
     private String sHead = "Subject";
     private String sBody = "Text";
     @Value("${mailServerUsername}")
-    private String sAuthUser = mailServerUsername; //"user";
+    private String sAuthUser; //"user";
     @Value("${mailServerPassword}")
-    private String sAuthPassword = mailServerPassword; //"password";
+    private String sAuthPassword; //"password";
     @Value("${mailServerHost}")
-    private String sHost = mailServerHost; //"gmail.com";
+    private String sHost; //"gmail.com";
     @Value("${mailServerPort}")
     private Integer nPort = 465; //Integer.valueOf(mailServerPort);
-    private boolean bSSL = true;
-    private boolean bTLS = true;
+    @Value("${mailServerUseSSL}")
+    private boolean bSSL;
+    @Value("${mailServerUseTLS}")
+    private boolean bTLS;
     
-    
-    
-
     public String getFrom() {
         return sFrom;
     }

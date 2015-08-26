@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_post_20" name="Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу" isExecutable="true" activiti:candidateStarterGroups="dnepr_social_help">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="dnepr_post_20" name="Пошта - Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -25,7 +25,8 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="scpasp" name="Копія паспорту; завантажте копію паспорту" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="sost" name="Довідка про склад сім'ї; завантажте довідку про склад сім'ї" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="zeml" name="Довідка про наявність та розмір земельної ділянки (паю); завантажте довідку про наявність та розмір земельної ділянки (паю)" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="vrachkom" name="Висновок лікарської комісії медичного закладу, щодо необхідності постійного стороннього догляду за інвалідом І чи ІІ групи внаслідок психічного розладу; завантажте висновок лікарської комісії медичного закладу, щодо необхідності постійного стороннього догляду за інвалідом І чи ІІ групи внаслідок психічного розладу" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="zeml" name="Довідка про наявність і розміри земельних ділянок, виділених для ведення особистого підсобного господарства, городництва, сінокосіння, випасання худоби, та земельної частки, виділеної унаслідок розпаювання землі; завантажте довідку про наявність і розміри земельних ділянок, виділених для ведення особистого підсобного господарства, городництва, сінокосіння, випасання худоби, та земельної частки, виділеної унаслідок розпаювання землі" type="file"></activiti:formProperty>
         <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default=" "></activiti:formProperty>
         <activiti:formProperty id="nID_Subject" name="ИД-номер субъекта" type="invisible" default="0"></activiti:formProperty>
         <activiti:formProperty id="sID_Merchant" name="ИД-строковой мерчанта (магазина)" type="invisible" default="i75116857714"></activiti:formProperty>
@@ -35,9 +36,9 @@
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
-    <serviceTask id="servicetask1" name="Загрузка файлов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow2" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
-    <userTask id="usertask1" name="Проверка почтой" activiti:async="true" activiti:candidateGroups="dnepr_social_help">
+    <userTask id="usertask1" name="Перевірка Укрпоштий" activiti:async="true" activiti:candidateGroups="dnepr_social_help">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -45,9 +46,9 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="place_of_reg" name="Місце реєстрації; вкажіть область, місто, вулицю, дім, квартиру" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="place_of_liv" name="Місце проживання; вкажіть область, місто, вулицю, дім, квартиру" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="area" name="Оберіть районний орган соціального захисту населення, до якого Ви відноситесь" type="enum" writable="false" required="true">
+        <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="place_of_liv" name="Місце проживання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Районний орган соціального захисту населення, до якого відноситься замовник" type="enum" writable="false">
           <activiti:value id="sobes1" name="АНД, вул. Радістів, 8"></activiti:value>
           <activiti:value id="sobes2" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
           <activiti:value id="sobes3" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
@@ -57,11 +58,12 @@
           <activiti:value id="sobes7" name="Ленінський, вул. Трудова, 1а"></activiti:value>
           <activiti:value id="sobes8" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваш e-mail" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="e-mail замовника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="scpasp" name="Копія паспорту; завантажте копію паспорту" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="sost" name="Довідка про склад сім'ї; завантажте довідку про склад сім'ї" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="zeml" name="Довідка про наявність та розмір земельної ділянки (паю); завантажте довідку про наявність та розмір земельної ділянки (паю)" type="file" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="scpasp" name="Копія паспорту" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sost" name="Довідка про склад сім'ї" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="vrachkom" name="Висновок лікарської комісії медичного закладу, щодо необхідностіпостійного стороннього догляду за інвалідом І чи ІІ групи внаслідок психісного розладу" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="zeml" name="Довідка про наявність і розміри земельних ділянок, виділених для ведення особистого підсобного господарства, городництва, сінокосіння, випасання худоби, та земельної частки, виділеної унаслідок розпаювання землі" type="file"></activiti:formProperty>
         <activiti:formProperty id="decision" name="Стан заяви" type="enum" required="true">
           <activiti:value id="attr1_doc_ok" name="Документи правильні, відправити листа для сплати"></activiti:value>
           <activiti:value id="attr2_doc_bad" name="Документи неправильні, надіслати листа для виправлення"></activiti:value>
@@ -74,26 +76,26 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${scpasp},${sost},${zeml}</activiti:expression>
+            <activiti:expression>${scpasp},${sost},${zeml},${vrachkom}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow4" name="оплата" sourceRef="exclusivegateway1" targetRef="servicetask2">
+    <sequenceFlow id="flow4" name="сплата" sourceRef="exclusivegateway1" targetRef="servicetask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision=='attr1_doc_ok'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask2" name="Е-мейл о необходимости оплаты" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+    <serviceTask id="servicetask2" name="Е-мейл про необхідність сплати" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу</activiti:string>
+          <activiti:string><![CDATA[Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -172,16 +174,16 @@
     <sequenceFlow id="flow6" name="проблема с док-ми" sourceRef="exclusivegateway1" targetRef="servicetask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision=='attr2_doc_bad'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask3" name="Е-мейл при ошибке в док-х" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask3" name="Е-мейл про помилку в док-х" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу</activiti:string>
+          <activiti:string><![CDATA[Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -255,28 +257,28 @@
 &lt;/table&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${scpasp},${sost}","${zeml}"</activiti:expression>
+          <activiti:expression>"${scpasp},${sost}","${zeml},${vrachkom}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow11" sourceRef="servicetask3" targetRef="endevent3"></sequenceFlow>
     <endEvent id="endevent3" name="End"></endEvent>
-    <sequenceFlow id="flow7" name="нет оплаты" sourceRef="exclusivegateway1" targetRef="mailtask1">
+    <sequenceFlow id="flow7" name="відсутність сплати" sourceRef="exclusivegateway1" targetRef="mailtask1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision=='attr3_money_no'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask1" name="Е-майл об отсутствии оплаты" activiti:type="mail">
+    <serviceTask id="mailtask1" name="Е-майл про відсутність сплати" activiti:type="mail">
       <extensionElements>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу</activiti:string>
+          <activiti:string><![CDATA[Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -351,22 +353,22 @@
     </serviceTask>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow12" sourceRef="mailtask1" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow8" name="всё хорошо" sourceRef="exclusivegateway1" targetRef="mailtask2">
+    <sequenceFlow id="flow8" name="все добре" sourceRef="exclusivegateway1" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision=='attr4_finish'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask2" name="Е-майл об отправке документов в соцзащиту" activiti:type="mail">
+    <serviceTask id="mailtask2" name="Е-майл про відправку документів до соцзахисту" activiti:type="mail">
       <extensionElements>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу</activiti:string>
+          <activiti:string><![CDATA[Призначення щомісячної грошової допомоги особі, яка проживає разом з інвалідом І чи ІІ групи внаслідок психічного розладу]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;

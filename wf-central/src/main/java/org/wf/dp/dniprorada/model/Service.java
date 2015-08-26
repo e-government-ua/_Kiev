@@ -171,30 +171,31 @@ public class Service extends org.wf.dp.dniprorada.base.model.NamedEntity {
     }
 
     public String getInfo() {
-        return getSmartFieldValue(info, BASE_INFO_PATTERN_FILE_PATH);
+        return info;
     }
 
     public void setInfo(String info) {
-        this.info = info;
+        this.info = getSmartFieldValue(info, BASE_INFO_PATTERN_FILE_PATH);
     }
 
     public String getFaq() {
-        return getSmartFieldValue(faq, BASE_FAQ_PATTERN_FILE_PATH);
+        return faq;
     }
 
     public void setFaq(String faq) {
-        this.faq = faq;
+        this.faq = getSmartFieldValue(faq, BASE_FAQ_PATTERN_FILE_PATH);
     }
 
     public String getLaw() {
-        return getSmartFieldValue(law, BASE_LAW_PATTERN_FILE_PATH);
+        return law;
     }
 
     public void setLaw(String law) {
-        this.law = law;
+        this.law = getSmartFieldValue(law, BASE_LAW_PATTERN_FILE_PATH);
     }
 
     private String getSmartFieldValue(String value, String basePath) {
-        return Util.getSmartFieldValue(value, basePath, getId() + ".html");
+        String content = Util.getSmartPathFileContent(value, basePath, getId() + ".html");
+        return content != null ? content : value;
     }
 }

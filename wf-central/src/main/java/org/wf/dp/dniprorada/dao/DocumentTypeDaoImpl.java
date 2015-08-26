@@ -5,13 +5,9 @@
  */
 package org.wf.dp.dniprorada.dao;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.model.DocumentType;
-import org.wf.dp.dniprorada.model.EntityNotFoundException;
 
 import java.util.List;
 
@@ -19,29 +15,17 @@ import java.util.List;
  *
  * @author olya
  */
-public class DocumentTypeDaoImpl implements DocumentTypeDao {
+@Repository
+public class DocumentTypeDaoImpl extends GenericEntityDao<DocumentType> implements DocumentTypeDao {
 
-    private SessionFactory sessionFactory;
-
-    @Required
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    private Session getSession() {
-        return sessionFactory.getCurrentSession();
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    protected DocumentTypeDaoImpl() {
+        super(DocumentType.class);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<DocumentType> getDocumentTypes() {
-        Criteria cr =  getSession().createCriteria(DocumentType.class);
-        cr.add(Restrictions.eq("bHidden", false));
-        return (List<DocumentType>)cr.list();
+        return findAllBy("bHidden", false);
     }
 
     @Override
@@ -52,22 +36,17 @@ public class DocumentTypeDaoImpl implements DocumentTypeDao {
         }
         documentType.setName(sName);
         documentType.setbHidden(bHidden == null ? false : bHidden);
-        getSession().saveOrUpdate(documentType);
+        saveOrUpdate(documentType);
         return documentType;
     }
 
     @Override
     public void removeDocumentType(Long nID) {
-        DocumentType documentType = getDocumentType(nID);
-        if (documentType == null)
-            throw new EntityNotFoundException("Record not found");
-        getSession().delete(documentType);
+       delete(nID);
     }
 
     @Override
     public DocumentType getDocumentType(Long nID) {
-        Criteria criteria = getSession().createCriteria(DocumentType.class);
-        criteria.add(Restrictions.eq("id", nID));
-        return (DocumentType) criteria.uniqueResult();
+        return findById(nID).orNull();
     }
 }

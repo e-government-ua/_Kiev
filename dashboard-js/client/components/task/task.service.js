@@ -213,8 +213,7 @@ angular.module('dashboardJsApp')
       getTasksByOrder: function(nID_Protected) {
         return simpleHttpPromise({
             method: 'GET',
-            url: '/api/tasks/getTasksByOrder',
-            params: { nID_Protected: nID_Protected }
+            url: '/api/tasks/search/byOrder/' + nID_Protected
           }
         );
       }

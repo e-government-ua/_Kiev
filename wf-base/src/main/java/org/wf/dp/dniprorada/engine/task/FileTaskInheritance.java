@@ -19,11 +19,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import org.wf.dp.dniprorada.util.Util;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author askosyr
@@ -42,9 +44,6 @@ public class FileTaskInheritance extends AbstractModelTask implements TaskListen
 	TaskService taskService;
 
 	@Autowired
-	private BaseEntityDao baseEntityDao;
-
-	@Autowired
 	private FlowSlotDao flowSlotDao;
 
 	@Autowired
@@ -58,8 +57,8 @@ public class FileTaskInheritance extends AbstractModelTask implements TaskListen
 		
 		DelegateExecution execution = task.getExecution();
                 //task.getId()
-                Util.replacePatterns(execution, task, LOG); 
-                
+                Util.replacePatterns(execution, task, LOG);
+
 		String sInheritedAttachmentsIds = getStringFromFieldExpression(this.aFieldInheritedAttachmentID, execution);
 
 		if (sInheritedAttachmentsIds == null || "".equals(sInheritedAttachmentsIds.trim())) {
@@ -75,11 +74,11 @@ public class FileTaskInheritance extends AbstractModelTask implements TaskListen
 		List<Attachment> attachmentsToAdd = getInheritedAttachmentIdsFromTask(attachments, sInheritedAttachmentsIds);
 
 		addAttachmentsToCurrentTask(attachmentsToAdd, task);
-                
+
                 //runtimeService.setVariable(snID_Process, "sID_Payment", sID_Payment);
                 //String sBody=(String)execution.getVariable("sBody");
-                //Util.replacePatterns(execution, this.osBody, LOG); 
-                
+                //Util.replacePatterns(execution, this.osBody, LOG);
+
 	}
 
 	private void addAttachmentsToCurrentTask(List<Attachment> attachmentsToAdd,

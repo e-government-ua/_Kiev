@@ -42,7 +42,7 @@ public class EscalationService {
         //@RequestParam(value = "sBeanHandler", required = false) String sBeanHandler
 
         try {
-            List<EscalationRule> aEscalationRule = escalationRuleDao.getAll();
+            List<EscalationRule> aEscalationRule = escalationRuleDao.findAll();
             for (EscalationRule oEscalationRule : aEscalationRule) {
                 EscalationRuleFunction oEscalationRuleFunction = oEscalationRule.getoEscalationRuleFunction();
 

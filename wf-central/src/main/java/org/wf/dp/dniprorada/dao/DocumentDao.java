@@ -1,12 +1,13 @@
 package org.wf.dp.dniprorada.dao;
 
+import org.wf.dp.dniprorada.base.dao.EntityDao;
 import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.DocumentOperator_SubjectOrgan;
 
 import java.io.IOException;
 import java.util.List;
 
-public interface DocumentDao {
+public interface DocumentDao extends EntityDao<Document> {
 	
 	public Document getDocument(Long id);
 	public byte[] getDocumentContent(Long id);

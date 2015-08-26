@@ -7,6 +7,7 @@
  */
 package org.wf.dp.dniprorada.dao;
 
+import org.wf.dp.dniprorada.base.dao.EntityDao;
 import org.wf.dp.dniprorada.model.DocumentType;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author olya
  */
-public interface DocumentTypeDao {
+public interface DocumentTypeDao extends EntityDao<DocumentType> {
 
     public List<DocumentType> getDocumentTypes();
 

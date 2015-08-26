@@ -1,18 +1,22 @@
 package org.wf.dp.dniprorada.base.service.flow;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
+import org.wf.dp.dniprorada.base.dao.EntityDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
 import org.wf.dp.dniprorada.base.model.FlowProperty;
 import org.wf.dp.dniprorada.base.model.FlowSlot;
-import org.wf.dp.dniprorada.base.model.Flow_ServiceData;
 import org.wf.dp.dniprorada.base.model.FlowSlotTicket;
+import org.wf.dp.dniprorada.base.model.Flow_ServiceData;
 import org.wf.dp.dniprorada.base.service.flow.propertyHandler.BaseFlowSlotScheduler;
 import org.wf.dp.dniprorada.base.service.flow.propertyHandler.FlowPropertyHandler;
 import org.wf.dp.dniprorada.base.util.DurationUtil;
@@ -22,50 +26,37 @@ import org.wf.dp.dniprorada.base.viewobject.flow.Days;
 import org.wf.dp.dniprorada.base.viewobject.flow.FlowSlotVO;
 
 import javax.xml.datatype.Duration;
-import java.util.*;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * User: goodg_000
  * Date: 29.06.2015
  * Time: 18:11
  */
+@Service
 public class FlowService implements ApplicationContextAware {
 
    private static final Logger log = LoggerFactory.getLogger(FlowService.class);
     
    private FlowSlotDao flowSlotDao;
    private FlowSlotTicketDao oFlowSlotTicketDao;
-   private BaseEntityDao baseEntityDao;
+   @Autowired
+   @Qualifier("flowServiceDataDao")
+   private EntityDao<Flow_ServiceData> flowServiceDataDao;
 
    private ApplicationContext applicationContext;
 
-   public FlowSlotTicketDao getFlowSlotTicketDao() {
-      return oFlowSlotTicketDao;
-   }
-
-   public FlowSlotDao getFlowSlotDao() {
-      return flowSlotDao;
-   }
-   @Required
+   @Autowired
    public void setFlowSlotDao(FlowSlotDao flowSlotDao) {
       this.flowSlotDao = flowSlotDao;
    }
 
-   @Required
+   @Autowired
    public void setFlowSlotTicketDao(FlowSlotTicketDao oFlowSlotTicketDao) {
       this.oFlowSlotTicketDao = oFlowSlotTicketDao;
-   }
-
-   public BaseEntityDao getBaseEntityDao() {
-      return baseEntityDao;
-   }
-
-   @Required
-   public void setBaseEntityDao(BaseEntityDao baseEntityDao) {
-      this.baseEntityDao = baseEntityDao;
    }
 
    @Override
@@ -147,7 +138,7 @@ public class FlowService implements ApplicationContextAware {
       oFlowSlotTicket.setnID_Subject(nID_Subject);
       oFlowSlotTicket.setnID_Task_Activiti(nID_Task_Activiti);
 
-      FlowSlot flowSlot = baseEntityDao.getById(FlowSlot.class, nID_FlowSlot);
+      FlowSlot flowSlot = flowSlotDao.findByIdExpected(nID_FlowSlot);
 
       oFlowSlotTicket.setoFlowSlot(flowSlot);
       oFlowSlotTicket.setsDateStart(flowSlot.getsDate());
@@ -158,8 +149,7 @@ public class FlowService implements ApplicationContextAware {
 
       oFlowSlotTicket.setsDateEdit(DateTime.now());
 
-      baseEntityDao.saveOrUpdate(oFlowSlotTicket);
-      return oFlowSlotTicket;
+      return oFlowSlotTicketDao.saveOrUpdate(oFlowSlotTicket);
    }
 
    
@@ -169,7 +159,7 @@ public class FlowService implements ApplicationContextAware {
     * @return 
     */
    public Long nID_Flow_ServiceData(String sID_BP) {
-      List<Flow_ServiceData> aFlow = baseEntityDao.getAll(Flow_ServiceData.class);
+      List<Flow_ServiceData> aFlow = flowServiceDataDao.findAll();
        for(Flow_ServiceData oFlow : aFlow){
            if (oFlow.getsID_BP().equalsIgnoreCase(sID_BP)){
                return oFlow.getId();
@@ -188,7 +178,7 @@ public class FlowService implements ApplicationContextAware {
     */
    public List<FlowSlotVO> buildFlowSlots(Long nID_Flow_ServiceData, DateTime startDate, DateTime stopDate) {
 
-      Flow_ServiceData flow = baseEntityDao.getById(Flow_ServiceData.class, nID_Flow_ServiceData);
+      Flow_ServiceData flow = flowServiceDataDao.findByIdExpected(nID_Flow_ServiceData);
 
       List<FlowSlotVO> res = new ArrayList<>();
 
@@ -243,7 +233,7 @@ public class FlowService implements ApplicationContextAware {
          }
       }
 
-      flowSlotDao.deleteAll(flowSlotsToDelete);
+      flowSlotDao.delete(flowSlotsToDelete);
       return res;
    }
 
