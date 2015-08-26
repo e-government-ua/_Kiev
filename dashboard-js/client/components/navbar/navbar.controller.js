@@ -14,6 +14,10 @@ angular.module('dashboardJsApp').controller('NavbarCtrl', function($scope, $loca
     return user.firstName + ' ' + user.lastName;
   };
 
+  $scope.goToServices = function() {
+    $location.path('/services');
+  };
+
   $scope.goToTasks = function() {
     $location.path('/tasks');
   };
