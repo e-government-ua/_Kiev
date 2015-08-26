@@ -1,10 +1,12 @@
 package org.activiti.rest.controller;
 
+import com.dumbster.smtp.SimpleSmtpServer;
 import org.activiti.engine.*;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.history.HistoricTaskInstanceQuery;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.task.*;
+import org.apache.commons.mail.EmailException;
 import org.junit.*;
 import org.junit.runner.*;
 import org.mockito.*;
@@ -16,6 +18,7 @@ import org.springframework.test.context.web.*;
 import org.springframework.test.web.servlet.*;
 import org.springframework.test.web.servlet.setup.*;
 import org.springframework.web.context.*;
+import org.wf.dp.dniprorada.base.service.notification.NotificationService;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.util.luna.CRCInvalidException;
 
