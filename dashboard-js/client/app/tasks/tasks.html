@@ -58,27 +58,31 @@
               <div ng-if="sSelectedTask=='tickets'">
                 <a class="list-group-item task {{sSelectedTask}}_{{task.id}}"
                    href=""
+                   
+                   tooltip="Слот №{{task.nID_FlowSlot}} (Задача №{{task.nID_Task_Activiti}}, Процесс №{{task.nID_Instance}})"
+                   
                    ng-repeat="task in tasks"
                    ng-click="selectTask(task)"
                    ng-class="{'active': isTaskSelected(task)}">
                   <span class="ticket-date-time">{{task.sDateStart|date:'yyyy-MM-dd HH:mm'}}</span>,
-                  №Заявки: {{task.nID_Instance}}{{lunaService.getLunaValue(task.nID_Instance)}},
-                  №Тікета: {{task.nID_FlowSlot}}.<br/>
+                  №{{task.nID_Instance}}{{lunaService.getLunaValue(task.nID_Instance)}},
+                  (Тікет №{{task.nID_FlowSlot}})<br/>
                   {{task.sNameBP}}.
                   {{task.sUserTaskName}}.
                 </a>
               </div>
 
               <div ng-if="sSelectedTask!='tickets'">
-                <a class="list-group-item task {{sSelectedTask}}_{{task.id}} {{ sTaskClass(task.taskDefinitionKey) }}"
+                <a class="list-group-item task {{sSelectedTask}}_{{task.processInstanceId}} {{ sTaskClass(task.taskDefinitionKey) }}"
                    href=""
                    ng-repeat="task in tasks | orderBy:predicate:reverse"
-                   tooltip="{{task.description}}"
+                   tooltip="{{task.description}} (Задача №{{task.id}}, Процесс №{{task.processDefinitionId}})"
                    ng-click="selectTask(task)"
                    ng-class="{'active': isTaskSelected(task)}">
-              ({{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }})
+              <span class="ticket-date-time">{{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }}</span>
+              №{{task.processInstanceId}}{{lunaService.getLunaValue(task.processInstanceId)}} 
               {{ getProcessName(task.processDefinitionId) }} | {{ task.name }}
-               &nbsp; (#{{task.id}})
+               
                   </a>
               </div>
 
