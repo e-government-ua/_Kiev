@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="Uzhgorod_dmg_1" name="Ужгород - аварійний дозвіл на проведення земляних робіт" isExecutable="true">
+    <startEvent id="start1" name="аварійний дозвіл на проведення земляних робіт">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="target" name="Зазначте мету проведення земляних робіт" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_start" name="Позначте дату початку земляних робіт" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_end" name="Позначте дату закінчення земляних робіт" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="application_zayava" name="Завантажте копію заяви на дозвіл на проведення земляних робіт" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="scheme" name="Завантажте схему виконання робіт - викопіювання з генплану" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="podtvergdenie" name="Завантажте письмове підтвердження факту аварії" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="blagoustroistvo" name="Завантажте документи які підтверджують здійснення заходів з відновлення благоустрою; договір чи угода зі спеціалізованою організацією на відновлення елементів благоустрою" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="payment" name="Завантажте підтвердження про оплату заходів з відновлення благоустрою; чеки або платіжні доручення" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <serviceTask id="mailtask1" name="повідомлення про успішне подання звернення, про орієнтовний термін виконання" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Звернення на тему: аварійний дозвіл на проведення земляних робіт</activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ваш запит на аварійний дозвіл на проведення земляних робіт зареєстровано за номером  ${ID_zayava}
+Орієнтовний термін виконання запиту  ${date_start_approx}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <userTask id="usertask1" name="перевірка пакету документів, реєстрація заяви, прийняття рішення про надання послуги" activiti:exclusive="false" activiti:candidateGroups="sales">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Iм'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="ID_zayava" name="реєстраційний номер заяви" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="decision_1" name="прийняття рішення про надання послуги" type="enum" required="true">
+          <activiti:value id="accept" name="Документи пройшли перевірку. Послуга може бути надана."></activiti:value>
+          <activiti:value id="reject" name="Запит відхилено з причини не корректного пакету документів"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="date_start_approx" name="Позначте орієнтовну дату надання дозволу" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="comment_1" name="комментар по відмові у наданні послуги" type="textArea"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <serviceTask id="mailtask2" name="повідомлення про відхилення звернення з причини не корректного оформлення пакету документів" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Звернення на тему: аварійний дозвіл на проведення земляних робіт</activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+За Вашим запитом ${ID_zayava} винесено відмову з причини не корректного оформлення пакету документів.
+${comment_1}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <userTask id="usertask4" name="надання адміністративної послуги" activiti:candidateGroups="sales">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="ID_zayava" name="реєстраційний номер заяви" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="decision_2" name="прийняття рішення про надання дозволу" type="enum" required="true">
+          <activiti:value id="accept" name="надання аварійного дозволу на проведення земляних робіт"></activiti:value>
+          <activiti:value id="reject" name="відмова у наданні дозволу на проведення земляних робіт"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="comment_2" name="комменар по відмові у наданні дозволу" type="textArea"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow8" sourceRef="mailtask1" targetRef="usertask4"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow9" sourceRef="usertask4" targetRef="exclusivegateway2"></sequenceFlow>
+    <serviceTask id="mailtask3" name="повідомлення про надання аварійного дозволу на проведення земляних робіт" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Звернення на тему: аварійний дозвіл на проведення земляних робіт</activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+Ви отримали дозвіл на проведення земляних робіт згідно запиту  ${ID_zayava}
+Отримайте паперовий документ у адміністатора ЦНАПу</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow10" name="дозвіл" sourceRef="exclusivegateway2" targetRef="mailtask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='accept'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="mailtask4" name="повідомлення про відмову у наданні дозволу на проведення земляних робіт" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Звернення на тему: аварійний дозвіл на проведення земляних робіт</activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
+
+За Вашим запитом ${ID_zayava} винесено відмову на аварійний дозвіл на проведення земляних робіт
+${comment_2}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow13" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow14" sourceRef="mailtask3" targetRef="endevent2"></sequenceFlow>
+    <serviceTask id="mailtask5" name="Повідомлення співробітника держоргану" activiti:exclusive="false" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="subject">
+          <activiti:string>Аварійний дозвіл на проведення земляних робіт. Нове  звернення.</activiti:string>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:string>darja.grek@gmail.com</activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string>UTF-8</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:string>Нове звернення на дозвіл на виконнаня земляних робіт від громадянина </activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow15" sourceRef="start1" targetRef="mailtask5"></sequenceFlow>
+    <sequenceFlow id="flow16" sourceRef="mailtask5" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow17" name="відмова" sourceRef="exclusivegateway2" targetRef="mailtask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='reject'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow18" sourceRef="mailtask4" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow19" name="передано у ЦНАП" sourceRef="exclusivegateway1" targetRef="mailtask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='accept'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow20" name="відхилення зверення" sourceRef="exclusivegateway1" targetRef="mailtask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='reject'}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Uzhgorod_dmg_1">
+    <bpmndi:BPMNPlane bpmnElement="Uzhgorod_dmg_1" id="BPMNPlane_Uzhgorod_dmg_1">
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="71.0" width="176.0" x="393.0" y="167.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="76.0" width="184.0" x="390.0" y="5.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="461.0" y="102.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
+        <omgdc:Bounds height="71.0" width="201.0" x="677.0" y="167.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="760.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+        <omgdc:Bounds height="55.0" width="176.0" x="394.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="461.0" y="355.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+        <omgdc:Bounds height="73.0" width="184.0" x="389.0" y="420.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
+        <omgdc:Bounds height="73.0" width="176.0" x="690.0" y="339.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="464.0" y="520.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
+        <omgdc:Bounds height="55.0" width="151.0" x="200.0" y="15.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="start1" id="BPMNShape_start1">
+        <omgdc:Bounds height="35.0" width="35.0" x="120.0" y="25.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="482.0" y="81.0"></omgdi:waypoint>
+        <omgdi:waypoint x="481.0" y="102.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="481.0" y="238.0"></omgdi:waypoint>
+        <omgdi:waypoint x="482.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="482.0" y="325.0"></omgdi:waypoint>
+        <omgdi:waypoint x="481.0" y="355.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="481.0" y="395.0"></omgdi:waypoint>
+        <omgdi:waypoint x="481.0" y="420.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="32.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="777.0" y="238.0"></omgdi:waypoint>
+        <omgdi:waypoint x="777.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="481.0" y="493.0"></omgdi:waypoint>
+        <omgdi:waypoint x="481.0" y="520.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="155.0" y="42.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="42.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="351.0" y="42.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="43.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="501.0" y="375.0"></omgdi:waypoint>
+        <omgdi:waypoint x="690.0" y="375.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="42.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="778.0" y="339.0"></omgdi:waypoint>
+        <omgdi:waypoint x="777.0" y="305.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="481.0" y="142.0"></omgdi:waypoint>
+        <omgdi:waypoint x="481.0" y="167.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="89.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="501.0" y="122.0"></omgdi:waypoint>
+        <omgdi:waypoint x="777.0" y="121.0"></omgdi:waypoint>
+        <omgdi:waypoint x="777.0" y="167.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
