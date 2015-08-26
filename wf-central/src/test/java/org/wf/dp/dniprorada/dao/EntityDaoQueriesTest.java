@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.base.dao;
+package org.wf.dp.dniprorada.dao;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.HashMultimap;
@@ -21,8 +21,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
+import org.wf.dp.dniprorada.base.dao.EntityDao;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
@@ -35,14 +38,16 @@ import static org.junit.Assert.fail;
  * The purpose of this test is to make sure all queries were written correctly.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:/org/wf/dp/dniprorada/base/dao/testContext.xml")
+@ContextConfiguration(locations = "classpath:/testContext.xml")
 public class EntityDaoQueriesTest {
     private static final Log LOG = LogFactory.getLog(EntityDaoQueriesTest.class);
 
     private static final String[] QUERY_METHOD_PREFIXES = {"get", "search", "find"};
     private static final String LOG_SEPARATOR_LINE = StringUtils.repeat("=", 100);
-    private static final int REPEAT_NUMBER = 10;
     private static final String ALL_METHODS_SYMBOL = "*";
+
+    @Value("${repeatNumber}")
+    private int repeatNumber;
 
     @Value("${seed}")
     private Long seed;
@@ -86,6 +91,13 @@ public class EntityDaoQueriesTest {
             Class<? extends EntityDao> testedDaoType = getType(testedDao);
             String testedDaoClassName = testedDaoType.getName();
 
+            if (testedDaoType == GenericEntityDao.class) {
+                LOG.info(LOG_SEPARATOR_LINE);
+                LOG.info(String.format("DAO %s is skipped from test, because it's %s",
+                        entityDaoEntry.getKey(), GenericEntityDao.class.getName()));
+                continue;
+            }
+
             if (isDaoExcluded(testedDaoClassName)) {
                 LOG.info(LOG_SEPARATOR_LINE);
                 LOG.info(String.format("DAO %s is excluded from test", testedDaoClassName));
@@ -118,16 +130,16 @@ public class EntityDaoQueriesTest {
         ReflectionUtils.doWithMethods(testedDaoClass, new ReflectionUtils.MethodCallback() {
             public void doWith(Method method) throws IllegalArgumentException, IllegalAccessException {
                 LOG.info(LOG_SEPARATOR_LINE);
-                LOG.info(String.format("Run test for %s method %s times", method, REPEAT_NUMBER));
+                LOG.info(String.format("Run test for %s method %s times", method, repeatNumber));
 
-                for (int i = 0; i < REPEAT_NUMBER; i++) {
+                for (int i = 0; i < repeatNumber; i++) {
                     LOG.info(String.format("%s execution of %s method", i + 1, method));
                     executeMethodWithRandomParams(testedDao, method);
                 }
             }
         }, new ReflectionUtils.MethodFilter() {
             public boolean matches(Method method) {
-                if (method.getDeclaringClass() != testedDaoClass) {
+                if (method.getDeclaringClass() != testedDaoClass || Modifier.isPrivate(method.getModifiers())) {
                     return false;
                 }
 

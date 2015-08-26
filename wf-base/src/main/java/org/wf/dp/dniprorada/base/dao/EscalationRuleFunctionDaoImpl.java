@@ -1,10 +1,10 @@
 package org.wf.dp.dniprorada.base.dao;
 
+import org.springframework.stereotype.Repository;
 import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
 
-import javax.persistence.EntityNotFoundException;
-
-public class EscalationRuleFunctionDaoImpl extends AbstractEntityDao<EscalationRuleFunction>
+@Repository
+public class EscalationRuleFunctionDaoImpl extends GenericEntityDao<EscalationRuleFunction>
         implements EscalationRuleFunctionDao {
 
     protected EscalationRuleFunctionDaoImpl() {
@@ -13,7 +13,7 @@ public class EscalationRuleFunctionDaoImpl extends AbstractEntityDao<EscalationR
 
     @Override
     public EscalationRuleFunction saveOrUpdate(Long nID, String sName, String sBeanHandler) {
-        EscalationRuleFunction ruleFunction = nID != null ? getById(nID) : new EscalationRuleFunction();
+        EscalationRuleFunction ruleFunction = nID != null ? findByIdExpected(nID) : new EscalationRuleFunction();
         if (nID != null && ruleFunction == null){//??
             ruleFunction = new EscalationRuleFunction();
             ruleFunction.setId(nID);
@@ -24,14 +24,5 @@ public class EscalationRuleFunctionDaoImpl extends AbstractEntityDao<EscalationR
         }
         saveOrUpdate(ruleFunction);
         return ruleFunction;
-    }
-
-    @Override
-    public void delete(Long nID) {
-        EscalationRuleFunction ruleFunction = getById(nID);
-        if (ruleFunction == null) {
-            throw new EntityNotFoundException("Record not found. No such ruleFunction with nID=" + nID);
-        }
-        delete(ruleFunction);
     }
 }

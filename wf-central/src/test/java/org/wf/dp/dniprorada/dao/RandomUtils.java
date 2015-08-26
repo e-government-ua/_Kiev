@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.base.dao;
+package org.wf.dp.dniprorada.dao;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;

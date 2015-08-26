@@ -1,14 +1,9 @@
 package org.activiti.rest.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
+import org.wf.dp.dniprorada.base.dao.EntityNotFoundException;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.constant.HistoryEventMessage;
 import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.dao.DocumentDao;
 import org.wf.dp.dniprorada.dao.HistoryEventDao;
 import org.wf.dp.dniprorada.dao.HistoryEvent_ServiceDao;
-import org.wf.dp.dniprorada.model.EntityNotFoundException;
 import org.wf.dp.dniprorada.model.HistoryEvent;
 import org.wf.dp.dniprorada.model.HistoryEvent_Service;
 import org.wf.dp.dniprorada.model.Region;
@@ -32,6 +27,11 @@ import org.wf.dp.dniprorada.util.luna.CRCInvalidException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/services")
@@ -47,7 +47,8 @@ public class ActivitiRestHistoryEventController {
 	private HistoryEventDao historyEventDao;
 	
 	@Autowired
-	private BaseEntityDao baseEntityDao;
+	@Qualifier("regionDao")
+	private GenericEntityDao<Region> regionDao;
 
 	@Autowired
 	private DocumentDao documentDao;
@@ -107,7 +108,7 @@ public class ActivitiRestHistoryEventController {
 	@RequestMapping(value = "/addHistoryEvent_Service", method = RequestMethod.GET)
 	public @ResponseBody
 	ResponseEntity<String> addHistoryEvent_Service(
-			@RequestParam(value = "nID_Proccess") Long nID_Proccess,
+			@RequestParam(value = "nID_Process") Long nID_Process,
 			@RequestParam(value = "nID_Subject") Long nID_Subject,
 			@RequestParam(value = "sID_Status") String sID_Status,
 			@RequestParam(value = "sProcessInstanceName") String sProcessInstanceName,
@@ -121,7 +122,7 @@ public class ActivitiRestHistoryEventController {
 		setHistoryEvent(HistoryEventType.GET_SERVICE, nID_Subject, mParamMessage);
 
 		return JsonRestUtils.toJsonResponse(historyEventServiceDao
-				.addHistoryEvent_Service(nID_Proccess, sID_Status, nID_Subject,
+				.addHistoryEvent_Service(nID_Process, sID_Status, nID_Subject,
 						sID_Status, nID_Service, nID_Region, sID_UA));
 	}
 
@@ -141,20 +142,20 @@ public class ActivitiRestHistoryEventController {
 	@RequestMapping(value = "/updateHistoryEvent_Service", method = RequestMethod.GET)
 	public @ResponseBody
 	HistoryEvent_Service updateHistoryEvent_Service(
-			@RequestParam(value = "nID_Proccess", required = false) Long nID_Proccess,
+			@RequestParam(value = "nID_Process", required = false) Long nID_Process,
 			@RequestParam(value = "sID_Status") String sID_Status,
 			//@RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
 			//@RequestParam(value = "nID_Task") Long nID_Task,
 			//@RequestParam(value = "sHistoryEventType") HistoryEventType sHistoryEventType,
 			HttpServletResponse response) {
-		Long nID_Protected = AlgorithmLuna.getProtectedNumber(nID_Proccess);
-		Long nID_Subject = historyEventServiceDao.getHistoryEvent_ServiceBynID_Task(nID_Proccess).getnID_Subject();
+		Long nID_Protected = AlgorithmLuna.getProtectedNumber(nID_Process);
+		Long nID_Subject = historyEventServiceDao.getHistoryEvent_ServiceBynID_Task(nID_Process).getnID_Subject();
 		Map<String, String> mParamMessage = new HashMap<String, String>();
 	    mParamMessage.put(HistoryEventMessage.SERVICE_STATE, sID_Status);
 	    mParamMessage.put(HistoryEventMessage.TASK_NUMBER, String.valueOf(nID_Protected));
 		setHistoryEvent(HistoryEventType.ACTIVITY_STATUS_NEW, nID_Subject, mParamMessage);
 		HistoryEvent_Service historyEvent_Service = historyEventServiceDao
-				.getHistoryEvent_ServiceBynID_Task(nID_Proccess);
+				.getHistoryEvent_ServiceBynID_Task(nID_Process);
 		if (historyEvent_Service != null) {
 			boolean isChanged = false;
 			if (!historyEvent_Service.getsStatus().equals(sID_Status)) {
@@ -216,7 +217,7 @@ public class ActivitiRestHistoryEventController {
 		List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String,Object>>();
 		  
 		for (Map<String, Long> currMap : listOfHistoryEvents){
-			  Region region = baseEntityDao.getById(Region.class, currMap.get("sName"));
+			  Region region = regionDao.findByIdExpected(currMap.get("sName"));
 			  Map<String, Object> currMapWithName = new HashMap<String, Object>();
 			  
 			  currMapWithName.put("sName", region.getName());

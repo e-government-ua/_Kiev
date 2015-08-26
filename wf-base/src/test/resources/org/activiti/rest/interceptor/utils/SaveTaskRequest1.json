@@ -1,0 +1,143 @@
+{
+  "processDefinitionId": "kiev_dms_1:49:2732672",
+  "businessKey": "key",
+  "properties": [
+    {
+      "id": "bankIdlastName",
+      "value": "ДУБІЛЕТ"
+    },
+    {
+      "id": "bankIdfirstName",
+      "value": "ДМИТРО"
+    },
+    {
+      "id": "bankIdmiddleName",
+      "value": "ОЛЕКСАНДРОВИЧ"
+    },
+    {
+      "id": "Dateofbirth",
+      "value": "1"
+    },
+    {
+      "id": "Areabirth",
+      "value": "2"
+    },
+    {
+      "id": "bankIdPassport",
+      "value": "АМ765369 ЖОВТНЕВИМ РВ ДМУ УМВС УКРАЇНИ В ДНІПРОПЕТРОВСЬКІЙ ОБЛАСТІ 18.03.2002"
+    },
+    {
+      "id": "bankId_scan_passport",
+      "value": null
+    },
+    {
+      "id": "Nationality",
+      "value": "3"
+    },
+    {
+      "id": "kids",
+      "value": "no"
+    },
+    {
+      "id": "text1",
+      "value": "Будь ласка, вкажіть дані Вашої дитини, якщо її вік перевищую 14 років"
+    },
+    {
+      "id": "ChildName1",
+      "value": "456"
+    },
+    {
+      "id": "kidsCitizenship",
+      "value": "7"
+    },
+    {
+      "id": "oldAddress",
+      "value": "8"
+    },
+    {
+      "id": "newAddressLabel",
+      "value": "Заповніть деталі вашої нової адреси"
+    },
+    {
+      "id": "RegistrationAddress",
+      "value": "9"
+    },
+    {
+      "id": "newStreet",
+      "value": "10"
+    },
+    {
+      "id": "newHouse",
+      "value": "11"
+    },
+    {
+      "id": "newCorp",
+      "value": "12"
+    },
+    {
+      "id": "newApartment",
+      "value": "13"
+    },
+    {
+      "id": "militaryDoc",
+      "value": null
+    },
+    {
+      "id": "bringDoc",
+      "value": "other"
+    },
+    {
+      "id": "bringDocOther",
+      "value": "14"
+    },
+    {
+      "id": "phone",
+      "value": "+380 67 503 8800"
+    },
+    {
+      "id": "email",
+      "value": "al.dubilet@gmail.com"
+    },
+    {
+      "id": "visitDay",
+      "value": "26/08/2015"
+    },
+    {
+      "id": "visitTime",
+      "value": "15"
+    },
+    {
+      "id": "warning",
+      "value": "Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"
+    },
+    {
+      "id": "sBody_1",
+      "value": null
+    },
+    {
+      "id": "sBody_2",
+      "value": null
+    },
+    {
+      "id": "sBody_3",
+      "value": null
+    },
+    {
+      "id": "sBody_4",
+      "value": null
+    },
+    {
+      "id": "sBody_5",
+      "value": null
+    },
+    {
+      "id": "sBody_6",
+      "value": null
+    },
+    {
+      "id": "sBody_7",
+      "value": null
+    }
+  ],
+  "nID_Subject": 20045
+}

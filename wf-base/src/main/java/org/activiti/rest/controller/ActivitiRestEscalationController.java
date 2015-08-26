@@ -94,7 +94,7 @@ public class ActivitiRestEscalationController {
     EscalationRuleFunction getEscalationRuleFunction(
             @RequestParam(value = "nID") Long nID) throws ActivitiRestException {
 
-        EscalationRuleFunction ruleFunction = escalationRuleFunctionDao.getById(nID);
+        EscalationRuleFunction ruleFunction = escalationRuleFunctionDao.findById(nID).orNull();
         if (ruleFunction == null) {
             throw new ActivitiRestException(
                     ActivitiExceptionController.BUSINESS_ERROR_CODE,
@@ -112,7 +112,7 @@ public class ActivitiRestEscalationController {
             throws ActivitiRestException {
 
         try {
-            return escalationRuleFunctionDao.getAll();
+            return escalationRuleFunctionDao.findAll();
         } catch (Exception e){
             throw new ActivitiRestException("ex in controller!", e);
         }
@@ -166,7 +166,7 @@ public class ActivitiRestEscalationController {
     EscalationRule getEscalationRule(
             @RequestParam(value = "nID") Long nID) throws ActivitiRestException {
 
-        EscalationRule rule = escalationRuleDao.getById(nID);
+        EscalationRule rule = escalationRuleDao.findById(nID).orNull();
         if (rule == null) {
             throw new ActivitiRestException(
                     ActivitiExceptionController.BUSINESS_ERROR_CODE,
@@ -184,7 +184,7 @@ public class ActivitiRestEscalationController {
             throws ActivitiRestException {
 
         try {
-            return escalationRuleDao.getAll();
+            return escalationRuleDao.findAll();
         } catch (Exception e) {
             throw new ActivitiRestException("ex in controller!", e);
         }
