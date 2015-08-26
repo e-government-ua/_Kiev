@@ -1,60 +1,46 @@
 package org.wf.dp.dniprorada.dao;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
-import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
+import org.wf.dp.dniprorada.base.dao.EntityDao;
 import org.wf.dp.dniprorada.model.*;
 import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 
 import java.io.IOException;
 import java.util.List;
 
-import static org.wf.dp.dniprorada.model.EntityNotFoundException.assertPresence;
-
-public class DocumentDaoImpl implements DocumentDao {
+@Repository
+public class DocumentDaoImpl extends GenericEntityDao<Document> implements DocumentDao {
 
 	private static final String contentMock = "No content!!!";
 
-	private SessionFactory sessionFactory;
-
 	@Autowired
-	private BaseEntityDao baseEntityDao;
+	@Qualifier("documentOperatorDao")
+	private EntityDao<DocumentOperator_SubjectOrgan> documentOperatorDao;
 
 	@Autowired
 	private GridFSBytesDataStorage durableBytesDataStorage;
 
-	@Required
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	private Session getSession() {
-		return sessionFactory.getCurrentSession();
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	protected DocumentDaoImpl() {
+		super(Document.class);
 	}
 
 	@Override
 	public List<Document> getDocuments(Long nID_Subject) {
-		return (List<Document>) getSession().createCriteria(Document.class)
-				.add(Restrictions.eq("subject.id", nID_Subject))
-				.list();
+		return findAllBy("subject.id", nID_Subject);
 	}
 
 	@Override
 	public Document getDocument(Long id) {
-		return (Document) getSession().get(Document.class, id);
+		return findById(id).orNull();
 	}
 
 	@Override
 	public byte[] getDocumentContent(Long id) {
-		Document document = (Document) getSession().get(Document.class, id);
+		Document document = findByIdExpected(id);
 		byte[] contentByte = durableBytesDataStorage.getData(document.getContentKey());
 		return contentByte != null ? contentByte : contentMock.getBytes();
 	}
@@ -65,6 +51,7 @@ public class DocumentDaoImpl implements DocumentDao {
 		return contentByte != null ? contentByte : contentMock.getBytes();
 	}
 
+	//TODO: it's not cool
 	public Long setDocument(Long nID_Subject, Long nID_Subject_Upload, String sID_Subject_Upload,
                             String sSubjectName_Upload, String sName, Long nID_DocumentType,
                             Long nID_DocumentContentType, String sFileName,
@@ -109,19 +96,12 @@ public class DocumentDaoImpl implements DocumentDao {
 
 	@Override
 	public DocumentOperator_SubjectOrgan getOperator(Long operatorId) {
-		DocumentOperator_SubjectOrgan organ =
-			(DocumentOperator_SubjectOrgan) getSession()
-			.createCriteria(DocumentOperator_SubjectOrgan.class)
-			.add(Restrictions.eq("nID_SubjectOrgan", operatorId))
-			.uniqueResult();
-
-		assertPresence(organ, "Organ with ID:" + operatorId + " not found");
-
-		return organ;
+		return documentOperatorDao.findByExpected("nID_SubjectOrgan", operatorId);
 	}
 
+	//TODO: why this method is here?
 	@Override
 	public List<DocumentOperator_SubjectOrgan> getAllOperators() {
-		return 	baseEntityDao.getAll(DocumentOperator_SubjectOrgan.class);
+		return documentOperatorDao.findAll();
 	}
 }

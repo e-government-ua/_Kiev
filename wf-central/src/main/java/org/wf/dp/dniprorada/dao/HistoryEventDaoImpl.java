@@ -1,35 +1,24 @@
 package org.wf.dp.dniprorada.dao;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.constant.HistoryEventType;
 import org.wf.dp.dniprorada.model.HistoryEvent;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-public class HistoryEventDaoImpl implements HistoryEventDao {
-    private SessionFactory sessionFactory;
+@Repository
+public class HistoryEventDaoImpl extends GenericEntityDao<HistoryEvent> implements HistoryEventDao {
 
-    @Required
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
+    protected HistoryEventDaoImpl() {
+        super(HistoryEvent.class);
     }
-
-    private Session getSession() {
-        return sessionFactory.getCurrentSession();
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
 
     @Override
     public HistoryEvent getHistoryEvent(Long id) {
-        HistoryEvent historyEvent = (HistoryEvent) getSession().get(HistoryEvent.class, id);
+        HistoryEvent historyEvent = findByIdExpected(id);
         if (!historyEvent.getHistoryEventTypeKey().equals(0L)) {
             historyEvent.setEventNameCustom(HistoryEventType.getById(historyEvent.getHistoryEventTypeKey()).getsName());
         }
@@ -38,9 +27,8 @@ public class HistoryEventDaoImpl implements HistoryEventDao {
 
     @Override
     public List<HistoryEvent> getHistoryEvents(Long nID_Subject) {
-        List<HistoryEvent> historyEvents =  getSession().createCriteria(HistoryEvent.class)
-                .add(Restrictions.eq("subjectKey", nID_Subject))
-                .list();
+
+        List<HistoryEvent> historyEvents = findAllBy("subjectKey", nID_Subject);
         for (HistoryEvent historyEvent : historyEvents){
             if (!historyEvent.getHistoryEventTypeKey().equals(0L)) {
                 historyEvent.setEventNameCustom(HistoryEventType.getById(historyEvent.getHistoryEventTypeKey()).getsName());
@@ -58,7 +46,6 @@ public class HistoryEventDaoImpl implements HistoryEventDao {
         historyEvent.setEventNameCustom(sEventName_Custom);
         historyEvent.setsMessage(sMessage);
         historyEvent.setDate(new Date());
-        getSession().saveOrUpdate(historyEvent);
-        return historyEvent.getId();
+        return saveOrUpdate(historyEvent).getId();
     }
 }

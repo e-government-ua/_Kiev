@@ -1,32 +1,20 @@
 package org.wf.dp.dniprorada.dao;
 
 import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
+import org.wf.dp.dniprorada.base.dao.EntityNotFoundException;
 import org.wf.dp.dniprorada.model.DocumentContentType;
-import org.wf.dp.dniprorada.model.EntityNotFoundException;
 
 import java.util.List;
 
+@Repository
+public class DocumentContentTypeDaoImpl extends GenericEntityDao<DocumentContentType> implements DocumentContentTypeDao {
 
-public class DocumentContentTypeDaoImpl implements DocumentContentTypeDao {
-
-	private SessionFactory sessionFactory;
-
-	@Required
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	private Session getSession() {
-		return sessionFactory.getCurrentSession();
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
+    protected DocumentContentTypeDaoImpl() {
+        super(DocumentContentType.class);
+    }
 
 	@Override
 	public DocumentContentType getDocumentContentType(String name) {

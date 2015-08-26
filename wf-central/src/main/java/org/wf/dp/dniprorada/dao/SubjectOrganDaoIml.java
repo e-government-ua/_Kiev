@@ -1,13 +1,12 @@
 package org.wf.dp.dniprorada.dao;
 
 import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.model.Subject;
 import org.wf.dp.dniprorada.model.SubjectOrgan;
 import org.wf.dp.dniprorada.model.SubjectOrganJoin;
@@ -16,32 +15,20 @@ import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-public class SubjectOrganDaoIml implements SubjectOrganDao {
+@Repository
+public class SubjectOrganDaoIml extends GenericEntityDao<SubjectOrgan> implements SubjectOrganDao {
 
-	private SessionFactory sessionFactory;
+    @Autowired
+    @Qualifier("subjectOrganJoinDao")
+    private GenericEntityDao<SubjectOrganJoin> subjectOrganJoinDao;
 
-	@Autowired
-	private BaseEntityDao baseEntityDao;
-
-	@Required
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	private Session getSession() {
-		return sessionFactory.getCurrentSession();
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	protected SubjectOrganDaoIml() {
+		super(SubjectOrgan.class);
 	}
 
 	@Override
 	public SubjectOrgan getSubjectOrgan(String sOKPO) {
-		return (SubjectOrgan) getSession()
-			.createCriteria(SubjectOrgan.class)
-			.add(Restrictions.eq("sOKPO", sOKPO))
-			.uniqueResult();
+        return findBy("sOKPO", sOKPO).orNull();
 	}
 
 	@Override
@@ -62,14 +49,14 @@ public class SubjectOrganDaoIml implements SubjectOrganDao {
 
     @Override
     public SubjectOrgan getSubjectOrgan(Long nID) {
-        return baseEntityDao.getById(SubjectOrgan.class, nID);
-    }
+		return findById(nID).orNull();
+	}
 
 	@SuppressWarnings("unchecked" /* православно тут все... */)
 	public List<SubjectOrganJoin> findSubjectOrganJoinsBy(Long organID, Long regionID, Long cityID, String uaID) {
 		Criteria crt = getSession()
 			.createCriteria(SubjectOrganJoin.class)
-			.add(Restrictions.eq("subjectOrganId", organID));
+                .add(Restrictions.eq("subjectOrganId", organID));
 
 		if (regionID != null && regionID > 0)
 			crt.add(Restrictions.eq("regionId", regionID));
@@ -91,7 +78,7 @@ public class SubjectOrganDaoIml implements SubjectOrganDao {
         if (persisted == null) {
             // Object doesn't exists, we have to create it
             soj.setId(null);
-            baseEntityDao.saveOrUpdate(soj);
+            subjectOrganJoinDao.saveOrUpdate(soj);
         } else {
             // Object available, hence, we have to update its main parameters
             persisted.setUaId   ( soj.getUaId()   );
@@ -106,15 +93,15 @@ public class SubjectOrganDaoIml implements SubjectOrganDao {
             if (soj.getCityId() != null)
                 persisted.setCityId(soj.getCityId());
 
-            baseEntityDao.saveOrUpdate(persisted);
+            subjectOrganJoinDao.saveOrUpdate(persisted);
         }
 	}
 
 	private SubjectOrganJoin get(String publicId, Long subjectOrganId) {
 		return (SubjectOrganJoin) getSession()
 				.createCriteria(SubjectOrganJoin.class)
-				.add(Restrictions.eq("publicId", publicId))
-				.add(Restrictions.eq("subjectOrganId", subjectOrganId))
+                .add(Restrictions.eq("publicId", publicId))
+                .add(Restrictions.eq("subjectOrganId", subjectOrganId))
 				.uniqueResult();
 	}
 
@@ -123,11 +110,11 @@ public class SubjectOrganDaoIml implements SubjectOrganDao {
 	public void removeSubjectOrganJoin(Long organID, String[] publicIDs) {
 		List<SubjectOrganJoin> sojs = (List<SubjectOrganJoin>) getSession()
 			.createCriteria(SubjectOrganJoin.class)
-			.add(Restrictions.eq("subjectOrganId", organID))
-			.add(Restrictions.in("publicId", publicIDs))
-			.list();
+                .add(Restrictions.eq("subjectOrganId", organID))
+                .add(Restrictions.in("publicId", publicIDs))
+                .list();
 
 		for(SubjectOrganJoin soj : sojs)
-			baseEntityDao.remove(soj);
+            subjectOrganJoinDao.delete(soj);
 	}
 }
