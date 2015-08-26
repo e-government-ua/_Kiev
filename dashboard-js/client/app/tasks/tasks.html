@@ -66,7 +66,7 @@
                    ng-class="{'active': isTaskSelected(task)}">
                   <span class="ticket-date-time">{{task.sDateStart|date:'yyyy-MM-dd HH:mm'}}</span>,
                   №{{task.nID_Instance}}{{lunaService.getLunaValue(task.nID_Instance)}},
-                  (Тікет №{{task.nID_FlowSlot}})<br/>
+                  (Тікет №{{task.nID}})<br/>
                   {{task.sNameBP}}.
                   {{task.sUserTaskName}}.
                 </a>
@@ -79,7 +79,7 @@
                    tooltip="{{task.description}} (Задача №{{task.id}}, Процесс №{{task.processDefinitionId}})"
                    ng-click="selectTask(task)"
                    ng-class="{'active': isTaskSelected(task)}">
-              <span class="ticket-date-time">({{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }})</span>
+              <span class="ticket-date-time">{{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }}</span>
               №{{task.processInstanceId}}{{lunaService.getLunaValue(task.processInstanceId)}} 
               {{ getProcessName(task.processDefinitionId) }} | {{ task.name }}
                
