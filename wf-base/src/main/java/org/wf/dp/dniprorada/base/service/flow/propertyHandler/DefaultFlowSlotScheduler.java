@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.base.service.flow.propertyHandler;
 
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -33,7 +34,7 @@ public class DefaultFlowSlotScheduler extends BaseFlowSlotScheduler {
       this.defaultFlowSlotName = defaultFlowSlotName;
    }
 
-   @Required
+   @Autowired
    public void setFlowSlotDao(FlowSlotDao flowSlotDao) {
       this.flowSlotDao = flowSlotDao;
    }
@@ -85,7 +86,7 @@ public class DefaultFlowSlotScheduler extends BaseFlowSlotScheduler {
             for (FlowSlot slot : slots) {
                if (!existingDates.contains(slot.getsDate())) {
                   slot.setFlow(flow);
-                  flowSlotDao.saveOrUpdate(slot);
+                  slot = flowSlotDao.saveOrUpdate(slot);
 
                   res.add(slot);
                }

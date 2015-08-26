@@ -1,42 +1,30 @@
 package org.wf.dp.dniprorada.dao;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.model.SubjectMessage;
 
 import java.util.List;
 
-public class SubjectMessagesDaoImpl implements SubjectMessagesDao {
+@Repository
+public class SubjectMessagesDaoImpl extends GenericEntityDao<SubjectMessage> implements SubjectMessagesDao {
 
-    private SessionFactory sessionFactory;
-
-    @Required
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    private Session getSession() {
-        return sessionFactory.getCurrentSession();
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    protected SubjectMessagesDaoImpl() {
+        super(SubjectMessage.class);
     }
 
     @Override
     public void setMessage(SubjectMessage message) {
-        getSession().saveOrUpdate(message);
+        saveOrUpdate(message);
     }
 
     @Override
     public List<SubjectMessage> getMessages() {
-        return getSession().createCriteria(SubjectMessage.class).list();
+        return findAll();
     }
 
     @Override
     public SubjectMessage getMessage(Long nID) {
-        SubjectMessage message = (SubjectMessage) getSession().get(SubjectMessage.class, nID);
-        return message;
+        return findById(nID).orNull();
     }
 }

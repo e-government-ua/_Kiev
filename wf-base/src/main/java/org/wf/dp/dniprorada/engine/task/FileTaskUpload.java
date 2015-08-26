@@ -1,8 +1,5 @@
 package org.wf.dp.dniprorada.engine.task;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
@@ -15,17 +12,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
-import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getListCastomFieldName;
-import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getValueFieldWithCastomTypeFile;
 import org.wf.dp.dniprorada.base.model.FlowSlotTicket;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.base.viewobject.flow.SaveFlowSlotTicketResponse;
 import org.wf.dp.dniprorada.form.QueueDataFormType;
 import org.wf.dp.dniprorada.model.BuilderAtachModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -39,8 +36,8 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 
 	public static final String BUILDER_ATACH_MODEL_LIST = "builderAtachModel";
 
-	@Autowired
-	RedisService redisService;
+    @Autowired
+    RedisService redisService;
 
         //@Autowired
         //private BaseEntityDao baseEntityDao;

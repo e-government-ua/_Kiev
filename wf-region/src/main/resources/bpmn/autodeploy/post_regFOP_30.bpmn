@@ -432,7 +432,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_post_regFOP_30">
     <bpmndi:BPMNPlane bpmnElement="post_regFOP_30" id="BPMNPlane_post_regFOP_30">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="138.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="60.0" y="138.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
         <omgdc:Bounds height="71.0" width="105.0" x="200.0" y="120.0"></omgdc:Bounds>
@@ -511,7 +511,7 @@
         <omgdi:waypoint x="710.0" y="325.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
-        <omgdi:waypoint x="105.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="95.0" y="155.0"></omgdi:waypoint>
         <omgdi:waypoint x="200.0" y="155.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

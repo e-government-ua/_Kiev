@@ -1,53 +1,33 @@
 package org.wf.dp.dniprorada.dao;
 
-import java.util.List;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.model.Subject;
 
-public class SubjectDaoImpl implements SubjectDao {
+@Repository
+public class SubjectDaoImpl extends GenericEntityDao<Subject> implements SubjectDao {
 
-    private final Logger log = LoggerFactory.getLogger(SubjectDaoImpl.class);
-    
-    private SessionFactory sessionFactory;
+    private static final Logger LOG = LoggerFactory.getLogger(SubjectDaoImpl.class);
 
-	@Required
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	private Session getSession() {
-		return sessionFactory.getCurrentSession();
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	protected SubjectDaoImpl() {
+		super(Subject.class);
 	}
 
 	@Override
 	public Subject getSubject(Long nID) {
-		return (Subject) getSession().get(Subject.class, nID);
+		return findById(nID).orNull();
 	}
 	
 	@Override
 	public Subject getSubject(String sID) {
-		Subject subject = null;
-		List<Subject> subjects = (List<Subject>)getSession().createCriteria(Subject.class).add(Restrictions.eq("sID", sID)).list();
-		if(subjects != null && !subjects.isEmpty()){
-			subject = subjects.get(0);
-		}
-		return subject;
+		return findBy("sID", sID).orNull();
 	}
 
 	@Override
 	public Subject saveOrUpdateSubject(Subject subject) {
-		getSession().saveOrUpdate(subject);
-		return subject;
+		return saveOrUpdate(subject);
 	}
 
 }
