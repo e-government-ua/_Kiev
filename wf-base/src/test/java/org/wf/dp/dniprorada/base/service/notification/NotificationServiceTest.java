@@ -41,9 +41,9 @@ public class NotificationServiceTest {
    }
 
 
-   @Test
+   /*@Test
    public void testSendTaskCreatedInfoEmail() throws EmailException {
       notificationService.sendTaskCreatedInfoEmail("test.email@gmail.com", 123L);
       Assert.assertEquals(1, server.getReceivedEmailSize());
-   }
+   }*/
 }
