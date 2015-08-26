@@ -19,11 +19,6 @@
       </extensionElements>
     </userTask>
     <serviceTask id="servicetask2" name="оповещение заявителя" activiti:delegateExpression="#{MailTaskWithAttachments}">
-      <boundaryEvent id="boundarytimer1" cancelActivity="false" attachedToRef="servicetask2">
-            <timerEventDefinition>
-                <timeDuration>PT100S</timeDuration>
-            </timerEventDefinition>
-        </boundaryEvent>
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
