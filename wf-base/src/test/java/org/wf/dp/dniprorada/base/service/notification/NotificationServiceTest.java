@@ -25,19 +25,19 @@ public class NotificationServiceTest {
 
 
    @Autowired
-   private NotificationService notificationService;
+   //private NotificationService notificationService;
 
-   private SimpleSmtpServer server;
+   //private SimpleSmtpServer server;
 
 
    @Before
    public void onBefore() {
-      server = SimpleSmtpServer.start();
+      //server = SimpleSmtpServer.start();
    }
 
    @After
    public void onAfter() {
-      server.stop();
+      //server.stop();
    }
 
 
