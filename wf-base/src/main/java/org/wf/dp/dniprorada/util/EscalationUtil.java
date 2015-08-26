@@ -2,7 +2,10 @@ package org.wf.dp.dniprorada.util;
 
 import com.google.gson.Gson;
 import com.mongodb.util.JSON;
+
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler;
 import org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler_SendMailAlert;
 
@@ -10,6 +13,7 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +92,11 @@ public class EscalationUtil {
 
 
     private EscalationHandler getHandlerClass(String sBeanHandler) {
+    	ApplicationContext appContext = new ClassPathXmlApplicationContext("context.xml");
+    	log.info("Retrieved application context : " + appContext);
+    	EscalationHandler res = (EscalationHandler) appContext.getBean("EscalationHandler_SendMailAlert"); 
+    	log.info("Retrieved component : " + res);
+    	return res;
 //        try {
 //            return (EscalationHandler) Class.forName("org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler_SendMailAlert").newInstance();
 //        } catch (InstantiationException | IllegalAccessException e) {
@@ -103,7 +112,7 @@ public class EscalationUtil {
 //            return (EscalationHandler) context.getBean(sBeanHandler);
 //        } catch (Exception e) {
 //            log.error("Can't find class for handler: " + sBeanHandler, e);
-            return new EscalationHandler_SendMailAlert();
+//            return new EscalationHandler_SendMailAlert();
             //throw new RuntimeException();
       //  }
     }
