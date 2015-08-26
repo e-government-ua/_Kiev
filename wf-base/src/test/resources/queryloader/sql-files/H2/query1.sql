@@ -1,0 +1,1 @@
+select CURRENT_TIME()

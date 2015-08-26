@@ -11,6 +11,7 @@
 
 
     <context:component-scan base-package="org.wf.dp.dniprorada" />
+    <context:component-scan base-package="org.wf.dp.dniprorada.base.service.escalation.handler" />
 
     
     <beans profile="prod">
@@ -99,6 +100,7 @@
         <import resource="classpath:context-services.xml"/>
         <import resource="classpath:context-db.xml"/>
         <import resource="classpath:context_local.xml"/>
+        <import resource="classpath:context-scheduler.xml"/>
     </beans>
 
 </beans>

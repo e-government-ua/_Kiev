@@ -47,6 +47,7 @@ module.exports.getAuth = function () {
 
 module.exports.sendGetRequest = function (req, res, apiURL, params, callback, sHost) {
 	var _callback = callback ? callback : function (error, response, body) {
+    res.statusCode = response.statusCode;
 		res.send(body);
 		res.end();
 	};
@@ -56,6 +57,7 @@ module.exports.sendGetRequest = function (req, res, apiURL, params, callback, sH
 
 module.exports.sendPostRequest = function (req, res, apiURL, params, callback, sHost) {
 	var _callback = callback ? callback : function (error, response, body) {
+    res.statusCode = response.statusCode;
 		res.send(body);
 		res.end();
 	};

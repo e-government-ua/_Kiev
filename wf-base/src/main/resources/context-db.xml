@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/tx"
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
 
@@ -23,6 +23,8 @@
                 <array>
                     <value>org.wf.dp.dniprorada.base.model</value>
                     <value>org.wf.dp.dniprorada.model</value>
+                    <!--<value>org.wf.dp.dniprorada.base.service</value>-->
+
                 </array>
             </property>
 
@@ -46,6 +48,7 @@
         <tx:advice id="txAdvice" transaction-manager="transactionManager">
             <tx:attributes>
                 <tx:method name="get*" read-only="true"/>
+                <tx:method name="find*" read-only="true"/>
                 <tx:method name="*"/>
             </tx:attributes>
         </tx:advice>
@@ -56,35 +59,20 @@
             <aop:advisor pointcut-ref="base.dao" advice-ref="txAdvice"/>
         </aop:config>
 
+        <aop:aspectj-autoproxy proxy-target-class="true" />
+
         <!-- ==============================   DAO   ============================= -->
 
-        <bean id="abstractEntityDao" class="org.wf.dp.dniprorada.base.dao.AbstractEntityDao" abstract="true">
-            <property name="sessionFactory" ref="sessionFactory"/>
+        <bean id="flowServiceDataDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
+            <constructor-arg value="#{T(org.wf.dp.dniprorada.base.model.Flow_ServiceData)}"/>
         </bean>
 
-        <bean id="baseEntityDao" class="org.wf.dp.dniprorada.base.dao.BaseEntityDaoImpl">
-            <property name="sessionFactory" ref="sessionFactory"/>
+        <bean id="flowPropertyDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
+            <constructor-arg value="#{T(org.wf.dp.dniprorada.base.model.FlowProperty)}"/>
         </bean>
 
-        <bean id="flowSlotDao" class="org.wf.dp.dniprorada.base.dao.FlowSlotDaoImpl">
-            <property name="sessionFactory" ref="sessionFactory"/>
-        </bean>
-
-        <bean id="flowSlotTicketDao" class="org.wf.dp.dniprorada.base.dao.FlowSlotTicketDaoImp">
-            <property name="sessionFactory" ref="sessionFactory"/>
-        </bean>
-        
-        <bean id="accessDataDao" class="org.wf.dp.dniprorada.base.dao.AccessDataDaoImpl">
-            <!--property name="sessionFactory" ref="sessionFactory"/-->
-        </bean>
-
-        <!--escalation-->
-        <bean id="escalationRuleFunctionDao" class="org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDaoImpl">
-            <property name="sessionFactory" ref="sessionFactory"/>
-        </bean>
-
-        <bean id="escalationRuleDao" class="org.wf.dp.dniprorada.base.dao.EscalationRuleDaoImpl">
-            <property name="sessionFactory" ref="sessionFactory"/>
+        <bean id="flowPropertyClassDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
+            <constructor-arg value="#{T(org.wf.dp.dniprorada.base.model.FlowPropertyClass)}"/>
         </bean>
 
         <!-- ============================ LIQUIBASE ============================= -->

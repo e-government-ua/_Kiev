@@ -30,6 +30,9 @@
 <a href="#28_setSheduleFlowExclude"> 28. Добавление/изменение расписания исключения </a><br/>
 <a href="#29_removeSheduleFlowExclude"> 29. Удаление расписания исключений </a><br/>
 <a href="#30_workWithPatternFiles"> 30. Работа с файлами-шаблонами </a><br/>
+<a href="#31_getFlowSlotTickets"> 31. Получение активных тикетов</a><br/>
+<a href="#32_getTasksByOrder"> 32. Получение списка ID пользовательских тасок по номеру заявки</a><br/>
+<a href="#33_getStatisticServiceCounts"> 33. Получение количества записей HistoryEvent_Service для сервиса по регионам</a><br/>
 
 ### iGov.ua APIs
 
@@ -1475,11 +1478,11 @@ https://test.igov.org.ua/wf-central/service/services/setServicesTree
 
 **HTTP Context: https://server:port/wf-region/service/rest/download_bp_timing?sID_BP_Name=XXX&sDateAt=XXX8&sDateTo=XXX**
 
-* {sID_BP_Name} - ID бизнес процесса
-* {sDateAt} - Дата начала периода для выборки в формате yyyy-MM-dd
-* {sDateTo} - Дата окончания периода для выборки в формате yyyy-MM-dd
-* {nRowsMax} - необязательный параметр. Максимальное значение завершенных задач для возврата. По умолчанию 1000.
-* {nRowStart} - Необязательный параметр. Порядковый номер завершенной задачи в списке для возврата. По умолчанию 0.
+* sID_BP_Name - ID бизнес процесса
+* sDateAt - Дата начала периода для выборки в формате yyyy-MM-dd
+* sDateTo - Дата окончания периода для выборки в формате yyyy-MM-dd
+* nRowsMax - необязательный параметр. Максимальное значение завершенных задач для возврата. По умолчанию 1000.
+* nRowStart - Необязательный параметр. Порядковый номер завершенной задачи в списке для возврата. По умолчанию 0.
 
 Метод возвращает .csv файл со информацией о завершенных задачах в указанном бизнес процессе за период.
 Формат выходного файла
@@ -1583,6 +1586,8 @@ http://test.igov.org.ua/wf-central/service/services/updateHistoryEvent_Service?n
 
 Пример:
 https://test.igov.org.ua/wf-central/service/flow/getFlowSlots_ServiceData?nID_ServiceData=1
+или
+https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?sID_BP=kiev_mreo_1
 
 Ответ:  HTTP STATUS 200
 ```json
@@ -1958,7 +1963,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?&s
 
 **HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=[userId]
 
-* {sLogin} - ID пользователя
+* sLogin - ID пользователя
 
 Метод возвращает json со списком бизнес процессов, к которым у пользователя есть доступ, в формате 
 [
@@ -1992,9 +1997,9 @@ https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=kermit
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=[flowId]
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=[flowId]
 
-* {flowId} - ID потока
+* flowId - ID потока
 
 Пример:
 ```
@@ -2024,6 +2029,9 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nI
 * saRegionWeekDay - Массив дней недели ("su,mo,tu")
 * sDateTimeAt - Строка-дата начала(на) в формате YYYY-MM-DD hh:mm:ss ("2015-07-31 19:00:00")
 * sDateTimeTo - Строка-дата конца(к) в формате YYYY-MM-DD hh:mm:ss ("2015-07-31 23:00:00")
+* sData - Строка с данными(выражением), описывающими формулу расписания (например: {"0 0/30 9-12 ? * TUE-FRI":"PT30M"})
+* nLen - Число, определяющее длительность слота
+* sLenType - Строка определяющее тип длительности слота
 
 Пример:
 ```
@@ -2070,9 +2078,9 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowInclude?
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=[flowId]
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=[flowId]
 
-* {flowId} - ID потока
+* flowId - ID потока
 
 Пример:
 ```
@@ -2102,6 +2110,9 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nI
 * saRegionWeekDay - Массив дней недели ("su,mo,tu")
 * sDateTimeAt - Строка-дата начала(на) в формате YYYY-MM-DD hh:mm:ss ("2015-07-31 19:00:00")
 * sDateTimeTo - Строка-дата конца(к) в формате YYYY-MM-DD hh:mm:ss ("2015-07-31 23:00:00")
+* sData - Строка с данными(выражением), описывающими формулу расписания (например: {"0 0/30 9-12 ? * TUE-FRI":"PT30M"})
+* nLen - Число, определяющее длительность слота
+* sLenType - Строка определяющее тип длительности слота
 
 Пример:
 ```
@@ -2173,3 +2184,93 @@ https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=
 
 ----------------------
 
+<a name="31_getFlowSlotTickets">
+#### 31. Получение активных тикетов
+</a><a href="#0_contents">↑Up</a><br/>
+
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=[sLogin]&bEmployeeUnassigned=[true|false]&sDate=[yyyy-MM-dd]
+-- возвращает активные тикеты, отсортированные по startDate
+
+* sLogin - имя пользоватеял для которого необходимо вернуть тикеты
+* bEmployeeUnassigned - опциональный параметр (false по умолчанию). Если true - возвращать тикеты не заассайненые на пользователей
+* sDate - опциональный параметр в формате yyyy-MM-dd. Дата за которую выбирать тикеты. При выборке проверяется startDate тикета (без учета времени. только дата). Если день такой же как и у указанное даты - такой тикет добавляется в результат.
+
+Примеры:
+
+https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=kermit
+
+```json
+[{"sDateStart":"2015-07-20T15:15:00","sDateEdit":"2015-07-06T11:03:52","sTaskDate":"2015-07-30T10:03:43","sDateFinish":"2015-07-20T15:30:00","nID_FlowSlot":"6","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Надання послуги: Огляд авто","nID":"20005"},{"sDateStart":"2015-07-20T15:45:00","sDateEdit":"2015-07-06T23:25:15","sTaskDate":"2015-07-06T23:27:18","sDateFinish":"2015-07-20T16:00:00","nID_FlowSlot":"7","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Надання послуги: Огляд авто","nID":"20010"}]
+```
+
+https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=kermit&bEmployeeUnassigned=true
+```json
+[{"sDateStart":"2015-08-03T08:00:00","sDateEdit":"2015-07-30T23:10:58","sTaskDate":"2015-07-30T23:50:07","sDateFinish":"2015-08-03T08:15:00","nID_FlowSlot":"20086","sNameBP":"Днепропетровск - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Друк держ.номерів","nID":"20151"},{"sDateStart":"2015-08-03T08:15:00","sDateEdit":"2015-07-31T21:00:56","sTaskDate":"2015-07-31T21:01:19","sDateFinish":"2015-08-03T08:30:00","nID_FlowSlot":"20023","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Перевірка наявності обтяжень","nID":"20357"}]
+```
+
+https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=kermit&bEmployeeUnassigned=true&sDate=2015-07-20
+```json
+[{"sDateStart":"2015-07-20T15:15:00","sDateEdit":"2015-07-06T11:03:52","sTaskDate":"2015-07-30T10:03:43","sDateFinish":"2015-07-20T15:30:00","nID_FlowSlot":"6","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Надання послуги: Огляд авто","nID":"20005"},{"sDateStart":"2015-07-20T15:45:00","sDateEdit":"2015-07-06T23:25:15","sTaskDate":"2015-07-06T23:27:18","sDateFinish":"2015-07-20T16:00:00","nID_FlowSlot":"7","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Надання послуги: Огляд авто","nID":"20010"}]
+```
+
+
+----------------------
+
+<a name="32_getTasksByOrder">
+#### 32. Получение списка ID пользовательских тасок по номеру заявки
+</a><a href="#0_contents">↑Up</a><br/>
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/tasks/getTasksByOrder?nID_Protected=[nID_Protected]
+-- возвращает спискок ID пользовательских тасок по номеру заявки
+
+* nID_Protected - Номер заявки, в котором, все цифры кроме последней - ID процесса в activiti. А последняя цифра - его контрольная сумма зашифрованная по алгоритму Луна.
+
+Примеры:
+
+https://test.region.igov.org.ua/wf-region/service/rest/tasks/getTasksByOrder?nID_Protected=123452
+
+Responce status 403.
+```json
+{"code":"BUSINESS_ERR","message":"CRC Error"}
+```
+
+https://test.region.igov.org.ua/wf-region/service/rest/tasks/getTasksByOrder?nID_Protected=123451
+
+1) Если процесса с ID 12345 и тасками нет в базе то:
+
+Responce status 403.
+```json
+{"code":"BUSINESS_ERR","message":"Record not found"}
+```
+2) Если процесс с ID 12345 есть в базе с таской ID которой 555, то:
+
+Responce status 200.
+```json
+[ 555 ]
+```
+
+<a href="#33_getStatisticServiceCounts"> </a><br/>
+
+<a name="33_getStatisticServiceCounts">
+#### 33. Получение количества записей HistoryEvent_Service для сервиса по регионам
+</a><a href="#0_contents">↑Up</a><br/>
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?nID_Service=[nID_Service]
+
+* nID_Service - ID сервиса.
+
+Примеры:
+
+https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?nID_Service=1
+
+Результат
+```json
+[{"nCount":1,"sName":"Івано-Франківська"},{"nCount":3,"sName":"Дніпропетровська"},{"nCount":1,"sName":"Львівська"}]
+```

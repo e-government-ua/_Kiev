@@ -9,26 +9,56 @@
     padding: 20px 20px 20px 60px;
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: whitesmoke;
-    border-right: 1px solid #eeeeee;
-  }
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee; }
 
   .main {
     padding-top: 20px;
-    top: 51px;
-  }
-}
-
+    top: 51px; } }
 .tasks-form-view {
-  overflow-y: auto;
-}
+  overflow-y: auto; }
 
 .tasks-form-buttons {
   height: 40px;
-  padding-top: 6px;
-}
+  padding-top: 6px; }
 
 .task-form-property {
   padding-top: 6px;
-  padding-right: 6px;
-}
+  padding-right: 6px; }
+
+.tasks .tasks-tickets-list-header {
+  line-height: 35px; }
+  .tasks .tasks-tickets-list-header .tickets-assign {
+    float: right; }
+  .tasks .tasks-tickets-list-header .tickets-date {
+    float: left; }
+    .tasks .tasks-tickets-list-header .tickets-date .tickets-date-mode {
+      margin-right: 10px; }
+      .tasks .tasks-tickets-list-header .tickets-date .tickets-date-mode.selected {
+        font-weight: bold;
+        text-decoration: underline; }
+    .tasks .tasks-tickets-list-header .tickets-date .form-control {
+      display: inline;
+      width: auto; }
+.tasks .ticket-date-time {
+  font-weight: bold; }
+
+.task-list-header {
+  display: table;
+  width: 100%; }
+
+.task-list-header-row {
+  display: table-row;
+  width: 100%; }
+
+.task-list-header-cell {
+  display: table-cell; }
+
+.right-aligned {
+  float: right; }
+
+.task-list-header-search {
+  font-size: 12px;
+  font-style: italic; }
+
+/*# sourceMappingURL=tasks.css.map */

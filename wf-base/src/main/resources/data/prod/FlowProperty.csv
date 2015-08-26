@@ -9,3 +9,7 @@ nID;nID_FlowPropertyClass;sData;nID_Flow_ServiceData
 8;1;{"0 15 15 ? * SAT":"PT30M"};2
 9;1;{"0 0/60 9-12,14-17 ? * MON-FRI":"PT1H"};3
 10;1;{"0 0/60 9-13 ? * SAT":"PT1H"};3
+11;1;{"0 30,45/15 9 ? * MON,TUE,THU,FRI":"PT15M"};4
+12;1;{"0 0,15,30,45/15 10 ? * MON,TUE,THU,FRI":"PT15M"};4
+13;1;{"0 0/15 14-15 ? * MON,TUE,THU,FRI":"PT15M"};4
+14;1;{"0 15,30,45/15 15 ? * MON,TUE,THU,FRI":"PT15M"};4

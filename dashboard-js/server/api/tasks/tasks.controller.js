@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 var _ = require('lodash');
 var activiti = require('../../components/activiti');
@@ -17,8 +17,14 @@ exports.index = function(req, res) {
     query.candidateUser = user.id;
     query.unassigned = true;
   } else if (req.query.filterType === 'finished') {
-	path = 'history/historic-task-instances'
+	  path = 'history/historic-task-instances';
     query.taskAssignee = user.id;
+  } else if (req.query.filterType === 'tickets') {
+    path = 'flow/getFlowSlotTickets';
+    query.sLogin = user.id;
+    query.bEmployeeUnassigned = req.query.bEmployeeUnassigned;
+    if (req.query.sDate)
+      query.sDate = req.query.sDate;
   }
 
   var options = {
@@ -30,6 +36,9 @@ exports.index = function(req, res) {
     if (error) {
       res.send(error);
     } else {
+      if (req.query.filterType === 'tickets') {
+        result = JSON.stringify({data:JSON.parse(result)});
+      }
       res.json(result);
     }
   });
@@ -57,6 +66,26 @@ exports.getForm = function(req, res) {
     query: {
       'taskId': req.params.taskId
     }
+  };
+
+  activiti.get(options, function(error, statusCode, result) {
+    if (error) {
+      res.send(error);
+    } else {
+      res.status(statusCode).json(result);
+    }
+  });
+};
+
+exports.getFormFromHistory = function(req, res) {
+  var options = {
+    path: 'history/historic-task-instances',
+    query: {
+      'taskId': req.params.taskId,
+      'includeTaskLocalVariables': true,
+      'includeProcessVariables': true
+    }
+
   };
 
   activiti.get(options, function(error, statusCode, result) {
@@ -145,4 +174,23 @@ exports.updateTask = function(req, res) {
     res.statusCode = statusCode;
     res.send(result);
   }, req.body);
+};
+
+exports.getTask = function(req, res) {
+  var options = {
+    path: 'runtime/tasks/' + req.params.taskId
+  };
+  activiti.put(options, function(error, statusCode, result) {
+    res.statusCode = statusCode;
+    res.send(result);
+  }, req.body);
+};
+
+exports.getTasksByOrder = function(req, res) {
+  var options = { path: 'rest/tasks/getTasksByOrder',
+    query: { 'nID_Protected': req.params.orderId }
+  };
+  activiti.get(options, function(error, statusCode, result) {
+    error ? res.send(error) : res.status(statusCode).json(result);
+  });
 };
