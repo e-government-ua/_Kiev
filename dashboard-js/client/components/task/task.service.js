@@ -123,29 +123,6 @@ angular.module('dashboardJsApp')
         }, callback);
       },
 
-      taskFormFromHistory: function(taskId, callback) {
-        var cb = callback || angular.noop;
-        var deferred = $q.defer();
-
-        var req = {
-          method: 'GET',
-          url: '/api/tasks/' + taskId + '/form-from-history',
-          data: {}
-        };
-
-        $http(req).
-        success(function(data) {
-          deferred.resolve(data);
-          return cb();
-        }).
-        error(function(err) {
-          deferred.reject(err);
-          return cb(err);
-        }.bind(this));
-
-        return deferred.promise;
-      },
-
       taskAttachments: function(taskId, callback) {
         return simpleHttpPromise({
           method: 'GET',
