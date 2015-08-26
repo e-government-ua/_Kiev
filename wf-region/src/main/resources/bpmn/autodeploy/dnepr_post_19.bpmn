@@ -23,7 +23,17 @@
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>   
-        
+        <activiti:formProperty id="numobr" name="Ваше звернення до районного органу соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
+          <activiti:value id="obr1" name="первинне"></activiti:value>
+          <activiti:value id="obr2" name="вторинне"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string"></activiti:formProperty>
+        <activiti:formProperty id="kuda_dengi" name="Прошу в разі призначення допомоги кошти готівкою перераховувати" type="label"  default=" "></activiti:formProperty>
+        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long"></activiti:formProperty>
+        <activiti:formProperty id="bankschet" name="на рахунок у банку №" type="long"></activiti:formProperty>
+        <activiti:formProperty id="mfo" name="МФО" type="long"></activiti:formProperty>
+        <activiti:formProperty id="okpo" name="код" type="long"></activiti:formProperty>
+        <activiti:formProperty id="bankchoose" name="банк" type="string"></activiti:formProperty>
         <activiti:formProperty id="scpasp" name="Копія паспорту; завантажте копію паспорту" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="sost" name="Довідка про склад сім'ї; завантажте довідку про склад сім'ї" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="zeml" name="Довідка про наявність та розмір земельної ділянки (паю); завантажте довідку про наявність та розмір земельної ділянки (паю)" type="file"></activiti:formProperty>
@@ -36,9 +46,9 @@
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
-    <serviceTask id="servicetask1" name="Загрузка файлов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow2" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
-    <userTask id="usertask1" name="Проверка почтой" activiti:async="true" activiti:candidateGroups="dnepr_social_help">
+    <userTask id="usertask1" name="Перевірка Укрпоштою" activiti:async="true" activiti:candidateGroups="dnepr_social_help">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -60,6 +70,17 @@
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="numobr" name="Звернення замовника до районного органу соціального захисту населення" type="enum" writable="false">
+          <activiti:value id="obr1" name="первинне"></activiti:value>
+          <activiti:value id="obr2" name="вторинне"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kuda_dengi" name="Прошу в разі призначення допомоги кошти готівкою перераховувати" type="label"  default=" "></activiti:formProperty>
+        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankschet" name="на рахунок у банку №" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="mfo" name="МФО" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="okpo" name="код" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankchoose" name="банк" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="scpasp" name="Копія паспорту" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sost" name="Довідка про склад сім'ї" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="zeml" name="Довідка про наявність та розмір земельної ділянки (паю)" type="file" writable="false"></activiti:formProperty>
