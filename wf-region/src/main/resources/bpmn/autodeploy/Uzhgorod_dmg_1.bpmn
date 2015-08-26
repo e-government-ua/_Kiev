@@ -159,7 +159,7 @@ ${comment_2}</activiti:expression>
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:string>Нове звернення на дозвіл на виконнаня земляних робіт від громадянина </activiti:string>
+          <activiti:string>Нове звернення на дозвіл на виконнаня земляних робіт від громадянина</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
