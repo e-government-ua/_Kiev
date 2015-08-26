@@ -24,7 +24,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class NotificationServiceTest {
 
 
-   @Autowired
+   //@Autowired
    //private NotificationService notificationService;
 
    //private SimpleSmtpServer server;
