@@ -73,13 +73,13 @@
               </div>
 
               <div ng-if="sSelectedTask!='tickets'">
-                <a class="list-group-item task {{sSelectedTask}}_{{lunaService.getLunaValue(task.processInstanceId)}} {{ sTaskClass(task.taskDefinitionKey) }}"
+                <a class="list-group-item task {{sSelectedTask}}_{{task.processInstanceId}} {{ sTaskClass(task.taskDefinitionKey) }}"
                    href=""
                    ng-repeat="task in tasks | orderBy:predicate:reverse"
                    tooltip="{{task.description}} (Задача №{{task.id}}, Процесс №{{task.processDefinitionId}})"
                    ng-click="selectTask(task)"
                    ng-class="{'active': isTaskSelected(task)}">
-              ({{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }})&nbsp;№{{lunaService.getLunaValue(task.processInstanceId)}} 
+              ({{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }}) №{{lunaService.getLunaValue(task.processInstanceId)}} 
               {{ getProcessName(task.processDefinitionId) }} | {{ task.name }}
                
                   </a>
