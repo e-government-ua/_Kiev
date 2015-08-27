@@ -6,17 +6,17 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім`я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Домашня адреса" type="string"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380"></activiti:formProperty>
-        <activiti:formProperty id="goal" name="Мета отримання" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Домашня адреса" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="goal" name="Мета отримання" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="docType" name="Тип документа" type="enum">
           <activiti:value id="Копія рішення" name="Копія рішення"></activiti:value>
           <activiti:value id="Витяг з рішення" name="Витяг з рішення"></activiti:value>
           <activiti:value id="Ксерокопії матеріалів" name="Ксерокопії матеріалів"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="docDate" name="Дата прийняття документа; в форматі ДД.ММ.РРРР" type="string"></activiti:formProperty>
-        <activiti:formProperty id="docNumber" name="Номер документа" type="string"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string"></activiti:formProperty>
+        <activiti:formProperty id="docDate" name="Дата прийняття документа; в форматі ДД.ММ.РРРР" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="docNumber" name="Номер документа" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -85,35 +85,37 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow4" name="searchResult=='notFound'" sourceRef="exclusivegateway1" targetRef="mailtask2"></sequenceFlow>
-    <serviceTask id="servicetask1" name="Відправка відповіді на запит" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow6" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
+    <serviceTask id="mailtask3" name="Повідомлення про те, що документ знайдено" activiti:type="mail">
       <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
         </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-Щодо Вашого запиту на отримання ${docType} №${docNumber} від  ${docDate}
-Документ знаходиться у додатку до цього листа.
+Щодо Вашого запиту на отримання ${docType} №${docNumber}.
+Документ за вашим запитом підготовлено. Ви можете отримати його за адресою:
+м. Ужгород, вул.
+Час роботи: пн.-пт., 10:00-17:00, обідня перерва 12:00-13:00
 
 З повагою,
 Міська рада міста Ужгород,
 Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${docToSend}"</activiti:expression>
-        </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow5" name="searchResult=='Found'" sourceRef="exclusivegateway1" targetRef="servicetask1"></sequenceFlow>
-    <endEvent id="endevent1" name="End"></endEvent>
-    <sequenceFlow id="flow6" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
-    <sequenceFlow id="flow7" sourceRef="servicetask1" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow7" name="searchResult=='found'" sourceRef="exclusivegateway1" targetRef="mailtask3"></sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="mailtask3" targetRef="endevent1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_uzgorod_mvk_1">
     <bpmndi:BPMNPlane bpmnElement="uzgorod_mvk_1" id="BPMNPlane_uzgorod_mvk_1">
@@ -127,16 +129,16 @@
         <omgdc:Bounds height="55.0" width="105.0" x="276.0" y="128.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
-        <omgdc:Bounds height="40.0" width="40.0" x="426.0" y="136.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="426.0" y="135.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="55.0" width="105.0" x="394.0" y="0.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="394.0" y="260.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="680.0" y="139.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="394.0" y="260.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="81.0" y="155.0"></omgdi:waypoint>
@@ -148,20 +150,13 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
         <omgdi:waypoint x="381.0" y="155.0"></omgdi:waypoint>
-        <omgdi:waypoint x="426.0" y="156.0"></omgdi:waypoint>
+        <omgdi:waypoint x="426.0" y="155.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="446.0" y="136.0"></omgdi:waypoint>
+        <omgdi:waypoint x="446.0" y="135.0"></omgdi:waypoint>
         <omgdi:waypoint x="446.0" y="55.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="456.0" y="81.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="446.0" y="176.0"></omgdi:waypoint>
-        <omgdi:waypoint x="446.0" y="260.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="456.0" y="199.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="456.0" y="80.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
@@ -169,6 +164,13 @@
         <omgdi:waypoint x="697.0" y="139.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="446.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="446.0" y="260.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="456.0" y="175.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
         <omgdi:waypoint x="446.0" y="260.0"></omgdi:waypoint>
         <omgdi:waypoint x="697.0" y="174.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
