@@ -77,21 +77,22 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
 		osURL.append(oDocumentAccess.getSecret());*/
 		//return osURL.toString();
 
-		String saToMail = sMail;
-		String sHead = "Доступ до документу";
-		String sBody = "Вам надано доступ до документу на Порталі державних послуг iGov.org.ua.<br>" +
-				  "<br>" +
-				  "<b>Код документу:</b> %" + id + "%<br>" +
-				  "<br>" +
-				  "Щоб переглянути цей документ, зайдіть на <a href=\"" + generalConfig.sHostCentral() + "\">iGov.org.ua</a>, пункт меню <b>Документи</b>, вкладка <b>Пошук документу за кодом</b>. Там оберіть тип документу, того, хто його надає та введіть код.<br>" +
-				  "<br>" +
-				  "З повагою,<br>" +
-				  "команда порталу державних послу iGov";
-		oMail.reset();
-
-		oMail._To(saToMail)._Head(sHead)._Body(sBody);
-
-		oMail.send();
+                if(sMail!=null && !"".equals(sMail.trim())){
+                    String saToMail = sMail;
+                    String sHead = "Доступ до документу";
+                    String sBody = "Вам надано доступ до документу на Порталі державних послуг iGov.org.ua.<br>" +
+                                      "<br>" +
+                                      "<b>Код документу:</b> %" + id + "%<br>" +
+                                      "<br>" +
+                                      "Щоб переглянути цей документ, зайдіть на <a href=\"" + generalConfig.sHostCentral() + "\">iGov.org.ua</a>, пункт меню <b>Документи</b>, вкладка <b>Пошук документу за кодом</b>. Там оберіть тип документу, того, хто його надає та введіть код.<br>" +
+                                      "<br>" +
+                                      "З повагою,<br>" +
+                                      "команда порталу державних послу iGov";
+                    oMail.reset();
+                    oMail._To(saToMail)._Head(sHead)._Body(sBody);
+                    oMail.send();
+                }                
+                
 
 		return id;
 
