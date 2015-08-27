@@ -138,7 +138,6 @@ public class EscalationService {
         m.put("sTaskName", oTask.getName());
         m.put("sTaskDescription", oTask.getDescription());
         m.put("sProcessInstanceId", oTask.getProcessInstanceId());
-        
 
         List<User> users = BPMNUtil.getUsersInfoBelongToProcess(repositoryService, identityService, oTask.getProcessDefinitionId(), oTask.getTaskDefinitionKey());
         StringBuffer userInfoString = new StringBuffer();
