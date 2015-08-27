@@ -1,13 +1,12 @@
+'use strict';
+
 angular.module('app').controller('ServiceCityAbsentController', function($state,
                                                       $rootScope,
                                                       $scope,
-                                                      service,
                                                       MessagesService,
                                                       AdminService,
                                                       ValidationService) {
-  'use strict';
 
-  $scope.service = service;
   $scope.bAdmin = AdminService.isAdmin();
   (function() {
     if (window.pluso && typeof window.pluso.start === 'function') { return; }
