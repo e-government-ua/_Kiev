@@ -359,7 +359,7 @@ public class ActivitiRestDocumentController {
                         nID_DocumentType,
                         nID_DocumentContentType,
                         sFileName,
-                        sFileContentType,
+                        sOriginalContentType,
                         aoContent,
                         soSignData);
         createHistoryEvent(HistoryEventType.SET_DOCUMENT_INTERNAL,
