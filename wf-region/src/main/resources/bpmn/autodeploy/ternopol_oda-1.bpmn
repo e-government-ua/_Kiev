@@ -385,7 +385,7 @@
           <activiti:string><![CDATA[internationalrelations.te@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Отримання разової (індивідуальної) ліцензії на зовнішньоекономічну операцію]]></activiti:string>
