@@ -28,9 +28,6 @@ public class EscalationHandler_SendMailAlert
         try {
             byte[] bytes = Util.getPatternFile(sPatternFile);
             sBody = Util.sData(bytes);
-            log.info(">>>>>>>pattern body=");
-            log.info(sBody);
-            log.info(">>>>>>>--------");
         } catch (IOException e) {//??
             log.error("error during finding the pattern file! path=" + sPatternFile, e);
         }
@@ -46,9 +43,6 @@ public class EscalationHandler_SendMailAlert
                 sBody = sBody.replace("[" + key + "]", mParam.get(key).toString());
             }
         }
-        log.info(">>>>>>>total sbody=");
-        log.info(sBody);
-        log.info(">>>>>>>--------");
         log.info ("@Autowired oMail=" + oMail );
         oMail = oMail == null ? new Mail(): oMail;
         log.info ("oMail=" + oMail );
