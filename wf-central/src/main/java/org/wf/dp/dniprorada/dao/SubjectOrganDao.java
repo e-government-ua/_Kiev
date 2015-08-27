@@ -1,11 +1,12 @@
 package org.wf.dp.dniprorada.dao;
 
+import org.wf.dp.dniprorada.base.dao.EntityDao;
 import org.wf.dp.dniprorada.model.SubjectOrgan;
 import org.wf.dp.dniprorada.model.SubjectOrganJoin;
 
 import java.util.List;
 
-public interface SubjectOrganDao {
+public interface SubjectOrganDao extends EntityDao<SubjectOrgan> {
 	
 	public SubjectOrgan getSubjectOrgan(String sOKPO); 
 

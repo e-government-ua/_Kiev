@@ -3,13 +3,15 @@ package org.wf.dp.dniprorada.dao;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.wf.dp.dniprorada.base.dao.AbstractEntityDao;
+import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
+import org.wf.dp.dniprorada.base.dao.EntityNotFoundException;
 import org.wf.dp.dniprorada.model.Country;
-import org.wf.dp.dniprorada.model.EntityNotFoundException;
 
 import java.util.List;
 
-public class CountryDaoImpl extends AbstractEntityDao<Country>
+@Repository
+public class CountryDaoImpl extends GenericEntityDao<Country>
         implements CountryDao{
 
     private static final Logger log = Logger.getLogger(CountryDaoImpl.class);
@@ -21,6 +23,7 @@ public class CountryDaoImpl extends AbstractEntityDao<Country>
     //return false if all args are null
     //otherwise set params to criteria
     //note: length arrays must be the same
+    //TODO: можно вынести в BaseEntityDao
     private boolean setRestrictions(Criteria criteria, String[] columns, Object[] values) {
         boolean allAreNull = true;
         for (int i = 0; i < values.length; i++) {
@@ -78,7 +81,7 @@ public class CountryDaoImpl extends AbstractEntityDao<Country>
         if (sReference_localISO != null && !sReference_localISO.equals(country.getsReference_LocalISO()))
             country.setsReference_LocalISO(sReference_localISO);
 
-        saveOrUpdate(country);
+        country = saveOrUpdate(country);
         log.info("country " + country + "is updated");
         return country;
     }
@@ -109,23 +112,17 @@ public class CountryDaoImpl extends AbstractEntityDao<Country>
     @Override
     public Country getByKey(Long nID, Long nID_ua, String sID_two, String sID_three) {
         if (nID != null){
-            return getById(nID);
+            return findById(nID).orNull();
         } else
         if (nID_ua != null){
-            return getRecordByField("nID_UA", nID_ua);
+            return findBy("nID_UA", nID_ua).orNull();
         } else
         if (sID_two != null){
-            return getRecordByField("sID_Two", sID_two);
+            return findBy("sID_Two", sID_two).orNull();
         } else
         if (sID_three != null){
-            return getRecordByField("sID_Three", sID_three);
+            return findBy("sID_Three", sID_three).orNull();
         } else
             throw new IllegalArgumentException("All args are null!");
-    }
-
-    private Country getRecordByField(String keyName, Object keyValue) {
-        Criteria cr = getSession().createCriteria(Country.class);
-        cr.add(Restrictions.eq(keyName, keyValue));
-        return (Country) cr.uniqueResult();
     }
 }

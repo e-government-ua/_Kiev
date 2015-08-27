@@ -3,6 +3,7 @@ package org.wf.dp.dniprorada.base.service.escalation.handler;
 import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.wf.dp.dniprorada.util.Mail;
 import org.wf.dp.dniprorada.util.Util;
 
@@ -10,13 +11,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component("EscalationHandler_SendMailAlert")
 public class EscalationHandler_SendMailAlert
         implements EscalationHandler {
 
     private static final Logger log = Logger.getLogger(EscalationHandler_SendMailAlert.class);
 
     @Autowired
-    Mail oMail;
+    private Mail oMail;
 
 
     @Override

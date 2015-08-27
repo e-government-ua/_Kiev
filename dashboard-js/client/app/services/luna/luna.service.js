@@ -6,7 +6,9 @@ angular.module('dashboardJsApp').factory('lunaService', function () {
 
       // Number 2187501 must give CRC=3
       // Check: http://planetcalc.ru/2464/
-
+      if(id===null || id === 0){
+        return null;
+      }
       var n = parseInt(id);
       var nFactor = 1;
       var nCRC = 0;

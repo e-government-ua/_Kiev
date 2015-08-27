@@ -36,9 +36,14 @@
       <td> {{slot.duration}}</td>
       <td>
         <div class="btn-group">
-          <button type="button" class="btn btn-default" ng-click="edit(slot)">Редагувати</button>
+          <button type="button" class="btn btn-default" ng-click="edit(slot)">
+            Редагувати
+          </button>
+          <button type="button" class="btn btn-warning" ng-click="copy(slot)">
+            <i class="fa fa-copy"></i>
+          </button>
           <button type="button" class="btn btn-danger" ng-click="delete(slot)">
-            <i class="glyphicon glyphicon-trash"></i>
+            <i class="fa fa-trash-o"></i>
           </button>
         </div>
       </td>
