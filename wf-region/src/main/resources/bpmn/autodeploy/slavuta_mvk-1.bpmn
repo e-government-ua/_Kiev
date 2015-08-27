@@ -51,7 +51,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="reason" name="Підстава для відмови" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="vlasn" name="Копія правовстановлюючих документів, що посвідчують право на земельну ділянку" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/kalush_rda_1_zayava.html]" type="invisible" default="${sBody_1}"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/slavuta_mvk-1_zayava.html]" type="invisible" default="${sBody_1}"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
