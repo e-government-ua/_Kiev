@@ -132,7 +132,7 @@ public class EscalationService {
             }
         }
         
-        m.put("sID_BP", oTask.getTaskDefinitionKey());
+        m.put("sID_BP", oTask.getProcessDefinitionId());
         m.put("nID_task_activiti", oTask.getId());
         m.put("sTaskName", oTask.getName());
         m.put("sTaskDescription", oTask.getDescription());
@@ -145,15 +145,15 @@ public class EscalationService {
         	userInfoString.append(currUser.getId());
         	userInfoString.append(":");
         	userInfoString.append(currUser.getFirstName());
-        	userInfoString.append(":");
+        	userInfoString.append(" ");
         	userInfoString.append(currUser.getLastName());
-        	userInfoString.append("  ");
+        	userInfoString.append("<br/>");
         }
         
         m.put("sServiceType", String.format("Тип послуги: %s", oTask.getTaskDefinitionKey()));
-        m.put("sTaskName", String.format("Стадія: %s:%s", oTask.getName(), oTask.getDescription()));
+        m.put("sTaskName", String.format("Стадія: %s", oTask.getName()));
         m.put("sTaskNumber", String.format("Номер заявки: %s (с контрольной суммой по алгоритму Луна)", oTask.getId()));
-        m.put("sServiceType", String.format("Заявка знаходиться на цій стадії вже: %d дн.", nElapsedDays));
+        m.put("sElapsedInfo", String.format("Заявка знаходиться на цій стадії вже: %d дн.", nElapsedDays));
         m.put("sResponsiblePersons", String.format("Відповідальні за розгляд заявки: %s", userInfoString.toString()));
         
         return m;

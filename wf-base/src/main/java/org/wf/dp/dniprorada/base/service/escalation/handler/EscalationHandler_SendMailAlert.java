@@ -60,17 +60,9 @@ public class EscalationHandler_SendMailAlert
 
         oMail.reset();
         oMail
-//                ._From("noreplay@gmail.com")
                 ._To(recipient)
                 ._Head(sHead)
-                ._Body(sBody)
-        //._AuthUser(mailServerUsername)
-        //._AuthPassword(mailServerPassword)
-//        ._Host("gmail.com")
-//                ._Port(Integer.valueOf("gmail.com"))
-        //._SSL(true)
-        //._TLS(true)
-        ;
+                ._Body(sBody);
         oMail.send();
     }
 
