@@ -194,7 +194,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
       Modal.assignTask(function (event) {
         $scope.selectedTasks[$scope.$storage.menuType] = null;
         loadTaskCounters();
-        $scope.applyTaskFilter($scope.menus[0].type, $scope.selectedTask.id);
+        $scope.applyTaskFilter($scope.menus[1].type, $scope.selectedTask.id);
       }, 'Задача у вас в роботі');
     })
       .catch(defaultErrorHandler());
