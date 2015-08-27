@@ -57,8 +57,6 @@
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow2" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
-    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow3" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <serviceTask id="mailtask2" name="Повідомлення про те, що документ не знайдено" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -84,7 +82,6 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow4" name="searchResult=='notFound'" sourceRef="exclusivegateway1" targetRef="mailtask2"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow6" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
     <serviceTask id="mailtask3" name="Повідомлення про те, що документ знайдено" activiti:type="mail">
@@ -114,8 +111,15 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow7" name="searchResult=='found'" sourceRef="exclusivegateway1" targetRef="mailtask3"></sequenceFlow>
     <sequenceFlow id="flow8" sourceRef="mailtask3" targetRef="endevent1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow9" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow10" name="searchResult=='notFound'" sourceRef="exclusivegateway1" targetRef="mailtask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[searchResult=='notFound']]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow11" name="searchResult=='found'" sourceRef="exclusivegateway1" targetRef="mailtask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[searchResult=='found']]></conditionExpression>
+    </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_uzgorod_mvk_1">
     <bpmndi:BPMNPlane bpmnElement="uzgorod_mvk_1" id="BPMNPlane_uzgorod_mvk_1">
@@ -128,9 +132,6 @@
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="55.0" width="105.0" x="276.0" y="128.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
-        <omgdc:Bounds height="40.0" width="40.0" x="426.0" y="135.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="55.0" width="105.0" x="394.0" y="0.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -140,6 +141,9 @@
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
         <omgdc:Bounds height="55.0" width="105.0" x="394.0" y="260.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="426.0" y="136.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="81.0" y="155.0"></omgdi:waypoint>
         <omgdi:waypoint x="126.0" y="155.0"></omgdi:waypoint>
@@ -148,31 +152,31 @@
         <omgdi:waypoint x="231.0" y="155.0"></omgdi:waypoint>
         <omgdi:waypoint x="276.0" y="155.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-        <omgdi:waypoint x="381.0" y="155.0"></omgdi:waypoint>
-        <omgdi:waypoint x="426.0" y="155.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="446.0" y="135.0"></omgdi:waypoint>
-        <omgdi:waypoint x="446.0" y="55.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="456.0" y="80.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
         <omgdi:waypoint x="446.0" y="55.0"></omgdi:waypoint>
         <omgdi:waypoint x="697.0" y="139.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="446.0" y="175.0"></omgdi:waypoint>
-        <omgdi:waypoint x="446.0" y="260.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="456.0" y="175.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
         <omgdi:waypoint x="446.0" y="260.0"></omgdi:waypoint>
         <omgdi:waypoint x="697.0" y="174.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="381.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="426.0" y="156.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="446.0" y="136.0"></omgdi:waypoint>
+        <omgdi:waypoint x="446.0" y="55.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="456.0" y="136.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="446.0" y="176.0"></omgdi:waypoint>
+        <omgdi:waypoint x="446.0" y="260.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="456.0" y="176.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
