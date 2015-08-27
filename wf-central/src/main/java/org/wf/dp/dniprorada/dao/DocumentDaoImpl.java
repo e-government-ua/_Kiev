@@ -55,7 +55,7 @@ public class DocumentDaoImpl extends GenericEntityDao<Document> implements Docum
 	public Long setDocument(Long nID_Subject, Long nID_Subject_Upload, String sID_Subject_Upload,
                             String sSubjectName_Upload, String sName, Long nID_DocumentType,
                             Long nID_DocumentContentType, String sFileName,
-                            String sFileContentType, byte[] aoContent, String soSignData) throws IOException {
+                            String sFileContentType, byte[] aoContent, String oSignData) throws IOException {
 
 		Document document = new Document();
 		document.setsID_subject_Upload(sID_Subject_Upload);
@@ -87,8 +87,7 @@ public class DocumentDaoImpl extends GenericEntityDao<Document> implements Docum
 		document.setFile(sFileName);
 		document.setDate_Upload(new DateTime());
 
-                document.setoSignData(soSignData);
-                
+        document.setoSignData(oSignData);
 		getSession().saveOrUpdate(document);
 		return document.getId();
 

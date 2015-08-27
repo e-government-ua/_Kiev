@@ -18,7 +18,7 @@
 <a href="#16_getWorkflowStatistics">16. Получение статистики по задачам в рамках бизнес процесса</a><br/>
 <a href="#17_workWithHistoryEvent_Services">17. Работа с обьектами событий по услугам</a><br/>
 <a href="#18_workWithFlowSlot">18. Работа со слотами потока</a><br/>
-<a href="#19">19. Работа с джоинами субъектами (отделениями/филиалами)</a><br/>
+<a href="#19">19. Работа с джоинами суьтектами (отделениями/филиалами)</a><br/>
 <a href="#20">20. Получение кнопки для оплаты через Liqpay</a><br/>
 <a href="#21">21. Работа со странами </a><br/>
 <a href="#22">22. Загрузка данных по задачам </a><br/>
@@ -34,30 +34,7 @@
 <a href="#32_getTasksByOrder"> 32. Получение списка ID пользовательских тасок по номеру заявки</a><br/>
 <a href="#33_getStatisticServiceCounts"> 33. Получение количества записей HistoryEvent_Service для сервиса по регионам</a><br/>
 
-# iGov.ua APIs
-<a name="0_contents">*Contents*</a><br/>
-<a href="#1">1. Аутентификация пользователя</a><br/>
-<a href="#2">2. Activiti</a><br/>
-<a href="#3">3. Загрузки прикрепленного к заявке файла из постоянной базы</a><br/>
-<a href="#4">4. Работа с мерчантами</a><br/>
-<a href="#5">5. Бэкап/восстановление данных таблиц сервисов и мест</a><br/>
-<a href="#6">6. Работа с документами</a><br/>
-<a href="#7">7. Работа с субъектами</a><br/>
-<a href="#8">8. Предоставление и проверка доступа к документам</a><br/>
-<a href="#9">9. Работа с сообщениями</a><br/>
-<a href="#10">10. Работа с историей (Мой журнал)</a><br/>
-<a href="#11">11. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti</a><br/>
-<a href="#12">12. Работа с каталогом сервисов</a><br/>
-<a href="#13">13. Получение статистики по задачам в рамках бизнес процесса</a><br/>
-<a href="#14">14. Работа с обьектами событий по услугам</a><br/>
-<a href="#15">15. Работа со слотами потока</a><br/>
-<a href="#16">16. Работа с джоинами суьтектами (отделениями/филиалами)</a><br/>
-<a href="#17">17. Получение кнопки для оплаты через Liqpay</a><br/>
-<a href="#18">18. Работа со странами </a><br/>
-<a href="#19">19. Загрузка данных по задачам </a><br/>
-<a href="#20"> 20. Получение списка бизнес процессов к которым у пользователя есть доступ </a><br/>
-
-## iGov.ua APIs
+### iGov.ua APIs
 
 ##### Mandatory HTTP Headers
 
@@ -67,14 +44,9 @@
 | Accept | application/json |
 | Authorization | Basic ... |
 
---------------------------------------------------------------------------------------------------------------------------
-
-<a name="1">
-<a href="#1"><h3>1. Аутентификация пользователя</h3></a>
-<br/>
-
-<a href="#1"><h4>Логин пользователя:</h4></a>
-<a href="#0_contents">↑Up</a>
+<a name="1_userLogin">
+####1. Логин пользователя:
+</a><a href="#0_contents">↑Up</a>
 
 **HTTP Metod: POST**
 
@@ -87,162 +59,146 @@
 * sLogin - Логин пользователя
 * sPassword - Пароль пользователя
 
-**Request:**
+**Request**
 
 ```text
     sLogin=user&sPassword=password
 ```
 
-**Response:**
+**Response**
 
 ```json
-	{"session":"true"}
+	{"session":"true"} //[1..1]
 ```
-где:<br/>
+
 true - Пользователь авторизирован   
 false - Имя пользователя или пароль не корректны
 
-<br/>
-
-<a href="#1"><h4>Логаут пользователя (наличие cookie JSESSIONID):</h4></a>
-<a href="#0_contents">↑Up</a>
+<a name="2_userLogout">
+#### 2. Логаут пользователя:
+</a><a href="#0_contents">↑Up</a>
 
 **HTTP Metod: POST/DELETE**
 
 **HTTP Context: https://server:port/wf-region/service/auth/logout**
 
-**Response:**
+Наличие cookie JSESSIONID
+
+**Response**
 
 ```json
 	{"session":"97AE7CA414A5DA85749FE379CC843796"}
 ```
---------------------------------------------------------------------------------------------------------------------------
 
-<a name="2">
-<a href="#2"><h3>2. Activiti</h3></a>
-<br/>
+true - Пользователь авторизирован
+false - Имя пользователя или пароль не корректны
 
-<a href="#2"><h4>Запуск процесса Activiti:</h4></a>
-<a href="#0_contents">↑Up</a>
+
+<a name="3_activitiRun">
+#### 3. Запуск процесса Activiti:
+</a><a href="#0_contents">↑Up</a>
 
 **HTTP Metod: GET**
 
 **HTTP Context: https://server:port/wf-region/service/rest/start-process/{key}**
 
-* key - Ключ процесса
-* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
+* {key} - Ключ процесса
+* {nID_Subject} - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
-**Request:**
-
-https://test.region.igov.org.ua/wf-region/service/rest/start-process/citizensRequest
-
-**Response:**
+**Response**
 
 ```json
 	{
-		"id":"31"
+		"id":"31" //[1..1]
 	}
 ```
 
-<br/>
-
-<a href="#2"><h4>Загрузка задач из Activiti:</h4></a>
-<a href="#0_contents">↑Up</a>
+<a name="4_activitiRunTasks">
+####4. Загрузка задач из Activiti
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
 **HTTP Context: https://server:port/wf-region/service/rest/tasks/{assignee}**
 
-* assignee - Владелец
-* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
+* {assignee} - Владелец
+* {nID_Subject} - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
-**Request:**
-
-https://test.region.igov.org.ua/wf-region/service/rest/tasks/kermit
-
-**Response:**
+**Response**
 
 ```json
-	[                                                
-  	  {
-    		"delegationState": "RESOLVED",             
-		    "id": "38",                                  
-		    "name": "Первый процесс пользователя kermit",
-		    "description": "Описание процесса",           
-		    "priority": 51,                               
-		    "owner": "kermit-owner",                      
-		    "assignee": "kermit-assignee",                
-		    "processInstanceId": "12",                   
-		    "executionId": "1",                           
-		    "createTime": "2015-04-13 00:51:34.527",      
-		    "taskDefinitionKey": "task-definition",       
-		    "dueDate": "2015-04-13 00:51:36.527",        
-		    "category": "my-category",                    
-		    "parentTaskId": "2",                          
-		    "tenantId": "diver",                          
-		    "formKey": "form-key-12",                     
-		    "suspended": true,                            
-		    "processDefinitionId": "21"                   
+	[                                                     //[0..N]
+  		{
+    		"delegationState": "RESOLVED",                //[0..1]
+		    "id": "38",                                   //[1..1]
+		    "name": "Первый процесс пользователя kermit", //[1..1]
+		    "description": "Описание процесса",           //[0..1]
+		    "priority": 51,                               //[1..1]
+		    "owner": "kermit-owner",                      //[1..1]
+		    "assignee": "kermit-assignee",                //[1..1]
+		    "processInstanceId": "12",                    //[0..1]
+		    "executionId": "1",                           //[0..1]
+		    "createTime": "2015-04-13 00:51:34.527",      //[1..1]
+		    "taskDefinitionKey": "task-definition",       //[0..1]
+		    "dueDate": "2015-04-13 00:51:36.527",         //[0..1]
+		    "category": "my-category",                    //[0..1]
+		    "parentTaskId": "2",                          //[0..1]
+		    "tenantId": "diver",                          //[0..1]
+		    "formKey": "form-key-12",                     //[0..1]
+		    "suspended": true,                            //[1..1]
+		    "processDefinitionId": "21"                   //[0..1]
 	  }
 	]
 ```
 
-<br/>
-
-<a href="#2"><h4>Загрузка каталога сервисов из Activiti:</h4></a>
-<a href="#0_contents">↑Up</a>
+<a name="5_activitiRunServices">
+####5. Загрузка каталога сервисов из Activiti
+</a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
 **HTTP Context: https://server:port/wf-region/service/rest/process-definitions**
 
-* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
+* {nID_Subject} - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
-**Request:**
-
-https://test.region.igov.org.ua/wf-region/service/rest/process-definitions
-
-**Response:**
+**Response**
 
 ```json
-	[											                            
-          {
-    		"id": "CivilCardAccountlRequest:1:9",                            
-		    "category": "http://www.activiti.org/test",                       
-		    "name": "Видача картки обліку об’єкта торговельного призначення", 
-		    "key": "CivilCardAccountlRequest",                                
-		    "description": "Описание процесса",                               
-		    "version": 1,                                                     
-		    "resourceName": "dnepr-2.bpmn",                                   
-		    "deploymentId": "1",                                            
-		    "diagramResourceName": "dnepr-2.CivilCardAccountlRequest.png",   
-		    "tenantId": "diver",                                              
-		    "suspended": true                                                 
-	   }
+	[											                              //[0..N]
+  		{
+    		"id": "CivilCardAccountlRequest:1:9",                             //[1..1]
+		    "category": "http://www.activiti.org/test",                       //[1..1]
+		    "name": "Видача картки обліку об’єкта торговельного призначення", //[1..1]
+		    "key": "CivilCardAccountlRequest",                                //[1..1]
+		    "description": "Описание процесса",                               //[0..1]
+		    "version": 1,                                                     //[1..1]
+		    "resourceName": "dnepr-2.bpmn",                                   //[1..1]
+		    "deploymentId": "1",                                              //[1..1]
+		    "diagramResourceName": "dnepr-2.CivilCardAccountlRequest.png",    //[1..1]
+		    "tenantId": "diver",                                              //[0..1]
+		    "suspended": true                                                 //[1..1]
+	  }
 	]
 ```
-
---------------------------------------------------------------------------------------------------------------------------
-
-<a name="3">
-####3. Загрузки прикрепленного к заявке файла из постоянной базы
+<a name="6_loadFileFromDb">
+####6. Загрузки прикрепленного к заявке файла из постоянной базы
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
 
 **HTTP Context: https://server:port/wf-region/service/rest/download_file_from_db?taskId=XXX&attachmentId=XXX&nFile=XXX**
 
-* taskId - ид задачи
-* attachmentID - ID прикрепленного файла
-* nFile - порядковый номер прикрепленного файла
-* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
+* {taskId} - ид задачи
+* {attachmentID} - ID прикрепленного файла
+* {nFile} - порядковый номер прикрепленного файла
+* {nID_Subject} - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 Пример:
 https://test.igov.org.ua/wf-region/service/rest/file/download_file_from_db?taskId=82596&attachmentId=6726532&nFile=7
 
 
-<a name="4">
-####4. Работа с мерчантами
+<a name="7_workWithMerchants">
+####7. Работа с мерчантами
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
@@ -365,8 +321,8 @@ https://test.igov.org.ua/wf-central/service/merchant/setMerchant?sID=Test_sID3&s
 
 
 
-<a name="5">
-####5. Бэкап/восстановление данных таблиц сервисов и мест
+<a name="8_workWithTables">
+####8. Бэкап/восстановление данных таблиц сервисов и мест
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
@@ -417,8 +373,8 @@ https://test.igov.org.ua/wf-central/service/merchant/setMerchant?sID=Test_sID3&s
 
 ----------------------------------------------------------------------------------------------------------------------------
 
-<a name="6">
-####6. Работа с документами
+<a name="9_workWithDocuments">
+####9. Работа с документами
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -713,8 +669,8 @@ https://test.igov.org.ua/wf-central/service/services/removeDocumentContentType?n
 --------------------------------------------------------------------------------------------------------------------------
 
 
-<a name="7">
-####7. Работа с субъектами
+<a name="10_workWithSubjects">
+####10. Работа с субъектами
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -767,8 +723,8 @@ https://test.igov.org.ua/wf-central/service/subject/syncSubject?nID=1
 ```
 --------------------------------------------------------------------------------------------------------------------------
 
-<a name="8">
-####8. Предоставление и проверка доступа к документам
+<a name="11_accessDocuments">
+####11. Предоставление и проверка доступа к документам
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: POST**
@@ -865,8 +821,8 @@ https://seriver:port/wf-central/service/setDocumentAccess - Установка �
 ```
 
 
-<a name="9">
-####9. Работа с сообщениями
+<a name="12_workWithMessages">
+####12. Работа с сообщениями
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
@@ -955,8 +911,8 @@ https://test.igov.org.ua/wf-central/service/messages/setMessage?sHead=name&sBody
 --------------------------------------------------------------------------------------------------------------------------
 
 
-<a name="10">
-####10. Работа с историей (Мой журнал)
+<a name="13_workWithHistoryEvents">
+####13. Работа с историей (Мой журнал)
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: GET**
@@ -993,8 +949,8 @@ https://test.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Subjec
 
 --------------------------------------------------------------------------------------------------------------------------
 
-<a name="11">
-####11. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti
+<a name="14_uploadFileToDb">
+####14. Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Metod: POST**
@@ -1021,8 +977,8 @@ ID созданного attachment - "id":"45"
 
 --------------------------------------------------------------------------------------------------------------------------
 
-<a name="12">
-####12. Работа с каталогом сервисов
+<a name="15_workWithServices">
+####15. Работа с каталогом сервисов
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Context: http://server:port/wf-central/service/services/getServicesTree** - Получение делева сервисов
@@ -1513,8 +1469,8 @@ https://test.igov.org.ua/wf-central/service/services/setServicesTree
 ]
 ```
 
-<a name="13">
-#### 13. Получение статистики по задачам в рамках бизнес процесса
+<a name="16_getWorkflowStatistics">
+#### 16. Получение статистики по задачам в рамках бизнес процесса
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -1548,8 +1504,8 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?s
 ```
 
 
-<a name="14">
-#### 14. Работа с обьектами событий по услугам
+<a name="17_workWithHistoryEvent_Services">
+#### 17. Работа с обьектами событий по услугам
 </a><a href="#0_contents">↑Up</a><br/>
 **HTTP Metod: GET**
 
@@ -1613,8 +1569,8 @@ http://test.igov.org.ua/wf-central/service/services/addHistoryEvent_Service?nID_
 http://test.igov.org.ua/wf-central/service/services/updateHistoryEvent_Service?nID_Protected=11&sStatus=finish
 
 
-<a name="15">
-#### 15. Работа со слотами потока
+<a name="18_workWithFlowSlot">
+#### 18. Работа со слотами потока
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Context: http://server:port/wf-central/service/flow/getFlowSlots_ServiceData** - Получение слотов по сервису сгруппированных по дням.
@@ -1781,8 +1737,8 @@ http://test.igov.org.ua/wf-central/service/flow/clearFlowSlots?nID_Flow_ServiceD
 }
 ```
 
-<a name="16">
-#### 16. Работа с джоинами субьектами (отделениями/филиалами)
+<a name="19">
+#### 19. Работа с джоинами субьектами (отделениями/филиалами)
 </a><a href="#0_contents">↑Up</a><br/>
 (таска: https://github.com/e-government-ua/i/issues/487)
 
@@ -1861,8 +1817,8 @@ https://test.igov.org.ua/wf-central/service/services/setSubjectOrganJoin?nID_Sub
 https://test.igov.org.ua/wf-central/service/services/removeSubjectOrganJoins?nID_SubjectOrgan=1&asID_Public=130505,130506,130507,130508
 
 
-<a name="17">
-#### 17. Получение кнопки для оплаты через LiqPay
+<a name="20">
+#### 20. Получение кнопки для оплаты через LiqPay
 <br><a href="#0_contents">↑Up</a>
 **Method: GET**
 
@@ -1883,8 +1839,8 @@ https://test.igov.org.ua/wf-central/service/services/removeSubjectOrganJoins?nID
 Пример:
 https://test.igov.org.ua/wf-central/service/services/getPayButtonHTML_LiqPay?sID_Merchant=i10172968078&sSum=55,00&oID_Currency=UAH&oLanguage=RUSSIAN&sDescription=test&sID_Order=12345&sURL_CallbackStatusNew=&sURL_CallbackPaySuccess=&nID_Subject=1&bTest=true
 
-<a name="18">
-####18. Работа со странами
+<a name="21">
+####21. Работа со странами
 </a><a href="#0_contents">↑Up</a>
 
 ----------------------
@@ -1954,8 +1910,8 @@ Eсли задано два ключа от разных записей -- ве�
  удаляет обьект по одному из четырех ключей (nID, nID_UA, sID_Two, sID_Three) или кидает ошибку ```403. Record not found!```.
 
 
-<a name="19">
-####19. Загрузка данных по задачам
+<a name="22">
+####22. Загрузка данных по задачам
 </a><a href="#0_contents">↑Up</a>
 
 **Method: GET**
@@ -1998,8 +1954,8 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?&s
 
 
 
-<a name="20">
-#### 20. Получение списка бизнес процессов к которым у пользователя есть доступ
+<a name="23_getBPForUsers">
+#### 23. Получение списка бизнес процессов к которым у пользователя есть доступ
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -2034,8 +1990,8 @@ https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=kermit
 [{"sID":"dnepr_spravka_o_doxodax","sName":"Дніпропетровськ - Отримання довідки про доходи фіз. осіб"},{"sID":"dnepr_subsidies2","sName":"Отримання субсидії на оплату житлово-комунальних послуг2"},{"sID":"khmelnitskij_mvk_2","sName":"Хмельницький - Надання інформації, що підтверджує відсутність (наявність) земельної ділянки"},{"sID":"khmelnitskij_zemlya","sName":"Заява про наявність земельної ділянки"},{"sID":"kiev_spravka_o_doxodax","sName":"Київ - Отримання довідки про доходи фіз. осіб"},{"sID":"kuznetsovsk_mvk_5","sName":"Кузнецовськ МВК - Узгодження графіка роботи підприємства торгівлі\/обслуговування"},{"sID":"post_spravka_o_doxodax_pens","sName":"Отримання довідки про доходи (пенсійний фонд)"}]
 ```
 
-<a name="21_getSheduleFlowIncludes">
-#### 21. Получение расписаний включений
+<a name="24_getSheduleFlowIncludes">
+#### 24. Получение расписаний включений
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -2056,8 +2012,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nI
 [{"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}},{"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"10:30\"","sDateTimeTo":"\"12:30\"","nID":20364,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}]
 ```
 
-<a name="22_setSheduleFlowInclude">
-#### 22. Добавление/изменение расписания включений
+<a name="25_setSheduleFlowInclude">
+#### 25. Добавление/изменение расписания включений
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -2089,8 +2045,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowInclude?nID
 ```
 
 
-<a name="23_removeSheduleFlowInclude">
-#### 23. Удаление расписания включений
+<a name="26_removeSheduleFlowInclude">
+#### 26. Удаление расписания включений
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -2115,8 +2071,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowInclude?
 {"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}
 ```
 
-<a name="24_getSheduleFlowExcludes">
-#### 24. Получение расписаний исключений
+<a name="27_getSheduleFlowExcludes">
+#### 27. Получение расписаний исключений
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -2137,8 +2093,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nI
 [{"sData":null,"bExclude":true,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"2010-08-01 10:10:30\"","sDateTimeTo":"\"2010-08-01 18:10:00\"","nID":20367,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}},{"sData":null,"bExclude":false,"sName":"Test","sRegionTime":"\"10:30-11:30\"","saRegionWeekDay":"\"mo,tu\"","sDateTimeAt":"\"10:30\"","sDateTimeTo":"\"12:30\"","nID":20364,"nID_FlowPropertyClass":{"sPath":"org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler","sBeanName":"defaultFlowSlotScheduler","nID":1,"sName":"DefaultFlowSlotScheduler"}}]
 ```
 
-<a name="25_setSheduleFlowExclude">
-#### 25. Добавление/изменение расписания исключения
+<a name="28_setSheduleFlowExclude">
+#### 28. Добавление/изменение расписания исключения
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -2170,8 +2126,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowExclude?nID
 ```
 
 
-<a name="26_removeSheduleFlowExclude">
-#### 26. Удаление расписания исключений
+<a name="29_removeSheduleFlowExclude">
+#### 29. Удаление расписания исключений
 </a><a href="#0_contents">↑Up</a><br/>
 
 
@@ -2200,8 +2156,8 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowExclude?
 ----------------------
 
 
-<a name="27_workWithPatternFiles">
-#### 27. Работа с файлами-шаблонами
+<a name="30_workWithPatternFiles">
+#### 30. Работа с файлами-шаблонами
 </a><a href="#0_contents">↑Up</a><br/>
 
 
