@@ -148,7 +148,7 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
 		return s;
 	}        
 
-	private String writeRow(DocumentAccess o) throws Exception{
+	/*private String writeRow(DocumentAccess o) throws Exception{
 		Session s = getSession();
 		try{
             if(o.getsCode() == null) o.setsCode("null");
@@ -163,7 +163,7 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
 				s.close();
 			}
 		}
-	}
+	}*/
 	
 	@Deprecated
 	public Long getIdAccess() throws Exception{
@@ -213,13 +213,18 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
         @Override
 	public String sSentDocumentAccessOTP_Phone(String sCode) throws Exception {
                 String sPhoneSent=null;
-		Session oSession = getSession();
+		//Session oSession = getSession();
 		boolean bSent = false;
 		try{
-                    DocumentAccess oDocumentAccess = (DocumentAccess) oSession
+                    
+                    /*DocumentAccess oDocumentAccess = (DocumentAccess) oSession
 				.createCriteria(DocumentAccess.class)
 				.add(Restrictions.eq("sCode", sCode))
-				.uniqueResult();
+				.uniqueResult();*/
+                    
+                    DocumentAccess oDocumentAccess = findBy("sCode", sCode).orNull();
+                    
+                    
                     //TODO делать точечную выборку по sCode
                     /*DocumentAccess oDocumentAccess = new DocumentAccess();
                     List <DocumentAccess> aDocumentAccess = null;
@@ -252,7 +257,9 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
                             sAnswer="4444";
                         }
                         oDocumentAccess.setAnswer(sAnswer);
-                        writeRow(oDocumentAccess);
+//                        writeRow(oDocumentAccess);
+                        saveOrUpdate(oDocumentAccess);
+                        log.info("oDocumentAccess.getId()="+oDocumentAccess.getId()+":Ok!");                
                         
                         if(generalConfig.bTest()){
                             sReturn = "test";
@@ -272,10 +279,10 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
                     //otpPassword=getOtpPassword(docAcc);
 		} catch(Exception e) {
 			throw e;
-		}finally{
+		/*}finally{
 			if(oSession.isConnected()){
 				oSession.close();
-			}
+			}*/
 		}
 		//return  bSent;
 		return sPhoneSent;

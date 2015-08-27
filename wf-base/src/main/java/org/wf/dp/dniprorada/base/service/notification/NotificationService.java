@@ -20,14 +20,14 @@ public class NotificationService {
    Mail mail;
 
    public void sendTaskCreatedInfoEmail(String receiverEmail, Long nID_Protected) throws EmailException {
-      String sHead = String.format("Р’С‹ РїРѕРґР°Р»Рё Р·Р°СЏРІРєСѓ в„–%s РЅР° СѓСЃР»СѓРіСѓ С‡РµСЂРµР· РїРѕСЂС‚Р°Р» %s", nID_Protected,
+      String sHead = String.format("Ви подали заяву №%s на послугу через портал %s", nID_Protected,
               generalConfig.sHostCentral());
 
-      String sBody = String.format("Р’С‹ РїРѕРґР°Р»Рё Р·Р°СЏРІРєСѓ в„–%s РЅР° СѓСЃР»СѓРіСѓ С‡РµСЂРµР· РїРѕСЂС‚Р°Р» %s", nID_Protected,
+      String sBody = String.format("Ви подали заяву №%s на послугу через портал %s", nID_Protected,
               generalConfig.sHostCentral()) +
-              "(Р’С‹ РІСЃРµРіРґР° СЃРјРѕР¶РµС‚Рµ РїРѕСЃРјРѕС‚СЂРµС‚СЊ РµРµ С‚РµРєСѓС‰РёР№ СЃС‚Р°С‚СѓСЃ РЅР° РїРѕСЂС‚Р°Р»Рµ РІ СЂР°Р·РґРµР»Рµ \"РЎС‚Р°С‚СѓСЃС‹\")" +
+              "<br>(Ви завжди можете подивитись її статус на порталі у разділі \"Статуси\")" +
               "<br>" +
-              "РџСЂРё РїРѕСЃС‚СѓРїР»РµРЅРёРё Р’Р°С€РµР№ Р·Р°СЏРІРєРё РІ СЃРёСЃС‚РµРјСѓ РіРѕСЃРѕСЂРіР°РЅР° - Р’Р°Рј Р±СѓРґРµС‚ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕ РЅР°РїСЂР°РІР»РµРЅРѕ РїРµСЂСЃРѕРЅР°Р»СЊРЅРѕРµ РїРёСЃСЊРјРѕ - СѓРІРµРґРѕРјР»РµРЅРёРµ.<br>";
+              "При надходжені Вашої заявки у систему госоргану - Вам буде додатково направлено персональний лист - повідомленя.<br>";
       mail.reset();
 
       mail._To(receiverEmail)._Head(sHead)._Body(sBody);
