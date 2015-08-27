@@ -30,7 +30,11 @@
         <activiti:formProperty id="newHouse" name="Будинок" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="newCorp" name="Корпус" type="string"></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string"></activiti:formProperty>
-        <activiti:formProperty id="district" name="Район реєстрації" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="district" name="Район реєстрації" type="enum" required="true">
+          <activiti:value id="Деснянський" name="Деснянський"></activiti:value>
+          <activiti:value id="Солом'янський" name="Солом'янський"></activiti:value>
+          <activiti:value id="Шевченківський" name="Шевченківський"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="milName" name="Найменування військомату, до якого Ви належали" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="milRank" name="Військове звання" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" default=" "></activiti:formProperty>
@@ -173,6 +177,11 @@
         <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="district" name="Район реєстрації" type="enum" writable="false">
+          <activiti:value id="Деснянський" name="Деснянський"></activiti:value>
+          <activiti:value id="Солом'янський" name="Солом'янський"></activiti:value>
+          <activiti:value id="Шевченківський" name="Шевченківський"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="milName" name="Найменування військомату" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="milRank" name="Військове звання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" writable="false"></activiti:formProperty>
@@ -186,7 +195,11 @@
         <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="taxAddress" name="Необхідні реквізити для сплати Державного мита" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="Registrationservice" name="Найменування територіального підрозділу ДМС України" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="Registrationservice" name="Найменування територіального підрозділу ДМС України" type="enum" default=" " writable="false">
+          <activiti:value id="Деснянська ДМС" name="Деснянська ДМС"></activiti:value>
+          <activiti:value id="Солом'янська ДМС" name="Солом'янська ДМС"></activiti:value>
+          <activiti:value id="Шевченківська ДМС" name="Шевченківська ДМС"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="DocumentDate" name="Талон було оформлено" type="date"></activiti:formProperty>
         <activiti:formProperty id="CNAPName" name="ПІБ посадової особи" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення операціоніста" type="enum">
@@ -464,6 +477,11 @@
         <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="district" name="Район реєстрації" type="enum" writable="false">
+          <activiti:value id="Деснянський" name="Деснянський"></activiti:value>
+          <activiti:value id="Солом'янський" name="Солом'янський"></activiti:value>
+          <activiti:value id="Шевченківський" name="Шевченківський"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="milName" name="Найменування військомату" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="milRank" name="Військове звання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" writable="false"></activiti:formProperty>
@@ -521,6 +539,11 @@
         <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="district" name="Район реєстрації" type="enum" writable="false">
+          <activiti:value id="Деснянський" name="Деснянський"></activiti:value>
+          <activiti:value id="Солом'янський" name="Солом'янський"></activiti:value>
+          <activiti:value id="Шевченківський" name="Шевченківський"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="milName" name="Найменування військомату" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="milRank" name="Військове звання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" writable="false"></activiti:formProperty>
@@ -721,13 +744,13 @@
         <omgdc:Bounds height="81.0" width="177.0" x="74.0" y="325.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
-        <omgdc:Bounds height="71.0" width="140.0" x="140.0" y="510.0"></omgdc:Bounds>
+        <omgdc:Bounds height="71.0" width="140.0" x="93.0" y="540.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
-        <omgdc:Bounds height="40.0" width="40.0" x="362.0" y="348.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="347.0" y="345.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
-        <omgdc:Bounds height="40.0" width="40.0" x="170.0" y="430.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="142.0" y="450.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="265.0" y="178.0"></omgdi:waypoint>
@@ -778,23 +801,23 @@
         <omgdi:waypoint x="456.0" y="280.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
-        <omgdi:waypoint x="362.0" y="368.0"></omgdi:waypoint>
+        <omgdi:waypoint x="347.0" y="365.0"></omgdi:waypoint>
         <omgdi:waypoint x="251.0" y="365.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="48.0" width="100.0" x="16.0" y="-1.0"></omgdc:Bounds>
+          <omgdc:Bounds height="48.0" width="100.0" x="4.0" y="-5.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
-        <omgdi:waypoint x="280.0" y="545.0"></omgdi:waypoint>
+        <omgdi:waypoint x="233.0" y="575.0"></omgdi:waypoint>
         <omgdi:waypoint x="510.0" y="575.0"></omgdi:waypoint>
         <omgdi:waypoint x="795.0" y="575.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
         <omgdi:waypoint x="367.0" y="321.0"></omgdi:waypoint>
-        <omgdi:waypoint x="382.0" y="348.0"></omgdi:waypoint>
+        <omgdi:waypoint x="367.0" y="345.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
-        <omgdi:waypoint x="402.0" y="368.0"></omgdi:waypoint>
+        <omgdi:waypoint x="387.0" y="365.0"></omgdi:waypoint>
         <omgdi:waypoint x="920.0" y="365.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="48.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
@@ -802,17 +825,17 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
         <omgdi:waypoint x="162.0" y="406.0"></omgdi:waypoint>
-        <omgdi:waypoint x="190.0" y="430.0"></omgdi:waypoint>
+        <omgdi:waypoint x="162.0" y="450.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
-        <omgdi:waypoint x="190.0" y="470.0"></omgdi:waypoint>
-        <omgdi:waypoint x="210.0" y="510.0"></omgdi:waypoint>
+        <omgdi:waypoint x="162.0" y="490.0"></omgdi:waypoint>
+        <omgdi:waypoint x="163.0" y="540.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="48.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
-        <omgdi:waypoint x="210.0" y="450.0"></omgdi:waypoint>
+        <omgdi:waypoint x="182.0" y="470.0"></omgdi:waypoint>
         <omgdi:waypoint x="874.0" y="449.0"></omgdi:waypoint>
         <omgdi:waypoint x="987.0" y="401.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
