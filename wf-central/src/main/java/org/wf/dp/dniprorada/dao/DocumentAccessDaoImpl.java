@@ -52,11 +52,23 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
 		oDocumentAccess.setTarget(sTarget);
 		oDocumentAccess.setTelephone(sTelephone);
 		oDocumentAccess.setSecret(generateSecret());
-		String id = writeRow(oDocumentAccess).toString();
+                
+//		String id = writeRow(oDocumentAccess).toString();
+
+                if(o.getsCode() == null) o.setsCode("null");
+                if(o.getsCodeType() == null) o.setsCodeType("null");
+                
+                saveOrUpdate(oDocumentAccess);
+                
+		String id = oDocumentAccess.getId().toString();
+                log.info("id="+id);
+                
 		//sCode;sCodeType
 		oDocumentAccess.setsCode(id);
 		oDocumentAccess.setsCodeType((sTelephone != null && sTelephone.length() > 6) ? "sms" : "");
-		writeRow(oDocumentAccess);
+//		writeRow(oDocumentAccess);
+                saveOrUpdate(oDocumentAccess);
+                log.info("id="+id+":Ok!");
 		/*StringBuilder osURL = new StringBuilder(sURL);
 		osURL.append("nID_Access=");
 		osURL.append(getIdAccess()+"&");
