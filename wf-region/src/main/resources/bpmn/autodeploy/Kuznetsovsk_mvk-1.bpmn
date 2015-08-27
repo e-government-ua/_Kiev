@@ -45,7 +45,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string>test_noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string>Звернення на тему: Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ</activiti:string>
@@ -161,7 +161,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string>test_noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string>Звернення на тему: Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ</activiti:string>
@@ -375,7 +375,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string>test_noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string>Звернення на тему: Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ</activiti:string>

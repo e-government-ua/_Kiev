@@ -20,10 +20,10 @@ public class NotificationService {
    Mail mail;
 
    public void sendTaskCreatedInfoEmail(String receiverEmail, Long nID_Protected) throws EmailException {
-      String sHead = String.format("Вы подали заявку №%s на услугу, через портал %s", nID_Protected,
+      String sHead = String.format("Вы подали заявку №%s на услугу через портал %s", nID_Protected,
               generalConfig.sHostCentral());
 
-      String sBody = String.format("Вы подали заявку №%s на услугу, через портал %s", nID_Protected,
+      String sBody = String.format("Вы подали заявку №%s на услугу через портал %s", nID_Protected,
               generalConfig.sHostCentral()) +
               "(Вы всегда сможете посмотреть ее текущий статус на портале в разделе \"Статусы\")" +
               "<br>" +
