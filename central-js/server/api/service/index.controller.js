@@ -1,16 +1,11 @@
-var request = require('request');
+'use strict';
+var _ = require('lodash');
+var activiti = require('../../components/activiti');
 
-module.exports.index = function(options, callback) {
-	var url = options.protocol+'://'+options.hostname+options.path+'/services/getService';
-	console.log(url);
-	return request.get({
-		'url': url,
-		'auth': {
-			'username': options.username,
-			'password': options.password
-		},
-		'qs': {
-			'nID': options.params.nID
-		}
-	}, callback);
+module.exports.index = function(req, res) {
+  activiti.sendGetRequest(req, res, '/services/getService?nID=' + req.query.nID);
+};
+
+module.exports.getServiceStatistics = function(req, res) {
+  activiti.sendGetRequest(req, res, '/services/getStatisticServiceCounts?nID_Service=' + req.params.nID);
 };
