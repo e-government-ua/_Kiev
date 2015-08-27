@@ -322,8 +322,8 @@ public class ActivitiRestDocumentController {
         if(sFileName==null||"".equals(sFileName.trim())){
             //sFileName = oFile.getOriginalFilename()+".zip";
             log.info("sFileExtension="+sFileExtension);
-            if(sFileExtension!=null && "".equals(sFileExtension.trim())
-                    && sOriginalFileName!=null &&  "".equals(sOriginalFileName.trim())
+            if(sFileExtension!=null && !"".equals(sFileExtension.trim())
+                    && sOriginalFileName!=null &&  !"".equals(sOriginalFileName.trim())
                     && sOriginalFileName.endsWith(sFileExtension)  ){
                 sFileName = sOriginalFileName;
                 log.info("sOriginalFileName has equal ext! sFileName(all ok)="+sFileName);
