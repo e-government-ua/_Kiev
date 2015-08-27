@@ -55,8 +55,8 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
                 
 //		String id = writeRow(oDocumentAccess).toString();
 
-                if(o.getsCode() == null) o.setsCode("null");
-                if(o.getsCodeType() == null) o.setsCodeType("null");
+                if(oDocumentAccess.getsCode() == null) oDocumentAccess.setsCode("null");
+                if(oDocumentAccess.getsCodeType() == null) oDocumentAccess.setsCodeType("null");
                 
                 saveOrUpdate(oDocumentAccess);
                 
