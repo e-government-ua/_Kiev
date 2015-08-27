@@ -152,7 +152,7 @@ public class EscalationService {
         
         m.put("sServiceType", String.format("Тип послуги: %s", oTask.getTaskDefinitionKey()));
         m.put("sTaskName", String.format("Стадія: %s:%s", oTask.getName(), oTask.getDescription()));
-        m.put("sTaskNumber", String.format("Номер заявки: %d (с контрольной суммой по алгоритму Луна)", oTask.getId()));
+        m.put("sTaskNumber", String.format("Номер заявки: %s (с контрольной суммой по алгоритму Луна)", oTask.getId()));
         m.put("sServiceType", String.format("Заявка знаходиться на цій стадії вже: %d дн.", nElapsedDays));
         m.put("sResponsiblePersons", String.format("Відповідальні за розгляд заявки: %s", userInfoString.toString()));
         
