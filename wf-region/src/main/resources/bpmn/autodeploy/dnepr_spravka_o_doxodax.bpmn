@@ -8,7 +8,7 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Ваш ІПН" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="area" name="Виберіть район; в якому вам буде зручно отримати довідку" type="enum">
+        <activiti:formProperty id="area" name="Виберіть район; в якому вам буде зручно отримати довідку" type="enum" required="true">
           <activiti:value id="and" name="АНД (пров. Універсальний, 12)|0461"></activiti:value>
           <activiti:value id="babush" name="Бабушкінський (вул. Героїв Сталінграду, 25)|0462"></activiti:value>
           <activiti:value id="october" name="Жовтневий (вул. Високовольтна, 24)|0463"></activiti:value>
@@ -18,12 +18,11 @@
           <activiti:value id="lenin" name="Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваша електронна пошта" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="book_number" name="Реєстраційний номер облікової картки платника податків" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваша електронна пошта; на неї Ви будете отримувати повідомлення про стан Вашої заяви" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_living" name="Місце проживання; область, місто, вулиця, дім, квартира" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_start" name="Період з" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_stop" name="Період по" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="aim" name="Мета; для чого або якого органу потрібна дана довідка" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_start" name="Період, за який Ви хочете отримати довідку, з" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_stop" name="Період, за який Ви хочете отримати довідку, по" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="aim" name="Навіщо Вам потрібна ця довідка?; наприклад: за місцем вимоги, для оформлення субсидій, інше" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -44,13 +43,12 @@
           <activiti:value id="lenin" name="Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваша електронна пошта" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="book_number" name="Реєстраційний номер облікової картки платника податків" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваша електронна пошта; на неї Ви будете отримувати повідомлення про стан Вашої заяви" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_living" name="Місце проживання; область, місто, вулиця, дім, квартира" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_start1" name="Період з" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_stop1" name="Період по" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="aim" name="Мета; для чого або якого органу потрібна дана довідка" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="comment" name="Результат обробки" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_start1" name="Період, за який Ви хочете отримати довідку, з" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_stop1" name="Період, за який Ви хочете отримати довідку, по" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="aim" name="Навіщо Вам потрібна ця довідка?; наприклад: за місцем вимоги, для оформлення субсидій, інше" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="Результат обробки" type="textArea"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="usertask1" targetRef="mailtask1"></sequenceFlow>
@@ -69,15 +67,6 @@
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
-        </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
-
-Ваша заява на отримання довідки про доходи прийнята в роботу. Ви отримаєте відповідь на протязі 5 днів.
-
-З повагою,
-Державна Адміністрація Київської області,
-Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -122,7 +111,9 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-&lt;p&gt;Ваша заява на отримання довідки про доходи прийнята в роботу. Ви отримаєте відповідь на протязі 5 днів.&lt;/p&gt;
+&lt;p&gt;Ваша заява на отримання довідки про доходи прийнята в роботу. &lt;br/&gt;
+Забрати довідку Ви зможете  через 5 робочих днів в тому відділенні податкової служби, яке Ви вказували при замовленні послуги.
+&lt;/p&gt;
 
 
                             
@@ -164,7 +155,7 @@ execution.setVariable("date_stop1", execution.getVariable("date_stop").format("d
         <omgdc:Bounds height="35.0" width="35.0" x="90.0" y="100.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="325.0" y="90.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="330.0" y="100.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="630.0" y="100.0"></omgdc:Bounds>
@@ -173,10 +164,10 @@ execution.setVariable("date_stop1", execution.getVariable("date_stop").format("d
         <omgdc:Bounds height="55.0" width="105.0" x="460.0" y="90.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="180.0" y="90.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="180.0" y="134.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-        <omgdi:waypoint x="430.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="435.0" y="127.0"></omgdi:waypoint>
         <omgdi:waypoint x="460.0" y="117.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
@@ -185,11 +176,11 @@ execution.setVariable("date_stop1", execution.getVariable("date_stop").format("d
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="125.0" y="117.0"></omgdi:waypoint>
-        <omgdi:waypoint x="180.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="232.0" y="134.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
-        <omgdi:waypoint x="285.0" y="117.0"></omgdi:waypoint>
-        <omgdi:waypoint x="325.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="285.0" y="161.0"></omgdi:waypoint>
+        <omgdi:waypoint x="330.0" y="127.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

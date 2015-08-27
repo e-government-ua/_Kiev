@@ -1,27 +1,16 @@
 package org.wf.dp.dniprorada.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.wf.dp.dniprorada.base.model.Entity;
+
+import javax.persistence.Column;
+import javax.persistence.Transient;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import net.sf.brunneng.jom.annotations.Identifier;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.wf.dp.dniprorada.constant.HistoryEventType;
-
 @javax.persistence.Entity
-public class HistoryEvent {
-
-    @JsonProperty(value = "nID")
-    @Id //@GeneratedValue
-    @GeneratedValue
-    @Column(name = "nID")
-    private Long id;
+public class HistoryEvent extends Entity {
 
     @JsonProperty(value = "nID_Subject")
     @Column(name = "nID_Subject", nullable = true)
@@ -46,15 +35,6 @@ public class HistoryEvent {
     @JsonIgnore
     @Column(name = "sDate", nullable = false)
     private Date date;
-
-    @Identifier
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getSubjectKey() {
         return (this.subjectKey == null) ? 0 : subjectKey;

@@ -1,14 +1,15 @@
 package org.wf.dp.dniprorada.base.dao;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.util.Arrays;
-import org.springframework.beans.factory.annotation.Autowired;
-import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
-import org.wf.dp.dniprorada.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.util.Util;
+import ua.org.egov.utils.storage.durable.impl.GridFSBytesDataStorage;
 
+import java.util.Arrays;
+
+@Repository
 public class AccessDataDaoImpl implements AccessDataDao {
 
     private static final String contentMock = "No content!!!";

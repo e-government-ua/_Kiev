@@ -1,1 +1,3 @@
 nID;sID_BP;sID_UserTask;sCondition;soData;sPatternFile;nID_EscalationRuleFunction
+1;kiev_mreo_1;"*";"nDays >= 10";"{nDays:10, asRecipientMail:['olga2012olga@gmail.com','bvv4ik@gmail.com']}";"print/kiev_dms_print1.html";1
+2;dnepr_dms_passport;"*";"true";"{nDays:10, asRecipientMail:['olga2012olga@gmail.com','bvv4ik@gmail.com']}";"print/kiev_dms_print1.html";1

@@ -27,34 +27,27 @@ public class FileTaskUploadListener extends AbstractModelTask implements TaskLis
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void notify(DelegateTask task) {
-		DelegateExecution execution = task.getExecution();
+	public void notify(DelegateTask oTask) {
+		DelegateExecution oExecution = oTask.getExecution();
 		// получить группу бп
-		Set<IdentityLink> identityLink = task.getCandidates();
+		Set<IdentityLink> identityLink = oTask.getCandidates();
 		// получить User группы
-		List<User> users = execution.getEngineServices().getIdentityService()
+		List<User> aUser = oExecution.getEngineServices().getIdentityService()
 				.createUserQuery()
 				.memberOfGroup(identityLink.iterator().next().getGroupId())
 				.list();
 
-		//System.out.println("Did we found any user?  " + users);
-                LOG.info("Did we found any user?  " + users);
-                
-		if(users == null || users.size()==0|| users.get(0)==null || users.get(0).getId() == null){
-			//TODO  what to do if no user?
+                LOG.info("Finding any assigned user-member of group. aUser=" + aUser);
+		if(aUser == null || aUser.size()==0|| aUser.get(0)==null || aUser.get(0).getId() == null){
+                    //TODO  what to do if no user?
 		} else {
-		// setAuthenticatedUserId первого попавщегося
-        //TODO Shall we implement some logic for user selection.
-		execution.getEngineServices().getIdentityService()
-				.setAuthenticatedUserId(users.get(0).getId());
-
-		// получить информацию по стартовой форме бп
-		FormData startformData = execution.getEngineServices()
-				.getFormService()
-				.getStartFormData(execution.getProcessDefinitionId());
-			//System.out.println("beginning of addAttachmentsToTask(startformData, task)");
-                        LOG.info("beginning of addAttachmentsToTask(startformData, task):execution.getProcessDefinitionId()="+execution.getProcessDefinitionId());
-			addAttachmentsToTask(startformData, task);
+                    // setAuthenticatedUserId первого попавщегося
+                    //TODO Shall we implement some logic for user selection.
+                    oExecution.getEngineServices().getIdentityService().setAuthenticatedUserId(aUser.get(0).getId());
+                    // получить информацию по стартовой форме бп
+                    FormData oStartFormData = oExecution.getEngineServices().getFormService().getStartFormData(oExecution.getProcessDefinitionId());
+                    LOG.info("beginning of addAttachmentsToTask(startformData, task):execution.getProcessDefinitionId()="+oExecution.getProcessDefinitionId());
+                    addAttachmentsToTask(oStartFormData, oTask);
 		}
 	}
 }

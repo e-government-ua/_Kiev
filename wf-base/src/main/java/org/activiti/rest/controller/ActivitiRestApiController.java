@@ -43,6 +43,8 @@ import org.wf.dp.dniprorada.model.BuilderAtachModel;
 import org.wf.dp.dniprorada.model.ByteArrayMultipartFileOld;
 import org.wf.dp.dniprorada.util.Mail;
 import org.wf.dp.dniprorada.util.Util;
+import org.wf.dp.dniprorada.util.luna.AlgorithmLuna;
+import org.wf.dp.dniprorada.util.luna.CRCInvalidException;
 
 import javax.activation.DataSource;
 import javax.mail.MessagingException;
@@ -768,12 +770,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return "";
     }
     
-    
-    
-    
-    
-    
-    
+
     @RequestMapping(value = "/test/sendAttachmentsByMail", method = RequestMethod.GET)
     @Transactional
     public void sendAttachmentsByMail(
@@ -858,4 +855,44 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             throw newErr;
         }
     }
+
+   @RequestMapping(value = "/tasks/getTasksByOrder", method = RequestMethod.GET)
+   public
+   @ResponseBody
+   List<String> getTasksByOrder(@RequestParam(value = "nID_Protected") Long nID_Protected) throws ActivitiRestException {
+      List<String> res;
+
+      try {
+         res = getTaskByOrderInternal(nID_Protected);
+      } catch (CRCInvalidException | RecordNotFoundException e) {
+         ActivitiRestException newErr = new ActivitiRestException(
+                 "BUSINESS_ERR", e.getMessage(), e);
+         newErr.setHttpStatus(HttpStatus.FORBIDDEN);
+         throw newErr;
+      }
+
+      return res;
+   }
+
+   private List<String> getTaskByOrderInternal(Long nID_Protected) throws CRCInvalidException, RecordNotFoundException {
+      AlgorithmLuna.validateProtectedNumber(nID_Protected);
+
+      String processInstanceID = String.valueOf(nID_Protected / 10);
+
+      List<Task> aTask = taskService.createTaskQuery().processInstanceId(processInstanceID).list();
+
+      List<String> res = new ArrayList<>();
+
+      if (aTask == null || aTask.isEmpty()) {
+         log.error(String.format("Tasks for process instance with id = '%s' not found", processInstanceID));
+         throw new RecordNotFoundException();
+      }
+
+      for (Task task : aTask) {
+         res.add(task.getId());
+      }
+
+      return res;
+   }
+
 }

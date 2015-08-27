@@ -111,6 +111,25 @@
         </addColumn>
     </changeSet>
 
+
+
+
+    <changeSet id="no-issue" author="bw"> 
+	
+        <addColumn tableName="FlowProperty">
+           <column name="nLen" type="bigint">
+               <constraints nullable="true"/>
+           </column>
+        </addColumn>
+        
+        <addColumn tableName="FlowProperty">        
+            <column name="sLenType" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+	
+    </changeSet>
+
     <!-- ####################################################################################################### -->
 
 </databaseChangeLog>
