@@ -148,7 +148,7 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
 		return s;
 	}        
 
-	private String writeRow(DocumentAccess o) throws Exception{
+	/*private String writeRow(DocumentAccess o) throws Exception{
 		Session s = getSession();
 		try{
             if(o.getsCode() == null) o.setsCode("null");
@@ -163,7 +163,7 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
 				s.close();
 			}
 		}
-	}
+	}*/
 	
 	@Deprecated
 	public Long getIdAccess() throws Exception{
@@ -252,7 +252,9 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
                             sAnswer="4444";
                         }
                         oDocumentAccess.setAnswer(sAnswer);
-                        writeRow(oDocumentAccess);
+//                        writeRow(oDocumentAccess);
+                        saveOrUpdate(oDocumentAccess);
+                        log.info("oDocumentAccess.getId()="+oDocumentAccess.getId()+":Ok!");                
                         
                         if(generalConfig.bTest()){
                             sReturn = "test";
