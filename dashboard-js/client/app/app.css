@@ -42,6 +42,10 @@
   cursor: default;
 }
 
+.cursor-pointer{
+  cursor: pointer;
+}
+
 
 .bg_yellow{
      background-color:#ffffcc;

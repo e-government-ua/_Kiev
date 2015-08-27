@@ -24,7 +24,7 @@ angular.module('app').controller('ServiceGeneralController', function($state, $s
     }
   });
   if (isRegion) {
-    return $state.go('index.service.general.region', {id:  $scope.service.nID}, {location: false});
+    return $state.go('index.service.general.city', {id: service.nID}, {location: false});
   }
 
   return $state.go('index.service.general.country', {id:  $scope.service.nID}, {location: false});

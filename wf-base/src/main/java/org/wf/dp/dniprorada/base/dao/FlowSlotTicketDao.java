@@ -1,10 +1,6 @@
 package org.wf.dp.dniprorada.base.dao;
 
-import org.joda.time.DateTime;
-import org.wf.dp.dniprorada.base.model.FlowSlot;
 import org.wf.dp.dniprorada.base.model.FlowSlotTicket;
-
-import java.util.List;
 
 /**
  * User: goodg_000

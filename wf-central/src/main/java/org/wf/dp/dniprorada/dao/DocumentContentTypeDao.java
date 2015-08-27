@@ -1,10 +1,11 @@
 package org.wf.dp.dniprorada.dao;
 
+import org.wf.dp.dniprorada.base.dao.EntityDao;
 import org.wf.dp.dniprorada.model.DocumentContentType;
 
 import java.util.List;
 
-public interface DocumentContentTypeDao {
+public interface DocumentContentTypeDao extends EntityDao<DocumentContentType> {
 
 	public DocumentContentType getDocumentContentType(String documentContentTypeName);
 	
