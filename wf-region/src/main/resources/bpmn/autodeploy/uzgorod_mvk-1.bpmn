@@ -115,10 +115,10 @@
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow9" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow10" name="searchResult=='notFound'" sourceRef="exclusivegateway1" targetRef="mailtask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[searchResult=='notFound']]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult=='notFound'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow11" name="searchResult=='found'" sourceRef="exclusivegateway1" targetRef="mailtask3">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[searchResult=='found']]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult=='found'}]]></conditionExpression>
     </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_uzgorod_mvk_1">
