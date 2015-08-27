@@ -21,7 +21,7 @@
         <activiti:formProperty id="9" name="Містобудівний розрахунок з техніко – економічними показниками запланованого об’єкта будівництва" type="file"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask2" name="Перевірка документів" activiti:candidateGroups="ternop_dozvil_bud1">
+    <userTask id="usertask2" name="Перевірка документів" activiti:candidateGroups="ternop_dozvil_bud_dep1">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
@@ -230,7 +230,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask3" name="Ожидание ответа" activiti:candidateGroups="ternop_dozvil_bud"></userTask>
+    <userTask id="usertask3" name="Ожидание ответа" activiti:candidateGroups="ternop_dozvil_bud_dep1"></userTask>
     <sequenceFlow id="flow11" sourceRef="usertask3" targetRef="mailtask2"></sequenceFlow>
     <sequenceFlow id="flow12" sourceRef="exclusivegateway1" targetRef="mailtask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[$(decide=='doc_no')]]></conditionExpression>
