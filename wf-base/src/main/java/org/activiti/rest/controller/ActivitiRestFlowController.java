@@ -601,7 +601,8 @@ public class ActivitiRestFlowController {
 			Boolean bEmployeeUnassigned) {
 		List<Task> tasks;
 		if (bEmployeeUnassigned){
-			tasks = taskService.createTaskQuery().taskUnassigned().active().list();
+			//tasks = taskService.createTaskQuery().taskUnassigned().active().list();
+                        tasks = taskService.createTaskQuery().taskCandidateUser(sLogin).taskUnassigned().active().list();
 			log.info("Looking for unassigned tasks. Found " + (tasks != null ? tasks.size() : 0) + " tasks");
 		} else {
 			tasks = taskService.createTaskQuery().taskAssignee(sLogin).active().list();
