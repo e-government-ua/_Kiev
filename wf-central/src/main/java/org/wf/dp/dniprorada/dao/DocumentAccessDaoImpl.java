@@ -52,11 +52,24 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
 		oDocumentAccess.setTarget(sTarget);
 		oDocumentAccess.setTelephone(sTelephone);
 		oDocumentAccess.setSecret(generateSecret());
-		String id = writeRow(oDocumentAccess).toString();
+                
+//		String id = writeRow(oDocumentAccess).toString();
+
+                if(oDocumentAccess.getsCode() == null) oDocumentAccess.setsCode("null");
+                if(oDocumentAccess.getsCodeType() == null) oDocumentAccess.setsCodeType("null");
+                
+                saveOrUpdate(oDocumentAccess);
+                
+		String id = oDocumentAccess.getId().toString();
+                log.info("id="+id);
+                
 		//sCode;sCodeType
 		oDocumentAccess.setsCode(id);
 		oDocumentAccess.setsCodeType((sTelephone != null && sTelephone.length() > 6) ? "sms" : "");
-		writeRow(oDocumentAccess);
+//		writeRow(oDocumentAccess);
+                saveOrUpdate(oDocumentAccess);
+                log.info("id="+id+":Ok!");                
+                
 		/*StringBuilder osURL = new StringBuilder(sURL);
 		osURL.append("nID_Access=");
 		osURL.append(getIdAccess()+"&");
@@ -64,21 +77,22 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
 		osURL.append(oDocumentAccess.getSecret());*/
 		//return osURL.toString();
 
-		String saToMail = sMail;
-		String sHead = "Доступ до документу";
-		String sBody = "Вам надано доступ до документу на Порталі державних послуг iGov.org.ua.<br>" +
-				  "<br>" +
-				  "<b>Код документу:</b> %" + id + "%<br>" +
-				  "<br>" +
-				  "Щоб переглянути цей документ, зайдіть на <a href=\"" + generalConfig.sHostCentral() + "\">iGov.org.ua</a>, пункт меню <b>Документи</b>, вкладка <b>Пошук документу за кодом</b>. Там оберіть тип документу, того, хто його надає та введіть код.<br>" +
-				  "<br>" +
-				  "З повагою,<br>" +
-				  "команда порталу державних послу iGov";
-		oMail.reset();
-
-		oMail._To(saToMail)._Head(sHead)._Body(sBody);
-
-		oMail.send();
+                if(sMail!=null && !"".equals(sMail.trim())){
+                    String saToMail = sMail;
+                    String sHead = "Доступ до документу";
+                    String sBody = "Вам надано доступ до документу на Порталі державних послуг iGov.org.ua.<br>" +
+                                      "<br>" +
+                                      "<b>Код документу:</b> %" + id + "%<br>" +
+                                      "<br>" +
+                                      "Щоб переглянути цей документ, зайдіть на <a href=\"" + generalConfig.sHostCentral() + "\">iGov.org.ua</a>, пункт меню <b>Документи</b>, вкладка <b>Пошук документу за кодом</b>. Там оберіть тип документу, того, хто його надає та введіть код.<br>" +
+                                      "<br>" +
+                                      "З повагою,<br>" +
+                                      "команда порталу державних послу iGov";
+                    oMail.reset();
+                    oMail._To(saToMail)._Head(sHead)._Body(sBody);
+                    oMail.send();
+                }                
+                
 
 		return id;
 
@@ -134,7 +148,7 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
 		return s;
 	}        
 
-	private String writeRow(DocumentAccess o) throws Exception{
+	/*private String writeRow(DocumentAccess o) throws Exception{
 		Session s = getSession();
 		try{
             if(o.getsCode() == null) o.setsCode("null");
@@ -149,7 +163,7 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
 				s.close();
 			}
 		}
-	}
+	}*/
 	
 	@Deprecated
 	public Long getIdAccess() throws Exception{
@@ -199,13 +213,18 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
         @Override
 	public String sSentDocumentAccessOTP_Phone(String sCode) throws Exception {
                 String sPhoneSent=null;
-		Session oSession = getSession();
+		//Session oSession = getSession();
 		boolean bSent = false;
 		try{
-                    DocumentAccess oDocumentAccess = (DocumentAccess) oSession
+                    
+                    /*DocumentAccess oDocumentAccess = (DocumentAccess) oSession
 				.createCriteria(DocumentAccess.class)
 				.add(Restrictions.eq("sCode", sCode))
-				.uniqueResult();
+				.uniqueResult();*/
+                    
+                    DocumentAccess oDocumentAccess = findBy("sCode", sCode).orNull();
+                    
+                    
                     //TODO делать точечную выборку по sCode
                     /*DocumentAccess oDocumentAccess = new DocumentAccess();
                     List <DocumentAccess> aDocumentAccess = null;
@@ -238,7 +257,9 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
                             sAnswer="4444";
                         }
                         oDocumentAccess.setAnswer(sAnswer);
-                        writeRow(oDocumentAccess);
+//                        writeRow(oDocumentAccess);
+                        saveOrUpdate(oDocumentAccess);
+                        log.info("oDocumentAccess.getId()="+oDocumentAccess.getId()+":Ok!");                
                         
                         if(generalConfig.bTest()){
                             sReturn = "test";
@@ -258,10 +279,10 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
                     //otpPassword=getOtpPassword(docAcc);
 		} catch(Exception e) {
 			throw e;
-		}finally{
+		/*}finally{
 			if(oSession.isConnected()){
 				oSession.close();
-			}
+			}*/
 		}
 		//return  bSent;
 		return sPhoneSent;

@@ -309,30 +309,41 @@ public class ActivitiRestDocumentController {
         if(oFile==null){
             oFile=oFile2;
         }        
+
+        String sOriginalFileName = oFile.getOriginalFilename();
+        log.info("sOriginalFileName="+sOriginalFileName);
         
+        String sOriginalContentType = oFile.getContentType();
+        log.info("sOriginalContentType="+sOriginalContentType);
+
         String sFileName = request.getHeader("filename");
+        log.info("sFileName(before)="+sFileName);
+        
         if(sFileName==null||"".equals(sFileName.trim())){
             //sFileName = oFile.getOriginalFilename()+".zip";
-            String sOriginalFileName = oFile.getOriginalFilename();
-            String sOriginalContentType = oFile.getContentType();
             log.info("sFileExtension="+sFileExtension);
-            log.info("sOriginalFileName="+sOriginalFileName);
-            log.info("sOriginalContentType="+sOriginalContentType);
-            //for(String s : request.getHeaderNames()){
-            Enumeration<String> a =  request.getHeaderNames();
-            for(int n=0;a.hasMoreElements()&&n<100;n++){
-                String s = a.nextElement();
-                log.info("n="+n+", s="+s+", value="+request.getHeader(s));
+            if(sFileExtension!=null && !"".equals(sFileExtension.trim())
+                    && sOriginalFileName!=null &&  !"".equals(sOriginalFileName.trim())
+                    && sOriginalFileName.endsWith(sFileExtension)  ){
+                sFileName = sOriginalFileName;
+                log.info("sOriginalFileName has equal ext! sFileName(all ok)="+sFileName);
+            }else{
+                //for(String s : request.getHeaderNames()){
+                Enumeration<String> a =  request.getHeaderNames();
+                for(int n=0;a.hasMoreElements()&&n<100;n++){
+                    String s = a.nextElement();
+                    log.info("n="+n+", s="+s+", value="+request.getHeader(s));
+                }
+                String fileExp = RedisUtil.getFileExp(sOriginalFileName);
+                fileExp = fileExp != null ? fileExp : ".zip.zip";
+                //fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? ".zip" : fileExp;
+                fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? sFileExtension : fileExp;
+                fileExp = fileExp != null ? fileExp.toLowerCase() : ".zip";
+                sFileName = sOriginalFileName + (fileExp.startsWith(".")?"":".") + fileExp;                
+                log.info("sFileName(after)="+sFileName);
             }
-            String fileExp = RedisUtil.getFileExp(sOriginalFileName);
-            fileExp = fileExp != null ? fileExp : ".zip.zip";
-            //fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? ".zip" : fileExp;
-            fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? sFileExtension : fileExp;
-            fileExp = fileExp != null ? fileExp.toLowerCase() : ".zip";
-            sFileName = sOriginalFileName + (fileExp.startsWith(".")?"":".") + fileExp;
-            log.info("sFileName="+sFileName);
         }
-        String sFileContentType = oFile.getContentType();
+        //String sFileContentType = oFile.getContentType();
         byte[] aoContent = oFile.getBytes();
 
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
@@ -348,7 +359,7 @@ public class ActivitiRestDocumentController {
                         nID_DocumentType,
                         nID_DocumentContentType,
                         sFileName,
-                        sFileContentType,
+                        sOriginalContentType,
                         aoContent,
                         soSignData);
         createHistoryEvent(HistoryEventType.SET_DOCUMENT_INTERNAL,

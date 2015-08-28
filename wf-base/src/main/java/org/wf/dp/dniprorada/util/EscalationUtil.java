@@ -1,22 +1,21 @@
 package org.wf.dp.dniprorada.util;
 
-import com.google.gson.Gson;
-import com.mongodb.util.JSON;
-
-import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler;
-import org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler_SendMailAlert;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler;
+
+import com.google.gson.Gson;
+import com.mongodb.util.JSON;
 
 public class EscalationUtil {
     private static final Logger log = Logger.getLogger(EscalationUtil.class);
@@ -41,10 +40,6 @@ public class EscalationUtil {
         taskParam.put("Name", "Petro");
         taskParam.put("Middlename", "Petrovych");
         taskParam.put("years", 40L);
-
-//        String[] recipients = new String[2];
-//        recipients[0] = "olga2012olga@gmail.com";
-//        recipients[1] = "olga.prylypko@gmail.com";
 
         String json = "{sUserTask:'1', sDateEdit:'01-01-2015', " +
                 "nDays:10, asRecipientMail:['olga2012olga@gmail.com', 'olga.prylypko@gmail.com'], " +
@@ -93,40 +88,10 @@ public class EscalationUtil {
 
     private EscalationHandler getHandlerClass(String sBeanHandler) {
     	ApplicationContext appContext = new ClassPathXmlApplicationContext("context.xml");
-    	log.info("Retrieved application context : " + appContext);
     	EscalationHandler res = (EscalationHandler) appContext.getBean("EscalationHandler_SendMailAlert"); 
-    	log.info("Retrieved component : " + res);
+    	log.info("Retrieved EscalationHandler component : " + res);
     	return res;
-//        try {
-//            return (EscalationHandler) Class.forName("org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler_SendMailAlert").newInstance();
-//        } catch (InstantiationException | IllegalAccessException e) {
-//            log.error("ex", e);
-//        } catch (ClassNotFoundException e) {
-//            log.error("ex", e);
-//        }
-//        return null;
-//        try {
-//            log.info("get app-context");
-//            ApplicationContext context = new ClassPathXmlApplicationContext("context-services.xml");
-//            log.info("get bean " + sBeanHandler);
-//            return (EscalationHandler) context.getBean(sBeanHandler);
-//        } catch (Exception e) {
-//            log.error("Can't find class for handler: " + sBeanHandler, e);
-//            return new EscalationHandler_SendMailAlert();
-            //throw new RuntimeException();
-      //  }
     }
-//String -- temp!!!! must be void and not here)
-
-//    private String sendMailAlert(Long nID_task_activiti, String sCondition, String soData, String sPatternFile)
-//            throws NoSuchMethodException, ScriptException, ClassNotFoundException {
-//
-////        Map<String, Object> taskData = getTaskData(nID_task_activiti);//from task
-////        Map<String, Object> jsonData = parseJsonData(soData);//from json
-////        taskData.putAll(jsonData); //concat
-////
-////        return "" + getResultOfCondition(taskData, sCondition);
-//    }
 
 
     private Map<String, Object> getTaskData(Long nID_task_activiti) {
@@ -154,18 +119,12 @@ public class EscalationUtil {
             //chaeck are present in sCondition??
             Parameter parameter = new Parameter(key, jsonData.get(key));
             castValue(parameter);
-//            engine.put(key, Class.forName(getClassName(key)).cast(jsonData.get(key)));
             log.info(parameter.name + "=" + parameter.castValue);
             engine.put(parameter.name, parameter.castValue);
             jsonData.put(parameter.name, parameter.castValue);
         }
         for (String key : taskData.keySet()) {
-            //chaeck are present in sCondition??
-//            Parameter parameter = new Parameter(key, jsonData.get(key));
-//            castValue(parameter);
-//            engine.put(key, Class.forName(getClassName(key)).cast(jsonData.get(key)));
             engine.put(key, taskData.get(key));
-//            jsonData.put(parameter.name, parameter.castValue);
         }
         ///---eval script and invoke result----
         String script = getJavaScriptStr(sCondition);
@@ -186,34 +145,6 @@ public class EscalationUtil {
                 + ";}";
     }
 
-/*при том, если первые символы переменных первого уровня маленькие(при этом следующий символ большой):
-s - кастить в String
-n - кастить в Long
-b - кастить в Boolean
-as - кастить в массив/лист String
-an - кастить в массив/лист Long
-в остальных случаях кастить в стринг*/
-
-    /*private String getClassName (String fieldName){
-        if (fieldName == null || fieldName.length() < 1)
-            throw new IllegalArgumentException("incorrect fieldName (empty)!");
-        //get mark
-        String mark = fieldName.substring(0, 1);
-        if (mark.toLowerCase().equals(mark) && fieldName.length() > 1){
-            String mark_2 = fieldName.substring(0,2);
-            if (mark_2.toLowerCase().equals(mark_2)){
-                mark = mark_2;
-            }
-        }
-        switch (mark){
-            case "n":   return "java.lang.Long";
-            case "b":   return "java.lang.Boolean";
-            case "as":  return "[S";
-            case "an":  return "[L";
-            case "s":
-            default:    return "java.lang.String";
-        }
-    }*/
 
     private void castValue(Parameter parameter) {
         String fieldName = parameter.name;

@@ -18,7 +18,7 @@ module.exports = function(app) {
   app.use('/api/places', require('./api/places/index'));
   app.use('/api/process-definitions', require('./api/process-definitions/index'));
   app.use('/api/process-form', require('./api/process-form'));
-  app.get('/api/service', require('./api/service/index'));
+  app.use('/api/service', require('./api/service/index'));
   app.use('/api/service/flow', require('./api/service/flow'));
   app.use('/api/messages', require('./api/messages/index'));
   app.use('/api/services', require('./api/services'));

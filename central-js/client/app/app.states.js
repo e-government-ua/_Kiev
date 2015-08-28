@@ -2,8 +2,25 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
   statesRepositoryProvider.init(window.location.host);
   $stateProvider
     .state('index', statesRepositoryProvider.index())
+    .state('index.service', {
+          abstract: true,
+          url: 'service/{id:int}',
+          resolve: {
+            service: function ($stateParams, ServiceService) {
+              console.log('calling get service');
+              return ServiceService.get($stateParams.id);
+            }
+          },
+          views: {
+            'main@': {
+              templateUrl: 'app/service/index.html',
+              controller: 'ServiceFormController'
+            }
+          }
+        }
+    )
     .state('index.subcategory', {
-      url: 'subcategory/:catID/:scatID',
+      url: '/subcategory/:catID/:scatID',
       resolve: {
         catalog: function (CatalogService) {
           return CatalogService.getServices();
@@ -16,19 +33,10 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
         }
       }
     })
-    .state('index.service', {
-      abstract: true,
-      url: 'service/{id:int}'
-    })
     .state('index.service.general', {
       url: '/general',
-      resolve: {
-        service: function ($stateParams, ServiceService) {
-          return ServiceService.get($stateParams.id);
-        }
-      },
       views: {
-        'main@': {
+        'content': {
           controller: 'ServiceGeneralController'
         }
       }
@@ -36,10 +44,8 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
     .state('index.service.general.city', {
       url: '/city',
       resolve: {
-        service: function ($stateParams, ServiceService) {
-          return ServiceService.get($stateParams.id);
-        },
         regions: function ($stateParams, PlacesService, service) {
+          console.log('regions resolve called');
           return PlacesService.getRegions().then(function (response) {
             var regions = response.data;
             var aServiceData = service.aServiceData;
@@ -64,19 +70,16 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
         }
       },
       views: {
-        'main@': {
-          templateUrl: 'app/service/index.html',
+        'content@index.service': {
+          templateUrl: 'app/service/city/content.html',
           controller: 'ServiceCityController'
-        },
-        'content@index.service.general.city': {
-          templateUrl: 'app/service/city/content.html'
         }
       }
     })
     .state('index.service.general.city.error', {
       url: '/absent',
       views: {
-        'status@index.service.general.city': {
+        'status': {
           templateUrl: 'app/service/city/absent.html',
           controller: 'ServiceCityAbsentController'
         }
@@ -84,13 +87,8 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
     })
     .state('index.service.instruction', {
       url: '/instruction',
-      resolve: {
-        service: function ($stateParams, ServiceService) {
-          return ServiceService.get($stateParams.id);
-        }
-	  },
       views: {
-        'main@': {
+        'content': {
           templateUrl: 'app/service/instruction.html',
           controller: 'ServiceInstructionController'
         }
@@ -99,7 +97,7 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
     .state('index.service.legislation', {
       url: '/legislation',
       views: {
-        'main@': {
+        'content': {
           templateUrl: 'app/service/legislation.html',
           controller: 'ServiceLegislationController'
         }
@@ -108,7 +106,7 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
     .state('index.service.questions', {
       url: '/questions',
       views: {
-        'main@': {
+        'content': {
           templateUrl: 'app/service/questions.html',
           controller: 'ServiceQuestionsController'
         }
@@ -117,7 +115,7 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
     .state('index.service.discussion', {
       url: '/discussion',
       views: {
-        'main@': {
+        'content': {
           templateUrl: 'app/service/discussion.html',
           controller: 'ServiceDiscussionController'
         }
@@ -125,7 +123,7 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
     }).state('index.service.general.city.built-in', {
       url: '/built-in',
       views: {
-        'content@index.service.general.city': {
+        'city-content': {
           templateUrl: 'app/service/city/built-in/index.html',
           controller: 'ServiceBuiltInController'
         }
@@ -213,11 +211,7 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
         }
       },
       views: {
-        'main@': {
-          templateUrl: 'app/service/index.html',
-          controller: 'BuiltinCityController'
-        },
-        'content@index.service.general.city.built-in.bankid': {
+        'city-content': {
           templateUrl: 'app/service/city/built-in/bankid.html',
           controller: 'ServiceBuiltInBankIDController'
         }
@@ -231,7 +225,7 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
         state.data = {id: null};
       },
       views: {
-        'content@index.service.general.city.built-in.bankid': {
+        'city-content@index.service.general.city': {
           templateUrl: 'app/service/city/built-in/bankid.submitted.html',
           controller: function ($state, $scope, $sce) {
             $scope.state = $state.get('index.service.general.city.built-in.bankid.submitted');
@@ -241,6 +235,14 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
           }
         }
       }
+    })
+    .state('index.service.statistics', {
+      url: '/statistics',
+      views: {
+        'content': {
+          templateUrl: 'app/service/statistics.html',
+          controller: 'ServiceStatisticsController'
+        }
+      }
     });
-
-})
+});
