@@ -1,12 +1,16 @@
 package org.wf.dp.dniprorada.base.service.escalation;
 
 import org.activiti.engine.FormService;
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
+import org.activiti.engine.identity.User;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
 import org.activiti.rest.controller.ActivitiRestException;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import org.wf.dp.dniprorada.base.dao.EscalationRuleDao;
 import org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDao;
 import org.wf.dp.dniprorada.base.model.EscalationRule;
 import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
+import org.wf.dp.dniprorada.base.util.BPMNUtil;
 import org.wf.dp.dniprorada.util.EscalationUtil;
 
 import java.util.HashMap;
@@ -32,6 +37,12 @@ public class EscalationService {
 
     @Autowired
     private FormService formService;
+    
+    @Autowired
+    private RepositoryService repositoryService;
+    
+    @Autowired
+    private IdentityService identityService;
 
     @Autowired
     private EscalationRuleDao escalationRuleDao;
@@ -121,7 +132,30 @@ public class EscalationService {
                 m.put(oFormProperty.getId(), oFormProperty.getValue());
             }
         }
+        
+        m.put("sID_BP", StringUtils.substringBefore(oTask.getProcessDefinitionId(), ":"));
+        m.put("nID_task_activiti", oTask.getId());
+        m.put("sTaskName", oTask.getName());
+        m.put("sTaskDescription", oTask.getDescription());
+        m.put("sProcessInstanceId", oTask.getProcessInstanceId());
 
+        List<User> users = BPMNUtil.getUsersInfoBelongToProcess(repositoryService, identityService, oTask.getProcessDefinitionId(), oTask.getTaskDefinitionKey());
+        StringBuffer userInfoString = new StringBuffer();
+        for (User currUser : users){
+        	userInfoString.append(currUser.getId());
+        	userInfoString.append(":");
+        	userInfoString.append(currUser.getFirstName());
+        	userInfoString.append(" ");
+        	userInfoString.append(currUser.getLastName());
+        	userInfoString.append("<br/>");
+        }
+        
+        m.put("sServiceType", String.format("Тип послуги: %s", oTask.getName()));
+        m.put("sTaskName", String.format("Стадія: %s", oTask.getTaskDefinitionKey()));
+        m.put("sTaskNumber", String.format("Номер заявки: %s (с контрольной суммой по алгоритму Луна)", oTask.getId()));
+        m.put("sElapsedInfo", String.format("Заявка знаходиться на цій стадії вже: %d дн.", nElapsedDays));
+        m.put("sResponsiblePersons", String.format("Відповідальні за розгляд заявки: <br/> %s", userInfoString.toString()));
+        
         return m;
     }
 }
