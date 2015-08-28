@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="ternop_dozvil_bud" isExecutable="true">
+  <process id="ternop_dozvil_bud" name="Тернополь ОДА. Надання містобудівних умов та обмежень забудови земельної ділянки" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="info" name="Як працює послуга; посилання на інструкцію" type="label" default="http://bit.ly/1UbeckZ "></activiti:formProperty>
@@ -64,8 +64,8 @@
     <sequenceFlow id="flow10" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <sequenceFlow id="flow11" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
     <sequenceFlow id="flow12" sourceRef="mailtask1" targetRef="usertask2"></sequenceFlow>
-    <serviceTask id="servicetask1" name="User Task" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <serviceTask id="mailtask1" name="User Task" activiti:type="mail">
+    <serviceTask id="servicetask1" name="Проверка документов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <serviceTask id="mailtask1" name="Подтверждение отправки " activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -161,7 +161,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask2" name="User Task" activiti:type="mail">
+    <serviceTask id="mailtask2" name="Подтверждение верности документов" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -257,7 +257,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask3" name="User Task" activiti:type="mail">
+    <serviceTask id="mailtask3" name="Отправка документа клиенту" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -353,7 +353,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask4" name="User Task" activiti:type="mail">
+    <serviceTask id="mailtask4" name="Отказ клиенту" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -490,14 +490,14 @@
         <omgdi:waypoint x="490.0" y="118.0"></omgdi:waypoint>
         <omgdi:waypoint x="487.0" y="75.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="500.0" y="118.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="98.0" x="500.0" y="118.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="490.0" y="158.0"></omgdi:waypoint>
         <omgdi:waypoint x="490.0" y="190.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="500.0" y="158.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="97.0" x="500.0" y="158.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
