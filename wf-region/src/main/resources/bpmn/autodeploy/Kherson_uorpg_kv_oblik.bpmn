@@ -28,7 +28,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="explanation_dovidka" name="Опишіть потребу отримання довідки; якщо в попередньому пункті обрали варіант інші потреби" type="string"></activiti:formProperty>
         <activiti:formProperty id="dovidka_file" name="Завантажте довідку про склад сім’ї та реєстрацію (форма №2)" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг." writable="false"></activiti:formProperty>
+        <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення громадянина про успішне подання звернення" activiti:type="mail">
