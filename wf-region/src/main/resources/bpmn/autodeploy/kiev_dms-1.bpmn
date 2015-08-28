@@ -195,7 +195,7 @@
         <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="taxAddress" name="Необхідні реквізити для сплати Державного мита" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="Registrationservice" name="Найменування територіального підрозділу ДМС України" type="enum" default=" " writable="false">
+        <activiti:formProperty id="Registrationservice" name="Найменування територіального підрозділу ДМС України" type="enum" default=" ">
           <activiti:value id="Деснянська ДМС" name="Деснянська ДМС"></activiti:value>
           <activiti:value id="Солом'янська ДМС" name="Солом'янська ДМС"></activiti:value>
           <activiti:value id="Шевченківська ДМС" name="Шевченківська ДМС"></activiti:value>
@@ -772,11 +772,6 @@
         <omgdi:waypoint x="987.0" y="401.0"></omgdi:waypoint>
         <omgdi:waypoint x="987.0" y="575.0"></omgdi:waypoint>
         <omgdi:waypoint x="830.0" y="575.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="325.0" y="385.0"></omgdi:waypoint>
-        <omgdi:waypoint x="534.0" y="385.0"></omgdi:waypoint>
-        <omgdi:waypoint x="534.0" y="490.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
         <omgdi:waypoint x="812.0" y="188.0"></omgdi:waypoint>
