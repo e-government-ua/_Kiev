@@ -247,7 +247,7 @@ public class ActivitiRestServicesController {
                 }
 
                 if (placeUaIds != null) {
-                    placeUaIds.retainAll(SUPPORTED_PLACE_IDS);
+//TODO: Зачем это было добавлено?                    placeUaIds.retainAll(SUPPORTED_PLACE_IDS);
                     if (!placeUaIds.isEmpty()) {
                         filterServicesByPlaceIds(categories, placeUaIds);
                     }

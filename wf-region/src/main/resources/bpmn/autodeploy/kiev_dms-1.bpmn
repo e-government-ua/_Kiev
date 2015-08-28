@@ -195,12 +195,12 @@
         <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="taxAddress" name="Необхідні реквізити для сплати Державного мита" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="Registrationservice" name="Найменування територіального підрозділу ДМС України" type="enum" default=" " writable="false">
+        <activiti:formProperty id="Registrationservice" name="Найменування територіального підрозділу ДМС України" type="enum" default=" ">
           <activiti:value id="Деснянська ДМС" name="Деснянська ДМС"></activiti:value>
           <activiti:value id="Солом'янська ДМС" name="Солом'янська ДМС"></activiti:value>
           <activiti:value id="Шевченківська ДМС" name="Шевченківська ДМС"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="DocumentDate" name="Талон було оформлено" type="date"></activiti:formProperty>
+        <activiti:formProperty id="DocumentDate" name="Талон було оформлено" type="string"></activiti:formProperty>
         <activiti:formProperty id="CNAPName" name="ПІБ посадової особи" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення операціоніста" type="enum">
           <activiti:value id="accept" name="Запросити громадянина"></activiti:value>
@@ -381,30 +381,11 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-                                        Державний Орган успішно опрацював Вашу заяву. &lt;br /&gt;
-										&lt;p&gt;&lt;/p&gt;
-										Для того щоб закінчити процедуру реєстрації необхідно: &lt;br /&gt;
-										&lt;li&gt;Сплатити Державне мито у розмірі 0.85 грн і отримати талон про сплату. &lt;/li&gt; &lt;br /&gt;
-										&lt;li&gt;Прийти до відділення ДМС з необхідними документами&lt;/li&gt; &lt;br /&gt;
-										&lt;li&gt;Пройти співбесіду з працівником ДМС і отримати печатку у громадянський паспорт&lt;/li&gt; &lt;br /&gt;
-										&lt;p&gt;&lt;/p&gt;
-										Реквізити для сплати: &lt;br /&gt;
-										&lt;i&gt;${taxAddress}&lt;/i&gt; &lt;br /&gt;
-										&lt;p&gt;&lt;/p&gt;
-										Деталі зустрічі: &lt;br /&gt;
-										День - ${meetDay} &lt;br /&gt;
-										Проміжок часу - ${meetTime} &lt;br /&gt;
-										&lt;p&gt;&lt;/p&gt;
-										Необхідні документи, які треба принести до відділення ДМС: &lt;br /&gt;
-										&lt;li&gt;Посвічдчення особи (Паспорт)&lt;/li&gt; &lt;br /&gt;
-										&lt;li&gt;Талон про сплату Державного мита&lt;/li&gt; &lt;br /&gt;
-										&lt;li&gt;Документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації;&lt;/li&gt; &lt;br /&gt;
-										&lt;p&gt;&lt;/p&gt;
-										Коментар до рішення:
-									&lt;p&gt;&lt;/p&gt;	
-									&lt;i&gt;	${decisionComment} &lt;/i&gt;
+										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
+										
+										Спеціалісти із Державного Органу повинні дати відповідь найближчим часом. 
 									&lt;p&gt;&lt;/p&gt;
-									
+										Залишайтесь з нами. 	
                                     &lt;p&gt;&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -413,8 +394,7 @@
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                            
-                        &lt;/table&gt;
+                            &lt;/table&gt;
                         &lt;/form&gt;
                     &lt;/td&gt;
                 &lt;/tr&gt;
@@ -496,7 +476,7 @@
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="taxAddress" name="Необхідні реквізити для сплати Державного мита" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="Registrationservice" name="Найменування територіального підрозділу ДМС України" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="DocumentDate" name="Талон було оформлено" type="date"></activiti:formProperty>
+        <activiti:formProperty id="DocumentDate" name="Талон було оформлено" type="string"></activiti:formProperty>
         <activiti:formProperty id="CNAPName" name="ПІБ посадової особи" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення операціоніста" type="enum">
           <activiti:value id="accept" name="Роздрукувати і відправити заяву"></activiti:value>
@@ -558,7 +538,7 @@
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="taxAddress" name="Необхідні реквізити для сплати Державного мита" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="Registrationservice" name="Найменування територіального підрозділу ДМС України" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="DocumentDate" name="Талон було оформлено" type="date"></activiti:formProperty>
+        <activiti:formProperty id="DocumentDate" name="Талон було оформлено" type="string"></activiti:formProperty>
         <activiti:formProperty id="CNAPName" name="ПІБ посадової особи" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення операціоніста" type="enum">
           <activiti:value id="accept" name="Запросити громадянина"></activiti:value>
@@ -772,11 +752,6 @@
         <omgdi:waypoint x="987.0" y="401.0"></omgdi:waypoint>
         <omgdi:waypoint x="987.0" y="575.0"></omgdi:waypoint>
         <omgdi:waypoint x="830.0" y="575.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="325.0" y="385.0"></omgdi:waypoint>
-        <omgdi:waypoint x="534.0" y="385.0"></omgdi:waypoint>
-        <omgdi:waypoint x="534.0" y="490.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
         <omgdi:waypoint x="812.0" y="188.0"></omgdi:waypoint>

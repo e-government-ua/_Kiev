@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_vityag_zem" name="Дніпропетровська-ЦНАП. Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки" isExecutable="true" activiti:candidateStarterGroups="dnepr_cnap_vityag">
+  <process id="dnepr_dovidka_zem" name="Дніпропетровська-ЦНАП. Надання довідки з Державної статистичної звітності про наявність земель та розподіл їх за власниками земель, землекористувачами, угіддями (за даними форми 6-зем)" isExecutable="true" activiti:candidateStarterGroups="dnepr_dovidka_zem">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="Nazvakompani(avt)" name="Назва компанії" type="string"></activiti:formProperty>
@@ -26,7 +26,7 @@
         <activiti:formProperty id="8" name="Запит від нотаріуса - у разі оформлення спадщини" type="file" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask1" name="Проверка ЦНАП документов" activiti:candidateGroups="dnepr_cnap_vityag">
+    <userTask id="usertask1" name="Проверка ЦНАП документов" activiti:candidateGroups="dnepr_dovidka_zem">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Nazvakompani" name="Назва компанії" type="string"></activiti:formProperty>
@@ -163,8 +163,8 @@
       </extensionElements>
     </serviceTask>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_vityag_zem">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_vityag_zem" id="BPMNPlane_dnepr_vityag_zem">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_dovidka_zem">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_dovidka_zem" id="BPMNPlane_dnepr_dovidka_zem">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="34.0" y="107.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
