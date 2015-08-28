@@ -21,6 +21,7 @@ public class NotificationService {
 
    public void sendTaskCreatedInfoEmail(String receiverEmail, Long nID_Protected) throws EmailException {
 
+      /*
       String sHead = String.format("Ви подали заяву №%s на послугу через портал %s", nID_Protected,
               generalConfig.sHostCentral());
 
@@ -29,8 +30,15 @@ public class NotificationService {
               "<br>(Ви завжди можете подивитись її статус на порталі у разділі \"Статуси\")" +
               "<br>" +
               "При надходжені Вашої заявки у систему госоргану - Вам буде додатково направлено персональний лист - повідомленя.<br>";
+      */
 
+      String sHead = String.format("Ваша заявка %s прийнята!", nID_Protected);
 
+      String sBody = String.format("Ваша заявка %s прийнята!", nID_Protected) +
+              "<br>Ви завжди зможете переглянути її поточний статус у розділі \"Статуси\". Також на кожному етапі Ви будете отримувати email-повідомлення.	"
+              ;
+      
+      
       mail.reset();
 
       mail._To(receiverEmail)._Head(sHead)._Body(sBody);
