@@ -23,42 +23,26 @@ public class EscalationHandler_SendMailAlert
 
     @Override
     public void execute(Map<String, Object> mParam, String[] asRecipientMail, String sPatternFile) {
-//        //check input data
-//        if (params.length != 3){
-//            throw new IllegalArgumentException("wrong input data!");
-//        }
-//        Map<String, Object> mParam = (Map<String, Object>) params[0];
-//        String[] asRecipientMail = (String[]) params[1];
-//        String sPatternFile = (String) params[2];
-
         //create email body
         String sBody = null;
         try {
             byte[] bytes = Util.getPatternFile(sPatternFile);
             sBody = Util.sData(bytes);
-            log.info(">>>>>>>pattern body=");
-            log.info(sBody);
-            log.info(">>>>>>>--------");
         } catch (IOException e) {//??
             log.error("error during finding the pattern file! path=" + sPatternFile, e);
-            //throw new IllegalArgumentException("wrong pattern path! path=" + sPatternFile, e);
         }
         if (sBody == null) {
             sBody = "test body";
-            //throw new IllegalArgumentException("wrong pattern data! path=" + sPatternFile);
         }
-        //??
-        String sHead = "Task escalation";//"Ескалація задачі";//, "UTF-8");
-        //
+        String sHead = String.format("Зависла заявка № %s:%s ! Прийміть міри!", mParam.get("sID_BP"), 
+        		mParam.get("nID_task_activiti").toString());
+
         for (String key : mParam.keySet()) {
             if (sBody.contains(key)) {
                 log.info("replace key [" + key + "] by value " + mParam.get(key));
                 sBody = sBody.replace("[" + key + "]", mParam.get(key).toString());
             }
         }
-        log.info(">>>>>>>total sbody=");
-        log.info(sBody);
-        log.info(">>>>>>>--------");
         log.info ("@Autowired oMail=" + oMail );
         oMail = oMail == null ? new Mail(): oMail;
         log.info ("oMail=" + oMail );
@@ -76,17 +60,9 @@ public class EscalationHandler_SendMailAlert
 
         oMail.reset();
         oMail
-//                ._From("noreplay@gmail.com")
                 ._To(recipient)
                 ._Head(sHead)
-                ._Body(sBody)
-        //._AuthUser(mailServerUsername)
-        //._AuthPassword(mailServerPassword)
-//        ._Host("gmail.com")
-//                ._Port(Integer.valueOf("gmail.com"))
-        //._SSL(true)
-        //._TLS(true)
-        ;
+                ._Body(sBody);
         oMail.send();
     }
 
