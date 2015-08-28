@@ -12,11 +12,11 @@ function getStructure() {
 function findRegions(search) {
 	var regionsKey = 'api/places/regions?sFind=' + search;
 	var regionsValue = placesCache.get(regionsKey);
-	
+
 	if(regionsValue) {
 		return regionsValue;
 	}
-	
+
 	var structureValue = getStructure();
 	return (search == null) ?
 		structureValue:
@@ -26,16 +26,16 @@ function findRegions(search) {
 function findRegion(region) {
 	var regionKey = 'api/places/region/' + region;
 	var cacheValue = placesCache.get(regionKey);
-	
+
 	if(cacheValue) {
 		return cacheValue;
 	};
-	
+
 	var structureValue = getStructure();
 	if(structureValue == null) {
 		return null;
 	}
-	
+
 	for(var key in structureValue) {
 		var oRegion = structureValue[key];
 		if(oRegion.nID == region) {
@@ -43,23 +43,23 @@ function findRegion(region) {
 			return oRegion;
 		}
 	};
-	
+
 	return null;
 };
 
 function findCity(region, city) {
 	var cityKey = 'api/places/region/' + region + '/city/' + city;
 	var cacheValue = placesCache.get(cityKey);
-	
+
 	if(cacheValue) {
 		return cacheValue;
 	}
-	
+
 	var oRegion = findRegion(region);
 	if(oRegion == null) {
 		return null;
 	}
-	
+
 	var aCity = oRegion.aCity;
 	for(var key in aCity)	{
 		var oCity = aCity[key];
@@ -68,23 +68,23 @@ function findCity(region, city) {
 			return oCity;
 		}
 	};
-	
+
 	return null;
 };
 
 function findCities(region, search) {
 	var citiesKey = 'api/places/region/' + region + '/cities?sFind=' + search;
 	var cacheValue = placesCache.get(citiesKey);
-	
+
 	if(cacheValue) {
 		return cacheValue;
 	}
-	
+
 	var oRegion = findRegion(region);
 	if(oRegion == null) {
 		return null;
 	}
-	
+
 	return (search == null) ?
 		oRegion.aCity:
 		arrayQuery('sName').regex(new RegExp(search, 'i')).limit(10).on(oRegion.aCity);
@@ -98,7 +98,7 @@ module.exports = {
 			next();
 			return;
 		}
-	
+
 		var url = options.protocol+'://'+options.hostname+options.path+'/services/getPlaces';
 		return request.get({
 			'url': url,
@@ -112,60 +112,8 @@ module.exports = {
 			return;
 		});
 	},
-	getRegions: function(search) {
-		var aRegion = findRegions(search);
-		
-		if(aRegion == null) {
-			return null;
-		}
-		
-		var result = [];
-		for(var i = 0; i < aRegion.length; i++) {
-			var oRegion = aRegion[i];
-			result.push({
-				nID: oRegion.nID,
-				sName: oRegion.sName
-			});
-		};
-		
-		return result;
-	},
-	getRegion: function(region) {
-		var oRegion = findRegion(region);
-		
-		if(oRegion == null) {
-			return null;
-		}
-		
-		return {
-			nID: oRegion.nID,
-			sName: oRegion.sName
-		}
-	},
-	getCities: function(region, search) {
-		var aCity = findCities(region, search);
-		
-		var result = [];
-		for(var i = 0; i < aCity.length; i++) {
-			var oCity = aCity[i];
-			result.push({
-				nID: oCity.nID,
-				sName: oCity.sName
-			});
-		}
-		
-		return result;
-	},
-	getCity: function(region, city) {
-		var oCity = findCity(region, city);
-		
-		if(oCity == null) {
-			return null;
-		}
-		
-		return {
-			nID: oCity.nID,
-			sName: oCity.sName
-		}
-	}
+	getRegions: findRegions,
+	getRegion: findRegion,
+	getCities: findCities,
+	getCity: findCity
 };
