@@ -3,11 +3,11 @@
   <process id="Uzhgorod_dmg_1" name="Ужгород - аварійний дозвіл на проведення земляних робіт" isExecutable="true">
     <startEvent id="start1" name="аварійний дозвіл на проведення земляних робіт">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="files" name="Завантажте, будь ласка, файли" type="label"></activiti:formProperty>
+        <activiti:formProperty id="files" name="Завантажте, будь ласка, файли" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="application_zayava" name="Копія заяви на дозвіл на проведення земляних робіт" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="scheme" name="Схема виконання робіт - викопіювання з генплану" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="podtvergdenie" name="Письмове підтвердження факту аварії" type="file" required="true"></activiti:formProperty>
