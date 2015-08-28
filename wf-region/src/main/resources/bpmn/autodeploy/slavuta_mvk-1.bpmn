@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="slavuta_mvk-1" name="Славутський МВК - Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки" isExecutable="true">
+  <process id="slavuta_mvk-1" name="Славутський МВК - Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -49,8 +49,8 @@
           <activiti:value id="accept" name="Прийняти в роботу"></activiti:value>
           <activiti:value id="reject" name="Відмовити у наданні послуги"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Якщо ви відмовляєте замовнику у наданні послуги, вкажіть підству у цьому полі."></activiti:formProperty>
         <activiti:formProperty id="reason" name="Підстава для відмови" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="vlasn" name="Копія правовстановлюючих документів, що посвідчують право на земельну ділянку" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/slavuta_mvk-1_zayava.html]" type="invisible" default="${sBody_1}"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
@@ -71,7 +71,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки</activiti:expression>
+          <activiti:expression>Звернення на тему: Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -123,7 +123,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        На жаль змушені Вам відмовити в наданні послуги:&lt;/p&gt;
+                                        На жаль змушені Вам відмовити в наданні послуги.&lt;/p&gt;
 &lt;p&gt;Причина в наступному: 
                                     &lt;/p&gt;
 &lt;p&gt;${reason}&lt;/p&gt;
@@ -186,7 +186,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -237,9 +237,9 @@
                                     &lt;p&gt;
                                         Ваше звернення оброблено.&lt;/p&gt;
                                     &lt;p&gt; 
-                                    Ви можете отримати витяг за адресою: м. Славута, вул. Соборності, 15&lt;/p&gt;
+                                    Ви можете отримати витяг за адресою: м. Славута, вул. Соборності, 15.&lt;/p&gt;
                                     &lt;p&gt; 
-                                    телефон для довідок: (03842) 2-13-59&lt;/p&gt;
+                                    телефон для довідок: (03842) 2-13-59.&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
