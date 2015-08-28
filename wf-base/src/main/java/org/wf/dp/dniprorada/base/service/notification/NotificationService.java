@@ -20,14 +20,17 @@ public class NotificationService {
    Mail mail;
 
    public void sendTaskCreatedInfoEmail(String receiverEmail, Long nID_Protected) throws EmailException {
-      String sHead = String.format("Вы подали заявку №%s на услугу через портал %s", nID_Protected,
+
+      String sHead = String.format("Ви подали заяву №%s на послугу через портал %s", nID_Protected,
               generalConfig.sHostCentral());
 
-      String sBody = String.format("Вы подали заявку №%s на услугу через портал %s", nID_Protected,
+      String sBody = String.format("Ви подали заяву №%s на послугу через портал %s", nID_Protected,
               generalConfig.sHostCentral()) +
-              "(Вы всегда сможете посмотреть ее текущий статус на портале в разделе \"Статусы\")" +
+              "<br>(Ви завжди можете подивитись її статус на порталі у разділі \"Статуси\")" +
               "<br>" +
-              "При поступлении Вашей заявки в систему госоргана - Вам будет дополнительно направлено персональное письмо - уведомление.<br>";
+              "При надходжені Вашої заявки у систему госоргану - Вам буде додатково направлено персональний лист - повідомленя.<br>";
+
+
       mail.reset();
 
       mail._To(receiverEmail)._Head(sHead)._Body(sBody);

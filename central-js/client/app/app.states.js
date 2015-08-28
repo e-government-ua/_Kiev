@@ -20,14 +20,14 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
         }
     )
     .state('index.subcategory', {
-      url: 'subcategory/:catID/:scatID',
+      url: '/subcategory/:catID/:scatID',
       resolve: {
         catalog: function (CatalogService) {
           return CatalogService.getServices();
         }
       },
       views: {
-        'content': {
+        'main@': {
           templateUrl: 'app/service/subcategory/subcategory.html',
           controller: 'SubcategoryController'
         }
