@@ -154,7 +154,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[тест]]></activiti:string>
+          <activiti:string><![CDATA[Тернополь ОДА. Надання містобудівних умов та обмежень забудови земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -253,7 +253,7 @@
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[тест]]></activiti:string>
+          <activiti:string><![CDATA[Тернополь ОДА. Надання містобудівних умов та обмежень забудови земельної ділянки]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -349,7 +349,7 @@
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[тест]]></activiti:string>
+          <activiti:string><![CDATA[Тернополь ОДА. Надання містобудівних умов та обмежень забудови земельної ділянки]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -445,7 +445,7 @@
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[тест]]></activiti:string>
+          <activiti:string><![CDATA[Тернополь ОДА. Надання містобудівних умов та обмежень забудови земельної ділянки]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
