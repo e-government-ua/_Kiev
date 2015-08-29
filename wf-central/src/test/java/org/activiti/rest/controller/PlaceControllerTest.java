@@ -16,11 +16,9 @@ import org.springframework.web.context.WebApplicationContext;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.dao.place.PlaceHierarchyTree;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * @author dgroup
@@ -43,7 +41,8 @@ public class PlaceControllerTest {
             .build();
     }
 
-    @Test @Ignore
+    @Test
+    @Ignore(value = "Should be run only on test evn, but 'Test' profile is working on local env.")
     public void getPlacesTreeById() throws Exception {
         String jsonData = mockMvc
             .perform(get("/getPlacesTree").param("nID", "459"))
@@ -56,7 +55,8 @@ public class PlaceControllerTest {
         assertNotNull(tree);
     }
 
-    @Test @Ignore
+    @Test
+    @Ignore(value = "Should be run only on test evn, but 'Test' profile is working on local env.")
     public void getPlace() throws Exception {
         String jsonData = mockMvc
             .perform(get("/getPlace").param("nID", "459"))
