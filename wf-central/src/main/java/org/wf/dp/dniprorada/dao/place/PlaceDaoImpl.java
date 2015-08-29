@@ -43,7 +43,7 @@ public class PlaceDaoImpl extends GenericEntityDao<Place> implements PlaceDao {
             query.setLong("placeId", root.getPlaceId());
 
         if (!specified(root.getPlaceId()) && isNotBlank(root.getUaID()))
-            query.setString("uaId", root.getUaID());
+            query.setString("ua_id", root.getUaID());
 
         if (specified(root.getTypeId()))
             query.setLong("typeId", root.getTypeId());
