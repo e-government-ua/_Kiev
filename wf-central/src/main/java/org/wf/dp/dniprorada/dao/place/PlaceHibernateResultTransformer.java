@@ -4,6 +4,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,6 +60,7 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
      * @return unexpected result for list if it wasn't created via build method above
      **/
     public static PlaceHierarchyTree toTree(List<PlaceHierarchyRecord> dataRows) {
+        Assert.isTrue(!dataRows.isEmpty(), "Entity not found");
         LOG.debug("Got {}", dataRows);
 
         Map<Long, PlaceHierarchyTree> tempParents = new HashMap<>();
@@ -132,9 +134,9 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
             if (phr.isAlreadyIncluded()) // It's already belongs to our result tree
                 continue;
 
-            if (node.getPlace().getId().equals(phr.getParentId())) {     // One child was found
-                PlaceHierarchyTree itsMySon = phr.toTreeElement();              // Get child
-                phr.setAlreadyIncluded(true);                            // Disable child for the next iteration
+            if (node.getPlace().getId().equals(phr.getParentId())) {    // One child was found
+                PlaceHierarchyTree itsMySon = phr.toTreeElement();      // Get child
+                phr.setAlreadyIncluded(true);                           // Disable child for the next iteration
                 children.add( itsMySon );                               // Append child to the children list
             }
         }

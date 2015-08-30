@@ -77,27 +77,30 @@ public class PlaceController {
         place.setId(placeId);
         place.setName(name);
         place.setPlaceTypeId(typeId);
-        place.setUaId(uaId);
+        place.setsID_UA(uaId);
         place.setOriginalName(originalName);
 
         if (positive(placeId)) {
-            placeDao.saveOrUpdate(place);
+            swap(place, placeDao.findById(placeId));
 
-        }  else if (isNotBlank(uaId)) {
-            Optional<Place> persistedPlace = placeDao.findBy("sID_UA", uaId);
-            if (persistedPlace.isPresent()) {
-                place.setId( persistedPlace.get().getId() );
-                placeDao.saveOrUpdate(place);
-            }
+        } else if (!swap(place, placeDao.findBy("sID_UA", uaId))) {
+            placeDao.saveOrUpdate(place);
         }
     }
 
+    @RequestMapping(value = "/getPlaceEntity", method = RequestMethod.GET, headers = { JSON_TYPE })
+    public  @ResponseBody Place getPlace (
+            @RequestParam(value = "nID",    required = false) Long placeId,
+            @RequestParam(value = "sID_UA", required = false) String uaId) {
+        return positive(placeId)
+            ? placeDao.findByIdExpected(placeId)
+            : placeDao.findByExpected("sID_UA", uaId);
+    }
 
-    @RequestMapping(value   = "/removePlace",
-            method  = RequestMethod.POST, headers = { JSON_TYPE })
+    @RequestMapping(value = "/removePlace", method = RequestMethod.POST, headers = { JSON_TYPE })
     public  @ResponseBody void removePlace(
-            @RequestParam(value = "nID")    Long   placeId,
-            @RequestParam(value = "sID_UA") String uaId
+            @RequestParam(value = "nID",    required = false) Long   placeId,
+            @RequestParam(value = "sID_UA", required = false) String uaId
     ) {
         if (positive(placeId)) {
             placeTypeDao.delete(placeId);
@@ -111,8 +114,7 @@ public class PlaceController {
     }
 
 
-    @RequestMapping(value   = "/getPlaceTypes",
-            method  = RequestMethod.GET, headers = { JSON_TYPE })
+    @RequestMapping(value = "/getPlaceTypes", method = RequestMethod.GET, headers = { JSON_TYPE })
     public  @ResponseBody List<PlaceType> getPlaceTypes(
             @RequestParam(value = "bArea") Boolean area,
             @RequestParam(value = "bRoot") Boolean root
@@ -155,5 +157,19 @@ public class PlaceController {
 
     private static boolean positive(Long value){
         return value!=null && value > 0;
+    }
+
+    /**
+     * This method allows to swap two entities by Primary Key (PK).
+     * @param place          - entity with new parameters
+     * @param persistedPlace - persisted entity with registered PK in DB
+     * */
+    private boolean swap(Place place, Optional<Place> persistedPlace){
+        if (persistedPlace.isPresent()) {
+            place.setId( persistedPlace.get().getId() );
+            placeDao.saveOrUpdate(place);
+            return true;
+        }
+        return false;
     }
 }
