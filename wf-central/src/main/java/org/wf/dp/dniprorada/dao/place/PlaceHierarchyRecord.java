@@ -95,7 +95,7 @@ public class PlaceHierarchyRecord  {
         Place place = new Place();
         place.setId(getPlaceId());
         place.setName(getName());
-        place.setUaId(getUaID());
+        place.setsID_UA(getUaID());
         place.setPlaceTypeId(getTypeId());
         place.setOriginalName(getOriginalName());
         return place;

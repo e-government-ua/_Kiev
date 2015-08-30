@@ -77,7 +77,7 @@ public class PlaceController {
         place.setId(placeId);
         place.setName(name);
         place.setPlaceTypeId(typeId);
-        place.setUaId(uaId);
+        place.setsID_UA(uaId);
         place.setOriginalName(originalName);
 
         if (positive(placeId)) {
