@@ -1,7 +1,5 @@
 package org.wf.dp.dniprorada.engine.task;
 
-import java.util.List;
-
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.activiti.engine.form.StartFormData;
@@ -21,12 +19,10 @@ public class ReleaseTicketsOfQueue extends AbstractModelTask implements JavaDele
 				.getFormService()
 				.getStartFormData(oExecution.getProcessDefinitionId());
 		
-		LOG.info("ReleaseTicketsOfQueue:execute");
-        List<String> asFieldID = getListField_QueueDataFormType(oStartformData);
-        
-		LOG.info("Found asFieldID: " + asFieldID);
+		LOG.info("ReleaseTicketsOfQueue:execute start");
+		scanExecutionOnQueueTickets(oExecution, oStartformData);
+		
+		LOG.info("ReleaseTicketsOfQueue:execute end");
 	}
 
-	
-	
 }
