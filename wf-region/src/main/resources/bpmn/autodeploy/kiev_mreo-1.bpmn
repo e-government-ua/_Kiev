@@ -656,6 +656,7 @@ ${visitDate}&lt;br /&gt;
                                     <h3>Шановний колего!</h3>
                                     <p>
                                         У Вас в черзі на обробку  зареєстровано нове звернення щодо реєстрації авто з пробігом<br />
+                                        Заявник:  ${bankIdfirstName} ${bankIdmiddleName} ${bankIdlastName}<br />
                                         Відпрацюйте це звернення на порталі <a href="#current-page">region.igov.org.ua/admin</a>
                                     </p>
                                     
