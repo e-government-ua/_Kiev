@@ -142,7 +142,6 @@ public class GenericEntityDao<T extends Entity> implements EntityDao<T> {
 
     @SuppressWarnings("unchecked")
     @Override
-    @Transactional
     public T saveOrUpdate(T entity) {
         Assert.notNull(entity);
 

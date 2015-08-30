@@ -81,14 +81,10 @@ public class PlaceController {
         place.setOriginalName(originalName);
 
         if (positive(placeId)) {
-            placeDao.saveOrUpdate(place);
+            swap(place, placeDao.findById(placeId));
 
-        }  else if (isNotBlank(uaId)) {
-            Optional<Place> persistedPlace = placeDao.findBy("sID_UA", uaId);
-            if (persistedPlace.isPresent()) {
-                place.setId( persistedPlace.get().getId() );
-                placeDao.saveOrUpdate(place);
-            }
+        } else if (!swap(place, placeDao.findBy("sID_UA", uaId))) {
+            placeDao.saveOrUpdate(place);
         }
     }
 
@@ -155,5 +151,19 @@ public class PlaceController {
 
     private static boolean positive(Long value){
         return value!=null && value > 0;
+    }
+
+    /**
+     * This method allows to swap two entities by Primary Key (PK).
+     * @param place          - entity with new parameters
+     * @param persistedPlace - persisted entity with registered PK in DB
+     * */
+    private boolean swap(Place place, Optional<Place> persistedPlace){
+        if (persistedPlace.isPresent()) {
+            place.setId( persistedPlace.get().getId() );
+            placeDao.saveOrUpdate(place);
+            return true;
+        }
+        return false;
     }
 }
