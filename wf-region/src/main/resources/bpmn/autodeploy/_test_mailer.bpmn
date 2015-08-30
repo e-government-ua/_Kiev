@@ -119,7 +119,7 @@
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="200.0" y="170.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask0" id="BPMNShape_servicetask1">
+      <bpmndi:BPMNShape bpmnElement="servicetask0" id="BPMNShape_servicetask0">
         <omgdc:Bounds height="55.0" width="105.0" x="300.0" y="100.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
