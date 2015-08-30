@@ -90,18 +90,17 @@ public class PlaceController {
 
     @RequestMapping(value = "/getPlaceEntity", method = RequestMethod.GET, headers = { JSON_TYPE })
     public  @ResponseBody Place getPlace (
-            @RequestParam (value = "nID")                       Long placeId,
-            @RequestParam (value = "sID_UA", required = false)  String uaId) {
+            @RequestParam(value = "nID",    required = false) Long placeId,
+            @RequestParam(value = "sID_UA", required = false) String uaId) {
         return positive(placeId)
             ? placeDao.findByIdExpected(placeId)
             : placeDao.findByExpected("sID_UA", uaId);
     }
 
-    @RequestMapping(value   = "/removePlace",
-            method  = RequestMethod.POST, headers = { JSON_TYPE })
+    @RequestMapping(value = "/removePlace", method = RequestMethod.POST, headers = { JSON_TYPE })
     public  @ResponseBody void removePlace(
-            @RequestParam(value = "nID")    Long   placeId,
-            @RequestParam(value = "sID_UA") String uaId
+            @RequestParam(value = "nID",    required = false) Long   placeId,
+            @RequestParam(value = "sID_UA", required = false) String uaId
     ) {
         if (positive(placeId)) {
             placeTypeDao.delete(placeId);
@@ -115,8 +114,7 @@ public class PlaceController {
     }
 
 
-    @RequestMapping(value   = "/getPlaceTypes",
-            method  = RequestMethod.GET, headers = { JSON_TYPE })
+    @RequestMapping(value = "/getPlaceTypes", method = RequestMethod.GET, headers = { JSON_TYPE })
     public  @ResponseBody List<PlaceType> getPlaceTypes(
             @RequestParam(value = "bArea") Boolean area,
             @RequestParam(value = "bRoot") Boolean root
