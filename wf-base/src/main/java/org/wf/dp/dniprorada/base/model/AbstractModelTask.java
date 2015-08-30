@@ -233,7 +233,9 @@ public abstract class AbstractModelTask {
 		List<FormProperty> aFormProperty = oFormData.getFormProperties();
 		if(!aFormProperty.isEmpty()){
                     for (FormProperty oFormProperty : aFormProperty) {
+                    	LOG.info("Processing property " + oFormProperty.getType() + "of type: " + oFormProperty.getType() + ":" + oFormProperty.getType().getClass());
                             if(oFormProperty.getType() instanceof QueueDataFormType){
+                            	LOG.info("Found queue data form type: " + oFormProperty);
                                     asFieldID.add(oFormProperty.getId());
                             }
                     }
