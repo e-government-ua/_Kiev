@@ -22,19 +22,19 @@
     <userTask id="usertask1" name="Обробка Тростянецьким МВК" activiti:candidateGroups="trostyan_mvk_dereva">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
-        <activiti:formProperty id="adress" name="Ваша адреса: область, місто, вулиця, дім, квартира" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Електронна пошта" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adress2" name="Місце розташування насадження (адреса)" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="reason" name="Вказати причину видалення зеленого насадження" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Ваша адреса: область, місто, вулиця, дім, квартира" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Місце розташування насадження (адреса)" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="reason" name="Вказати причину видалення зеленого насадження" type="textArea" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="status" name="Обробка заяви" type="enum">
           <activiti:value id="attr1_wait" name="Документи передані на візування та очікують рішення виконкому"></activiti:value>
           <activiti:value id="attr2_finish" name="Відмова громодянину"></activiti:value>
           <activiti:value id="attr3_finish" name="Прийнято позитивне рішення"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/trostyanec_mvk_dereva_zayava.html]" type="invisible" default="${sBody}"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/trostyanec_mvk_dereva_zayava.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
