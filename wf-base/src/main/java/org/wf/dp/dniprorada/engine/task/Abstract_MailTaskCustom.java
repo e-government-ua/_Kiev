@@ -2,18 +2,25 @@ package org.wf.dp.dniprorada.engine.task;
 
 import java.net.URL;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import javax.activation.DataHandler;
 import javax.activation.URLDataSource;
 import javax.mail.BodyPart;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import org.activiti.engine.EngineServices;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
+import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.TaskFormData;
+import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.MultiPartEmail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +50,8 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     private static final String TAG_sACCESS_KEY = "[sAccessKey]";
     private static final String TAG_sURL_SERVICE_MESSAGE = "[sURL_ServiceMessage]";
     //private static final String URL_SERVICE_MESSAGE = "https://test.igov.org.ua/wf-central/service/messages/setMessage";
+    private static final String TAG_Function_AtEnum = "enum{[";
+    private static final String TAG_Function_To = "]}";
 
     
     
@@ -134,6 +143,82 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             textWithoutTags = StringUtils.replace(textStr, TAG_PAYMENT_BUTTON_LIQPAY, htmlButton);
         }
 
+        
+    //private static final String TAG_Function_AtEnum = "enum{[";
+    //private static final String TAG_Function_To = "]}";
+        
+        //if (textWithoutTags.contains(TAG_Function_AtEnum)) {
+        int nLimit=10;
+        boolean bCashed = false;
+        List<FormProperty> aProperty=new LinkedList();
+        while (nLimit>0 && textWithoutTags.contains(TAG_Function_AtEnum)) {
+            nLimit--;
+            int nAt = textWithoutTags.indexOf(TAG_Function_AtEnum);
+            LOG.info("sTAG_Function_AtEnum,nAt="+nAt);
+            int nTo = textWithoutTags.indexOf(TAG_Function_To);
+            LOG.info("sTAG_Function_AtEnum,nTo="+nTo);
+            String sTAG_Function_AtEnum = textWithoutTags.substring(nAt+TAG_Function_AtEnum.length(), nTo);
+            LOG.info("sTAG_Function_AtEnum="+sTAG_Function_AtEnum);
+            
+            if(!bCashed){
+                EngineServices oEngineServices = execution.getEngineServices();
+                //RuntimeService oRuntimeService = oEngineServices.getRuntimeService();
+                LOG.info("execution.getId()="+execution.getId());
+                TaskFormData oTaskFormData = oEngineServices
+                        .getFormService()
+                        .getTaskFormData(execution.getId());//task.getId()
+                for (FormProperty property : oTaskFormData.getFormProperties()) {
+                    //List<FormProperty> aProperty=new LinkedList();
+                    aProperty.add(property);
+                    //String sType=property.getType().getName();
+                    //String snID=property.getId();
+                    LOG.info(String.format("Matching property %s:%s:%s with fieldNames", property.getId(), property.getName(), property.getType().getName()));
+                }
+                bCashed = true;
+            }
+                //TaskFormData oTaskFormData = formService.getTaskFormData(curTask.getId());
+                boolean bReplaced=false;
+                //for (FormProperty property : oTaskFormData.getFormProperties()) {
+                for (FormProperty property : aProperty) {
+                        String sType=property.getType().getName();
+                        String snID=property.getId();
+//                        LOG.info(String.format("Matching property %s:%s:%s with fieldNames", snID, property.getName(), sType));
+                        //if (currentRow.contains("${" + property.getId() + "}")) {
+                        //LOG.info("sType="+sType + ",snID="+snID);
+                        //LOG.info("snID="+snID);
+                        if (!bReplaced && "enum".equals(sType) && sTAG_Function_AtEnum.equals(snID)) {
+                                LOG.info(String.format("Found field! Matching property %s:%s:%s with fieldNames", snID, property.getName(), sType));
+                                //LOG.info(String.format("Found field with id %s in the pattern. Adding value to the result", "${" + property.getId() + "}"));
+//                                LOG.info("Found field!");
+                                String sValue = parseEnumProperty(property);
+                                LOG.info("sValue="+sValue);
+                                
+                                textWithoutTags = textWithoutTags.replaceAll(TAG_Function_AtEnum+sTAG_Function_AtEnum+TAG_Function_To, sValue);
+                                bReplaced=true;
+                                //resume
+                                /*
+                                String sValue = "";
+                                String sType=property.getType().getName();
+                                log.info("sType="+sType);
+                                if ("enum".equalsIgnoreCase(sType)) {
+                                        sValue = parseEnumProperty(property);
+                                } else {
+                                        sValue = property.getValue();
+                                }*/
+                                /*log.info("sValue="+sValue);
+                                if (sValue != null){
+                                        log.info(String.format("Replacing field with the value %s", sValue));
+                                        currentRow = currentRow.replace("${" + property.getId() + "}", sValue);
+                                }*/
+
+                        }
+                }            
+            
+//            textWithoutTags = textWithoutTags.replaceAll(TAG_Function_AtEnum+sTAG_Function_AtEnum+TAG_Function_To, TAG_Function_To);
+            //textWithoutTags = textWithoutTags.replaceAll(TAG_nID_SUBJECT, "" + nID_Subject);
+        }
+                
+                
         if (textWithoutTags.contains(TAG_nID_SUBJECT)) {
             textWithoutTags = textWithoutTags.replaceAll(TAG_nID_SUBJECT, "" + nID_Subject);
         }
