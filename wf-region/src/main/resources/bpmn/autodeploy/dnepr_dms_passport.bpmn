@@ -709,10 +709,10 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow0" id="BPMNEdge_flow0">
         <omgdi:waypoint x="765.0" y="197.0"></omgdi:waypoint>
-        <omgdi:waypoint x="780.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="780.0" y="187.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="765.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="765.0" y="187.0"></omgdi:waypoint>
         <omgdi:waypoint x="780.0" y="197.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
