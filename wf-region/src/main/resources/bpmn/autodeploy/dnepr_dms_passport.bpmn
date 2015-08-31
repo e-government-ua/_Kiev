@@ -54,6 +54,7 @@
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow2" sourceRef="mailtask1" targetRef="usertask2"></sequenceFlow>
+    <serviceTask id="servicetask0" name="Видалення тікета з черги" activiti:delegateExpression="#{releaseTicketsOfQueue}"></serviceTask>
     <serviceTask id="mailtask1" name="звичайний не терміновий" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -178,7 +179,7 @@
     <sequenceFlow id="flow6" sourceRef="exclusivegateway1" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${finish=='attr2_missed'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask2" name="не прийшов вчасно" activiti:type="mail" activiti:delegateExpression="#{releaseTicketsOfQueue}">
+    <serviceTask id="mailtask2" name="не прийшов вчасно" activiti:type="mail" >
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -264,8 +265,8 @@
       </extensionElements>
     </serviceTask>
     <endEvent id="endevent2" name="End"></endEvent>
-    <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow8" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="servicetask0"></sequenceFlow>
+    <sequenceFlow id="flow0" sourceRef="servicetask0" targetRef="endevent2"></sequenceFlow>
     <serviceTask id="servicetask1" name="для очереди" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow10" sourceRef="servicetask1" targetRef="scripttask1"></sequenceFlow>
     <scriptTask id="scripttask1" name="исправление даты-времени" scriptFormat="groovy" activiti:autoStoreVariables="true">
@@ -662,6 +663,9 @@
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="61.0" width="105.0" x="660.0" y="167.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask0" id="BPMNShape_servicetask0">
+        <omgdc:Bounds height="61.0" width="105.0" x="660.0" y="117.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="780.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -702,6 +706,10 @@
         <omgdi:waypoint x="640.0" y="190.0"></omgdi:waypoint>
         <omgdi:waypoint x="659.0" y="190.0"></omgdi:waypoint>
         <omgdi:waypoint x="660.0" y="197.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow0" id="BPMNEdge_flow0">
+        <omgdi:waypoint x="765.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="780.0" y="197.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="765.0" y="197.0"></omgdi:waypoint>
