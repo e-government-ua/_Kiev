@@ -1,7 +1,14 @@
-angular.module('app').controller('ServiceController', function($scope, $rootScope, $timeout, CatalogService, AdminService, $filter, statesRepository) {
-  $scope.catalog = CatalogService.getModeSpecificServices(statesRepository.getIDPlaces()).finally(function () {
-    $scope.spinner = false; // Hide a loading spinner
-  });
+angular.module('app').controller('ServiceController', function($scope, $rootScope, $timeout, CatalogService, AdminService, $filter, statesRepository, RegionListFactory, LocalityListFactory) {
+  $scope.data = {region: null, city: null};
+
+  function getIDPlaces() {
+    return ($scope.bShowExtSearch && $scope.selectedStatus == 2 && $scope.data.region !== null) ?
+      [$scope.data.region].concat($scope.data.city === null ? $scope.data.region.aCity : $scope.data.city)
+        .map(function(e) { return e.sID_UA; }) : statesRepository.getIDPlaces();
+  }
+
+  var fullCatalog;
+  function copyCatalog() { return jQuery.extend(true, {}, fullCatalog); }
 
   $scope.catalogCounts = {0: 0, 1: 0, 2: 0};
   $scope.limit = 4;
@@ -12,31 +19,58 @@ angular.module('app').controller('ServiceController', function($scope, $rootScop
   $scope.operators = [];
   $scope.selectedStatus = -1;
   $scope.operator = -1;
-  $scope.sourceCatalog = $scope.catalog;
   $scope.spinner = true;
 
-  $scope.search = function() {
-    return CatalogService.getModeSpecificServices(statesRepository.getIDPlaces(), $scope.sSearch).then(function (result) {
-      $scope.catalog = result;
-      $scope.sourceCatalog = result;
-      if ($scope.bShowExtSearch) {
-        $scope.filterByExtSearch();
-      }
+  $scope.regionList = new RegionListFactory();
+  $scope.regionList.load(null, null);
+  $scope.localityList = new LocalityListFactory();
+
+  $scope.loadRegionList = function(search) {
+    return $scope.regionList.load(null, search);
+  };
+
+  $scope.onSelectRegionList = function($item, $model, $label) {
+    $scope.data.region = $item;
+    $scope.regionList.select($item, $model, $label);
+    $scope.data.city = null;
+    $scope.localityList.reset();
+    $scope.search();
+    $scope.localityList.load(null, $item.nID, null).then(function(cities) {
+      $scope.localityList.typeahead.defaultList = cities;
     });
+  };
+
+  $scope.loadLocalityList = function(search) {
+    return $scope.localityList.load(null, $scope.data.region.nID, search);
+  };
+
+  $scope.onSelectLocalityList = function($item, $model, $label) {
+    $scope.data.city = $item;
+    $scope.localityList.select($item, $model, $label);
+    $scope.search();
+  };
+
+  $scope.search = function() {
+    $scope.spinner = true;
+    $scope.catalog = [];
+    return CatalogService.getModeSpecificServices(getIDPlaces(), $scope.sSearch).then(function (result) {
+      fullCatalog = result;
+      if ($scope.bShowExtSearch)
+        $scope.filterByExtSearch();
+      else
+        $scope.catalog = copyCatalog();
+    }).finally(function() {$scope.spinner = false;});
   };
 
   $scope.onExtSearchClick = function() {
     $scope.bShowExtSearch = !$scope.bShowExtSearch;
-    if (!$scope.bShowExtSearch) {
-      clearExtSearchDialog();
-    }
+    if ($scope.operator != -1 || $scope.selectedStatus != -1 || $scope.data.region != null)
+        $scope.search();
   };
 
   $scope.filterByStatus = function(status) {
-    //close extended search dialog if opened
-    $scope.bShowExtSearch = false;
-    clearExtSearchDialog();
-    var ctlg = jQuery.extend(true, {}, $scope.catalog);
+    $scope.selectedStatus = status;
+    var ctlg = copyCatalog();
     angular.forEach(ctlg, function(item) {
       angular.forEach(item.aSubcategory, function(subItem) {
         subItem.aService = $filter('filter')(subItem.aService, {nStatus: status});
@@ -48,8 +82,7 @@ angular.module('app').controller('ServiceController', function($scope, $rootScop
   };
 
   $scope.filterByExtSearch = function() {
-    if (!!$scope.sourceCatalog && $scope.bShowExtSearch) {
-      $scope.catalog = $scope.sourceCatalog;
+    if ($scope.bShowExtSearch) {
       var filterCriteria = {};
       if ($scope.selectedStatus != -1) {
         filterCriteria.nStatus = $scope.selectedStatus;
@@ -57,7 +90,7 @@ angular.module('app').controller('ServiceController', function($scope, $rootScop
       if ($scope.operator != -1) {
         filterCriteria.sSubjectOperatorName = $scope.operator;
       }
-      var ctlg = jQuery.extend(true, {}, $scope.catalog);
+      var ctlg = copyCatalog();
       angular.forEach(ctlg, function(item) {
         angular.forEach(item.aSubcategory, function(subItem) {
           subItem.aService = $filter('filter')(subItem.aService, filterCriteria);
@@ -112,11 +145,10 @@ angular.module('app').controller('ServiceController', function($scope, $rootScop
     });
   });
 
-  function clearExtSearchDialog () {
-    $scope.selectedStatus = -1;
-    $scope.operator = -1;
-    $scope.catalog = $scope.sourceCatalog;
-  }
+  $scope.$watch('selectedStatus', function(newValue, oldValue) {
+    if ((newValue == 2 || oldValue == 2) && $scope.data.region !== null)
+      $scope.search();
+  });
 
   $scope.search();
 });

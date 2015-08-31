@@ -7,7 +7,7 @@ import org.wf.dp.dniprorada.model.DocumentOperator_SubjectOrgan;
 
 /**
  * @author dgroup
- * @since 28.06.15
+ * @since  28.06.15
  */
 @Component
 public class HandlerFactory {
@@ -23,7 +23,7 @@ public class HandlerFactory {
 
         } catch (ClassNotFoundException e) {
             throw new HandlerNotFoundException(
-                "Handler for operator:"+operator.getnID_SubjectOrgan()+" not found.");
+                "Handler for operator:"+operator.getnID_SubjectOrgan()+" not found.", e);
         }
     }
 }

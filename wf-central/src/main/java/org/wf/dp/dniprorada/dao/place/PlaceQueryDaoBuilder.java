@@ -31,7 +31,7 @@ public class PlaceQueryDaoBuilder {
 
     @EnableCaching
     public String getTreeDown(PlaceHierarchyRecord root) {
-        String sql = load( root.getPlaceId() > 0
+        String sql = load( specified(root.getPlaceId())
             ? "get_PlaceTree_down_by_id.sql" : "get_PlaceTree_down_by_UA-id.sql");
 
         if (specified(root.getTypeId()) ||
