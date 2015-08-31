@@ -151,23 +151,23 @@
     <sequenceFlow id="flow2" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
     <userTask id="usertask1" name="Обробка ЦНАП м.Тернопіль" activiti:candidateGroups="ternop_mvk_rezhym_roboty">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
-        <activiti:formProperty id="adress" name="Ваша адреса: область, місто, вулиця, дім, квартира" type="string"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Електронна пошта" type="string"></activiti:formProperty>
-        <activiti:formProperty id="type" name="Тип закладу (наприклад: кафе, магазин, ресторан)" type="string"></activiti:formProperty>
-        <activiti:formProperty id="name" name="Назва закладу" type="string"></activiti:formProperty>
-        <activiti:formProperty id="adress2" name="Адреса закладу" type="string"></activiti:formProperty>
-        <activiti:formProperty id="time" name="Запропонований режим роботи: час роботи з .. до .., обідня перерва з .. до .., вихідні:" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="specialization" name="Спеціалізація" type="string"></activiti:formProperty>
-        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="string"></activiti:formProperty>
-        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="string"></activiti:formProperty>
-        <activiti:formProperty id="employee" name="Кількість зареєстрованих найманих працівників" type="long"></activiti:formProperty>
-        <activiti:formProperty id="seats" name="Кількість посадкових місць (для закладів ресторанного господарства)" type="long"></activiti:formProperty>
-        <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum">
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Ваша адреса: область, місто, вулиця, дім, квартира" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="type" name="Тип закладу (наприклад: кафе, магазин, ресторан)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="name" name="Назва закладу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Адреса закладу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="time" name="Запропонований режим роботи: час роботи з .. до .., обідня перерва з .. до .., вихідні:" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="specialization" name="Спеціалізація" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="employee" name="Кількість зареєстрованих найманих працівників" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="seats" name="Кількість посадкових місць (для закладів ресторанного господарства)" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum" writable="false">
           <activiti:value id="attr1_yes" name="Отримаю власноруч"></activiti:value>
           <activiti:value id="attr2_no" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
         </activiti:formProperty>
