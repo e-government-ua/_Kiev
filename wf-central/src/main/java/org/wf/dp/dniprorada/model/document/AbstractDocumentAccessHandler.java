@@ -38,7 +38,8 @@ public abstract class AbstractDocumentAccessHandler implements DocumentAccessHan
     }
 
     public DocumentAccessHandler setIdSubject(Long nID_Subject) {
-        this.nID_Subject = nID_Subject;
+
+        this.nID_Subject = nID_Subject == null ? 1L : nID_Subject;
         return this;
     }
 
