@@ -541,10 +541,10 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${urgent=='attr2_yes'&&biometrical=='attr1_no'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow17" sourceRef="exclusivegateway2" targetRef="mailtask4">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${urgent=='attr1_no'&&biometrical=='attr1_yes'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${urgent=='attr1_no'&&biometrical=='attr2_yes'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow18" sourceRef="exclusivegateway2" targetRef="mailtask5">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${urgent=='attr1_yes'&&biometrical=='attr1_yes'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${urgent=='attr2_yes'&&biometrical=='attr2_yes'}]]></conditionExpression>
     </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_dms_passport">
