@@ -1,6 +1,7 @@
 <div class="list-group">
 
     <!-- sample place control content was derived from the service/city/content.html and now can be seen inside the placeControl.html -->
+
     <place></place>
 
     <!-- step 2 -->
@@ -12,17 +13,19 @@
           n-step="2" 
           redirect-uri="{{$state.href('index.service.general.city.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
         </service-auth-block>
+
         <!-- 
         ERROR:
         http://localhost:9000/://:/auth/bankID?link=://:/service/159/general/city/built-in/region/1/city/1/
         instead of
         https://localhost:9000/auth/bankID?link=https://localhost:9000:443/service/159/general/city/built-in/region/1/city/1/
-
- -->
+        -->
+        
     </div>
 
 </div>
-<!-- CLONE: service/city/built-in/index.html:
+
+<!-- <CLONE: service/city/built-in/index.html:
   div class="list-group">
     <div class="list-group-item"
          ng-class="{'disabled': data.city}">
@@ -61,4 +64,4 @@
             n-step="2"
             redirect-uri="{{$state.href('index.service.general.city.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}"
             ></service-auth-block>
-</div -->
+</div> -->

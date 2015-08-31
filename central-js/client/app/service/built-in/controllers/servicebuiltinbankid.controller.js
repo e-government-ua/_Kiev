@@ -64,6 +64,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     service: service
   });
 
+  // FIXME
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount;
   $scope.ActivitiForm = ActivitiForm;
