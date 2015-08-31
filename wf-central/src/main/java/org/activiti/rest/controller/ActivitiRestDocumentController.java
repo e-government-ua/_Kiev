@@ -158,13 +158,12 @@ public class ActivitiRestDocumentController {
     @RequestMapping(value = "/getDocumentFile", method = RequestMethod.GET)
     public
     @ResponseBody
-    byte[] getDocumentFile(@RequestParam(value = "nID", required = false) String id,
-            @RequestParam(value = "nID_Subject") long nID_Subject,
-            
-            @RequestParam(value = "sCode_DocumentAccess", required = false) String accessCode,
-            @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false) Long organID,
-            @RequestParam(value = "nID_DocumentType", required = false) Long docTypeID,
-            @RequestParam(value = "sPass", required = false) String password,
+    byte[] getDocumentFile( @RequestParam(value = "nID", required = false)                              String id,
+                            @RequestParam(value = "nID_Subject", required = false)                      Long nID_Subject,
+                            @RequestParam(value = "sCode_DocumentAccess", required = false)             String accessCode,
+                            @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false)Long organID,
+                            @RequestParam(value = "nID_DocumentType", required = false)                 Long docTypeID,
+                            @RequestParam(value = "sPass", required = false)                            String password,
             
                            HttpServletRequest request, HttpServletResponse httpResponse) 
                            throws ActivitiRestException{
