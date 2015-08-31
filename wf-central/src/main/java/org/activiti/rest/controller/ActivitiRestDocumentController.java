@@ -158,7 +158,7 @@ public class ActivitiRestDocumentController {
     @RequestMapping(value = "/getDocumentFile", method = RequestMethod.GET)
     public
     @ResponseBody
-    byte[] getDocumentFile(@RequestParam(value = "nID", required = false) Long id,
+    byte[] getDocumentFile(@RequestParam(value = "nID", required = false) String id,
             @RequestParam(value = "nID_Subject") long nID_Subject,
             
             @RequestParam(value = "sCode_DocumentAccess", required = false) String accessCode,
@@ -170,8 +170,8 @@ public class ActivitiRestDocumentController {
                            throws ActivitiRestException{
         Document document = null;
         byte[] content = {};
-        if (id != null) {
-            document = documentDao.getDocument(id);
+        if (id != null && !"null".equals(id)) {
+            document = documentDao.getDocument(new Long(id));
             if(nID_Subject != document.getSubject().getId()){
                 if(accessCode!=null){
                     Document oDocument = handlerFactory
