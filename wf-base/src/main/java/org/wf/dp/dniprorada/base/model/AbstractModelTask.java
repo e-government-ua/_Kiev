@@ -47,10 +47,10 @@ public abstract class AbstractModelTask {
 
         
     @Autowired
-    private FlowSlotDao flowSlotDao;
+    protected FlowSlotDao flowSlotDao;
 
     @Autowired
-    private FlowSlotTicketDao oFlowSlotTicketDao;
+    protected FlowSlotTicketDao oFlowSlotTicketDao;
 
 
 	/**
