@@ -110,7 +110,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Ваше звернення щодо отримання паспорту для віїзду за кордон успішно зареєстровано!&lt;/p&gt;
+                                        Ваше звернення щодо отримання паспорту для виїзду за кордон успішно зареєстровано!&lt;/p&gt;
 &lt;p&gt;Очікуємо Вас:&lt;br/&gt;
  Адреса: Дніпропетровськ, вул. Поля,1 (2-й поверх, віконце 1, 2 чи 3).&lt;br/&gt;
 Дата та час: ${date_of_visit}.                                 
@@ -123,23 +123,26 @@
                                     &lt;/p&gt;
 &lt;b&gt;Реквізити&lt;/b&gt;
 &lt;br/&gt;
-&lt;p&gt;Квитанція про сплату державного мита:&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 170 грн&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 31116097700005&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37989269&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 22090400, державне мито, пов’язане з видачею та оформленням закордонних паспортів&lt;/p&gt;
+&lt;p&gt;Квитанція про сплату державного мита:&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 170 грн&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 31116097700005&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37989269&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 22090400, державне мито, пов’язане з видачею та оформленням закордонних паспортів&lt;/p&gt;
 
-Квитанція про сплату послуги щодо оформлення та видачі паспорта громадянина України для віїзду за кордон:
-Сума: 325.47 грн
-Отримувач:  ГУ ДМС України в Дніпропетровській області
-Р/р: 37114034079427
-ЄДРПОУ: 37806243
-МФО: 805012 в ГУДКСУ у Дніпропетровській області
-Призначення платежу: 04002467, 547413, кількість послуг - 1, оформлення та видача паспорта громадянина України для віїзду за кордон
+&lt;p&gt;Квитанція про сплату послуги щодо оформлення та видачі паспорта громадянина України для виїзду за кордон:&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 325.47 грн&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 37114034079427&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37806243&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 04002467, 547413, кількість послуг - 1, оформлення та видача паспорта громадянина України для виїзду за кордон
 
 &lt;p&gt; Звертаємо Вашу увагу, що Вам не потрібно буде реєструватись в електронній черзі на місці. Вашого запису через iGov на конкретний час достатньо.&lt;/p&gt;
+
+&lt;p&gt;Якщо Ви не маєте можливості сплатити послуги перед відвідуванням міграційної служби, Ви зможете це зробити при візиті. Для цього у Вас має бути достатня сума готвікою.&lt;/p&gt;
+
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -160,8 +163,7 @@
             &lt;/table&gt;
         &lt;/td&gt;
     &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;</activiti:expression>
+    &lt;/tbody&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -177,7 +179,7 @@
     <sequenceFlow id="flow6" sourceRef="exclusivegateway1" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${finish=='attr2_missed'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask2" name="User Task" activiti:type="mail">
+    <serviceTask id="mailtask2" name="не прийшов вчасно" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -266,7 +268,6 @@
     <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow0" sourceRef="startevent1" targetRef="servicetask0"></sequenceFlow>
     <sequenceFlow id="flow8" sourceRef="servicetask0" targetRef="servicetask1"></sequenceFlow>
-    
     <serviceTask id="servicetask1" name="для очереди" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow10" sourceRef="servicetask1" targetRef="scripttask1"></sequenceFlow>
     <scriptTask id="scripttask1" name="исправление даты-времени" scriptFormat="groovy" activiti:autoStoreVariables="true">
@@ -341,7 +342,9 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Ваше звернення щодо отримання паспорту для віїзду за кордон успішно зареєстровано!&lt;/p&gt;
+                                        Ваше звернення щодо отримання паспорту для виїзду за кордон успішно зареєстровано!&lt;/p&gt;
+&lt;p&gt;Ви замовили паспорт з електронним носієм (біометричний).&lt;/p&gt;
+
 &lt;p&gt;Очікуємо Вас:&lt;br/&gt;
  Адреса: Дніпропетровськ, вул. Поля,1 (2-й поверх, віконце 1, 2 чи 3).&lt;br/&gt;
 Дата та час: ${date_of_visit}.                                 
@@ -354,23 +357,26 @@
                                     &lt;/p&gt;
 &lt;b&gt;Реквізити&lt;/b&gt;
 &lt;br/&gt;
-&lt;p&gt;Квитанція про сплату державного мита:&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 170 грн&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 31116097700005&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37989269&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 22090400, державне мито, пов’язане з видачею та оформленням закордонних паспортів&lt;/p&gt;
+&lt;p&gt;Квитанція про сплату державного мита:&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 170 грн&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 31116097700005&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37989269&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 22090400, державне мито, пов’язане з видачею та оформленням закордонних паспортів&lt;/p&gt;
 
-Квитанція про сплату послуги щодо оформлення та видачі паспорта громадянина України для віїзду за кордон:
-Сума: 325.47 грн
-Отримувач:  ГУ ДМС України в Дніпропетровській області
-Р/р: 37114034079427
-ЄДРПОУ: 37806243
-МФО: 805012 в ГУДКСУ у Дніпропетровській області
-Призначення платежу: 04002467, 547413, кількість послуг - 1, оформлення та видача паспорта громадянина України для віїзду за кордон
+&lt;p&gt;Квитанція про сплату послуги щодо оформлення та видачі паспорта громадянина України для виїзду за кордон:&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 391.47 грн&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 37114034079427&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37806243&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 04002467, 547413, кількість послуг - 1, оформлення та видача паспорта громадянина України для виїзду за кордон
 
 &lt;p&gt; Звертаємо Вашу увагу, що Вам не потрібно буде реєструватись в електронній черзі на місці. Вашого запису через iGov на конкретний час достатньо.&lt;/p&gt;
+
+&lt;p&gt;Якщо Ви не маєте можливості сплатити послуги перед відвідуванням міграційної служби, Ви зможете це зробити при візиті. Для цього у Вас має бути достатня сума готвікою.&lt;/p&gt;
+
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -391,8 +397,7 @@
             &lt;/table&gt;
         &lt;/td&gt;
     &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;</activiti:expression>
+    &lt;/tbody&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string>Звернення щодо отримання паспорта для віїзду за кордон</activiti:string>
@@ -408,7 +413,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask5" name="біометричний не терміновий" activiti:type="mail">
+    <serviceTask id="mailtask5" name="біометричний терміновий" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -466,7 +471,10 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Ваше звернення щодо отримання паспорту для віїзду за кордон успішно зареєстровано!&lt;/p&gt;
+                                        Ваше звернення щодо отримання паспорту для виїзду за кордон успішно зареєстровано!&lt;/p&gt;
+
+&lt;p&gt;Ви замовили паспорт з електронним носієм (біометричний) у терміновому порядку (протягом 10 днів).&lt;/p&gt;
+
 &lt;p&gt;Очікуємо Вас:&lt;br/&gt;
  Адреса: Дніпропетровськ, вул. Поля,1 (2-й поверх, віконце 1, 2 чи 3).&lt;br/&gt;
 Дата та час: ${date_of_visit}.                                 
@@ -479,23 +487,26 @@
                                     &lt;/p&gt;
 &lt;b&gt;Реквізити&lt;/b&gt;
 &lt;br/&gt;
-&lt;p&gt;Квитанція про сплату державного мита:&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 170 грн&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 31116097700005&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37989269&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 22090400, державне мито, пов’язане з видачею та оформленням закордонних паспортів&lt;/p&gt;
+&lt;p&gt;Квитанція про сплату державного мита:&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 340 грн&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 31116097700005&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37989269&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 22090400, державне мито, пов’язане з видачею та оформленням закордонних паспортів&lt;/p&gt;
 
-Квитанція про сплату послуги щодо оформлення та видачі паспорта громадянина України для віїзду за кордон:
-Сума: 325.47 грн
-Отримувач:  ГУ ДМС України в Дніпропетровській області
-Р/р: 37114034079427
-ЄДРПОУ: 37806243
-МФО: 805012 в ГУДКСУ у Дніпропетровській області
-Призначення платежу: 04002467, 547413, кількість послуг - 1, оформлення та видача паспорта громадянина України для віїзду за кордон
+&lt;p&gt;Квитанція про сплату послуги щодо оформлення та видачі паспорта громадянина України для виїзду за кордон:&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 478.62 грн&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 37114034079427&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37806243&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 04002467, 547413, кількість послуг - 1, оформлення та видача паспорта громадянина України для виїзду за кордон
 
 &lt;p&gt; Звертаємо Вашу увагу, що Вам не потрібно буде реєструватись в електронній черзі на місці. Вашого запису через iGov на конкретний час достатньо.&lt;/p&gt;
+
+&lt;p&gt;Якщо Ви не маєте можливості сплатити послуги перед відвідуванням міграційної служби, Ви зможете це зробити при візиті. Для цього у Вас має бути достатня сума готвікою.&lt;/p&gt;
+
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -516,8 +527,7 @@
             &lt;/table&gt;
         &lt;/td&gt;
     &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;</activiti:expression>
+    &lt;/tbody&gt;</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -531,10 +541,10 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${urgent=='attr2_yes'&&biometrical=='attr1_no'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow17" sourceRef="exclusivegateway2" targetRef="mailtask4">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${urgent=='attr1_no'&&biometrical=='attr1_yes'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${urgent=='attr1_no'&&biometrical=='attr2_yes'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow18" sourceRef="exclusivegateway2" targetRef="mailtask5">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${urgent=='attr1_yes'&&biometrical=='attr1_yes'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${urgent=='attr2_yes'&&biometrical=='attr2_yes'}]]></conditionExpression>
     </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_dms_passport">

@@ -3,14 +3,15 @@
   <process id="ternop_dozvil_bud" name="Тернополь ОДА. Надання містобудівних умов та обмежень забудови земельної ділянки" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="info" name="Як працює послуга; посилання на інструкцію" type="label" default="http://bit.ly/1UbeckZ "></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="info" name="Як працює послуга; посилання на інструкцію" type="label" default="http://bit.ly/1UbeckZ"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Індивідуальний податковий номер" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті" type="string"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string"></activiti:formProperty>
         <activiti:formProperty id="2" name="Засвідчена в установленому порядку копія документа про право власності (користування) земельною ділянкою" type="file"></activiti:formProperty>
         <activiti:formProperty id="3" name="Ситуаційний план (схема) щодо місцезнаходження земельної ділянки (у довільній формі);" type="file"></activiti:formProperty>
         <activiti:formProperty id="4" name="Копія паспорта та ідентифікаційного номера уповноваженої особи (у разі подання заяви уповноваженою заявником особою);" type="file"></activiti:formProperty>
@@ -19,12 +20,11 @@
         <activiti:formProperty id="7" name="Черговий кадастровий план (витяг із земельного кадастру – за умови відсутності містобудівного кадастру)" type="file"></activiti:formProperty>
         <activiti:formProperty id="8" name="Фотофіксація земельної ділянки (з оточенням)" type="file"></activiti:formProperty>
         <activiti:formProperty id="9" name="Містобудівний розрахунок з техніко – економічними показниками запланованого об’єкта будівництва" type="file"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="string" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність." writable="false"></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask2" name="Проверка документов" activiti:candidateGroups="ternop_dozvil_bud_dep1">
+    <userTask id="usertask2" name="Перевірка документів" activiti:candidateGroups="ternop_dozvil_bud_dep1">
       <extensionElements>
-        <activiti:formProperty id="t" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
@@ -37,14 +37,12 @@
           <activiti:value id="doc_ok" name="Документи в порядку, на протязі х днів очікуйте на відповідь"></activiti:value>
           <activiti:value id="doc_no" name="Документ оформленний не вірно"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="2" name="Засвідчена в установленому порядку копія документа про право власності (користування) земельною ділянкою" type="file"></activiti:formProperty>
-        <activiti:formProperty id="3" name="копія документа, який підтверджує повноваження діяти від імені заявника (у разі подання - заяви уповноваженою заявником особою);" type="file"></activiti:formProperty>
-        <activiti:formProperty id="4" name="Копія паспорта та ідентифікаційного номера уповноваженої особи (у разі подання заяви уповноваженою заявником особою);" type="file"></activiti:formProperty>
-        <activiti:formProperty id="5" name="Викопіювання з топографо-геодезичного плану М1:2000" type="file"></activiti:formProperty>
-        <activiti:formProperty id="6" name="Кадастрова довідка з містобудівного кадастру (у разі наявності)" type="file"></activiti:formProperty>
-        <activiti:formProperty id="7" name="Черговий кадастровий план (витяг із земельного кадастру – за умови відсутності містобудівного кадастру)" type="file"></activiti:formProperty>
-        <activiti:formProperty id="8" name="Фотофіксація земельної ділянки (з оточенням)" type="file"></activiti:formProperty>
-        <activiti:formProperty id="9" name="Містобудівний розрахунок з техніко – економічними показниками запланованого об’єкта будівництва" type="file"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${2}, ${3}, ${4}, ${5}, ${6}, ${7}, ${8}, ${9},</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
@@ -55,7 +53,24 @@
     <sequenceFlow id="flow5" name="${decide=='doc_ok'}" sourceRef="exclusivegateway1" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide=='doc_ok'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask5" name="Ожидание ответа" activiti:candidateGroups="ternop_dozvil_bud_dep1"></userTask>
+    <userTask id="usertask5" name="очікування відповіді" activiti:candidateGroups="ternop_dozvil_bud_dep1">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Індивідуальний податковий номер" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" writable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${2}, ${3}, ${4}, ${5}, ${6}, ${7}, ${8}, ${9},</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
+      </extensionElements>
+    </userTask>
     <sequenceFlow id="flow6" sourceRef="mailtask2" targetRef="usertask5"></sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="usertask5" targetRef="mailtask3"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
@@ -64,7 +79,7 @@
     <sequenceFlow id="flow10" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <sequenceFlow id="flow11" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
     <sequenceFlow id="flow12" sourceRef="mailtask1" targetRef="usertask2"></sequenceFlow>
-    <serviceTask id="servicetask1" name="Проверка документов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <serviceTask id="servicetask1" name="Завантаження документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <serviceTask id="mailtask1" name="Подтверждение отправки " activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
@@ -117,8 +132,8 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                       Ваше звернення успішно зареєстровано. &lt;br /&gt;
-                                       Результат обробки звернення будуть спрямовані на цей е-мейл
+                                      Ваше звернення щодо надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки буде опрацьовано співробітниками на протязі  3 днів. За результатами розгляду звернення, з Вами зв’яжеться відповідальний працівник та повідомить про час та місце отримання довідки. &lt;br /&gt;
+                                       
 										
                                   
                                     &lt;/p&gt;
@@ -126,7 +141,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Міністерство Внутрішніх Справ України,&lt;br /&gt;
+                                        ЦНАП м. Тернопіль,&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -161,7 +176,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask2" name="Подтверждение верности документов" activiti:type="mail">
+    <serviceTask id="mailtask2" name="Підтвердження вірності документів" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -213,8 +228,8 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                       Ваше звернення успішно зареєстровано. &lt;br /&gt;
-                                       Результат обробки звернення будуть спрямовані на цей е-мейл
+                                    Ваші документи  щодо надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки задовільняють всім вимогам.  Документ буде відісланний Вам на електронную пошту на протязі 3 днів. &lt;br /&gt;
+                                       
 										
                                   
                                     &lt;/p&gt;
@@ -222,7 +237,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Міністерство Внутрішніх Справ України,&lt;br /&gt;
+                                        ЦНАП м. Тернопіль,&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -257,7 +272,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask3" name="Отправка документа клиенту" activiti:type="mail">
+    <serviceTask id="mailtask3" name="Відправлення документа кліенту" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -309,8 +324,15 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                       Ваше звернення успішно зареєстровано. &lt;br /&gt;
-                                       Результат обробки звернення будуть спрямовані на цей е-мейл
+                                  Ваше звернення про нормативну грошову оцінку земельної ділянки опрацьовано. 
+
+Адреса, за якою Ви можете отримати довідку:
+Адреса: вул. Князя Острозького, 6
+тел. для довідок: 40 41 90, 40 41 92, 40 41 93, 40 41 89
+e-mail: cnapternopil@meta.ua
+skype: cnap-ternopil
+ &lt;br /&gt;
+                                       
 										
                                   
                                     &lt;/p&gt;
@@ -318,7 +340,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Міністерство Внутрішніх Справ України,&lt;br /&gt;
+                                        ЦНАП м. Тернопіль,&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -353,7 +375,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask4" name="Отказ клиенту" activiti:type="mail">
+    <serviceTask id="mailtask4" name="Відмова кліенту" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -405,8 +427,10 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                       Ваше звернення успішно зареєстровано. &lt;br /&gt;
-                                       Результат обробки звернення будуть спрямовані на цей е-мейл
+                                    Вам відмовлено у видачі витягу про нормативну грошову оцінку земельної ділянки.
+Підстава:
+ &lt;br /&gt;
+                                       
 										
                                   
                                     &lt;/p&gt;
@@ -414,7 +438,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Міністерство Внутрішніх Справ України,&lt;br /&gt;
+                                        ЦНАП м. Тернопіль,&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
