@@ -1,6 +1,10 @@
-﻿<div>
-        <style type="text/css">
-        html, body {margin: 0; padding: 0; height: 100%; font: 400 14px/16px 'Tahoma';}
+﻿<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Заява - Надання довідки про перебування на квартирному обліку</title>
+<style>
+html, body {margin: 0; padding: 0; height: 100%; font: 400 14px/16px 'Tahoma';}
 
 .print_wrap {width: 705px; padding: 35px 25px 85px 35px; min-height: 100%; height: 100%; margin: 0 auto;}
 
@@ -9,13 +13,6 @@
 .ta-c {text-align: center !important;}
 
 .ti-15 {text-indent: 25px;}
-
-.p-right {float: right;}
-.p-left {float: left;}
-
-.xs-font {font-size: 16px; line-height: 18px;}
-.xs-font p {font-size: 16px;}
-.xs-font span {font-size: 16px;}
 
 .fw {width: 100%;}
 
@@ -27,7 +24,6 @@
 .w130 {width: 130px;}
 .w135 {width: 135px;}
 .w265 {width: 265px;}
-.w365 {width: 365px;}
 .w500 {width: 500px;}
 
 .b-t-0 {border-top: 0 !important;}
@@ -41,9 +37,7 @@
 
 .m-t-15 {margin-top: 15px !important;}
 .m-t-25 {margin-top: 25px !important;}
-.m-t-85 {margin-top: 85px !important;}
-.m-r-12 {margin-right: 12px !important;}
-.m-l-65 {margin-left: 65px !important;}
+.m-l-80 {margin-left: 80px !important;}
 .m-l-120 {margin-left: 120px !important;}
 .m-l-180 {margin-left: 180px !important;}
 .m-l-250 {margin-left: 250px !important;}
@@ -103,26 +97,45 @@ table.zit_v-form2 tr td {border: 1px solid black; padding: 3px 8px;}
 p {font-size: 11px;}
 
 .clear {clear: both;}
+
 </style>
+
+</head>
+<body>
 <section class="print_wrap">
-    <div class="w365 line_col ta-l p-right xs-font">
-        <p>Начальнику управління Держземагентства у Калуському районі</p>
-
-        <p >[clFio]</p>
-
-        <p class="m-clear"><span class="m-r-12">адреса</span>[place_of_reg]</p>
-        <p>тел. [phone]</p>
+    <div class="line_col ta-r">
+        <div class="under_field w350 ta-l"><i>Міському голові</i><span></span></div><br />
+        <div class="under_field w350 ta-l"><i></i><span></span></div><br />
+        <div class="under_field w350 ta-l"><i></i>[bankIdlastName] [bankIdfirstName] [bankIdmiddleName]<span>(прізвище, ім'я, по батькові заявника)</span></div><br />
+        <div class="under_field w350 ta-l"><i></i>[adres_1]<span>(адреса)</span></div>
     </div>
-    <div class="clear"></div>
     <div class="line_col ta-c m-t-25">
-        ЗАЯВА<br />
-        <div class="under_field_line wub ta-l">Прошу надати мені Витяг з технічної документації про нормативну грошову оцінку земельної ділянки, яка знаходиться в [landAddress]</div>
-    </div>
-    <div class="date_subm m-t-85">
-        <div class="month-fl-sm"><span></span><span></span>2015 р.</div>
-        <div class="signature"><span>(підпис)</span></div>
-        <div class="clear"></div>
-    </div>
-    <div class="clear"></div>
+        <b>ЗАЯВА<br /></b><br />
+        <div class="ta-l">Прошу надати мені довідку про перебування на квартирному обліку.<span></span></div><br />
+		<div class="ta-l">Склад сім’ї:<span></span></div><br />
+        <div class="under_field_line ta-l">1.[clFio]<span>заявник</span></div>
+        <div class="under_field_line ta-l">2.[relative_1]<span>родич 1</span></div>
+		<div class="under_field_line ta-l">3.[relative_2]<span>родич 2</span></div>
+		<div class="under_field_line ta-l">4.[relative_3]<span>родич 3</span></div>
+		<div class="under_field_line ta-l">5.[relative_4]<span>родич 4</span></div>
+		<div class="under_field_line ta-l">6.[relative_5]<span>родич 5</span></div>
+		<div class="under_field_line ta-l">7.[relative_6]<span>родич 6</span></div>
+		<div class="under_field_line ta-l">8.[relative_7]<span>родич 7</span></div>
+		<div class="under_field_line ta-l">9.[relative_8]<span>родич 8</span></div>
+		<div class="under_field_line ta-l">10.[relative_9]<span>родич 9</span></div>
+		<div class="under_field_line ta-l">11.[relative_10]<span>родич 10</span></div><br />
+		<div class="ta-l">Перебуваю на квартирному обліку при виконавчих органах міської ради з:<span>[date_oblik]</span></div><br />
+		<div class="ta-l">Зазначте інформацію про наявні пільги на забезпечення житлом:<span>[pilgi]</span></div><br />
+		<div class="ta-l">Довідка про перебування на квартирному обліку необхідна:<span>[dovidka_neobhidna][explanation_dovidka]</span></div><br />
+		<div class="ta-l">До заяви додаю наступні документи:<span></span></div><br />
+		<div class="ta-l">1. Довідка про склад сім’ї та реєстрацію (форма №2)<span></span></div><br />
+		<div class="ta-l"><font size='1'>Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі документів дозвільного характеру та  адміністративних послуг.</font><span></span></div><br />
+		<div class="ta-l">Контактний телефон:<span>[tel]</span></div><br />
+		<div class="ta-l">Контактний e-mail:<span>[email]</span></div><br />
+		<div class="ta-l">Дата подачі документів:<span>[date_today]</span></div><br />
+		<br />
+		<br />
+	    </div>
 </section>
-</div>
+</body>
+</html>
