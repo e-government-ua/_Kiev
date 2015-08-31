@@ -5,7 +5,6 @@ import org.activiti.redis.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -111,6 +110,7 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "nID_DocumentOperator_SubjectOrgan") 	Long 	organID,
             @RequestParam(value = "nID_DocumentType", required = false) Long	docTypeID,
             @RequestParam(value = "sPass", required = false)		    String 	password,
+            @RequestParam(value = "nID_Subject", required = false)		Long 	nID_Subject,
             HttpServletResponse resp
     ) {
 
@@ -119,6 +119,8 @@ public class ActivitiRestDocumentController {
                 .setDocumentType(docTypeID)
                 .setAccessCode(accessCode)
                 .setPassword(password)
+                .setWithContent(false)
+                .setIdSubject(nID_Subject)
                 .getDocument();
         try {
             createHistoryEvent(HistoryEventType.GET_DOCUMENT_ACCESS_BY_HANDLER,
@@ -177,6 +179,7 @@ public class ActivitiRestDocumentController {
                     .setDocumentType(docTypeID)
                     .setAccessCode(accessCode)
                     .setPassword(password)
+                    .setWithContent(true)
                     .getDocument();
                 if(oDocument==null){
                     throw new ActivitiRestException("401", "You don't have access by accessCode!");
@@ -184,9 +187,18 @@ public class ActivitiRestDocumentController {
             }else{
                 throw new ActivitiRestException("401", "You don't have access!");
             }
-        } 
-        byte[] content = documentDao.getDocumentContent(document
-                .getContentKey());
+        }
+        byte[] content = {};
+        if (document.getDocumentType().getId() == 0) {
+            try {
+                document.fileBody.getBytes();
+            } catch (IOException e) {
+                throw new ActivitiRestException("500", "Can't get File content!");
+            }
+        } else {
+            content = documentDao.getDocumentContent(document
+                    .getContentKey());
+        }
         //byte[] content = "".getBytes();
         
         httpResponse.setHeader("Content-disposition", "attachment; filename="

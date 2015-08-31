@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.model.document;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,39 +8,44 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.codec.Base64;
+import org.springframework.web.multipart.MultipartFile;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.wf.dp.dniprorada.dao.DocumentAccessDao;
 import org.wf.dp.dniprorada.dao.DocumentDao;
-import org.wf.dp.dniprorada.model.Document;
-import org.wf.dp.dniprorada.model.DocumentAccess;
+import org.wf.dp.dniprorada.dao.SubjectDao;
+import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.rest.RestRequest;
 import org.wf.dp.dniprorada.util.rest.SSLCertificateValidation;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
 import javax.mail.internet.ContentDisposition;
 import javax.mail.internet.ParseException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 
 /**
  * Created by Dmytro Tsapko on 8/22/2015.
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class DocumentAccessHandler_PB implements DocumentAccessHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(DocumentAccessHandler_PB.class);
     private String accessCode;
     private String password;
     private Long documentTypeId;
+    private Boolean withContent;
+    private Long nID_Subject;
+
 
     @Autowired
     GeneralConfig generalConfig;
@@ -48,8 +54,7 @@ public class DocumentAccessHandler_PB implements DocumentAccessHandler {
     private DocumentAccessDao documentAccessDao;
 
     @Autowired
-    private DocumentDao documentDao;
-
+    private SubjectDao subjectDao;
 
     public DocumentAccessHandler setAccessCode(String sCode_DocumentAccess) {
         this.accessCode = sCode_DocumentAccess;
@@ -61,6 +66,18 @@ public class DocumentAccessHandler_PB implements DocumentAccessHandler {
         return this;
     }
 
+    @Override
+    public DocumentAccessHandler setWithContent(Boolean bWithContent) {
+        this.withContent = bWithContent;
+        return this;
+    }
+
+    @Override
+    public DocumentAccessHandler setIdSubject(Long nID_Subject) {
+        this.nID_Subject = nID_Subject;
+        return this;
+    }
+
     public DocumentAccessHandler setDocumentType(Long docTypeID) {
         this.documentTypeId = docTypeID;
         return this;
@@ -69,22 +86,22 @@ public class DocumentAccessHandler_PB implements DocumentAccessHandler {
 
     @Override
     public DocumentAccess getAccess() {
-        DocumentAccess access = documentAccessDao.getDocumentAccess(accessCode);
-        return access;
+        return documentAccessDao.getDocumentAccess(accessCode);
     }
 
 
     public Document getDocument() {
-        Document doc = null;
-        String sessionId = null;
+        Document doc = new Document();
+        String sessionId;
         String uriDoc = generalConfig.sURL_DocumentKvitancii();
+        String keyIdParam = "?keyID=";
         String callBackKey = "&callbackUrl=";
         String callBackValue = generalConfig.sURL_DocumentKvitanciiCallback();
         String keyID = this.accessCode;
-        String finalUri = uriDoc + keyID + callBackKey + callBackValue;
+        String finalUri = uriDoc + keyIdParam + keyID + callBackKey + callBackValue;
         if (this.documentTypeId != 0) {
             LOG.error("DocumentTypeId = " + this.documentTypeId);
-            throw new DocumentTypeNotSupportedException("DocumentTypeId = " + this.documentTypeId);
+            throw new DocumentTypeNotSupportedException("Incorrect DocumentTypeId. DocumentTypeId = " + this.documentTypeId);
         }
 
         if (generalConfig.bTest()) {
@@ -96,8 +113,9 @@ public class DocumentAccessHandler_PB implements DocumentAccessHandler {
             String authHeader = "sid:" + sessionId;
             byte[] authHeaderBytes = Base64.encode(authHeader.getBytes(StandardCharsets.UTF_8));
             String authHeaderEncoded = new String(authHeaderBytes);
+
             HttpHeaders headers = new HttpHeaders();
-            headers.setAccept(Arrays.asList(new MediaType[]{MediaType.ALL}));
+            headers.setAccept(Collections.singletonList(MediaType.ALL));
             headers.set("Authorization", "Basic " + authHeaderEncoded);
 
             ResponseEntity<String> documentEntity = new RestRequest().getEntity(finalUri,
@@ -107,16 +125,27 @@ public class DocumentAccessHandler_PB implements DocumentAccessHandler {
             String contentDispositionHeader = documentEntity.getHeaders().get("Content-Disposition").get(0);
             ContentDisposition header = new ContentDisposition(contentDispositionHeader);
             String documentName = header.getParameter("name");
-            if (documentName == null || "".equals(documentName)) {
+
+            if (isBlank(documentName)) {
                 documentName = header.getParameter("filename");
             }
 
-            doc = new Document();
-            doc.setFile(documentEntity.getBody());
+            if (this.withContent) {
+                doc.fileBody = getFileFromRespEntity(documentEntity);
+            }
+
+            DocumentType docType = new DocumentType();
+            docType.setId(this.documentTypeId);
+            Subject oSubject = subjectDao.getSubject(this.nID_Subject);
+            doc.setSubject(oSubject);
             doc.setName(documentName);
             doc.setContentType(contentType);
+            doc.setDate_Upload(DateTime.now());
+            doc.setsID_subject_Upload(null);
+            doc.setContentKey(null);
+            doc.setoSignData(null);
 
-        } catch (Exception e) {
+        } catch (ParseException e) {
             LOG.error("Can't get document: ", e);
             throw new DocumentNotFoundException("Can't get document: ", e);
         }
@@ -125,7 +154,7 @@ public class DocumentAccessHandler_PB implements DocumentAccessHandler {
     }
 
     private String getSessionId() {
-        String sessionId = null;
+        String sessionId;
         String login = generalConfig.getSID_login();
         String password = generalConfig.getSID_password();
         String uriSid = generalConfig.sURL_GenerationSID() + "?lang=UA";
@@ -134,9 +163,6 @@ public class DocumentAccessHandler_PB implements DocumentAccessHandler {
         String xml = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>\n" +
                 "<session><user auth='EXCL' login='" + login + "' password='" + password + "'/></session>";
 
-        if (generalConfig.bTest()) {
-            SSLCertificateValidation.disable();
-        }
 
         String xmlResponse = new RestRequest().post(uriSid, xml, MediaType.TEXT_XML,
                 StandardCharsets.UTF_8, String.class, null);
@@ -147,11 +173,11 @@ public class DocumentAccessHandler_PB implements DocumentAccessHandler {
 
 
     private String getSidFromXml(String xmlDocument) {
-
-        String result = null;
+        //todo simplify parsing
+        String result;
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = null;
-        org.w3c.dom.Document doc = null;
+        DocumentBuilder builder;
+        org.w3c.dom.Document doc;
         try {
             builder = factory.newDocumentBuilder();
             InputSource is = new InputSource(new StringReader(xmlDocument));
@@ -165,7 +191,21 @@ public class DocumentAccessHandler_PB implements DocumentAccessHandler {
 
     }
 
-}
+    private MultipartFile getFileFromRespEntity(ResponseEntity<String> documentEntity) throws ParseException {
+        String contentType = documentEntity.getHeaders().getContentType().toString();
+        String contentDispositionHeader = documentEntity.getHeaders().get("Content-Disposition").get(0);
+        ContentDisposition header = new ContentDisposition(contentDispositionHeader);
+        String documentName = header.getParameter("name");
+        if (isBlank(documentName)) {
+            documentName = header.getParameter("filename");
+        }
+        String[] parts = contentType.split("/");
+        String fileExtension = parts.length < 2 ? "" : parts[1];
 
+        return new ByteArrayMultipartFileOld(new ByteArrayInputStream(documentEntity.getBody().getBytes()),
+                documentName, documentName, contentType + ";" + fileExtension);
+
+    }
+}
 
 

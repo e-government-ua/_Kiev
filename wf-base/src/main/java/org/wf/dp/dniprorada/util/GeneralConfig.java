@@ -60,7 +60,7 @@ public class GeneralConfig {
     }
 
     public String sURL_DocumentKvitancii(){
-        return general_sURL_GenerationSID;
+        return general_sURL_DocumentKvitancii;
     }
     public String sURL_GenerationSID(){
         return general_sURL_GenerationSID;

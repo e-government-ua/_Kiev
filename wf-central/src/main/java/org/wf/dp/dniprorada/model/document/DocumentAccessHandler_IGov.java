@@ -22,6 +22,8 @@ public class DocumentAccessHandler_IGov implements DocumentAccessHandler {
     private String  accessCode;
     private String  password;
     private Long documentTypeId;
+    private Boolean withContent;
+    private Long nID_Subject;
 
     @Autowired
     private DocumentAccessDao documentAccessDao;
@@ -37,6 +39,18 @@ public class DocumentAccessHandler_IGov implements DocumentAccessHandler {
 
     public DocumentAccessHandler setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    @Override
+    public DocumentAccessHandler setWithContent(Boolean bWithContent) {
+        this.withContent =bWithContent;
+        return this;
+    }
+
+    @Override
+    public DocumentAccessHandler setIdSubject(Long nID_Subject) {
+        this.nID_Subject = nID_Subject;
         return this;
     }
 

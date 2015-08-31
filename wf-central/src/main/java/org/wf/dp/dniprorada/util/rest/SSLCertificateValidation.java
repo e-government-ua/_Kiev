@@ -6,7 +6,11 @@ import java.security.cert.X509Certificate;
 
 /**
  * Created by Dmytro Tsapko on 8/23/2015.
+ * This class is needed to disable SSL certificate verifying
+ * when performing REST client request to to server with untrusted certificate
+ * it should be used only in development process or while testing.
  */
+
 
 public class SSLCertificateValidation {
 
@@ -18,7 +22,7 @@ public class SSLCertificateValidation {
             HttpsURLConnection.setDefaultSSLSocketFactory(sslc.getSocketFactory());
             HttpsURLConnection.setDefaultHostnameVerifier(new NullHostnameVerifier());
         } catch(Exception e) {
-            e.printStackTrace();
+            e.printStackTrace();//TODO add logging
         }
     }
 

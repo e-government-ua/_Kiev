@@ -48,7 +48,7 @@ public class RestRequest {
     public <T> T get(String url, MediaType contentType, Charset charset,
                      Class<T> clazz, HttpHeaders httpHeaders) throws RestClientException {
 
-        if ("".equals(url) || url == null || clazz == null) {
+        if ("".equals(url) || url == null || clazz == null) {//todo add convertors
             LOG.error("url: " + url + " clazz: " + clazz);
             throw new IllegalArgumentException("url: " + url + " clazz: " + clazz);
         }
@@ -91,7 +91,7 @@ public class RestRequest {
 
     public <T> ResponseEntity<T> getEntity(String url, MediaType contentType, Charset charset,
                      Class<T> clazz, HttpHeaders httpHeaders) throws RestClientException {
-
+//todo just write httpconverter to transfotrm hhtp respomsee to class Document
         if ("".equals(url) || url == null || clazz == null) {
             LOG.error("url: " + url + " clazz: " + clazz);
             throw new IllegalArgumentException("url: " + url + " clazz: " + clazz);

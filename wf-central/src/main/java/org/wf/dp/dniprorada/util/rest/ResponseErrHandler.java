@@ -19,15 +19,10 @@ import java.util.Map;
 
 public class ResponseErrHandler implements ResponseErrorHandler {
     private static final Logger LOG = LoggerFactory.getLogger(ResponseErrHandler.class);
-
+    private static final List<Integer> statuses = Arrays.asList(200, 301, 302, 303);
 
     public boolean hasError(ClientHttpResponse response) throws IOException {
-        int status = response.getRawStatusCode();
-        List<Integer> statuses = Arrays.asList(new Integer[] {200, 301, 302, 303});
-        if(statuses.contains(status)){
-            return false;
-        }
-        return true;
+        return !statuses.contains(response.getRawStatusCode());
     }
 
     public void handleError(ClientHttpResponse response) throws IOException {
