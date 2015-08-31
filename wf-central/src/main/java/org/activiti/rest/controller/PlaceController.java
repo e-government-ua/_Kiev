@@ -105,10 +105,8 @@ public class PlaceController {
             @RequestParam(value = "nID",    required = false) Long   placeId,
             @RequestParam(value = "sID_UA", required = false) String uaId
     ) {
-        LOG.warn("Got {}, {}", placeId, uaId);
-
         if (positive(placeId)) {
-            placeTypeDao.delete(placeId);
+            placeDao.delete(placeId);
 
         } else if (isNotBlank(uaId)) {
             Optional<Place> place = placeDao.findBy("sID_UA", uaId);
