@@ -8,7 +8,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
-         <activiti:formProperty id="bankIdinn" name="Індивідуальний податковий номер" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Індивідуальний податковий номер" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті" type="string"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string"></activiti:formProperty>
@@ -37,14 +37,12 @@
           <activiti:value id="doc_ok" name="Документи в порядку, на протязі х днів очікуйте на відповідь"></activiti:value>
           <activiti:value id="doc_no" name="Документ оформленний не вірно"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="2" name="Засвідчена в установленому порядку копія документа про право власності (користування) земельною ділянкою" type="file"></activiti:formProperty>
-        <activiti:formProperty id="3" name="копія документа, який підтверджує повноваження діяти від імені заявника (у разі подання - заяви уповноваженою заявником особою);" type="file"></activiti:formProperty>
-        <activiti:formProperty id="4" name="Копія паспорта та ідентифікаційного номера уповноваженої особи (у разі подання заяви уповноваженою заявником особою);" type="file"></activiti:formProperty>
-        <activiti:formProperty id="5" name="Викопіювання з топографо-геодезичного плану М1:2000" type="file"></activiti:formProperty>
-        <activiti:formProperty id="6" name="Кадастрова довідка з містобудівного кадастру (у разі наявності)" type="file"></activiti:formProperty>
-        <activiti:formProperty id="7" name="Черговий кадастровий план (витяг із земельного кадастру – за умови відсутності містобудівного кадастру)" type="file"></activiti:formProperty>
-        <activiti:formProperty id="8" name="Фотофіксація земельної ділянки (з оточенням)" type="file"></activiti:formProperty>
-        <activiti:formProperty id="9" name="Містобудівний розрахунок з техніко – економічними показниками запланованого об’єкта будівництва" type="file"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${1}, ${2}, ${3}, ${4}, ${5}, ${6}, ${7}, ${8}, ${9}, </activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
