@@ -37,6 +37,17 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
     }
     return 'app/header/' + header;
   };
+  
+  var getFooter = function (mode) {
+    var footer;
+    if (mode === 'kyiv' || mode === 'kiev') {
+      footer = 'kyiv.footer.html';
+    } else {
+      footer = 'footer.html';
+    }
+    return 'app/footer/' + footer;
+  };
+  
 
   this.index = function () {
     return {
@@ -51,7 +62,8 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
           controller: 'ServiceController'
         },
         footer: {
-          templateUrl: 'app/footer/footer.html'
+          //templateUrl: 'app/footer/footer.html'
+          templateUrl: getFooter(this.mode),
         }
       }
     };
