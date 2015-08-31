@@ -1,6 +1,9 @@
 <nav class="navbar navbar-static-top kyiv-header-container">
   <div class="container">
     <span class="kyiv-header"></span>
+    <a href="/">  
+        <span class="kyiv-header-title"></span>
+    </a>
     <div class="collapse navbar-collapse navbar-kyiv" collapse="navBarIsCollapsed">
       <ul class="nav navbar-nav navbar-right">
         <li class="menu-item" ng-class="{selected: state.is('index')}">
@@ -8,26 +11,26 @@
             <h4>Послуги</h4>
           </a>
         </li>
-        <li class="menu-item" ui-sref-active="selected">
+        <!--li class="menu-item" ui-sref-active="selected">
           <a ui-sref="index.documents" ui-sref-opts="{reload: true}">
             <h4>Документи</h4>
           </a>
-        </li>
+        </li-->
         <li class="menu-item" ui-sref-active="selected">
           <a ui-sref="index.order.search">
             <h4>Статуси</h4>
           </a>
         </li>
-        <li class="menu-item" ui-sref-active="selected">
+        <!--li class="menu-item" ui-sref-active="selected">
           <a ui-sref="index.journal.bankid">
             <h4>Мій журнал</h4>
           </a>
-        </li>
-        <li class="menu-item" ui-sref-active="selected">
+        </li-->
+        <!--li class="menu-item" ui-sref-active="selected">
           <a ui-sref="index.about">
             <h4>Про портал</h4>
           </a>
-        </li>
+        </li-->
       </ul>
     </div>
   </div>
