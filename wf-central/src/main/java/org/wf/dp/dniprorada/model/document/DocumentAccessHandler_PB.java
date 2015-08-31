@@ -8,10 +8,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.codec.Base64;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.w3c.dom.Node;
 import org.wf.dp.dniprorada.dao.DocumentAccessDao;
-import org.wf.dp.dniprorada.dao.DocumentDao;
 import org.wf.dp.dniprorada.dao.SubjectDao;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.util.GeneralConfig;
@@ -19,6 +19,7 @@ import org.wf.dp.dniprorada.util.rest.RestRequest;
 import org.wf.dp.dniprorada.util.rest.SSLCertificateValidation;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
 import javax.mail.internet.ContentDisposition;
 import javax.mail.internet.ParseException;
 import javax.xml.parsers.DocumentBuilder;
@@ -36,16 +37,10 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 /**
  * Created by Dmytro Tsapko on 8/22/2015.
  */
-@SuppressWarnings("FieldCanBeLocal")
-public class DocumentAccessHandler_PB implements DocumentAccessHandler {
+
+public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(DocumentAccessHandler_PB.class);
-    private String accessCode;
-    private String password;
-    private Long documentTypeId;
-    private Boolean withContent;
-    private Long nID_Subject;
-
 
     @Autowired
     GeneralConfig generalConfig;
@@ -55,33 +50,6 @@ public class DocumentAccessHandler_PB implements DocumentAccessHandler {
 
     @Autowired
     private SubjectDao subjectDao;
-
-    public DocumentAccessHandler setAccessCode(String sCode_DocumentAccess) {
-        this.accessCode = sCode_DocumentAccess;
-        return this;
-    }
-
-    public DocumentAccessHandler setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    @Override
-    public DocumentAccessHandler setWithContent(Boolean bWithContent) {
-        this.withContent = bWithContent;
-        return this;
-    }
-
-    @Override
-    public DocumentAccessHandler setIdSubject(Long nID_Subject) {
-        this.nID_Subject = nID_Subject;
-        return this;
-    }
-
-    public DocumentAccessHandler setDocumentType(Long docTypeID) {
-        this.documentTypeId = docTypeID;
-        return this;
-    }
 
 
     @Override
@@ -99,7 +67,7 @@ public class DocumentAccessHandler_PB implements DocumentAccessHandler {
         String callBackValue = generalConfig.sURL_DocumentKvitanciiCallback();
         String keyID = this.accessCode;
         String finalUri = uriDoc + keyIdParam + keyID + callBackKey + callBackValue;
-        if (this.documentTypeId != 0) {
+        if (this.documentTypeId == null && this.documentTypeId != 0) {
             LOG.error("DocumentTypeId = " + this.documentTypeId);
             throw new DocumentTypeNotSupportedException("Incorrect DocumentTypeId. DocumentTypeId = " + this.documentTypeId);
         }
