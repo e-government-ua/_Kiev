@@ -23,7 +23,7 @@
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask2" name="Проверка документов" activiti:candidateGroups="ternop_dozvil_bud_dep1">
+    <userTask id="usertask2" name="Перевірка документів" activiti:candidateGroups="ternop_dozvil_bud_dep1">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -53,7 +53,24 @@
     <sequenceFlow id="flow5" name="${decide=='doc_ok'}" sourceRef="exclusivegateway1" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide=='doc_ok'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask5" name="Ожидание ответа" activiti:candidateGroups="ternop_dozvil_bud_dep1"></userTask>
+    <userTask id="usertask5" name="очікування відповіді" activiti:candidateGroups="ternop_dozvil_bud_dep1">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Індивідуальний податковий номер" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" writable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${2}, ${3}, ${4}, ${5}, ${6}, ${7}, ${8}, ${9},</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
+      </extensionElements>
+    </userTask>
     <sequenceFlow id="flow6" sourceRef="mailtask2" targetRef="usertask5"></sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="usertask5" targetRef="mailtask3"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
@@ -62,7 +79,7 @@
     <sequenceFlow id="flow10" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <sequenceFlow id="flow11" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
     <sequenceFlow id="flow12" sourceRef="mailtask1" targetRef="usertask2"></sequenceFlow>
-    <serviceTask id="servicetask1" name="Проверка документов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <serviceTask id="servicetask1" name="Завантаження документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <serviceTask id="mailtask1" name="Подтверждение отправки " activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
@@ -159,7 +176,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask2" name="Подтверждение верности документов" activiti:type="mail">
+    <serviceTask id="mailtask2" name="Підтвердження вірності документів" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -255,7 +272,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask3" name="Отправка документа клиенту" activiti:type="mail">
+    <serviceTask id="mailtask3" name="Відправлення документа кліенту" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -358,7 +375,7 @@ skype: cnap-ternopil
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask4" name="Отказ клиенту" activiti:type="mail">
+    <serviceTask id="mailtask4" name="Відмова кліенту" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
