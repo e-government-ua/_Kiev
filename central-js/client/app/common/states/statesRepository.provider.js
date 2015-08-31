@@ -7,17 +7,25 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
     //test.kiev.igov.org.ua
 
     this.domen = domen;
+    
+    
     if (domen.split(':')[0] !== 'localhost') {
-      var matches = findModeRegexp.exec(domen);
-      if (matches[1] === 'test' ) {// || matches[1] === 'test-version'
-        if (matches[2] === 'version' ) {
-            this.mode = matches[3];
-        }else{
-            this.mode = matches[2];
+      if (domen.indexOf('kievcity')>=0) {
+        //https://es.kievcity.gov.ua
+        this.mode = 'kyiv';
+      }else{
+        var matches = findModeRegexp.exec(domen);
+        if (matches[1] === 'test' ) {// || matches[1] === 'test-version'
+          if (matches[2] === 'version' ) {
+              this.mode = matches[3];
+          }else{
+              this.mode = matches[2];
+          }
+        } else {
+          this.mode = matches[1];
         }
-      } else {
-        this.mode = matches[1];
       }
+        
     } else {
       this.mode = 'local';
     }
