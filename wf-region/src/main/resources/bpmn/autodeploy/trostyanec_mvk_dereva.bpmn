@@ -14,6 +14,7 @@
         <activiti:formProperty id="reason" name="Вказати причину видалення зеленого насадження" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="file1" name="Фото об'єкта, який підлягає видаленню" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Гарантійний лист про виконання відновлювальної посадки (скан копія)" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="sBody" type="invisible" default=" "></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
