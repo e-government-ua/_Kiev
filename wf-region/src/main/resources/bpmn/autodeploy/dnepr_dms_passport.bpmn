@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_dms_passport" name="РћС‚СЂРёРјР°РЅРЅСЏ РїР°СЃРїРѕСЂС‚Р° РґР»СЏ РІС–С—Р·РґР° РіСЂРѕРјР°РґСЏРЅРёРЅР° Р·Р° РєРѕСЂРґРѕРЅ" isExecutable="true">
+  <process id="dnepr_dms_passport" name="Отримання паспорта для віїзда громадянина за кордон" isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="РџСЂС–Р·РІРёС‰Рµ" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Р†Рј'СЏ" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="РџРѕ-Р±Р°С‚СЊРєРѕРІС–" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="РџР°СЃРїРѕСЂС‚РЅС– РґР°РЅС–" type="string"></activiti:formProperty>
-        <activiti:formProperty id="have_passport" name="РЈ Р’Р°СЃ РЅР° РґР°РЅРёР№ РјРѕРјРµРЅС‚ С” Р·Р°РіСЂР°РЅРїР°СЃРїРѕСЂС‚?" type="enum" required="true">
-          <activiti:value id="attr1_yes" name="С‚Р°Рє, С…РѕС‡Сѓ РїРѕРґРѕРІР¶РёС‚Рё"></activiti:value>
-          <activiti:value id="attr2_no" name="РЅС–, Р±СѓРґСѓ РѕС‚СЂРёРјСѓРІР°С‚Рё РїРµСЂС€РёР№ СЂР°Р·"></activiti:value>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="have_passport" name="У Вас на даний момент є загранпаспорт?" type="enum" required="true">
+          <activiti:value id="attr1_yes" name="так, хочу подовжити"></activiti:value>
+          <activiti:value id="attr2_no" name="ні, буду отримувати перший раз"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="urgent" name="РџР°СЃРїРѕСЂС‚ С‚СЂРµР±Р° РІРёРіРѕС‚РѕРІРёС‚Рё С‚РµСЂРјС–РЅРѕРІРѕ?; (РїСЂРѕС‚СЏРіРѕРј 10 РґРЅС–РІ Р·Р° РґРѕРґР°С‚РєРѕРІСѓ РїР»Р°С‚Сѓ - С†С–РЅР° Сѓ РІРєР»Р°РґС†С– &quot;РЇРє С†Рµ РїСЂР°С†СЋС”&quot;)" type="enum" default="attr1_no" required="true">
-          <activiti:value id="attr1_no" name="РЅС–"></activiti:value>
-          <activiti:value id="attr2_yes" name="С‚Р°Рє"></activiti:value>
+        <activiti:formProperty id="urgent" name="Паспорт треба виготовити терміново?; (протягом 10 днів за додаткову плату - ціна у вкладці &quot;Як це працює&quot;)" type="enum" default="attr1_no" required="true">
+          <activiti:value id="attr1_no" name="ні"></activiti:value>
+          <activiti:value id="attr2_yes" name="так"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="biometrical" name="Р’Рё Р±Р°Р¶Р°С”С‚Рµ Р·Р°РјРѕРІРёС‚Рё Р±С–РѕРјРµС‚СЂРёС‡РЅРёР№ РїР°СЃРїРѕСЂС‚?" type="enum" default="attr1_no" required="true">
-          <activiti:value id="attr1_no" name="РЅС–"></activiti:value>
-          <activiti:value id="attr2_yes" name="С‚Р°Рє"></activiti:value>
+        <activiti:formProperty id="biometrical" name="Ви бажаєте замовити біометричний паспорт?" type="enum" default="attr1_no" required="true">
+          <activiti:value id="attr1_no" name="ні"></activiti:value>
+          <activiti:value id="attr2_yes" name="так"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="phone" name="Р’Р°С€ С‚РµР»РµС„РѕРЅ" type="long" default="38" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Р’Р°С€Р° РµР»РµРєС‚СЂРѕРЅРЅР° РїРѕС€С‚Р°" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="visitDate" name="Р’ СЏРєРёР№ РґРµРЅСЊ Р’Рё Р±Р°Р¶Р°С”С‚Рµ Р·РІРµСЂРЅСѓС‚РёСЃСЏ РґРѕ РјС–РіСЂР°С†С–Р№РЅРѕС— СЃР»СѓР¶Р±Рё?" type="queueData" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_of_visit" name="РґР°С‚Р° РІС–Р·РёС‚Сѓ" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Ваш телефон" type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваша електронна пошта" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="visitDate" name="В який день Ви бажаєте звернутися до міграційної служби?" type="queueData" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_of_visit" name="дата візиту" type="invisible"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <serviceTask id="servicetask0" name="Р’РёРґР°Р»РµРЅРЅСЏ С‚С–РєРµС‚Р° Р· С‡РµСЂРіРё" ></serviceTask>
-    <userTask id="usertask2" name="РѕР±СЂРѕР±РєР° РґРјСЃ" activiti:candidateGroups="dnepr_dms_passport">
+    <userTask id="usertask2" name="обробка дмс" activiti:candidateGroups="dnepr_dms_passport">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="РџСЂС–Р·РІРёС‰Рµ" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Р†Рј'СЏ" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="РџРѕ-Р±Р°С‚СЊРєРѕРІС–" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="РџР°СЃРїРѕСЂС‚РЅС– РґР°РЅС–" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="have_passport" name="РЈ Р’Р°СЃ РЅР° РґР°РЅРёР№ РјРѕРјРµРЅС‚ С” Р·Р°РіСЂР°РЅРїР°СЃРїРѕСЂС‚?" type="enum" writable="false">
-          <activiti:value id="attr1_yes" name="С‚Р°Рє, С…РѕС‡Сѓ РїРѕРґРѕРІР¶РёС‚Рё"></activiti:value>
-          <activiti:value id="attr2_no" name="РЅС–, Р±СѓРґСѓ РѕС‚СЂРёРјСѓРІР°С‚Рё РїРµСЂС€РёР№ СЂР°Р·"></activiti:value>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="have_passport" name="У Вас на даний момент є загранпаспорт?" type="enum" writable="false">
+          <activiti:value id="attr1_yes" name="так, хочу подовжити"></activiti:value>
+          <activiti:value id="attr2_no" name="ні, буду отримувати перший раз"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="urgent" name="РџР°СЃРїРѕСЂС‚ С‚СЂРµР±Р° РІРёРіРѕС‚РѕРІРёС‚Рё С‚РµСЂРјС–РЅРѕРІРѕ?; (РїСЂРѕС‚СЏРіРѕРј 10 РґРЅС–РІ Р·Р° РґРѕРґР°С‚РєРѕРІСѓ РїР»Р°С‚Сѓ - С†С–РЅР° Сѓ РІРєР»Р°РґС†С– &quot;РЇРє С†Рµ РїСЂР°С†СЋС”&quot;)" type="enum" writable="false">
-          <activiti:value id="attr1_no" name="РЅС–"></activiti:value>
-          <activiti:value id="attr2_yes" name="С‚Р°Рє"></activiti:value>
+        <activiti:formProperty id="urgent" name="Паспорт треба виготовити терміново?; (протягом 10 днів за додаткову плату - ціна у вкладці &quot;Як це працює&quot;)" type="enum" writable="false">
+          <activiti:value id="attr1_no" name="ні"></activiti:value>
+          <activiti:value id="attr2_yes" name="так"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="biometrical" name="Р’Рё Р±Р°Р¶Р°С”С‚Рµ Р·Р°РјРѕРІРёС‚Рё Р±С–РѕРјРµС‚СЂРёС‡РЅРёР№ РїР°СЃРїРѕСЂС‚?" type="enum" writable="false">
-          <activiti:value id="attr1_no" name="РЅС–"></activiti:value>
-          <activiti:value id="attr2_yes" name="С‚Р°Рє"></activiti:value>
+        <activiti:formProperty id="biometrical" name="Ви бажаєте замовити біометричний паспорт?" type="enum" writable="false">
+          <activiti:value id="attr1_no" name="ні"></activiti:value>
+          <activiti:value id="attr2_yes" name="так"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="phone" name="Р’Р°С€ С‚РµР»РµС„РѕРЅ" type="long" default="38" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Р’Р°С€Р° РµР»РµРєС‚СЂРѕРЅРЅР° РїРѕС€С‚Р°" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="visitDate" name="Р’ СЏРєРёР№ РґРµРЅСЊ Р’Рё Р±Р°Р¶Р°С”С‚Рµ Р·РІРµСЂРЅСѓС‚РёСЃСЏ РґРѕ РјС–РіСЂР°С†С–Р№РЅРѕС— СЃР»СѓР¶Р±Рё?" type="queueData" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="finish" name="РЎС‚Р°РЅ" type="enum" required="true">
-          <activiti:value id="attr1_ok" name="Р“СЂРѕРјР°РґСЏРЅРёРЅ РїСЂРёР№С€РѕРІ Сѓ РЅР°Р·РЅР°С‡РµРЅРёР№ С‡Р°СЃ"></activiti:value>
-          <activiti:value id="attr2_missed" name="Р“СЂРѕРјР°РґСЏРЅРёРЅ РЅРµ РЅР°РґС–Р№С€РѕРІ Сѓ Р·Р°Р·РЅР°С‡РµРЅРёР№ С‡Р°СЃ"></activiti:value>
+        <activiti:formProperty id="phone" name="Ваш телефон" type="long" default="38" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваша електронна пошта" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="visitDate" name="В який день Ви бажаєте звернутися до міграційної служби?" type="queueData" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="finish" name="Стан" type="enum" required="true">
+          <activiti:value id="attr1_ok" name="Громадянин прийшов у назначений час"></activiti:value>
+          <activiti:value id="attr2_missed" name="Громадянин не надійшов у зазначений час"></activiti:value>
         </activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <sequenceFlow id="flow2" sourceRef="mailtask1" targetRef="usertask2"></sequenceFlow>
-    <serviceTask id="mailtask1" name="Р·РІРёС‡Р°Р№РЅРёР№ РЅРµ С‚РµСЂРјС–РЅРѕРІРёР№" activiti:type="mail">
+    <serviceTask id="mailtask1" name="звичайний не терміновий" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -64,7 +64,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Р—РІРµСЂРЅРµРЅРЅСЏ С‰РѕРґРѕ РѕС‚СЂРёРјР°РЅРЅСЏ РїР°СЃРїРѕСЂС‚Р° РґР»СЏ РІС–С—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ</activiti:string>
+          <activiti:string>Звернення щодо отримання паспорта для віїзду за кордон</activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -99,7 +99,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;РїРѕСЂС‚Р°Р» РґРµСЂР¶Р°РІРЅРёС… РїРѕСЃР»СѓРі&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -108,47 +108,47 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;РЁР°РЅРѕРІРЅРёР№(-Р°) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Р’Р°С€Рµ Р·РІРµСЂРЅРµРЅРЅСЏ С‰РѕРґРѕ РѕС‚СЂРёРјР°РЅРЅСЏ РїР°СЃРїРѕСЂС‚Сѓ РґР»СЏ РІРёС—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ СѓСЃРїС–С€РЅРѕ Р·Р°СЂРµС”СЃС‚СЂРѕРІР°РЅРѕ!&lt;/p&gt;
-&lt;p&gt;РћС‡С–РєСѓС”РјРѕ Р’Р°СЃ:&lt;br/&gt;
- РђРґСЂРµСЃР°: Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРє, РІСѓР». РџРѕР»СЏ,1 (2-Р№ РїРѕРІРµСЂС…, РІС–РєРѕРЅС†Рµ 1, 2 С‡Рё 3).&lt;br/&gt;
-Р”Р°С‚Р° С‚Р° С‡Р°СЃ: ${date_of_visit}.                                 
+                                        Ваше звернення щодо отримання паспорту для виїзду за кордон успішно зареєстровано!&lt;/p&gt;
+&lt;p&gt;Очікуємо Вас:&lt;br/&gt;
+ Адреса: Дніпропетровськ, вул. Поля,1 (2-й поверх, віконце 1, 2 чи 3).&lt;br/&gt;
+Дата та час: ${date_of_visit}.                                 
                                     &lt;/p&gt;
                                     &lt;p&gt;
- 								РџСЂРё СЃРѕР±С– РїСЂРѕСЃРёРјРѕ РјР°С‚Рё:&lt;br/&gt;
-- РїР°СЃРїРѕСЂС‚ РіСЂРѕРјР°РґСЏРЅРёРЅР° РЈРєСЂР°С—РЅРё С‚Р° 2 Р№РѕРіРѕ РєРѕРїС–С—;&lt;br/&gt;
-- Р†РЅРґРёРІС–РґСѓР°Р»СЊРЅРёР№ РїРѕРґР°С‚РєРѕРІРёР№ РЅРѕРјРµСЂ (Р†РџРќ) С‚Р° 2 Р№РѕРіРѕ РєРѕРїС–С—;&lt;br/&gt;
-- РѕСЂРёРіС–РЅР°Р»Рё РєРІРёС‚Р°РЅС†С–Р№ РїСЂРѕ СЃРїР»Р°С‚Сѓ РїРѕСЃР»СѓРі Р·Р° РІРёРіРѕС‚РѕРІР»РµРЅРЅСЏ РїР°СЃРїРѕСЂС‚Р°.
+ 								При собі просимо мати:&lt;br/&gt;
+- паспорт громадянина України та 2 його копії;&lt;br/&gt;
+- Індивідуальний податковий номер (ІПН) та 2 його копії;&lt;br/&gt;
+- оригінали квитанцій про сплату послуг за виготовлення паспорта.
                                     &lt;/p&gt;
-&lt;b&gt;Р РµРєРІС–Р·РёС‚Рё&lt;/b&gt;
+&lt;b&gt;Реквізити&lt;/b&gt;
 &lt;br/&gt;
-&lt;p&gt;РљРІРёС‚Р°РЅС†С–СЏ РїСЂРѕ СЃРїР»Р°С‚Сѓ РґРµСЂР¶Р°РІРЅРѕРіРѕ РјРёС‚Р°:&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РЎСѓРјР°: 170 РіСЂРЅ&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РћС‚СЂРёРјСѓРІР°С‡:  Р“РЈ Р”РњРЎ РЈРєСЂР°С—РЅРё РІ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р /СЂ: 31116097700005&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р„Р”Р РџРћРЈ: 37989269&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РњР¤Рћ: 805012 РІ Р“РЈР”РљРЎРЈ Сѓ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РџСЂРёР·РЅР°С‡РµРЅРЅСЏ РїР»Р°С‚РµР¶Сѓ: 22090400, РґРµСЂР¶Р°РІРЅРµ РјРёС‚Рѕ, РїРѕРІвЂ™СЏР·Р°РЅРµ Р· РІРёРґР°С‡РµСЋ С‚Р° РѕС„РѕСЂРјР»РµРЅРЅСЏРј Р·Р°РєРѕСЂРґРѕРЅРЅРёС… РїР°СЃРїРѕСЂС‚С–РІ&lt;/p&gt;
+&lt;p&gt;Квитанція про сплату державного мита:&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 170 грн&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 31116097700005&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37989269&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 22090400, державне мито, пов’язане з видачею та оформленням закордонних паспортів&lt;/p&gt;
 
-&lt;p&gt;РљРІРёС‚Р°РЅС†С–СЏ РїСЂРѕ СЃРїР»Р°С‚Сѓ РїРѕСЃР»СѓРіРё С‰РѕРґРѕ РѕС„РѕСЂРјР»РµРЅРЅСЏ С‚Р° РІРёРґР°С‡С– РїР°СЃРїРѕСЂС‚Р° РіСЂРѕРјР°РґСЏРЅРёРЅР° РЈРєСЂР°С—РЅРё РґР»СЏ РІРёС—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ:&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РЎСѓРјР°: 325.47 РіСЂРЅ&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РћС‚СЂРёРјСѓРІР°С‡:  Р“РЈ Р”РњРЎ РЈРєСЂР°С—РЅРё РІ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р /СЂ: 37114034079427&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р„Р”Р РџРћРЈ: 37806243&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РњР¤Рћ: 805012 РІ Р“РЈР”РљРЎРЈ Сѓ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РџСЂРёР·РЅР°С‡РµРЅРЅСЏ РїР»Р°С‚РµР¶Сѓ: 04002467, 547413, РєС–Р»СЊРєС–СЃС‚СЊ РїРѕСЃР»СѓРі - 1, РѕС„РѕСЂРјР»РµРЅРЅСЏ С‚Р° РІРёРґР°С‡Р° РїР°СЃРїРѕСЂС‚Р° РіСЂРѕРјР°РґСЏРЅРёРЅР° РЈРєСЂР°С—РЅРё РґР»СЏ РІРёС—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ
+&lt;p&gt;Квитанція про сплату послуги щодо оформлення та видачі паспорта громадянина України для виїзду за кордон:&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 325.47 грн&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 37114034079427&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37806243&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 04002467, 547413, кількість послуг - 1, оформлення та видача паспорта громадянина України для виїзду за кордон
 
-&lt;p&gt; Р—РІРµСЂС‚Р°С”РјРѕ Р’Р°С€Сѓ СѓРІР°РіСѓ, С‰Рѕ Р’Р°Рј РЅРµ РїРѕС‚СЂС–Р±РЅРѕ Р±СѓРґРµ СЂРµС”СЃС‚СЂСѓРІР°С‚РёСЃСЊ РІ РµР»РµРєС‚СЂРѕРЅРЅС–Р№ С‡РµСЂР·С– РЅР° РјС–СЃС†С–. Р’Р°С€РѕРіРѕ Р·Р°РїРёСЃСѓ С‡РµСЂРµР· iGov РЅР° РєРѕРЅРєСЂРµС‚РЅРёР№ С‡Р°СЃ РґРѕСЃС‚Р°С‚РЅСЊРѕ.&lt;/p&gt;
+&lt;p&gt; Звертаємо Вашу увагу, що Вам не потрібно буде реєструватись в електронній черзі на місці. Вашого запису через iGov на конкретний час достатньо.&lt;/p&gt;
 
-&lt;p&gt;РЇРєС‰Рѕ Р’Рё РЅРµ РјР°С”С‚Рµ РјРѕР¶Р»РёРІРѕСЃС‚С– СЃРїР»Р°С‚РёС‚Рё РїРѕСЃР»СѓРіРё РїРµСЂРµРґ РІС–РґРІС–РґСѓРІР°РЅРЅСЏРј РјС–РіСЂР°С†С–Р№РЅРѕС— СЃР»СѓР¶Р±Рё, Р’Рё Р·РјРѕР¶РµС‚Рµ С†Рµ Р·СЂРѕР±РёС‚Рё РїСЂРё РІС–Р·РёС‚С–. Р”Р»СЏ С†СЊРѕРіРѕ Сѓ Р’Р°СЃ РјР°С” Р±СѓС‚Рё РґРѕСЃС‚Р°С‚РЅСЏ СЃСѓРјР° РіРѕС‚РІС–РєРѕСЋ.&lt;/p&gt;
+&lt;p&gt;Якщо Ви не маєте можливості сплатити послуги перед відвідуванням міграційної служби, Ви зможете це зробити при візиті. Для цього у Вас має бути достатня сума готвікою.&lt;/p&gt;
 
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                        Р— РїРѕРІР°РіРѕСЋ,&lt;br /&gt;
-                                        Р”РµСЂР¶Р°РІРЅР° РјС–РіСЂР°С†С–Р№РЅР° СЃР»СѓР¶Р±Р° РЈРєСЂР°С—РЅРё,&lt;br /&gt;
-                                        РљРѕРјР°РЅРґР° РџРѕСЂС‚Р°Р»Сѓ РґРµСЂР¶Р°РІРЅРёС… РїРѕСЃР»СѓРі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                        З повагою,&lt;br /&gt;
+                                        Державна міграційна служба України,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -179,7 +179,7 @@
     <sequenceFlow id="flow6" sourceRef="exclusivegateway1" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${finish=='attr2_missed'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask2" name="РЅРµ РїСЂРёР№С€РѕРІ РІС‡Р°СЃРЅРѕ" activiti:type="mail">
+    <serviceTask id="mailtask2" name="не прийшов вчасно" activiti:type="mail" >
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -188,7 +188,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Р—РІРµСЂРЅРµРЅРЅСЏ С‰РѕРґРѕ РѕС‚СЂРёРјР°РЅРЅСЏ РїР°СЃРїРѕСЂС‚Р° РґР»СЏ РІС–С—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ</activiti:string>
+          <activiti:string>Звернення щодо отримання паспорта для віїзду за кордон</activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -223,7 +223,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;РїРѕСЂС‚Р°Р» РґРµСЂР¶Р°РІРЅРёС… РїРѕСЃР»СѓРі&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -232,16 +232,16 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;РЁР°РЅРѕРІРЅРёР№(-Р°) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Р’Рё РЅРµ Р·'СЏРІРёР»РёСЃСЏ РІС‡Р°СЃРЅРѕ РґР»СЏ РїРѕРґР°РЅРЅСЏ РґРѕРєСѓРјРµРЅС‚С–РІ РґР»СЏ РѕС„РѕСЂРјРµРЅРЅС– РїР°СЃРїРѕСЂС‚Р° РґР»СЏ РІС–С—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ. Р’Рё РјРѕР¶РµС‚Рµ Р·РЅРѕРІСѓ Р·Р°СЂРµС”СЃС‚СЂСѓРІР°С‚РёСЃСЏ РЅР° РїРѕСЂС‚Р°Р»С– &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;.                                 
+                                        Ви не з'явилися вчасно для подання документів для оформенні паспорта для віїзду за кордон. Ви можете знову зареєструватися на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;.                                 
                                     &lt;/p&gt;
                                
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                        Р— РїРѕРІР°РіРѕСЋ,&lt;br /&gt;
-                                        Р”РµСЂР¶Р°РІРЅР° РјС–РіСЂР°С†С–Р№РЅР° СЃР»СѓР¶Р±Р°,&lt;br /&gt;
-                                        РљРѕРјР°РЅРґР° РџРѕСЂС‚Р°Р»Сѓ РґРµСЂР¶Р°РІРЅРёС… РїРѕСЃР»СѓРі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                        З повагою,&lt;br /&gt;
+                                        Державна міграційна служба,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -266,18 +266,16 @@
     </serviceTask>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow0" sourceRef="startevent1" targetRef="servicetask0"></sequenceFlow>
-    <sequenceFlow id="flow8" sourceRef="servicetask0" targetRef="servicetask1"></sequenceFlow>
-    <serviceTask id="servicetask1" name="РґР»СЏ РѕС‡РµСЂРµРґРё" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <serviceTask id="servicetask1" name="для очереди" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow10" sourceRef="servicetask1" targetRef="scripttask1"></sequenceFlow>
-    <scriptTask id="scripttask1" name="РёСЃРїСЂР°РІР»РµРЅРёРµ РґР°С‚С‹-РІСЂРµРјРµРЅРё" scriptFormat="groovy" activiti:autoStoreVariables="true">
+    <scriptTask id="scripttask1" name="исправление даты-времени" scriptFormat="groovy" activiti:autoStoreVariables="true">
       <script>execution.setVariable("date_of_visit1", execution.getVariable("date_of_visit").format("dd.MM.yyyy HH:MI"))
 
 </script>
     </scriptTask>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow11" sourceRef="scripttask1" targetRef="exclusivegateway2"></sequenceFlow>
-    <serviceTask id="mailtask3" name="Р·РІРёС‡Р°Р№РЅРёР№ С‚РµСЂРјС–РЅРѕРІРёР№" activiti:type="mail">
+    <serviceTask id="mailtask3" name="звичайний терміновий" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -321,7 +319,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;РїРѕСЂС‚Р°Р» РґРµСЂР¶Р°РІРЅРёС… РїРѕСЃР»СѓРі&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -330,48 +328,48 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;РЁР°РЅРѕРІРЅРёР№(-Р°) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Р’Р°С€Рµ Р·РІРµСЂРЅРµРЅРЅСЏ С‰РѕРґРѕ РѕС‚СЂРёРјР°РЅРЅСЏ РїР°СЃРїРѕСЂС‚Сѓ РґР»СЏ РІРёС—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ СѓСЃРїС–С€РЅРѕ Р·Р°СЂРµС”СЃС‚СЂРѕРІР°РЅРѕ!&lt;/p&gt;
-&lt;p&gt;Р’Рё Р·Р°РјРѕРІРёР»Рё С‚РµСЂРјС–РЅРѕРІРµ (РїСЂРѕС‚СЏРіРѕРј 10 РґРЅС–РІ) РІРёРіРѕС‚РѕРІР»РµРЅРЅСЏ РїР°СЃРїРѕСЂС‚Сѓ РґР»СЏ РІС–С—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ&lt;/p&gt;
-&lt;p&gt;РћС‡С–РєСѓС”РјРѕ Р’Р°СЃ:&lt;br/&gt;
- РђРґСЂРµСЃР°: Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРє, РІСѓР». РџРѕР»СЏ,1 (2-Р№ РїРѕРІРµСЂС…, РІС–РєРѕРЅС†Рµ 1, 2 С‡Рё 3).&lt;br/&gt;
-Р”Р°С‚Р° С‚Р° С‡Р°СЃ: ${date_of_visit}.                                 
+                                        Ваше звернення щодо отримання паспорту для виїзду за кордон успішно зареєстровано!&lt;/p&gt;
+&lt;p&gt;Ви замовили термінове (протягом 10 днів) виготовлення паспорту для віїзду за кордон&lt;/p&gt;
+&lt;p&gt;Очікуємо Вас:&lt;br/&gt;
+ Адреса: Дніпропетровськ, вул. Поля,1 (2-й поверх, віконце 1, 2 чи 3).&lt;br/&gt;
+Дата та час: ${date_of_visit}.                                 
                                     &lt;/p&gt;
                                     &lt;p&gt;
- 								РџСЂРё СЃРѕР±С– РїСЂРѕСЃРёРјРѕ РјР°С‚Рё:&lt;br/&gt;
-- РїР°СЃРїРѕСЂС‚ РіСЂРѕРјР°РґСЏРЅРёРЅР° РЈРєСЂР°С—РЅРё С‚Р° 2 Р№РѕРіРѕ РєРѕРїС–С—;&lt;br/&gt;
-- Р†РЅРґРёРІС–РґСѓР°Р»СЊРЅРёР№ РїРѕРґР°С‚РєРѕРІРёР№ РЅРѕРјРµСЂ (Р†РџРќ) С‚Р° 2 Р№РѕРіРѕ РєРѕРїС–С—;&lt;br/&gt;
-- РѕСЂРёРіС–РЅР°Р»Рё РєРІРёС‚Р°РЅС†С–Р№ РїСЂРѕ СЃРїР»Р°С‚Сѓ РїРѕСЃР»СѓРі Р·Р° РІРёРіРѕС‚РѕРІР»РµРЅРЅСЏ РїР°СЃРїРѕСЂС‚Р°.
+ 								При собі просимо мати:&lt;br/&gt;
+- паспорт громадянина України та 2 його копії;&lt;br/&gt;
+- Індивідуальний податковий номер (ІПН) та 2 його копії;&lt;br/&gt;
+- оригінали квитанцій про сплату послуг за виготовлення паспорта.
                                     &lt;/p&gt;
-&lt;b&gt;Р РµРєРІС–Р·РёС‚Рё&lt;/b&gt;
+&lt;b&gt;Реквізити&lt;/b&gt;
 &lt;br/&gt;
-&lt;p&gt;РљРІРёС‚Р°РЅС†С–СЏ РїСЂРѕ СЃРїР»Р°С‚Сѓ РґРµСЂР¶Р°РІРЅРѕРіРѕ РјРёС‚Р°:&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РЎСѓРјР°: 340 РіСЂРЅ&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РћС‚СЂРёРјСѓРІР°С‡:  Р“РЈ Р”РњРЎ РЈРєСЂР°С—РЅРё РІ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р /СЂ: 31116097700005&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р„Р”Р РџРћРЈ: 37989269&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РњР¤Рћ: 805012 РІ Р“РЈР”РљРЎРЈ Сѓ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РџСЂРёР·РЅР°С‡РµРЅРЅСЏ РїР»Р°С‚РµР¶Сѓ: 22090400, РґРµСЂР¶Р°РІРЅРµ РјРёС‚Рѕ, РїРѕРІвЂ™СЏР·Р°РЅРµ Р· РІРёРґР°С‡РµСЋ С‚Р° РѕС„РѕСЂРјР»РµРЅРЅСЏРј Р·Р°РєРѕСЂРґРѕРЅРЅРёС… РїР°СЃРїРѕСЂС‚С–РІ&lt;/p&gt;
+&lt;p&gt;Квитанція про сплату державного мита:&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 340 грн&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 31116097700005&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37989269&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 22090400, державне мито, пов’язане з видачею та оформленням закордонних паспортів&lt;/p&gt;
 
-&lt;p&gt;РљРІРёС‚Р°РЅС†С–СЏ РїСЂРѕ СЃРїР»Р°С‚Сѓ РїРѕСЃР»СѓРіРё С‰РѕРґРѕ РѕС„РѕСЂРјР»РµРЅРЅСЏ С‚Р° РІРёРґР°С‡С– РїР°СЃРїРѕСЂС‚Р° РіСЂРѕРјР°РґСЏРЅРёРЅР° РЈРєСЂР°С—РЅРё РґР»СЏ РІРёС—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ:&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РЎСѓРјР°: 412.62 РіСЂРЅ&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РћС‚СЂРёРјСѓРІР°С‡:  Р“РЈ Р”РњРЎ РЈРєСЂР°С—РЅРё РІ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р /СЂ: 37114034079427&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р„Р”Р РџРћРЈ: 37806243&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РњР¤Рћ: 805012 РІ Р“РЈР”РљРЎРЈ Сѓ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РџСЂРёР·РЅР°С‡РµРЅРЅСЏ РїР»Р°С‚РµР¶Сѓ: 04002467, 547413, РєС–Р»СЊРєС–СЃС‚СЊ РїРѕСЃР»СѓРі - 1, РѕС„РѕСЂРјР»РµРЅРЅСЏ С‚Р° РІРёРґР°С‡Р° РїР°СЃРїРѕСЂС‚Р° РіСЂРѕРјР°РґСЏРЅРёРЅР° РЈРєСЂР°С—РЅРё РґР»СЏ РІРёС—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ
+&lt;p&gt;Квитанція про сплату послуги щодо оформлення та видачі паспорта громадянина України для виїзду за кордон:&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 412.62 грн&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 37114034079427&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37806243&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 04002467, 547413, кількість послуг - 1, оформлення та видача паспорта громадянина України для виїзду за кордон
 
-&lt;p&gt; Р—РІРµСЂС‚Р°С”РјРѕ Р’Р°С€Сѓ СѓРІР°РіСѓ, С‰Рѕ Р’Р°Рј РЅРµ РїРѕС‚СЂС–Р±РЅРѕ Р±СѓРґРµ СЂРµС”СЃС‚СЂСѓРІР°С‚РёСЃСЊ РІ РµР»РµРєС‚СЂРѕРЅРЅС–Р№ С‡РµСЂР·С– РЅР° РјС–СЃС†С–. Р’Р°С€РѕРіРѕ Р·Р°РїРёСЃСѓ С‡РµСЂРµР· iGov РЅР° РєРѕРЅРєСЂРµС‚РЅРёР№ С‡Р°СЃ РґРѕСЃС‚Р°С‚РЅСЊРѕ.&lt;/p&gt;
+&lt;p&gt; Звертаємо Вашу увагу, що Вам не потрібно буде реєструватись в електронній черзі на місці. Вашого запису через iGov на конкретний час достатньо.&lt;/p&gt;
 
-&lt;p&gt;РЇРєС‰Рѕ Р’Рё РЅРµ РјР°С”С‚Рµ РјРѕР¶Р»РёРІРѕСЃС‚С– СЃРїР»Р°С‚РёС‚Рё РїРѕСЃР»СѓРіРё РїРµСЂРµРґ РІС–РґРІС–РґСѓРІР°РЅРЅСЏРј РјС–РіСЂР°С†С–Р№РЅРѕС— СЃР»СѓР¶Р±Рё, Р’Рё Р·РјРѕР¶РµС‚Рµ С†Рµ Р·СЂРѕР±РёС‚Рё РїСЂРё РІС–Р·РёС‚С–. Р”Р»СЏ С†СЊРѕРіРѕ Сѓ Р’Р°СЃ РјР°С” Р±СѓС‚Рё РґРѕСЃС‚Р°С‚РЅСЏ СЃСѓРјР° РіРѕС‚РІС–РєРѕСЋ.&lt;/p&gt;
+&lt;p&gt;Якщо Ви не маєте можливості сплатити послуги перед відвідуванням міграційної служби, Ви зможете це зробити при візиті. Для цього у Вас має бути достатня сума готвікою.&lt;/p&gt;
 
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                        Р— РїРѕРІР°РіРѕСЋ,&lt;br /&gt;
-                                        Р”РµСЂР¶Р°РІРЅР° РјС–РіСЂР°С†С–Р№РЅР° СЃР»СѓР¶Р±Р° РЈРєСЂР°С—РЅРё,&lt;br /&gt;
-                                        РљРѕРјР°РЅРґР° РџРѕСЂС‚Р°Р»Сѓ РґРµСЂР¶Р°РІРЅРёС… РїРѕСЃР»СѓРі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                        З повагою,&lt;br /&gt;
+                                        Державна міграційна служба України,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -389,11 +387,11 @@
     &lt;/tbody&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Р—РІРµСЂРЅРµРЅРЅСЏ С‰РѕРґРѕ РѕС‚СЂРёРјР°РЅРЅСЏ РїР°СЃРїРѕСЂС‚Р° РґР»СЏ РІС–С—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ</activiti:string>
+          <activiti:string>Звернення щодо отримання паспорта для віїзду за кордон</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask4" name="Р±С–РѕРјРµС‚СЂРёС‡РЅРёР№ РЅРµ С‚РµСЂРјС–РЅРѕРІРёР№" activiti:type="mail">
+    <serviceTask id="mailtask4" name="біометричний не терміновий" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -428,7 +426,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;РїРѕСЂС‚Р°Р» РґРµСЂР¶Р°РІРЅРёС… РїРѕСЃР»СѓРі&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -437,49 +435,49 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;РЁР°РЅРѕРІРЅРёР№(-Р°) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Р’Р°С€Рµ Р·РІРµСЂРЅРµРЅРЅСЏ С‰РѕРґРѕ РѕС‚СЂРёРјР°РЅРЅСЏ РїР°СЃРїРѕСЂС‚Сѓ РґР»СЏ РІРёС—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ СѓСЃРїС–С€РЅРѕ Р·Р°СЂРµС”СЃС‚СЂРѕРІР°РЅРѕ!&lt;/p&gt;
-&lt;p&gt;Р’Рё Р·Р°РјРѕРІРёР»Рё РїР°СЃРїРѕСЂС‚ Р· РµР»РµРєС‚СЂРѕРЅРЅРёРј РЅРѕСЃС–С”Рј (Р±С–РѕРјРµС‚СЂРёС‡РЅРёР№).&lt;/p&gt;
+                                        Ваше звернення щодо отримання паспорту для виїзду за кордон успішно зареєстровано!&lt;/p&gt;
+&lt;p&gt;Ви замовили паспорт з електронним носієм (біометричний).&lt;/p&gt;
 
-&lt;p&gt;РћС‡С–РєСѓС”РјРѕ Р’Р°СЃ:&lt;br/&gt;
- РђРґСЂРµСЃР°: Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРє, РІСѓР». РџРѕР»СЏ,1 (2-Р№ РїРѕРІРµСЂС…, РІС–РєРѕРЅС†Рµ 1, 2 С‡Рё 3).&lt;br/&gt;
-Р”Р°С‚Р° С‚Р° С‡Р°СЃ: ${date_of_visit}.                                 
+&lt;p&gt;Очікуємо Вас:&lt;br/&gt;
+ Адреса: Дніпропетровськ, вул. Поля,1 (2-й поверх, віконце 1, 2 чи 3).&lt;br/&gt;
+Дата та час: ${date_of_visit}.                                 
                                     &lt;/p&gt;
                                     &lt;p&gt;
- 								РџСЂРё СЃРѕР±С– РїСЂРѕСЃРёРјРѕ РјР°С‚Рё:&lt;br/&gt;
-- РїР°СЃРїРѕСЂС‚ РіСЂРѕРјР°РґСЏРЅРёРЅР° РЈРєСЂР°С—РЅРё С‚Р° 2 Р№РѕРіРѕ РєРѕРїС–С—;&lt;br/&gt;
-- Р†РЅРґРёРІС–РґСѓР°Р»СЊРЅРёР№ РїРѕРґР°С‚РєРѕРІРёР№ РЅРѕРјРµСЂ (Р†РџРќ) С‚Р° 2 Р№РѕРіРѕ РєРѕРїС–С—;&lt;br/&gt;
-- РѕСЂРёРіС–РЅР°Р»Рё РєРІРёС‚Р°РЅС†С–Р№ РїСЂРѕ СЃРїР»Р°С‚Сѓ РїРѕСЃР»СѓРі Р·Р° РІРёРіРѕС‚РѕРІР»РµРЅРЅСЏ РїР°СЃРїРѕСЂС‚Р°.
+ 								При собі просимо мати:&lt;br/&gt;
+- паспорт громадянина України та 2 його копії;&lt;br/&gt;
+- Індивідуальний податковий номер (ІПН) та 2 його копії;&lt;br/&gt;
+- оригінали квитанцій про сплату послуг за виготовлення паспорта.
                                     &lt;/p&gt;
-&lt;b&gt;Р РµРєРІС–Р·РёС‚Рё&lt;/b&gt;
+&lt;b&gt;Реквізити&lt;/b&gt;
 &lt;br/&gt;
-&lt;p&gt;РљРІРёС‚Р°РЅС†С–СЏ РїСЂРѕ СЃРїР»Р°С‚Сѓ РґРµСЂР¶Р°РІРЅРѕРіРѕ РјРёС‚Р°:&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РЎСѓРјР°: 170 РіСЂРЅ&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РћС‚СЂРёРјСѓРІР°С‡:  Р“РЈ Р”РњРЎ РЈРєСЂР°С—РЅРё РІ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р /СЂ: 31116097700005&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р„Р”Р РџРћРЈ: 37989269&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РњР¤Рћ: 805012 РІ Р“РЈР”РљРЎРЈ Сѓ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РџСЂРёР·РЅР°С‡РµРЅРЅСЏ РїР»Р°С‚РµР¶Сѓ: 22090400, РґРµСЂР¶Р°РІРЅРµ РјРёС‚Рѕ, РїРѕРІвЂ™СЏР·Р°РЅРµ Р· РІРёРґР°С‡РµСЋ С‚Р° РѕС„РѕСЂРјР»РµРЅРЅСЏРј Р·Р°РєРѕСЂРґРѕРЅРЅРёС… РїР°СЃРїРѕСЂС‚С–РІ&lt;/p&gt;
+&lt;p&gt;Квитанція про сплату державного мита:&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 170 грн&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 31116097700005&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37989269&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 22090400, державне мито, пов’язане з видачею та оформленням закордонних паспортів&lt;/p&gt;
 
-&lt;p&gt;РљРІРёС‚Р°РЅС†С–СЏ РїСЂРѕ СЃРїР»Р°С‚Сѓ РїРѕСЃР»СѓРіРё С‰РѕРґРѕ РѕС„РѕСЂРјР»РµРЅРЅСЏ С‚Р° РІРёРґР°С‡С– РїР°СЃРїРѕСЂС‚Р° РіСЂРѕРјР°РґСЏРЅРёРЅР° РЈРєСЂР°С—РЅРё РґР»СЏ РІРёС—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ:&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РЎСѓРјР°: 391.47 РіСЂРЅ&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РћС‚СЂРёРјСѓРІР°С‡:  Р“РЈ Р”РњРЎ РЈРєСЂР°С—РЅРё РІ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р /СЂ: 37114034079427&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р„Р”Р РџРћРЈ: 37806243&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РњР¤Рћ: 805012 РІ Р“РЈР”РљРЎРЈ Сѓ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РџСЂРёР·РЅР°С‡РµРЅРЅСЏ РїР»Р°С‚РµР¶Сѓ: 04002467, 547413, РєС–Р»СЊРєС–СЃС‚СЊ РїРѕСЃР»СѓРі - 1, РѕС„РѕСЂРјР»РµРЅРЅСЏ С‚Р° РІРёРґР°С‡Р° РїР°СЃРїРѕСЂС‚Р° РіСЂРѕРјР°РґСЏРЅРёРЅР° РЈРєСЂР°С—РЅРё РґР»СЏ РІРёС—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ
+&lt;p&gt;Квитанція про сплату послуги щодо оформлення та видачі паспорта громадянина України для виїзду за кордон:&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 391.47 грн&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 37114034079427&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37806243&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 04002467, 547413, кількість послуг - 1, оформлення та видача паспорта громадянина України для виїзду за кордон
 
-&lt;p&gt; Р—РІРµСЂС‚Р°С”РјРѕ Р’Р°С€Сѓ СѓРІР°РіСѓ, С‰Рѕ Р’Р°Рј РЅРµ РїРѕС‚СЂС–Р±РЅРѕ Р±СѓРґРµ СЂРµС”СЃС‚СЂСѓРІР°С‚РёСЃСЊ РІ РµР»РµРєС‚СЂРѕРЅРЅС–Р№ С‡РµСЂР·С– РЅР° РјС–СЃС†С–. Р’Р°С€РѕРіРѕ Р·Р°РїРёСЃСѓ С‡РµСЂРµР· iGov РЅР° РєРѕРЅРєСЂРµС‚РЅРёР№ С‡Р°СЃ РґРѕСЃС‚Р°С‚РЅСЊРѕ.&lt;/p&gt;
+&lt;p&gt; Звертаємо Вашу увагу, що Вам не потрібно буде реєструватись в електронній черзі на місці. Вашого запису через iGov на конкретний час достатньо.&lt;/p&gt;
 
-&lt;p&gt;РЇРєС‰Рѕ Р’Рё РЅРµ РјР°С”С‚Рµ РјРѕР¶Р»РёРІРѕСЃС‚С– СЃРїР»Р°С‚РёС‚Рё РїРѕСЃР»СѓРіРё РїРµСЂРµРґ РІС–РґРІС–РґСѓРІР°РЅРЅСЏРј РјС–РіСЂР°С†С–Р№РЅРѕС— СЃР»СѓР¶Р±Рё, Р’Рё Р·РјРѕР¶РµС‚Рµ С†Рµ Р·СЂРѕР±РёС‚Рё РїСЂРё РІС–Р·РёС‚С–. Р”Р»СЏ С†СЊРѕРіРѕ Сѓ Р’Р°СЃ РјР°С” Р±СѓС‚Рё РґРѕСЃС‚Р°С‚РЅСЏ СЃСѓРјР° РіРѕС‚РІС–РєРѕСЋ.&lt;/p&gt;
+&lt;p&gt;Якщо Ви не маєте можливості сплатити послуги перед відвідуванням міграційної служби, Ви зможете це зробити при візиті. Для цього у Вас має бути достатня сума готвікою.&lt;/p&gt;
 
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                        Р— РїРѕРІР°РіРѕСЋ,&lt;br /&gt;
-                                        Р”РµСЂР¶Р°РІРЅР° РјС–РіСЂР°С†С–Р№РЅР° СЃР»СѓР¶Р±Р° РЈРєСЂР°С—РЅРё,&lt;br /&gt;
-                                        РљРѕРјР°РЅРґР° РџРѕСЂС‚Р°Р»Сѓ РґРµСЂР¶Р°РІРЅРёС… РїРѕСЃР»СѓРі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                        З повагою,&lt;br /&gt;
+                                        Державна міграційна служба України,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -497,7 +495,7 @@
     &lt;/tbody&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Р—РІРµСЂРЅРµРЅРЅСЏ С‰РѕРґРѕ РѕС‚СЂРёРјР°РЅРЅСЏ РїР°СЃРїРѕСЂС‚Р° РґР»СЏ РІС–С—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ</activiti:string>
+          <activiti:string>Звернення щодо отримання паспорта для віїзду за кордон</activiti:string>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>
@@ -510,7 +508,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask5" name="Р±С–РѕРјРµС‚СЂРёС‡РЅРёР№ С‚РµСЂРјС–РЅРѕРІРёР№" activiti:type="mail">
+    <serviceTask id="mailtask5" name="біометричний терміновий" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -519,7 +517,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Р—РІРµСЂРЅРµРЅРЅСЏ С‰РѕРґРѕ РѕС‚СЂРёРјР°РЅРЅСЏ РїР°СЃРїРѕСЂС‚Р° РґР»СЏ РІС–С—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ</activiti:string>
+          <activiti:string>Звернення щодо отримання паспорта для віїзду за кордон</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -557,7 +555,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;РїРѕСЂС‚Р°Р» РґРµСЂР¶Р°РІРЅРёС… РїРѕСЃР»СѓРі&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -566,50 +564,50 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;РЁР°РЅРѕРІРЅРёР№(-Р°) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Р’Р°С€Рµ Р·РІРµСЂРЅРµРЅРЅСЏ С‰РѕРґРѕ РѕС‚СЂРёРјР°РЅРЅСЏ РїР°СЃРїРѕСЂС‚Сѓ РґР»СЏ РІРёС—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ СѓСЃРїС–С€РЅРѕ Р·Р°СЂРµС”СЃС‚СЂРѕРІР°РЅРѕ!&lt;/p&gt;
+                                        Ваше звернення щодо отримання паспорту для виїзду за кордон успішно зареєстровано!&lt;/p&gt;
 
-&lt;p&gt;Р’Рё Р·Р°РјРѕРІРёР»Рё РїР°СЃРїРѕСЂС‚ Р· РµР»РµРєС‚СЂРѕРЅРЅРёРј РЅРѕСЃС–С”Рј (Р±С–РѕРјРµС‚СЂРёС‡РЅРёР№) Сѓ С‚РµСЂРјС–РЅРѕРІРѕРјСѓ РїРѕСЂСЏРґРєСѓ (РїСЂРѕС‚СЏРіРѕРј 10 РґРЅС–РІ).&lt;/p&gt;
+&lt;p&gt;Ви замовили паспорт з електронним носієм (біометричний) у терміновому порядку (протягом 10 днів).&lt;/p&gt;
 
-&lt;p&gt;РћС‡С–РєСѓС”РјРѕ Р’Р°СЃ:&lt;br/&gt;
- РђРґСЂРµСЃР°: Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРє, РІСѓР». РџРѕР»СЏ,1 (2-Р№ РїРѕРІРµСЂС…, РІС–РєРѕРЅС†Рµ 1, 2 С‡Рё 3).&lt;br/&gt;
-Р”Р°С‚Р° С‚Р° С‡Р°СЃ: ${date_of_visit}.                                 
+&lt;p&gt;Очікуємо Вас:&lt;br/&gt;
+ Адреса: Дніпропетровськ, вул. Поля,1 (2-й поверх, віконце 1, 2 чи 3).&lt;br/&gt;
+Дата та час: ${date_of_visit}.                                 
                                     &lt;/p&gt;
                                     &lt;p&gt;
- 								РџСЂРё СЃРѕР±С– РїСЂРѕСЃРёРјРѕ РјР°С‚Рё:&lt;br/&gt;
-- РїР°СЃРїРѕСЂС‚ РіСЂРѕРјР°РґСЏРЅРёРЅР° РЈРєСЂР°С—РЅРё С‚Р° 2 Р№РѕРіРѕ РєРѕРїС–С—;&lt;br/&gt;
-- Р†РЅРґРёРІС–РґСѓР°Р»СЊРЅРёР№ РїРѕРґР°С‚РєРѕРІРёР№ РЅРѕРјРµСЂ (Р†РџРќ) С‚Р° 2 Р№РѕРіРѕ РєРѕРїС–С—;&lt;br/&gt;
-- РѕСЂРёРіС–РЅР°Р»Рё РєРІРёС‚Р°РЅС†С–Р№ РїСЂРѕ СЃРїР»Р°С‚Сѓ РїРѕСЃР»СѓРі Р·Р° РІРёРіРѕС‚РѕРІР»РµРЅРЅСЏ РїР°СЃРїРѕСЂС‚Р°.
+ 								При собі просимо мати:&lt;br/&gt;
+- паспорт громадянина України та 2 його копії;&lt;br/&gt;
+- Індивідуальний податковий номер (ІПН) та 2 його копії;&lt;br/&gt;
+- оригінали квитанцій про сплату послуг за виготовлення паспорта.
                                     &lt;/p&gt;
-&lt;b&gt;Р РµРєРІС–Р·РёС‚Рё&lt;/b&gt;
+&lt;b&gt;Реквізити&lt;/b&gt;
 &lt;br/&gt;
-&lt;p&gt;РљРІРёС‚Р°РЅС†С–СЏ РїСЂРѕ СЃРїР»Р°С‚Сѓ РґРµСЂР¶Р°РІРЅРѕРіРѕ РјРёС‚Р°:&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РЎСѓРјР°: 340 РіСЂРЅ&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РћС‚СЂРёРјСѓРІР°С‡:  Р“РЈ Р”РњРЎ РЈРєСЂР°С—РЅРё РІ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р /СЂ: 31116097700005&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р„Р”Р РџРћРЈ: 37989269&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РњР¤Рћ: 805012 РІ Р“РЈР”РљРЎРЈ Сѓ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РџСЂРёР·РЅР°С‡РµРЅРЅСЏ РїР»Р°С‚РµР¶Сѓ: 22090400, РґРµСЂР¶Р°РІРЅРµ РјРёС‚Рѕ, РїРѕРІвЂ™СЏР·Р°РЅРµ Р· РІРёРґР°С‡РµСЋ С‚Р° РѕС„РѕСЂРјР»РµРЅРЅСЏРј Р·Р°РєРѕСЂРґРѕРЅРЅРёС… РїР°СЃРїРѕСЂС‚С–РІ&lt;/p&gt;
+&lt;p&gt;Квитанція про сплату державного мита:&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 340 грн&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 31116097700005&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37989269&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 22090400, державне мито, пов’язане з видачею та оформленням закордонних паспортів&lt;/p&gt;
 
-&lt;p&gt;РљРІРёС‚Р°РЅС†С–СЏ РїСЂРѕ СЃРїР»Р°С‚Сѓ РїРѕСЃР»СѓРіРё С‰РѕРґРѕ РѕС„РѕСЂРјР»РµРЅРЅСЏ С‚Р° РІРёРґР°С‡С– РїР°СЃРїРѕСЂС‚Р° РіСЂРѕРјР°РґСЏРЅРёРЅР° РЈРєСЂР°С—РЅРё РґР»СЏ РІРёС—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ:&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РЎСѓРјР°: 478.62 РіСЂРЅ&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РћС‚СЂРёРјСѓРІР°С‡:  Р“РЈ Р”РњРЎ РЈРєСЂР°С—РЅРё РІ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р /СЂ: 37114034079427&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р„Р”Р РџРћРЈ: 37806243&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РњР¤Рћ: 805012 РІ Р“РЈР”РљРЎРЈ Сѓ Р”РЅС–РїСЂРѕРїРµС‚СЂРѕРІСЃСЊРєС–Р№ РѕР±Р»Р°СЃС‚С–&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;РџСЂРёР·РЅР°С‡РµРЅРЅСЏ РїР»Р°С‚РµР¶Сѓ: 04002467, 547413, РєС–Р»СЊРєС–СЃС‚СЊ РїРѕСЃР»СѓРі - 1, РѕС„РѕСЂРјР»РµРЅРЅСЏ С‚Р° РІРёРґР°С‡Р° РїР°СЃРїРѕСЂС‚Р° РіСЂРѕРјР°РґСЏРЅРёРЅР° РЈРєСЂР°С—РЅРё РґР»СЏ РІРёС—Р·РґСѓ Р·Р° РєРѕСЂРґРѕРЅ
+&lt;p&gt;Квитанція про сплату послуги щодо оформлення та видачі паспорта громадянина України для виїзду за кордон:&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Сума: 478.62 грн&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Отримувач:  ГУ ДМС України в Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Р/р: 37114034079427&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ЄДРПОУ: 37806243&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;МФО: 805012 в ГУДКСУ у Дніпропетровській області&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Призначення платежу: 04002467, 547413, кількість послуг - 1, оформлення та видача паспорта громадянина України для виїзду за кордон
 
-&lt;p&gt; Р—РІРµСЂС‚Р°С”РјРѕ Р’Р°С€Сѓ СѓРІР°РіСѓ, С‰Рѕ Р’Р°Рј РЅРµ РїРѕС‚СЂС–Р±РЅРѕ Р±СѓРґРµ СЂРµС”СЃС‚СЂСѓРІР°С‚РёСЃСЊ РІ РµР»РµРєС‚СЂРѕРЅРЅС–Р№ С‡РµСЂР·С– РЅР° РјС–СЃС†С–. Р’Р°С€РѕРіРѕ Р·Р°РїРёСЃСѓ С‡РµСЂРµР· iGov РЅР° РєРѕРЅРєСЂРµС‚РЅРёР№ С‡Р°СЃ РґРѕСЃС‚Р°С‚РЅСЊРѕ.&lt;/p&gt;
+&lt;p&gt; Звертаємо Вашу увагу, що Вам не потрібно буде реєструватись в електронній черзі на місці. Вашого запису через iGov на конкретний час достатньо.&lt;/p&gt;
 
-&lt;p&gt;РЇРєС‰Рѕ Р’Рё РЅРµ РјР°С”С‚Рµ РјРѕР¶Р»РёРІРѕСЃС‚С– СЃРїР»Р°С‚РёС‚Рё РїРѕСЃР»СѓРіРё РїРµСЂРµРґ РІС–РґРІС–РґСѓРІР°РЅРЅСЏРј РјС–РіСЂР°С†С–Р№РЅРѕС— СЃР»СѓР¶Р±Рё, Р’Рё Р·РјРѕР¶РµС‚Рµ С†Рµ Р·СЂРѕР±РёС‚Рё РїСЂРё РІС–Р·РёС‚С–. Р”Р»СЏ С†СЊРѕРіРѕ Сѓ Р’Р°СЃ РјР°С” Р±СѓС‚Рё РґРѕСЃС‚Р°С‚РЅСЏ СЃСѓРјР° РіРѕС‚РІС–РєРѕСЋ.&lt;/p&gt;
+&lt;p&gt;Якщо Ви не маєте можливості сплатити послуги перед відвідуванням міграційної служби, Ви зможете це зробити при візиті. Для цього у Вас має бути достатня сума готвікою.&lt;/p&gt;
 
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                        Р— РїРѕРІР°РіРѕСЋ,&lt;br /&gt;
-                                        Р”РµСЂР¶Р°РІРЅР° РјС–РіСЂР°С†С–Р№РЅР° СЃР»СѓР¶Р±Р° РЈРєСЂР°С—РЅРё,&lt;br /&gt;
-                                        РљРѕРјР°РЅРґР° РџРѕСЂС‚Р°Р»Сѓ РґРµСЂР¶Р°РІРЅРёС… РїРѕСЃР»СѓРі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                        З повагою,&lt;br /&gt;
+                                        Державна міграційна служба України,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -648,9 +646,6 @@
     <bpmndi:BPMNPlane bpmnElement="dnepr_dms_passport" id="BPMNPlane_dnepr_dms_passport">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="20.0" y="30.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask0" id="BPMNShape_servicetask0">
-        <omgdc:Bounds height="55.0" width="105.0" x="35.0" y="88.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
         <omgdc:Bounds height="55.0" width="105.0" x="490.0" y="240.0"></omgdc:Bounds>
@@ -709,12 +704,8 @@
         <omgdi:waypoint x="660.0" y="197.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="765.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="765.0" y="187.0"></omgdi:waypoint>
         <omgdi:waypoint x="780.0" y="197.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow0" id="BPMNEdge_flow0">
-        <omgdi:waypoint x="37.0" y="65.0"></omgdi:waypoint>
-        <omgdi:waypoint x="87.0" y="88.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
         <omgdi:waypoint x="87.0" y="88.0"></omgdi:waypoint>
