@@ -103,7 +103,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
             }
 
             if (this.withContent) {
-                doc.fileBody = getFileFromRespEntity(documentEntity);
+                doc.fileBody = documentEntity.getBody().getBytes();
             }
 
             doc.setDocumentType(documentTypeDao.findByIdExpected(0L));

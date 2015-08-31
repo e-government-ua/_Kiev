@@ -191,11 +191,7 @@ public class ActivitiRestDocumentController {
         }
 
         if (docTypeID == 0) {
-            try {
-                content = document.fileBody.getBytes();
-            } catch (IOException e) {
-                throw new ActivitiRestException("500", "Can't get File content!");
-            }
+            content = document.fileBody;
         }
         //byte[] content = "".getBytes();
         
