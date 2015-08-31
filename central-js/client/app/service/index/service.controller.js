@@ -146,7 +146,7 @@ angular.module('app').controller('ServiceController', function($scope, $rootScop
   });
 
   $scope.$watch('selectedStatus', function(newValue, oldValue) {
-    if (oldValue == 2 && $scope.data.region !== null)
+    if ((newValue == 2 || oldValue == 2) && $scope.data.region !== null)
       $scope.search();
   });
 

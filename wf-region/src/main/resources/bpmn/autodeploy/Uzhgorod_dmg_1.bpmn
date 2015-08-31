@@ -3,11 +3,11 @@
   <process id="Uzhgorod_dmg_1" name="Ужгород - аварійний дозвіл на проведення земляних робіт" isExecutable="true">
     <startEvent id="start1" name="аварійний дозвіл на проведення земляних робіт">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="files" name="Завантажте, будь ласка, файли" type="label"></activiti:formProperty>
+        <activiti:formProperty id="files" name="Завантажте, будь ласка, файли" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="application_zayava" name="Копія заяви на дозвіл на проведення земляних робіт" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="scheme" name="Схема виконання робіт - викопіювання з генплану" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="podtvergdenie" name="Письмове підтвердження факту аварії" type="file" required="true"></activiti:formProperty>
@@ -113,7 +113,7 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Iм'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="ID_zayava" name="реєстраційний номер заяви" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="ID_zayava" name="реєстраційний номер заяви" type="string"></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="прийняття рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Документи пройшли перевірку. Послуга може бути надана."></activiti:value>
           <activiti:value id="reject" name="Відхилити запит"></activiti:value>
@@ -226,9 +226,9 @@
     <endEvent id="endevent1" name="End"></endEvent>
     <userTask id="usertask4" name="надання адміністративної послуги" activiti:candidateGroups="Uzhgorod_dmg_1">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="ID_zayava" name="реєстраційний номер заяви" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_2" name="прийняття рішення про надання дозволу" type="enum" required="true">
           <activiti:value id="accept" name="надати дозвіл на проведення земляних робіт"></activiti:value>
@@ -306,9 +306,14 @@
                                 &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
 Ви отримали дозвіл на проведення земляних робіт&lt;br /&gt;
-Отримайте оригінал документу у адміністатора ЦНАПу за адресою: Закарпатська область, м. Ужгород, пл. Поштова, 3&lt;br /&gt;
-Телефон для довідок - (0312) 61-76-87&lt;br /&gt;
-Години роботи ЦНАПу: понеділок-четвер з 9.00 - 18.00; п'ятниця з 9.00 - 15.00; обідня перерва з 13.00 - 13.30&lt;br /&gt;
+Отримайте оригінал документу у адміністатора ЦНАПу за адресою:&lt;br /&gt;
+Закарпатська область, м. Ужгород, пл.Поштова,3&lt;br /&gt;
+Телефон для довідок (0312)61-76-87&lt;br /&gt;
+&lt;br /&gt;
+Години роботи ЦНАПу:&lt;br /&gt;
+понеділок-четвер з 9.00-18.00;&lt;br /&gt;
+п'ятниця з 9.00-15.00;&lt;br /&gt;
+обідня перерва з 13.00-13.30&lt;br /&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;

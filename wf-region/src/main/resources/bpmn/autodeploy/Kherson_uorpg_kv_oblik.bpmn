@@ -3,12 +3,11 @@
   <process id="Kherson_uorpg_kv" name="Херсон - Видача довідки про перебування на квартирному обліку" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="адреса реєстрації громадянина" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="applicant" name="Заявник; ПІБ" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="tel" name="Укажіть контактний номер телефону" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="Address" name="адреса реєстрації громадянина" type="string"></activiti:formProperty>
+        <activiti:formProperty id="tel" name="Укажіть контактний номер телефону" type="long" required="true" default="38"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="relative_1" name="Родич 1; вкажіть ПІБ та зазначте, ким приходиться Вам данна особа" type="string"></activiti:formProperty>
         <activiti:formProperty id="relative_2" name="Родич 2; вкажіть ПІБ та зазначте, ким приходиться Вам данна особа" type="string"></activiti:formProperty>
@@ -20,16 +19,16 @@
         <activiti:formProperty id="relative_8" name="Родич 8; вкажіть ПІБ та зазначте, ким приходиться Вам данна особа" type="string"></activiti:formProperty>
         <activiti:formProperty id="relative_9" name="Родич 9; вкажіть ПІБ та зазначте, ким приходиться Вам данна особа" type="string"></activiti:formProperty>
         <activiti:formProperty id="relative_10" name="Родич 10; вкажіть ПІБ та зазначте, ким приходиться Вам данна особа" type="string"></activiti:formProperty>
-        <activiti:formProperty id="date_oblik" name="Перебуваю на квартирному обліку при виконавчих органах міської ради з:" type="date"></activiti:formProperty>
-        <activiti:formProperty id="pilgi" name="Зазначте інформацію про наявні пільги на забезпечення житлом:" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="dovidka_neobhidna" name="Довідка про перебування на квартирному обліку необхідна:" type="enum" required="true">
+        
+        <activiti:formProperty id="pilgi" name="Зазначте інформацію про наявні пільги на забезпечення житлом" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="dovidka_neobhidna" name="Довідка про перебування на квартирному обліку необхідна" type="enum" required="true">
           <activiti:value id="robota" name="для подання за місцем роботи"></activiti:value>
           <activiti:value id="programa" name="для участі в програмі забезпечення житлом молодих сімей"></activiti:value>
           <activiti:value id="other" name="для інших потреб (зазначити у полі нижче)"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="explanation_dovidka" name="Опишіть потребу отримання довідки; якщо в попередньому пункті обрали варіант &quot;інші потреби&quot;" type="string"></activiti:formProperty>
+        <activiti:formProperty id="explanation_dovidka" name="Опишіть потребу отримання довідки; якщо в попередньому пункті обрали варіант інші потреби" type="string"></activiti:formProperty>
         <activiti:formProperty id="dovidka_file" name="Завантажте довідку про склад сім’ї та реєстрацію (форма №2)" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="zgoda" name="Зверніть увагу:" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг." writable="false"></activiti:formProperty>
+        <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення громадянина про успішне подання звернення" activiti:type="mail">
@@ -223,13 +222,14 @@
     <sequenceFlow id="flow2" sourceRef="mailtask1" targetRef="mailtask2"></sequenceFlow>
     <userTask id="usertask1" name="надання адміністративної послуги" activiti:candidateGroups="sales">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Address" name="адреса реєстрації громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="pilgi" name="Зазначте інформацію про наявні пільги на забезпечення житлом" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="прийняття рішення про видачу довідки" type="enum" required="true">
           <activiti:value id="accept" name="Видати довідку"></activiti:value>
           <activiti:value id="reject" name="Відмовити у видачі довідки"></activiti:value>
         </activiti:formProperty>
+        
         <activiti:formProperty id="date_doc" name="Позначте дату та час отримання орігіналу документу" type="queueData" required="true"></activiti:formProperty>
         <activiti:formProperty id="adres" name="Зазначте адресу за якою замовник може отримати довідку" type="string" default="м. Херсон, вул. Ушакова 37, каб. 106" required="true"></activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відмови у наданні довідки внесіть, будь ласка, причину" type="textArea"></activiti:formProperty>
