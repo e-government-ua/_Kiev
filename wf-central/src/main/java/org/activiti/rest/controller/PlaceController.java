@@ -1,6 +1,8 @@
 package org.activiti.rest.controller;
 
 import com.google.common.base.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  */
 @Controller
 public class PlaceController {
+    private static final Logger LOG = LoggerFactory.getLogger(PlaceController.class);
     private static final String JSON_TYPE = "Accept=application/json";
 
     @Autowired
@@ -102,6 +105,8 @@ public class PlaceController {
             @RequestParam(value = "nID",    required = false) Long   placeId,
             @RequestParam(value = "sID_UA", required = false) String uaId
     ) {
+        LOG.warn("Got {}, {}", placeId, uaId);
+
         if (positive(placeId)) {
             placeTypeDao.delete(placeId);
 
@@ -123,17 +128,13 @@ public class PlaceController {
     }
 
 
-    @RequestMapping(value   = "/getPlaceType",
-                    method  = RequestMethod.GET, headers = { JSON_TYPE })
-    public  @ResponseBody PlaceType getPlaceType(
-            @RequestParam(value = "nID") Long placeTypeId
-    ) {
+    @RequestMapping(value = "/getPlaceType", method = RequestMethod.GET, headers = { JSON_TYPE })
+    public @ResponseBody PlaceType getPlaceType( @RequestParam(value = "nID") Long placeTypeId ) {
         return placeTypeDao.findByIdExpected(placeTypeId);
     }
 
 
-    @RequestMapping(value   = "/setPlaceType",
-                    method  = RequestMethod.POST, headers = { JSON_TYPE })
+    @RequestMapping(value = "/setPlaceType", method  = RequestMethod.POST, headers = { JSON_TYPE })
     public  @ResponseBody void setPlaceType(
             @RequestParam(value = "nID",    required = false)       Long    placeTypeId,
             @RequestParam(value = "sName",  required = false)       String  name,
@@ -145,11 +146,8 @@ public class PlaceController {
     }
 
 
-    @RequestMapping(value   = "/removePlaceType",
-                    method  = RequestMethod.POST, headers = { JSON_TYPE })
-    public  @ResponseBody void removePlaceType(
-            @RequestParam(value = "nID") Long placeTypeId
-    ) {
+    @RequestMapping(value = "/removePlaceType", method = RequestMethod.POST, headers = { JSON_TYPE })
+    public @ResponseBody void removePlaceType( @RequestParam(value = "nID") Long placeTypeId ) {
         placeTypeDao.delete( placeTypeId );
     }
 
