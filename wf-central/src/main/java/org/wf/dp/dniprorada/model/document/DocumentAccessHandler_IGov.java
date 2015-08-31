@@ -14,36 +14,17 @@ import static org.apache.commons.lang3.StringUtils.isNumeric;
 
 /**
  * @author dgroup
- * @since 28.06.15
+ * @since  28.06.15
  */
 @Component
-public class DocumentAccessHandler_IGov implements DocumentAccessHandler {
+public class DocumentAccessHandler_IGov extends AbstractDocumentAccessHandler {
     private static final Logger LOG = LoggerFactory.getLogger(DocumentAccessHandler_IGov.class);
-    private String  accessCode;
-    private String  password;
-    private Long documentTypeId;
 
     @Autowired
     private DocumentAccessDao documentAccessDao;
 
     @Autowired
     private DocumentDao documentDao;
-
-
-    public DocumentAccessHandler setAccessCode(String sCode_DocumentAccess) {
-        this.accessCode = sCode_DocumentAccess;
-        return this;
-    }
-
-    public DocumentAccessHandler setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public DocumentAccessHandler setDocumentType(Long docTypeID) {
-        this.documentTypeId = docTypeID;
-        return this;
-    }
 
 
     @Override
@@ -57,20 +38,8 @@ public class DocumentAccessHandler_IGov implements DocumentAccessHandler {
             return access;
 
         if (isBlank(password) || !isNumeric(password)){
-            //throw new DocumentAccessException("Document Access wrong password");
             if ("SMS".equalsIgnoreCase(access.getsCodeType())){
-                try {
-                    LOG.info("[getAccess]accessCode="+accessCode);
-                    //if(documentAccessDao.bSentDocumentAccessOTP(accessCode)){
-                    String sPhone=documentAccessDao.sSentDocumentAccessOTP_Phone(accessCode);
-                    if(sPhone!=null){
-                        throw new DocumentAccessException("Document Access password need - sent SMS ("+sPhone+")");
-                    }else{
-                        throw new DocumentAccessException("Document Access password need - cant send SMS");
-                    }
-                } catch (Exception ex) {
-                    throw new DocumentAccessException("Document Access password need - UNKNOWN:"+ex.getMessage(), ex);
-                }
+                handleSMS();
             } else {
                 throw new DocumentAccessException("Document Access password wrong (no SMS:"+access.getsCodeType()+")");
             }
@@ -84,6 +53,19 @@ public class DocumentAccessHandler_IGov implements DocumentAccessHandler {
             throw new DocumentAccessException("Document Access password wrong");
     }
 
+    private void handleSMS() {
+        try {
+            LOG.info("Got {}", accessCode);
+            String sPhone=documentAccessDao.sSentDocumentAccessOTP_Phone(accessCode);
+            if(sPhone ==null){
+                throw new DocumentAccessException("Document Access password need - cant send SMS");
+            } else{
+                throw new DocumentAccessException("Document Access password need - sent SMS ("+sPhone+")");
+            }
+        } catch (Exception ex) { // TODO WTF: why sSentDocumentAccessOTP_Phone throw a general exception?
+            throw new DocumentAccessException("Document Access password need - UNKNOWN:"+ex.getMessage(), ex);
+        }
+    }
 
 
     public Document getDocument() {

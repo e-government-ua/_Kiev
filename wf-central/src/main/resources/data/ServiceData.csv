@@ -27,7 +27,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 26;4;3;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"lviv_mvk-1:2:12559"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 27;627;3;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"lviv_mvk-2:2:12560"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 28;10;9;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"lutsk_mvk-2:1:12569"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-29;159;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mreo_1:1:58"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
+29;726;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mreo_1:1:58"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
 30;157;NULL;NULL;3;;https://lviv.igov.org.ua;false;1;true;;BankID,EDS
 31;158;NULL;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"CivilCardAccountlRequest:4:12564"}};https://test.region.igov.org.ua/wf-region/;true;1;true;;BankID,EDS
 32;160;10;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_oda_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
@@ -217,3 +217,10 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 301;667;10;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_mvk_rezhym_roboty:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 302;725;10;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternop_dozvil_bud:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 303;686;7;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"Kherson_uorpg_kv:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+304;727;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mreo1_1:1:58"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
+305;728;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mreo2_1:1:58"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
+306;729;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mreo3_1:1:58"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
+307;730;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mreo4_1:1:58"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
+308;731;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mreo5_1:1:58"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
+309;732;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mreo6_1:1:58"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
+310;733;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mreo7_1:1:58"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
