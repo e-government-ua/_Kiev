@@ -39,10 +39,12 @@
           <button type="button" class="btn btn-default" ng-click="edit(slot)">
             Редагувати
           </button>
-          <button type="button" class="btn btn-warning" ng-click="copy(slot)">
+          <button type="button" class="btn btn-warning" ng-click="copy(slot)"
+                  tooltip="Копіювати" tooltip-placement="top" tooltip-trigger="mouseenter" tooltip-append-to-body="true">
             <i class="fa fa-copy"></i>
           </button>
-          <button type="button" class="btn btn-danger" ng-click="delete(slot)">
+          <button type="button" class="btn btn-danger" ng-click="delete(slot)"
+                  tooltip="Видалити" tooltip-placement="top" tooltip-trigger="mouseenter" tooltip-append-to-body="true">
             <i class="fa fa-trash-o"></i>
           </button>
         </div>
@@ -55,7 +57,7 @@
       <td></td>
       <td></td>
       <td></td>
-      <td><button class="btn btn-primary" ng-click="add()">Добавити</button></td>
+      <td><button class="btn btn-primary" ng-click="add()">Додати</button></td>
     </tr>
     </tbody>
   </table>

@@ -7,10 +7,8 @@ import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.model.Place;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.springframework.util.Assert.isTrue;
-import static org.springframework.util.Assert.notNull;
+import static org.apache.commons.lang3.StringUtils.*;
+import static org.springframework.util.Assert.*;
 import static org.wf.dp.dniprorada.dao.place.PlaceHibernateResultTransformer.toTree;
 import static org.wf.dp.dniprorada.dao.place.PlaceQueryDaoBuilder.specified;
 
@@ -43,6 +41,9 @@ public class PlaceDaoImpl extends GenericEntityDao<Place> implements PlaceDao {
 
         if (specified(root.getPlaceId()))
             query.setLong("placeId", root.getPlaceId());
+
+        if (!specified(root.getPlaceId()) && isNotBlank(root.getUaID()))
+            query.setString("ua_id", root.getUaID());
 
         if (specified(root.getTypeId()))
             query.setLong("typeId", root.getTypeId());

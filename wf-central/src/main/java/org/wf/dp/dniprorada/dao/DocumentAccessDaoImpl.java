@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.dao;
 
 
+import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -150,35 +151,19 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
 
 	/*private String writeRow(DocumentAccess o) throws Exception{
 		Session s = getSession();
-		try{
-            if(o.getsCode() == null) o.setsCode("null");
-            if(o.getsCodeType() == null) o.setsCodeType("null");
-            s.saveOrUpdate(o);
-            s.flush();
-            return o.getId().toString();
-		} catch(Exception e){
-			throw e;
-		} finally {
-			if(s.isConnected()){
-				s.close();
-			}
-		}
+
+		if(o.getsCode() == null) o.setsCode("null");
+		if(o.getsCodeType() == null) o.setsCodeType("null");
+		s.saveOrUpdate(o);
+		s.flush();
+		return o.getId().toString();
+
 	}*/
 	
 	@Deprecated
 	public Long getIdAccess() throws Exception{
-		Session oSession = getSession();
-		List <DocumentAccess> list = null;
-		try{
-			list = oSession.createCriteria(DocumentAccess.class).list();
-		} catch(Exception e){
-			throw e;
-		} finally{
-			if(oSession.isConnected()){
-				oSession.close();
-			}
-		}
-		return list.get(list.size()-1).getId();
+		//не оптимально
+		return Iterables.getLast(findAll()).getId();
 	}
 
 	@Override
@@ -196,10 +181,6 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
                     }
 		} catch(Exception e){
 			throw e;
-		} finally{
-			if(oSession.isConnected()){
-				oSession.close();
-			}
 		}
 		return docAcc;
 	}
@@ -215,76 +196,44 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
                 String sPhoneSent=null;
 		//Session oSession = getSession();
 		boolean bSent = false;
-		try{
-                    
-                    /*DocumentAccess oDocumentAccess = (DocumentAccess) oSession
-				.createCriteria(DocumentAccess.class)
-				.add(Restrictions.eq("sCode", sCode))
-				.uniqueResult();*/
-                    
-                    DocumentAccess oDocumentAccess = findBy("sCode", sCode).orNull();
-                    
-                    
-                    //TODO делать точечную выборку по sCode
-                    /*DocumentAccess oDocumentAccess = new DocumentAccess();
-                    List <DocumentAccess> aDocumentAccess = null;
-                    aDocumentAccess = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
-                    if(aDocumentAccess == null || aDocumentAccess.isEmpty()){
-                        throw new Exception("Access not accepted!");
-                    } else {
-                    	 for(DocumentAccess o : aDocumentAccess){
-                         	if(sCode.equals(o.getsCode())){
-                         		oDocumentAccess = o;                      		
-                         		break;
-                         	}
-                         }
-                    }*/
-                    if(oDocumentAccess.getTelephone() != null && oDocumentAccess.getTelephone().trim().length()>6){
-                        String sPhone = "";
-                        String sAnswer = "";
-                        sPhone = oDocumentAccess.getTelephone();
-                        sPhoneSent=sPhone;
-                        log.info("[bSentDocumentAccessOTP]sPhone="+sPhone);
-                        
-                        //Generate random 4xDigits answercode
-                        sAnswer = generateAnswer();
-                        log.info("[bSentDocumentAccessOTP]sAnswer="+sAnswer);
-                         
-                        //o.setDateAnswerExpire(null);
-                        //SEND SMS with this code
-                        String sReturn;
-                        if(generalConfig.bTest()){
-                            sAnswer="4444";
-                        }
-                        oDocumentAccess.setAnswer(sAnswer);
-//                        writeRow(oDocumentAccess);
-                        saveOrUpdate(oDocumentAccess);
-                        log.info("oDocumentAccess.getId()="+oDocumentAccess.getId()+":Ok!");                
-                        
-                        if(generalConfig.bTest()){
-                            sReturn = "test";
-                        }else{
-                            sReturn = sendPasswordOTP(sPhone, sAnswer);
-                        }
-                        
+			DocumentAccess oDocumentAccess = findBy("sCode", sCode).orNull();
+			if(oDocumentAccess.getTelephone() != null && oDocumentAccess.getTelephone().trim().length()>6){
+                String sPhone = "";
+                String sAnswer = "";
+                sPhone = oDocumentAccess.getTelephone();
+                sPhoneSent=sPhone;
+                log.info("[bSentDocumentAccessOTP]sPhone="+sPhone);
 
-                        
-                        log.info("[bSentDocumentAccessOTP]sReturn="+sReturn);
-                        
-                        bSent=true;
-                    }else{
-                        //TODO loging warn
-                    }
-                    
-                    //otpPassword=getOtpPassword(docAcc);
-		} catch(Exception e) {
-			throw e;
-		/*}finally{
-			if(oSession.isConnected()){
-				oSession.close();
-			}*/
-		}
-		//return  bSent;
+                //Generate random 4xDigits answercode
+                sAnswer = generateAnswer();
+                log.info("[bSentDocumentAccessOTP]sAnswer="+sAnswer);
+
+                //o.setDateAnswerExpire(null);
+                //SEND SMS with this code
+                String sReturn;
+                if(generalConfig.bTest()){
+                    sAnswer="4444";
+                }
+                oDocumentAccess.setAnswer(sAnswer);
+//                        writeRow(oDocumentAccess);
+                saveOrUpdate(oDocumentAccess);
+                log.info("oDocumentAccess.getId()="+oDocumentAccess.getId()+":Ok!");
+
+                if(generalConfig.bTest()){
+                    sReturn = "test";
+                }else{
+                    sReturn = sendPasswordOTP(sPhone, sAnswer);
+                }
+
+
+
+                log.info("[bSentDocumentAccessOTP]sReturn="+sReturn);
+
+                bSent=true;
+            }else{
+                //TODO loging warn
+            }
+			//return  bSent;
 		return sPhoneSent;
 	}        
         
@@ -300,38 +249,23 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
 		String sAnswer = "";
 		String otpPassword = "";
 		DocumentAccess docAcc = new DocumentAccess();
-		try{
-                    //TODO убедиться что все проверяется по этим WHERE
-                    list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
-                    if(list == null || list.isEmpty()){
-                        throw new Exception("Access not accepted!");
-                    } else {
-                    	 for(DocumentAccess da : list){
-                         	if(da.getId() == nID_Access && da.getSecret().equals(sSecret)){
-                         		docAcc = da;                      		
-                         		break;
-                         	}
-                         }
-                    }
-                    if(docAcc.getTelephone() != null){
-                     sTelephone = docAcc.getTelephone();
-                    }
-                    //TODO Generate random 4xDigits answercode
-                    sAnswer = generateAnswer();
-                    //TODO SEND SMS with this code
-                    //
-                    //o.setDateAnswerExpire(null);
-                    docAcc.setAnswer(sAnswer);
-                   // writeRow(docAcc);
-                    
-                    otpPassword=getOtpPassword(docAcc);
-		} catch(Exception e) {
-			throw e;
-		}finally{
-			if(oSession.isConnected()){
-				oSession.close();
-			}
-		}
+		list = findAll();
+		if(list == null || list.isEmpty()){
+            throw new Exception("Access not accepted!");
+        } else {
+             for(DocumentAccess da : list){
+                 if(da.getId() == nID_Access && da.getSecret().equals(sSecret)){
+                     docAcc = da;
+                     break;
+                 }
+             }
+        }
+		if(docAcc.getTelephone() != null){
+         sTelephone = docAcc.getTelephone();
+        }
+		sAnswer = generateAnswer();
+		docAcc.setAnswer(sAnswer);
+		otpPassword=getOtpPassword(docAcc);
 		return  otpPassword;
 	}
 
@@ -347,42 +281,16 @@ public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> impl
 	@Override
 	public String setDocumentAccess(Long nID_Access, String sSecret, String sAnswer) throws Exception {
 		Session oSession = getSession();
-		List <DocumentAccess> list = null;
-		DocumentAccess docAcc = null;
-		try{
-                    //TODO убедиться что все проверяется по этим WHERE
-                   /* list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
-                    if(list == null || list.isEmpty()){
-                        throw new Exception("Access not accepted!");
-                    }         
-                    else {
-                   	 for(DocumentAccess da : list){
-                   			if(da.getId() == nID_Access && da.getSecret().equals(sSecret)
-                                        && ( da.getAnswer().equals(sAnswer) || "1234".equals(sAnswer) )){  //TODO убрать бэкдур, после окончательной отладки, в т.ч. фронта
-                        		docAcc = da;
-                        		break;
-                        	}
-                        }
-                   }*/
-			docAcc = (DocumentAccess) getSession()
-					.createCriteria(DocumentAccess.class)
-					.add(Restrictions.eq("nID", nID_Access))
-					.add(Restrictions.eq("sSecret", sSecret))
-					.add(Restrictions.eq("sAnswer", sAnswer))
-					.uniqueResult();
-			if(docAcc == null){
-				 throw new Exception("Access not accepted!");
-			} else {
-				oSession.saveOrUpdate(docAcc);
-			}
-			
-		} catch(Exception e){
-			throw e;
-		} finally{
-			if(oSession.isConnected()){
-				oSession.close();
-			}
-		}
+		DocumentAccess docAcc = (DocumentAccess) createCriteria()
+                .add(Restrictions.eq("nID", nID_Access))
+                .add(Restrictions.eq("sSecret", sSecret))
+                .add(Restrictions.eq("sAnswer", sAnswer))
+                .uniqueResult();
+		if(docAcc == null){
+             throw new Exception("Access not accepted!");
+        } else {
+            oSession.saveOrUpdate(docAcc);
+        }
 		return docAcc.toString();
 	}
         

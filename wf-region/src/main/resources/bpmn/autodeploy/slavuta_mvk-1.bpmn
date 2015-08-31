@@ -19,9 +19,8 @@
         </activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="vlasn" name="Копія правовстановлюючих документів, що посвідчують право на земельну ділянку" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу, Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
-      </extensionElements>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу, Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <serviceTask id="servicetask1" name="Завантаження документiв" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -49,8 +48,8 @@
           <activiti:value id="accept" name="Прийняти в роботу"></activiti:value>
           <activiti:value id="reject" name="Відмовити у наданні послуги"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="reason" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підству у цьому полі." type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/slavuta_mvk-1_zayava.html]" type="invisible" default="${sBody_1}"></activiti:formProperty>
+        <activiti:formProperty id="reason" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/slavuta_mvk-1_zayava.html]" type="invisible"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -70,7 +69,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки</activiti:expression>
+          <activiti:expression><![CDATA[Звернення на тему: Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки]]></activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>

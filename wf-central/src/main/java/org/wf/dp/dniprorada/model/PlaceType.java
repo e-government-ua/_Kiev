@@ -17,13 +17,13 @@ public class PlaceType extends NamedEntity {
     @JsonProperty("nOrder")
     private Long order;
 
-    @Column(name ="bArea")
-    @JsonProperty("bArea")
-    private boolean area; // "Площадь" (true = область/район/регион и т.д.)
+    @Column
+    @JsonProperty
+    private boolean bArea; // "Площадь" (true = область/район/регион и т.д.)
 
-    @Column(name ="bRoot")
-    @JsonProperty("bRoot")
-    private boolean root; // "Корень" (true = административная еденица страны)
+    @Column
+    @JsonProperty
+    private boolean bRoot; // "Корень" (true = административная еденица страны)
 
     public PlaceType(){
         // no action required
@@ -32,8 +32,8 @@ public class PlaceType extends NamedEntity {
         setId(placeTypeId);
         setName(name);
         setOrder(order);
-        setArea(area);
-        setRoot(root);
+        setbArea(area);
+        setbRoot(root);
     }
 
 
@@ -44,17 +44,17 @@ public class PlaceType extends NamedEntity {
         this.order = order;
     }
 
-    public boolean isArea() {
-        return area;
+    public boolean isbArea() {
+        return bArea;
     }
-    public void setArea(boolean area) {
-        this.area = area;
+    public void setbArea(boolean bArea) {
+        this.bArea = bArea;
     }
 
-    public boolean isRoot() {
-        return root;
+    public boolean isbRoot() {
+        return bRoot;
     }
-    public void setRoot(boolean root) {
-        this.root = root;
+    public void setbRoot(boolean bRoot) {
+        this.bRoot = bRoot;
     }
 }
