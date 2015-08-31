@@ -427,7 +427,7 @@
       <errorEventDefinition></errorEventDefinition>
     </boundaryEvent>
     <sequenceFlow id="flow10" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <serviceTask id="servicetask4" name="Відповідь в разі нехватки документів" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
+    <serviceTask id="servicetask4" name="Відповідь в разі нехватки документів" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
