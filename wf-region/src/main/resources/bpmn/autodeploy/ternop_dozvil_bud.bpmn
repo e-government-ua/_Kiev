@@ -3,14 +3,14 @@
   <process id="ternop_dozvil_bud" name="Тернополь ОДА. Надання містобудівних умов та обмежень забудови земельної ділянки" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="info" name="Як працює послуга; посилання на інструкцію" type="label" default="http://bit.ly/1UbeckZ "></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="info" name="Як працює послуга; посилання на інструкцію" type="label" default="http://bit.ly/1UbeckZ " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті" type="string"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string"></activiti:formProperty>
         <activiti:formProperty id="2" name="Засвідчена в установленому порядку копія документа про право власності (користування) земельною ділянкою" type="file"></activiti:formProperty>
         <activiti:formProperty id="3" name="Ситуаційний план (схема) щодо місцезнаходження земельної ділянки (у довільній формі);" type="file"></activiti:formProperty>
         <activiti:formProperty id="4" name="Копія паспорта та ідентифікаційного номера уповноваженої особи (у разі подання заяви уповноваженою заявником особою);" type="file"></activiti:formProperty>
@@ -24,7 +24,6 @@
     </startEvent>
     <userTask id="usertask2" name="Проверка документов" activiti:candidateGroups="ternop_dozvil_bud_dep1">
       <extensionElements>
-        <activiti:formProperty id="t" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
@@ -381,8 +380,15 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                       Ваше звернення успішно зареєстровано. &lt;br /&gt;
-                                       Результат обробки звернення будуть спрямовані на цей е-мейл
+                                  Ваше звернення про нормативну грошову оцінку земельної ділянки опрацьовано. 
+
+Адреса, за якою Ви можете отримати довідку:
+Адреса: вул. Князя Острозького, 6
+тел. для довідок: 40 41 90, 40 41 92, 40 41 93, 40 41 89
+e-mail: cnapternopil@meta.ua
+skype: cnap-ternopil
+ &lt;br /&gt;
+                                       
 										
                                   
                                     &lt;/p&gt;
@@ -390,7 +396,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Міністерство Внутрішніх Справ України,&lt;br /&gt;
+                                        ЦНАП м. Тернопіль,&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
