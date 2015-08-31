@@ -163,8 +163,7 @@
             &lt;/table&gt;
         &lt;/td&gt;
     &lt;/tr&gt;
-    &lt;/tbody&gt;
-          </activiti:expression>
+    &lt;/tbody&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -269,7 +268,6 @@
     <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow0" sourceRef="startevent1" targetRef="servicetask0"></sequenceFlow>
     <sequenceFlow id="flow8" sourceRef="servicetask0" targetRef="servicetask1"></sequenceFlow>
-    
     <serviceTask id="servicetask1" name="для очереди" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow10" sourceRef="servicetask1" targetRef="scripttask1"></sequenceFlow>
     <scriptTask id="scripttask1" name="исправление даты-времени" scriptFormat="groovy" activiti:autoStoreVariables="true">
