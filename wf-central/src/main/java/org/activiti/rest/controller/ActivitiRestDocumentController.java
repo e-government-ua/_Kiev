@@ -110,7 +110,7 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "nID_DocumentOperator_SubjectOrgan") 	Long 	organID,
             @RequestParam(value = "nID_DocumentType", required = false) Long	docTypeID,
             @RequestParam(value = "sPass", required = false)		    String 	password,
-            @RequestParam(value = "nID_Subject", required = false)      Long 	nID_Subject,
+            @RequestParam(value = "nID_Subject", defaultValue = "1")    Long 	nID_Subject,
             HttpServletResponse resp
     ) {
 

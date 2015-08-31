@@ -33,13 +33,12 @@ public abstract class AbstractDocumentAccessHandler implements DocumentAccessHan
     }
 
     public DocumentAccessHandler setWithContent(Boolean bWithContent) {
-        this.withContent =bWithContent;
+        this.withContent = bWithContent;
         return this;
     }
 
     public DocumentAccessHandler setIdSubject(Long nID_Subject) {
-
-        this.nID_Subject = nID_Subject == null ? 1L : nID_Subject;
+        this.nID_Subject = nID_Subject;
         return this;
     }
 
