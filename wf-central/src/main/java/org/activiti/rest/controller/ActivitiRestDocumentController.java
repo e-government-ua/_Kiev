@@ -171,7 +171,7 @@ public class ActivitiRestDocumentController {
         byte[] content = {};
         if (id != null && !"null".equals(id) && docTypeID != 0) {
             document = documentDao.getDocument(new Long(id));
-            if(nID_Subject != document.getSubject().getId()){
+            if(!nID_Subject.equals(document.getSubject().getId())){
                 if(accessCode!=null){
                     Document oDocument = handlerFactory
                             .buildHandlerFor(documentDao.getOperator(organID))

@@ -73,7 +73,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
         String callBackValue = generalConfig.sURL_DocumentKvitanciiCallback();
         String keyID = this.accessCode;
         String finalUri = uriDoc + keyIdParam + keyID + callBackKey + callBackValue;
-        if (this.documentTypeId == null && this.documentTypeId != 0) {
+        if (this.documentTypeId == null || !Long.valueOf(0L).equals(this.documentTypeId)) {
             LOG.error("DocumentTypeId = " + this.documentTypeId);
             throw new DocumentTypeNotSupportedException("Incorrect DocumentTypeId. DocumentTypeId = " + this.documentTypeId);
         }
