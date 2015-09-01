@@ -1,4 +1,4 @@
-angular.module('app').controller('ServiceController', function($scope, $rootScope, $timeout, CatalogService, AdminService, $filter, statesRepository, RegionListFactory, LocalityListFactory, serviceLocationParser) {
+angular.module('app').controller('ServiceController', function($scope, $rootScope, $timeout, CatalogService, AdminService, $filter, statesRepository, RegionListFactory, LocalityListFactory) {
   $scope.data = {region: null, city: null};
 
   function getIDPlaces() {
@@ -37,9 +37,6 @@ angular.module('app').controller('ServiceController', function($scope, $rootScop
     $scope.search();
     $scope.localityList.load(null, $item.nID, null).then(function(cities) {
       $scope.localityList.typeahead.defaultList = cities;
-      var initialCity = serviceLocationParser.getSelectedCity(cities);
-      if (initialCity)
-        $scope.onSelectLocalityList(initialCity);
     });
   };
 
@@ -154,8 +151,4 @@ angular.module('app').controller('ServiceController', function($scope, $rootScop
   });
 
   $scope.search();
-
-  var initialRegion = serviceLocationParser.getSelectedRegion(regions);
-  if (initialRegion)
-    $scope.onSelectRegionList(initialRegion);
 });
