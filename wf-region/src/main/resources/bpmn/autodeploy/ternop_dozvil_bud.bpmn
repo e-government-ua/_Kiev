@@ -37,6 +37,7 @@
           <activiti:value id="doc_ok" name="Документи в порядку, на протязі х днів очікуйте на відповідь"></activiti:value>
           <activiti:value id="doc_no" name="Документ оформленний не вірно"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="add" name="Добавить ответ" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -133,6 +134,7 @@
                                     <h3>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.</h3>
                                     <p>
                                       Ваше звернення щодо надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки буде опрацьовано співробітниками на протязі  3 днів. За результатами розгляду звернення, з Вами зв’яжеться відповідальний працівник та повідомить про час та місце отримання довідки. <br />
+
                                        
 										
                                   
@@ -427,9 +429,8 @@ skype: cnap-ternopil
                                 <td style="padding: 35px 120px;">
                                     <h3>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.</h3>
                                     <p>
-                                    Вам відмовлено у видачі витягу про нормативну грошову оцінку земельної ділянки.
-Підстава:
- <br />
+                                      Ваше звернення щодо надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки буде опрацьовано співробітниками на протязі  3 днів. За результатами розгляду звернення, з Вами зв’яжеться відповідальний працівник та повідомить про час та місце отримання довідки. <br />
+<p>${add}</p>
                                        
 										
                                   
