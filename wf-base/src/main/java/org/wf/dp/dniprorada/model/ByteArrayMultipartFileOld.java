@@ -7,11 +7,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ByteArrayMultipartFileOld implements MultipartFile {
+    private static final Logger LOG = LoggerFactory.getLogger(ByteArrayMultipartFileOld.class);
 
     private InputStream inputStream;
     private byte[] content;
@@ -51,10 +55,12 @@ public class ByteArrayMultipartFileOld implements MultipartFile {
                 contentByteList.add((byte) data);
                 data = bufferedInputStream.read();
             }
+            LOG.debug(" ||||| " + contentByteList.size() + " ||||| "  + contentByteList);
             content = new byte[contentByteList.size()];
             for (int i = 0; i < contentByteList.size(); i++) {
                  content[i] = contentByteList.get(i);
             }
+            LOG.debug(Arrays.toString(content));
         } catch (IOException ex) {
             content = ex.getMessage().getBytes();
         }
