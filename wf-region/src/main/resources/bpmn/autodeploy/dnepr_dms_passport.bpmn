@@ -11,7 +11,7 @@
           <activiti:value id="attr1_yes" name="так, хочу подовжити"></activiti:value>
           <activiti:value id="attr2_no" name="ні, буду отримувати перший раз"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="urgent" name="Паспорт треба виготовити терміново?; (протягом 10 днів за додаткову плату - ціна у вкладці &quot;Як це працює&quot;)" type="enum" default="attr1_no" required="true">
+        <activiti:formProperty id="urgent" name="Паспорт треба виготовити терміново?; (протягом 10 днів за додаткову плату - ціна у вкладці &quot;Як це працює&quot;)" type="enum" default="attr1_no" readable="false" required="true">
           <activiti:value id="attr1_no" name="ні"></activiti:value>
           <activiti:value id="attr2_yes" name="так"></activiti:value>
         </activiti:formProperty>
@@ -35,7 +35,7 @@
           <activiti:value id="attr1_yes" name="так, хочу подовжити"></activiti:value>
           <activiti:value id="attr2_no" name="ні, буду отримувати перший раз"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="urgent" name="Паспорт треба виготовити терміново?; (протягом 10 днів за додаткову плату - ціна у вкладці &quot;Як це працює&quot;)" type="enum" writable="false">
+        <activiti:formProperty id="urgent" name="Паспорт треба виготовити терміново?; (протягом 10 днів за додаткову плату - ціна у вкладці &quot;Як це працює&quot;)" type="enum" readable="false" writable="false">
           <activiti:value id="attr1_no" name="ні"></activiti:value>
           <activiti:value id="attr2_yes" name="так"></activiti:value>
         </activiti:formProperty>
