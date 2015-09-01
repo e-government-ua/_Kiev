@@ -32,6 +32,7 @@ import org.wf.dp.dniprorada.constant.Language;
 import org.wf.dp.dniprorada.liqPay.LiqBuy;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Mail;
+import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
 
 public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
@@ -46,6 +47,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     
 
     //private static final String LIQPAY_CALLBACK_URL = "https://test.region.igov.org.ua/wf-region/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=Liqpay&sData=";
+    private static final String TAG_nID_Protected = "[nID_Protected]";
     private static final String TAG_nID_SUBJECT = "[nID_Subject]";
     private static final String TAG_sACCESS_KEY = "[sAccessKey]";
     private static final String TAG_sURL_SERVICE_MESSAGE = "[sURL_ServiceMessage]";
@@ -219,6 +221,13 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         }
                 
                 
+        if (textWithoutTags.contains(TAG_nID_Protected)) {
+            LOG.info("execution.getProcessInstanceId()="+execution.getProcessInstanceId());
+            long nID_Protected = getProtectedNumber(Long.valueOf(execution.getProcessInstanceId()));
+            LOG.info("nID_Protected="+nID_Protected);
+            textWithoutTags = textWithoutTags.replaceAll(TAG_nID_Protected, "" + nID_Protected);
+        }
+        
         if (textWithoutTags.contains(TAG_nID_SUBJECT)) {
             textWithoutTags = textWithoutTags.replaceAll(TAG_nID_SUBJECT, "" + nID_Subject);
         }
