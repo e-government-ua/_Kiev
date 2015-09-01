@@ -251,8 +251,8 @@
           <activiti:value id="accept" name="Видати довідку"></activiti:value>
           <activiti:value id="reject" name="Відмовити у видачі довідки"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="date_doc" name="Позначте дату та час отримання орігіналу документу" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adres_2" name="Зазначте адресу за якою замовник може отримати довідку" type="textArea" default="м.Херсон, вул.Ушакова 37, каб.106" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_doc" name="Позначте дату та час отримання оригіналу документу" type="string"></activiti:formProperty>
+        <activiti:formProperty id="adres_2" name="Зазначте адресу за якою замовник може отримати довідку" type="textArea" default="м.Херсон, вул.Ушакова 37, каб.106"></activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відмови у наданні довідки внесіть, будь ласка, причину" type="textArea"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
