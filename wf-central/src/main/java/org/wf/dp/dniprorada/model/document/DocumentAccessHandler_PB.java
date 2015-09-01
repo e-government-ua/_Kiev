@@ -8,13 +8,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.codec.Base64;
-import org.springframework.stereotype.Component;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.multipart.MultipartFile;
 import org.w3c.dom.Node;
 import org.wf.dp.dniprorada.dao.DocumentAccessDao;
 import org.wf.dp.dniprorada.dao.DocumentTypeDao;
 import org.wf.dp.dniprorada.dao.SubjectDao;
-import org.wf.dp.dniprorada.model.*;
+import org.wf.dp.dniprorada.model.ByteArrayMultipartFileOld;
+import org.wf.dp.dniprorada.model.Document;
+import org.wf.dp.dniprorada.model.DocumentAccess;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.rest.RestRequest;
 import org.wf.dp.dniprorada.util.rest.SSLCertificateValidation;
@@ -108,7 +110,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
 
             doc.setDocumentType(documentTypeDao.findByIdExpected(0L));
             doc.setSubject(subjectDao.getSubject(this.nID_Subject));
-            doc.setName(documentName);
+            doc.setFile(documentName);
             doc.setContentType(contentType);
             doc.setDate_Upload(DateTime.now());
             doc.setsID_subject_Upload(null);
@@ -116,7 +118,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
             doc.setoSignData(null);
 
 
-        } catch (ParseException e) {
+        } catch (ParseException | ResourceAccessException e) {
             LOG.error("Can't get document: ", e);
             throw new DocumentNotFoundException("Can't get document: ", e);
         }

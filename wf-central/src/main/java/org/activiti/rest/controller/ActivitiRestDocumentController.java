@@ -201,12 +201,10 @@ public class ActivitiRestDocumentController {
                     .getDocument();
             content = document.getFileBody();
         }
-        //byte[] content = "".getBytes();
 
         httpResponse.setHeader("Content-Type", document.getContentType() + ";charset=UTF-8");
         httpResponse.setHeader("Content-Disposition", "attachment; filename=" + document.getFile());
-        //httpResponse.setHeader("Content-Type", document.getDocumentContentType()
-        //		.getName() + ";charset=UTF-8");
+
         httpResponse.setContentLength(content.length);
         return content;
     }
