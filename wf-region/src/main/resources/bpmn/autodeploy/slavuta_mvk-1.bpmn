@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="slavuta_mvk-1" name="Славутський МВК - Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки" isExecutable="true">
+  <process id="slavuta_mvk-1" name="Славутський МВК - Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -10,6 +10,7 @@
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета звернення" type="enum" required="true">
           <activiti:value id="item1" name="визначення розміру земельного податку при  міні  або  даруванні  земельних  ділянок"></activiti:value>
           <activiti:value id="item2" name="визначення розміру земельного податку при спадкуванні   земельних  ділянок"></activiti:value>
@@ -17,11 +18,10 @@
           <activiti:value id="item4" name="визначення втрат  сільськогосподарського  та  лісогосподарського виробництва"></activiti:value>
           <activiti:value id="itme5" name="розроблення показників та механізмів економічного  стимулювання  раціонального  використання та охорони земель"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="vlasn" name="Копія правовстановлюючих документів, що посвідчують право на земельну ділянку" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу, Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу, Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
-      </extensionElements>
+       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <serviceTask id="servicetask1" name="Завантаження документiв" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -36,7 +36,7 @@
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="place_of_reg" name="Адрес" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета звернення" type="enum" writable="false">
           <activiti:value id="item1" name="визначення розміру земельного податку при  міні  або  даруванні  земельних  ділянок"></activiti:value>
           <activiti:value id="item2" name="визначення розміру земельного податку при  спадкуванні   земельних  ділянок"></activiti:value>
@@ -49,9 +49,8 @@
           <activiti:value id="accept" name="Прийняти в роботу"></activiti:value>
           <activiti:value id="reject" name="Відмовити у наданні послуги"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="reason" name="Підстава для відмови" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="vlasn" name="Копія правовстановлюючих документів, що посвідчують право на земельну ділянку" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/kalush_rda_1_zayava.html]" type="invisible" default="${sBody_1}"></activiti:formProperty>
+        <activiti:formProperty id="reason" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/slavuta_mvk-1_zayava.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -66,18 +65,18 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
     </sequenceFlow>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
-      <extensionElements>
+       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки</activiti:expression>
+          <activiti:string><![CDATA[Звернення на тему: Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -123,7 +122,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        На жаль змушені Вам відмовити в наданні послуги:&lt;/p&gt;
+                                        На жаль змушені Вам відмовити в наданні послуги.&lt;/p&gt;
 &lt;p&gt;Причина в наступному: 
                                     &lt;/p&gt;
 &lt;p&gt;${reason}&lt;/p&gt;
@@ -162,7 +161,7 @@
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="place_of_reg" name="Адрес" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета звернення" type="enum" writable="false">
           <activiti:value id="item1" name="визначення розміру земельного податку при  міні  або  даруванні  земельних  ділянок"></activiti:value>
           <activiti:value id="item2" name="визначення розміру земельного податку при  спадкуванні   земельних  ділянок"></activiti:value>
@@ -186,7 +185,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -237,9 +236,9 @@
                                     &lt;p&gt;
                                         Ваше звернення оброблено.&lt;/p&gt;
                                     &lt;p&gt; 
-                                    Ви можете отримати витяг за адресою: м. Славута, вул. Соборності, 15&lt;/p&gt;
+                                    Ви можете отримати витяг за адресою: м. Славута, вул. Соборності, 15.&lt;/p&gt;
                                     &lt;p&gt; 
-                                    телефон для довідок: (03842) 2-13-59&lt;/p&gt;
+                                    телефон для довідок: (03842) 2-13-59.&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -266,20 +265,6 @@
     </serviceTask>
     <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent4"></sequenceFlow>
     <endEvent id="endevent4" name="End"></endEvent>
-    
-    <textAnnotation id="textannotation1">
-      <text>Пользователь портала  отправляет выбирает услугу:
-Видача витягу з технічної документації про нормативну грошову оцінку земельної ділянки</text>
-    </textAnnotation>
-    <textAnnotation id="textannotation2">
-      <text>Принимается решение обоснован ли запрос на предоставление информации и достаточно ли данных</text>
-    </textAnnotation>
-    <association id="association2" sourceRef="usertask1" targetRef="textannotation2"></association>
-    <textAnnotation id="textannotation3">
-      <text>По banlID система получает необходимые данные пользователя:
-ФИО, адрес проживания, телефон, копию паспорта, копию ИНН</text>
-    </textAnnotation>
-    <association id="association3" sourceRef="startevent1" targetRef="textannotation1"></association>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_slavuta_mvk-1">
     <bpmndi:BPMNPlane bpmnElement="slavuta_mvk-1" id="BPMNPlane_slavuta_mvk-1">
@@ -315,15 +300,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
         <omgdc:Bounds height="35.0" width="35.0" x="930.0" y="389.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
-        <omgdc:Bounds height="50.0" width="493.0" x="58.0" y="37.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
-        <omgdc:Bounds height="51.0" width="321.0" x="90.0" y="450.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
-        <omgdc:Bounds height="112.0" width="152.0" x="20.0" y="174.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="217.0" y="175.0"></omgdi:waypoint>
@@ -368,14 +344,6 @@
         <omgdi:waypoint x="611.0" y="407.0"></omgdi:waypoint>
         <omgdi:waypoint x="609.0" y="406.0"></omgdi:waypoint>
         <omgdi:waypoint x="670.0" y="406.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
-        <omgdi:waypoint x="219.0" y="435.0"></omgdi:waypoint>
-        <omgdi:waypoint x="250.0" y="450.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
-        <omgdi:waypoint x="217.0" y="140.0"></omgdi:waypoint>
-        <omgdi:waypoint x="304.0" y="87.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

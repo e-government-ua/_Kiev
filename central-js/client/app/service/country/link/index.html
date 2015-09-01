@@ -7,7 +7,7 @@
                ng-bind-html="serviceData.sNote"
                ng-if="serviceData.sNote"></p>
 
-            <div class="service-button-go">
+            <div ng-if="serviceData.sURL!==null && serviceData.sURL.trim() !==''" class="service-button-go">
                 <a ng-href="{{serviceData.sURL}}"
                    class="btn btn-primary"
                    target="_blank">Перейти</a>

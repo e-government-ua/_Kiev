@@ -3,7 +3,6 @@
   <process id="kiev_mreo_1" name="Киев - Реєстрація авто з пробігом в МРЕВ" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="info" name="Як працює послуга; посилання на інструкцію" type="label" default="http://bit.ly/1UbeckZ "></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
@@ -657,6 +656,7 @@ ${visitDate}&lt;br /&gt;
                                     <h3>Шановний колего!</h3>
                                     <p>
                                         У Вас в черзі на обробку  зареєстровано нове звернення щодо реєстрації авто з пробігом<br />
+                                        Заявник:  ${bankIdfirstName} ${bankIdmiddleName} ${bankIdlastName}<br />
                                         Відпрацюйте це звернення на порталі <a href="#current-page">region.igov.org.ua/admin</a>
                                     </p>
                                     
@@ -778,7 +778,7 @@ ${visitDate}&lt;br /&gt;
         <omgdi:waypoint x="648.0" y="359.0"></omgdi:waypoint>
         <omgdi:waypoint x="753.0" y="359.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="56.0" width="100.0" x="642.0" y="332.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="642.0" y="332.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">

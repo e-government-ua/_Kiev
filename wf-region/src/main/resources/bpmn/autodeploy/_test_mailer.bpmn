@@ -4,21 +4,21 @@
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="mail" name="mail" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="РџСЂС–Р·РІРёС‰Рµ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Р†Рј'СЏ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="РџРѕ-Р‘Р°С‚СЊРєРѕРІС–" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="filecl" name="file" type="file"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <serviceTask id="servicetask1" name="подтягивание документов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <serviceTask id="servicetask1" name="РїРѕРґС‚СЏРіРёРІР°РЅРёРµ РґРѕРєСѓРјРµРЅС‚РѕРІ" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
-    <userTask id="usertask1" name="рассмотрение и загрузка" activiti:candidateGroups="sales">
+    <userTask id="usertask1" name="СЂР°СЃСЃРјРѕС‚СЂРµРЅРёРµ Рё Р·Р°РіСЂСѓР·РєР°" activiti:candidateGroups="sales">
       <extensionElements>
         <activiti:formProperty id="file" name="file" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <serviceTask id="servicetask2" name="оповещение заявителя" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask2" name="РѕРїРѕРІРµС‰РµРЅРёРµ Р·Р°СЏРІРёС‚РµР»СЏ" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
@@ -62,7 +62,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;РїРѕСЂС‚Р°Р» РґРµСЂР¶Р°РІРЅРёС… РїРѕСЃР»СѓРі&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -71,20 +71,20 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;h3&gt;РЁР°РЅРѕРІРЅРёР№(-Р°), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Підготовка довідки про перебування на квартирному обліку громадян, які потребують поліпшення житлових умов, успішно завершена!&lt;br /&gt;
-										Оригінал документу Ви можете отримати в Центрі надання адміністративних послуг Солом'янського району, що знаходиться за адресою: м.Київ, пр. Повітрофлотський, 41
+                                        РџС–РґРіРѕС‚РѕРІРєР° РґРѕРІС–РґРєРё РїСЂРѕ РїРµСЂРµР±СѓРІР°РЅРЅСЏ РЅР° РєРІР°СЂС‚РёСЂРЅРѕРјСѓ РѕР±Р»С–РєСѓ РіСЂРѕРјР°РґСЏРЅ, СЏРєС– РїРѕС‚СЂРµР±СѓСЋС‚СЊ РїРѕР»С–РїС€РµРЅРЅСЏ Р¶РёС‚Р»РѕРІРёС… СѓРјРѕРІ, СѓСЃРїС–С€РЅРѕ Р·Р°РІРµСЂС€РµРЅР°!&lt;br /&gt;
+										РћСЂРёРіС–РЅР°Р» РґРѕРєСѓРјРµРЅС‚Сѓ Р’Рё РјРѕР¶РµС‚Рµ РѕС‚СЂРёРјР°С‚Рё РІ Р¦РµРЅС‚СЂС– РЅР°РґР°РЅРЅСЏ Р°РґРјС–РЅС–СЃС‚СЂР°С‚РёРІРЅРёС… РїРѕСЃР»СѓРі РЎРѕР»РѕРј'СЏРЅСЃСЊРєРѕРіРѕ СЂР°Р№РѕРЅСѓ, С‰Рѕ Р·РЅР°С…РѕРґРёС‚СЊСЃСЏ Р·Р° Р°РґСЂРµСЃРѕСЋ: Рј.РљРёС—РІ, РїСЂ. РџРѕРІС–С‚СЂРѕС„Р»РѕС‚СЃСЊРєРёР№, 41
                                   
                                     &lt;/p&gt;
                                     &lt;p&gt;
- 										У випадку, якщо Ви перебуваєте на пільговій квартирній черзі, при собі необхідно мати оригінал документу, який підтверджує це (наприклад, Довідка з місця роботи).
+ 										РЈ РІРёРїР°РґРєСѓ, СЏРєС‰Рѕ Р’Рё РїРµСЂРµР±СѓРІР°С”С‚Рµ РЅР° РїС–Р»СЊРіРѕРІС–Р№ РєРІР°СЂС‚РёСЂРЅС–Р№ С‡РµСЂР·С–, РїСЂРё СЃРѕР±С– РЅРµРѕР±С…С–РґРЅРѕ РјР°С‚Рё РѕСЂРёРіС–РЅР°Р» РґРѕРєСѓРјРµРЅС‚Сѓ, СЏРєРёР№ РїС–РґС‚РІРµСЂРґР¶СѓС” С†Рµ (РЅР°РїСЂРёРєР»Р°Рґ, Р”РѕРІС–РґРєР° Р· РјС–СЃС†СЏ СЂРѕР±РѕС‚Рё).
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        Центр надання адміністративних послуг Солом'янського району м.Киів,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                        Р— РїРѕРІР°РіРѕСЋ,&lt;br /&gt;
+                                        Р¦РµРЅС‚СЂ РЅР°РґР°РЅРЅСЏ Р°РґРјС–РЅС–СЃС‚СЂР°С‚РёРІРЅРёС… РїРѕСЃР»СѓРі РЎРѕР»РѕРј'СЏРЅСЃСЊРєРѕРіРѕ СЂР°Р№РѕРЅСѓ Рј.РљРёС–РІ,&lt;br /&gt;
+                                        РљРѕРјР°РЅРґР° РџРѕСЂС‚Р°Р»Сѓ РґРµСЂР¶Р°РІРЅРёС… РїРѕСЃР»СѓРі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;

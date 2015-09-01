@@ -69,11 +69,9 @@
             <constructor-arg value="#{T(org.wf.dp.dniprorada.model.DocumentOperator_SubjectOrgan)}"/>
         </bean>
 
-        <bean id="placeTypeDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
-            <constructor-arg value="#{T(org.wf.dp.dniprorada.model.PlaceType)}"/>
-        </bean>
-
-        <bean id="sqlStorage" class="org.wf.dp.dniprorada.base.util.queryloader.QueryLoader"/>
+        <bean id="placeTypeDao" class="org.wf.dp.dniprorada.dao.PlaceTypeDao"/>
+        <bean id="placeDao"     class="org.wf.dp.dniprorada.dao.place.PlaceDaoImpl"/>
+        <bean id="sqlStorage"   class="org.wf.dp.dniprorada.base.util.queryloader.QueryLoader"/>
 
     </beans>
 
