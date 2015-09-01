@@ -92,8 +92,8 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
             headers.setAccept(Collections.singletonList(MediaType.ALL));
             headers.set("Authorization", "Basic " + authHeaderEncoded);
 
-            ResponseEntity<String> documentEntity = new RestRequest().getEntity(finalUri,
-                    null, StandardCharsets.UTF_8, String.class, headers);
+            ResponseEntity<byte[]> documentEntity = new RestRequest().getEntity(finalUri,
+                    null, StandardCharsets.UTF_8, byte[].class, headers);
 
             String contentType = documentEntity.getHeaders().getContentType().toString();
             String contentDispositionHeader = documentEntity.getHeaders().get("Content-Disposition").get(0);
@@ -105,7 +105,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
             }
 
             if (this.withContent) {
-                doc.setFileBody(documentEntity.getBody().getBytes());
+                doc.setFileBody(documentEntity.getBody());
             }
 
             doc.setDocumentType(documentTypeDao.findByIdExpected(0L));
@@ -175,7 +175,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
         String[] parts = contentType.split("/");
         String fileExtension = parts.length < 2 ? "" : parts[1];
 
-        return new ByteArrayMultipartFileOld(new ByteArrayInputStream(documentEntity.getBody().getBytes()),
+        return new ByteArrayMultipartFileOld(new ByteArrayInputStream(documentEntity.getBody().getBytes(StandardCharsets.UTF_8)),
                 documentName, documentName, contentType + ";" + fileExtension);
 
     }
