@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.base.model.Entity;
+import org.wf.dp.dniprorada.base.dao.EntityDao;
 import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.dao.PlaceTypeDao;
 import org.wf.dp.dniprorada.dao.place.PlaceHierarchyRecord;
@@ -36,9 +36,6 @@ public class PlaceController {
 
     @Autowired
     private PlaceTypeDao placeTypeDao;
-
-    @Autowired
-    private GenericEntityDao genericEntityDao;
 
     @RequestMapping(value   = "/getPlacesTree",
                     method  = RequestMethod.GET, headers = { JSON_TYPE })
@@ -84,9 +81,9 @@ public class PlaceController {
         Place place = new Place(placeId, name, typeId, uaId, originalName);
 
         if (positive(placeId)) {
-            swap(place, placeDao.findById(placeId));
+            swap(place, placeDao.findById(placeId), placeDao);
 
-        } else if (!swap(place, placeDao.findBy("sID_UA", uaId))) {
+        } else if (!swap(place, placeDao.findBy("sID_UA", uaId), placeDao)) {
             placeDao.saveOrUpdate(place);
         }
     }
@@ -149,7 +146,7 @@ public class PlaceController {
         PlaceType placeType = new PlaceType(placeTypeId, name, order, area, root);
 
         if (positive(placeTypeId)) {
-            swap(placeType, placeTypeDao.findById(placeTypeId));
+            swap(placeType, placeTypeDao.findById(placeTypeId), placeTypeDao);
 
         } else {
             placeTypeDao.saveOrUpdate(placeType);
@@ -173,12 +170,13 @@ public class PlaceController {
      * This method allows to swap two entities by Primary Key (PK).
      * @param entity          - entity with new parameters
      * @param persistedEntity - persisted entity with registered PK in DB
+     * @param dao             - type-specific dao implementation
      **/
     @SuppressWarnings("unchecked")
-    private <T extends Entity> boolean swap(T entity, Optional<T> persistedEntity){
+    private <T extends Entity> boolean swap(T entity, Optional<T> persistedEntity, EntityDao dao){
         if (persistedEntity.isPresent()) {
             entity.setId( persistedEntity.get().getId() );
-            genericEntityDao.saveOrUpdate(entity);
+            dao.saveOrUpdate(entity);
             return true;
         }
         return false;

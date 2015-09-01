@@ -1,4 +1,5 @@
-angular.module('app').controller('ServiceCityController', function($state,AdminService, $rootScope, $scope, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, regions) {
+angular.module('app').controller('ServiceCityController', function($state,AdminService, $rootScope, $scope, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, regions, serviceLocationParser) {
+
   $scope.regions = regions;
   $scope.regionList = new RegionListFactory();
   $scope.regionList.initialize(regions);
@@ -9,9 +10,9 @@ angular.module('app').controller('ServiceCityController', function($state,AdminS
     return $scope.regionList.load($scope.service, search);
   };
 
-  $scope.onSelectRegionList = function($item, $model, $label) {
+  $scope.onSelectRegionList = function($item) {
     $scope.data.region = $item;
-    $scope.regionList.select($item, $model, $label);
+    $scope.regionList.select($item);
 
 	var serviceType = $scope.findServiceDataByRegion();
 
@@ -29,6 +30,9 @@ angular.module('app').controller('ServiceCityController', function($state,AdminS
       default:
 	    $scope.localityList.load($scope.service, $item.nID, null).then(function(cities) {
           $scope.localityList.typeahead.defaultList = cities;
+          var initialCity = serviceLocationParser.getSelectedCity(cities);
+          if (initialCity)
+            $scope.onSelectLocalityList(initialCity);
         });
     }
   };
@@ -161,6 +165,10 @@ angular.module('app').controller('ServiceCityController', function($state,AdminS
   if ($state.current.name == 'service.general.city.built-in.bankid') {
     return true;
   }
+
+  var initialRegion = serviceLocationParser.getSelectedRegion(regions);
+  if (initialRegion)
+    $scope.onSelectRegionList(initialRegion);
 });
 
 angular.module('app').controller('BuiltinCityController', function($scope) {
