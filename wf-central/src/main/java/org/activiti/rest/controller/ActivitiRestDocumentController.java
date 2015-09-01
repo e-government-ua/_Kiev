@@ -159,7 +159,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     byte[] getDocumentFile( @RequestParam(value = "nID", required = false)                              String id,
-                            @RequestParam(value = "nID_Subject", required = false)                      Long nID_Subject,
+                            @RequestParam(value = "nID_Subject", required = false, defaultValue = "1")  Long nID_Subject,
                             @RequestParam(value = "sCode_DocumentAccess", required = false)             String accessCode,
                             @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false)Long organID,
                             @RequestParam(value = "nID_DocumentType", required = false)                 Long docTypeID,
@@ -197,6 +197,7 @@ public class ActivitiRestDocumentController {
                     .setAccessCode(accessCode)
                     .setPassword(password)
                     .setWithContent(true)
+                    .setIdSubject(nID_Subject)
                     .getDocument();
             content = document.getFileBody();
         }
