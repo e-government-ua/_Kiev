@@ -22,7 +22,7 @@
           <activiti:value id="post" name="поштою"></activiti:value>
           <activiti:value id="cnap" name="особисто"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="place_of_res" name="Місце куди направити витяг поштою; вкажіть область, місто, вулицю, дім, квартиру" type="string"></activiti:formProperty>
+        <activiti:formProperty id="place_of_res" name="Місце куди направити витяг поштою; вкажіть індекс, область, місто, вулицю, дім, квартиру" type="string"></activiti:formProperty>
         <activiti:formProperty id="vlasn" name="Копія правовстановлюючих документів, що посвідчують право на земельну ділянку" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу, Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
@@ -270,7 +270,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="place_of_res" name="Місце куди направити витяг поштою; вкажіть область, місто, вулицю, дім, квартиру" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="searchResult" name="Витяг готовий?" type="enum" required="true">
-          <activiti:value id="found" name="Так, витяг готовий"></activiti:value>
+          <activiti:value id="found" name="Витяг готовий"></activiti:value>
           <activiti:value id="nonfound" name="Відсутня технічна документація про нормативну грошову оцінку земельної ділянки"></activiti:value>
         </activiti:formProperty>
       </extensionElements>
@@ -528,7 +528,8 @@
                                     &lt;p&gt;
                                         Ваше звернення оброблено.&lt;/p&gt;
                                     &lt;p&gt; 
-                                    	Витяг буде надіслано Вам поштою за адресою: ${place_of_res}.&lt;/p&gt;
+                                    	Витяг буде надіслано Вам поштою за адресою:&lt;br /&gt;
+                                    	 ${place_of_res}.&lt;/p&gt;
                                     &lt;p&gt; 
                                     	телефон для довідок: (03842) 2-13-59.&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
