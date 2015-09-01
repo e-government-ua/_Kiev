@@ -148,7 +148,7 @@
           <activiti:value id="regect" name="Заяву відхилено"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Коментар: Якщо позивачу відмовлено, вкажіть причину." type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="result" name="Прикріплення виданої довідки" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="result" name="Прикріплення виданої довідки" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow4" name="Заявка прийнята і обробляється" sourceRef="exclusivegateway1" targetRef="usertask2_green">
