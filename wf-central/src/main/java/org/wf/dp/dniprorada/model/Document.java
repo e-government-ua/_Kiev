@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 public class Document extends NamedEntity {
 
 	@JsonProperty(value = "fileBody")
-	transient public MultipartFile fileBody;
+	transient public byte[] fileBody;
 
 	@JsonProperty(value = "oDocumentType")
 	@ManyToOne(fetch = FetchType.EAGER)

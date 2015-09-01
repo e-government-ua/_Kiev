@@ -36,12 +36,18 @@
         <activiti:formProperty id="mfo" name="МФО" type="long"></activiti:formProperty>
         <activiti:formProperty id="okpo" name="код" type="long"></activiti:formProperty>
         <activiti:formProperty id="bankchoose" name="банк" type="string"></activiti:formProperty>
+        <activiti:formProperty id="rozgl" name="У випадку, якщо прийняття рішення щодо моєї заяви потребує окремого рішення місцевих органів виконавчої влади/місцевого самоврядування або утвореної ними комісії, прошу мою заяву " type="enum" required="true">
+          <activiti:value id="roz1" name="первинне"></activiti:value>
+          <activiti:value id="roz2" name="вторинне"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Я усвідомлюю, що наведені мною відомості про доходи та майно, що вплинули або могли вплинути на прийняте рішення щодо надання соціальної допомоги, компенсацій та пільг, будуть перевірені згідно з чинним законодавством України."></activiti:formProperty>
         
         <activiti:formProperty id="scpasp" name="Завантажте копію паспорту" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="sost" name="Завантажте довідку про склад сім'ї" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="zeml" name="Завантажте довідку про наявність та розмір земельної ділянки (паю)" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="num_dok" name="Кількість доданих документів" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="num_ark" name="Кількість сторінок у доданих документах" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
         
         <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default=" "></activiti:formProperty>
         <activiti:formProperty id="nID_Subject" name="ИД-номер субъекта" type="invisible" default="0"></activiti:formProperty>
@@ -56,9 +62,7 @@
     <sequenceFlow id="flow2" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
     <userTask id="usertask1" name="Перевірка Укрпоштою" activiti:async="true" activiti:candidateGroups="dnepr_social_help">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
@@ -77,19 +81,6 @@
         <activiti:formProperty id="email" name="e-mail замовника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         
-        <activiti:formProperty id="numobr" name="Звернення замовника до районного органу соціального захисту населення" type="enum" writable="false">
-          <activiti:value id="obr1" name="первинне"></activiti:value>
-          <activiti:value id="obr2" name="вторинне"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kuda_dengi" name="" type="label" default="В разі призначення допомоги кошти готівкою перераховувати"></activiti:formProperty>
-        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kuda_dengi1" name="" type="label" default="або"></activiti:formProperty>
-        <activiti:formProperty id="bankschet" name="на рахунок у банку №" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="mfo" name="МФО" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="okpo" name="код" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankchoose" name="банк" type="string" writable="false"></activiti:formProperty>
-        
         <activiti:formProperty id="decision" name="Стан заяви" type="enum" required="true">
           <activiti:value id="attr1_doc_ok" name="Документи правильні, відправити листа для сплати"></activiti:value>
           <activiti:value id="attr2_doc_bad" name="Документи неправильні, надіслати листа для виправлення"></activiti:value>
@@ -98,14 +89,8 @@
         </activiti:formProperty>
         <activiti:formProperty id="sIDPayment" name="ID платежа за послугу" type="string" default="${sID_Payment}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="code" name="Штрих-код відправленого листа; цей штрих-код буде надісланий громадянину на e-mail" type="string"></activiti:formProperty>
-        <activiti:formProperty id="comment" name="Примітки; тут ви можете написати текст для громадянина, який буде відправлений йому на електронну пошту в разі відмови" type="textArea"></activiti:formProperty>
-        
-        <activiti:formProperty id="num_dok" name="Кількість доданих документів" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="num_ark" name="Кількість сторінок у доданих документах" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="scpasp" name="Копія паспорту" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sost" name="Довідка про склад сім'ї" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="zeml" name="Довідка про наявність та розмір земельної ділянки (паю)" type="file" writable="false" default=" "></activiti:formProperty>
-        
+        <activiti:formProperty id="comment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/soc_help_zayava_19.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">

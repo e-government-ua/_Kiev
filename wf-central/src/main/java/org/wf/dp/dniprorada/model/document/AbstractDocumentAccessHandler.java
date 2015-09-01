@@ -33,7 +33,7 @@ public abstract class AbstractDocumentAccessHandler implements DocumentAccessHan
     }
 
     public DocumentAccessHandler setWithContent(Boolean bWithContent) {
-        this.withContent =bWithContent;
+        this.withContent = bWithContent;
         return this;
     }
 

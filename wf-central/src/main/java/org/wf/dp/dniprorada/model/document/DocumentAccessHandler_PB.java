@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.w3c.dom.Node;
 import org.wf.dp.dniprorada.dao.DocumentAccessDao;
+import org.wf.dp.dniprorada.dao.DocumentTypeDao;
 import org.wf.dp.dniprorada.dao.SubjectDao;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.util.GeneralConfig;
@@ -50,6 +51,9 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
 
     @Autowired
     private SubjectDao subjectDao;
+
+    @Autowired
+    private DocumentTypeDao documentTypeDao;
 
 
     @Override
@@ -99,19 +103,18 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
             }
 
             if (this.withContent) {
-                doc.fileBody = getFileFromRespEntity(documentEntity);
+                doc.fileBody = documentEntity.getBody().getBytes();
             }
 
-            DocumentType docType = new DocumentType();
-            docType.setId(this.documentTypeId);
-            Subject oSubject = subjectDao.getSubject(this.nID_Subject);
-            doc.setSubject(oSubject);
+            doc.setDocumentType(documentTypeDao.findByIdExpected(0L));
+            doc.setSubject(subjectDao.getSubject(this.nID_Subject));
             doc.setName(documentName);
             doc.setContentType(contentType);
             doc.setDate_Upload(DateTime.now());
             doc.setsID_subject_Upload(null);
             doc.setContentKey(null);
             doc.setoSignData(null);
+
 
         } catch (ParseException e) {
             LOG.error("Can't get document: ", e);

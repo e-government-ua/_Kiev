@@ -110,7 +110,7 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "nID_DocumentOperator_SubjectOrgan") 	Long 	organID,
             @RequestParam(value = "nID_DocumentType", required = false) Long	docTypeID,
             @RequestParam(value = "sPass", required = false)		    String 	password,
-            @RequestParam(value = "nID_Subject")		                Long 	nID_Subject,
+            @RequestParam(value = "nID_Subject", defaultValue = "1")    Long 	nID_Subject,
             HttpServletResponse resp
     ) {
 
@@ -158,46 +158,40 @@ public class ActivitiRestDocumentController {
     @RequestMapping(value = "/getDocumentFile", method = RequestMethod.GET)
     public
     @ResponseBody
-    byte[] getDocumentFile(@RequestParam(value = "nID") Long id,
-            @RequestParam(value = "nID_Subject") long nID_Subject,
-            
-            @RequestParam(value = "sCode_DocumentAccess", required = false) String accessCode,
-            @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false) Long organID,
-            @RequestParam(value = "nID_DocumentType", required = false) Long docTypeID,
-            @RequestParam(value = "sPass", required = false) String password,
+    byte[] getDocumentFile( @RequestParam(value = "nID", required = false)                              String id,
+                            @RequestParam(value = "nID_Subject", required = false)                      Long nID_Subject,
+                            @RequestParam(value = "sCode_DocumentAccess", required = false)             String accessCode,
+                            @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false)Long organID,
+                            @RequestParam(value = "nID_DocumentType", required = false)                 Long docTypeID,
+                            @RequestParam(value = "sPass", required = false)                            String password,
             
                            HttpServletRequest request, HttpServletResponse httpResponse) 
                            throws ActivitiRestException{
-        Document document = documentDao.getDocument(id);
-        if(nID_Subject != document.getSubject().getId()){
-            
-            
-            
-            if(accessCode!=null){
-                Document oDocument = handlerFactory
-                    .buildHandlerFor(documentDao.getOperator(organID))
-                    .setDocumentType(docTypeID)
-                    .setAccessCode(accessCode)
-                    .setPassword(password)
-                    .setWithContent(true)
-                    .getDocument();
-                if(oDocument==null){
-                    throw new ActivitiRestException("401", "You don't have access by accessCode!");
+        Document document = null;
+        byte[] content = {};
+        if (id != null && !"null".equals(id)) {
+            document = documentDao.getDocument(new Long(id));
+            if(nID_Subject != document.getSubject().getId()){
+                if(accessCode!=null){
+                    Document oDocument = handlerFactory
+                            .buildHandlerFor(documentDao.getOperator(organID))
+                            .setDocumentType(docTypeID)
+                            .setAccessCode(accessCode)
+                            .setPassword(password)
+                            .setWithContent(true)
+                            .getDocument();
+                    if(oDocument==null){
+                        throw new ActivitiRestException("401", "You don't have access by accessCode!");
+                    }
+                    content = documentDao.getDocumentContent(document.getContentKey());
+                }else{
+                    throw new ActivitiRestException("401", "You don't have access!");
                 }
-            }else{
-                throw new ActivitiRestException("401", "You don't have access!");
             }
         }
-        byte[] content = {};
-        if (document.getDocumentType().getId() == 0) {
-            try {
-                document.fileBody.getBytes();
-            } catch (IOException e) {
-                throw new ActivitiRestException("500", "Can't get File content!");
-            }
-        } else {
-            content = documentDao.getDocumentContent(document
-                    .getContentKey());
+
+        if (docTypeID == 0) {
+            content = document.fileBody;
         }
         //byte[] content = "".getBytes();
         
