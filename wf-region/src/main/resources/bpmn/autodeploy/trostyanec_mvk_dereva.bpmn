@@ -23,11 +23,11 @@
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="adress" name="Ваша адреса: область, місто, вулиця, дім, квартира" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adress2" name="Місце розташування насадження (адреса)" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="reason" name="Вказати причину видалення зеленого насадження" type="textArea" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Ваша адреса: область, місто, вулиця, дім, квартира" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Місце розташування насадження (адреса)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="reason" name="Вказати причину видалення зеленого насадження" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="status" name="Обробка заяви" type="enum">
           <activiti:value id="attr1_wait" name="Документи передані на візування та очікують рішення виконкому"></activiti:value>
           <activiti:value id="attr2_finish" name="Відмова громодянину"></activiti:value>
@@ -104,7 +104,7 @@
                                         Ваше звернення щодо отримання дозволу на видалення дерев, кущив, газонів і квітників - забраковане.&lt;/p&gt;
 &lt;p&gt;Причина в наступному: 
                                     &lt;/p&gt;
-&lt;p&gt;${comment}&lt;/p&gt;
+&lt;p&gt;${decisionComment}&lt;/p&gt;
 Тростянецька міська рада &lt;br /&gt;
 &lt;br /&gt;
 Адреса: &lt;br /&gt;
