@@ -191,7 +191,14 @@ public class ActivitiRestDocumentController {
         }
 
         if (docTypeID == 0) {
-            content = document.fileBody;
+            document = handlerFactory
+                    .buildHandlerFor(documentDao.getOperator(organID))
+                    .setDocumentType(docTypeID)
+                    .setAccessCode(accessCode)
+                    .setPassword(password)
+                    .setWithContent(true)
+                    .getDocument();
+            content = document.getFileBody();
         }
         //byte[] content = "".getBytes();
         

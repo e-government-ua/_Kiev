@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class Document extends NamedEntity {
 
 	@Transient
-	public byte[] fileBody;
+	private byte[] fileBody;
 
 	@JsonProperty(value = "oDocumentType")
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -74,7 +74,16 @@ public class Document extends NamedEntity {
     @Column(name = "oSignData", nullable = false )
     private String oSignData;
 
-    public String getoSignData() {
+	public byte[] getFileBody() {
+		return fileBody;
+	}
+
+	public void setFileBody(byte[] fileBody) {
+		this.fileBody = fileBody;
+	}
+
+
+	public String getoSignData() {
         return oSignData;
     }
 
