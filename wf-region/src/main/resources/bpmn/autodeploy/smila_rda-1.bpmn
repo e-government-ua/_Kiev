@@ -24,7 +24,7 @@
     <userTask id="usertask1" name="Перевірка даних" activiti:candidateGroups="smila_rda-1">
       <extensionElements>
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clAddress" name="Адреса заявника" type="string" default="$[bankIdAddress}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clAddress" name="Адреса заявника" type="string" default="${bankIdAddress}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clArea" name="Місцезнаходження і площа ділянки" type="string" default="${place}, ${area} м2" writable="false"></activiti:formProperty>
         <activiti:formProperty id="requestGoal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
@@ -139,7 +139,7 @@
     <userTask id="usertask2_green" name="Перевірка відповіді Управління Держземагентства" activiti:candidateGroups="smila_rda-1">
       <extensionElements>
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clAddress" name="Адреса заявника" type="string" default="$[bankIdAddress}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clAddress" name="Адреса заявника" type="string" default="${bankIdAddress}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clArea" name="Місцезнаходження і площа ділянки" type="string" default="${place}, ${area} м2" writable="false"></activiti:formProperty>
         <activiti:formProperty id="requestGoal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
