@@ -25,6 +25,19 @@ public class Place extends NamedEntity {
     private String originalName;
 
 
+    public Place(){
+        // no actions required
+    }
+
+    public Place(Long placeId, String name, Long typeId, String uaId, String originalName){
+        setId(placeId);
+        setName(name);
+        setPlaceTypeId(typeId);
+        setsID_UA(uaId);
+        setOriginalName(originalName);
+    }
+
+
     public Long getPlaceTypeId() {
         return placeTypeId;
     }
