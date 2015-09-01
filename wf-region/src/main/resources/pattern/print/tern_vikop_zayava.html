@@ -42,6 +42,7 @@
 .m-t-15 {margin-top: 15px !important;}
 .m-t-25 {margin-top: 25px !important;}
 .m-t-85 {margin-top: 85px !important;}
+.m-t-105 {margin-top: 105px !important;}
 .m-r-12 {margin-right: 12px !important;}
 .m-l-65 {margin-left: 65px !important;}
 .m-l-120 {margin-left: 120px !important;}
@@ -97,7 +98,11 @@ table.zit_v-form2 tr td {border: 1px solid black; padding: 3px 8px;}
 .date_subm .month-fl-sm > span:nth-child(2) {width: 120px;}
 .date_subm .month-fl-sm > span:nth-child(3) {width: 20px;}
 .date_subm .signature {width: 240px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
-.date_subm.invert .signature {float: left;}
+
+.date_subm.invert .signature { width: 240px; height: 20px; float: left; border-bottom: 1px solid black; position: relative;} 
+
+.date_subm.invert .signature > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
+
 .date_subm .signature > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
 
 p {font-size: 11px;}
@@ -106,21 +111,28 @@ p {font-size: 11px;}
 </style>
 <section class="print_wrap">
     <div class="w365 line_col ta-l p-right xs-font">
-        <p>Начальнику управління Держземагентства у Калуському районі</p>
+        <p>Начальнику управління містобудування,
+ архітектури та кадастру
+ Бесазі В.Й.</p>
 
         <p >[clFio]</p>
 
-        <p class="m-clear"><span class="m-r-12">адреса</span>[place_of_reg]</p>
+        <p class="m-clear"><span class="m-r-12">Місце реєстрації / юридична адреса :</span><br/>[place_of_reg]</p>
         <p>тел. [phone]</p>
     </div>
     <div class="clear"></div>
     <div class="line_col ta-c m-t-25">
         ЗАЯВА<br />
-        <div class="under_field_line wub ta-l">Прошу надати мені Витяг з технічної документації про нормативну грошову оцінку земельної ділянки, яка знаходиться в [landAddress]</div>
+        <div class="under_field_line wub ta-l">Прошу виготовити викопіювання в масштабі 1:500, 1:2000</br>
+	для [goal],</br>
+	адреса [landAddress]
+	</div>
     </div>
     <div class="date_subm m-t-85">
-        <div class="month-fl-sm"><span></span><span></span>2015 р.</div>
+        <div class="invert .signature"><span>(ПІБ суб’єкта звернення  /уповноваженої особи)</span></div>
         <div class="signature"><span>(підпис)</span></div>
+	<div class="date_subm m-t-105">
+        <div class="month-fl-sm"><span></span><span></span>2015 	р.</div>
         <div class="clear"></div>
     </div>
     <div class="clear"></div>
