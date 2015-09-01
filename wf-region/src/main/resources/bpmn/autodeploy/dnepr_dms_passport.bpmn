@@ -11,7 +11,7 @@
           <activiti:value id="attr1_yes" name="так, хочу подовжити"></activiti:value>
           <activiti:value id="attr2_no" name="ні, буду отримувати перший раз"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="urgent" name="Паспорт треба виготовити терміново?; (протягом 10 днів за додаткову плату - ціна у вкладці &quot;Як це працює&quot;)" type="enum" default="attr1_no" required="true">
+        <activiti:formProperty id="urgent" name="Паспорт треба виготовити терміново?; (протягом 10 днів за додаткову плату - ціна у вкладці &quot;Як це працює&quot;)" type="enum" default="attr1_no" readable="false" required="true">
           <activiti:value id="attr1_no" name="ні"></activiti:value>
           <activiti:value id="attr2_yes" name="так"></activiti:value>
         </activiti:formProperty>
@@ -35,7 +35,7 @@
           <activiti:value id="attr1_yes" name="так, хочу подовжити"></activiti:value>
           <activiti:value id="attr2_no" name="ні, буду отримувати перший раз"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="urgent" name="Паспорт треба виготовити терміново?; (протягом 10 днів за додаткову плату - ціна у вкладці &quot;Як це працює&quot;)" type="enum" writable="false">
+        <activiti:formProperty id="urgent" name="Паспорт треба виготовити терміново?; (протягом 10 днів за додаткову плату - ціна у вкладці &quot;Як це працює&quot;)" type="enum" readable="false" writable="false">
           <activiti:value id="attr1_no" name="ні"></activiti:value>
           <activiti:value id="attr2_yes" name="так"></activiti:value>
         </activiti:formProperty>
@@ -179,7 +179,7 @@
     <sequenceFlow id="flow6" sourceRef="exclusivegateway1" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${finish=='attr2_missed'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask2" name="не прийшов вчасно" activiti:type="mail" >
+    <serviceTask id="mailtask2" name="не прийшов вчасно" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -669,7 +669,7 @@
         <omgdc:Bounds height="55.0" width="105.0" x="124.0" y="20.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="124.0" y="149.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="124.0" y="139.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="260.0" y="102.0"></omgdc:Bounds>
@@ -704,19 +704,15 @@
         <omgdi:waypoint x="660.0" y="197.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="765.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="765.0" y="197.0"></omgdi:waypoint>
         <omgdi:waypoint x="780.0" y="197.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="87.0" y="88.0"></omgdi:waypoint>
-        <omgdi:waypoint x="176.0" y="75.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
         <omgdi:waypoint x="176.0" y="75.0"></omgdi:waypoint>
-        <omgdi:waypoint x="176.0" y="149.0"></omgdi:waypoint>
+        <omgdi:waypoint x="176.0" y="139.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
-        <omgdi:waypoint x="229.0" y="176.0"></omgdi:waypoint>
+        <omgdi:waypoint x="229.0" y="166.0"></omgdi:waypoint>
         <omgdi:waypoint x="280.0" y="142.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
@@ -751,6 +747,10 @@
         <omgdi:waypoint x="280.0" y="142.0"></omgdi:waypoint>
         <omgdi:waypoint x="280.0" y="267.0"></omgdi:waypoint>
         <omgdi:waypoint x="330.0" y="267.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="55.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="124.0" y="47.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
