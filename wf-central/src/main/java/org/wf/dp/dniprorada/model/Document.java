@@ -5,22 +5,18 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-import org.springframework.data.annotation.Transient;
-import org.springframework.web.multipart.MultipartFile;
+
 import org.wf.dp.dniprorada.base.model.NamedEntity;
 import org.wf.dp.dniprorada.base.util.JsonDateDeserializer;
 import org.wf.dp.dniprorada.base.util.JsonDateSerializer;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @javax.persistence.Entity
 public class Document extends NamedEntity {
 
 	@Transient
-	transient public byte[] fileBody;
+	public byte[] fileBody;
 
 	@JsonProperty(value = "oDocumentType")
 	@ManyToOne(fetch = FetchType.EAGER)

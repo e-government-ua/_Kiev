@@ -169,7 +169,7 @@ public class ActivitiRestDocumentController {
                            throws ActivitiRestException{
         Document document = null;
         byte[] content = {};
-        if (id != null && !"null".equals(id)) {
+        if (id != null && !"null".equals(id) && docTypeID != 0) {
             document = documentDao.getDocument(new Long(id));
             if(nID_Subject != document.getSubject().getId()){
                 if(accessCode!=null){
