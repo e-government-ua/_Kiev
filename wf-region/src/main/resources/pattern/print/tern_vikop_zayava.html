@@ -1,5 +1,8 @@
-﻿<div>
-        <style type="text/css">
+<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	﻿<style type="text/css">
         html, body {margin: 0; padding: 0; height: 100%; font: 400 14px/16px 'Tahoma';}
 
 .print_wrap {width: 705px; padding: 35px 25px 85px 35px; min-height: 100%; height: 100%; margin: 0 auto;}
@@ -16,6 +19,8 @@
 .xs-font {font-size: 16px; line-height: 18px;}
 .xs-font p {font-size: 16px;}
 .xs-font span {font-size: 16px;}
+.x-font {font-size: 14px;}
+.x-font p {font-size: 14px;}
 
 .fw {width: 100%;}
 
@@ -41,8 +46,10 @@
 
 .m-t-15 {margin-top: 15px !important;}
 .m-t-25 {margin-top: 25px !important;}
+.m-t-45 {margin-top: 45px !important;}
 .m-t-85 {margin-top: 85px !important;}
-.m-t-105 {margin-top: 105px !important;}
+.m-t-130 {margin-top: 130px !important;}
+.m-t-150 {margin-top: 150px !important;}
 .m-r-12 {margin-right: 12px !important;}
 .m-l-65 {margin-left: 65px !important;}
 .m-l-120 {margin-left: 120px !important;}
@@ -92,49 +99,69 @@ table.zit_v-form2 tr td {border: 1px solid black; padding: 3px 8px;}
 
 .date_subm { margin: 20px 0 25px 0;}
 .date_subm .month-fl-sm {float: left;}
-.date_subm.invert .month-fl-sm {float: right;}
 .date_subm .month-fl-sm > span {height: 20px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
 .date_subm .month-fl-sm > span:nth-child(1) {width: 45px;}
 .date_subm .month-fl-sm > span:nth-child(2) {width: 120px;}
 .date_subm .month-fl-sm > span:nth-child(3) {width: 20px;}
+.date_subm .invsm {float: right;}
+.date_subm .month-fl-sm > span {height: 20px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
+.date_subm .month-fl-sm > span:nth-child(1) {width: 45px;}
+.date_subm .month-fl-sm > span {height: 50px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
 .date_subm .signature {width: 240px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
-
-.date_subm.invert .signature { width: 240px; height: 20px; float: left; border-bottom: 1px solid black; position: relative;} 
-
-.date_subm.invert .signature > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
-
 .date_subm .signature > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
+.date_subm .inv {width: 300px; height: 20px; float: left; border-bottom: 1px solid black; position: relative;} 
+.date_subm .inv > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
 
-p {font-size: 11px;}
+p {font-size: 12px;}
 
 .clear {clear: both;}
 </style>
+</head>
+<body>
 <section class="print_wrap">
     <div class="w365 line_col ta-l p-right xs-font">
-        <p>Начальнику управління містобудування,
- архітектури та кадастру
- Бесазі В.Й.</p>
+        <p>Начальнику управління містобудування, архітектури та кадастру</p>
 
         <p >[clFio]</p>
 
-        <p class="m-clear"><span class="m-r-12">Місце реєстрації / юридична адреса :</span><br/>[place_of_reg]</p>
+        <p class="m-clear"><span class="m-r-12">Місце реєстрації / юридична адреса :</span><br/>
+		[place_of_reg]</p>
         <p>тел. [phone]</p>
     </div>
     <div class="clear"></div>
-    <div class="line_col ta-c m-t-25">
+    <div class="line_col ta-c m-t-25 x-font">
         ЗАЯВА<br />
         <div class="under_field_line wub ta-l">Прошу виготовити викопіювання в масштабі 1:500, 1:2000</br>
 	для [goal],</br>
 	адреса [landAddress]
 	</div>
     </div>
-    <div class="date_subm m-t-85">
-        <div class="invert .signature"><span>(ПІБ суб’єкта звернення  /уповноваженої особи)</span></div>
+	<div class="date_subm m-t-45 x-font">
+         <p>До заяви додається:</p>
+		 <div class="under_field_line"></div>
+		 <div class="under_field_line"></div>
+    </div>
+    <div class="date_subm m-t-45">
+		<div class="inv"><span>(ПІБ суб’єкта звернення/уповноваженої особи)</span></div>
         <div class="signature"><span>(підпис)</span></div>
-	<div class="date_subm m-t-105">
-        <div class="month-fl-sm"><span></span><span></span>2015 	р.</div>
-        <div class="clear"></div>
+    </div>
+    <div class="date_subm m-t-45"> 
+	<div class="month-fl-sm"><span></span><span></span>2015 	р.</div>
+	    <div class="clear"></div>
+    </div>
+	<div class="date_subm m-t-25 x-font"> 
+	<p>Заповнюється адміністратором:</p>
+	</div>
+	<div class="date_subm m-t-25">
+		<div class="month-fl-sm">дата надходження заяви__________</div>
+		<div class="invsm">реєстраційний номер_____________</div>
+		<div class="clear"></div>
+    </div>
+    <div class="date_subm m-t-45"> 
+	<div class="inv"><span>(підпис)</span></div>
+        <div class="signature"><span>(прізвище, ініціали адміністратора)</span></div>
     </div>
     <div class="clear"></div>
 </section>
-</div>
+</body>
+</html>

@@ -56,7 +56,7 @@
                                   <ul class="dropdown-menu"
                                       role="menu" style="width: 100%">
                                     <li ng-repeat="region in regionList.dropdown.list | orderBy:'sName'">
-                                      <a ng-click="onSelectRegionList(region, null, null)"
+                                      <a ng-click="onSelectRegionList(region)"
                                          ng-class="{'color-green': (region.color == 'green')}">{{region.sName}}</a>
                                     </li>
                                   </ul>
