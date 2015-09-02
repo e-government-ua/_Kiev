@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import static org.apache.commons.lang3.ArrayUtils.indexOf;
 
@@ -82,6 +83,22 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         return tree;                                                            // the hierarchy was build successfully
     }
 
+
+    public static PlaceHierarchyTree toList(List<PlaceHierarchyRecord> dataRows) {
+        Assert.isTrue(!dataRows.isEmpty(), "Entity not found");
+        LOG.debug("Got {}", dataRows);
+
+        final PlaceHierarchyTree treeAsList = dataRows.iterator().next().toTreeElement();
+        dataRows.listIterator(1).forEachRemaining(new Consumer<PlaceHierarchyRecord>() {
+            public void accept(PlaceHierarchyRecord phr) {
+                if (phr != null)
+                    treeAsList.addChild( phr.toTreeElement() );
+            }
+        });
+
+        LOG.warn("Whole tree {}", treeAsList);
+        return treeAsList;
+    }
 
     /**
      * General node (of our tree) isn't:
