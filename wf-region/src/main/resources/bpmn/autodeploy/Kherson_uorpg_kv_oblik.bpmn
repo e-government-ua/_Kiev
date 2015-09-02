@@ -21,7 +21,7 @@
         <activiti:formProperty id="relative_9" name="Родич 9; вкажіть ПІБ та зазначте, ким приходиться Вам данна особа" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="relative_10" name="Родич 10; вкажіть ПІБ та зазначте, ким приходиться Вам данна особа" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="pilgi" name="Зазначте інформацію про наявні пільги на забезпечення житлом" type="textArea" default=" "></activiti:formProperty>
-        <activiti:formProperty id="date_oblik" name="Перебуваю на квартирному обліку при виконавчих органах міської ради з" type="date"></activiti:formProperty>
+        <activiti:formProperty id="date_oblik" name="Перебуваю на квартирному обліку при виконавчих органах міської ради з" type="date" default=" "></activiti:formProperty>
         <activiti:formProperty id="dovidka_neobhidna" name="Довідка про перебування на квартирному обліку необхідна" type="enum" required="true">
           <activiti:value id="robota" name="для подання за місцем роботи"></activiti:value>
           <activiti:value id="programa" name="для участі в програмі забезпечення житлом молодих сімей"></activiti:value>
