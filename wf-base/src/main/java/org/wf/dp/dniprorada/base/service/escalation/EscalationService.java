@@ -7,6 +7,7 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.identity.User;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
 import org.activiti.rest.controller.ActivitiRestException;
@@ -154,8 +155,11 @@ public class EscalationService {
         	userInfoString.append("<br/>");
         }
         
-        m.put("sServiceType", String.format("%s", oTask.getName()));
-        m.put("sTaskName", String.format("%s", oTask.getTaskDefinitionKey().toString()));
+        
+        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(oTask.getProcessDefinitionId()).singleResult();
+		
+        m.put("sServiceType", processDefinition != null ? processDefinition.getName() : "");
+        m.put("sTaskName", String.format("%s", oTask.getName()));
         m.put("sTaskNumber", String.format("%s ", oTask.getId().toString()));
         m.put("sElapsedInfo", String.format("%d", nElapsedDays));
         m.put("sResponsiblePersons", String.format("%s", userInfoString.toString()));
