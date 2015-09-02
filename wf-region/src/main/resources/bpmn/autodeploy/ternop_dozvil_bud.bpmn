@@ -80,7 +80,7 @@
     <sequenceFlow id="flow11" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
     <sequenceFlow id="flow12" sourceRef="mailtask1" targetRef="usertask2"></sequenceFlow>
     <serviceTask id="servicetask1" name="Завантаження документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <serviceTask id="mailtask1" name="Подтверждение отправки " activiti:type="mail">
+    <serviceTask id="mailtask1" name="Підтверждення відправки" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
