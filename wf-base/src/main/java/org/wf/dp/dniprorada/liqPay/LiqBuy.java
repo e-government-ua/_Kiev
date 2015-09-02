@@ -61,6 +61,7 @@ public class LiqBuy {
         Map<String, String> paramMerchant = new HashMap<String, String>();
         paramMerchant.put("sID", sID_Merchant);
         paramMerchant.put("nID_Subject", String.valueOf(nID_Subject));
+        paramMerchant.put("sAccessContract", "Request");
         String sAccessKey_Merchant = accessDataDao.setAccessData(httpRequester.getFullURL(URI, paramMerchant));
         paramMerchant.put("sAccessKey", sAccessKey_Merchant);
         log.info("sAccessKey="+sAccessKey_Merchant);
@@ -103,7 +104,7 @@ public class LiqBuy {
             String snID_Subject=""+nID_Subject;
             log.info("snID_Subject="+snID_Subject);
             String delimiter = sURL_CallbackStatusNew.indexOf("?") > -1 ? "&" : "?";
-            URI = Util.deleteContextFromURL(sURL_CallbackStatusNew) + delimiter + "nID_Subject=" + nID_Subject;
+            URI = Util.deleteContextFromURL(sURL_CallbackStatusNew) + delimiter + "nID_Subject=" + nID_Subject + "&sAccessContract=Request";
             log.info("URI="+URI);
             String sAccessKey = accessDataDao.setAccessData(URI);
             sURL_CallbackStatusNew = new StringBuilder(sURL_CallbackStatusNew)

@@ -53,7 +53,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     private static final String TAG_sACCESS_KEY = "[sAccessKey]";
     private static final String TAG_sURL_SERVICE_MESSAGE = "[sURL_ServiceMessage]";
     //[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1
-    private static final String queryParamPattern = "?nID_Subject=%s&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1"; //sAccessKey=%s&amp;
+    private static final String queryParamPattern = "?nID_Subject=%s&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1&amp;sAccessContract=Request"; //sAccessKey=%s&amp;
     private static final String accessKeyPattern = "&amp;sAccessKey=%s";
     //private static final String URL_SERVICE_MESSAGE = "https://test.igov.org.ua/wf-central/service/messages/setMessage";
     private static final String TAG_Function_AtEnum = "enum{[";
