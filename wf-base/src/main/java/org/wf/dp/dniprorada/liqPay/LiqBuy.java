@@ -108,7 +108,7 @@ public class LiqBuy {
             URI = Util.deleteContextFromURL(sURL_CallbackStatusNew) + queryParam;
             log.info("URI="+URI);
             String sAccessKey = accessDataDao.setAccessData(URI);
-            sURL_CallbackStatusNew = sURL_CallbackStatusNew + queryParam;
+            sURL_CallbackStatusNew = sURL_CallbackStatusNew + queryParam + "&sAccessKey=" + sAccessKey;
         }
         log.info("sURL_CallbackStatusNew(with security-key)="+sURL_CallbackStatusNew);
         
