@@ -353,6 +353,9 @@
 &lt;/body&gt;
 &lt;/html&gt;</activiti:expression>
         </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Дніпропетровськ ЦНАП - Копія рішення міської ради про надання дозволу на розроблення проекту відведення земельної ділянки</activiti:expression>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
