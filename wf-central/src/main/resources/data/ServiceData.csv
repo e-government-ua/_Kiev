@@ -229,3 +229,5 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 313;735;186;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"trostyanec_mvk_dereva:1:58"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 314;102;69;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"smila_rda-1:1:58"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 315;139;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_copyzemroz_rada:1:58"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+316;736;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_41:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+317;5;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_56:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
