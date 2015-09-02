@@ -23,6 +23,8 @@
     <userTask id="usertask1" name="Підготовка та завіряння документу" activiti:candidateGroups="uzgorod_mvk-1">
       <extensionElements>
         <activiti:formProperty id="clFIO" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clbankIdAddress" name="Домашня адреса" type="string" default="${bankIdAddress}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clphone" name="Телефон" type="string" default="${phone}"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запитуваний документ" type="string" default="${docType} №  ${docNumber} від  ${docDate}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="searchResult" name="Результат пошуку документа" type="enum">
@@ -180,7 +182,8 @@
 &lt;p&gt;Щодо Вашого запиту на отримання ${docType} №${docNumber}.
 Документ за вашим запитом підготовлено. Ви можете отримати його за адресою:
 88000, м Ужгород, пл. Поштова, 3
-Час роботи: пн.-пт., 10:00-17:00, обідня перерва 12:00-13:00
+Час роботи: пн.-пт., 10:00-17:00, обідня перерва 12:00-13:00 &lt;br&gt;
+При собі мати паспорт або довіреність в разі подання довіреною особою &lt;br&gt;
 Ви можете подати ще одну заяву на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;igov.org.ua&lt;/a&gt;&lt;/p&gt;
 
 
