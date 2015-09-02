@@ -5,6 +5,7 @@ import static org.wf.dp.dniprorada.liqPay.LiqBuyUtil.sha1;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.wf.dp.dniprorada.rest.HttpRequester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wf.dp.dniprorada.util.GeneralConfig;
+import org.wf.dp.dniprorada.util.Util;
 
 @Component()
 public class LiqBuy {
@@ -101,8 +103,7 @@ public class LiqBuy {
             String snID_Subject=""+nID_Subject;
             log.info("snID_Subject="+snID_Subject);
             String delimiter = sURL_CallbackStatusNew.indexOf("?") > -1 ? "&" : "?";
-            String temp = sURL_CallbackStatusNew.substring(sURL_CallbackStatusNew.indexOf("//") + 2);
-            URI = temp.substring(temp.indexOf("/")) + delimiter + "nID_Subject=" + nID_Subject;
+            URI = Util.deleteContextFromURL(sURL_CallbackStatusNew) + delimiter + "nID_Subject=" + nID_Subject;
             log.info("URI="+URI);
             String sAccessKey = accessDataDao.setAccessData(URI);
             sURL_CallbackStatusNew = new StringBuilder(sURL_CallbackStatusNew)
