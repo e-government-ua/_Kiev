@@ -74,6 +74,7 @@ public class EscalationService {
                 for (Task oTask : aTask) {
                     //long nID_task_activiti = Long.valueOf(oTask.getId());
                     //Map<String, Object> mTaskParam = getTaskData(nID_task_activiti);//new HashMap()
+                	try {
                     Map<String, Object> mTaskParam = getTaskData(oTask);
 
                     log.info("[getTaskData]:checkTaskOnEscalation mTaskParam=" + mTaskParam);
@@ -83,6 +84,9 @@ public class EscalationService {
                             , oEscalationRule.getsPatternFile()
                             , oEscalationRuleFunction.getsBeanHandler()
                     );
+                	} catch (java.lang.ClassCastException e){
+                		log.error("Error occured while processing task " + oTask.getId(), e);
+                	}
                 }
 
             }
