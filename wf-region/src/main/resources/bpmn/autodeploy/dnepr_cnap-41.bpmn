@@ -17,12 +17,12 @@
         <activiti:formProperty id="act_no" name="Актовий запис про поховання" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="cementary" name="Адреса кладовища для перепоховання" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="scan1" name="Копія паспорта заявника" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="scan2" name="Копія свідоцтва про смерть, виданого відділом державної реєстрації смерті реєстраційної служби Дніпропетровського міського управління юстиції" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="scan3" name="Копія лікарського свідоцтва про смерть або довідки про причину смерті, виданих КЗ &quot;Дніпропетровське обласне бюро судово-медичної експертизи&quot; ДОР" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="scan4" name="Копія протоколу (постанови) слідчих органів про визнання померлої особи" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="scan5" name="Копія листа КЗ &quot;Дніпропетровське обласне бюро судово-медичної експертизи&quot; про підтвердження факту смерті та дати поховання загиблого" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="scan6" name="Копія дозволу або довідки виконавчого органу відповідної сільської, селищної, міської ради на перепоховання загиблого на іншому кладовищі (за місцем, куди вивозиться загибла особа для поховання)" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="scan1" name="Копія паспорта заявника" type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="scan2" name="Копія свідоцтва про смерть, виданого відділом державної реєстрації смерті реєстраційної служби Дніпропетровського міського управління юстиції" type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="scan3" name="Копія лікарського свідоцтва про смерть або довідки про причину смерті, виданих КЗ &quot;Дніпропетровське обласне бюро судово-медичної експертизи&quot; ДОР" type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="scan4" name="Копія протоколу (постанови) слідчих органів про визнання померлої особи" type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="scan5" name="Копія листа КЗ &quot;Дніпропетровське обласне бюро судово-медичної експертизи&quot; про підтвердження факту смерті та дати поховання загиблого" type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="scan6" name="Копія дозволу або довідки виконавчого органу відповідної сільської, селищної, міської ради на перепоховання загиблого на іншому кладовищі (за місцем, куди вивозиться загибла особа для поховання)" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="vibor" name="Як би ви бажали отримати оригінал довідки?" type="enum" required="true">
           <activiti:value id="post" name="Поштою (буде стягуватись платня за рекомендований лист)"></activiti:value>
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
@@ -30,6 +30,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="dostAddress" name="Введіть адресу доставки, якщо ви бажаєте отримати оригінал довідки поштою" type="string"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Service Task" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -44,17 +45,14 @@
       <extensionElements>
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clAddress" name="Адреса заявника" type="string" default="${bankIdAddress}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clbankIdPassport" name="Паспортні дані (серія, номер, ким і коли виданий)" type="string" default="${bankIdPassport}"></activiti:formProperty>
         <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clzagibl" name="Прізвище, ім`я, по-батькові загиблого" type="string" default="${FIO}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="cldeathdate" name="Дата загибелі" type="string" default="${deathdate}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clfuneraldate" name="Дата поховання і актовий запис" type="string" default="${funeraldate} актовий запис № ${act_no}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clrodna" name="Ступінь спорідненості із загиблим" type="string" default="${rodna}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clfuneraldate" name="Дата поховання і актовий запис" type="string" default="${funeraldate}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clact_no" name="Номер акта про поховання" type="string" default="${act_no}"></activiti:formProperty>
         <activiti:formProperty id="clcementary" name="Місце перезахоронення" type="string" default="${cementary}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="scan1" name="Копія паспорта заявника" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="scan2" name="Копія свідоцтва про смерть, виданого відділом державної реєстрації смерті реєстраційної служби Дніпропетровського міського управління юстиції" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="scan3" name="Копія лікарського свідоцтва про смерть або довідки про причину смерті, виданих КЗ &quot;Дніпропетровське обласне бюро судово-медичної експертизи&quot; ДОР" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="scan4" name="Копія протоколу (постанови) слідчих органів про визнання померлої особи" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="scan5" name="Копія листа КЗ &quot;Дніпропетровське обласне бюро судово-медичної експертизи&quot; про підтвердження факту смерті та дати поховання загиблого" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="scan6" name="Копія дозволу або довідки виконавчого органу відповідної сільської, селищної, міської ради на перепоховання загиблого на іншому кладовищі (за місцем, куди вивозиться загибла особа для поховання)" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="cldeathdate" name="Дата загибелі" type="string" default="${deathdate}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clVibor" name="Оригінал довідки заявник бажає отримати через" type="string" default="${vibor}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="proverka" name="Рішення про прийняття або відхилення заяви" type="enum">
           <activiti:value id="yes" name="Заяву прийнято"></activiti:value>
@@ -137,7 +135,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Міська рада міста Ужгород,&lt;br /&gt;
+                                        ЦНАП м. Дніпропетровськ,&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -603,7 +601,7 @@
         <omgdi:waypoint x="460.0" y="35.0"></omgdi:waypoint>
         <omgdi:waypoint x="496.0" y="35.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="364.0" y="58.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="86.0" x="364.0" y="58.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
