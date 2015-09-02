@@ -28,8 +28,6 @@
         <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clArea" name="Місцезнаходження і площа ділянки" type="string" default="${place}, ${area} м2" writable="false"></activiti:formProperty>
         <activiti:formProperty id="requestGoal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="dilianka" name="Викопіювання земельної ділянки" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="dovidka" name="Довідка селищної ради" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="proverka" name="Рішення про прийняття або відхилення заяви" type="enum">
           <activiti:value id="ok" name="Заяву прийнято"></activiti:value>
           <activiti:value id="bad" name="Заяву відхилено"></activiti:value>
