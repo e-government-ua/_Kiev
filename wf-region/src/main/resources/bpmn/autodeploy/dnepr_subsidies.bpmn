@@ -18,7 +18,6 @@
           <activiti:value id="attr5_kirov" name="Кіровський"></activiti:value>
           <activiti:value id="attr6_lenin" name="Ленінський"></activiti:value>
           <activiti:value id="attr7_samar" name="Самарський"></activiti:value>
-          <activiti:value id="attr8_krasn" name="Красногвардійський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="place_of_living" name="Місце реєстрації; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
@@ -157,7 +156,6 @@
           <activiti:value id="attr5_kirov" name="Кіровський"></activiti:value>
           <activiti:value id="attr6_lenin" name="Ленінський"></activiti:value>
           <activiti:value id="attr7_samar" name="Самарський"></activiti:value>
-          <activiti:value id="attr8_krasn" name="Красногвардійський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="place_of_living" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
@@ -286,7 +284,6 @@
         <activiti:formProperty id="decision" name="Рішення про надання субсидії" type="file"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/subsidy_zayava.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_2" name="[pattern/print/subsidy_declaration.html]" type="invisible" default="${sBody_2}" writable="false"></activiti:formProperty>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>

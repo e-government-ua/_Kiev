@@ -32,7 +32,7 @@
         <activiti:formProperty id="newHouse" name="Будинок" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="newCorp" name="Корпус" type="string"></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string"></activiti:formProperty>
-        <activiti:formProperty id="district" name="Район реєстрації" type="enum" required="true">
+        <activiti:formProperty id="district" name="Район м. Києва, в якому зареєстрований заявник" type="enum" required="true">
           <activiti:value id="Деснянський" name="Деснянський"></activiti:value>
           <activiti:value id="Солом'янський" name="Солом'янський"></activiti:value>
           <activiti:value id="Шевченківський" name="Шевченківський"></activiti:value>
@@ -186,7 +186,7 @@
         <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="district" name="Район реєстрації" type="enum" writable="false">
+        <activiti:formProperty id="district" name="Район м. Києва, в якому зареєстрований заявник" type="enum" writable="false">
           <activiti:value id="Деснянський" name="Деснянський"></activiti:value>
           <activiti:value id="Солом'янський" name="Солом'янський"></activiti:value>
           <activiti:value id="Шевченківський" name="Шевченківський"></activiti:value>
@@ -491,7 +491,7 @@
         <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="district" name="Район реєстрації" type="enum" writable="false">
+        <activiti:formProperty id="district" name="Район м. Києва, в якому зареєстрований заявник" type="enum" writable="false">
           <activiti:value id="Деснянський" name="Деснянський"></activiti:value>
           <activiti:value id="Солом'янський" name="Солом'янський"></activiti:value>
           <activiti:value id="Шевченківський" name="Шевченківський"></activiti:value>
@@ -560,7 +560,7 @@
         <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="district" name="Район реєстрації" type="enum" writable="false">
+        <activiti:formProperty id="district" name="Район м. Києва, в якому зареєстрований заявник" type="enum" writable="false">
           <activiti:value id="Деснянський" name="Деснянський"></activiti:value>
           <activiti:value id="Солом'янський" name="Солом'янський"></activiti:value>
           <activiti:value id="Шевченківський" name="Шевченківський"></activiti:value>

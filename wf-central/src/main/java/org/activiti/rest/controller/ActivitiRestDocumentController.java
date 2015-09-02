@@ -159,7 +159,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     byte[] getDocumentFile( @RequestParam(value = "nID", required = false)                              String id,
-                            @RequestParam(value = "nID_Subject", required = false)                      Long nID_Subject,
+                            @RequestParam(value = "nID_Subject", required = false, defaultValue = "1")  Long nID_Subject,
                             @RequestParam(value = "sCode_DocumentAccess", required = false)             String accessCode,
                             @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false)Long organID,
                             @RequestParam(value = "nID_DocumentType", required = false)                 Long docTypeID,
@@ -169,9 +169,9 @@ public class ActivitiRestDocumentController {
                            throws ActivitiRestException{
         Document document = null;
         byte[] content = {};
-        if (id != null && !"null".equals(id)) {
+        if (id != null && !"null".equals(id) && docTypeID != 0) {
             document = documentDao.getDocument(new Long(id));
-            if(nID_Subject != document.getSubject().getId()){
+            if(!nID_Subject.equals(document.getSubject().getId())){
                 if(accessCode!=null){
                     Document oDocument = handlerFactory
                             .buildHandlerFor(documentDao.getOperator(organID))
@@ -191,15 +191,20 @@ public class ActivitiRestDocumentController {
         }
 
         if (docTypeID == 0) {
-            content = document.fileBody;
+            document = handlerFactory
+                    .buildHandlerFor(documentDao.getOperator(organID))
+                    .setDocumentType(docTypeID)
+                    .setAccessCode(accessCode)
+                    .setPassword(password)
+                    .setWithContent(true)
+                    .setIdSubject(nID_Subject)
+                    .getDocument();
+            content = document.getFileBody();
         }
-        //byte[] content = "".getBytes();
-        
-        httpResponse.setHeader("Content-disposition", "attachment; filename="
-                + document.getFile());
-        //httpResponse.setHeader("Content-Type", document.getDocumentContentType()
-        //		.getName() + ";charset=UTF-8");
+
         httpResponse.setHeader("Content-Type", document.getContentType() + ";charset=UTF-8");
+        httpResponse.setHeader("Content-Disposition", "attachment; filename=" + document.getFile());
+
         httpResponse.setContentLength(content.length);
         return content;
     }

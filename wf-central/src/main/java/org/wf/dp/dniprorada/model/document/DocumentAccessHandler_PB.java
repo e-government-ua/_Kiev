@@ -8,13 +8,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.codec.Base64;
-import org.springframework.stereotype.Component;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.multipart.MultipartFile;
 import org.w3c.dom.Node;
 import org.wf.dp.dniprorada.dao.DocumentAccessDao;
 import org.wf.dp.dniprorada.dao.DocumentTypeDao;
 import org.wf.dp.dniprorada.dao.SubjectDao;
-import org.wf.dp.dniprorada.model.*;
+import org.wf.dp.dniprorada.model.ByteArrayMultipartFileOld;
+import org.wf.dp.dniprorada.model.Document;
+import org.wf.dp.dniprorada.model.DocumentAccess;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.rest.RestRequest;
 import org.wf.dp.dniprorada.util.rest.SSLCertificateValidation;
@@ -71,7 +73,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
         String callBackValue = generalConfig.sURL_DocumentKvitanciiCallback();
         String keyID = this.accessCode;
         String finalUri = uriDoc + keyIdParam + keyID + callBackKey + callBackValue;
-        if (this.documentTypeId == null && this.documentTypeId != 0) {
+        if (this.documentTypeId == null || !Long.valueOf(0L).equals(this.documentTypeId)) {
             LOG.error("DocumentTypeId = " + this.documentTypeId);
             throw new DocumentTypeNotSupportedException("Incorrect DocumentTypeId. DocumentTypeId = " + this.documentTypeId);
         }
@@ -90,8 +92,8 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
             headers.setAccept(Collections.singletonList(MediaType.ALL));
             headers.set("Authorization", "Basic " + authHeaderEncoded);
 
-            ResponseEntity<String> documentEntity = new RestRequest().getEntity(finalUri,
-                    null, StandardCharsets.UTF_8, String.class, headers);
+            ResponseEntity<byte[]> documentEntity = new RestRequest().getEntity(finalUri,
+                    null, StandardCharsets.UTF_8, byte[].class, headers);
 
             String contentType = documentEntity.getHeaders().getContentType().toString();
             String contentDispositionHeader = documentEntity.getHeaders().get("Content-Disposition").get(0);
@@ -103,12 +105,12 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
             }
 
             if (this.withContent) {
-                doc.fileBody = documentEntity.getBody().getBytes();
+                doc.setFileBody(documentEntity.getBody());
             }
 
             doc.setDocumentType(documentTypeDao.findByIdExpected(0L));
             doc.setSubject(subjectDao.getSubject(this.nID_Subject));
-            doc.setName(documentName);
+            doc.setFile(documentName);
             doc.setContentType(contentType);
             doc.setDate_Upload(DateTime.now());
             doc.setsID_subject_Upload(null);
@@ -116,7 +118,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
             doc.setoSignData(null);
 
 
-        } catch (ParseException e) {
+        } catch (ParseException | ResourceAccessException e) {
             LOG.error("Can't get document: ", e);
             throw new DocumentNotFoundException("Can't get document: ", e);
         }
@@ -173,7 +175,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
         String[] parts = contentType.split("/");
         String fileExtension = parts.length < 2 ? "" : parts[1];
 
-        return new ByteArrayMultipartFileOld(new ByteArrayInputStream(documentEntity.getBody().getBytes()),
+        return new ByteArrayMultipartFileOld(new ByteArrayInputStream(documentEntity.getBody().getBytes(StandardCharsets.UTF_8)),
                 documentName, documentName, contentType + ";" + fileExtension);
 
     }
