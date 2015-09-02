@@ -69,7 +69,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
     public Document getDocument() {
         Document doc = new Document();
         String sessionId;
-        String keyIdParam = "?keyID=";
+        String keyIdParam;
         String callBackKey = "&callbackUrl=";
         String callBackValue = generalConfig.sURL_DocumentKvitanciiCallback();
         String keyID = this.accessCode;
@@ -82,6 +82,8 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
         } else {
             uriDoc = Long.valueOf(0L).equals(this.documentTypeId) ?
                     generalConfig.sURL_DocumentKvitanciiForIgov() : generalConfig.sURL_DocumentKvitanciiForAccounts();
+
+            keyIdParam = Long.valueOf(0L).equals(this.documentTypeId) ? "?keyID=" : "?id=";
         }
 
         String finalUri = uriDoc + keyIdParam + keyID + callBackKey + callBackValue;
