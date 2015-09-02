@@ -5,17 +5,18 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+
 import org.wf.dp.dniprorada.base.model.NamedEntity;
 import org.wf.dp.dniprorada.base.util.JsonDateDeserializer;
 import org.wf.dp.dniprorada.base.util.JsonDateSerializer;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @javax.persistence.Entity
 public class Document extends NamedEntity {
+
+	@Transient
+	private byte[] fileBody;
 
 	@JsonProperty(value = "oDocumentType")
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -73,7 +74,16 @@ public class Document extends NamedEntity {
     @Column(name = "oSignData", nullable = false )
     private String oSignData;
 
-    public String getoSignData() {
+	public byte[] getFileBody() {
+		return fileBody;
+	}
+
+	public void setFileBody(byte[] fileBody) {
+		this.fileBody = fileBody;
+	}
+
+
+	public String getoSignData() {
         return oSignData;
     }
 

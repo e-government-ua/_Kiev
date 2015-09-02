@@ -1,4 +1,4 @@
-angular.module('app').controller('ServiceRegionController', function($state, $rootScope, $scope, $sce, RegionListFactory, PlacesService, ServiceService, service, regions, AdminService) {
+angular.module('app').controller('ServiceRegionController', function($state, $rootScope, $scope, $sce, RegionListFactory, PlacesService, ServiceService, service, regions, AdminService, serviceLocationParser) {
   $scope.service = service;
   $scope.regions = regions;
 
@@ -11,9 +11,9 @@ angular.module('app').controller('ServiceRegionController', function($state, $ro
     return $scope.regionList.load(service, search);
   };
 
-  $scope.onSelectRegionList = function($item, $model, $label) {
+  $scope.onSelectRegionList = function($item) {
     $scope.data.region = $item;
-    $scope.regionList.select($item, $model, $label);
+    $scope.regionList.select($item);
   };
 
   $scope.data = {
@@ -57,4 +57,8 @@ angular.module('app').controller('ServiceRegionController', function($state, $ro
   $scope.$watchCollection('data.region', function(newValue, oldValue) {
     return (newValue == null) ? null : $scope.step2();
   });
+
+  var initialRegion = serviceLocationParser.getSelectedRegion(regions);
+  if (initialRegion)
+    $scope.onSelectRegionList(initialRegion);
 });

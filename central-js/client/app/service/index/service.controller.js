@@ -29,9 +29,9 @@ angular.module('app').controller('ServiceController', function($scope, $rootScop
     return $scope.regionList.load(null, search);
   };
 
-  $scope.onSelectRegionList = function($item, $model, $label) {
+  $scope.onSelectRegionList = function($item) {
     $scope.data.region = $item;
-    $scope.regionList.select($item, $model, $label);
+    $scope.regionList.select($item);
     $scope.data.city = null;
     $scope.localityList.reset();
     $scope.search();
