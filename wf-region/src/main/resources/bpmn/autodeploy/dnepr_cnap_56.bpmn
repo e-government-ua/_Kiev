@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="Dnepr_cnap_nationalsymbols" name="Дніпропетровськ - Надання дозволу на використання місцевої символіки" isExecutable="true">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="dnepr_cnap_56" name="Дніпропетровськ - Надання дозволу на використання місцевої символіки" isExecutable="true">
     <documentation>https://github.com/e-government-ua/iBP/issues/56</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -33,13 +33,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Надання дозволу на використання місцевої символіки</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання дозволу на використання місцевої символіки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -122,16 +122,16 @@
     <serviceTask id="mailtask2" name="Повідомлення співробітника держоргану" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string>darja.grek@gmail.com</activiti:string>
+          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Нове  звернення. Надання дозволу на використання місцевої символіки</activiti:string>
+          <activiti:string><![CDATA[Нове  звернення. Надання дозволу на використання місцевої символіки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -262,10 +262,10 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Надання дозволу на використання місцевої символіки</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання дозволу на використання місцевої символіки]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -363,7 +363,7 @@
 &lt;/html&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -453,13 +453,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Надання дозволу на використання місцевої символіки</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання дозволу на використання місцевої символіки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -473,8 +473,8 @@
     <sequenceFlow id="flow11" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
     <sequenceFlow id="flow12" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_Dnepr_cnap_nationalsymbols">
-    <bpmndi:BPMNPlane bpmnElement="Dnepr_cnap_nationalsymbols" id="BPMNPlane_Dnepr_cnap_nationalsymbols">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_56">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_56" id="BPMNPlane_dnepr_cnap_56">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -518,14 +518,14 @@
         <omgdi:waypoint x="469.0" y="240.0"></omgdi:waypoint>
         <omgdi:waypoint x="470.0" y="270.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="87.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="87.0" x="479.0" y="240.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
         <omgdi:waypoint x="489.0" y="220.0"></omgdi:waypoint>
         <omgdi:waypoint x="605.0" y="221.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="42.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="42.0" x="499.0" y="220.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
