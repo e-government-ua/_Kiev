@@ -208,7 +208,9 @@ public final class Util {
                                 .getVariable(task.getProcessInstanceId(), sFieldID));
                         oLog.info("[replacePatterns](sFieldID=" + sFieldID + "):3-Ok!");
                     }
+                    oLog.info("[replacePatterns](sName=" + sName + "):Ok!");
                 }
+                oLog.info("[replacePatterns](sFieldID=" + sFieldID + "):Ok!");
             }
         } catch (Exception oException) {
             oLog.error("[replacePatterns]", oException);

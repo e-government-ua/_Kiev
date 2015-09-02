@@ -18,30 +18,14 @@
                      ng-show="bShowExtSearch">
                     <div class="row clearfix">
                         <div class="col-md-12 column">
-                            <div class="form-group">
-                              <select class="form-control"
-                                      id="oplist"
-                                      ng-model="operator"
-                                      ng-change="filterByExtSearch()">
-                                <option value="-1">Оберiть установу</option>
-                                <option ng-repeat="operator in operators">{{operator.sSubjectOperatorName}}</option>
-                              </select>
-                            </div>
-
-                            <div class="form-group">
-                                <select ng-model="selectedStatus"
-                                        class="form-control"
-                                        ng-change="filterByExtSearch()">
-                                    <option value="-1">Всі послуги</option>
-                                    <option value="2">Доступні онлайн</option>
-                                    <option value="1">Послуги, що запустяться незабаром</option>
-                                </select>
-                            </div>
-                            <div class="form-group" ng-if="selectedStatus == 2">
+                            
+                            
+                            <div class="form-group"> <!-- ng-if="selectedStatus == 2"-->
                               <div style="display:inline-block">
                                 <div style="position:relative" dropdown is-open="regionList.dropdown.isOpen">
                                   <div class="input-group">
-                                    <input autocomplete="off" class="form-control" name="region" type="text"
+                                    <input style="padding-left: 15px;"
+                                           autocomplete="off" class="form-control" name="region" type="text"
                                            placeholder="Регіон"
                                            ng-model="regionList.typeahead.model"
                                            typeahead="region as region.sName for region in loadRegionList($viewValue)"
@@ -63,11 +47,12 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="form-group" ng-if="selectedStatus == 2 && data.region.nID">
+                            <div class="form-group" ng-if="data.region.nID"> <!--  && selectedStatus == 2-->
                               <div style="display:inline-block">
                                 <div style="position:relative" dropdown is-open="localityList.dropdown.isOpen">
                                   <div class="input-group">
-                                    <input autocomplete="off"  class="form-control" name="city" type="text"
+                                    <input style="padding-left: 15px;"
+                                           autocomplete="off"  class="form-control" name="city" type="text"
                                            placeholder="Місто"
                                            ng-model="localityList.typeahead.model"
                                            typeahead="city as city.sName for city in loadLocalityList($viewValue)"
@@ -89,6 +74,28 @@
                                 </div>
                               </div>
                             </div>
+                            
+                            
+                            <div class="form-group">
+                              <select class="form-control"
+                                      id="oplist"
+                                      ng-model="operator"
+                                      ng-change="filterByExtSearch()">
+                                <option value="-1">Оберiть установу</option>
+                                <option ng-repeat="operator in operators">{{operator.sSubjectOperatorName}}</option>
+                              </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select ng-model="selectedStatus"
+                                        class="form-control"
+                                        ng-change="filterByExtSearch()">
+                                    <option value="-1">Всі послуги</option>
+                                    <option value="2">Доступні онлайн</option>
+                                    <option value="1">Послуги, що запустяться незабаром</option>
+                                </select>
+                            </div>
+
                         </div>
                     </div>
                 </div>
