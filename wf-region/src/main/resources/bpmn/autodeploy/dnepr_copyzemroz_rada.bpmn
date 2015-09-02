@@ -354,7 +354,7 @@
 &lt;/html&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Дніпропетровськ ЦНАП - Копія рішення міської ради про надання дозволу на розроблення проекту відведення земельної ділянки</activiti:expression>
+          <activiti:string><![CDATA[Дніпропетровськ ЦНАП - Копія рішення міської ради про надання дозволу на розроблення проекту відведення земельної ділянки]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
