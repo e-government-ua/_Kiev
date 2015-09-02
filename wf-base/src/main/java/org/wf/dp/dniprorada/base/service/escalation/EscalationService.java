@@ -158,7 +158,7 @@ public class EscalationService {
         
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(oTask.getProcessDefinitionId()).singleResult();
 		
-        m.put("sServiceType", processDefinition != null ? processDefinition.getName() : ""));
+        m.put("sServiceType", processDefinition != null ? processDefinition.getName() : "");
         m.put("sTaskName", String.format("%s", oTask.getName()));
         m.put("sTaskNumber", String.format("%s ", oTask.getId().toString()));
         m.put("sElapsedInfo", String.format("%d", nElapsedDays));
