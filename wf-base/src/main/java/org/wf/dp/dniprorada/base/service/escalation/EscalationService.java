@@ -150,11 +150,11 @@ public class EscalationService {
         	userInfoString.append("<br/>");
         }
         
-        m.put("sServiceType", String.format("Тип послуги: %s", oTask.getName()));
-        m.put("sTaskName", String.format("Стадія: %s", oTask.getTaskDefinitionKey()));
-        m.put("sTaskNumber", String.format("Номер заявки: %s (с контрольной суммой по алгоритму Луна)", oTask.getId()));
-        m.put("sElapsedInfo", String.format("Заявка знаходиться на цій стадії вже: %d дн.", nElapsedDays));
-        m.put("sResponsiblePersons", String.format("Відповідальні за розгляд заявки: <br/> %s", userInfoString.toString()));
+        m.put("sServiceType", String.format("%s", oTask.getName()));
+        m.put("sTaskName", String.format("%s", oTask.getTaskDefinitionKey().toString()));
+        m.put("sTaskNumber", String.format("%s ", oTask.getId().toString()));
+        m.put("sElapsedInfo", String.format("%d", nElapsedDays));
+        m.put("sResponsiblePersons", String.format("%s", userInfoString.toString()));
         
         return m;
     }
