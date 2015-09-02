@@ -104,13 +104,11 @@ public class LiqBuy {
             String snID_Subject=""+nID_Subject;
             log.info("snID_Subject="+snID_Subject);
             String delimiter = sURL_CallbackStatusNew.indexOf("?") > -1 ? "&" : "?";
-            URI = Util.deleteContextFromURL(sURL_CallbackStatusNew) + delimiter + "nID_Subject=" + nID_Subject + "&sAccessContract=Request";
+            String queryParam = delimiter + "nID_Subject=" + nID_Subject + "&sAccessContract=Request";
+            URI = Util.deleteContextFromURL(sURL_CallbackStatusNew) + queryParam;
             log.info("URI="+URI);
             String sAccessKey = accessDataDao.setAccessData(URI);
-            sURL_CallbackStatusNew = new StringBuilder(sURL_CallbackStatusNew)
-                    .append(delimiter)
-                    .append("nID_Subject=").append(nID_Subject)
-                    .append("&sAccessKey=").append(sAccessKey).toString();
+            sURL_CallbackStatusNew = sURL_CallbackStatusNew + queryParam;
         }
         log.info("sURL_CallbackStatusNew(with security-key)="+sURL_CallbackStatusNew);
         
