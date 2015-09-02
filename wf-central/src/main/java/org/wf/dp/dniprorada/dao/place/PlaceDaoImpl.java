@@ -77,20 +77,16 @@ public class PlaceDaoImpl extends GenericEntityDao<Place> implements PlaceDao {
     @SuppressWarnings("unchecked")
     public PlaceHierarchyTree getTreeUp(Long placeId, String uaId, Boolean tree) {
         if (!valid(placeId) && isBlank(uaId)) {
-            notNull(placeId, "PlaceId can't be empty");
-            isTrue(isBlank(uaId), "UA id can't empty.");
+            notNull( placeId, "PlaceId can't be empty"  );
+            isTrue ( isBlank(uaId), "UA id can't empty.");
         }
 
-        String sql = placeQueryResolver.getTreeUp(placeId, uaId, tree);
-        Query query = getSession()
-            .createSQLQuery(sql)
-            .setResultTransformer(new PlaceHibernateResultTransformer());
-
-        if (valid(placeId))
-            query.setLong("placeId", placeId);
-
-        if (isNotBlank(uaId) && !valid(placeId))
-            query.setString("ua_id", uaId);
+        Query query = new QueryBuilder(getSession())
+            .append  ( placeQueryResolver.getTreeUp(placeId, uaId, tree) )
+            .setParam( valid(placeId), "PLACE_ID", placeId )
+            .setParam( isNotBlank(uaId) && !valid(placeId), "UA_ID", uaId )
+            .toSQLQuery()
+            .setResultTransformer( new PlaceHibernateResultTransformer() );
 
         return toTree( query.list() );
     }

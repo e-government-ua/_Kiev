@@ -10,5 +10,5 @@ FROM
   "PlaceTree" t,
   "Place" p
 WHERE
-  p."nID" = :placeId
+  p."nID" = :PLACE_ID
   and t."nID_Place" = p."nID"

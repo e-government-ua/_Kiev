@@ -10,5 +10,5 @@ FROM
   "PlaceTree" t,
   "Place" p
 WHERE
-  p."sID_UA" = :ua_id
+  p."sID_UA" = :UA_ID
   and t."nID_Place" = p."nID"
