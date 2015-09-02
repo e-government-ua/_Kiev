@@ -265,7 +265,7 @@
       </extensionElements>
     </serviceTask>
     <endEvent id="endevent2" name="End"></endEvent>
-    <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="mailtask6"></sequenceFlow>
     <serviceTask id="servicetask1" name="для очереди" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow10" sourceRef="servicetask1" targetRef="scripttask1"></sequenceFlow>
     <scriptTask id="scripttask1" name="исправление даты-времени" scriptFormat="groovy" activiti:autoStoreVariables="true">
@@ -752,9 +752,6 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow19" sourceRef="exclusivegateway1" targetRef="mailtask6">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${finish=='attr2_missed'}]]></conditionExpression>
-    </sequenceFlow>
     <sequenceFlow id="flow20" sourceRef="mailtask6" targetRef="endevent2"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_dms_passport">
@@ -823,7 +820,8 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="765.0" y="197.0"></omgdi:waypoint>
-        <omgdi:waypoint x="780.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="713.0" y="166.0"></omgdi:waypoint>
+        <omgdi:waypoint x="712.0" y="141.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
         <omgdi:waypoint x="176.0" y="75.0"></omgdi:waypoint>
@@ -870,11 +868,6 @@
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="55.0" y="47.0"></omgdi:waypoint>
         <omgdi:waypoint x="124.0" y="47.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
-        <omgdi:waypoint x="640.0" y="247.0"></omgdi:waypoint>
-        <omgdi:waypoint x="640.0" y="113.0"></omgdi:waypoint>
-        <omgdi:waypoint x="660.0" y="113.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
         <omgdi:waypoint x="765.0" y="113.0"></omgdi:waypoint>
