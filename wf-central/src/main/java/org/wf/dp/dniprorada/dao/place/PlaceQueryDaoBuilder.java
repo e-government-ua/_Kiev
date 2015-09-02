@@ -30,6 +30,7 @@ public class PlaceQueryDaoBuilder {
 
 
     @EnableCaching
+    // TODO use QueryBuilder instead of such methods
     public String getTreeDown(PlaceHierarchyRecord root) {
         String sql = load( specified(root.getPlaceId())
             ? "get_PlaceTree_down_by_id.sql" : "get_PlaceTree_down_by_UA-id.sql");
@@ -40,8 +41,10 @@ public class PlaceQueryDaoBuilder {
             specified(root.getDeep()))
             sql = sql + " where ";
 
-        if (specified(root.getTypeId()))
-            sql += " type_id = :typeId";
+        if (specified(root.getTypeId()) && specified(root.getPlaceId()))
+            sql += " (type_id = :typeId or id = :placeId)";
+        else if (specified(root.getTypeId()) && isNotBlank(root.getUaID()))
+            sql += " (type_id = :typeId or ua_id = :ua_id)";
 
         if (specified(root.isArea()) && specified(root.getTypeId()))
             sql += " and ";

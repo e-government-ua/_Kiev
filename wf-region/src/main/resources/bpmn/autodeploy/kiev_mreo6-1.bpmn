@@ -23,6 +23,7 @@
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         <activiti:formProperty id="response" name="thank_you_page_text" type="invisible" default="&lt;strong&gt;Дякуемо, що скористались нашим сервісом!&lt;/strong&gt;"></activiti:formProperty>
         <activiti:formProperty id="markers" name="markersForValidations" type="markers" default="{}"></activiti:formProperty>
+        <activiti:formProperty id="date_of_visit" name="дата візиту" type="invisible"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -458,8 +459,7 @@
 3. Довідка-рахунок або або нотаріальний договір купівлі-продажу.&lt;br /&gt;
 4. Копія квітанції про сплату за послуги МРЕВ.&lt;br /&gt;
 &lt;/p&gt;
-Дані талону на візит: &lt;br /&gt;
-${visitDate}&lt;br /&gt;
+Дата та час: ${date_of_visit}.&lt;br /&gt;
 
                                     
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -563,8 +563,7 @@ ${visitDate}&lt;br /&gt;
 3. Довідка-рахунок або або нотаріальний договір купівлі-продажу.&lt;br /&gt;
 4. Копія квітанції про сплату за послуги МРЕВ.&lt;br /&gt;
 &lt;/p&gt;
-Дані талону на візит: &lt;br /&gt;
-${visitDate}&lt;br /&gt;
+Дата та час: ${date_of_visit}.&lt;br /&gt;&lt;br /&gt;
 					
 
                                     
