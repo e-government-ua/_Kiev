@@ -155,9 +155,7 @@
                                 &lt;/td&gt;
                             &lt;/tr&gt;
                         &lt;/table&gt;
-                        &lt;/form&gt;
-
-</activiti:expression>
+                        &lt;/form&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${file}"</activiti:expression>
@@ -190,12 +188,12 @@
         <omgdc:Bounds height="35.0" width="35.0" x="900.0" y="170.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow0" id="BPMNEdge_flow0">
-        <omgdi:waypoint x="235.0" y="187.0"></omgdi:waypoint>
-        <omgdi:waypoint x="300.0" y="127.0"></omgdi:waypoint>
+        <omgdi:waypoint x="217.0" y="170.0"></omgdi:waypoint>
+        <omgdi:waypoint x="352.0" y="155.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="300.0" y="127.0"></omgdi:waypoint>
-        <omgdi:waypoint x="300.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="405.0" y="127.0"></omgdi:waypoint>
+        <omgdi:waypoint x="352.0" y="160.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
         <omgdi:waypoint x="615.0" y="187.0"></omgdi:waypoint>
