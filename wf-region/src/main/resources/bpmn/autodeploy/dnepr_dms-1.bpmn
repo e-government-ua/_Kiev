@@ -7,7 +7,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія і номер)" type="string"></activiti:formProperty>
-        <activiti:formProperty id="phone" елефон; в форматі 380..." type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="DOB" name="Дата народження; Формат - ДД/ММ/РРРР" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="POB" name="Місце народження; Країна і населений пункт" type="string" required="true"></activiti:formProperty>
