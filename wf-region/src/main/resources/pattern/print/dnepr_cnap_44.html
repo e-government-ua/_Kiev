@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head lang="ru">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -51,6 +51,7 @@
 .m-t-130 {margin-top: 130px !important;}
 .m-t-150 {margin-top: 150px !important;}
 .m-r-12 {margin-right: 12px !important;}
+.m-l-12 {margin-left: 12px !important;}
 .m-l-65 {margin-left: 65px !important;}
 .m-l-120 {margin-left: 120px !important;}
 .m-l-180 {margin-left: 180px !important;}
@@ -58,6 +59,7 @@
 .m-l-300 {margin-left: 300px !important;}
 .m-l-380 {margin-left: 380px !important;}
 .m-t-unt {margin-top: -1px !important;}
+.m-l-m200 {margin-left: -200px !important;}
 .m-clear {margin: 0 !important;}
 .p-clear {padding: 0 !important;}
 
@@ -132,17 +134,36 @@ p {font-size: 12px;}
 		<p >від [clFio]<br/>
 		[orgName]</p>
 
-        <p class="m-clear"><span class="m-r-12">адреса</span>[place_of_reg]</p>
+        <p class="m-clear"><span class="m-r-12">адреса</span>[orgAdress]</p>
         <p>тел. [phone]</p>
     </div>
     <div class="clear"></div>
-    <div class="line_col ta-c m-t-25 x-font">
+    <div class="line_col ta-c m-t-25 xs-font">
         КЛОПОТАННЯ<br />
-        <div class="under_field_line wub ta-l">Прошу дозволити провести [eventDate]</br>
-			[goal],</br>
-			[landAddress]
 	</div>
-    </div>
+    <div class="under_field_line wub ta-l">Прошу дозволити провести
+	</div>
+	<div class="x-font under_field_line ta-c">
+		<p>[eventDate] [eventTime] [eventPlace]</p>
+		<span>(дата, час, місце)</span>
+	</div>
+	<div class="x-font under_field_line ta-c">
+		<p>[eventName]</p>
+		<span>(назва релігійного масового заходу, який проводиться поза межами культової споруди, його мета)</span>
+	</div>
+	<div class="x-font under_field_line ta-c">
+		<p>[eventMeta]</p>
+		<span></span>
+	</div>
+	<div class="x-font under_field_line ta-c">
+		<p>[eventSize]</p>
+		<span>(кількість учасників)</span>
+	</div>
+	<div class="x-font under_field_line ta-c m-l-12 m-r-12">
+		<p>[golovniy]</p>
+		<span>(відповідальна особа за проведення релігійного масового заходу)</span>
+	</div>
+    
 	<div class="date_subm m-t-45 x-font">
         <p>При цьому даю згоду відповідно до Закону України „Про захист персональних даних” на обробку моїх особистих персональних даних у картотеках та/або за допомогою інформаційно-телекомунікаційних систем з метою підготовки відповідно до вимог законодавства статистичної, адміністративної та іншої інформації.</p>
 	</div>
@@ -161,7 +182,7 @@ p {font-size: 12px;}
 		<p><b>Адміністратор</b>________________________</p>
 		<p>Реєстраційний номер____________________</p>
 		</div>
-		<div class="month-fl-sm m-r-65">
+		<div class="month-fl-sm m-t-45 m-l-m200">
 			від  „<span></span>” <span></span>20<span></span>р.
 		</div>
 	</div>
