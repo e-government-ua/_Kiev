@@ -421,7 +421,7 @@ ${comment} &lt;br&gt;
     <sequenceFlow id="flow13" sourceRef="servicetask3" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow14" sourceRef="servicetask2" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow15" sourceRef="servicetask4" targetRef="endevent2"></sequenceFlow>
-    <serviceTask id="mailtask2" name="лист про отримання заявки" activiti:type="mail">
+    <serviceTask id="mailtask2" name="Лист про отримання заявки" activiti:type="mail">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
