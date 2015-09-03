@@ -16,9 +16,9 @@
           <activiti:value id="attr3_zhovt" name="Жовтневий"></activiti:value>
           <activiti:value id="attr4_indust" name="Індустріальний"></activiti:value>
           <activiti:value id="attr5_kirov" name="Кіровський"></activiti:value>
+          <activiti:value id="attr8_krasn" name="Красногвардійський"></activiti:value>
           <activiti:value id="attr6_lenin" name="Ленінський"></activiti:value>
           <activiti:value id="attr7_samar" name="Самарський"></activiti:value>
-          <activiti:value id="attr8_krasn" name="Красногвардійський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="place_of_living" name="Місце реєстрації; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
@@ -155,9 +155,9 @@
           <activiti:value id="attr3_zhovt" name="Жовтневий"></activiti:value>
           <activiti:value id="attr4_indust" name="Індустріальний"></activiti:value>
           <activiti:value id="attr5_kirov" name="Кіровський"></activiti:value>
+          <activiti:value id="attr8_krasn" name="Красногвардійський"></activiti:value>
           <activiti:value id="attr6_lenin" name="Ленінський"></activiti:value>
           <activiti:value id="attr7_samar" name="Самарський"></activiti:value>
-          <activiti:value id="attr8_krasn" name="Красногвардійський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="place_of_living" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
@@ -776,7 +776,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="570.0" y="160.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="55.0" width="105.0" x="56.0" y="100.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="56.0" y="79.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
         <omgdc:Bounds height="35.0" width="35.0" x="570.0" y="304.0"></omgdc:Bounds>
@@ -830,10 +830,10 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
         <omgdi:waypoint x="-3.0" y="48.0"></omgdi:waypoint>
-        <omgdi:waypoint x="108.0" y="100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="108.0" y="79.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="108.0" y="100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="108.0" y="79.0"></omgdi:waypoint>
         <omgdi:waypoint x="212.0" y="58.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
