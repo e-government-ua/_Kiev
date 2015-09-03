@@ -9,7 +9,8 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   oServiceData,
   BankIDAccount,
   ActivitiForm,
-  uiUploader) {
+  uiUploader,
+  FieldAttributesService) {
 
   'use strict';
 
@@ -56,7 +57,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.data.formData = new FormDataFactory();
   $scope.data.formData.initialize(ActivitiForm);
   $scope.data.formData.setBankIDAccount(BankIDAccount);
-
+  $scope.as = FieldAttributesService;
   var currentState = $state.$current;
 
   $scope.data.region = currentState.data.region;

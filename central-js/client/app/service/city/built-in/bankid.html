@@ -85,7 +85,8 @@
 
                             <div class="col-md-3"
                                  ng-class="{'has-error': form.$submitted && form[property.id].$invalid}"
-                                 ng-if="!data.formData.fields[property.id] && property.type!='invisible' && property.type!='markers'"
+                                 ng-if="(!data.formData.fields[property.id] && property.type!='invisible' && property.type!='markers' && as.isEditable(property.id) == 3)
+                                        || as.isEditable(property.id) == 1"
                                  ng-switch
                                  on="property.type">
                                 <textarea ng-switch-when="textArea"
@@ -140,7 +141,7 @@
                                       ng-tel-field="{defaultCountry:'ua', autoFormat:true, allowExtensions:false, preferredCountries:['ua'], autoPlaceholder:true}"
                                       ng-required="property.required"
                                       class="form-control"
-                                      value="">                                       
+                                      value="">
 
                                 <p class="input-group"
                                    ng-switch-when="date">
@@ -192,7 +193,7 @@
                             </div>
 
                             <div class="col-md-3"
-                                 ng-if="data.formData.fields[property.id]"
+                                 ng-if="(data.formData.fields[property.id] && as.isEditable(property.id) == 3) || as.isEditable(property.id) == 2"
                                  ng-bind="data.formData.params[property.id].value">
                                 <input type="hidden"
                                        name="{{property.id}}"
