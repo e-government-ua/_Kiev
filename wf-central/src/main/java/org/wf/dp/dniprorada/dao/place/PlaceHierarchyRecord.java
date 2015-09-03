@@ -3,6 +3,7 @@ package org.wf.dp.dniprorada.dao.place;
 import org.wf.dp.dniprorada.model.Place;
 
 import static java.util.Objects.hash;
+import static org.wf.dp.dniprorada.dao.place.PlaceDaoImpl.valid;
 
 /**
  * @author dgroup
@@ -20,6 +21,20 @@ public class PlaceHierarchyRecord  {
     private Boolean root;
     private Long deep;
     private Boolean alreadyIncluded = false;
+
+    public PlaceHierarchyRecord(){
+        // no actions required
+    }
+
+    public PlaceHierarchyRecord(Long placeId, Long typeId,  String uaId,
+                                Boolean area, Boolean root, Long deep) {
+        setPlaceId(placeId);
+        setTypeId(typeId);
+        setUaID(uaId);
+        setArea(area);
+        setRoot(root);
+        setDeep(deep);
+    }
 
     public Long getPlaceId() {
         return placeId;
@@ -107,6 +122,13 @@ public class PlaceHierarchyRecord  {
         node.setPlace(toPlace());
         node.setLevel(getDeep());
         return node;
+    }
+
+    public Boolean isNotEmpty(){
+        return  valid(getTypeId()) ||
+                valid(isArea()) ||
+                valid(isRoot()) ||
+                valid(getDeep());
     }
 
     @Override

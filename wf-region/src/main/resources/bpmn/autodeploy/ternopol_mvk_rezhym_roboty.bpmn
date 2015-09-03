@@ -102,7 +102,7 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
@@ -571,7 +571,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_ternopol_mvk_rezhym_roboty">
     <bpmndi:BPMNPlane bpmnElement="ternopol_mvk_rezhym_roboty" id="BPMNPlane_ternopol_mvk_rezhym_roboty">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="58.0" y="122.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="40.0" y="122.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="74.0" width="105.0" x="140.0" y="107.0"></omgdc:Bounds>
@@ -616,7 +616,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="200.0" y="222.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="93.0" y="139.0"></omgdi:waypoint>
+        <omgdi:waypoint x="75.0" y="139.0"></omgdi:waypoint>
         <omgdi:waypoint x="140.0" y="144.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">

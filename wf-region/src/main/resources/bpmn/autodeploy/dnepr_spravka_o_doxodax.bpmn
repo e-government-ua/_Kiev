@@ -8,14 +8,15 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Ваш ІПН" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="area" name="Виберіть район; в якому вам буде зручно отримати довідку" type="enum" required="true">
-          <activiti:value id="and" name="АНД (пров. Універсальний, 12)|0461"></activiti:value>
-          <activiti:value id="babush" name="Бабушкінський (вул. Героїв Сталінграду, 25)|0462"></activiti:value>
-          <activiti:value id="october" name="Жовтневий (вул. Високовольтна, 24)|0463"></activiti:value>
-          <activiti:value id="left" name="Лівобережний (пр-т Газети Правда, 95-А)|0464"></activiti:value>
-          <activiti:value id="kirov" name="Кіровський (вул. Горького, 22)|0465"></activiti:value>
-          <activiti:value id="red_guard" name="Красногвардійський (вул. Театральна, 1-А)|0466"></activiti:value>
-          <activiti:value id="lenin" name="Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
+        <activiti:formProperty id="area" name="Виберіть відділення фіскальної служби; в якому вам буде зручно отримати довідку" type="enum" required="true">
+          <activiti:value id="dnepr_and" name="Дніпропетровськ - АНД (пров. Універсальний, 12)|0461"></activiti:value>
+          <activiti:value id="dnepr_babush" name="Дніпропетровськ - Бабушкінський (вул. Героїв Сталінграду, 25)|0462"></activiti:value>
+          <activiti:value id="dnepr_october" name="Дніпропетровськ - Жовтневий (вул. Високовольтна, 24)|0463"></activiti:value>
+          <activiti:value id="dnepr_left" name="Дніпропетровськ - Лівобережний (пр-т Газети Правда, 95-А)|0464"></activiti:value>
+          <activiti:value id="dnepr_kirov" name="Дніпропетровськ - Кіровський (вул. Горького, 22)|0465"></activiti:value>
+          <activiti:value id="dnepr_red_guard" name="Дніпропетровськ - Красногвардійський (вул. Театральна, 1-А)|0466"></activiti:value>
+          <activiti:value id="dnepr_lenin" name="Дніпропетровськ - Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
+          <activiti:value id="volnogorsk1" name="Вільногірськ - Вільногірське (б-р Миру, 15)|0401"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваша електронна пошта; на неї Ви будете отримувати повідомлення про стан Вашої заяви" type="string" required="true"></activiti:formProperty>
@@ -112,7 +113,8 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
 &lt;p&gt;Ваша заява на отримання довідки про доходи прийнята в роботу. &lt;br/&gt;
-Забрати довідку Ви зможете  через 5 робочих днів в тому відділенні податкової служби, яке Ви вказували при замовленні послуги.
+Забрати довідку Ви зможете  через 5 робочих днів в тому відділенні податкової служби, яке Ви вказували при замовленні послуги.&lt;br/&gt;
+Перелік відділень Ви можете переглянути тут &lt;a href="https://docs.google.com/spreadsheets/d/1b4697fd3ESupi6XrO4JqHv2GZ0Va98QXGD6hVvK1q70/edit#gid=2095016794" target="_blank"&gt;тут&lt;/a&gt;
 &lt;/p&gt;
 &lt;p&gt;Для отримання довідки Вам необхідно мати при при візиті до відділення фіскальної служби наступні документи:&lt;br&gt;
 - № запиту (Ви його отримали листом після подачі заяви)&lt;br&gt;

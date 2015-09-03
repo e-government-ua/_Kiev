@@ -1,0 +1,44 @@
+{
+    "state": "ok",
+    "customer": {
+        "phone": "+380567161131",
+        "inn": "3578965412",
+        "email": "bankid@org.ua",
+        "fullName": "Тестувальник ПриватБанкID",
+        "addresses": [{
+                "type": "factual",
+                "fullAddress": "49000, м. Дніпропетровськ, вул. Карла Маркса, 62"
+            }],
+        "signatureData": {
+            "name": "АЦСК Держінформ'юсту",
+            "serialNumber": "2D24A7C930E2B7B404000000410D0000C2200000",
+            "timestamp": "05.08.2015 16:56:50",
+            "code": true,
+            "desc": "ПІДПИС ВІРНИЙ",
+            "dateFrom": "04.08.2015 10:06:10",
+            "dateTo": "04.08.2017 10:06:10",
+            "sn": "UA-25287988-2015"
+        },
+        "organizations": [{
+                "type": "edsOwner",
+                "name": "ПриватБанк",
+                "unit": "Регіональне відділення",
+                "mfo": "84369785",
+                "position": "керівник",
+                "ownerDesc": "Юридична особа",
+                "address": {
+                    "type": "factual",
+                    "state": "Дніпропетровська",
+                    "city": "Дніпропетровськ"
+                }
+            }, {
+                "type": "edsIsuer",
+                "name": "Держінформ'юст",
+                "unit": "Акредитований центр сертифікації ключів",
+                "address": {
+                    "type": "factual",
+                    "city": "Київ"
+                }
+            }]
+    }
+}
