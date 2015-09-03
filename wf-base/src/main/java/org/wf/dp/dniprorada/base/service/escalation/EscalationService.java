@@ -131,7 +131,8 @@ public class EscalationService {
         TaskFormData oTaskFormData = formService.getTaskFormData(oTask.getId());
         for (FormProperty oFormProperty : oTaskFormData.getFormProperties()) {
             log.info(String.format("[getTaskData]Matching property %s:%s:%s with fieldNames", oFormProperty.getId(), oFormProperty.getName(), oFormProperty.getType().getName()));
-            if ("long".equalsIgnoreCase(oFormProperty.getType().getName())) {
+            if ("long".equalsIgnoreCase(oFormProperty.getType().getName()) &&
+            		StringUtils.isNumeric(oFormProperty.getValue())) {
                 m.put(oFormProperty.getId(), Long.valueOf(oFormProperty.getValue()));
             } else {
                 m.put(oFormProperty.getId(), oFormProperty.getValue());

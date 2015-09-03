@@ -6,10 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.apache.commons.lang3.ArrayUtils.indexOf;
 
@@ -82,6 +79,21 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         return tree;                                                            // the hierarchy was build successfully
     }
 
+
+    public static PlaceHierarchyTree toList(List<PlaceHierarchyRecord> dataRows) {
+        Assert.isTrue(!dataRows.isEmpty(), "Entity not found");
+        LOG.debug("Got {}", dataRows);
+
+        PlaceHierarchyTree treeAsList = dataRows.iterator().next().toTreeElement();
+        for(ListIterator<PlaceHierarchyRecord> it = dataRows.listIterator(1); it.hasNext();){
+            PlaceHierarchyRecord phr = it.next();
+            if (phr != null)
+                treeAsList.addChild( phr.toTreeElement() );
+        }
+
+        LOG.warn("Whole tree {}", treeAsList);
+        return treeAsList;
+    }
 
     /**
      * General node (of our tree) isn't:

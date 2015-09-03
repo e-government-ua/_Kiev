@@ -45,16 +45,9 @@ public class PlaceController {
             @RequestParam(value = "nID_PlaceType",  required = false)   Long    typeId,
             @RequestParam(value = "bArea",          required = false)   Boolean area,
             @RequestParam(value = "bRoot",          required = false)   Boolean root,
-            @RequestParam(value = "nDeep",          defaultValue = "1") Long    deep
-    ) {
-        PlaceHierarchyRecord rootRecord = new PlaceHierarchyRecord();
-        rootRecord.setPlaceId(placeId);
-        rootRecord.setTypeId(typeId);
-        rootRecord.setUaID(uaId);
-        rootRecord.setArea(area);
-        rootRecord.setRoot(root);
-        rootRecord.setDeep(deep);
-        return placeDao.getTreeDown(rootRecord);
+            @RequestParam(value = "nDeep",          defaultValue = "1") Long    deep){
+
+        return placeDao.getTreeDown( new PlaceHierarchyRecord(placeId, typeId, uaId, area, root, deep) );
     }
 
 
@@ -63,8 +56,8 @@ public class PlaceController {
     public  @ResponseBody PlaceHierarchyTree getPlace(
             @RequestParam(value = "nID",    required = false)       Long    placeId,
             @RequestParam(value = "sID_UA", required = false)       String  uaId,
-            @RequestParam(value = "bTree",  defaultValue = "false") Boolean tree
-    ) {
+            @RequestParam(value = "bTree",  defaultValue = "false") Boolean tree){
+
         return placeDao.getTreeUp(placeId, uaId, tree);
     }
 
