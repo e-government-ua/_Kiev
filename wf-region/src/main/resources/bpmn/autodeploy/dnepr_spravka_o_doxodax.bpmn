@@ -64,7 +64,7 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Ваш ІПН" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="area" name="Виберіть відділення фіскальної служби; в якому вам буде зручно отримати довідку" type="enum" writable="false" required="true">
+        <activiti:formProperty id="area" name="Виберіть відділення фіскальної служби; в якому вам буде зручно отримати довідку" type="enum" writable="false">
           <activiti:value id="dnepr_and" name="Дніпропетровськ - АНД (пров. Універсальний, 12)|0461"></activiti:value>
           <activiti:value id="dnepr_babush" name="Дніпропетровськ - Бабушкінський (вул. Героїв Сталінграду, 25)|0462"></activiti:value>
           <activiti:value id="dnepr_october" name="Дніпропетровськ - Жовтневий (вул. Високовольтна, 24)|0463"></activiti:value>
