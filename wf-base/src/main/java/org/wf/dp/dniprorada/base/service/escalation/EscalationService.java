@@ -145,15 +145,21 @@ public class EscalationService {
         m.put("sTaskDescription", oTask.getDescription());
         m.put("sProcessInstanceId", oTask.getProcessInstanceId());
 
-        List<User> users = BPMNUtil.getUsersInfoBelongToProcess(repositoryService, identityService, oTask.getProcessDefinitionId(), oTask.getTaskDefinitionKey());
-        StringBuffer userInfoString = new StringBuffer();
-        for (User currUser : users){
-        	userInfoString.append(currUser.getId());
-        	userInfoString.append(":");
-        	userInfoString.append(currUser.getFirstName());
-        	userInfoString.append(" ");
-        	userInfoString.append(currUser.getLastName());
-        	userInfoString.append("<br/>");
+        List<User> aUser = BPMNUtil.getUsersInfoBelongToProcess(repositoryService, identityService, oTask.getProcessDefinitionId(), oTask.getTaskDefinitionKey());
+        StringBuffer osaUser = new StringBuffer();
+        int nCount=aUser.size();
+        int n=0;
+        for (User oUser : aUser){
+                n++;
+        	osaUser.append(oUser.getLastName());
+        	osaUser.append(" ");
+        	osaUser.append(oUser.getFirstName());
+        	osaUser.append(" (");
+        	osaUser.append(oUser.getId());
+        	osaUser.append(")");
+                if(n<nCount){
+                    osaUser.append(", ");
+                }
         }
         
         
@@ -163,7 +169,7 @@ public class EscalationService {
         m.put("sTaskName", String.format("%s", oTask.getName()));
         m.put("sTaskNumber", String.format("%s ", oTask.getId().toString()));
         m.put("sElapsedInfo", String.format("%d", nElapsedDays));
-        m.put("sResponsiblePersons", String.format("%s", userInfoString.toString()));
+        m.put("sResponsiblePersons", String.format("%s", osaUser.toString()));
         
         return m;
     }
