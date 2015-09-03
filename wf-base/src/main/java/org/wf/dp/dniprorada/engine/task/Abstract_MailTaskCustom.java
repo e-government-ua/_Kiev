@@ -232,18 +232,21 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             textWithoutTags = textWithoutTags.replaceAll(TAG_nID_Protected, "" + nID_Protected);
         }
         
-        /*if (textWithoutTags.contains(TAG_nID_SUBJECT)) {
+        if (textWithoutTags.contains(TAG_nID_SUBJECT)) {
             textWithoutTags = textWithoutTags.replaceAll(TAG_nID_SUBJECT, "" + nID_Subject);
         }
         if (textWithoutTags.contains(TAG_sACCESS_KEY)) {
             textWithoutTags = textWithoutTags.replaceAll(TAG_sACCESS_KEY, accessDataDao.setAccessData("" + nID_Subject));
-        }*/
+        }
         if (textWithoutTags.contains(TAG_sURL_SERVICE_MESSAGE)) {
             String URI = Util.deleteContextFromURL(URL_SERVICE_MESSAGE);
             String queryParam = String.format(queryParamPattern, "" + nID_Subject);
             String accessKey = accessDataDao.setAccessData(URI + queryParam);
-            textWithoutTags = textWithoutTags.replaceAll(TAG_sURL_SERVICE_MESSAGE, URL_SERVICE_MESSAGE + queryParam 
-                    + String.format(accessKeyPattern, accessKey));
+            String replacemet = URL_SERVICE_MESSAGE + queryParam 
+                    + String.format(accessKeyPattern, accessKey);
+            Log.info("textWithoutTags" + textWithoutTags);
+            Log.info("replacemet " + TAG_sURL_SERVICE_MESSAGE + ": " + replacemet);
+            textWithoutTags = textWithoutTags.replaceAll(TAG_sURL_SERVICE_MESSAGE, replacemet);
         }
         return textWithoutTags;
     }
