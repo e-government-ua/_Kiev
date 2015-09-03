@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_cnap-44" name="Дніпропетровськ ЦНАП - Надання дозволу релігійним організаціям на проведення релігійних заходів, які проводяться поза межами культових споруд" isExecutable="true">
+  <process id="dnepr_cnap-50" name="Дніпропетровськ ЦНАП - Надання дозволу на виконання робіт підвищеної небезпеки" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="string"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="orgName" name="Назва релігійної громади/організації" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="orgAdress" name="Адреса релігійної громади/організації" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="eventName" name="Назва заходу" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="eventPlace" name="Місце проведення заходу" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="eventMeta" name="Мета проведення заходу" type="string"></activiti:formProperty>
-        <activiti:formProperty id="eventDate" name="Дата проведення заходу" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="eventTime" name="Час проведення заходу" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="plan" name="План проведення релігійного заходу" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="oxr" name="Копія договору на охорону громадського порядку з Дніпропетровським міським управлінням ГУМВС України у Дніпропетровській області (у разі необхідності)" type="file"></activiti:formProperty>
-        <activiti:formProperty id="vrach" name="Копія договору з департаментом охорони здоров’я Дніпропетровської міської ради (у разі необхідності)" type="file"></activiti:formProperty>
-        <activiti:formProperty id="stroi" name="Копія договору з департаментом комунального господарства та капітального будівництва Дніпропетровської міської ради (у разі необхідності)" type="file"></activiti:formProperty>
-        <activiti:formProperty id="cnapChoose" name="Оберіть ЦНАП, в якому вам буде зручно отримати відповідь" type="enum" required="true">
-          <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
-          <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
+        <activiti:formProperty id="objName" name="об’єкт, на який видається документ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objAdress" name="місцезнаходження (адреса) об’єкта, на який видається документ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="davName" name="у давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="orgInn" name="ідентифікаційний код згідно з ЄДРПОУ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="ruk" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="orgAdress" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="res" name="Як ви бажаєте отримати витяг з технічної документації" type="enum" required="true">
+          <activiti:value id="post" name="поштою"></activiti:value>
+          <activiti:value id="cnap" name="особисто"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="place_of_res" name="Місце куди направити витяг поштою; вкажіть індекс, область, місто, вулицю, дім, квартиру" type="string"></activiti:formProperty>
+        <activiti:formProperty id="visn" name="Висновок експертизи щодо додержання вимог законодавства з питань охорони праці та промислової безпеки під час виконання заявлених робіт" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду відповідно до Закону України „Про захист персональних даних” на обробку Ваших особистих персональних даних у картотеках та/або за допомогою інформаційно-телекомунікаційних систем з метою підготовки відповідно до вимог законодавства статистичної, адміністративної та іншої інформації."></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
       </extensionElements>
@@ -45,7 +43,7 @@
           <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання дозволу релігійним організаціям на проведення релігійних заходів, які проводяться поза межами культових споруд]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання дозволу на виконання робіт підвищеної небезпеки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -100,11 +98,9 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
 										&lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
 										&lt;p&gt;
-											Ваше зверення щодо надання дозволу релігійним організаціям на проведення релігійних заходів, які проводяться поза межами культових споруд було успішно зареєстроване.&lt;/p&gt;
+											Ваше зверення щодо Надання дозволу на виконання робіт підвищеної небезпеки було успішно зареєстроване.&lt;/p&gt;
 										&lt;p&gt;
-											Спеціалісти державного Органу повинні дати відповідь:&lt;br /&gt; 
-											У разі надання погодження або заперечення – 10 календарних днів.&lt;br /&gt; 
-											У разі підготовки розпорядження міського голови – 30 календарних днів.&lt;/p&gt;
+											Спеціалісти державного Органу повинні дати відповідь протягом 10 робочіх днів.&lt;/p&gt;
  										&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
 										&lt;p&gt;
 										З повагою,&lt;br /&gt;
@@ -133,33 +129,38 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
-    <userTask id="usertask1" name="Заява поступає до ЦНАП" activiti:candidateGroups="dnepr_cnap_44_${cnapChoose}">
+    <userTask id="usertask1" name="Заява поступає до ЦНАП" activiti:candidateGroups="dnepr_cnap_50">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Суб’єкт звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="long" default="38" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="orgName" name="Назва релігійної громади/організації" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="orgAdress" name="Адреса релігійної громади/організації" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="eventName" name="Назва заходу" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="eventPlace" name="Місце проведення заходу" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="eventMeta" name="Мета проведення заходу" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="eventDate" name="Дата проведення заходу" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="eventTime" name="Час проведення заходу" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objName" name="об’єкт, на який видається документ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objAdress" name="місцезнаходження (адреса) об’єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="davName" name="у давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="orgInn" name="ідентифікаційний код згідно з ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ruk" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="orgAdress" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="res" name="Як ви бажаєте отримати витяг з технічної документації" type="enum" writable="false">
+          <activiti:value id="post" name="поштою"></activiti:value>
+          <activiti:value id="cnap" name="особисто"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="place_of_res" name="Місце куди направити витяг поштою; вкажіть індекс, область, місто, вулицю, дім, квартиру" type="string"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення чиновника" type="enum" required="true">
           <activiti:value id="accept" name="Взяти в роботу"></activiti:value>
           <activiti:value id="decline" name="Відмовити в проведенні заходу"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="reason" name="Підстава для відмови у наданні адміністративної послуги" type="enum">
-          <activiti:value id="dok_ne_ok" name="оформлення наданих документів не відповідає встановленим вимогам"></activiti:value>
-          <activiti:value id="opozdal" name="не дотриманий строк подачі клопотання, який становить не пізніше як за десять днів до призначеного строку проведення релігійного масового заходу"></activiti:value>
-          <activiti:value id="zanyato" name="заявлене місце вже зайняте іншим масовим заходом"></activiti:value>
+          <activiti:value id="dok_ne_ok" name="неподання необхідних документів та (або) їх оформлення з порушенням встановлених вимог"></activiti:value>
+          <activiti:value id="opozdal" name="подання недостовірних відомостей або висновку за результатами експертизи, який затвердженно чи складено більш ніж за рік до дня подання заяви"></activiti:value>
+          <activiti:value id="nevidp" name="встановлення згідно з висновком за результатами експертизи невідповідності об'єкта експертизи вимогам законів та інших нормативно-правових актів з охорони праці"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_44.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_50.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${plan},${oxr},${vrach},${stroi}</activiti:expression>
+            <activiti:expression>${visn}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -178,7 +179,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання дозволу релігійним організаціям на проведення релігійних заходів, які проводяться поза межами культових споруд]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання дозволу на виконання робіт підвищеної небезпеки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -266,7 +267,7 @@
     </serviceTask>
     <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
-    <sequenceFlow id="flow13" name="${decide == 'accept'}" sourceRef="exclusivegateway1" targetRef="usertask2">
+    <sequenceFlow id="flow16" name="${decide == 'accept'}" sourceRef="exclusivegateway1" targetRef="usertask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="usertask2" name="Відповідь поступає до ЦНАП">
@@ -296,12 +297,12 @@
     <sequenceFlow id="flow14" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow15" sourceRef="exclusivegateway2" targetRef="mailtask2">
-    <conditionExpression xsi:type="tFormalExpression"><![CDATA[${dozvil == 'decline'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${dozvil == 'decline'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow9" name="${dozvil == 'dozv' &amp;&amp; cnapChoose == 'prav'}" sourceRef="exclusivegateway2" targetRef="mailtask3">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${dozvil == 'dozv' &&cnapChoose == 'prav'}]]></conditionExpression>
+    <sequenceFlow id="flow9" name="${dozvil == 'dozv' &amp;&amp; res == 'post'}" sourceRef="exclusivegateway2" targetRef="mailtask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${dozvil == 'dozv' &&res == 'post'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask3" name="Дозвіл готовий на правому" activiti:type="mail">
+    <serviceTask id="mailtask3" name="Дозвіл відправлений поштою" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -310,7 +311,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання дозволу релігійним організаціям на проведення релігійних заходів, які проводяться поза межами культових споруд]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання дозволу на виконання робіт підвищеної небезпеки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -365,20 +366,10 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
 								  &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Ваш дозвіл для релігійних організацій на проведення релігійних заходів, які проводяться поза межами культових споруд готовий.&lt;/p&gt;
+                                        Ваш дозвіл на виконання робіт підвищеної небезпеки готовий.&lt;/p&gt;
 									&lt;p&gt;
-									Ви можете отримати результат у адміністратора ЦНАП особисто або доручити уповноваженій особі (необхідно мати довіренність).&lt;br/&gt;
-									Дозвіл видається під підпис при наявності документа, що посвідчує особу&lt;/p&gt;
-									&lt;p&gt;
-									ЦНАП „Правобережний”, м. Дніпропетровськ, просп. Карла Маркса, 75 (1-й поверх)&lt;br/&gt;
-									Графік роботи ЦНАП „Правобережний”:&lt;br/&gt;
-									понеділок -  з 9.00 до 18.00;&lt;br/&gt;
-									вівторок – з 9.00 до 20.00;&lt;br/&gt;
-									середа  - з 9.00 до 18.00;&lt;br/&gt;
-									четвер – з 9.00 до 20.00;&lt;br/&gt;
-									п’ятниця – з 9.00 до 16.45;&lt;br/&gt;
-									субота – з 9.00до 16.00,&lt;br/&gt;
-									крім святкових днів.&lt;/p&gt;
+										Результат надісланий вам поштою на адресу:&lt;br/&gt; 
+										${place_of_res}&lt;/p&gt;
                             
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -408,10 +399,10 @@
     </serviceTask>
     <sequenceFlow id="flow10" sourceRef="mailtask3" targetRef="endevent3"></sequenceFlow>
     <endEvent id="endevent3" name="End"></endEvent>
-    <sequenceFlow id="flow11" name="${dozvil == 'dozv' &amp;&amp; cnapChoose == 'lev'}" sourceRef="exclusivegateway2" targetRef="mailtask4">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${dozvil == 'dozv' &&cnapChoose == 'lev'}]]></conditionExpression>
+    <sequenceFlow id="flow11" name="${dozvil == 'dozv' &amp;&amp; res == 'cnap'}" sourceRef="exclusivegateway2" targetRef="mailtask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${dozvil == 'dozv' &&res == 'cnap'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask4" name="Дозвіл готовий на лівому" activiti:type="mail">
+    <serviceTask id="mailtask4" name="Дозвіл готовий у ЦНАП" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -420,7 +411,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання дозволу релігійним організаціям на проведення релігійних заходів, які проводяться поза межами культових споруд]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання дозволу на виконання робіт підвищеної небезпеки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -477,17 +468,17 @@
                                     &lt;p&gt;
                                         Ваш дозвіл для релігійних організацій на проведення релігійних заходів, які проводяться поза межами культових споруд готовий.&lt;/p&gt;
 									&lt;p&gt;
-									Ви можете отримати результат у адміністратора ЦНАП особисто або доручити уповноваженій особі (необхідно мати довіренність).&lt;br/&gt;
-									Дозвіл видається під підпис при наявності документа, що посвідчує особу&lt;/p&gt;
+										Ви можете отримати результат у адміністратора ЦНАП особисто або доручити уповноваженій особі (необхідно мати довіренність).&lt;br/&gt;
+										Дозвіл видається під підпис при наявності документа, що посвідчує особу&lt;/p&gt;
 									&lt;p&gt;
-									ЦНАП „Лівобережний”: м. Дніпропетровськ, просп. Газети „Правда”, 42 (1-й та 5-й поверхи)&lt;br/&gt;
-									Графік роботи ЦНАП „Лівобережний”:&lt;br/&gt;
-									понеділок -  з 9.00 до 18.00;&lt;br/&gt;
-									вівторок – з 9.00 до 18.00;&lt;br/&gt;
-									середа  - з 9.00 до 18.00;&lt;br/&gt;
-									четвер – з 9.00 до 18.00;&lt;br/&gt;
-									п’ятниця – з 9.00 до 16.45;&lt;br/&gt;
-									крім святкових днів.&lt;/p&gt;
+										ЦНАП „Лівобережний”: м. Дніпропетровськ, просп. Газети „Правда”, 42 (1-й та 5-й поверхи)&lt;br/&gt;
+										Графік роботи ЦНАП „Лівобережний”:&lt;br/&gt;
+										понеділок -  з 9.00 до 18.00;&lt;br/&gt;
+										вівторок – з 9.00 до 18.00;&lt;br/&gt;
+										середа  - з 9.00 до 18.00;&lt;br/&gt;
+										четвер – з 9.00 до 18.00;&lt;br/&gt;
+										п’ятниця – з 9.00 до 16.45;&lt;br/&gt;
+										крім святкових днів.&lt;/p&gt;
                             
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -516,9 +507,10 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow12" sourceRef="mailtask4" targetRef="endevent3"></sequenceFlow>
+   
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap-44">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_cnap-44" id="BPMNPlane_dnepr_cnap-44">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap-50">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_cnap-50" id="BPMNPlane_dnepr_cnap-50">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="10.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -552,11 +544,11 @@
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="680.0" y="177.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
-        <omgdc:Bounds height="35.0" width="35.0" x="920.0" y="180.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
         <omgdc:Bounds height="63.0" width="111.0" x="645.0" y="82.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="920.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
         <omgdc:Bounds height="61.0" width="108.0" x="647.0" y="250.0"></omgdc:Bounds>
@@ -592,13 +584,6 @@
         <omgdi:waypoint x="567.0" y="44.0"></omgdi:waypoint>
         <omgdi:waypoint x="600.0" y="44.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
-        <omgdi:waypoint x="530.0" y="197.0"></omgdi:waypoint>
-        <omgdi:waypoint x="550.0" y="197.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="509.0" y="209.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
         <omgdi:waypoint x="655.0" y="197.0"></omgdi:waypoint>
         <omgdi:waypoint x="680.0" y="197.0"></omgdi:waypoint>
@@ -611,7 +596,7 @@
         <omgdi:waypoint x="700.0" y="177.0"></omgdi:waypoint>
         <omgdi:waypoint x="700.0" y="145.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="56.0" width="100.0" x="780.0" y="62.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="780.0" y="62.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
@@ -623,13 +608,17 @@
         <omgdi:waypoint x="700.0" y="217.0"></omgdi:waypoint>
         <omgdi:waypoint x="701.0" y="250.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="56.0" width="100.0" x="765.0" y="231.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="765.0" y="231.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
         <omgdi:waypoint x="755.0" y="280.0"></omgdi:waypoint>
         <omgdi:waypoint x="937.0" y="280.0"></omgdi:waypoint>
         <omgdi:waypoint x="937.0" y="215.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="530.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="550.0" y="197.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

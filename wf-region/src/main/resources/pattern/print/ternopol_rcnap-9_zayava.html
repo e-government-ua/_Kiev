@@ -1,5 +1,8 @@
-﻿<div>
-        <style type="text/css">
+<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	﻿<style type="text/css">
         html, body {margin: 0; padding: 0; height: 100%; font: 400 14px/16px 'Tahoma';}
 
 .print_wrap {width: 705px; padding: 35px 25px 85px 35px; min-height: 100%; height: 100%; margin: 0 auto;}
@@ -13,9 +16,11 @@
 .p-right {float: right;}
 .p-left {float: left;}
 
-.xs-font {font-size: 16px; line-height: 18px;}
-.xs-font p {font-size: 16px;}
-.xs-font span {font-size: 16px;}
+.xs-font {font-size: 15px; line-height: 18px;}
+.xs-font p {font-size: 15px;}
+.xs-font span {font-size: 15px;}
+.x-font {font-size: 14px;}
+.x-font p {font-size: 14px;}
 
 .fw {width: 100%;}
 
@@ -41,8 +46,13 @@
 
 .m-t-15 {margin-top: 15px !important;}
 .m-t-25 {margin-top: 25px !important;}
+.m-t-m25 {margin-top: 25px !important;}
+.m-t-45 {margin-top: 45px !important;}
 .m-t-85 {margin-top: 85px !important;}
+.m-t-130 {margin-top: 130px !important;}
+.m-t-150 {margin-top: 150px !important;}
 .m-r-12 {margin-right: 12px !important;}
+.m-r-60 {margin-right: 60px !important;}
 .m-l-65 {margin-left: 65px !important;}
 .m-l-120 {margin-left: 120px !important;}
 .m-l-180 {margin-left: 180px !important;}
@@ -91,38 +101,110 @@ table.zit_v-form2 tr td {border: 1px solid black; padding: 3px 8px;}
 
 .date_subm { margin: 20px 0 25px 0;}
 .date_subm .month-fl-sm {float: left;}
-.date_subm.invert .month-fl-sm {float: right;}
 .date_subm .month-fl-sm > span {height: 20px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
 .date_subm .month-fl-sm > span:nth-child(1) {width: 45px;}
 .date_subm .month-fl-sm > span:nth-child(2) {width: 120px;}
 .date_subm .month-fl-sm > span:nth-child(3) {width: 20px;}
-.date_subm .signature {width: 240px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
-.date_subm.invert .signature {float: left;}
+.date_subm .invsm {float: right;}
+.date_subm .month-fl-sm > span {height: 20px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
+.date_subm .month-fl-sm > span:nth-child(1) {width: 45px;}
+.date_subm .month-fl-sm > span {height: 50px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
+.date_subm .signature {width: 300px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
 .date_subm .signature > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
+.date_subm .inv {width: 200px; height: 20px; float: left; border-bottom: 1px solid black; position: relative;} 
+.date_subm .inv > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
 
-p {font-size: 11px;}
+p {font-size: 12px;}
 
 .clear {clear: both;}
 </style>
+</head>
+<body>
 <section class="print_wrap">
-    <div class="w365 line_col ta-l p-right xs-font">
-        <p>Начальнику управління Держземагентства у Тернопільському районі</p>
-
-        <p >[clFio]</p>
-
-        <p class="m-clear"><span class="m-r-12">адреса</span>[place_of_reg]</p>
-        <p>тел. [phone]</p>
+    <div class="w500 line_col ta-r p-right xs-font">
+        <p><b>Відділ Держгеокадастру у Тернопільському районі</b></p>
     </div>
-    <div class="clear"></div>
-    <div class="line_col ta-c m-t-25">
-        ЗАЯВА<br />
-        <div class="under_field_line wub ta-l">Прошу надати мені Витяг з технічної документації про нормативну грошову оцінку земельної ділянки, яка знаходиться в [landAddress]</div>
+	<div class="clear"></div>
+	<div class="xs-font ta-c">
+		<p><b>З А Я В А</b></p>	
+	</div>
+	<div class="x-font ta-c">
+		<p><b>Відповідно до Закону України «Про надання адміністративних послуг» прошу надати мені</b></p>
     </div>
-    <div class="date_subm m-t-85">
-        <div class="month-fl-sm"><span></span><span></span>2015 р.</div>
-        <div class="signature"><span>(підпис)</span></div>
-        <div class="clear"></div>
+	<div class="x-font under_field_line ta-c">
+		<p>Витяг з технічної документації про нормативну грошову оцінку земельної ділянки</p>
+		<span>(назва адміністративної послуги)</span>
+    </div>
+	<div class="clear"></div>
+	<div class="x-font under_field_line ta-c">
+		<p>[clFio]</p>
+		<span>(суб'єкт, якому надається адміністративна послуга)</span>
+    </div>
+	<div class="clear"></div>
+	<div class="x-font under_field_line ta-c">
+		<p>[landAddress]</p>
+		<span>(місцезнаходження (адреса) об'єкта)</span>
+    </div>
+	<div class="clear"></div>
+	<div class="x-font under_field_line ta-c">
+		<p>[bankIdinn]</p>
+		<span>(ідентифікаційний код згідно з ЄДРПОУ, реєстраційний номер облікової картки платника податків)</span>
+    </div>
+	<div class="clear"></div>
+	<div class="x-font under_field_line ta-c">
+		<p>[clFio]</p>
+		<span>(ім'я, по батькові та прізвище отримувача адміністративної послуги/уповноваженої особи)</span>
+    </div>
+	<div class="clear"></div>
+    <div class="date_subm m-t-25 m-l-65">
+		<div class="inv"><span>(телефон)</span></div>
+        <div class="signature m-r-12"><span>(факс)</span></div>
+    </div>
+	<div class="clear"></div>
+	<div class="date_subm m-t-45 m-l-65">
+		<div class="inv"><span>(дата подання заяви)</span></div>
+        <div class="signature m-r-12"><span>(підпис особи-отримувача адміністративних послуг)</div>
+			</span></div>
+    </div>
+	<div class="clear"></div>
+	<div class="date_subm m-t-45 x-font"> 
+	<p>Докумети, що додаються до заяви:</p>
+	</div>
+	<div class="x-font under_field_line ta-l">
+		<p>1.</p>
+    </div>
+	<div class="x-font under_field_line ta-l">
+		<p>2.</p>
+    </div>
+	<div class="x-font under_field_line ta-l">
+		<p>3.</p>
+    </div>
+	<div class="x-font under_field_line ta-l">
+		<p>4.</p>
+    </div>
+	<div class="x-font under_field_line ta-l">
+		<p>5.</p>
+    </div>
+	<div class="x-font under_field_line ta-l">
+		<p>6.</p>
+    </div>
+	<div class="clear"></div>
+	<div class="date_subm m-t-25 x-font">
+		<p>Прошу у разі готовності витяг [res]</p>
+    </div>
+		<div class="date_subm m-t-25 x-font">
+		<p><b>Заповнюється адміністратором:</b></p>
+    </div>
+	<div class="date_subm m-t-25 m-l-65">
+		<div class="inv"><span>(дата надходження заяви)</span></div>
+    </div>
+	<div class="month-fl m-r-60 ta-l">Реєстраційний номер__________</div>
+	<div class="clear"></div>
+	<div class="date_subm m-t-25 m-l-65">
+		<div class="inv"><span>(підпис адміністратора)</span></div>
+        <div class="signature"><span>(прізвище та ініціали адміністратора)</span></div>
     </div>
     <div class="clear"></div>
 </section>
-</div>
+</body>
+</html>
