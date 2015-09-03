@@ -40,17 +40,17 @@
     </boundaryEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow2" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <sequenceFlow id="flow4" sourceRef="servicetask1" targetRef="mailtask2"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="servicetask5" targetRef="mailtask2"></sequenceFlow>
     <userTask id="usertask2" name="Перевірка даних Правобережний ЦНАП" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clAddress" name="Адреса заявника" type="string" default="${bankIdAddress}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clbankIdPassport" name="Паспортні дані (серія, номер, ким і коли виданий)" type="string" default="${bankIdPassport}"></activiti:formProperty>
+        <activiti:formProperty id="clbankIdPassport" name="Паспортні дані (серія, номер, ким і коли виданий)" type="string" default="${bankIdPassport}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clzagibl" name="Прізвище, ім`я, по-батькові загиблого" type="string" default="${FIO}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clrodna" name="Ступінь спорідненості із загиблим" type="string" default="${rodna}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clfuneraldate" name="Дата поховання і актовий запис" type="string" default="${funeraldate}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clact_no" name="Номер акта про поховання" type="string" default="${act_no}"></activiti:formProperty>
+        <activiti:formProperty id="clact_no" name="Номер акта про поховання" type="string" default="${act_no}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clcementary" name="Місце перезахоронення" type="string" default="${cementary}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="cldeathdate" name="Дата загибелі" type="string" default="${deathdate}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clVibor" name="Оригінал довідки заявник бажає отримати через" type="string" default="${vibor}" writable="false"></activiti:formProperty>
@@ -521,6 +521,8 @@
     <sequenceFlow id="flow23" sourceRef="exclusivegateway1" targetRef="servicetask4">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='yes'&&vibor=='lev'}]]></conditionExpression>
     </sequenceFlow>
+    <serviceTask id="servicetask5" name="Service Task" activiti:delegateExpression="${enumTask}"></serviceTask>
+    <sequenceFlow id="flow24" sourceRef="servicetask1" targetRef="servicetask5"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_41">
     <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_41" id="BPMNPlane_dnepr_cnap_41">
@@ -560,6 +562,9 @@
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="420.0" y="153.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="25.0" y="250.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="77.0" y="97.0"></omgdi:waypoint>
         <omgdi:waypoint x="77.0" y="146.0"></omgdi:waypoint>
@@ -569,8 +574,8 @@
         <omgdi:waypoint x="229.0" y="95.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="130.0" y="173.0"></omgdi:waypoint>
-        <omgdi:waypoint x="160.0" y="173.0"></omgdi:waypoint>
+        <omgdi:waypoint x="77.0" y="250.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="201.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
         <omgdi:waypoint x="601.0" y="102.0"></omgdi:waypoint>
@@ -617,6 +622,10 @@
         <omgdi:waypoint x="440.0" y="193.0"></omgdi:waypoint>
         <omgdi:waypoint x="440.0" y="243.0"></omgdi:waypoint>
         <omgdi:waypoint x="496.0" y="243.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="77.0" y="201.0"></omgdi:waypoint>
+        <omgdi:waypoint x="77.0" y="250.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
