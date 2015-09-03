@@ -130,7 +130,8 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
 &lt;p&gt;Щодо Вашого запиту на отримання листа-довідки на перевезення (перезахоронення)загиблого в зоні АТО.
-На жаль, вашу заяву відхилено.
+На жаль, вашу заяву відхилено.&lt;br&gt;
+${comment} &lt;br&gt;
 Ви можете подати ще одну заяву на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;igov.org.ua&lt;/a&gt;&lt;/p&gt;
 
 
