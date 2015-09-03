@@ -235,8 +235,8 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             String accessKey = accessDataDao.setAccessData(URI + queryParam);
             String replacemet = URL_SERVICE_MESSAGE + queryParam 
                     + String.format(accessKeyPattern, accessKey);
-            Log.info("textWithoutTags" + textWithoutTags);
-            Log.info("replacemet " + TAG_sURL_SERVICE_MESSAGE + ": " + replacemet);
+            LOG.info("textWithoutTags" + textWithoutTags);
+            LOG.info("replacemet " + TAG_sURL_SERVICE_MESSAGE + ": " + replacemet);
             textWithoutTags = textWithoutTags.replaceAll(TAG_sURL_SERVICE_MESSAGE, replacemet);
         }
         if (textWithoutTags.contains(TAG_CANCEL_TASK)){
