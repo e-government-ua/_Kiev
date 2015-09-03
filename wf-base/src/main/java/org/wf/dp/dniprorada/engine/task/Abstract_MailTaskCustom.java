@@ -33,6 +33,7 @@ import org.wf.dp.dniprorada.liqPay.LiqBuy;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Mail;
 import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
+import org.wf.dp.dniprorada.util.Util;
 
 public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
@@ -51,6 +52,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     private static final String TAG_nID_SUBJECT = "[nID_Subject]";
     private static final String TAG_sACCESS_KEY = "[sAccessKey]";
     private static final String TAG_sURL_SERVICE_MESSAGE = "[sURL_ServiceMessage]";
+    //[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1
+    private static final String queryParamPattern = "?nID_Subject=%s&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1&amp;sAccessContract=Request"; //sAccessKey=%s&amp;
+    private static final String accessKeyPattern = "&amp;sAccessKey=%s";
     //private static final String URL_SERVICE_MESSAGE = "https://test.igov.org.ua/wf-central/service/messages/setMessage";
     private static final String TAG_Function_AtEnum = "enum{[";
     private static final String TAG_Function_To = "]}";
@@ -220,7 +224,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             //textWithoutTags = textWithoutTags.replaceAll(TAG_nID_SUBJECT, "" + nID_Subject);
         }
                 
-                
+        //[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1       
         if (textWithoutTags.contains(TAG_nID_Protected)) {
             LOG.info("execution.getProcessInstanceId()="+execution.getProcessInstanceId());
             long nID_Protected = getProtectedNumber(Long.valueOf(execution.getProcessInstanceId()));
@@ -228,14 +232,18 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             textWithoutTags = textWithoutTags.replaceAll(TAG_nID_Protected, "" + nID_Protected);
         }
         
-        if (textWithoutTags.contains(TAG_nID_SUBJECT)) {
+        /*if (textWithoutTags.contains(TAG_nID_SUBJECT)) {
             textWithoutTags = textWithoutTags.replaceAll(TAG_nID_SUBJECT, "" + nID_Subject);
         }
         if (textWithoutTags.contains(TAG_sACCESS_KEY)) {
             textWithoutTags = textWithoutTags.replaceAll(TAG_sACCESS_KEY, accessDataDao.setAccessData("" + nID_Subject));
-        }
+        }*/
         if (textWithoutTags.contains(TAG_sURL_SERVICE_MESSAGE)) {
-            textWithoutTags = textWithoutTags.replaceAll(TAG_sURL_SERVICE_MESSAGE, URL_SERVICE_MESSAGE);
+            String URI = Util.deleteContextFromURL(URL_SERVICE_MESSAGE);
+            String queryParam = String.format(queryParamPattern, "" + nID_Subject);
+            String accessKey = accessDataDao.setAccessData(URI + queryParam);
+            textWithoutTags = textWithoutTags.replaceAll(TAG_sURL_SERVICE_MESSAGE, URL_SERVICE_MESSAGE + queryParam 
+                    + String.format(accessKeyPattern, accessKey));
         }
         return textWithoutTags;
     }

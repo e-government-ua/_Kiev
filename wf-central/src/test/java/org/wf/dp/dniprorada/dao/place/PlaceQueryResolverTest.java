@@ -17,10 +17,10 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("default")
 @ContextConfiguration(locations = {"classpath:context.xml"})
-public class PlaceQueryDaoBuilderTest {
+public class PlaceQueryResolverTest {
 
     @Autowired
-    private PlaceQueryDaoBuilder sqlBuilder;
+    private PlaceQueryResolver sqlBuilder;
 
     @Test
     public void sqlTreeUp(){

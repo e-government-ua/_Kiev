@@ -1,5 +1,6 @@
 package org.activiti.rest.controller;
 
+import com.google.common.collect.Lists;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.redis.util.RedisUtil;
 import org.slf4j.Logger;
@@ -34,10 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 
@@ -167,9 +165,12 @@ public class ActivitiRestDocumentController {
             
                            HttpServletRequest request, HttpServletResponse httpResponse) 
                            throws ActivitiRestException{
+
         Document document = null;
         byte[] content = {};
-        if (id != null && !"null".equals(id) && docTypeID != 0) {
+        Collection<Long> specialDocTypes = Lists.newArrayList(0L, 1L); //Two different types of DocumentKvitancii
+
+        if (id != null && !"null".equals(id) && !specialDocTypes.contains(docTypeID)) {
             document = documentDao.getDocument(new Long(id));
             if(!nID_Subject.equals(document.getSubject().getId())){
                 if(accessCode!=null){
@@ -190,16 +191,20 @@ public class ActivitiRestDocumentController {
             }
         }
 
-        if (docTypeID == 0) {
-            document = handlerFactory
-                    .buildHandlerFor(documentDao.getOperator(organID))
-                    .setDocumentType(docTypeID)
-                    .setAccessCode(accessCode)
-                    .setPassword(password)
-                    .setWithContent(true)
-                    .setIdSubject(nID_Subject)
-                    .getDocument();
-            content = document.getFileBody();
+        if (specialDocTypes.contains(docTypeID)) {
+            try {
+                document = handlerFactory
+                        .buildHandlerFor(documentDao.getOperator(organID))
+                        .setDocumentType(docTypeID)
+                        .setAccessCode(accessCode)
+                        .setPassword(password)
+                        .setWithContent(true)
+                        .setIdSubject(nID_Subject)
+                        .getDocument();
+                content = document.getFileBody().getBytes();
+            } catch (IOException e) {
+                throw new ActivitiRestException("500", "Can't read document content!");
+            }
         }
 
         httpResponse.setHeader("Content-Type", document.getContentType() + ";charset=UTF-8");

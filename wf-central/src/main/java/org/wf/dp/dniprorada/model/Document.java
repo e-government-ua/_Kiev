@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.base.model.NamedEntity;
 import org.wf.dp.dniprorada.base.util.JsonDateDeserializer;
 import org.wf.dp.dniprorada.base.util.JsonDateSerializer;
@@ -16,7 +17,7 @@ import javax.persistence.*;
 public class Document extends NamedEntity {
 
 	@Transient
-	private byte[] fileBody;
+	private MultipartFile fileBody;
 
 	@JsonProperty(value = "oDocumentType")
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -74,11 +75,11 @@ public class Document extends NamedEntity {
     @Column(name = "oSignData", nullable = false )
     private String oSignData;
 
-	public byte[] getFileBody() {
+	public MultipartFile getFileBody() {
 		return fileBody;
 	}
 
-	public void setFileBody(byte[] fileBody) {
+	public void setFileBody(MultipartFile fileBody) {
 		this.fileBody = fileBody;
 	}
 
