@@ -31,8 +31,10 @@ public class GeneralConfig {
 	@Value("${general.auth.password}")
 	private String generalPassword;
 
-    @Value("${general.sURL_DocumentKvitancii}")
-    private String general_sURL_DocumentKvitancii;
+    @Value("${general.sURL_DocumentKvitanciiForIgov}")
+    private String general_sURL_DocumentKvitanciiForIgov;
+    @Value("${general.sURL_DocumentKvitanciiForAccounts}")
+    private String general_sURL_DocumentKvitanciiForAccounts;
     @Value("${general.sURL_GenerationSID}")
     private String general_sURL_GenerationSID;
     @Value("${general.sURL_DocumentKvitanciiCallback}")
@@ -59,8 +61,11 @@ public class GeneralConfig {
         return generalPassword;
     }
 
-    public String sURL_DocumentKvitancii(){
-        return general_sURL_DocumentKvitancii;
+    public String sURL_DocumentKvitanciiForIgov(){
+        return general_sURL_DocumentKvitanciiForIgov;
+    }
+    public String sURL_DocumentKvitanciiForAccounts(){
+        return general_sURL_DocumentKvitanciiForAccounts;
     }
     public String sURL_GenerationSID(){
         return general_sURL_GenerationSID;

@@ -18,6 +18,7 @@ import org.wf.dp.dniprorada.model.LiqpayCallbackModel;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Mail;
@@ -67,19 +68,18 @@ public class ActivitiPaymentRestController {
 			@RequestParam String sID_PaymentSystem,
 			@RequestParam String sData,
 			@RequestParam(value = "data", required = false) String data,
-			@RequestParam(value = "signature", required = false) String signature
-			//@RequestParam byte[] data,
-			//@RequestParam byte[] signature
+			@RequestParam(value = "signature", required = false) String signature,
+			HttpServletRequest request
 			) throws Exception{
-
+            String URI = request.getRequestURI() + "?" + request.getQueryString();
             log.info("/setPaymentStatus_TaskActiviti");
             
             log.info("sID_Order="+sID_Order);
             log.info("sID_PaymentSystem="+sID_PaymentSystem);
             log.info("sData="+sData);
-
             log.info("data="+data);
             log.info("signature="+signature);
+            log.info("URI="+URI);
             String sDataDecoded = null;
             
             try{
@@ -94,7 +94,8 @@ public class ActivitiPaymentRestController {
                 String snID_Subject="0";
                 String sAccessKey=null;
                 try{
-                    sAccessKey = accessDataDao.setAccessData(snID_Subject);
+                    //sAccessKey = accessDataDao.setAccessData(snID_Subject);
+                    sAccessKey = accessDataDao.setAccessData(URI);
                 }catch(Exception oException1){
                     log.error("/setPaymentStatus_TaskActiviti:sAccessKey=", oException1);
                 }
@@ -105,8 +106,7 @@ public class ActivitiPaymentRestController {
                         .append("sID_Order=").append(sID_Order)
                         .append("&sID_PaymentSystem=").append(sID_PaymentSystem)
                         .append("&sData=").append("")
-                        //.append("&sID_Transaction=").append("")
-                        //.append("&sStatus_Payment=").append("")
+                        .append("sAccessContract=").append("Request")
                         .append("nID_Subject=").append(snID_Subject)
                         .append("&sAccessKey=").append(sAccessKey)
                         .toString();

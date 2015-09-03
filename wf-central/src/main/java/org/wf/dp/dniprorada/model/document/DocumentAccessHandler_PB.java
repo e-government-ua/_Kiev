@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.model.document;
 
+import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 import java.util.Collections;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -67,16 +69,25 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
     public Document getDocument() {
         Document doc = new Document();
         String sessionId;
-        String uriDoc = generalConfig.sURL_DocumentKvitancii();
-        String keyIdParam = "?keyID=";
+        String keyIdParam;
         String callBackKey = "&callbackUrl=";
         String callBackValue = generalConfig.sURL_DocumentKvitanciiCallback();
         String keyID = this.accessCode;
-        String finalUri = uriDoc + keyIdParam + keyID + callBackKey + callBackValue;
-        if (this.documentTypeId == null || !Long.valueOf(0L).equals(this.documentTypeId)) {
+        Collection<Long> correctDocTypes = Lists.newArrayList(0L, 1L);
+        String uriDoc;
+
+        if (this.documentTypeId == null || !correctDocTypes.contains(this.documentTypeId)) {
             LOG.error("DocumentTypeId = " + this.documentTypeId);
             throw new DocumentTypeNotSupportedException("Incorrect DocumentTypeId. DocumentTypeId = " + this.documentTypeId);
+        } else {
+            uriDoc = Long.valueOf(0L).equals(this.documentTypeId) ?
+                    generalConfig.sURL_DocumentKvitanciiForIgov() : generalConfig.sURL_DocumentKvitanciiForAccounts();
+
+            keyIdParam = Long.valueOf(0L).equals(this.documentTypeId) ? "?keyID=" : "?id=";
         }
+
+        String finalUri = uriDoc + keyIdParam + keyID + callBackKey + callBackValue;
+
 
         if (generalConfig.bTest()) {
             SSLCertificateValidation.disable();
@@ -105,7 +116,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
             }
 
             if (this.withContent) {
-                doc.setFileBody(documentEntity.getBody());
+                doc.setFileBody(getFileFromRespEntity(documentEntity));
             }
 
             doc.setDocumentType(documentTypeDao.findByIdExpected(0L));
@@ -164,7 +175,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
 
     }
 
-    private MultipartFile getFileFromRespEntity(ResponseEntity<String> documentEntity) throws ParseException {
+    private MultipartFile getFileFromRespEntity(ResponseEntity<byte[]> documentEntity) throws ParseException {
         String contentType = documentEntity.getHeaders().getContentType().toString();
         String contentDispositionHeader = documentEntity.getHeaders().get("Content-Disposition").get(0);
         ContentDisposition header = new ContentDisposition(contentDispositionHeader);
@@ -175,7 +186,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
         String[] parts = contentType.split("/");
         String fileExtension = parts.length < 2 ? "" : parts[1];
 
-        return new ByteArrayMultipartFileOld(new ByteArrayInputStream(documentEntity.getBody().getBytes(StandardCharsets.UTF_8)),
+        return new ByteArrayMultipartFileOld(new ByteArrayInputStream(documentEntity.getBody()),
                 documentName, documentName, contentType + ";" + fileExtension);
 
     }

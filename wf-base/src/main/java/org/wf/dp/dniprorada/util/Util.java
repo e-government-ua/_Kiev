@@ -260,5 +260,10 @@ public final class Util {
         }
         return null;
     }
+    
+    public static String deleteContextFromURL(String URL){
+    	String temp = URL.substring(URL.indexOf("//") + 2);
+        return temp.substring(temp.indexOf("/")) ;
+    }
 
 }
