@@ -1,39 +1,30 @@
 package org.wf.dp.dniprorada.engine.task;
 
-import java.net.URL;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import javax.activation.DataHandler;
-import javax.activation.URLDataSource;
-import javax.mail.BodyPart;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import org.activiti.engine.EngineServices;
-import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
-import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.mail.MultiPartEmail;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 import org.wf.dp.dniprorada.constant.Currency;
 import org.wf.dp.dniprorada.constant.Language;
 import org.wf.dp.dniprorada.liqPay.LiqBuy;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Mail;
-import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
 import org.wf.dp.dniprorada.util.Util;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
+import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
 
 public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
@@ -45,15 +36,15 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     Mail oMail;
     
     private static final String TAG_PAYMENT_BUTTON_LIQPAY = "[paymentButton_LiqPay]";
-    
+    private static final String TAG_CANCEL_TASK = "[cancelTask]";
 
     //private static final String LIQPAY_CALLBACK_URL = "https://test.region.igov.org.ua/wf-region/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=Liqpay&sData=";
     private static final String TAG_nID_Protected = "[nID_Protected]";
     private static final String TAG_nID_SUBJECT = "[nID_Subject]";
     private static final String TAG_sACCESS_KEY = "[sAccessKey]";
     private static final String TAG_sURL_SERVICE_MESSAGE = "[sURL_ServiceMessage]";
-    //[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1
-    private static final String queryParamPattern = "?nID_Subject=%s&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1&amp;sAccessContract=Request"; //sAccessKey=%s&amp;
+    //[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ&amp;sMail= &amp;nID_SubjectMessageType=1
+    private static final String queryParamPattern = "?nID_Subject=%s&amp;sData=пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ&amp;sMail= &amp;nID_SubjectMessageType=1&amp;sAccessContract=Request"; //sAccessKey=%s&amp;
     private static final String accessKeyPattern = "&amp;sAccessKey=%s";
     //private static final String URL_SERVICE_MESSAGE = "https://test.igov.org.ua/wf-central/service/messages/setMessage";
     private static final String TAG_Function_AtEnum = "enum{[";
@@ -224,26 +215,36 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             //textWithoutTags = textWithoutTags.replaceAll(TAG_nID_SUBJECT, "" + nID_Subject);
         }
                 
-        //[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1       
+        //[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ&amp;sMail= &amp;nID_SubjectMessageType=1       
         if (textWithoutTags.contains(TAG_nID_Protected)) {
             LOG.info("execution.getProcessInstanceId()="+execution.getProcessInstanceId());
-            long nID_Protected = getProtectedNumber(Long.valueOf(execution.getProcessInstanceId()));
+            Long nID_Protected = getProtectedNumber(Long.valueOf(execution.getProcessInstanceId()));
             LOG.info("nID_Protected="+nID_Protected);
             textWithoutTags = textWithoutTags.replaceAll(TAG_nID_Protected, "" + nID_Protected);
         }
         
-        /*if (textWithoutTags.contains(TAG_nID_SUBJECT)) {
+        if (textWithoutTags.contains(TAG_nID_SUBJECT)) {
             textWithoutTags = textWithoutTags.replaceAll(TAG_nID_SUBJECT, "" + nID_Subject);
         }
         if (textWithoutTags.contains(TAG_sACCESS_KEY)) {
             textWithoutTags = textWithoutTags.replaceAll(TAG_sACCESS_KEY, accessDataDao.setAccessData("" + nID_Subject));
-        }*/
+        }
         if (textWithoutTags.contains(TAG_sURL_SERVICE_MESSAGE)) {
             String URI = Util.deleteContextFromURL(URL_SERVICE_MESSAGE);
             String queryParam = String.format(queryParamPattern, "" + nID_Subject);
             String accessKey = accessDataDao.setAccessData(URI + queryParam);
-            textWithoutTags = textWithoutTags.replaceAll(TAG_sURL_SERVICE_MESSAGE, URL_SERVICE_MESSAGE + queryParam 
-                    + String.format(accessKeyPattern, accessKey));
+            String replacemet = URL_SERVICE_MESSAGE + queryParam 
+                    + String.format(accessKeyPattern, accessKey);
+            LOG.info("textWithoutTags" + textWithoutTags);
+            LOG.info("replacemet " + TAG_sURL_SERVICE_MESSAGE + ": " + replacemet);
+            textWithoutTags = textWithoutTags.replaceAll(TAG_sURL_SERVICE_MESSAGE, replacemet);
+        }
+        if (textWithoutTags.contains(TAG_CANCEL_TASK)){
+            //LOG.info("execution.getProcessInstanceId() = "+execution.getProcessInstanceId());
+            Long nID_Task = Long.valueOf(execution.getProcessInstanceId());
+            String cancelTaskBtn = new CancelTaskUtil().getCancelFormHTML(nID_Task);
+            LOG.info("cancel button = " + cancelTaskBtn);
+            textWithoutTags = textWithoutTags.replaceAll(TAG_CANCEL_TASK, cancelTaskBtn);
         }
         return textWithoutTags;
     }
