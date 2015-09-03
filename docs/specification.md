@@ -999,7 +999,7 @@ ID созданного attachment - "id":"45"
 ####15. Работа с каталогом сервисов
 </a><a href="#0_contents">↑Up</a><br/>
 
-**HTTP Context: http://server:port/wf-central/service/services/getServicesTree** - Получение делева сервисов
+**HTTP Context: http://server:port/wf-central/service/services/getServicesTree** - Получение дерева сервисов
 
 **HTTP Metod: GET**
 
