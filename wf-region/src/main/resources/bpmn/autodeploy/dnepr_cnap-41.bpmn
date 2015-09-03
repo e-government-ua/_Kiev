@@ -52,7 +52,11 @@
         <activiti:formProperty id="clact_no" name="Номер акта про поховання" type="string" default="${act_no}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clcementary" name="Місце перезахоронення" type="string" default="${cementary}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="cldeathdate" name="Дата загибелі" type="string" default="${deathdate}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clVibor" name="Оригінал довідки заявник бажає отримати через" type="string" default="${vibor}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="vibor" name="Оригінал довідки заявник бажає отримати через" type="enum" writable="false">
+          <activiti:value id="post" name="Поштою (буде стягуватись платня за рекомендований лист)"></activiti:value>
+          <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
+          <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="proverka" name="Рішення про прийняття або відхилення заяви" type="enum">
           <activiti:value id="yes" name="Заяву прийнято"></activiti:value>
           <activiti:value id="no" name="Заяву відхилено"></activiti:value>
