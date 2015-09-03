@@ -16,6 +16,7 @@
           <activiti:value id="attr3_zhovt" name="Жовтневий"></activiti:value>
           <activiti:value id="attr4_indust" name="Індустріальний"></activiti:value>
           <activiti:value id="attr5_kirov" name="Кіровський"></activiti:value>
+          <activiti:value id="attr8_krasn" name="Красногвардійський"></activiti:value>
           <activiti:value id="attr6_lenin" name="Ленінський"></activiti:value>
           <activiti:value id="attr7_samar" name="Самарський"></activiti:value>
         </activiti:formProperty>
@@ -154,6 +155,7 @@
           <activiti:value id="attr3_zhovt" name="Жовтневий"></activiti:value>
           <activiti:value id="attr4_indust" name="Індустріальний"></activiti:value>
           <activiti:value id="attr5_kirov" name="Кіровський"></activiti:value>
+          <activiti:value id="attr8_krasn" name="Красногвардійський"></activiti:value>
           <activiti:value id="attr6_lenin" name="Ленінський"></activiti:value>
           <activiti:value id="attr7_samar" name="Самарський"></activiti:value>
         </activiti:formProperty>
