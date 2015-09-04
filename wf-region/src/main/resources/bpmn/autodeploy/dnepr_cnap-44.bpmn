@@ -25,7 +25,7 @@
           <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
           <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду відповідно до Закону України „Про захист персональних даних” на обробку Ваших особистих персональних даних у картотеках та/або за допомогою інформаційно-телекомунікаційних систем з метою підготовки відповідно до вимог законодавства статистичної, адміністративної та іншої інформації."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду відповідно до Закону України „Про захист персональних даних” на обробку Ваших особистих персональних даних у картотеках та/або за допомогою інформаційно-телекомунікаційних систем з метою підготовки відповідно до вимог законодавства статистичної, адміністративної та іншої інформації."></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -137,7 +137,7 @@
     <userTask id="usertask1" name="Заява поступає до ЦНАП" activiti:candidateGroups="dnepr_cnap_44_${cnapChoose}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Суб’єкт звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="long" default="38" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="orgName" name="Назва релігійної громади/організації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="orgAdress" name="Адреса релігійної громади/організації" type="string" writable="false"></activiti:formProperty>
@@ -147,7 +147,7 @@
         <activiti:formProperty id="eventDate" name="Дата проведення заходу" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventTime" name="Час проведення заходу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="golovniy" name="Відповідальна особа за проведення релігійного масового заходу" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="golovniy" name="Відповідальна особа за проведення релігійного масового заходу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення чиновника" type="enum" required="true">
           <activiti:value id="accept" name="Взяти в роботу"></activiti:value>
           <activiti:value id="decline" name="Відмовити в проведенні заходу"></activiti:value>
@@ -267,10 +267,10 @@
     <sequenceFlow id="flow13" name="${decide == 'accept'}" sourceRef="exclusivegateway1" targetRef="usertask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask2" name="Відповідь поступає до ЦНАП">
+    <userTask id="usertask2" name="Відповідь поступає до ЦНАП" activiti:candidateGroups="dnepr_cnap_44_${cnapChoose}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Суб’єкт звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="long" default="38" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="orgName" name="Назва релігійної громади/організації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="orgAdress" name="Адреса релігійної громади/організації" type="string" writable="false"></activiti:formProperty>
@@ -371,7 +371,7 @@
 									середа  - з 9.00 до 18.00;&lt;br/&gt;
 									четвер – з 9.00 до 20.00;&lt;br/&gt;
 									п’ятниця – з 9.00 до 16.45;&lt;br/&gt;
-									субота – з 9.00до 16.00,&lt;br/&gt;
+									субота – з 9.00 до 16.00,&lt;br/&gt;
 									крім святкових днів.&lt;/p&gt;
                             
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
