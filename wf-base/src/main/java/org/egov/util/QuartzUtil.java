@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 
 public class QuartzUtil {
 
-	private static final String QUARTZ_FORMAT = "{\"0 15,30,45/[INTERVAL] [HOURS_PERIOD] ? * [DAYS]\":\"PT[INTERVAL]M\"}";
+	private static final String QUARTZ_FORMAT = "{\"0 0/[INTERVAL] [HOURS_PERIOD] ? * [DAYS]\":\"PT[INTERVAL]M\"}";
 	
 	public static String getQuartzFormulaByParameters(String sRegionTime, String saRegionWeekDay, Integer nLen){
 		String res = QUARTZ_FORMAT.replaceFirst("[INTERVAL]", nLen.toString());
