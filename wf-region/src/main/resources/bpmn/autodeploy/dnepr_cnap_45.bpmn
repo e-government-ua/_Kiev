@@ -26,27 +26,20 @@
         <activiti:formProperty id="org_forma" name="Організаційно-правова форма" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="inn_zaklad" name="Ідентифікаційний код закладу" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="info_8" name="Банківські реквізити закладу" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="rahunok" name="розрахунковий рахунок" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="mfo" name="МФО" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="rahunok" name="розрахунковий рахунок" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="mfo" name="МФО" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bank" name="найменування відділення банку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="file_lic_old" name="завантажте відсканований оригінал ліцензії" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="info_9" name="завантажте документ, що засвідчує внесення плати за переоформлення (видачу копії або дубліката ліцензії)" type="label" default="якщо Ви бажаєте внести оплату через шнтеренет - пропустіть цей етап - Вам буде в електронному листі надіслано форму для оплати"></activiti:formProperty>
-        <activiti:formProperty id="file_oplata" name="документ, що засвідчує внесення плати" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file_oplata" name="документ, що засвідчує внесення плати" type="file" default="  "></activiti:formProperty>
+        <activiti:formProperty id="info_9" name=" " type="label" default="якщо Ви бажаєте внести оплату через інтеренет - пропустіть цей етап - Вам буде в електронному листі надіслано форму для оплати"></activiti:formProperty>
         <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
-        <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default=" "></activiti:formProperty>
-        <activiti:formProperty id="nID_Subject" name="ИД-номер субъекта" type="invisible" default="0"></activiti:formProperty>
-        <activiti:formProperty id="sID_Merchant" name="ИД-строковой мерчанта (магазина)" type="invisible" default="i75116857714"></activiti:formProperty>
-        <activiti:formProperty id="sSum" name="сумма платежа" type="invisible" default="17.15"></activiti:formProperty>
-        <activiti:formProperty id="sID_Currency" name="ИД-строковой валюты" type="invisible" default="UAH"></activiti:formProperty>
-        <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default="Оплата ${posluga} на надання освітніх послуг у сфері загальної середньої, дошкільної, позашкільної освіти"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask2" name="Повідомлення громадянина про необхідність оплати послуги" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: ${posluga} на надання освітніх послуг у сфері загальної середньої, дошкільної, позашкільної освіти</activiti:string>
+          <activiti:string>Звернення на тему: Переоформлення, видача копії або дубліката ліцензії на надання освітніх послуг у сфері загальної середньої, дошкільної, позашкільної освіти</activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -101,7 +94,7 @@
 Для оплати натисніть цю кнопку:                                  
                                     &lt;/p&gt;
                                     &lt;p&gt;
- 										[paymentButton_LiqPay]
+ 					            
                                     &lt;/p&gt;
 Якщо оплата Вами вже здійснена, (і Ви додали документ що це підтверджуе до свого запиту) - ще раз здійснювати оплату через кнопку не потрібно. &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -127,6 +120,9 @@
         </activiti:field>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -226,9 +222,8 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="надання адміністративної послуги" activiti:candidateGroups="Dnepr_cnap_56_${cnap}">
+    <userTask id="usertask1" name="надання адміністративної послуги" activiti:candidateGroups="Dnepr_cnap_45">
       <extensionElements>
-        <activiti:formProperty id="sIDPayment" name="ID платежа за послугу" type="string" default="${sID_Payment}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="по батькові" type="string" writable="false"></activiti:formProperty>
@@ -254,17 +249,12 @@
         <activiti:formProperty id="rahunok" name="розрахунковий рахунок" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="mfo" name="МФО" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bank" name="найменування відділення банку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decision_1" name="прийняття рішення про ${posluga} на надання освітніх послуг" type="enum" required="true">
-          <activiti:value id="accept" name="Схвалити видачу ліцензії"></activiti:value>
-          <activiti:value id="reject" name="Відмовити у видачі ліцензії"></activiti:value>
-          <activiti:value id="reject_oplata" name="Закрити без розгляду у зв'язку з відсутностю оплати"></activiti:value>
-        </activiti:formProperty>
+        <activiti:formProperty id="decision_1" name="прийняття рішення про ${posluga} на надання освітніх послуг" type="enum" required="true"></activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відмови у наданні ліцензії внесіть, будь ласка, підставу" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_45_2print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${file_lic_old} ${file_oplata}</activiti:expression>
+            <activiti:expression>${file_lic}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
