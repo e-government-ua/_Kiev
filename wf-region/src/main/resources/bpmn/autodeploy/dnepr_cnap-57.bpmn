@@ -125,7 +125,7 @@
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="mailtask1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="mailtask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="usertask1" name="ФОП">
+    <userTask id="usertask1" name="ФОП" activiti:candidateGroups="dnepr_cnap_57">
       <extensionElements>
         <activiti:formProperty id="clorganizationName" name="Прізвище, ім`я, по-батькові ФОП" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clAddress" name="Місце роживання" type="string" default="${bankIdAddress}" writable="false"></activiti:formProperty>
@@ -148,7 +148,7 @@
     <sequenceFlow id="flow3" name="Заявник - ФОП" sourceRef="exclusivegateway1" targetRef="usertask1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${UrOrFop=='Fop'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask2" name="Юридична особа">
+    <userTask id="usertask2" name="Юридична особа" activiti:candidateGroups="dnepr_cnap_57">
       <extensionElements>
         <activiti:formProperty id="clorganizationName" name="Найменування юридичної особи" type="string" default="${organizationName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clAddress" name="Місце державної реєстрації юридичної особи" type="string" default="${localityName}" writable="false"></activiti:formProperty>
