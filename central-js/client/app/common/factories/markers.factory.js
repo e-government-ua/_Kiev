@@ -47,7 +47,7 @@ angular.module('app').factory('MarkersFactory', function() {
       }
     },
     attributes: {
-      Editable_1: {aField_ID:['sPhone_User1', 'sMail_User1'], bValue: true},
+      Editable_1: {aField_ID:['sPhone_User1', 'sMail_User1', 'bankIdlastName'], bValue: true},
       Editable_2: {aField_ID:[], bValue: false}
     }
   };
