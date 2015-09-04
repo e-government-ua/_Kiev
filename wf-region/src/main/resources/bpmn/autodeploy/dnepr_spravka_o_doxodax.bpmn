@@ -17,7 +17,7 @@
           <activiti:value id="dnepr_red_guard" name="Дніпропетровськ - Красногвардійський (вул. Театральна, 1-А)|0466"></activiti:value>
           <activiti:value id="dnepr_lenin" name="Дніпропетровськ - Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
           <activiti:value id="uvileine" name="смт Ювілейне (вул. Теплична, 13)|0417"></activiti:value>
-          <activiti:value id="apostol" name="Апостолове - Апостолевське (вул. Леніна, 63)|0414"></activiti:value>
+          <activiti:value id="apostol" name="Апостолове  (вул. Леніна, 63)|0414"></activiti:value>
           <activiti:value id="varvarivka" name="с.Варварівка (вул. Пристанційна, 1)|0435"></activiti:value>
           <activiti:value id="vasilkovka" name="смт.Васильківка (вул. Партизанська, 150)|0415"></activiti:value>
           <activiti:value id="volnogorsk" name="Вільногірськ (б-р Миру, 15)|0401"></activiti:value>
@@ -73,7 +73,7 @@
           <activiti:value id="dnepr_red_guard" name="Дніпропетровськ - Красногвардійський (вул. Театральна, 1-А)|0466"></activiti:value>
           <activiti:value id="dnepr_lenin" name="Дніпропетровськ - Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
           <activiti:value id="uvileine" name="смт Ювілейне (вул. Теплична, 13)|0417"></activiti:value>
-          <activiti:value id="apostol" name="Апостолове - Апостолевське (вул. Леніна, 63)|0414"></activiti:value>
+          <activiti:value id="apostol" name="Апостолове (вул. Леніна, 63)|0414"></activiti:value>
           <activiti:value id="varvarivka" name="с.Варварівка (вул. Пристанційна, 1)|0435"></activiti:value>
           <activiti:value id="vasilkovka" name="смт.Васильківка (вул. Партизанська, 150)|0415"></activiti:value>
           <activiti:value id="volnogorsk" name="Вільногірськ (б-р Миру, 15)|0401"></activiti:value>
