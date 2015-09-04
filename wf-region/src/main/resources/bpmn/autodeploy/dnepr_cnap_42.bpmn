@@ -27,7 +27,7 @@
         <activiti:formProperty id="file5" name="Копія експлуатаційної документації (паспорт на транспортний засіб та/або інструкція з експлуатації)" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="file6" name="Копія документів, що підтверджують оплату вартості бланків, номерних знаків, виданих під час реєстрації, та послуг за проведення технічного огляду (з відміткою банку)" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="file7" name="Копія сертифікату відповідності, свідоцтва про визнання відповідності, декларації про відповідність для технологічного транспортного засобу, на який розповсюджуються відповідні вимоги (якщо транспортний засіб не підлягає обов’язковій сертифікації — лист - відмова від акредитованого органу сертифікації)" type="file" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="file8" name="Копія одного будь-якого з наведених документів що підтверджують правомірність придбання технологічного транспортного засобу (п. 11 Порядку):" type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="file8" name="Копія одного будь-якого з наведених документів що підтверджують правомірність придбання технологічного транспортного засобу (п. 11 Порядку)" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="label2" name="- довідки-рахунка, яка видана підприємством-виготовлювачем або іншим суб'єктом господарювання, що реалізує технологічний транспортний засіб;" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="label3" name="- акту приймання-передачі, виданого підприємством-виготовлювачем технологічного транспортного засобу чи його вузлів і агрегатів;" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="label4" name="- договору купівлі-продажу, міни, дарування, лізингу, позички, застави, біржової угоди, договору про спільне володіння, користування і розпорядження майном,  що  перебуває  у спільній частковій власності;" type="label" default=" "></activiti:formProperty>
@@ -42,7 +42,7 @@
         <activiti:formProperty id="label1" name="- для  реєстрації технологічного транспортного засобу, що тривалий час (більше п'яти років) експлуатується суб'єктом господарювання та на який відсутні документи, що встановлюють право власності або користування, та про попередню його реєстрацію, надається копія  інвентарної  картки обліку основних засобів або витяг з балансової відомості, у яких зазначається дата введення в експлуатацію ТТЗ, скріплені підписом посадової особи  суб'єкта  господарювання та печаткою." type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="file9" name="Для реєстрації технологічного транспортного засобу, що раніше експлуатувався і перебував на обліку, подається разом з документами свідоцтво про реєстрацію ТТЗ з позначкою про зняття з обліку" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="file10" name="При першій реєстрації в Україні колісних транспортних засобів надається квитанція або платіжне доручення про сплату збору з відміткою банку про дату виконання платіжного доручення до податкових органів (р. VII Податкового кодексу України), а платники, звільнені від сплати збору, - надають відповідний документ, що дає право на користування такими пільгами" type="file" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="notice" name="Зверніть увагу!" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність. Відповідальність за достовірність поданих на реєстрацію документів або їх копій несе власник технологічного транспортного засобу згідно із законодавством."></activiti:formProperty>
+        <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність. Відповідальність за достовірність поданих на реєстрацію документів або їх копій несе власник технологічного транспортного засобу згідно із законодавством."></activiti:formProperty>
         <activiti:formProperty id="sBody" name="sBody" type="invisible" default=" "></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -561,11 +561,11 @@
     </userTask>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow8" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow9" name="status=='attr3_finish'" sourceRef="exclusivegateway2" targetRef="mailtask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr3_finish'}]]></conditionExpression>
+    <sequenceFlow id="flow9" name="status_zayavy=='attr3_finish'" sourceRef="exclusivegateway2" targetRef="mailtask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status_zayavy=='attr3_finish'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow10" name="status=='attr4_finish'" sourceRef="exclusivegateway2" targetRef="mailtask4">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr4_finish'}]]></conditionExpression>
+    <sequenceFlow id="flow10" name="status_zayavy=='attr4_finish'" sourceRef="exclusivegateway2" targetRef="mailtask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status_zayavy=='attr4_finish'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow11" name="status=='attr1_wait'" sourceRef="exclusivegateway1" targetRef="mailtask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr1_wait'}]]></conditionExpression>
