@@ -17,7 +17,7 @@
           <activiti:value id="dnepr_red_guard" name="Дніпропетровськ - Красногвардійський (вул. Театральна, 1-А)|0466"></activiti:value>
           <activiti:value id="dnepr_lenin" name="Дніпропетровськ - Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
           <activiti:value id="uvileine" name="смт Ювілейне (вул. Теплична, 13)|0417"></activiti:value>
-          <activiti:value id="apostol" name="Апостолове - Апостолевське (вул. Леніна, 63)|0414"></activiti:value>
+          <activiti:value id="apostol" name="Апостолове  (вул. Леніна, 63)|0414"></activiti:value>
           <activiti:value id="varvarivka" name="с.Варварівка (вул. Пристанційна, 1)|0435"></activiti:value>
           <activiti:value id="vasilkovka" name="смт.Васильківка (вул. Партизанська, 150)|0415"></activiti:value>
           <activiti:value id="volnogorsk" name="Вільногірськ (б-р Миру, 15)|0401"></activiti:value>
@@ -73,7 +73,7 @@
           <activiti:value id="dnepr_red_guard" name="Дніпропетровськ - Красногвардійський (вул. Театральна, 1-А)|0466"></activiti:value>
           <activiti:value id="dnepr_lenin" name="Дніпропетровськ - Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
           <activiti:value id="uvileine" name="смт Ювілейне (вул. Теплична, 13)|0417"></activiti:value>
-          <activiti:value id="apostol" name="Апостолове - Апостолевське (вул. Леніна, 63)|0414"></activiti:value>
+          <activiti:value id="apostol" name="Апостолове (вул. Леніна, 63)|0414"></activiti:value>
           <activiti:value id="varvarivka" name="с.Варварівка (вул. Пристанційна, 1)|0435"></activiti:value>
           <activiti:value id="vasilkovka" name="смт.Васильківка (вул. Партизанська, 150)|0415"></activiti:value>
           <activiti:value id="volnogorsk" name="Вільногірськ (б-р Миру, 15)|0401"></activiti:value>
@@ -235,7 +235,7 @@ execution.setVariable("date_stop1", execution.getVariable("date_stop").format("d
         <omgdc:Bounds height="55.0" width="105.0" x="460.0" y="90.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="170.0" y="95.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="170.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
         <omgdi:waypoint x="435.0" y="127.0"></omgdi:waypoint>
@@ -247,10 +247,10 @@ execution.setVariable("date_stop1", execution.getVariable("date_stop").format("d
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="125.0" y="117.0"></omgdi:waypoint>
-        <omgdi:waypoint x="170.0" y="122.0"></omgdi:waypoint>
+        <omgdi:waypoint x="170.0" y="107.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
-        <omgdi:waypoint x="275.0" y="122.0"></omgdi:waypoint>
+        <omgdi:waypoint x="275.0" y="107.0"></omgdi:waypoint>
         <omgdi:waypoint x="330.0" y="127.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
