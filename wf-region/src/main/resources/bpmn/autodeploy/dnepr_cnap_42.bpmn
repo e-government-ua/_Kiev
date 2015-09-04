@@ -21,13 +21,13 @@
         <activiti:formProperty id="engine_number" name="Номер двигуна (також у дужках зазначається латинська літера «V», знак рівності та об’єм двигуна вликотонажного та іншого технологічного транспортного засобу)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="file1" name="Акт технічного огляду" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Висновок експертизи, проведеної фахівцями експертно-технічного центру, на відповідність технологічного транспортного засобу нормативно-правовим актам з охорони праці України (для технологічних транспортних засобів, виготовлених за межами України чи переобладнаних або самостійно зібраних)" type="file" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="copy_doc" name="Копії документів (завірені згідно чинного законодавства):" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="copy_doc" name="Копії документів (завірені згідно чинного законодавства)" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="file3" name="Копія наказу про призначення посадової особи, відповідальної за безпечну експлуатацію та технічний стан технологічного транспортного засобу (для юридичної особи)" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="file4" name="Копія паспорту (для повнолітньої фізичної особи та особи віком від 16 до 18 років), свідоцтва про народження (для осіб віком до 16 років)" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="file5" name="Копія експлуатаційної документації (паспорт на транспортний засіб та/або інструкція з експлуатації)" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="file6" name="Копія документів, що підтверджують оплату вартості бланків, номерних знаків, виданих під час реєстрації, та послуг за проведення технічного огляду (з відміткою банку)" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="file7" name="Копія сертифікату відповідності, свідоцтва про визнання відповідності, декларації про відповідність для технологічного транспортного засобу, на який розповсюджуються відповідні вимоги (якщо транспортний засіб не підлягає обов’язковій сертифікації — лист - відмова від акредитованого органу сертифікації)" type="file" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="label1" name="Копія одного будь-якого з наведених документів що підтверджують правомірність придбання технологічного транспортного засобу (п. 11 Порядку):" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file8" name="Копія одного будь-якого з наведених документів що підтверджують правомірність придбання технологічного транспортного засобу (п. 11 Порядку):" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="label2" name="- довідки-рахунка, яка видана підприємством-виготовлювачем або іншим суб'єктом господарювання, що реалізує технологічний транспортний засіб;" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="label3" name="- акту приймання-передачі, виданого підприємством-виготовлювачем технологічного транспортного засобу чи його вузлів і агрегатів;" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="label4" name="- договору купівлі-продажу, міни, дарування, лізингу, позички, застави, біржової угоди, договору про спільне володіння, користування і розпорядження майном,  що  перебуває  у спільній частковій власності;" type="label" default=" "></activiti:formProperty>
@@ -39,7 +39,7 @@
         <activiti:formProperty id="label10" name="- рішення суду про визнання права власності на ТТЗ;" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="label11" name="- договору про спільне володіння, користування у разі отримання ТТЗ кількома громадянами в рахунок майнових паїв у зв’язку з виходом або виключенням їх із кооперативу, рішенням органу управління господарського товариства, засвідченим в установленому порядку, про повернення засновникові (учасникові) товариства у зв’язку з його виходом або виключенням з товариства технологічного транспортного засобу, переданого ним у власність або для користування;" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="label12" name="- інших документів, що встановлюють право власності або користування транспортним засобом;" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file8" name="- для  реєстрації технологічного транспортного засобу, що тривалий час (більше п'яти років) експлуатується суб'єктом господарювання та на який відсутні документи, що встановлюють право власності або користування, та про попередню його реєстрацію, надається копія  інвентарної  картки обліку основних засобів або витяг з балансової відомості, у яких зазначається дата введення в експлуатацію ТТЗ, скріплені підписом посадової особи  суб'єкта  господарювання та печаткою." type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="label1" name="- для  реєстрації технологічного транспортного засобу, що тривалий час (більше п'яти років) експлуатується суб'єктом господарювання та на який відсутні документи, що встановлюють право власності або користування, та про попередню його реєстрацію, надається копія  інвентарної  картки обліку основних засобів або витяг з балансової відомості, у яких зазначається дата введення в експлуатацію ТТЗ, скріплені підписом посадової особи  суб'єкта  господарювання та печаткою." type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="file9" name="Для реєстрації технологічного транспортного засобу, що раніше експлуатувався і перебував на обліку, подається разом з документами свідоцтво про реєстрацію ТТЗ з позначкою про зняття з обліку" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="file10" name="При першій реєстрації в Україні колісних транспортних засобів надається квитанція або платіжне доручення про сплату збору з відміткою банку про дату виконання платіжного доручення до податкових органів (р. VII Податкового кодексу України), а платники, звільнені від сплати збору, - надають відповідний документ, що дає право на користування такими пільгами" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="notice" name="Зверніть увагу!" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність. Відповідальність за достовірність поданих на реєстрацію документів або їх копій несе власник технологічного транспортного засобу згідно із законодавством."></activiti:formProperty>
@@ -184,7 +184,6 @@
         <activiti:formProperty id="status" name="Обробка заяви" type="enum">
           <activiti:value id="attr1_wait" name="Документи передані в ТУ Держгірпромнагляду у Дніпропетровській обл."></activiti:value>
           <activiti:value id="attr2_finish" name="Відмова громадянину у разі надання неповного пакету документів"></activiti:value>
-          <activiti:value id="attr3_finish" name="E-mail о готовності свідоцтва про реєстрацію та номерного знаку"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар в разі відмови" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="sBody" name="[pattern/print/dnepr_cnap_42_zayva.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
@@ -311,11 +310,6 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow6" sourceRef="exclusivegateway1" targetRef="mailtask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr2_finish'}]]></conditionExpression>
-    </sequenceFlow>
-    <endEvent id="endevent2" name="End"></endEvent>
-    <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
     <serviceTask id="mailtask3" name="Відправка e-mail об отправки в Територіальне управління Держгірпромнагляду" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -428,10 +422,6 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow9" sourceRef="exclusivegateway1" targetRef="mailtask3">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr1_wait'}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow10" sourceRef="mailtask3" targetRef="usertask1"></sequenceFlow>
     <serviceTask id="mailtask4" name="Відправка e-mail о готовности свідоцтва про реєстрацію та номерного знаку" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -543,11 +533,47 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow11" sourceRef="exclusivegateway1" targetRef="mailtask4">
+    <sequenceFlow id="flow6" name="status=='attr2_finish'" sourceRef="exclusivegateway1" targetRef="mailtask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr2_finish'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="usertask2" name="Підготовка відповіді після рішення Держпромнагляду" activiti:candidateGroups="dnepr_cnap_42_velykotonazhni">
+      <extensionElements>
+        <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Адреса заявника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Адреса стоянки великотоннажного та іншого технологічного транспортного засобу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="content" name="Просимо (викладається суть справи)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="data_about" name="Дані про великотоннажний та інший технологічний транспортний засіб:" type="label" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="type" name="Тип" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="model" name="Марка, модель" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="graduation_year" name="Рік випуску" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="country" name="Виробник (держава)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="chassis_number" name="Ідентифікаційні номери (заводський, шасі/рами)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="engine_number" name="Номер двигуна (також у дужках зазначається латинська літера «V», знак рівності та об’єм двигуна вликотонажного та іншого технологічного транспортного засобу)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="status_zayavy" name="Статус заяви" type="enum">
+          <activiti:value id="attr3_finish" name="Відмова громадянину Територіальним управлінням Держгірпромнагляду"></activiti:value>
+          <activiti:value id="attr4_finish" name="Свідоцтво про реєстрацію та номерні знаки - готові"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="decisionComment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі" type="textArea"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow8" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow9" name="status=='attr3_finish'" sourceRef="exclusivegateway2" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr3_finish'}]]></conditionExpression>
     </sequenceFlow>
-    <endEvent id="endevent3" name="End"></endEvent>
-    <sequenceFlow id="flow12" sourceRef="mailtask4" targetRef="endevent3"></sequenceFlow>
+    <sequenceFlow id="flow10" name="status=='attr4_finish'" sourceRef="exclusivegateway2" targetRef="mailtask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr4_finish'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow11" name="status=='attr1_wait'" sourceRef="exclusivegateway1" targetRef="mailtask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr1_wait'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="mailtask3" targetRef="usertask2"></sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow13" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow14" sourceRef="mailtask4" targetRef="endevent2"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_42">
     <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_42" id="BPMNPlane_dnepr_cnap_42">
@@ -573,19 +599,22 @@
         <omgdc:Bounds height="40.0" width="40.0" x="570.0" y="108.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="69.0" width="105.0" x="650.0" y="93.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="800.0" y="110.0"></omgdc:Bounds>
+        <omgdc:Bounds height="69.0" width="105.0" x="670.0" y="93.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="105.0" width="105.0" x="538.0" y="-40.0"></omgdc:Bounds>
+        <omgdc:Bounds height="105.0" width="105.0" x="538.0" y="200.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
-        <omgdc:Bounds height="101.0" width="105.0" x="538.0" y="200.0"></omgdc:Bounds>
+        <omgdc:Bounds height="101.0" width="105.0" x="800.0" y="330.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
-        <omgdc:Bounds height="35.0" width="35.0" x="688.0" y="233.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="80.0" width="105.0" x="538.0" y="341.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="702.0" y="360.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="835.0" y="110.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="95.0" y="127.0"></omgdi:waypoint>
@@ -609,28 +638,47 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
         <omgdi:waypoint x="610.0" y="128.0"></omgdi:waypoint>
-        <omgdi:waypoint x="650.0" y="127.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="127.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="569.0" y="83.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="755.0" y="127.0"></omgdi:waypoint>
-        <omgdi:waypoint x="800.0" y="127.0"></omgdi:waypoint>
+        <omgdi:waypoint x="643.0" y="381.0"></omgdi:waypoint>
+        <omgdi:waypoint x="702.0" y="380.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
-        <omgdi:waypoint x="590.0" y="108.0"></omgdi:waypoint>
-        <omgdi:waypoint x="590.0" y="65.0"></omgdi:waypoint>
+        <omgdi:waypoint x="722.0" y="360.0"></omgdi:waypoint>
+        <omgdi:waypoint x="722.0" y="162.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="673.0" y="245.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
-        <omgdi:waypoint x="538.0" y="12.0"></omgdi:waypoint>
-        <omgdi:waypoint x="473.0" y="12.0"></omgdi:waypoint>
-        <omgdi:waypoint x="472.0" y="93.0"></omgdi:waypoint>
+        <omgdi:waypoint x="742.0" y="380.0"></omgdi:waypoint>
+        <omgdi:waypoint x="800.0" y="380.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="700.0" y="400.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
         <omgdi:waypoint x="590.0" y="148.0"></omgdi:waypoint>
         <omgdi:waypoint x="590.0" y="200.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="95.0" x="541.0" y="163.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="643.0" y="250.0"></omgdi:waypoint>
-        <omgdi:waypoint x="688.0" y="250.0"></omgdi:waypoint>
+        <omgdi:waypoint x="590.0" y="305.0"></omgdi:waypoint>
+        <omgdi:waypoint x="590.0" y="341.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="775.0" y="127.0"></omgdi:waypoint>
+        <omgdi:waypoint x="835.0" y="127.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="852.0" y="330.0"></omgdi:waypoint>
+        <omgdi:waypoint x="852.0" y="145.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
