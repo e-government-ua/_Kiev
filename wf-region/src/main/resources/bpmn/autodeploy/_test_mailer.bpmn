@@ -8,7 +8,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="filecl" name="file" type="file"></activiti:formProperty>
-        <activiti:formProperty id="markers1" name="Мареры" type="markers" default = "{\"attributes\": {\"Editable_Test\": {\"aField_ID\":[\"bankIdlastName\"], \"bValue\" : false}, \"Editable_Test2\": {\"aField_ID\":[\"bankIdmiddleName\",\"bankIdfirstName\"], \"bValue\" : true}}" required="false"></activiti:formProperty>
+        <activiti:formProperty id="markers1" name="Мареры" type="markers" default = "{'attributes': {'Editable_Test': {'aField_ID':['bankIdlastName'], 'bValue' : false}, 'Editable_Test2': {'aField_ID':['bankIdmiddleName','bankIdfirstName'], 'bValue' : true}}" required="false"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask0" name="Видалення тікета з черги" activiti:delegateExpression="#{releaseTicketsOfQueue}"></serviceTask>
