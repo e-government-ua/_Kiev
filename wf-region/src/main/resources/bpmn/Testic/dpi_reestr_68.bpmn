@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="dpi_reestr_68" name="ДПІ - Реєстрація платника єдиного податку (заява про вибір спрощеної системи оподаткування)" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="info" name="Як працює послуга; посилання на інструкцію" type="label" default="https://docs.google.com/document/d/16ll4Wer7KnbCdUrdywbZrharMZs4w03mMapTIZ0tYRg/edit"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Індивідуальний податковий номер" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті" type="string"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string"></activiti:formProperty>
+        <activiti:formProperty id="a" name="Дата взяття на облік в органі державної податкової служби" type="string"></activiti:formProperty>
+        <activiti:formProperty id="1" name="1. Найменування органу державної податкової служби" type="string"></activiti:formProperty>
+        <activiti:formProperty id="b" name="Фізична особа - підприємець Юридична особа enum" type="string"></activiti:formProperty>
+        <activiti:formProperty id="2" name="2. Код за ЄДРПОУ, або реєстраційний номер облікової картки платника податків (ідентифікаційний номер), або серія та номер паспорта" type="string"></activiti:formProperty>
+        <activiti:formProperty id="3" name="3. Найменування суб’єкта господарювання або прізвище, ім'я та по батькові фізичної особи - підприємця" type="string"></activiti:formProperty>
+        <activiti:formProperty id="4" name="4. Дані документа, що підтверджують державну реєстрацію юридичної особи та/або фізичної особи – підприємця (назва, номер, дата)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="5" name="5. Підстави подання заяви Сделать лейбл" type="string"></activiti:formProperty>
+        <activiti:formProperty id="5.1" name="5.1. Обрання або перехід на спрощену систему оподаткування (Аннотация) *" type="string"></activiti:formProperty>
+        <activiti:formProperty id="5.2" name="5.2. Зміна ставки єдиного податку (Аннотация) *** " type="string"></activiti:formProperty>
+        <activiti:formProperty id="53-54" name="5.3-5.4 Не учитываем" type="string"></activiti:formProperty>
+        <activiti:formProperty id="6" name="6. Податкова адреса суб’єкта господарювання " type="string"></activiti:formProperty>
+        <activiti:formProperty id="61" name="6.1 Поштовий індекс" type="string"></activiti:formProperty>
+        <activiti:formProperty id="62" name="6.2  Країна " type="string"></activiti:formProperty>
+        <activiti:formProperty id="63" name="6.3 Область" type="string"></activiti:formProperty>
+        <activiti:formProperty id="64" name="6.4 Район" type="string"></activiti:formProperty>
+        <activiti:formProperty id="65" name="6.5 Місто" type="string"></activiti:formProperty>
+        <activiti:formProperty id="66" name="6.6 Вулиця" type="string"></activiti:formProperty>
+        <activiti:formProperty id="67" name="6.7 Будинок" type="string"></activiti:formProperty>
+        <activiti:formProperty id="68" name="6.8 Корпус " type="string"></activiti:formProperty>
+        <activiti:formProperty id="69 " name="6.9 Офіс / квартира" type="string"></activiti:formProperty>
+        <activiti:formProperty id="690 " name="6.1.0 Контактний телефон суб’єкта господарювання" type="string"></activiti:formProperty>
+        <activiti:formProperty id="691 " name="6.1.1 E-mail (за наявності) суб’єкта господарювання" type="string"></activiti:formProperty>
+        <activiti:formProperty id="7" name="7. Місце провадження господарської діяльності (індекс, найменування населеного пункту, адреса): " type="string"></activiti:formProperty>
+        <activiti:formProperty id="71" name="7.1 Поштовий індекс" type="string"></activiti:formProperty>
+        <activiti:formProperty id="72" name="7.2  Країна " type="string"></activiti:formProperty>
+        <activiti:formProperty id="73" name="7.3 Область" type="string"></activiti:formProperty>
+        <activiti:formProperty id="74" name="7.4 Район" type="string"></activiti:formProperty>
+        <activiti:formProperty id="75" name="7.5 Місто" type="string"></activiti:formProperty>
+        <activiti:formProperty id="76" name="7.6 Вулиця" type="string"></activiti:formProperty>
+        <activiti:formProperty id="77" name="7.7 Будинок" type="string"></activiti:formProperty>
+        <activiti:formProperty id="78" name="7.8 Корпус " type="string"></activiti:formProperty>
+        <activiti:formProperty id="79 " name="7.9 Офіс / квартира" type="string"></activiti:formProperty>
+        <activiti:formProperty id="790 " name="7.1.0 Контактний телефон суб’єкта господарювання" type="string"></activiti:formProperty>
+        <activiti:formProperty id="791 " name="7.1.1 E-mail (за наявності) суб’єкта господарювання" type="string"></activiti:formProperty>
+        <activiti:formProperty id="8" name="8 Обрана ставка єдиного податку при переході на спрощену систему оподаткування" type="string"></activiti:formProperty>
+        <activiti:formProperty id="8.1" name="8.1 відсотків до розміру мінімальної заробітної плати**** " type="string"></activiti:formProperty>
+        <activiti:formProperty id="8.2" name="8.2 група" type="string"></activiti:formProperty>
+        <activiti:formProperty id="8.3" name="8.3 або ставка у відсотках до доходу" type="string"></activiti:formProperty>
+        <activiti:formProperty id="9" name="9/ Кількість осіб, які одночасно перебувають з фізичною особою-підприємцем у трудових відносинах, або середньооблікова чисельність працівників у юридичної особи" type="string"></activiti:formProperty>
+        <activiti:formProperty id="10" name="10. Обрані види діяльності згідно з КВЕД ДК 009:2005" type="string"></activiti:formProperty>
+        <activiti:formProperty id="10tab1" name="10a. Код згідно з КВЕД" type="string"></activiti:formProperty>
+        <activiti:formProperty id="10tab2" name="10b. Назва згідно з КВЕД" type="string"></activiti:formProperty>
+        <activiti:formProperty id="10tab3" name="10a. Обрані види діяльності згідно з КВЕД ДК 009:2005" type="string"></activiti:formProperty>
+        <activiti:formProperty id="10tab4" name="10b. Обрані види діяльності згідно з КВЕД ДК 009:2005" type="string"></activiti:formProperty>
+        <activiti:formProperty id="10.1" name="10.1 У разі здійснення виробництва (з пункту 10):" type="string"></activiti:formProperty>
+        <activiti:formProperty id="10.1tab1" name="10.1a. Код згідно з КВЕД" type="string"></activiti:formProperty>
+        <activiti:formProperty id="10.1tab2" name="10.1b. Назва згідно з КВЕД" type="string"></activiti:formProperty>
+        <activiti:formProperty id="10.1tab3" name="10.1a. Обрані види діяльності згідно з КВЕД ДК 009:2005" type="string"></activiti:formProperty>
+        <activiti:formProperty id="10.1tab4" name="10.1b. Обрані види діяльності згідно з КВЕД ДК 009:2005" type="string"></activiti:formProperty>
+        <activiti:formProperty id="11" name="11. Наявність податкового боргу, крім безнадійного податкового боргу, що виник унаслідок дії обставин непереборної сили (форс-мажорних обставин): " type="string"></activiti:formProperty>
+        <activiti:formProperty id="11a" name="відсутній" type="string"></activiti:formProperty>
+        <activiti:formProperty id="11b" name="наявний" type="string"></activiti:formProperty>
+        <activiti:formProperty id="11c" name="сума (грн)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="12" name="12. Обсяг доходу за попередній календарний рік становить (пункт 5 Розрахунку доходу за попередній календарний рік, що передує року переходу на спрощену систему оподаткування)** (сума цифрами)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="12a" name="12а. Обсяг доходу за попередній календарний рік становить (пункт 5 Розрахунку доходу за попередній календарний рік, що передує року переходу на спрощену систему оподаткування)** (сума словами)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="13" name="13. Розрахунок доходу за попередній календарний рік, що передує року переходу на спрощену систему оподаткування за попередній календарний рік додається (“” або “-”)**" type="string"></activiti:formProperty>
+        <activiti:formProperty id="14" name="Сделать лейбл на ***" type="string"></activiti:formProperty>
+        <activiti:formProperty id="files2" name="Засвідчена в установленому порядку копія документа" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file3" name="Ситуаційний план (схема) щодо місцезнаходження земельної ділянки (у довільній формі);" type="file"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <userTask id="usertask3" name="Надання адміністративної послуги"></userTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow4" sourceRef="usertask3" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="servicetask1" targetRef="usertask3"></sequenceFlow>
+    <serviceTask id="servicetask1" name="Загрузка файлов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dpi_reestr_68">
+    <bpmndi:BPMNPlane bpmnElement="dpi_reestr_68" id="BPMNPlane_dpi_reestr_68">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="110.0" y="40.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="370.0" y="140.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="520.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="90.0" y="140.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="127.0" y="75.0"></omgdi:waypoint>
+        <omgdi:waypoint x="142.0" y="140.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="475.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="520.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="195.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="370.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
