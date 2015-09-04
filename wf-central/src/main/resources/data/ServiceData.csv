@@ -136,7 +136,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 141;682;9;NULL;1;{};http://www.ap.lutsk.ua/uk/info/service/2639/details;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Луцьк;BankID,EDS
 142;455;203;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"nadDvirnyanska_rda_1a:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 143;456;203;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"nadDvirnyanska_rda_1b:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-144;683;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_minust_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+144;683;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_minust_81:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 145;684;203;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"naDvirna_rda-2:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 146;685;4;NULL;1;{};http://www.cnap.if.ua/posl/3745;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Івано-Франківська;BankID,EDS
 147;4;4;NULL;1;{};http://www.cnap.if.ua/posl/3434;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Івано-Франківська;BankID,EDS
@@ -247,3 +247,9 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 333;142;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_36:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 334;140;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_37:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 335;654;NULL;16;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_subsidies:1:238"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
+336;73;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"Dnepr_cnap_45:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+337;744;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_42_ur:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+338;745;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_55:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+339;746;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_54:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+340;115;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_57:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+341;455;109;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"voznesensk_cnap_78:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
