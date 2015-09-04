@@ -43,7 +43,7 @@ angular.module('documents').controller('DocumentsContentController', function($s
   {
     $modal.open({
       animation: true,
-      templateUrl: '/app/documents/documentsigndata.html',
+      templateUrl: 'documentsigndata.html',
       controller: 'DocumentSignDataController',
       resolve: {
         oSignData: function() {
