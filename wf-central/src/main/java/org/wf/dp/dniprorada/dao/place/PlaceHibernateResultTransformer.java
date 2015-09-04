@@ -1,15 +1,14 @@
 package org.wf.dp.dniprorada.dao.place;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.commons.lang3.ArrayUtils.indexOf;
 
 /**
  * @author dgroup
@@ -23,13 +22,13 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
     public PlaceHierarchyRecord transformTuple(Object[] objects, String[] strings) {
         PlaceHierarchyRecord phr = new PlaceHierarchyRecord();
 
-        phr.setPlaceId( longVal(objects, strings, "id"));
-        phr.setTypeId( longVal(objects, strings, "type_id"));
-        phr.setUaID( stringVal(objects, strings, "ua_id"));
-        phr.setName( stringVal(objects, strings, "name"));
-        phr.setOriginalName( stringVal(objects, strings, "original_name"));
-        phr.setParentId( longVal(objects, strings, "parent_id"));
-        phr.setDeep( longVal(objects, strings, "level") );
+        phr.setPlaceId  ( toLong(objects, strings, "id"));
+        phr.setTypeId   ( toLong(objects, strings, "type_id"));
+        phr.setParentId ( toLong(objects, strings, "parent_id"));
+        phr.setDeep     ( toLong(objects, strings, "level") );
+        phr.setUaID     (    toString(objects, strings, "ua_id"));
+        phr.setName     (    toString(objects, strings, "name"));
+        phr.setOriginalName( toString(objects, strings, "original_name"));
 
         return phr;
     }
@@ -41,21 +40,13 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
     }
 
 
-    private int getIndex(String[] labels, String key){
-        for(int i=0; i < labels.length; i++)
-            if (key.equals( labels[i] ))
-                return i;
-        return -1;
-    }
-
-    private String stringVal(Object[] objects, String[] labels, String column) {
-        int index = getIndex(labels, column);
+    private static String toString(Object[] objects, String[] labels, String column) {
+        int index = indexOf(labels, column);
         return index >= 0 ? objects[index].toString() : "";
     }
 
-    private long longVal(Object[] objects, String[] labels, String column) {
-        String val = stringVal(objects, labels, column);
-        return isNotBlank(val) ? Long.valueOf( val ) : 0L;
+    private static long toLong(Object[] objects, String[] labels, String column) {
+        return NumberUtils.toLong(toString(objects, labels, column));
     }
 
 
@@ -66,6 +57,7 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
      * @return unexpected result for list if it wasn't created via build method above
      **/
     public static PlaceHierarchyTree toTree(List<PlaceHierarchyRecord> dataRows) {
+        Assert.isTrue(!dataRows.isEmpty(), "Entity not found");
         LOG.debug("Got {}", dataRows);
 
         Map<Long, PlaceHierarchyTree> tempParents = new HashMap<>();
@@ -74,27 +66,68 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         // We want to transform the list of Hibernate entities into hierarchy tree
         for(int i=0; i<dataRows.size(); i++){
             PlaceHierarchyRecord node = dataRows.get(i);
-            LOG.debug("Handling of {} started", node);
-            if (i==0){ // It's a root element
-                register( node.toTree(), tempParents );
-                tree = tempParents.get( node.getPlaceId() );
+            if (i==0){
+                tree = handleRootElement(node, tempParents);
+
             } else if ( !node.isAlreadyIncluded() ){
-                /*
-                    It means that:
-                    - it's general node of our tree (isn't a root)
-                    - this node isn't included in result tree yet, hence, it should be included (with children)
-                 */
-                PlaceHierarchyTree parent  = tempParents.get( node.getParentId() ); // Get the parent node
-                PlaceHierarchyTree current = node.toTree();                         // Get the current node
-                register(current, tempParents);                                  // Register curnt node in temp. storage
-                current.setChildren(getChildren(dataRows, i + 1, current));
-                parent.addChild(current);
+                handleGenericNode(node, tempParents, dataRows, i+1);
             }
             node.setAlreadyIncluded(true);                                      // Disable node for the next iteration
         }
         LOG.debug("Whole tree {}", tree);
         tempParents.clear();                                                    // We don't need it anymore because
         return tree;                                                            // the hierarchy was build successfully
+    }
+
+
+    public static PlaceHierarchyTree toList(List<PlaceHierarchyRecord> dataRows) {
+        Assert.isTrue(!dataRows.isEmpty(), "Entity not found");
+        LOG.debug("Got {}", dataRows);
+
+        PlaceHierarchyTree treeAsList = dataRows.iterator().next().toTreeElement();
+        for(ListIterator<PlaceHierarchyRecord> it = dataRows.listIterator(1); it.hasNext();){
+            PlaceHierarchyRecord phr = it.next();
+            if (phr != null)
+                treeAsList.addChild( phr.toTreeElement() );
+        }
+
+        LOG.warn("Whole tree {}", treeAsList);
+        return treeAsList;
+    }
+
+    /**
+     * General node (of our tree) isn't:
+     * - Root node
+     * - Included in result tree yet,
+     * hence it should be included (with children)
+     *
+     * @param node              - it's our general node
+     * @param tempParents       - contains our parents (just for quick access)
+     * @param dataRows          - our node list
+     * @param nextElementIndex  - index of the next element in our list
+     **/
+    private static void handleGenericNode(PlaceHierarchyRecord node,
+                                          Map<Long, PlaceHierarchyTree> tempParents,
+                                          List<PlaceHierarchyRecord> dataRows,
+                                          int nextElementIndex) {
+        LOG.debug("Got {}, start from {}", node, nextElementIndex);
+        PlaceHierarchyTree parent  = tempParents.get( node.getParentId() ); // Get the parent node
+        PlaceHierarchyTree current = node.toTreeElement();                  // Get the current node
+
+        register(current, tempParents);                                     // Register curnt node in temp. storage
+        current.setChildren( getChildren(dataRows, nextElementIndex, current) );
+        parent.addChild(current);
+    }
+
+    /**
+     * Root element should be registered as parent only.
+     * We don't need to handle it in specific way.
+     **/
+    private static PlaceHierarchyTree handleRootElement(PlaceHierarchyRecord node,
+                                                        Map<Long, PlaceHierarchyTree> tempParents) {
+        LOG.debug("Got {}", node);
+        register(node.toTreeElement(), tempParents );
+        return tempParents.get( node.getPlaceId() );
     }
 
     /**
@@ -108,14 +141,14 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
                                                      PlaceHierarchyTree node ){
         List<PlaceHierarchyTree> children = new ArrayList<>();
         for(int j=startElement; j<dataRows.size(); j++){
-            PlaceHierarchyRecord hr = dataRows.get(j);
+            PlaceHierarchyRecord phr = dataRows.get(j);
 
-            if (hr.isAlreadyIncluded()) // It's already belongs to our result tree
+            if (phr.isAlreadyIncluded()) // It's already belongs to our result tree
                 continue;
 
-            if (node.getPlace().getId().equals(hr.getParentId())) {     // One child was found
-                PlaceHierarchyTree itsMySon = hr.toTree();              // Get child
-                hr.setAlreadyIncluded(true);                            // Disable child for the next iteration
+            if (node.getPlace().getId().equals(phr.getParentId())) {    // One child was found
+                PlaceHierarchyTree itsMySon = phr.toTreeElement();      // Get child
+                phr.setAlreadyIncluded(true);                           // Disable child for the next iteration
                 children.add( itsMySon );                               // Append child to the children list
             }
         }

@@ -1,14 +1,14 @@
 package org.wf.dp.dniprorada.base.dao.util;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.type.Type;
 import org.springframework.util.Assert;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Builds Query.
@@ -55,6 +55,10 @@ public class QueryBuilder {
       return this;
    }
 
+   public QueryBuilder append(Boolean exp, String hql) {
+      return exp? append(hql) : this;
+   }
+
    /**
     * Append hql and parameter value to query builder.
     *
@@ -65,15 +69,13 @@ public class QueryBuilder {
    public QueryBuilder append(String hql, Object value) {
       this.hqlQuery.append(hql);
 
-      final String key = extractParameter(hql).toUpperCase();
-      final Couple old = parameters.put(key, new Couple(null, value));
-
-      if (old != null) {
-         assertValue(value, key, old);
-      }
-
-      return this;
+      return setParam(extractParameter(hql).toUpperCase(), value);
    }
+
+   public QueryBuilder append(Boolean exp, String hql, Object value) {
+      return exp? append(hql, value) : this;
+   }
+
 
    private void assertValue(Object value, String key, Couple old) {
       Assert.isTrue(old.value.equals(value),
@@ -219,8 +221,19 @@ public class QueryBuilder {
     * @return the query
     */
    public Query toQuery() {
-      final Query query = session.createQuery(hqlQuery.toString());
+      Query query = session.createQuery(hqlQuery.toString());
+      setParameters(query, parameters);
+      return query;
+   }
 
+
+   public Query toSQLQuery(){
+      Query query = session.createSQLQuery(hqlQuery.toString());
+      setParameters(query, parameters);
+      return query;
+   }
+
+   private void setParameters(Query query, Map<String, Couple> parameters) {
       for (Map.Entry<String, Couple> entry : parameters.entrySet()) {
          if (entry.getValue().type != null) {
             if (entry.getValue().value instanceof Collection) {
@@ -238,8 +251,10 @@ public class QueryBuilder {
             }
          }
       }
+   }
 
-      return query;
+   public String toString(){
+      return "Query={"+hqlQuery + "}, parameters {"+parameters+"}";
    }
 
    /**
@@ -265,6 +280,22 @@ public class QueryBuilder {
       return hql.substring(i + 1, j);
    }
 
+
+   public QueryBuilder setParam(String key, Object value) {
+      final Couple old = parameters.put(key, new Couple(null, value));
+
+      if (old != null) {
+         assertValue(value, key, old);
+      }
+
+      return this;
+   }
+
+   public QueryBuilder setParam(boolean exp, String key, Object value) {
+      return exp? setParam(key, value) : this;
+   }
+
+
    /**
     * Class for pair of hibernate type and value of parameter.
     */
@@ -275,6 +306,9 @@ public class QueryBuilder {
       private Couple(Type type, Object value) {
          this.type = type;
          this.value = value;
+      }
+      public String toString() {
+         return "Couple{type="+ type +", value=" + value +'}';
       }
    }
 }

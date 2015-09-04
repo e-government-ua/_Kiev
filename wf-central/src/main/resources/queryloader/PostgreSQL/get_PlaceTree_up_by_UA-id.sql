@@ -17,7 +17,7 @@ from (
            "Place" p
          WHERE
            p."nID"    = t1."nID_Place"
-           and p."sID_UA" = :ua_id
+           and p."sID_UA" = :UA_ID
          UNION
          SELECT
            t2."nID_Place",

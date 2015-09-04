@@ -1,12 +1,17 @@
 package org.wf.dp.dniprorada.base.service.escalation;
 
 import org.activiti.engine.FormService;
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
+import org.activiti.engine.identity.User;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
 import org.activiti.rest.controller.ActivitiRestException;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +19,7 @@ import org.wf.dp.dniprorada.base.dao.EscalationRuleDao;
 import org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDao;
 import org.wf.dp.dniprorada.base.model.EscalationRule;
 import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
+import org.wf.dp.dniprorada.base.util.BPMNUtil;
 import org.wf.dp.dniprorada.util.EscalationUtil;
 
 import java.util.HashMap;
@@ -32,6 +38,12 @@ public class EscalationService {
 
     @Autowired
     private FormService formService;
+    
+    @Autowired
+    private RepositoryService repositoryService;
+    
+    @Autowired
+    private IdentityService identityService;
 
     @Autowired
     private EscalationRuleDao escalationRuleDao;
@@ -63,6 +75,7 @@ public class EscalationService {
                 for (Task oTask : aTask) {
                     //long nID_task_activiti = Long.valueOf(oTask.getId());
                     //Map<String, Object> mTaskParam = getTaskData(nID_task_activiti);//new HashMap()
+                	try {
                     Map<String, Object> mTaskParam = getTaskData(oTask);
 
                     log.info("[getTaskData]:checkTaskOnEscalation mTaskParam=" + mTaskParam);
@@ -72,6 +85,9 @@ public class EscalationService {
                             , oEscalationRule.getsPatternFile()
                             , oEscalationRuleFunction.getsBeanHandler()
                     );
+                	} catch (java.lang.ClassCastException e){
+                		log.error("Error occured while processing task " + oTask.getId(), e);
+                	}
                 }
 
             }
@@ -115,13 +131,46 @@ public class EscalationService {
         TaskFormData oTaskFormData = formService.getTaskFormData(oTask.getId());
         for (FormProperty oFormProperty : oTaskFormData.getFormProperties()) {
             log.info(String.format("[getTaskData]Matching property %s:%s:%s with fieldNames", oFormProperty.getId(), oFormProperty.getName(), oFormProperty.getType().getName()));
-            if ("long".equalsIgnoreCase(oFormProperty.getType().getName())) {
+            if ("long".equalsIgnoreCase(oFormProperty.getType().getName()) &&
+            		StringUtils.isNumeric(oFormProperty.getValue())) {
                 m.put(oFormProperty.getId(), Long.valueOf(oFormProperty.getValue()));
             } else {
                 m.put(oFormProperty.getId(), oFormProperty.getValue());
             }
         }
+        
+        m.put("sID_BP", StringUtils.substringBefore(oTask.getProcessDefinitionId(), ":"));
+        m.put("nID_task_activiti", oTask.getId());
+        m.put("sTaskName", oTask.getName());
+        m.put("sTaskDescription", oTask.getDescription());
+        m.put("sProcessInstanceId", oTask.getProcessInstanceId());
 
+        List<User> aUser = BPMNUtil.getUsersInfoBelongToProcess(repositoryService, identityService, oTask.getProcessDefinitionId(), oTask.getTaskDefinitionKey());
+        StringBuffer osaUser = new StringBuffer();
+        int nCount=aUser.size();
+        int n=0;
+        for (User oUser : aUser){
+                n++;
+        	osaUser.append(oUser.getLastName());
+        	osaUser.append(" ");
+        	osaUser.append(oUser.getFirstName());
+        	osaUser.append(" (");
+        	osaUser.append(oUser.getId());
+        	osaUser.append(")");
+                if(n<nCount){
+                    osaUser.append(", ");
+                }
+        }
+        
+        
+        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(oTask.getProcessDefinitionId()).singleResult();
+		
+        m.put("sServiceType", processDefinition != null ? processDefinition.getName() : "");
+        m.put("sTaskName", String.format("%s", oTask.getName()));
+        m.put("sTaskNumber", String.format("%s ", oTask.getId().toString()));
+        m.put("sElapsedInfo", String.format("%d", nElapsedDays));
+        m.put("sResponsiblePersons", String.format("%s", osaUser.toString()));
+        
         return m;
     }
 }

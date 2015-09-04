@@ -1,10 +1,7 @@
-### iGov.ua APIs
- <a name="0_contents">*Contents*</a><br/>
-<a href="#1_userLogin">1. Логин пользователя</a><br/>
-<a href="#2_userLogout">2. Логаут пользователя</a><br/>
-<a href="#3_activitiRun">3. Запуск процесса Activiti</a><br/>
-<a href="#4_activitiRunTasks">4. Загрузка задач из Activiti</a><br/>
-<a href="#5_activitiRunServices">5. Загрузка каталога сервисов из Activiti</a><br/>
+# iGov.ua APIs
+<a name="0_contents">*Contents*</a><br/>
+<a href="#1">1. Аутентификация пользователя</a><br/>
+<a href="#2">2. Activiti</a><br/>
 <a href="#6_loadFileFromDb">6. Загрузки прикрепленного к заявке файла из постоянной базы</a><br/>
 <a href="#7_workWithMerchants">7. Работа с мерчантами</a><br/>
 <a href="#8_workWithTables">8. Бэкап/восстановление данных таблиц сервисов и мест</a><br/>
@@ -34,7 +31,7 @@
 <a href="#32_getTasksByOrder"> 32. Получение списка ID пользовательских тасок по номеру заявки</a><br/>
 <a href="#33_getStatisticServiceCounts"> 33. Получение количества записей HistoryEvent_Service для сервиса по регионам</a><br/>
 
-### iGov.ua APIs
+## iGov.ua APIs
 
 ##### Mandatory HTTP Headers
 
@@ -44,9 +41,14 @@
 | Accept | application/json |
 | Authorization | Basic ... |
 
-<a name="1_userLogin">
-####1. Логин пользователя:
-</a><a href="#0_contents">↑Up</a>
+--------------------------------------------------------------------------------------------------------------------------
+
+<a name="1">
+<a href="#1"><h3>1. Аутентификация пользователя</h3></a>
+<br/>
+
+<a href="#1"><h4>Логин пользователя:</h4></a>
+<a href="#0_contents">↑Up</a>
 
 **HTTP Metod: POST**
 
@@ -59,127 +61,143 @@
 * sLogin - Логин пользователя
 * sPassword - Пароль пользователя
 
-**Request**
+**Request:**
 
 ```text
     sLogin=user&sPassword=password
 ```
 
-**Response**
+**Response:**
 
 ```json
-	{"session":"true"} //[1..1]
+	{"session":"true"}
 ```
-
+где:<br/>
 true - Пользователь авторизирован   
 false - Имя пользователя или пароль не корректны
 
-<a name="2_userLogout">
-#### 2. Логаут пользователя:
-</a><a href="#0_contents">↑Up</a>
+<br/>
+
+<a href="#1"><h4>Логаут пользователя (наличие cookie JSESSIONID):</h4></a>
+<a href="#0_contents">↑Up</a>
 
 **HTTP Metod: POST/DELETE**
 
 **HTTP Context: https://server:port/wf-region/service/auth/logout**
 
-Наличие cookie JSESSIONID
-
-**Response**
+**Response:**
 
 ```json
 	{"session":"97AE7CA414A5DA85749FE379CC843796"}
 ```
+--------------------------------------------------------------------------------------------------------------------------
 
-true - Пользователь авторизирован
-false - Имя пользователя или пароль не корректны
+<a name="2">
+<a href="#2"><h3>2. Activiti</h3></a>
+<br/>
 
-
-<a name="3_activitiRun">
-#### 3. Запуск процесса Activiti:
-</a><a href="#0_contents">↑Up</a>
+<a href="#2"><h4>Запуск процесса Activiti:</h4></a>
+<a href="#0_contents">↑Up</a>
 
 **HTTP Metod: GET**
 
 **HTTP Context: https://server:port/wf-region/service/rest/start-process/{key}**
 
-* {key} - Ключ процесса
-* {nID_Subject} - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
+* key - Ключ процесса
+* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
-**Response**
+**Request:**
+
+https://test.region.igov.org.ua/wf-region/service/rest/start-process/citizensRequest
+
+**Response:**
 
 ```json
 	{
-		"id":"31" //[1..1]
+		"id":"31"
 	}
 ```
 
-<a name="4_activitiRunTasks">
-####4. Загрузка задач из Activiti
-</a><a href="#0_contents">↑Up</a><br/>
+<br/>
+
+<a href="#2"><h4>Загрузка задач из Activiti:</h4></a>
+<a href="#0_contents">↑Up</a>
 
 **HTTP Metod: GET**
 
 **HTTP Context: https://server:port/wf-region/service/rest/tasks/{assignee}**
 
-* {assignee} - Владелец
-* {nID_Subject} - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
+* assignee - Владелец
+* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
-**Response**
+**Request:**
+
+https://test.region.igov.org.ua/wf-region/service/rest/tasks/kermit
+
+**Response:**
 
 ```json
-	[                                                     //[0..N]
-  		{
-    		"delegationState": "RESOLVED",                //[0..1]
-		    "id": "38",                                   //[1..1]
-		    "name": "Первый процесс пользователя kermit", //[1..1]
-		    "description": "Описание процесса",           //[0..1]
-		    "priority": 51,                               //[1..1]
-		    "owner": "kermit-owner",                      //[1..1]
-		    "assignee": "kermit-assignee",                //[1..1]
-		    "processInstanceId": "12",                    //[0..1]
-		    "executionId": "1",                           //[0..1]
-		    "createTime": "2015-04-13 00:51:34.527",      //[1..1]
-		    "taskDefinitionKey": "task-definition",       //[0..1]
-		    "dueDate": "2015-04-13 00:51:36.527",         //[0..1]
-		    "category": "my-category",                    //[0..1]
-		    "parentTaskId": "2",                          //[0..1]
-		    "tenantId": "diver",                          //[0..1]
-		    "formKey": "form-key-12",                     //[0..1]
-		    "suspended": true,                            //[1..1]
-		    "processDefinitionId": "21"                   //[0..1]
+	[                                                
+  	  {
+    		"delegationState": "RESOLVED",             
+		    "id": "38",                                  
+		    "name": "Первый процесс пользователя kermit",
+		    "description": "Описание процесса",           
+		    "priority": 51,                               
+		    "owner": "kermit-owner",                      
+		    "assignee": "kermit-assignee",                
+		    "processInstanceId": "12",                   
+		    "executionId": "1",                           
+		    "createTime": "2015-04-13 00:51:34.527",      
+		    "taskDefinitionKey": "task-definition",       
+		    "dueDate": "2015-04-13 00:51:36.527",        
+		    "category": "my-category",                    
+		    "parentTaskId": "2",                          
+		    "tenantId": "diver",                          
+		    "formKey": "form-key-12",                     
+		    "suspended": true,                            
+		    "processDefinitionId": "21"                   
 	  }
 	]
 ```
 
-<a name="5_activitiRunServices">
-####5. Загрузка каталога сервисов из Activiti
-</a><a href="#0_contents">↑Up</a><br/>
+<br/>
+
+<a href="#2"><h4>Загрузка каталога сервисов из Activiti:</h4></a>
+<a href="#0_contents">↑Up</a>
 
 **HTTP Metod: GET**
 
 **HTTP Context: https://server:port/wf-region/service/rest/process-definitions**
 
-* {nID_Subject} - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
+* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
-**Response**
+**Request:**
+
+https://test.region.igov.org.ua/wf-region/service/rest/process-definitions
+
+**Response:**
 
 ```json
-	[											                              //[0..N]
-  		{
-    		"id": "CivilCardAccountlRequest:1:9",                             //[1..1]
-		    "category": "http://www.activiti.org/test",                       //[1..1]
-		    "name": "Видача картки обліку об’єкта торговельного призначення", //[1..1]
-		    "key": "CivilCardAccountlRequest",                                //[1..1]
-		    "description": "Описание процесса",                               //[0..1]
-		    "version": 1,                                                     //[1..1]
-		    "resourceName": "dnepr-2.bpmn",                                   //[1..1]
-		    "deploymentId": "1",                                              //[1..1]
-		    "diagramResourceName": "dnepr-2.CivilCardAccountlRequest.png",    //[1..1]
-		    "tenantId": "diver",                                              //[0..1]
-		    "suspended": true                                                 //[1..1]
-	  }
+	[											                            
+          {
+    		"id": "CivilCardAccountlRequest:1:9",                            
+		    "category": "http://www.activiti.org/test",                       
+		    "name": "Видача картки обліку об’єкта торговельного призначення", 
+		    "key": "CivilCardAccountlRequest",                                
+		    "description": "Описание процесса",                               
+		    "version": 1,                                                     
+		    "resourceName": "dnepr-2.bpmn",                                   
+		    "deploymentId": "1",                                            
+		    "diagramResourceName": "dnepr-2.CivilCardAccountlRequest.png",   
+		    "tenantId": "diver",                                              
+		    "suspended": true                                                 
+	   }
 	]
 ```
+
+--------------------------------------------------------------------------------------------------------------------------
+
 <a name="6_loadFileFromDb">
 ####6. Загрузки прикрепленного к заявке файла из постоянной базы
 </a><a href="#0_contents">↑Up</a><br/>
@@ -981,7 +999,7 @@ ID созданного attachment - "id":"45"
 ####15. Работа с каталогом сервисов
 </a><a href="#0_contents">↑Up</a><br/>
 
-**HTTP Context: http://server:port/wf-central/service/services/getServicesTree** - Получение делева сервисов
+**HTTP Context: http://server:port/wf-central/service/services/getServicesTree** - Получение дерева сервисов
 
 **HTTP Metod: GET**
 

@@ -5,6 +5,7 @@ import static org.wf.dp.dniprorada.liqPay.LiqBuyUtil.sha1;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.wf.dp.dniprorada.rest.HttpRequester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wf.dp.dniprorada.util.GeneralConfig;
+import org.wf.dp.dniprorada.util.Util;
 
 @Component()
 public class LiqBuy {
@@ -55,15 +57,15 @@ public class LiqBuy {
             oLanguage = DEFAULT_LANG;
         }
         
-        String sAccessKey_Merchant = accessDataDao.setAccessData(""+nID_Subject);
-        
+        String URI = "/wf-central/service/merchant/getMerchant";
         Map<String, String> paramMerchant = new HashMap<String, String>();
         paramMerchant.put("sID", sID_Merchant);
         paramMerchant.put("nID_Subject", String.valueOf(nID_Subject));
+        paramMerchant.put("sAccessContract", "Request");
+        String sAccessKey_Merchant = accessDataDao.setAccessData(httpRequester.getFullURL(URI, paramMerchant));
         paramMerchant.put("sAccessKey", sAccessKey_Merchant);
-        
-        //String soJSON_Merchant = httpRequester.get("https://test.igov.org.ua/wf-central/service/merchant/getMerchant", paramMerchant);
-        String soJSON_Merchant = httpRequester.get(generalConfig.sHostCentral() + "/wf-central/service/merchant/getMerchant", paramMerchant);
+        log.info("sAccessKey="+sAccessKey_Merchant);
+        String soJSON_Merchant = httpRequester.get(generalConfig.sHostCentral() + URI, paramMerchant);
         log.info("soJSON_Merchant="+soJSON_Merchant);
         
         JSONParser parser = new JSONParser();
@@ -101,15 +103,12 @@ public class LiqBuy {
             }
             String snID_Subject=""+nID_Subject;
             log.info("snID_Subject="+snID_Subject);
-            
-            log.info("accessDataDao!=null:"+(accessDataDao!=null));
-            //String nID_Access = accessDataDao.setAccessData(String.valueOf(nID_Subject));
-            String sAccessKey = accessDataDao.setAccessData(snID_Subject);
-            
-            sURL_CallbackStatusNew = new StringBuilder(sURL_CallbackStatusNew)
-                    .append(sURL_CallbackStatusNew.indexOf("?")>-1?"&":"?")
-                    .append("nID_Subject=").append(nID_Subject)
-                    .append("&sAccessKey=").append(sAccessKey).toString();
+            String delimiter = sURL_CallbackStatusNew.indexOf("?") > -1 ? "&" : "?";
+            String queryParam = delimiter + "nID_Subject=" + nID_Subject + "&sAccessContract=Request";
+            URI = Util.deleteContextFromURL(sURL_CallbackStatusNew) + queryParam;
+            log.info("URI="+URI);
+            String sAccessKey = accessDataDao.setAccessData(URI);
+            sURL_CallbackStatusNew = sURL_CallbackStatusNew + queryParam + "&sAccessKey=" + sAccessKey;
         }
         log.info("sURL_CallbackStatusNew(with security-key)="+sURL_CallbackStatusNew);
         
@@ -131,13 +130,6 @@ public class LiqBuy {
         log.info("getPayButtonHTML_LiqPay params: " + params + " privateKey: " + privateKey);
         String result = getForm(params, privateKey, oLanguage);
         log.info("getPayButtonHTML_LiqPay ok!: " + result);
-        //result = result.replaceAll("\\Q//static.liqpay.com\\E", "https://static.liqpay.com");
-        //log.info("getPayButtonHTML_LiqPay ok-replaced!: " + result);
-        //static.liqpay.com/buttons/p1ru.radius.png
-        
-        // LiqPay liqpay = new LiqPay(publicKey, privateKey);
-        // String result = liqpay.cnb_form(params);
-        // System.out.println(result);
         return result;
     }
 

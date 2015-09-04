@@ -16,6 +16,11 @@
         <rule ref="rulesets/java/naming.xml/VariableNamingConventions">
             <priority>5</priority>
         </rule>
+
+        ## A lot of our methods contains underscore due to project specific things
+        <rule ref="rulesets/java/naming.xml/MethodNamingConventions">
+            <priority>5</priority>
+        </rule>
     -->
 
     <!-- empty.xml -->
@@ -299,9 +304,6 @@
 
 
     <rule ref="rulesets/java/naming.xml/ShortMethodName">
-        <priority>5</priority>
-    </rule>
-    <rule ref="rulesets/java/naming.xml/MethodNamingConventions">
         <priority>5</priority>
     </rule>
     <rule ref="rulesets/java/naming.xml/ClassNamingConventions">

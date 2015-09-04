@@ -58,22 +58,30 @@ public class FileTaskInheritance extends AbstractModelTask implements TaskListen
 		DelegateExecution execution = task.getExecution();
                 //task.getId()
                 Util.replacePatterns(execution, task, LOG);
+                LOG.info("[notify]Util.replacePatterns:Ok");
+                
+                try{
+                    
+                    String sInheritedAttachmentsIds = getStringFromFieldExpression(this.aFieldInheritedAttachmentID, execution);
+                    LOG.info("sInheritedAttachmentsIds(0)="+sInheritedAttachmentsIds);
 
-		String sInheritedAttachmentsIds = getStringFromFieldExpression(this.aFieldInheritedAttachmentID, execution);
+                    if (sInheritedAttachmentsIds == null || "".equals(sInheritedAttachmentsIds.trim())) {
+                            LOG.error("aFieldInheritedAttachmentID field is not specified");
+                            return;
+                    }
 
-		if (sInheritedAttachmentsIds == null || "".equals(sInheritedAttachmentsIds.trim())) {
-			LOG.error("aFieldInheritedAttachmentID field is not specified");
-			return;
-		}
+                    LOG.info("sInheritedAttachmentsIds(1)="+sInheritedAttachmentsIds);
+                    LOG.info("task.getId()" + task.getId());
 
-                LOG.info("sInheritedAttachmentsIds="+sInheritedAttachmentsIds);
-		LOG.info("task.getId()" + task.getId());
-		
-		List<Attachment> attachments = getAttachmentsFromParentTasks(execution);
+                    List<Attachment> attachments = getAttachmentsFromParentTasks(execution);
 
-		List<Attachment> attachmentsToAdd = getInheritedAttachmentIdsFromTask(attachments, sInheritedAttachmentsIds);
+                    List<Attachment> attachmentsToAdd = getInheritedAttachmentIdsFromTask(attachments, sInheritedAttachmentsIds);
 
-		addAttachmentsToCurrentTask(attachmentsToAdd, task);
+                    addAttachmentsToCurrentTask(attachmentsToAdd, task);                    
+                }catch(Exception oException){
+                    LOG.error("[notify]", oException);
+                }
+
 
                 //runtimeService.setVariable(snID_Process, "sID_Payment", sID_Payment);
                 //String sBody=(String)execution.getVariable("sBody");
