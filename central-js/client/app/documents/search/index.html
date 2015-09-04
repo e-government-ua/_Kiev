@@ -89,17 +89,18 @@
                                 <table ng-show="documents.length > 0" class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th class="col-md-7">
+                                        <th class="col-md-9">
                                             <p class="text-muted">Документ</p>
                                         </th>
-                                        <th class="col-md-3">
+                                        <th class="col-md-3" style="display: none;">
                                             <p class="text-muted">Дата завантаження копії</p>
                                         </th>
-                                        <th class="col-md-3">
+                                        <th class="col-md-3" style="display: none;">
                                             <p class="text-muted">Ким завантажена копія</p>
                                         </th>
-                                        <th class="col-md-1 align-right">
-                                            <p class="text-muted">Дії</p>
+                                        <th class="col-md-5 align-right">
+                                            <!--p class="text-muted">Дії</p-->
+                                            <p class="text-muted"></p>
                                         </th>
                                     </tr>
                                     </thead>
@@ -110,18 +111,18 @@
                                             <td>
                                                 {{doc.oDocumentType.sName}}
                                             </td>
-                                            <td>
+                                            <td style="display: none;">
                                                 {{doc.sDate_Upload | date:'dd MMMM yyyy HH:mm'}}
                                             </td>
-                                            <td>
+                                            <td style="display: none;">
                                                 {{doc.sSubjectName_Upload}}
                                             </td>
                                             <td>
                                                 <a ng-href="{{getDocumentLink(doc.nID, typeId, operatorId, code, smsPass)}}"
-                                                   target="_self">
-                                                    <span class="glyphicon glyphicon-download"
+                                                   target="_self">Завантажити
+                                                    <!--span class="glyphicon glyphicon-download"
                                                           title="Завантажити копію"
-                                                          aria-hidden="true"></span>
+                                                          aria-hidden="true"></span-->
                                                 </a>
                                             </td>
                                         </tr>
