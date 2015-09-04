@@ -5,25 +5,25 @@
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="Text1" name="УВАГА!" type="label" default="Якщо декларація заповнюється від імені юридичної особи - використовуйте тільки ЕЦП, інакше заяву не буде прийнято!"></activiti:formProperty>
-        <activiti:formProperty id="UrOrFop" name="Декларацію подає" type="enum">
+        <activiti:formProperty id="UrOrFop" name="Декларацію подає" type="enum" required="true">
           <activiti:value id="Ur" name="Юридична особа"></activiti:value>
           <activiti:value id="Fop" name="Фізична особа-підприємець"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="TextFOP" name="Наступні дані заповнюють лише фізичні особи-підприємці" type="label"></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім`я" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія, номер, ким і коли виданий)" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Місце проживання" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="TextFOP" name="Наступні дані заповнюють лише" type="label" default="фізичні особи-підприємці"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім`я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія, номер, ким і коли виданий)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Місце проживання" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Номер облікової картки платника податків (не зазначається фізичними особами, які через свої релігійні переконання відмовляються від прийняття реєстраційного номера облікової картки платника податків та повідомили про це відповідний орган державної податкової служби і мають відмітку в паспорті)" type="long"></activiti:formProperty>
-        <activiti:formProperty id="TextUr" name="Наступні дані заповнюють лише юридичні особи" type="label"></activiti:formProperty>
-        <activiti:formProperty id="organizationName" name="Найменування юридичної особи" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="localityName" name="Місце державної реєстрації юридичної особи" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="TextUr" name="Наступні дані заповнюють лише" type="label" default="юридичні особи"></activiti:formProperty>
+        <activiti:formProperty id="organizationName" name="Найменування юридичної особи" type="string"></activiti:formProperty>
+        <activiti:formProperty id="localityName" name="Місце державної реєстрації юридичної особи" type="string"></activiti:formProperty>
         <activiti:formProperty id="Inn" name="Код платника податків згідно з ЄДРПОУ" type="long"></activiti:formProperty>
-        <activiti:formProperty id="KVED" name="Код виду діяльності згідно з КВЕД" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="Surname" name="Прізвище керівника" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="givenName" name="Ім`я та по-батькові керівника" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="TextAll" name="Наступні поля обов`язково заповнюють всі подавачі" type="label"></activiti:formProperty>
+        <activiti:formProperty id="KVED" name="Код виду діяльності згідно з КВЕД" type="string"></activiti:formProperty>
+        <activiti:formProperty id="Surname" name="Прізвище керівника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="givenName" name="Ім`я та по-батькові керівника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="TextAll" name="Наступні поля обов`язково заповнюють" type="label" default="всі подавачі"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail: На цей e-mail Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="locacia" name="Місце (адреса) виконання робіт підвищеної небезпеки та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" required="true"></activiti:formProperty>
@@ -91,7 +91,7 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;h3&gt;Шановний(-а).&lt;/h3&gt;
                                     &lt;p&gt;
                                        Ваш "Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" успішно отримана.&lt;/p&gt;
 									&lt;p&gt;

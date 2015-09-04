@@ -22,7 +22,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="place_of_res" name="Місце куди направити витяг поштою; вкажіть індекс, область, місто, вулицю, дім, квартиру" type="string"></activiti:formProperty>
         <activiti:formProperty id="visn" name="Висновок експертизи щодо додержання вимог законодавства з питань охорони праці та промислової безпеки під час виконання заявлених робіт" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду відповідно до Закону України „Про захист персональних даних” на обробку Ваших особистих персональних даних у картотеках та/або за допомогою інформаційно-телекомунікаційних систем з метою підготовки відповідно до вимог законодавства статистичної, адміністративної та іншої інформації."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду відповідно до Закону України „Про захист персональних даних” на обробку Ваших особистих персональних даних у картотеках та/або за допомогою інформаційно-телекомунікаційних систем з метою підготовки відповідно до вимог законодавства статистичної, адміністративної та іншої інформації."></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -133,7 +133,7 @@
       <extensionElements>
         <activiti:formProperty id="clFio" name="Суб’єкт звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="long" default="38" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objName" name="об’єкт, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objAdress" name="місцезнаходження (адреса) об’єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
@@ -270,10 +270,10 @@
     <sequenceFlow id="flow16" name="${decide == 'accept'}" sourceRef="exclusivegateway1" targetRef="usertask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask2" name="Відповідь поступає до ЦНАП">
+    <userTask id="usertask2" name="Відповідь поступає до ЦНАП" activiti:candidateGroups="dnepr_cnap_50">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Суб’єкт звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="long" default="38" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="orgName" name="Назва релігійної громади/організації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="orgAdress" name="Адреса релігійної громади/організації" type="string" writable="false"></activiti:formProperty>
