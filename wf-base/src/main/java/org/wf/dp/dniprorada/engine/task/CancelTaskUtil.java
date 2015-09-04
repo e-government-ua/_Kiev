@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 import org.wf.dp.dniprorada.util.GeneralConfig;
-import org.wf.dp.dniprorada.util.luna.AlgorithmLuna;
 
 @Component
 public class CancelTaskUtil {
@@ -18,37 +17,39 @@ public class CancelTaskUtil {
     private GeneralConfig generalConfig;
     
     private static final Logger log = LoggerFactory.getLogger(CancelTaskUtil.class);
-    private static final String sURL_CancelTask =  "/wf-region/service/cancelTask"; //????
+    private static final String sURL_CancelTask =  "/wf-region/service/rest/cancelTask"; //????
 
 
     private static final String TAG_action = "[sURL_CancelTask]";
-    private static final String canselButtonHTML = new StringBuilder()
+    private static String TAG_nID_Protected = "[nID_Protected]";
+    private static final String cancelButtonHTML = new StringBuilder()
             .append("<form method=\"POST\" action=\"")
             .append(TAG_action)
             .append("\" ")
             .append("accept-charset=\"utf-8\">")
             .append("Ви можете скасувати свою заявку, вказавши причину в цьому полі: <br/>\n")
             .append("<input type=\"text\" name=\"sInfo\"/><br/>\n")
+            .append("<input type=\"hidden\" name=\"nID_Protected\" value=\"")
+            .append(TAG_nID_Protected + "\"/>")
             .append("<input type=\"button\" name=\"submit\" ")
             .append("value=\"Скасувати заявку!\"/>")
         .append("</form>").toString();
 
-    public String getCancelFormHTML(Long nID_Task) throws Exception {
+    public String getCancelFormHTML(Long nID_Protected) throws Exception {
 
 
-        String sAccessKey = accessDataDao.setAccessData("" + nID_Task);
-        String sURL_CancelTaskService = generalConfig.sHostCentral() + sURL_CancelTask;
-        String sURL_CancelTaskAction = new StringBuilder(sURL_CancelTaskService)
-                .append("?")
-                .append("sAccessKey=").append(sAccessKey)
-                .append("&nID_Protected=").append(AlgorithmLuna.getProtectedNumber(nID_Task))
+        String sURL_ForAccessKey = new StringBuilder(sURL_CancelTask)
+                .append("?nID_Protected=").append(nID_Protected)
+                .toString();
+        String sAccessKey = accessDataDao.setAccessData(sURL_ForAccessKey);
+        String sURL_CancelTaskAction = new StringBuilder(generalConfig.sHostCentral() + sURL_ForAccessKey)
+                .append("?sAccessKey=").append(sAccessKey)
                 .append("&sAccessConract=Request")
                 .toString();
-
         log.info("total URL for action =" + sURL_CancelTaskAction);
 
-        String buttonStr = canselButtonHTML.replace(TAG_action, sURL_CancelTaskAction);
-        return buttonStr;
+        return cancelButtonHTML.replace(TAG_action, sURL_CancelTaskAction)
+                .replace(TAG_nID_Protected, "" + nID_Protected);
     }
 
 }
