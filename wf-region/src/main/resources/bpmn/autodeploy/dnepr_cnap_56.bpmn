@@ -24,12 +24,12 @@
         <activiti:formProperty id="pidpriemci" name="Ничже вказані поля треба заповнити юридичним особам чи особам-підприємцям" type="label" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="imya_ur" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="edrpo" name="Ідентифікаційний код згідно з ЄДРПОУ" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="inn" name="Ідентифікаційний номер фізичної особи–підприємця" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="edrpo" name="Ідентифікаційний код згідно з ЄДРПОУ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="inn" name="Ідентифікаційний номер фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Місцезнаходження юридичної особи/місце проживання фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="doc_pidpriemci" name="Завантажте копію документа, що посвідчує право на здійснення підприємницької діяльності" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг" required="true"></activiti:formProperty>
+        <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -146,8 +146,8 @@
         <activiti:formProperty id="adres" name="Якщо обрали спосіб отримання поштою, укажіть адресу на яку треба направити листа" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="imya_ur" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="edrpo" name="Ідентифікаційний код згідно з ЄДРПОУ" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="inn" name="Ідентифікаційний номер фізичної особи–підприємця" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="edrpo" name="Ідентифікаційний код згідно з ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="inn" name="Ідентифікаційний номер фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Місцезнаходження юридичної особи/місце проживання фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="Прийняття рішення про надання дозволу" type="enum" required="true">
