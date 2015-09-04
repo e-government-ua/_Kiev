@@ -10,26 +10,26 @@
           <activiti:value id="Fop" name="Фізична особа-підприємець"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="TextFOP" name="Наступні дані заповнюють лише фізичні особи-підприємці" type="label"></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім`я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія, номер, ким і коли виданий)" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Місце проживання" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім`я" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія, номер, ким і коли виданий)" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Місце проживання" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Номер облікової картки платника податків (не зазначається фізичними особами, які через свої релігійні переконання відмовляються від прийняття реєстраційного номера облікової картки платника податків та повідомили про це відповідний орган державної податкової служби і мають відмітку в паспорті)" type="long"></activiti:formProperty>
         <activiti:formProperty id="TextUr" name="Наступні дані заповнюють лише юридичні особи" type="label"></activiti:formProperty>
-        <activiti:formProperty id="organizationName" name="Найменування юридичної особи" type="string"></activiti:formProperty>
-        <activiti:formProperty id="localityName" name="Місце державної реєстрації юридичної особи" type="string"></activiti:formProperty>
+        <activiti:formProperty id="organizationName" name="Найменування юридичної особи" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="localityName" name="Місце державної реєстрації юридичної особи" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="Inn" name="Код платника податків згідно з ЄДРПОУ" type="long"></activiti:formProperty>
-        <activiti:formProperty id="KVED" name="Код виду діяльності згідно з КВЕД" type="string"></activiti:formProperty>
-        <activiti:formProperty id="Surname" name="Прізвище керівника" type="string"></activiti:formProperty>
-        <activiti:formProperty id="givenName" name="Ім`я та по-батькові керівника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="KVED" name="Код виду діяльності згідно з КВЕД" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="Surname" name="Прізвище керівника" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="givenName" name="Ім`я та по-батькові керівника" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="TextAll" name="Наступні поля обов`язково заповнюють всі подавачі" type="label"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail: На цей e-mail Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="locacia" name="Місце (адреса) виконання робіт підвищеної небезпеки та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди (найменування страхової компанії, строк дії страхового полісу, номер і дата його видачі)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди (найменування страхової компанії, строк дії страхового полісу, номер і дата його видачі)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="work" name="Цією декларацією підтверджую відповідність матеріально-технічної бази та умов праці вимогам законодавства з питань охорони праці під час виконання таких робіт підвищеної небезпеки та/або експлуатації (застосування) таких машин, механізмів, устатковання підвищеної небезпеки: (найменування виду робіт підвищеної небезпеки та/або машин, механізмів, устатковання підвищеної небезпеки, їх марка, номер партії, дата виготовлення, країна походження, які виконуються та/або експлуатуються (застосовуються) без отримання відповідного дозволу, кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм, будівель і споруд (приміщень), виробничих об'єктів (цехів, дільниць, структурних підрозділів)" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="another" name="Інші відомості (прізвище, ім'я та по батькові осіб, відповідальних за дотримання вимог законодавства з питань охорони праці та промислової безпеки, наявність служби охорони праці, інструкцій, інформації про проведення навчання та інструктажу з питань охорони праці, експлуатаційної документації, засобів індивідуального захисту, нормативно-правової та матеріально-технічної бази, навчально-методичного забезпечення)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="another" name="Інші відомості (прізвище, ім'я та по батькові осіб, відповідальних за дотримання вимог законодавства з питань охорони праці та промислової безпеки, наявність служби охорони праці, інструкцій, інформації про проведення навчання та інструктажу з питань охорони праці, експлуатаційної документації, засобів індивідуального захисту, нормативно-правової та матеріально-технічної бази, навчально-методичного забезпечення)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
