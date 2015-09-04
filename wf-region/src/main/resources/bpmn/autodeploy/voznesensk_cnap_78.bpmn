@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="nikolaev_cnap_78" name="Первомайськ (Миколаївська обл.) ЦНАП - Отримання довідки про наявність та розмір земельної частки (паю)" isExecutable="true">
+  <process id="voznesensk_cnap_78" name="Вознесенский ЦНАП - Отримання довідки про наявність та розмір земельної частки (паю)" isExecutable="true">
     <documentation>https://github.com/e-government-ua/iBP/issues/78</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -45,7 +45,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="mailtask1"></sequenceFlow>
-    <userTask id="usertask1" name="Прийняття рішення" activiti:candidateGroups="nikolaev_cnap_78">
+    <userTask id="usertask1" name="Прийняття рішення" activiti:candidateGroups="voznesensk_cnap_78">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
@@ -128,8 +128,8 @@ ${comment}
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_nikolaev_cnap_78">
-    <bpmndi:BPMNPlane bpmnElement="nikolaev_cnap_78" id="BPMNPlane_nikolaev_cnap_78">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_voznesensk_cnap_78">
+    <bpmndi:BPMNPlane bpmnElement="voznesensk_cnap_78" id="BPMNPlane_voznesensk_cnap_78">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="91.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
