@@ -101,7 +101,7 @@
                  value="{{doc.sName}}">
         </td>
         <td>
-          {{getSignData(doc)}}
+          <a href ng-click="showSignDataPopup(doc)" ng-if="getSignData(doc)" ng-bind="getSignData(doc)"></a>
         </td>
         <td>
           <a ng-href="{{getDocumentLink(doc.nID)}}"

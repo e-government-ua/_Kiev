@@ -39,6 +39,20 @@ angular.module('documents').controller('DocumentsContentController', function($s
     });
   };
 
+  $scope.showSignDataPopup = function(doc)
+  {
+    $modal.open({
+      animation: true,
+      templateUrl: '/app/documents/documentsigndata.html',
+      controller: 'DocumentSignDataController',
+      resolve: {
+        oSignData: function() {
+          return JSON.parse(doc.oSignData);
+        }
+      }
+    })
+  };
+
   $scope.showShareTab = function(){
     $scope.shareTab = !$scope.shareTab;
   };
