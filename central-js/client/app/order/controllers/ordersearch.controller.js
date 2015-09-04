@@ -19,7 +19,8 @@ angular.module('order').controller('OrderSearchController', function($rootScope,
                     }
                 } else {
                     if (typeof data === 'object') {
-                        data.sDateEdit = new Date();
+                        //data.sDateEdit = new Date();
+                        //data.sDateEdit = data.sDate;
                         data = [data];
                     }
                     $scope.orders = data;
