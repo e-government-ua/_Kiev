@@ -16,6 +16,7 @@
         <activiti:formProperty id="eventDate" name="Дата проведення заходу" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="eventTime" name="Час проведення заходу" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="golovniy" name="Відповідальна особа за проведення релігійного масового заходу" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="plan" name="План проведення релігійного заходу" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="oxr" name="Копія договору на охорону громадського порядку з Дніпропетровським міським управлінням ГУМВС України у Дніпропетровській області (у разі необхідності)" type="file"></activiti:formProperty>
         <activiti:formProperty id="vrach" name="Копія договору з департаментом охорони здоров’я Дніпропетровської міської ради (у разі необхідності)" type="file"></activiti:formProperty>
@@ -146,15 +147,12 @@
         <activiti:formProperty id="eventDate" name="Дата проведення заходу" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventTime" name="Час проведення заходу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="golovniy" name="Відповідальна особа за проведення релігійного масового заходу" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення чиновника" type="enum" required="true">
           <activiti:value id="accept" name="Взяти в роботу"></activiti:value>
           <activiti:value id="decline" name="Відмовити в проведенні заходу"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="reason" name="Підстава для відмови у наданні адміністративної послуги" type="enum">
-          <activiti:value id="dok_ne_ok" name="оформлення наданих документів не відповідає встановленим вимогам"></activiti:value>
-          <activiti:value id="opozdal" name="не дотриманий строк подачі клопотання, який становить не пізніше як за десять днів до призначеного строку проведення релігійного масового заходу"></activiti:value>
-          <activiti:value id="zanyato" name="заявлене місце вже зайняте іншим масовим заходом"></activiti:value>
-        </activiti:formProperty>
+        <activiti:formProperty id="reason" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_44.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
@@ -286,11 +284,7 @@
           <activiti:value id="dozv" name="Дозвіл готовий"></activiti:value>
           <activiti:value id="decline" name="Відмовити в проведенні заходу"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="reason" name="Підстава для відмови у наданні адміністративної послуги" type="enum">
-          <activiti:value id="dok_ne_ok" name="оформлення наданих документів не відповідає встановленим вимогам"></activiti:value>
-          <activiti:value id="opozdal" name="не дотриманий строк подачі клопотання, який становить не пізніше як за десять днів до призначеного строку проведення релігійного масового заходу"></activiti:value>
-          <activiti:value id="zanyato" name="заявлене місце вже зайняте іншим масовим заходом"></activiti:value>
-        </activiti:formProperty>
+        <activiti:formProperty id="reason" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow14" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>

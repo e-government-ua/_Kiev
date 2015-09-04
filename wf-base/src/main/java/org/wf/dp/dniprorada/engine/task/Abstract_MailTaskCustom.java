@@ -46,7 +46,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     //[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=�������� ������&amp;sMail= &amp;nID_SubjectMessageType=1
     //private static final String queryParamPattern = "?nID_Subject=%s&amp;sData=�������� ������&amp;sMail= &amp;nID_SubjectMessageType=1&amp;sAccessContract=Request"; //sAccessKey=%s&amp;
     //private static final String accessKeyPattern = "&amp;sAccessKey=%s";
-    private static final String queryParamPattern = "?nID_Subject=%s&sHead=Отзыв&sData=Название Услуги&sMail= &nID_SubjectMessageType=1&sAccessContract=Request"; //sAccessKey=%s&amp;
+    private static final String queryParamPattern = "?sHead=Отзыв&sBody=Отзыв&sData=Название Услуги&sMail= &nID_SubjectMessageType=1&sAccessContract=Request"; //sAccessKey=%s&amp;
     private static final String accessKeyPattern = "&sAccessKey=%s";
     //private static final String URL_SERVICE_MESSAGE = "https://test.igov.org.ua/wf-central/service/messages/setMessage";
     private static final String TAG_Function_AtEnum = "enum{[";
@@ -218,10 +218,10 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         }
                 
         //[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=�������� ������&amp;sMail= &amp;nID_SubjectMessageType=1       
+        LOG.info("execution.getProcessInstanceId()="+execution.getProcessInstanceId());
+        Long nID_Protected = getProtectedNumber(Long.valueOf(execution.getProcessInstanceId()));
+        LOG.info("nID_Protected="+nID_Protected);
         if (textWithoutTags.contains(TAG_nID_Protected)) {
-            LOG.info("execution.getProcessInstanceId()="+execution.getProcessInstanceId());
-            Long nID_Protected = getProtectedNumber(Long.valueOf(execution.getProcessInstanceId()));
-            LOG.info("nID_Protected="+nID_Protected);
             textWithoutTags = textWithoutTags.replaceAll(TAG_nID_Protected, "" + nID_Protected);
         }
         
@@ -233,7 +233,10 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         }
         if (textWithoutTags.contains(TAG_sURL_SERVICE_MESSAGE)) {
             String URI = Util.deleteContextFromURL(URL_SERVICE_MESSAGE);
-            String queryParam = String.format(queryParamPattern, "" + nID_Subject);
+            String queryParam = String.format(queryParamPattern);
+            if(nID_Subject != null){
+                queryParam = queryParam + "&nID_Subject=" + nID_Subject;
+            }
             String accessKey = accessDataDao.setAccessData(URI + queryParam);
             String replacemet = URL_SERVICE_MESSAGE + queryParam 
                     + String.format(accessKeyPattern, accessKey);
@@ -245,8 +248,8 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         }
         if (textWithoutTags.contains(TAG_CANCEL_TASK)){
             //LOG.info("execution.getProcessInstanceId() = "+execution.getProcessInstanceId());
-            Long nID_Task = Long.valueOf(execution.getProcessInstanceId());
-            String cancelTaskBtn = new CancelTaskUtil().getCancelFormHTML(nID_Task);
+//            Long nID_Task = Long.valueOf(execution.getProcessInstanceId());
+            String cancelTaskBtn = new CancelTaskUtil().getCancelFormHTML(nID_Protected);
             LOG.info("cancel button = " + cancelTaskBtn);
             textWithoutTags = textWithoutTags.replaceAll(TAG_CANCEL_TASK, cancelTaskBtn);
         }

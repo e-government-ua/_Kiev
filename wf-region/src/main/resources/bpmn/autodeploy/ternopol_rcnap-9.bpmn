@@ -11,6 +11,9 @@
         <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="rai" name="Оберіть район" type="enum" required="true">
+          <activiti:value id="tern" name="Тернопільський район"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета звернення" type="enum" required="true">
           <activiti:value id="item1" name="визначення розміру земельного податку при міні або даруванні земельних ділянок"></activiti:value>
           <activiti:value id="item2" name="визначення розміру земельного податку при спадкуванні земельних ділянок"></activiti:value>
@@ -19,8 +22,8 @@
           <activiti:value id="itme5" name="розроблення показників та механізмів економічного стимулювання раціонального використання та охорони земель"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="res" name="Як ви бажаєте отримати витяг з технічної документації" type="enum" required="true">
-          <activiti:value id="post" name="поштою"></activiti:value>
-          <activiti:value id="cnap" name="особисто"></activiti:value>
+          <activiti:value id="post" name="надіслати поштою"></activiti:value>
+          <activiti:value id="cnap" name="видати на руки"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="place_of_res" name="Місце куди направити витяг поштою; вкажіть індекс, область, місто, вулицю, дім, квартиру" type="string"></activiti:formProperty>
         <activiti:formProperty id="file1" name="Копія паспорта" type="file" required="true"></activiti:formProperty>
@@ -128,19 +131,26 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow10" sourceRef="mailtask3" targetRef="usertask1"></sequenceFlow>
-    <userTask id="usertask1" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="tern_rai_cnap1">
+    <userTask id="usertask1" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="cnap_rai_${rai}_1">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="rai" name="Оберіть район" type="enum" writable="false">
+          <activiti:value id="tern" name="Тернопільський район"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета звернення" type="enum" writable="false">
           <activiti:value id="item1" name="визначення розміру земельного податку при міні або даруванні земельних ділянок"></activiti:value>
           <activiti:value id="item2" name="визначення розміру земельного податку при спадкуванні земельних ділянок"></activiti:value>
           <activiti:value id="item3" name="визначення орендної плати за земельні ділянки державної та комунальної власності"></activiti:value>
           <activiti:value id="item4" name="визначення втрат сільськогосподарського та лісогосподарського виробництва"></activiti:value>
           <activiti:value id="itme5" name="розроблення показників та механізмів економічного стимулювання раціонального використання та охорони земель"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="res" name="Як ви бажаєте отримати витяг з технічної документації" type="enum"  writable="false">
+          <activiti:value id="post" name="надіслати поштою"></activiti:value>
+          <activiti:value id="cnap" name="видати на руки"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення" type="enum" required="true">
           <activiti:value id="accept" name="Прийняти в роботу"></activiti:value>
@@ -254,10 +264,9 @@
     <sequenceFlow id="flow7" name="робота з надання послуги" sourceRef="exclusivegateway1" targetRef="usertask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask2" name="Підготовка відповіді на запит" activiti:candidateGroups="tern_rai_cnap1">
+    <userTask id="usertask2" name="Підготовка відповіді на запит" activiti:candidateGroups="cnap_rai_${rai}_1">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false"></activiti:formProperty>
