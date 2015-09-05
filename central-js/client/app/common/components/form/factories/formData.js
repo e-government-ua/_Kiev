@@ -1,7 +1,7 @@
 angular.module('app').factory('FormDataFactory', function(ParameterFactory, DatepickerFactory, FileFactory, ScanFactory, BankIDDocumentsFactory, BankIDAddressesFactory, CountryService, ActivitiService, $q) {
   var FormDataFactory = function() {
     this.processDefinitionId = null;
-    this.factories = [DatepickerFactory, ScanFactory, FileFactory, ParameterFactory];
+    this.factories = [DatepickerFactory, FileFactory, ParameterFactory];
     this.fields = {};
     this.params = {};
   };
@@ -75,10 +75,10 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
           var sFieldName;
           angular.forEach(oValue, function(scan){
             sFieldName = ScanFactory.prototype.getName(scan.type);
-            if (self.hasParam(sFieldName) && self.params[sFieldName].setScan) {
-              self.fields[sFieldName] = true;
-              self.params[sFieldName].mode = ScanFactory.prototype.SCAN;
-              self.params[sFieldName].setScan(scan);
+            if (self.hasParam(sFieldName)) {
+                self.fields[sFieldName] = true;
+                self.params[sFieldName] = Object.create(ScanFactory.prototype);
+                self.params[sFieldName].setScan(scan);
             }
           });
           break;
@@ -142,15 +142,35 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
   };
 
   FormDataFactory.prototype.uploadScansFromBankID = function (oServiceData) {
+    var self = this;
+    var paramsForUpload = [];
     for (var key in this.params) {
       var param = this.params[key];
-      if (param.mode && param.mode === ScanFactory.prototype.SCAN) {
-        ActivitiService.autoUploadScan(oServiceData, param.getScan())
-          .then(function (result) {
-            param.value = result.fileID;
-          });
+      if (param instanceof ScanFactory) {
+        paramsForUpload.push({ key: key, scan : param.getScan()});
       }
     }
+
+    var backToFile = function(uploadResult){
+      self.params[uploadResult.scanField.key] = new FileFactory();
+    };
+
+    var populateWithValue = function(uploadResult){
+      self.params[uploadResult.scanField.key].value = uploadResult.fileID;
+    };
+
+    ActivitiService.autoUploadScans(oServiceData, paramsForUpload)
+      .then(function (uploadResults) {
+        uploadResults.forEach(function(uploadResult){
+          if(!uploadResult.error){
+            populateWithValue(uploadResult);
+          } else {
+            backToFile(uploadResult);
+          }
+        });
+      }).catch(function () {
+        //TODO all to file ??
+      });
   };
 
   FormDataFactory.prototype.setFile = function(name, file) {

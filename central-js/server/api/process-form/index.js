@@ -5,6 +5,6 @@ var auth = require('../../auth/auth.service.js');
 
 router.get('/', auth.isAuthenticated(), form.index);
 router.post('/', auth.isAuthenticated(), form.submit);
-router.post('/scanUpload', auth.isAuthenticated(), form.scanUpload);
+router.post('/scansUpload', auth.isAuthenticated(), form.scanUpload);
 
 module.exports = router;

@@ -57,13 +57,13 @@ angular.module('app').service('ActivitiService', function($http, ErrorsFactory) 
     formData.params[propertyID].value = fileUUID;
   };
 
-  this.autoUploadScan = function(oServiceData, scan){
+  this.autoUploadScans = function(oServiceData, scans){
     var data = {
       url: oServiceData.sURL + 'service/rest/file/upload_file_to_redis',
-      scanField : scan
+      scanFields : scans
     };
 
-    return $http.post('./api/process-form/scanUpload', data).then(function (response) {
+    return $http.post('./api/process-form/scansUpload', data).then(function (response) {
       if (/err/i.test(response.data.code)) {
         ErrorsFactory.push({
           type: "danger",

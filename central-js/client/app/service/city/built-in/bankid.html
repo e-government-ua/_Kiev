@@ -172,9 +172,14 @@
 
                 <p class="input-group"
                    ng-switch-when="file">
+                  <label ng-if="data.formData.params[property.id].scan"
+                         name="{{property.id}}"
+                         class="form-control_">
+                    Завантажено із BankID</label>
                   <file-field name="{{property.id}}"
                               ng-model="data.formData.params[property.id].value"
-                              ng-required="property.required">Add File
+                              ng-required="property.required"
+                              ng-if="data.formData.params[property.id].upload">Add File
                   </file-field>
                 </p>
 
@@ -192,7 +197,7 @@
 
               </div>
 
-              <div class="col-md-3"
+              <div class="col-md-3"`
                    ng-if="(data.formData.fields[property.id] && as.isEditable(property.id) == 3) || as.isEditable(property.id) == 2"
                    ng-bind="data.formData.params[property.id].value">
                 <input type="hidden"
@@ -204,7 +209,7 @@
               </div>
 
               <div class="col-md-4 validation-message"
-                   ng-if="form.$submitted"
+                   ng-if="form.$submitted"``
                    ng-messages="form[property.id].$error">
                 <div ng-message="required">Необхідно заповнити.</div>
                 <div ng-message="pattern">Значення має бути числом.</div>

@@ -1,11 +1,8 @@
 angular.module('app').factory('ScanFactory', function() {
 
-  var SCAN = 'SCAN_MODE';
-  var FILE = 'FILE_MODE';
-
-  var scan = function() {
+  var scan = function Scan() {
     this.value = null;
-    this.mode = SCAN;
+    this.status = null;
   };
 
   scan.prototype.get = function() {
@@ -27,9 +24,6 @@ angular.module('app').factory('ScanFactory', function() {
   scan.prototype.getName = function(scanType){
     return 'bankId_scan_' + scanType;
   };
-
-  scan.prototype.SCAN = SCAN;
-  scan.prototype.FILE = FILE;
 
   return scan;
 });

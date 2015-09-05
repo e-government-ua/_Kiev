@@ -4,6 +4,7 @@ var config = require('../../config/environment');
 var accountService = require('../bankid/account.service.js');
 var _ = require('lodash');
 var StringDecoder = require('string_decoder').StringDecoder;
+var async = require('async');
 
 module.exports.index = function (req, res) {
 
@@ -91,40 +92,50 @@ module.exports.scanUpload = function (req, res) {
   var accessToken = req.session.access.accessToken;
   var data = req.body;
   var uploadURL = data.url;
-  var documentScan = data.scanField;
+  var documentScans = data.scanFields;
 
-  var scanContentRequest = accountService.prepareScanContentRequest(
-    _.merge(getBankIDOptions(accessToken), {
-      url: documentScan.link
-    })
-  );
+  var uploadResults = [];
+  var uploadScan = function (documentScan, callback) {
+    var scanContentRequest = accountService.prepareScanContentRequest(
+      _.merge(getBankIDOptions(accessToken), {
+        url: documentScan.scan.link
+      })
+    );
 
-  var form = new FormData();
-  form.append('file', scanContentRequest);
+    var form = new FormData();
+    form.append('file', scanContentRequest);
 
-  var requestOptionsForUploadContent = {
-    url: uploadURL,
-    auth: getAuth(),
-    headers: form.getHeaders()
+    var requestOptionsForUploadContent = {
+      url: uploadURL,
+      auth: getAuth(),
+      headers: form.getHeaders()
+    };
+
+    var decoder = new StringDecoder('utf8');
+    var result = {};
+    form.pipe(request.post(requestOptionsForUploadContent))
+      .on('response', function (response) {
+        result.statusCode = response.statusCode;
+      }).on('data', function (chunk) {
+        if (result.fileID) {
+          result.fileID += decoder.write(chunk);
+        } else {
+          result.fileID = decoder.write(chunk);
+        }
+      }).on('end', function () {
+        result.scanField= documentScan;
+        uploadResults.push(result);
+        callback();
+      });
   };
 
-  var decoder = new StringDecoder('utf8');
-  var result = {};
-  form.pipe(request.post(requestOptionsForUploadContent))
-    .on('response', function (response) {
-      result.statusCode = response.statusCode;
-    }).on('data', function (chunk) {
-      if (result.fileID) {
-        result.fileID += decoder.write(chunk);
-      } else {
-        result.fileID = decoder.write(chunk);
-      }
-    }).on('end', function () {
-      result.type = documentScan.type;
-      result.extension = documentScan.extension;
-      res.send(result);
-      res.end();
-    });
+  async.forEach(documentScans, function (documentScan, callback) {
+    uploadScan(documentScan, callback);
+  }, function (error) {
+    res.send(uploadResults);
+    res.end();
+  });
+
 };
 
 
