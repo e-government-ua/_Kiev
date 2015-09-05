@@ -7,6 +7,7 @@
         <activiti:formProperty id="bankIdemail" name="e-mail" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdphone" name="телефон" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddressFactual" name="адреса прописки" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="скан паспорта" type="file"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="обробка заявки" activiti:candidateGroups="sales">
