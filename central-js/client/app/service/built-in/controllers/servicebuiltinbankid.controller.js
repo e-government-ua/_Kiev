@@ -56,7 +56,8 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.data.formData = new FormDataFactory();
   $scope.data.formData.initialize(ActivitiForm);
   $scope.data.formData.setBankIDAccount(BankIDAccount);
-
+  //TODO uncomment after testing
+  //$scope.data.formData.uploadScansFromBankID(oServiceData);
   var currentState = $state.$current;
 
   $scope.data.region = currentState.data.region;
