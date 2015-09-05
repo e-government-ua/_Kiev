@@ -76,11 +76,11 @@ public class RestRequest {
         }
         HttpEntity<String> httpEntity = new HttpEntity<String>(httpHeaders);
 
-        LOG.debug("Sending GET to rest resource: " + url + " HttpEntity: " + httpEntity);
+        LOG.info("Sending GET to rest resource: " + url + " HttpEntity: " + httpEntity);
         ResponseEntity<T> entity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, clazz);
-
+        LOG.info("we got: " + entity);
         if (entity.getStatusCode().is3xxRedirection()) {
-            LOG.debug("Sending GET agter redirect to rest resource: " + url + " HttpEntity: " + httpEntity);
+            LOG.info("Sending GET agter redirect to rest resource: " + url + " HttpEntity: " + httpEntity);
             entity = restTemplate.exchange(entity.getHeaders().getLocation().toString(),
                     HttpMethod.GET, httpEntity, clazz);
         }
@@ -120,11 +120,11 @@ public class RestRequest {
         }
         HttpEntity<String> httpEntity = new HttpEntity<String>(httpHeaders);
 
-        LOG.debug("Sending GET to rest resource: " + url + " HttpEntity: " + httpEntity.getHeaders());
+        LOG.info("Sending GET to rest resource: " + url + " HttpEntity: " + httpEntity.getHeaders());
         ResponseEntity<T> entity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, clazz);
-
+        LOG.info("we got: " + entity);
         if (entity.getStatusCode().is3xxRedirection()) {
-            LOG.debug("Sending GET agter redirect to rest resource: " + url + " HttpEntity: " + httpEntity.getHeaders());
+            LOG.info("Sending GET agter redirect to rest resource: " + url + " HttpEntity: " + httpEntity.getHeaders());
             entity = restTemplate.exchange(entity.getHeaders().getLocation().toString(),
                     HttpMethod.GET, httpEntity, clazz);
         }

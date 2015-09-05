@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.model.document;
 
+import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,13 +9,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.codec.Base64;
-import org.springframework.stereotype.Component;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.multipart.MultipartFile;
 import org.w3c.dom.Node;
 import org.wf.dp.dniprorada.dao.DocumentAccessDao;
 import org.wf.dp.dniprorada.dao.DocumentTypeDao;
 import org.wf.dp.dniprorada.dao.SubjectDao;
-import org.wf.dp.dniprorada.model.*;
+import org.wf.dp.dniprorada.model.ByteArrayMultipartFileOld;
+import org.wf.dp.dniprorada.model.Document;
+import org.wf.dp.dniprorada.model.DocumentAccess;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.rest.RestRequest;
 import org.wf.dp.dniprorada.util.rest.SSLCertificateValidation;
@@ -30,6 +33,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 import java.util.Collections;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -65,16 +69,25 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
     public Document getDocument() {
         Document doc = new Document();
         String sessionId;
-        String uriDoc = generalConfig.sURL_DocumentKvitancii();
-        String keyIdParam = "?keyID=";
+        String keyIdParam;
         String callBackKey = "&callbackUrl=";
         String callBackValue = generalConfig.sURL_DocumentKvitanciiCallback();
         String keyID = this.accessCode;
-        String finalUri = uriDoc + keyIdParam + keyID + callBackKey + callBackValue;
-        if (this.documentTypeId == null && this.documentTypeId != 0) {
+        Collection<Long> correctDocTypes = Lists.newArrayList(0L, 1L);
+        String uriDoc;
+
+        if (this.documentTypeId == null || !correctDocTypes.contains(this.documentTypeId)) {
             LOG.error("DocumentTypeId = " + this.documentTypeId);
             throw new DocumentTypeNotSupportedException("Incorrect DocumentTypeId. DocumentTypeId = " + this.documentTypeId);
+        } else {
+            uriDoc = Long.valueOf(0L).equals(this.documentTypeId) ?
+                    generalConfig.sURL_DocumentKvitanciiForIgov() : generalConfig.sURL_DocumentKvitanciiForAccounts();
+
+            keyIdParam = Long.valueOf(0L).equals(this.documentTypeId) ? "?keyID=" : "?id=";
         }
+
+        String finalUri = uriDoc + keyIdParam + keyID + callBackKey + callBackValue;
+
 
         if (generalConfig.bTest()) {
             SSLCertificateValidation.disable();
@@ -90,8 +103,8 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
             headers.setAccept(Collections.singletonList(MediaType.ALL));
             headers.set("Authorization", "Basic " + authHeaderEncoded);
 
-            ResponseEntity<String> documentEntity = new RestRequest().getEntity(finalUri,
-                    null, StandardCharsets.UTF_8, String.class, headers);
+            ResponseEntity<byte[]> documentEntity = new RestRequest().getEntity(finalUri,
+                    null, StandardCharsets.UTF_8, byte[].class, headers);
 
             String contentType = documentEntity.getHeaders().getContentType().toString();
             String contentDispositionHeader = documentEntity.getHeaders().get("Content-Disposition").get(0);
@@ -103,12 +116,12 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
             }
 
             if (this.withContent) {
-                doc.fileBody = documentEntity.getBody().getBytes();
+                doc.setFileBody(getFileFromRespEntity(documentEntity));
             }
 
             doc.setDocumentType(documentTypeDao.findByIdExpected(0L));
             doc.setSubject(subjectDao.getSubject(this.nID_Subject));
-            doc.setName(documentName);
+            doc.setFile(documentName);
             doc.setContentType(contentType);
             doc.setDate_Upload(DateTime.now());
             doc.setsID_subject_Upload(null);
@@ -116,7 +129,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
             doc.setoSignData(null);
 
 
-        } catch (ParseException e) {
+        } catch (ParseException | ResourceAccessException e) {
             LOG.error("Can't get document: ", e);
             throw new DocumentNotFoundException("Can't get document: ", e);
         }
@@ -162,7 +175,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
 
     }
 
-    private MultipartFile getFileFromRespEntity(ResponseEntity<String> documentEntity) throws ParseException {
+    private MultipartFile getFileFromRespEntity(ResponseEntity<byte[]> documentEntity) throws ParseException {
         String contentType = documentEntity.getHeaders().getContentType().toString();
         String contentDispositionHeader = documentEntity.getHeaders().get("Content-Disposition").get(0);
         ContentDisposition header = new ContentDisposition(contentDispositionHeader);
@@ -173,7 +186,7 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
         String[] parts = contentType.split("/");
         String fileExtension = parts.length < 2 ? "" : parts[1];
 
-        return new ByteArrayMultipartFileOld(new ByteArrayInputStream(documentEntity.getBody().getBytes()),
+        return new ByteArrayMultipartFileOld(new ByteArrayInputStream(documentEntity.getBody()),
                 documentName, documentName, contentType + ";" + fileExtension);
 
     }

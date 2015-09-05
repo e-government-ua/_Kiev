@@ -9,7 +9,9 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   oServiceData,
   BankIDAccount,
   ActivitiForm,
-  uiUploader) {
+  uiUploader,
+  FieldAttributesService,
+  MarkersFactory) {
 
   'use strict';
 
@@ -58,6 +60,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.data.formData.setBankIDAccount(BankIDAccount);
   //TODO uncomment after testing
   //$scope.data.formData.uploadScansFromBankID(oServiceData);
+  $scope.as = FieldAttributesService;
   var currentState = $state.$current;
 
   $scope.data.region = currentState.data.region;
@@ -110,6 +113,10 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       field.type = 'tel';
       field.sFieldType = 'tel';
     }
+    if (field.type == 'markers' && _.trim(field.value))
+      _.merge(MarkersFactory.getMarkers(), JSON.parse(field.value), function(destVal, sourceVal) {
+        if (_.isArray(sourceVal)) return sourceVal;
+      });
   });
 
   $scope.submit = function(form) {

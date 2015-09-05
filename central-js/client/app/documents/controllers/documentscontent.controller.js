@@ -19,7 +19,14 @@ angular.module('documents').controller('DocumentsContentController', function($s
 
   $scope.getSignData = function(document){
     var signData = JSON.parse(document.oSignData);
-    return signData && signData.customer && signData.customer.fullName;
+    //return signData && signData.customer && signData.customer.fullName;
+    //return signData && signData.customer && signData.customer.organizations && signData.customer.organizations.length>0 && signData.customer.organizations[0].name;
+    //return signData && signData.customer && signData.customer.organizations && signData.customer.organizations.length>0 && signData.customer.organizations[0].name;
+    if(signData && signData.customer && signData.customer.organizations && signData.customer.organizations.length>0 && signData.customer.organizations[0].name){
+        return signData.customer.organizations[0].name;
+    }else{
+        return signData && signData.customer && signData.customer.fullName;
+    }
   };
 
   $scope.uploadDocument = function(documentTypeForUpload, documentNameForUpload){
@@ -30,6 +37,20 @@ angular.module('documents').controller('DocumentsContentController', function($s
         notify: true
       });
     });
+  };
+
+  $scope.showSignDataPopup = function(doc)
+  {
+    $modal.open({
+      animation: true,
+      templateUrl: 'documentsigndata.html',
+      controller: 'DocumentSignDataController',
+      resolve: {
+        oSignData: function() {
+          return JSON.parse(doc.oSignData);
+        }
+      }
+    })
   };
 
   $scope.showShareTab = function(){

@@ -1,5 +1,6 @@
 package org.activiti.rest.controller;
 
+import com.google.common.collect.Lists;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.redis.util.RedisUtil;
 import org.slf4j.Logger;
@@ -34,10 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 
@@ -159,7 +157,7 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     byte[] getDocumentFile( @RequestParam(value = "nID", required = false)                              String id,
-                            @RequestParam(value = "nID_Subject", required = false)                      Long nID_Subject,
+                            @RequestParam(value = "nID_Subject", required = false, defaultValue = "1")  Long nID_Subject,
                             @RequestParam(value = "sCode_DocumentAccess", required = false)             String accessCode,
                             @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false)Long organID,
                             @RequestParam(value = "nID_DocumentType", required = false)                 Long docTypeID,
@@ -167,11 +165,14 @@ public class ActivitiRestDocumentController {
             
                            HttpServletRequest request, HttpServletResponse httpResponse) 
                            throws ActivitiRestException{
+
         Document document = null;
         byte[] content = {};
-        if (id != null && !"null".equals(id)) {
+        Collection<Long> specialDocTypes = Lists.newArrayList(0L, 1L); //Two different types of DocumentKvitancii
+
+        if (id != null && !"null".equals(id) && !specialDocTypes.contains(docTypeID)) {
             document = documentDao.getDocument(new Long(id));
-            if(nID_Subject != document.getSubject().getId()){
+            if(!nID_Subject.equals(document.getSubject().getId())){
                 if(accessCode!=null){
                     Document oDocument = handlerFactory
                             .buildHandlerFor(documentDao.getOperator(organID))
@@ -190,16 +191,25 @@ public class ActivitiRestDocumentController {
             }
         }
 
-        if (docTypeID == 0) {
-            content = document.fileBody;
+        if (specialDocTypes.contains(docTypeID)) {
+            try {
+                document = handlerFactory
+                        .buildHandlerFor(documentDao.getOperator(organID))
+                        .setDocumentType(docTypeID)
+                        .setAccessCode(accessCode)
+                        .setPassword(password)
+                        .setWithContent(true)
+                        .setIdSubject(nID_Subject)
+                        .getDocument();
+                content = document.getFileBody().getBytes();
+            } catch (IOException e) {
+                throw new ActivitiRestException("500", "Can't read document content!");
+            }
         }
-        //byte[] content = "".getBytes();
-        
-        httpResponse.setHeader("Content-disposition", "attachment; filename="
-                + document.getFile());
-        //httpResponse.setHeader("Content-Type", document.getDocumentContentType()
-        //		.getName() + ";charset=UTF-8");
+
         httpResponse.setHeader("Content-Type", document.getContentType() + ";charset=UTF-8");
+        httpResponse.setHeader("Content-Disposition", "attachment; filename=" + document.getFile());
+
         httpResponse.setContentLength(content.length);
         return content;
     }

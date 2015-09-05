@@ -7,6 +7,7 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.identity.User;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
 import org.activiti.rest.controller.ActivitiRestException;
@@ -74,6 +75,7 @@ public class EscalationService {
                 for (Task oTask : aTask) {
                     //long nID_task_activiti = Long.valueOf(oTask.getId());
                     //Map<String, Object> mTaskParam = getTaskData(nID_task_activiti);//new HashMap()
+                	try {
                     Map<String, Object> mTaskParam = getTaskData(oTask);
 
                     log.info("[getTaskData]:checkTaskOnEscalation mTaskParam=" + mTaskParam);
@@ -83,6 +85,9 @@ public class EscalationService {
                             , oEscalationRule.getsPatternFile()
                             , oEscalationRuleFunction.getsBeanHandler()
                     );
+                	} catch (java.lang.ClassCastException e){
+                		log.error("Error occured while processing task " + oTask.getId(), e);
+                	}
                 }
 
             }
@@ -126,7 +131,8 @@ public class EscalationService {
         TaskFormData oTaskFormData = formService.getTaskFormData(oTask.getId());
         for (FormProperty oFormProperty : oTaskFormData.getFormProperties()) {
             log.info(String.format("[getTaskData]Matching property %s:%s:%s with fieldNames", oFormProperty.getId(), oFormProperty.getName(), oFormProperty.getType().getName()));
-            if ("long".equalsIgnoreCase(oFormProperty.getType().getName())) {
+            if ("long".equalsIgnoreCase(oFormProperty.getType().getName()) &&
+            		StringUtils.isNumeric(oFormProperty.getValue())) {
                 m.put(oFormProperty.getId(), Long.valueOf(oFormProperty.getValue()));
             } else {
                 m.put(oFormProperty.getId(), oFormProperty.getValue());
@@ -139,22 +145,31 @@ public class EscalationService {
         m.put("sTaskDescription", oTask.getDescription());
         m.put("sProcessInstanceId", oTask.getProcessInstanceId());
 
-        List<User> users = BPMNUtil.getUsersInfoBelongToProcess(repositoryService, identityService, oTask.getProcessDefinitionId(), oTask.getTaskDefinitionKey());
-        StringBuffer userInfoString = new StringBuffer();
-        for (User currUser : users){
-        	userInfoString.append(currUser.getId());
-        	userInfoString.append(":");
-        	userInfoString.append(currUser.getFirstName());
-        	userInfoString.append(" ");
-        	userInfoString.append(currUser.getLastName());
-        	userInfoString.append("<br/>");
+        List<User> aUser = BPMNUtil.getUsersInfoBelongToProcess(repositoryService, identityService, oTask.getProcessDefinitionId(), oTask.getTaskDefinitionKey());
+        StringBuffer osaUser = new StringBuffer();
+        int nCount=aUser.size();
+        int n=0;
+        for (User oUser : aUser){
+                n++;
+        	osaUser.append(oUser.getLastName());
+        	osaUser.append(" ");
+        	osaUser.append(oUser.getFirstName());
+        	osaUser.append(" (");
+        	osaUser.append(oUser.getId());
+        	osaUser.append(")");
+                if(n<nCount){
+                    osaUser.append(", ");
+                }
         }
         
-        m.put("sServiceType", String.format("Тип послуги: %s", oTask.getName()));
-        m.put("sTaskName", String.format("Стадія: %s", oTask.getTaskDefinitionKey()));
-        m.put("sTaskNumber", String.format("Номер заявки: %s (с контрольной суммой по алгоритму Луна)", oTask.getId()));
-        m.put("sElapsedInfo", String.format("Заявка знаходиться на цій стадії вже: %d дн.", nElapsedDays));
-        m.put("sResponsiblePersons", String.format("Відповідальні за розгляд заявки: <br/> %s", userInfoString.toString()));
+        
+        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(oTask.getProcessDefinitionId()).singleResult();
+		
+        m.put("sServiceType", processDefinition != null ? processDefinition.getName() : "");
+        m.put("sTaskName", String.format("%s", oTask.getName()));
+        m.put("sTaskNumber", String.format("%s ", oTask.getId().toString()));
+        m.put("sElapsedInfo", String.format("%d", nElapsedDays));
+        m.put("sResponsiblePersons", String.format("%s", osaUser.toString()));
         
         return m;
     }

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -11,7 +12,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.wf.dp.dniprorada.liqPay.LiqBuyUtil;
@@ -63,23 +63,7 @@ public class HttpRequester {
    }
 
    public String get(String url, Map<String, String> params) throws Exception {
-      String urlParameters = "";
-
-      if (params != null) {
-         for (Map.Entry<String, String> entry : params.entrySet()) {
-            if (entry.getValue() != null) {
-               urlParameters += entry.getKey() + "="
-                       + URLEncoder.encode(entry.getValue(), "UTF-8") + "&";
-            }
-         }
-      }
-
-      String fullUrl = url;
-      if (urlParameters.length() > 0) {
-         fullUrl += "?" + urlParameters;
-      }
-
-      URL obj = new URL(fullUrl);
+      URL obj = new URL(getFullURL(url, params));
       InputStream in;
       BufferedReader bf;
       HttpURLConnection con;
@@ -108,5 +92,23 @@ public class HttpRequester {
       }
       in.close();
       return response.toString();
+   }
+   
+   public String getFullURL(String url, Map<String, String> params) throws UnsupportedEncodingException{
+	   String urlParameters = "";
+	   if (params != null) {
+	         for (Map.Entry<String, String> entry : params.entrySet()) {
+	            if (entry.getValue() != null) {
+	               urlParameters += entry.getKey() + "="
+	                       + URLEncoder.encode(entry.getValue(), "UTF-8") + "&";
+	            }
+	         }
+	      }
+
+	      String fullUrl = url;
+	      if (urlParameters.length() > 0) {
+	         fullUrl += "?" + urlParameters;
+	      }
+	      return fullUrl;
    }
 }
