@@ -1,7 +1,7 @@
 angular.module('app').factory('FormDataFactory', function(ParameterFactory, DatepickerFactory, FileFactory, ScanFactory, BankIDDocumentsFactory, BankIDAddressesFactory, CountryService, ActivitiService, $q) {
   var FormDataFactory = function() {
     this.processDefinitionId = null;
-    this.factories = [DatepickerFactory, FileFactory, ScanFactory, ParameterFactory];
+    this.factories = [DatepickerFactory, ScanFactory, FileFactory, ParameterFactory];
     this.fields = {};
     this.params = {};
   };
@@ -75,7 +75,7 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
           var sFieldName;
           angular.forEach(oValue, function(scan){
             sFieldName = ScanFactory.prototype.getName(scan.type);
-            if (self.hasParam(sFieldName)) {
+            if (self.hasParam(sFieldName) && self.params[sFieldName].setScan) {
               self.fields[sFieldName] = true;
               self.params[sFieldName].mode = ScanFactory.prototype.SCAN;
               self.params[sFieldName].setScan(scan);
