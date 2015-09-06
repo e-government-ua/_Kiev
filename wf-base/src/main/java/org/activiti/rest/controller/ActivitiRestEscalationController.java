@@ -35,10 +35,20 @@ public class ActivitiRestEscalationController {
     @Autowired
     private EscalationService escalationService;
 
+    @RequestMapping(value = "/runEscalationRule", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    void runEscalationRule(
+        @RequestParam(value = "nID") Long nID)
+            throws ActivitiRestException {
+
+        escalationService.runEscalationRule(nID);
+    }
+
     @RequestMapping(value = "/runEscalation", method = RequestMethod.GET)
     public
     @ResponseBody
-    void runEscalation() throws ActivitiRestException {
+    void runEscalationAll() throws ActivitiRestException {
         //@RequestParam(value = "nID", required = false) Long nID ,
         //@RequestParam(value = "sName") String sName ,
         //@RequestParam(value = "sBeanHandler", required = false) String sBeanHandler
@@ -47,7 +57,10 @@ public class ActivitiRestEscalationController {
     @RequestMapping(value = "/sendEmail", method = RequestMethod.GET)
     public
     @ResponseBody
-    void sendEmail() throws ActivitiRestException {
+    void sendEmail(
+            @RequestParam(value = "sCondition", required = false) String sCondition)
+            throws ActivitiRestException {
+
         Map<String, Object> taskParam = new HashMap<>();
         //[Surname],[Name],[Middlename]
         taskParam.put("Surname", "Petrenko");
@@ -60,11 +73,11 @@ public class ActivitiRestEscalationController {
 //        recipients[1] = "olga.prylypko@gmail.com";
 
         String json = "{sUserTask:'1', sDateEdit:'01-01-2015', " +
-                "nDays:10, asRecipientMail:['olga2012olga@gmail.com', 'olga.prylypko@gmail.com'], " +
+                "nDays:10, asRecipientMail:['olga2012olga@gmail.com'], " +
                 "anList2:[10], bBool:true}";
         String file = "print/kiev_dms_print1.html";
 
-        String sCondition ="nDays == 10";// "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays";
+         sCondition = sCondition == null ? "nDays == 10": sCondition;// "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays";
 
         new EscalationUtil().checkTaskOnEscalation
                 (taskParam, sCondition, json, file, "escalationHandler_SendMailAlert");
@@ -152,8 +165,12 @@ public class ActivitiRestEscalationController {
             throws ActivitiRestException {
 
         try {
+            EscalationRuleFunction ruleFunction = null;
+            if (nID_EscalationRuleFunction != null){
+                ruleFunction = escalationRuleFunctionDao.findById(nID_EscalationRuleFunction).orNull();
+            }
             return escalationRuleDao.saveOrUpdate(nID, sID_BP, sID_UserTask,
-                    sCondition, soData, sPatternFile, nID_EscalationRuleFunction);
+                    sCondition, soData, sPatternFile, ruleFunction);
         } catch (Exception e) {
             throw new ActivitiRestException("ex in controller!", e);
         }

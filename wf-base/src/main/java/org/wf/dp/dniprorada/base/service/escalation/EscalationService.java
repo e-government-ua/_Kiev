@@ -56,39 +56,7 @@ public class EscalationService {
         try {
             List<EscalationRule> aEscalationRule = escalationRuleDao.findAll();
             for (EscalationRule oEscalationRule : aEscalationRule) {
-                EscalationRuleFunction oEscalationRuleFunction = oEscalationRule.getoEscalationRuleFunction();
-
-                String sID_BP = oEscalationRule.getsID_BP();
-                log.info("[getTaskData]:sID_BP=" + sID_BP);
-                TaskQuery oTaskQuery = taskService.createTaskQuery().processDefinitionKey(sID_BP);//.taskCreatedAfter(dateAt).taskCreatedBefore(dateTo)
-
-                String sID_State_BP = oEscalationRule.getsID_UserTask();
-                log.info("[getTaskData]:sID_State_BP=" + sID_State_BP);
-                if (sID_State_BP != null && !"*".equals(sID_State_BP)) {
-                    oTaskQuery = oTaskQuery.taskDefinitionKey(sID_State_BP);
-                }
-
-                Integer nRowStart = 0;
-                Integer nRowsMax = 1000;
-                List<Task> aTask = oTaskQuery.listPage(nRowStart, nRowsMax);
-
-                for (Task oTask : aTask) {
-                    //long nID_task_activiti = Long.valueOf(oTask.getId());
-                    //Map<String, Object> mTaskParam = getTaskData(nID_task_activiti);//new HashMap()
-                	try {
-                    Map<String, Object> mTaskParam = getTaskData(oTask);
-
-                    log.info("[getTaskData]:checkTaskOnEscalation mTaskParam=" + mTaskParam);
-                    new EscalationUtil().checkTaskOnEscalation(mTaskParam
-                            , oEscalationRule.getsCondition()
-                            , oEscalationRule.getSoData()
-                            , oEscalationRule.getsPatternFile()
-                            , oEscalationRuleFunction.getsBeanHandler()
-                    );
-                	} catch (java.lang.ClassCastException e){
-                		log.error("Error occured while processing task " + oTask.getId(), e);
-                	}
-                }
+                runEscalationRule(oEscalationRule);
 
             }
             //return escalationRuleFunctionDao.saveOrUpdate(nID, sName, sBeanHandler);
@@ -97,6 +65,46 @@ public class EscalationService {
             throw new ActivitiRestException("ex in controller!", oException);
         }
 
+    }
+
+    public void runEscalationRule(Long nID_escalationRule){
+        runEscalationRule(escalationRuleDao.findById(nID_escalationRule).orNull());
+    }
+
+    private void runEscalationRule(EscalationRule oEscalationRule) {
+        EscalationRuleFunction oEscalationRuleFunction = oEscalationRule.getoEscalationRuleFunction();
+
+        String sID_BP = oEscalationRule.getsID_BP();
+        log.info("[getTaskData]:sID_BP=" + sID_BP);
+        TaskQuery oTaskQuery = taskService.createTaskQuery().processDefinitionKey(sID_BP);//.taskCreatedAfter(dateAt).taskCreatedBefore(dateTo)
+
+        String sID_State_BP = oEscalationRule.getsID_UserTask();
+        log.info("[getTaskData]:sID_State_BP=" + sID_State_BP);
+        if (sID_State_BP != null && !"*".equals(sID_State_BP)) {
+            oTaskQuery = oTaskQuery.taskDefinitionKey(sID_State_BP);
+        }
+
+        Integer nRowStart = 0;
+        Integer nRowsMax = 1000;
+        List<Task> aTask = oTaskQuery.listPage(nRowStart, nRowsMax);
+
+        for (Task oTask : aTask) {
+            //long nID_task_activiti = Long.valueOf(oTask.getId());
+            //Map<String, Object> mTaskParam = getTaskData(nID_task_activiti);//new HashMap()
+            try {
+            Map<String, Object> mTaskParam = getTaskData(oTask);
+
+            log.info("[getTaskData]:checkTaskOnEscalation mTaskParam=" + mTaskParam);
+            new EscalationUtil().checkTaskOnEscalation(mTaskParam
+                    , oEscalationRule.getsCondition()
+                    , oEscalationRule.getSoData()
+                    , oEscalationRule.getsPatternFile()
+                    , oEscalationRuleFunction.getsBeanHandler()
+            );
+            } catch (ClassCastException e){
+                log.error("Error occured while processing task " + oTask.getId(), e);
+            }
+        }
     }
 
 
