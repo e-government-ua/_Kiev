@@ -39,7 +39,7 @@ public enum HistoryEventType {
             "ActivitiStatusNew",
             "Изменение статуса заявки",
             "Ваша заявка №" + HistoryEventMessage.TASK_NUMBER
-                    + " изменила свой статус на " + HistoryEventMessage.SERVICE_STATE + ""),
+                    + " змiнила свiй статус на " + HistoryEventMessage.SERVICE_STATE + ""),
     GET_DOCUMENT_ACCESS_BY_HANDLER(7L,
             "getDocumentAccessByHandler",
             "Кто-то воспользовался доступом к документу, который ему предоставил пользователь",
@@ -48,7 +48,7 @@ public enum HistoryEventType {
     FINISH_SERVICE(7L,
             "ActivitiFinish",
             "Выполнение заявки",
-            "Ваша заявка №" + HistoryEventMessage.TASK_NUMBER + " выполнена");
+            "Ваша заявка №" + HistoryEventMessage.TASK_NUMBER + " виконана");
 
     private Long nID;
     private String sID;
