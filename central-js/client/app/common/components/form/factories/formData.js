@@ -6,7 +6,7 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
     this.params = {};
   };
 
-  initializeWithFactory = function (params, factories, property) {
+  var initializeWithFactory = function (params, factories, property) {
     var result = factories.filter(function (factory) {
       return factory.prototype.isFit(property);
     });
@@ -16,7 +16,7 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
     }
   };
 
-  fillInCountryInformation = function(params, property, ActivitiForm){
+  var fillInCountryInformation = function(params, property, ActivitiForm){
     if (property.id === 'resident' || property.id === 'sCountry') {
       // todo: #584 для теста п.2 закомментировать эту строку. после теста - удалить
       //this.params[property.id].value = 'Україна';
