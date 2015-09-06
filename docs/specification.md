@@ -2304,7 +2304,7 @@ https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?n
 
 **HTTP Metod: GET**
 
-**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/setEscalationRuleFunction**
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/setEscalationRuleFunction**
 
  добавление/обновление записи функции эскалации
 
@@ -2321,19 +2321,19 @@ https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?n
 
 **HTTP Metod: GET**
 
-**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/getEscalationRuleFunction**
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/getEscalationRuleFunction**
 
 возврат одной записи функции эскалации по ее nID, если записи нету -- "403. Record not found"
 
 **HTTP Metod: GET**
 
-**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/getEscalationRuleFunctions**
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/getEscalationRuleFunctions**
 
 выборка всех записей функции эскалации 
 
 **HTTP Metod: GET**
 
-**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/removeEscalationRuleFunction**
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/removeEscalationRuleFunction**
 
 удаление записи функции эскалации по ее nID, если записи нету -- "403. Record not found"
 
@@ -2344,7 +2344,7 @@ https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?n
 
 **HTTP Metod: GET**
 
-**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/setEscalationRule**
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/setEscalationRule**
 
  добавление/обновление записи правила эскалации
 
@@ -2365,7 +2365,7 @@ https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?n
 
 
 ПРИМЕР:
-www.test.region.igov.org.ua/wf-region/service/escalation/setEscalationRule?sID_BP=zaporoshye_mvk-1a&sID_UserTask=*&sCondition=nElapsedDays==nDaysLimit&soData={nDaysLimit:3,asRecipientMail:[test@email.com]}&sPatternFile=escalation/escalation_template.html&nID_EscalationRuleFunction=1
+test.region.igov.org.ua/wf-region/service/escalation/setEscalationRule?sID_BP=zaporoshye_mvk-1a&sID_UserTask=*&sCondition=nElapsedDays==nDaysLimit&soData={nDaysLimit:3,asRecipientMail:[test@email.com]}&sPatternFile=escalation/escalation_template.html&nID_EscalationRuleFunction=1
 
 ОТВЕТ:
 ```json
@@ -2384,19 +2384,19 @@ www.test.region.igov.org.ua/wf-region/service/escalation/setEscalationRule?sID_B
 ```
 **HTTP Metod: GET**
 
-**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/getEscalationRule**
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/getEscalationRule**
 
 возврат одной записи правила эскалации по ее nID, если записи нету -- "403. Record not found"
 
 **HTTP Metod: GET**
 
-**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/removeEscalationRule**
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/removeEscalationRule**
 
 удаление записи правила эскалации по ее nID, если записи нету -- "403. Record not found"
 
 **HTTP Metod: GET**
 
-**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/getEscalationRules**
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/getEscalationRules**
 
 возвращает список всех записей правил ескалации
 
