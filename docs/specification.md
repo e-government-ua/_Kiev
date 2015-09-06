@@ -30,7 +30,7 @@
 <a href="#31_getFlowSlotTickets"> 31. Получение активных тикетов</a><br/>
 <a href="#32_getTasksByOrder"> 32. Получение списка ID пользовательских тасок по номеру заявки</a><br/>
 <a href="#33_getStatisticServiceCounts"> 33. Получение количества записей HistoryEvent_Service для сервиса по регионам</a><br/>
-
+<a href="#34">34. Электронная эскалация</a><br/>
 ## iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -290,8 +290,7 @@ https://test.igov.org.ua/wf-central/service/merchant/getMerchant?sID=i1017296807
 
 **Response**
 
-```Status 200
-```
+``` Status 200 ```
 
 Пример:
 https://test.igov.org.ua/wf-central/service/merchant/removeMerchant?sID=i10172968078
@@ -2292,3 +2291,117 @@ https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?n
 ```json
 [{"nCount":1,"sName":"Івано-Франківська"},{"nCount":3,"sName":"Дніпропетровська"},{"nCount":1,"sName":"Львівська"}]
 ```
+--------------------------------------------------------------------------------------------------------------------------
+
+<a name="34">
+#### 34. Электронная эскалация
+</a><a href="#0_contents">↑Up</a>
+
+----------------------------------------------------------------------------------------------------------------------------
+ ФУНКЦИИ ЭСКАЛАЦИИ (EscalationRuleFunction)
+
+----------------------------------------------------------------------------------------------------------------------------
+
+**HTTP Metod: GET**
+
+**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/setEscalationRuleFunction**
+
+ добавление/обновление записи функции эскалации
+
+параметры: 
+ + nID - ИД-номер (уникальный-автоитерируемый), опционально
+ + sName - строка-название (Например "Отсылка уведомления на электронную почту"), обязательно
+ + sBeanHandler - строка бина-обработчика, опционально
+
+ответ: созданная/обновленная запись.
+
+ - если nID не задан, то это создание записи
+ - если nID задан, но его нету -- будет ошибка "403. Record not found"
+ - если nID задан, и он есть -- запись обновляется
+
+**HTTP Metod: GET**
+
+**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/getEscalationRuleFunction**
+
+возврат одной записи функции эскалации по ее nID, если записи нету -- "403. Record not found"
+
+**HTTP Metod: GET**
+
+**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/getEscalationRuleFunctions**
+
+выборка всех записей функции эскалации 
+
+**HTTP Metod: GET**
+
+**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/removeEscalationRuleFunction**
+
+удаление записи функции эскалации по ее nID, если записи нету -- "403. Record not found"
+
+----------------------------------------------------------------------------------------------------------------------------
+ ПРАВИЛА ЭСКАЛАЦИИ (EscalationRule)
+
+----------------------------------------------------------------------------------------------------------------------------
+
+**HTTP Metod: GET**
+
+**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/setEscalationRule**
+
+ добавление/обновление записи правила эскалации
+
+параметры: 
+ - nID - ИД-номер (уникальный-автоитерируемый)
+ - sID_BP - ИД-строка бизнес-процесса
+ - sID_UserTask - ИД-строка юзертаски бизнеспроцесса (если указана \* -- то выбираются все задачи из бизнес-процесса)
+ - sCondition - строка-условие (на языке javascript )
+ - soData - строка-обьект, с данными (JSON-обьект)
+ - sPatternFile - строка файла-шаблона (примеры <a href="https://github.com/e-government-ua/i/blob/test/docs/specification.md#30_workWithPatternFiles">тут</a>)
+ - nID_EscalationRuleFunction - ИД-номер функции эскалации
+
+ответ: созданная/обновленная запись.
+
+ - если nID не задан, то это создание записи
+ - если nID задан, но его нету -- будет ошибка "403. Record not found"
+ - если nID задан, и он есть -- запись обновляется
+
+
+ПРИМЕР:
+www.test.region.igov.org.ua/wf-region/service/escalation/setEscalationRule?sID_BP=zaporoshye_mvk-1a&sID_UserTask=*&sCondition=nElapsedDays==nDaysLimit&soData={nDaysLimit:3,asRecipientMail:[test@email.com]}&sPatternFile=escalation/escalation_template.html&nID_EscalationRuleFunction=1
+
+ОТВЕТ:
+```json
+{
+"sID_BP":"zaporoshye_mvk-1a",
+"sID_UserTask":"*",
+"sCondition":"nElapsedDays==nDaysLimit",
+"soData":"{nDaysLimit:3,asRecipientMail:[test@email.com]}",
+"sPatternFile":"escalation/escalation_template.html",
+"nID":1008,
+"nID_EscalationRuleFunction":
+{"sBeanHandler":"EscalationHandler_SendMailAlert",
+"nID":1,
+"sName":"Send Email"}
+}
+```
+**HTTP Metod: GET**
+
+**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/getEscalationRule**
+
+возврат одной записи правила эскалации по ее nID, если записи нету -- "403. Record not found"
+
+**HTTP Metod: GET**
+
+**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/removeEscalationRule**
+
+удаление записи правила эскалации по ее nID, если записи нету -- "403. Record not found"
+
+**HTTP Metod: GET**
+
+**HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/getEscalationRules**
+
+возвращает список всех записей правил ескалации
+
+----------------------------------------------------------------------------------------------------------------------------
+
+
+
+

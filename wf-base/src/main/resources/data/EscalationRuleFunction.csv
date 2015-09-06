@@ -1,2 +1,2 @@
 nID;sName;sBeanHandler
-1;Send Email;escalationHandler_SendMailAlert
+1;Отсылка уведомления на электронную почту;EscalationHandler_SendMailAlert
