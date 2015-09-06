@@ -2295,6 +2295,7 @@ https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?n
 
 <a name="34">
 ###34. Электронная эскалация</a> 
+
 <a href="#0_contents">↑Up</a>
 ----------------------------------------------------------------------------------------------------------------------------
  ФУНКЦИИ ЭСКАЛАЦИИ (EscalationRuleFunction)
@@ -2302,6 +2303,7 @@ https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?n
 ----------------------------------------------------------------------------------------------------------------------------
 
 **HTTP Metod: GET**
+
 **HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/setEscalationRuleFunction**
 
  добавление/обновление записи функции эскалации
@@ -2318,16 +2320,21 @@ https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?n
  - если nID задан, и он есть -- запись обновляется
 
 **HTTP Metod: GET**
+
 **HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/getEscalationRuleFunction**
+
 возврат одной записи функции эскалации по ее nID, если записи нету -- "403. Record not found"
 
 **HTTP Metod: GET**
+
 **HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/getEscalationRuleFunctions**
+
 выборка всех записей функции эскалации 
-возвращает список всех записей функций ескалации
 
 **HTTP Metod: GET**
+
 **HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/removeEscalationRuleFunction**
+
 удаление записи функции эскалации по ее nID, если записи нету -- "403. Record not found"
 
 ----------------------------------------------------------------------------------------------------------------------------
@@ -2336,6 +2343,7 @@ https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?n
 ----------------------------------------------------------------------------------------------------------------------------
 
 **HTTP Metod: GET**
+
 **HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/setEscalationRule**
 
  добавление/обновление записи правила эскалации
@@ -2375,17 +2383,23 @@ www.test.region.igov.org.ua/wf-region/service/escalation/setEscalationRule?sID_B
 }
 ```
 **HTTP Metod: GET**
+
 **HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/getEscalationRule**
+
 возврат одной записи правила эскалации по ее nID, если записи нету -- "403. Record not found"
 
 **HTTP Metod: GET**
+
 **HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/removeEscalationRule**
+
 удаление записи правила эскалации по ее nID, если записи нету -- "403. Record not found"
 
 **HTTP Metod: GET**
+
 **HTTP Context: www.test.region.igov.org.ua/wf-region/service/escalation/getEscalationRules**
-нахождение всех записей функции эскалации 
+
 возвращает список всех записей правил ескалации
+
 ----------------------------------------------------------------------------------------------------------------------------
 
 
