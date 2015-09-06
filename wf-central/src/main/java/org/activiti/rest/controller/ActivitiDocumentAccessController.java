@@ -167,7 +167,7 @@ public class ActivitiDocumentAccessController {
                                     String sFIO, String sPhone, Long nMs, String sEmail) {
         Map<String, String> values = new HashMap<>();
         //String error = "";
-        //Long nID_Subject = nID_Document;//???????
+        Long nID_Subject = nID_Document;//???????
         try {
             values.put(HistoryEventMessage.FIO, sFIO);
             values.put(HistoryEventMessage.TELEPHONE, sPhone);
