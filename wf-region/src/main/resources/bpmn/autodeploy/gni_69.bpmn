@@ -5,51 +5,50 @@
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="subekt" name="тип суб'єкта правових відносин" type="enum" required="true">
+        <activiti:formProperty id="bankIdmiddleName" name="по батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="subekt" name="Тип суб'єкта правових відносин" type="enum" required="true">
           <activiti:value id="ur" name="Юрідична особа"></activiti:value>
           <activiti:value id="fiz" name="Фізична особа"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="organ" name="Найменування контролюючого органу, до якого подається запит" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kriterii" name="Критерії пошуку відомостей у реєстрі платників єдиного податку*" type="enum" required="true">
           <activiti:value id="ur_1" name="Код ЄДРПОУ/реєстраційний номер облікової картки платника податків"></activiti:value>
-          <activiti:value id="fiz_2" name="серія та номер паспорта"></activiti:value>
+          <activiti:value id="fiz_1" name="серія та номер паспорта"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="nomer" name="Укажіть Код ЄДРПОУ та реєстраційний номер або серію та номер паспорта" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="naimenov" name="Найменування або прізвище, ім'я та по батькові платника податку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adres" name="Місцезнаходження (місце проживання) платника податку" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="index" name="Поштовий індекс" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="index" name="Поштовий індекс" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kraina" name="Країна" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="oblast" name="Область" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="raion" name="Район" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="misto" name="Місто" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="vulica" name="Вулиця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="budinok" name="Будинок" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="korpus" name="Корпус" type="string"></activiti:formProperty>
+        <activiti:formProperty id="korpus" name="Корпус" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kvart" name="Офіс/квартира" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="budinok" name="Будинок" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="tel" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
-        <activiti:formProperty id="tel_2" name="Службовий номер телефону" type="long" default="38"></activiti:formProperty>
-        <activiti:formProperty id="tel_3" name="Додатковий номер телефону" type="long" default="38"></activiti:formProperty>
-        <activiti:formProperty id="fax" name="Факс" type="long" default="38"></activiti:formProperty>
+        <activiti:formProperty id="fax" name="Факс" type="string" default="  "></activiti:formProperty>
         <activiti:formProperty id="sposib" name="Спосіб отримання витягу" type="enum" required="true">
-          <activiti:value id="post" name="Поштою"></activiti:value>
           <activiti:value id="osobisto" name="Безпосередньо у контролюючому органі"></activiti:value>
+          <activiti:value id="post" name="Поштою"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="vidomosti" name="Відомості про особу, яка подала запит" type="enum" required="true">
-          <activiti:value id="fiz_3" name="Фізична особа – підприємець"></activiti:value>
-          <activiti:value id="ur_3" name="Юридична особа"></activiti:value>
+          <activiti:value id="ur_2" name="Юридична особа"></activiti:value>
+          <activiti:value id="fiz_2" name="Фізична особа – підприємець"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="vidomosti_2" name=" " type="enum" required="true">
+        <activiti:formProperty id="vidomosti_2" name="Особа, яка подала запит" type="enum" required="true">
           <activiti:value id="osob" name="особисто"></activiti:value>
           <activiti:value id="upovnovag" name="уповноважена особа (за довіреністю)"></activiti:value>
           <activiti:value id="kerivnik" name="керівник"></activiti:value>
           <activiti:value id="bez_dovir" name="особа, яка має право вчиняти юридичні дії від імені юридичної особи без довіреності"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="clFio" name="Прізвище, ім'я, по батькові платника податків" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}"></activiti:formProperty>
-        <activiti:formProperty id="nomer_2" name="реєстраційний номер облікової картки/номер та серія паспорта" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="non_inn" name="*" type="label" default="Для фізичних осіб, які через свої релігійні переконання відмовились від прийняття реєстраційного номера облікової картки платника податків та повідомили про це контролюючий орган і мають відмітку у паспорті."></activiti:formProperty>
+        <activiti:formProperty id="nomer_2" name="Реєстраційний номер облікової картки/номер та серія паспорта" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="tel_2" name="Службовий номер телефону" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="tel_3" name="Додатковий номер телефону" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="non_inn" name=" " type="label" default="*Для фізичних осіб, які через свої релігійні переконання відмовились від прийняття реєстраційного номера облікової картки платника податків та повідомили про це контролюючий орган і мають відмітку у паспорті."></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -118,7 +117,8 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                                                       &lt;p&gt;
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Ваш запит про отримання витягу з реєстру платників єдиного податку отримано.&lt;br /&gt;
+Ваш запит щодо отримання витягу з реєстру платників єдиного податку буде опрацьовано впродовж    днів.&lt;br /&gt;
+Ви отримаєте додаткове повідомлення за результатами розгляду запиту.&lt;br /&gt;
 &lt;br /&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -128,12 +128,8 @@
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                           
-                          
-
-                        &lt;/table&gt;
-                     
-                    &lt;/td&gt;
+                           &lt;/table&gt;
+                       &lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--content end--&gt;
             &lt;/table&gt;
@@ -211,9 +207,9 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо отримання витягу з реєстру платників єдиного податку . &lt;br /&gt;
+У Вас в черзі на обробку зареєстровано нове звернення щодо отримання витягу з реєстру платників єдиного податку. &lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Відпрацюйте це звернення на порталі &lt;a href="#current-page"&gt;test.region.igov.org.ua:6948&lt;/a&gt;
+Відпрацюйте це звернення  &lt;a href="test.region.igov.org.ua:6948"&gt;на порталі&lt;/a&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -243,22 +239,21 @@
     <sequenceFlow id="flow2" sourceRef="mailtask1" targetRef="mailtask2"></sequenceFlow>
     <userTask id="usertask1" name="надання адміністративної послуги" activiti:candidateGroups="gni">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/Kherson_uorpg_kv.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Дата подання запиту" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="subekt" name="тип суб'єкта правових відносин" type="enum" writable="false">
+        <activiti:formProperty id="fio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Дата подання запиту" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="subekt" name="Тип суб'єкта правових відносин" type="enum" writable="false">
           <activiti:value id="ur" name="Юрідична особа"></activiti:value>
           <activiti:value id="fiz" name="Фізична особа"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="organ" name="Найменування контролюючого органу, до якого подається запит" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kriterii" name="Критерії пошуку відомостей у реєстрі платників єдиного податку*" type="enum" writable="false">
           <activiti:value id="ur_1" name="Код ЄДРПОУ/реєстраційний номер облікової картки платника податків"></activiti:value>
-          <activiti:value id="fiz_2" name="серія та номер паспорта"></activiti:value>
+          <activiti:value id="fiz_1" name="серія та номер паспорта"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="nomer" name="Укажіть Код ЄДРПОУ та реєстраційний номер або серію та номер паспорта" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="naimenov" name="Найменування або прізвище, ім'я та по батькові платника податку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="adres" name="Місцезнаходження (місце проживання) платника податку" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="index" name="Поштовий індекс" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="index" name="Поштовий індекс" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kraina" name="Країна" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="oblast" name="Область" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="raion" name="Район" type="string" writable="false"></activiti:formProperty>
@@ -267,35 +262,34 @@
         <activiti:formProperty id="budinok" name="Будинок" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="korpus" name="Корпус" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kvart" name="Офіс/квартира" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="budinok" name="Будинок" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="tel" name="Контактний телефон" type="long" default="38" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="tel_2" name="Службовий номер телефону" type="long" default="38" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="tel_3" name="Додатковий номер телефону" type="long" default="38" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="fax" name="Факс" type="long" default="38" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="tel" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fax" name="Факс" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="tel_2" name="Службовий номер телефону" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="tel_3" name="Додатковий номер телефону" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sposib" name="Спосіб отримання витягу" type="enum" writable="false">
-          <activiti:value id="post" name="Поштою"></activiti:value>
           <activiti:value id="osobisto" name="Безпосередньо у контролюючому органі"></activiti:value>
+          <activiti:value id="post" name="Поштою"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="vidomosti" name="Відомості про особу, яка подала запит" type="enum" writable="false">
-          <activiti:value id="fiz_3" name="Фізична особа – підприємець"></activiti:value>
-          <activiti:value id="ur_3" name="Юридична особа"></activiti:value>
+          <activiti:value id="ur_2" name="Юридична особа"></activiti:value>
+          <activiti:value id="fiz_2" name="Фізична особа–підприємець"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="vidomosti_2" name=" " type="enum" writable="false">
+        <activiti:formProperty id="vidomosti_2" name="Особа, яка подала запит" type="enum" writable="false">
           <activiti:value id="osob" name="особисто"></activiti:value>
           <activiti:value id="upovnovag" name="уповноважена особа (за довіреністю)"></activiti:value>
           <activiti:value id="kerivnik" name="керівник"></activiti:value>
           <activiti:value id="bez_dovir" name="особа, яка має право вчиняти юридичні дії від імені юридичної особи без довіреності"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="nomer_2" name="реєстраційний номер облікової картки/номер та серія паспорта" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/slavuta_mvk-1_zayava.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="nomer_r" name="Номер реєстрації запиту  в контролюючому органі" type="long" default="38" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_zapit" name="Дата реєстрації запиту в контролюючому органі" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decision_1" name="прийняття рішення про отримання витягу" type="enum" required="true">
+        <activiti:formProperty id="nomer_2" name="Реєстраційний номер облікової картки/номер та серія паспорта" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nomer_r" name="Номер реєстрації запиту  в контролюючому органі" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_zapit" name="Дата реєстрації запиту в контролюючому органі" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="adres_2" name="Адреса контролюючого органу, за якою заявник можете отримати запит особисто" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="decision_1" name="Прийняття рішення про отримання витягу" type="enum" required="true">
           <activiti:value id="accept" name="Надати витяг з реєстру платників єдиного податку"></activiti:value>
           <activiti:value id="reject" name="Відмовити у наданні витягу"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відмови у наданні витягу внесіть, будь ласка, причину" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="adres_2" name="Адреса контроюючого органу, за якою заявник можете отримати запит особисто" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/gni_69.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="mailtask2" targetRef="usertask1"></sequenceFlow>
@@ -364,7 +358,7 @@
            &lt;p&gt;
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
 Ваш запит про отримання витягу з реєстру платників єдиного податку опрацьовано.&lt;br /&gt;
-Адреса контроюючого органу, за якою Ви можете отримати запит особисто ${adres_2}&lt;br /&gt;
+Ви можете отримати запит особисто за адресою: ${adres_2}&lt;br /&gt;
 Якщо Ви обрали спосіб отримання дозволу поштою - очікуйте рекомендований лист.&lt;br /&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -515,13 +509,13 @@
         <omgdc:Bounds height="40.0" width="40.0" x="449.0" y="200.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="81.0" width="162.0" x="389.0" y="270.0"></omgdc:Bounds>
+        <omgdc:Bounds height="58.0" width="162.0" x="389.0" y="270.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
         <omgdc:Bounds height="55.0" width="161.0" x="610.0" y="193.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="673.0" y="293.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="673.0" y="281.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
         <omgdi:waypoint x="331.0" y="57.0"></omgdi:waypoint>
@@ -539,7 +533,7 @@
         <omgdi:waypoint x="469.0" y="240.0"></omgdi:waypoint>
         <omgdi:waypoint x="470.0" y="270.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="80.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
@@ -550,12 +544,12 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="551.0" y="310.0"></omgdi:waypoint>
-        <omgdi:waypoint x="673.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="551.0" y="299.0"></omgdi:waypoint>
+        <omgdi:waypoint x="673.0" y="298.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
         <omgdi:waypoint x="690.0" y="248.0"></omgdi:waypoint>
-        <omgdi:waypoint x="690.0" y="293.0"></omgdi:waypoint>
+        <omgdi:waypoint x="690.0" y="281.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
         <omgdi:waypoint x="105.0" y="57.0"></omgdi:waypoint>
