@@ -20,7 +20,7 @@
         <table class="table"
                ng-init="limit = 7">
             <tr data-ng-repeat="event in journal | limitTo: limit as results">
-                <td>{{ event.sDate | date: 'dd.MM.yyyy HH:mm'}}</td>
+                <td style="width: 150px;">{{ event.sDate | date: 'dd.MM.yyyy HH:mm'}}</td>
                 <!--td>{{ event.sEventName }}</td-->
                 <td>{{ event.sMessage }}</td>
                 
