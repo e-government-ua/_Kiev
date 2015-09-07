@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="kiev_dms_40" name="Київська ДМС - Реєстрація місця проживання/перебування особи" isExecutable="true">
+  <process id="kiev_dms_40s" name="Київська ДМС - Зняття з реєстрації місця проживання/перебування особи" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -87,7 +87,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Реєстрація нового місця проживання]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -146,15 +146,21 @@
 										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
 									&lt;p&gt;	
 										Для того, щоб закінчити процедуру подачі документів в Державну міграційну службу необхідно:&lt;br /&gt;
-										·  Сплатити Державне мито у розмірі 0.85 грн і отримати талон про сплату.&lt;br /&gt;
 										·  Прийти до Центру надання адміністративних послуг Деснянського району, що знаходиться за адресою:&lt;br /&gt; 
 											м. Київ, пр. Маяковського, буд. 29, I поверх , з необхідними документами (є можливість попереднього запису на прийом)&lt;/p&gt;
  									&lt;p&gt;
 										Документи, які необхідно принести до Центру надання адміністративних послуг:&lt;br /&gt;
-										·         посвідчення особи (Паспорт)&lt;br /&gt; 
-										·         свідоцтво про народження дитини&lt;br /&gt; 
-										·         талон про сплату Державного мита&lt;br /&gt; 
-										·         документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації;&lt;/p&gt;
+										·         паспорт або паспортний документ, що надійшов з органу державної реєстрації актів цивільного стану, або документа про смерть, виданого компетентним органом іноземної держави, легалізованого в установленому порядку;&lt;br /&gt; 
+										·         свідоцтво про смерть;&lt;br /&gt; 
+										·         свідоцтво про народження дитини (якщо дитина не досягла 16-річного віку)&lt;br /&gt; 
+										·         військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку);&lt;br /&gt;
+										·         інші документи, які свідчать про припинення :&lt;br /&gt;
+										&lt;div style="margin-left: 10%"&gt;
+										1.підстав перебування на території України іноземців та осіб без громадянства;&lt;br /&gt;
+										2.підстав для проживання або перебування особи у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту;&lt;br /&gt;
+										3.підстав на право користування житловим приміщенням.
+										&lt;/div&gt;
+									&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                     	Графік роботи:&lt;br /&gt; 
@@ -198,7 +204,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Реєстрація нового місця проживання]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -257,15 +263,21 @@
 										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
 									&lt;p&gt;	
 										Для того, щоб закінчити процедуру подачі документів в Державну міграційну службу необхідно:&lt;br /&gt;
-										·  Сплатити Державне мито у розмірі 0.85 грн і отримати талон про сплату.&lt;br /&gt;
 										·  Прийти до Центру надання адміністративних послуг Солом'янського району, що знаходиться за адресою:&lt;br /&gt; 
 											м. Київ, просп. Повітрофлотський, 41, з необхідними документами (є можливість попереднього запису на прийом)&lt;/p&gt;
  									&lt;p&gt;
 										Документи, які необхідно принести до Центру надання адміністративних послуг:&lt;br /&gt;
-										·         посвідчення особи (Паспорт)&lt;br /&gt; 
-										·         свідоцтво про народження дитини&lt;br /&gt; 
-										·         талон про сплату Державного мита&lt;br /&gt; 
-										·         документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації;&lt;/p&gt;
+										·         паспорт або паспортний документ, що надійшов з органу державної реєстрації актів цивільного стану, або документа про смерть, виданого компетентним органом іноземної держави, легалізованого в установленому порядку;&lt;br /&gt; 
+										·         свідоцтво про смерть;&lt;br /&gt; 
+										·         свідоцтво про народження дитини (якщо дитина не досягла 16-річного віку)&lt;br /&gt; 
+										·         військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку);&lt;br /&gt;
+										·         інші документи, які свідчать про припинення :&lt;br /&gt;
+										&lt;div style="margin-left: 10%"&gt;
+										1.підстав перебування на території України іноземців та осіб без громадянства;&lt;br /&gt;
+										2.підстав для проживання або перебування особи у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту;&lt;br /&gt;
+										3.підстав на право користування житловим приміщенням.
+										&lt;/div&gt;
+									&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                     	Графік роботи:&lt;br /&gt; 
@@ -309,7 +321,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Реєстрація нового місця проживання]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -368,15 +380,21 @@
 										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
 									&lt;p&gt;	
 										Для того, щоб закінчити процедуру подачі документів в Державну міграційну службу необхідно:&lt;br /&gt;
-										·  Сплатити Державне мито у розмірі 0.85 грн і отримати талон про сплату.&lt;br /&gt;
 										·  Прийти до Центру надання адміністративних послуг Шевченківського району, що знаходиться за адресою:&lt;br /&gt; 
 											м. Київ, бульв. Т.Шевченка, 26/4, з необхідними документами (є можливість попереднього запису на прийом)&lt;/p&gt;
  									&lt;p&gt;
 										Документи, які необхідно принести до Центру надання адміністративних послуг:&lt;br /&gt;
-										·         посвідчення особи (Паспорт)&lt;br /&gt; 
-										·         свідоцтво про народження дитини&lt;br /&gt; 
-										·         талон про сплату Державного мита&lt;br /&gt; 
-										·         документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації;&lt;/p&gt;
+										·         паспорт або паспортний документ, що надійшов з органу державної реєстрації актів цивільного стану, або документа про смерть, виданого компетентним органом іноземної держави, легалізованого в установленому порядку;&lt;br /&gt; 
+										·         свідоцтво про смерть;&lt;br /&gt; 
+										·         свідоцтво про народження дитини (якщо дитина не досягла 16-річного віку)&lt;br /&gt; 
+										·         військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку);&lt;br /&gt;
+										·         інші документи, які свідчать про припинення :&lt;br /&gt;
+										&lt;div style="margin-left: 10%"&gt;
+										1.підстав перебування на території України іноземців та осіб без громадянства;&lt;br /&gt;
+										2.підстав для проживання або перебування особи у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту;&lt;br /&gt;
+										3.підстав на право користування житловим приміщенням.
+										&lt;/div&gt;
+									&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                     	Графік роботи:&lt;br /&gt; 
@@ -408,7 +426,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow31" sourceRef="mailtask6" targetRef="usertask1"></sequenceFlow>
-    <userTask id="usertask1" name="Формування пакету документів для ДМС" activiti:candidateGroups="kiev_dms_40_${district}">
+    <userTask id="usertask1" name="Формування пакету документів для ДМС" activiti:candidateGroups="kiev_dms_40s_${district}">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -484,7 +502,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Реєстрація нового місця проживання]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -540,7 +558,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-										На жаль, змушені відмовити Вам у наданні послуги: "Реєстрація місця проживання".&lt;/p&gt;
+										На жаль, змушені відмовити Вам у наданні послуги: "Зняття з реєстрації місця проживання/перебування особи".&lt;/p&gt;
 									&lt;p&gt;
 										Підстава: &lt;br /&gt;
 										Відсутність одного з документів, необхідних для отримання адміністративної послуги.
@@ -578,7 +596,7 @@
     <sequenceFlow id="flow22" name="${workerDecision=='accept'}" sourceRef="exclusivegateway4" targetRef="usertask4">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask4" name="Підтвердження отримання ЦНАПом документів від ДМС" activiti:candidateGroups="kiev_dms_40_${district}">
+    <userTask id="usertask4" name="Підтвердження отримання ЦНАПом документів від ДМС" activiti:candidateGroups="kiev_dms_40s_${district}">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -666,7 +684,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Реєстрація нового місця проживання]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -722,7 +740,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Реєстрація місця проживання успішно завершена!&lt;/p&gt;
+                                        Зняття з реєстрації місця проживання/перебування особи успішно завершено!&lt;/p&gt;
 									&lt;p&gt;	
 										Документи  Ви можете отримати в Центрі надання адміністративних послуг Деснянського району, що знаходиться за адресою:&lt;br /&gt; 
 										м. Київ, пр. Маяковського, буд. 29, I поверх&lt;/p&gt;	
@@ -769,7 +787,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Реєстрація нового місця проживання]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -825,7 +843,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Реєстрація місця проживання успішно завершена!&lt;/p&gt;
+                                       Зняття з реєстрації місця проживання/перебування успішно завершено!&lt;/p&gt;
 									&lt;p&gt;	
 										Документи  Ви можете отримати в Центрі надання адміністративних послуг Cолом'янського району, що знаходиться за адресою:&lt;br /&gt; 
 										м. Київ, просп. Повітрофлотський, 41&lt;/p&gt;	
@@ -873,7 +891,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Реєстрація нового місця проживання]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -929,7 +947,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Реєстрація місця проживання успішно завершена!&lt;/p&gt;
+                                       Зняття з реєстрації місця проживання/перебування успішно завершено!&lt;/p&gt;
 									&lt;p&gt;	
 										Документи  Ви можете отримати в Центрі надання адміністративних послуг Шевченківського району, що знаходиться за адресою:&lt;br /&gt;
 										м. Київ, бульв. Т.Шевченка, 26/4&lt;/p&gt;	
@@ -965,7 +983,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow35" sourceRef="mailtask8" targetRef="usertask5"></sequenceFlow>
-    <userTask id="usertask5" name="Підтвердження видачі документів ЦНАПом заявнику" activiti:candidateGroups="kiev_dms_40_${district}">
+    <userTask id="usertask5" name="Підтвердження видачі документів ЦНАПом заявнику" activiti:candidateGroups="kiev_dms_40s_${district}">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -1039,8 +1057,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='decline'}]]></conditionExpression>
     </sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_dms_40">
-    <bpmndi:BPMNPlane bpmnElement="kiev_dms_40" id="BPMNPlane_kiev_dms_40">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_dms_40s">
+    <bpmndi:BPMNPlane bpmnElement="kiev_dms_40s" id="BPMNPlane_kiev_dms_40s">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="10.0" y="130.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
