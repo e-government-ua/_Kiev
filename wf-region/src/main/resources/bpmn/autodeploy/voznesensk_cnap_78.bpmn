@@ -4,11 +4,11 @@
     <documentation>https://github.com/e-government-ua/iBP/issues/78</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdinn" name="Ідентифікаційний номер" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Ідентифікаційний номер" type="string" required="true" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_living" name="Місце проживання; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
@@ -47,19 +47,19 @@
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="mailtask1"></sequenceFlow>
     <userTask id="usertask1" name="Прийняття рішення" activiti:candidateGroups="voznesensk_cnap_78">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdinn" name="Ідентифікаційний номер" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="place_of_living" name="Місце проживання; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Копія паспорту" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_inn" name="Копія ідентифікаційного коду" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="scan_legalEntity" name="Копія свідоцтва про державну реєстрацію юридичної особи (фізичної особи підприємця) або документ що його замінює" type="file"></activiti:formProperty>
-        <activiti:formProperty id="scan_legalGround" name="Копія право установчого документу на земельну ділянку, довіреності (якщо звертається довірена особа)" type="file"></activiti:formProperty>
-        <activiti:formProperty id="scan_otherPerson" name="Копія довіреності (якщо звертається довірена особа)" type="file"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Ідентифікаційний номер" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="place_of_living" name="Місце проживання; вкажіть область, місто, вулицю, дім, квартиру" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Копія паспорту" type="file" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_inn" name="Копія ідентифікаційного коду" type="file" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="scan_legalEntity" name="Копія свідоцтва про державну реєстрацію юридичної особи (фізичної особи підприємця) або документ що його замінює" writable="false" type="file"></activiti:formProperty>
+        <activiti:formProperty id="scan_legalGround" name="Копія право установчого документу на земельну ділянку, довіреності (якщо звертається довірена особа)" writable="false" type="file"></activiti:formProperty>
+        <activiti:formProperty id="scan_otherPerson" name="Копія довіреності (якщо звертається довірена особа)" writable="false" type="file"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>

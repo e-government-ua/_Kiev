@@ -2,6 +2,9 @@ var request = require('request');
 var FormData = require('form-data');
 var config = require('../../config/environment');
 var accountService = require('../bankid/account.service.js');
+var _ = require('lodash');
+var StringDecoder = require('string_decoder').StringDecoder;
+var async = require('async');
 
 module.exports.index = function (req, res) {
 
@@ -85,54 +88,54 @@ module.exports.submit = function (req, res) {
   }, callback);
 };
 
-//aAddress: undefined
-//aDocument: undefined
-//oValue: Array[1]
-//0: Object
-//extension: "pdf"
-//link: "https://bankid.privatbank.ua/ResourceService/checked/scan/c0cc81f968a2e109609d89a46b8e238703e51d2d/passport"
-//number: 1
-//type: "passport"
-//__proto__: Object
-//length: 1
-//__proto__: Array[0]
-//sFieldName: undefined
-//sKey: "scans"
 module.exports.scanUpload = function (req, res) {
+  var accessToken = req.session.access.accessToken;
   var data = req.body;
   var uploadURL = data.url;
-  var documentScan = data.scan;
+  var documentScans = data.scanFields;
 
-  var scanContentRequest = accountService.prepareScanContentRequest(
-    _.merge(options, {
-      url: documentScan.link
-    })
-  );
+  var uploadResults = [];
+  var uploadScan = function (documentScan, callback) {
+    var scanContentRequest = accountService.prepareScanContentRequest(
+      _.merge(getBankIDOptions(accessToken), {
+        url: documentScan.scan.link
+      })
+    );
 
-  var form = new FormData();
-  form.append('file', scanContentRequest);
+    var form = new FormData();
+    form.append('file', scanContentRequest);
 
-  var requestOptionsForUploadContent = {
-    url: uploadURL,
-    auth: getAuth(),
-    headers: form.getHeaders()
+    var requestOptionsForUploadContent = {
+      url: uploadURL,
+      auth: getAuth(),
+      headers: form.getHeaders()
+    };
+
+    var decoder = new StringDecoder('utf8');
+    var result = {};
+    form.pipe(request.post(requestOptionsForUploadContent))
+      .on('response', function (response) {
+        result.statusCode = response.statusCode;
+      }).on('data', function (chunk) {
+        if (result.fileID) {
+          result.fileID += decoder.write(chunk);
+        } else {
+          result.fileID = decoder.write(chunk);
+        }
+      }).on('end', function () {
+        result.scanField= documentScan;
+        uploadResults.push(result);
+        callback();
+      });
   };
 
-  var decoder = new StringDecoder('utf8');
-  var result = {};
-  form.pipe(request.post(requestOptionsForUploadContent))
-    .on('response', function (response) {
-      result.statusCode = response.statusCode;
-    }).on('data', function (chunk) {
-      if (result.body) {
-        result.body += decoder.write(chunk);
-      } else {
-        result.body = decoder.write(chunk);
-      }
-    }).on('end', function () {
-      res.send(result);
-      res.end();
-    });
+  async.forEach(documentScans, function (documentScan, callback) {
+    uploadScan(documentScan, callback);
+  }, function (error) {
+    res.send(uploadResults);
+    res.end();
+  });
+
 };
 
 
@@ -155,5 +158,20 @@ function getAuth() {
   return {
     'username': options.username,
     'password': options.password
+  };
+}
+
+function getBankIDOptions(accessToken) {
+  var config = require('../../config/environment');
+  var bankid = config.bankid;
+
+  return {
+    protocol: bankid.sProtocol_AccessService_BankID,
+    hostname: bankid.sHost_ResourceService_BankID,
+    params: {
+      client_id: bankid.client_id,
+      client_secret: bankid.client_secret,
+      access_token: accessToken
+    }
   };
 }
