@@ -1,15 +1,5 @@
 package org.activiti.rest.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -22,6 +12,7 @@ import org.json.simple.JSONValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
+import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
 import org.wf.dp.dniprorada.base.model.FlowProperty;
 import org.wf.dp.dniprorada.base.model.FlowPropertyClass;
 import org.wf.dp.dniprorada.base.model.FlowSlotTicket;
@@ -40,6 +33,9 @@ import org.wf.dp.dniprorada.base.viewobject.flow.ClearSlotsResult;
 import org.wf.dp.dniprorada.base.viewobject.flow.Days;
 import org.wf.dp.dniprorada.base.viewobject.flow.FlowSlotVO;
 import org.wf.dp.dniprorada.base.viewobject.flow.SaveFlowSlotTicketResponse;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * User: goodg_000
@@ -62,6 +58,21 @@ public class ActivitiRestFlowController {
    
    @Autowired
    private RepositoryService repositoryService;
+
+	@Autowired
+	@Qualifier("flowPropertyDao")
+	private GenericEntityDao<FlowProperty> flowPropertyDao;
+
+	@Autowired
+	@Qualifier("flowServiceDataDao")
+	private GenericEntityDao<Flow_ServiceData> flowServiceDataDao;
+
+	@Autowired
+	@Qualifier("flowPropertyClassDao")
+	private GenericEntityDao<FlowPropertyClass> flowPropertyClassDao;
+
+    @Autowired
+    private FlowSlotTicketDao flowSlotTicketDao;
 
    @RequestMapping(value = "/getFlowSlots_ServiceData", method = RequestMethod.GET)
    public
@@ -245,13 +256,13 @@ public class ActivitiRestFlowController {
 		FlowProperty flowProperty = null;
 		if (nID != null) {
 			log.info("nID is not null. Updating existing FLowProperty with parameters");
-			flowProperty = flowService.getBaseEntityDao().getById(FlowProperty.class, nID);
+			flowProperty = flowPropertyDao.findByIdExpected(nID);
 			if (flowProperty != null) {
 				flowProperty = fillFlowProperty(sName, sRegionTime, saRegionWeekDay,
 						sDateTimeAt, sDateTimeTo, nLen, sLenType, sData, flowProperty);
 				flowProperty.setbExclude(false);
-				
-				flowService.getBaseEntityDao().saveOrUpdate(flowProperty);
+
+				flowPropertyDao.saveOrUpdate(flowProperty);
 				log.info("nID is not null. Updating existing FLowProperty with parameters");
 			} else {
 				log.info("Have not found FlowProperty object with ID: " + nID);
@@ -278,9 +289,9 @@ public class ActivitiRestFlowController {
 					+ nID_Flow_ServiceData);
 			flowProperty = new FlowProperty();
 
-			FlowPropertyClass flowPropertyClass = flowService.getBaseEntityDao().getById(FlowPropertyClass.class, DEFAULT_FLOW_PROPERTY_CLASS);
+			FlowPropertyClass flowPropertyClass = flowPropertyClassDao.findByIdExpected(DEFAULT_FLOW_PROPERTY_CLASS);
 			log.info("Loaded flow propetry service class: " + flowPropertyClass);
-			Flow_ServiceData flowServiceData = flowService.getBaseEntityDao().getById(Flow_ServiceData.class, nID_Flow_ServiceData);
+			Flow_ServiceData flowServiceData = flowServiceDataDao.findByIdExpected(nID_Flow_ServiceData);
 			log.info("Loaded flow service data class: " + flowServiceData);
 			
 			flowProperty = fillFlowProperty(sName, sRegionTime, saRegionWeekDay, sDateTimeAt, sDateTimeTo, nLen, sLenType, sData, flowProperty);
@@ -290,7 +301,7 @@ public class ActivitiRestFlowController {
 
 			flowServiceData.getFlowProperties().add(flowProperty);
 
-			flowService.getBaseEntityDao().saveOrUpdate(flowServiceData);
+			flowServiceDataDao.saveOrUpdate(flowServiceData);
 			log.info("Successfully updated flow with new FlowProperty.");
 		}
 		return flowProperty;
@@ -329,13 +340,12 @@ public class ActivitiRestFlowController {
 		FlowProperty flowProperty = null;
 		if (nID != null) {
 			log.info("nID is not null. Updating existing FLowProperty with parameters");
-			flowProperty = flowService.getBaseEntityDao().getById(
-					FlowProperty.class, nID);
+			flowProperty = flowPropertyDao.findByIdExpected(nID);
 			if (flowProperty != null) {
 				flowProperty = fillFlowProperty(sName, sRegionTime,
 						saRegionWeekDay, sDateTimeAt, sDateTimeTo, nLen, sLenType, sData, flowProperty);
 				flowProperty.setbExclude(true);
-				flowService.getBaseEntityDao().saveOrUpdate(flowProperty);
+				flowPropertyDao.saveOrUpdate(flowProperty);
 				log.info("nID is not null. Updating existing FLowProperty with parameters");
 			} else {
 				log.info("Have not found FlowProperty object with ID: " + nID);
@@ -361,9 +371,9 @@ public class ActivitiRestFlowController {
 					+ nID_Flow_ServiceData);
 			flowProperty = new FlowProperty();
 
-			FlowPropertyClass flowPropertyClass = flowService.getBaseEntityDao().getById(FlowPropertyClass.class, DEFAULT_FLOW_PROPERTY_CLASS);
+			FlowPropertyClass flowPropertyClass = flowPropertyClassDao.findByIdExpected(DEFAULT_FLOW_PROPERTY_CLASS);
 			log.info("Loaded flow propetry service class: " + flowPropertyClass);
-			Flow_ServiceData flowServiceData = flowService.getBaseEntityDao().getById(Flow_ServiceData.class, nID_Flow_ServiceData);
+			Flow_ServiceData flowServiceData = flowServiceDataDao.findByIdExpected(nID_Flow_ServiceData);
 			log.info("Loaded flow service data class: " + flowServiceData);
 			
 			flowProperty = fillFlowProperty(sName, sRegionTime, saRegionWeekDay, sDateTimeAt, sDateTimeTo, nLen, sLenType, sData, flowProperty);
@@ -373,7 +383,7 @@ public class ActivitiRestFlowController {
 
 			flowServiceData.getFlowProperties().add(flowProperty);
 
-			flowService.getBaseEntityDao().saveOrUpdate(flowServiceData);
+			flowServiceDataDao.saveOrUpdate(flowServiceData);
 			log.info("Successfully updated flow with new FlowProperty.");
 		}
 		return flowProperty;
@@ -404,7 +414,7 @@ public class ActivitiRestFlowController {
 		if (nID_Flow_ServiceData != null && nID != null) {
 			log.info("nID_Flow_ServiceData is not null. Removing flow property with bExclude=false and ID:" + nID);
 			
-			Flow_ServiceData flowServiceData = flowService.getBaseEntityDao().getById(Flow_ServiceData.class, nID_Flow_ServiceData);
+			Flow_ServiceData flowServiceData = flowServiceDataDao.findByIdExpected(nID_Flow_ServiceData);
 			
 			Iterator<FlowProperty> iterator = flowServiceData.getFlowProperties().iterator();
 			while (iterator.hasNext()){
@@ -413,8 +423,7 @@ public class ActivitiRestFlowController {
 
 				if (curr.getId().equals(nID) && curr.getbExclude() != null && Boolean.valueOf(curr.getbExclude()).equals(Boolean.FALSE)){
 					iterator.remove();
-					FlowProperty elem = flowService.getBaseEntityDao().getById(FlowProperty.class, curr.getId());
-					flowService.getBaseEntityDao().remove(elem);
+					flowPropertyDao.delete(curr.getId());
 					
 					log.info("Removed flow property with ID " + nID + " and bexclude=false");
 					break;
@@ -455,7 +464,7 @@ public class ActivitiRestFlowController {
 		if (nID_Flow_ServiceData != null && nID != null) {
 			log.info("nID_Flow_ServiceData is not null. Removing flow property with bExclude=true and ID:" + nID);
 			
-			Flow_ServiceData flowServiceData = flowService.getBaseEntityDao().getById(Flow_ServiceData.class, nID_Flow_ServiceData);
+			Flow_ServiceData flowServiceData = flowServiceDataDao.findByIdExpected(nID_Flow_ServiceData);
 			
 			Iterator<FlowProperty> iterator = flowServiceData.getFlowProperties().iterator();
 			while (iterator.hasNext()){
@@ -464,8 +473,7 @@ public class ActivitiRestFlowController {
 
 				if (curr.getId().equals(nID) && curr.getbExclude() != null && Boolean.valueOf(curr.getbExclude()).equals(Boolean.TRUE)){
 					iterator.remove();
-					FlowProperty elem = flowService.getBaseEntityDao().getById(FlowProperty.class, curr.getId());
-					flowService.getBaseEntityDao().remove(elem);
+					flowPropertyDao.delete(curr.getId());
 					
 					log.info("Removed flow property with ID " + nID + " and bexclude=true");
 					break;
@@ -505,7 +513,7 @@ public class ActivitiRestFlowController {
 		
 		log.info("Will check tasks which belong to process definition IDs:" + taskActivityIDsMap.keySet());
 		
-		List<FlowSlotTicket> allFlowSlowTickets = flowService.getFlowSlotTicketDao().getAll();
+		List<FlowSlotTicket> allFlowSlowTickets = flowSlotTicketDao.findAll();
 		log.info("Found " + (allFlowSlowTickets != null ? allFlowSlowTickets.size(): 0) + " flow slot tickets.");
 		if (allFlowSlowTickets != null){
 			
@@ -577,6 +585,11 @@ public class ActivitiRestFlowController {
                 
 		currRes.put("nID_Task_Activiti", tasksByActivitiID.getId());
                 
+		currRes.put("name", tasksByActivitiID.getName());
+		currRes.put("id", tasksByActivitiID.getId());
+		currRes.put("assignee", tasksByActivitiID.getAssignee());
+		currRes.put("nID_Instance", tasksByActivitiID.getProcessInstanceId());
+                
 		currRes.put("sUserTaskName", tasksByActivitiID.getName());
 		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(tasksByActivitiID.getProcessDefinitionId()).singleResult();
 		currRes.put("sNameBP", processDefinition != null ? processDefinition.getName() : "");
@@ -588,7 +601,8 @@ public class ActivitiRestFlowController {
 			Boolean bEmployeeUnassigned) {
 		List<Task> tasks;
 		if (bEmployeeUnassigned){
-			tasks = taskService.createTaskQuery().taskUnassigned().active().list();
+			//tasks = taskService.createTaskQuery().taskUnassigned().active().list();
+                        tasks = taskService.createTaskQuery().taskCandidateUser(sLogin).taskUnassigned().active().list();
 			log.info("Looking for unassigned tasks. Found " + (tasks != null ? tasks.size() : 0) + " tasks");
 		} else {
 			tasks = taskService.createTaskQuery().taskAssignee(sLogin).active().list();
@@ -617,7 +631,7 @@ public class ActivitiRestFlowController {
             
             
                 log.info("[getFilteredFlowPropertiesForFlowServiceData](nID_Flow_ServiceData="+nID_Flow_ServiceData+")");
-		Flow_ServiceData flowServiceData = flowService.getBaseEntityDao().getById(Flow_ServiceData.class, nID_Flow_ServiceData);
+		Flow_ServiceData flowServiceData = flowServiceDataDao.findByIdExpected(nID_Flow_ServiceData);
 		List<FlowProperty> res = new LinkedList<FlowProperty>();
 		if (flowServiceData != null) {
 			if (flowServiceData.getFlowProperties() != null && !flowServiceData.getFlowProperties().isEmpty()) {

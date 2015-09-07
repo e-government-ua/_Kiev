@@ -21,6 +21,7 @@
     <!-- build:css(client) app/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/intl-tel-input/build/css/intlTelInput.css" />
+    <link rel="stylesheet" href="bower_components/angular-dialog-service/dist/dialogs.min.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -109,6 +110,9 @@
 <script src="bower_components/angular-moment/angular-moment.js"></script>
 <script src="bower_components/angular-ui-uploader/dist/uploader.js"></script>
 <script src="bower_components/angular-ui-event/dist/event.js"></script>
+<script src="bower_components/angular-translate/angular-translate.js"></script>
+<script src="bower_components/angular-dialog-service/dist/dialogs.min.js"></script>
+<script src="bower_components/angular-dialog-service/dist/dialogs-default-translations.min.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -134,17 +138,20 @@
 <script src="app/common/components/form/factories/file.js"></script>
 <script src="app/common/components/form/factories/formData.js"></script>
 <script src="app/common/components/form/factories/parameter.js"></script>
+<script src="app/common/components/form/factories/scanFactory.js"></script>
 <script src="app/common/components/select/directives/optionsClass.js"></script>
 <script src="app/common/components/typeahead/directives/typeaheadEmpty.js"></script>
 <script src="app/common/components/typeahead/factories/typeahead.js"></script>
 <script src="app/common/factories/countrylist.factory.js"></script>
 <script src="app/common/factories/localitylist.factory.js"></script>
+<script src="app/common/factories/markers.factory.js"></script>
 <script src="app/common/factories/organlist.factory.js"></script>
 <script src="app/common/factories/regionlist.factory.js"></script>
 <script src="app/common/services/activiti.service.js"></script>
 <script src="app/common/services/admin.service.js"></script>
 <script src="app/common/services/bankid.service.js"></script>
 <script src="app/common/services/country.service.js"></script>
+<script src="app/common/services/field.attributes.service.js"></script>
 <script src="app/common/services/messages.service.js"></script>
 <script src="app/common/services/places.service.js"></script>
 <script src="app/common/services/service.service.js"></script>
@@ -153,6 +160,7 @@
 <script src="app/documents/controllers/documents.controller.js"></script>
 <script src="app/documents/controllers/documentsbankid.controller.js"></script>
 <script src="app/documents/controllers/documentscontent.controller.js"></script>
+<script src="app/documents/controllers/documentsigndata.controller.js"></script>
 <script src="app/documents/controllers/documentssearch.controller.js"></script>
 <script src="app/documents/controllers/documentsuser.controller.js"></script>
 <script src="app/documents/controllers/modal.controller.js"></script>
@@ -186,6 +194,7 @@
 <script src="app/service/region/link/script.js"></script>
 <script src="app/service/region/serviceRegion.states.js"></script>
 <script src="app/service/services/auth/serviceAuthBlock.js"></script>
+<script src="app/service/services/locationParser/serviceLocationParser.js"></script>
 <script src="app/service/subcategory/subcategory.controller.js"></script>
 <script src="app/service/wizard/wizard.controller.js"></script>
 <!-- endinjector -->

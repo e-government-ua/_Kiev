@@ -7,5 +7,9 @@ angular.module('app').factory('ParameterFactory', function() {
     return this.value;
   };
 
+  parameter.prototype.isFit = function(property){
+    return true;
+  };
+
   return parameter;
 });

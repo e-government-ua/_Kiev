@@ -1,10 +1,12 @@
 package org.activiti.rest.controller;
 
+import com.dumbster.smtp.SimpleSmtpServer;
 import org.activiti.engine.*;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.history.HistoricTaskInstanceQuery;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.task.*;
+import org.apache.commons.mail.EmailException;
 import org.junit.*;
 import org.junit.runner.*;
 import org.mockito.*;
@@ -16,6 +18,7 @@ import org.springframework.test.context.web.*;
 import org.springframework.test.web.servlet.*;
 import org.springframework.test.web.servlet.setup.*;
 import org.springframework.web.context.*;
+import org.wf.dp.dniprorada.base.service.notification.NotificationService;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.util.luna.CRCInvalidException;
 
@@ -43,9 +46,6 @@ public class ActivitiRestApiControllerTasksScenario {
 
    @Autowired
    private TaskService taskService;
-
-   @Autowired
-   private HistoryService historyService;
 
    @Before
    public void setUp() {
@@ -109,10 +109,8 @@ public class ActivitiRestApiControllerTasksScenario {
 
 
    @Test
-   public void shouldGetTasksCRCError() throws Exception {
-       
-      /*
-       
+   public void testGetTaskByOrder() throws Exception {
+
       final String getTasksByOrderUrl = "/rest/tasks/getTasksByOrder";
 
       String jsonData = mockMvc.perform(get(getTasksByOrderUrl).
@@ -123,10 +121,10 @@ public class ActivitiRestApiControllerTasksScenario {
       Map<String, String> res = JsonRestUtils.readObject(jsonData, Map.class);
       Assert.assertEquals(new CRCInvalidException().getMessage(), res.get("message"));
 
-      HistoricTaskInstanceQuery historicTaskInstanceQuery = Mockito.mock(HistoricTaskInstanceQuery.class);
-      Mockito.when(historyService.createHistoricTaskInstanceQuery()).thenReturn(historicTaskInstanceQuery);
-      Mockito.when(historicTaskInstanceQuery.taskId("12345")).thenReturn(historicTaskInstanceQuery);
-      Mockito.when(historicTaskInstanceQuery.singleResult()).thenReturn(null);
+      TaskQuery taskQuery = Mockito.mock(TaskQuery.class);
+      Mockito.when(taskService.createTaskQuery()).thenReturn(taskQuery);
+      Mockito.when(taskQuery.processInstanceId("12345")).thenReturn(taskQuery);
+      Mockito.when(taskQuery.singleResult()).thenReturn(null);
 
       jsonData = mockMvc.perform(get(getTasksByOrderUrl).
               param("nID_Protected", "123451")).
@@ -141,7 +139,6 @@ public class ActivitiRestApiControllerTasksScenario {
       Mockito.when(historicTaskInstance.getProcessInstanceId()).thenReturn(processTaskId);
 
       List<String> taskIds = Arrays.asList("1", "2");
-      TaskQuery taskQuery = Mockito.mock(TaskQuery.class);
       Mockito.when(taskService.createTaskQuery()).thenReturn(taskQuery);
       Mockito.when(taskQuery.processInstanceId(processTaskId)).thenReturn(taskQuery);
       List<Task> tasks = new ArrayList<>();
@@ -149,7 +146,6 @@ public class ActivitiRestApiControllerTasksScenario {
          tasks.add(new TaskEntity(taskId));
       }
       Mockito.when(taskQuery.list()).thenReturn(tasks);
-      Mockito.when(historicTaskInstanceQuery.singleResult()).thenReturn(historicTaskInstance);
 
       jsonData = mockMvc.perform(get(getTasksByOrderUrl).
               param("nID_Protected", "123451")).
@@ -158,8 +154,6 @@ public class ActivitiRestApiControllerTasksScenario {
               andReturn().getResponse().getContentAsString();
       String[] taskIdsResult = JsonRestUtils.readObject(jsonData, String[].class);
       Assert.assertEquals(Arrays.asList(taskIdsResult), taskIds);
-      
-      */
    }
 
 }

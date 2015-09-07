@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 /**
  * Created by diver on 4/20/15.
  */
-public class ActivitiAuthException extends ActivitiRestException {
+public class ActivitiAuthException extends ActivitiRestException { 
 
     /**
 	 * 

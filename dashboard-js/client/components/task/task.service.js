@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 angular.module('dashboardJsApp')
   .factory('tasks', function tasks($http, $q, $rootScope, uiUploader) {
@@ -22,7 +22,8 @@ angular.module('dashboardJsApp')
       filterTypes: {
         selfAssigned: 'selfAssigned',
         unassigned: 'unassigned',
-        finished: 'finished'
+        finished: 'finished',
+        tickets: 'tickets'
       },
       /**
        * Get list of tasks
@@ -30,13 +31,11 @@ angular.module('dashboardJsApp')
        * @param  {Function} callback - optional
        * @return {Promise}
        */
-      list: function(filterType, callback) {
+      list: function(filterType, callback, params) {
         return simpleHttpPromise({
           method: 'GET',
           url: '/api/tasks',
-          params: {
-            filterType: filterType
-          }
+          params: angular.merge({filterType: filterType}, params)
         }, callback);
       },
       getEventMap: function() {
@@ -191,11 +190,30 @@ angular.module('dashboardJsApp')
 
         return deferred.promise;
       },
+
+      getTask: function (taskId) {
+        var deferred = $q.defer();
+
+        var req = {
+          method: 'GET',
+          url: '/api/tasks/' + taskId,
+          data: {}
+        };
+
+        $http(req).
+          success(function (data) {
+            deferred.resolve(data);
+          }).
+          error(function (err) {
+            deferred.reject(err);
+          }.bind(this));
+
+        return deferred.promise;
+      },
       getTasksByOrder: function(nID_Protected) {
         return simpleHttpPromise({
             method: 'GET',
-            url: '/api/tasks/getTasksByOrder',
-            params: { nID_Protected: nID_Protected }
+            url: '/api/tasks/search/byOrder/' + nID_Protected
           }
         );
       }

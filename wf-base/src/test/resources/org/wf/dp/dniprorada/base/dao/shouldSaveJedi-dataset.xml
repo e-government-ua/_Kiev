@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <weapon nID="1" name="Lightsaber"/>
+
+    <jedi nID="111" name="Yoda" weapon="1"/>
+
+    <jedi nID="112" name="Luke Skywalker" weapon="1"/>
+</dataset>

@@ -183,4 +183,8 @@ angular.module('app').service('ServiceService', function($http, $q) {
         }));
     });
   };
+
+  this.getStatisticsForService = function(serviceId) {
+    return $http.get('./api/service/' + serviceId + '/statistics');
+  };
 });

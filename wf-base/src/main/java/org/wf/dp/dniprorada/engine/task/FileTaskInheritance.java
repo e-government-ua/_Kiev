@@ -19,17 +19,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import org.wf.dp.dniprorada.util.Util;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * @author askosyr
  */
 @Component("fileTaskInheritance")
-public class FileTaskInheritance extends AbstractModelTask  implements TaskListener {
+public class FileTaskInheritance extends AbstractModelTask implements TaskListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -40,9 +42,6 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
 
 	@Autowired
 	TaskService taskService;
-
-	@Autowired
-	private BaseEntityDao baseEntityDao;
 
 	@Autowired
 	private FlowSlotDao flowSlotDao;
@@ -58,28 +57,36 @@ public class FileTaskInheritance extends AbstractModelTask  implements TaskListe
 		
 		DelegateExecution execution = task.getExecution();
                 //task.getId()
-                Util.replacePatterns(execution, task, LOG); 
+                Util.replacePatterns(execution, task, LOG);
+                LOG.info("[notify]Util.replacePatterns:Ok");
                 
-		String sInheritedAttachmentsIds = getStringFromFieldExpression(this.aFieldInheritedAttachmentID, execution);
+                try{
+                    
+                    String sInheritedAttachmentsIds = getStringFromFieldExpression(this.aFieldInheritedAttachmentID, execution);
+                    LOG.info("sInheritedAttachmentsIds(0)="+sInheritedAttachmentsIds);
 
-		if (sInheritedAttachmentsIds == null || "".equals(sInheritedAttachmentsIds.trim())) {
-			LOG.error("aFieldInheritedAttachmentID field is not specified");
-			return;
-		}
+                    if (sInheritedAttachmentsIds == null || "".equals(sInheritedAttachmentsIds.trim())) {
+                            LOG.error("aFieldInheritedAttachmentID field is not specified");
+                            return;
+                    }
 
-                LOG.info("sInheritedAttachmentsIds="+sInheritedAttachmentsIds);
-		LOG.info("task.getId()" + task.getId());
-		
-		List<Attachment> attachments = getAttachmentsFromParentTasks(execution);
+                    LOG.info("sInheritedAttachmentsIds(1)="+sInheritedAttachmentsIds);
+                    LOG.info("task.getId()" + task.getId());
 
-		List<Attachment> attachmentsToAdd = getInheritedAttachmentIdsFromTask(attachments, sInheritedAttachmentsIds);
+                    List<Attachment> attachments = getAttachmentsFromParentTasks(execution);
 
-		addAttachmentsToCurrentTask(attachmentsToAdd, task);
-                
+                    List<Attachment> attachmentsToAdd = getInheritedAttachmentIdsFromTask(attachments, sInheritedAttachmentsIds);
+
+                    addAttachmentsToCurrentTask(attachmentsToAdd, task);                    
+                }catch(Exception oException){
+                    LOG.error("[notify]", oException);
+                }
+
+
                 //runtimeService.setVariable(snID_Process, "sID_Payment", sID_Payment);
                 //String sBody=(String)execution.getVariable("sBody");
-                //Util.replacePatterns(execution, this.osBody, LOG); 
-                
+                //Util.replacePatterns(execution, this.osBody, LOG);
+
 	}
 
 	private void addAttachmentsToCurrentTask(List<Attachment> attachmentsToAdd,

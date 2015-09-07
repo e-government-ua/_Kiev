@@ -65,7 +65,7 @@
 
                             <div class="col-md-3"
                                  ng-class="{'has-error': form.$submitted && form[property.id].$invalid}"
-                                 ng-if="!data.formData.fields[property.id] && property.type!='invisible' && property.type!='markers'"
+                                 ng-if="showFormField(property)"
                                  ng-switch
                                  on="property.type">
                                 <textarea ng-switch-when="textArea"
@@ -146,11 +146,11 @@
                                                 ng-model="data.formData.params[property.id].value"
                                                 service-data="oServiceData"
                                                 ng-required="property.required"></dropdown-organ>
-                              
+
                             </div>
 
                             <div class="col-md-3"
-                                 ng-if="data.formData.fields[property.id]"
+                                 ng-if="renderAsLabel(property)"
                                  ng-bind="data.formData.params[property.id].value">
                                 <input type="hidden"
                                        name="{{property.id}}"

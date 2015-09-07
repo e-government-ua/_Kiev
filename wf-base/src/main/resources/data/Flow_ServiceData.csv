@@ -1,5 +1,12 @@
 nID;sName;nID_ServiceData;nID_SubjectOrganDepartment;sID_BP
-1;Test Flow;1;1;Test sID_BP
-2;Test Flow2;29;1;kiev_mreo_1
-3;Test Flow2;123;1;dnepr_mreo_1
-4;Test Flow2;63;1;dnepr_dms_passport
+1;Test;1;1;_test_dnepr_mvd-1_auto
+2;МРЕО,Киев,Петропавлівська Борщагівка, вул.Кільцева 4;29;1;kiev_mreo_1
+3;МРЕО,Днепр;123;1;dnepr_mreo_1
+4;АВИР, Днепр, Поля 1;63;1;dnepr_dms_passport
+5;МРЕО,Киев,вул. Туполєва, 19;304;1;kiev_mreo1_1
+6;МРЕО,Киев,вул. Велика кільцева дорога. 22-А;305;1;kiev_mreo2_1
+7;МРЕО,Киев,вул. Братиславська, 52;306;1;kiev_mreо3_1
+8;МРЕО,Киев,вул. Столичне шосе, 104;307;1;kiev_mreo4_1
+9;МРЕО,Киев,вул. Павла Усенка, 8;308;1;kiev_mreo5_1
+10;МРЕО,Киев,вул. Новокостянтинівська, 8;309;1;kiev_mreo6_1
+11;МРЕО,Киев,пров. Балтійський, 20;310;1;kiev_mreo7_1

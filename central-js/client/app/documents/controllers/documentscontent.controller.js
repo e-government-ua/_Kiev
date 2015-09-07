@@ -17,6 +17,18 @@ angular.module('documents').controller('DocumentsContentController', function($s
   $scope.nDays = $scope.nDaysOptions[1].day;
   $scope.getDocumentLink = ServiceService.getDocumentLink;
 
+  $scope.getSignData = function(document){
+    var signData = JSON.parse(document.oSignData);
+    //return signData && signData.customer && signData.customer.fullName;
+    //return signData && signData.customer && signData.customer.organizations && signData.customer.organizations.length>0 && signData.customer.organizations[0].name;
+    //return signData && signData.customer && signData.customer.organizations && signData.customer.organizations.length>0 && signData.customer.organizations[0].name;
+    if(signData && signData.customer && signData.customer.organizations && signData.customer.organizations.length>0 && signData.customer.organizations[0].name){
+        return signData.customer.organizations[0].name;
+    }else{
+        return signData && signData.customer && signData.customer.fullName;
+    }
+  };
+
   $scope.uploadDocument = function(documentTypeForUpload, documentNameForUpload){
     $scope.file.uploadDocument(documentTypeForUpload, documentNameForUpload, function(){
       $state.transitionTo($state.current, $stateParams, {
@@ -27,9 +39,23 @@ angular.module('documents').controller('DocumentsContentController', function($s
     });
   };
 
+  $scope.showSignDataPopup = function(doc)
+  {
+    $modal.open({
+      animation: true,
+      templateUrl: 'documentsigndata.html',
+      controller: 'DocumentSignDataController',
+      resolve: {
+        oSignData: function() {
+          return JSON.parse(doc.oSignData);
+        }
+      }
+    })
+  };
+
   $scope.showShareTab = function(){
     $scope.shareTab = !$scope.shareTab;
-  }
+  };
 
   $scope.shareLink = function(document, sFIO, sTelephone, sMail, nDays) {
     ServiceService.shareLink($state.nID_Subject, document.nID, sFIO,

@@ -30,7 +30,19 @@ public class GeneralConfig {
 	private String generalUsername;
 	@Value("${general.auth.password}")
 	private String generalPassword;
-    
+
+    @Value("${general.sURL_DocumentKvitanciiForIgov}")
+    private String general_sURL_DocumentKvitanciiForIgov;
+    @Value("${general.sURL_DocumentKvitanciiForAccounts}")
+    private String general_sURL_DocumentKvitanciiForAccounts;
+    @Value("${general.sURL_GenerationSID}")
+    private String general_sURL_GenerationSID;
+    @Value("${general.sURL_DocumentKvitanciiCallback}")
+    private String general_sURL_DocumentKvitanciiCallback;
+    @Value("${general.SID_login}")
+    private String SID_login;
+    @Value("${general.SID_password}")
+    private String SID_password;
     
     public String sHost(){
         //general.sHost=https://test-version.region.igov.org.ua    
@@ -49,7 +61,25 @@ public class GeneralConfig {
         return generalPassword;
     }
 
-    
+    public String sURL_DocumentKvitanciiForIgov(){
+        return general_sURL_DocumentKvitanciiForIgov;
+    }
+    public String sURL_DocumentKvitanciiForAccounts(){
+        return general_sURL_DocumentKvitanciiForAccounts;
+    }
+    public String sURL_GenerationSID(){
+        return general_sURL_GenerationSID;
+    }
+    public String sURL_DocumentKvitanciiCallback(){
+        return general_sURL_DocumentKvitanciiCallback;
+    }
+    public String getSID_login() {
+        return SID_login;
+    }
+    public String getSID_password() {
+        return SID_password;
+    }
+
     //static public boolean bTest=false;
     public boolean bTest(){
         //return true;

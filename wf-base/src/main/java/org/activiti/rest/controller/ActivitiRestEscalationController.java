@@ -12,9 +12,13 @@ import org.wf.dp.dniprorada.base.dao.EscalationRuleDao;
 import org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDao;
 import org.wf.dp.dniprorada.base.model.EscalationRule;
 import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
+import org.wf.dp.dniprorada.base.service.escalation.EscalationService;
+import org.wf.dp.dniprorada.util.EscalationUtil;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/escalation")
@@ -28,6 +32,56 @@ public class ActivitiRestEscalationController {
     @Autowired
     private EscalationRuleDao escalationRuleDao;
 
+    @Autowired
+    private EscalationService escalationService;
+
+    @RequestMapping(value = "/runEscalationRule", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    void runEscalationRule(
+        @RequestParam(value = "nID") Long nID)
+            throws ActivitiRestException {
+
+        escalationService.runEscalationRule(nID);
+    }
+
+    @RequestMapping(value = "/runEscalation", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    void runEscalationAll() throws ActivitiRestException {
+        //@RequestParam(value = "nID", required = false) Long nID ,
+        //@RequestParam(value = "sName") String sName ,
+        //@RequestParam(value = "sBeanHandler", required = false) String sBeanHandler
+        escalationService.runEscalationAll();
+    }
+    @RequestMapping(value = "/sendEmail", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    void sendEmail(
+            @RequestParam(value = "sCondition", required = false) String sCondition)
+            throws ActivitiRestException {
+
+        Map<String, Object> taskParam = new HashMap<>();
+        //[Surname],[Name],[Middlename]
+        taskParam.put("Surname", "Petrenko");
+        taskParam.put("Name", "Petro");
+        taskParam.put("Middlename", "Petrovych");
+        taskParam.put("years", 40L);
+
+//        String[] recipients = new String[2];
+//        recipients[0] = "olga2012olga@gmail.com";
+//        recipients[1] = "olga.prylypko@gmail.com";
+
+        String json = "{sUserTask:'1', sDateEdit:'01-01-2015', " +
+                "nDays:10, asRecipientMail:['olga2012olga@gmail.com'], " +
+                "anList2:[10], bBool:true}";
+        String file = "print/kiev_dms_print1.html";
+
+         sCondition = sCondition == null ? "nDays == 10": sCondition;// "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays";
+
+        new EscalationUtil().checkTaskOnEscalation
+                (taskParam, sCondition, json, file, "escalationHandler_SendMailAlert");
+    }
     //----------EscalationRuleFunction services-----------------
 
     @RequestMapping(value = "/setEscalationRuleFunction", method = RequestMethod.GET)
@@ -53,7 +107,7 @@ public class ActivitiRestEscalationController {
     EscalationRuleFunction getEscalationRuleFunction(
             @RequestParam(value = "nID") Long nID) throws ActivitiRestException {
 
-        EscalationRuleFunction ruleFunction = escalationRuleFunctionDao.getById(nID);
+        EscalationRuleFunction ruleFunction = escalationRuleFunctionDao.findById(nID).orNull();
         if (ruleFunction == null) {
             throw new ActivitiRestException(
                     ActivitiExceptionController.BUSINESS_ERROR_CODE,
@@ -71,7 +125,7 @@ public class ActivitiRestEscalationController {
             throws ActivitiRestException {
 
         try {
-            return escalationRuleFunctionDao.getAll();
+            return escalationRuleFunctionDao.findAll();
         } catch (Exception e){
             throw new ActivitiRestException("ex in controller!", e);
         }
@@ -111,8 +165,12 @@ public class ActivitiRestEscalationController {
             throws ActivitiRestException {
 
         try {
+            EscalationRuleFunction ruleFunction = null;
+            if (nID_EscalationRuleFunction != null){
+                ruleFunction = escalationRuleFunctionDao.findById(nID_EscalationRuleFunction).orNull();
+            }
             return escalationRuleDao.saveOrUpdate(nID, sID_BP, sID_UserTask,
-                    sCondition, soData, sPatternFile, nID_EscalationRuleFunction);
+                    sCondition, soData, sPatternFile, ruleFunction);
         } catch (Exception e) {
             throw new ActivitiRestException("ex in controller!", e);
         }
@@ -125,7 +183,7 @@ public class ActivitiRestEscalationController {
     EscalationRule getEscalationRule(
             @RequestParam(value = "nID") Long nID) throws ActivitiRestException {
 
-        EscalationRule rule = escalationRuleDao.getById(nID);
+        EscalationRule rule = escalationRuleDao.findById(nID).orNull();
         if (rule == null) {
             throw new ActivitiRestException(
                     ActivitiExceptionController.BUSINESS_ERROR_CODE,
@@ -143,7 +201,7 @@ public class ActivitiRestEscalationController {
             throws ActivitiRestException {
 
         try {
-            return escalationRuleDao.getAll();
+            return escalationRuleDao.findAll();
         } catch (Exception e) {
             throw new ActivitiRestException("ex in controller!", e);
         }
@@ -167,5 +225,24 @@ public class ActivitiRestEscalationController {
         }
     }
 
+    //----------Escalation handlers-----------------
 
+    //----EscalationHandler_SendMailAlert
+//    @RequestMapping(value = "/sendMailAlertByEscalationHandler", method = RequestMethod.GET)
+//    public
+//    @ResponseBody
+//    void sendMailAlertByEscalationHandler(//??
+//                                          @RequestParam(value = "nID_Task_Activiti", required = false) Long nID_Task_Activiti,//temp!!!
+//                                          @RequestParam(value = "sCondition") String sCondition,
+//                                          @RequestParam(value = "soData") String soData,
+//                                          @RequestParam(value = "sPatternFile", required = false) String sPatternFile)//temp!!!
+//            throws ActivitiRestException {
+//
+//        try {
+//            new EscalationUtil().sendMailAlert(nID_Task_Activiti, sCondition, soData, sPatternFile);
+//        } catch (Exception e) {
+//            throw new ActivitiRestException("ex during sending mail alert in escalationController!", e);
+//        }
+//
+//    }
 }

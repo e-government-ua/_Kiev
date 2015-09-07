@@ -1129,6 +1129,27 @@ input.ng-touched.ng-invalid-email, input.ng-touched.ng-invalid-tel  {
   background-size: cover;
 }
 
+.kyiv-header-title {
+  vertical-align: middle;
+  display: inline-block;
+  background-image: url(/assets/images/baners/igov_kiev_title.png);
+  background-repeat: no-repeat !important;
+  background-position: 0px 0px;
+  /*width: 100%;
+  height: 100%;*/
+  margin-right: 5px;
+  margin-bottom: 3px;
+  background-size: cover;
+  
+  position:absolute;
+  top:35px;
+  left:100px;
+  width:428px;
+  height:95px;
+}
+
+/*<span class="kyiv-header" style="position:absolute;top:35px;left:100px;width:428px;height:95px;"></span>*/
+
 /**
  * Form labels
  */

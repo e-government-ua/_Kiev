@@ -1,11 +1,11 @@
 package org.activiti.rest.controller;
 
+import com.google.common.collect.Lists;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.redis.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -35,10 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 
@@ -111,6 +108,7 @@ public class ActivitiRestDocumentController {
             @RequestParam(value = "nID_DocumentOperator_SubjectOrgan") 	Long 	organID,
             @RequestParam(value = "nID_DocumentType", required = false) Long	docTypeID,
             @RequestParam(value = "sPass", required = false)		    String 	password,
+            @RequestParam(value = "nID_Subject", defaultValue = "1")    Long 	nID_Subject,
             HttpServletResponse resp
     ) {
 
@@ -119,6 +117,8 @@ public class ActivitiRestDocumentController {
                 .setDocumentType(docTypeID)
                 .setAccessCode(accessCode)
                 .setPassword(password)
+                .setWithContent(false)
+                .setIdSubject(nID_Subject)
                 .getDocument();
         try {
             createHistoryEvent(HistoryEventType.GET_DOCUMENT_ACCESS_BY_HANDLER,
@@ -156,44 +156,60 @@ public class ActivitiRestDocumentController {
     @RequestMapping(value = "/getDocumentFile", method = RequestMethod.GET)
     public
     @ResponseBody
-    byte[] getDocumentFile(@RequestParam(value = "nID") Long id,
-            @RequestParam(value = "nID_Subject") long nID_Subject,
-            
-            @RequestParam(value = "sCode_DocumentAccess", required = false) String accessCode,
-            @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false) Long organID,
-            @RequestParam(value = "nID_DocumentType", required = false) Long docTypeID,
-            @RequestParam(value = "sPass", required = false) String password,
+    byte[] getDocumentFile( @RequestParam(value = "nID", required = false)                              String id,
+                            @RequestParam(value = "nID_Subject", required = false, defaultValue = "1")  Long nID_Subject,
+                            @RequestParam(value = "sCode_DocumentAccess", required = false)             String accessCode,
+                            @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false)Long organID,
+                            @RequestParam(value = "nID_DocumentType", required = false)                 Long docTypeID,
+                            @RequestParam(value = "sPass", required = false)                            String password,
             
                            HttpServletRequest request, HttpServletResponse httpResponse) 
                            throws ActivitiRestException{
-        Document document = documentDao.getDocument(id);
-        if(nID_Subject != document.getSubject().getId()){
-            
-            
-            
-            if(accessCode!=null){
-                Document oDocument = handlerFactory
-                    .buildHandlerFor(documentDao.getOperator(organID))
-                    .setDocumentType(docTypeID)
-                    .setAccessCode(accessCode)
-                    .setPassword(password)
-                    .getDocument();
-                if(oDocument==null){
-                    throw new ActivitiRestException("401", "You don't have access by accessCode!");
+
+        Document document = null;
+        byte[] content = {};
+        Collection<Long> specialDocTypes = Lists.newArrayList(0L, 1L); //Two different types of DocumentKvitancii
+
+        if (id != null && !"null".equals(id) && !specialDocTypes.contains(docTypeID)) {
+            document = documentDao.getDocument(new Long(id));
+            if(!nID_Subject.equals(document.getSubject().getId())){
+                if(accessCode!=null){
+                    Document oDocument = handlerFactory
+                            .buildHandlerFor(documentDao.getOperator(organID))
+                            .setDocumentType(docTypeID)
+                            .setAccessCode(accessCode)
+                            .setPassword(password)
+                            .setWithContent(true)
+                            .getDocument();
+                    if(oDocument==null){
+                        throw new ActivitiRestException("401", "You don't have access by accessCode!");
+                    }
+                    content = documentDao.getDocumentContent(document.getContentKey());
+                }else{
+                    throw new ActivitiRestException("401", "You don't have access!");
                 }
-            }else{
-                throw new ActivitiRestException("401", "You don't have access!");
             }
-        } 
-        byte[] content = documentDao.getDocumentContent(document
-                .getContentKey());
-        //byte[] content = "".getBytes();
-        
-        httpResponse.setHeader("Content-disposition", "attachment; filename="
-                + document.getFile());
-        //httpResponse.setHeader("Content-Type", document.getDocumentContentType()
-        //		.getName() + ";charset=UTF-8");
+        }
+
+        if (specialDocTypes.contains(docTypeID)) {
+            try {
+                document = handlerFactory
+                        .buildHandlerFor(documentDao.getOperator(organID))
+                        .setDocumentType(docTypeID)
+                        .setAccessCode(accessCode)
+                        .setPassword(password)
+                        .setWithContent(true)
+                        .setIdSubject(nID_Subject)
+                        .getDocument();
+                content = document.getFileBody().getBytes();
+            } catch (IOException e) {
+                throw new ActivitiRestException("500", "Can't read document content!");
+            }
+        }
+
         httpResponse.setHeader("Content-Type", document.getContentType() + ";charset=UTF-8");
+        httpResponse.setHeader("Content-Disposition", "attachment; filename=" + document.getFile());
+
         httpResponse.setContentLength(content.length);
         return content;
     }
@@ -296,7 +312,8 @@ public class ActivitiRestDocumentController {
             //@RequestParam(value = "sFile", required = false) String fileName,
             @RequestParam(value = "nID_DocumentType") Long nID_DocumentType,
             @RequestParam(value = "nID_DocumentContentType", required = false) Long nID_DocumentContentType,
-            @RequestParam(value = "oFile", required = true) MultipartFile oFile,
+            @RequestParam(value = "oFile", required = false) MultipartFile oFile,
+            @RequestParam(value = "file", required = false) MultipartFile oFile2,
 //            @RequestParam(value = "oSignData", required = true) String soSignData,//todo required?? (issue587)
             //@RequestBody byte[] content,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
@@ -304,29 +321,45 @@ public class ActivitiRestDocumentController {
         //String sFileName = oFile.getName();
         //String sFileName = oFile.getOriginalFilename();
          //Content-Disposition:attachment; filename=passport.zip
+        
+        if(oFile==null){
+            oFile=oFile2;
+        }        
+
+        String sOriginalFileName = oFile.getOriginalFilename();
+        log.info("sOriginalFileName="+sOriginalFileName);
+        
+        String sOriginalContentType = oFile.getContentType();
+        log.info("sOriginalContentType="+sOriginalContentType);
+
         String sFileName = request.getHeader("filename");
+        log.info("sFileName(before)="+sFileName);
+        
         if(sFileName==null||"".equals(sFileName.trim())){
             //sFileName = oFile.getOriginalFilename()+".zip";
-            String sOriginalFileName = oFile.getOriginalFilename();
-            String sOriginalContentType = oFile.getContentType();
             log.info("sFileExtension="+sFileExtension);
-            log.info("sOriginalFileName="+sOriginalFileName);
-            log.info("sOriginalContentType="+sOriginalContentType);
-            //for(String s : request.getHeaderNames()){
-            Enumeration<String> a =  request.getHeaderNames();
-            for(int n=0;a.hasMoreElements()&&n<100;n++){
-                String s = a.nextElement();
-                log.info("n="+n+", s="+s+", value="+request.getHeader(s));
+            if(sFileExtension!=null && !"".equals(sFileExtension.trim())
+                    && sOriginalFileName!=null &&  !"".equals(sOriginalFileName.trim())
+                    && sOriginalFileName.endsWith(sFileExtension)  ){
+                sFileName = sOriginalFileName;
+                log.info("sOriginalFileName has equal ext! sFileName(all ok)="+sFileName);
+            }else{
+                //for(String s : request.getHeaderNames()){
+                Enumeration<String> a =  request.getHeaderNames();
+                for(int n=0;a.hasMoreElements()&&n<100;n++){
+                    String s = a.nextElement();
+                    log.info("n="+n+", s="+s+", value="+request.getHeader(s));
+                }
+                String fileExp = RedisUtil.getFileExp(sOriginalFileName);
+                fileExp = fileExp != null ? fileExp : ".zip.zip";
+                //fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? ".zip" : fileExp;
+                fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? sFileExtension : fileExp;
+                fileExp = fileExp != null ? fileExp.toLowerCase() : ".zip";
+                sFileName = sOriginalFileName + (fileExp.startsWith(".")?"":".") + fileExp;                
+                log.info("sFileName(after)="+sFileName);
             }
-            String fileExp = RedisUtil.getFileExp(sOriginalFileName);
-            fileExp = fileExp != null ? fileExp : ".zip.zip";
-            //fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? ".zip" : fileExp;
-            fileExp = fileExp.equalsIgnoreCase(sOriginalFileName) ? sFileExtension : fileExp;
-            fileExp = fileExp != null ? fileExp.toLowerCase() : ".zip";
-            sFileName = sOriginalFileName + (fileExp.startsWith(".")?"":".") + fileExp;
-            log.info("sFileName="+sFileName);
         }
-        String sFileContentType = oFile.getContentType();
+        //String sFileContentType = oFile.getContentType();
         byte[] aoContent = oFile.getBytes();
 
         Subject subject_Upload = syncSubject_Upload(sID_Subject_Upload);
@@ -342,7 +375,7 @@ public class ActivitiRestDocumentController {
                         nID_DocumentType,
                         nID_DocumentContentType,
                         sFileName,
-                        sFileContentType,
+                        sOriginalContentType,
                         aoContent,
                         soSignData);
         createHistoryEvent(HistoryEventType.SET_DOCUMENT_INTERNAL,

@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.dao;
 
 
+import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -9,18 +10,21 @@ import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.util.GeneralConfig;
+import org.wf.dp.dniprorada.util.Mail;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import org.wf.dp.dniprorada.util.Mail;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.Random;
 
 @Repository
-public class DocumentAccessDaoImpl implements DocumentAccessDao {
+public class DocumentAccessDaoImpl extends GenericEntityDao<DocumentAccess> implements DocumentAccessDao {
 	private final String sURL = "https://igov.org.ua/index#";	
 	private SessionFactory sessionFactory;
 	private final String urlConn = "https://sms-inner.siteheart.com/api/otp_create_api.cgi";
@@ -29,19 +33,17 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
         
 	@Autowired
 	GeneralConfig generalConfig;
-	
-    @Autowired
-    Mail oMail;
-        
-        
+
 	@Autowired
-	public DocumentAccessDaoImpl(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	Mail oMail;
+	
+	public DocumentAccessDaoImpl() {
+		super(DocumentAccess.class);
 	}
 
 	@Override
 	public String setDocumentLink(Long nID_Document, String sFIO,
-			String sTarget, String sTelephone, Long nMS, String sMail) throws Exception{
+											String sTarget, String sTelephone, Long nMS, String sMail) throws Exception {
 		DocumentAccess oDocumentAccess = new DocumentAccess();
 		oDocumentAccess.setID_Document(nID_Document);
 		oDocumentAccess.setDateCreate(new DateTime());
@@ -51,51 +53,50 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		oDocumentAccess.setTarget(sTarget);
 		oDocumentAccess.setTelephone(sTelephone);
 		oDocumentAccess.setSecret(generateSecret());
-		String id = writeRow(oDocumentAccess).toString();
-                //sCode;sCodeType
-                oDocumentAccess.setsCode(id);
-                oDocumentAccess.setsCodeType((sTelephone!=null&&sTelephone.length()>6)?"sms":"");
-		writeRow(oDocumentAccess);
+                
+//		String id = writeRow(oDocumentAccess).toString();
+
+                if(oDocumentAccess.getsCode() == null) oDocumentAccess.setsCode("null");
+                if(oDocumentAccess.getsCodeType() == null) oDocumentAccess.setsCodeType("null");
+                
+                saveOrUpdate(oDocumentAccess);
+                
+		String id = oDocumentAccess.getId().toString();
+                log.info("id="+id);
+                
+		//sCode;sCodeType
+		oDocumentAccess.setsCode(id);
+		oDocumentAccess.setsCodeType((sTelephone != null && sTelephone.length() > 6) ? "sms" : "");
+//		writeRow(oDocumentAccess);
+                saveOrUpdate(oDocumentAccess);
+                log.info("id="+id+":Ok!");                
+                
 		/*StringBuilder osURL = new StringBuilder(sURL);
 		osURL.append("nID_Access=");
 		osURL.append(getIdAccess()+"&");
 		osURL.append("sSecret=");
 		osURL.append(oDocumentAccess.getSecret());*/
 		//return osURL.toString();
-             
-                String saToMail = sMail;
-                String sHead = "Доступ до документу";
-                String sBody = "Вам надано доступ до документу на Порталі державних послуг iGov.org.ua.<br>" +
-                                "<br>" +
-                                "<b>Код документу:</b> %"+id+"%<br>" +
-                                "<br>" +
-                                "Щоб переглянути цей документ, зайдіть на <a href=\""+generalConfig.sHostCentral() +"\">iGov.org.ua</a>, пункт меню <b>Документи</b>, вкладка <b>Пошук документу за кодом</b>. Там оберіть тип документу, того, хто його надає та введіть код.<br>" +
-                                "<br>" +
-                                "З повагою,<br>" +
-                                "команда порталу державних послу iGov";
-        oMail
-        .reset();
-        
-        oMail
-        //._From(mailAddressNoreplay)
-        ._To(saToMail)
-        ._Head(sHead)
-        ._Body(sBody)
-        //._AuthUser(mailServerUsername)
-        //._AuthPassword(mailServerPassword)
-        //._Host(mailServerHost)
-        //._Port(Integer.valueOf(mailServerPort))
-        //._SSL(true)
-        //._TLS(true)
-        ;                
+
+                if(sMail!=null && !"".equals(sMail.trim())){
+                    String saToMail = sMail;
+                    String sHead = "Доступ до документу";
+                    String sBody = "Вам надано доступ до документу на Порталі державних послуг iGov.org.ua.<br>" +
+                                      "<br>" +
+                                      "<b>Код документу:</b> %" + id + "%<br>" +
+                                      "<br>" +
+                                      "Щоб переглянути цей документ, зайдіть на <a href=\"" + generalConfig.sHostCentral() + "\">iGov.org.ua</a>, пункт меню <b>Документи</b>, вкладка <b>Пошук документу за кодом</b>. Там оберіть тип документу, того, хто його надає та введіть код.<br>" +
+                                      "<br>" +
+                                      "З повагою,<br>" +
+                                      "команда порталу державних послу iGov";
+                    oMail.reset();
+                    oMail._To(saToMail)._Head(sHead)._Body(sBody);
+                    oMail.send();
+                }                
                 
-                //Mail oMail = new Mail();
-                //oMail._Head("")
-                //sMail
-        oMail.send();
-                
-                return id;
-                
+
+		return id;
+
 	}
 
 	private String generateSecret() {
@@ -148,37 +149,21 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		return s;
 	}        
 
-	private String writeRow(DocumentAccess o) throws Exception{
+	/*private String writeRow(DocumentAccess o) throws Exception{
 		Session s = getSession();
-		try{
-            if(o.getsCode() == null) o.setsCode("null");
-            if(o.getsCodeType() == null) o.setsCodeType("null");
-            s.saveOrUpdate(o);
-            s.flush();
-            return o.getId().toString();
-		} catch(Exception e){
-			throw e;
-		} finally {
-			if(s.isConnected()){
-				s.close();
-			}
-		}
-	}
+
+		if(o.getsCode() == null) o.setsCode("null");
+		if(o.getsCodeType() == null) o.setsCodeType("null");
+		s.saveOrUpdate(o);
+		s.flush();
+		return o.getId().toString();
+
+	}*/
 	
 	@Deprecated
 	public Long getIdAccess() throws Exception{
-		Session oSession = getSession();
-		List <DocumentAccess> list = null;
-		try{
-			list = oSession.createCriteria(DocumentAccess.class).list();
-		} catch(Exception e){
-			throw e;
-		} finally{
-			if(oSession.isConnected()){
-				oSession.close();
-			}
-		}
-		return list.get(list.size()-1).getId();
+		//не оптимально
+		return Iterables.getLast(findAll()).getId();
 	}
 
 	@Override
@@ -196,10 +181,6 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
                     }
 		} catch(Exception e){
 			throw e;
-		} finally{
-			if(oSession.isConnected()){
-				oSession.close();
-			}
 		}
 		return docAcc;
 	}
@@ -213,71 +194,46 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
         @Override
 	public String sSentDocumentAccessOTP_Phone(String sCode) throws Exception {
                 String sPhoneSent=null;
-		Session oSession = getSession();
+		//Session oSession = getSession();
 		boolean bSent = false;
-		try{
-                    DocumentAccess oDocumentAccess = (DocumentAccess) oSession
-				.createCriteria(DocumentAccess.class)
-				.add(Restrictions.eq("sCode", sCode))
-				.uniqueResult();
-                    //TODO делать точечную выборку по sCode
-                    /*DocumentAccess oDocumentAccess = new DocumentAccess();
-                    List <DocumentAccess> aDocumentAccess = null;
-                    aDocumentAccess = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
-                    if(aDocumentAccess == null || aDocumentAccess.isEmpty()){
-                        throw new Exception("Access not accepted!");
-                    } else {
-                    	 for(DocumentAccess o : aDocumentAccess){
-                         	if(sCode.equals(o.getsCode())){
-                         		oDocumentAccess = o;                      		
-                         		break;
-                         	}
-                         }
-                    }*/
-                    if(oDocumentAccess.getTelephone() != null && oDocumentAccess.getTelephone().trim().length()>6){
-                        String sPhone = "";
-                        String sAnswer = "";
-                        sPhone = oDocumentAccess.getTelephone();
-                        sPhoneSent=sPhone;
-                        log.info("[bSentDocumentAccessOTP]sPhone="+sPhone);
-                        
-                        //Generate random 4xDigits answercode
-                        sAnswer = generateAnswer();
-                        log.info("[bSentDocumentAccessOTP]sAnswer="+sAnswer);
-                         
-                        //o.setDateAnswerExpire(null);
-                        //SEND SMS with this code
-                        String sReturn;
-                        if(generalConfig.bTest()){
-                            sAnswer="4444";
-                        }
-                        oDocumentAccess.setAnswer(sAnswer);
-                        writeRow(oDocumentAccess);
-                        
-                        if(generalConfig.bTest()){
-                            sReturn = "test";
-                        }else{
-                            sReturn = sendPasswordOTP(sPhone, sAnswer);
-                        }
-                        
+			DocumentAccess oDocumentAccess = findBy("sCode", sCode).orNull();
+			if(oDocumentAccess.getTelephone() != null && oDocumentAccess.getTelephone().trim().length()>6){
+                String sPhone = "";
+                String sAnswer = "";
+                sPhone = oDocumentAccess.getTelephone();
+                sPhoneSent=sPhone;
+                log.info("[bSentDocumentAccessOTP]sPhone="+sPhone);
 
-                        
-                        log.info("[bSentDocumentAccessOTP]sReturn="+sReturn);
-                        
-                        bSent=true;
-                    }else{
-                        //TODO loging warn
-                    }
-                    
-                    //otpPassword=getOtpPassword(docAcc);
-		} catch(Exception e) {
-			throw e;
-		}finally{
-			if(oSession.isConnected()){
-				oSession.close();
-			}
-		}
-		//return  bSent;
+                //Generate random 4xDigits answercode
+                sAnswer = generateAnswer();
+                log.info("[bSentDocumentAccessOTP]sAnswer="+sAnswer);
+
+                //o.setDateAnswerExpire(null);
+                //SEND SMS with this code
+                String sReturn;
+                if(generalConfig.bTest()){
+                    sAnswer="4444";
+                }
+                oDocumentAccess.setAnswer(sAnswer);
+//                        writeRow(oDocumentAccess);
+                saveOrUpdate(oDocumentAccess);
+                log.info("oDocumentAccess.getId()="+oDocumentAccess.getId()+":Ok!");
+
+                if(generalConfig.bTest()){
+                    sReturn = "test";
+                }else{
+                    sReturn = sendPasswordOTP(sPhone, sAnswer);
+                }
+
+
+
+                log.info("[bSentDocumentAccessOTP]sReturn="+sReturn);
+
+                bSent=true;
+            }else{
+                //TODO loging warn
+            }
+			//return  bSent;
 		return sPhoneSent;
 	}        
         
@@ -293,38 +249,23 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		String sAnswer = "";
 		String otpPassword = "";
 		DocumentAccess docAcc = new DocumentAccess();
-		try{
-                    //TODO убедиться что все проверяется по этим WHERE
-                    list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
-                    if(list == null || list.isEmpty()){
-                        throw new Exception("Access not accepted!");
-                    } else {
-                    	 for(DocumentAccess da : list){
-                         	if(da.getId() == nID_Access && da.getSecret().equals(sSecret)){
-                         		docAcc = da;                      		
-                         		break;
-                         	}
-                         }
-                    }
-                    if(docAcc.getTelephone() != null){
-                     sTelephone = docAcc.getTelephone();
-                    }
-                    //TODO Generate random 4xDigits answercode
-                    sAnswer = generateAnswer();
-                    //TODO SEND SMS with this code
-                    //
-                    //o.setDateAnswerExpire(null);
-                    docAcc.setAnswer(sAnswer);
-                   // writeRow(docAcc);
-                    
-                    otpPassword=getOtpPassword(docAcc);
-		} catch(Exception e) {
-			throw e;
-		}finally{
-			if(oSession.isConnected()){
-				oSession.close();
-			}
-		}
+		list = findAll();
+		if(list == null || list.isEmpty()){
+            throw new Exception("Access not accepted!");
+        } else {
+             for(DocumentAccess da : list){
+                 if(da.getId() == nID_Access && da.getSecret().equals(sSecret)){
+                     docAcc = da;
+                     break;
+                 }
+             }
+        }
+		if(docAcc.getTelephone() != null){
+         sTelephone = docAcc.getTelephone();
+        }
+		sAnswer = generateAnswer();
+		docAcc.setAnswer(sAnswer);
+		otpPassword=getOtpPassword(docAcc);
 		return  otpPassword;
 	}
 
@@ -340,69 +281,21 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 	@Override
 	public String setDocumentAccess(Long nID_Access, String sSecret, String sAnswer) throws Exception {
 		Session oSession = getSession();
-		List <DocumentAccess> list = null;
-		DocumentAccess docAcc = null;
-		try{
-                    //TODO убедиться что все проверяется по этим WHERE
-                   /* list = (List <DocumentAccess>)oSession.createCriteria(DocumentAccess.class).list();
-                    if(list == null || list.isEmpty()){
-                        throw new Exception("Access not accepted!");
-                    }         
-                    else {
-                   	 for(DocumentAccess da : list){
-                   			if(da.getId() == nID_Access && da.getSecret().equals(sSecret)
-                                        && ( da.getAnswer().equals(sAnswer) || "1234".equals(sAnswer) )){  //TODO убрать бэкдур, после окончательной отладки, в т.ч. фронта
-                        		docAcc = da;
-                        		break;
-                        	}
-                        }
-                   }*/
-			docAcc = (DocumentAccess) getSession()
-					.createCriteria(DocumentAccess.class)
-					.add(Restrictions.eq("nID", nID_Access))
-					.add(Restrictions.eq("sSecret", sSecret))
-					.add(Restrictions.eq("sAnswer", sAnswer))
-					.uniqueResult();
-			if(docAcc == null){
-				 throw new Exception("Access not accepted!");
-			} else {
-				oSession.saveOrUpdate(docAcc);
-			}
-			
-		} catch(Exception e){
-			throw e;
-		} finally{
-			if(oSession.isConnected()){
-				oSession.close();
-			}
-		}
+		DocumentAccess docAcc = (DocumentAccess) createCriteria()
+                .add(Restrictions.eq("nID", nID_Access))
+                .add(Restrictions.eq("sSecret", sSecret))
+                .add(Restrictions.eq("sAnswer", sAnswer))
+                .uniqueResult();
+		if(docAcc == null){
+             throw new Exception("Access not accepted!");
+        } else {
+            oSession.saveOrUpdate(docAcc);
+        }
 		return docAcc.toString();
 	}
         
 	//public String setDocumentAccess(Integer nID_Access, String sSecret, String sAnswer) throws Exception;
 	//public String getDocumentAccess(Integer nID_Access, String sSecret) throws Exception;
-        
-        
-	private Session getSession(){
-		return sessionFactory.openSession();
-	}
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-        
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
         
         
 	private <T> String sendPasswordOTP(String sPhone, String sPassword) throws Exception{
@@ -466,16 +359,7 @@ public class DocumentAccessDaoImpl implements DocumentAccessDao {
 		}
 		oBufferedReader.close();
 		return os.toString();
-	}        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+	}
         
 	private <T> String getOtpPassword(DocumentAccess docAcc) throws Exception{
 		Properties prop = new Properties();

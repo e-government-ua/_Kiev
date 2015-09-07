@@ -22,7 +22,7 @@ public class HistoryEventMessage {
     public static String createJournalMessage(HistoryEventType eventType, Map<String, String> values) {
         String eventMessage = "";
         try {
-            //HistoryEventType eventType = HistoryEventType.getById(nID_HistoryEventType);
+            //HistoryEventType eventType = HistoryEventType.findById(nID_HistoryEventType);
             eventMessage = eventType.getsTemplate();
             for (String key : values.keySet()) {
                 eventMessage = eventMessage.replaceAll(key, values.get(key));

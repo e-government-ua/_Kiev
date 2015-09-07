@@ -16,13 +16,26 @@ public class Place extends NamedEntity {
     @JsonProperty("nID_PlaceType")
     private Long placeTypeId;
 
-    @Column(name ="sID_UA")
-    @JsonProperty("sID_UA")
-    private String uaId;
+    @Column
+    @JsonProperty
+    private String sID_UA;
 
     @Column(name ="sNameOriginal")
     @JsonProperty("sNameOriginal")
     private String originalName;
+
+
+    public Place(){
+        // no actions required
+    }
+
+    public Place(Long placeId, String name, Long typeId, String uaId, String originalName){
+        setId(placeId);
+        setName(name);
+        setPlaceTypeId(typeId);
+        setsID_UA(uaId);
+        setOriginalName(originalName);
+    }
 
 
     public Long getPlaceTypeId() {
@@ -32,11 +45,11 @@ public class Place extends NamedEntity {
         this.placeTypeId = placeTypeId;
     }
 
-    public String getUaId() {
-        return uaId;
+    public String getsID_UA() {
+        return sID_UA;
     }
-    public void setUaId(String uaId) {
-        this.uaId = uaId;
+    public void setsID_UA(String sID_UA) {
+        this.sID_UA = sID_UA;
     }
 
     public String getOriginalName() {
@@ -52,7 +65,7 @@ public class Place extends NamedEntity {
                 ", id=" + getId() +
                 ", name=" + getName() +
                 ", placeTypeId=" + placeTypeId +
-                ", uaId='" + uaId + '\'' +
+                ", uaId='" + sID_UA + '\'' +
                 ", originalName='" + originalName + '\'' +
                 '}';
     }

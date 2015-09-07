@@ -3,8 +3,6 @@ angular.module('dashboardJsApp')
 
     var controller = function($scope, $modal, bpForSchedule ) {
 
-      var self = this;
-
       var isSlotsPresent = false;
       var inProgress = false;
 
@@ -14,12 +12,31 @@ angular.module('dashboardJsApp')
       var setFunc = $scope.funcs.setFunc;
       var deleteFunc = $scope.funcs.deleteFunc;
 
+      var setDuration = function(slot){
+        if (slot.sDateTimeAt && slot.sDateTimeTo){
+          var from = moment(slot.sDateTimeAt).format('YYYY.MM.DD HH:mm');
+          var to = moment(slot.sDateTimeTo).format('YYYY.MM.DD HH:mm');
+          slot.duration = 'З ' + from + ' по ' + to;
+          return;
+        }
+        if (slot.sDateTimeAt){
+          slot.duration = 'З ' + moment(slot.sDateTimeAt).format('YYYY.MM.DD HH:mm') + ' безстроково';
+          return;
+        }
+        if (slot.sDateTimeTo){
+          slot.duration = 'Безстроково до ' + moment(slot.sDateTimeTo).format('YYYY.MM.DD HH:mm');
+          return;
+        }
+        slot.duration = 'Безстроково';
+      };
+
       var fillData = function () {
         inProgress = true;
         isSlotsPresent = false;
         getFunc(bpForSchedule.bp.chosenBp.sID)
           .then(function (data) {
             slots = data;
+            angular.forEach(slots, setDuration);
             isSlotsPresent = true;
           })
           .catch(function () {
@@ -45,6 +62,8 @@ angular.module('dashboardJsApp')
         modalInstance.result.then(function (editedSlot) {
           setFunc(bpForSchedule.bp.chosenBp.sID, editedSlot)
             .then(function (createdSlot) {
+              setDuration(createdSlot);
+
               for (var i = 0; i < slots.length; i++) {
                 if (slots[i].nID === createdSlot.nID) {
                   slots[i] = createdSlot;
@@ -57,31 +76,37 @@ angular.module('dashboardJsApp')
         });
       };
 
-      self.isInProgress = function () {
+      $scope.isInProgress = function () {
         return inProgress;
       };
 
-      self.isShowData = function () {
+      $scope.isShowData = function () {
         return !inProgress && isSlotsPresent;
       };
 
-      self.isShowWarning = function () {
+      $scope.isShowWarning = function () {
         return !inProgress && !isSlotsPresent;
       };
 
-      self.get = function () {
+      $scope.get = function () {
         return slots;
       };
 
-      self.add = function () {
+      $scope.add = function () {
         openModal();
       };
 
-      self.edit = function (slot) {
+      $scope.edit = function (slot) {
         openModal(slot);
       };
 
-      self.delete = function (slot) {
+      $scope.copy = function (slot) {
+        var slotCopy = angular.copy(slot);
+        slotCopy.nID = null;
+        openModal(slotCopy);
+      };
+
+      $scope.delete = function (slot) {
         deleteFunc(bpForSchedule.bp.chosenBp.sID, slot.nID)
           .then(fillData);
       };
@@ -103,7 +128,6 @@ angular.module('dashboardJsApp')
         funcs: '='
       },
       controller: controller,
-      controllerAs: 'scheduleCtrl',
       templateUrl:'app/services/directives/schedule.html',
     }
   }

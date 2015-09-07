@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-md-4">
         <h1>Мій журнал</h1>
-        <b style="color: red;">Сервіс в процесі реалізації!</b>
+        <b style="display: none; color: red;">Сервіс в процесі реалізації!</b>
     </div>
     <div class="col-md-4 col-md-offset-4 text-right">
-        <div class="ord-inner-addon">
+        <div style="display: none" class="ord-inner-addon">
             <span class="glyphicon glyphicon-search al-left"
                   aria-hidden="true"></span>
             <input type="text"
@@ -20,8 +20,10 @@
         <table class="table"
                ng-init="limit = 7">
             <tr data-ng-repeat="event in journal | limitTo: limit as results">
-                <td>{{ event.sDate | date: 'dd MMMM yyyy HH:mm'}}</td>
-                <td>{{ event.sEventName }}</td>
+                <td style="width: 150px;">{{ event.sDate | date: 'dd.MM.yyyy HH:mm'}}</td>
+                <!--td>{{ event.sEventName }}</td-->
+                <td>{{ event.sMessage }}</td>
+                
             </tr>
         </table>
     </div>

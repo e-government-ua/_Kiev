@@ -1,91 +1,100 @@
 package org.wf.dp.dniprorada.dao.place;
 
-import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
+import org.springframework.stereotype.Repository;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
+import org.wf.dp.dniprorada.base.dao.util.QueryBuilder;
 import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.model.Place;
 
-import java.util.List;
-
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.springframework.util.Assert.*;
+import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
+import static org.wf.dp.dniprorada.dao.place.PlaceHibernateResultTransformer.toList;
 import static org.wf.dp.dniprorada.dao.place.PlaceHibernateResultTransformer.toTree;
-import static org.wf.dp.dniprorada.dao.place.PlaceQueryDaoBuilder.specified;
 
 /**
  * @author dgroup
  * @since  20.07.2015
  */
-public class PlaceDaoImpl implements PlaceDao {
+@Repository
+public class PlaceDaoImpl extends GenericEntityDao<Place> implements PlaceDao {
+    private static final Logger LOG = LoggerFactory.getLogger(PlaceDaoImpl.class);
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private PlaceQueryResolver placeQueryResolver;
 
-    @Autowired
-    private PlaceQueryDaoBuilder sqlBuilder;
-
-    public PlaceDaoImpl(SessionFactory sessionFactory){
-        this.sessionFactory = sessionFactory;
+    public PlaceDaoImpl() {
+        super(Place.class);
     }
 
 
     @SuppressWarnings("unchecked")
     public PlaceHierarchyTree getTreeDown(PlaceHierarchyRecord root) {
         notNull(root, "Root element can't be a null");
-        if (!specified(root.getPlaceId()) && isBlank(root.getUaID()))
+
+        if (!valid(root.getPlaceId()) && isBlank(root.getUaID()))
             throw new IllegalArgumentException("PlaceId and UA id are empty");
 
-        String sql = sqlBuilder.getTreeDown(root);
+        QueryBuilder sql = new QueryBuilder(getSession(), placeQueryResolver.getTreeDown(root))
+            .append(root.isNotEmpty(), " where ");
 
-        Query query = sessionFactory
-            .getCurrentSession()
-            .createSQLQuery(sql)
-            .setResultTransformer( new PlaceHibernateResultTransformer() );
+        if (valid(root.getTypeId())) {
+            sql.append(" (type_id = :TYPE_ID", root.getTypeId());
 
-        if (specified(root.getPlaceId()))
-            query.setLong("placeId", root.getPlaceId());
+            if (valid(root.getPlaceId()))
+                sql.append(" or id = :PLACE_ID)");
 
-        if (specified(root.getTypeId()))
-            query.setLong("typeId", root.getTypeId());
+            else if (isNotBlank(root.getUaID()))
+                sql.append(" or id = :UA_ID)");
+        }
 
-        if (specified(root.isArea()))
-            query.setBoolean("area", root.isArea());
+        sql .append( valid(root.isArea()) && valid(root.getTypeId()), " and ")
+            .append( valid(root.isArea()), " area = :AREA", root.isArea() )
+            .append( valid(root.isRoot()) && (valid(root.getTypeId()) ||valid(root.isArea()))," and ")
+            .append( valid(root.isRoot()), " root = :ROOT", root.isRoot())
+            .append( valid(root.getDeep()) && (
+                     valid(root.getTypeId()) ||
+                     valid(root.isArea()) ||
+                     valid(root.isRoot()))," and ")
+            .append( valid(root.getDeep()), " level <= :DEEP", root.getDeep())
+            .setParam( valid(root.getPlaceId()), "PLACE_ID", root.getPlaceId())
+            .setParam( !valid(root.getPlaceId()) && isNotBlank(root.getUaID()), "UA_ID", root.getUaID());
 
-        if (specified(root.isRoot()))
-            query.setBoolean("root", root.isRoot());
+        LOG.warn("Query for execution: {}", sql);
 
-        if (specified(root.getDeep()))
-            query.setLong("deep", root.getDeep());
+        Query query = sql.toSQLQuery()
+            .setResultTransformer(new PlaceHibernateResultTransformer());
 
-        return toTree( query.list() );
+        return valid(root.getTypeId())? toList(query.list()) : toTree(query.list());
     }
+
 
     @SuppressWarnings("unchecked")
     public PlaceHierarchyTree getTreeUp(Long placeId, String uaId, Boolean tree) {
-        if (!specified(placeId) && isBlank(uaId)) {
-            notNull(placeId, "PlaceId can't be empty");
-            isTrue(isBlank(uaId), "UA id can't empty.");
+        if (!valid(placeId) && isBlank(uaId)) {
+            notNull( placeId, "PlaceId can't be empty"  );
+            isTrue ( isBlank(uaId), "UA id can't empty.");
         }
 
-        String sql = sqlBuilder.getTreeUp(placeId, uaId, tree);
-        Query query = sessionFactory
-            .getCurrentSession()
-            .createSQLQuery(sql)
+        Query query = new QueryBuilder(getSession())
+            .append  ( placeQueryResolver.getTreeUp(placeId, uaId, tree) )
+            .setParam( valid(placeId), "PLACE_ID", placeId )
+            .setParam( isNotBlank(uaId) && !valid(placeId), "UA_ID", uaId )
+            .toSQLQuery()
             .setResultTransformer( new PlaceHibernateResultTransformer() );
-
-        if (specified(placeId))
-            query.setLong("placeId", placeId);
-
-        if (isNotBlank(uaId) && !specified(placeId))
-            query.setString("ua_id", uaId);
 
         return toTree( query.list() );
     }
 
+    static boolean valid(Long value) {
+        return value != null && value > 0;
+    }
+    static boolean valid(Boolean value) {
+        return value != null;
+    }
 }

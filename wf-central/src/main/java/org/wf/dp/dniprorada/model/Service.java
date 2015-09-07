@@ -3,17 +3,14 @@ package org.wf.dp.dniprorada.model;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.ArrayList;
-
 import com.fasterxml.jackson.annotation.JsonSetter;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.wf.dp.dniprorada.util.Util;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-
-import org.wf.dp.dniprorada.util.GeneralConfig;
 
 /**
  * User: goodg_000
@@ -23,36 +20,27 @@ import org.wf.dp.dniprorada.util.GeneralConfig;
 @javax.persistence.Entity
 public class Service extends org.wf.dp.dniprorada.base.model.NamedEntity {
 
-	@JsonProperty(value="nOrder")
-   @Column(name = "nOrder", nullable = false)
-   private Integer order;
+    private static final String BASE_INFO_PATTERN_FILE_PATH = "patterns/services/Info";
+    private static final String BASE_FAQ_PATTERN_FILE_PATH = "patterns/services/FAQ";
+    private static final String BASE_LAW_PATTERN_FILE_PATH = "patterns/services/Law";
 
-	@JsonProperty(value="nID_Subcategory")
-   @ManyToOne(fetch = FetchType.EAGER)
-   @JoinColumn(name = "nID_Subcategory", nullable = false)
-   private Subcategory subcategory;
+    @JsonProperty(value = "nOrder")
+    @Column(name = "nOrder", nullable = false)
+    private Integer order;
 
-	@JsonProperty(value="aServiceData")
-   @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
-   @LazyCollection(LazyCollectionOption.FALSE)
-   private List<ServiceData> serviceDataList;
+    @JsonProperty(value = "nID_Subcategory")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "nID_Subcategory", nullable = false)
+    private Subcategory subcategory;
 
-	@JsonProperty(value="sInfo")
-   @Column(name = "sInfo", nullable = false)
-   private String info;
+    @JsonProperty(value = "aServiceData")
+    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<ServiceData> serviceDataList;
 
-   @JsonProperty("sFAQ")
-   @Column(name = "sFAQ", nullable = false)
-   private String faq;
-
-   @JsonProperty("sLaw")
-   @Column(name = "sLaw", nullable = false)
-   private String law;
-
-   
-	@JsonProperty(value="sSubjectOperatorName")
-   @Column(name = "sSubjectOperatorName", nullable = false)
-   private String sSubjectOperatorName;
+    @JsonProperty(value = "sInfo")
+    @Column(name = "sInfo", nullable = false)
+    private String info;
    
     /*@JsonProperty(value = "bTest")
     @Column(name = "bTest", nullable = false)
@@ -66,129 +54,148 @@ public class Service extends org.wf.dp.dniprorada.base.model.NamedEntity {
     public void setTest(boolean b) {
             this.bTest = b;
     }*/
+    @Column(name = "sFAQ", nullable = false)
+    @JsonProperty("sFAQ")
+    private String faq;
 
-   
-   @Transient
-   private int sub = 0;
-   
-   @Transient
-   private int nStatus = 0;
+    @Column(name = "sLaw", nullable = false)
+    @JsonProperty("sLaw")
+    private String law;
 
+    @JsonProperty(value = "sSubjectOperatorName")
+    @Column(name = "sSubjectOperatorName", nullable = false)
+    private String sSubjectOperatorName;
 
-   public String getSubjectOperatorName() {
-      return sSubjectOperatorName;
-   }
+    @Transient
+    private int sub = 0;
 
-   public void setSubjectOperatorName(String s) {
-      this.sSubjectOperatorName = s;
-   }
-   
+    @Transient
+    private int nStatus = 0;
 
-   @JsonProperty(value = "nSub")
-   public int getSub() {
-      return sub;
-   }
+    public String getSubjectOperatorName() {
+        return sSubjectOperatorName;
+    }
 
-   public void setSub(int n) {
-      sub = n;
-   }
+    public void setSubjectOperatorName(String s) {
+        this.sSubjectOperatorName = s;
+    }
 
-   @JsonProperty(value = "nStatus")
-   public int getStatus() {
-      return nStatus;
-   }
-   public void setStatus(int n) {
-      nStatus = n;
-   }
-   
-   public Integer getOrder() {
-      return order;
-   }
-   public void setOrder(Integer order) {
-      this.order = order;
-   }
+    @JsonProperty(value = "nSub")
+    public int getSub() {
+        return sub;
+    }
 
-   public Subcategory getSubcategory() {
-      return subcategory;
-   }
-   public void setSubcategory(Subcategory subcategory) {
-      this.subcategory = subcategory;
-   }
+    public void setSub(int n) {
+        sub = n;
+    }
 
-   @JsonGetter("aServiceData")
-   public List<ServiceData> getServiceDataFiltered(boolean flag) {
-      if (serviceDataList == null) {
-         return null;
-      }
+    @JsonProperty(value = "nStatus")
+    public int getStatus() {
+        return nStatus;
+    }
 
-      boolean bTest = flag;
-      List<ServiceData> res = new ArrayList<>();
-      for (ServiceData oServiceData : serviceDataList) {
-         if (!oServiceData.isHidden()&&(bTest||!oServiceData.isTest())) {
-            res.add(oServiceData);
-         }
-      }
-      return res;
-   }
+    public void setStatus(int n) {
+        nStatus = n;
+    }
 
-   //0 - none
-   //1 - test
-   //2 - prod
-   @JsonGetter("nID_Status")
-   public int getStatusID() {
-      if (serviceDataList == null) {
-         return 0;
-      }
-       
-      if(getSub()==0){
-        for (ServiceData oServiceData : serviceDataList) {
-           if (oServiceData.isTest()&&!oServiceData.isHidden()) {
-              return 1;
-           }
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
+    public Subcategory getSubcategory() {
+        return subcategory;
+    }
+
+    public void setSubcategory(Subcategory subcategory) {
+        this.subcategory = subcategory;
+    }
+
+    @JsonGetter("aServiceData")
+    public List<ServiceData> getServiceDataFiltered(boolean flag) {
+        if (serviceDataList == null) {
+            return null;
         }
-        return 0;
-      }else{
+
+        boolean bTest = flag;
+        List<ServiceData> res = new ArrayList<>();
         for (ServiceData oServiceData : serviceDataList) {
-           if (!oServiceData.isTest()&&!oServiceData.isHidden()) {
-              return 2;
-           }
+            if (!oServiceData.isHidden() && (bTest || !oServiceData.isTest())) {
+                res.add(oServiceData);
+            }
         }
-        return 1;
-      }
-   }
+        return res;
+    }
 
-   @JsonSetter("nID_Status")
-   public void setStatusID(int id) {
-      // need to avoid exception in tests.
-   }
-   
-   
-   @JsonIgnore
-   public List<ServiceData> getServiceDataList() {
-      return serviceDataList;
-   }
-   public void setServiceDataList(List<ServiceData> serviceDataList) {
-      this.serviceDataList = serviceDataList;
-   }
+    //0 - none
+    //1 - test
+    //2 - prod
+    @JsonGetter("nID_Status")
+    public int getStatusID() {
+        if (serviceDataList == null) {
+            return 0;
+        }
 
-   public String getInfo() {
-      return info;
-   }
-   public void setInfo(String info) {
-      this.info = info;
-   }
+        if (getSub() == 0) {
+            for (ServiceData oServiceData : serviceDataList) {
+                if (oServiceData.isTest() && !oServiceData.isHidden()) {
+                    return 1;
+                }
+            }
+            return 0;
+        } else {
+            for (ServiceData oServiceData : serviceDataList) {
+                if (!oServiceData.isTest() && !oServiceData.isHidden()) {
+                    return 2;
+                }
+            }
+            return 1;
+        }
+    }
 
-   public String getFaq() {
-      return faq;
-   }
-   public void setFaq(String faq) {
-      this.faq = faq;
-   }
+    @JsonSetter("nID_Status")
+    public void setStatusID(int id) {
+        // need to avoid exception in tests.
+    }
 
-   public String getLaw() {
-      return law;
-   }
-   public void setLaw(String law) {
-      this.law = law;
-   }
+    @JsonIgnore
+    public List<ServiceData> getServiceDataList() {
+        return serviceDataList;
+    }
+
+    public void setServiceDataList(List<ServiceData> serviceDataList) {
+        this.serviceDataList = serviceDataList;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = getSmartFieldValue(info, BASE_INFO_PATTERN_FILE_PATH);
+    }
+
+    public String getFaq() {
+        return faq;
+    }
+
+    public void setFaq(String faq) {
+        this.faq = getSmartFieldValue(faq, BASE_FAQ_PATTERN_FILE_PATH);
+    }
+
+    public String getLaw() {
+        return law;
+    }
+
+    public void setLaw(String law) {
+        this.law = getSmartFieldValue(law, BASE_LAW_PATTERN_FILE_PATH);
+    }
+
+    private String getSmartFieldValue(String value, String basePath) {
+        String content = Util.getSmartPathFileContent(value, basePath, getId() + ".html");
+        return content != null ? content : value;
+    }
 }

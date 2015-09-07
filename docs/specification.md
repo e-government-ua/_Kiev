@@ -1,10 +1,7 @@
-### iGov.ua APIs
- <a name="0_contents">*Contents*</a><br/>
-<a href="#1_userLogin">1. Логин пользователя</a><br/>
-<a href="#2_userLogout">2. Логаут пользователя</a><br/>
-<a href="#3_activitiRun">3. Запуск процесса Activiti</a><br/>
-<a href="#4_activitiRunTasks">4. Загрузка задач из Activiti</a><br/>
-<a href="#5_activitiRunServices">5. Загрузка каталога сервисов из Activiti</a><br/>
+# iGov.ua APIs
+<a name="0_contents">*Contents*</a><br/>
+<a href="#1">1. Аутентификация пользователя</a><br/>
+<a href="#2">2. Activiti</a><br/>
 <a href="#6_loadFileFromDb">6. Загрузки прикрепленного к заявке файла из постоянной базы</a><br/>
 <a href="#7_workWithMerchants">7. Работа с мерчантами</a><br/>
 <a href="#8_workWithTables">8. Бэкап/восстановление данных таблиц сервисов и мест</a><br/>
@@ -31,8 +28,10 @@
 <a href="#29_removeSheduleFlowExclude"> 29. Удаление расписания исключений </a><br/>
 <a href="#30_workWithPatternFiles"> 30. Работа с файлами-шаблонами </a><br/>
 <a href="#31_getFlowSlotTickets"> 31. Получение активных тикетов</a><br/>
-
-### iGov.ua APIs
+<a href="#32_getTasksByOrder"> 32. Получение списка ID пользовательских тасок по номеру заявки</a><br/>
+<a href="#33_getStatisticServiceCounts"> 33. Получение количества записей HistoryEvent_Service для сервиса по регионам</a><br/>
+<a href="#34">34. Электронная эскалация</a><br/>
+## iGov.ua APIs
 
 ##### Mandatory HTTP Headers
 
@@ -42,9 +41,14 @@
 | Accept | application/json |
 | Authorization | Basic ... |
 
-<a name="1_userLogin">
-####1. Логин пользователя:
-</a><a href="#0_contents">↑Up</a>
+--------------------------------------------------------------------------------------------------------------------------
+
+<a name="1">
+<a href="#1"><h3>1. Аутентификация пользователя</h3></a>
+<br/>
+
+<a href="#1"><h4>Логин пользователя:</h4></a>
+<a href="#0_contents">↑Up</a>
 
 **HTTP Metod: POST**
 
@@ -57,127 +61,143 @@
 * sLogin - Логин пользователя
 * sPassword - Пароль пользователя
 
-**Request**
+**Request:**
 
 ```text
     sLogin=user&sPassword=password
 ```
 
-**Response**
+**Response:**
 
 ```json
-	{"session":"true"} //[1..1]
+	{"session":"true"}
 ```
-
+где:<br/>
 true - Пользователь авторизирован   
 false - Имя пользователя или пароль не корректны
 
-<a name="2_userLogout">
-#### 2. Логаут пользователя:
-</a><a href="#0_contents">↑Up</a>
+<br/>
+
+<a href="#1"><h4>Логаут пользователя (наличие cookie JSESSIONID):</h4></a>
+<a href="#0_contents">↑Up</a>
 
 **HTTP Metod: POST/DELETE**
 
 **HTTP Context: https://server:port/wf-region/service/auth/logout**
 
-Наличие cookie JSESSIONID
-
-**Response**
+**Response:**
 
 ```json
 	{"session":"97AE7CA414A5DA85749FE379CC843796"}
 ```
+--------------------------------------------------------------------------------------------------------------------------
 
-true - Пользователь авторизирован
-false - Имя пользователя или пароль не корректны
+<a name="2">
+<a href="#2"><h3>2. Activiti</h3></a>
+<br/>
 
-
-<a name="3_activitiRun">
-#### 3. Запуск процесса Activiti:
-</a><a href="#0_contents">↑Up</a>
+<a href="#2"><h4>Запуск процесса Activiti:</h4></a>
+<a href="#0_contents">↑Up</a>
 
 **HTTP Metod: GET**
 
 **HTTP Context: https://server:port/wf-region/service/rest/start-process/{key}**
 
-* {key} - Ключ процесса
-* {nID_Subject} - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
+* key - Ключ процесса
+* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
-**Response**
+**Request:**
+
+https://test.region.igov.org.ua/wf-region/service/rest/start-process/citizensRequest
+
+**Response:**
 
 ```json
 	{
-		"id":"31" //[1..1]
+		"id":"31"
 	}
 ```
 
-<a name="4_activitiRunTasks">
-####4. Загрузка задач из Activiti
-</a><a href="#0_contents">↑Up</a><br/>
+<br/>
+
+<a href="#2"><h4>Загрузка задач из Activiti:</h4></a>
+<a href="#0_contents">↑Up</a>
 
 **HTTP Metod: GET**
 
 **HTTP Context: https://server:port/wf-region/service/rest/tasks/{assignee}**
 
-* {assignee} - Владелец
-* {nID_Subject} - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
+* assignee - Владелец
+* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
-**Response**
+**Request:**
+
+https://test.region.igov.org.ua/wf-region/service/rest/tasks/kermit
+
+**Response:**
 
 ```json
-	[                                                     //[0..N]
-  		{
-    		"delegationState": "RESOLVED",                //[0..1]
-		    "id": "38",                                   //[1..1]
-		    "name": "Первый процесс пользователя kermit", //[1..1]
-		    "description": "Описание процесса",           //[0..1]
-		    "priority": 51,                               //[1..1]
-		    "owner": "kermit-owner",                      //[1..1]
-		    "assignee": "kermit-assignee",                //[1..1]
-		    "processInstanceId": "12",                    //[0..1]
-		    "executionId": "1",                           //[0..1]
-		    "createTime": "2015-04-13 00:51:34.527",      //[1..1]
-		    "taskDefinitionKey": "task-definition",       //[0..1]
-		    "dueDate": "2015-04-13 00:51:36.527",         //[0..1]
-		    "category": "my-category",                    //[0..1]
-		    "parentTaskId": "2",                          //[0..1]
-		    "tenantId": "diver",                          //[0..1]
-		    "formKey": "form-key-12",                     //[0..1]
-		    "suspended": true,                            //[1..1]
-		    "processDefinitionId": "21"                   //[0..1]
+	[                                                
+  	  {
+    		"delegationState": "RESOLVED",             
+		    "id": "38",                                  
+		    "name": "Первый процесс пользователя kermit",
+		    "description": "Описание процесса",           
+		    "priority": 51,                               
+		    "owner": "kermit-owner",                      
+		    "assignee": "kermit-assignee",                
+		    "processInstanceId": "12",                   
+		    "executionId": "1",                           
+		    "createTime": "2015-04-13 00:51:34.527",      
+		    "taskDefinitionKey": "task-definition",       
+		    "dueDate": "2015-04-13 00:51:36.527",        
+		    "category": "my-category",                    
+		    "parentTaskId": "2",                          
+		    "tenantId": "diver",                          
+		    "formKey": "form-key-12",                     
+		    "suspended": true,                            
+		    "processDefinitionId": "21"                   
 	  }
 	]
 ```
 
-<a name="5_activitiRunServices">
-####5. Загрузка каталога сервисов из Activiti
-</a><a href="#0_contents">↑Up</a><br/>
+<br/>
+
+<a href="#2"><h4>Загрузка каталога сервисов из Activiti:</h4></a>
+<a href="#0_contents">↑Up</a>
 
 **HTTP Metod: GET**
 
 **HTTP Context: https://server:port/wf-region/service/rest/process-definitions**
 
-* {nID_Subject} - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
+* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
-**Response**
+**Request:**
+
+https://test.region.igov.org.ua/wf-region/service/rest/process-definitions
+
+**Response:**
 
 ```json
-	[											                              //[0..N]
-  		{
-    		"id": "CivilCardAccountlRequest:1:9",                             //[1..1]
-		    "category": "http://www.activiti.org/test",                       //[1..1]
-		    "name": "Видача картки обліку об’єкта торговельного призначення", //[1..1]
-		    "key": "CivilCardAccountlRequest",                                //[1..1]
-		    "description": "Описание процесса",                               //[0..1]
-		    "version": 1,                                                     //[1..1]
-		    "resourceName": "dnepr-2.bpmn",                                   //[1..1]
-		    "deploymentId": "1",                                              //[1..1]
-		    "diagramResourceName": "dnepr-2.CivilCardAccountlRequest.png",    //[1..1]
-		    "tenantId": "diver",                                              //[0..1]
-		    "suspended": true                                                 //[1..1]
-	  }
+	[											                            
+          {
+    		"id": "CivilCardAccountlRequest:1:9",                            
+		    "category": "http://www.activiti.org/test",                       
+		    "name": "Видача картки обліку об’єкта торговельного призначення", 
+		    "key": "CivilCardAccountlRequest",                                
+		    "description": "Описание процесса",                               
+		    "version": 1,                                                     
+		    "resourceName": "dnepr-2.bpmn",                                   
+		    "deploymentId": "1",                                            
+		    "diagramResourceName": "dnepr-2.CivilCardAccountlRequest.png",   
+		    "tenantId": "diver",                                              
+		    "suspended": true                                                 
+	   }
 	]
 ```
+
+--------------------------------------------------------------------------------------------------------------------------
+
 <a name="6_loadFileFromDb">
 ####6. Загрузки прикрепленного к заявке файла из постоянной базы
 </a><a href="#0_contents">↑Up</a><br/>
@@ -270,8 +290,7 @@ https://test.igov.org.ua/wf-central/service/merchant/getMerchant?sID=i1017296807
 
 **Response**
 
-```Status 200
-```
+``` Status 200 ```
 
 Пример:
 https://test.igov.org.ua/wf-central/service/merchant/removeMerchant?sID=i10172968078
@@ -979,7 +998,7 @@ ID созданного attachment - "id":"45"
 ####15. Работа с каталогом сервисов
 </a><a href="#0_contents">↑Up</a><br/>
 
-**HTTP Context: http://server:port/wf-central/service/services/getServicesTree** - Получение делева сервисов
+**HTTP Context: http://server:port/wf-central/service/services/getServicesTree** - Получение дерева сервисов
 
 **HTTP Metod: GET**
 
@@ -2213,6 +2232,176 @@ https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin
 ```json
 [{"sDateStart":"2015-07-20T15:15:00","sDateEdit":"2015-07-06T11:03:52","sTaskDate":"2015-07-30T10:03:43","sDateFinish":"2015-07-20T15:30:00","nID_FlowSlot":"6","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Надання послуги: Огляд авто","nID":"20005"},{"sDateStart":"2015-07-20T15:45:00","sDateEdit":"2015-07-06T23:25:15","sTaskDate":"2015-07-06T23:27:18","sDateFinish":"2015-07-20T16:00:00","nID_FlowSlot":"7","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Надання послуги: Огляд авто","nID":"20010"}]
 ```
+
+
+----------------------
+
+<a name="32_getTasksByOrder">
+#### 32. Получение списка ID пользовательских тасок по номеру заявки
+</a><a href="#0_contents">↑Up</a><br/>
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/tasks/getTasksByOrder?nID_Protected=[nID_Protected]
+-- возвращает спискок ID пользовательских тасок по номеру заявки
+
+* nID_Protected - Номер заявки, в котором, все цифры кроме последней - ID процесса в activiti. А последняя цифра - его контрольная сумма зашифрованная по алгоритму Луна.
+
+Примеры:
+
+https://test.region.igov.org.ua/wf-region/service/rest/tasks/getTasksByOrder?nID_Protected=123452
+
+Responce status 403.
+```json
+{"code":"BUSINESS_ERR","message":"CRC Error"}
+```
+
+https://test.region.igov.org.ua/wf-region/service/rest/tasks/getTasksByOrder?nID_Protected=123451
+
+1) Если процесса с ID 12345 и тасками нет в базе то:
+
+Responce status 403.
+```json
+{"code":"BUSINESS_ERR","message":"Record not found"}
+```
+2) Если процесс с ID 12345 есть в базе с таской ID которой 555, то:
+
+Responce status 200.
+```json
+[ 555 ]
+```
+
+<a href="#33_getStatisticServiceCounts"> </a><br/>
+
+<a name="33_getStatisticServiceCounts">
+#### 33. Получение количества записей HistoryEvent_Service для сервиса по регионам
+</a><a href="#0_contents">↑Up</a><br/>
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?nID_Service=[nID_Service]
+
+* nID_Service - ID сервиса.
+
+Примеры:
+
+https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?nID_Service=1
+
+Результат
+```json
+[{"nCount":1,"sName":"Івано-Франківська"},{"nCount":3,"sName":"Дніпропетровська"},{"nCount":1,"sName":"Львівська"}]
+```
+--------------------------------------------------------------------------------------------------------------------------
+
+<a name="34">
+#### 34. Электронная эскалация
+</a><a href="#0_contents">↑Up</a>
+
+----------------------------------------------------------------------------------------------------------------------------
+ ФУНКЦИИ ЭСКАЛАЦИИ (EscalationRuleFunction)
+
+----------------------------------------------------------------------------------------------------------------------------
+
+**HTTP Metod: GET**
+
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/setEscalationRuleFunction**
+
+ добавление/обновление записи функции эскалации
+
+параметры: 
+ + nID - ИД-номер (уникальный-автоитерируемый), опционально
+ + sName - строка-название (Например "Отсылка уведомления на электронную почту"), обязательно
+ + sBeanHandler - строка бина-обработчика, опционально
+
+ответ: созданная/обновленная запись.
+
+ - если nID не задан, то это создание записи
+ - если nID задан, но его нету -- будет ошибка "403. Record not found"
+ - если nID задан, и он есть -- запись обновляется
+
+**HTTP Metod: GET**
+
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/getEscalationRuleFunction**
+
+возврат одной записи функции эскалации по ее nID, если записи нету -- "403. Record not found"
+
+**HTTP Metod: GET**
+
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/getEscalationRuleFunctions**
+
+выборка всех записей функции эскалации 
+
+**HTTP Metod: GET**
+
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/removeEscalationRuleFunction**
+
+удаление записи функции эскалации по ее nID, если записи нету -- "403. Record not found"
+
+----------------------------------------------------------------------------------------------------------------------------
+ ПРАВИЛА ЭСКАЛАЦИИ (EscalationRule)
+
+----------------------------------------------------------------------------------------------------------------------------
+
+**HTTP Metod: GET**
+
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/setEscalationRule**
+
+ добавление/обновление записи правила эскалации
+
+параметры: 
+ - nID - ИД-номер (уникальный-автоитерируемый)
+ - sID_BP - ИД-строка бизнес-процесса
+ - sID_UserTask - ИД-строка юзертаски бизнеспроцесса (если указана \* -- то выбираются все задачи из бизнес-процесса)
+ - sCondition - строка-условие (на языке javascript )
+ - soData - строка-обьект, с данными (JSON-обьект)
+ - sPatternFile - строка файла-шаблона (примеры <a href="https://github.com/e-government-ua/i/blob/test/docs/specification.md#30_workWithPatternFiles">тут</a>)
+ - nID_EscalationRuleFunction - ИД-номер функции эскалации
+
+ответ: созданная/обновленная запись.
+
+ - если nID не задан, то это создание записи
+ - если nID задан, но его нету -- будет ошибка "403. Record not found"
+ - если nID задан, и он есть -- запись обновляется
+
+
+ПРИМЕР:
+test.region.igov.org.ua/wf-region/service/escalation/setEscalationRule?sID_BP=zaporoshye_mvk-1a&sID_UserTask=*&sCondition=nElapsedDays==nDaysLimit&soData={nDaysLimit:3,asRecipientMail:[test@email.com]}&sPatternFile=escalation/escalation_template.html&nID_EscalationRuleFunction=1
+
+ОТВЕТ:
+```json
+{
+"sID_BP":"zaporoshye_mvk-1a",
+"sID_UserTask":"*",
+"sCondition":"nElapsedDays==nDaysLimit",
+"soData":"{nDaysLimit:3,asRecipientMail:[test@email.com]}",
+"sPatternFile":"escalation/escalation_template.html",
+"nID":1008,
+"nID_EscalationRuleFunction":
+{"sBeanHandler":"EscalationHandler_SendMailAlert",
+"nID":1,
+"sName":"Send Email"}
+}
+```
+**HTTP Metod: GET**
+
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/getEscalationRule**
+
+возврат одной записи правила эскалации по ее nID, если записи нету -- "403. Record not found"
+
+**HTTP Metod: GET**
+
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/removeEscalationRule**
+
+удаление записи правила эскалации по ее nID, если записи нету -- "403. Record not found"
+
+**HTTP Metod: GET**
+
+**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/getEscalationRules**
+
+возвращает список всех записей правил ескалации
+
+----------------------------------------------------------------------------------------------------------------------------
+
 
 
 

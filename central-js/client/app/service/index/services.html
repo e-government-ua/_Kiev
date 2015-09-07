@@ -18,14 +18,72 @@
                      ng-show="bShowExtSearch">
                     <div class="row clearfix">
                         <div class="col-md-12 column">
+                            
+                            
+                            <div class="form-group"> <!-- ng-if="selectedStatus == 2"-->
+                              <div style="display:inline-block">
+                                <div style="position:relative" dropdown is-open="regionList.dropdown.isOpen">
+                                  <div class="input-group">
+                                    <input style="padding-left: 15px;"
+                                           autocomplete="off" class="form-control" name="region" type="text"
+                                           placeholder="Регіон"
+                                           ng-model="regionList.typeahead.model"
+                                           typeahead="region as region.sName for region in loadRegionList($viewValue)"
+                                           typeahead-on-select="onSelectRegionList($item)"
+                                           typeahead-template-url="app/service/region/typeahead-match-region.html">
+                                  <span class="input-group-btn">
+                                      <button class="btn btn-default" type="button" dropdown-toggle>
+                                        <span class="caret"></span>
+                                      </button>
+                                  </span>
+                                  </div>
+                                  <ul class="dropdown-menu"
+                                      role="menu" style="width: 100%">
+                                    <li ng-repeat="region in regionList.dropdown.list | orderBy:'sName'">
+                                      <a ng-click="onSelectRegionList(region)"
+                                         ng-class="{'color-green': (region.color == 'green')}">{{region.sName}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group" ng-if="data.region.nID"> <!--  && selectedStatus == 2-->
+                              <div style="display:inline-block">
+                                <div style="position:relative" dropdown is-open="localityList.dropdown.isOpen">
+                                  <div class="input-group">
+                                    <input style="padding-left: 15px;"
+                                           autocomplete="off"  class="form-control" name="city" type="text"
+                                           placeholder="Місто"
+                                           ng-model="localityList.typeahead.model"
+                                           typeahead="city as city.sName for city in loadLocalityList($viewValue)"
+                                           typeahead-on-select="onSelectLocalityList($item)"
+                                           typeahead-template-url="app/service/city/typeahead-match-city.html"/>
+                                  <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" dropdown-toggle>
+                                      <span class="caret"></span>
+                                    </button>
+                                  </span>
+                                  </div>
+                                  <ul class="dropdown-menu"role="menu" style="width: 100%"
+                                      ng-show="localityList.dropdown.list.length > 0">
+                                    <li ng-repeat="city in localityList.dropdown.list | orderBy:'sName'">
+                                      <a ng-click="onSelectLocalityList(city, null, null)"
+                                         ng-class="{'color-green': (city.color == 'green')}">{{city.sName}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            
                             <div class="form-group">
-                                <select class="form-control"
-                                        id="oplist"
-                                        ng-model="operator"
-                                        ng-change="filterByExtSearch()">
-                                    <option value="-1">Оберiть установу</option>
-                                    <option ng-repeat="operator in operators">{{operator.sSubjectOperatorName}}</option>
-                                </select>
+                              <select class="form-control"
+                                      id="oplist"
+                                      ng-model="operator"
+                                      ng-change="filterByExtSearch()">
+                                <option value="-1">Оберiть установу</option>
+                                <option ng-repeat="operator in operators">{{operator.sSubjectOperatorName}}</option>
+                              </select>
                             </div>
 
                             <div class="form-group">
@@ -37,6 +95,7 @@
                                     <option value="1">Послуги, що запустяться незабаром</option>
                                 </select>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -75,8 +134,7 @@
        ng-if="bAdmin"><span class="glyphicon glyphicon-plus"></span> Додати категорію</a>
 
 
-    <div class="row"
-         ng-repeat="category in catalog">
+    <div class="row" ng-repeat="category in catalog">
 
         <hr ng-if="category.nID>1">
         <h1 style="margin-bottom:0px;margin-top:20px;">{{category.sName}} <a class="ctrls-admin ctrls-cat"

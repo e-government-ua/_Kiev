@@ -1,30 +1,30 @@
 package org.wf.dp.dniprorada.engine.task;
 
-import java.net.URL;
-import java.util.Date;
-import javax.activation.DataHandler;
-import javax.activation.URLDataSource;
-import javax.mail.BodyPart;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import org.activiti.engine.EngineServices;
 import org.activiti.engine.TaskService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
+import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.TaskFormData;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.mail.MultiPartEmail;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 import org.wf.dp.dniprorada.constant.Currency;
 import org.wf.dp.dniprorada.constant.Language;
 import org.wf.dp.dniprorada.liqPay.LiqBuy;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Mail;
+import org.wf.dp.dniprorada.util.Util;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
+import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
 
 public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
@@ -36,13 +36,21 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     Mail oMail;
     
     private static final String TAG_PAYMENT_BUTTON_LIQPAY = "[paymentButton_LiqPay]";
-    
+    private static final String TAG_CANCEL_TASK = "[cancelTask]";
 
     //private static final String LIQPAY_CALLBACK_URL = "https://test.region.igov.org.ua/wf-region/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=Liqpay&sData=";
+    private static final String TAG_nID_Protected = "[nID_Protected]";
     private static final String TAG_nID_SUBJECT = "[nID_Subject]";
     private static final String TAG_sACCESS_KEY = "[sAccessKey]";
     private static final String TAG_sURL_SERVICE_MESSAGE = "[sURL_ServiceMessage]";
+    //[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=�������� ������&amp;sMail= &amp;nID_SubjectMessageType=1
+    //private static final String queryParamPattern = "?nID_Subject=%s&amp;sData=�������� ������&amp;sMail= &amp;nID_SubjectMessageType=1&amp;sAccessContract=Request"; //sAccessKey=%s&amp;
+    //private static final String accessKeyPattern = "&amp;sAccessKey=%s";
+    private static final String queryParamPattern = "?sHead=Отзыв&sBody=Отзыв&sData=Название Услуги&sMail= &nID_SubjectMessageType=1&sAccessContract=Request"; //sAccessKey=%s&amp;
+    private static final String accessKeyPattern = "&sAccessKey=%s";
     //private static final String URL_SERVICE_MESSAGE = "https://test.igov.org.ua/wf-central/service/messages/setMessage";
+    private static final String TAG_Function_AtEnum = "enum{[";
+    private static final String TAG_Function_To = "]}";
 
     
     
@@ -134,6 +142,93 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             textWithoutTags = StringUtils.replace(textStr, TAG_PAYMENT_BUTTON_LIQPAY, htmlButton);
         }
 
+        
+    //private static final String TAG_Function_AtEnum = "enum{[";
+    //private static final String TAG_Function_To = "]}";
+        
+        //if (textWithoutTags.contains(TAG_Function_AtEnum)) {
+        int nLimit=10;
+        boolean bCashed = false;
+        List<FormProperty> aProperty=new LinkedList();
+        while (nLimit>0 && textWithoutTags.contains(TAG_Function_AtEnum)) {
+            nLimit--;
+            int nAt = textWithoutTags.indexOf(TAG_Function_AtEnum);
+            LOG.info("sTAG_Function_AtEnum,nAt="+nAt);
+            int nTo = textWithoutTags.indexOf(TAG_Function_To);
+            LOG.info("sTAG_Function_AtEnum,nTo="+nTo);
+            String sTAG_Function_AtEnum = textWithoutTags.substring(nAt+TAG_Function_AtEnum.length(), nTo);
+            LOG.info("sTAG_Function_AtEnum="+sTAG_Function_AtEnum);
+            
+            if(!bCashed){
+                EngineServices oEngineServices = execution.getEngineServices();
+                //RuntimeService oRuntimeService = oEngineServices.getRuntimeService();
+                LOG.info("execution.getId()="+execution.getId());
+                TaskFormData oTaskFormData = oEngineServices
+                        .getFormService()
+                        .getTaskFormData(execution.getId());//task.getId()
+                for (FormProperty property : oTaskFormData.getFormProperties()) {
+                    //List<FormProperty> aProperty=new LinkedList();
+                    aProperty.add(property);
+                    //String sType=property.getType().getName();
+                    //String snID=property.getId();
+                    LOG.info(String.format("Matching property %s:%s:%s with fieldNames", property.getId(), property.getName(), property.getType().getName()));
+                }
+                bCashed = true;
+            }
+                //TaskFormData oTaskFormData = formService.getTaskFormData(curTask.getId());
+                boolean bReplaced=false;
+                //for (FormProperty property : oTaskFormData.getFormProperties()) {
+                for (FormProperty property : aProperty) {
+                        String sType=property.getType().getName();
+                        String snID=property.getId();
+//                        LOG.info(String.format("Matching property %s:%s:%s with fieldNames", snID, property.getName(), sType));
+                        //if (currentRow.contains("${" + property.getId() + "}")) {
+                        //LOG.info("sType="+sType + ",snID="+snID);
+                        //LOG.info("snID="+snID);
+                        if (!bReplaced && "enum".equals(sType) && sTAG_Function_AtEnum.equals(snID)) {
+                                LOG.info(String.format("Found field! Matching property %s:%s:%s with fieldNames", snID, property.getName(), sType));
+                                //LOG.info(String.format("Found field with id %s in the pattern. Adding value to the result", "${" + property.getId() + "}"));
+//                                LOG.info("Found field!");
+                                String sValue = parseEnumProperty(property);
+                                LOG.info("sValue="+sValue);
+                                
+                                textWithoutTags = textWithoutTags.replaceAll(TAG_Function_AtEnum+sTAG_Function_AtEnum+TAG_Function_To, sValue);
+                                bReplaced=true;
+                                //resume
+                                /*
+                                String sValue = "";
+                                String sType=property.getType().getName();
+                                log.info("sType="+sType);
+                                if ("enum".equalsIgnoreCase(sType)) {
+                                        sValue = parseEnumProperty(property);
+                                } else {
+                                        sValue = property.getValue();
+                                }*/
+                                /*log.info("sValue="+sValue);
+                                if (sValue != null){
+                                        log.info(String.format("Replacing field with the value %s", sValue));
+                                        currentRow = currentRow.replace("${" + property.getId() + "}", sValue);
+                                }*/
+
+                        }
+                }            
+            
+//            textWithoutTags = textWithoutTags.replaceAll(TAG_Function_AtEnum+sTAG_Function_AtEnum+TAG_Function_To, TAG_Function_To);
+            //textWithoutTags = textWithoutTags.replaceAll(TAG_nID_SUBJECT, "" + nID_Subject);
+        }
+                
+        //[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=�������� ������&amp;sMail= &amp;nID_SubjectMessageType=1       
+        LOG.info("execution.getProcessInstanceId()="+execution.getProcessInstanceId());
+        Long nID_Protected = getProtectedNumber(Long.valueOf(execution.getProcessInstanceId()));
+        LOG.info("nID_Protected="+nID_Protected);
+        if (textWithoutTags.contains(TAG_nID_Protected)) {
+            textWithoutTags = textWithoutTags.replaceAll(TAG_nID_Protected, "" + nID_Protected);
+        }
+        if (textWithoutTags.contains(TAG_CANCEL_TASK)){
+            String cancelTaskBtn = new CancelTaskUtil().getCancelFormHTML(nID_Protected);
+            LOG.info(">>>>cancel button = " + cancelTaskBtn);
+            textWithoutTags = textWithoutTags.replace(TAG_CANCEL_TASK, cancelTaskBtn);
+        }
         if (textWithoutTags.contains(TAG_nID_SUBJECT)) {
             textWithoutTags = textWithoutTags.replaceAll(TAG_nID_SUBJECT, "" + nID_Subject);
         }
@@ -141,8 +236,21 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             textWithoutTags = textWithoutTags.replaceAll(TAG_sACCESS_KEY, accessDataDao.setAccessData("" + nID_Subject));
         }
         if (textWithoutTags.contains(TAG_sURL_SERVICE_MESSAGE)) {
-            textWithoutTags = textWithoutTags.replaceAll(TAG_sURL_SERVICE_MESSAGE, URL_SERVICE_MESSAGE);
+            String URI = Util.deleteContextFromURL(URL_SERVICE_MESSAGE);
+            String queryParam = String.format(queryParamPattern);
+            if(nID_Subject != null){
+                queryParam = queryParam + "&nID_Subject=" + nID_Subject;
+            }
+            String accessKey = accessDataDao.setAccessData(URI + queryParam);
+            String replacemet = URL_SERVICE_MESSAGE + queryParam 
+                    + String.format(accessKeyPattern, accessKey);
+            LOG.info("textWithoutTags" + textWithoutTags);
+            LOG.info("replacemet " + TAG_sURL_SERVICE_MESSAGE + ": " + replacemet);
+            //textWithoutTags = textWithoutTags.replaceAll(TAG_sURL_SERVICE_MESSAGE, replacemet);
+            textWithoutTags = StringUtils.replace(textWithoutTags, TAG_sURL_SERVICE_MESSAGE, replacemet);
+            LOG.info("textWithoutTags after replase" + textWithoutTags);
         }
+
         return textWithoutTags;
     }
 

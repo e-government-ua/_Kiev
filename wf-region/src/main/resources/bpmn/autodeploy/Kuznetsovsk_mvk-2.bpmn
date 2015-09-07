@@ -9,7 +9,7 @@
         <activiti:formProperty id="officialAddress" name="Ваша адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="topic" name="Тема звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="messageText" name="Текст Заяви" type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="addFile" name="Додати скан-копію документа; Якщо документів більше 1-го - зробіть ZIP-архів" type="file"></activiti:formProperty>
+        <activiti:formProperty id="addFile" name="Додати документ; Якщо документів більше 1-го - зробіть ZIP-архів" type="file"></activiti:formProperty>
         <activiti:formProperty id="replyForm" name="Форма відповіді" type="enum" required="true">
           <activiti:value id="physcial" name="Фізична копія"></activiti:value>
           <activiti:value id="digital" name="Електронна версія"></activiti:value>
@@ -61,7 +61,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string>test_noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему: ${topic}</activiti:expression>
@@ -169,7 +169,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string>test_noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему: ${topic}</activiti:expression>
@@ -378,7 +378,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string>test_noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему: ${topic}</activiti:expression>

@@ -15,7 +15,7 @@ from (
     FROM
       "PlaceTree" t1
     WHERE
-      t1."nID_Place" = :placeId
+      t1."nID_Place" = :PLACE_ID
     UNION
     SELECT
       t2."nID_Place",
@@ -28,7 +28,6 @@ from (
       , all_places ap
     WHERE
       ap."nID_Place_Parent" = t2."nID_Place"
-
   )
   SELECT
     p."nID"               AS id,

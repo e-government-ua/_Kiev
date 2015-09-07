@@ -1,37 +1,24 @@
 package org.wf.dp.dniprorada.base.model;
 
-import java.io.*;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-
+import com.google.gson.Gson;
 import net.sf.jmimemagic.Magic;
 import net.sf.jmimemagic.MagicException;
 import net.sf.jmimemagic.MagicMatchNotFoundException;
 import net.sf.jmimemagic.MagicParseException;
-
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.FormProperty;
-import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.task.Attachment;
 import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.activiti.redis.service.RedisService;
-import org.joda.time.DateTime;
+import org.activiti.rest.controller.Renamer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.wf.dp.dniprorada.base.dao.BaseEntityDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
@@ -39,12 +26,12 @@ import org.wf.dp.dniprorada.base.viewobject.flow.SaveFlowSlotTicketResponse;
 import org.wf.dp.dniprorada.form.FormFileType;
 import org.wf.dp.dniprorada.form.QueueDataFormType;
 import org.wf.dp.dniprorada.model.MimiTypeModel;
-import org.activiti.rest.controller.*;
-
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-import com.google.gson.Gson;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.util.*;
 
 
 public abstract class AbstractModelTask {
@@ -59,16 +46,13 @@ public abstract class AbstractModelTask {
 	RedisService redisService;
 
         
-   //@Autowired
-   //private FlowSlotDao flowSlotDao;
+    @Autowired
+    protected FlowSlotDao flowSlotDao;
 
-   //@Autowired
-   //private FlowSlotTicketDao oFlowSlotTicketDao;
+    @Autowired
+    protected FlowSlotTicketDao oFlowSlotTicketDao;
 
-   @Autowired
-   private BaseEntityDao baseEntityDao;
-        
-        
+
 	/**
 	 * Получить список по ключу списка из execution
 	 * @param listKey
@@ -565,10 +549,10 @@ public abstract class AbstractModelTask {
                         }catch(Exception oException){
                             LOG.error(oException.getMessage());
                         }
-                        LOG.info("nID_Task_Activiti="+nID_Task_Activiti);
+                        LOG.info("nID_Task_Activiti=" + nID_Task_Activiti);
                         
                         
-                        FlowSlotTicket oFlowSlotTicket = baseEntityDao.getById(FlowSlotTicket.class, nID_FlowSlotTicket);
+                        FlowSlotTicket oFlowSlotTicket = oFlowSlotTicketDao.findById(nID_FlowSlotTicket).orNull();
                         if (oFlowSlotTicket == null) {
                             String sError = "FlowSlotTicket with id=" + nID_FlowSlotTicket + " is not found!";
                             LOG.error(sError);
@@ -590,7 +574,7 @@ public abstract class AbstractModelTask {
 
                             
                             oFlowSlotTicket.setnID_Task_Activiti(nID_Task_Activiti);
-                            baseEntityDao.saveOrUpdate(oFlowSlotTicket);
+                            oFlowSlotTicketDao.saveOrUpdate(oFlowSlotTicket);
                             LOG.info("JSON:" + JsonRestUtils.toJsonResponse(new SaveFlowSlotTicketResponse(oFlowSlotTicket.getId())));
                             oExecution.setVariable("date_of_visit", sDate);
                             LOG.info("date_of_visit=" + sDate);
