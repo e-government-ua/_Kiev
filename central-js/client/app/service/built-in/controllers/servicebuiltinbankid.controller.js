@@ -222,17 +222,12 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.renderAsLabel = function(property) {
     var fieldES = FieldAttributesService.editableStatusFor(property.id);
     var ES = FieldAttributesService.EditableStatus;
-    return 
-      property.type != "file"
-      &&
-      (
+    return property.type !== 'file' && (
         (
             $scope.data.formData.fields[property.id]
             && fieldES == ES.NOT_SET
-        )
-        || fieldES == ES.READ_ONLY
-      )
-      ;
+        ) || fieldES == ES.READ_ONLY
+      );
   };
 
   // $timeout(function () {
