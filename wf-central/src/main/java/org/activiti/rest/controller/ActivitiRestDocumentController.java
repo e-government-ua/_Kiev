@@ -158,30 +158,30 @@ public class ActivitiRestDocumentController {
     @ResponseBody
     byte[] getDocumentFile( @RequestParam(value = "nID")                                                Long id,
                             @RequestParam(value = "nID_Subject")                                        Long nID_Subject,
-                            @RequestParam(value = "sCode_DocumentAccess", required = false)             String accessCode,
-                            @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false)Long organID,
-                            @RequestParam(value = "nID_DocumentType", required = false)                 Long docTypeID,
-                            @RequestParam(value = "sPass", required = false)                            String password,
+//                            @RequestParam(value = "sCode_DocumentAccess", required = false)             String accessCode,
+//                            @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false)Long organID,
+//                            @RequestParam(value = "nID_DocumentType", required = false)                 Long docTypeID,
+//                            @RequestParam(value = "sPass", required = false)                            String password,
 
                             HttpServletRequest request, HttpServletResponse httpResponse)
             throws ActivitiRestException{
         Document document = documentDao.getDocument(id);
         if(!nID_Subject.equals(document.getSubject().getId())){
-            if(accessCode!=null){
-                Document oDocument = handlerFactory
-                        .buildHandlerFor(documentDao.getOperator(organID))
-                        .setDocumentType(docTypeID)
-                        .setAccessCode(accessCode)
-                        .setIdSubject(nID_Subject)
-                        .setPassword(password)
-                        .setWithContent(true)
-                        .getDocument();
-                if(oDocument==null){
-                    throw new ActivitiRestException("401", "You don't have access by accessCode!");
-                }
-            }else{
+//            if(accessCode!=null){
+//                Document oDocument = handlerFactory
+//                        .buildHandlerFor(documentDao.getOperator(organID))
+//                        .setDocumentType(docTypeID)
+//                        .setAccessCode(accessCode)
+//                        .setIdSubject(nID_Subject)
+//                        .setPassword(password)
+//                        .setWithContent(true)
+//                        .getDocument();
+//                if(oDocument==null){
+//                    throw new ActivitiRestException("401", "You don't have access by accessCode!");
+//                }
+//            }else{
                 throw new ActivitiRestException("401", "You don't have access!");
-            }
+//            }
         }
         byte[] content = documentDao.getDocumentContent(document
                 .getContentKey());
