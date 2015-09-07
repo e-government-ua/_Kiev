@@ -75,8 +75,8 @@
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <userTask id="usertask3" name="Надання адміністративної послуги">
-    <extensionElements>
-     <activiti:formProperty id="info" name="Як працює послуга; посилання на інструкцію" type="label" default="https://docs.google.com/document/d/16ll4Wer7KnbCdUrdywbZrharMZs4w03mMapTIZ0tYRg/edit"></activiti:formProperty>
+      <extensionElements>
+        <activiti:formProperty id="info" name="Як працює послуга; посилання на інструкцію" type="label" default="https://docs.google.com/document/d/16ll4Wer7KnbCdUrdywbZrharMZs4w03mMapTIZ0tYRg/edit"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
@@ -85,8 +85,8 @@
         <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті" type="string"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string"></activiti:formProperty>
-     <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
-    </extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+      </extensionElements>
     </userTask>
     <sequenceFlow id="flow5" sourceRef="servicetask1" targetRef="usertask3"></sequenceFlow>
     <serviceTask id="servicetask1" name="Загрузка файлов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>

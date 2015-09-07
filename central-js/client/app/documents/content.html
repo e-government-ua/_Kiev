@@ -101,7 +101,7 @@
                  value="{{doc.sName}}">
         </td>
         <td>
-          {{getSignData(doc)}}
+          <a href ng-click="showSignDataPopup(doc)" ng-if="getSignData(doc)" ng-bind="getSignData(doc)"></a>
         </td>
         <td>
           <a ng-href="{{getDocumentLink(doc.nID)}}"
@@ -300,4 +300,79 @@
             ng-click="close()">OK
     </button>
   </div>
+</script>
+
+<script type="text/ng-template"
+        id="documentsigndata.html">
+  <div class="sign-data-modal" style="padding: 10px;">
+
+    <h2>Дані єлектроного підпису</h2>
+    <table>
+      <tr>
+        <th>ІНН:</th>
+        <td>{{oSignData.customer.inn}}</td>
+      </tr>
+      <tr>
+        <th>Ім'я:</th>
+        <td>{{oSignData.customer.fullName}}</td>
+      </tr>
+      <tr>
+        <th>Дійсний з:</th>
+        <td>{{oSignData.customer.signatureData.dateFrom}}</td>
+      </tr>
+      <tr>
+        <th>Дійснйи до:</th>
+        <td>{{oSignData.customer.signatureData.dateTo}}</td>
+      </tr>
+      <tr>
+        <th>Опис:</th>
+        <td>{{oSignData.customer.signatureData.desc}}</td>
+      </tr>
+      <tr>
+        <th>Назва:</th>
+        <td>{{oSignData.customer.signatureData.name}}</td>
+      </tr>
+      <tr>
+        <th>Серійний номер:</th>
+        <td>{{oSignData.customer.signatureData.serialNumber}}</td>
+      </tr>
+      <tr>
+        <th>Серійний номер 2:</th>
+        <td>{{oSignData.customer.signatureData.sn}}</td>
+      </tr>
+      <tr>
+        <th>Часова відмітка:</th>
+        <td>{{oSignData.customer.signatureData.timestamp}}</td>
+      </tr>
+    </table>
+
+    <h2>Установи</h2>
+
+    <div ng-repeat="organization in oSignData.customer.organizations" style="margin-bottom: 20px;">
+      <table>
+        <tr>
+          <th>Найменування:</th>
+          <td>{{organization.name}}</td>
+        </tr>
+        <tr>
+          <th>Адреса:</th>
+          <td>{{organization.address.state}} обл., м. {{organization.address.city}}</td>
+        </tr>
+        <tr ng-if="organization.mfo">
+          <th>МФО:</th>
+          <td>{{organization.mfo}}</td>
+        </tr>
+        <tr ng-if="organization.ownerDesc">
+          <th>Опис:</th>
+          <td>{{organization.ownerDesc}}</td>
+        </tr>
+        <tr ng-if="organization.position">
+          <th>Позиція:</th>
+          <td>{{organization.position}}</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+
 </script>

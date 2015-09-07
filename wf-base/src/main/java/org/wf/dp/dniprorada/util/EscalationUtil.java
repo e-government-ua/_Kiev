@@ -1,21 +1,19 @@
 package org.wf.dp.dniprorada.util;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-
+import com.google.gson.Gson;
+import com.mongodb.util.JSON;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler;
 
-import com.google.gson.Gson;
-import com.mongodb.util.JSON;
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EscalationUtil {
     private static final Logger log = Logger.getLogger(EscalationUtil.class);
@@ -33,25 +31,25 @@ public class EscalationUtil {
     }
 
 
-    public static void main(String[] args) throws Exception {
-        Map<String, Object> taskParam = new HashMap<>();
-        //[Surname],[Name],[Middlename]
-        taskParam.put("Surname", "Petrenko");
-        taskParam.put("Name", "Petro");
-        taskParam.put("Middlename", "Petrovych");
-        taskParam.put("years", 40L);
-
-        String json = "{sUserTask:'1', sDateEdit:'01-01-2015', " +
-                "nDays:10, asRecipientMail:['olga2012olga@gmail.com', 'olga.prylypko@gmail.com'], " +
-                "anList2:[10], bBool:true}";
-        String file = "print/kiev_dms_print1.html";
-
-        String sCondition ="nDays == 10";// "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays";
-
-        new EscalationUtil().checkTaskOnEscalation
-                (taskParam, sCondition, json, file, "escalationHandler_SendMailAlert");
-
-    }
+//    public static void main(String[] args) throws Exception {
+//        Map<String, Object> taskParam = new HashMap<>();
+//        //[Surname],[Name],[Middlename]
+//        taskParam.put("Surname", "Petrenko");
+//        taskParam.put("Name", "Petro");
+//        taskParam.put("Middlename", "Petrovych");
+//        taskParam.put("years", 40L);
+//
+//        String json = "{sUserTask:'1', sDateEdit:'01-01-2015', " +
+//                "nDays:10, asRecipientMail:['olga2012olga@gmail.com', 'olga.prylypko@gmail.com'], " +
+//                "anList2:[10], bBool:true}";
+//        String file = "print/kiev_dms_print1.html";
+//
+//        String sCondition ="nDays == 10";// "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays";
+//
+//        new EscalationUtil().checkTaskOnEscalation
+//                (taskParam, sCondition, json, file, "escalationHandler_SendMailAlert");
+//
+//    }
 
     public void checkTaskOnEscalation
             (Map<String, Object> mTaskParam,
@@ -82,22 +80,13 @@ public class EscalationUtil {
                 escalationHandler.execute(mTaskParam, (String[]) mTaskParam.get("asRecipientMail"), sPatternFile);
             }
         }
-
     }
-
 
     private EscalationHandler getHandlerClass(String sBeanHandler) {
     	ApplicationContext appContext = new ClassPathXmlApplicationContext("context.xml");
-    	EscalationHandler res = (EscalationHandler) appContext.getBean("EscalationHandler_SendMailAlert"); 
+    	EscalationHandler res = (EscalationHandler) appContext.getBean(sBeanHandler);//"EscalationHandler_SendMailAlert");
     	log.info("Retrieved EscalationHandler component : " + res);
     	return res;
-    }
-
-
-    private Map<String, Object> getTaskData(Long nID_task_activiti) {
-        // Добавлять в мапу п.п.3.2 параметры из полученной задачи, по ее ИД (параметр nID_Task_Activiti)
-        // todo downloadTasksData
-        return new HashMap<>();
     }
 
     private Map<String, Object> parseJsonData(String soData) {

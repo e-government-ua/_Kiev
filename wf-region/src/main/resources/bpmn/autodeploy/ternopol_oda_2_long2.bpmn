@@ -10,7 +10,7 @@
         <activiti:formProperty id="bankIdAddress" name="Місце проживання (реєстрації); Одержувача допомоги АБО його законного представника" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdInn" name="Реєстраційний номер облікової картки платника податків; Одержувача допомоги АБО його законного представника" type="string"></activiti:formProperty>
         <activiti:formProperty id="organID" name="До якого державного органу Ви звертаєтесь" type="enum" required="true">
-          <activiti:value id="Департамент соціального захисту населення" name="Департамент соціального захисту населення"></activiti:value>
+          <activiti:value id="Департамент соціального захисту населення Тернопільської ОДА" name="Департамент соціального захисту населення Тернопільської ОДА"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="citizenType" name="До якої категорії громадян Ви належите" type="enum" required="true">
           <activiti:value id="Малозабезпечена непрацююча особа" name="Малозабезпечена непрацююча особа"></activiti:value>
@@ -66,7 +66,7 @@
         <activiti:formProperty id="bankIdAddress" name="Місце проживання (реєстрації); Одержувача допомоги АБО його законного представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdInn" name="Реєстраційний номер облікової картки платника податків; Одержувача допомоги АБО його законного представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="organID" name="До якого державного органу Ви звертаєтесь" type="enum" writable="false">
-          <activiti:value id="Департамент соціального захисту населення" name="Департамент соціального захисту населення"></activiti:value>
+          <activiti:value id="Департамент соціального захисту населення Тернопільської ОДА" name="Департамент соціального захисту населення Тернопільської ОДА"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="citizenType" name="До якої категорії громадян Ви належите" type="enum" writable="false">
           <activiti:value id="Малозабезпечена непрацююча особа" name="Малозабезпечена непрацююча особа"></activiti:value>
@@ -264,7 +264,7 @@
         <activiti:formProperty id="bankIdAddress" name="Місце проживання (реєстрації); Одержувача допомоги АБО його законного представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdInn" name="Реєстраційний номер облікової картки платника податків; Одержувача допомоги АБО його законного представника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="organID" name="До якого державного органу Ви звертаєтесь" type="enum" writable="false">
-          <activiti:value id="Департамент соціального захисту населення" name="Департамент соціального захисту населення"></activiti:value>
+          <activiti:value id="Департамент соціального захисту населення Тернопільської ОДА" name="Департамент соціального захисту населення Тернопільської ОДА"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="citizenType" name="До якої категорії громадян Ви належите" type="enum" writable="false">
           <activiti:value id="Малозабезпечена непрацююча особа" name="Малозабезпечена непрацююча особа"></activiti:value>
