@@ -172,7 +172,7 @@
                 <p class="input-group"
                    ng-switch-when="file">
                   <label ng-if="data.formData.params[property.id].scan"
-                         name="{{property.id}}"
+                         name="{{property.id}}_0"
                          class="form-control_">
                     Завантажено із BankID</label>
                   <file-field name="{{property.id}}"
@@ -196,7 +196,7 @@
 
               </div>
 
-              <div class="col-md-3" ng-if="renderAsLabel(property)"
+              <div class="col-md-3" ng-if="renderAsLabel(property)" ng-hide="property.type === 'file'"
                    ng-bind="data.formData.params[property.id].value">
                 <input type="hidden"
                        name="{{property.id}}"
