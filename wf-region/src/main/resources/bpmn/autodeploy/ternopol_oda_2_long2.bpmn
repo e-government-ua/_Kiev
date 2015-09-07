@@ -39,7 +39,7 @@
           <activiti:value id="Інші особливі обставини" name="Інші особливі обставини"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="warning2" type="label" default="Документи, що додаються:"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорта заявника" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="scan_passport" name="Скан-копія паспорта заявника" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="taxPayer" name="Скан-копія довідки заявника про присвоєння реєстраційного номера облікової картки платника податків" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера або отримувача державної соціальної допомоги/ Висновок медико-соціальної експертної комісії, лікувально-консультативної комісії лікувально-профілактичного закладу (для дітей-інвалідів) про встановлення інвалідності" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="repProof" name="Документ, що засвідчує повноваження законного представника" type="file"></activiti:formProperty>
@@ -94,7 +94,7 @@
           <activiti:value id="Стихійним лихом" name="Стихійним лихом"></activiti:value>
           <activiti:value id="Інші особливі обставини" name="Інші особливі обставини"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорта заявника" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="scan_passport" name="Скан-копія паспорта заявника" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера або отримувача державної соціальної допомоги/ Висновок медико-соціальної експертної комісії, лікувально-консультативної комісії лікувально-профілактичного закладу (для дітей-інвалідів) про встановлення інвалідності" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="repProof" name="Документ, що засвідчує повноваження законного представника" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeePassportScan" name="Скан-копія паспорта / свідоцтва про народження підопічного; Сторінки 1, 2 і 11" type="file" writable="false"></activiti:formProperty>
@@ -130,9 +130,6 @@
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
-        </activiti:field>
-        <activiti:field name="html">
-          <activiti:string> </activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -292,7 +289,7 @@
           <activiti:value id="Стихійном лихом" name="Стихійном лихом"></activiti:value>
           <activiti:value id="Інші особливі обставини" name="Інші особливі обставини"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорта заявника" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="scan_passport" name="Скан-копія паспорта заявника" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера або отримувача державної соціальної допомоги/ Висновок медико-соціальної експертної комісії, лікувально-консультативної комісії лікувально-профілактичного закладу (для дітей-інвалідів) про встановлення інвалідності" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="repProof" name="Документ, що засвідчує повноваження законного представника" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeePassportScan" name="Скан-копія паспорта / свідоцтва про народження підопічного; Сторінки 1, 2 і 11" type="file" writable="false"></activiti:formProperty>

@@ -4,11 +4,10 @@
         <b style="display: none; color: red;">Сервіс в процесі реалізації!</b>
     </div>
     <div class="col-md-4 col-md-offset-4 text-right">
-        <div class="ord-inner-addon">
+        <div style="display: none" class="ord-inner-addon">
             <span class="glyphicon glyphicon-search al-left"
                   aria-hidden="true"></span>
-            <input style="display: none;"
-                   type="text"
+            <input type="text"
                    class="form-control"
                    placeholder="Пошук">
             <a href="#"><span class="glyphicon glyphicon-triangle-bottom al-right"
@@ -21,8 +20,10 @@
         <table class="table"
                ng-init="limit = 7">
             <tr data-ng-repeat="event in journal | limitTo: limit as results">
-                <td>{{ event.sDate | date: 'dd.MM.yyyy HH:mm'}}</td>
-                <td>{{ event.sEventName }}</td>
+                <td style="width: 150px;">{{ event.sDate | date: 'dd.MM.yyyy HH:mm'}}</td>
+                <!--td>{{ event.sEventName }}</td-->
+                <td>{{ event.sMessage }}</td>
+                
             </tr>
         </table>
     </div>
