@@ -15,7 +15,7 @@ public class EscalationRuleDaoImpl extends GenericEntityDao<EscalationRule>
     @Override
     public EscalationRule saveOrUpdate(Long nID, String sID_BP, String sID_userTask,
                                        String sCondition, String soData,
-                                       String sPatternFile, Long nID_escalationRuleFunction) {
+                                       String sPatternFile, EscalationRuleFunction ruleFunction) {
 
         EscalationRule rule = nID != null ? findByIdExpected(nID) : new EscalationRule();
         if (nID != null && rule == null) {//??
@@ -33,9 +33,9 @@ public class EscalationRuleDaoImpl extends GenericEntityDao<EscalationRule>
         if (sPatternFile != null) {
             rule.setsPatternFile(sPatternFile);
         }
-        if (nID_escalationRuleFunction != null) {
-            EscalationRuleFunction ruleFunction = new EscalationRuleFunction();
-            ruleFunction.setId(nID);
+        if (ruleFunction != null) {
+//            EscalationRuleFunction ruleFunction = new EscalationRuleFunction();
+//            ruleFunction.setId(nID);
             rule.setoEscalationRuleFunction(ruleFunction);
         }
         saveOrUpdate(rule);

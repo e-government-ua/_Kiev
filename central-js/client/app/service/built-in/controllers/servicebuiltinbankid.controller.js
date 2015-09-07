@@ -58,7 +58,8 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.data.formData = new FormDataFactory();
   $scope.data.formData.initialize(ActivitiForm);
   $scope.data.formData.setBankIDAccount(BankIDAccount);
-  $scope.as = FieldAttributesService;
+  //TODO uncomment after testing
+  $scope.data.formData.uploadScansFromBankID(oServiceData);
   var currentState = $state.$current;
 
   $scope.data.region = currentState.data.region;
@@ -205,6 +206,27 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       }
     }
     $scope.$apply();
+  };
+
+  $scope.showFormField = function(property) {
+    var fieldES = FieldAttributesService.editableStatusFor(property.id);
+    var ES = FieldAttributesService.EditableStatus;
+    return (
+        !$scope.data.formData.fields[property.id]
+        && property.type!='invisible'
+        && property.type!='markers'
+        && fieldES == ES.NOT_SET
+    ) || fieldES == ES.EDITABLE
+  };
+
+  $scope.renderAsLabel = function(property) {
+    var fieldES = FieldAttributesService.editableStatusFor(property.id);
+    var ES = FieldAttributesService.EditableStatus;
+    //property.type !== 'file'
+    return (
+            $scope.data.formData.fields[property.id]
+      &&  fieldES == ES.NOT_SET
+    ) || fieldES == ES.READ_ONLY;
   };
 
   // $timeout(function () {

@@ -224,7 +224,11 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         if (textWithoutTags.contains(TAG_nID_Protected)) {
             textWithoutTags = textWithoutTags.replaceAll(TAG_nID_Protected, "" + nID_Protected);
         }
-        
+        if (textWithoutTags.contains(TAG_CANCEL_TASK)){
+            String cancelTaskBtn = new CancelTaskUtil().getCancelFormHTML(nID_Protected);
+            LOG.info(">>>>cancel button = " + cancelTaskBtn);
+            textWithoutTags = textWithoutTags.replace(TAG_CANCEL_TASK, cancelTaskBtn);
+        }
         if (textWithoutTags.contains(TAG_nID_SUBJECT)) {
             textWithoutTags = textWithoutTags.replaceAll(TAG_nID_SUBJECT, "" + nID_Subject);
         }
@@ -246,13 +250,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             textWithoutTags = StringUtils.replace(textWithoutTags, TAG_sURL_SERVICE_MESSAGE, replacemet);
             LOG.info("textWithoutTags after replase" + textWithoutTags);
         }
-        if (textWithoutTags.contains(TAG_CANCEL_TASK)){
-            //LOG.info("execution.getProcessInstanceId() = "+execution.getProcessInstanceId());
-//            Long nID_Task = Long.valueOf(execution.getProcessInstanceId());
-            String cancelTaskBtn = new CancelTaskUtil().getCancelFormHTML(nID_Protected);
-            LOG.info("cancel button = " + cancelTaskBtn);
-            textWithoutTags = textWithoutTags.replaceAll(TAG_CANCEL_TASK, cancelTaskBtn);
-        }
+
         return textWithoutTags;
     }
 
