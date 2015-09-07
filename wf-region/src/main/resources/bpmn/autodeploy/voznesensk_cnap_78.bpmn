@@ -4,11 +4,11 @@
     <documentation>https://github.com/e-government-ua/iBP/issues/78</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdinn" name="Ідентифікаційний номер" type="string" required="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Ідентифікаційний номер" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_of_living" name="Місце проживання; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
@@ -57,9 +57,9 @@
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Копія паспорту" type="file" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_inn" name="Копія ідентифікаційного коду" type="file" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="scan_legalEntity" name="Копія свідоцтва про державну реєстрацію юридичної особи (фізичної особи підприємця) або документ що його замінює" writable="false" type="file"></activiti:formProperty>
-        <activiti:formProperty id="scan_legalGround" name="Копія право установчого документу на земельну ділянку, довіреності (якщо звертається довірена особа)" writable="false" type="file"></activiti:formProperty>
-        <activiti:formProperty id="scan_otherPerson" name="Копія довіреності (якщо звертається довірена особа)" writable="false" type="file"></activiti:formProperty>
+        <activiti:formProperty id="scan_legalEntity" name="Копія свідоцтва про державну реєстрацію юридичної особи (фізичної особи підприємця) або документ що його замінює" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="scan_legalGround" name="Копія право установчого документу на земельну ділянку, довіреності (якщо звертається довірена особа)" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="scan_otherPerson" name="Копія довіреності (якщо звертається довірена особа)" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
@@ -91,6 +91,9 @@ ${comment}
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Отримання довідки про наявність та розмів земельної частки (паю)]]></activiti:string>
         </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow4" name="reject" sourceRef="exclusivegateway1" targetRef="mailtask2">
@@ -121,6 +124,9 @@ ${comment}
 З повагою,
 Центр надання адміністративних послуг у м. Вознесенську</activiti:expression>
         </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow8" sourceRef="mailtask3" targetRef="endevent1"></sequenceFlow>
@@ -143,13 +149,13 @@ ${comment}
         <omgdc:Bounds height="40.0" width="40.0" x="413.0" y="112.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="55.0" width="105.0" x="512.0" y="220.0"></omgdc:Bounds>
+        <omgdc:Bounds height="62.0" width="105.0" x="512.0" y="220.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="416.0" y="320.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="55.0" width="105.0" x="260.0" y="220.0"></omgdc:Bounds>
+        <omgdc:Bounds height="61.0" width="105.0" x="260.0" y="220.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="126.0" y="57.0"></omgdi:waypoint>
@@ -171,11 +177,11 @@ ${comment}
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="564.0" y="275.0"></omgdi:waypoint>
+        <omgdi:waypoint x="564.0" y="282.0"></omgdi:waypoint>
         <omgdi:waypoint x="433.0" y="320.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="312.0" y="275.0"></omgdi:waypoint>
+        <omgdi:waypoint x="312.0" y="281.0"></omgdi:waypoint>
         <omgdi:waypoint x="433.0" y="320.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
