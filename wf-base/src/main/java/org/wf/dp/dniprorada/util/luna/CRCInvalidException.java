@@ -10,4 +10,8 @@ public class CRCInvalidException extends Exception {
    public CRCInvalidException() {
       super("CRC Error");
    }
+
+   public CRCInvalidException(String message) {
+      super(message);
+   }
 }

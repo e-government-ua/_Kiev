@@ -82,7 +82,7 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
                 
 		List<String> asFieldID = getListFieldCastomTypeFile(oStartformData);
                 LOG.info("asFieldID="+asFieldID);
-		List<String> asFieldValue = getValueFieldWithCastomTypeFile(oExecution, asFieldID);
+		List<String> asFieldValue = getVariableValues(oExecution, asFieldID);
                 LOG.info("asFieldValue="+asFieldValue);
                 
                 List<String> asFieldName = getListCastomFieldName(oStartformData);
