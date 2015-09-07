@@ -194,7 +194,7 @@
 По батькові заявника -    &lt;i&gt;${bankIdmiddleName} &lt;/i&gt; &lt;br /&gt;
 Паспортні дані заявника - &lt;i&gt;${bankIdPassport} &lt;/i&gt; &lt;br /&gt;
 Адреса прописки заявника -  &lt;i&gt;${bankIdAddress} &lt;/i&gt; &lt;br /&gt;
-ІПН заявника &lt;i&gt;${bankIdInn} &lt;/i&gt; &lt;br /&gt;
+ІПН заявника - &lt;i&gt;${bankIdInn} &lt;/i&gt; &lt;br /&gt;
 До якого державного органу Ви звертаєтесь - &lt;i&gt;${organID} &lt;/i&gt; &lt;br /&gt;
 До якої категорії громадян Ви належите - &lt;i&gt;${citizenType} &lt;/i&gt; &lt;br /&gt;
 Для інваліда/представника інваліда вказати групу і причину інвалідності - &lt;i&gt;${citizenTypeExtended} &lt;/i&gt; &lt;br /&gt;
