@@ -289,7 +289,7 @@
           <activiti:value id="reject" name="Відмовити у наданні витягу"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відмови у наданні витягу внесіть, будь ласка, причину" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/gni_69.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/gni_69_1.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="mailtask2" targetRef="usertask1"></sequenceFlow>
