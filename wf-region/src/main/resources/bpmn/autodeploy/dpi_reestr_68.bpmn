@@ -74,7 +74,7 @@
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
-    <userTask id="usertask3" name="Надання адміністративної послуги">
+    <userTask id="usertask3" name="Надання адміністративної послуги" activiti:candidateGroups="dpi_reestr_68">
       <extensionElements>
         <activiti:formProperty id="info" name="Як працює послуга; посилання на інструкцію" type="label" default="https://docs.google.com/document/d/16ll4Wer7KnbCdUrdywbZrharMZs4w03mMapTIZ0tYRg/edit"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
