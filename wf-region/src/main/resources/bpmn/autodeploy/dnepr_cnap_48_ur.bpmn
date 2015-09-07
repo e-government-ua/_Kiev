@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_cnap_42_ur" name="Дніпрпетровськ - ЦНАП - Відомча реєстрація великотоннажних та інших технологічних транспортних засобів, що не підлягають експлуатації на вулично-дорожній мережі загального користування (для юридичних осіб)" isExecutable="true">
+  <process id="dnepr_cnap_48_ur" name="Дніпрпетровськ - ЦНАП - Тимчасова реєстрація великотоннажних та інших технологічних транспортних засобів, що не підлягають експлуатації на вулично-дорожній мережі загального користування (для юридичних осіб)" isExecutable="true" activiti:candidateStarterGroups="dnepr_cnap_48_ur">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -18,8 +18,8 @@
         <activiti:formProperty id="graduation_year" name="Рік випуску" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="country" name="Виробник (держава)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="chassis_number" name="Ідентифікаційні номери (заводський, шасі/рами)" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="trusted_person" name="Оформлення доручається провести (посада, прізвище, ім’я та по батькові)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="engine_number" name="Номер двигуна (також у дужках зазначається латинська літера «V», знак рівності та об’єм двигуна вликотонажного та іншого технологічного транспортного засобу)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="trusted_person" name="Оформлення доручається провести (посада, прізвище, ім’я та по батькові)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="file1" name="Акт технічного огляду" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Висновок експертизи, проведеної фахівцями експертно-технічного центру, на відповідність технологічного транспортного засобу нормативно-правовим актам з охорони праці України (для технологічних транспортних засобів, виготовлених за межами України чи переобладнаних або самостійно зібраних)" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="copy_doc" name="Копії документів (завірені згідно чинного законодавства)" type="label" default=" "></activiti:formProperty>
@@ -29,20 +29,16 @@
         <activiti:formProperty id="file6" name="Копія документів, що підтверджують оплату вартості бланків, номерних знаків, виданих під час реєстрації, та послуг за проведення технічного огляду (з відміткою банку)" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="file7" name="Копія сертифікату відповідності, свідоцтва про визнання відповідності, декларації про відповідність для технологічного транспортного засобу, на який розповсюджуються відповідні вимоги (якщо транспортний засіб не підлягає обов’язковій сертифікації — лист - відмова від акредитованого органу сертифікації)" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="file8" name="Копія одного будь-якого з наведених документів що підтверджують правомірність придбання технологічного транспортного засобу (п. 11 Порядку)" type="file" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="label2" name="- довідки-рахунка, яка видана підприємством-виготовлювачем або іншим суб'єктом господарювання, що реалізує технологічний транспортний засіб;" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="label3" name="- акту приймання-передачі, виданого підприємством-виготовлювачем технологічного транспортного засобу чи його вузлів і агрегатів;" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="label4" name="- договору купівлі-продажу, міни, дарування, лізингу, позички, застави, біржової угоди, договору про спільне володіння, користування і розпорядження майном,  що  перебуває  у спільній частковій власності;" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="label5" name="- документів, що підтверджують реалізацію технологічного транспортного засобу на аукціоні;" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="label6" name="- договору оренди майна із зазначенням у ньому домовленості між сторонами щодо реєстрації ТТЗ за орендарем та доручення на право керування і використання цього транспортного засобу;" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="label7" name="- вантажної митної декларації на технологічний транспортний засіб, що ввозиться, або посвідченням митного органу про реєстрацію  ввезених на митну  територію  України  ТТЗ, вузлів і агрегатів;" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="label8" name="- рішення уповноваженого органу про відчуження ТТЗ;" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="label9" name="- виконавчого напису нотаріуса про витребування від боржника майна;" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="label10" name="- рішення суду про визнання права власності на ТТЗ;" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="label11" name="- договору про спільне володіння, користування у разі отримання ТТЗ кількома громадянами в рахунок майнових паїв у зв’язку з виходом або виключенням їх із кооперативу, рішенням органу управління господарського товариства, засвідченим в установленому порядку, про повернення засновникові (учасникові) товариства у зв’язку з його виходом або виключенням з товариства технологічного транспортного засобу, переданого ним у власність або для користування;" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="label12" name="- інших документів, що встановлюють право власності або користування транспортним засобом;" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="label1" name="- для  реєстрації технологічного транспортного засобу, що тривалий час (більше п'яти років) експлуатується суб'єктом господарювання та на який відсутні документи, що встановлюють право власності або користування, та про попередню його реєстрацію, надається копія  інвентарної  картки обліку основних засобів або витяг з балансової відомості, у яких зазначається дата введення в експлуатацію ТТЗ, скріплені підписом посадової особи  суб'єкта  господарювання та печаткою." type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file9" name="Для реєстрації технологічного транспортного засобу, що раніше експлуатувався і перебував на обліку, подається разом з документами свідоцтво про реєстрацію ТТЗ з позначкою про зняття з обліку" type="file" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="file10" name="При першій реєстрації в Україні колісних транспортних засобів надається квитанція або платіжне доручення про сплату збору з відміткою банку про дату виконання платіжного доручення до податкових органів (р. VII Податкового кодексу України), а платники, звільнені від сплати збору, - надають відповідний документ, що дає право на користування такими пільгами" type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="label1" name="- довідки-рахунка, яка видана підприємством-виготовлювачем або іншим суб'єктом господарювання, що реалізує технологічний транспортний засіб;" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="label2" name="- акту приймання-передачі, виданого підприємством-виготовлювачем технологічного транспортного засобу чи його вузлів і агрегатів;" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="label3" name="- договору купівлі-продажу, міни, дарування, лізингу, позички, застави, біржової угоди, договору про спільне володіння, користування і розпорядження майном,  що  перебуває  у спільній частковій власності;" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="label4" name="- документів, що підтверджують реалізацію технологічного транспортного засобу на аукціоні;" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="label5" name="- договору оренди майна із зазначенням у ньому домовленості між сторонами щодо реєстрації ТТЗ за орендарем та доручення на право керування і використання цього транспортного засобу;" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="label6" name="- вантажної митної декларації на технологічний транспортний засіб, що ввозиться, або посвідченням митного органу про реєстрацію  ввезених на митну  територію  України  ТТЗ, вузлів і агрегатів;" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="label7" name="- зобов'язання про зворотне вивезення (у разі тимчасового ввезення на територію України);" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="label8" name="- інших документів, що встановлюють право власності або користування транспортним засобом;" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file9" name="Копія первинного свідоцтва про реєстрацію технологічного транспортного засобу у разі, коли транспортний засіб був зареєстрований" type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="label9" name="Первинні свідоцтво про реєстрацію і номерний знак здаються до експертно-технічного центру, а після закінчення строку тимчасової реєстрації повертаються власникові." type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність. Відповідальність за достовірність поданих на реєстрацію документів або їх копій несе власник технологічного транспортного засобу згідно із законодавством."></activiti:formProperty>
         <activiti:formProperty id="sBody" name="sBody" type="invisible" default=" "></activiti:formProperty>
       </extensionElements>
@@ -63,7 +59,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Відомча реєстрація великотоннажних та інших технологічних транспортних засобів, що не підлягають експлуатації на вулично-дорожній мережі загального користування.]]></activiti:string>
+          <activiti:string><![CDATA[Тимчасова реєстрація великотоннажних та інших технологічних транспортних засобів, що не підлягають експлуатації на вулично-дорожній мережі загального користування.]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -166,11 +162,11 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow3" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
-    <userTask id="usertask1" name="Обробка ЦНАП Дніпропетровськ" activiti:candidateGroups="dnepr_cnap_42_ur">
+    <userTask id="usertask1" name="Обробка ЦНАП Дніпропетровськ" activiti:candidateGroups="dnepr_cnap_48_ur">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="name_company" name="Повне найменування юридичної особи" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adress" name="Юридична адреса" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="name_company" name="Повне найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Юридична адреса" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса стоянки великотоннажного та іншого технологічного транспортного засобу" type="string" writable="false"></activiti:formProperty>
@@ -192,7 +188,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${file1}, ${file2}, ${file3}, ${file4}, ${file5}, ${file6}, ${file7}, ${file8}, ${file9}, ${file10}</activiti:expression>
+            <activiti:expression>${file1}, ${file2}, ${file3}, ${file4}, ${file5}, ${file6}, ${file7}, ${file8}, ${file9}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -209,7 +205,7 @@
           <activiti:string><![CDATA[noreplay@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Відомча реєстрація великотоннажних та інших технологічних транспортних засобів, що не підлягають експлуатації на вулично-дорожній мережі загального користування.]]></activiti:string>
+          <activiti:string><![CDATA[Тимчасова реєстрація великотоннажних та інших технологічних транспортних засобів, що не підлягають експлуатації на вулично-дорожній мережі загального користування.]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -265,7 +261,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-										Ваше звернення щодо відомчої реєстрації великотоннажних та інших технологічних транспортних засобів для ${name_company} - забраковане.&lt;/p&gt;
+										Ваше звернення щодо тимчасової реєстрації великотоннажних та інших технологічних транспортних засобів для ${name_company} - забраковане.&lt;/p&gt;
 &lt;p&gt;Причина в наступному: 
                                     &lt;/p&gt;
 &lt;p&gt;${decisionComment}&lt;/p&gt;
@@ -321,7 +317,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Відомча реєстрація великотоннажних та інших технологічних транспортних засобів, що не підлягають експлуатації на вулично-дорожній мережі загального користування.]]></activiti:string>
+          <activiti:string><![CDATA[Тимчасова реєстрація великотоннажних та інших технологічних транспортних засобів, що не підлягають експлуатації на вулично-дорожній мережі загального користування.]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -377,7 +373,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-										Ваше звернення щодо відомчої реєстрації великотоннажних та інших технологічних транспортних засобів для ${name_company} - був відправлен в ТУ Держгірпромнагляду у Дніпропетровській області.&lt;br /&gt; 
+										Ваше звернення щодо тимчасової реєстрації великотоннажних та інших технологічних транспортних засобів для ${name_company} - був відправлен в ТУ Держгірпромнагляду у Дніпропетровській області.&lt;br /&gt; 
 										
 										Спеціалісти із державного органу повинні дати відповідь протягом 30 днів. 
 									&lt;p&gt;&lt;/p&gt;
@@ -433,7 +429,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Відомча реєстрація великотоннажних та інших технологічних транспортних засобів, що не підлягають експлуатації на вулично-дорожній мережі загального користування.]]></activiti:string>
+          <activiti:string><![CDATA[Тимчасова реєстрація великотоннажних та інших технологічних транспортних засобів, що не підлягають експлуатації на вулично-дорожній мережі загального користування.]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -489,7 +485,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-										Ваше звернення щодо відомчої реєстрації великотоннажних та інших технологічних транспортних засобів для ${name_company} - опрацьоване.&lt;/p&gt;
+										Ваше звернення щодо тимчасової реєстрації великотоннажних та інших технологічних транспортних засобів для ${name_company} - опрацьоване.&lt;/p&gt;
 										Отримати cвідоцтво про реєстрацію технологічного транспортного засобу та номерний знак може власник технологічного транспортного засобу, або уповноважена ним особа за дорученням власника, посвідченим у встановленому порядку, у державного адміністратора ЦНАП.&lt;/p&gt;
 
 									&lt;p&gt;&lt;/p&gt;
@@ -538,11 +534,11 @@
     <sequenceFlow id="flow6" name="status=='attr2_finish'" sourceRef="exclusivegateway1" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr2_finish'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask2" name="Підготовка відповіді після рішення Держпромнагляду" activiti:candidateGroups="dnepr_cnap_42_ur">
+    <userTask id="usertask2" name="Підготовка відповіді після рішення Держпромнагляду" activiti:candidateGroups="dnepr_cnap_48_ur">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="name_company" name="Повне найменування юридичної особи" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adress" name="Юридична адреса" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="name_company" name="Повне найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Юридична адреса" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса стоянки великотоннажного та іншого технологічного транспортного засобу" type="string" writable="false"></activiti:formProperty>
@@ -578,8 +574,8 @@
     <sequenceFlow id="flow13" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow14" sourceRef="mailtask4" targetRef="endevent2"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_42_ur">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_42_ur" id="BPMNPlane_dnepr_cnap_42_ur">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_48_ur">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_48_ur" id="BPMNPlane_dnepr_cnap_48_ur">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="60.0" y="110.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>

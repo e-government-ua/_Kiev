@@ -85,8 +85,7 @@
 
               <div class="col-md-3"
                    ng-class="{'has-error': form.$submitted && form[property.id].$invalid}"
-                   ng-if="(!data.formData.fields[property.id] && property.type!='invisible' && property.type!='markers' && as.isEditable(property.id) == 3)
-                                        || as.isEditable(property.id) == 1"
+                   ng-if="showFormField(property)"
                    ng-switch
                    on="property.type">
                                 <textarea ng-switch-when="textArea"
@@ -173,7 +172,7 @@
                 <p class="input-group"
                    ng-switch-when="file">
                   <label ng-if="data.formData.params[property.id].scan"
-                         name="{{property.id}}"
+                         name="{{property.id}}_0"
                          class="form-control_">
                     Завантажено із BankID</label>
                   <file-field name="{{property.id}}"
@@ -197,8 +196,7 @@
 
               </div>
 
-              <div class="col-md-3"`
-                   ng-if="(data.formData.fields[property.id] && as.isEditable(property.id) == 3) || as.isEditable(property.id) == 2"
+              <div class="col-md-3" ng-if="renderAsLabel(property)" ng-hide="property.type === 'file'"
                    ng-bind="data.formData.params[property.id].value">
                 <input type="hidden"
                        name="{{property.id}}"

@@ -119,6 +119,7 @@ public class ActivitiRestHistoryEventController {
 		
 		Map<String, String> mParamMessage = new HashMap<String, String>();
 	    mParamMessage.put(HistoryEventMessage.SERVICE_NAME, sProcessInstanceName);
+            mParamMessage.put(HistoryEventMessage.SERVICE_STATE, sID_Status);
 		setHistoryEvent(HistoryEventType.GET_SERVICE, nID_Subject, mParamMessage);
 
 		return JsonRestUtils.toJsonResponse(historyEventServiceDao
