@@ -1,28 +1,27 @@
-angular.module('app').config(function ($stateProvider, statesRepositoryProvider) {
+angular.module('app').config(function($stateProvider, statesRepositoryProvider) {
   statesRepositoryProvider.init(window.location.host);
   $stateProvider
     .state('index', statesRepositoryProvider.index())
     .state('index.service', {
-          abstract: true,
-          url: 'service/{id:int}',
-          resolve: {
-            service: function ($stateParams, ServiceService) {
-              console.log('calling get service');
-              return ServiceService.get($stateParams.id);
-            }
-          },
-          views: {
-            'main@': {
-              templateUrl: 'app/service/index.html',
-              controller: 'ServiceFormController'
-            }
-          }
+      abstract: true,
+      url: 'service/{id:int}',
+      resolve: {
+        service: function($stateParams, ServiceService) {
+          console.log('calling get service');
+          return ServiceService.get($stateParams.id);
         }
-    )
+      },
+      views: {
+        'main@': {
+          templateUrl: 'app/service/index.html',
+          controller: 'ServiceFormController'
+        }
+      }
+    })
     .state('index.subcategory', {
       url: '/subcategory/:catID/:scatID',
       resolve: {
-        catalog: function (CatalogService) {
+        catalog: function(CatalogService) {
           return CatalogService.getServices();
         }
       },
@@ -44,15 +43,14 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
     .state('index.service.general.city', {
       url: '/city',
       resolve: {
-        regions: function ( PlacesService, service ) {
-          return PlacesService.getRegionsForService ( service );
+        regions: function(PlacesService, service) {
+          return PlacesService.getRegionsForService(service);
         }
       },
       views: {
         'content@index.service': {
-          templateUrl: 'app/service/city/content.html',
           // controller: 'ServiceCityController'
-          controller: 'WizardController' 
+          controller: 'WizardController',
           // templateUrl: 'app/service/city/content.html'
           templateUrl: 'app/service/wizard/wizard.content.html'
         }
@@ -121,61 +119,63 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
         city: null
       },
       resolve: {
-        region: function ($state, $stateParams, PlacesService) {
-          return PlacesService.getRegion($stateParams.region).then(function (response) {
+        region: function($state, $stateParams, PlacesService) {
+          return PlacesService.getRegion($stateParams.region).then(function(response) {
             var currentState = $state.get('index.service.general.city.built-in.bankid');
             currentState.data.region = response.data;
             return response.data;
           });
         },
-        city: function ($state, $stateParams, PlacesService) {
-          return PlacesService.getCity($stateParams.region, $stateParams.city).then(function (response) {
+        city: function($state, $stateParams, PlacesService) {
+          return PlacesService.getCity($stateParams.region, $stateParams.city).then(function(response) {
             var currentState = $state.get('index.service.general.city.built-in.bankid');
             currentState.data.city = response.data;
             return response.data;
           });
         },
-        oService: function ($stateParams, service) {
+        oService: function($stateParams, service) {
           return service;
         },
-        oServiceData: function ($stateParams, service) {
+        oServiceData: function($stateParams, service) {
           var aServiceData = service.aServiceData;
           var oServiceData = null;
-		  if($stateParams.city > 0) {
-			  angular.forEach(aServiceData, function (value, key) {
-				if (value.nID_City && value.nID_City.nID === $stateParams.city) {
-				  oServiceData = value;
-				}
-			  });
-		  } else {
-			  angular.forEach(aServiceData, function (value, key) {
-				if (value.nID_Region && value.nID_Region.nID === $stateParams.region) {
-				  oServiceData = value;
-				}
-			  });
-		  }
+          if ($stateParams.city > 0) {
+            angular.forEach(aServiceData, function(value, key) {
+              if (value.nID_City && value.nID_City.nID === $stateParams.city) {
+                oServiceData = value;
+              }
+            });
+          } else {
+            angular.forEach(aServiceData, function(value, key) {
+              if (value.nID_Region && value.nID_Region.nID === $stateParams.region) {
+                oServiceData = value;
+              }
+            });
+          }
           return oServiceData;
         },
-        BankIDLogin: function ($q, $state, $location, $stateParams, BankIDService) {
-          return BankIDService.isLoggedIn().then(function () {
-            return {loggedIn: true};
-          }).catch(function () {
+        BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
+          return BankIDService.isLoggedIn().then(function() {
+            return {
+              loggedIn: true
+            };
+          }).catch(function() {
             return $q.reject(null);
           });
         },
-        BankIDAccount: function (BankIDService) {
+        BankIDAccount: function(BankIDService) {
           return BankIDService.account();
         },
-        processDefinitions: function (ServiceService, oServiceData) {
+        processDefinitions: function(ServiceService, oServiceData) {
           return ServiceService.getProcessDefinitions(oServiceData, true);
         },
-        processDefinitionId: function (oServiceData, processDefinitions) {
+        processDefinitionId: function(oServiceData, processDefinitions) {
           var sProcessDefinitionKeyWithVersion = oServiceData.oData.oParams.processDefinitionId;
           var sProcessDefinitionKey = sProcessDefinitionKeyWithVersion.split(':')[0];
 
           var sProcessDefinitionName = 'тест';
 
-          angular.forEach(processDefinitions.data, function (value, key) {
+          angular.forEach(processDefinitions.data, function(value, key) {
             if (value.key === sProcessDefinitionKey) {
               sProcessDefinitionKeyWithVersion = value.id;
               sProcessDefinitionName = '(' + value.name + ')';
@@ -187,27 +187,31 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
             sProcessDefinitionName: sProcessDefinitionName
           };
         },
-        ActivitiForm: function (ActivitiService, oServiceData, processDefinitionId) {
+        ActivitiForm: function(ActivitiService, oServiceData, processDefinitionId) {
           return ActivitiService.getForm(oServiceData, processDefinitionId);
         },
-        service: function ($stateParams, ServiceService) {
+        service: function($stateParams, ServiceService) {
           return ServiceService.get($stateParams.id);
         }
       },
       views: {
         'city-content': {
-          controller: 'WizardController' // 'BuiltinCityController'
           templateUrl: 'app/service/city/built-in/bankid.html',
+          //controller: 'WizardController' // 'BuiltinCityController'
           controller: 'ServiceBuiltInBankIDController'// FIXME-0
         }
       }
     })
     .state('index.service.general.city.built-in.bankid.submitted', {
       url: null,
-      data: {id: null},
-      onExit: function ($state) {
+      data: {
+        id: null
+      },
+      onExit: function($state) {
         var state = $state.get('index.service.general.city.built-in.bankid.submitted');
-        state.data = {id: null};
+        state.data = {
+          id: null
+        };
       },
       views: {
         'city-content@index.service.general.city': {
@@ -215,8 +219,7 @@ angular.module('app').config(function ($stateProvider, statesRepositoryProvider)
           controller: 'WizardController' // function moved to Places' stateStartupFunction
         }
       }
-});
-    .state('index.service.statistics', {
+    }).state('index.service.statistics', {
       url: '/statistics',
       views: {
         'content': {

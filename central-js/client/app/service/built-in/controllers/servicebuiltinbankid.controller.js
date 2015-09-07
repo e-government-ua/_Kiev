@@ -12,7 +12,6 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   BankIDAccount,
   ActivitiForm,
   AdminService,
-  uiUploader,
   PlacesService,
   uiUploader,
   FieldAttributesService,
@@ -62,7 +61,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   console.log('Hi! I\'m ServiceBuiltInBankIDController.');
   
   PlacesService.setController({
-    self: this,
+    controller: this,
     regions: regions,
     service: service
   });
