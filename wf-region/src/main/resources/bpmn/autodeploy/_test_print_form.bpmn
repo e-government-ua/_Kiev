@@ -77,7 +77,7 @@
           <activiti:expression>Шановний ${bankIdfirstName}
 
 [nID_Protected]
-тест кнопки отмены заявки [cancelTask]
+
 </activiti:expression>
         </activiti:field>
       </extensionElements>
