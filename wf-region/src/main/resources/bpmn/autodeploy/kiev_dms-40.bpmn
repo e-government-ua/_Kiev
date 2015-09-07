@@ -46,6 +46,7 @@
         <activiti:formProperty id="ChildSex1" name="Стать дитини" type="enum">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
+          <activiti:value id="no" name=" "></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="kidsBirth" name="Дата народження дитини; Формат - ДД/ММ/РРРР" type="date" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsPOB" name="Місце народження дитини; Країна і населений пункт" type="string" default=" "></activiti:formProperty>
@@ -430,9 +431,9 @@
         <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Києва, в якому зареєстрований заявник" type="enum" writable="false">
-          <activiti:value id="Деснянський" name="Деснянський"></activiti:value>
-          <activiti:value id="Солом'янський" name="Солом'янський"></activiti:value>
-          <activiti:value id="Шевченківський" name="Шевченківський"></activiti:value>
+          <activiti:value id="desn" name="Деснянський"></activiti:value>
+          <activiti:value id="solom" name="Солом'янський"></activiti:value>
+          <activiti:value id="shev" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="Registrationservice" name="Орган, що оформлює реєстрацію" type="enum" writable="false">
           <activiti:value id="Деснянський РВ ДМС" name="Деснянський РВ ДМС"></activiti:value>
@@ -606,9 +607,9 @@
         </activiti:formProperty>
         <activiti:formProperty id="bringDocOther" name="Інші документи" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Києва, в якому зареєстрований заявник" type="enum" writable="false">
-          <activiti:value id="Деснянський" name="Деснянський"></activiti:value>
-          <activiti:value id="Солом'янський" name="Солом'янський"></activiti:value>
-          <activiti:value id="Шевченківський" name="Шевченківський"></activiti:value>
+          <activiti:value id="desn" name="Деснянський"></activiti:value>
+          <activiti:value id="solom" name="Солом'янський"></activiti:value>
+          <activiti:value id="shev" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="Registrationservice" name="Орган, що оформлює прописку" type="enum" writable="false">
           <activiti:value id="Деснянський РВ ДМС" name="Деснянський РВ ДМС"></activiti:value>
@@ -991,9 +992,9 @@
           <activiti:value id="other" name="Інші документи. (Вказати полем нижче)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Києва, в якому зареєстрований заявник" type="enum" writable="false">
-          <activiti:value id="Деснянський" name="Деснянський"></activiti:value>
-          <activiti:value id="Солом'янський" name="Солом'янський"></activiti:value>
-          <activiti:value id="Шевченківський" name="Шевченківський"></activiti:value>
+          <activiti:value id="desn" name="Деснянський"></activiti:value>
+          <activiti:value id="solom" name="Солом'янський"></activiti:value>
+          <activiti:value id="shev" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="Registrationservice" name="Орган, що оформлює прописку" type="enum" writable="false">
           <activiti:value id="Деснянський РВ ДМС" name="Деснянський РВ ДМС"></activiti:value>
