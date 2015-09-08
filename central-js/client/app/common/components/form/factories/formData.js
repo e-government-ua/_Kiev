@@ -1,5 +1,5 @@
-angular.module('app').factory('FormDataFactory', function(ParameterFactory, DatepickerFactory, FileFactory, ScanFactory, BankIDDocumentsFactory, BankIDAddressesFactory, CountryService, ActivitiService, $q) {
-  var FormDataFactory = function() {
+angular.module('app').factory('FormDataFactory', function (ParameterFactory, DatepickerFactory, FileFactory, ScanFactory, BankIDDocumentsFactory, BankIDAddressesFactory, CountryService, ActivitiService, $q) {
+  var FormDataFactory = function () {
     this.processDefinitionId = null;
     this.factories = [DatepickerFactory, FileFactory, ParameterFactory];
     this.fields = {};
@@ -16,7 +16,7 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
     }
   };
 
-  var fillInCountryInformation = function(params, property, ActivitiForm){
+  var fillInCountryInformation = function (params, property, ActivitiForm) {
     if (property.id === 'resident' || property.id === 'sCountry') {
       // todo: #584 для теста п.2 закомментировать эту строку. после теста - удалить
       //this.params[property.id].value = 'Україна';
@@ -25,9 +25,8 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
         angular.forEach(ActivitiForm.formProperties, function (prop) {
           if (prop.id === 'sID_Country') {
             var param = params[property.id];
-            CountryService.getCountries().then(function(list)
-            {
-              angular.forEach(list, function(country) {
+            CountryService.getCountries().then(function (list) {
+              angular.forEach(list, function (country) {
                 if (country.sNameShort_UA == param.value)
                   params[prop.id].value = country.sID_Three;
               });
@@ -49,36 +48,35 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
     }
   };
 
-  FormDataFactory.prototype.initialize = function(ActivitiForm) {
+  FormDataFactory.prototype.initialize = function (ActivitiForm) {
     this.processDefinitionId = ActivitiForm.processDefinitionId;
     for (var key in ActivitiForm.formProperties) {
       var property = ActivitiForm.formProperties[key];
 
       initializeWithFactory(this.params, this.factories, property);
       fillInCountryInformation(this.params, ActivitiForm, property);
-     //<activiti:formProperty id="bankIdsID_Country" name="Громадянство (Code)" type="invisible" default="UA"></activiti:formProperty>
-     //<activiti:formProperty id="sID_Country" name="Country Code (Code)" type="invisible"></activiti:formProperty>
-     //<activiti:formProperty id="sCountry" name="Громадянство" type="string"></activiti:formProperty>
+      //<activiti:formProperty id="bankIdsID_Country" name="Громадянство (Code)" type="invisible" default="UA"></activiti:formProperty>
+      //<activiti:formProperty id="sID_Country" name="Country Code (Code)" type="invisible"></activiti:formProperty>
+      //<activiti:formProperty id="sCountry" name="Громадянство" type="string"></activiti:formProperty>
 
     }
   };
 
-  FormDataFactory.prototype.hasParam = function(param) {
+  FormDataFactory.prototype.hasParam = function (param) {
     return this.params.hasOwnProperty(param);
   };
 
-  FormDataFactory.prototype.setBankIDAccount = function(BankIDAccount) {
+  FormDataFactory.prototype.setBankIDAccount = function (BankIDAccount) {
     var self = this;
-    return angular.forEach(BankIDAccount.customer, function(oValue, sKey) {
+    return angular.forEach(BankIDAccount.customer, function (oValue, sKey) {
       switch (sKey) {
         case 'scans':
           var sFieldName;
-          angular.forEach(oValue, function(scan){
+          angular.forEach(oValue, function (scan) {
             sFieldName = ScanFactory.prototype.getName(scan.type);
             if (self.hasParam(sFieldName)) {
-                self.fields[sFieldName] = true;
-                self.params[sFieldName] = Object.create(ScanFactory.prototype);
-                self.params[sFieldName].setScan(scan);
+              self.params[sFieldName] = Object.create(ScanFactory.prototype);
+              self.params[sFieldName].setScan(scan);
             }
           });
           break;
@@ -86,7 +84,7 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
           var aDocument = new BankIDDocumentsFactory();
           aDocument.initialize(oValue);
 
-          angular.forEach(aDocument.list, function(document) {
+          angular.forEach(aDocument.list, function (document) {
             var sFieldName = null;
             switch (document.type) {
               case 'passport':
@@ -106,7 +104,7 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
           var aAddress = new BankIDAddressesFactory();
           aAddress.initialize(oValue);
 
-          angular.forEach(aAddress.list, function(document) {
+          angular.forEach(aAddress.list, function (document) {
             var sFieldName = null;
             switch (document.type) {
               case 'factual':
@@ -120,7 +118,7 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
                   self.fields[sFieldName] = true;
                   self.params[sFieldName].value = aAddress.getCountyCode();
                 }
-              break;
+                break;
             }
             if (sFieldName === null) {
               return;
@@ -147,55 +145,68 @@ angular.module('app').factory('FormDataFactory', function(ParameterFactory, Date
     for (var key in this.params) {
       var param = this.params[key];
       if (param instanceof ScanFactory) {
-        paramsForUpload.push({ key: key, scan : param.getScan()});
+        paramsForUpload.push({key: key, scan: param.getScan()});
       }
     }
 
-    var backToFile = function(uploadResult){
-      self.params[uploadResult.scanField.key] = new FileFactory();
+    var prepareForLoading = function(paramsForUpload){
+      paramsForUpload.forEach(function (paramForUpload) {
+        self.params[paramForUpload.key].loading();
+      });
     };
 
-    var populateWithValue = function(uploadResult){
-      self.params[uploadResult.scanField.key].value = uploadResult.fileID;
+    var backToFileAll = function (paramsForUpload) {
+      paramsForUpload.forEach(function (paramForUpload) {
+        backToFile(paramForUpload.key);
+      });
     };
 
+    var backToFile = function (key) {
+      self.params[key] = new FileFactory();
+    };
+
+    var populateWithValue = function (key, fileID) {
+      self.params[key].loaded(fileID);
+    };
+
+    prepareForLoading(paramsForUpload);
     ActivitiService.autoUploadScans(oServiceData, paramsForUpload)
       .then(function (uploadResults) {
-        uploadResults.forEach(function(uploadResult){
-          if(!uploadResult.error){
-            populateWithValue(uploadResult);
+        uploadResults.forEach(function (uploadResult) {
+          if (!uploadResult.error) {
+            populateWithValue(uploadResult.scanField.key, uploadResult.fileID);
           } else {
-            backToFile(uploadResult);
+            backToFile(uploadResult.scanField.key);
           }
         });
       }).catch(function () {
-        //TODO all to file ??
+        backToFileAll(paramsForUpload);
       });
   };
 
-  FormDataFactory.prototype.setFile = function(name, file) {
+  FormDataFactory.prototype.setFile = function (name, file) {
     var parameter = this.params[name];
     parameter.removeAll();
     parameter.addFiles([file]);
   };
 
-  FormDataFactory.prototype.setFiles = function(name, files) {
+  FormDataFactory.prototype.setFiles = function (name, files) {
     var parameter = this.params[name];
     parameter.removeAll();
     parameter.addFiles(files);
   };
 
-  FormDataFactory.prototype.addFile = function(name, file) {
+  FormDataFactory.prototype.addFile = function (name, file) {
     var parameter = this.params[name];
     parameter.addFiles([file]);
   };
 
-  FormDataFactory.prototype.addFiles = function(name, files) {
+  FormDataFactory.prototype.addFiles = function (name, files) {
     var parameter = this.params[name];
     parameter.addFiles(files);
   };
 
-  FormDataFactory.prototype.getRequestObject = function() {
+  FormDataFactory.prototype.getRequestObject = function () {
     var data = {
       processDefinitionId: this.processDefinitionId,
       params: {}

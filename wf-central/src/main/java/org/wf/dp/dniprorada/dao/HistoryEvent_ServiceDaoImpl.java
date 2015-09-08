@@ -47,8 +47,7 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
         AlgorithmLuna.validateProtectedNumber(nID_Protected);
 
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
-        //criteria.add(Restrictions.eq("id", nID_Protected / 10));
-        criteria.add(Restrictions.eq("nID_Task", nID_Protected / 10));
+        criteria.add(Restrictions.eq("nID_Task", AlgorithmLuna.getOriginalNumber(nID_Protected)));
         HistoryEvent_Service event_service = (HistoryEvent_Service) criteria.uniqueResult();
         if (event_service == null) {
             log.warn("Record not found");
@@ -61,7 +60,9 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
     }
 
     @Override
-    public HistoryEvent_Service addHistoryEvent_Service(Long nID_task, String sStatus, Long nID_subject, String sID_status, Long nID_Service, Long nID_Region, String sID_UA) {
+    public HistoryEvent_Service addHistoryEvent_Service(Long nID_task, String sStatus, Long nID_subject,
+                                                        String sID_status, Long nID_Service, Long nID_Region,
+                                                        String sID_UA) {
         HistoryEvent_Service event_service = new HistoryEvent_Service();
         event_service.setnID_Task(nID_task);
         event_service.setsStatus(sStatus);

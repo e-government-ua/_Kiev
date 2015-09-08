@@ -69,7 +69,7 @@ public final class JsonRestUtils {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
-    public static ResponseEntity<String> toJsonResponse(Object res) {
+    public static ResponseEntity<String> toJsonResponse(HttpStatus httpStatus, Object res) {
         String json;
         try {
             json = toJson(res);
@@ -84,7 +84,11 @@ public final class JsonRestUtils {
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         headers.setContentType(mediaType);
 
-        return new ResponseEntity<>(json, headers, HttpStatus.OK);
+        return new ResponseEntity<>(json, headers, httpStatus);
+    }
+
+    public static ResponseEntity<String> toJsonResponse(Object res) {
+        return toJsonResponse(HttpStatus.OK, res);
     }
 
     public static ResponseEntity<String> toJsonResponse(HttpStatus httpStatus, ResultMessage resultMessage) {
