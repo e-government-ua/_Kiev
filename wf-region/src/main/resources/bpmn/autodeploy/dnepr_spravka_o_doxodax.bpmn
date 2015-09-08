@@ -285,7 +285,6 @@ execution.setVariable("date_stop1", execution.getVariable("date_stop").format("d
 &lt;/p&gt;
 &lt;p&gt;Ваше відділення enum{[area]}&lt;/p&gt;
 
-&lt;p&gt;тест кнопки отмены заявки [cancelTask]&lt;/p&gt;
 &lt;p&gt;Для отримання довідки Вам необхідно мати при при візиті до відділення фіскальної служби наступні документи:&lt;br&gt;
 - № запиту (Ви його отримали листом після подачі заяви)&lt;br&gt;
 - заяву на отримання довідки про доходи (Ви можете її заповнити вдома або зробити це на місці, &lt;a href="https://dl.dropboxusercontent.com/u/91233927/zajva_taxes.doc" target="_blank"&gt;шаблон заяви&lt;/a&gt;)&lt;br&gt;
