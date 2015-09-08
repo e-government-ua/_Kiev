@@ -908,7 +908,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     public
     @ResponseBody
     void cancelTask(@RequestParam(value = "nID_Protected") Long nID_Protected,
-                    @RequestParam(value = "sInfo") String sInfo) throws ActivitiRestException {
+                    @RequestParam(value = "sInfo", required = false) String sInfo) throws ActivitiRestException {
         try {
             cancelTasksInternal(nID_Protected, sInfo);
         } catch (CRCInvalidException | RecordNotFoundException | TaskAlreadyUnboundException e) {
@@ -957,7 +957,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         }
 
         runtimeService.setVariable(processInstanceId, CANCEL_INFO_FIELD,
-                String.format("[%s] Причина отмены заявки: %s", DateTime.now(), sInfo));
+                String.format("[%s] Причина отмены заявки: %s", DateTime.now(), sInfo == null ? "" : sInfo));
 
     }
 
