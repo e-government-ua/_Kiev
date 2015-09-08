@@ -44,7 +44,7 @@ public class CancelTaskUtil {
                 .append("?nID_Protected=").append(nID_Protected)
                 .toString();
         String sAccessKey = accessDataDao.setAccessData(sURL_ForAccessKey);
-        String sURL_CancelTaskAction = new StringBuilder(generalConfig.sHostCentral())
+        String sURL_CancelTaskAction = new StringBuilder(generalConfig.sHost())
                 .append(sURL_ForAccessKey)
                 .append("&sAccessKey=").append(sAccessKey)
                 .append("&sAccessContract=Request")
