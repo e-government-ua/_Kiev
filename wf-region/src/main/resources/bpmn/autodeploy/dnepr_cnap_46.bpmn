@@ -153,7 +153,7 @@
         <activiti:formProperty id="adress2" name="Адреса стоянки великотоннажного та іншого технологічного транспортного засобу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="content" name="Просимо (викладається суть справи)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="data_about" name="Дані про великотоннажний та інший технологічний транспортний засіб:" type="label" default=" " writable="false"></activiti:formProperty>
-        <activiti:formProperty id="type" name="Тип" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="type" name="Тип" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="model" name="Марка, модель" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="graduation_year" name="Рік випуску" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="country" name="Виробник (держава)" type="string" writable="false"></activiti:formProperty>
@@ -619,14 +619,14 @@
         <omgdi:waypoint x="560.0" y="168.0"></omgdi:waypoint>
         <omgdi:waypoint x="560.0" y="210.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="511.0" y="176.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="95.0" x="511.0" y="176.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
         <omgdi:waypoint x="580.0" y="148.0"></omgdi:waypoint>
         <omgdi:waypoint x="657.0" y="148.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="557.0" y="100.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="557.0" y="100.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
