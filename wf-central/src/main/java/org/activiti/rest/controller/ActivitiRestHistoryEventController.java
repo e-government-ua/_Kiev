@@ -222,7 +222,76 @@ public class ActivitiRestHistoryEventController {
 			  Map<String, Object> currMapWithName = new HashMap<String, Object>();
 			  
 			  currMapWithName.put("sName", region.getName());
-			  currMapWithName.put("nCount", currMap.get("nCount"));
+                          
+			  //currMapWithName.put("nCount", currMap.get("nCount"));
+                          /*
+                            https://igov.org.ua/service/661/general - 43
+                            https://igov.org.ua/service/655/generall - 75
+                            https://igov.org.ua/service/176/general - 546
+                            https://igov.org.ua/service/654/general - 307                          
+                          */
+                          /*
+
+
+                          */
+                          Long nCount = currMap.get("nCount");
+                          if(false){
+                          }else if(nID_Service==661){
+                              if("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())){
+                                nCount+=43;
+                              }
+                          }else if(nID_Service==665){
+                              if("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())){
+                                  nCount+=75;
+                              }
+                          }else if(nID_Service==176){
+                              if("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())){
+                                nCount+=546;
+                              }
+                          }else if(nID_Service==654){
+                              if("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())){
+                                nCount+=307;
+                              }
+                          }else if(nID_Service==159){
+                            /*
+                            https://igov.org.ua/service/159/general
+                            Днепропетровская область - 53
+                            Киевская область - 69
+1;Дніпропетровська;"1200000000"
+5;Київ;"8000000000"
+16;Київська;"3200000000"
+                              
+                            */
+                              if("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())){
+                                nCount+=53;
+                              }else if("8000000000".equals(region.getsID_UA()) || "3200000000".equals(region.getsID_UA())){
+                                nCount+=69;
+                              }
+                          }else if(nID_Service==1){
+                              /*
+                            https://igov.org.ua/service/1/general
+                            Днепропетровская область - 812
+                              */
+                              /*if("".equals(region.getsID_UA())){
+                                nCount+=53;
+                              }else if("".equals(region.getsID_UA())){
+                                nCount+=69;
+                              }*/
+                              if("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())){
+                                nCount+=812;
+                              }
+                          }else if(nID_Service==4){
+                              /*
+                            https://igov.org.ua/service/4/general - 
+                            Днепропетровская область - услуга временно приостановлена
+                            по иным регионам заявок вне было.                          
+                              */
+                              nCount+=0;
+                          }else if(nID_Service==0){
+                              nCount+=0;
+                          //region.getsID_UA()
+                          }
+			  currMapWithName.put("nCount", nCount);
 			  
 			  listOfHistoryEventsWithMeaningfulNames.add(currMapWithName);
 		  } 
