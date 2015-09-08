@@ -63,7 +63,7 @@
     <sequenceFlow id="flow7" sourceRef="exclusivegateway1" targetRef="servicetask1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr2'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask1" name="отправка имейла" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
+    <serviceTask id="servicetask1" name="отправка имейла" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>

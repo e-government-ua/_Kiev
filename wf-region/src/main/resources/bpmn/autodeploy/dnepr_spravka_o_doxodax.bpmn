@@ -222,7 +222,7 @@ execution.setVariable("date_stop1", execution.getVariable("date_stop").format("d
     </scriptTask>
     <sequenceFlow id="flow6" sourceRef="scripttask1" targetRef="usertask1"></sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="usertask1" targetRef="servicetask1"></sequenceFlow>
-    <serviceTask id="servicetask1" name="відправка відповіді про обробку" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
+    <serviceTask id="servicetask1" name="відправка відповіді про обробку" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>
