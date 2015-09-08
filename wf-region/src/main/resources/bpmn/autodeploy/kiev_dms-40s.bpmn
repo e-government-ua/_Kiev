@@ -75,7 +75,7 @@
     </boundaryEvent>
     <sequenceFlow id="flow1" sourceRef="boundaryerror1" targetRef="endevent2"></sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
-    <sequenceFlow id="flow3" sourceRef="servicetask1" targetRef="mailtask1">
+    <sequenceFlow id="flow3" sourceRef="exclusivegateway6" targetRef="mailtask1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${district=='desn'}]]></conditionExpression>
     </sequenceFlow>
     <serviceTask id="mailtask1" name="E-Mail підтвердження Деснянський ЦНАП" activiti:type="mail">
@@ -192,7 +192,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
-    <sequenceFlow id="flow29" sourceRef="servicetask1" targetRef="mailtask5">
+    <sequenceFlow id="flow29" sourceRef="exclusivegateway6" targetRef="mailtask5">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${district=='solom'}]]></conditionExpression>
     </sequenceFlow>
     <serviceTask id="mailtask5" name="E-Mail підтвердження Солом'янський ЦНАП" activiti:type="mail">
@@ -309,7 +309,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow30" sourceRef="mailtask5" targetRef="usertask1"></sequenceFlow>
-    <sequenceFlow id="flow28" sourceRef="servicetask1" targetRef="mailtask6">
+    <sequenceFlow id="flow28" sourceRef="exclusivegateway6" targetRef="mailtask6">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${district=='shev'}]]></conditionExpression>
     </sequenceFlow>
     <serviceTask id="mailtask6" name="E-Mail підтвердження Шевченківський ЦНАП" activiti:type="mail">
@@ -486,10 +486,8 @@
         <activiti:formProperty id="sBody_4" name="[pattern/print/kiev_talon_4.html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_5" name="[pattern/print/kiev_dms_zajava_zn.html]" type="invisible" default="${sBody_5}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_6" name="[pattern/print/kiev_dms_dodat12.html]" type="invisible" default="${sBody_6}" writable="false"></activiti:formProperty>
-      	<activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
-          <activiti:field name="aFieldInheritedAttachmentID"></activiti:field>
-        </activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow24" sourceRef="usertask1" targetRef="exclusivegateway4"></sequenceFlow>
@@ -669,10 +667,8 @@
         <activiti:formProperty id="sBody_4" name="[pattern/print/kiev_talon_4.html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_5" name="[pattern/print/kiev_dms_zajava_zn.html]" type="invisible" default="${sBody_5}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_6" name="[pattern/print/kiev_dms_dodat12.html]" type="invisible" default="${sBody_6}" writable="false"></activiti:formProperty>
-      	<activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
-          <activiti:field name="aFieldInheritedAttachmentID"></activiti:field>
-        </activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow16" sourceRef="usertask4" targetRef="exclusivegateway2"></sequenceFlow>
@@ -1064,6 +1060,8 @@
     <sequenceFlow id="flow26" name="${workerDecision=='decline'}" sourceRef="exclusivegateway5" targetRef="endevent1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='decline'}]]></conditionExpression>
     </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway6" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow36" sourceRef="servicetask1" targetRef="exclusivegateway6"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_dms_40s">
     <bpmndi:BPMNPlane bpmnElement="kiev_dms_40s" id="BPMNPlane_kiev_dms_40s">
@@ -1121,6 +1119,9 @@
       <bpmndi:BPMNShape bpmnElement="exclusivegateway5" id="BPMNShape_exclusivegateway5">
         <omgdc:Bounds height="40.0" width="40.0" x="928.0" y="520.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway6" id="BPMNShape_exclusivegateway6">
+        <omgdc:Bounds height="40.0" width="40.0" x="238.0" y="130.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
         <omgdi:waypoint x="45.0" y="147.0"></omgdi:waypoint>
         <omgdi:waypoint x="56.0" y="147.0"></omgdi:waypoint>
@@ -1130,7 +1131,7 @@
         <omgdi:waypoint x="53.0" y="229.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-        <omgdi:waypoint x="227.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="278.0" y="150.0"></omgdi:waypoint>
         <omgdi:waypoint x="321.0" y="147.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
@@ -1138,8 +1139,8 @@
         <omgdi:waypoint x="500.0" y="147.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
-        <omgdi:waypoint x="141.0" y="188.0"></omgdi:waypoint>
-        <omgdi:waypoint x="141.0" y="246.0"></omgdi:waypoint>
+        <omgdi:waypoint x="258.0" y="170.0"></omgdi:waypoint>
+        <omgdi:waypoint x="257.0" y="246.0"></omgdi:waypoint>
         <omgdi:waypoint x="321.0" y="246.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
@@ -1148,8 +1149,8 @@
         <omgdi:waypoint x="588.0" y="188.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
-        <omgdi:waypoint x="141.0" y="107.0"></omgdi:waypoint>
-        <omgdi:waypoint x="143.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="258.0" y="130.0"></omgdi:waypoint>
+        <omgdi:waypoint x="257.0" y="48.0"></omgdi:waypoint>
         <omgdi:waypoint x="330.0" y="47.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
@@ -1244,6 +1245,10 @@
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="42.0" width="100.0" x="839.0" y="540.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
+        <omgdi:waypoint x="227.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="238.0" y="150.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
