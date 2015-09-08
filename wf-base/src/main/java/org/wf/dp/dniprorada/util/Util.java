@@ -194,18 +194,19 @@ public final class Util {
 
                     if (sExpression.contains("[" + sName + "]")) {
                         String sData = getFromFile(oFile, null);
-                        oLog.info("[replacePatterns]:sData=" + sData);
+                        //oLog.info("[replacePatterns]:sData=" + sData);
+                        oLog.info("[replacePatterns]:sData.length()=" + (sData!=null?sData.length()+"":"null"));
                         if (sData == null) {
                             continue;
                         }
 
                         sExpression = sExpression.replaceAll("\\Q[" + sName + "]\\E", sData);
-                        oLog.info("[replacePatterns]:sExpression=" + sExpression);
+//                        oLog.info("[replacePatterns]:sExpression=" + sExpression);
 
                         oLog.info("[replacePatterns](sFieldID=" + sFieldID + "):1-Ok!");
                         oRuntimeService.setVariable(task.getProcessInstanceId(), sFieldID, sExpression);
-                        oLog.info("[replacePatterns](sFieldID=" + sFieldID + "):2-Ok:" + oRuntimeService
-                                .getVariable(task.getProcessInstanceId(), sFieldID));
+/*                        oLog.info("[replacePatterns](sFieldID=" + sFieldID + "):2-Ok:" + oRuntimeService
+                                .getVariable(task.getProcessInstanceId(), sFieldID));*/
                         oLog.info("[replacePatterns](sFieldID=" + sFieldID + "):3-Ok!");
                     }
                     oLog.info("[replacePatterns](sName=" + sName + "):Ok!");

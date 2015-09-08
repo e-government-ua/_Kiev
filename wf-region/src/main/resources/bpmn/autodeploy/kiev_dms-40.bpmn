@@ -616,7 +616,7 @@
           <activiti:value id="solom" name="Солом'янський"></activiti:value>
           <activiti:value id="shev" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="Registrationservice" name="Орган, що оформлює прописку" type="enum" writable="false">
+        <activiti:formProperty id="Registrationservice" name="Орган, що оформлює реєстацію" type="enum" writable="false">
           <activiti:value id="Деснянський РВ ДМС" name="Деснянський РВ ДМС"></activiti:value>
           <activiti:value id="Солом’янський РВ ДМС" name="Солом’янський РВ ДМС"></activiti:value>
           <activiti:value id="Шевченківський РВ ДМС" name="Шевченківський РВ ДМС"></activiti:value>
@@ -1006,7 +1006,7 @@
           <activiti:value id="solom" name="Солом'янський"></activiti:value>
           <activiti:value id="shev" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="Registrationservice" name="Орган, що оформлює прописку" type="enum" writable="false">
+        <activiti:formProperty id="Registrationservice" name="Орган, що оформлює реєстацію" type="enum" writable="false">
           <activiti:value id="Деснянський РВ ДМС" name="Деснянський РВ ДМС"></activiti:value>
           <activiti:value id="Солом’янський РВ ДМС" name="Солом’янський РВ ДМС"></activiti:value>
           <activiti:value id="Шевченківський РВ ДМС" name="Шевченківський РВ ДМС"></activiti:value>
