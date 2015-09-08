@@ -935,7 +935,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         }
 
         HistoricProcessInstance processInstance = historyService.createHistoricProcessInstanceQuery().processInstanceId(
-                processInstanceId).includeProcessVariables().singleResult();
+                processInstanceId).singleResult();
 
         FormData formData = formService.getStartFormData(processInstance.getProcessDefinitionId());
 
