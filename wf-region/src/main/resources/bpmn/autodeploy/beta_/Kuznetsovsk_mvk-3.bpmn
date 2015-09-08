@@ -61,7 +61,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>test_noreply@igov.org.ua</activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string>Звернення на тему: Надання дозволу на проведення публічних богослужінь</activiti:string>
@@ -172,7 +172,7 @@
     <serviceTask id="servicetask2" name="Надати послугу [з файлом]" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>test_noreply@igov.org.ua</activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
@@ -409,7 +409,7 @@
     <serviceTask id="servicetask3" name="Надати послугу [без файлу]" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>test_noreply@igov.org.ua</activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>

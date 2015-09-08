@@ -21,7 +21,7 @@
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="responseType" name="Оберіть потрібний формат відподіві" type="enum" required="true">
           <activiti:value id="emailOnly" name="В електронному вігляді на e-mail"></activiti:value>
-          <activiti:value id="both" name="Паперова копія і електронна копія на e-mail"></activiti:value>
+          <activiti:value id="both" name="Паперова копія та електронна копія на e-mail"></activiti:value>
         </activiti:formProperty>
                 <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
@@ -59,7 +59,7 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="responseType" name="Оберіть потрібний формат відподіві" type="enum" writable="false">
           <activiti:value id="emailOnly" name="В електронному вігляді на e-mail"></activiti:value>
-          <activiti:value id="both" name="Паперова копія і електронна копія на e-mail"></activiti:value>
+          <activiti:value id="both" name="Паперова копія та електронна копія на e-mail"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Перейти до надання послуги"></activiti:value>
@@ -76,7 +76,7 @@
       <extensionElements>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-
+Щодо Вашого запиту на отримання ${docType}
 На жаль, документ не було знайдено.
 
 З повагою,
@@ -105,7 +105,7 @@
         <activiti:formProperty id="docPartContent" name="Частина тексту запитуваного ддокументу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="responseType" name="Оберіть потрібний формат відподіві" type="enum" writable="false">
+        <activiti:formProperty id="responseType" name="Потрібний формат відподіві" type="enum" writable="false">
           <activiti:value id="emailOnly" name="В електронному вігляді на e-mail"></activiti:value>
           <activiti:value id="both" name="Паперова копія і електронна копія на e-mail"></activiti:value>
         </activiti:formProperty>

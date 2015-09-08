@@ -61,7 +61,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>test_noreply@igov.org.ua</activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему: ${topic}</activiti:expression>
@@ -169,7 +169,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>test_noreply@igov.org.ua</activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему: ${topic}</activiti:expression>
@@ -378,7 +378,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>test_noreply@igov.org.ua</activiti:string>
+          <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему: ${topic}</activiti:expression>
