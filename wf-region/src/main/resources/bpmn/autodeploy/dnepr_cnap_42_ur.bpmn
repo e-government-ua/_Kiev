@@ -541,8 +541,8 @@
     <userTask id="usertask2" name="Підготовка відповіді після рішення Держпромнагляду" activiti:candidateGroups="dnepr_cnap_42_ur">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="name_company" name="Повне найменування юридичної особи" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adress" name="Юридична адреса" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="name_company" name="Повне найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Юридична адреса" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса стоянки великотоннажного та іншого технологічного транспортного засобу" type="string" writable="false"></activiti:formProperty>
