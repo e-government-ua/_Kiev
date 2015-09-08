@@ -4,7 +4,7 @@ angular.module('dashboardJsApp').directive('fieldTitle', function() {
     
     restrict: 'E',
    
-    templateUrl: 'app/tasks/form-fields/field-title.html'
+    templateUrl: 'app/tasks/form-fields/fieldTitle.html'
    
   };
 });

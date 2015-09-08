@@ -4,7 +4,7 @@ angular.module('dashboardJsApp').directive('simpleField', function() {
     
     restrict: 'E',
    
-    templateUrl: 'app/tasks/form-fields/simple-field.html'
+    templateUrl: 'app/tasks/form-fields/simpleField.html'
    
   };
 });

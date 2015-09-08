@@ -4,7 +4,7 @@ angular.module('dashboardJsApp').directive('enumField', function() {
     
     restrict: 'E',
    
-    templateUrl: 'app/tasks/form-fields/enum-field.html'
+    templateUrl: 'app/tasks/form-fields/enumField.html'
    
   };
 });

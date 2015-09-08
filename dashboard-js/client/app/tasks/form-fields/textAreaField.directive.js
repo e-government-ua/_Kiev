@@ -4,7 +4,7 @@ angular.module('dashboardJsApp').directive('textareaField', function() {
     
     restrict: 'E',
    
-    templateUrl: 'app/tasks/form-fields/text-area-field.html'
+    templateUrl: 'app/tasks/form-fields/textareaField.html'
    
   };
 });

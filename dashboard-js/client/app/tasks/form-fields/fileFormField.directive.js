@@ -4,7 +4,7 @@ angular.module('dashboardJsApp').directive('fileFormfield', function() {
     
     restrict: 'E',
    
-    templateUrl: 'app/tasks/form-fields/file-field.html'
+    templateUrl: 'app/tasks/form-fields/fileFormField.html'
    
   };
 });

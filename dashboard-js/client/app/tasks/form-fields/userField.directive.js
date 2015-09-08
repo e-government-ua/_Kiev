@@ -4,7 +4,7 @@ angular.module('dashboardJsApp').directive('userField', function() {
     
     restrict: 'E',
    
-    templateUrl: 'app/tasks/form-fields/user-field.html'
+    templateUrl: 'app/tasks/form-fields/userField.html'
    
   };
 });
