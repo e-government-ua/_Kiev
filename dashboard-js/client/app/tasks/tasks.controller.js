@@ -56,7 +56,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   $scope.hasUnPopulatedFields = function () {
     if ($scope.selectedTask && $scope.taskForm) {
       var unpopulated = $scope.taskForm.filter(function (item) {
-        return (item.value === undefined || item.value === null || item.value.trim() === "") && item.required;//&& item.type !== 'file'
+        return (item.value === undefined || item.value === null || item.value.trim() === "") && (item.required|| $scope.isCommentAfterReject(item));//&& item.type !== 'file'
       });
       return unpopulated.length > 0;
     } else {
@@ -457,4 +457,22 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     } catch (e) { console.log(e); }
     Modal.inform.error()(msg);
   }
+  
+  $scope.isCommentAfterReject = function (item) {
+    if (item.id != "comment") return false;
+
+    var decision = $.grep($scope.taskForm, function (e) { return e.id == "decide"; });
+
+    if (decision.length == 0) {
+      // no decision
+    } else if (decision.length == 1) {
+      if (decision[0].value == "reject") return true;
+    }
+    return false;
+  };
+  
+  $scope.isRequired = function (item) {
+    return item.writable && (item.required || $scope.isCommentAfterReject(item));
+  };
+  
 });
