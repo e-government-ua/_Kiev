@@ -257,3 +257,5 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 343;747;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_46_ur:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 344;95;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_48:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 345;748;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_48_ur:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+346;749;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_51:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+347;750;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_52:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
