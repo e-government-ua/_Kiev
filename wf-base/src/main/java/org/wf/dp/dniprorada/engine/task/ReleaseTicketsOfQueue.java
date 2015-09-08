@@ -12,10 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import org.wf.dp.dniprorada.base.model.FlowSlotTicket;
-import org.wf.dp.dniprorada.base.util.JsonRestUtils;
-import org.wf.dp.dniprorada.base.viewobject.flow.SaveFlowSlotTicketResponse;
 
 import com.google.gson.Gson;
+import org.wf.dp.dniprorada.form.QueueDataFormType;
 
 @Component("releaseTicketsOfQueue")
 public class ReleaseTicketsOfQueue extends AbstractModelTask implements JavaDelegate{
@@ -32,17 +31,17 @@ public class ReleaseTicketsOfQueue extends AbstractModelTask implements JavaDele
 		LOG.info("SCAN:queueData");
         List<String> asFieldID = getListField_QueueDataFormType(oStartformData);
         LOG.info("asFieldID="+asFieldID.toString());
-        List<String> asFieldValue = getValueFieldWithCastomTypeFile(oExecution, asFieldID);
+        List<String> asFieldValue = getVariableValues(oExecution, asFieldID);
         LOG.info("asFieldValue="+asFieldValue.toString());
         if (!asFieldValue.isEmpty()) {
             String sValue = asFieldValue.get(0);
             LOG.info("sValue=" + sValue);
             long nID_FlowSlotTicket=0;
             
-            Map<String, Object> m = new Gson().fromJson(sValue, HashMap.class);
-            nID_FlowSlotTicket = ((Double)m.get("nID_FlowSlotTicket")).longValue();
+            Map<String, Object> m = QueueDataFormType.parseQueueData(sValue);
+            nID_FlowSlotTicket = QueueDataFormType.get_nID_FlowSlotTicket(m);
             LOG.info("nID_FlowSlotTicket=" + nID_FlowSlotTicket);
-            String sDate = (String) m.get("sDate");
+            String sDate = (String) m.get(QueueDataFormType.sDate);
             LOG.info("sDate=" + sDate);
             
             try{
@@ -59,20 +58,11 @@ public class ReleaseTicketsOfQueue extends AbstractModelTask implements JavaDele
                     LOG.error(oException.getMessage());
                 }
                 LOG.info("nID_Task_Activiti=" + nID_Task_Activiti);
-                
-                
-                FlowSlotTicket oFlowSlotTicket = oFlowSlotTicketDao.findById(nID_FlowSlotTicket).orNull();
-                if (oFlowSlotTicket == null) {
-                    String sError = "FlowSlotTicket with id=" + nID_FlowSlotTicket + " is not found!";
-                    LOG.error(sError);
-                    throw new Exception(sError);
-                }else if (oFlowSlotTicket.getnID_Task_Activiti()!=null) {
-                    oFlowSlotTicket.setnID_Task_Activiti(null);
-                    oFlowSlotTicketDao.saveOrUpdate(oFlowSlotTicket);
-                    LOG.error("Updated ticket. Set empty ID task activity");
-                }else{
-                	LOG.error("nID_Task_Activiti is empty for oFlowSlotTicket with ID " + nID_FlowSlotTicket);
+
+                if (!oFlowSlotTicketDao.unbindFromTask(nID_FlowSlotTicket)) {
+                    LOG.error("nID_Task_Activiti is empty for oFlowSlotTicket with ID " + nID_FlowSlotTicket);
                 }
+
             }catch(Exception oException){
                 LOG.error(oException.getMessage());
             }
