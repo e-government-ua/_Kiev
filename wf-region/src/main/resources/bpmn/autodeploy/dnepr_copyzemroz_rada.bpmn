@@ -26,7 +26,7 @@
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="2" name="Засвідчена в установленому порядку копія документа" type="file"></activiti:formProperty>
-       <activiti:formProperty id="sBody" name="sBody" type="string"></activiti:formProperty>
+       <activiti:formProperty id="sBody" name="sBody" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="3" name="Ситуаційний план (схема) щодо місцезнаходження земельної ділянки (у довільній формі);" type="file"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -165,7 +165,7 @@
         <activiti:formProperty id="text" name="Коментар в разі відмови" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="doc" name="Необхідний документ" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
-         <activiti:formProperty id="sBody" name="[pattern/print/dnepr_cnap_36.html]" type="string" default="${sBody}" writable="false"></activiti:formProperty>
+         <activiti:formProperty id="sBody" name="[pattern/print/dnepr_cnap_54.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow11" sourceRef="mailtask1" targetRef="usertask5"></sequenceFlow>
