@@ -1,14 +1,14 @@
 angular.module('app').config(function($stateProvider) {
   $stateProvider.state('index.service.general.country.built-in', {
-    url: '/built-in',
-    views: {
-      'content@index.service.general.country': {
-        // FIXME: REPLACE with WizardController
-        templateUrl: 'app/service/country/built-in/index.html',
-        controller: 'ServiceBuiltInController'
+      url: '/built-in',
+      views: {
+        'content@index.service.general.country': {
+          // FIXME: REPLACE with Wizard Controller
+          templateUrl: 'app/service/country/built-in/index.html',
+          controller: 'ServiceBuiltInController'
+        }
       }
-    }
-  })
+    })
     .state('index.service.general.country.built-in.bankid', {
       url: '/built-in/?code',
       parent: 'index.service.general.country',
@@ -26,7 +26,9 @@ angular.module('app').config(function($stateProvider) {
         },
         BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
           return BankIDService.isLoggedIn().then(function() {
-            return {loggedIn: true};
+            return {
+              loggedIn: true
+            };
           }).catch(function() {
             return $q.reject(null);
           });
@@ -41,11 +43,11 @@ angular.module('app').config(function($stateProvider) {
           var sProcessDefinitionKeyWithVersion = oServiceData.oData.oParams.processDefinitionId;
           var sProcessDefinitionKey = sProcessDefinitionKeyWithVersion.split(':')[0];
 
-          var sProcessDefinitionName = "тест";
+          var sProcessDefinitionName = 'тест';
           angular.forEach(processDefinitions.data, function(value, key) {
-            if (value.key == sProcessDefinitionKey) {
+            if (value.key === sProcessDefinitionKey) {
               sProcessDefinitionKeyWithVersion = value.id;
-              sProcessDefinitionName = "(" + value.name + ")";
+              sProcessDefinitionName = '(' + value.name + ')';
             }
           });
 
@@ -61,24 +63,28 @@ angular.module('app').config(function($stateProvider) {
       views: {
         'content@index.service.general.country': {
           templateUrl: 'app/service/country/built-in/bankid.html',
-          controller: 'ServiceBuiltInBankIDController' // FIXME-0
+          controller: 'ServiceBuiltInBankIDController' // FIXME-0-2
         }
       }
     })
     .state('index.service.general.country.built-in.bankid.submitted', {
       url: null,
-      data: {id: null},
+      data: {
+        id: null
+      },
       onExit: function($state) {
         var state = $state.get('index.service.general.country.built-in.bankid.submitted');
-        state.data = {id: null};
+        state.data = {
+          id: null
+        };
       },
       views: {
         'content@index.service.general.country': {
           templateUrl: 'app/service/country/built-in/bankid.submitted.html',
           controller: function($state, $scope, BankIDAccount) {
             $scope.state = $state.get('index.service.general.country.built-in.bankid.submitted');
-            
-            $scope.bankIdAccount = BankIDAccount
+
+            $scope.bankIdAccount = BankIDAccount;
           }
         }
       }

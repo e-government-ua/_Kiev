@@ -1,5 +1,5 @@
 angular.module('app').controller('ServiceFormController', function($scope, service, AdminService) {
-  console.log('service controller called');
+  console.log('States: service form controller called, $scope.service =', $scope.service);
   $scope.service = service;
   $scope.bAdmin = AdminService.isAdmin();
 });

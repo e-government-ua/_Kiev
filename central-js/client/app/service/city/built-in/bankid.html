@@ -2,34 +2,10 @@
 <div class="operator-name">{{service.sSubjectOperatorName}}</div-->
 
 <div class="list-group">
-  <div class="list-group-item disabled">
-    <div class="row no-margin-bottom">
-      <div class="col-md-11 form-inline">
-        <span class="step">Крок 1. Оберіть свій регіон </span>
-    
-        <div class="select-list-label">
-          <span>Область</span>
-          <select class="form-control disabled"
-                  name="region"
-                  ng-model="data.region"
-                  ng-options="region as region.sName for region in [data.region] | orderBy:'sName'" disabled></select>
-        </div>
-        <div class="select-list-label"
-             ng-if="ngIfCity()">
-          <span>Місто</span>
-          <select class="form-control disabled"
-                  name="city"
-                  ng-model="data.city"
-                  ng-options="city as city.sName for city in [data.city] | orderBy:'sName'" disabled></select>
-        </div>
-      </div>
-      <div class="col-md-1">
-        <div class="link-button">
-          <a ng-click="step1()">Змінити</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  
+  <h1>FIXME: service/city/buit-in/bankid.html</h1>
+  <place></place>
+
   <div class="list-group-item disabled">
     <div class="row no-margin-bottom">
       <div class="col-md-11">Крок 2. Ви увійшли як {{data.formData.params.bankIdfirstName.value}}

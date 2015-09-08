@@ -58,7 +58,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
   // Each controller which uses Places Control should tell it:
 
-  console.log('Hi! I\'m ServiceBuiltInBankIDController.');
+  console.log('Hi! I\'m Service Built-In BankID Controller');
   
   PlacesService.setController({
     controller: this,
@@ -85,21 +85,16 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   console.log('data.formData.params = ', JSON.stringify($scope.data.formData.params, null, '  '));
 
   $scope.ngIfCity = function() {
-    if ($state.current.name === 'index.service.general.city.built-in') {
+    var result = $scope.data.region ? true : false;
+    if ($state.current.name === 'index.service.general.city.built-in' || $state.current.name === 'index.service.general.city.built-in.bankid' ) {
       if ($scope.data.city) {
-        return true;
+        result = true;
       } else {
-        return false;
+        result = false;
       }
     }
-    if ($state.current.name === 'index.service.general.city.built-in.bankid') {
-      if ($scope.data.city) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-    return $scope.data.region ? true : false;
+    console.log('ng-if-city=', result);
+    return result;
   };
 
   // TODO try markers override here
@@ -131,9 +126,11 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       field.type = 'tel';
       field.sFieldType = 'tel';
     }
-    if (field.type == 'markers' && _.trim(field.value))
+    if (field.type === 'markers' && field.value.trim())
       _.merge(MarkersFactory.getMarkers(), JSON.parse(field.value), function(destVal, sourceVal) {
-        if (_.isArray(sourceVal)) return sourceVal;
+        if (_.isArray(sourceVal)) {
+          return sourceVal;
+        }
       });
   });
 

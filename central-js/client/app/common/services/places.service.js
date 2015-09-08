@@ -81,15 +81,9 @@ angular.module('app')
         return city ? city.nID : 0;
       };
 
-      console.log('state href: ', $state.href('index.service.general.city.built-in.bankid', {
-        'id': ctrl.service.nID,
-        'region': $scope.getRegionId(),
-        'city': $scope.getCityId()
-      }));
-
       var curState = $scope.getStateName();
 
-      console.log('Places (wizard), state = ', curState);
+      console.log('Places Service. $state =', $state);
 
       if (statesMap[curState] && statesMap[curState].startupFunction) {
         statesMap[curState].startupFunction.call(sequencer, $location, $state, $rootScope, $scope, placeCtrl);
@@ -144,7 +138,7 @@ angular.module('app')
 
         var state = stateByServiceType[params.serviceType.nID];
 
-        console.log('on Place сhange:', state, params, ', curState = ', curState);
+        console.log('Places Service. On Place сhange, state =', state, ', params =', params, ', curState = ', curState);
 
         if (curState === 'index.service.general.city.built-in' || curState === 'index.service.general.city') {
           if (state && params.placeData.city) {

@@ -4,7 +4,7 @@ angular.module('app').controller('WizardController', function(
   // Each controller which uses Places Control should tell it:
 
   // FIXME: preload regions and service and provide them as part of the locations service
-  console.log('re: ', regions );
+  console.log('WizardController. Regions: ', regions );
 
   PlacesService.setController({
     controller: this,
