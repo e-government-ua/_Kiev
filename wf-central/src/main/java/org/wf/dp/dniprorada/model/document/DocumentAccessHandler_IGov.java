@@ -4,10 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.dao.DocumentAccessDao;
 import org.wf.dp.dniprorada.dao.DocumentDao;
+import org.wf.dp.dniprorada.model.ByteArrayMultipartFileOld;
 import org.wf.dp.dniprorada.model.Document;
 import org.wf.dp.dniprorada.model.DocumentAccess;
+
+import java.io.ByteArrayInputStream;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
@@ -77,6 +81,22 @@ public class DocumentAccessHandler_IGov extends AbstractDocumentAccessHandler {
             throw new DocumentNotFoundException("Document Access not found");
         }
 
+        MultipartFile documentBody = getFileBody(doc);
+        doc.setFileBody(documentBody);
+
         return doc;
+    }
+
+    private MultipartFile getFileBody(Document document) {
+        byte[] content = documentDao.getDocumentContent(document.getContentKey());
+
+        String documentName = document.getFile();
+        String contentType = document.getContentType();
+
+        String[] parts = contentType.split("/");
+        String fileExtension = parts.length < 2 ? "" : parts[1];
+
+        return new ByteArrayMultipartFileOld(new ByteArrayInputStream(content),
+                documentName, documentName, contentType + ";" + fileExtension);
     }
 }

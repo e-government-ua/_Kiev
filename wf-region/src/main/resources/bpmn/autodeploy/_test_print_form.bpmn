@@ -75,7 +75,11 @@
         <activiti:field name="text">
           <activiti:expression>Шановний ${bankIdfirstName}
 
-[nID_Protected]</activiti:expression>
+&lt;p&gt; [nID_Protected] &lt;/p&gt;
+
+&lt;p&gt;тест кнопки отмены заявки [cancelTask] &lt;/p&gt;
+
+</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

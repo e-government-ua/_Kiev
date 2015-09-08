@@ -222,8 +222,9 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.renderAsLabel = function(property) {
     var fieldES = FieldAttributesService.editableStatusFor(property.id);
     var ES = FieldAttributesService.EditableStatus;
+    //property.type !== 'file'
     return (
-      $scope.data.formData.fields[property.id]
+            $scope.data.formData.fields[property.id]
       &&  fieldES == ES.NOT_SET
     ) || fieldES == ES.READ_ONLY;
   };
