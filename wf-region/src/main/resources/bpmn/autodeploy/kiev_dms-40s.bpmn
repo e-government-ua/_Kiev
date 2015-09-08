@@ -466,6 +466,9 @@
           <activiti:value id="other" name="Інші документи. (Вказати полем нижче)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="bringDocOther" name="Інші документи" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="milName" name="Найменування військомату, до якого Ви належали" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="milRank" name="Військове звання" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зареєструвати" type="enum">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
