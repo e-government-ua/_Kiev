@@ -6,8 +6,9 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
       abstract: true,
       url: 'service/{id:int}',
       resolve: {
+        // FIXME: Copy-pasting is bad, bad, bad
         service: function($stateParams, ServiceService) {
-          console.log('calling get service');
+          console.log('App.states: calling get service, $stateParams.id =', $stateParams.id);
           return ServiceService.get($stateParams.id);
         }
       },
@@ -45,14 +46,19 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
       resolve: {
         regions: function(PlacesService, service) {
           return PlacesService.getRegionsForService(service);
+        },
+        // FIXME: Copy-pasting is bad, bad, bad
+        service: function($stateParams, ServiceService) {
+          console.log('App.states: calling get service, $stateParams.id =', $stateParams.id);
+          return ServiceService.get($stateParams.id);
         }
       },
       views: {
         'content@index.service': {
-          // controller: 'ServiceCityController'
-          controller: 'WizardController',
-          // templateUrl: 'app/service/city/content.html'
-          templateUrl: 'app/service/wizard/wizard.content.html'
+          controller: 'ServiceCityController',
+          // controller: 'WizardController',
+          templateUrl: 'app/service/city/content.html'
+          // templateUrl: 'app/service/wizard/wizard.content.html'
         }
       }
     })
@@ -104,10 +110,10 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
       url: '/built-in',
       views: {
         'city-content': {
-          // templateUrl: 'app/service/city/built-in/index.html',
-          // controller: 'ServiceBuiltInController'
-          templateUrl: 'app/service/wizard/wizard.content.html',
-          controller: 'WizardController'
+          templateUrl: 'app/service/city/built-in/index.html',
+          // templateUrl: 'app/service/wizard/wizard.content.html',
+          controller: 'ServiceBuiltInController'
+            // controller: 'WizardController'
         }
       }
     })
@@ -198,7 +204,7 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
         'city-content': {
           templateUrl: 'app/service/city/built-in/bankid.html',
           //controller: 'WizardController' // 'BuiltinCityController'
-          controller: 'ServiceBuiltInBankIDController'// FIXME-0
+          controller: 'ServiceBuiltInBankIDController' // FIXME-0
         }
       }
     })
