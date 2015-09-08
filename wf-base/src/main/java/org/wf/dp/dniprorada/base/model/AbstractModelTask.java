@@ -6,6 +6,7 @@ import net.sf.jmimemagic.MagicException;
 import net.sf.jmimemagic.MagicMatchNotFoundException;
 import net.sf.jmimemagic.MagicParseException;
 import org.activiti.engine.ActivitiException;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.Expression;
@@ -47,10 +48,10 @@ public abstract class AbstractModelTask {
 
         
     @Autowired
-    private FlowSlotDao flowSlotDao;
+    protected FlowSlotDao flowSlotDao;
 
     @Autowired
-    private FlowSlotTicketDao oFlowSlotTicketDao;
+    protected FlowSlotTicketDao oFlowSlotTicketDao;
 
 
 	/**
@@ -183,21 +184,20 @@ public abstract class AbstractModelTask {
 		}
 		return listKeys;
 	}
-	
-	/**
-	 * Получить значения полей с кастомным типом file
-	 * @param execution
-	 * @param filedTypeFile
-	 * @return
-	 */
-	public static List<String> getValueFieldWithCastomTypeFile(DelegateExecution execution, List<String> filedTypeFile) {
+
+	public static List<String> getVariableValues(DelegateExecution execution, List<String> formFieldIds) {
+		return getVariableValues(execution.getEngineServices().getRuntimeService(), execution.getProcessInstanceId(),
+				  formFieldIds);
+	}
+
+	public static List<String> getVariableValues(RuntimeService runtimeService, String processInstanceId,
+																List<String> formFieldIds) {
 		List<String> listValueKeys = new ArrayList<String>();
-		if (!filedTypeFile.isEmpty()) {
-			Map<String, Object> variables = execution.getEngineServices()
-					.getRuntimeService()
-					.getVariables(execution.getProcessInstanceId());
-			for (String fieldId : filedTypeFile) {
-				if (variables.containsKey(fieldId)) {				
+		if (!formFieldIds.isEmpty()) {
+			Map<String, Object> variables = runtimeService.getVariables(
+					  processInstanceId);
+			for (String fieldId : formFieldIds) {
+				if (variables.containsKey(fieldId)) {
 					listValueKeys.add(String.valueOf(variables.get(fieldId)));
 				}
 			}
@@ -224,23 +224,22 @@ public abstract class AbstractModelTask {
 	}
 
 	/**
-	 * Получить ид поля с кастомным типом file
-	 * @param oFormData
-	 * @return
+	 * @param oFormData form data of process
+	 * @return variable ids with custom property type QueueDataFormType
 	 */
 	public static List<String> getListField_QueueDataFormType(FormData oFormData) {
-		List<String>asFieldID = new ArrayList<String>();
+		List<String> asFieldID = new ArrayList<String>();
 		List<FormProperty> aFormProperty = oFormData.getFormProperties();
-		if(!aFormProperty.isEmpty()){
-                    for (FormProperty oFormProperty : aFormProperty) {
-                            if(oFormProperty.getType() instanceof QueueDataFormType){
-                                    asFieldID.add(oFormProperty.getId());
-                            }
-                    }
+		if (!aFormProperty.isEmpty()) {
+			for (FormProperty oFormProperty : aFormProperty) {
+				if (oFormProperty.getType() instanceof QueueDataFormType) {
+					asFieldID.add(oFormProperty.getId());
+				}
+			}
 		}
 		return asFieldID;
 	}
-        
+
 	/**
 	 * Получить имя поля 
 	 * @param startformData
@@ -347,7 +346,7 @@ public abstract class AbstractModelTask {
         List<String> asFieldID = getListFieldCastomTypeFile(oFormData);
         LOG.info("[addAttachmentsToTask]");
         LOG.info("asFieldID="+asFieldID.toString());
-        List<String> asFieldValue = getValueFieldWithCastomTypeFile(oExecution, asFieldID);
+        List<String> asFieldValue = getVariableValues(oExecution, asFieldID);
         LOG.info("asFieldValue="+asFieldValue.toString());
         List<String> asFieldName = getListCastomFieldName(oFormData);
         LOG.info("asFieldName="+asFieldName.toString());
@@ -425,7 +424,7 @@ public abstract class AbstractModelTask {
         /*LOG.info("SCAN:queueData");
         asFieldID = getListField_QueueDataFormType(formData);
         LOG.info("asFieldID="+asFieldID.toString());
-        asFieldValue = getValueFieldWithCastomTypeFile(execution, asFieldID);
+        asFieldValue = getVariableValues(execution, asFieldID);
         LOG.info("asFieldValue="+asFieldValue.toString());
         //asFieldName = getListCastomFieldName(formData);
         //LOG.info("asFieldName="+asFieldName.toString());
@@ -476,7 +475,7 @@ public abstract class AbstractModelTask {
                 LOG.info("SCAN:queueData");
                 List<String> asFieldID = getListField_QueueDataFormType(oFormData);//startformData
                 LOG.info("asFieldID="+asFieldID.toString());
-                List<String> asFieldValue = getValueFieldWithCastomTypeFile(oExecution, asFieldID);
+                List<String> asFieldValue = getVariableValues(oExecution, asFieldID);
                 LOG.info("asFieldValue="+asFieldValue.toString());
                 //asFieldName = getListCastomFieldName(startformData);
                 //LOG.info("asFieldName="+asFieldName.toString());
@@ -486,15 +485,15 @@ public abstract class AbstractModelTask {
                     long nID_FlowSlotTicket=0;
                     
                     //sValue={"nID_FlowSlotTicket":20756,"sDate":"2015-08-22 12:00:00.00"}
-                    Map<String, Object> m = new Gson().fromJson(sValue, HashMap.class);
+                    Map<String, Object> m = QueueDataFormType.parseQueueData(sValue);
                     //String snID_FlowSlotTicket = (String) m.get("nID_FlowSlotTicket");
                     //String snID_FlowSlotTicket = m.get("nID_FlowSlotTicket")+"";
                     //Double
-                    nID_FlowSlotTicket = ((Double)m.get("nID_FlowSlotTicket")).longValue();
+                    nID_FlowSlotTicket = QueueDataFormType.get_nID_FlowSlotTicket(m);
                     //LOG.info("snID_FlowSlotTicket=" + snID_FlowSlotTicket);
                     //nID_FlowSlotTicket = Long.valueOf(snID_FlowSlotTicket);
                     LOG.info("nID_FlowSlotTicket=" + nID_FlowSlotTicket);
-                    String sDate = (String) m.get("sDate");
+                    String sDate = (String) m.get(QueueDataFormType.sDate);
                     LOG.info("sDate=" + sDate);
                     
                     /*int nAt=sValue.indexOf(":");

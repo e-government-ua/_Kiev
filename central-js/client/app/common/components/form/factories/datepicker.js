@@ -25,5 +25,9 @@ angular.module('app').factory('DatepickerFactory', function($filter) {
     return $filter('date')(this.value, this.format);
   };
 
+  datepicker.prototype.isFit = function(property){
+    return property.type === 'date';
+  };
+
   return datepicker;
 });

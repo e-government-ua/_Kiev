@@ -9,7 +9,9 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   oServiceData,
   BankIDAccount,
   ActivitiForm,
-  uiUploader) {
+  uiUploader,
+  FieldAttributesService,
+  MarkersFactory) {
 
   'use strict';
 
@@ -56,7 +58,8 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.data.formData = new FormDataFactory();
   $scope.data.formData.initialize(ActivitiForm);
   $scope.data.formData.setBankIDAccount(BankIDAccount);
-
+  //TODO uncomment after testing
+  $scope.data.formData.uploadScansFromBankID(oServiceData);
   var currentState = $state.$current;
 
   $scope.data.region = currentState.data.region;
@@ -109,6 +112,10 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       field.type = 'tel';
       field.sFieldType = 'tel';
     }
+    if (field.type == 'markers' && $.trim(field.value))
+      _.merge(MarkersFactory.getMarkers(), JSON.parse(field.value), function(destVal, sourceVal) {
+        if (_.isArray(sourceVal)) return sourceVal;
+      });
   });
 
   $scope.submit = function(form) {
@@ -199,6 +206,27 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       }
     }
     $scope.$apply();
+  };
+
+  $scope.showFormField = function(property) {
+    var fieldES = FieldAttributesService.editableStatusFor(property.id);
+    var ES = FieldAttributesService.EditableStatus;
+    return (
+        !$scope.data.formData.fields[property.id]
+        && property.type!='invisible'
+        && property.type!='markers'
+        && fieldES == ES.NOT_SET
+    ) || fieldES == ES.EDITABLE
+  };
+
+  $scope.renderAsLabel = function(property) {
+    var fieldES = FieldAttributesService.editableStatusFor(property.id);
+    var ES = FieldAttributesService.EditableStatus;
+    //property.type !== 'file'
+    return (
+            $scope.data.formData.fields[property.id]
+      &&  fieldES == ES.NOT_SET
+    ) || fieldES == ES.READ_ONLY;
   };
 
   // $timeout(function () {

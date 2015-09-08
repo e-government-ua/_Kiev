@@ -1,4 +1,4 @@
-<div class="list-group">
+<div class="list-group" ui-view="city-content">
     <div class="list-group-item"
          ng-class="{'disabled': data.city}">
         <div class="row no-margin-bottom">
@@ -35,7 +35,7 @@
                         <ul class="dropdown-menu"
                             role="menu">
                             <li ng-repeat="region in regionList.dropdown.list | orderBy:'sName'">
-                                <a ng-click="onSelectRegionList(region, null, null)"
+                                <a ng-click="onSelectRegionList(region)"
                                    ng-class="{'color-green': (region.color == 'green')}">{{region.sName}}</a>
                             </li>
                         </ul>

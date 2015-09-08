@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 /**
  * @author dgroup
- * @since 28.06.15
+ * @since  28.06.15
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("default")

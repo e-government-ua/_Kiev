@@ -1,0 +1,20 @@
+<div class="text-center" ng-show="!loaded">
+  <img class="text-center"
+       src="assets/images/loading.gif"
+       alt="Loading"/>
+</div>
+<table ng-show="loaded" class="table table-striped">
+  <thead>
+  <tr>
+    <th><!--a ng-click="changeSort()">Ім'я області &nbsp;{{ arrow }}</a--></th>
+    <th><center style="font-weight: normal;">Кількість наданих послуг</center></th>
+  </tr>
+  </thead>
+  <tbody >
+    <tr ng-repeat="region in stats | orderBy:'sName':reverse">
+      <td>{{region.sName}}</td>
+      <td style="text-align: center">{{region.nCount}}</td>
+    </tr>
+  </tbody>
+</table>
+

@@ -50,4 +50,6 @@ public interface FlowSlotDao extends EntityDao<FlowSlot> {
     */
    int updateSlots(Long nID_Flow_ServiceData, Collection<DateTime> dates, String newDuration);
 
+
+
 }

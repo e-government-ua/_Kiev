@@ -20,6 +20,7 @@ angular.module('app').factory('RegionListFactory', function($http, TypeaheadFact
       sFind: search
     };
     return this.typeahead.load('./api/places/regions', search, data).then(function(regions) {
+      if (service === null) return regions;
       var aServiceData = service.aServiceData;
 
       angular.forEach(regions, function(region) {

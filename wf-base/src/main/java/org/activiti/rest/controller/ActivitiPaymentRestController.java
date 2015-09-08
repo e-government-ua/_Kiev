@@ -6,7 +6,6 @@ import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricVariableInstance;
-import org.activiti.engine.impl.util.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.wf.dp.dniprorada.model.LiqpayCallbackModel;
-
-import java.util.HashMap;
-import java.util.Map;
 import org.wf.dp.dniprorada.base.dao.AccessDataDao;
+import org.wf.dp.dniprorada.model.LiqpayCallbackModel;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Mail;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ActivitiPaymentRestController {
@@ -51,35 +49,24 @@ public class ActivitiPaymentRestController {
     @Autowired
     AccessDataDao accessDataDao;
     
-    
-    
-    public static void main(String[] args) throws Exception {
-        Map values = new HashMap<String, String>();
-        values.put(LIQPAY_FIELD_TRANSACTION_ID, "123");
-        values.put(LIQPAY_FIELD_PAYMENT_STATUS, "success");
-        ActivitiPaymentRestController controller = new ActivitiPaymentRestController();
-        controller.setPaymentStatus("TaskActiviti_12345", new JSONObject(values).toString(), LIQPAY_PAYMENT_SYSTEM);
-    }
-    
     @RequestMapping(value = "/setPaymentStatus_TaskActiviti", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
 			@RequestParam String sID_Order,
 			@RequestParam String sID_PaymentSystem,
 			@RequestParam String sData,
 			@RequestParam(value = "data", required = false) String data,
-			@RequestParam(value = "signature", required = false) String signature
-			//@RequestParam byte[] data,
-			//@RequestParam byte[] signature
+			@RequestParam(value = "signature", required = false) String signature,
+			HttpServletRequest request
 			) throws Exception{
-
+            String URI = request.getRequestURI() + "?" + request.getQueryString();
             log.info("/setPaymentStatus_TaskActiviti");
             
             log.info("sID_Order="+sID_Order);
             log.info("sID_PaymentSystem="+sID_PaymentSystem);
             log.info("sData="+sData);
-
             log.info("data="+data);
             log.info("signature="+signature);
+            log.info("URI="+URI);
             String sDataDecoded = null;
             
             try{
@@ -94,7 +81,8 @@ public class ActivitiPaymentRestController {
                 String snID_Subject="0";
                 String sAccessKey=null;
                 try{
-                    sAccessKey = accessDataDao.setAccessData(snID_Subject);
+                    //sAccessKey = accessDataDao.setAccessData(snID_Subject);
+                    sAccessKey = accessDataDao.setAccessData(URI);
                 }catch(Exception oException1){
                     log.error("/setPaymentStatus_TaskActiviti:sAccessKey=", oException1);
                 }
@@ -105,8 +93,7 @@ public class ActivitiPaymentRestController {
                         .append("sID_Order=").append(sID_Order)
                         .append("&sID_PaymentSystem=").append(sID_PaymentSystem)
                         .append("&sData=").append("")
-                        //.append("&sID_Transaction=").append("")
-                        //.append("&sStatus_Payment=").append("")
+                        .append("sAccessContract=").append("Request")
                         .append("nID_Subject=").append(snID_Subject)
                         .append("&sAccessKey=").append(sAccessKey)
                         .toString();
@@ -118,12 +105,12 @@ public class ActivitiPaymentRestController {
                             .append("accept-charset=\"utf-8\">")
                             .append("<input type=\"text\" name=\"sID_Transaction\" value=\"\"/>")
                             .append("<input type=\"text\" name=\"sStatus_Payment\" value=\"\"/>")
-                            .append("<input type=\"submit\" value=\"Выполнить ручное сохранение!\"/>")
+                            .append("<input type=\"submit\" value=\"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!\"/>")
                             .append("</form>").toString();
 
 
                     String saToMail = "bvv4ik@gmail.com,dmitrij.zabrudskij@privatbank.ua";
-                    String sHead = (generalConfig.bTest()?"(test)":"(PROD)")+"/setPaymentStatus_TaskActiviti:Ошибка при попытке провести сохранить информацию о плетеде в активити-задачу!";
+                    String sHead = (generalConfig.bTest()?"(test)":"(PROD)")+"/setPaymentStatus_TaskActiviti:пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅ!";
                     String sBody = "oException.getMessage()="+oException.getMessage()+"<br>" +
                                     "<br>" +
 
@@ -133,10 +120,10 @@ public class ActivitiPaymentRestController {
                                     "data="+data+"<br>"+
                                     "signature="+signature+"<br>"+
                                     "<br>" +
-                                    "Чтоб вручную провести эту операцию нажмите:<br>" +
+                                    "пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ:<br>" +
                                     sFormHTML + "<br>" +
                                     "<br>" +
-                                    "Если не получается, перейдите по <a href=\"" + sURL + "&sID_Transaction=&sStatus_Payment=" + "\" target=\"_top\">этой ссылке</a>, и подставьте реальній ИД транзакции(sID_Transaction) и статус(sStatus_Payment). введя, при необходимости авторизационные логин и пароль (можно получить у админа)<br>" +
+                                    "пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ <a href=\"" + sURL + "&sID_Transaction=&sStatus_Payment=" + "\" target=\"_top\">пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ</a>, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ(sID_Transaction) пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ(sStatus_Payment). пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)<br>" +
                                     "(" + sURL + "&sID_Transaction=&sStatus_Payment=" + ")<br>" +
                                     "<br>"
                                     ;
@@ -367,7 +354,7 @@ public class ActivitiPaymentRestController {
 //=            Task oTask = taskService.createTaskQuery().taskId(""+nID_Task).singleResult();
 //=            String snID_Process = oTask.getProcessInstanceId();
             
-//TODO разобраться почему приходит ИД процесса а не таски
+//TODO пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             String snID_Process = snID_Task;
             String sID_Payment = sID_Transaction+"_"+sStatus_Payment;
             log.info("try to set: sID_Payment="+sID_Payment);

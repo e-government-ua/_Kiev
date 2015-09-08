@@ -1,22 +1,21 @@
-angular.module('app').controller('ServiceCityController', function($state,AdminService, $rootScope, $scope, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, service, regions) {
-  $scope.service = service;
-  $scope.regions = regions;
-    $scope.bAdmin = AdminService.isAdmin();
+angular.module('app').controller('ServiceCityController', function($state,AdminService, $rootScope, $scope, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, regions, serviceLocationParser) {
 
+  $scope.regions = regions;
   $scope.regionList = new RegionListFactory();
   $scope.regionList.initialize(regions);
 
   $scope.localityList = new LocalityListFactory();
 
   $scope.loadRegionList = function(search) {
-    return $scope.regionList.load(service, search);
+    return $scope.regionList.load($scope.service, search);
   };
 
-  $scope.onSelectRegionList = function($item, $model, $label) {
+  $scope.onSelectRegionList = function($item) {
     $scope.data.region = $item;
-    $scope.regionList.select($item, $model, $label);
-	
+    $scope.regionList.select($item);
+
 	var serviceType = $scope.findServiceDataByRegion();
+
     switch (serviceType.nID) {
       case 1:
         $state.go('index.service.general.city.link', {id: $scope.service.nID}, {location: false}).then(function() {
@@ -28,21 +27,23 @@ angular.module('app').controller('ServiceCityController', function($state,AdminS
 			isStep2 = true;
 		});
 		break;
-	  default:
-	    $scope.localityList.load(service, $item.nID, null).then(function(cities) {
+      default:
+	    $scope.localityList.load($scope.service, $item.nID, null).then(function(cities) {
           $scope.localityList.typeahead.defaultList = cities;
+          var initialCity = serviceLocationParser.getSelectedCity(cities);
+          if (initialCity)
+            $scope.onSelectLocalityList(initialCity);
         });
     }
   };
 
   $scope.loadLocalityList = function(search) {
-    return $scope.localityList.load(service, $scope.data.region.nID, search);
+    return $scope.localityList.load($scope.service, $scope.data.region.nID, search);
   };
 
   $scope.onSelectLocalityList = function($item, $model, $label) {
     $scope.data.city = $item;
     $scope.localityList.select($item, $model, $label);
-	
 	var serviceType = $scope.findServiceDataByCity();
     switch (serviceType.nID) {
       case 1:
@@ -66,7 +67,7 @@ angular.module('app').controller('ServiceCityController', function($state,AdminS
     region: null,
     city: null
   };
-  
+
   $scope.ngIfCity = function() {
 	if($state.current.name === 'index.service.general.city.built-in') {
 		if($scope.data.city) {
@@ -84,22 +85,22 @@ angular.module('app').controller('ServiceCityController', function($state,AdminS
 	}
 	return $scope.data.region ? true: false;
   };
-  
+
   $scope.getRegionId = function() {
 	var region = $scope.data.region;
 	return region ? region.nID: 0;
   };
-  
+
   $scope.getCityId = function() {
 	var city = $scope.data.city;
 	return city ? city.nID: 0;
   };
-  
+
   var isStep2 = false;
   $scope.ngIfStep2 = function() {
 	return isStep2;
-  }
-  
+  };
+
   $scope.findServiceDataByRegion = function() {
 	var aServiceData = $scope.service.aServiceData;
 	var serviceType = {nID: 0};
@@ -114,8 +115,8 @@ angular.module('app').controller('ServiceCityController', function($state,AdminS
       }
     });
 	return serviceType;
-  }
-  
+  };
+
   $scope.findServiceDataByCity = function() {
 	var aServiceData = $scope.service.aServiceData;
 	var serviceType = {nID: 0};
@@ -164,8 +165,11 @@ angular.module('app').controller('ServiceCityController', function($state,AdminS
   if ($state.current.name == 'service.general.city.built-in.bankid') {
     return true;
   }
+
+  var initialRegion = serviceLocationParser.getSelectedRegion(regions);
+  if (initialRegion)
+    $scope.onSelectRegionList(initialRegion);
 });
 
-angular.module('app').controller('BuiltinCityController', function($scope, service) {
-  $scope.service = service;
+angular.module('app').controller('BuiltinCityController', function($scope) {
 });

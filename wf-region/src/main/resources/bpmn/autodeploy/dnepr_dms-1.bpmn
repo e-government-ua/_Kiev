@@ -6,16 +6,17 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="DOB" name="Дата народження; Формат - ДД/ММ/РРРР" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="POB" name="Місце народження; Країна і місто" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія і номер)" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту; Або будь-якого посвідчення особистості" type="file"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="DOB" name="Дата народження; Формат - ДД/ММ/РРРР" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="POB" name="Місце народження; Країна і населений пункт" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="citizenship" name="Ваше громадянство" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kids" name="Чи є у вас дитина (молодша 14 років) яку Ви бажаєте зареєструвати за цією адресою; Якщо дитині більше 14 років або її реєструвати не треба - виберіть поле НІ. Діти старші 14 років подають заяву самостійно." type="enum" required="true">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="text1" name="Зверніть увагу" type="label" default="Будь ласка, вкажіть дані Вашої дитини, якщо її вік перевищую 14 років"></activiti:formProperty>
+        <activiti:formProperty id="text1" name="Зверніть увагу" type="label" default="Будь ласка, вкажіть дані Вашої дитини, якщо її вік перевищує 14 років"></activiti:formProperty>
         <activiti:formProperty id="kidsName" name="Прізвище дитини" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsFirstName" name="Ім'я дитини" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsMiddleName" name="По-Батькові дитини" type="string" default=" "></activiti:formProperty>
@@ -38,16 +39,21 @@
           <activiti:value id="other" name="Інші документи. (Вказати полем нижче)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="bringDocOther" name="Які саме документи Ви принесете; Заповніть якщо Ви вибрали опцію &quot;Інші документи&quot;" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="visitDay" name="У який день Вам буде зручно зайти до відділення ДМС; ДМС необхідно поставити відмітку у Ваш паспорт для завершення цієї процедури" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="visitTime" name="У який проміжок часу Вам буде зручно зустрітися; Будь ласка, вкажіть проміжок як мінімум у 2 години" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warning" name="Зверніть увагу" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="sBody" type="invisible"></activiti:formProperty>
+        
+        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow2" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <serviceTask id="servicetask1" name="Підтягування додаткових документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="flow1" sourceRef="boundaryerror1" targetRef="endevent2"></sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow3" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
     <serviceTask id="mailtask1" name="E-Mail підтвердження отримання запиту ДержОрганом" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -57,7 +63,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Реєстрація нового місця проживання</activiti:string>
+          <activiti:string>Звернення на тему: Реєстрація нового місця проживання/перебування особи</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -107,21 +113,21 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;&lt;/p&gt;
-										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
-										
-										Спеціалісти із Державного Органу повинні дати відповідь найближчим часом. 
-									&lt;p&gt;&lt;/p&gt;
-										Залишайтесь з нами. 	
-                                    &lt;p&gt;&lt;/p&gt;
+                                    &lt;p&gt;
+										Ваш запит був успішно зареєстрований у нашій системі.&lt;/p&gt;
+									&lt;p&gt;	
+										Спеціалісти ДМС повинні дати відповідь найближчим часом. 
+									&lt;/p&gt;
+				
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
+                                        Дніпропетровськ ДМС,&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -141,15 +147,16 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="Звернення на тему: Реєстрація нового місця проживання" activiti:candidateGroups="dnepr_dms_1">
+    <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
+    <userTask id="usertask1" name="Перевірка вхідних даних" activiti:candidateGroups="dnepr_dms_1">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькове" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="DOB" name="Дата народження; Формат - ДД/ММ/РРРР" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="POB" name="Місце народження; Країна і місто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані (серія і номер)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту; Або будь-якого посвідчення особистості" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="DOB" name="Дата народження; Формат - ДД/ММ/РРРР" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="POB" name="Місце народження; Країна і місто" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса прописки (BankID)" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="citizenship" name="Громадянство" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зареєструвати" type="enum" writable="false">
@@ -253,7 +260,7 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
@@ -297,14 +304,12 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
-      <errorEventDefinition></errorEventDefinition>
-    </boundaryEvent>
-    <endEvent id="endevent2" name="End"></endEvent>
-    <sequenceFlow id="flow1" sourceRef="boundaryerror1" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow2" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
-    <sequenceFlow id="flow3" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
-    <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
+    
+    
+    
+    <endEvent id="endevent1" name="End"></endEvent>
+    
+   
     <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow8" sourceRef="mailtask3" targetRef="endevent1"></sequenceFlow>
     <serviceTask id="mailtask3" name="E-Mail про успішне надання послуги" activiti:type="mail">
@@ -354,7 +359,7 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;

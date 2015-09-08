@@ -83,5 +83,9 @@ angular.module('app').factory('FileFactory', function ($q, $rootScope, ActivitiS
     return this.value;
   };
 
+  file.prototype.isFit = function(property){
+    return property.type === 'file';
+  };
+
   return file;
 });
