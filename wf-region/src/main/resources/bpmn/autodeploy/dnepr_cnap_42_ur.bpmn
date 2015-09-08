@@ -18,8 +18,8 @@
         <activiti:formProperty id="graduation_year" name="Рік випуску" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="country" name="Виробник (держава)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="chassis_number" name="Ідентифікаційні номери (заводський, шасі/рами)" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="trusted_person" name="Оформлення доручається провести (посада, прізвище, ім’я та по батькові)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="engine_number" name="Номер двигуна (також у дужках зазначається латинська літера «V», знак рівності та об’єм двигуна вликотонажного та іншого технологічного транспортного засобу)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="trusted_person" name="Оформлення доручається провести (посада, прізвище, ім’я та по батькові)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="file1" name="Акт технічного огляду" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Висновок експертизи, проведеної фахівцями експертно-технічного центру, на відповідність технологічного транспортного засобу нормативно-правовим актам з охорони праці України (для технологічних транспортних засобів, виготовлених за межами України чи переобладнаних або самостійно зібраних)" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="copy_doc" name="Копії документів (завірені згідно чинного законодавства)" type="label" default=" "></activiti:formProperty>
@@ -169,8 +169,8 @@
     <userTask id="usertask1" name="Обробка ЦНАП Дніпропетровськ" activiti:candidateGroups="dnepr_cnap_42_ur">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="name_company" name="Повне найменування юридичної особи" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adress" name="Юридична адреса" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="name_company" name="Повне найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Юридична адреса" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса стоянки великотоннажного та іншого технологічного транспортного засобу" type="string" writable="false"></activiti:formProperty>
@@ -541,8 +541,8 @@
     <userTask id="usertask2" name="Підготовка відповіді після рішення Держпромнагляду" activiti:candidateGroups="dnepr_cnap_42_ur">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="name_company" name="Повне найменування юридичної особи" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adress" name="Юридична адреса" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="name_company" name="Повне найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Юридична адреса" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса стоянки великотоннажного та іншого технологічного транспортного засобу" type="string" writable="false"></activiti:formProperty>
