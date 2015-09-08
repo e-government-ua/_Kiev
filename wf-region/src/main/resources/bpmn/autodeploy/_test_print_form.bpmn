@@ -50,6 +50,7 @@
           <activiti:value id="attr2" name="відповідь отримана, винесено рішення, повідомити громадянина"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="sBody" name="[pattern/print/subsidy.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="decision" name="завантажте рішення" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -63,7 +64,7 @@
     <sequenceFlow id="flow7" sourceRef="exclusivegateway1" targetRef="servicetask1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr2'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask1" name="отправка имейла" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
+    <serviceTask id="servicetask1" name="отправка имейла" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>
@@ -146,6 +147,9 @@
     &lt;/tr&gt;
     &lt;/tbody&gt;
 &lt;/table&gt;</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${decision}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
