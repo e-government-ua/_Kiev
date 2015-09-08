@@ -26,8 +26,8 @@
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="2" name="Засвідчена в установленому порядку копія документа" type="file"></activiti:formProperty>
-       <activiti:formProperty id="sBody" name="sBody" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="3" name="Ситуаційний план (схема) щодо місцезнаходження земельної ділянки (у довільній формі);" type="file"></activiti:formProperty>
+           <activiti:formProperty id="3" name="Додайте необхідний файл" type="file"></activiti:formProperty>
+          <activiti:formProperty id="sBody" name="sBody" type="string"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
