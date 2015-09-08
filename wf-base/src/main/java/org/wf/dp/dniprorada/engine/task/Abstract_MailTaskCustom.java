@@ -230,9 +230,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         }
         if (textWithoutTags.contains(TAG_CANCEL_TASK)){
             LOG.info("TAG_CANCEL_TASK:Found");
-            String cancelTaskBtn = new CancelTaskUtil().getCancelFormHTML(nID_Protected);
-            LOG.info(">>>>cancel button = " + cancelTaskBtn);
-            textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_CANCEL_TASK+"\\E", cancelTaskBtn);
+//            String cancelTaskBtn = new CancelTaskUtil().getCancelFormHTML(nID_Protected);
+//            LOG.info(">>>>cancel button = " + cancelTaskBtn);
+//            textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_CANCEL_TASK+"\\E", cancelTaskBtn);
         }else{
             //LOG.info("TAG_CANCEL_TASK:Not Found");
         }
