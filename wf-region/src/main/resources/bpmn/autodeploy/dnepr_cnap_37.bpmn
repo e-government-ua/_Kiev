@@ -15,6 +15,10 @@
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="obect" name="Укажіть об’єкт, на який потрібно надати дозвіл" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adres_2" name="Адреса об’єкта, на який видається дозвіл" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="poluchenie" name="Укажіть бажаний спосіб отримання дозволу" type="enum" required="true">
+          <activiti:value id="personally" name="особисто"></activiti:value>
+          <activiti:value id="post" name="поштою за мій кошт(рекомендованим листом з повідомленням про вручення)"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="adres" name="Якщо обрали спосіб отримання поштою, укажіть адресу на яку треба направити листа" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="pidpriemci" name="Ничже вказані поля треба заповнити юридичним особам чи особам-підприємцям" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="imya_ur" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
@@ -31,13 +35,13 @@
     <serviceTask id="mailtask2" name="Повідомлення співробітника держоргану" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[pastux.nikolay@gmail.com]]></activiti:string>
+          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Нове  звернення. Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки їстівних продуктів тваринного походження]]></activiti:string>
+          <activiti:string><![CDATA[Нове  звернення. Дніпропетровськ ЦНАП - Копії рішення міської ради про надання земельних ділянок державної або комунальної власності]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -93,7 +97,7 @@
                                 <td style="padding: 35px 120px;">
                                     <h3>Шановний(-а) колего!</h3>
                                     <p>
-У Вас в черзі на обробку зареєстровано нове звернення щодо отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки їстівних продуктів тваринного походження.<br />
+У Вас в черзі на обробку зареєстровано нове звернення щодо копії рішення міської ради про надання земельних ділянок державної або комунальної власності.<br />
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}<br />
 Відпрацюйте це звернення на порталі <a href="#current-page">test.region.igov.org.ua:6948</a>
                                     </p>
@@ -133,6 +137,10 @@
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="obect" name="Укажіть об’єкт, на який потрібно надати дозвіл" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adres_2" name="Адреса об’єкта, на який видається дозвіл" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="poluchenie" name="Бажаний спосіб отримання дозволу" type="enum" writable="false">
+          <activiti:value id="personally" name="особисто"></activiti:value>
+          <activiti:value id="post" name="поштою за мій кошт(рекомендованим листом з повідомленням про вручення)"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="adres" name="Якщо обрали спосіб отримання поштою, укажіть адресу на яку треба направити листа" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="imya_ur" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
@@ -146,7 +154,7 @@
           <activiti:value id="reject" name="Відмовити у наданні експлутаційного дозволу"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі іншої причини відмови у наданні дозволу внесіть, будь ласка, причину" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_37.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_54_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -167,7 +175,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: отримання експлутаційного дозволу для провадження діяльності]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: копії рішення міської ради про надання земельних ділянок державної або комунальної власності]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression><![CDATA[<!DOCTYPE html>
@@ -220,7 +228,7 @@
                                 <td style="padding: 35px 120px;">
            <p>
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}<br />
-Ви отримали експлуатаційний дозвіл для провадження діяльності: на потужностях (об'єктах) з переробки їстівних продуктів тваринного походження.<br />
+Ви отримали Дніпропетровськ ЦНАП - Копії рішення міської ради про надання земельних ділянок державної або комунальної власності.<br />
 Ви можете отримати дозвіл у ЦНАПі.<br />
 <br />
 Адреса центру надання адміністративних послуг "Правобережний" - пр.К.Маркса 75 (1 поверх)<br />
@@ -317,7 +325,7 @@
                                 <td style="padding: 35px 120px;">
 <p>
 <strong>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}</strong><br />
-Вам відмовлено у наданні експлуатаційного дозвілу для провадження діяльності: на потужностях (об'єктах) з переробки їстівних продуктів тваринного походження.<br />
+Вам відмовлено у наданні копії рішення міської ради про надання земельних ділянок державної або комунальної власності.<br />
 Підстава: ${comment_1}<br />
                                     </p>
                                     <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
@@ -350,7 +358,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: отримання експлутаційного дозволу для провадження діяльності]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: копії рішення міської ради про надання земельних ділянок державної або комунальної власності]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -374,7 +382,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: отримання експлутаційного дозволу для провадження діяльності]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: копії рішення міської ради про надання земельних ділянок державної або комунальної власності]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -430,7 +438,7 @@
                                 <td style="padding: 35px 120px;">
            <p>
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}<br />
-Ви отримали експлуатаційний дозвіл для провадження діяльності: на потужностях (об'єктах) з переробки їстівних продуктів тваринного походження.<br />
+Ви отримали копії рішення міської ради про надання земельних ділянок державної або комунальної власності.<br />
 Ви можете отримати дозвіл у ЦНАПі.<br />
 <br />
 Адреса центру надання адміністративних послуг "Лівобережний" - пр.ім. Газети "Правда" 42 (5 поверх)<br />
@@ -479,7 +487,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: отримання експлутаційного дозволу для провадження діяльності]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: копії рішення міської ради про надання земельних ділянок державної або комунальної власності]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -535,7 +543,7 @@
                                 <td style="padding: 35px 120px;">
            <p>
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}<br />
-Ваше звернення щодо отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки їстівних продуктів тваринного походження успішно зареєстровано і буде опрацьовано управлінням ветеринарної медицини в м.Дніпропетровську впродовж 10 робочих днів.<br />
+Ваше звернення щодо копії рішення міської ради про надання земельних ділянок державної або комунальної власності успішно зареєстровано і буде опрацьовано управлінням ветеринарної медицини в м.Дніпропетровську впродовж 10 робочих днів.<br />
                                     </p>
                                     </p>
                                     <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
@@ -584,7 +592,7 @@
         <omgdc:Bounds height="81.0" width="211.0" x="610.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
-        <omgdc:Bounds height="94.0" width="162.0" x="389.0" y="270.0"></omgdc:Bounds>
+        <omgdc:Bounds height="84.0" width="162.0" x="389.0" y="280.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="452.0" y="380.0"></omgdc:Bounds>
@@ -615,7 +623,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
         <omgdi:waypoint x="469.0" y="240.0"></omgdi:waypoint>
-        <omgdi:waypoint x="470.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="470.0" y="280.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="48.0" width="42.0" x="1.0" y="7.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
