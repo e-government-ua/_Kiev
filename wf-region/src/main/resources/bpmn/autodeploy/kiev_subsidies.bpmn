@@ -64,8 +64,8 @@
         <activiti:formProperty id="floors" name="Кількість поверхів" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="total_place" name="Загальна площа; кв. м." type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warming_place" name="Опалювальна площа; кв.м." type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_from" name="Період, за який Ви заповнюєте декларацію, з" type="date" default="01/01/2014" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_to" name="Період, за який Ви заповнюєте декларацію, по " type="date" default="31/12/2014" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_from" name="Період, за який Ви заповнюєте декларацію, з" type="string" default="01/01/2014" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_to" name="Період, за який Ви заповнюєте декларацію, по " type="string" default="31/12/2014" required="true"></activiti:formProperty>
         <activiti:formProperty id="income0" name="Ваш вид доходу" type="enum" default="attr9" required="true">
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
@@ -198,8 +198,8 @@
         <activiti:formProperty id="floors" name="Кількість поверхів" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="total_place" name="Загальна площа" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="warming_place" name="Опалювальна площа; кв.м." type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_from" name="Період, за який Ви заповнюєте деклацію, з" type="date" default="01/01/2015" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_to" name="Період, за який Ви заповнюєте декларацію, по" type="date" default="31/12/2014" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_from" name="Період, за який Ви заповнюєте деклацію, з" type="string" default="01/01/2015" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_to" name="Період, за який Ви заповнюєте декларацію, по" type="string" default="31/12/2014" writable="false"></activiti:formProperty>
         <activiti:formProperty id="income0" name="Ваш вид доходу" type="enum" default="attr9" writable="false">
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>

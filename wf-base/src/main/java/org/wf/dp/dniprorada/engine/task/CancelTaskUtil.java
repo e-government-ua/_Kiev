@@ -20,6 +20,7 @@ public class CancelTaskUtil {
     private static final String sURL_CancelTask =  "/wf-region/service/rest/tasks/cancelTask";
 
 
+
     private static final String TAG_action = "[sURL_CancelTask]";
     private static String TAG_nID_Protected = "[nID_Protected]";
     private static final String cancelButtonHTML = new StringBuilder()
@@ -29,8 +30,8 @@ public class CancelTaskUtil {
             .append("accept-charset=\"utf-8\">")
             .append("Ви можете скасувати свою заявку, вказавши причину в цьому полі: <br/>\n")
             .append("<input type=\"text\" name=\"sInfo\"/><br/>\n")
-            .append("<input type=\"hidden\" name=\"nID_Protected\" value=\"")
-            .append(TAG_nID_Protected + "\"/><br/>\n")
+            //.append("<input type=\"hidden\" name=\"nID_Protected\" value=\"")
+            //.append(TAG_nID_Protected + "\"/><br/>\n")
             .append("<input type=\"button\" name=\"submit\" ")
             .append("value=\"Скасувати заявку!\"/>")
             .append("</form>")

@@ -6,6 +6,7 @@ import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.*;
+import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
@@ -25,6 +26,7 @@ import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.ByteArrayDataSource;
 import org.apache.commons.mail.EmailException;
+import org.codehaus.groovy.tools.shell.util.MessageSource;
 import org.joda.time.DateTime;
 import org.json.simple.JSONValue;
 import org.slf4j.Logger;
@@ -37,8 +39,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.base.dao.AccessDataDao;
+import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import org.wf.dp.dniprorada.engine.task.FileTaskUpload;
+import org.wf.dp.dniprorada.form.QueueDataFormType;
 import org.wf.dp.dniprorada.model.BuilderAtachModel;
 import org.wf.dp.dniprorada.model.ByteArrayMultipartFileOld;
 import org.wf.dp.dniprorada.util.Mail;
@@ -72,8 +76,14 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
 	private static final Logger log = LoggerFactory.getLogger(ActivitiRestApiController.class);
 
+
+    public static final String CANCEL_INFO_FIELD = "sCancelInfo";
+
     @Autowired
     AccessDataDao accessDataDao;
+
+    @Autowired
+    private FlowSlotTicketDao flowSlotTicketDao;
 
     @Autowired
     private RuntimeService runtimeService;
@@ -89,7 +99,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     private IdentityService identityService;
     @Autowired
     private FormService formService;
-
     
     @Autowired
     private Mail oMail;
@@ -877,7 +886,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
    private List<String> getTaskByOrderInternal(Long nID_Protected) throws CRCInvalidException, RecordNotFoundException {
       AlgorithmLuna.validateProtectedNumber(nID_Protected);
 
-      String processInstanceID = String.valueOf(nID_Protected / 10);
+      String processInstanceID = String.valueOf(AlgorithmLuna.getOriginalNumber(nID_Protected));
 
       List<Task> aTask = taskService.createTaskQuery().processInstanceId(processInstanceID).list();
 
@@ -894,5 +903,68 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
       return res;
    }
+
+    @RequestMapping(value = "/tasks/cancelTask", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    void cancelTask(@RequestParam(value = "nID_Protected") Long nID_Protected,
+                    @RequestParam(value = "sInfo") String sInfo) throws ActivitiRestException {
+        try {
+            cancelTasksInternal(nID_Protected, sInfo);
+        } catch (CRCInvalidException | RecordNotFoundException | TaskAlreadyUnboundException e) {
+            ActivitiRestException newErr = new ActivitiRestException(
+                    "BUSINESS_ERR", e.getMessage(), e);
+            newErr.setHttpStatus(HttpStatus.FORBIDDEN);
+            throw newErr;
+        }
+    }
+
+    void cancelTasksInternal(Long nID_Protected, String sInfo) throws ActivitiRestException,
+            CRCInvalidException, RecordNotFoundException, TaskAlreadyUnboundException {
+
+        AlgorithmLuna.validateProtectedNumber(nID_Protected, "Неверный id заявки (Wrong id of order)");
+
+        String processInstanceId = "" + AlgorithmLuna.getOriginalNumber(nID_Protected);
+
+        List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstanceId).list();
+
+        final String TASK_NOT_FOUND_ERR_MESSAGE = "Заявка не найдена (Order not found)";
+        if (tasks == null || tasks.isEmpty()) {
+            log.error(String.format("Tasks for Process Instance [id = '%s'] not found", processInstanceId));
+            throw new RecordNotFoundException(TASK_NOT_FOUND_ERR_MESSAGE);
+        }
+
+        HistoricProcessInstance processInstance = historyService.createHistoricProcessInstanceQuery().processInstanceId(
+                processInstanceId).singleResult();
+
+        FormData formData = formService.getStartFormData(processInstance.getProcessDefinitionId());
+
+        List<String> propertyIds = AbstractModelTask.getListField_QueueDataFormType(formData);
+        List<String> queueDataList = AbstractModelTask.getVariableValues(runtimeService, processInstanceId,
+                propertyIds);
+
+        if (queueDataList.isEmpty()) {
+            log.error(String.format("Queue data list for Process Instance [id = '%s'] not found", processInstanceId));
+            throw new RecordNotFoundException(TASK_NOT_FOUND_ERR_MESSAGE);
+        }
+
+        for (String queueData : queueDataList) {
+            Map<String, Object> m = QueueDataFormType.parseQueueData(queueData);
+            long nID_FlowSlotTicket = QueueDataFormType.get_nID_FlowSlotTicket(m);
+            if (!flowSlotTicketDao.unbindFromTask(nID_FlowSlotTicket)) {
+                throw new TaskAlreadyUnboundException("Заявка уже отменена (Order already cancelled)");
+            }
+        }
+
+        runtimeService.setVariable(processInstanceId, CANCEL_INFO_FIELD,
+                String.format("[%s] Причина отмены заявки: %s", DateTime.now(), sInfo));
+
+    }
+
+    private static class TaskAlreadyUnboundException extends Exception {
+        public TaskAlreadyUnboundException(String message) {
+            super(message);
+        }
+    }
 
 }
