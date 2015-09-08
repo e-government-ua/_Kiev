@@ -9,7 +9,7 @@ router.get('/download/:nID', auth.isDocumentOwner(), documents.getDocumentFile);
 router.post('/initialUpload', auth.isAuthenticated(), documents.initialUpload);
 router.post('/upload', auth.isAuthenticated(), documents.upload);
 router.get('/:nID/share', auth.isDocumentOwner(), documents.shareDocument);
-router.get('/search/download/:nID/:sCode_DocumentAccess/:nID_DocumentOperator_SubjectOrgan/:nID_DocumentType/:sPass', documents.getDocumentFile);
+router.get('/search/download/:nID/:sCode_DocumentAccess/:nID_DocumentOperator_SubjectOrgan/:nID_DocumentType/:sPass', documents.getDocumentAbstract);
 router.get('/search/getDocumentTypes', documents.getDocumentTypes);
 router.get('/search/getDocumentOperators', documents.getDocumentOperators);
 router.post('/search/searchDocument', documents.searchDocument);

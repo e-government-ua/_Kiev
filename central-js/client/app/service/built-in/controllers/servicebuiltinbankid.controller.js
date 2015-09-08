@@ -241,17 +241,11 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.renderAsLabel = function(property) {
     var fieldES = FieldAttributesService.editableStatusFor(property.id);
     var ES = FieldAttributesService.EditableStatus;
-    return 
-      property.type != "file"
-      &&
-      (
-        (
+    //property.type !== 'file'
+    return (
             $scope.data.formData.fields[property.id]
-            && fieldES == ES.NOT_SET
-        )
-        || fieldES == ES.READ_ONLY
-      )
-      ;
+      &&  fieldES == ES.NOT_SET
+    ) || fieldES == ES.READ_ONLY;
   };
 
   // $timeout(function () {

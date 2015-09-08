@@ -17,18 +17,19 @@
         <activiti:formProperty id="micce" name="Місцезнаходження (адреса) об’єкта, на який видається документ" type="string"></activiti:formProperty>
         <activiti:formProperty id="davvid" name="У давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця" type="string"></activiti:formProperty>
         <activiti:formProperty id="kbed" name="Вид діяльності згідно з КВЕД" type="string"></activiti:formProperty>
-        <activiti:formProperty id="innedrpo" name="Ідентифікаційний код згідно з ЄДРПОУ" type="string"></activiti:formProperty>
-        <activiti:formProperty id="innfizl" name="Ідентифікаційний номер фізичної особи  – підприємця, платника податків та інших обов’язкових платежів" type="string"></activiti:formProperty>
+        <activiti:formProperty id="innedrpo" name="ідентифікаційний код згідно з ЄДРПОУ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="innfizl" name="ідентифікаційний номер фізичної особи  – підприємця, платника податків та інших обов’язкових платежів" type="string"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи" type="string"></activiti:formProperty>
-        <activiti:formProperty id="micurl" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string"></activiti:formProperty>
+        <activiti:formProperty id="micurl" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string"></activiti:formProperty>
         <activiti:formProperty id="2" name="Засвідчена в установленому порядку копія документа" type="file"></activiti:formProperty>
         <activiti:formProperty id="3" name="Ситуаційний план (схема) щодо місцезнаходження земельної ділянки (у довільній формі);" type="file"></activiti:formProperty>
         <activiti:formProperty id="vibor" name="Як би ви бажали отримати оригінал довідки?" type="enum" required="true">
-                <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
+          <activiti:value id="post" name="Поштою (буде стягуватись платня за рекомендований лист)"></activiti:value>
+          <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="text1" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="sBody" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="sBody" type="string"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
@@ -47,17 +48,17 @@
         <activiti:formProperty id="micce" name="Місцезнаходження (адреса) об’єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="davvid" name="У давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kbed" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="innedrpo" name="Ідентифікаційний код згідно з ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="innfizl" name="Ідентифікаційний номер фізичної особи  – підприємця, платника податків та інших обов’язкових платежів" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="innedrpo" name="ідентифікаційний код згідно з ЄДРПОУ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="innfizl" name="ідентифікаційний номер фізичної особи  – підприємця, платника податків та інших обов’язкових платежів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="micurl" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="micurl" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum">
           <activiti:value id="doc_ok" name="Документи в порядку, на протязі х днів очікуйте на відповідь"></activiti:value>
           <activiti:value id="doc_no" name="Документ оформленний не вірно"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="text" name="Коментар в разі відмови" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="doc" name="Необхідний документ" type="file"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_snap_36.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_cnap_36.html]" type="string" default="${sBody}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -270,7 +271,7 @@
       </extensionElements>
     </serviceTask>
     <serviceTask id="servicetask2" name="Необхідний документ з файлом" activiti:delegateExpression="#{MailTaskWithAttachments}">
-     <extensionElements>
+      <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
@@ -319,37 +320,66 @@
             <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
                 <!--header line statrs-->
                 <tr>
-                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov</b><br />портал державних послуг</td>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.<span>org.<span>ua</span></span></b><br />портал державних послуг</td>
                 </tr>
                 <!--header line end-->
                 <!--content statrs-->
                 <tr>
                     <td align="center">
+                        <form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&sAccessKey=[sAccessKey]&sData=Название услуги&sMail= &nID_SubjectMessageType=1" method="post">
                         <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
                             <tr>
                                 <td style="padding: 35px 120px;">
                                     <h3>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.</h3>
-                                      <p>
-                                         Ваше звернення опрацьовано. </p>
-<p>Документ знаходиться у додатку до цього листа. 
+                                    <p>
+                             Ваше звернення опрацьовано. Оригінал документа зможете забрати за адресою:<br />
+                             <br />
+                             ЦНАП «Лівобережний»: 49051, м. Дніпропетровськ просп. ім. Газети «Правда», 42, 5-й поверх, кімн. 4 <br />
+                             <br />
+                             ЦНАП «Правобережний»: 49000, м. Дніпропетровськ просп. Карла Маркса, 75, 1 поверх, кімн. 105 (1-й поверх). <br />
+                             <br />
+ЦНАП «Правобережний»:тел. (056) 745-52-19; ЦНАП «Лівобережний»: тел./факс (056) 726-30-69 <br />
+<a href="#current-page">e-services.dp.gov.ua</a><br />
+<br />
+<br />
                                     </p>
-
-                                  
-                                    </p>
-                                    
                                     <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
                                     <p>
                                         З повагою,<br />
-                                        ЦНАП м. Дніпропетровськ,<br />
                                         Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
                                     </p>
                                 </td>
                             </tr>
-                           
-                          
+                            <tr>
+                                <td style="padding: 35px 120px 0 120px;">
+                                    <b>Оцініть, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:</b>
 
+                                    <p style="text-align: center;">
+                                        <label><input type="radio" name="sHead" value="2"><span>2</span></label>
+                                        <label><input type="radio" name="sHead" value="3"><span>3</span></label>
+                                        <label><input type="radio" name="sHead" value="4"><span>4</span></label>
+                                        <label><input type="radio" name="sHead" value="5"><span>5</span></label>
+                                    </p>
+
+                                    <p style="font-size: 13px;">
+                                        Якщо ви не задоволені якістю, прокоментируйте, будь ласка.<br />
+                                        Ви також <b style="color: #cc3333;">можете анонімно</b> подати сигнал про будь-які правопорушення державних працівників.
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0 120px 35px 120px;">
+                                    <label><input type="checkbox" name="warnSignal"> Подати сигнал анонімно</label>
+                                    <label style="height: 110px; display: block;"><textarea name="sBody"></textarea></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0 120px 55px 120px; text-align: center;">
+                                    <button type="submit">Відправити</button>
+                                </td>
+                            </tr>
                         </table>
-                     
+                        </form>
                     </td>
                 </tr>
                 <!--content end-->
