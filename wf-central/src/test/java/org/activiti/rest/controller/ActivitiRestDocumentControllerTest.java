@@ -102,7 +102,7 @@ public class ActivitiRestDocumentControllerTest {
         assertEquals("Subjects aren't match, ", 1, doc.getSubject().getId().longValue());
     }
 
-    @Test
+    @Test @Ignore
     public void getDocumentByCodeAndWrongOrgan() throws Exception {
         String organID = "100500";
         String jsonData = mockMvc
@@ -121,7 +121,7 @@ public class ActivitiRestDocumentControllerTest {
         assertEquals("Entity with nID_SubjectOrgan='" + organID + "' not found", msg.getMessage());
     }
 
-    @Test
+    @Test @Ignore
     public void getDocumentByWrongCode() throws Exception {
         String jsonData = mockMvc
             .perform(get("/services/getDocumentAccessByHandler")
@@ -208,7 +208,7 @@ public class ActivitiRestDocumentControllerTest {
         assertEquals("Subjects aren't match, ", 2, doc.getSubject().getId().longValue());
     }
 
-    @Test
+    @Test @Ignore
     public void getDocumentByCodeAndWrongDocumentTypeAndOrganAndPassword() throws Exception {
         String jsonData = mockMvc
             .perform(get("/services/getDocumentAccessByHandler")
