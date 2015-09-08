@@ -49,17 +49,29 @@ public class AlgorithmLuna {
         return getCheckSumLastDigit(inputNumber) + inputNumber * 10  ;
     }
 
+    public static long getOriginalNumber(long protectedNumber) {
+        return protectedNumber / 10;
+    }
+
     public static boolean checkProtectedNumber(Long inputNumber){
-        log.info("inputNumber / 10="+(inputNumber / 10));
+        long originalNumber = getOriginalNumber(inputNumber);
+
+        log.info("inputNumber / 10=" + originalNumber);
         log.info("inputNumber="+inputNumber);
         log.info("getLastDigit(inputNumber)="+getLastDigit(inputNumber));
-        log.info("getCheckSumLastDigit(inputNumber / 10)="+getCheckSumLastDigit(inputNumber / 10));
-        return getCheckSumLastDigit(inputNumber / 10) == getLastDigit(inputNumber);
+        log.info("getCheckSumLastDigit(inputNumber / 10)="+getCheckSumLastDigit(originalNumber));
+        return getCheckSumLastDigit(originalNumber) == getLastDigit(inputNumber);
     }
 
     public static void validateProtectedNumber(Long inputNumber) throws CRCInvalidException {
         if (!checkProtectedNumber(inputNumber)) {
             throw new CRCInvalidException();
+        }
+    }
+
+    public static void validateProtectedNumber(Long inputNumber, String errorMessage) throws CRCInvalidException {
+        if (!checkProtectedNumber(inputNumber)) {
+            throw new CRCInvalidException(errorMessage);
         }
     }
 
