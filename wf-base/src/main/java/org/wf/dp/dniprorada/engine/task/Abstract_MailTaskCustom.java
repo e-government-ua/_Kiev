@@ -87,7 +87,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
     @Autowired
     LiqBuy liqBuy;
-    
+    @Autowired
+    private CancelTaskUtil cancelTaskUtil;
+
     protected Expression sID_Merchant;
     protected Expression sSum;
     protected Expression sID_Currency;
@@ -230,11 +232,16 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         }
         if (textWithoutTags.contains(TAG_CANCEL_TASK)){
             LOG.info("TAG_CANCEL_TASK:Found");
-//            String cancelTaskBtn = new CancelTaskUtil().getCancelFormHTML(nID_Protected);
-//            LOG.info(">>>>cancel button = " + cancelTaskBtn);
-//            textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_CANCEL_TASK+"\\E", cancelTaskBtn);
+            try{
+                String cancelTaskBtn = cancelTaskUtil.getCancelFormHTML(nID_Protected);
+
+                LOG.info(">>>>cancel button = " + cancelTaskBtn);
+                textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_CANCEL_TASK+"\\E", cancelTaskBtn);
+            } catch (Exception e){
+                LOG.error("ex during creating cancel task!", e);
+            }
         }else{
-            //LOG.info("TAG_CANCEL_TASK:Not Found");
+            LOG.info("TAG_CANCEL_TASK:Not Found");
         }
         if (textWithoutTags.contains(TAG_nID_SUBJECT)) {
             textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_nID_SUBJECT+"\\E", "" + nID_Subject);
