@@ -110,15 +110,12 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             LOG.info("sID_Merchant="+sID_Merchant);
             //sID_Merchant = getStringFromFieldExpression(this.sID_Merchant, execution);
             //LOG.info("sID_Merchant="+sID_Merchant);
-            
             //String sSum = getStringFromFieldExpression(this.sSum, execution);
             String sSum = execution.getVariable("sSum").toString();
             LOG.info("sSum="+sSum);
             if(sSum!=null){
                 sSum=sSum.replaceAll(",", ".");
             }
-            
-            
             //String sID_Currency = getStringFromFieldExpression(this.sID_Currency, execution);
             String sID_Currency = execution.getVariable("sID_Currency").toString();
             LOG.info("sID_Currency="+sID_Currency);
@@ -222,7 +219,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         Long nID_Protected = getProtectedNumber(Long.valueOf(execution.getProcessInstanceId()));
         LOG.info("nID_Protected="+nID_Protected);
         if (textWithoutTags.contains(TAG_nID_Protected)) {
-            textWithoutTags = textWithoutTags.replaceAll(TAG_nID_Protected, "" + nID_Protected);
+            textWithoutTags = textWithoutTags.replace(TAG_nID_Protected, "" + nID_Protected);
         }
         if (textWithoutTags.contains(TAG_CANCEL_TASK)){
             String cancelTaskBtn = new CancelTaskUtil().getCancelFormHTML(nID_Protected);
