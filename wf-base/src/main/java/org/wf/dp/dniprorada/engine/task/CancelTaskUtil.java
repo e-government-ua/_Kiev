@@ -32,7 +32,7 @@ public class CancelTaskUtil {
             .append("<input type=\"text\" name=\"sInfo\"/><br/>\n")
             //.append("<input type=\"hidden\" name=\"nID_Protected\" value=\"")
             //.append(TAG_nID_Protected + "\"/><br/>\n")
-            .append("<input type=\"button\" name=\"submit\" ")
+            .append("<input type=\"submit\" name=\"submit\" ")
             .append("value=\"Скасувати заявку!\"/>")
             .append("</form>")
                 .toString();
