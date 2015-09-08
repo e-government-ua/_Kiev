@@ -904,7 +904,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
       return res;
    }
 
-    @RequestMapping(value = "/tasks/cancelTask", method = RequestMethod.GET)
+    @RequestMapping(value = "/tasks/cancelTask", method = RequestMethod.POST)
     public
     @ResponseBody
     void cancelTask(@RequestParam(value = "nID_Protected") Long nID_Protected,
