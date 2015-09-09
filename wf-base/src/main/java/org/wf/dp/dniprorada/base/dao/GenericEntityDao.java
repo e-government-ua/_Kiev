@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 import org.wf.dp.dniprorada.base.model.Entity;
 
 import java.util.List;
+import org.hibernate.criterion.Order;
 
 import static org.hibernate.criterion.Restrictions.eq;
 import static org.hibernate.criterion.Restrictions.in;
@@ -106,7 +107,7 @@ public class GenericEntityDao<T extends Entity> implements EntityDao<T> {
                 .list();
     }
 
-    private Criteria findByAttributeCriteria(String field, Object value) {
+    protected Criteria findByAttributeCriteria(String field, Object value) {
         Assert.hasText(field, "Specify field name");
         Assert.notNull(value, "Specify value");
 
