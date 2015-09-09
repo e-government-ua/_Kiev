@@ -96,7 +96,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
 
     private void saveHistory(HttpServletRequest request, HttpServletResponse response, boolean saveHistory) throws IOException {
         
-        Map mParamRequest = new HashMap();
+        Map<String,String> mParamRequest = new HashMap();
         Enumeration paramsName = request.getParameterNames();
         while (paramsName.hasMoreElements()) {
             String sKey = (String) paramsName.nextElement();
@@ -139,7 +139,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             logger.info("sRequestBody: " + sRequestBody);
 
             if (isSaveTask(request, sResponseBody)) {
-                saveNewTaskInfo(sRequestBody, sResponseBody);
+                saveNewTaskInfo(sRequestBody, sResponseBody, mParamRequest);
             }
             else if (isCloseTask(request, sResponseBody)) {
                 saveClosedTaskInfo(sRequestBody);
@@ -167,7 +167,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 && "POST".equalsIgnoreCase(request.getMethod().trim());
     }
 
-    private void saveNewTaskInfo(String sRequestBody, String sResponseBody) throws Exception {
+    private void saveNewTaskInfo(String sRequestBody, String sResponseBody, Map<String,String> mParamRequest) throws Exception {
         Map<String, String> params = new HashMap<String, String>();
         JSONObject jsonObjectRequest = (JSONObject) parser.parse(sRequestBody);
         JSONObject jsonObjectResponse = (JSONObject) parser.parse(sResponseBody);
@@ -183,6 +183,22 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         params.put("sProcessInstanceName", processDefinition.getName() != null ? processDefinition.getName() + "!" :
                 "Non name!");
         params.put("nID_Subject", String.valueOf(jsonObjectRequest.get("nID_Subject")));
+        //nID_Service, Long nID_Region, String sID_UA
+        String snID_Region = mParamRequest.get("nID_Region");
+        if(snID_Region!=null){
+            params.put("nID_Region", snID_Region);
+        }
+        
+        String snID_Service = mParamRequest.get("nID_Service");
+        if(snID_Service!=null){
+            params.put("nID_Service", snID_Service);
+        }
+            
+        String sID_UA = mParamRequest.get("sID_UA");
+        if(sID_UA!=null){
+            params.put("sID_UA", sID_UA);
+        }
+        
 
         callRestController(sID_Process, serviceName, taskName, params);
 

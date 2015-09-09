@@ -17,7 +17,7 @@
         <activiti:formProperty id="Nationality" name="Національність" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="RegistrationAddress" name="Звідки Ви прибули; Населений пункт / Вулиця / Будинок / Корпус / Квартира" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Звідки Ви прибули; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="newAddressLabel" name="Ваша нова адреса реєстрації" type="label" default="Заповніть деталі вашої нової адреси"></activiti:formProperty>
         <activiti:formProperty id="newCity" name="Населений пункт " type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="newStreet" name="Вулиця " type="textArea" required="true"></activiti:formProperty>
@@ -590,10 +590,10 @@
     </serviceTask>
     <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
-    <sequenceFlow id="flow22" name="${workerDecision=='accept'}" sourceRef="exclusivegateway4" targetRef="usertask4">
+    <sequenceFlow id="flow22" name="${workerDecision=='accept'}" sourceRef="exclusivegateway4" targetRef="usertask4_yellow">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask4" name="Підтвердження отримання ЦНАПом документів від ДМС" activiti:candidateGroups="kiev_dms_40_${district}">
+    <userTask id="usertask4_yellow" name="Підтвердження отримання ЦНАПом документів від ДМС" activiti:candidateGroups="kiev_dms_40_${district}">
       <extensionElements>
         <activiti:formProperty id="NumSp" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -659,9 +659,9 @@
         </activiti:formProperty>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow16" sourceRef="usertask4" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow16" sourceRef="usertask4_yellow" targetRef="exclusivegateway2"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow17" name="${workerDecision=='decline'}" sourceRef="exclusivegateway2" targetRef="usertask4">
+    <sequenceFlow id="flow17" name="${workerDecision=='decline'}" sourceRef="exclusivegateway2" targetRef="usertask4_yellow">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='decline'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow13" name="${workerDecision=='accept'}" sourceRef="exclusivegateway2" targetRef="mailtask4">
@@ -766,7 +766,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow15" sourceRef="mailtask4" targetRef="usertask5"></sequenceFlow>
+    <sequenceFlow id="flow15" sourceRef="mailtask4" targetRef="usertask5_green"></sequenceFlow>
     <sequenceFlow id="flow33" sourceRef="exclusivegateway2" targetRef="mailtask7">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept' &&district=='solom'}]]></conditionExpression>
     </sequenceFlow>
@@ -870,7 +870,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow34" sourceRef="mailtask7" targetRef="usertask5"></sequenceFlow>
+    <sequenceFlow id="flow34" sourceRef="mailtask7" targetRef="usertask5_green"></sequenceFlow>
     <sequenceFlow id="flow32" sourceRef="exclusivegateway2" targetRef="mailtask8">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept' &&district=='shev'}]]></conditionExpression>
     </sequenceFlow>
@@ -974,8 +974,8 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow35" sourceRef="mailtask8" targetRef="usertask5"></sequenceFlow>
-    <userTask id="usertask5" name="Підтвердження видачі документів ЦНАПом заявнику" activiti:candidateGroups="kiev_dms_40_${district}">
+    <sequenceFlow id="flow35" sourceRef="mailtask8" targetRef="usertask5_green"></sequenceFlow>
+    <userTask id="usertask5_green" name="Підтвердження видачі документів ЦНАПом заявнику" activiti:candidateGroups="kiev_dms_40_${district}">
       <extensionElements>
         <activiti:formProperty id="NumSp" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -1041,12 +1041,12 @@
         </activiti:formProperty>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow25" sourceRef="usertask5" targetRef="exclusivegateway5"></sequenceFlow>
+    <sequenceFlow id="flow25" sourceRef="usertask5_green" targetRef="exclusivegateway5"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow27" name="${workerDecision=='accept'}" sourceRef="exclusivegateway5" targetRef="endevent1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow26" name="${workerDecision=='decline'}" sourceRef="exclusivegateway5" targetRef="usertask5">
+    <sequenceFlow id="flow26" name="${workerDecision=='decline'}" sourceRef="exclusivegateway5" targetRef="usertask5_green">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='decline'}]]></conditionExpression>
     </sequenceFlow>
   </process>
@@ -1088,7 +1088,7 @@
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="1040.0" y="249.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+      <bpmndi:BPMNShape bpmnElement="usertask4_yellow" id="BPMNShape_usertask4_yellow">
         <omgdc:Bounds height="81.0" width="177.0" x="653.0" y="226.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
@@ -1103,7 +1103,7 @@
       <bpmndi:BPMNShape bpmnElement="mailtask8" id="BPMNShape_mailtask8">
         <omgdc:Bounds height="71.0" width="133.0" x="850.0" y="410.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
+      <bpmndi:BPMNShape bpmnElement="usertask5_green" id="BPMNShape_usertask5_green">
         <omgdc:Bounds height="81.0" width="177.0" x="653.0" y="500.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway5" id="BPMNShape_exclusivegateway5">
