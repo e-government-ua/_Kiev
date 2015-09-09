@@ -99,83 +99,38 @@
                       ng-show="error"></show-error>
 
           <div ng-repeat="item in taskForm" class="task-form-property">
+            
             <div ng-if="['string', 'long', 'date'].indexOf(item.type) > -1">
-
-              <label>{{sFieldLabel(item.name)}}</label>
-
-              <div class="input-group">
-                <input class="form-control"
-                       ng-disabled="isFormPropertyDisabled(item)"
-                       ng-required="item.required"
-                       ng-model="item.value"/>
-                            <span class="input-group-addon"
-                                  ng-if="isFormPropertyDisabled(item)"
-                                  clip-copy="item.value">
-                                <i class="glyphicon glyphicon-copy"></i>
-                            </span>
+              <field-title></field-title>
+              <simple-field></simple-field>
               </div>
-            </div>
 
-            <p ng-if="item.type == 'textArea'">
-              <label>{{sFieldLabel(item.name)}}</label>
-                        <textarea class="form-control"
-                                  ng-disabled="isFormPropertyDisabled(item)"
-                                  ng-required="item.required"
-                                  ng-model="item.value"></textarea>
-            </p>
+            <textarea-field></textarea-field>
 
-            <p ng-if="item.type == 'user'">
-              <label>{{sFieldLabel(item.name)}}</label>
-              <input class="form-control"
-                     ng-disabled="true"
-                     ng-required="item.required"
-                     ng-model="item.value"/>
-            </p>
+            <user-field></user-field>
 
-            <p ng-if="item.type == 'enum'">
-              <label>{{sFieldLabel(item.name)}}</label>
-              <select class="form-control"
-                      ng-disabled="isFormPropertyDisabled(item)"
-                      ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues"
-                      ng-required="item.required"
-                      ng-model="item.value"></select>
-            </p>
+            <enum-field></enum-field>
 
-            <p ng-if="item.type == 'file' && !isFormPropertyDisabled(item)">
-              <label>{{sFieldLabel(item.name)}}</label>
-              <file-field name="{{item.id}}"
-                          ng-disabled="isFormPropertyDisabled(item)"
-                          ng-model="item.value"
-                          ng-required="property.required">Add File
-              </file-field>
-            </p>
-
-            <!--'string', 'long', 'date' 'textArea' 'user' 'enum' 'file'-->
-            <!--p ng-if="['string', 'long', 'date', 'textArea', 'user', 'enum', 'file'].indexOf(item.type) == -1">
-                <label>{{sFieldLabel(item.name)}}</label>
-                <input class="form-control"
-                       ng-disabled="true"
-                       ng-required="item.required"
-                       ng-model="item.value"/>
-            </p-->
+            <file-formfield></file-formfield>
 
             <p style="display: none;" ng-if="['invisible'].indexOf(item.type) > -1">
-              <label>{{sFieldLabel(item.name)}}</label>
+              <field-title></field-title>
             </p>
 
             <p ng-if="['label'].indexOf(item.type) > -1">
-              <label>{{sFieldLabel(item.name)}}</label>
+              <field-title></field-title>
               <label>{{item.value}}</label>
             </p>
 
             <p ng-if="['queueData'].indexOf(item.type) > -1">
-              <label>{{sFieldLabel(item.name)}}</label>
+              <field-title></field-title>
               <label
                 title="{{nID_FlowSlotTicket_FieldQueueData(item.value)}}">{{sDate_FieldQueueData(item.value)}}</label>
             </p>
 
 
           </div>
+         
           <div ng-show="attachments">
             <p ng-repeat="item in attachments">
               Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content/{{($index+1)}}"

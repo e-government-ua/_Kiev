@@ -1,0 +1,8 @@
+<p ng-if="item.type == 'user'">
+              <label>{{sFieldLabel(item.name)}}</label>
+              <input class="form-control"
+                     ng-disabled="true"
+                     ng-required="item.required"
+                     ng-model="item.value"
+                     ng-class="{submitted:isTaskSubmitted()}"/>
+            </p>

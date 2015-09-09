@@ -56,7 +56,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   $scope.hasUnPopulatedFields = function () {
     if ($scope.selectedTask && $scope.taskForm) {
       var unpopulated = $scope.taskForm.filter(function (item) {
-        return (item.value === undefined || item.value === null || item.value.trim() === "") && item.required;//&& item.type !== 'file'
+        return (item.value === undefined || item.value === null || item.value.trim() === "") && (item.required|| $scope.isCommentAfterReject(item));//&& item.type !== 'file'
       });
       return unpopulated.length > 0;
     } else {
@@ -64,6 +64,17 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     }
   }
 
+  $scope.unpopulatedFields = function () {
+    if ($scope.selectedTask && $scope.taskForm) {
+      var unpopulated = $scope.taskForm.filter(function (item) {
+        return (item.value === undefined || item.value === null || item.value.trim() === "") && (item.required|| $scope.isCommentAfterReject(item));//&& item.type !== 'file'
+      });
+      return unpopulated;
+    } else {
+      return [];
+    }
+  }
+  
   $scope.isFormPropertyDisabled = function (formProperty) {
     if ($scope.selectedTask && $scope.selectedTask.assignee === null) {
       return true;
@@ -173,10 +184,37 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
   $scope.submitTask = function () {
     if ($scope.selectedTask && $scope.taskForm) {
-      if($scope.hasUnPopulatedFields()){
-        Modal.inform.error()('Не всі поля заповнені!');
+      $scope.taskForm.isSubmitted = true;
+                  
+      var unpopulatedFields = $scope.unpopulatedFields();
+      if(unpopulatedFields.length>0){
+        var errorMessage = 'Будь ласка, заповніть поля: ';
+        
+        if (unpopulatedFields.length==1){
+         
+          var nameToAdd = unpopulatedFields[0].name;
+          if (nameToAdd.length > 50) {
+            nameToAdd = nameToAdd.substr(0, 50)+"...";
+          }
+          
+          errorMessage = "Будь ласка, заповніть полe '"+nameToAdd+"'";
+        }
+        else {
+        unpopulatedFields.forEach(function(field){
+
+          var nameToAdd = field.name;         
+          if (nameToAdd.length > 50) {
+            nameToAdd = nameToAdd.substr(0, 50)+"...";
+          }
+          errorMessage = errorMessage +"'" +nameToAdd+"',<br />";
+        });
+        var comaIndex = errorMessage.lastIndexOf(',');
+        errorMessage = errorMessage.substr(0,comaIndex);
+        }
+        Modal.inform.error()(errorMessage);
         return;
       }
+
       tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm)
         .then(function (result) {
           Modal.inform.success(function (event) {
@@ -457,4 +495,26 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     } catch (e) { console.log(e); }
     Modal.inform.error()(msg);
   }
+  
+  $scope.isCommentAfterReject = function (item) {
+    if (item.id != "comment") return false;
+
+    var decision = $.grep($scope.taskForm, function (e) { return e.id == "decide"; });
+
+    if (decision.length == 0) {
+      // no decision
+    } else if (decision.length == 1) {
+      if (decision[0].value == "reject") return true;
+    }
+    return false;
+  };
+  
+  $scope.isRequired = function (item) {
+    return item.writable && (item.required || $scope.isCommentAfterReject(item));
+  };
+
+    $scope.isTaskSubmitted = function (item) {
+    return $scope.taskForm.isSubmitted;
+  };
+  
 });
