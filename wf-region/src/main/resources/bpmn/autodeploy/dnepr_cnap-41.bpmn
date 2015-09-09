@@ -168,8 +168,7 @@ ${comment} &lt;br&gt;
           <activiti:string><![CDATA[Лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>
-&lt;style type="text/css"&gt;
+          <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -279,6 +278,9 @@ ${comment} &lt;br&gt;
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>${result}</activiti:expression>
         </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <serviceTask id="servicetask3" name="Лист з результатом Отримання поштою" activiti:delegateExpression="#{MailTaskWithAttachments}">
@@ -375,8 +377,7 @@ ${comment} &lt;br&gt;
           <activiti:string><![CDATA[Лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>
-&lt;style type="text/css"&gt;
+          <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -631,8 +632,7 @@ ${comment} &lt;br&gt;
           <activiti:string><![CDATA[Лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>
-&lt;style type="text/css"&gt;
+          <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
