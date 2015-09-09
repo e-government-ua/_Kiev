@@ -3,6 +3,10 @@ angular.module('app').factory('ParameterFactory', function() {
     this.value = null;
   };
 
+  parameter.prototype.createFactory = function(){
+    return new parameter();
+  };
+
   parameter.prototype.get = function() {
     return this.value;
   };
