@@ -435,6 +435,7 @@
                 &lt;!--content statrs--&gt;
 &lt;tr&gt;
                     &lt;td align="center"&gt;
+					&lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Дозвіл на розміщення зовнішньої реклами поза межами населених пунктів&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
@@ -463,11 +464,35 @@
 										Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                           
-                          
+                           &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px 0 120px;"&gt;
+                                    &lt;b&gt;Оціните, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:&lt;/b&gt;
 
+                                    &lt;p style="text-align: center;"&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
+                                    &lt;/p&gt;
+
+                                    &lt;p style="font-size: 13px;"&gt;
+                                        Якщо Ви не задоволені якістью, прокоментуйте, будь ласка.&lt;br /&gt;
+                                        Ви також&lt;b style="color: #cc3333;"&gt; маєте змогу анонімно&lt;/b&gt; подати сигнал про будь-які правопорушення державних службовців.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
+                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
+                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
+                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
                         &lt;/table&gt;
-                     
                     &lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--content end--&gt;
@@ -549,6 +574,7 @@
                 &lt;!--content statrs--&gt;
 &lt;tr&gt;
                     &lt;td align="center"&gt;
+					&lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Дозвіл на розміщення зовнішньої реклами поза межами населених пунктів&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
@@ -559,14 +585,13 @@
 									Ви можете отримати результат у адміністратора ЦНАП особисто або уповноваженою особою, вказаною у заяві.&lt;br/&gt;
 									Дозвіл видається під підпис при наявності документа, що посвідчує особу.&lt;/p&gt;
 									&lt;p&gt;
-									ЦНАП „Правобережний”, м. Дніпропетровськ, просп. Карла Маркса, 75 (1-й поверх)&lt;br/&gt;
-									Графік роботи ЦНАП „Правобережний”:&lt;br/&gt;
+									ЦНАП „Лівобережний”: м. Дніпропетровськ, просп. Газети „Правда”, 42 (1-й та 5-й поверхи)&lt;br/&gt;
+									Графік роботи ЦНАП „Лівобережний”:&lt;br/&gt;
 									понеділок -  з 9.00 до 18.00;&lt;br/&gt;
-									вівторок – з 9.00 до 20.00;&lt;br/&gt;
+									вівторок – з 9.00 до 18.00;&lt;br/&gt;
 									середа  - з 9.00 до 18.00;&lt;br/&gt;
-									четвер – з 9.00 до 20.00;&lt;br/&gt;
+									четвер – з 9.00 до 18.00;&lt;br/&gt;
 									п’ятниця – з 9.00 до 16.45;&lt;br/&gt;
-									субота – з 9.00 до 16.00,&lt;br/&gt;
 									крім святкових днів.&lt;/p&gt;
                             
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -577,11 +602,35 @@
 										Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                           
-                          
+                           &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px 0 120px;"&gt;
+                                    &lt;b&gt;Оціните, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:&lt;/b&gt;
 
+                                    &lt;p style="text-align: center;"&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
+                                    &lt;/p&gt;
+
+                                    &lt;p style="font-size: 13px;"&gt;
+                                        Якщо Ви не задоволені якістью, прокоментуйте, будь ласка.&lt;br /&gt;
+                                        Ви також&lt;b style="color: #cc3333;"&gt; маєте змогу анонімно&lt;/b&gt; подати сигнал про будь-які правопорушення державних службовців.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
+                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
+                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
+                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
                         &lt;/table&gt;
-                     
                     &lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--content end--&gt;
