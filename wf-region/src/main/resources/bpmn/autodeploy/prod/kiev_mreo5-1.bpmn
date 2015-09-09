@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="kiev_mreo_1" name="Киев - Реєстрація авто з пробігом в МРЕВ" isExecutable="true">
+  <process id="kiev_mreo5_1" name="Киев - Реєстрація авто з пробігом в МРЕВ" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -130,7 +130,7 @@
     </boundaryEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask1" name="Перевірка наявності обтяжень" activiti:candidateGroups="kiev_mreo_bo">
+    <userTask id="usertask1" name="Перевірка наявності обтяжень" activiti:candidateGroups="kiev_mreo5_bo">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -265,7 +265,7 @@
     </sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
-    <userTask id="usertask2" name="Надання послуги: Огляд авто " activiti:candidateGroups="kiev_mreo_fo1">
+    <userTask id="usertask2" name="Надання послуги: Огляд авто " activiti:candidateGroups="kiev_mreo5_fo1">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -295,7 +295,7 @@
         </activiti:formProperty>
       </extensionElements>
     </userTask>
-    <userTask id="usertask3" name="Перевірка наданих документів" activiti:candidateGroups="kiev_mreo_fo2">
+    <userTask id="usertask3" name="Перевірка наданих документів" activiti:candidateGroups="kiev_mreo5_fo2">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -347,7 +347,7 @@
     <sequenceFlow id="flow18" name="${decide3 == 'accept3'}" sourceRef="exclusivegateway3" targetRef="usertask4">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide3 == 'accept3'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask4" name="Друк держ.номерів" activiti:candidateGroups="kiev_mreo_fo3">
+    <userTask id="usertask4" name="Друк держ.номерів" activiti:candidateGroups="kiev_mreo5_fo3">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -451,7 +451,8 @@
                                     
                                     &lt;p&gt;
                                        
-                                      Після сплати державного збору Ви матимете можливість пройти тех.огляд Вашого авто  в зазначений Вами час за адресою Київська обл. Петропавлівська Борщагівка, вул.Кільцева 4 &lt;/p&gt;
+                                      Після сплати державного збору Ви матимете можливість пройти тех.огляд Вашого авто  в зазначений Вами час за адресою
+                                      вул. Павла Усенка, 8 &lt;/p&gt;
 &lt;p&gt;
 Просимо Вас мати із собою:&lt;br /&gt;
 1. Громадянський паспорт&lt;br /&gt;
@@ -459,7 +460,7 @@
 3. Довідка-рахунок або або нотаріальний договір купівлі-продажу.&lt;br /&gt;
 4. Копія квітанції про сплату за послуги МРЕВ.&lt;br /&gt;
 &lt;/p&gt;
-Дата та час: ${date_of_visit}.  &lt;br /&gt;
+Дата та час: ${date_of_visit}.&lt;br /&gt;
 
                                     
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -554,7 +555,8 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                   &lt;p&gt;                                       
-                                       Ви можете пройти тех.огляд Вашого авто в зазначений Вами час за адресою Київська обл. Петропавлівська Борщагівка, вул.Кільцева 4  
+                                       Ви можете пройти тех.огляд Вашого авто в зазначений Вами час за адресою
+                                        вул. Павла Усенка, 8  
 &lt;/p&gt;
 &lt;p&gt;
 Просимо Вас мати із собою:&lt;br /&gt;
@@ -563,7 +565,6 @@
 3. Довідка-рахунок або або нотаріальний договір купівлі-продажу.&lt;br /&gt;
 4. Копія квітанції про сплату за послуги МРЕВ.&lt;br /&gt;
 &lt;/p&gt;
-
 Дата та час: ${date_of_visit}.&lt;br /&gt;
 					
 
@@ -656,8 +657,8 @@
                                     &lt;h3&gt;Шановний колего!&lt;/h3&gt;
                                     &lt;p&gt;
                                         У Вас в черзі на обробку  зареєстровано нове звернення щодо реєстрації авто з пробігом&lt;br /&gt;
-                                        Заявник:  ${bankIdfirstName} ${bankIdmiddleName} ${bankIdlastName}&lt;br /&gt;
-                                        Відпрацюйте це звернення на порталі &lt;a href="#current-page"&gt;region.igov.org.ua/admin&lt;/a&gt;
+                                        Заявник:  ${bankIdfirstName} ${bankIdmiddleName} ${bankIdlastName} &lt;br /&gt;
+                                        Відпрацюйте це звернення на порталі &lt;a href="https://region.igov.org.ua/admin"&gt;region.igov.org.ua/admin&lt;/a&gt;
                                     &lt;/p&gt;
                                     
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -685,7 +686,7 @@
 &lt;/html&gt;</activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string>Dmitriy1995hawrylko@gmail.com,panasuk_y@ukr.net</activiti:string>
+          <activiti:string>centr7_5593522@ukr.net</activiti:string>
         </activiti:field>
         <activiti:field name="bcc">
           <activiti:string>pavel.kurbatskij@privatbank.ua</activiti:string>
@@ -695,8 +696,8 @@
     <sequenceFlow id="flow26" sourceRef="mailtask1" targetRef="mailtask4"></sequenceFlow>
     <sequenceFlow id="flow27" sourceRef="mailtask4" targetRef="usertask1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_mreo_1">
-    <bpmndi:BPMNPlane bpmnElement="kiev_mreo_1" id="BPMNPlane_kiev_mreo_1">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_mreo5_1">
+    <bpmndi:BPMNPlane bpmnElement="kiev_mreo5_1" id="BPMNPlane_kiev_mreo5_1">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="90.0" y="120.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
