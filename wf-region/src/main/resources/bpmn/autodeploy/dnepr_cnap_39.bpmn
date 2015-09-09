@@ -265,7 +265,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask2" name="Опис прийнятих документів кліенту на почту" activiti:delegateExpression="#{MailTaskWithtAttachments}">
+    <serviceTask id="servicetask2" name="Опис прийнятих документів кліенту на почту" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
