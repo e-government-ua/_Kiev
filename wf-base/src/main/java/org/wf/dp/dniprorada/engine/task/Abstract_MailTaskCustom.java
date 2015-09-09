@@ -87,7 +87,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
     @Autowired
     LiqBuy liqBuy;
-    
+    @Autowired
+    private CancelTaskUtil cancelTaskUtil;
+
     protected Expression sID_Merchant;
     protected Expression sSum;
     protected Expression sID_Currency;
@@ -105,7 +107,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             return null;
         }
         String textWithoutTags = textStr;
-        if (textStr.contains(TAG_PAYMENT_BUTTON_LIQPAY)) {
+        if (textWithoutTags.contains(TAG_PAYMENT_BUTTON_LIQPAY)) {
             String sID_Merchant = execution.getVariable("sID_Merchant").toString();
             LOG.info("sID_Merchant="+sID_Merchant);
             //sID_Merchant = getStringFromFieldExpression(this.sID_Merchant, execution);
@@ -139,7 +141,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             LOG.info("nID_Subject="+nID_Subject);
             boolean bTest = generalConfig.bTest();
             String htmlButton = liqBuy.getPayButtonHTML_LiqPay(sID_Merchant, sSum, oID_Currency, sLanguage, sDescription, sID_Order, sURL_CallbackStatusNew, sURL_CallbackPaySuccess, nID_Subject, bTest);
-            textWithoutTags = StringUtils.replace(textStr, TAG_PAYMENT_BUTTON_LIQPAY, htmlButton);
+            textWithoutTags = StringUtils.replace(textWithoutTags, TAG_PAYMENT_BUTTON_LIQPAY, htmlButton);
         }
 
         
@@ -192,7 +194,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                                 String sValue = parseEnumProperty(property);
                                 LOG.info("sValue="+sValue);
                                 
-                                textWithoutTags = textWithoutTags.replaceAll(TAG_Function_AtEnum+sTAG_Function_AtEnum+TAG_Function_To, sValue);
+                                textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_Function_AtEnum+sTAG_Function_AtEnum+TAG_Function_To+"\\E", sValue);
                                 bReplaced=true;
                                 //resume
                                 /*
@@ -221,19 +223,31 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         LOG.info("execution.getProcessInstanceId()="+execution.getProcessInstanceId());
         Long nID_Protected = getProtectedNumber(Long.valueOf(execution.getProcessInstanceId()));
         LOG.info("nID_Protected="+nID_Protected);
+        //if (textWithoutTags.contains(TAG_nID_Protected)) {
         if (textWithoutTags.contains(TAG_nID_Protected)) {
-            textWithoutTags = textWithoutTags.replaceAll(TAG_nID_Protected, "" + nID_Protected);
+            LOG.info("TAG_nID_Protected:Found");
+            textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_nID_Protected+"\\E", "" + nID_Protected);
+        }else{
+            //LOG.info("TAG_nID_Protected:Not Found");
         }
         if (textWithoutTags.contains(TAG_CANCEL_TASK)){
-            String cancelTaskBtn = new CancelTaskUtil().getCancelFormHTML(nID_Protected);
-            LOG.info(">>>>cancel button = " + cancelTaskBtn);
-            textWithoutTags = textWithoutTags.replace(TAG_CANCEL_TASK, cancelTaskBtn);
+            LOG.info("TAG_CANCEL_TASK:Found");
+            try{
+                String cancelTaskBtn = cancelTaskUtil.getCancelFormHTML(nID_Protected);
+
+                LOG.info(">>>>cancel button = " + cancelTaskBtn);
+                textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_CANCEL_TASK+"\\E", cancelTaskBtn);
+            } catch (Exception e){
+                LOG.error("ex during creating cancel task!", e);
+            }
+        }else{
+            LOG.info("TAG_CANCEL_TASK:Not Found");
         }
         if (textWithoutTags.contains(TAG_nID_SUBJECT)) {
-            textWithoutTags = textWithoutTags.replaceAll(TAG_nID_SUBJECT, "" + nID_Subject);
+            textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_nID_SUBJECT+"\\E", "" + nID_Subject);
         }
         if (textWithoutTags.contains(TAG_sACCESS_KEY)) {
-            textWithoutTags = textWithoutTags.replaceAll(TAG_sACCESS_KEY, accessDataDao.setAccessData("" + nID_Subject));
+            textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_sACCESS_KEY+"\\E", accessDataDao.setAccessData("" + nID_Subject));
         }
         if (textWithoutTags.contains(TAG_sURL_SERVICE_MESSAGE)) {
             String URI = Util.deleteContextFromURL(URL_SERVICE_MESSAGE);
