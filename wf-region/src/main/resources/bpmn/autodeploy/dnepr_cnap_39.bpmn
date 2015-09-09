@@ -9,7 +9,7 @@
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Індивідуальний податковий номер" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string"></activiti:formProperty>
         <activiti:formProperty id="nazva" name="Назва документа дозвільного характеру " type="string" required="true"></activiti:formProperty>
@@ -560,7 +560,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                             Ваше звернення опрацьовано. Оригінал документа зможете забрати за адресою,  згідно видбранного Вами району ЦНАП&lt;br /&gt;
+                             Ваше звернення опрацьовано. Оригінал документа можете забрати в ЦНАП,  в залежності від видбранного Вами району&lt;br /&gt;
                              &lt;br /&gt;
                              ЦНАП «Лівобережний»: 49051, м. Дніпропетровськ просп. ім. Газети «Правда», 42, 5-й поверх, кімн. 4, ЦНАП «Правобережний»:тел. (056) 745-52-19; &lt;br /&gt;
                              &lt;br /&gt;
