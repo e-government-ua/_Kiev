@@ -163,7 +163,7 @@
           <activiti:value id="doc_no" name="Документ оформленний не вірно"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="text" name="Коментар в разі відмови" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="doc" name="Необхідний документ" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc" name="Необхідний документ" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_36.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
@@ -401,18 +401,18 @@
     <sequenceFlow id="flow14" sourceRef="mailtask1" targetRef="mailtask3"></sequenceFlow>
     <sequenceFlow id="flow15" sourceRef="mailtask3" targetRef="usertask5"></sequenceFlow>
     <serviceTask id="mailtask3" name="Повідомлення співробітника держоргану" activiti:type="mail">
-     <extensionElements>
+      <extensionElements>
         <activiti:field name="to">
-          <activiti:string>pastux.nikolay@gmail.com</activiti:string>
+          <activiti:string><![CDATA[pastux.nikolay@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Нове  звернення. Копії рішення міської ради про надання дозволу на розроблення проекту відведення земельної ділянки</activiti:string>
+          <activiti:string><![CDATA[Нове  звернення. Копії рішення міської ради про надання дозволу на розроблення проекту відведення земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -465,7 +465,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки їстівних продуктів тваринного походження.&lt;br /&gt;
+У Вас в черзі на обробку зареєстровано нове звернення щодо копії рішень міської ради про надання дозволу на розроблення проекту відведення земельної ділянки.&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
 Відпрацюйте це звернення на порталі &lt;a href="#current-page"&gt;test.region.igov.org.ua:6948&lt;/a&gt;
                                     &lt;/p&gt;
