@@ -12,10 +12,10 @@
           <activiti:value id="woman" name="Жіноча"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="PrevName" name="Попереднє прізвище, ім’я та по батькові;  За наявності" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="Dateofbirth" name="Дата народження; Формат - ДД/ММ/РРРР" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="Dateofbirth" name="Дата народження; Формат - ДД/ММ/РРРР" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="Areabirth" name="Місце народження; Країна і населений пункт" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="Nationality" name="Національність" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="RegistrationAddress" name="Звідки Ви прибули; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="newAddressLabel" name="Ваша нова адреса реєстрації" type="label" default="Заповніть деталі вашої нової адреси"></activiti:formProperty>
@@ -422,10 +422,10 @@
           <activiti:value id="woman" name="Жіноча"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="PrevName" name="Попереднє ПІБ заявника" type="string"></activiti:formProperty>
-        <activiti:formProperty id="Dateofbirth" name="Дата народження заявника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="Dateofbirth" name="Дата народження заявника" type="date"></activiti:formProperty>
         <activiti:formProperty id="Areabirth" name="Місце народження; Країна і населений пункт" type="string"></activiti:formProperty>
         <activiti:formProperty id="Nationality" name="Національність" type="string"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="long"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string"></activiti:formProperty>
         <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації заявника" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="newCity" name="Населений пункт" type="string"></activiti:formProperty>
@@ -605,10 +605,10 @@
           <activiti:value id="woman" name="Жіноча"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="PrevName" name="Попереднє ПІБ заявника" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="Dateofbirth" name="Дата народження заявника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Dateofbirth" name="Дата народження заявника" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Areabirth" name="Місце народження; Країна і населений пункт" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Nationality" name="Національність" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації заявника" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newCity" name="Населений пункт " type="string" writable="false"></activiti:formProperty>
@@ -987,10 +987,10 @@
           <activiti:value id="woman" name="Жіноча"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="PrevName" name="Попереднє ПІБ заявника" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="Dateofbirth" name="Дата народження заявника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Dateofbirth" name="Дата народження заявника" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Areabirth" name="Місце народження; Країна і населений пункт" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Nationality" name="Національність" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="RegistrationAddress" name="Стара адреса реєстрації" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newCity" name="Населений пункт " type="string" writable="false"></activiti:formProperty>
