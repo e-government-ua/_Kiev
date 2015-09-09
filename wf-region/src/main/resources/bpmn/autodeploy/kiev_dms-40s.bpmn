@@ -17,7 +17,7 @@
         <activiti:formProperty id="Nationality" name="Національність" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації; Населений пункт / Вулиця / Будинок / Корпус / Квартира" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Звідки Ви прибули; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="newAddressLabel" name="Куди вибув" type="label" default="Заповніть деталі вашої нової адреси"></activiti:formProperty>
         <activiti:formProperty id="newCity" name="Населений пункт " type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="newStreet" name="Вулиця " type="textArea" default=" "></activiti:formProperty>
@@ -60,12 +60,8 @@
         <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини; Дата і орган що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="warning" name="Зверніть увагу" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="sBody" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="sBody_2" name="sBody" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="sBody_3" name="sBody" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="sBody_4" name="sBody" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="sBody_5" name="sBody" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="sBody_6" name="sBody" type="invisible"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow2" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
@@ -491,12 +487,8 @@
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/zajava_r(kiev).html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_2" name="[pattern/print/vidomist_4(kiev).html]" type="invisible" default="${sBody_2}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_3" name="[pattern/print/kartka(kiev).html]" type="invisible" default="${sBody_3}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_4" name="[pattern/print/talon_4(kiev).html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_5" name="[pattern/print/zajava_zn(kiev).html]" type="invisible" default="${sBody_5}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_6" name="[pattern/print/dodat12(kiev).html]" type="invisible" default="${sBody_6}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
