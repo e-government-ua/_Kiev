@@ -118,7 +118,7 @@
     </serviceTask>
     <userTask id="usertask3" name="Формування пакету документів в ЦНАП" activiti:candidateGroups="${rdaList}_cnap">
       <extensionElements>
-        <activiti:formProperty id="form_number" name="Номер справи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="form_number" name="Номер справи" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
