@@ -111,6 +111,7 @@
         <activiti:formProperty id="date_stop1" name="Період, за який Ви хочете отримати довідку, по" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="aim" name="Навіщо Вам потрібна ця довідка?; наприклад: за місцем вимоги, для оформлення субсидій, інше" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment" name="Результат обробки" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="decision" name="тестовый файл" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <endEvent id="endevent2" name="End"></endEvent>
@@ -222,7 +223,7 @@ execution.setVariable("date_stop1", execution.getVariable("date_stop").format("d
     </scriptTask>
     <sequenceFlow id="flow6" sourceRef="scripttask1" targetRef="usertask1"></sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="usertask1" targetRef="servicetask1"></sequenceFlow>
-    <serviceTask id="servicetask1" name="відправка відповіді про обробку" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
+    <serviceTask id="servicetask1" name="відправка відповіді про обробку" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string>noreply@igov.org.ua</activiti:string>
@@ -233,7 +234,7 @@ execution.setVariable("date_stop1", execution.getVariable("date_stop").format("d
         <activiti:field name="subject">
           <activiti:string>Довідка про доходи</activiti:string>
         </activiti:field>
-        <activiti:field name="text ">
+        <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
        #mailer-body {font: 400 18px/20px 'Calibri';}
@@ -284,7 +285,6 @@ execution.setVariable("date_stop1", execution.getVariable("date_stop").format("d
 &lt;/p&gt;
 &lt;p&gt;Ваше відділення enum{[area]}&lt;/p&gt;
 
-&lt;p&gt;тест кнопки отмены заявки [cancelTask]&lt;/p&gt;
 &lt;p&gt;Для отримання довідки Вам необхідно мати при при візиті до відділення фіскальної служби наступні документи:&lt;br&gt;
 - № запиту (Ви його отримали листом після подачі заяви)&lt;br&gt;
 - заяву на отримання довідки про доходи (Ви можете її заповнити вдома або зробити це на місці, &lt;a href="https://dl.dropboxusercontent.com/u/91233927/zajva_taxes.doc" target="_blank"&gt;шаблон заяви&lt;/a&gt;)&lt;br&gt;
@@ -315,6 +315,9 @@ execution.setVariable("date_stop1", execution.getVariable("date_stop").format("d
     &lt;/tr&gt;
     &lt;/tbody&gt;
 &lt;/table&gt;</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${decision}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

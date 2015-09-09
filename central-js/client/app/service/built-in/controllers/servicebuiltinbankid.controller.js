@@ -126,7 +126,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       field.type = 'tel';
       field.sFieldType = 'tel';
     }
-    if (field.type === 'markers' && field.value.trim())
+    if (field.type == 'markers' && $.trim(field.value))
       _.merge(MarkersFactory.getMarkers(), JSON.parse(field.value), function(destVal, sourceVal) {
         if (_.isArray(sourceVal)) {
           return sourceVal;
