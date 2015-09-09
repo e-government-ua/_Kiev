@@ -158,11 +158,11 @@
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="micurl" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum">
-          <activiti:value id="doc_ok" name="Документи в порядку, на протязі х днів очікуйте на відповідь"></activiti:value>
+          <activiti:value id="doc_ok" name="Документи приняті згідно описа, на протязі 10 днів очікуйте на відповідь"></activiti:value>
           <activiti:value id="doc_no" name="Документ оформленний не вірно"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="text" name="Коментар в разі відмови" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="doc" name="Необхідний документ" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="doc" name="Необхідний документ" type="file" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_36.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
@@ -517,7 +517,7 @@
           <activiti:value id="doc_no1" name="Документ оформленний не вірно"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="text" name="Коментар в разі відмови" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="doc2" name="Необхідний документ" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="doc2" name="Необхідний документ" type="file" writable="false" required="true"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_36.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
