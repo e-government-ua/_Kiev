@@ -17,7 +17,7 @@
         <activiti:formProperty id="Nationality" name="Національність" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації; Населений пункт / Вулиця / Будинок / Корпус / Квартира" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="newAddressLabel" name="Куди вибув" type="label" default="Заповніть деталі вашої нової адреси"></activiti:formProperty>
         <activiti:formProperty id="newCity" name="Населений пункт " type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="newStreet" name="Вулиця " type="textArea" default=" "></activiti:formProperty>
@@ -436,8 +436,6 @@
         <activiti:formProperty id="Sex" name="Стать" type="enum">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
-          <activiti:value id="man1" name="1"></activiti:value>
-          <activiti:value id="woman2" name="2"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="PrevName" name="Попереднє ПІБ заявника" type="string"></activiti:formProperty>
         <activiti:formProperty id="Dateofbirth" name="Дата народження заявника" type="string"></activiti:formProperty>
@@ -479,8 +477,6 @@
         <activiti:formProperty id="ChildSex1" name="Стать дитини" type="enum">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
-          <activiti:value id="man1" name="1"></activiti:value>
-          <activiti:value id="woman2" name="2"></activiti:value>
           <activiti:value id="no" name=" "></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="kidsBirth" name="Дата народження дитини" type="string"></activiti:formProperty>
@@ -623,8 +619,6 @@
         <activiti:formProperty id="Sex" name="Стать" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
-          <activiti:value id="man1" name="1"></activiti:value>
-          <activiti:value id="woman2" name="2"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="PrevName" name="Попереднє ПІБ заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Dateofbirth" name="Дата народження заявника" type="string" writable="false"></activiti:formProperty>
@@ -663,8 +657,6 @@
         <activiti:formProperty id="ChildSex1" name="Стать дитини" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
-          <activiti:value id="man1" name="1"></activiti:value>
-          <activiti:value id="woman2" name="2"></activiti:value>
           <activiti:value id="no" name=" "></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="kidsBirth" name="Дата народження дитини" type="string" writable="false"></activiti:formProperty>
@@ -1009,8 +1001,6 @@
         <activiti:formProperty id="Sex" name="Стать" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
-          <activiti:value id="man1" name="1"></activiti:value>
-          <activiti:value id="woman2" name="2"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="PrevName" name="Попереднє ПІБ заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Dateofbirth" name="Дата народження заявника" type="string" writable="false"></activiti:formProperty>
@@ -1049,8 +1039,6 @@
         <activiti:formProperty id="ChildSex1" name="Стать дитини" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
-          <activiti:value id="man1" name="1"></activiti:value>
-          <activiti:value id="woman2" name="2"></activiti:value>
           <activiti:value id="no" name=" "></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="kidsBirth" name="Дата народження дитини" type="string" writable="false"></activiti:formProperty>
