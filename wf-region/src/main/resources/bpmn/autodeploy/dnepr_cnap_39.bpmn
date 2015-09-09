@@ -162,9 +162,8 @@
           <activiti:value id="doc_no" name="Документ оформленний не вірно"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="text" name="Коментар в разі відмови" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="doc" name="Завантажте опис прийнятих документів" type="file"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_36.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+         <activiti:formProperty id="opis" name="Завантажте опис прийнятих документів " type="file"></activiti:formProperty>
+                    <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
     </userTask>
