@@ -131,15 +131,16 @@
         <activiti:formProperty id="name_object" name="Об'єкт, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса об'єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменовання юридичної особи/П.І.Б. фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kod_EDRPOU" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kod_inn" name="Ідентифікаційний номер фізичної особи - підприємця, платника податків та інших обов'язкових платежів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="trusted_person" name="П.І.Б. керівника юридичної особи / фізичної особи - підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="status" name="Обробка заяви" type="enum" required="true">
+        <activiti:formProperty id="status" name="Обробка заяви" type="enum">
           <activiti:value id="attr1_wait" name="Документи передані в Управління інфраструктури Дніпропетровської облдержадміністрації"></activiti:value>
           <activiti:value id="attr2_finish" name="Відмова громадянину у разі надання неповного пакету документів"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="reason" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="decisionComment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
         <activiti:formProperty id="sBody" name="[pattern/print/dnepr_cnap_72_print.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
@@ -364,7 +365,7 @@
           <activiti:value id="attr3_finish" name="Дозвіл готовий"></activiti:value>
           <activiti:value id="attr4_finish" name="Відмовити в видачі дозволу"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="reason" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="decisionComment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow7" sourceRef="mailtask3" targetRef="usertask2"></sequenceFlow>
@@ -480,8 +481,8 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow11" name="${status_dozvil == 'attr4_finish' &amp;&amp; cnapСhoice == 'prav'}" sourceRef="exclusivegateway2" targetRef="mailtask4">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status_dozvil == 'attr4_finish' && cnapСhoice == 'prav'}]]></conditionExpression>
+    <sequenceFlow id="flow11" name="${status_dozvil == 'attr3_finish' &amp;&amp; cnapСhoice == 'prav'}" sourceRef="exclusivegateway2" targetRef="mailtask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status_dozvil == 'attr3_finish' && cnapСhoice == 'prav'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow12" sourceRef="mailtask4" targetRef="endevent1"></sequenceFlow>
     <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
@@ -594,8 +595,8 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow14" name="${status_dozvil == 'attr4_finish' &amp;&amp; cnapСhoice == 'lev'}" sourceRef="exclusivegateway2" targetRef="mailtask5">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status_dozvil == 'attr4_finish' && cnapСhoice == 'lev'}]]></conditionExpression>
+    <sequenceFlow id="flow14" name="${status_dozvil == 'attr3_finish' &amp;&amp; cnapСhoice == 'lev'}" sourceRef="exclusivegateway2" targetRef="mailtask5">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status_dozvil == 'attr3_finish' && cnapСhoice == 'lev'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow15" sourceRef="mailtask5" targetRef="endevent1"></sequenceFlow>
   </process>
