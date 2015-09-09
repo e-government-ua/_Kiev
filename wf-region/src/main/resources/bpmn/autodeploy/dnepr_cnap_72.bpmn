@@ -131,6 +131,7 @@
         <activiti:formProperty id="name_object" name="Об'єкт, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса об'єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменовання юридичної особи/П.І.Б. фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kod_EDRPOU" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kod_inn" name="Ідентифікаційний номер фізичної особи - підприємця, платника податків та інших обов'язкових платежів" type="string" writable="false"></activiti:formProperty>
