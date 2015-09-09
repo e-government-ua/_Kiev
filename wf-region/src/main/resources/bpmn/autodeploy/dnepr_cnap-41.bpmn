@@ -893,72 +893,54 @@ ${comment} &lt;br&gt;
 		&lt;/div&gt;
 		
         &lt;div class="clear"&gt;&lt;/div&gt;
-        &lt;div class="under_field w350 ta-l"&gt;[clFIO]&lt;span&gt;(ПІБ заявника)&lt;/span&gt;&lt;/div&gt;&lt;br&gt;
-        &lt;div class="under_field w350 ta-l"&gt;&lt;i&gt;мешкаю за адресою:[clAddress]&lt;/i&gt;&lt;/div&gt;&lt;br&gt;
+        &lt;div class="under_field w350 ta-l"&gt;${clFIO}&lt;span&gt;(ПІБ заявника)&lt;/span&gt;&lt;/div&gt;&lt;br&gt;
+        &lt;div class="under_field w350 ta-l"&gt;&lt;i&gt;мешкаю за адресою:${clAddress}&lt;/i&gt;&lt;/div&gt;&lt;br&gt;
         &lt;div class="under_field w350 ta-l"&gt;&lt;/div&gt;&lt;br&gt;
-        &lt;div class="under_field w350 ta-l"&gt;&lt;i&gt;тел.[clPhone]&lt;/i&gt;&lt;/div&gt;
+        &lt;div class="under_field w350 ta-l"&gt;&lt;i&gt;тел.${clPhone}&lt;/i&gt;&lt;/div&gt;
     &lt;/div&gt;
     &lt;div class="line_col ta-c m-t-25 xs-font"&gt;
         &lt;b&gt;З А Я В А&lt;/b&gt;&lt;br&gt;
-        В зв’язку із завершенням процедури ідентифікації та встановленням особи [clrodna], [clzagibl] 
+        В зв’язку із завершенням процедури ідентифікації та встановленням особи ${clrodna}, ${clzagibl} 
     &lt;/div&gt;
     &lt;div class="line_col ta-c"&gt;
         &lt;div class="under_field_line ta-l"&gt;&lt;span&gt;(ступень спорідненості, ПІБ загиблого)&lt;/span&gt;&lt;/div&gt;
         &lt;div class="date_subm ta-l"&gt;
-            &lt;div class="month-fl-sm"&gt;який загинув [cldeathdate]&lt;/span&gt;р.,
+            &lt;div class="month-fl-sm"&gt;який загинув ${cldeathdate}&lt;/span&gt;р.,
                 під час проходження військової служби у
-
                 зоні проведення антитерористичної операції на Сході України та був похований на
-
                 Краснопільському кладовищі
-                &lt;div class="month-fl-sm"&gt;м. Дніпропетровська [clfuneraldate]р.,
+                &lt;div class="month-fl-sm"&gt;м. Дніпропетровська ${clfuneraldate}р.,
                     як «невідомий захисник» (актовий запис&lt;u class="w101"&gt;&amp;nbsp;[clact_no]&lt;/u&gt;),
                 &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="ta-l"&gt;прошу надати висновок щодо можливості та умов перепоховання останків загиблого&lt;/div&gt;
         &lt;div class="under_field_line ta-l"&gt;[clzagibl]&lt;span style="margin: 0 0 0 -405px;"&gt;(ПІБ загиблого)&lt;/span&gt;
-            &lt;div class="under_field_line ta-l m-l-300"&gt;&lt;i&gt;на кладовищі [clcementary]&lt;/i&gt;&lt;span style="margin: 0 0 0 95px;"&gt;(адреса)&lt;/span&gt;&lt;/div&gt;
+            &lt;div class="under_field_line ta-l m-l-300"&gt;&lt;i&gt;на кладовищі ${clcementary}&lt;/i&gt;&lt;span style="margin: 0 0 0 95px;"&gt;(адреса)&lt;/span&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="under_field_line ta-l"&gt;&lt;/div&gt;
         &lt;div class="ta-l xs-font"&gt;&lt;b&gt;Документи, що додаються до заяви:&lt;/b&gt;&lt;/div&gt;
         &lt;div class="ta-l m-t-5 xs-font"&gt;
             1. Копія паспорту заявника.&lt;br&gt;
-
             2. Копія свідоцтва про смерть, виданого відділом державної реєстрації смерті реєстраційної&lt;br&gt;
-
             служби Дніпропетровського міського управління юстиції.&lt;br&gt;
-
             3. Копія лікарського свідоцтва про смерть або довідки про причину смерті, виданих&lt;br&gt;
-
             КЗ «Дніпропетровське обласне бюро судово-медичної експертизи» ДОР».&lt;br&gt;
-
             4. Копія протоколу (постанови) слідчих органів про визнання померлої особи.&lt;br&gt;
-
             5. Копія листа КЗ «Дніпропетровське обласне бюро судово-медичної експертизи» про
-
             підтвердження факту смерті та дати поховання загиблого.&lt;br&gt;
-
             6. Копія дозволу або довідки виконавчого органу відповідної сільської, селищної, міської
-
             ради на перепоховання загиблого на іншому кладовищі (за місцем, куди вивозяться загибла
-
             особа для поховання).
         &lt;/div&gt;
-        &lt;div class="under_field_line ta-l xs-font m-t-15"&gt;&lt;i&gt;Я, [clFIO]&lt;/i&gt;&lt;/div&gt;
+        &lt;div class="under_field_line ta-l xs-font m-t-15"&gt;&lt;i&gt;Я, ${clFIO}&lt;/i&gt;&lt;/div&gt;
         &lt;div class="ta-l xs-font"&gt;
-            (паспорт серії [clbankIdPassport]) шляхом підписання цього тексту, відповідно до
-
+            (паспорт серії ${clbankIdPassport}) шляхом підписання цього тексту, відповідно до
             Закону України «Про захист персональних даних» від «01» червня 2010 року №2297-VI, надаю
-
             згоду КП «Ритуальна служба» Дніпропетровської міської ради на збір та використання
-
             інформації про мене з обмеженим доступом з метою оброблення цієї Заяви в межах,
-
             необхідних для досягнення вказаної вище мети. Наведена вище інформація також може
-
             надаватись третім особам, безпосередньо задіяним в виконанні замовлення та наданні
-
             ритуальних послуг, а також в інших випадках, прямо передбачених законодавством.
         &lt;/div&gt;
         &lt;div class="date_subm m-t-85"&gt;
