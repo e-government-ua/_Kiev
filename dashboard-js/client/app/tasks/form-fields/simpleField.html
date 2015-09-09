@@ -3,6 +3,7 @@
     ng-disabled="isFormPropertyDisabled(item)" 
     ng-required="item.required" 
     ng-model="item.value"
+    ng-class="{submitted:isTaskSubmitted()}"
   />
   <span class="input-group-addon" 
     ng-if="isFormPropertyDisabled(item)" 

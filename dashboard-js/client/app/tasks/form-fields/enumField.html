@@ -4,5 +4,6 @@
                       ng-disabled="isFormPropertyDisabled(item)"
                       ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues"
                       ng-required="item.required"
-                      ng-model="item.value"></select>
+                      ng-model="item.value"
+                      ng-class="{submitted:isTaskSubmitted()}"></select>
             </p>
