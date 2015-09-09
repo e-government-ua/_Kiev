@@ -18,62 +18,63 @@ angular.module('app').controller('ServiceCityController', function($state,AdminS
   // Each controller which uses Places Control should tell it:
   //
 
-  $scope.loadRegionList = function(search) {
-    return $scope.regionList.load($scope.service, search);
-  };
+  // $scope.loadRegionList = function(search) {
+  //   return $scope.regionList.load($scope.service, search);
+  // };
 
-  $scope.onSelectRegionList = function($item) {
-    $scope.data.region = $item;
-    $scope.regionList.select($item);
+ // FIXME - code moved to place.js
+ //  $scope.onSelectRegionList = function($item) {
+ //    $scope.data.region = $item;
+ //    $scope.regionList.select($item);
 
-	var serviceType = $scope.findServiceDataByRegion();
+	// var serviceType = $scope.findServiceDataByRegion();
 
-    switch (serviceType.nID) {
-      case 1:
-        $state.go('index.service.general.city.link', {id: $scope.service.nID}, {location: false}).then(function() {
-			isStep2 = true;
-		});
-		break;
-      case 4:
-        $state.go('index.service.general.city.built-in', {id: $scope.service.nID}, {location: false}).then(function() {
-			isStep2 = true;
-		});
-		break;
-      default:
-	    $scope.localityList.load($scope.service, $item.nID, null).then(function(cities) {
-          $scope.localityList.typeahead.defaultList = cities;
-          var initialCity = serviceLocationParser.getSelectedCity(cities);
-          if (initialCity)
-            $scope.onSelectLocalityList(initialCity);
-        });
-    }
-  };
+ //    switch (serviceType.nID) {
+ //      case 1:
+ //        $state.go('index.service.general.city.link', {id: $scope.service.nID}, {location: false}).then(function() {
+	// 		isStep2 = true;
+	// 	});
+	// 	break;
+ //      case 4:
+ //        $state.go('index.service.general.city.built-in', {id: $scope.service.nID}, {location: false}).then(function() {
+	// 		isStep2 = true;
+	// 	});
+	// 	break;
+ //      default:
+	//     $scope.localityList.load($scope.service, $item.nID, null).then(function(cities) {
+ //          $scope.localityList.typeahead.defaultList = cities;
+ //          var initialCity = serviceLocationParser.getSelectedCity(cities);
+ //          if (initialCity)
+ //            $scope.onSelectLocalityList(initialCity);
+ //        });
+ //    }
+ //  };
 
-  $scope.loadLocalityList = function(search) {
-    return $scope.localityList.load($scope.service, $scope.data.region.nID, search);
-  };
+  // $scope.loadLocalityList = function(search) {
+  //   return $scope.localityList.load($scope.service, $scope.data.region.nID, search);
+  // };
 
-  $scope.onSelectLocalityList = function($item, $model, $label) {
-    $scope.data.city = $item;
-    $scope.localityList.select($item, $model, $label);
-	var serviceType = $scope.findServiceDataByCity();
-    switch (serviceType.nID) {
-      case 1:
-        $state.go('index.service.general.city.link', {id: $scope.service.nID}, {location: false}).then(function() {
-			isStep2 = true;
-		});
-		break;
-      case 4:
-        $state.go('index.service.general.city.built-in', {id: $scope.service.nID}, {location: false}).then(function() {
-			isStep2 = true;
-		});
-		break;
-      default:
-        $state.go('index.service.general.city.error', {id: $scope.service.nID}, {location: false}).then(function() {
-			isStep2 = true;
-		});
-    }
-  };
+ //  $scope.onSelectLocalityList = function($item, $model, $label) {
+ //    $scope.data.city = $item;
+ //    $scope.localityList.select($item, $model, $label);
+	// var serviceType = $scope.findServiceDataByCity();
+ //    switch (serviceType.nID) {
+ //      case 1:
+ //        $state.go('index.service.general.city.link', {id: $scope.service.nID}, {location: false}).then(function() {
+	// 		isStep2 = true;
+	// 	});
+	// 	break;
+ //      case 4:
+ //        $state.go('index.service.general.city.built-in', {id: $scope.service.nID}, {location: false}).then(function() {
+	// 		isStep2 = true;
+	// 	});
+	// 	break;
+ //      default:
+ //        $state.go('index.service.general.city.error', {id: $scope.service.nID}, {location: false}).then(function() {
+	// 		isStep2 = true;
+	// 	});
+ //    }
+ //  };
 
   $scope.data = {
     region: null,
@@ -117,6 +118,7 @@ angular.module('app').controller('ServiceCityController', function($state,AdminS
 	var aServiceData = $scope.service.aServiceData;
 	var serviceType = {nID: 0};
     angular.forEach(aServiceData, function(value, key) {
+      // if service is available 
       if (value.nID_Region && value.nID_Region.nID == $scope.data.region.nID) {
         serviceType = value.nID_ServiceType;
         $scope.serviceData = value;

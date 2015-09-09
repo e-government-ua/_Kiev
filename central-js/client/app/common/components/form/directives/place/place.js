@@ -17,7 +17,7 @@ angular.module('app')
         };
 
         $scope.collapse = function() {
-          console.log('collapse: ', this, $scope );
+          console.log('collapse: ', this, $scope);
         };
 
         $scope.recallPlaceData = function() {
@@ -94,7 +94,7 @@ angular.module('app')
 
           $scope.regionList = $scope.regionList || new RegionListFactory();
           $scope.localityList = $scope.localityList || new LocalityListFactory();
-          $scope.regionList.initialize( $scope.regions );
+          $scope.regionList.initialize($scope.regions);
           $scope.resetPlaceData();
           $scope.recallPlaceData();
 
@@ -122,10 +122,11 @@ angular.module('app')
           var serviceType = {
             nID: 0
           };
-          angular.forEach(aServiceData, function(value, key) {
-            if (value.nID_Region && value.nID_Region.nID === $scope.placeData.region.nID) {
-              serviceType = value.nID_ServiceType;
-              $scope.serviceData = value;
+          angular.forEach(aServiceData, function(oService, key) {
+            // if service is available in 
+            if (oService.nID_Region && oService.nID_Region.nID === $scope.placeData.region.nID) {
+              serviceType = oService.nID_ServiceType;
+              $scope.serviceData = oService;
               if ($scope.serviceData.bNoteTrusted === false) {
                 $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
                 $scope.serviceData.sNoteTrusted = true;
@@ -140,10 +141,10 @@ angular.module('app')
           var serviceType = {
             nID: 0
           };
-          angular.forEach(aServiceData, function(value, key) {
-            if (value.nID_City && value.nID_City.nID === ($scope.placeData.city && $scope.placeData.city.nID)) {
-              serviceType = value.nID_ServiceType;
-              $scope.serviceData = value;
+          angular.forEach(aServiceData, function(oService, key) {
+            if (oService.nID_City && oService.nID_City.nID === ($scope.placeData.city && $scope.placeData.city.nID)) {
+              serviceType = oService.nID_ServiceType;
+              $scope.serviceData = oService;
               if ($scope.serviceData.bNoteTrusted === false) {
                 $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
                 $scope.serviceData.sNoteTrusted = true;

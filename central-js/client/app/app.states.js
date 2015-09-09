@@ -147,12 +147,14 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
           var oServiceData = null;
           if ($stateParams.city > 0) {
             angular.forEach(aServiceData, function(value, key) {
+              // if city is available for this service
               if (value.nID_City && value.nID_City.nID === $stateParams.city) {
                 oServiceData = value;
               }
             });
           } else {
             angular.forEach(aServiceData, function(value, key) {
+              // if city isn't, but region is available for this service
               if (value.nID_Region && value.nID_Region.nID === $stateParams.region) {
                 oServiceData = value;
               }
