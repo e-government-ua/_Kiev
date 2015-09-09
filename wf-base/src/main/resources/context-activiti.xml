@@ -31,7 +31,7 @@
                 <bean class="org.activiti.explorer.form.ProcessDefinitionFormType" />
                 <bean class="org.activiti.explorer.form.MonthFormType" />
                 <bean class="org.activiti.engine.impl.form.DateFormType">
-                    <constructor-arg value="dd/MM/yyyy" />
+                    <constructor-arg value="MMM dd, yyyy" />
                 </bean>
                 <bean class="org.activiti.engine.impl.form.EnumFormType">
                     <constructor-arg>
