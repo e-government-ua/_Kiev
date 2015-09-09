@@ -28,12 +28,12 @@
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-     <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <sequenceFlow id="flow2" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
-    <userTask id="usertask3" name="Перевірка документів" activiti:candidateGroups="dnepr_copyzemroz_rada_${vibor}">
+    <userTask id="usertask3" name="Перевірка документів для відправлення опису кліенту" activiti:candidateGroups="dnepr_copyzemroz_rada_${vibor}">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -58,7 +58,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="text" name="Коментар в разі відмови" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="doc" name="Необхідний документ" type="file"></activiti:formProperty>
-         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_54_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_54_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -72,7 +72,6 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide=='doc_ok'}]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
-    <sequenceFlow id="flow8" sourceRef="servicetask3" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow10" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
     <serviceTask id="servicetask1" name="Завантаження документа" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <serviceTask id="mailtask1" name="Отправка почты об успешном получении заявки" activiti:type="mail">
@@ -394,6 +393,11 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
+    <userTask id="usertask4" name="Опрацювання заявки"></userTask>
+    <sequenceFlow id="flow11" sourceRef="servicetask3" targetRef="usertask4"></sequenceFlow>
+    <userTask id="usertask5" name="Задовільне рішення з документом"></userTask>
+    <sequenceFlow id="flow12" sourceRef="usertask4" targetRef="usertask5"></sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="usertask5" targetRef="endevent1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_37">
     <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_37" id="BPMNPlane_dnepr_cnap_37">
@@ -407,7 +411,7 @@
         <omgdc:Bounds height="40.0" width="40.0" x="419.0" y="118.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="650.0" y="121.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="672.0" y="31.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="55.0" width="105.0" x="40.0" y="110.0"></omgdc:Bounds>
@@ -420,6 +424,12 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
         <omgdc:Bounds height="55.0" width="105.0" x="500.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+        <omgdc:Bounds height="55.0" width="105.0" x="650.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="650.0" y="110.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="92.0" y="56.0"></omgdi:waypoint>
@@ -451,13 +461,21 @@
           <omgdc:Bounds height="14.0" width="97.0" x="381.0" y="173.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="552.0" y="200.0"></omgdi:waypoint>
-        <omgdi:waypoint x="667.0" y="156.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
-        <omgdi:waypoint x="552.0" y="76.0"></omgdi:waypoint>
-        <omgdi:waypoint x="667.0" y="121.0"></omgdi:waypoint>
+        <omgdi:waypoint x="605.0" y="48.0"></omgdi:waypoint>
+        <omgdi:waypoint x="672.0" y="48.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="605.0" y="227.0"></omgdi:waypoint>
+        <omgdi:waypoint x="650.0" y="227.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="702.0" y="200.0"></omgdi:waypoint>
+        <omgdi:waypoint x="702.0" y="165.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="702.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="689.0" y="66.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

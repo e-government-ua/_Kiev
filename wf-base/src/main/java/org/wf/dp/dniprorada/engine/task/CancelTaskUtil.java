@@ -20,6 +20,7 @@ public class CancelTaskUtil {
     private static final String sURL_CancelTask =  "/wf-region/service/rest/tasks/cancelTask";
 
 
+
     private static final String TAG_action = "[sURL_CancelTask]";
     private static String TAG_nID_Protected = "[nID_Protected]";
     private static final String cancelButtonHTML = new StringBuilder()
@@ -29,9 +30,9 @@ public class CancelTaskUtil {
             .append("accept-charset=\"utf-8\">")
             .append("Ви можете скасувати свою заявку, вказавши причину в цьому полі: <br/>\n")
             .append("<input type=\"text\" name=\"sInfo\"/><br/>\n")
-            .append("<input type=\"hidden\" name=\"nID_Protected\" value=\"")
-            .append(TAG_nID_Protected + "\"/><br/>\n")
-            .append("<input type=\"button\" name=\"submit\" ")
+            //.append("<input type=\"hidden\" name=\"nID_Protected\" value=\"")
+            //.append(TAG_nID_Protected + "\"/><br/>\n")
+            .append("<input type=\"submit\" name=\"submit\" ")
             .append("value=\"Скасувати заявку!\"/>")
             .append("</form>")
                 .toString();
@@ -43,10 +44,10 @@ public class CancelTaskUtil {
                 .append("?nID_Protected=").append(nID_Protected)
                 .toString();
         String sAccessKey = accessDataDao.setAccessData(sURL_ForAccessKey);
-        String sURL_CancelTaskAction = new StringBuilder(generalConfig.sHostCentral())
+        String sURL_CancelTaskAction = new StringBuilder(generalConfig.sHost())
                 .append(sURL_ForAccessKey)
-                .append("?sAccessKey=").append(sAccessKey)
-                .append("&sAccessConract=Request")
+                .append("&sAccessKey=").append(sAccessKey)
+                .append("&sAccessContract=Request")
                 .toString();
         log.info("total URL for action =" + sURL_CancelTaskAction);
 
