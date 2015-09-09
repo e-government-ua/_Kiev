@@ -168,8 +168,7 @@ ${comment} &lt;br&gt;
           <activiti:string><![CDATA[Лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>
-&lt;style type="text/css"&gt;
+          <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -375,8 +374,7 @@ ${comment} &lt;br&gt;
           <activiti:string><![CDATA[Лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>
-&lt;style type="text/css"&gt;
+          <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -631,8 +629,7 @@ ${comment} &lt;br&gt;
           <activiti:string><![CDATA[Лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>
-&lt;style type="text/css"&gt;
+          <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
