@@ -204,8 +204,8 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 288;10;1;NULL;1;{};http://e-services.dp.gov.ua/_layouts/Information/pgServices.aspx;FALSE;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися BankID. Знайти послугу Ви сможете у розділі "Адміністративні послуги" за допомогою фільтрів;BankID,EDS
 289;102;1;NULL;1;{};http://e-services.dp.gov.ua/_layouts/Information/pgServices.aspx;FALSE;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися BankID. Знайти послугу Ви сможете у розділі "Адміністративні послуги" за допомогою фільтрів;BankID,EDS
 290;720;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_fields_bankid:1:151"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-291;29;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_dms_40:1:147"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-292;26;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_dms_40s:1:168"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+291;29;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_dms_40:1:147"}};https://region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
+292;26;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_dms_40s:1:168"}};https://region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
 293;721;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_post_19:1:160"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 294;722;42;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"post_regFOP_30:1:145"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 295;723;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_post_20:1:138"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
@@ -246,7 +246,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 332;368;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"gni_69:1:219"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 333;142;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_36:1:60054"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 334;140;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_37:1:60054"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-335;654;NULL;16;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_subsidies:1:238"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+335;654;NULL;16;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_subsidies:1:238"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 336;73;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"Dnepr_cnap_45:1:60054"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 337;744;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_42_ur:1:60054"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 338;745;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_55:1:60054"}};https://region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
