@@ -7,82 +7,41 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="filecl" name="file" type="file"></activiti:formProperty>
         <activiti:formProperty id="date" name="дата" type="date"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <serviceTask id="servicetask1" name="подтягивание документов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <sequenceFlow id="flow0" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <sequenceFlow id="flow0" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
     <userTask id="usertask1" name="рассмотрение и загрузка" activiti:candidateGroups="sales">
       <extensionElements>
-        <activiti:formProperty id="file" name="file" type="file"></activiti:formProperty>
         <activiti:formProperty id="mail" name="mail" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="file2" name="file" type="file"></activiti:formProperty>
         <activiti:formProperty id="date" name="дата" type="date"></activiti:formProperty>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <serviceTask id="servicetask2" name="оповещение заявителя" activiti:delegateExpression="#{MailTaskWithAttachments}">
-      <extensionElements>
-        <activiti:field name="from">
-          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="to">
-          <activiti:expression>"${mail}"</activiti:expression>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:expression>subject</activiti:expression>
-        </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}
-
- дата ${date}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${file}"</activiti:expression>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
-    <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
-    <sequenceFlow id="flow5" sourceRef="servicetask2" targetRef="endevent1"></sequenceFlow>
-    <sequenceFlow id="flow7" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram__test_datepicker">
     <bpmndi:BPMNPlane bpmnElement="_test_datepicker" id="BPMNPlane__test_datepicker">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="200.0" y="170.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="300.0" y="160.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="510.0" y="160.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="55.0" width="105.0" x="750.0" y="160.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="350.0" y="160.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="900.0" y="170.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="590.0" y="170.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow0" id="BPMNEdge_flow0">
         <omgdi:waypoint x="235.0" y="187.0"></omgdi:waypoint>
-        <omgdi:waypoint x="300.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="187.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="615.0" y="187.0"></omgdi:waypoint>
-        <omgdi:waypoint x="750.0" y="187.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="855.0" y="187.0"></omgdi:waypoint>
-        <omgdi:waypoint x="900.0" y="187.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="405.0" y="187.0"></omgdi:waypoint>
-        <omgdi:waypoint x="510.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="590.0" y="187.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
