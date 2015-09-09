@@ -17,10 +17,10 @@
         <activiti:formProperty id="micce" name="Місцезнаходження (адреса) об’єкта, на який видається документ" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="davvid" name="У давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kbed" name="Вид діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="innedrpo" name="ідентифікаційний код згідно з ЄДРПОУ" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="innfizl" name="ідентифікаційний номер фізичної особи  – підприємця, платника податків та інших обов’язкових платежів" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="innedrpo" name="Ідентифікаційний код згідно з ЄДРПОУ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="innfizl" name="Ідентифікаційний номер фізичної особи  – підприємця, платника податків та інших обов’язкових платежів" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="micurl" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="micurl" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="vibor" name="Як би ви бажали отримати оригінал довідки?" type="enum" required="true">
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
@@ -153,10 +153,10 @@
         <activiti:formProperty id="micce" name="Місцезнаходження (адреса) об’єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="davvid" name="У давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kbed" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="innedrpo" name="ідентифікаційний код згідно з ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="innfizl" name="ідентифікаційний номер фізичної особи  – підприємця, платника податків та інших обов’язкових платежів" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="innedrpo" name="Ідентифікаційний код згідно з ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="innfizl" name="Ідентифікаційний номер фізичної особи  – підприємця, платника податків та інших обов’язкових платежів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="micurl" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="micurl" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum">
           <activiti:value id="doc_ok" name="Документи приняті згідно описа, на протязі 10 днів очікуйте на відповідь"></activiti:value>
           <activiti:value id="doc_no" name="Документ оформленний не вірно"></activiti:value>
@@ -483,10 +483,10 @@
         <activiti:formProperty id="micce" name="Місцезнаходження (адреса) об’єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="davvid" name="У давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kbed" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="innedrpo" name="ідентифікаційний код згідно з ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="innfizl" name="ідентифікаційний номер фізичної особи  – підприємця, платника податків та інших обов’язкових платежів" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="innedrpo" name="Ідентифікаційний код згідно з ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="innfizl" name="Ідентифікаційний номер фізичної особи  – підприємця, платника податків та інших обов’язкових платежів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="micurl" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="micurl" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide1" name="Рішення про надання послуги" type="enum">
           <activiti:value id="doc_ok1" name="Необхідний документ зробленний, повідомити кліента"></activiti:value>
           <activiti:value id="doc_no1" name="Відмовити кліенту у наданні послуги"></activiti:value>
