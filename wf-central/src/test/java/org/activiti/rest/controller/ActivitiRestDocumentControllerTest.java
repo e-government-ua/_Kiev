@@ -43,6 +43,8 @@ import static org.wf.dp.dniprorada.model.DocumentOperatorTest.DUMMY_OPERATOR_ID;
 @ActiveProfiles("default")
 public class ActivitiRestDocumentControllerTest {
 
+    public static final String APPLICATION_JSON_CHARSET_UTF_8 = "application/json;charset=UTF-8";
+
     @Autowired
     private WebApplicationContext webApplicationContext;
     private MockMvc mockMvc;
@@ -102,7 +104,7 @@ public class ActivitiRestDocumentControllerTest {
         assertEquals("Subjects aren't match, ", 1, doc.getSubject().getId().longValue());
     }
 
-    @Test @Ignore
+    @Test
     public void getDocumentByCodeAndWrongOrgan() throws Exception {
         String organID = "100500";
         String jsonData = mockMvc
@@ -111,7 +113,7 @@ public class ActivitiRestDocumentControllerTest {
                     .param("nID_DocumentOperator_SubjectOrgan", organID)
                     .param("nID_Subject", "1"))
             .andExpect(status().is5xxServerError())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8))
             .andReturn()
             .getResponse()
             .getContentAsString();
@@ -121,7 +123,7 @@ public class ActivitiRestDocumentControllerTest {
         assertEquals("Entity with nID_SubjectOrgan='" + organID + "' not found", msg.getMessage());
     }
 
-    @Test @Ignore
+    @Test
     public void getDocumentByWrongCode() throws Exception {
         String jsonData = mockMvc
             .perform(get("/services/getDocumentAccessByHandler")
@@ -129,7 +131,7 @@ public class ActivitiRestDocumentControllerTest {
                     .param("nID_DocumentOperator_SubjectOrgan", "2")
                     .param("nID_Subject", "1"))
             .andExpect(status().is5xxServerError())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8))
             .andReturn()
             .getResponse()
             .getContentAsString();
@@ -140,7 +142,7 @@ public class ActivitiRestDocumentControllerTest {
     }
 
     @Test
-    public void getDocumentByCodeAndOrganAndPassword() throws Exception{
+    public void getDocumentByCodeAndOrganAndPassword() throws Exception {
         String jsonData = mockMvc
             .perform(get("/services/getDocumentAccessByHandler")
                     .param("sCode_DocumentAccess", "2")
@@ -165,7 +167,7 @@ public class ActivitiRestDocumentControllerTest {
 
 
     @Test @Ignore
-    public void getDocumentByCodeAndOrganAndWrongPassword() throws Exception{
+    public void getDocumentByCodeAndOrganAndWrongPassword() throws Exception {
         String jsonData = mockMvc
             .perform(get("/services/getDocumentAccessByHandler")
                     .param("sCode_DocumentAccess", "2")
@@ -208,7 +210,7 @@ public class ActivitiRestDocumentControllerTest {
         assertEquals("Subjects aren't match, ", 2, doc.getSubject().getId().longValue());
     }
 
-    @Test @Ignore
+    @Test
     public void getDocumentByCodeAndWrongDocumentTypeAndOrganAndPassword() throws Exception {
         String jsonData = mockMvc
             .perform(get("/services/getDocumentAccessByHandler")
@@ -219,7 +221,7 @@ public class ActivitiRestDocumentControllerTest {
                             .param("nID_Subject", "1")
             )
             .andExpect(status().is5xxServerError())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8))
             .andReturn()
             .getResponse()
             .getContentAsString();
