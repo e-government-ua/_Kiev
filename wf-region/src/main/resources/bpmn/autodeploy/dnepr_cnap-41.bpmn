@@ -168,7 +168,8 @@ ${comment} &lt;br&gt;
           <activiti:string><![CDATA[Лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>&lt;style type="text/css"&gt;
+          <activiti:expression>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -278,9 +279,6 @@ ${comment} &lt;br&gt;
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>${result}</activiti:expression>
         </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
       </extensionElements>
     </serviceTask>
     <serviceTask id="servicetask3" name="Лист з результатом Отримання поштою" activiti:delegateExpression="#{MailTaskWithAttachments}">
@@ -377,7 +375,8 @@ ${comment} &lt;br&gt;
           <activiti:string><![CDATA[Лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>&lt;style type="text/css"&gt;
+          <activiti:expression>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -632,7 +631,8 @@ ${comment} &lt;br&gt;
           <activiti:string><![CDATA[Лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>&lt;style type="text/css"&gt;
+          <activiti:expression>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -686,7 +686,11 @@ ${comment} &lt;br&gt;
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
+                           
+                          
+
                         &lt;/table&gt;
+                     
                     &lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--content end--&gt;
@@ -695,18 +699,34 @@ ${comment} &lt;br&gt;
     &lt;/tr&gt;
     &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;DOCTYPE html&gt;
+&lt;!DOCTYPE html&gt;
 &lt;html&gt;&lt;head lang="ru"&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
     &lt;title&gt;ЗАЯВА&lt;/title&gt;
+
     &lt;style&gt;
         @media print {
-            * { -webkit-print-color-adjust: exact;
-                print-color-adjust: exact; }
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
             html {
                 text-rendering: optimizeLegibility !important;
-                -webkit-font-smoothing: antialiased !important;         }
-            body {  font-family: georgia, serif;                font-size: 1em;                font-smooth: 1em;                -moz-font-smooth: 1em;                -webkit-font-smooth: 1em;                column-count: 2;
-                column-gap: 2em;                column-rule: thin solid black;            }
+                -webkit-font-smoothing: antialiased !important;
+            }
+
+            body {
+                font-family: georgia, serif;
+                font-size: 1em;
+                font-smooth: 1em;
+                -moz-font-smooth: 1em;
+                -webkit-font-smooth: 1em;
+
+                column-count: 2;
+                column-gap: 2em;
+                column-rule: thin solid black;
+            }
 
             a[href^="http://"]:after, a[href^="ftp://"]:after {
                 content: " (" attr(href) ")";
@@ -890,12 +910,12 @@ ${comment} &lt;br&gt;
                 зоні проведення антитерористичної операції на Сході України та був похований на
                 Краснопільському кладовищі
                 &lt;div class="month-fl-sm"&gt;м. Дніпропетровська ${clfuneraldate}р.,
-                    як «невідомий захисник» (актовий запис&lt;u class="w101"&gt;&amp;nbsp;${clact_no}&lt;/u&gt;),
+                    як «невідомий захисник» (актовий запис&lt;u class="w101"&gt;&amp;nbsp;[clact_no]&lt;/u&gt;),
                 &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="ta-l"&gt;прошу надати висновок щодо можливості та умов перепоховання останків загиблого&lt;/div&gt;
-        &lt;div class="under_field_line ta-l"&gt;${clzagibl}&lt;span style="margin: 0 0 0 -405px;"&gt;(ПІБ загиблого)&lt;/span&gt;
+        &lt;div class="under_field_line ta-l"&gt;[clzagibl]&lt;span style="margin: 0 0 0 -405px;"&gt;(ПІБ загиблого)&lt;/span&gt;
             &lt;div class="under_field_line ta-l m-l-300"&gt;&lt;i&gt;на кладовищі ${clcementary}&lt;/i&gt;&lt;span style="margin: 0 0 0 95px;"&gt;(адреса)&lt;/span&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="under_field_line ta-l"&gt;&lt;/div&gt;
@@ -961,7 +981,7 @@ ${comment} &lt;br&gt;
         <omgdc:Bounds height="35.0" width="35.0" x="60.0" y="46.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
-        <omgdc:Bounds height="55.0" width="105.0" x="261.0" y="146.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="300.0" y="146.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="55.0" width="105.0" x="496.0" y="8.0"></omgdc:Bounds>
@@ -985,7 +1005,7 @@ ${comment} &lt;br&gt;
         <omgdc:Bounds height="40.0" width="40.0" x="420.0" y="153.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
-        <omgdc:Bounds height="55.0" width="105.0" x="100.0" y="75.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="180.0" y="8.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
         <omgdc:Bounds height="55.0" width="105.0" x="261.0" y="75.0"></omgdc:Bounds>
@@ -1010,7 +1030,7 @@ ${comment} &lt;br&gt;
         <omgdi:waypoint x="717.0" y="154.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
-        <omgdi:waypoint x="366.0" y="173.0"></omgdi:waypoint>
+        <omgdi:waypoint x="405.0" y="173.0"></omgdi:waypoint>
         <omgdi:waypoint x="420.0" y="173.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
@@ -1040,15 +1060,15 @@ ${comment} &lt;br&gt;
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
         <omgdi:waypoint x="152.0" y="146.0"></omgdi:waypoint>
-        <omgdi:waypoint x="152.0" y="130.0"></omgdi:waypoint>
+        <omgdi:waypoint x="232.0" y="63.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
-        <omgdi:waypoint x="205.0" y="102.0"></omgdi:waypoint>
-        <omgdi:waypoint x="261.0" y="102.0"></omgdi:waypoint>
+        <omgdi:waypoint x="232.0" y="63.0"></omgdi:waypoint>
+        <omgdi:waypoint x="313.0" y="75.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
         <omgdi:waypoint x="313.0" y="130.0"></omgdi:waypoint>
-        <omgdi:waypoint x="313.0" y="146.0"></omgdi:waypoint>
+        <omgdi:waypoint x="352.0" y="146.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
