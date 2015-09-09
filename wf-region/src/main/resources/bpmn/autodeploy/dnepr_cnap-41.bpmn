@@ -278,9 +278,6 @@ ${comment} &lt;br&gt;
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>${result}</activiti:expression>
         </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
       </extensionElements>
     </serviceTask>
     <serviceTask id="servicetask3" name="Лист з результатом Отримання поштою" activiti:delegateExpression="#{MailTaskWithAttachments}">
