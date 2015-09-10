@@ -76,7 +76,7 @@
         <activiti:formProperty id="bank_account" name="Номер рахунку; заповнюється у разі вибору такого варіанта перерахування коштів" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="comment1" name="Коментар до заявки" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="decision_step1" name="Рішення етап 1" type="enum" required="true">
-          <activiti:value id="att1_ok" name="Заповнені дані вірні, інформація направлена на розгляд, очікується рішення"></activiti:value>
+          <activiti:value id="attr1_ok" name="Заповнені дані вірні, інформація направлена на розгляд, очікується рішення"></activiti:value>
           <activiti:value id="attr2_bad" name="Дані заповнені неправильно, повідомити громадянина (обов'язково впишіть коментар вище)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="sBody" name="[pattern/print/dnepr_socialhelp_kids_zayava.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
