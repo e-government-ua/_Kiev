@@ -16,7 +16,7 @@
         <activiti:formProperty id="obect" name="Об’єкт, на який видається документ" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="micce" name="Місцезнаходження (адреса) об’єкта, на який видається документ" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="davvid" name="У давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="kbed" name="Вид діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="kbed" name="Вид діяльності згідно з КВЕД" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="innedrpo" name="Ідентифікаційний код згідно з ЄДРПОУ" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="innfizl" name="Ідентифікаційний номер фізичної особи  – підприємця, платника податків та інших обов’язкових платежів" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи" type="string" required="true"></activiti:formProperty>
@@ -26,6 +26,7 @@
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="2" name="Оберіть необхідний файл для завантаження" type="file"></activiti:formProperty>
+        <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг"></activiti:formProperty>
         <activiti:formProperty id="3" name="Оберіть необхідний файл для завантаження" type="file"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible"></activiti:formProperty>
       </extensionElements>
@@ -106,7 +107,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                      Ваше звернення щодо копії рішення міської ради про надання дозволу на розроблення проекту відведення земельної ділянки буде опрацьовано співробітниками на протязі  3 днів. За результатами розгляду звернення, з Вами зв’яжеться відповідальний працівник та повідомить про час та місце отримання довідки. &lt;br /&gt;
+                                      Ваше звернення щодо копії рішення міської ради про надання дозволу на розроблення проекту відведення земельної ділянки буде опрацьовано співробітниками на протязі  10 днів. За результатами розгляду звернення, з Вами зв’яжеться відповідальний працівник та повідомить про час та місце отримання довідки. &lt;br /&gt;
                                        
 										
                                   
@@ -152,7 +153,7 @@
         <activiti:formProperty id="obect" name="Об’єкт, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="micce" name="Місцезнаходження (адреса) об’єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="davvid" name="У давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kbed" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kbed" name="Вид діяльності згідно з КВЕД" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="innedrpo" name="Ідентифікаційний код згідно з ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="innfizl" name="Ідентифікаційний номер фізичної особи  – підприємця, платника податків та інших обов’язкових платежів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи" type="string" writable="false"></activiti:formProperty>
@@ -359,8 +360,7 @@
     &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/body&gt;
-&lt;/html&gt;
-</activiti:expression>
+&lt;/html&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Дніпропетровськ ЦНАП - опис прийнятих документів та регестраційний номер]]></activiti:string>
@@ -617,8 +617,7 @@
     &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/body&gt;
-&lt;/html&gt;
-</activiti:expression>
+&lt;/html&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
