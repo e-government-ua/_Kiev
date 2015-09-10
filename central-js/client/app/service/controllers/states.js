@@ -2,14 +2,17 @@ angular.module('app').controller('ServiceFormController', function($scope, servi
   // FIXME-4 Service Should come not from outside controller, but from ServiceService
   $scope.service = service;
   $scope.regions = regions;
-  console.log('States: service form controller called, $scope.service =', $scope.service);
+  console.log('ServiceFormController, $scope.service =', $scope.service);
   $scope.bAdmin = AdminService.isAdmin();
 });
 
 angular.module('app').controller('ServiceGeneralController', function($state, $scope) {
   var aServiceData = $scope.service.aServiceData;
 
-  // FIXME review this logic duplications
+  console.log('ServiceGeneralController');
+  
+  // FIXME review this logic duplications. 
+  // This is implemented laso as processPlaceChange
   var isCity = false;
   angular.forEach(aServiceData, function(value, key) {
     if (value.hasOwnProperty('nID_City')) {
@@ -30,7 +33,7 @@ angular.module('app').controller('ServiceGeneralController', function($state, $s
     return $state.go('index.service.general.city', {id: $scope.service.nID}, {location: false});
   }
 
-  return $state.go('index.service.general.country', {id:  $scope.service.nID}, {location: false});
+  return $state.go('index.service.general.placefix', {id:  $scope.service.nID}, {location: false});
 });
 
 angular.module('app').controller('ServiceInstructionController', function($state, $rootScope, $scope) {

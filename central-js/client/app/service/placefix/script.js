@@ -1,7 +1,7 @@
 angular.module('app').config(function($stateProvider) {
   // FIXME REMOVE IT ALL
   $stateProvider
-    .state('index.service.general.country', {
+    .state('index.service.general.placefix', {
       url: '/country',
       // resolve: {
       //   service: function($stateParams, ServiceService) {
@@ -12,16 +12,16 @@ angular.module('app').config(function($stateProvider) {
         'main@': {
           templateUrl: 'app/service/index.html',
           controller: 'WizardController'
-          // controller: 'ServiceCountryController'
+          // controller: 'ServiceC ountryController'
         }
       }
-    }).state('index.service.general.country.error', {
+    }).state('index.service.general.placefix.error', {
       url: '/absent',
       views: {
-        'content@index.service.general.country': {
-          templateUrl: 'app/service/country/absent.html',
+        'content@index.service.general.placefix': {
+          templateUrl: 'app/service/placefix/absent.html',
           controller: 'WizardController'
-          // controller: 'ServiceCountryAbsentController'
+          // controller: 'ServiceC ountryAbsentController'
         }
       }
     });

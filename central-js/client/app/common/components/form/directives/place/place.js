@@ -39,7 +39,6 @@ angular.module('app')
         };
 
         $scope.cityIsChosen = function() {
-          //var isAvailableInTheCity = $scope.getServiceAvailability();
           var r = $scope.placeData && ($scope.placeData.city ? true : false);
           var s = $scope.service.aServiceData;
           // console.log('city is chosen: ', r);
@@ -52,7 +51,7 @@ angular.module('app')
         $scope.isComplete = function() {
           // FIXME: передбачити випадки, коли треба вибрати тільки регіон або місто, 
           // див. https://github.com/e-government-ua/i/issues/550
-          var oServiceAvailable = $scope.getServiceAvailability();
+          var oServiceAvailable = PlacesService.getServiceAvailability();
           var result = false; //$scope.regionIsChosen() && $scope.cityIsChosen();
           // no region - no city
           // ok region - no city
@@ -169,25 +168,6 @@ angular.module('app')
             }
           });
           return serviceType;
-        };
-
-        // FIXME-2
-        $scope.getServiceAvailability = function() {
-          var oService = $scope.service;
-          var result = {
-            isCity: false,
-            isRegion: false
-          };
-          angular.forEach(oService.aServiceData, function(oServiceData) {
-            if (oServiceData.nID_City && oServiceData.nID_City.nID !== null) {
-              result.isCity = true;
-            }
-            if (oServiceData.nID_Region && oServiceData.nID_Region.nID !== null) {
-              result.isRegion = true;
-            }
-          });
-          console.log('getServiceAvailability, iD:', oService.nID, result);
-          return result;
         };
 
         $scope.initPlaceControls();

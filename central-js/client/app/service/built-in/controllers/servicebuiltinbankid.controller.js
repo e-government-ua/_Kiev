@@ -61,9 +61,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
   console.log('Hi! I\'m Service Built-In BankID Controller');
   
-  PlacesService.setController({
-    controller: this
-  });
+  PlacesService.setController(this);
 
   // FIXME
   $scope.oServiceData = oServiceData;

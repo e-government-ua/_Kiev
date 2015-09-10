@@ -1,5 +1,8 @@
 angular.module('app').service('ServiceService', function($http, $q) {
 
+  var self = this;
+
+  // FIXME hardcode to be removed
   var docTypes = {
     other: {nID: 0, sName: 'Другое'},
     reference: {nID: 1, sName: 'Справка'},
@@ -24,6 +27,9 @@ angular.module('app').service('ServiceService', function($http, $q) {
     return data;
   };
 
+  // FIXME add data:
+  // isCity,
+  // isRegion 
   this.get = function(id) {
     var data = {
       'nID': id
@@ -43,7 +49,8 @@ angular.module('app').service('ServiceService', function($http, $q) {
         return data;
       }]
     }).then(function(response) {
-      return response.data;
+      self.oService = response.data;
+      return self.oService;
     });
   };
 

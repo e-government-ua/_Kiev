@@ -21,7 +21,7 @@
  */
 
 angular.module('app')
-  .service('PlacesService', function($http) {
+  .service('PlacesService', function($http, $state, ServiceService) {
 
     var self = this;
 
@@ -33,27 +33,31 @@ angular.module('app')
 
     var savedPlaceData = null;
 
-    var statesMap = {
-      'index.service.general.city.built-in': {
-        startupFunction: function(iPlaceController, $location, $state, $rootScope, $scope, placeCtrl) {
-          $scope.$location = $location;
-          $scope.$state = $state;
-          iPlaceController.isStep2 = true;
-        },
-        viewClass: 'state-disabled'
-      },
-      'index.service.general.city.built-in.bankid.submitted': {
-        startupFunction: function(iPlaceController, $location, $state, $rootScope, $scope, placeCtrl) {
-          $scope.collapse();
-          $scope.state = $state; //.get('index.service.general.city.built-in.bankid.submitted');
-        },
-        viewClass: 'state-collapsed'
-      }
-    };
-
     // options: self
     self.setController = function(iPlaceController) {
       self.iPlaceController = iPlaceController;
+
+      // STOPPEDHERE
+    };
+
+    // FIXME-2
+    self.getServiceAvailability = function() {
+      // FIXME move to use ServiceService.oService everywhere instead of $scope.service
+      var oService = ServiceService.oService;
+      var result = {
+        isCity: false,
+        isRegion: false
+      };
+      angular.forEach(oService.aServiceData, function(oServiceData) {
+        if (oServiceData.nID_City && oServiceData.nID_City.nID !== null) {
+          result.isCity = true;
+        }
+        if (oServiceData.nID_Region && oServiceData.nID_Region.nID !== null) {
+          result.isRegion = true;
+        }
+      });
+      console.log('getServiceAvailability, iD:', oService.nID, result);
+      return result;
     };
 
     self.getClassByState = function($state) {
@@ -63,7 +67,7 @@ angular.module('app')
     self.saveLocal = function(oSavedPlaceData) {
       localStorage.setItem('igSavedPlaceData', JSON.stringify(oSavedPlaceData));
     };
-    
+
     self.setPlace = function(oSavedPlaceData) {
       savedPlaceData = oSavedPlaceData;
       self.saveLocal(savedPlaceData);
@@ -77,107 +81,8 @@ angular.module('app')
     };
 
     self.initPlacesByScopeAndState = function(placeCtrl, $scope, $state, $rootScope, AdminService, $location, $sce) {
-
-      // wizard controller
-      // FIXME create sequencer 
-      self.iPlaceController.isStep2 = self.iPlaceController.isStep2 || false;
-
-      $scope.bAdmin = AdminService.isAdmin();
-      // $scope.regions = iPlaceController.regions;
-
-      $scope.getStateName = function() {
-        return $state.current.name;
-      };
-
-      $scope.getRegionId = function() {
-        var place = self.getPlace();
-        var region = place ? place.region || null : null;
-        return region ? region.nID : 0;
-      };
-
-      $scope.getCityId = function() {
-        var place = self.getPlace();
-        var city = place ? place.city || null : null;
-        return city ? city.nID : 0;
-      };
-
-      var curState = $scope.getStateName();
-
-      console.log('Places Service. $state =', $state);
-
-      if (statesMap[curState] && statesMap[curState].startupFunction) {
-        statesMap[curState].startupFunction.call(self.iPlaceController, $location, $state, $rootScope, $scope, placeCtrl);
-      } else {
-        // default startup
-        $scope.$location = $location;
-      }
-
-      $scope.$state = $state;
-
-      $scope.getHtml = function(html) {
-        return $sce.trustAsHtml(html);
-      };
-
-      $scope.step1 = function() {
-        self.iPlaceController.isStep2 = false;
-        // FIXME
-        // if (byState('index.service.general.city')) {
-        //   return $state.go('index.service.general.city', {
-        //     id: $scope.service.nID
-        //   });
-        // }
-      };
-
-      $scope.step2 = function() {
-        var aServiceData = $scope.service.aServiceData;
-
-        // console.log('step 2:');
-        self.iPlaceController.isStep2 = true;
-      };
-
-      $scope.makeStep = function(stepId) {
-        if (stepId) {
-          if (stepId === 'editStep') {
-            self.iPlaceController.isStep2 = false;
-          }
-        }
-      };
-
-      /**
-       * params: serviceType, placeData
-       */
-      $scope.$on('onPlaceChange', function(evt, params) {
-        var stateByServiceType = {
-          // Сервіс за посиланням
-          1: 'index.service.general.city.link',
-          // Вбудований сервіс
-          4: 'index.service.general.city.built-in',
-          // Помилка - сервіс відсутній
-          0: 'index.service.general.city.error'
-        };
-
-        var state = stateByServiceType[params.serviceType.nID];
-
-        console.log('Places Service. On Place сhange, state =', state, ', params =', params, ', curState = ', curState);
-
-        if (curState === 'index.service.general.city.built-in' || curState === 'index.service.general.city') {
-          if (state && params.placeData.city) {
-            self.iPlaceController.isStep2 = true;
-            // console.log('go state:', state);
-            $state.go(state, {
-              id: $scope.service.nID
-            }, {
-              location: false
-            }).then(function() {
-              self.iPlaceController.isStep2 = true;
-            });
-          }
-        }
-      });
-
-      $scope.ngIfStep2 = function() {
-        return self.iPlaceController.isStep2;
-      };
+      iPlaceController.placeCtrl = placeCtrl;
+      // moved back to WizardController
     };
     // end of init Places By Scope
 
