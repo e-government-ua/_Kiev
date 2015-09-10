@@ -27,7 +27,7 @@
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="2" name="Оберіть необхідний файл для завантаження" type="file"></activiti:formProperty>
-               <activiti:formProperty id="3" name="Оберіть необхідний файл для завантаження" type="file"></activiti:formProperty>
+        <activiti:formProperty id="3" name="Оберіть необхідний файл для завантаження" type="file"></activiti:formProperty>
         <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible"></activiti:formProperty>
       </extensionElements>
@@ -234,7 +234,7 @@
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
                                         ЦНАП м. Дніпропетровськ,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
