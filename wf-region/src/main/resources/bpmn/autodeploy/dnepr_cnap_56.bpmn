@@ -7,7 +7,7 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="cnap" name="Оберіть ЦНАП у якому буде зручніше забрати оригінал документу" type="enum" required="true">
           <activiti:value id="pravij" name="Правобережний"></activiti:value>
           <activiti:value id="levij" name="Лівобережний"></activiti:value>
@@ -94,14 +94,15 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо Надання дозволу на використання місцевої символіки&lt;br /&gt;
+У Вас в черзі на обробку зареєстровано нове звернення щодо Надання дозволу на використання місцевої символіки.&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Відпрацюйте це звернення на порталі &lt;a href="#current-page"&gt;test.region.igov.org.ua:6948&lt;/a&gt;
+Відпрацюйте це звернення на &lt;a href="https://test.region.igov.org.ua:6948/" target="_blank"&gt;порталі&lt;/a&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                     З повагою,&lt;br /&gt;
+					  Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
+                                        &lt;/p&gt;
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -126,7 +127,7 @@
     <userTask id="usertask2" name="прийняття рішення про надання послуги" activiti:candidateGroups="Dnepr_cnap_55">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="cnap" name="Оберіть ЦНАП у якому буде зручніше забрати оригінал документу" type="enum" writable="false">
           <activiti:value id="pravij" name="Правобережний"></activiti:value>
           <activiti:value id="levij" name="Лівобережний"></activiti:value>
@@ -141,7 +142,7 @@
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Місцезнаходження юридичної особи/місце проживання фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_reestr" name="Укажіть сьогоднішню дату" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_reestr" name="Укажіть дату реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="Прийняття рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="документи пройшли перевірку, послуга може бути надана"></activiti:value>
@@ -176,7 +177,7 @@
     <sequenceFlow id="flow5" name="надання дозволу П" sourceRef="exclusivegateway1" targetRef="servicetask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='accept'&&cnap=='pravij'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask4" name="повідомлення громадянина про відмову у наданні експлуатаційного дозволу" activiti:type="mail">
+    <serviceTask id="mailtask4" name="повідомлення громадянина про відмову у дозволу на використання місцевої символіки" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -340,7 +341,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Ваш запит щодо надання дозволу на використання місцевої символіки &lt;b &gt;відхилено.&lt;b /&gt;&lt;br /&gt;
+Ваш запит щодо надання дозволу на використання місцевої символіки відхилено.&lt;br /&gt;
 &lt;br /&gt;
 Підстава: ${comment_1}    
     &lt;/pя&gt;
@@ -437,7 +438,6 @@
 Ваш запит щодо Надання дозволу на використання місцевої символіки успішно зареєстровано управлінням внутрішньої політики Дніпропетровської міської ради і буде опрацьовано впродовж 15 робочих днів.&lt;br /&gt;
 &lt;br /&gt;
 Реєстраційний номер заяви: ${reestr_numb};&lt;br /&gt;
-Дата реєстрації ${date_reestr}.&lt;br /&gt;
 До листа додається опис наданих Вами документів.&lt;br /&gt;
 &lt;br /&gt;
 Ви отримаєте додаткове повідомлення за результатами розгляду запиту.&lt;br /&gt;
@@ -482,7 +482,7 @@
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow23" sourceRef="boundaryerror1" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow24" sourceRef="mailtask6" targetRef="endevent2"></sequenceFlow>
-    <serviceTask id="servicetask3" name="повідомлення громадянина о наданні експлутаційного дозволу (Правобережний)" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask3" name="повідомлення громадянина о наданні дозволу на використання місцевої символіки (Правобережний)" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string>test_noreply@igov.org.ua</activiti:string>
@@ -620,7 +620,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask4" name="повідомлення громадянина о наданні експлутаційного дозволу (Лівобережний)" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask4" name="повідомлення громадянина о наданні дозволу на використання місцевої символіки (Лівобережний)" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string>test_noreply@igov.org.ua</activiti:string>
@@ -799,10 +799,10 @@
         <omgdc:Bounds height="35.0" width="35.0" x="103.0" y="114.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
-        <omgdc:Bounds height="55.0" width="231.0" x="630.0" y="461.0"></omgdc:Bounds>
+        <omgdc:Bounds height="70.0" width="231.0" x="630.0" y="454.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
-        <omgdc:Bounds height="55.0" width="216.0" x="106.0" y="461.0"></omgdc:Bounds>
+        <omgdc:Bounds height="70.0" width="216.0" x="106.0" y="454.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
         <omgdi:waypoint x="455.0" y="433.0"></omgdi:waypoint>
@@ -810,7 +810,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="475.0" y="488.0"></omgdi:waypoint>
-        <omgdi:waypoint x="630.0" y="488.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="489.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="14.0" width="97.0" x="-42.0" y="-20.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
@@ -832,7 +832,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
         <omgdi:waypoint x="435.0" y="488.0"></omgdi:waypoint>
-        <omgdi:waypoint x="322.0" y="488.0"></omgdi:waypoint>
+        <omgdi:waypoint x="322.0" y="489.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="14.0" width="97.0" x="-48.0" y="-20.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
@@ -876,12 +876,12 @@
         <omgdi:waypoint x="120.0" y="149.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
-        <omgdi:waypoint x="745.0" y="516.0"></omgdi:waypoint>
+        <omgdi:waypoint x="745.0" y="524.0"></omgdi:waypoint>
         <omgdi:waypoint x="745.0" y="687.0"></omgdi:waypoint>
         <omgdi:waypoint x="473.0" y="687.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
-        <omgdi:waypoint x="214.0" y="516.0"></omgdi:waypoint>
+        <omgdi:waypoint x="214.0" y="524.0"></omgdi:waypoint>
         <omgdi:waypoint x="213.0" y="687.0"></omgdi:waypoint>
         <omgdi:waypoint x="438.0" y="687.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
