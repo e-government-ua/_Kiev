@@ -471,9 +471,6 @@ ${comment} &lt;br&gt;
                         &lt;/table&gt;
                         &lt;/form&gt;</activiti:expression>
         </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>${result}</activiti:expression>
-        </activiti:field>
       </extensionElements>
     </serviceTask>
     <endEvent id="endevent2" name="End"></endEvent>
