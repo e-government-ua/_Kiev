@@ -9,8 +9,13 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string"></activiti:formProperty>
-        <activiti:formProperty id="place_of_reg" name="Місце реєстрації; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="place_of_liv" name="Місце проживання; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="index" name="Ваш поштовий індекс" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="city" name="Місце проживання; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="index1" name="Ваш поштовий індекс" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="index2" name="Населенний пункт" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="index3" name="Вулиця(проспект), вкажіть необхідне" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="index4" name="Будинок/корпус" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="index5" name="Квартира" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Оберіть районний орган соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
           <activiti:value id="sobes1" name="АНД, вул. Радістів, 8"></activiti:value>
           <activiti:value id="sobes2" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
