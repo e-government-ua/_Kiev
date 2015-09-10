@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.client.utils.URIUtils;
 
 /**
  * Created by diver on 8/24/15.
@@ -73,9 +75,19 @@ public class AuthenticationTokenSelector {
 		while (names.hasMoreElements()) {
 			addParameterByFilter(parameters, names.nextElement());
 		}
-		return URLEncodedUtils.format(parameters, "UTF-8");
+                return getParameters(parameters);
+		//return URLEncodedUtils.format(parameters, "UTF-8");
+		//return URIBuilder.format(parameters, "UTF-8");
 	}
 
+	private String getParameters(List<BasicNameValuePair> parameters) {
+                String s="";
+		for (BasicNameValuePair parameter : parameters) {
+			s+=(s.length()>0?"&":"")+parameter.getName()+"="+parameter.getValue();
+		}
+                return s;
+	}
+        
 	private void addParameterByFilter(List<BasicNameValuePair> parameters, String name) {
 		if (!ACCESS_KEY.equalsIgnoreCase(name)) {
 			String value = request.getParameter(name);
