@@ -123,7 +123,7 @@
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Posluga" name="Зміни, які будуть вноситись в ЄДР:" type="enum" writable="false">
-		  <activiti:value id="Зміна додаткової інформації про зв`язок з юридичною особою" name="Зміна додаткової інформації про зв`язок з юридичною особою"></activiti:value>
+          <activiti:value id="Зміна додаткової інформації про зв`язок з юридичною особою" name="Зміна додаткової інформації про зв`язок з юридичною особою"></activiti:value>
           <activiti:value id="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа" name="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа"></activiti:value>
           <activiti:value id="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту" name="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту"></activiti:value>
         </activiti:formProperty>
@@ -155,10 +155,10 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="birthDate" name="Дата народження" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="birthDate" name="Дата народження" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
-          <activiti:formProperty id="Posluga" name="Зміни, які будуть вноситись в ЄДР:" type="enum" writable="false">
-		  <activiti:value id="Зміна додаткової інформації про зв`язок з юридичною особою" name="Зміна додаткової інформації про зв`язок з юридичною особою"></activiti:value>
+        <activiti:formProperty id="Posluga" name="Зміни, які будуть вноситись в ЄДР:" type="enum" writable="false">
+          <activiti:value id="Зміна додаткової інформації про зв`язок з юридичною особою" name="Зміна додаткової інформації про зв`язок з юридичною особою"></activiti:value>
           <activiti:value id="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа" name="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа"></activiti:value>
           <activiti:value id="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту" name="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту"></activiti:value>
         </activiti:formProperty>
@@ -405,8 +405,7 @@
                                 &lt;/td&gt;
                             &lt;/tr&gt;
                         &lt;/table&gt;
-                        &lt;/form&gt;
-						</activiti:expression>
+                        &lt;/form&gt;</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -422,6 +421,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="55.0" width="171.0" x="200.0" y="80.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="342.0" y="70.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="55.0" width="191.0" x="420.0" y="80.0"></omgdc:Bounds>
@@ -440,9 +442,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="850.0" y="410.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
-        <omgdc:Bounds height="30.0" width="30.0" x="342.0" y="70.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
         <omgdc:Bounds height="35.0" width="35.0" x="339.0" y="10.0"></omgdc:Bounds>
