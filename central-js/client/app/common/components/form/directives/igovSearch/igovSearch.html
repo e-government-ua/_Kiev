@@ -4,8 +4,6 @@
     <input ng-model="sSearch"
            ng-model-options="{ updateOn: 'default', debounce: {'default': 500} }"
            ng-change="search()"
-           igov-input-save
-           igov-input-restore
            type="text"
            class="form-control input-lg"
            placeholder="Пошук послуги">
@@ -26,7 +24,7 @@
                         <input style="padding-left: 15px;"
                                autocomplete="off" class="form-control" name="region" type="text"
                                placeholder="Регіон"
-                               ng-model="regionList.typeahead.model"
+                               ng-model="data.region"
                                typeahead="region as region.sName for region in loadRegionList($viewValue)"
                                typeahead-on-select="onSelectRegionList($item)"
                                typeahead-template-url="app/service/region/typeahead-match-region.html">

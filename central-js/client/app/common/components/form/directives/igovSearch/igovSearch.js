@@ -1,22 +1,43 @@
-angular.module('app').directive("igovSearch", ['CatalogService', 'statesRepository', 'RegionListFactory', 'LocalityListFactory', '$filter', 'messageBusService',
- function(CatalogService, statesRepository, RegionListFactory, LocalityListFactory, $filter, messageBusService) {
+angular.module('app').directive("igovSearch", ['CatalogService', 'statesRepository', 'RegionListFactory', 'LocalityListFactory', '$filter', 'messageBusService', 'stateStorageService',
+ function(CatalogService, statesRepository, RegionListFactory, LocalityListFactory, $filter, messageBusService, stateStorageService) {
   var directive = {
     restrict: 'E',
     scope: {},
     templateUrl: 'app/common/components/form/directives/igovSearch/igovSearch.html',
     link: function($scope, $el, $attr) {
       var fullCatalog = [];
-      $scope.data = {
-        region: null,
-        city: null
-      };
+
       $scope.regionList = new RegionListFactory();
       $scope.regionList.load(null, null);
       $scope.localityList = new LocalityListFactory();
-      $scope.operator = -1;
       $scope.operators = [];
-      $scope.selectedStatus = -1;
-      $scope.bShowExtSearch = false;
+
+      // set defaults
+      var defaultSettings = {
+        sSearch: '',
+        operator: -1,
+        selectedStatus: -1,
+        bShowExtSearch: false,
+        data: {
+          region: null,
+          city: null
+        }
+      };
+      // restore search settings (if available)
+      var searchSettings = stateStorageService.getState('igovSearch');
+      searchSettings = searchSettings ? searchSettings : defaultSettings;
+
+      restoreSettings(searchSettings);
+
+      function restoreSettings(settings) {
+        // todo: iterate over keys;
+        $scope.sSearch = settings.sSearch;
+        $scope.operator = settings.operator;
+        $scope.selectedStatus = settings.selectedStatus;
+        $scope.bShowExtSearch = settings.bShowExtSearch;
+        $scope.data = settings.data;
+      }
+
       function getIDPlaces() {
         var result;
         if ($scope.bShowExtSearch && $scope.data.region !== null) {
@@ -87,7 +108,7 @@ angular.module('app').directive("igovSearch", ['CatalogService', 'statesReposito
         }
       };
       $scope.clear = function() {
-        $scope.sSearch = '';
+        restoreSettings(defaultSettings);
         $scope.search();
       };
       $scope.loadRegionList = function(search) {
@@ -114,8 +135,17 @@ angular.module('app').directive("igovSearch", ['CatalogService', 'statesReposito
         $scope.search();
       };
       $scope.search();
+      // save current state on scope destroy
+      $scope.$on('$destroy', function() {
+        var state = {};
+        state.sSearch = $scope.sSearch;
+        state.operator = $scope.operator;
+        state.selectedStatus = $scope.selectedStatus;
+        state.bShowExtSearch = $scope.bShowExtSearch;
+        state.data = $scope.data;
+        stateStorageService.setState('igovSearch', state);
+      });
     }
-
   };
   return directive;
 }])
