@@ -22,6 +22,7 @@ import org.wf.dp.dniprorada.util.Util;
 
 import java.util.LinkedList;
 import java.util.List;
+import org.activiti.engine.history.HistoricProcessInstance;
 
 import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
 import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
@@ -251,14 +252,17 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         }
         if (textWithoutTags.contains(TAG_sURL_SERVICE_MESSAGE)) {
             String URI = Util.deleteContextFromURL(URL_SERVICE_MESSAGE);
-            //String queryParamPattern = "?sHead=Отзыв&sBody=Отзыв&sData=Название Услуги&sMail= &nID_SubjectMessageType=1&sAccessContract=Request"; //sAccessKey=%s&amp;
+            HistoricProcessInstance historicProcessInstance = execution.getEngineServices()
+                    .getHistoryService().createHistoricProcessInstanceQuery()
+                    .processInstanceId(execution.getProcessInstanceId()).singleResult();
+            
+            //String queryParamPattern = "?sHead=Отзыв&sBody=Отзыв&sData=Название Услуги&sMail= &nID_SubjectMessageType=1&sAccessContract=Request"; 
             String queryParamPattern = 
                     "?sHead=Отзыв"
-                    //+ "&sBody=Отзыв"
-                    + "&sData=Название Услуги"
+                    + "&sData=" + (historicProcessInstance.getName() != null ? historicProcessInstance.getName().trim() : "")
                     + "&sMail= "
                     + "&nID_SubjectMessageType=1"
-                    + "&sAccessContract=Request"; //sAccessKey=%s&amp;
+                    + "&sAccessContract=Request"; 
             
             String queryParam = String.format(queryParamPattern);
             if(nID_Subject != null){
