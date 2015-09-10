@@ -75,8 +75,8 @@ public class AuthenticationTokenSelector {
 		while (names.hasMoreElements()) {
 			addParameterByFilter(parameters, names.nextElement());
 		}
-                return getParameters(parameters);
-		//return URLEncodedUtils.format(parameters, "UTF-8");
+                //return getParameters(parameters);
+		return URLEncodedUtils.format(parameters, "UTF-8");
 		//return URIBuilder.format(parameters, "UTF-8");
 	}
 
