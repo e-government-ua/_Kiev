@@ -198,10 +198,10 @@ public class ActivitiRestDocumentController {
     public
     @ResponseBody
     byte[] getDocumentAbstract(@RequestParam(value = "nID_Subject", required = false, defaultValue = "1")   Long nID_Subject,
-                               @RequestParam(value = "sID", required = false)                                  String sID,
-                               @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false)    Long organID,
-                               @RequestParam(value = "nID_DocumentType", required = false)                     Long docTypeID,
-                               @RequestParam(value = "sPass", required = false)                                String password,
+                               @RequestParam(value = "sID", required = true)                                String sID,
+                               @RequestParam(value = "nID_DocumentOperator_SubjectOrgan", required = false) Long organID,
+                               @RequestParam(value = "nID_DocumentType", required = false)                  Long docTypeID,
+                               @RequestParam(value = "sPass", required = false)                             String password,
 
                                HttpServletRequest request, HttpServletResponse httpResponse)
             throws ActivitiRestException {
