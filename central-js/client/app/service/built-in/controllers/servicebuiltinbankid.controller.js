@@ -62,9 +62,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   console.log('Hi! I\'m Service Built-In BankID Controller');
   
   PlacesService.setController({
-    controller: this,
-    regions: regions,
-    service: service
+    controller: this
   });
 
   // FIXME

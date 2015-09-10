@@ -1,4 +1,4 @@
-angular.module('app').controller('ServiceRegionController', function($state, $rootScope, $scope, $sce, RegionListFactory, PlacesService, ServiceService, service, regions, AdminService, serviceLocationParser) {
+angular.module('app').controller('ServiceRegionController', function($state, $rootScope, $scope, $sce, RegionListFactory, PlacesService, ServiceService, AdminService, serviceLocationParser) {
   // FIXME
   // $scope.service = service;
   // $scope.regions = regions;
@@ -10,13 +10,9 @@ angular.module('app').controller('ServiceRegionController', function($state, $ro
 
   // Each controller which uses Places Control should tell it:
   // FIXME: preload regions and service and provide them as part of the locations service
-  console.log('RegionController. Regions: ', regions );
+  console.log('RegionController. Reg-s: ', regions);
 
-  PlacesService.setController({
-    controller: this,
-    regions: regions,
-    service: service
-  });
+  PlacesService.setController(this);
 
   // $scope.loadRegionList = function(search) {
   //   return $scope.regionList.load(service, search);
@@ -71,6 +67,7 @@ angular.module('app').controller('ServiceRegionController', function($state, $ro
   // });
 
   var initialRegion = serviceLocationParser.getSelectedRegion(regions);
-  if (initialRegion)
+  if (initialRegion) {
     $scope.onSelectRegionList(initialRegion);
+  }
 });

@@ -2,31 +2,31 @@ angular.module('app').config(function($stateProvider) {
   $stateProvider
     .state('index.service.general.region', {
       url: '/region',
-      resolve: {
-        regions: function($stateParams, PlacesService, service) {
-          return PlacesService.getRegions().then(function(response) {
-            // FIXME
-            var regions = response.data;
-            var aServiceData = service.aServiceData;
+      // FIXME PREVENT Coloring
+      // resolve: {
+      //   regions: function($stateParams, PlacesService, service) {
+      //     return PlacesService.getRegions().then(function(response) {
+      //       var regions = response.data;
+      //       var aServiceData = service.aServiceData;
 
-            angular.forEach(regions, function(region) {
-              var color = 'red';
-              angular.forEach(aServiceData, function(oServiceData) {
-                if (oServiceData.hasOwnProperty('nID_Region') == false) {
-                  return;
-                }
-                var oRegion = oServiceData.nID_Region;
-                if (oRegion.nID == region.nID) {
-                  color = 'green';
-                }
-              });
-              region.color = color;
-            });
+      //       angular.forEach(regions, function(region) {
+      //         var color = 'red';
+      //         angular.forEach(aServiceData, function(oServiceData) {
+      //           if (oServiceData.hasOwnProperty('nID_Region') == false) {
+      //             return;
+      //           }
+      //           var oRegion = oServiceData.nID_Region;
+      //           if (oRegion.nID == region.nID) {
+      //             color = 'green';
+      //           }
+      //         });
+      //         region.color = color;
+      //       });
 
-            return regions;
-          });
-        }
-      },
+      //       return regions;
+      //     });
+      //   }
+      // },
       views: {
         'main@': {
           templateUrl: 'app/service/region/index.html',

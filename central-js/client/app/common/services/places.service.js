@@ -1,9 +1,31 @@
+/**
+  Послуги для тестування:
+  
+  region only:
+
+  655 NULL  1 4 {sPath:service/form/form-data,oParams:{processDefinitionId:dnepr_spravka_o_doxodax:1:1}}  https://test.region.igov.org.ua/wf-region/  FALSE 1 FALSE   BankID,EDS                            
+  Отримання довідки про доходи фізичних осіб (тільки регіон - Дніпро, 1)
+  https://test.igov.org.ua/service/655/general
+  
+  country only: 
+
+  101 NULL  NULL  1 {}  http://map.land.gov.ua/kadastrova-karta FALSE 1 FALSE Ви можете отримати послугу на сайті Публічної кадастрової карти України BankID,EDS                              Надання відомостей з Державного земельного кадастру у формі витягу з Державного земельного кадастру про земельну ділянку
+  https://test.igov.org.ua/service/101/general
+
+  city:
+  62  159 2 NULL  1 {}  https://dniprorada.igov.org.ua  FALSE 1 TRUE    BankID,EDS                            
+  123 159 1 NULL  4 {sPath:service/form/form-data,oParams:{processDefinitionId:dnepr_mreo_1:1:58}}  https://test.region.igov.org.ua/wf-region/  FALSE 1 FALSE   BankID,EDS                              
+  159 702 3 NULL  1 {}  https://egov.city-adm.lviv.ua/  FALSE 1 FALSE Скористатися послугою можна на сайті порталу міста Львів. Для користування послугою треба будет увійти в систему через BankID або електронно-цифровий підпис  BankID,EDS                            
+  311 159 6 NULL  1 {}    FALSE 1 FALSE Будь ласка, оберіть адресу МРЄВ,за якою Ви бажаєте отримати послугу: <br> <a href=/service/726/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> Петропавлівська Борщагівка, вул.Кільцева 4</a> <br> <a href=/service/727/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Туполєва, 19</a> <br /><a href=/service/728/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Велика кільцева дорога. 22-А</a> <br /><a href=/service/729/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Братиславська, 52</a> <br /><a href=/service/730/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Столичне шосе, 104</a> <br /><a href=/service/731/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Павла Усенка, 8</a> <br /><a href=/service/732/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Новокостянтинівська, 8</a> <br /><a href=/service/733/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> пров. Балтійський, 20</a> <br />                              
+ *
+ */
+
 angular.module('app')
   .service('PlacesService', function($http) {
 
     var self = this;
 
-    var sequencer = {};
+    self.iPlaceController = {};
 
     // Зберігаємо savedPlaceData у localStorage і потім відновлюємо
     // Формат даних:
@@ -13,15 +35,15 @@ angular.module('app')
 
     var statesMap = {
       'index.service.general.city.built-in': {
-        startupFunction: function(sequencer, $location, $state, $rootScope, $scope, placeCtrl) {
+        startupFunction: function(iPlaceController, $location, $state, $rootScope, $scope, placeCtrl) {
           $scope.$location = $location;
           $scope.$state = $state;
-          sequencer.isStep2 = true;
+          iPlaceController.isStep2 = true;
         },
         viewClass: 'state-disabled'
       },
       'index.service.general.city.built-in.bankid.submitted': {
-        startupFunction: function(sequencer, $location, $state, $rootScope, $scope, placeCtrl) {
+        startupFunction: function(iPlaceController, $location, $state, $rootScope, $scope, placeCtrl) {
           $scope.collapse();
           $scope.state = $state; //.get('index.service.general.city.built-in.bankid.submitted');
         },
@@ -29,9 +51,9 @@ angular.module('app')
       }
     };
 
-    // options: self, regions, service
-    self.setController = function(ctrl) {
-      self.iPlaceController = ctrl;
+    // options: self
+    self.setController = function(iPlaceController) {
+      self.iPlaceController = iPlaceController;
     };
 
     self.getClassByState = function($state) {
@@ -41,7 +63,7 @@ angular.module('app')
     self.saveLocal = function(oSavedPlaceData) {
       localStorage.setItem('igSavedPlaceData', JSON.stringify(oSavedPlaceData));
     };
-
+    
     self.setPlace = function(oSavedPlaceData) {
       savedPlaceData = oSavedPlaceData;
       self.saveLocal(savedPlaceData);
@@ -57,13 +79,11 @@ angular.module('app')
     self.initPlacesByScopeAndState = function(placeCtrl, $scope, $state, $rootScope, AdminService, $location, $sce) {
 
       // wizard controller
-      var ctrl = self.iPlaceController;
-      sequencer = ctrl.controller;
-      sequencer.isStep2 = sequencer.isStep2 || false;
+      // FIXME create sequencer 
+      self.iPlaceController.isStep2 = self.iPlaceController.isStep2 || false;
 
-      $scope.service = ctrl.service;
       $scope.bAdmin = AdminService.isAdmin();
-      $scope.regions = ctrl.regions;
+      // $scope.regions = iPlaceController.regions;
 
       $scope.getStateName = function() {
         return $state.current.name;
@@ -86,7 +106,7 @@ angular.module('app')
       console.log('Places Service. $state =', $state);
 
       if (statesMap[curState] && statesMap[curState].startupFunction) {
-        statesMap[curState].startupFunction.call(sequencer, $location, $state, $rootScope, $scope, placeCtrl);
+        statesMap[curState].startupFunction.call(self.iPlaceController, $location, $state, $rootScope, $scope, placeCtrl);
       } else {
         // default startup
         $scope.$location = $location;
@@ -99,7 +119,7 @@ angular.module('app')
       };
 
       $scope.step1 = function() {
-        sequencer.isStep2 = false;
+        self.iPlaceController.isStep2 = false;
         // FIXME
         // if (byState('index.service.general.city')) {
         //   return $state.go('index.service.general.city', {
@@ -112,13 +132,13 @@ angular.module('app')
         var aServiceData = $scope.service.aServiceData;
 
         // console.log('step 2:');
-        sequencer.isStep2 = true;
+        self.iPlaceController.isStep2 = true;
       };
 
       $scope.makeStep = function(stepId) {
         if (stepId) {
           if (stepId === 'editStep') {
-            sequencer.isStep2 = false;
+            self.iPlaceController.isStep2 = false;
           }
         }
       };
@@ -142,21 +162,21 @@ angular.module('app')
 
         if (curState === 'index.service.general.city.built-in' || curState === 'index.service.general.city') {
           if (state && params.placeData.city) {
-            sequencer.isStep2 = true;
+            self.iPlaceController.isStep2 = true;
             // console.log('go state:', state);
             $state.go(state, {
               id: $scope.service.nID
             }, {
               location: false
             }).then(function() {
-              sequencer.isStep2 = true;
+              self.iPlaceController.isStep2 = true;
             });
           }
         }
       });
 
       $scope.ngIfStep2 = function() {
-        return sequencer.isStep2;
+        return self.iPlaceController.isStep2;
       };
     };
     // end of init Places By Scope

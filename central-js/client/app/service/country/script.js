@@ -1,16 +1,18 @@
 angular.module('app').config(function($stateProvider) {
+  // FIXME REMOVE IT ALL
   $stateProvider
     .state('index.service.general.country', {
       url: '/country',
-      resolve: {
-        service: function($stateParams, ServiceService) {
-          return ServiceService.get($stateParams.id);
-        }
-      },
+      // resolve: {
+      //   service: function($stateParams, ServiceService) {
+      //     return ServiceService.get($stateParams.id);
+      //   }
+      // },
       views: {
         'main@': {
           templateUrl: 'app/service/index.html',
-          controller: 'ServiceCountryController'
+          controller: 'WizardController'
+          // controller: 'ServiceCountryController'
         }
       }
     }).state('index.service.general.country.error', {
@@ -18,7 +20,8 @@ angular.module('app').config(function($stateProvider) {
       views: {
         'content@index.service.general.country': {
           templateUrl: 'app/service/country/absent.html',
-          controller: 'ServiceCountryAbsentController'
+          controller: 'WizardController'
+          // controller: 'ServiceCountryAbsentController'
         }
       }
     });

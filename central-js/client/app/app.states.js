@@ -10,6 +10,9 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
         service: function($stateParams, ServiceService) {
           console.log('App.states: calling get service, $stateParams.id =', $stateParams.id);
           return ServiceService.get($stateParams.id);
+        },
+        regions: function(PlacesService, service) {
+          return PlacesService.getRegionsForService(service);
         }
       },
       views: {
@@ -43,16 +46,17 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
     })
     .state('index.service.general.city', {
       url: '/city',
-      resolve: {
-        regions: function(PlacesService, service) {
-          return PlacesService.getRegionsForService(service);
-        },
-        // FIXME: Copy-pasting is bad, bad, bad
-        service: function($stateParams, ServiceService) {
-          console.log('App.states: calling get service, $stateParams.id =', $stateParams.id);
-          return ServiceService.get($stateParams.id);
-        }
-      },
+      // resolve: {
+      //   regions: function(PlacesService, service) {
+      //     return PlacesService.getRegionsForService(service);
+      //   }
+      //   ,
+      //   // FIXME: Copy-pasting is bad, bad, bad
+      //   service: function($stateParams, ServiceService) {
+      //     console.log('App.states: calling get service, $stateParams.id =', $stateParams.id);
+      //     return ServiceService.get($stateParams.id);
+      //   }
+      // },
       views: {
         'content@index.service': {
           controller: 'ServiceCityController',
@@ -197,10 +201,11 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
         },
         ActivitiForm: function(ActivitiService, oServiceData, processDefinitionId) {
           return ActivitiService.getForm(oServiceData, processDefinitionId);
-        },
-        service: function($stateParams, ServiceService) {
-          return ServiceService.get($stateParams.id);
         }
+        //,
+        // service: function($stateParams, ServiceService) {
+        //   return ServiceService.get($stateParams.id);
+        // }
       },
       views: {
         'city-content': {

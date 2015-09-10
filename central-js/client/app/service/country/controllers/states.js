@@ -1,15 +1,15 @@
 'use strict';
 angular.module('app').controller('ServiceCountryController', function($state, $rootScope, $scope, $sce, service, AdminService) {
 
+  // FIXME the whole file to me removed
+  // $scope.service = service;
 
-  $scope.service = service;
+  // $scope.bAdmin = AdminService.isAdmin();
 
-  $scope.bAdmin = AdminService.isAdmin();
-
-  $scope.data = {
-    region: null,
-    city: null
-  };
+  // $scope.data = {
+  //   region: null,
+  //   city: null
+  // };
 
   $scope.step1 = function() {
     var aServiceData = $scope.service.aServiceData;
@@ -37,13 +37,15 @@ angular.module('app').controller('ServiceCountryController', function($state, $r
   $scope.step1();
 });
 
+// FIXME the whole file to me removed
 angular.module('app').controller('ServiceCountryAbsentController', function($state,
                                                                             $rootScope,
                                                                             $scope,
                                                                             service,
                                                                             MessagesService,
                                                                             ValidationService) {
-  $scope.service = service;
+
+  // $scope.service = service;
   $scope.hiddenCtrls = true;
   (function() {
     if (window.pluso && typeof window.pluso.start === 'function') { return; }

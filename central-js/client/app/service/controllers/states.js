@@ -1,12 +1,15 @@
-angular.module('app').controller('ServiceFormController', function($scope, service, AdminService) {
-  console.log('States: service form controller called, $scope.service =', $scope.service);
+angular.module('app').controller('ServiceFormController', function($scope, service, regions, AdminService, ServiceService) {
+  // FIXME-4 Service Should come not from outside controller, but from ServiceService
   $scope.service = service;
+  $scope.regions = regions;
+  console.log('States: service form controller called, $scope.service =', $scope.service);
   $scope.bAdmin = AdminService.isAdmin();
 });
 
 angular.module('app').controller('ServiceGeneralController', function($state, $scope) {
   var aServiceData = $scope.service.aServiceData;
 
+  // FIXME review this logic duplications
   var isCity = false;
   angular.forEach(aServiceData, function(value, key) {
     if (value.hasOwnProperty('nID_City')) {
