@@ -152,7 +152,7 @@
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <userTask id="usertask3" name="Внесення до ЄДР запису про зміну відомостей" activiti:candidateGroups="dnepr_minust_1">
       <extensionElements>
-        <activiti:formProperty id="Task2" name="На цьому етапі" type="label" default="потрібно натиснути ''взяти в роботу'', після того, як зміни в ЄДР будуть внесені, натисніть ''обробити'' "></activiti:formProperty>
+        <activiti:formProperty id="Task2" name="На цьому етапі" type="label" default="потрібно натиснути ''взяти в роботу'', після того, як зміни в ЄДР будуть внесені, натисніть ''опрацювати'' "></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
