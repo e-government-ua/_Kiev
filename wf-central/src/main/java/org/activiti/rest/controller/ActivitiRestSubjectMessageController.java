@@ -33,12 +33,16 @@ public class ActivitiRestSubjectMessageController {
    public
    @ResponseBody
    ResponseEntity setMessage(@RequestParam(value = "sHead") String sHead,
-                             @RequestParam(value = "sBody") String sBody,
+                             @RequestParam(value = "sBody", required = false) String sBody,
                              @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
                              @RequestParam(value = "sMail", required = false) String sMail,
                              @RequestParam(value = "sContacts", required = false) String sContacts,
                              @RequestParam(value = "sData", required = false) String sData,
                              @RequestParam(value = "nID_SubjectMessageType", required = false) Long nID_SubjectMessageType) {
+       
+       if(sBody==null){
+           sBody="";
+       }
       SubjectMessage message = createSubjectMessage(sHead, sBody, nID_Subject, sMail, sContacts, sData,
               nID_SubjectMessageType);
       subjectMessagesDao.setMessage(message);
