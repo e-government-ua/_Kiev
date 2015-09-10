@@ -14,8 +14,8 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса; на неї Ви будете отримувати повідомлення про обробку Вашої заяви" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="inn_scan" name="Прикріпіть копію до відки про присвоєння ІПН; індивідуальний податковий номер" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="birthdocument_scan" name="Прикріпіть скановану копію свідоцтва про народження Вашої дитини" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="inn_scan" name="Завантажте копію довідки про присвоєння ІПН; індивідуальний податковий номер" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="birthdocument_scan" name="Завантажте скановану копію свідоцтва про народження Вашої дитини" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
           <activiti:value id="and" name="Амур-Нижньодніпровський"></activiti:value>
           <activiti:value id="babush" name="Бабушкінський"></activiti:value>
@@ -53,8 +53,8 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса; на неї Ви будете отримувати повідомлення про обробку Вашої заяви" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="inn_scan" name="Прикріпіть копію до відки про присвоєння ІПН; індивідуальний податковий номер" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="birthdocument_scan" name="Прикріпіть скановану копію свідоцтва про народження Вашої дитини" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="inn_scan" name="Завантажте копію довідки про присвоєння ІПН; індивідуальний податковий номер" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="birthdocument_scan" name="Завантажте скановану копію свідоцтва про народження Вашої дитини" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" writable="false">
           <activiti:value id="and" name="Амур-Нижньодніпровський"></activiti:value>
           <activiti:value id="babush" name="Бабушкінський"></activiti:value>
@@ -86,7 +86,7 @@
     </userTask>
     <sequenceFlow id="flow2" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="usertask2_yellow" name="обработка этап 2" activiti:candidateGroups="dnepr_upzsn_${area}">
+    <userTask id="usertask2_red" name="обработка этап 2" activiti:candidateGroups="dnepr_upzsn_${area}">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
@@ -98,8 +98,8 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса; на неї Ви будете отримувати повідомлення про обробку Вашої заяви" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="inn_scan" name="Прикріпіть копію до відки про присвоєння ІПН; індивідуальний податковий номер" type="file"></activiti:formProperty>
-        <activiti:formProperty id="birthdocument_scan" name="Прикріпіть скановану копію свідоцтва про народження Вашої дитини" type="file"></activiti:formProperty>
+        <activiti:formProperty id="inn_scan" name="Завантажте копію довідки про присвоєння ІПН; індивідуальний податковий номер" type="file"></activiti:formProperty>
+        <activiti:formProperty id="birthdocument_scan" name="Завантажте скановану копію свідоцтва про народження Вашої дитини" type="file"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" writable="false">
           <activiti:value id="and" name="Амур-Нижньодніпровський"></activiti:value>
           <activiti:value id="babush" name="Бабушкінський"></activiti:value>
@@ -137,7 +137,7 @@
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow6" sourceRef="usertask2_yellow" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="usertask2_red" targetRef="exclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="exclusivegateway2" targetRef="servicetask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_step2=='attr1_ok'}]]></conditionExpression>
     </sequenceFlow>
@@ -238,7 +238,7 @@
                             &lt;/tr&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 0 120px 35px 120px;"&gt;
-                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонимно&lt;/label&gt;
+                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
                                     &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -439,7 +439,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask5" name="имейл про неправильные данные" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
+    <serviceTask id="servicetask5" name="имейл про неправильные данные" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -525,7 +525,7 @@
     <sequenceFlow id="flow17" sourceRef="exclusivegateway1" targetRef="servicetask5">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_step1=='attr2_bad'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow18" sourceRef="exclusivegateway1" targetRef="usertask2_yellow">
+    <sequenceFlow id="flow18" sourceRef="exclusivegateway1" targetRef="usertask2_red">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_step1=='attr1_ok'}]]></conditionExpression>
     </sequenceFlow>
   </process>
@@ -571,6 +571,9 @@
         <omgdc:Bounds height="55.0" width="168.0" x="270.0" y="172.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask2_yellow" id="BPMNShape_usertask2_yellow">
+        <omgdc:Bounds height="55.0" width="105.0" x="250.0" y="80.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2_red" id="BPMNShape_usertask2_red">
         <omgdc:Bounds height="55.0" width="105.0" x="250.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
