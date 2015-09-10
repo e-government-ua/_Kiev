@@ -14,7 +14,7 @@
           <activiti:value id="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа" name="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа"></activiti:value>
           <activiti:value id="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту" name="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="message" name="Заповніть і відправте у формі 4 першу сторінку, та сторінку, що стосується ваших змін" type="label" default=" ;для зміни інформації про зв`язок - сторінка 3;для зміни відомостей про кінцевих бенефіціарів - сторінка 4;для зміни видів економічної діяльності - сторінка 6"></activiti:formProperty>
+        <activiti:formProperty id="message" name="Заповніть і відправте у формі 4 першу сторінку, та сторінку, що стосується ваших змін" type="label" default="для зміни інформації про зв`язок - сторінка 3; для зміни відомостей про кінцевих бенефіціарів - сторінка 4; для зміни видів економічної діяльності - сторінка 6"></activiti:formProperty>
         <activiti:formProperty id="scan_form4" name="Завантажте відскановану копію заповненої Форми-4; бланк форми-4 можна знайти за посиланням http://bit.ly/1O1Yd77" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="scan_form6" name="Завантажте відскановану копію заповненої Форми-6; бланк форми-6 можна знайти за посиланням http://bit.ly/1KPbaQL" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="scan_7" name="Завантажте довіреність;якщо документи подає  уповноважена особа" type="file" default=" "></activiti:formProperty>
@@ -122,7 +122,11 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="Posluga" name="Зміни, які будуть вноситись в ЄДР:" type="enum" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Posluga" name="Зміни, які будуть вноситись в ЄДР:" type="enum" writable="false">
+		  <activiti:value id="Зміна додаткової інформації про зв`язок з юридичною особою" name="Зміна додаткової інформації про зв`язок з юридичною особою"></activiti:value>
+          <activiti:value id="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа" name="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа"></activiti:value>
+          <activiti:value id="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту" name="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="decide1" name="Результат перевірки документів" type="enum" required="true">
           <activiti:value id="accept" name="Документи пройшли перевірку. Зміни можуть бути внесені."></activiti:value>
           <activiti:value id="reject" name="Послуга не може бути надана."></activiti:value>
@@ -153,9 +157,15 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+          <activiti:formProperty id="Posluga" name="Зміни, які будуть вноситись в ЄДР:" type="enum" writable="false">
+		  <activiti:value id="Зміна додаткової інформації про зв`язок з юридичною особою" name="Зміна додаткової інформації про зв`язок з юридичною особою"></activiti:value>
+          <activiti:value id="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа" name="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа"></activiti:value>
+          <activiti:value id="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту" name="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту"></activiti:value>
+        </activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${scan_form4},${scan_1},${scan_2},${scan_3},${scan_4},${scan_5},${scan_6},${bankId_scan_passport}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport},${scan_form4},${scan_form6},${scan_7}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
