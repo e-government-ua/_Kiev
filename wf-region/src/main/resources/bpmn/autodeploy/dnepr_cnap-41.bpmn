@@ -154,7 +154,7 @@ ${comment} &lt;br&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask2" name="Лист з результатом Правобережний ЦНАП" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
+    <serviceTask id="servicetask2" name="Лист з результатом Правобережний ЦНАП" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -352,7 +352,7 @@ ${comment} &lt;br&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask4" name="Лист з результатом Лівобережний ЦНАП" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
+    <serviceTask id="servicetask4" name="Лист з результатом Лівобережний ЦНАП" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -1211,7 +1211,7 @@ ${comment} &lt;br&gt;
         <omgdi:waypoint x="495.0" y="172.0"></omgdi:waypoint>
         <omgdi:waypoint x="583.0" y="155.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="435.0" y="130.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="86.0" x="435.0" y="130.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
