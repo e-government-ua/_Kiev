@@ -1,6 +1,5 @@
 angular.module('app').controller('ServiceRegionController', function($state, $rootScope, $scope, $sce, RegionListFactory, PlacesService, ServiceService, AdminService, serviceLocationParser) {
   // FIXME
-  // $scope.service = service;
   // $scope.regions = regions;
 
   $scope.bAdmin = AdminService.isAdmin();
@@ -34,11 +33,11 @@ angular.module('app').controller('ServiceRegionController', function($state, $ro
   //     region: null,
   //     city: null
   //   };
-  //   return $state.go('index.service.general.region', {id: $scope.service.nID});
+  //   return $state.go('index.service.general.region', {id: ServiceService.oService.nID});
   // };
 
   // $scope.step2 = function() {
-  //   var aServiceData = $scope.service.aServiceData;
+  //   var aServiceData = ServiceService.oService.aServiceData;
   //   var serviceType = {nID: 0};
   //   angular.forEach(aServiceData, function(value, key) {
   //     if (value.nID_Region.nID == $scope.data.region.nID) {
@@ -50,11 +49,11 @@ angular.module('app').controller('ServiceRegionController', function($state, $ro
 
   //   switch (serviceType.nID) {
   //     case 1:
-  //       return $state.go('index.service.general.region.link', {id: $scope.service.nID}, {location: false});
+  //       return $state.go('index.service.general.region.link', {id: ServiceService.oService.nID}, {location: false});
   //     case 4:
-  //       return $state.go('index.service.general.region.built-in', {id: $scope.service.nID}, {location: false});
+  //       return $state.go('index.service.general.region.built-in', {id: ServiceService.oService.nID}, {location: false});
   //     default:
-  //       return $state.go('index.service.general.region.error', {id: $scope.service.nID}, {location: false});
+  //       return $state.go('index.service.general.region.error', {id: ServiceService.oService.nID}, {location: false});
   //   }
   // };
 

@@ -29,7 +29,7 @@ angular.module('app').service('ServiceService', function($http, $q) {
 
   // FIXME add data:
   // isCity,
-  // isRegion 
+  // isRegion
   this.get = function(id) {
     var data = {
       'nID': id

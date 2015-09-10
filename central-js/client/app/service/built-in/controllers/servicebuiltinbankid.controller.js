@@ -57,10 +57,9 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     });
   }*/
 
-  // Each controller which uses Places Control should tell it:
-
   console.log('Hi! I\'m Service Built-In BankID Controller');
   
+  // Each controller which uses Places Control should tell it:
   PlacesService.setController(this);
 
   // FIXME

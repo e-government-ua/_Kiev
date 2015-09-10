@@ -5,7 +5,7 @@
  * тобто воно належить тільки одній області, і її можна взнати автоматично.
  */
 angular.module('app')
-  .directive('place', function($rootScope, $location, $state, $sce, AdminService, RegionListFactory, LocalityListFactory, PlacesService) {
+  .directive('place', function($rootScope, $location, $state, $sce, AdminService, RegionListFactory, LocalityListFactory, PlacesService, ServiceService) {
 
     return {
       restrict: 'E',
@@ -21,7 +21,7 @@ angular.module('app')
         };
 
         $scope.recallPlaceData = function() {
-          $scope.placeData = PlacesService.getPlace() || $scope.placeData;
+          $scope.placeData = PlacesService.getPlaceData() || $scope.placeData;
           // console.log('recall place data: ', $scope.placeData.region, $scope.placeData.city.sName);
           if ($scope.regionList) {
             $scope.regionList.select($scope.placeData.region);
@@ -39,10 +39,11 @@ angular.module('app')
         };
 
         $scope.cityIsChosen = function() {
-          var r = $scope.placeData && ($scope.placeData.city ? true : false);
-          var s = $scope.service.aServiceData;
-          // console.log('city is chosen: ', r);
-          return r;
+          return PlacesService.regionIsChosen();
+        };
+
+        $scope.regionIsChosen = function() {
+          return PlacesService.regionIsChosen();
         };
 
         /**
@@ -68,12 +69,6 @@ angular.module('app')
           return result;
         };
 
-        $scope.regionIsChosen = function() {
-          var bResult = $scope.placeData && ($scope.placeData.region ? true : false);
-          // console.log('region is chosen: ', bResult);
-          return bResult;
-        };
-
         $scope.onEditPlace = function() {
           $scope.resetPlaceData();
 
@@ -84,22 +79,29 @@ angular.module('app')
         };
 
         $scope.loadRegionList = function(search) {
-          return $scope.regionList.load($scope.service, search);
+          return $scope.regionList.load( ServiceService.oService, search);
         };
 
         $scope.loadLocalityList = function(search) {
-          return $scope.localityList.load($scope.service, $scope.placeData.region.nID, search).then(function(cities) {
+          return $scope.localityList.load( ServiceService.oService, $scope.placeData.region.nID, search).then(function(cities) {
             $scope.localityList.typeahead.defaultList = cities;
           });
         };
 
         $scope.processPlaceSelection = function() {
-          var serviceType = $scope.cityIsChosen() ? $scope.findServiceDataByCity() : $scope.findServiceDataByRegion();
-          // console.log('region is chosen: ', $scope.regionIsChosen(), ', city is chosen: ', $scope.cityIsChosen(), ' serviceType:', serviceType);
-          PlacesService.setPlace($scope.placeData);
+          var oService = PlacesService.getServiceDataForSelectedPlace();
+          // console.log('region is chosen: ', $scope.regionIsChosen(), ', city is chosen: ', $scope.cityIsChosen(), ' service Type:', s erviceType);
+
+          $scope.serviceData = oService;
+          if (oService.bNoteTrusted === false) {
+            oService.sNote = $sce.trustAsHtml(oService.sNote);
+            oService.sNoteTrusted = true;
+          }
+
+          PlacesService.setPlaceData($scope.placeData);
 
           $scope.$emit('onPlaceChange', {
-            serviceType: serviceType,
+            serviceData: oService,
             placeData: $scope.placeData
           });
         };
@@ -131,43 +133,6 @@ angular.module('app')
           $scope.placeData.city = $item;
           $scope.localityList.select($item, $model, $label);
           $scope.processPlaceSelection();
-        };
-
-        $scope.findServiceDataByRegion = function() {
-          var aServiceData = $scope.service.aServiceData;
-          var serviceType = {
-            nID: 0
-          };
-          angular.forEach(aServiceData, function(oService, key) {
-            // if service is available in 
-            if (oService.nID_Region && oService.nID_Region.nID === $scope.placeData.region.nID) {
-              serviceType = oService.nID_ServiceType;
-              $scope.serviceData = oService;
-              if ($scope.serviceData.bNoteTrusted === false) {
-                $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
-                $scope.serviceData.sNoteTrusted = true;
-              }
-            }
-          });
-          return serviceType;
-        };
-
-        $scope.findServiceDataByCity = function() {
-          var aServiceData = $scope.service.aServiceData;
-          var serviceType = {
-            nID: 0
-          };
-          angular.forEach(aServiceData, function(oService, key) {
-            if (oService.nID_City && oService.nID_City.nID === ($scope.placeData.city && $scope.placeData.city.nID)) {
-              serviceType = oService.nID_ServiceType;
-              $scope.serviceData = oService;
-              if ($scope.serviceData.bNoteTrusted === false) {
-                $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
-                $scope.serviceData.sNoteTrusted = true;
-              }
-            }
-          });
-          return serviceType;
         };
 
         $scope.initPlaceControls();

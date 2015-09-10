@@ -60,9 +60,9 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
       views: {
         'content@index.service': {
           controller: 'ServiceCityController',
-          // controller: 'WizardController',
+          // controller: 'PlaceFixController',
           templateUrl: 'app/service/city/content.html'
-          // templateUrl: 'app/service/wizard/wizard.content.html'
+          // templateUrl: 'app/service/placefix/placefix.content.html'
         }
       }
     })
@@ -115,9 +115,9 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
       views: {
         'city-content': {
           templateUrl: 'app/service/city/built-in/index.html',
-          // templateUrl: 'app/service/wizard/wizard.content.html',
+          // templateUrl: 'app/service/placefix/placefix.content.html',
           controller: 'ServiceBuiltInController'
-            // controller: 'WizardController'
+            // controller: 'PlaceFixController'
         }
       }
     })
@@ -210,7 +210,7 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
       views: {
         'city-content': {
           templateUrl: 'app/service/city/built-in/bankid.html',
-          //controller: 'WizardController' // 'BuiltinCityController'
+          //controller: 'PlaceFixController' // 'BuiltinCityController'
           controller: 'ServiceBuiltInBankIDController' // FIXME-0
         }
       }
@@ -229,7 +229,7 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
       views: {
         'city-content@index.service.general.city': {
           templateUrl: 'app/service/city/built-in/bankid.submitted.html',
-          controller: 'WizardController' // function moved to Places' stateStartupFunction
+          controller: 'PlaceFixController' // function moved to Places' stateStartupFunction
         }
       }
     }).state('index.service.statistics', {
