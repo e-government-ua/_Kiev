@@ -153,7 +153,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="надання адміністративної послуги" activiti:candidateGroups="gni">
+    <userTask id="usertask1" name="надання адміністративної послуги" activiti:candidateGroups="dfs_dnepr_vutyag_nalog">
       <extensionElements>
         <activiti:formProperty id="fio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
