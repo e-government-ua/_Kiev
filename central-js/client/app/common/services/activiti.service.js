@@ -12,7 +12,7 @@ angular.module('app').service('ActivitiService', function($http, ErrorsFactory) 
     });
   };
 
-  this.submitForm = function (oServiceData, formData) {
+  this.submitForm = function (oService, oServiceData, formData) {
     var url = oServiceData.sURL + oServiceData.oData.sPath;
     var data = {
       'url': url
@@ -30,7 +30,7 @@ angular.module('app').service('ActivitiService', function($http, ErrorsFactory) 
     }
 
     var params = {
-      nID_Service : oServiceData.nID,
+      nID_Service : oService.nID,
       nID_Region : nID_Region,
       sID_UA : sID_UA
     };

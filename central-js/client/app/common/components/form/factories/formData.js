@@ -11,7 +11,7 @@ angular.module('app').factory('FormDataFactory', function (ParameterFactory, Dat
       return factory.prototype.isFit(property);
     });
     if (result.length > 0) {
-      params[property.id] = Object.create(result[0].prototype);
+      params[property.id] = result[0].prototype.createFactory();
       params[property.id].value = property.value;
     }
   };
