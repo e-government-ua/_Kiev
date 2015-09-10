@@ -166,15 +166,15 @@
         <activiti:formProperty id="rahunok" name="Розрахунковий рахунок" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="mfo" name="МФО" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bank" name="Найменування відділення банку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sIDPayment" name="id платежа" type="string" default="${sID_Payment}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_reestr" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_reestr" name="Укажіть сьогоднішню дату" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="Перевірка документів" type="enum" required="true">
           <activiti:value id="accept" name="документи пройшли перевірку, послуга може бути надана"></activiti:value>
           <activiti:value id="reject" name="відхилити запит"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, підставу" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="opis" name="Завантажте опис прийнятих документів " type="file"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_45_2print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
@@ -189,6 +189,7 @@
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sIDPayment" name="id платежа" type="string" default="${sID_Payment}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_2" name="Прийняття рішення про переоформлення, видачу копії або дубліката ліцензії на надання освітніх послуг" type="enum" required="true">
           <activiti:value id="accept" name="схвалити переоформлення, видачу копії або дубліката ліцензії"></activiti:value>
           <activiti:value id="reject" name="відмовити у переоформленні, видачі копії або дубліката ліцензії"></activiti:value>
@@ -474,7 +475,7 @@
  					                [paymentButton_LiqPay]           
                                     &lt;/p&gt;
 Якщо оплата Вами вже здійснена, (і Ви додали документ до свого запиту, що це підтверджує) - ще раз здійснювати оплату через кнопку не потрібно. &lt;/p&gt;
-                                
+&lt;/p&gt;               
 Реєстраційний номер заяви: ${reestr_numb};&lt;br /&gt;
 Дата реєстрації ${date_reestr}.&lt;br /&gt;
 До листа додається опис наданих Вами документів.&lt;br /&gt;
