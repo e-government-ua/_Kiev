@@ -12,12 +12,12 @@
           <activiti:value id="woman" name="Жіноча"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="PrevName" name="Попереднє прізвище, ім’я та по батькові;  За наявності" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="Dateofbirth" name="Дата народження; Формат - ДД/ММ/РРРР" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="Dateofbirth" name="Дата народження; Формат - ДД/ММ/РРРР" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="Areabirth" name="Місце народження; Країна і населений пункт" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="Nationality" name="Національність" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Звідки Ви прибули; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="newAddressLabel" name="Куди вибув" type="label" default="Заповніть деталі вашої нової адреси"></activiti:formProperty>
         <activiti:formProperty id="newCity" name="Населений пункт " type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="newStreet" name="Вулиця " type="textArea" default=" "></activiti:formProperty>
@@ -34,17 +34,10 @@
           <activiti:value id="Солом’янський РВ ДМС" name="Солом’янський РВ ДМС"></activiti:value>
           <activiti:value id="Шевченківський РВ ДМС" name="Шевченківський РВ ДМС"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="RegistrationDocument" name="Підставою для зняття з реєстрації місця проживання заявника є" type="enum" required="true">
-          <activiti:value id="pasp" name="паспорт або паспортний документ, що надійшов з органу державної реєстрації актів цивільного стану, або документ про смерть, виданий компетентним органом іноземної держави, легалізований в установленому порядку"></activiti:value>
-          <activiti:value id="deathDoc" name="свідоцтво про смерть"></activiti:value>
-          <activiti:value id="milDoc" name="військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку)"></activiti:value>
-          <activiti:value id="other" name="Інші документи. (Вказати полем нижче)"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="bringDocOther" name="Заповніть якщо Ви вибрали опцію &quot;Інші документи&quot;" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="milName" name="Найменування військомату, до якого Ви належали" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="milRank" name="Військове звання" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kids" name="Чи є у вас дитина (молодша 14 років) яку Ви бажаєте зареєструвати за цією адресою; Якщо дитині більше 14 років або її реєструвати не треба - виберіть поле НІ. Діти старші 14 років подають заяву самостійно." type="enum" required="true">
+        <activiti:formProperty id="kids" name="Чи є у вас дитина (молодша 14 років) яку Ви бажаєте зняти з реєстрації за цією адресою; Якщо дитині більше 14 років або її знімати з реєстрації не треба - виберіть поле НІ. Діти старші 14 років подають заяву самостійно." type="enum" required="true">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
@@ -60,12 +53,8 @@
         <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини; Дата і орган що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="warning" name="Зверніть увагу" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="sBody" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="sBody_2" name="sBody" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="sBody_3" name="sBody" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="sBody_4" name="sBody" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="sBody_5" name="sBody" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="sBody_6" name="sBody" type="invisible"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow2" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
@@ -436,11 +425,9 @@
         <activiti:formProperty id="Sex" name="Стать" type="enum">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
-          <activiti:value id="man1" name="1"></activiti:value>
-          <activiti:value id="woman2" name="2"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="PrevName" name="Попереднє ПІБ заявника" type="string"></activiti:formProperty>
-        <activiti:formProperty id="Dateofbirth" name="Дата народження заявника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="Dateofbirth" name="Дата народження заявника" type="date"></activiti:formProperty>
         <activiti:formProperty id="Areabirth" name="Місце народження; Країна і населений пункт" type="string"></activiti:formProperty>
         <activiti:formProperty id="Nationality" name="Національність" type="string"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string"></activiti:formProperty>
@@ -461,17 +448,10 @@
           <activiti:value id="Солом’янський РВ ДМС" name="Солом’янський РВ ДМС"></activiti:value>
           <activiti:value id="Шевченківський РВ ДМС" name="Шевченківський РВ ДМС"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="RegistrationDocument" name="Підставою для зняття з реєстрації місця проживання заявника є" type="enum" required="true">
-          <activiti:value id="pasp" name="паспорт або паспортний документ, що надійшов з органу державної реєстрації актів цивільного стану, або документ про смерть, виданий компетентним органом іноземної держави, легалізований в установленому порядку"></activiti:value>
-          <activiti:value id="deathDoc" name="свідоцтво про смерть"></activiti:value>
-          <activiti:value id="milDoc" name="військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку)"></activiti:value>
-          <activiti:value id="other" name="Інші документи. (Вказати полем нижче)"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="bringDocOther" name="Інші документи" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="milName" name="Найменування військомату, до якого Ви належали" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="milRank" name="Військове звання" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зареєструвати" type="enum">
+        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зняти з реєстрації" type="enum">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
@@ -479,8 +459,6 @@
         <activiti:formProperty id="ChildSex1" name="Стать дитини" type="enum">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
-          <activiti:value id="man1" name="1"></activiti:value>
-          <activiti:value id="woman2" name="2"></activiti:value>
           <activiti:value id="no" name=" "></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="kidsBirth" name="Дата народження дитини" type="string"></activiti:formProperty>
@@ -495,12 +473,8 @@
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/zajava_r(kiev).html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_2" name="[pattern/print/vidomist_4(kiev).html]" type="invisible" default="${sBody_2}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_3" name="[pattern/print/kartka(kiev).html]" type="invisible" default="${sBody_3}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_4" name="[pattern/print/talon_4(kiev).html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_5" name="[pattern/print/zajava_zn(kiev).html]" type="invisible" default="${sBody_5}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_6" name="[pattern/print/dodat12(kiev).html]" type="invisible" default="${sBody_6}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
@@ -610,10 +584,10 @@
     </serviceTask>
     <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
-    <sequenceFlow id="flow22" name="${workerDecision=='accept'}" sourceRef="exclusivegateway4" targetRef="usertask4">
+    <sequenceFlow id="flow22" name="${workerDecision=='accept'}" sourceRef="exclusivegateway4" targetRef="usertask4_yellow">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask4" name="Підтвердження отримання ЦНАПом документів від ДМС" activiti:candidateGroups="kiev_dms_40s_${district}">
+    <userTask id="usertask4_yellow" name="Підтвердження отримання ЦНАПом документів від ДМС" activiti:candidateGroups="kiev_dms_40s_${district}">
       <extensionElements>
         <activiti:formProperty id="NumSp" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -623,11 +597,9 @@
         <activiti:formProperty id="Sex" name="Стать" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
-          <activiti:value id="man1" name="1"></activiti:value>
-          <activiti:value id="woman2" name="2"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="PrevName" name="Попереднє ПІБ заявника" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="Dateofbirth" name="Дата народження заявника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Dateofbirth" name="Дата народження заявника" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Areabirth" name="Місце народження; Країна і населений пункт" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Nationality" name="Національність" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
@@ -638,13 +610,6 @@
         <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="RegistrationDocument" name="Підставою для реєстрації місця проживання заявника є" type="enum" writable="false">
-          <activiti:value id="order" name="Ордер"></activiti:value>
-          <activiti:value id="deathDoc" name="Свідоцтво про право власності"></activiti:value>
-          <activiti:value id="milDoc" name="Договір найму / піднайму / оренди "></activiti:value>
-          <activiti:value id="other" name="Інші документи. (Вказати полем нижче)"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="bringDocOther" name="Інші документи" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Києва, в якому зареєстрований заявник" type="enum" writable="false">
           <activiti:value id="desn" name="Деснянський"></activiti:value>
           <activiti:value id="solom" name="Солом'янський"></activiti:value>
@@ -655,7 +620,7 @@
           <activiti:value id="Солом’янський РВ ДМС" name="Солом’янський РВ ДМС"></activiti:value>
           <activiti:value id="Шевченківський РВ ДМС" name="Шевченківський РВ ДМС"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зареєструвати" type="enum" writable="false">
+        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зняти з реєстрації" type="enum" writable="false">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
@@ -663,8 +628,6 @@
         <activiti:formProperty id="ChildSex1" name="Стать дитини" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
-          <activiti:value id="man1" name="1"></activiti:value>
-          <activiti:value id="woman2" name="2"></activiti:value>
           <activiti:value id="no" name=" "></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="kidsBirth" name="Дата народження дитини" type="string" writable="false"></activiti:formProperty>
@@ -683,9 +646,9 @@
         </activiti:formProperty>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow16" sourceRef="usertask4" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow16" sourceRef="usertask4_yellow" targetRef="exclusivegateway2"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow17" name="${workerDecision=='decline'}" sourceRef="exclusivegateway2" targetRef="usertask4">
+    <sequenceFlow id="flow17" name="${workerDecision=='decline'}" sourceRef="exclusivegateway2" targetRef="usertask4_yellow">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='decline'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow13" name="${workerDecision=='accept'}" sourceRef="exclusivegateway2" targetRef="mailtask4">
@@ -790,7 +753,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow15" sourceRef="mailtask4" targetRef="usertask5"></sequenceFlow>
+    <sequenceFlow id="flow15" sourceRef="mailtask4" targetRef="usertask5_green"></sequenceFlow>
     <sequenceFlow id="flow33" sourceRef="exclusivegateway2" targetRef="mailtask7">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept' &&district=='solom'}]]></conditionExpression>
     </sequenceFlow>
@@ -894,7 +857,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow34" sourceRef="mailtask7" targetRef="usertask5"></sequenceFlow>
+    <sequenceFlow id="flow34" sourceRef="mailtask7" targetRef="usertask5_green"></sequenceFlow>
     <sequenceFlow id="flow32" sourceRef="exclusivegateway2" targetRef="mailtask8">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept' &&district=='shev'}]]></conditionExpression>
     </sequenceFlow>
@@ -998,8 +961,8 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow35" sourceRef="mailtask8" targetRef="usertask5"></sequenceFlow>
-    <userTask id="usertask5" name="Підтвердження видачі документів ЦНАПом заявнику" activiti:candidateGroups="kiev_dms_40s_${district}">
+    <sequenceFlow id="flow35" sourceRef="mailtask8" targetRef="usertask5_green"></sequenceFlow>
+    <userTask id="usertask5_green" name="Підтвердження видачі документів ЦНАПом заявнику" activiti:candidateGroups="kiev_dms_40s_${district}">
       <extensionElements>
         <activiti:formProperty id="NumSp" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -1009,11 +972,9 @@
         <activiti:formProperty id="Sex" name="Стать" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
-          <activiti:value id="man1" name="1"></activiti:value>
-          <activiti:value id="woman2" name="2"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="PrevName" name="Попереднє ПІБ заявника" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="Dateofbirth" name="Дата народження заявника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Dateofbirth" name="Дата народження заявника" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Areabirth" name="Місце народження; Країна і населений пункт" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Nationality" name="Національність" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
@@ -1024,13 +985,6 @@
         <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="RegistrationDocument" name="Підставою для реєстрації місця проживання заявника є" type="enum" writable="false">
-          <activiti:value id="order" name="Ордер"></activiti:value>
-          <activiti:value id="deathDoc" name="Свідоцтво про право власності"></activiti:value>
-          <activiti:value id="milDoc" name="Договір найму / піднайму / оренди "></activiti:value>
-          <activiti:value id="other" name="Інші документи. (Вказати полем нижче)"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="bringDocOther" name="Інші документи" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Києва, в якому зареєстрований заявник" type="enum" writable="false">
           <activiti:value id="desn" name="Деснянський"></activiti:value>
           <activiti:value id="solom" name="Солом'янський"></activiti:value>
@@ -1041,7 +995,7 @@
           <activiti:value id="Солом’янський РВ ДМС" name="Солом’янський РВ ДМС"></activiti:value>
           <activiti:value id="Шевченківський РВ ДМС" name="Шевченківський РВ ДМС"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зареєструвати" type="enum" writable="false">
+        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зняти з реєстрації" type="enum" writable="false">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
@@ -1049,8 +1003,6 @@
         <activiti:formProperty id="ChildSex1" name="Стать дитини" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
-          <activiti:value id="man1" name="1"></activiti:value>
-          <activiti:value id="woman2" name="2"></activiti:value>
           <activiti:value id="no" name=" "></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="kidsBirth" name="Дата народження дитини" type="string" writable="false"></activiti:formProperty>
@@ -1069,12 +1021,12 @@
         </activiti:formProperty>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow25" sourceRef="usertask5" targetRef="exclusivegateway5"></sequenceFlow>
+    <sequenceFlow id="flow25" sourceRef="usertask5_green" targetRef="exclusivegateway5"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow27" name="${workerDecision=='accept'}" sourceRef="exclusivegateway5" targetRef="endevent1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow26" name="${workerDecision=='decline'}" sourceRef="exclusivegateway5" targetRef="usertask5">
+    <sequenceFlow id="flow26" name="${workerDecision=='decline'}" sourceRef="exclusivegateway5" targetRef="usertask5_green">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='decline'}]]></conditionExpression>
     </sequenceFlow>
     <exclusiveGateway id="exclusivegateway6" name="Exclusive Gateway"></exclusiveGateway>
@@ -1115,7 +1067,7 @@
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="1040.0" y="249.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+      <bpmndi:BPMNShape bpmnElement="usertask4_yellow" id="BPMNShape_usertask4_yellow">
         <omgdc:Bounds height="81.0" width="177.0" x="653.0" y="226.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
@@ -1130,7 +1082,7 @@
       <bpmndi:BPMNShape bpmnElement="mailtask8" id="BPMNShape_mailtask8">
         <omgdc:Bounds height="71.0" width="133.0" x="850.0" y="410.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
+      <bpmndi:BPMNShape bpmnElement="usertask5_green" id="BPMNShape_usertask5_green">
         <omgdc:Bounds height="81.0" width="177.0" x="653.0" y="500.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway5" id="BPMNShape_exclusivegateway5">

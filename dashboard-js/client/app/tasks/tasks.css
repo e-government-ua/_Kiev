@@ -62,3 +62,7 @@
   font-style: italic; }
 
 /*# sourceMappingURL=tasks.css.map */
+.submitted.ng-invalid
+{
+  border:1px solid #f00;
+}

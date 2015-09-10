@@ -5,6 +5,10 @@ angular.module('app').factory('ScanFactory', function () {
     this.isLoading = false;
   };
 
+  scan.prototype.createFactory = function(){
+    return new scan();
+  };
+
   scan.prototype.get = function () {
     return this.value;
   };
