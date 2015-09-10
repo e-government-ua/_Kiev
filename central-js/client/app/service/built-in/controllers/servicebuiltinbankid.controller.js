@@ -8,6 +8,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   FormDataFactory,
   ActivitiService,
   ValidationService,
+  oService,
   oServiceData,
   BankIDAccount,
   ActivitiForm,
@@ -143,7 +144,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
     if (form.$valid && bValid) { //
       ActivitiService
-        .submitForm(oServiceData, $scope.data.formData)
+        .submitForm(oService, oServiceData, $scope.data.formData)
         .then(function(result) {
 
           $scope.isSending = false;

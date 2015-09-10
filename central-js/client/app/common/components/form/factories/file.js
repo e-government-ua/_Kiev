@@ -4,6 +4,10 @@ angular.module('app').factory('FileFactory', function ($q, $rootScope, ActivitiS
     this.value = null;
   };
 
+  file.prototype.createFactory = function(){
+    return new file();
+  };
+
   file.prototype.remove = function (file) {
     uiUploader.remove(file);
   };
