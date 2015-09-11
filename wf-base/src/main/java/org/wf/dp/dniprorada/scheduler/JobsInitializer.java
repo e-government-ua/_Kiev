@@ -3,7 +3,10 @@ package org.wf.dp.dniprorada.scheduler;
 import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.wf.dp.dniprorada.util.run.Escalation;
 
@@ -12,14 +15,28 @@ import org.wf.dp.dniprorada.util.run.Escalation;
  * Date: 27.08.2015
  * Time: 1:05
  */
-public class JobsInitializer implements InitializingBean {
+public class JobsInitializer implements InitializingBean, ApplicationContextAware {
 
    private final static Logger oLog = LoggerFactory.getLogger(JobsInitializer.class);
+
+   private static ApplicationContext applicationContext;
+
+   /**
+    * @return used by {@link AutowiredSpringJob} to autowire property beans into jobs.
+    */
+   static ApplicationContext getApplicationContext() {
+      return applicationContext;
+   }
 
    private Scheduler scheduler;
 
    public void setScheduler(Scheduler scheduler) {
       this.scheduler = scheduler;
+   }
+
+   @Override
+   public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+      this.applicationContext = applicationContext;
    }
 
    @Override
@@ -29,6 +46,7 @@ public class JobsInitializer implements InitializingBean {
 
    private void addEscalationJob(Scheduler scheduler) throws SchedulerException {
       JobDetail oJobDetail_Escalation_Standart = new JobDetail("oJobDetail_Escalation_Standart", "oJobDetail_Escalation_Group", Escalation.class);
+
       CronTrigger oCronTrigger_EveryNight_Deep = new CronTrigger("oCronTrigger_EveryNight_Deep", "oCronTrigger_EveryNight_Group");
       try {
          oLog.info("[init]:oCronExpression__EveryNight_Deep...");
@@ -41,4 +59,5 @@ public class JobsInitializer implements InitializingBean {
       oLog.info("[init]:scheduleJob...");
       scheduler.scheduleJob(oJobDetail_Escalation_Standart, oCronTrigger_EveryNight_Deep);
    }
+
 }
