@@ -251,7 +251,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 337;744;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_42_ur:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 338;745;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_55:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 339;746;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_54:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-340;115;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_57:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+340;115;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap-57:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 341;455;109;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"voznesensk_cnap_78:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 342;94;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_46:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 343;747;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_46_ur:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
@@ -263,3 +263,4 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 349;751;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_datepicker:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 350;752;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_socialhelp_kids:1:352"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,
 351;753;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_post_97:1:352"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+352;754;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_post_98:1:352"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS

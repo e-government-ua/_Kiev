@@ -110,7 +110,7 @@
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clbankIdPassport" name="Паспортні дані (серія, номер, ким і коли виданий)" type="string" default="${bankIdPassport}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clAddress" name="Адреса заявника" type="string" default="${bankIdAddress}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clbankIdinn" name="Номер облікової картки платника податків" type="long" default="bankIdinn" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clbankIdinn" name="Номер облікової картки платника податків" type="long" default="${bankIdinn}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clemail" name="Електронна адреса заявника" type="string" default="${clemail}"></activiti:formProperty>
         <activiti:formProperty id="cllocacia" name="Місце (адреса) виконання робіт підвищеної небезпеки та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" default="${locacia}" writable="false"></activiti:formProperty>
@@ -260,8 +260,8 @@ ${comment} &lt;br&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;
-                                     Замовлений Вами лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО підготовлений. Ви можете забрати оригінал у Правобережному ЦНАП за адресою:&lt;/p&gt;
+                                    &lt;p&gt;Щодо Вашого запиту на реєстрацію "Декларації відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки"
+Вашу заяву зареєстровано.&lt;br&gt; Ви можете забрати декларацію з відзначкою про реєстрацію у Правобережному ЦНАП за адресою:&lt;/p&gt;
 &lt;p&gt;49051, м.Дніпропетровськ, пр. К. Маркса, 75, каб. 105&lt;/p&gt;
 &lt;p&gt;Режим роботи центру:&lt;/p&gt;
 &lt;p&gt;понеділок, середа з 09.00 до 18.00, вівторок, четвер з 09.00 до 20.00;&lt;br&gt; 
@@ -347,16 +347,16 @@ ${comment} &lt;br&gt;
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clbankIdPassport" name="Паспортні дані (серія, номер, ким і коли виданий)" type="string" default="${bankIdPassport}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clAddress" name="Адреса заявника" type="string" default="${bankIdAddress}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clbankIdinn" name="Номер облікової картки платника податків" type="long" default="bankIdinn" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clbankIdinn" name="Номер облікової картки платника податків" type="long" default="${bankIdinn}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clemail" name="Електронна адреса заявника" type="string" default="${clemail}"></activiti:formProperty>
+        <activiti:formProperty id="clemail" name="Електронна адреса заявника" type="string" default="${email}"></activiti:formProperty>
         <activiti:formProperty id="cllocacia" name="Місце (адреса) виконання робіт підвищеної небезпеки та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" default="${locacia}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clstrahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди" type="string" default="${strahovka}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clwork" name="Найменування виду робіт підвищеної небезпеки;та/або машин, механізмів, устатковання підвищеної небезпеки, їх марка, номер партії, дата виготовлення, країна походження, які виконуються та/або експлуатуються (застосовуються) без отримання відповідного дозволу, кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм, будівель і споруд (приміщень), виробничих об'єктів (цехів, дільниць, структурних підрозділів)" type="textArea" default="${work}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clanother" name="Інші відомості" type="textArea" default="${another}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clDate" name="Дата подання декларації" type="date" default="${Date}"></activiti:formProperty>
         <activiti:formProperty id="opis" name="Додайте файл опису прийнятих документів;якщо документи прийнято" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap-57_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="perevirka1" name="Оберіть результат первинної перевірки документів:" type="enum">
           <activiti:value id="ok" name="Документи прийнято, формується опис, документи передаються для подальшої обробки"></activiti:value>
           <activiti:value id="bad" name="Поданих документів недостатньо для обробки"></activiti:value>
