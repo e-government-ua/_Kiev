@@ -5,8 +5,8 @@ angular.module('app').config(function($stateProvider) {
       views: {
         'content@index.service.general.placefix': {
           templateUrl: 'app/service/placefix/link/index.html',
-          controller: 'PlaceFixController'
-          // controller: 'ServiceLinkController'
+          // controller: 'PlaceFixController'
+          controller: 'ServiceLinkController'
         }
       }
     });

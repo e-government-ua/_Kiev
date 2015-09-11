@@ -4,7 +4,6 @@ angular.module('app').controller('PlaceFixController', function(
   // Each controller which uses Places Control should tell it:
 
   // FIXME: preload regions and service and provide them as part of the locations service
-  console.log('PlaceFix Controller');
 
   PlacesService.setController(this);
 
@@ -66,7 +65,7 @@ angular.module('app').controller('PlaceFixController', function(
 
     var state = stateByServiceType[oParams.serviceData.nID_ServiceType.nID];
 
-    console.log('PlaceFix Controller. On Place сhange, oParams =', oParams, state);
+    console.log('PlaceFix Controller. On Place сhange, state = ', state, 'oParams =', oParams );
     // FROM COUNTRY CTRL
 
     // var aServiceData = ServiceService.oService.aServiceData;
@@ -96,7 +95,6 @@ angular.module('app').controller('PlaceFixController', function(
     }
   };
 
-  // placefix controller
   // FIXME create sequencer 
   // moved back from places service
   self.isStep2 = self.isStep2 || false;
@@ -123,15 +121,15 @@ angular.module('app').controller('PlaceFixController', function(
   // FIXME remove state dependency
   var curState = $scope.getStateName();
 
-  console.log('PlaceFix Controller. $state =', $state);
+  console.log('PlaceFix Controller. $state name =', $state.current.name);
 
   if (statesMap[curState] && statesMap[curState].startupFunction) {
     statesMap[curState].startupFunction.call(self, $location, $state, $rootScope, $scope, self.placeCtrl);
   } else {
     // default startup
     $scope.$location = $location;
+    $scope.$state = $state;
   }
-
 
   $scope.getHtml = function(html) {
     return $sce.trustAsHtml(html);

@@ -115,15 +115,15 @@ angular.module('app')
       return $http.get('./api/places/region/' + region + '/city/' + city);
     };
 
-    self.cityIsChosen = function() {
-      var bResult = savedPlaceData && (savedPlaceData.city ? true : false);
-      // console.log('city is chosen: ', r);
-      return bResult;
-    };
-
     self.regionIsChosen = function() {
       var bResult = savedPlaceData && (savedPlaceData.region ? true : false);
       // console.log('region is chosen: ', bResult);
+      return bResult;
+    };
+
+    self.cityIsChosen = function() {
+      var bResult = savedPlaceData && (savedPlaceData.city ? true : false);
+      // console.log('city is chosen: ', r);
       return bResult;
     };
 
@@ -154,14 +154,19 @@ angular.module('app')
       return ServiceService.oService.aServiceData[0];
     };
 
+    self.serviceIsAvailableInRegion = function() {
+      return self.regionIsChosen() && self.findServiceDataByRegion() !== null;
+    };
+
+    self.serviceIsAvailableInCity = function() {
+      return self.cityIsChosen() && self.findServiceDataByCity() !== null;
+    };
+
+    // TODO check it again and again
     self.getServiceDataForSelectedPlace = function() {
-      if (self.cityIsChosen()) {
-        return self.findServiceDataByCity();
-      } else if (self.regionIsChosen()) {
-        return self.findServiceDataByRegion();
-      } else {
-        return self.getServiceDataForCountry();
-      }
+      return self.serviceIsAvailableInCity() ? self.findServiceDataByCity() 
+             : self.serviceIsAvailableInRegion() ? self.findServiceDataByRegion() 
+             : self.getServiceDataForCountry();
     };
   });
 

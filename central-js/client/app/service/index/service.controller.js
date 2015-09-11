@@ -16,28 +16,9 @@ angular.module('app').controller('ServiceController', ['$scope', '$rootScope', '
     console.log('new catalog', $scope.catalog);
     // TODO: move other handlers here, like update counters, etc
     $scope.catalogCounts = CatalogService.getCatalogCounts(data);
-  // FIXME - code moved to place.js
-  // $scope.onSelectRegionList = function($item) {
-  //   $scope.data.region = $item;
-  //   $scope.regionList.select($item);
-  //   $scope.data.city = null;
-  //   $scope.localityList.reset();
-  //   $scope.search();
-  //   $scope.localityList.load(null, $item.nID, null).then(function(cities) {
-  //     $scope.localityList.typeahead.defaultList = cities;
-  //   });
   }, false);
   subscriptions.push(subscriberId);
-  // };
-  // $scope.loadLocalityList = function(search) {
-  //   return $scope.localityList.load(null, $scope.data.region.nID, search);
-  // };
 
-  // $scope.onSelectLocalityList = function($item, $model, $label) {
-  //   $scope.data.city = $item;
-  //   $scope.localityList.select($item, $model, $label);
-  //   $scope.search();
-  // };
 
   subscriberId = messageBusService.subscribe('catalog:updatePending', function() {
     $scope.spinner = true;
@@ -50,6 +31,27 @@ angular.module('app').controller('ServiceController', ['$scope', '$rootScope', '
     });
   });
 
+  // FIXME - code moved to place.js
+  // $scope.onSelectRegionList = function($item) {
+  //   $scope.data.region = $item;
+  //   $scope.regionList.select($item);
+  //   $scope.data.city = null;
+  //   $scope.localityList.reset();
+  //   $scope.search();
+  //   $scope.localityList.load(null, $item.nID, null).then(function(cities) {
+  //     $scope.localityList.typeahead.defaultList = cities;
+  //   });
+  // };
+  // $scope.loadLocalityList = function(search) {
+  //   return $scope.localityList.load(null, $scope.data.region.nID, search);
+  // };
+
+  // $scope.onSelectLocalityList = function($item, $model, $label) {
+  //   $scope.data.city = $item;
+  //   $scope.localityList.select($item, $model, $label);
+  //   $scope.search();
+  // };
+  
   $scope.filterByStatus = function(status) {
     $scope.selectedStatus = status;
     var ctlg = angular.copy($scope.fullCatalog);
