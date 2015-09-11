@@ -180,6 +180,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
         $scope.taskAttachments = result;
       })
       .catch(defaultErrorHandler);
+      
+      
+     
   };
 
   $scope.submitTask = function () {
@@ -214,36 +217,31 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
         Modal.inform.error()(errorMessage);
         return;
       }
-      $scope.taskForm.isSuccessfullySubmitted = true;
+      
+      $scope.taskForm.isInProcess = true;
+        
       tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm)
-        .then(function (result) {          
-          Modal.inform.success(function (event) {
-            $scope.selectedTasks[$scope.$storage.menuType] = null;
-            loadTaskCounters();
-            $scope.applyTaskFilter($scope.$storage.menuType);
-          })('Форму відправлено' + (result && result.length > 0 ? (': ' + result) : ''));
+        .then(function (result) {
+          Modal.inform.success(function (result) {
+            $scope.lightweightRefreshAfterSubmit();
+          })("Форму відправлено." + (result && result.length > 0 ? (': ' + result) : ''));
+
         })
-        .catch(defaultErrorHandler);
+        .catch(defaultErrorHandler);        
     }
   };
-
+  
   $scope.assignTask = function () {
-    $scope.taskForm.isSuccessfullySubmitted = true;
-    $scope.tasks = $.grep($scope.tasks, function (e) {
-      return e.id != $scope.selectedTask.id;
-    });
-    //$scope.selectTask($scope.tasks[0]);// - if another task should be selected
-    tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id).then(function (result) {
+    $scope.taskForm.isInProcess = true;    
+       
+    tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id)
+    .then(function (result) {
       Modal.assignTask(function (event) {
-        $scope.selectedTasks[$scope.$storage.menuType] = null;
-        loadTaskCounters();
-        $scope.applyTaskFilter($scope.menus[1].type, $scope.selectedTask.id, true);
-        
+        $scope.lightweightRefreshAfterSubmit();  
+        $scope.applyTaskFilter($scope.menus[1].type, $scope.selectedTask.id);            
       }, 'Задача у вас в роботі');
     })
-      .catch(defaultErrorHandler());
-      $scope.taskForm.isSuccessfullySubmitted = true; 
-
+      .catch(defaultErrorHandler());     
   };
 
   $scope.upload = function (files, propertyID) {
@@ -260,6 +258,21 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     });
   };
 
+$scope.lightweightRefreshAfterSubmit = function () {
+  //lightweight refresh only deletes the submitted task from the array of current type of tasks
+  //so we don't need to refresh the whole page   
+      $scope.selectedTasks[$scope.$storage.menuType] = null;
+      loadTaskCounters();
+      $scope.tasks = $.grep($scope.tasks, function (e) {
+        return e.id != $scope.selectedTask.id;
+      });
+      $scope.taskForm.isSuccessfullySubmitted = true;
+      //$scope.selectTask($scope.tasks[0]);// - if another task should be selected
+      //The next line is commented out to prevent full refresh of the page
+      // $scope.applyTaskFilter($scope.$storage.menuType);
+    
+  }
+  
   $scope.sDateShort = function (sDateLong) {
     if (sDateLong !== null) {
       var o = new Date(sDateLong); //'2015-04-27T13:19:44.098+03:00'
@@ -501,6 +514,8 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           msg = data.code + ' ' + data.message;
       }
     } catch (e) { console.log(e); }
+    $scope.taskForm.isSuccessfullySubmitted = false;
+    $scope.taskForm.isInProcess = false;
     Modal.inform.error()(msg);
   }
   
@@ -527,7 +542,16 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   
       $scope.isTaskSuccessfullySubmitted = function () {
         if ($scope.selectedTask && $scope.taskForm) {
-          if ($scope.taskForm.isSuccessfullySubmitted != undefined)
+          if ($scope.taskForm.isSuccessfullySubmitted != undefined && $scope.taskForm.isSuccessfullySubmitted)
+          return true;
+        }
+        return false;
+  };
+  
+    
+      $scope.isTaskInProcess = function () {
+        if ($scope.selectedTask && $scope.taskForm) {
+          if ($scope.taskForm.isInProcess != undefined && $scope.taskForm.isInProcess)
           return true;
         }
         return false;
