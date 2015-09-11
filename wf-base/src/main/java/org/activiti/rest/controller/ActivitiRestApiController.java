@@ -922,16 +922,15 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     void cancelTasksInternal(Long nID_Protected, String sInfo) throws ActivitiRestException,
             CRCInvalidException, RecordNotFoundException, TaskAlreadyUnboundException {
 
-        AlgorithmLuna.validateProtectedNumber(nID_Protected, "Неверный id заявки (Wrong id of order)");
+        AlgorithmLuna.validateProtectedNumber(nID_Protected, "Неверный id заявки");
 
         String processInstanceId = "" + AlgorithmLuna.getOriginalNumber(nID_Protected);
 
         List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstanceId).list();
 
-        final String TASK_NOT_FOUND_ERR_MESSAGE = "Заявка не найдена (Order not found)";
         if (tasks == null || tasks.isEmpty()) {
             log.error(String.format("Tasks for Process Instance [id = '%s'] not found", processInstanceId));
-            throw new RecordNotFoundException(TASK_NOT_FOUND_ERR_MESSAGE);
+            throw new RecordNotFoundException("Заявка не найдена");
         }
 
         HistoricProcessInstance processInstance = historyService.createHistoricProcessInstanceQuery().processInstanceId(
@@ -945,14 +944,14 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         if (queueDataList.isEmpty()) {
             log.error(String.format("Queue data list for Process Instance [id = '%s'] not found", processInstanceId));
-            throw new RecordNotFoundException(TASK_NOT_FOUND_ERR_MESSAGE);
+            throw new RecordNotFoundException("Метаданные электронной очереди не найдены");
         }
 
         for (String queueData : queueDataList) {
             Map<String, Object> m = QueueDataFormType.parseQueueData(queueData);
             long nID_FlowSlotTicket = QueueDataFormType.get_nID_FlowSlotTicket(m);
             if (!flowSlotTicketDao.unbindFromTask(nID_FlowSlotTicket)) {
-                throw new TaskAlreadyUnboundException("Заявка уже отменена (Order already cancelled)");
+                throw new TaskAlreadyUnboundException("Заявка уже отменена");
             }
         }
 
