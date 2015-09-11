@@ -944,7 +944,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         if (queueDataList.isEmpty()) {
             log.error(String.format("Queue data list for Process Instance [id = '%s'] not found", processInstanceId));
-            throw new RecordNotFoundException("Метаданные процесса не найдены");
+            throw new RecordNotFoundException("Метаданные электронной очереди не найдены");
         }
 
         for (String queueData : queueDataList) {
