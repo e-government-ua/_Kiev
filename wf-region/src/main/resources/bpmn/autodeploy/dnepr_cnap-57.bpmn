@@ -110,7 +110,7 @@
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clbankIdPassport" name="Паспортні дані (серія, номер, ким і коли виданий)" type="string" default="${bankIdPassport}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clAddress" name="Адреса заявника" type="string" default="${bankIdAddress}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clbankIdinn" name="Номер облікової картки платника податків" type="long" default="bankIdinn" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clbankIdinn" name="Номер облікової картки платника податків" type="long" default="${bankIdinn}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clemail" name="Електронна адреса заявника" type="string" default="${clemail}"></activiti:formProperty>
         <activiti:formProperty id="cllocacia" name="Місце (адреса) виконання робіт підвищеної небезпеки та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" default="${locacia}" writable="false"></activiti:formProperty>
@@ -180,7 +180,7 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -189,11 +189,9 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-&lt;p&gt;Щодо Вашого запиту на реєстрацію "Декларації відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки"
-На жаль, вашу заяву відхилено.&lt;br&gt;
-${comment} &lt;br&gt;
-&lt;p&gt;Ви можете забрати оригінал документа про відмову у Правобережному ЦНАП за адресою:&lt;/p&gt;
+                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;Щодо Вашого запиту на реєстрацію "Декларації відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки"
+На жаль, ми вимушен відмовити у реєстрації.&lt;br&gt; Ви можете забрати декларацію з офіційною відмовою у Правобережному ЦНАП за адресою:&lt;/p&gt;
 &lt;p&gt;49051, м.Дніпропетровськ, пр. К. Маркса, 75, каб. 105&lt;/p&gt;
 &lt;p&gt;Режим роботи центру:&lt;/p&gt;
 &lt;p&gt;понеділок, середа з 09.00 до 18.00, вівторок, четвер з 09.00 до 20.00;&lt;br&gt; 
@@ -204,8 +202,14 @@ ${comment} &lt;br&gt;
 &lt;p&gt;Документ видається за наявності паспорта
                                     &lt;/p&gt;
                                                                   &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;З повагою,&lt;br /&gt;
-                                        ЦНАП м. Дніпропетровськ &lt;/p&gt;                &lt;!--content end--&gt;
+                                    &lt;p&gt; З повагою,&lt;br /&gt;
+                                        ЦНАП м. Дніпропетровськ&lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           &lt;/table&gt;
+						   &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
             &lt;/table&gt;
         &lt;/td&gt;
     &lt;/tr&gt;
@@ -347,7 +351,7 @@ ${comment} &lt;br&gt;
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clbankIdPassport" name="Паспортні дані (серія, номер, ким і коли виданий)" type="string" default="${bankIdPassport}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clAddress" name="Адреса заявника" type="string" default="${bankIdAddress}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clbankIdinn" name="Номер облікової картки платника податків" type="long" default="bankIdinn" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clbankIdinn" name="Номер облікової картки платника податків" type="long" default="${bankIdinn}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clemail" name="Електронна адреса заявника" type="string" default="${email}"></activiti:formProperty>
         <activiti:formProperty id="cllocacia" name="Місце (адреса) виконання робіт підвищеної небезпеки та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" default="${locacia}" writable="false"></activiti:formProperty>
@@ -627,7 +631,7 @@ ${comPer1} &lt;br&gt;
   &lt;td colspan="6" style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;" valign="top" width="657"&gt;
   
       
-      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;[clFIO]&lt;/span&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;${clFIO}&lt;/span&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
 
 
   &lt;/td&gt;
@@ -658,7 +662,7 @@ ${comPer1} &lt;br&gt;
   &lt;td colspan="6" style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;" valign="top" width="657"&gt;
   
       
-      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;; letter-spacing: -1pt;" lang="UK"&gt;[clbankIdPassport]&lt;/span&gt;&lt;/p&gt;
+      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;; letter-spacing: -1pt;" lang="UK"&gt;${clbankIdPassport}&lt;/span&gt;&lt;/p&gt;
 
 
   &lt;/td&gt;
@@ -689,7 +693,7 @@ ${comPer1} &lt;br&gt;
   &lt;td colspan="6" style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;" valign="top" width="657"&gt;
   
       
-      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;[clAddress]&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
+      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;${clAddress}&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
 
 
   &lt;/td&gt;
@@ -720,7 +724,7 @@ ${comPer1} &lt;br&gt;
   &lt;td colspan="6" style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;" valign="top" width="657"&gt;
   
       
-      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&amp;nbsp;[clbankIdinn]&lt;/span&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&amp;nbsp;${clbankIdinn}&lt;/span&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
 
 
   &lt;/td&gt;
@@ -844,7 +848,7 @@ ${comPer1} &lt;br&gt;
   &lt;td colspan="6" style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;" valign="top" width="657"&gt;
   
       
-      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;[clPhone], [clemail]&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;${clPhone}, ${clemail}&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
 
 
   &lt;/td&gt;
@@ -875,7 +879,7 @@ ${comPer1} &lt;br&gt;
   &lt;td colspan="6" style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;" valign="top" width="657"&gt;
   
       
-      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;[cllocacia]&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;${cllocacia}&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
 
 
   &lt;/td&gt;
@@ -1031,7 +1035,7 @@ ${comPer1} &lt;br&gt;
   &lt;td colspan="6" style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;" valign="top" width="657"&gt;
   
       
-      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;[clstrahovka]&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;${clstrahovka}&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
 
 
   &lt;/td&gt;
@@ -1071,7 +1075,7 @@ ${comPer1} &lt;br&gt;
   &lt;td colspan="5" style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 451.35pt;" valign="top" width="602"&gt;
   
       
-      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;[clFIO]&lt;/span&gt;&lt;/p&gt;
+      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;${clFIO}&lt;/span&gt;&lt;/p&gt;
 
 
   &lt;/td&gt;
@@ -1161,7 +1165,7 @@ ${comPer1} &lt;br&gt;
   &lt;td colspan="3" style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 361.35pt;" valign="top" width="482"&gt;
   
       
-      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;[clwork]&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;${clwork}&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
 
 
   &lt;/td&gt;
@@ -1475,7 +1479,7 @@ ${comPer1} &lt;br&gt;
   &lt;td colspan="6" style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;" valign="top" width="657"&gt;
   
       
-      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;[clanother]&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;${clanother}&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
 
 
   &lt;/td&gt;
@@ -1749,7 +1753,7 @@ ${comPer1} &lt;br&gt;
   &lt;td style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 253.35pt;" valign="top" width="338"&gt;
   
       
-      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;[clFIO]&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;" align="center"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;${clFIO}&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
 
 
   &lt;/td&gt;
@@ -1805,7 +1809,7 @@ ${comPer1} &lt;br&gt;
 
 
 &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; line-height: normal;"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;span style=""&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;/span&gt;М.П. &lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
- &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&amp;nbsp; [clDate]&lt;br&gt;
+ &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&amp;nbsp; ${clDate}&lt;br&gt;
 &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: justify; line-height: normal;"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;p class="MsoNormal" style="margin-bottom: 0.0001pt; text-align: justify; line-height: normal;"&gt;&lt;span style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;" lang="UK"&gt;&lt;span style=""&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;/span&gt;&lt;span style="letter-spacing: -1pt;"&gt;Декларація
