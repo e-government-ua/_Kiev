@@ -141,24 +141,26 @@
         <div class="tasks-form-buttons">
           <p ng-if="selectedTask">
             <div ng-hide="selectedTask.assignee != null">
-            <button 
-                    ng-hide="selectedTask.assignee != null "
+            <button                     
                     ng-click="assignTask()"
                     class="btn btn-success"
                     ng-disabled="isTaskSuccessfullySubmitted()">Взяти в роботу
             </button>
-            <label ng-show="isTaskSuccessfullySubmitted()">   Задачу направлено в роботу</label>
-            <!--<label>{{isTaskSuccessfullySubmitted() === true ? "   Задача в роботі" : ""}}</label>-->
+            <label ng-show="isTaskSuccessfullySubmitted()">&nbsp;&nbsp;Задачу направлено в роботу</label>            
             </div>
+            <div ng-hide="selectedTask.assignee == null">
             <button ng-hide="selectedTask.assignee == null || sSelectedTask == 'finished'"
                     ng-click="submitTask()"
                     class="btn btn-success">Опрацювати
             </button>
-            <button ng-hide="selectedTask.assignee == null || sSelectedTask == 'finished'"
+            <label ng-show="isTaskSuccessfullySubmitted()">&nbsp;&nbsp;Задачу опрацьовано</label>
+            <br/>
+            <br/>
+            <button ng-hide="sSelectedTask == 'finished'"
                     ng-click="print()"
                     class="btn btn-success">Роздрукувати
             </button>
-
+</div>
             <!--select class="aPatternPrint form-control_"
                     ng-hide="!printTemplate.containsPrintTemplate()"
                     ng-options="oPatternPrint.sID as oPatternPrint.sLabel for oPatternPrint in printTemplate.aPatternPrint()"
