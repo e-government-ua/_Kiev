@@ -7,8 +7,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Адреса місця постійного проживання і реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="organ_1" name="Орган виконавчої влади або орган місцевого самоврядування, до я кого подається заява" type="string" required="true"></activiti:formProperty>
@@ -225,28 +224,27 @@
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_post_103_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="organ_1" name="Орган виконавчої влади або орган місцевого самоврядування, до я кого подається заява" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="pilgi" name="Назва документу, що підтверджує право на пільгу" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="osoba" name="Особа, що має право на пільги, є" type="enum" required="true">
+        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Адреса місця постійного проживання і реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="organ_1" name="Орган виконавчої влади або орган місцевого самоврядування, до я кого подається заява" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="pilgi" name="Назва документу, що підтверджує право на пільгу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="osoba" name="Особа, що має право на пільги, є" type="enum" writable="false">
           <activiti:value id="owner" name="власником"></activiti:value>
           <activiti:value id="co_owner" name="співвласником"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="year_reestr" name="З якого року зареєстровані і проживаєте у будинку, який потребує безоплатного капітального ремонту" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="year_building" name="Рік будівництва (прийняття в єксплуатацію) будинку; для квартири це поле на зазначається" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="year_reestr" name="З якого року зареєстровані і проживаєте у будинку, який потребує безоплатного капітального ремонту" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="year_building" name="Рік будівництва (прийняття в єксплуатацію) будинку; для квартири це поле на зазначається" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="year_repair" name="В якому році проводився останній капітальний ремонт" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="family" name="Склад сім'ї (кількість осіб)" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="doc" name="Відомості про документ, яким встановлено право приватної, зокрема спільної, власності на будинок(квартиру):" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="doc_nazva" name="Назва документа" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="doc_number" name="Номер документа" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_reestr" name="Дата реєстрації документа" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_vidachi" name="Дата видачі документа" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="organ_2" name="Найменування органу, у якому зареєстрований документ; вказати орган, що здійснює державну реєстрацію прав на нерухоме майно" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_doc" name="Позначте дату пересилання документу" type="date" default=" "></activiti:formProperty>
+        <activiti:formProperty id="doc_nazva" name="Назва документа" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="doc_number" name="Номер документа" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_reestr" name="Дата реєстрації документа" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_vidachi" name="Дата видачі документа" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="organ_2" name="Найменування органу, у якому зареєстрований документ; вказати орган, що здійснює державну реєстрацію прав на нерухоме майно" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_doc" name="Позначте дату пересилання документу" type="date" default=" " required="true"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
@@ -254,12 +252,12 @@
     <userTask id="usertask1" name="повідомлення громадянина про прийняте рішення" activiti:candidateGroups="dnepr_post_98">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string"></activiti:formProperty>
         <activiti:formProperty id="decision_2" name="Повідомлення громадянина про прийняте рішення" type="enum" required="true">
           <activiti:value id="accept" name="схвалено проведення безкоштовного капітального ремонту"></activiti:value>
           <activiti:value id="reject" name="відмовлено у проведенні безкоштовного капітального ремонту"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="rishen" name="Завантажте копію рішення" type="file"></activiti:formProperty>
+        <activiti:formProperty id="rishen" name="Завантажте копію рішення" type="file" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
