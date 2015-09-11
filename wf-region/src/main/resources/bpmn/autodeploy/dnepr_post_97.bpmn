@@ -10,7 +10,7 @@
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string"></activiti:formProperty>
         <activiti:formProperty id="place_of_liv" name="Місце проживання (поштовий індекс, найменування населеного пункту, вулиця, будинок)" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті (поштовий індекс, найменування населеного пункту, вулиця, будинок)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті (поштовий індекс, найменування населеного пункту, вулиця, будинок)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Оберіть районний орган пенсійного фонду населення, до якого Ви відноситесь" type="enum" required="true">
           <activiti:value id="sobes1" name="Амур-Нижньодніпровський район м. Дніпропетровськ, вул. Маріупольська, 3"></activiti:value>
@@ -53,7 +53,7 @@
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
          <activiti:formProperty id="place_of_liv" name="Місце проживання (поштовий індекс, найменування населеного пункту, вулиця, будинок)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті (поштовий індекс, найменування населеного пункту, вулиця, будинок)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdaddress" name="Адреса реєстрації кліента; зазначена в громадянському паспорті (поштовий індекс, найменування населеного пункту, вулиця, будинок)" type="string" writable="false"></activiti:formProperty>
                <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" writable="false"></activiti:formProperty>
               
         <activiti:formProperty id="area" name="Районний орган пенійного фонду населення, до якого відноситься замовник" type="enum" writable="false">
