@@ -63,7 +63,6 @@
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Коментар: Якщо позивачу відмовлено, вкажіть причину." type="textArea"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap-41_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="result" name="Додайте копію листа-довідки;(необов`язково)" type="file" default=" "></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -142,11 +141,8 @@ ${comment} &lt;br&gt;
 &lt;p&gt;Документ видається за наявності паспорта
                                     &lt;/p&gt;
                                                                   &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        ЦНАП м. Дніпропетровськ,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
-                                    &lt;/p&gt;                &lt;!--content end--&gt;
+                                    &lt;p&gt; З повагою,&lt;br /&gt;
+                                        ЦНАП м. Дніпропетровськ&lt;/p&gt;                &lt;!--content end--&gt;
             &lt;/table&gt;
         &lt;/td&gt;
     &lt;/tr&gt;
@@ -155,7 +151,7 @@ ${comment} &lt;br&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask2" name="Лист з результатом Правобережний ЦНАП" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask2" name="Лист з результатом Правобережний ЦНАП" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -269,9 +265,6 @@ ${comment} &lt;br&gt;
                         &lt;/table&gt;
                         &lt;/form&gt;</activiti:expression>
         </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>${result}</activiti:expression>
-        </activiti:field>
       </extensionElements>
     </serviceTask>
     <serviceTask id="servicetask3" name="Лист з результатом Отримання поштою" activiti:delegateExpression="#{MailTaskWithAttachments}">
@@ -356,7 +349,7 @@ ${comment} &lt;br&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask4" name="Лист з результатом Лівобережний ЦНАП" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask4" name="Лист з результатом Лівобережний ЦНАП" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -475,9 +468,6 @@ ${comment} &lt;br&gt;
                         &lt;/table&gt;
                         &lt;/form&gt;</activiti:expression>
         </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>${result}</activiti:expression>
-        </activiti:field>
       </extensionElements>
     </serviceTask>
     <endEvent id="endevent2" name="End"></endEvent>
@@ -498,8 +488,7 @@ ${comment} &lt;br&gt;
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-&lt;style type="text/css"&gt;
+          <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -1109,11 +1098,8 @@ ${comment} &lt;br&gt;
 &lt;p&gt;Документ видається за наявності паспорта
                                     &lt;/p&gt;
                                                                   &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        ЦНАП м. Дніпропетровськ,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
-                                    &lt;/p&gt;                &lt;!--content end--&gt;
+                                    &lt;p&gt; З повагою,&lt;br /&gt;
+                                        ЦНАП м. Дніпропетровськ &lt;/p&gt;                &lt;!--content end--&gt;
             &lt;/table&gt;
         &lt;/td&gt;
     &lt;/tr&gt;
@@ -1218,7 +1204,7 @@ ${comment} &lt;br&gt;
         <omgdi:waypoint x="495.0" y="172.0"></omgdi:waypoint>
         <omgdi:waypoint x="583.0" y="155.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="435.0" y="130.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="86.0" x="435.0" y="130.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">

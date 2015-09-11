@@ -49,10 +49,20 @@ angular.module('app').factory('MarkersFactory', function() {
     attributes: {
       Editable_1: {aField_ID:['sPhone_User1', 'sMail_User1', 'bankIdlastName'], bValue: true},
       Editable_2: {aField_ID:[], bValue: false}
+    },
+    motion: {
+
     }
   };
 
   return {
-    getMarkers: function() { return markers; }
+    getMarkers: function () {
+      return markers;
+    },
+    grepByPrefix: function (section, prefix) {
+      return _.transform(_.pairs(markers[section]), function (result, value) {
+        if (value[0].indexOf(prefix) === 0) result.push(value[1]);
+      });
+    }
   }
 });
