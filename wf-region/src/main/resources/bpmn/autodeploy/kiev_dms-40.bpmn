@@ -454,9 +454,9 @@
         </activiti:formProperty>
         <activiti:formProperty id="bringDocOther" name="Інші документи" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="vlasn" name="Власник(и) житла" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="milName" name="Найменування військомату, в якому громадянин перебував на військовому обліку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="milRank" name="Військове звання" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="milName" name="Найменування військомату, в якому громадянин перебував на військовому обліку" type="string"></activiti:formProperty>
+        <activiti:formProperty id="milRank" name="Військове звання" type="string"></activiti:formProperty>
+        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string"></activiti:formProperty>
         <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зареєструвати" type="enum">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>

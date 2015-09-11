@@ -448,9 +448,9 @@
           <activiti:value id="Солом’янський РВ ДМС" name="Солом’янський РВГУ ДМС України в м.Києві"></activiti:value>
           <activiti:value id="Шевченківський РВ ДМС" name="Шевченківський РВГУ ДМС України в м.Києві"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="milName" name="Найменування військомату, в якому громадянин перебував на військовому обліку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="milRank" name="Військове звання" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="milName" name="Найменування військомату, в якому громадянин перебував на військовому обліку" type="string"></activiti:formProperty>
+        <activiti:formProperty id="milRank" name="Військове звання" type="string"></activiti:formProperty>
+        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string"></activiti:formProperty>
         <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зняти з реєстрації" type="enum">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
@@ -466,8 +466,8 @@
         <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини" type="string"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string"></activiti:formProperty>
         <activiti:formProperty id="stan" name="Стан заяви" type="string" default="На опрацюванні в ЦНАП" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="DocumentDate" name="Дата оформлення документів" type="string" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="CNAPName" name="ПІБ посадової особи" type="string" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="DocumentDate" name="Дата оформлення документів" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="CNAPName" name="ПІБ посадової особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення операціоніста" type="enum">
           <activiti:value id="accept" name="Документи сформовані та передані до ДМС"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
@@ -598,43 +598,43 @@
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="PrevName" name="Попереднє ПІБ громадянина" type="string"></activiti:formProperty>
-        <activiti:formProperty id="Dateofbirth" name="Дата народження громадянина" type="string"></activiti:formProperty>
-        <activiti:formProperty id="Areabirth" name="Місце народження громадянина" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="Nationality" name="Громадянство" type="string"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string"></activiti:formProperty>
-        <activiti:formProperty id="email" name="E-Mail громадянина" type="string"></activiti:formProperty>
-        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації громадянина" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="newCity" name="Населений пункт" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newStreet" name="Вулиця" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newHouse" name="Будинок" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newCorp" name="Корпус" type="string"></activiti:formProperty>
+        <activiti:formProperty id="PrevName" name="Попереднє ПІБ громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Dateofbirth" name="Дата народження громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Areabirth" name="Місце народження громадянина" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Nationality" name="Громадянство" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації громадянина" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="newCity" name="Населений пункт" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="newStreet" name="Вулиця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string"></activiti:formProperty>
-        <activiti:formProperty id="district" name="Район м. Києва, в якому зареєстрований громадянин" type="enum">
+        <activiti:formProperty id="district" name="Район м. Києва, в якому зареєстрований громадянин" type="enum" writable="false">
           <activiti:value id="desn" name="Деснянський"></activiti:value>
           <activiti:value id="solom" name="Солом'янський"></activiti:value>
           <activiti:value id="shev" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="Registrationservice" name="Орган, що оформлює реєстрацію" type="enum">
+        <activiti:formProperty id="Registrationservice" name="Орган, що оформлює реєстрацію" type="enum" writable="false">
            <activiti:value id="Деснянський РВ ДМС" name="Деснянський РВГУ ДМС України в м.Києві"></activiti:value>
           <activiti:value id="Солом’янський РВ ДМС" name="Солом’янський РВГУ ДМС України в м.Києві"></activiti:value>
           <activiti:value id="Шевченківський РВ ДМС" name="Шевченківський РВГУ ДМС України в м.Києві"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="milName" name="Найменування військомату, в якому громадянин перебував на військовому обліку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="milRank" name="Військове звання" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зняти з реєстрації" type="enum">
+        <activiti:formProperty id="milName" name="Найменування військомату, в якому громадянин перебував на військовому обліку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="milRank" name="Військове звання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зняти з реєстрації" type="enum" writable="false">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я і по батькові дитини" type="string"></activiti:formProperty>
-        <activiti:formProperty id="ChildSex1" name="Стать дитини" type="enum">
+        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я і по батькові дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ChildSex1" name="Стать дитини" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
           <activiti:value id="no" name=" "></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="kidsBirth" name="Дата народження дитини" type="string"></activiti:formProperty>
-        <activiti:formProperty id="kidsPOB" name="Місце народження дитини" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth" name="Дата народження дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB" name="Місце народження дитини" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="stan" name="Стан заяви" type="string" default="На опрацюванні в ЦНАП" writable="false"></activiti:formProperty>
@@ -973,43 +973,43 @@
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="PrevName" name="Попереднє ПІБ громадянина" type="string"></activiti:formProperty>
-        <activiti:formProperty id="Dateofbirth" name="Дата народження громадянина" type="string"></activiti:formProperty>
-        <activiti:formProperty id="Areabirth" name="Місце народження громадянина" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="Nationality" name="Громадянство" type="string"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string"></activiti:formProperty>
-        <activiti:formProperty id="email" name="E-Mail громадянина" type="string"></activiti:formProperty>
-        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації громадянина" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="newCity" name="Населений пункт" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newStreet" name="Вулиця" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newHouse" name="Будинок" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newCorp" name="Корпус" type="string"></activiti:formProperty>
+        <activiti:formProperty id="PrevName" name="Попереднє ПІБ громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Dateofbirth" name="Дата народження громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Areabirth" name="Місце народження громадянина" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Nationality" name="Громадянство" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації громадянина" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="newCity" name="Населений пункт" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="newStreet" name="Вулиця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string"></activiti:formProperty>
-        <activiti:formProperty id="district" name="Район м. Києва, в якому зареєстрований громадянин" type="enum">
+        <activiti:formProperty id="district" name="Район м. Києва, в якому зареєстрований громадянин" type="enum" writable="false">
           <activiti:value id="desn" name="Деснянський"></activiti:value>
           <activiti:value id="solom" name="Солом'янський"></activiti:value>
           <activiti:value id="shev" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="Registrationservice" name="Орган, що оформлює реєстрацію" type="enum">
+        <activiti:formProperty id="Registrationservice" name="Орган, що оформлює реєстрацію" type="enum" writable="false">
            <activiti:value id="Деснянський РВ ДМС" name="Деснянський РВГУ ДМС України в м.Києві"></activiti:value>
           <activiti:value id="Солом’янський РВ ДМС" name="Солом’янський РВГУ ДМС України в м.Києві"></activiti:value>
           <activiti:value id="Шевченківський РВ ДМС" name="Шевченківський РВГУ ДМС України в м.Києві"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="milName" name="Найменування військомату, в якому громадянин перебував на військовому обліку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="milRank" name="Військове звання" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зняти з реєстрації" type="enum">
+        <activiti:formProperty id="milName" name="Найменування військомату, в якому громадянин перебував на військовому обліку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="milRank" name="Військове звання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зняти з реєстрації" type="enum" writable="false">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я і по батькові дитини" type="string"></activiti:formProperty>
-        <activiti:formProperty id="ChildSex1" name="Стать дитини" type="enum">
+        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я і по батькові дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ChildSex1" name="Стать дитини" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
           <activiti:value id="no" name=" "></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="kidsBirth" name="Дата народження дитини" type="string"></activiti:formProperty>
-        <activiti:formProperty id="kidsPOB" name="Місце народження дитини" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth" name="Дата народження дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB" name="Місце народження дитини" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="stan" name="Стан заяви" type="string" default="На опрацюванні в ЦНАП" writable="false"></activiti:formProperty>
