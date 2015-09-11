@@ -263,9 +263,6 @@ angular.module('app').controller('PlaceFixController', function(
 
 
 
-
-
-
 // country
 
 angular.module('app').controller('ServiceCountryAbsentController', function($state,

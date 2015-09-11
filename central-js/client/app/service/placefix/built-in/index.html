@@ -1,53 +1,4 @@
-<!-- country -->
-<!-- 
-<service-auth-block
-        n-step="1"
-        redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID})}}">
-</service-auth-block>
- -->
-<!-- end country -->
-
-<!-- region -->
-<div class="list-group">
-
-    <place></place>
-    
-    <!-- <div class="list-group-item"
-         ng-class="{'disabled': data.region}">
-        <div class="row no-margin-bottom">
-            <div class="col-md-11 form-inline">
-                <strong><span>Крок 1. Оберіть свій регіон - CLONE: service/region/built-in/index.html </span></strong>
-
-                <div style="display:inline-block">
-                    <span>Область</span>
-                    <select class="form-control"
-                            name="region"
-                            ng-model="data.region"
-                            ng-options="region as region.sName for region in [data.region] | orderBy:'sName'"
-                            ng-disabled="data.city"></select>
-                </div>
-            </div>
-            <div class="col-md-1"
-                 ng-if="data.region">
-                <div class="link-button">
-                    <a ng-click="step1()">Змінити</a>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <service-auth-block
-            ng-if="data.region"
-            n-step="2"
-            redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID, 'region': data.region.nID})}}"
-            ></service-auth-block>
-</div>
-
-<!-- end region -->
-
-
 <!-- city  -->
-
 <div class="list-group">
 
     <!-- <ng-class="{'disabled': data.city}"  -->
@@ -93,6 +44,55 @@
             redirect-uri="{{$state.href('index.service.general.city.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}"
             ></service-auth-block>
 </div>
-
-
 <!-- end city -->
+
+
+<!-- country -->
+
+<!-- 
+<service-auth-block
+        n-step="1"
+        redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID})}}">
+</service-auth-block>
+ -->
+
+<!-- end country -->
+
+<!-- region -->
+<!-- <div class="list-group">
+
+    <place></place> -->
+    
+    <!-- <div class="list-group-item"
+         ng-class="{'disabled': data.region}">
+        <div class="row no-margin-bottom">
+            <div class="col-md-11 form-inline">
+                <strong><span>Крок 1. Оберіть свій регіон - CLONE: service/region/built-in/index.html </span></strong>
+
+                <div style="display:inline-block">
+                    <span>Область</span>
+                    <select class="form-control"
+                            name="region"
+                            ng-model="data.region"
+                            ng-options="region as region.sName for region in [data.region] | orderBy:'sName'"
+                            ng-disabled="data.city"></select>
+                </div>
+            </div>
+            <div class="col-md-1"
+                 ng-if="data.region">
+                <div class="link-button">
+                    <a ng-click="step1()">Змінити</a>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+<!--     <service-auth-block
+            ng-if="data.region"
+            n-step="2"
+            redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID, 'region': data.region.nID})}}"
+            ></service-auth-block>
+</div> -->
+
+<!-- end region -->
+
