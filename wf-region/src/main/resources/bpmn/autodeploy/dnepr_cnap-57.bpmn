@@ -110,7 +110,7 @@
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clbankIdPassport" name="Паспортні дані (серія, номер, ким і коли виданий)" type="string" default="${bankIdPassport}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clAddress" name="Адреса заявника" type="string" default="${bankIdAddress}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clbankIdinn" name="Номер облікової картки платника податків" type="long" default="bankIdinn" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clbankIdinn" name="Номер облікової картки платника податків" type="long" default="${bankIdinn}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clemail" name="Електронна адреса заявника" type="string" default="${clemail}"></activiti:formProperty>
         <activiti:formProperty id="cllocacia" name="Місце (адреса) виконання робіт підвищеної небезпеки та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" default="${locacia}" writable="false"></activiti:formProperty>
@@ -347,7 +347,7 @@ ${comment} &lt;br&gt;
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clbankIdPassport" name="Паспортні дані (серія, номер, ким і коли виданий)" type="string" default="${bankIdPassport}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clAddress" name="Адреса заявника" type="string" default="${bankIdAddress}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clbankIdinn" name="Номер облікової картки платника податків" type="long" default="bankIdinn" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clbankIdinn" name="Номер облікової картки платника податків" type="long" default="${bankIdinn}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clemail" name="Електронна адреса заявника" type="string" default="${email}"></activiti:formProperty>
         <activiti:formProperty id="cllocacia" name="Місце (адреса) виконання робіт підвищеної небезпеки та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" default="${locacia}" writable="false"></activiti:formProperty>
