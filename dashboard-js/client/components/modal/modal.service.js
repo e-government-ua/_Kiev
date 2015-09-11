@@ -39,7 +39,7 @@ angular.module('dashboardJsApp')
               }
             }, {
               classes: 'btn-success',
-              text: 'Перейти у Необроблені',
+              text: 'Продовжити роботу з необробленими',
               click: function(e) {
                 warningModal.close(e);
               }
