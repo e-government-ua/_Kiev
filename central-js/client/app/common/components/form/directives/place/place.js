@@ -66,6 +66,7 @@ angular.module('app')
           if ((oServiceAvailable.isRegion && $scope.regionIsChosen()) && (oServiceAvailable.isCity && $scope.cityIsChosen())) {
             result = true;
           }
+          console.log('Place controls is complete:', result );
           return result;
         };
 

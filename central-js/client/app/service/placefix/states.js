@@ -25,6 +25,7 @@ angular.module('app').config(function($stateProvider) {
     .state('index.service.general.placefix', { // region
       url: '/placefix',
       // FIXME PREVENT Coloring
+      // FIXME code dup is badbadbad
       // resolve: {
       //   regions: function($stateParams, PlacesService, service) {
       //     return PlacesService.getRegions().then(function(response) {
@@ -34,7 +35,7 @@ angular.module('app').config(function($stateProvider) {
       //       angular.forEach(regions, function(region) {
       //         var color = 'red';
       //         angular.forEach(aServiceData, function(oServiceData) {
-      //           if (oServiceData.hasOwnProperty('nID_Region') == false) {
+      //           if (oServiceData.hasOwnProperty('nID_Region') === false) {
       //             return;
       //           }
       //           var oRegion = oServiceData.nID_Region;

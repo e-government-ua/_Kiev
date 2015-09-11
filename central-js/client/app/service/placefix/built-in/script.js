@@ -94,8 +94,7 @@ angular.module('app').config(function($stateProvider) {
     .state('index.service.general.placefix.built-in', { // FIXME-5
       url: '/built-in',
       views: {
-        // 'content@index.service.general.region': {
-        'content@index.service.general.placefix': {
+        'content@index.service.general.placefix': { // region
           // FIXME: REPLACE with Place Fix Controller
           // templateUrl: 'app/service/region/built-in/index.html',
           templateUrl: 'app/service/placefix/built-in/index.html',

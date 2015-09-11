@@ -18,17 +18,35 @@
 
 // region
 
+// angular.module('app').config(function($stateProvider) {
+//   $stateProvider
+//     .state('index.service.general.placefix.link', {
+//       url: '/link',
+//       views: {
+//         'content@index.service.general.placefix': {
+//           templateUrl: 'app/service/placefix/link/index.html',
+//           controller: 'ServiceLinkController'
+//         }
+//       }
+//     });
+// });
+
+// end region
+
+// city
+
 angular.module('app').config(function($stateProvider) {
   $stateProvider
     .state('index.service.general.placefix.link', {
       url: '/link',
       views: {
-        'content@index.service.general.placefix': {
+        'status@index.service.general.placefix': {
           templateUrl: 'app/service/placefix/link/index.html',
-          controller: 'ServiceLinkController'
+          // controller: 'ServiceLinkController'
+          controller: 'PlaceFixController'
         }
       }
     });
 });
 
-// end region
+// end city

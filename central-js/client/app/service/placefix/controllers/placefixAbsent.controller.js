@@ -1,3 +1,5 @@
+// ported from city - serviceCityAbsent.controller.js
+
 'use strict';
 
 angular.module('app').controller('ServiceCityAbsentController', function($state,
@@ -60,3 +62,5 @@ angular.module('app').controller('ServiceCityAbsentController', function($state,
     MessagesService.setMessage(data, 'Дякуємо! Ви будете поінформовані, коли ця послуга буде доступна через Інтернет');
   };
 });
+
+// end city
