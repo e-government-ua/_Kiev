@@ -117,8 +117,8 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 122;15;2;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kr_rig_mvk_1:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 123;159;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_mreo_1:1:58"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,EDS
 124;669;14;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zaporoshye_mvk_1b:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-125;29;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_dms_89:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-126;26;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_dms_89s:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+125;29;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_dms-89:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+126;26;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_dms-89s:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 127;670;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_mailer:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 128;671;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_dependence_form:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 129;672;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_dnepr_mvd_1_auto:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
