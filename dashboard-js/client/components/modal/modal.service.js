@@ -24,7 +24,7 @@ angular.module('dashboardJsApp')
 
     // Public API here
     return {
-      assignTask: function(redirectCallback, message) {
+      assignTask: function(redirectCallback, message, dismissCallback) {
         var warningModal = openModal({
           modal: {
             dismissable: true,
@@ -46,6 +46,12 @@ angular.module('dashboardJsApp')
             }]
           }
         }, 'modal-success');
+        warningModal.result.then(function (selectedItem) {
+          dismissCallback();          
+        }, function () {
+          dismissCallback();           
+        });
+
       },
       inform: {
         info: function(callBack) {
@@ -97,9 +103,13 @@ angular.module('dashboardJsApp')
               }
             }, 'modal-success');
 
-            warningModal.result.then(function(event) {
+            warningModal.result.then(function (event) {
+              callBack.apply(event, args);
+            }, function () {
               callBack.apply(event, args);
             });
+            
+            
           };
         },
 
