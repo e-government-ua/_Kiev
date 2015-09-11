@@ -25,7 +25,7 @@
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
        
-        <activiti:formProperty id="scpasp" name="Завантажте копію паспорту" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="scpasp" name="Завантажте копію паспорту" type="file" ></activiti:formProperty>
         <activiti:formProperty id="sost" name="Завантажте пенсійне посвідчення" type="file" required="true"></activiti:formProperty>
        
         <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default=" "></activiti:formProperty>
@@ -33,7 +33,7 @@
         <activiti:formProperty id="sID_Merchant" name="ИД-строковой мерчанта (магазина)" type="invisible" default="i75116857714"></activiti:formProperty>
         <activiti:formProperty id="sSum" name="сумма платежа" type="invisible" default="0.15"></activiti:formProperty>
         <activiti:formProperty id="sID_Currency" name="ИД-строковой валюты" type="invisible" default="UAH"></activiti:formProperty>
-        <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default="Оплата послуги видача довідки про перебування на обліку (ПФ)"></activiti:formProperty>
+        <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default="Оплата послуги видача довідки про перебування на обліку (пенсійний фонд)"></activiti:formProperty>
       <activiti:formProperty id="sBody_1" name="sBody" type="invisible"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -77,7 +77,7 @@
        
         <activiti:formProperty id="scpasp" name="Копія паспорту" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sost" name="Копія пенсійного посвідчення" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_97.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_post_97.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -100,7 +100,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Дніпропетровськ почта. Видача довідки про перебування на обліку (ПФ)]]></activiti:string>
+          <activiti:string><![CDATA[Дніпропетровськ почта. Видача довідки про перебування на обліку (пенсійний фонд)]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -188,7 +188,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Дніпропетровськ почта. Видача довідки про перебування на обліку (ПФ)]]></activiti:string>
+          <activiti:string><![CDATA[Дніпропетровськ почта. Видача довідки про перебування на обліку (пенсійний фонд)]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -234,7 +234,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Ваше звернення щодо видачі довідки про перебування на обліку (ПФ) забраковане.&lt;/p&gt;
+                                        Ваше звернення щодо видачі довідки про перебування на обліку (пенсійний фонд) забраковане.&lt;/p&gt;
 &lt;p&gt;Причина в наступному: 
                                     &lt;/p&gt;
 &lt;p&gt;${comment}&lt;/p&gt;
@@ -283,7 +283,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Дніпропетровськ почта. Видача довідки про перебування на обліку (ПФ)]]></activiti:string>
+          <activiti:string><![CDATA[Дніпропетровськ почта. Видача довідки про перебування на обліку (пенсійний фонд)]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -328,7 +328,7 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-&lt;p&gt;Ваше звернення щодо видачі довідки про перебування на обліку (ПФ) відхилено, оскільки Ви не сплатили послуги протягом 3-х днів.&lt;/p&gt;
+&lt;p&gt;Ваше звернення щодо видачі довідки про перебування на обліку (пенсійний фонд) відхилено, оскільки Ви не сплатили послуги протягом 3-х днів.&lt;/p&gt;
 &lt;p&gt;Ви можете подати ще одну заяву на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;igov.org.ua&lt;/a&gt;&lt;/p&gt;
 
 
@@ -374,7 +374,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Дніпропетровськ почта. Видача довідки про перебування на обліку (ПФ)]]></activiti:string>
+          <activiti:string><![CDATA[Дніпропетровськ почта. Видача довідки про перебування на обліку (пенсійний фонд)]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -420,7 +420,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Ваше звернення щодо видачі довідки про перебування на обліку (ПФ). Висновок ви отримаєте за адресою:&lt;/p&gt;
+                                        Ваше звернення щодо видачі довідки про перебування на обліку (пенсійний фонд). Висновок ви отримаєте за адресою:&lt;/p&gt;
 &lt;p&gt; ${place_of_liv}&lt;/p&gt;
 &lt;p&gt; Надходження висновку очікуйте протягом 20 днів.
                                     &lt;/p&gt;
