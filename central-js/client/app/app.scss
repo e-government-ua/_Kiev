@@ -339,6 +339,11 @@ ul.dropdown-menu {
   color: #000000;
   font-size: 80%;
 }
+.big-inner-addon .glyphicon-remove {
+  position: absolute;
+  top: 17px;
+  right: 35px;
+}
 
 .ord-inner-addon {
   position: relative;
@@ -714,7 +719,7 @@ label {
   font-weight: normal !important;
 }
 
-a {
+a, .control-element {
   cursor: pointer;
 }
 

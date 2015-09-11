@@ -7,7 +7,7 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="cnap" name="Оберіть ЦНАП у якому буде зручніше забрати оригінал документу" type="enum" required="true">
           <activiti:value id="pravij" name="Правобережний"></activiti:value>
           <activiti:value id="levij" name="Лівобережний"></activiti:value>
@@ -94,14 +94,15 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження&lt;br /&gt;
+У Вас в черзі на обробку зареєстровано нове звернення щодо Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження.&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Відпрацюйте це звернення на порталі &lt;a href="#current-page"&gt;test.region.igov.org.ua:6948&lt;/a&gt;
+Відпрацюйте це звернення на &lt;a href="https://test.region.igov.org.ua:6948/" target="_blank"&gt;порталі&lt;/a&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                     З повагою,&lt;br /&gt;
+					  Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
+                                        &lt;/p&gt;
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -126,7 +127,7 @@
     <userTask id="usertask2" name="прийняття рішення про надання послуги" activiti:candidateGroups="Dnepr_cnap_55">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="cnap" name="Оберіть ЦНАП у якому буде зручніше забрати оригінал документу" type="enum" writable="false">
           <activiti:value id="pravij" name="Правобережний"></activiti:value>
           <activiti:value id="levij" name="Лівобережний"></activiti:value>
@@ -141,7 +142,7 @@
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Місцезнаходження юридичної особи/місце проживання фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_reestr" name="Укажіть сьогоднішню дату" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_reestr" name="Укажіть дату реєстрації звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="Прийняття рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="документи пройшли перевірку, послуга може бути надана"></activiti:value>
@@ -229,7 +230,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
 &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-Вам відмовлено у наданні експлуатаційного дозвілу з переробки неїстівних продуктів тваринного походження&lt;br /&gt;
+Вам відмовлено у наданні експлуатаційного дозвілу з переробки неїстівних продуктів тваринного походження.&lt;br /&gt;
 Підстава: ${comment_2}&lt;br /&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -340,8 +341,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Ваш запит щодо отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з виробництва, змішування та 
-приготування кормових добавок, преміксів і кормів &lt;b &gt;відхилено.&lt;b /&gt;&lt;br /&gt;
+Ваш запит щодо Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження відхилено.&lt;br /&gt;
 &lt;br /&gt;
 Підстава: ${comment_1}    
     &lt;/pя&gt;
@@ -379,7 +379,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження</activiti:string>
+          <activiti:string>Звернення на тему: Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження</activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${opis}"</activiti:expression>
@@ -435,10 +435,9 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Ваш запит щодо отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження успішно зареєстровано і буде опрацьовано управлінням ветеринарної медицини в м.Дніпропетровську впродовж 10 робочих днів.&lt;br /&gt;
+Ваш запит щодо Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження успішно зареєстровано і буде опрацьовано управлінням ветеринарної медицини в м.Дніпропетровську впродовж 10 робочих днів.&lt;br /&gt;
 &lt;br /&gt;
 Реєстраційний номер заяви: ${reestr_numb};&lt;br /&gt;
-Дата реєстрації ${date_reestr}.&lt;br /&gt;
 До листа додається опис наданих Вами документів.&lt;br /&gt;
 &lt;br /&gt;
 Ви отримаєте додаткове повідомлення за результатами розгляду запиту.&lt;br /&gt;
@@ -492,7 +491,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження</activiti:string>
+          <activiti:string>Звернення на тему: Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження</activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
@@ -548,7 +547,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     
-Ви отримали схвалення щодо свого запиту - експлуатаційний дозвіл для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження.&lt;br /&gt;
+Ви отримали схвалення щодо свого запиту - експлуатаційний дозвіл для провадження діяльності: на потужностях (об'єктах) зз переробки неїстівних продуктів тваринного походження.&lt;br /&gt;
 &lt;br /&gt;
 Ви або уповноважена Вами особа (при наявності довіреності) можете отримати дозвіл собисто під підпис у ЦНАПі.&lt;br /&gt;
 &lt;br /&gt;
@@ -561,7 +560,7 @@
 Зверніть увагу, що заяву, яку ви подавали в електронному вигляді, треба буде засвідчити особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.
 &lt;br /&gt;
 &lt;br /&gt;
-Адреса центру надання адміністративних послуг "Правобережний" - пр.К.Маркса 75 (1 поверх)&lt;br /&gt;&lt;br /&gt;
+Адреса центру надання адміністративних послуг "Правобережний" - пр.К.Маркса 75 (1 поверх).&lt;br /&gt;&lt;br /&gt;
 Телефон для довідок (056)742-84-08&lt;br /&gt;&lt;br /&gt;
 Графік роботи (крім святкових днів):&lt;br /&gt;
 пн. ср. 9-18&lt;br /&gt;
@@ -630,7 +629,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження</activiti:string>
+          <activiti:string>Звернення на тему: Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження</activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
@@ -699,11 +698,13 @@
 Зверніть увагу, що заяву, яку ви подавали в електронному вигляді, треба буде засвідчити особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.
 &lt;br /&gt;
 &lt;br /&gt;
-Адреса центру надання адміністративних послуг "Лівобережний" - пр.ім. Газети "Правда" 42 (5 поверх)&lt;br /&gt;&lt;br /&gt;
+Адреса центру надання адміністративних послуг "Лівобережний" - пр.ім. Газети "Правда" 42 (5 поверх).&lt;br /&gt;&lt;br /&gt;
 Телефон для довідок (056)742-84-08&lt;br /&gt;&lt;br /&gt;
 Графік роботи (крім святкових днів):&lt;br /&gt;
 пн. вт. ср. чт. 9-18&lt;br /&gt;
 пт. 9-16:45&lt;br /&gt;
+&lt;br /&gt;
+Копія рішення знаходиться у додатку до листа.&lt;br /&gt;
 &lt;br /&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
