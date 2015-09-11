@@ -50,15 +50,15 @@ angular.module('app').config(function($stateProvider) {
   //   //   }
   //   // },
   // })
-    // .state('index.service.general.placefix.error', { // region
-    //   url: '/absent',
-    //   views: {
-    //     'content@index.service.general.placefix': {
-    //       templateUrl: 'app/service/placefix/absent.html',
-    //       controller: 'PlaceFixController'
-    //     }
-    //   }
-    // })
+  // .state('index.service.general.placefix.error', { // region
+  //   url: '/absent',
+  //   views: {
+  //     'content@index.service.general.placefix': {
+  //       templateUrl: 'app/service/placefix/absent.html',
+  //       controller: 'PlaceFixController'
+  //     }
+  //   }
+  // })
     .state('index.service.general.placefix', { // city - moved from app states
       url: '/placefix',
       // resolve: {
@@ -100,7 +100,6 @@ angular.module('app').config(function($stateProvider) {
           controller: 'ServiceCityController',
           // controller: 'PlaceFixController',
           templateUrl: 'app/service/placefix/content.html'
-            // templateUrl: 'app/service/placefix/placefix.content.html'
         },
         'main@': {
           templateUrl: 'app/service/placefix/index.html',

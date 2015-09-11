@@ -212,11 +212,11 @@ angular.module('app').config(function($stateProvider) {
           // }
       },
       views: {
-        'city-content': {
-          templateUrl: 'app/service/placefix/built-in/bankid.html',
-          //controller: 'PlaceFixController' // 'BuiltinCityController'
-          controller: 'ServiceBuiltInBankIDController' // FIXME-0
-        },
+        // 'city-content': {
+        //   templateUrl: 'app/service/placefix/built-in/bankid.html',
+        //   //controller: 'PlaceFixController' // 'BuiltinCityController'
+        //   controller: 'ServiceBuiltInBankIDController' // FIXME-0
+        // },
         'content@index.service.general.placefix': {
           templateUrl: 'app/service/placefix/built-in/bankid.html',
           controller: 'ServiceBuiltInBankIDController'
@@ -236,17 +236,20 @@ angular.module('app').config(function($stateProvider) {
       },
       views: {
         // FIXME resolve teh city-content
-        'city-content@index.service.general.placefix': {
-          templateUrl: 'app/service/placefix/built-in/bankid.submitted.html',
-          controller: 'PlaceFixController' // function moved to Places' stateStartupFunction
-        }, // regions
+        // 'city-content@index.service.general.placefix': {
+        //   templateUrl: 'app/service/placefix/built-in/bankid.submitted.html',
+        //   controller: 'PlaceFixController' // function moved to Places' stateStartupFunction
+        // }, // regions
         'content@index.service.general.placefix': {
           templateUrl: 'app/service/placefix/built-in/bankid.submitted.html',
-          controller: function($state, $scope, BankIDAccount) {
-            $scope.state = $state.get('index.service.general.placefix.built-in.bankid.submitted');
+          controller: 'PlaceFixController' // function moved to Places' stateStartupFunction
 
-            $scope.bankIDAccount = BankIDAccount;
-          }
+          // FIXME impl-t this functionality in PlaceFixController:
+          // function($state, $scope, BankIDAccount) {
+          //   $scope.state = $state.get('index.service.general.placefix.built-in.bankid.submitted');
+
+          //   $scope.bankIDAccount = BankIDAccount;
+          // }
         }
       }
     });

@@ -66,7 +66,7 @@ angular.module('app')
           if ((oServiceAvailable.isRegion && $scope.regionIsChosen()) && (oServiceAvailable.isCity && $scope.cityIsChosen())) {
             result = true;
           }
-          console.log('Place controls is complete:', result );
+          console.log('Place controls is complete:', result);
           return result;
         };
 
@@ -80,11 +80,12 @@ angular.module('app')
         };
 
         $scope.loadRegionList = function(search) {
-          return $scope.regionList.load( ServiceService.oService, search);
+          console.log('loadRegionList, search =', search);
+          return $scope.regionList.load(ServiceService.oService, search);
         };
 
         $scope.loadLocalityList = function(search) {
-          return $scope.localityList.load( ServiceService.oService, $scope.placeData.region.nID, search).then(function(cities) {
+          return $scope.localityList.load(ServiceService.oService, $scope.placeData.region.nID, search).then(function(cities) {
             $scope.localityList.typeahead.defaultList = cities;
           });
         };
@@ -106,6 +107,8 @@ angular.module('app')
           PlacesService.initPlacesByScopeAndState(this, $scope, $state, $rootScope, AdminService, $location, $sce);
 
           $scope.regionList = $scope.regionList || new RegionListFactory();
+
+          console.log('$scope.regionList = ', $scope.regionList );
           $scope.localityList = $scope.localityList || new LocalityListFactory();
           $scope.regionList.initialize($scope.regions);
           $scope.resetPlaceData();

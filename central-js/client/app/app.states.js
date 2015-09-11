@@ -85,7 +85,6 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
     //   views: {
     //     'city-content': {
     //       templateUrl: 'app/service/placefix/built-in/index.html',
-    //       // templateUrl: 'app/service/placefix/placefix.content.html',
     //       controller: 'ServiceBuiltInController'
     //         // controller: 'PlaceFixController'
     //     }
@@ -104,13 +103,14 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
           templateUrl: 'app/service/placefix/built-in/index.html',
           // controller: 'ServiceBuiltInController'
           controller: 'PlaceFixController'
-        },
-        'city-content': {
-          templateUrl: 'app/service/placefix/built-in/index.html',
-          // templateUrl: 'app/service/placefix/placefix.content.html',
-          controller: 'ServiceBuiltInController'
-            // controller: 'PlaceFixController'
         }
+        // ,
+        // 'city-content': {
+        //   templateUrl: 'app/service/placefix/built-in/index.html',
+        //   // templateUrl: 'app/service/placefix/placefix.content.html',
+        //   controller: 'ServiceBuiltInController'
+        //     // controller: 'PlaceFixController'
+        // }
       }
     })
     .state('index.service.statistics', {
