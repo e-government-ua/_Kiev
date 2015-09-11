@@ -110,7 +110,7 @@
           </div>
 
           <div ng-show="attachments">
-            <p ng-repeat="item in attachments">
+            <p ng-repeat="item in attachments" ng-show="taskFormLoaded">
               Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content/{{($index+1)}}" target="_blank"><b>{{item.name}}</b></a>              {{item.description}}
             </p>
           </div>
@@ -124,27 +124,12 @@
               <submittask-button></submittask-button>
               <br/>
               <br/>
-              <button ng-hide="sSelectedTask == 'finished'" ng-click="print()" class="btn btn-success">Роздрукувати
+              <button ng-hide="!taskFormLoaded || sSelectedTask == 'finished'" ng-click="print()" class="btn btn-success">Роздрукувати
               </button>
-            </div>
-            <!--select class="aPatternPrint form-control_"
-                    ng-hide="!printTemplate.containsPrintTemplate()"
-                    ng-options="oPatternPrint.sID as oPatternPrint.sLabel for oPatternPrint in printTemplate.aPatternPrint()"
-                    ng-model="'sBody_0'"></select-->
-            <!--
-                                ng-hide="!printTemplate.containsPrintTemplate()"
--->
-
+            </div>            
             <select class="aPatternPrint form-control_" ng-hide="aPatternPrintNew(taskForm)===null || aPatternPrintNew(taskForm).length===0 || selectedTask.assignee == null || sSelectedTask == 'finished'">
               <option ng-repeat="oPatternPrint in aPatternPrintNew(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.name}}</option>
-              <!--option ng-repeat="oPatternPrint in printTemplate.aPatternPrint()" value="{{oPatternPrint.sID}}">{{oPatternPrint.sLabel}}</option-->
-
-
             </select>
-
-            <!--        ng-hide="!printTemplate.containsPrintTemplate()" -->
-            <!--value="{{oPatternPrint.sID}}" selected="{{oPatternPrint.sID=='sBody_0'?'selected':''}}">{{oPatternPrint.sLabel}}</option-->
-
           </p>
         </div>
       </div>

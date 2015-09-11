@@ -4,6 +4,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   $scope.tasks = null;
   $scope.selectedTasks = {};
   $scope.sSelectedTask = "";
+  $scope.taskFormLoaded = false;
   $scope.$storage = $localStorage.$default({
     menuType: tasks.filterTypes.selfAssigned
   });
@@ -113,6 +114,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     $scope.attachments = null;
     $scope.error = null;
     $scope.taskAttachments = null;
+    $scope.taskFormLoaded = false;
 
     var data = {};
     if ($scope.$storage.menuType == 'tickets'){
@@ -137,6 +139,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.selectTask = function (task) {
+    $scope.taskFormLoaded = false;
     $scope.sSelectedTask = $scope.$storage.menuType;
     $scope.selectedTask = task;
     $scope.selectedTasks[$scope.$storage.menuType] = task;
@@ -153,6 +156,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           result = JSON.parse(result);
           $scope.taskForm = result.data[0].variables;
           $scope.taskForm = addIndexForFileItems($scope.taskForm);
+          $scope.taskFormLoaded = true;
         })
         .catch(defaultErrorHandler);
     }
@@ -163,6 +167,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           result = JSON.parse(result);
           $scope.taskForm = result.formProperties;
           $scope.taskForm = addIndexForFileItems($scope.taskForm);
+          $scope.taskFormLoaded = true;
         })
         .catch(defaultErrorHandler);
     }
@@ -235,13 +240,14 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     $scope.taskForm.isInProcess = true;    
        
     tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id)
-    .then(function (result) {
-      Modal.assignTask(function (event) {
-        $scope.lightweightRefreshAfterSubmit();  
-        $scope.applyTaskFilter($scope.menus[1].type, $scope.selectedTask.id);            
-      }, 'Задача у вас в роботі');
+    .then(function (result) {      
+      Modal.assignTask(function (event) {        
+        $scope.applyTaskFilter($scope.menus[1].type, $scope.selectedTask.id);        
+      }, 'Задача у вас в роботі', $scope.lightweightRefreshAfterSubmit);
+
     })
-      .catch(defaultErrorHandler());     
+      .catch(defaultErrorHandler());  
+             
   };
 
   $scope.upload = function (files, propertyID) {
@@ -266,6 +272,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
       $scope.tasks = $.grep($scope.tasks, function (e) {
         return e.id != $scope.selectedTask.id;
       });
+      $scope.taskForm.isInProcess = false;
       $scope.taskForm.isSuccessfullySubmitted = true;
       //$scope.selectTask($scope.tasks[0]);// - if another task should be selected
       //The next line is commented out to prevent full refresh of the page
@@ -394,6 +401,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
   $scope.init = function () {
     loadTaskCounters();
     loadSelfAssignedTasks();
+    $scope.taskFormLoaded = false;   
   };
 
   $scope.ticketsFilter = {
@@ -514,8 +522,10 @@ $scope.lightweightRefreshAfterSubmit = function () {
           msg = data.code + ' ' + data.message;
       }
     } catch (e) { console.log(e); }
+    if ($scope.taskForm){
     $scope.taskForm.isSuccessfullySubmitted = false;
     $scope.taskForm.isInProcess = false;
+    }
     Modal.inform.error()(msg);
   }
   
