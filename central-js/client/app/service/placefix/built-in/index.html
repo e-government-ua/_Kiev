@@ -41,7 +41,7 @@
     <service-auth-block
             ng-if="ngIfStep2()"
             n-step="2"
-            redirect-uri="{{$state.href('index.service.general.city.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}"
+            redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}"
             ></service-auth-block>
 </div>
 <!-- end city -->

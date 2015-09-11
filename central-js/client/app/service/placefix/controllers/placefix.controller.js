@@ -260,9 +260,6 @@ angular.module('app').controller('PlaceFixController', function(
 // });
 
 
-
-
-
 // country
 
 angular.module('app').controller('ServiceCountryAbsentController', function($state,
@@ -366,12 +363,12 @@ angular.module('app').controller('ServiceCityController', function($state, Admin
 
   //    switch (serviceType.nID) {
   //      case 1:
-  //        $state.go('index.service.general.city.link', {id: ServiceService.oService.nID}, {location: false}).then(function() {
+  //        $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false}).then(function() {
   //    isStep2 = true;
   //  });
   //  break;
   //      case 4:
-  //        $state.go('index.service.general.city.built-in', {id: ServiceService.oService.nID}, {location: false}).then(function() {
+  //        $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false}).then(function() {
   //    isStep2 = true;
   //  });
   //  break;
@@ -395,17 +392,17 @@ angular.module('app').controller('ServiceCityController', function($state, Admin
   // var serviceType = $scope.findServiceDataByCity();
   //    switch (serviceType.nID) {
   //      case 1:
-  //        $state.go('index.service.general.city.link', {id: ServiceService.oService.nID}, {location: false}).then(function() {
+  //        $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false}).then(function() {
   //    isStep2 = true;
   //  });
   //  break;
   //      case 4:
-  //        $state.go('index.service.general.city.built-in', {id: ServiceService.oService.nID}, {location: false}).then(function() {
+  //        $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false}).then(function() {
   //    isStep2 = true;
   //  });
   //  break;
   //      default:
-  //        $state.go('index.service.general.city.error', {id: ServiceService.oService.nID}, {location: false}).then(function() {
+  //        $state.go('index.service.general.placefix.error', {id: ServiceService.oService.nID}, {location: false}).then(function() {
   //    isStep2 = true;
   //  });
   //    }
@@ -417,14 +414,14 @@ angular.module('app').controller('ServiceCityController', function($state, Admin
   //  };
 
   //  $scope.ngIfCity = function() {
-  // if($state.current.name === 'index.service.general.city.built-in') {
+  // if($state.current.name === 'index.service.general.placefix.built-in') {
   //  if($scope.data.city) {
   //    return true;
   //  } else {
   //    return false;
   //  }
   // }
-  // if($state.current.name === 'index.service.general.city.built-in.bankid') {
+  // if($state.current.name === 'index.service.general.placefix.built-in.bankid') {
   //  if($scope.data.city) {
   //    return true;
   //  } else {
@@ -492,7 +489,7 @@ angular.module('app').controller('ServiceCityController', function($state, Admin
   //    $scope.regionList.initialize(regions);
 
   //    $scope.localityList.reset();
-  //    return $state.go('index.service.general.city', {id: ServiceService.oService.nID}).then(function() {
+  //    return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID}).then(function() {
   //  isStep2 = false;
   // });
   //  };
@@ -503,15 +500,15 @@ angular.module('app').controller('ServiceCityController', function($state, Admin
 
   //    switch (serviceType.nID) {
   //      case 1:
-  //        return $state.go('index.service.general.city.link', {id: ServiceService.oService.nID}, {location: false});
+  //        return $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false});
   //      case 4:
-  //        return $state.go('index.service.general.city.built-in', {id: ServiceService.oService.nID}, {location: false});
+  //        return $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false});
   //      default:
-  //        return $state.go('index.service.general.city.error', {id: ServiceService.oService.nID}, {location: false});
+  //        return $state.go('index.service.general.placefix.error', {id: ServiceService.oService.nID}, {location: false});
   //    }
   //  };
 
-  // if ($state.current.name == 'service.general.city.built-in.bankid') {
+  // if ($state.current.name == 'service.general.placefix.built-in.bankid') {
   //  return true;
   // }
 

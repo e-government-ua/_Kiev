@@ -8,10 +8,10 @@
     <div ng-if="ngIfStep2()">
         <div class="list-group-item" ui-view="status"></div>
 
-        <!-- STATE: index.service.general.city.built-in -->
+        <!-- STATE: index.service.general.placefix.built-in -->
         <service-auth-block 
           n-step="2" 
-          redirect-uri="{{$state.href('index.service.general.city.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
+          redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
         </service-auth-block>
 
         <!-- 
@@ -62,6 +62,6 @@
     <service-auth-block
             ng-if="ngIfStep2()"
             n-step="2"
-            redirect-uri="{{$state.href('index.service.general.city.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}"
+            redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}"
             ></service-auth-block>
 </div> -->

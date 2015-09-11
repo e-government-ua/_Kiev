@@ -21,7 +21,7 @@ angular.module('app').controller('ServiceGeneralController', function($state, $s
   //   }
   // });
   // if (isCity) {
-  //   return $state.go('index.service.general.city', {id: ServiceService.oService.nID}, {location: false});
+  //   return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID}, {location: false});
   // }
 
   // var isRegion = false;
@@ -31,7 +31,7 @@ angular.module('app').controller('ServiceGeneralController', function($state, $s
   //   }
   // });
   // if (isRegion) {
-  //   return $state.go('index.service.general.city', {id: ServiceService.oService.nID}, {location: false});
+  //   return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID}, {location: false});
   // }
 
   return $state.go('index.service.general.placefix', {id:  ServiceService.oService.nID}, {location: false});

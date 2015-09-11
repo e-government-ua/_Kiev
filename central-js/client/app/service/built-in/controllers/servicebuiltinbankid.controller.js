@@ -82,7 +82,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
   $scope.ngIfCity = function() {
     var result = $scope.data.region ? true : false;
-    if ($state.current.name === 'index.service.general.city.built-in' || $state.current.name === 'index.service.general.city.built-in.bankid' ) {
+    if ($state.current.name === 'index.service.general.placefix.built-in' || $state.current.name === 'index.service.general.placefix.built-in.bankid' ) {
       if ($scope.data.city) {
         result = true;
       } else {
