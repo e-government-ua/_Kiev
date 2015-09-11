@@ -140,10 +140,16 @@
         </div>
         <div class="tasks-form-buttons">
           <p ng-if="selectedTask">
-            <button ng-hide="selectedTask.assignee != null"
+            <div ng-hide="selectedTask.assignee != null">
+            <button 
+                    ng-hide="selectedTask.assignee != null "
                     ng-click="assignTask()"
-                    class="btn btn-success">Взяти в роботу
+                    class="btn btn-success"
+                    ng-disabled="isTaskSuccessfullySubmitted()">Взяти в роботу
             </button>
+            <label ng-show="isTaskSuccessfullySubmitted()">   Задачу направлено в роботу</label>
+            <!--<label>{{isTaskSuccessfullySubmitted() === true ? "   Задача в роботі" : ""}}</label>-->
+            </div>
             <button ng-hide="selectedTask.assignee == null || sSelectedTask == 'finished'"
                     ng-click="submitTask()"
                     class="btn btn-success">Опрацювати

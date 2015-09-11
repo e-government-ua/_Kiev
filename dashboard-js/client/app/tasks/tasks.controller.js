@@ -214,9 +214,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
         Modal.inform.error()(errorMessage);
         return;
       }
-
+      $scope.taskForm.isSuccessfullySubmitted = true;
       tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm)
-        .then(function (result) {
+        .then(function (result) {          
           Modal.inform.success(function (event) {
             $scope.selectedTasks[$scope.$storage.menuType] = null;
             loadTaskCounters();
@@ -228,14 +228,22 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.assignTask = function () {
+    $scope.taskForm.isSuccessfullySubmitted = true;
+    $scope.tasks = $.grep($scope.tasks, function (e) {
+      return e.id != $scope.selectedTask.id;
+    });
+    //$scope.selectTask($scope.tasks[0]);// - if another task should be selected
     tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id).then(function (result) {
       Modal.assignTask(function (event) {
         $scope.selectedTasks[$scope.$storage.menuType] = null;
         loadTaskCounters();
-        $scope.applyTaskFilter($scope.menus[1].type, $scope.selectedTask.id);
+        $scope.applyTaskFilter($scope.menus[1].type, $scope.selectedTask.id, true);
+        
       }, 'Задача у вас в роботі');
     })
       .catch(defaultErrorHandler());
+      $scope.taskForm.isSuccessfullySubmitted = true; 
+
   };
 
   $scope.upload = function (files, propertyID) {
@@ -515,6 +523,14 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
     $scope.isTaskSubmitted = function (item) {
     return $scope.taskForm.isSubmitted;
+  };
+  
+      $scope.isTaskSuccessfullySubmitted = function () {
+        if ($scope.selectedTask && $scope.taskForm) {
+          if ($scope.taskForm.isSuccessfullySubmitted != undefined)
+          return true;
+        }
+        return false;
   };
   
 });
