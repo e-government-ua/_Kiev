@@ -7,6 +7,8 @@
 angular.module('app')
   .directive('place', function($rootScope, $location, $state, $sce, AdminService, RegionListFactory, LocalityListFactory, PlacesService, ServiceService) {
 
+    var mode = 'default';
+
     return {
       restrict: 'E',
       templateUrl: 'app/common/components/form/directives/place/place.html',
@@ -39,12 +41,18 @@ angular.module('app')
         };
 
         $scope.cityIsChosen = function() {
-          return PlacesService.cityIsChosen();
+          var is = PlacesService.cityIsChosen();
+          // console.log('cityIsChosen:', is);
+          return is;
         };
 
         $scope.regionIsChosen = function() {
           return PlacesService.regionIsChosen();
         };
+
+        $scope.controlIsDisabled = function() {
+          return $scope.cityIsChosen() && mode !== 'editMode';
+        }
 
         /**
          * Ця функція визначає, чи заповнені всі поля, які необхідно заповнити
@@ -71,9 +79,14 @@ angular.module('app')
         };
 
         $scope.onEditPlace = function() {
+
+          mode = 'editMode';
+
           $scope.resetPlaceData();
 
-          $scope.makeStep('editStep');
+          // $scope.makeStep('editStep');
+
+          $scope.$emit('onEditPlace', {});
 
           $scope.regionList.select(null);
           $scope.localityList.select(null);

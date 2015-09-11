@@ -1,4 +1,4 @@
-<div class="list-group-item place-control" ng-class="{'disabled': cityIsChosen()}">
+<div class="list-group-item place-control" ng-class="{'disabled': controlIsDisabled()}">
 
     <!-- collapsed -->
 
@@ -21,11 +21,11 @@
                             typeahead-on-select="onSelectRegionList($item)" 
                             typeahead-template-url="app/service/placefix/typeahead-match-region.html" 
                             typeahead-empty 
-                            ng-disabled="cityIsChosen()" />
+                            ng-disabled="controlIsDisabled()" />
                         <span class="input-group-btn">
                             <button class="btn btn-default"
                                     type="button"
-                                    ng-disabled="cityIsChosen()"
+                                    ng-disabled="controlIsDisabled()"
                                     dropdown-toggle>
                                 <span class="caret"></span>
                             </button>
@@ -53,11 +53,11 @@
                             typeahead-on-select="onSelectLocalityList($item)" 
                             typeahead-template-url="app/service/placefix/typeahead-match-city.html" 
                             typeahead-empty 
-                            ng-disabled="cityIsChosen()" />
+                            ng-disabled="controlIsDisabled()" />
                         <span class="input-group-btn">
                             <button class="btn btn-default"
                                     type="button"
-                                    ng-disabled="cityIsChosen()"
+                                    ng-disabled="controlIsDisabled()"
                                     dropdown-toggle>
                                 <span class="caret"></span>
                             </button>
@@ -76,6 +76,7 @@
             </div>
         </div>
         <div class="col-md-1" ng-if="cityIsChosen()">
+        <!-- <div class="col-md-1" ng-if="placeControlIsComplete()"> -->
             <div class="link-button">
                 <a href="#" ng-click="onEditPlace()">Змінити</a>
             </div>

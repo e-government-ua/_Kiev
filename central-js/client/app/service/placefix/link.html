@@ -1,3 +1,23 @@
+<!-- city -->
+<div class="service-name">{{service.sName}}</div>
+<div class="operator-name">{{service.sSubjectOperatorName}}</div>
+<div class="list-group">
+    <!-- end step 1 -->
+    <places></places>
+    <!-- end step 1 -->
+    <!-- step 2 -->
+    <div class="list-group-item disabled" ng-if="placeControlIsComplete()">
+        <span>Крок 2.</span>
+        <div class="service-description">
+            <p class="service-description-text" ng-bind-html="serviceData.sNote" ng-if="serviceData.sNote"></p>
+            <div ng-if="serviceData.sURL!==null && serviceData.sURL.trim() !==''" class="service-button-go">
+                <a ng-href="{{serviceData.sURL}}" class="btn btn-primary" target="_blank">Перейти</a>
+            </div>
+        </div>
+    </div>
+    <!-- end step 2 -->
+</div>
+<!-- end city -->
 <!-- country -->
 <!-- <div class="list-group">
     <div class="list-group-item disabled">
@@ -68,19 +88,3 @@
     </div>
 </div> -->
 <!-- end region -->
-<!-- city -->
-<div class="service-name">{{service.sName}}</div>
-<div class="operator-name">{{service.sSubjectOperatorName}}</div>
-<div class="list-group">
-    <places></places>
-    <div class="list-group-item disabled" ng-if="data.region">
-        <span>- Крок 2.</span>
-        <div class="service-description">
-            <p class="service-description-text" ng-bind-html="serviceData.sNote" ng-if="serviceData.sNote"></p>
-            <div ng-if="serviceData.sURL!==null && serviceData.sURL.trim() !==''" class="service-button-go">
-                <a ng-href="{{serviceData.sURL}}" class="btn btn-primary" target="_blank">Перейти</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end city -->

@@ -25,7 +25,7 @@ angular.module('app').controller('PlaceFixController', function(
     }
   };
 
-  var initCityService = function () {
+  var initCityService = function() {
 
     $scope.regions = regions;
     $scope.regionList = new RegionListFactory();
@@ -35,7 +35,7 @@ angular.module('app').controller('PlaceFixController', function(
 
     // Each controller which uses Places Control should tell it:
     // FIXME: preload regions and service and provide them as part of the locations service
-    console.log('ServiceCityController. Reg-s: ', regions);
+    console.log('initCityService. Reg-s: ', regions.length);
 
     ///
     ///
@@ -138,14 +138,6 @@ angular.module('app').controller('PlaceFixController', function(
     self.isStep2 = true;
   };
 
-  $scope.makeStep = function(stepId) {
-    if (stepId) {
-      if (stepId === 'editStep') {
-        self.isStep2 = false;
-      }
-    }
-  };
-
   $scope.ngIfStep2 = function() {
     // console.log('ngIfStep2 =', self.isStep2);
     return self.isStep2;
@@ -179,21 +171,26 @@ angular.module('app').controller('PlaceFixController', function(
     self.processPlaceChange(oParams);
   });
 
+  $scope.$on('onEditPlace', function(evt, oParams) {
+    //   $scope.makeStep = function(stepId) {
+    // if (stepId) {
+    // if (stepId === 'editStep') {
+    self.isStep2 = false;
+    // }
+    // }
+  });
+
   // FIXME
   self.processPlaceChange({
     serviceData: PlacesService.getServiceDataForSelectedPlace(),
     placeData: PlacesService.getPlaceData()
   });
-
-  /*
-  angular.module('app').controller('ServiceBuiltInController', function($location, $state, $rootScope, $scope) {
-    $scope.$location = $location;
-    $scope.$state = $state;
-  });
-  */
-
 });
 
+// angular.module('app').controller('ServiceBuiltInController', function($location, $state, $rootScope, $scope) {
+//   $scope.$location = $location;
+//   $scope.$state = $state;
+// });
 
 // angular.module('app').controller('ServiceRegionController', function($state, $rootScope, $scope, $sce, RegionListFactory, PlacesService, ServiceService, service, AdminService) {
 //   // FIXME - code moved to place.js
@@ -354,7 +351,7 @@ angular.module('app').controller('ServiceCountryAbsentController', function($sta
 
 angular.module('app').controller('ServiceCityController', function($state, AdminService, $rootScope, $scope, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, regions, service, serviceLocationParser) {
 
-  // $scope.regions = regions;
+  $scope.regions = regions;
   $scope.regionList = new RegionListFactory();
   $scope.regionList.initialize(regions);
 
