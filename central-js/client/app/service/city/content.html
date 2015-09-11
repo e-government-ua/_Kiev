@@ -25,7 +25,7 @@
                                    ng-model="regionList.typeahead.model"
                                    typeahead="region as region.sName for region in loadRegionList($viewValue)"
                                    typeahead-on-select="onSelectRegionList($item)"
-                                   typeahead-template-url="app/service/region/typeahead-match-region.html"
+                                   typeahead-template-url="app/service/placefix/typeahead-match-region.html"
                                    typeahead-empty
                                    ng-disabled="data.city"/>
 							<span class="input-group-btn">

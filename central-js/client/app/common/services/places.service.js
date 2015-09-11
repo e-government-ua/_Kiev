@@ -1,13 +1,13 @@
 /**
   Послуги для тестування:
   
-  region only:
+  region only, built-in:
 
   655 NULL  1 4 {sPath:service/form/form-data,oParams:{processDefinitionId:dnepr_spravka_o_doxodax:1:1}}  https://test.region.igov.org.ua/wf-region/  FALSE 1 FALSE   BankID,EDS                            
   Отримання довідки про доходи фізичних осіб (тільки регіон - Дніпро, 1)
   https://test.igov.org.ua/service/655/general
   
-  country only: 
+  country only, external: 
 
   101 NULL  NULL  1 {}  http://map.land.gov.ua/kadastrova-karta FALSE 1 FALSE Ви можете отримати послугу на сайті Публічної кадастрової карти України BankID,EDS                              Надання відомостей з Державного земельного кадастру у формі витягу з Державного земельного кадастру про земельну ділянку
   https://test.igov.org.ua/service/101/general
@@ -161,6 +161,25 @@ angular.module('app')
     self.serviceIsAvailableInCity = function() {
       return self.cityIsChosen() && self.findServiceDataByCity() !== null;
     };
+
+    self.getServiceAvailability = function(service) {
+      // FIXME move to use ServiceService.oService everywhere instead of $scope.service
+      var oService = service || ServiceService.oService;
+      var result = {
+        isCity: false,
+        isRegion: false
+      };
+      angular.forEach(oService.aServiceData, function(oServiceData) {
+        if (oServiceData.nID_City && oServiceData.nID_City.nID !== null) {
+          result.isCity = true;
+        }
+        if (oServiceData.nID_Region && oServiceData.nID_Region.nID !== null) {
+          result.isRegion = true;
+        }
+      });
+      console.log('getServiceAvailability, iD:', oService.nID, result);
+      return result;
+    };    
 
     // TODO check it again and again
     self.getServiceDataForSelectedPlace = function() {

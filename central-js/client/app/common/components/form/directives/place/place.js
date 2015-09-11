@@ -39,7 +39,7 @@ angular.module('app')
         };
 
         $scope.cityIsChosen = function() {
-          return PlacesService.regionIsChosen();
+          return PlacesService.cityIsChosen();
         };
 
         $scope.regionIsChosen = function() {
@@ -91,12 +91,6 @@ angular.module('app')
         $scope.processPlaceSelection = function() {
           var oService = PlacesService.getServiceDataForSelectedPlace();
           // console.log('region is chosen: ', $scope.regionIsChosen(), ', city is chosen: ', $scope.cityIsChosen(), ' service Type:', s erviceType);
-
-          $scope.serviceData = oService;
-          if (oService.bNoteTrusted === false) {
-            oService.sNote = $sce.trustAsHtml(oService.sNote);
-            oService.sNoteTrusted = true;
-          }
 
           PlacesService.setPlaceData($scope.placeData);
 

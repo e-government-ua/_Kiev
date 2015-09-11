@@ -1,3 +1,13 @@
+<!-- country -->
+<!-- 
+<service-auth-block
+        n-step="1"
+        redirect-uri="{{$state.href('index.service.general.country.built-in.bankid', {'id': service.nID})}}">
+</service-auth-block>
+ -->
+<!-- end country -->
+
+<!-- region -->
 <div class="list-group">
 
     <place></place>
@@ -25,9 +35,12 @@
             </div>
         </div>
     </div> -->
+
     <service-auth-block
             ng-if="data.region"
             n-step="2"
-            redirect-uri="{{$state.href('index.service.general.region.built-in.bankid', {'id': service.nID, 'region': data.region.nID})}}"
+            redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID, 'region': data.region.nID})}}"
             ></service-auth-block>
 </div>
+
+<!-- end region

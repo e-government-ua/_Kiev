@@ -110,7 +110,7 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
           controller: 'ServiceDiscussionController'
         }
       }
-    }).state('index.service.general.city.built-in', {
+    }).state('index.service.general.city.built-in', { // FIXME move to placefix
       url: '/built-in',
       views: {
         'city-content': {
