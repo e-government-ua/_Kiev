@@ -1,5 +1,5 @@
 angular.module('app').controller('PlaceFixController', function(
-  $state, AdminService, $rootScope, $scope, $location, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService) {
+  $state, AdminService, $rootScope, $scope, $location, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, serviceLocationParser, regions) {
 
   // FIXME: preload regions and service and provide them as part of the locations service
 
@@ -25,6 +25,28 @@ angular.module('app').controller('PlaceFixController', function(
     }
   };
 
+  var initCityService = function () {
+
+    $scope.regions = regions;
+    $scope.regionList = new RegionListFactory();
+    $scope.regionList.initialize(regions);
+
+    $scope.localityList = new LocalityListFactory();
+
+    // Each controller which uses Places Control should tell it:
+    // FIXME: preload regions and service and provide them as part of the locations service
+    console.log('ServiceCityController. Reg-s: ', regions);
+
+    ///
+    ///
+    ///
+
+    var initialRegion = serviceLocationParser.getSelectedRegion(regions);
+    if (initialRegion) {
+      $scope.onSelectRegionList(initialRegion);
+    }
+  };
+
   // oParams = { placeData: placeData, serviceData: serviceData } }
   self.processPlaceChange = function(oParams) {
 
@@ -45,7 +67,7 @@ angular.module('app').controller('PlaceFixController', function(
 
     var stateToGo = stateByServiceType[oParams.serviceData.nID_ServiceType.nID];
 
-    console.log('PlaceFix Controller. On Place сhange, state to go =', stateToGo, 'oParams =', oParams);
+    console.log('PlaceFixController on Place сhange, $state:', $state.current.name, ', to go:', stateToGo /*, 'oParams =', oParams*/ );
     // FROM COUNTRY CTRL
 
     // obtain service data and it's notes
@@ -58,19 +80,13 @@ angular.module('app').controller('PlaceFixController', function(
     });
 
     // END FROM COUNTRY
-      
-    // moved from place.js processPlaceSelection
-    // $scope.serviceData = oService;
-    // if (oService.bNoteTrusted === false) {
-    //   oService.sNote = $sce.trustAsHtml(oService.sNote);
-    //   oService.sNoteTrusted = true;
-    // }
 
     // FIXME FIXME generalize it: if cur state is step 1 and it's complete, go to step 2 and change state
     // if (stateToGo && oParams.placeData.city) {
-    console.log('step 2:', self.isStep2);
+    // if (stateToGo && oParams.placeData) {
+    // console.log('step 2:', self.isStep2);
 
-    if (stateToGo && oParams.placeData) {
+    if (stateToGo) {
       self.isStep2 = true;
       console.log('go state:', stateToGo);
       $state.go(stateToGo, {
@@ -81,6 +97,8 @@ angular.module('app').controller('PlaceFixController', function(
         self.isStep2 = true;
       });
     }
+
+    initCityService();
   };
 
   $scope.getStateName = function() {
@@ -129,6 +147,7 @@ angular.module('app').controller('PlaceFixController', function(
   };
 
   $scope.ngIfStep2 = function() {
+    // console.log('ngIfStep2 =', self.isStep2);
     return self.isStep2;
   };
 
@@ -142,7 +161,7 @@ angular.module('app').controller('PlaceFixController', function(
   // FIXME remove state dependency
   var curState = $scope.getStateName();
 
-  console.log('PlaceFix Controller. $state name =', $state.current.name);
+  // console.log('PlaceFix Controller. $state name =', $state.current.name);
 
   if (statesMap[curState] && statesMap[curState].startupFunction) {
     console.log('PlaceFix Controller. call startp function for $state name =', $state.current.name);
@@ -263,18 +282,22 @@ angular.module('app').controller('PlaceFixController', function(
 // country
 
 angular.module('app').controller('ServiceCountryAbsentController', function($state,
-                                                                            $rootScope,
-                                                                            $scope,
-                                                                            service,
-                                                                            MessagesService,
-                                                                            ValidationService) {
+  $rootScope,
+  $scope,
+  service,
+  MessagesService,
+  ValidationService) {
   $scope.service = service;
   $scope.hiddenCtrls = true;
   (function() {
-    if (window.pluso && typeof window.pluso.start === 'function') { return; }
+    if (window.pluso && typeof window.pluso.start === 'function') {
+      return;
+    }
     if (window.ifpluso === undefined) {
       window.ifpluso = 1;
-      var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+      var d = document,
+        s = d.createElement('script'),
+        g = 'getElementsByTagName';
       s.type = 'text/javascript';
       s.charset = 'UTF-8';
       s.async = true;
@@ -293,12 +316,12 @@ angular.module('app').controller('ServiceCountryAbsentController', function($sta
     showErrors: false
   };
 
-  $scope.emailKeydown = function( e, absentMessageForm, absentMessage ) {
+  $scope.emailKeydown = function(e, absentMessageForm, absentMessage) {
     $scope.absentMessage.showErrors = false;
     // If key is Enter (has 13 keyCode), try to submit the form:
-    if ( e.keyCode === 13 ) {
-      $scope.sendAbsentMessage( absentMessageForm, absentMessage );
-    }    
+    if (e.keyCode === 13) {
+      $scope.sendAbsentMessage(absentMessageForm, absentMessage);
+    }
   };
 
   $scope.sendAbsentMessage = function(absentMessageForm, absentMessage) {
@@ -307,7 +330,7 @@ angular.module('app').controller('ServiceCountryAbsentController', function($sta
     // ValidationService.validateByMarkers( absentMessageForm );
 
     if (false === absentMessageForm.$valid) {
-      console.log( 'states absentMessageForm', absentMessageForm );
+      console.log('states absentMessageForm', absentMessageForm);
       $scope.absentMessage.showErrors = true;
       return false;
     }
@@ -323,11 +346,6 @@ angular.module('app').controller('ServiceCountryAbsentController', function($sta
 });
 
 // end country
-
-
-
-
-
 
 
 
@@ -347,7 +365,7 @@ angular.module('app').controller('ServiceCityController', function($state, Admin
   console.log('ServiceCityController. Reg-s: ', regions);
 
   PlacesService.setController(this);
-  
+
   // Each controller which uses Places Control should tell it:
 
   // $scope.loadRegionList = function(search) {
@@ -513,7 +531,7 @@ angular.module('app').controller('ServiceCityController', function($state, Admin
   // }
 
   var initialRegion = serviceLocationParser.getSelectedRegion(regions);
-  if (initialRegion){
+  if (initialRegion) {
     $scope.onSelectRegionList(initialRegion);
   }
 });
@@ -521,6 +539,3 @@ angular.module('app').controller('ServiceCityController', function($state, Admin
 angular.module('app').controller('BuiltinCityController', function($scope) {});
 
 // end city
-
-
-

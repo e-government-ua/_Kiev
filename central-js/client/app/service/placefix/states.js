@@ -97,8 +97,8 @@ angular.module('app').config(function($stateProvider) {
 
       views: {
         'content@index.service': {
-          controller: 'ServiceCityController',
-          // controller: 'PlaceFixController',
+          // controller: 'ServiceCityController',
+          controller: 'PlaceFixController',
           templateUrl: 'app/service/placefix/content.html'
         },
         'main@': {
@@ -125,6 +125,14 @@ angular.module('app').config(function($stateProvider) {
         }
       }
     })
-
-  ;
+    .state('index.service.general.placefix.link', {
+      url: '/link',
+      views: {
+        'status@index.service.general.placefix': {
+          templateUrl: 'app/service/placefix/link.html',
+          // controller: 'ServiceLinkController'
+          controller: 'PlaceFixController'
+        }
+      }
+    });
 });

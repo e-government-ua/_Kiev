@@ -13,10 +13,13 @@
   https://test.igov.org.ua/service/101/general
 
   city:
-  62  159 2 NULL  1 {}  https://dniprorada.igov.org.ua  FALSE 1 TRUE    BankID,EDS                            
-  123 159 1 NULL  4 {sPath:service/form/form-data,oParams:{processDefinitionId:dnepr_mreo_1:1:58}}  https://test.region.igov.org.ua/wf-region/  FALSE 1 FALSE   BankID,EDS                              
-  159 702 3 NULL  1 {}  https://egov.city-adm.lviv.ua/  FALSE 1 FALSE Скористатися послугою можна на сайті порталу міста Львів. Для користування послугою треба будет увійти в систему через BankID або електронно-цифровий підпис  BankID,EDS                            
-  311 159 6 NULL  1 {}    FALSE 1 FALSE Будь ласка, оберіть адресу МРЄВ,за якою Ви бажаєте отримати послугу: <br> <a href=/service/726/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> Петропавлівська Борщагівка, вул.Кільцева 4</a> <br> <a href=/service/727/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Туполєва, 19</a> <br /><a href=/service/728/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Велика кільцева дорога. 22-А</a> <br /><a href=/service/729/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Братиславська, 52</a> <br /><a href=/service/730/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Столичне шосе, 104</a> <br /><a href=/service/731/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Павла Усенка, 8</a> <br /><a href=/service/732/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Новокостянтинівська, 8</a> <br /><a href=/service/733/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> пров. Балтійський, 20</a> <br />                              
+  
+  159 2 NULL  1 {}  https://dniprorada.igov.org.ua  FALSE 1 TRUE    BankID,EDS
+  159 1 NULL  4 {   sPath:service/form/form-data,oParams:{processDefinitionId:dnepr_mreo_1:1:58}}  https://test.region.igov.org.ua/wf-region/  FALSE 1 FALSE   BankID,EDS                              
+  702 3 NULL  1 {}  https://egov.city-adm.lviv.ua/  FALSE 1 FALSE Скористатися послугою можна на сайті порталу міста Львів. Для користування послугою треба будет увійти в систему через BankID або електронно-цифровий підпис  BankID,EDS                            
+  159 6 NULL  1 {}  FALSE 1 FALSE Будь ласка, оберіть адресу МРЄВ,за якою Ви бажаєте отримати послугу: <br> <a href=/service/726/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> Петропавлівська Борщагівка, вул.Кільцева 4</a> <br> <a href=/service/727/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Туполєва, 19</a> <br /><a href=/service/728/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Велика кільцева дорога. 22-А</a> <br /><a href=/service/729/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Братиславська, 52</a> <br /><a href=/service/730/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Столичне шосе, 104</a> <br /><a href=/service/731/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Павла Усенка, 8</a> <br /><a href=/service/732/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> вул. Новокостянтинівська, 8</a> <br /><a href=/service/733/general?sID_UA_Region=8000000000&sID_UA_City=8000000000> пров. Балтійський, 20</a> <br />                              
+
+  107 4 8 NULL  4 {sPath:service/form/form-data,oParams:{processDefinitionId:kuznetsovsk_mvk_4:1:1}}  https://test.region.igov.org.ua/wf-region/  FALSE 1 FALSE   BankID,EDS                            
  *
  */
 

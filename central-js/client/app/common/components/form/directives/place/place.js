@@ -49,7 +49,7 @@ angular.module('app')
         /**
          * Ця функція визначає, чи заповнені всі поля, які необхідно заповнити
          */
-        $scope.isComplete = function() {
+        $scope.placeControlIsComplete = function() {
           // FIXME: передбачити випадки, коли треба вибрати тільки регіон або місто, 
           // див. https://github.com/e-government-ua/i/issues/550
           var oServiceAvailable = PlacesService.getServiceAvailability();
@@ -86,6 +86,7 @@ angular.module('app')
 
         $scope.loadLocalityList = function(search) {
           return $scope.localityList.load(ServiceService.oService, $scope.placeData.region.nID, search).then(function(cities) {
+            console.log('loadLocalityList:', search, cities);
             $scope.localityList.typeahead.defaultList = cities;
           });
         };
@@ -108,14 +109,14 @@ angular.module('app')
 
           $scope.regionList = $scope.regionList || new RegionListFactory();
 
-          console.log('$scope.regionList = ', $scope.regionList );
+          console.log('$scope.regionList = ', $scope.regionList);
           $scope.localityList = $scope.localityList || new LocalityListFactory();
           $scope.regionList.initialize($scope.regions);
           $scope.resetPlaceData();
           $scope.recallPlaceData();
 
           // Якщо форма вже заповнена після відновлення даних з localStorage, то повідомити про це
-          if ($scope.isComplete()) {
+          if ($scope.placeControlIsComplete()) {
             $scope.processPlaceSelection();
           }
         };
