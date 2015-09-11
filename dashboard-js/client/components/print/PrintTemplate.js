@@ -149,7 +149,7 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
       var sCustomFieldID = $('.aPatternPrint').val();
 //      console.log("[getPrintTemplate]sCustomFieldID="+sCustomFieldID);
       if(sCustomFieldID === null || sCustomFieldID === undefined || sCustomFieldID === "" || sCustomFieldID === "-"){
-          alert("Не обран шаблон для друку!");
+//          alert("Не обран шаблон для друку!");
           //return;
       }
       //console.log("[getPrintTemplate]sCustomFieldID="+sCustomFieldID);
