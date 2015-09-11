@@ -12,6 +12,7 @@
         <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="nazva" name="Назва документа дозвільного характеру " type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="obect" name="Об’єкт, на який видається документ" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="micce" name="Місцезнаходження (адреса) об’єкта, на який видається документ" type="string" required="true"></activiti:formProperty>
@@ -27,6 +28,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="2" name="Оберіть необхідний файл для завантаження" type="file"></activiti:formProperty>
         <activiti:formProperty id="3" name="Оберіть необхідний файл для завантаження" type="file"></activiti:formProperty>
+        <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -106,7 +108,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                      Ваше звернення щодо копії рішення міської ради про надання дозволу на розроблення проекту відведення земельної ділянки буде опрацьовано співробітниками на протязі  3 днів. За результатами розгляду звернення, з Вами зв’яжеться відповідальний працівник та повідомить про час та місце отримання довідки. &lt;br /&gt;
+                                      Ваше звернення щодо копії рішення міської ради про надання дозволу на розроблення проекту відведення земельної ділянки буде опрацьовано співробітниками на протязі  10 днів. За результатами розгляду звернення, з Вами зв’яжеться відповідальний працівник та повідомить про час та місце отримання довідки. &lt;br /&gt;
                                        
 										
                                   
@@ -147,6 +149,7 @@
         <activiti:formProperty id="bankIdinn" name="Індивідуальний податковий номер" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="nazva" name="Назва документа дозвільного характеру " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="obect" name="Об’єкт, на який видається документ" type="string" writable="false"></activiti:formProperty>
@@ -231,7 +234,7 @@
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
                                         ЦНАП м. Дніпропетровськ,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -359,8 +362,7 @@
     &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/body&gt;
-&lt;/html&gt;
-</activiti:expression>
+&lt;/html&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Дніпропетровськ ЦНАП - опис прийнятих документів та регестраційний номер]]></activiti:string>
@@ -617,8 +619,7 @@
     &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/body&gt;
-&lt;/html&gt;
-</activiti:expression>
+&lt;/html&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
