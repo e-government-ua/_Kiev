@@ -25,18 +25,28 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     type: tasks.filterTypes.finished,
     count: 0
   }];
+  $scope.selectedSortOrder = {
+    selected: "datetime_asc"
+  };
 
   $scope.predicate = 'createTime';
   $scope.reverse = false;
-  $scope.sort_order = 'order_increase';
-  $scope.order = function(predicate, reverse) {
-    $scope.reverse = reverse;
-    $scope.predicate = predicate;
-  };
-  $scope.sortOrder = function() {
-    switch($scope.sort_order) {
-      case 'order_increase': $scope.reverse = false; break;
-      case 'order_decrease': $scope.reverse = true; break;
+
+  $scope.sortOrderOptions = [{ "value": 'datetime_asc', "text": "Від найдавніших" },
+    { "value": 'datetime_desc', "text": "Від найновіших" }];
+
+  $scope.selectedSortOrderChanged = function () {
+    switch ($scope.selectedSortOrder.selected) {
+      case 'datetime_asc':
+        if ($scope.$storage.menuType == tasks.filterTypes.finished) $scope.predicate = 'startTime';
+        else $scope.predicate = 'createTime';
+        $scope.reverse = false;
+        break;
+      case 'datetime_desc':
+        if ($scope.$storage.menuType == tasks.filterTypes.finished) $scope.predicate = 'startTime';
+        else $scope.predicate = 'createTime';
+        $scope.reverse = true;
+        break;
     }
   }
 
@@ -116,6 +126,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     $scope.taskAttachments = null;
     $scope.taskFormLoaded = false;
 
+    if (menuType == tasks.filterTypes.finished)
+      $scope.predicate = 'startTime';    
+    
     var data = {};
     if ($scope.$storage.menuType == 'tickets'){
       data.bEmployeeUnassigned = $scope.ticketsFilter.bEmployeeUnassigned;

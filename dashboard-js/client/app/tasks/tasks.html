@@ -27,10 +27,14 @@
                 size="35" ng-keyup="($event.keyCode === 13)?searchTaskByOrder():0" />
                 <div class="right-aligned task-list-header-cell">
                   Сортувати за датою
-                  <select ng-model="sort_order" ng-change="sortOrder()">
-                    <option value="order_increase" selected>Від найдавніших</option>
-                    <option value="order_decrease">Від найновіших</option>
-                  </select>
+                  <select ng-options="option.value as option.text for option in sortOrderOptions" 
+        ng-model="selectedSortOrder.selected"
+        ng-change="selectedSortOrderChanged()">
+</select>
+                  <!--<select>
+                    <option onselect="sortorder('createTime',true)">Від найдавніших</option>
+                    <option onselect="order('createTime',false)">Від найновіших</option>
+                  </select>-->
                 </div>
               </div>
             </div>
@@ -58,9 +62,12 @@
 
               <div ng-if="sSelectedTask!='tickets'">
                 <a class="list-group-item task {{sSelectedTask}}_{{task.processInstanceId}} {{ sTaskClass(task.taskDefinitionKey) }}" href=""
-                ng-repeat="task in tasks | orderBy:predicate:reverse" tooltip="{{task.description}} (Задача №{{task.id}}, Процесс №{{task.processDefinitionId}})"
-                ng-click="selectTask(task)" ng-class="{'active': isTaskSelected(task)}">
-                  <span class="ticket-date-time">{{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }}</span>                  №{{task.processInstanceId}}{{lunaService.getLunaValue(task.processInstanceId)}} {{ getProcessName(task.processDefinitionId)
+                    ng-repeat="task in tasks | orderBy:predicate:reverse" 
+                    tooltip="{{task.description}} (Задача №{{task.id}}, Процесс №{{task.processDefinitionId}})"
+                    ng-click="selectTask(task)" 
+                    ng-class="{'active': isTaskSelected(task)}">
+                  <span class="ticket-date-time">{{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }}</span>                  
+                  №{{task.processInstanceId}}{{lunaService.getLunaValue(task.processInstanceId)}} {{ getProcessName(task.processDefinitionId)
                   }} | {{ task.name }}
 
                 </a>
@@ -137,32 +144,4 @@
   </div>
 </div>
 
-<print-modal show='printTemplate.showPrintModal' info='printTemplate.showPrintModal'>
-  <div>
-    <div ng-if="!printTemplate.containsPrintTemplate()">
-      <p>Звернення: {{getProcessName(printTemplate.task.processDefinitionId)}}</p>
-
-      <p>джерело: igov.org.ua</p>
-
-      <p>№: {{printTemplate.task.id}}</p>
-
-      <p>від: {{ sDateShort(printTemplate.task.createTime) }}</p>
-
-      <p ng-repeat='item in printTemplate.form'>
-        <font ng-if="item.type != 'invisible'">{{sFieldLabel(item.name)}}</font>
-        <b ng-if="item.type == 'enum'">{{sEnumValue(item.enumValues,item.value)}}</b>
-        <b ng-if="item.type != 'enum' && item.type != 'invisible'">{{item.value}}</b>
-      </p>
-
-      <p>
-        ----------------------------------------------------------------------------------------------------------------------------</p>
-
-      <p>Довідку№ _________________________ Отримав (ПІБ)_________________________</p>
-
-      <p>Дата _________________________ Підпис _________________________</p>
-    </div>
-    <div ng-if="printTemplate.containsPrintTemplate()">
-      <div ng-bind-html="printTemplate.getPrintTemplate()"></div>
-    </div>
-  </div>
-</print-modal>
+<print-dialog></print-dialog>
