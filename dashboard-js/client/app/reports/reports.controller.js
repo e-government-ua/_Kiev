@@ -5,9 +5,10 @@ angular.module('dashboardJsApp')
     $scope.export = {};
     $scope.export.from = '2015-06-01';
     $scope.export.to = '2015-08-01';
+    $scope.export.sBP = 'dnepr_mvd-1';
 
     $scope.exportLink = function () {
-      return reports.exportLink({from: $scope.export.from, to: $scope.export.to});
+      return reports.exportLink({from: $scope.export.from, to: $scope.export.to, sBP: $scope.export.sBP});
     };
 
     $scope.statistic = {};
@@ -19,6 +20,7 @@ angular.module('dashboardJsApp')
       $scope.processesList = data;
       if ($scope.processesList.length > 0) {
         $scope.statistic.sBP = $scope.processesList[0].sID;
+        $scope.export.sBP = $scope.processesList[0].sID;
       }
     });
 
