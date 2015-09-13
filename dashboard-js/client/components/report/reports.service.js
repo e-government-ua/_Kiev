@@ -4,7 +4,7 @@ angular.module('dashboardJsApp').factory('reports', function tasks($http) {
     exportLink: function (exportParams) {
       var data = {
         'sID_BP': 'dnepr_spravka_o_doxodax',
-        'sID_State_BP': 'usertask1',
+        'sID_State_BP': exportParams.sBP,
         'sDateAt': exportParams.from,
         'sDateTo': exportParams.to,
         'saFields': '${nID_Task};${sDateCreate};${area};${bankIdinn};;;${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName};4;${aim};${date_start1};${date_stop1};${place_living};${bankIdPassport};1;${phone};${email}',
@@ -25,7 +25,7 @@ angular.module('dashboardJsApp').factory('reports', function tasks($http) {
         'sDateCreateFormat=' + data.sDateCreateFormat + '&' +
         'sFileName=' + data.sFileName;
     }
-    
+
     , statisticLink: function (statisticParams) {
       var data = {
         'sID_BP': statisticParams.sBP,
@@ -37,7 +37,7 @@ angular.module('dashboardJsApp').factory('reports', function tasks($http) {
         'sDateAt=' + data.sDateAt + '&' +
         'sDateTo=' + data.sDateTo;
     }
-    
+
   }
 });
 
