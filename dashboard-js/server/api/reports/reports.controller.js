@@ -32,3 +32,13 @@ exports.statistic = function (req, res) {
   activiti.filedownload(req, res, options);
 };
 
+exports.template = function(req, res) {
+  var options = {
+    path: '/rest/getPatternFile',
+    query: {
+      'sPathFile' : req.query.sPathFile
+    }
+  };
+  activiti.filedownload(req, res, options);
+};
+
