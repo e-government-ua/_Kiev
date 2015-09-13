@@ -1,63 +1,3 @@
-<!-- region -->
-<!-- <div class="service-name">{{service.sName}}</div>
-<div class="operator-name">{{service.sSubjectOperatorName}}</div>
-<div class="list-group">
-
-  <place></place>
- -->
-<!-- <div class="list-group-item"
-         ng-class="{'disabled': data.region}">
-        <div class="row no-margin-bottom">
-            <div class="col-md-11 form-inline">
-                <strong><span>Крок 1. Оберіть свій регіон - CLONE: service/region/content.html </span></strong>
-
-                <div style="display:inline-block">
-                    <span>Область</span>
-                </div>
-                <div style="display:inline-block">
-                    <div style="position:relative"
-                         dropdown
-                         is-open="regionList.dropdown.isOpen">
-                        <div class="input-group">
-                            <input autocomplete="off"
-                                   class="form-control"
-                                   name="region"
-                                   type="text"
-                                   ng-model="regionList.typeahead.model"
-                                   typeahead="region as region.sName for region in loadRegionList($viewValue)"
-                                   typeahead-on-select="onSelectRegionList($item)"
-                                   typeahead-template-url="app/service/placefix/typeahead-match-region.html"
-                                   typeahead-empty
-                                   ng-disabled="data.city"/>
-              <span class="input-group-btn">
-                <button class="btn btn-default"
-                                        type="button"
-                                        ng-disabled="data.city"
-                                        dropdown-toggle>
-                                    <span class="caret"></span>
-                                </button>
-              </span>
-                        </div>
-                        <ul class="dropdown-menu"
-                            role="menu">
-                            <li ng-repeat="region in regionList.dropdown.list | orderBy:'sName'">
-                                <a ng-click="onSelectRegionList(region)"
-                                   ng-class="{'color-green': (region.color == 'green')}">{{region.sName}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-1"
-                 ng-if="data.region">
-                <div class="link-button">
-                    <a href="#">Змінити</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-<!-- end region -->
 <!-- city -->
 
 <div class="service-name">{{service.sName}}</div>
@@ -69,13 +9,14 @@
     <place></place>
     
     <!-- step 2 -->
-    <div ng-if="ngIfStep2()">
+    <!-- FIXME use placeControlIsComplete() instead of ngIfStep2 -->
+    <div ng-if="placeControlIsComplete()">
         <div class="list-group-item" ui-view="status"></div>
 
         <!-- STATE: index.service.general.placefix.built-in -->
         <service-auth-block 
-          n-step="2" 
-          redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
+                n-step="2" 
+                redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
         </service-auth-block>
 
         <!-- 
@@ -88,3 +29,4 @@
     </div>
 </div>
 
+<!-- end region -->

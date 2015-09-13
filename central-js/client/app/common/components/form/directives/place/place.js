@@ -50,9 +50,32 @@ angular.module('app')
           return PlacesService.regionIsChosen();
         };
 
+        // TODO implement the logic
+        $scope.placeControlIsVisible = function() {
+
+          var result = true;
+
+          var oAvail = PlacesService.getServiceAvailability();
+
+          var placeControlsAreHidden = ( oAvail.isCity === false && oAvail.isRegion === false  );
+
+          if (placeControlsAreHidden) {
+            result = false;
+          }
+
+          console.log('placeControlIsVisible :', result, placeControlsAreHidden, oAvail );
+
+          return result;
+        };
+
         $scope.controlIsDisabled = function() {
-          return $scope.cityIsChosen() && mode !== 'editMode';
-        }
+          var isDisabled = $scope.placeControlIsComplete() && mode !== 'editMode';
+          console.log('controlIsDisabled:', $scope.placeControlIsComplete(), mode !== 'editMode', isDisabled);
+          return isDisabled;
+          // return false;
+
+          // STOPED HERE
+        };
 
         /**
          * Ця функція визначає, чи заповнені всі поля, які необхідно заповнити
@@ -74,6 +97,9 @@ angular.module('app')
           if ((oServiceAvailable.isRegion && $scope.regionIsChosen()) && (oServiceAvailable.isCity && $scope.cityIsChosen())) {
             result = true;
           }
+          // if ((!oServiceAvailable.isRegion) && (oServiceAvailable.isCity && $scope.cityIsChosen())) {
+          //   result = true;
+          // }
           console.log('Place controls is complete:', result);
           return result;
         };
