@@ -253,25 +253,22 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             String URI = Util.deleteContextFromURL(URL_SERVICE_MESSAGE);
             //String queryParamPattern = "?sHead=Отзыв&sBody=Отзыв&sData=Название Услуги&sMail= &nID_SubjectMessageType=1&sAccessContract=Request"; //sAccessKey=%s&amp;
             String queryParamPattern = 
-                    "?sHead=Отзыв"
+                    "?sAccessContract=Request&sHead=Отзыв"
                     //+ "&sBody=Отзыв"
                     + "&sData=Название Услуги"
                     + "&sMail= "
-                    + "&nID_SubjectMessageType=1"
-                    + "&sAccessContract=Request"; //sAccessKey=%s&amp;
+                    + "&nID_SubjectMessageType=1";
             
             String queryParam = String.format(queryParamPattern);
             if(nID_Subject != null){
                 queryParam = queryParam + "&nID_Subject=" + nID_Subject;
             }
+            LOG.info("[setAccessData] URL: " + URI + queryParam);
             String accessKey = accessDataDao.setAccessData(URI + queryParam);
             String replacemet = URL_SERVICE_MESSAGE + queryParam 
                     + String.format(accessKeyPattern, accessKey);
-            LOG.info("textWithoutTags" + textWithoutTags);
-            LOG.info("replacemet " + TAG_sURL_SERVICE_MESSAGE + ": " + replacemet);
-            //textWithoutTags = textWithoutTags.replaceAll(TAG_sURL_SERVICE_MESSAGE, replacemet);
+            LOG.info("replacemet URL: " + replacemet);
             textWithoutTags = StringUtils.replace(textWithoutTags, TAG_sURL_SERVICE_MESSAGE, replacemet);
-            LOG.info("textWithoutTags after replase" + textWithoutTags);
         }
 
         return textWithoutTags;
