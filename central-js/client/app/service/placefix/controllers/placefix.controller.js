@@ -140,6 +140,7 @@ angular.module('app').controller('PlaceFixController', function(
 
   $scope.ngIfStep2 = function() {
     // console.log('ngIfStep2 =', self.isStep2);
+    // return $scope.placeControlIsComplete();
     return self.isStep2;
   };
 

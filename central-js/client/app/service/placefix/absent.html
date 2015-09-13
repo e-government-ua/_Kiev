@@ -89,7 +89,7 @@
                 </div>
             </div>
             <div class="col-md-1"
-                 ng-if="data.region">
+                 ng-if="placeControlIsComplete()">
                 <div class="link-button">
                     <a ng-click="step1()">Змінити</a>
                 </div>
@@ -97,7 +97,7 @@
         </div>
     </div> -->
     <div class="list-group-item"
-         ng-if="data.region">
+         ng-if="placeControlIsComplete()">
         <div class="row">
             <div class="col-md-12 text-center">
                 <strong>На жаль, поки що у Вашому регіоні неможливе надання цієї послуги в електронному
