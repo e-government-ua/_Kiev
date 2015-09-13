@@ -1,10 +1,13 @@
-package org.wf.dp.dniprorada.util;
+package org.wf.dp.dniprorada.base.service.escalation;
 
 import com.google.gson.Gson;
 import com.mongodb.util.JSON;
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 import org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler;
 
 import javax.script.Invocable;
@@ -15,21 +18,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EscalationUtil {
-    private static final Logger log = Logger.getLogger(EscalationUtil.class);
+@Component
+public class EscalationHelper implements ApplicationContextAware {
+    private static final Logger log = Logger.getLogger(EscalationHelper.class);
 
-    class Parameter {
-        String name;
-        String className;
-        Object value;
-        Object castValue;
+    private ApplicationContext applicationContext;
 
-        public Parameter(String name, Object value) {
-            this.name = name;
-            this.value = value;
-        }
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
-
 
 //    public static void main(String[] args) throws Exception {
 //        Map<String, Object> taskParam = new HashMap<>();
@@ -83,8 +81,7 @@ public class EscalationUtil {
     }
 
     private EscalationHandler getHandlerClass(String sBeanHandler) {
-    	ApplicationContext appContext = new ClassPathXmlApplicationContext("context.xml");
-    	EscalationHandler res = (EscalationHandler) appContext.getBean(sBeanHandler);//"EscalationHandler_SendMailAlert");
+    	EscalationHandler res = (EscalationHandler) applicationContext.getBean(sBeanHandler);//"EscalationHandler_SendMailAlert");
     	log.info("Retrieved EscalationHandler component : " + res);
     	return res;
     }
@@ -178,6 +175,19 @@ public class EscalationUtil {
                 parameter.className = "String";//"[S"
                 parameter.castValue = parameter.value.toString();
                 break;
+        }
+    }
+
+
+    class Parameter {
+        String name;
+        String className;
+        Object value;
+        Object castValue;
+
+        public Parameter(String name, Object value) {
+            this.name = name;
+            this.value = value;
         }
     }
 }

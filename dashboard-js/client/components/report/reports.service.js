@@ -2,9 +2,10 @@ angular.module('dashboardJsApp').factory('reports', function tasks($http) {
 
   return {
     exportLink: function (exportParams) {
+
       var data = {
-        'sID_BP': 'dnepr_spravka_o_doxodax',
-        'sID_State_BP': 'usertask1',
+        'sID_BP':  exportParams.sBP, //'dnepr_spravka_o_doxodax',
+        'sID_State_BP':'usertask1',
         'sDateAt': exportParams.from,
         'sDateTo': exportParams.to,
         'saFields': '${nID_Task};${sDateCreate};${area};${bankIdinn};;;${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName};4;${aim};${date_start1};${date_stop1};${place_living};${bankIdPassport};1;${phone};${email}',
@@ -13,6 +14,30 @@ angular.module('dashboardJsApp').factory('reports', function tasks($http) {
         'sDateCreateFormat': 'dd.MM.yyyy HH:mm:ss',
         'sFileName': 'dohody.dat'
       };
+
+      jQuery.ajax({
+        method:'GET',
+        url:    './api/reports/template'
+        + '?sPathFile=export/'
+        + exportParams.sBP
+        + '.properties',
+        success: function(result) {
+
+          _.each(result.split("\n"), function(line) {
+            var sr = line.split("=");
+            if (!!sr && sr.length >= 2){
+              var propKey = sr[0];
+              var propValue = sr[1];
+              if (_.has(data, propKey)){
+                _.set(data, propKey, propValue);
+              }
+            }
+
+          });
+
+        },
+        async:   false
+      });
 
       return './api/reports/export?' +
         'sID_BP=' + data.sID_BP + '&' +
@@ -24,8 +49,9 @@ angular.module('dashboardJsApp').factory('reports', function tasks($http) {
         'nASCI_Spliter=' + data.nASCI_Spliter + '&' +
         'sDateCreateFormat=' + data.sDateCreateFormat + '&' +
         'sFileName=' + data.sFileName;
+
     }
-    
+
     , statisticLink: function (statisticParams) {
       var data = {
         'sID_BP': statisticParams.sBP,
@@ -37,7 +63,7 @@ angular.module('dashboardJsApp').factory('reports', function tasks($http) {
         'sDateAt=' + data.sDateAt + '&' +
         'sDateTo=' + data.sDateTo;
     }
-    
+
   }
 });
 
