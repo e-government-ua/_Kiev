@@ -15,17 +15,18 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.wf.dp.dniprorada.base.dao.EscalationRuleDao;
 import org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDao;
 import org.wf.dp.dniprorada.base.model.EscalationRule;
 import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
 import org.wf.dp.dniprorada.base.util.BPMNUtil;
-import org.wf.dp.dniprorada.util.EscalationUtil;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class EscalationService {
     private static final Logger log = Logger.getLogger(EscalationService.class);
 
@@ -47,6 +48,9 @@ public class EscalationService {
 
     @Autowired
     private EscalationRuleDao escalationRuleDao;
+
+    @Autowired
+    private EscalationHelper escalationHelper;
 
     public void runEscalationAll() throws ActivitiRestException {
         //@RequestParam(value = "nID", required = false) Long nID ,
@@ -95,7 +99,7 @@ public class EscalationService {
             Map<String, Object> mTaskParam = getTaskData(oTask);
 
             log.info("[getTaskData]:checkTaskOnEscalation mTaskParam=" + mTaskParam);
-            new EscalationUtil().checkTaskOnEscalation(mTaskParam
+            escalationHelper.checkTaskOnEscalation(mTaskParam
                     , oEscalationRule.getsCondition()
                     , oEscalationRule.getSoData()
                     , oEscalationRule.getsPatternFile()

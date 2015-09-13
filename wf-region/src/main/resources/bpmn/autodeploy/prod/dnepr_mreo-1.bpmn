@@ -21,7 +21,6 @@
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-        <activiti:formProperty id="response" name="thank_you_page_text" type="invisible" default="&lt;strong&gt;Дякуемо, що скористались нашим сервісом!&lt;/strong&gt;"></activiti:formProperty>
         <activiti:formProperty id="markers" name="markersForValidations" type="markers" default="{}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -660,14 +659,14 @@ ${visitDate}&lt;br /&gt;
                                     &lt;p&gt;
                                         У Вас в черзі на обробку  зареєстровано нове звернення щодо реєстрації авто з пробігом&lt;br /&gt;
 Заявник:  ${bankIdfirstName} ${bankIdmiddleName} ${bankIdlastName} &lt;br /&gt;
-                                        Відпрацюйте це звернення на порталі &lt;a href="#current-page"&gt;region.igov.org.ua/admin&lt;/a&gt;
+                                        Відпрацюйте це звернення на порталі &lt;a href="https://region.igov.org.ua/admin"&gt;region.igov.org.ua/admin&lt;/a&gt;
                                     &lt;/p&gt;
                                     
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
                                         Міністерство Внутрішніх Справ України,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                        Команда Порталу державних послуг &lt;a href="https://iGov.org.ua"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
