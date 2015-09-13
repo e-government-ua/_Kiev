@@ -10,6 +10,7 @@ import org.wf.dp.dniprorada.util.Util;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 
 @Component("EscalationHandler_SendMailAlert")
 public class EscalationHandler_SendMailAlert
@@ -20,6 +21,8 @@ public class EscalationHandler_SendMailAlert
     @Autowired
     private Mail oMail;
 
+	@Autowired
+	GeneralConfig oGeneralConfig;
 
     @Override
     public void execute(Map<String, Object> mParam, String[] asRecipientMail, String sPatternFile) {
@@ -34,7 +37,7 @@ public class EscalationHandler_SendMailAlert
         if (sBody == null) {
             sBody = "test body";
         }
-        String sHead = String.format("Зависла заявка № %s:%s ! Прийміть міри!", mParam.get("sID_BP"), 
+        String sHead = String.format((oGeneralConfig.bTest()?"(TEST)":"")+"Зависла заявка № %s:%s ! Прийміть міри!", mParam.get("sID_BP"), 
         		mParam.get("nID_task_activiti").toString());
 
         for (String key : mParam.keySet()) {
