@@ -89,29 +89,43 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
 
 	@Override
 	public List<Map<String, Long>> getHistoryEvent_ServiceBynID_Service(Long nID_Service) {
-		List<Map<String, Long>> resHistoryEventService = new LinkedList<Map<String, Long>>();
+            
+            List<Map<String, Long>> resHistoryEventService = new LinkedList<Map<String, Long>>();
+            
+                          //m.put("Київ", nID_Service);
+            if(nID_Service==159){
+                Map<String, Long> currRes = new HashMap<String, Long>();
+                currRes.put("sName", new Long(5));
+                currRes.put("nCount", new Long(1));
+                resHistoryEventService.add(currRes);
+            }
+            //else{
 		Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
-        criteria.add(Restrictions.eq("nID_Service", nID_Service));
-        criteria.setProjection(Projections.projectionList()
-                .add(Projections.groupProperty("nID_Region"))
-                .add(Projections.count("nID_Service")));           
-        Object res = criteria.list();
-        log.info("Received result in getHistoryEvent_ServiceBynID_Service:"  + res);
-        if (res == null) {
-            log.warn("List of records based on nID_Service not found" + nID_Service);
-            throw new EntityNotFoundException("Record not found");
-        } else {
-        	for(Object item:criteria.list()){
-        		Object[] currValue = (Object[]) item;
-        		log.info("Curr value:"  + currValue);
-        		Map<String, Long> currRes = new HashMap<String, Long>();
-        		currRes.put("sName", (Long) currValue[0]);
-        		currRes.put("nCount", (Long) currValue[1]);
-        		
-        		resHistoryEventService.add(currRes);
-        	}
-            log.info("Found " + resHistoryEventService.size() + " records based on nID_Service " + nID_Service);
-        }
+                criteria.add(Restrictions.eq("nID_Service", nID_Service));
+                criteria.setProjection(Projections.projectionList()
+                        .add(Projections.groupProperty("nID_Region"))
+                        .add(Projections.count("nID_Service")));           
+                Object res = criteria.list();
+                log.info("Received result in getHistoryEvent_ServiceBynID_Service:"  + res);
+                if (res == null) {
+                    log.warn("List of records based on nID_Service not found" + nID_Service);
+                    throw new EntityNotFoundException("Record not found");
+                } else {
+                        for(Object item:criteria.list()){
+                                Object[] currValue = (Object[]) item;
+                                log.info("Curr value:"  + currValue);
+                                Map<String, Long> currRes = new HashMap<String, Long>();
+                                currRes.put("sName", (Long) currValue[0]);
+                                currRes.put("nCount", (Long) currValue[1]);
+
+                                resHistoryEventService.add(currRes);
+                        }
+                    log.info("Found " + resHistoryEventService.size() + " records based on nID_Service " + nID_Service);
+                }
+            //}
+            
+            
+
         return resHistoryEventService;
 	}
 }

@@ -227,8 +227,10 @@ public class ActivitiRestHistoryEventController {
             
             
 		List<Map<String, Long>> listOfHistoryEvents = historyEventServiceDao.getHistoryEvent_ServiceBynID_Service(nID_Service);
-		  
-		  
+		
+                //Map<String, Long> m = new HashMap();
+                //m.put("Київ", nID_Service);
+		  //currMap.get("sName")
 		for (Map<String, Long> currMap : listOfHistoryEvents){
 			  Region region = regionDao.findByIdExpected(currMap.get("sName"));
 			  Map<String, Object> currMapWithName = new HashMap<String, Object>();
@@ -303,7 +305,6 @@ public class ActivitiRestHistoryEventController {
                               nCount+=0;
                           //region.getsID_UA()
                           }
-			  currMapWithName.put("nCount", nCount);
 			  
                           
                           
@@ -338,6 +339,8 @@ public class ActivitiRestHistoryEventController {
                                 nCount+=getCountFromStatisticArrayMap(am);
                           }
 
+			  currMapWithName.put("nCount", nCount);
+                          
 			  listOfHistoryEventsWithMeaningfulNames.add(currMapWithName);
                           
                           
