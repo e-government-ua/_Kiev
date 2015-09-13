@@ -513,11 +513,11 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         String[] headersMainField = {"nID_Process", "sLoginAssignee", "sDateTimeStart", "nDurationMS", "nDurationHour", "sName"};
         Set<String> headersExtra = new TreeSet<String>();
         headers.addAll(Arrays.asList(headersMainField));
-
+        log.info("headers: " + headers);
 
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
         if (foundResults != null && foundResults.size() > 0) {
-            log.debug(String.format("Found {0} completed tasks for business process {1} for date period {2} - {3}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt),
+            log.info(String.format("Found {0} completed tasks for business process {1} for date period {2} - {3}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt),
                     sdfDate.format(dateTo)));
             for (HistoricTaskInstance currTask : foundResults) {
                 FormData formData = formService.getTaskFormData(currTask.getId());
@@ -525,6 +525,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 headersExtra.addAll(propertyIds);
             }
             headers.addAll(headersExtra);
+            log.info("headers: " + headers);
             csvWriter.writeNext((String[]) headers.toArray());
 
             for (HistoricTaskInstance currTask : foundResults) {
@@ -541,13 +542,13 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 for (String headerExtra : headersExtra) {
                     line.add(AbstractModelTask.getCastomFieldValue(formData, headerExtra));
                 }
+                log.info("line: " + line);
                 csvWriter.writeNext((String[]) line.toArray());
             }
         } else {
-            log.debug(String.format("No completed tasks found for business process {0} for date period {1} - {2}", sID_BP_Name, sdfDate.format(dateAt),
+            log.info(String.format("No completed tasks found for business process {0} for date period {1} - {2}", sID_BP_Name, sdfDate.format(dateAt),
                     sdfDate.format(dateTo)));
         }
-
         csvWriter.close();
     }
 
