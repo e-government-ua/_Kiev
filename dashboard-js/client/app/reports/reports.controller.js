@@ -11,7 +11,7 @@ angular.module('dashboardJsApp')
       reports.exportLink({ from: $scope.export.from, to: $scope.export.to, sBP: $scope.export.sBP}, 
       function (result, fileToSave) {
         var hiddenElement = document.createElement('a');
-        hiddenElement.href = 'data:text/csv;charset=windows-1251,' + encodeURI(result);
+        hiddenElement.href = 'data:text/csv;charset=windows-1251,' + encodeURI(result.data);
         hiddenElement.target = '_blank';
         hiddenElement.download = fileToSave;
         hiddenElement.click();
