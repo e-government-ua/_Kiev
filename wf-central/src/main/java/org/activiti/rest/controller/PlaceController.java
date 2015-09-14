@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.wf.dp.dniprorada.base.dao.EntityNotFoundException;
 import org.wf.dp.dniprorada.base.model.Entity;
 import org.wf.dp.dniprorada.base.dao.EntityDao;
 import org.wf.dp.dniprorada.dao.PlaceDao;
@@ -73,8 +74,8 @@ public class PlaceController {
 
         Place place = new Place(placeId, name, typeId, uaId, originalName);
 
-        if (positive(placeId)) {
-            swap(place, placeDao.findById(placeId), placeDao);
+        if (positive(placeId) && !swap(place, placeDao.findById(placeId), placeDao)) {
+            throw new EntityNotFoundException(placeId);
 
         } else if (!swap(place, placeDao.findBy("sID_UA", uaId), placeDao)) {
             placeDao.saveOrUpdate(place);
@@ -128,7 +129,8 @@ public class PlaceController {
     }
 
 
-    @RequestMapping(value = "/setPlaceType", method  = RequestMethod.POST, headers = { JSON_TYPE })
+    @RequestMapping(value   = "/setPlaceType",
+                    method  = RequestMethod.POST, headers = { JSON_TYPE })
     public  @ResponseBody void setPlaceType(
             @RequestParam(value = "nID",    required = false)       Long    placeTypeId,
             @RequestParam(value = "sName",  required = false)       String  name,
@@ -147,7 +149,8 @@ public class PlaceController {
     }
 
 
-    @RequestMapping(value = "/removePlaceType", method = RequestMethod.POST, headers = { JSON_TYPE })
+    @RequestMapping(value   = "/removePlaceType",
+                    method  = RequestMethod.POST, headers = { JSON_TYPE })
     public @ResponseBody void removePlaceType( @RequestParam(value = "nID") Long placeTypeId ) {
 
         placeTypeDao.delete( placeTypeId );

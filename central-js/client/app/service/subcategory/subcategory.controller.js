@@ -1,10 +1,13 @@
-angular.module('app').controller('SubcategoryController', ['$scope', '$stateParams', '$filter', '$location', '$anchorScroll', 'messageBusService', 'catalog',
-    function($scope, $stateParams, $filter, $location, $anchorScroll, messageBusService, catalog) {
+angular.module('app')
+  .controller('SubcategoryController',
+  ['$scope', '$stateParams', '$filter', '$location', '$anchorScroll', 'messageBusService', 'catalog', 'EditServiceTreeFactory', 'AdminService',
+    function($scope, $stateParams, $filter, $location, $anchorScroll, messageBusService, catalog, EditServiceTreeFactory, AdminService) {
   var category = $filter('filter')(catalog, {nID: $stateParams.catID})[0];
   var subcategory = $filter('filter')(category.aSubcategory, {nID: $stateParams.scatID})[0];
   $scope.categoryName = category.sName;
   $scope.subcategoryName = subcategory.sName;
   $scope.spinner = true;
+  $scope.bAdmin = AdminService.isAdmin();
   var subscribers = [];
   var subscriberId = messageBusService.subscribe('catalog:updatePending', function() {
     console.log("spinner true");
@@ -19,12 +22,12 @@ angular.module('app').controller('SubcategoryController', ['$scope', '$statePara
     $scope.spinner = false;
     $scope.catalog = data;
     if ($scope.catalog.length > 0) {
-      $scope.category = $filter('filter')($scope.catalog, {nID: $stateParams.catID})[0];  
+      $scope.category = $filter('filter')($scope.catalog, {nID: $stateParams.catID})[0];
     } else {
       $scope.category = null;
     }
     if ($scope.category) {
-      $scope.subcategory = $filter('filter')($scope.category.aSubcategory, {nID: $stateParams.scatID})[0];  
+      $scope.subcategory = $filter('filter')($scope.category.aSubcategory, {nID: $stateParams.scatID})[0];
     } else {
       $scope.subcategory = null;
     }
@@ -43,5 +46,8 @@ angular.module('app').controller('SubcategoryController', ['$scope', '$statePara
   // it can be used with parameter: $anchorScroll('top') (which will also keep location hash intact)
   // https://github.com/angular/angular.js/pull/9596/files
   $anchorScroll();
+
+  $scope.subcategoryEditor = EditServiceTreeFactory.subcategory;
+  $scope.serviceEditor = EditServiceTreeFactory.service;
 
 }]);

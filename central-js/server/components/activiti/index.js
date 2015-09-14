@@ -20,7 +20,6 @@ module.exports.getConfigOptions = function () {
 	};
 
 	return options;
-
 };
 
 module.exports.getRequestUrl = function (apiURL, sHost) {
@@ -29,7 +28,7 @@ module.exports.getRequestUrl = function (apiURL, sHost) {
 };
 
 module.exports.buildRequest = function (req, apiURL, params, sHost) {
-        var sURL = this.getRequestUrl(apiURL, sHost);
+  var sURL = this.getRequestUrl(apiURL, sHost);
 	return {
 		'url': sURL,
 		'auth': this.getAuth(),
@@ -63,5 +62,15 @@ module.exports.sendPostRequest = function (req, res, apiURL, params, callback, s
 	};
 	var url = this.buildRequest(req, apiURL, params, sHost);
 	return request.post(url, _callback);
+};
+
+module.exports.sendDeleteRequest = function (req, res, apiURL, params, callback, sHost) {
+  var _callback = callback ? callback : function (error, response, body) {
+    res.statusCode = response.statusCode;
+    res.send(body);
+    res.end();
+  };
+  var url = this.buildRequest(req, apiURL, params, sHost);
+  return request.del(url, _callback);
 };
 
