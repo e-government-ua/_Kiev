@@ -53,12 +53,25 @@ angular.module('app')
         // TODO improve the logic
         $scope.authControlIsNeeded = function() {
           var bNeeded = true;
-          var bUnavail = PlacesService.serviceIsUnavailableInPlace();
-          bNeeded = bNeeded && $scope.placeControlIsComplete() && !bUnavail;
+          var bAvail = PlacesService.serviceIsAvailableInPlace();
+          bNeeded = bNeeded && bAvail === true && $scope.placeControlIsComplete();
 
-          bNeeded = bNeeded && bUnavail === false;
+          console.info('auth control is needed:', bNeeded, ', available in this place:', bAvail);
+          console.log($scope.placeData);
 
-          console.log('auth control is needed:', bNeeded, ', unavailable in Place:', bUnavail);
+          // STOPPEDHERE
+
+          return bNeeded;
+        };
+
+        $scope.placeControlIsNeeded = function() {
+          var bNeeded = true;
+          var bAvail = PlacesService.serviceIsAvailableInPlace();
+          bNeeded = bNeeded && bAvail === true && $scope.placeControlIsComplete();
+          bNeeded = bNeeded && PlacesService.getServiceAvailabilityForSelectedPlace();
+
+          console.info('place control is needed:', bNeeded, ', available in this place:', bAvail);
+          console.log($scope.placeData);
 
           // STOPPEDHERE
 
@@ -75,7 +88,7 @@ angular.module('app')
 
           var result = true;
 
-          // if ($scope.serviceIsUnavailableInPlace()) {
+          // if (!$scope.serviceIsAvailableInPlace()) {
           //   result = false;
           // }
 

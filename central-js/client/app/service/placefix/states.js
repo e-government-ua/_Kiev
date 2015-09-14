@@ -28,12 +28,6 @@ angular.module('app').config(function($stateProvider) {
     .state('index.service.general.placefix.error', {
       url: '/absent',
       views: {
-        // FIXME check if status is needed
-        // 'status': {
-        //   templateUrl: 'app/service/placefix/absent.html',
-        //   controller: 'PlaceFixAbsentController'
-        // },
-        // regions
         'content@index.service.general.placefix': {
           templateUrl: 'app/service/placefix/absent.html',
           controller: 'PlaceFixAbsentController'

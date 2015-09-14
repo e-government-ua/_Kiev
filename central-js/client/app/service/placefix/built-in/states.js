@@ -3,22 +3,29 @@ angular.module('app').config(function($stateProvider) {
     .state('index.service.general.placefix.built-in', { // FIXME-5 // region
       url: '/built-in',
       views: {
-        'content@index.service.general.placefix': { // region
+        'place-content': {
           // FIXME: REPLACE with Place Fix Controller
           templateUrl: 'app/service/placefix/content.html',
-          // controller: 'ServiceBuiltInController'
-          controller: 'PlaceFixController'
+          controller: 'ServiceBuiltInController'
+          // controller: 'PlaceFixController'
         }
       }
     })
     .state('index.service.general.placefix.built-in.bankid', { // city - moved from app.states
-      // url: '/built-in/?code', // country
-      // url: '/{region:int}/region', // region from .state('index.service.general.placefix.built-in.region', {
+      // url: '/built-in/?code',        // country
+      // url: '/{region:int}/region',   // region from .state('index.service.general.placefix.built-in.region', {
       url: '/built-in/region/{region:int}/city/{city:int}/?code',
       parent: 'index.service.general.placefix',
       data: {
         region: null,
         city: null
+      },
+      views: {
+        // 'content@index.service.general.placefix': {
+        'place-content': {
+          templateUrl: 'app/service/placefix/built-in/bankid.html',
+          controller: 'ServiceBuiltInBankIDController'
+        }
       },
       resolve: {
         region: function($state, $stateParams, PlacesService) {
@@ -93,12 +100,6 @@ angular.module('app').config(function($stateProvider) {
         },
         ActivitiForm: function(ActivitiService, oServiceData, processDefinitionId) {
           return ActivitiService.getForm(oServiceData, processDefinitionId);
-        }
-      },
-      views: {
-        'content@index.service.general.placefix': {
-          templateUrl: 'app/service/placefix/built-in/bankid.html',
-          controller: 'ServiceBuiltInBankIDController'
         }
       }
     })

@@ -158,7 +158,7 @@ angular.module('app')
     };
 
     self.getServiceDataForCountry = function() {
-      return { nID_ServiceType: { nID: 0 } };
+      return { nID_ServiceType: { nID: 1 } };
     };
 
     self.serviceIsAvailableInRegion = function() {
@@ -170,7 +170,7 @@ angular.module('app')
     };
 
     self.getServiceAvailabilityForSelectedPlace = function(service, placeData) {
-      // FIXME move to use ServiceService.oService everywhere instead of $scope.service
+      // FIXME use ServiceService.oService instead of $scope.service
       var oService = service || ServiceService.oService;
       var oPlace = placeData || self.getPlaceData();
       var result = {
@@ -189,20 +189,26 @@ angular.module('app')
       return result;
     };
 
-    self.serviceIsUnavailableInPlace = function() {
+    self.serviceIsAvailableInPlace = function() {
       var oAvail = self.getServiceAvailabilityForSelectedPlace();
-
-      var result = (oAvail.isCity === false && oAvail.isRegion === false);
-
-      return result;
+      return (oAvail.isCity === true || oAvail.isRegion === true);
     };
 
     // TODO check it again and again
     self.getServiceDataForSelectedPlace = function() {
-      return self.serviceIsAvailableInCity() ? self.findServiceDataByCity() 
-              : self.serviceIsAvailableInRegion() ? self.findServiceDataByRegion() 
-              : self.getServiceDataForCountry();
+      var result = self.getServiceDataForCountry();
+
+      if ( self.serviceIsAvailableInRegion() ) {
+        result = self.findServiceDataByRegion();
+      }
+      if ( self.serviceIsAvailableInCity() ) {
+        result = self.findServiceDataByCity();
+      }
+      return result;
     };
+
+    self.getPlaceData();
+
   });
 
 /**

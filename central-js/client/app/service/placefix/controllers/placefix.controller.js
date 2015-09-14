@@ -29,7 +29,7 @@ angular.module('app').controller('PlaceFixController', function(
     var oService = ServiceService.oService;
 
     // due to availiablity in city / region, do next steps
-    // var bUnavail = PlacesService.serviceIsUnavailableInPlace();;
+    // var bAvail = PlacesService.serviceIsAvailableInPlace();
 
     var stateByServiceType = {
       // Сервіс за посиланням
@@ -84,7 +84,7 @@ angular.module('app').controller('PlaceFixController', function(
     }
   
 
-    console.log('PROCESS Place сhange, $state:', $state.current.name, ', to go:', stateToGo /*, 'oParams =', oParams*/ );
+    console.info('PROCESS Place сhange, $state:', $state.current.name, ', to go:', stateToGo /*, 'oParams =', oParams*/ );
   };
 
   $scope.getStateName = function() {
@@ -143,7 +143,7 @@ angular.module('app').controller('PlaceFixController', function(
   // console.log('PlaceFix Controller. $state name =', $state.current.name);
 
   if (statesMap[curState] && statesMap[curState].startupFunction) {
-    console.log('PlaceFix Controller. call startp function for $state name =', $state.current.name);
+    console.log('PlaceFix Controller. call startup function for $state name =', $state.current.name);
     statesMap[curState].startupFunction.call(self, $location, $state, $rootScope, self.placeCtrl);
   } else {
     // default startup
