@@ -23,6 +23,7 @@ import org.wf.dp.dniprorada.util.Util;
 import java.util.LinkedList;
 import java.util.List;
 import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.repository.ProcessDefinition;
 
 import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
 import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
@@ -204,13 +205,13 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         }
         if (textWithoutTags.contains(TAG_sURL_SERVICE_MESSAGE)) {
             String URI = Util.deleteContextFromURL(URL_SERVICE_MESSAGE);
-            HistoricProcessInstance historicProcessInstance = execution.getEngineServices()
-                    .getHistoryService().createHistoricProcessInstanceQuery()
-                    .processInstanceId(execution.getProcessInstanceId()).singleResult();
+            ProcessDefinition processDefinition = execution.getEngineServices()
+                    .getRepositoryService().createProcessDefinitionQuery()
+                    .processDefinitionId(execution.getProcessDefinitionId()).singleResult();
+                    
             String queryParamPattern = 
                     "?sAccessContract=Request&sHead=Отзыв"
-                    //+ "&sBody=Отзыв"
-                    + "&sData=" + (historicProcessInstance.getName() != null ? historicProcessInstance.getName().trim() : "")
+                    + "&sData=" + (processDefinition != null && processDefinition.getName() != null ? processDefinition.getName().trim() : "")
                     + "&sMail= "
                     + "&nID_SubjectMessageType=1";
             
