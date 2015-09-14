@@ -60,6 +60,8 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import org.activiti.engine.history.HistoricDetail;
+import org.activiti.engine.impl.persistence.entity.HistoricFormPropertyEntity;
 
 /**
  * ...wf-region/service/... Example:
@@ -428,7 +430,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
         if (foundResults != null && foundResults.size() > 0) {
-            log.info(String.format("Found {0} completed tasks for business process {1} for date period {2} - {3}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt),
+            log.info(String.format("Found {%s} completed tasks for business process {%s} for date period {%s} - {%s}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt),
                     sdfDate.format(dateTo)));
             for (HistoricTaskInstance currTask : foundResults) {
                 String[] line = new String[6];
@@ -477,7 +479,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
 
         if (sID_BP_Name == null || sID_BP_Name.isEmpty()) {
-            log.error("ID of business process is {}", sID_BP_Name);
+            log.error(String.format("Statistics for the business process '{%s}' not found.", sID_BP_Name));
             throw new ActivitiObjectNotFoundException(
                     "Statistics for the business process '" + sID_BP_Name + "' not found.",
                     Process.class);
@@ -500,13 +502,19 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 .processDefinitionKey(sID_BP_Name)
                 .listPage(nRowStart, nRowsMax);
 
+
         SimpleDateFormat sdfFileName = new SimpleDateFormat("yyyy-MM-ddHH-mm-ss");
         String fileName = sID_BP_Name + "_" + sdfFileName.format(Calendar.getInstance().getTime()) + ".csv";
 
-        log.debug("File name to return statistics : {}", fileName);
+        log.debug("File name to return statistics : {%s}", fileName);
 
         httpResponse.setContentType("text/csv;charset=UTF-8");
         httpResponse.setHeader("Content-disposition", "attachment; filename=" + fileName);
+        
+        //HistoricProcessInstance processInstance = historyService.createHistoricProcessInstanceQuery()
+        // .processDefinitionKey(sID_BP_Name).singleResult();
+        //log.info("processInstance: " + processInstance != null ? processInstance.getId() : "-");
+        
         CSVWriter csvWriter = new CSVWriter(httpResponse.getWriter());
 
         List<String> headers = new ArrayList<String>();
@@ -514,11 +522,17 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         Set<String> headersExtra = new TreeSet<String>();
         headers.addAll(Arrays.asList(headersMainField));
         log.info("headers: " + headers);
-
         for (HistoricTaskInstance currTask : foundResults) {
-            FormData formData = formService.getTaskFormData(currTask.getId());
-            List<String> propertyIds = AbstractModelTask.getListCastomFieldName(formData);
-            headersExtra.addAll(propertyIds);
+            List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
+            for (HistoricDetail historicDetail : details) {
+                if (historicDetail instanceof HistoricFormPropertyEntity) {
+                    HistoricFormPropertyEntity formEntity = (HistoricFormPropertyEntity) historicDetail;
+                    headersExtra.add(formEntity.getPropertyId());
+                }
+            }
+            //FormData formData = formService.getTaskFormData(currTask.getId());
+            //List<String> propertyIds = AbstractModelTask.getListCastomFieldName(formData);
+            //headersExtra.addAll(propertyIds);
         }
         headers.addAll(headersExtra);
         log.info("headers: " + headers);
@@ -526,7 +540,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
         if (foundResults != null && foundResults.size() > 0) {
-            log.info(String.format("Found {0} completed tasks for business process {1} for date period {2} - {3}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt),
+            log.info(String.format("Found {%s} completed tasks for business process {%s} for date period {%s} - {%s}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt),
                     sdfDate.format(dateTo)));
 
             for (HistoricTaskInstance currTask : foundResults) {
@@ -539,15 +553,30 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 long durationInHours = currTask.getDurationInMillis() / (1000 * 60 * 60);
                 line.add(String.valueOf(durationInHours));
                 line.add(currTask.getName());
-                FormData formData = formService.getTaskFormData(currTask.getId());
+
+                List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
+                log.info("details: " + details);
                 for (String headerExtra : headersExtra) {
-                    line.add(AbstractModelTask.getCastomFieldValue(formData, headerExtra));
+                    String propertyValue = "";
+                    for (HistoricDetail historicDetail : details) {
+                        if (historicDetail instanceof HistoricFormPropertyEntity
+                                && ((HistoricFormPropertyEntity) historicDetail).getPropertyId().equalsIgnoreCase(headerExtra)) {
+                            propertyValue = ((HistoricFormPropertyEntity) historicDetail).getPropertyValue();
+                            return;
+                        }
+                    }
+                    line.add(propertyValue);
                 }
+                /*FormData formData = formService.getTaskFormData(currTask.getId());
+                 for (String headerExtra : headersExtra) {
+                 line.add(AbstractModelTask.getCastomFieldValue(formData, headerExtra));
+                 }*/
+
                 log.info("line: " + line);
                 csvWriter.writeNext((String[]) line.toArray());
             }
         } else {
-            log.info(String.format("No completed tasks found for business process {0} for date period {1} - {2}", sID_BP_Name, sdfDate.format(dateAt),
+            log.info(String.format("No completed tasks found for business process {%s} for date period {%s} - {%s}", sID_BP_Name, sdfDate.format(dateAt),
                     sdfDate.format(dateTo)));
         }
         csvWriter.close();
