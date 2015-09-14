@@ -510,6 +510,11 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         httpResponse.setContentType("text/csv;charset=UTF-8");
         httpResponse.setHeader("Content-disposition", "attachment; filename=" + fileName);
+        
+        HistoricProcessInstance processInstance = historyService.createHistoricProcessInstanceQuery()
+         .processDefinitionKey(sID_BP_Name).singleResult();
+        log.info("processInstance: " + processInstance != null ? processInstance.getId() : "-");
+        
         CSVWriter csvWriter = new CSVWriter(httpResponse.getWriter());
 
         List<String> headers = new ArrayList<String>();
