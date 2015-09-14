@@ -205,9 +205,6 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         }
         if (textWithoutTags.contains(TAG_sURL_SERVICE_MESSAGE)) {
             String URI = Util.deleteContextFromURL(URL_SERVICE_MESSAGE);
-            //HistoricProcessInstance historicProcessInstance = execution.getEngineServices()
-                    //.getHistoryService().createHistoricProcessInstanceQuery()
-                    //.processInstanceId(execution.getProcessInstanceId()).singleResult();
             ProcessDefinition processDefinition = execution.getEngineServices()
                     .getRepositoryService().createProcessDefinitionQuery()
                     .processDefinitionId(execution.getProcessDefinitionId()).singleResult();
