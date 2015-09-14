@@ -536,7 +536,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         }
         headers.addAll(headersExtra);
         log.info("headers: " + headers);
-        csvWriter.writeNext((String[]) headers.toArray());
+        csvWriter.writeNext(headers.toArray(new String[headers.size()]));
 
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
         if (foundResults != null && foundResults.size() > 0) {
@@ -573,7 +573,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                  }*/
 
                 log.info("line: " + line);
-                csvWriter.writeNext((String[]) line.toArray());
+                csvWriter.writeNext(line.toArray(new String[line.size()]));
             }
         } else {
             log.info(String.format("No completed tasks found for business process {%s} for date period {%s} - {%s}", sID_BP_Name, sdfDate.format(dateAt),
