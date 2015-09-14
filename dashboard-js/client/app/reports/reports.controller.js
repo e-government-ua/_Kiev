@@ -25,10 +25,14 @@ angular.module('dashboardJsApp')
 
     processes.getUserProcesses().then(function (data) {
       $scope.processesList = data;
-      if ($scope.processesList.length > 0) {
+      if ($scope.processesList != '' && $scope.processesList.length > 0) {
         $scope.statistic.sBP = $scope.processesList[0].sID;
         $scope.export.sBP = $scope.processesList[0].sID;
       }
+    }, function () {
+      $scope.processesList = [{ sID: "pomylka", sName: "Помилка при завантаженні" }];
+      $scope.statistic.sBP = $scope.processesList[0].sID;
+      $scope.export.sBP = $scope.processesList[0].sID;
     });
     
     $scope.processesLoaded = function() {
