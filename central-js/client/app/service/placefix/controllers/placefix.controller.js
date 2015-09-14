@@ -64,7 +64,12 @@ angular.module('app').controller('PlaceFixController', function(
     
     // FIXME $scope.bankIDAccount = BankIDService.account();
 
-    if (!stateToGo || ($state.current.name === stateToGo)) {
+    // 
+    if (!stateToGo || ($state.current.name === stateToGo) ) { 
+      return;
+    }
+    if ( $state.current.name === 'index.service.general.placefix.built-in.bankid') {
+      // STOPPEDHERE
       return;
     }
 
@@ -81,8 +86,7 @@ angular.module('app').controller('PlaceFixController', function(
     var initialRegion = serviceLocationParser.getSelectedRegion(regions);
     if (initialRegion) {
       $scope.onSelectRegionList(initialRegion);
-    }
-  
+    }  
 
     console.info('PROCESS Place сhange, $state:', $state.current.name, ', to go:', stateToGo /*, 'oParams =', oParams*/ );
   };
