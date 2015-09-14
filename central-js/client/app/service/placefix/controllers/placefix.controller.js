@@ -29,8 +29,7 @@ angular.module('app').controller('PlaceFixController', function(
     var oService = ServiceService.oService;
 
     // due to availiablity in city / region, do next steps
-    // var oAvailable = self.getServiceAvailability( oService );
-    // if ( !oAvailable.isRegion && !oAvailable.isCity ) { }
+    // var bUnavail = PlacesService.serviceIsUnavailableInPlace();;
 
     var stateByServiceType = {
       // Сервіс за посиланням
@@ -43,8 +42,6 @@ angular.module('app').controller('PlaceFixController', function(
 
     var stateToGo = stateByServiceType[oParams.serviceData.nID_ServiceType.nID];
 
-    // FROM COUNTRY CTRL
-
     // obtain service data and it's notes
     angular.forEach(oService.aServiceData, function(service, key) {
       $scope.serviceData = service;
@@ -53,8 +50,6 @@ angular.module('app').controller('PlaceFixController', function(
         oService.sNoteTrusted = true;
       }
     });
-
-    // END FROM COUNTRY
 
     // FIXME generalize it: if cur state is step 1 and it's complete, go to step 2 and change state
     // if (stateToGo && oParams.placeData.city) {
@@ -68,12 +63,6 @@ angular.module('app').controller('PlaceFixController', function(
     $scope.state = $state.get( $state.current.name );
     
     // FIXME $scope.bankIDAccount = BankIDService.account();
-
-    console.log('initCityService. Reg-s: ', regions.length);
-
-    ///
-    // FIXME: other ServiceCityController code was here
-    ///
 
     if (!stateToGo || ($state.current.name === stateToGo)) {
       return;
@@ -95,7 +84,7 @@ angular.module('app').controller('PlaceFixController', function(
     }
   
 
-    console.log('PlaceFixController on Place сhange, $state:', $state.current.name, ', to go:', stateToGo /*, 'oParams =', oParams*/ );
+    console.log('PROCESS Place сhange, $state:', $state.current.name, ', to go:', stateToGo /*, 'oParams =', oParams*/ );
   };
 
   $scope.getStateName = function() {
@@ -333,39 +322,6 @@ angular.module('app').controller('PlaceFixController', function(
 //  $scope.ngIfStep2 = function() {
 // return isStep2;
 //  };
-
-//  $scope.findServiceDataByRegion = function() {
-// var aServiceData = ServiceService.oService.aServiceData;
-// var serviceType = {nID: 0};
-//    angular.forEach(aServiceData, function(value, key) {
-//      // if service is available 
-//      if (value.nID_Region && value.nID_Region.nID == $scope.data.region.nID) {
-//        serviceType = value.nID_ServiceType;
-//        $scope.serviceData = value;
-//  if($scope.serviceData.bNoteTrusted == false) {
-//    $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
-//    $scope.serviceData.sNoteTrusted = true;
-//  }
-//      }
-//    });
-// return serviceType;
-//  };
-
-//  $scope.findServiceDataByCity = function() {
-// var aServiceData = ServiceService.oService.aServiceData;
-// var serviceType = {nID: 0};
-//    angular.forEach(aServiceData, function(value, key) {
-//      if (value.nID_City && value.nID_City.nID == $scope.data.city.nID) {
-//        serviceType = value.nID_ServiceType;
-//        $scope.serviceData = value;
-//  if($scope.serviceData.bNoteTrusted == false) {
-//    $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
-//    $scope.serviceData.sNoteTrusted = true;
-//  }
-//      }
-//    });
-// return serviceType;
-//  }
 
 //  $scope.step1 = function() {
 //    $scope.data = {

@@ -64,6 +64,7 @@ angular.module('app')
      */
     self.getPlaceData = function() {
       savedPlaceData = JSON.parse(localStorage.getItem('igSavedPlaceData')) || savedPlaceData;
+      // FIXME  implement optional data saving
       // savedPlaceData = rememberMyData ? JSON.parse(localStorage.getItem('igSavedPlaceData')) || savedPlaceData : null;
       // console.log('get place data:', JSON.stringify(savedPlaceData));
       return savedPlaceData;
@@ -157,7 +158,7 @@ angular.module('app')
     };
 
     self.getServiceDataForCountry = function() {
-      return ServiceService.oService.aServiceData[0];
+      return { nID_ServiceType: { nID: 0 } };
     };
 
     self.serviceIsAvailableInRegion = function() {
@@ -168,28 +169,39 @@ angular.module('app')
       return self.cityIsChosen() && self.findServiceDataByCity() !== null;
     };
 
-    self.getServiceAvailability = function(service) {
+    self.getServiceAvailabilityForSelectedPlace = function(service, placeData) {
       // FIXME move to use ServiceService.oService everywhere instead of $scope.service
       var oService = service || ServiceService.oService;
+      var oPlace = placeData || self.getPlaceData();
       var result = {
         isCity: false,
         isRegion: false
       };
       angular.forEach(oService.aServiceData, function(oServiceData) {
-        if (oServiceData.nID_City && oServiceData.nID_City.nID !== null) {
+        if (oServiceData.nID_City && oServiceData.nID_City.nID !== null && oPlace.city && oPlace.city.nID === oServiceData.nID_City.nID) {
           result.isCity = true;
         }
-        if (oServiceData.nID_Region && oServiceData.nID_Region.nID !== null) {
+        if (oServiceData.nID_Region && oServiceData.nID_Region.nID !== null && oPlace.region && oPlace.region.nID === oServiceData.nID_Region.nID) {
           result.isRegion = true;
         }
       });
-      console.log('getServiceAvailability, iD:', oService.nID, result.isCity, result.isRegion);
+      // console.debug('getServiceAvailabilityForSelectedPlace, iD:', oService.nID, result.isCity, result.isRegion);
+      return result;
+    };
+
+    self.serviceIsUnavailableInPlace = function() {
+      var oAvail = self.getServiceAvailabilityForSelectedPlace();
+
+      var result = (oAvail.isCity === false && oAvail.isRegion === false);
+
       return result;
     };
 
     // TODO check it again and again
     self.getServiceDataForSelectedPlace = function() {
-      return self.serviceIsAvailableInCity() ? self.findServiceDataByCity() : self.serviceIsAvailableInRegion() ? self.findServiceDataByRegion() : self.getServiceDataForCountry();
+      return self.serviceIsAvailableInCity() ? self.findServiceDataByCity() 
+              : self.serviceIsAvailableInRegion() ? self.findServiceDataByRegion() 
+              : self.getServiceDataForCountry();
     };
   });
 

@@ -1,8 +1,3 @@
-// region = from service\region\built-in\script.js 
-// FIXME merge with above into single logic
-///////////////////
-////////////////
-
 angular.module('app').config(function($stateProvider) {
   $stateProvider
     .state('index.service.general.placefix.built-in', { // FIXME-5 // region
@@ -119,26 +114,17 @@ angular.module('app').config(function($stateProvider) {
         };
       },
       views: {
-        // FIXME resolve the city-content
-        // 'city-content@index.service.general.placefix': {
-        //   templateUrl: 'app/service/placefix/built-in/bankid.submitted.html',
-        //   controller: 'PlaceFixController' // function moved to Places' stateStartupFunction
-        // }, 
-        // regions
         'content@index.service.general.placefix': {
           templateUrl: 'app/service/placefix/built-in/bankid.submitted.html',
           controller: 'PlaceFixController' // function moved to Places' stateStartupFunction
-
-          // FIXME impl-t this functionality in PlaceFixController:
-          // function($state, $scope, BankIDAccount) {
-          //   $scope.state = $state.get('index.service.general.placefix.built-in.bankid.submitted');
-          //   $scope.bankIDAccount = BankIDAccount;
-          // }
+            // FIXME impl-t this functionality in PlaceFixController:
+            // function($state, $scope, BankIDAccount) {
+            //   $scope.bankIDAccount = BankIDAccount;
+            // }
         }
       }
     });
 });
 
-// country
-// moved to above code
-// end country
+// region merged
+// country merged

@@ -53,11 +53,12 @@ angular.module('app')
         // TODO improve the logic
         $scope.authControlIsNeeded = function() {
           var bNeeded = true;
-          bNeeded = bNeeded && $scope.placeControlIsComplete() && !$scope.placeIsUnavailable();
-          
-          bNeeded = bNeeded && $scope.placeIsUnavailable() === false;
+          var bUnavail = PlacesService.serviceIsUnavailableInPlace();
+          bNeeded = bNeeded && $scope.placeControlIsComplete() && !bUnavail;
 
-          console.log( 'authControlIsNeeded:', bNeeded, ' $scope.placeIsUnavailable()', $scope.placeIsUnavailable() );
+          bNeeded = bNeeded && bUnavail === false;
+
+          console.log('auth control is needed:', bNeeded, ', unavailable in Place:', bUnavail);
 
           // STOPPEDHERE
 
@@ -70,34 +71,24 @@ angular.module('app')
           return bComplete;
         };
 
-        $scope.placeIsUnavailable = function() {
-          var oAvail = PlacesService.getServiceAvailability();
-
-          var result = ( oAvail.isCity === false && oAvail.isRegion === false  );
-
-          return result;
-        };
-
         $scope.placeControlIsVisible = function() {
 
           var result = true;
 
-          if ($scope.placeIsUnavailable()) {
-            result = false;
-          }
+          // if ($scope.serviceIsUnavailableInPlace()) {
+          //   result = false;
+          // }
 
-          console.log('placeControlIsVisible:', result );
+          // console.log('placeControlIsVisible:', result );
 
           return result;
         };
 
         $scope.placeControlIsDisabled = function() {
           var isDisabled = $scope.placeControlIsComplete() && mode !== 'editMode';
-          console.log('placeControlIsDisabled:', $scope.placeControlIsComplete(), mode !== 'editMode', isDisabled);
+          // console.info('placeControlIsDisabled:', $scope.placeControlIsComplete(), mode !== 'editMode', isDisabled);
           return isDisabled;
           // return false;
-
-          // STOPED HERE
         };
 
         /**
@@ -106,24 +97,24 @@ angular.module('app')
         $scope.placeControlIsComplete = function() {
           // FIXME: передбачити випадки, коли треба вибрати тільки регіон або місто, 
           // див. https://github.com/e-government-ua/i/issues/550
-          var oServiceAvailable = PlacesService.getServiceAvailability();
+          var oAvail = PlacesService.getServiceAvailabilityForSelectedPlace();
           var result = false; //$scope.regionIsChosen() && $scope.cityIsChosen();
           // no region - no city
           // ok region - no city
           // ok region - ok city
-          if (!oServiceAvailable.isRegion && !oServiceAvailable.isCity) {
+          if (!oAvail.isRegion && !oAvail.isCity) {
             result = true;
           }
-          if ((oServiceAvailable.isRegion && $scope.regionIsChosen()) && !oServiceAvailable.isCity) {
+          if ((oAvail.isRegion && $scope.regionIsChosen()) && !oAvail.isCity) {
             result = true;
           }
-          if ((oServiceAvailable.isRegion && $scope.regionIsChosen()) && (oServiceAvailable.isCity && $scope.cityIsChosen())) {
+          if ((oAvail.isRegion && $scope.regionIsChosen()) && (oAvail.isCity && $scope.cityIsChosen())) {
             result = true;
           }
-          if ((!oServiceAvailable.isRegion) && (oServiceAvailable.isCity && $scope.cityIsChosen())) {
+          if ((!oAvail.isRegion) && (oAvail.isCity && $scope.cityIsChosen())) {
             result = true;
           }
-          console.log('Place controls is complete:', result);
+          // console.log('Place controls is complete:', result);
           return result;
         };
 
@@ -154,13 +145,12 @@ angular.module('app')
         };
 
         $scope.processPlaceSelection = function() {
-          var oService = PlacesService.getServiceDataForSelectedPlace();
           // console.log('region is chosen: ', $scope.regionIsChosen(), ', city is chosen: ', $scope.cityIsChosen(), ' service Type:', s erviceType);
 
           PlacesService.setPlaceData($scope.placeData);
 
           $scope.$emit('onPlaceChange', {
-            serviceData: oService,
+            serviceData: PlacesService.getServiceDataForSelectedPlace(),
             placeData: $scope.placeData
           });
         };
@@ -171,10 +161,10 @@ angular.module('app')
 
           $scope.regionList = $scope.regionList || new RegionListFactory();
           $scope.localityList = $scope.localityList || new LocalityListFactory();
-          
+
           $scope.regionList.initialize($scope.regions);
 
-          console.log('initPlaceControls, $scope.regions.length = ', $scope.regions.length );
+          console.log('initPlaceControls, $scope.regions.length = ', $scope.regions.length);
 
           $scope.resetPlaceData();
           $scope.recallPlaceData();
