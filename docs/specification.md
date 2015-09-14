@@ -1520,7 +1520,7 @@ Start Time - Дата и время начала
 Duration in millis - Длительность выполнения задачи в миллисекундах
 Duration in hours - Длительность выполнения задачи в часах
 Name of Task - Название задачи
-Поля задачи (если bDetail=true)
+FormProperty (поля из task, если bDetail=true)
 
 Пример:
 https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?sID_BP_Name=lviv_mvk-1&sDateAt=2015-06-28&sDateTo=2015-07-01
