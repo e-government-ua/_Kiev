@@ -553,15 +553,17 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 long durationInHours = currTask.getDurationInMillis() / (1000 * 60 * 60);
                 line.add(String.valueOf(durationInHours));
                 line.add(currTask.getName());
-
+                log.info("currTask: " + currTask.getId());
                 List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
-                log.info("details: " + details);
                 for (String headerExtra : headersExtra) {
+                    log.info("headerExtra: " + headerExtra);
                     String propertyValue = "";
                     for (HistoricDetail historicDetail : details) {
+                        log.info("details: " + historicDetail.getClass());
                         if (historicDetail instanceof HistoricFormPropertyEntity
                                 && ((HistoricFormPropertyEntity) historicDetail).getPropertyId().equalsIgnoreCase(headerExtra)) {
                             propertyValue = ((HistoricFormPropertyEntity) historicDetail).getPropertyValue();
+                            log.info("headerExtra: " + headerExtra + " propertyValue: " + propertyValue);
                             return;
                         }
                     }
@@ -580,6 +582,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     sdfDate.format(dateTo)));
         }
         csvWriter.close();
+        log.info("end!!!!!!!!!!!!" );
     }
 
     /**
