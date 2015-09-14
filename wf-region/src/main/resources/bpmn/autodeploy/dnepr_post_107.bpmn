@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_post_98" name="Дніпропетровськ - УкрПочта - Призначення компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування" isExecutable="true">
-    <documentation>https://github.com/e-government-ua/iBP/issues/98</documentation>
+  <process id="dnepr_post_107" name="Дніпропетровськ - Укрпошта - Призначення одноразової винагороди жінкам, яким присвоєно почесне звання України &quot;Мати-героїня&quot;" isExecutable="true">
+    <documentation>https://github.com/e-government-ua/iBP/issues/107</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -14,31 +14,24 @@
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="zayava_fiz" name="Заява про згоду надавати соціальні послуги" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dovidka_health" name="Висновок лікарсько-консультаційної комісії про те, що стан Вашого здоров'я дозволяє посійно надавати соціальні послуги" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="employment_history" name="Копія трудової книжки; у разі відсутності трудової книжки - лише зазначені довідки" type="file"></activiti:formProperty>
-        <activiti:formProperty id="dovidka_nalogovaya" name="Довідка органу державної податкової служби; про те, що Ви не займаєтеся підприємницькою діяльністю і про відсутність данних про доходи" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="zayava_inv" name="Заява особи, яка нездатна до самообслуговування, про необхідність надання соціальних послуг; якщо надання соціальних послуг потребує дитина - заяву подає її законний представник" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="passport_inv" name="Копія паспорта або іншого документа, що посвідчує особу, яка нездатна до самообслуговування; якщо надання соціальних послуг потребує дитина - скановану копію свідоцтва про народження дитини" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dovidka_inv" name="Копія довідки медико-соціальної експертної комісії про групу інвалідності" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="visnovok" name="Висновок лікрсько-консультаційної комісії про необхідність постійного стороннього догляду та нездатність особи (дитини) до самообслуговування" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="passport" name="Копія паспорта або іншого документа, що посвідчує особу" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" required="true">
           <activiti:value id="attr1_post" name="через національного оператора поштового зв'язку"></activiti:value>
           <activiti:value id="attr2_bank" name="на рахунок у банку"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="info_1" name="Наступні поля треба заповнити згідно обраного Вами способу перерахування коштів" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bank_name" name="Назва банку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bank_mfo" name="МФО банку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bank_okpo" name="ЄДРПОУ банку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bank_account" name="Номер рахунку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
-        <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default=" "></activiti:formProperty>
+        <activiti:formProperty id="bank_name" name="Назва банку" type="string" default="    "></activiti:formProperty>
+        <activiti:formProperty id="bank_mfo" name="МФО банку" type="string" default="   "></activiti:formProperty>
+        <activiti:formProperty id="bank_okpo" name="ЄДРПОУ банку" type="string" default="   "></activiti:formProperty>
+        <activiti:formProperty id="bank_account" name="Номер рахунку" type="string" default="    "></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default="   "></activiti:formProperty>
+        <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default="  "></activiti:formProperty>
         <activiti:formProperty id="nID_Subject" name="ИД-номер субъекта" type="invisible" default="0"></activiti:formProperty>
         <activiti:formProperty id="sID_Merchant" name="ИД-строковой мерчанта (магазина)" type="invisible" default="i75116857714"></activiti:formProperty>
         <activiti:formProperty id="sSum" name="сумма платежа" type="invisible" default="17.15"></activiti:formProperty>
         <activiti:formProperty id="sID_Currency" name="ИД-строковой валюты" type="invisible" default="UAH"></activiti:formProperty>
-        <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default="Оплата послуги - призначення компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування"></activiti:formProperty>
+        <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default="Оплата послуги - призначення одноразової винагороди жінкам, яким присвоєно почесне звання України &quot;Мати-героїня&quot;"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника Укрпошти" activiti:type="mail">
@@ -50,7 +43,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Нове  звернення. Призначення компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування</activiti:string>
+          <activiti:string>Нове  звернення. призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня"</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -106,7 +99,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо призначення компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування.&lt;br /&gt;
+У Вас в черзі на обробку зареєстровано нове звернення щодо призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня".&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
 Відпрацюйте це звернення на &lt;a href="https://test.region.igov.org.ua:6948/" target="_blank"&gt;порталі&lt;/a&gt;
                                     &lt;/p&gt;
@@ -153,7 +146,7 @@
         <activiti:formProperty id="info_1" name="Наступні поля треба заповнити згідно обраного Вами способу перерахування коштів" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bank_name" name="Назва банку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bank_mfo" name="МФО банку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bank_mfo" name="МФО банку" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bank_okpo" name="ЄДРПОУ банку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bank_account" name="Номер рахунку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sIDPayment" name="ID платежа за послугу" type="string" default="${sID_Payment}" writable="false"></activiti:formProperty>
@@ -165,11 +158,11 @@
         <activiti:formProperty id="code" name="Штрих-код відправленого листа; цей штрих-код буде надісланий громадянину на e-mail" type="string"></activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, підставу" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="opis" name="Завантажте опис прийнятих документів " type="file"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_post_98_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_post_107_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${zayava_fiz} ${dovidka_health} ${employment_history} ${dovidka_nalogovaya} ${zayava_inv} ${passport_inv} ${dovidka_inv} ${visnovok}</activiti:expression>
+            <activiti:expression>${passport}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -179,15 +172,15 @@
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="code" name="Штрих-код відправленого листа" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_2" name="повідомлення громадянина про прийняте рішення" type="enum" required="true">
-          <activiti:value id="accept" name="схвалено призначення компенсації"></activiti:value>
-          <activiti:value id="reject" name="відмовлено у призначенні компенсації"></activiti:value>
+          <activiti:value id="accept" name="схвалено призначення одноразової винагороди"></activiti:value>
+          <activiti:value id="reject" name="відмовлено у призначенні одноразової винагороди"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="rishen" name="Завантажте копію рішення" type="file" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <serviceTask id="mailtask4" name="повідомлення громадянина про відмову у  призначенні компенсації" activiti:type="mail">
+    <serviceTask id="mailtask4" name="повідомлення громадянина про відмову у  призначенні одноразової винагороди" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -240,7 +233,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
 &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-Вам відмовлено у призначенні компенсації як фізичній особі, яка надає соціальні послуги особам, що не здатні до самообслуговування.&lt;br /&gt; &lt;/p&gt;
+Вам відмовлено у призначенні одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня".&lt;br /&gt; &lt;/p&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа, а також буде спрямована Вам поштовим відправленням з повідомленням про вручення.&lt;br /&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -269,7 +262,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Призначення компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування</activiti:string>
+          <activiti:string>Звернення на тему: призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня"</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -293,7 +286,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Призначення компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування</activiti:string>
+          <activiti:string>Звернення на тему: призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня"</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -349,7 +342,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Ваш запит щодо призначення компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування відхилено.&lt;br /&gt;
+Ваш запит щодо призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня" відхилено.&lt;br /&gt;
 &lt;br /&gt;
 Підстава: ${comment_1}    
     &lt;/pя&gt;
@@ -386,7 +379,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Призначення компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування</activiti:string>
+          <activiti:string>Звернення на тему: призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня"</activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${opis}"</activiti:expression>
@@ -442,7 +435,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Ваше звернення щодо призначення компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування передано на розгляд в управління праці та соціального захисту населення.&lt;/h3&gt;&lt;/p&gt;
+Ваше звернення щодо призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня" передано на розгляд в управління праці та соціального захисту населення.&lt;/h3&gt;&lt;/p&gt;
 &lt;/p&gt;
 Звернення буде опрацьовано протягом десяти робочих днів з дати надходження звернення та документів, що додаються до нього.&lt;/p&gt;
 &lt;br /&gt;
@@ -491,7 +484,7 @@
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow23" sourceRef="boundaryerror1" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow24" sourceRef="mailtask6" targetRef="endevent2"></sequenceFlow>
-    <serviceTask id="servicetask4" name="повідомлення громадянина про призначення компенсації" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask4" name="повідомлення громадянина про призначення одноразової винагороди" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string>test_noreply@igov.org.ua</activiti:string>
@@ -500,7 +493,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Призначення компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування</activiti:string>
+          <activiti:string>Звернення на тему: призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня"</activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
@@ -556,7 +549,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     
-Ви отримали схвалення щодо свого звернення - призначення компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування.&lt;br /&gt;
+Ви отримали схвалення щодо свого звернення - призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня".&lt;br /&gt;
 &lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа, а також буде спрямована Вам поштовим відправленням з повідомленням про вручення.&lt;br /&gt;
 &lt;br /&gt;
@@ -622,7 +615,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Призначення компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування</activiti:string>
+          <activiti:string>Звернення на тему: призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня"</activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -675,7 +668,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;&lt;br /&gt;
-Ваше звернення щодо призначення компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування буде передано на розгляд в управління праці та соціального захисту населення після сплати послуг УкрПошти з пересилання та вручення документів.&lt;br /&gt;
+Ваше звернення щодо призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня" буде передано на розгляд в управління праці та соціального захисту населення після сплати послуг УкрПошти з пересилання та вручення документів.&lt;br /&gt;
 Сплату треба здійсити протягом 1 дня з моменту подачі заяви.&lt;br /&gt;&lt;br /&gt;Для сплати натисніть цю кнопку:                                  
                                    &lt;br /&gt;
 								   &lt;br /&gt;
@@ -712,8 +705,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='reject_oplata'}]]></conditionExpression>
     </sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_post_98">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_post_98" id="BPMNPlane_dnepr_post_98">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_post_107">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_post_107" id="BPMNPlane_dnepr_post_107">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="20.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -751,10 +744,10 @@
         <omgdc:Bounds height="35.0" width="35.0" x="103.0" y="209.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
-        <omgdc:Bounds height="55.0" width="191.0" x="361.0" y="541.0"></omgdc:Bounds>
+        <omgdc:Bounds height="62.0" width="191.0" x="361.0" y="541.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
-        <omgdc:Bounds height="35.0" width="35.0" x="196.0" y="551.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="196.0" y="554.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
         <omgdc:Bounds height="55.0" width="192.0" x="360.0" y="110.0"></omgdc:Bounds>
@@ -818,11 +811,11 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
         <omgdi:waypoint x="213.0" y="523.0"></omgdi:waypoint>
-        <omgdi:waypoint x="213.0" y="551.0"></omgdi:waypoint>
+        <omgdi:waypoint x="213.0" y="554.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
-        <omgdi:waypoint x="361.0" y="568.0"></omgdi:waypoint>
-        <omgdi:waypoint x="231.0" y="568.0"></omgdi:waypoint>
+        <omgdi:waypoint x="361.0" y="572.0"></omgdi:waypoint>
+        <omgdi:waypoint x="231.0" y="571.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
         <omgdi:waypoint x="455.0" y="85.0"></omgdi:waypoint>
