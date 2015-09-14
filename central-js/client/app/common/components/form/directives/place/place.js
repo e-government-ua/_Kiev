@@ -50,20 +50,43 @@ angular.module('app')
           return PlacesService.regionIsChosen();
         };
 
-        // TODO implement the logic
+        // TODO improve the logic
+        $scope.authControlIsNeeded = function() {
+          var bNeeded = true;
+          bNeeded = bNeeded && $scope.placeControlIsComplete() && !$scope.placeIsUnavailable();
+          
+          bNeeded = bNeeded && $scope.placeIsUnavailable() === false;
+
+          console.log( 'authControlIsNeeded:', bNeeded, ' $scope.placeIsUnavailable()', $scope.placeIsUnavailable() )
+
+          // STOPPEDHERE
+
+          return bNeeded;
+        };
+
+        // TODO improve the logic
+        $scope.authControlIsComplete = function() {
+          var bComplete = false;
+          return bComplete;
+        };
+
+        $scope.placeIsUnavailable = function() {
+          var oAvail = PlacesService.getServiceAvailability();
+
+          var result = ( oAvail.isCity === false && oAvail.isRegion === false  );
+
+          return result;
+        };
+
         $scope.placeControlIsVisible = function() {
 
           var result = true;
 
-          var oAvail = PlacesService.getServiceAvailability();
-
-          var placeControlsAreHidden = ( oAvail.isCity === false && oAvail.isRegion === false  );
-
-          if (placeControlsAreHidden) {
+          if ($scope.placeIsUnavailable()) {
             result = false;
           }
 
-          console.log('placeControlIsVisible :', result, placeControlsAreHidden, oAvail );
+          console.log('placeControlIsVisible:', result );
 
           return result;
         };
@@ -97,9 +120,9 @@ angular.module('app')
           if ((oServiceAvailable.isRegion && $scope.regionIsChosen()) && (oServiceAvailable.isCity && $scope.cityIsChosen())) {
             result = true;
           }
-          // if ((!oServiceAvailable.isRegion) && (oServiceAvailable.isCity && $scope.cityIsChosen())) {
-          //   result = true;
-          // }
+          if ((!oServiceAvailable.isRegion) && (oServiceAvailable.isCity && $scope.cityIsChosen())) {
+            result = true;
+          }
           console.log('Place controls is complete:', result);
           return result;
         };

@@ -3,18 +3,20 @@
 <div class="service-name">{{service.sName}}</div>
 <div class="operator-name">{{service.sSubjectOperatorName}}</div>
 
+<div>FIXME placefix/content.html</div>
+
 <div class="list-group">
 
     <!-- sample place control content was derived from the service/city/content.html and now can be seen inside the placeControl.html -->
     <place></place>
     
     <!-- step 2 -->
-    <!-- FIXME use placeControlIsComplete() instead of ngIfStep2 -->
+    <!-- used placeControlIsComplete() instead of ngIfStep2 -->
     <div ng-if="placeControlIsComplete()">
         <div class="list-group-item" ui-view="status"></div>
 
         <!-- STATE: index.service.general.placefix.built-in -->
-        <service-auth-block 
+        <service-auth-block ng-if="authControlIsNeeded()"
                 n-step="2" 
                 redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
         </service-auth-block>

@@ -1,123 +1,30 @@
-<!--div style="margin-top:20px; font-size:25px;">{{service.sName}}</div>
-<div style="margin-bottom:20px; font-size:18px;color:#cccccc;">{{service.sSubjectOperatorName}}</div-->
-
-<!-- country -->
-
-<!-- 
-<div class="list-group">
-    <div class="list-group-item disabled">
-        <div class="row no-margin-bottom">
-            <div class="col-md-11">Крок 1. Ви увійшли як {{data.formData.params.bankIdfirstName.value}}
-                {{data.formData.params.bankIdmiddleName.value}} {{data.formData.params.bankIdlastName.value}}
-            </div>
-            <div class="col-md-1">
-                <div class="link-button">
-                    <a ng-click="step1()">Змінити</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="list-group-item">
-        <div class="row no-margin-bottom">
-            <h3 class="text-center">Шановний {{data.formData.params.bankIdfirstName.value}} {{data.formData.params.bankIdmiddleName.value}}!</h3>
-
-            <div class="text-center">Ваше звернення №{{state.data.id}} успішно зареєстровано</div>
-            <div class="text-center" ng-bind-html="getHtml(data.formData.params.response.value)" ng-if="data.formData.params.response.value"></div>
-            <div class="text-center" ng-if="!data.formData.params.response.value">Результати будуть спрямовані на Ваш {{data.formData.params.email.value}}</div>
-        </div>
-    </div>
-</div> 
--->
-
-<!-- end country  -->
-
-<!-- region -->
-
-<!-- <div class="service-name">{{service.sName}}</div>
-<div class="operator-name">{{service.sSubjectOperatorName}}</div>
-<div class="list-group">
-
-    <place></place>
- -->   
-
-    <!-- <div class="list-group-item"
-         ng-class="{'disabled': data.region}">
-        <div class="row no-margin-bottom">
-            <div class="col-md-11 form-inline">
-                <strong><span>Крок 1. Оберіть свій регіон - CLONE: service/city/built-in/bankid.submitted.html</span></strong>
-
-                <div style="display:inline-block">
-                    <span>Область</span>
-                    <select class="form-control"
-                            name="region"
-                            ng-model="data.region"
-                            ng-options="region as region.sName for region in [data.region] | orderBy:'sName'"
-                            ng-disabled="data.city"></select>
-                </div>
-            </div>
-            <div class="col-md-1"
-                 ng-if="placeControlIsComplete()">
-                <div class="link-button">
-                    <a ng-click="step1()">Змінити</a>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-<!--     <div class="list-group-item disabled">
-        <div class="row no-margin-bottom">
-            <div class="col-md-11">Крок 2. Ви увійшли як {{data.formData.params.bankIdfirstName.value}}
-                                   {{data.formData.params.bankIdmiddleName.value}}
-                                   {{data.formData.params.bankIdlastName.value}}
-            </div>
-            <div class="col-md-1">
-                <div class="link-button">
-                    <a ng-click="step2()">Змінити</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="list-group-item">
-        <div class="row no-margin-bottom">
-            <h3 class="text-center">Шановний {{data.formData.params.bankIdfirstName.value}} {{data.formData.params.bankIdmiddleName.value}}!</h3>
-
-            <div class="text-center">Ваше звернення №{{state.data.id}} успішно зареєстровано</div>
-            <div class="text-center"
-                 ng-bind-html="getHtml(data.formData.params.response.value)"
-                 ng-if="data.formData.params.response.value"></div>
-            <div class="text-center"
-                 ng-if="!data.formData.params.response.value">Результати будуть спрямовані на Ваш
-                                                              {{data.formData.params.email.value}}
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<!-- end region -->
-
-
 <!-- city -->
 
-<!--div class="service-name">{{service.sName}}</div>
-<div class="operator-name">{{service.sSubjectOperatorName}}</div-->
+<div class="service-name">{{service.sName}}</div>
+<div class="operator-name">{{service.sSubjectOperatorName}}</div>
 
 <div class="list-group">
+
+    <div>FIXME placefix/built-in/bankid.submitted.html</div>
 
     <place></place>
     
+    <!-- FIXME make disabled dependent on logic like ng-class="{'disabled': placeControlIsComplete()}" -->
+
     <div class="list-group-item disabled">
         <div class="row no-margin-bottom">
             <div class="col-md-11">Крок 2. Ви увійшли як {{data.formData.params.bankIdfirstName.value}}
                                    {{data.formData.params.bankIdmiddleName.value}}
                                    {{data.formData.params.bankIdlastName.value}}
             </div>
-            <div class="col-md-1">
+            <div class="col-md-1" ng-if="authControlIsComplete()">
                 <div class="link-button">
                     <a ng-click="step2()">Змінити</a>
                 </div>
             </div>
         </div>
     </div>
+    
     <div class="list-group-item">
         <div class="row no-margin-bottom">
             <h3 class="text-center">Шановний {{data.formData.params.bankIdfirstName.value}}
@@ -129,5 +36,10 @@
         </div>
     </div>
 </div>
-
 <!-- end city -->
+
+<!-- region -->
+<!-- end region -->
+
+<!-- country -->
+<!-- end country  -->

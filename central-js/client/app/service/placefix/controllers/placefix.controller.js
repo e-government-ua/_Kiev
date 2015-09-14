@@ -134,7 +134,7 @@ angular.module('app').controller('PlaceFixController', function(
   $scope.step2 = function() {
     var aServiceData = ServiceService.oService.aServiceData;
 
-    // console.log('step 2:');
+    console.log('step 2:');
     self.isStep2 = true;
   };
 

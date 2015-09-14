@@ -28,6 +28,8 @@ angular.module('app')
 
     var self = this;
 
+    var rememberMyData = false;
+
     // Зберігаємо savedPlaceData у localStorage і потім відновлюємо
     // Формат даних:
     // {"region":{"sID_UA:"1200000000","nID":1,"sName":"Дніпропетровська","aCity":[{"sID_UA":"1220310100","nID":260,"sName":"Апостолове"},{"sID_UA":"1221010300","nID":369,"sName":"Верхівцеве"},{"sID_UA":"1221010100","nID":251,"sName":"Верхньодніпровськ"},{"sID_UA":"1210200000","nID":182,"sName":"Вільногірськ"},{"sID_UA":"1210400000","nID":28,"sName":"Дніпродзержинськ"},{"sID_UA":"1210100000","nID":1,"sName":"Дніпропетровськ"},{"sID_UA":"1210700000","nID":92,"sName":"Жовті Води"},{"sID_UA":"1220310300","nID":284,"sName":"Зеленодольськ"},{"sID_UA":"1211000000","nID":2,"sName":"Кривий Ріг"},{"sID_UA":"1211300000","nID":102,"sName":"Марганець"},{"sID_UA":"1211600000","nID":37,"sName":"Нікополь"},{"sID_UA":"1211900000","nID":65,"sName":"Новомосковськ"},{"sID_UA":"1212100000","nID":104,"sName":"Орджонікідзе"},{"sID_UA":"1212400000","nID":42,"sName":"Павлоград"},{"sID_UA":"1223210500","nID":373,"sName":"Перещепине"},{"sID_UA":"1212600000","nID":149,"sName":"Першотравенськ"},{"sID_UA":"1221411000","nID":234,"sName":"Підгородне"},{"sID_UA":"1224510100","nID":208,"sName":"Пятихатки"},{"sID_UA":"1213000000","nID":137,"sName":"Синельникове"},{"sID_UA":"1213500000","nID":148,"sName":"Тернівка"}],"color":"green","$$hashKey":"object:20"},"city":{"sID_UA":"1210100000","nID":1,"sName":"Дніпропетровськ","color":"green","$$hashKey":"object:87"}};
@@ -62,6 +64,7 @@ angular.module('app')
      */
     self.getPlaceData = function() {
       savedPlaceData = JSON.parse(localStorage.getItem('igSavedPlaceData')) || savedPlaceData;
+      // savedPlaceData = rememberMyData ? JSON.parse(localStorage.getItem('igSavedPlaceData')) || savedPlaceData : null;
       // console.log('get place data:', JSON.stringify(savedPlaceData));
       return savedPlaceData;
     };
@@ -182,13 +185,11 @@ angular.module('app')
       });
       console.log('getServiceAvailability, iD:', oService.nID, result);
       return result;
-    };    
+    };
 
     // TODO check it again and again
     self.getServiceDataForSelectedPlace = function() {
-      return self.serviceIsAvailableInCity() ? self.findServiceDataByCity() 
-             : self.serviceIsAvailableInRegion() ? self.findServiceDataByRegion() 
-             : self.getServiceDataForCountry();
+      return self.serviceIsAvailableInCity() ? self.findServiceDataByCity() : self.serviceIsAvailableInRegion() ? self.findServiceDataByRegion() : self.getServiceDataForCountry();
     };
   });
 
