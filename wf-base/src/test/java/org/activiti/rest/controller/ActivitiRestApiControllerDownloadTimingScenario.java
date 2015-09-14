@@ -9,6 +9,7 @@ import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.history.HistoricTaskInstanceQuery;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -65,6 +66,7 @@ public class ActivitiRestApiControllerDownloadTimingScenario {
     	Mockito.when(historyService.createHistoricTaskInstanceQuery()).thenReturn(historicTaskInstance);
     }
 
+    @Ignore
     @Test
     public void shouldSuccessfullyReturnFileResponse() throws Exception {
     	MvcResult result = mockMvc.perform(get("/rest/file/download_bp_timing").

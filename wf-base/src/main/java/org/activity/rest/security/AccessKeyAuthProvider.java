@@ -1,5 +1,6 @@
 package org.activity.rest.security;
 
+import java.net.URLDecoder;
 import org.apache.commons.lang3.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.authentication.*;
@@ -63,13 +64,15 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
         String accessData = accessDataDao.getAccessData(authentication.getName());
         log.info("accessData="+accessData);
         log.info("authentication.getCredentials()="+authentication.getCredentials());
+        log.info("authentication.getCredentials() decode ="+URLDecoder.decode((String)authentication.getCredentials()));
         
         if (accessData == null) {
             log.warn("accessData == null");
             throw new BadAccessKeyCredentialsException("Error custom authorization - key is absent");
         }
-        if (!accessData.equals(authentication.getCredentials())) {
-            log.warn("!accessData.equals(authentication.getCredentials()");
+        if (!accessData.equals(URLDecoder.decode((String)authentication.getCredentials()))) {
+            log.warn("!accessData.equals(authentication.getCredentials(): accessData=" + accessData + " authentication.getCredentials() decode="
+                    + URLDecoder.decode((String)authentication.getCredentials()) + "!!!!");
             throw new BadAccessKeyCredentialsException("Error custom authorization - key data is wrong");
         }
         log.info("persistentKey="+persistentKey);
