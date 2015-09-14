@@ -18,12 +18,16 @@ angular.module('dashboardJsApp').factory('reports', function tasks($http, $q) {
         var fileToSave = "zvit.dat";
         if (dataArray["sFileName"]) fileToSave = dataArray["sFileName"];
 
+if (exportParams.fromButton){
         $http.get(getExportUrl).then(function (data, fileName) {
           callback(data, fileToSave);
-        }, function () {
-          //if error 
-              
-        });
+        }, function (result) {
+          //if error        
+          console.log(result);     
+        });}
+        else {
+           callback(getExportUrl);
+        }
         
       }   
   return {
@@ -54,12 +58,16 @@ angular.module('dashboardJsApp').factory('reports', function tasks($http, $q) {
             var fileToSave = "zvit.dat";
             if (dataArray["sFileName"]) fileToSave = dataArray["sFileName"];  
             
-            $http.get(getExportUrl).then(function (data, fileName) {
-              callback(data, fileToSave);
-            }, function (){
-              //if error 
-              
-            });
+            if (exportParams.fromButton){
+        $http.get(getExportUrl).then(function (data, fileName) {
+          callback(data, fileToSave);
+        }, function (result) {
+          //if error        
+          console.log(result);     
+        });}
+        else {
+          callback(getExportUrl);
+        }
         }
         else defaultHandler(exportParams,callback);
             
@@ -79,13 +87,9 @@ angular.module('dashboardJsApp').factory('reports', function tasks($http, $q) {
       var statUrl = './api/reports/statistic?' +
         'sID_BP_Name=' + data.sID_BP + '&' +
         'sDateAt=' + data.sDateAt + '&' +
-        'sDateTo=' + data.sDateTo;
-        
-      var fileToSave = "statistics.dat";
+        'sDateTo=' + data.sDateTo;              
       
-        $http.get(statUrl).success(function (data, fileName) {
-              callback(data, fileToSave);
-            });
+      callback(statUrl);
     }
 
   }

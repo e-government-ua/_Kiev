@@ -10,11 +10,11 @@
         <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="tel" name="Контактний номер телефону" type="string" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="obect" name="Укажіть об’єкт, на який потрібно надати дозвіл" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="obect" name="Укажіть об’єкт, на який потрібно надати дозвіл" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="adres_2" name="Адреса об’єкта, на який видається дозвіл" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="pidpriemci" name="Ничже вказані поля треба заповнити юридичним особам чи особам-підприємцям" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="imya_ur" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД; тільки цифрові позначення" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД; тільки цифрові позначення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="edrpo_inn" name="Ідентифікаційний код згідно з ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця; тільки цифрові позначення" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Місцезнаходження юридичної особи/місце проживання фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
@@ -125,10 +125,10 @@
         <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="tel" name="Контактний номер телефону" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="obect" name="Укажіть об’єкт, на який потрібно надати дозвіл" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="obect" name="Укажіть об’єкт, на який потрібно надати дозвіл" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adres_2" name="Адреса об’єкта, на який видається дозвіл" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="imya_ur" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="edrpo_inn" name="Ідентифікаційний код згідно з ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Місцезнаходження юридичної особи/місце проживання фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
@@ -538,7 +538,7 @@
 Ви отримали схвалення щодо свого запиту - експлуатаційний дозвіл на експлуатацію машин, механізмів, устаткування підвищеної небезпеки.&lt;br /&gt;
 &lt;br /&gt;
 &lt;br /&gt;
-Ви або уповноважена Вами особа (при наявності довіреності) можете отримати дозвіл у центрі надання адміністративних послуг "Лівобережний" по четвергам з 10 до 16 години.
+Ви або уповноважена Вами особа (при наявності довіреності) можете отримати дозвіл у центрі надання адміністративних послуг "Лівобережний".
 &lt;br /&gt;
 &lt;br /&gt;
 При собі треба мати:&lt;br /&gt;
@@ -551,6 +551,10 @@
 &lt;br /&gt;
 Адреса центру надання адміністративних послуг "Лівобережний" - пр.ім. Газети "Правда" 42 (5 поверх)&lt;br /&gt;&lt;br /&gt;
 Телефон для довідок (056)742-84-08&lt;br /&gt;&lt;br /&gt;
+Графік роботи (крім святкових днів):&lt;br /&gt;
+пн. вт. ср. чт. 9-18&lt;br /&gt;
+пт. 9-16:45&lt;br /&gt;
+&lt;br /&gt;
 Копія рішення знаходиться у додатку до листа.&lt;br /&gt;
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
