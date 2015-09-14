@@ -95,6 +95,14 @@ exports.filedownload = function(req, res, options) {
 	}).pipe(res);
 };
 
+//downloads the file with the specified content type
+exports.typedfiledownload = function(req, res, options) {
+	var r = prepareRequest(req, options);
+	req.pipe(r).on('response', function(response) {		
+		response.headers['content-type'] = options.contentType;		
+	}).pipe(res);
+};
+
 exports.fileupload = function(req, res, options) {
 	uploadProxy.web(req, res, {
 		target: options.url,
