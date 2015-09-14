@@ -3,10 +3,10 @@
   <process id="kiev_dms_40" name="Київська ДМС - Реєстрація місця проживання/перебування особи" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="Sex" name="Ваша стать" type="enum" required="true">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -19,12 +19,7 @@
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="RegistrationAddress" name="Звідки Ви прибули; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="WhenCome" name="Коли прибули; Формат - ДД.ММ.PPPP" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="newAddressLabel" name="Ваша нова адреса реєстрації" type="label" default="Заповніть деталі вашої нової адреси"></activiti:formProperty>
-        <activiti:formProperty id="newCity" name="Населений пункт" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="newStreet" name="Вулиця " type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="newHouse" name="Будинок" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="newCorp" name="Корпус" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="newApartment" name="№ Квартири" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Києва, в якому ви зареєстровані" type="enum" required="true">
           <activiti:value id="desn" name="Деснянський"></activiti:value>
           <activiti:value id="solom" name="Солом'янський"></activiti:value>
@@ -431,11 +426,7 @@
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string"></activiti:formProperty>
         <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації громадянина" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="WhenCome" name="Коли прибув" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newCity" name="Населений пункт" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newStreet" name="Вулиця" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newHouse" name="Будинок" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newCorp" name="Корпус" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newApartment" name="№ Квартири" type="string"></activiti:formProperty>
+        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Києва, в якому зареєстрований громадянин" type="enum">
           <activiti:value id="desn" name="Деснянський"></activiti:value>
           <activiti:value id="solom" name="Солом'янський"></activiti:value>
@@ -479,12 +470,12 @@
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dms/zajava_r(kiev).html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_2" name="[pattern/print/dms/vidomist_4(kiev).html]" type="invisible" default="${sBody_2}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_3" name="[pattern/print/dms/kartka(kiev).html]" type="invisible" default="${sBody_3}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_4" name="[pattern/print/dms/talon_4(kiev).html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_5" name="[pattern/print/dms/zajava_zn(kiev).html]" type="invisible" default="${sBody_5}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_6" name="[pattern/print/dms/dodat12(kiev).html]" type="invisible" default="${sBody_6}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/zajava_r(kiev).html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_2" name="[pattern/print/vidomist_4(kiev).html]" type="invisible" default="${sBody_2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_3" name="[pattern/print/kartka(kiev).html]" type="invisible" default="${sBody_3}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_4" name="[pattern/print/talon_4(kiev).html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_5" name="[pattern/print/zajava_zn(kiev).html]" type="invisible" default="${sBody_5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_6" name="[pattern/print/dodat12(kiev).html]" type="invisible" default="${sBody_6}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
@@ -616,11 +607,7 @@
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="RegistrationAddress" name="Стара адреса реєстрації громадянина" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="WhenCome" name="Коли прибув" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newCity" name="Населений пункт " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newStreet" name="Вулиця " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newApartment" name="№ Квартири" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="RegistrationDocument" name="Підставою для реєстрації місця проживання громадянина є" type="enum" writable="false">
           <activiti:value id="order" name="Ордер"></activiti:value>
           <activiti:value id="ownDoc" name="Свідоцтво про право власності"></activiti:value>
@@ -1000,11 +987,7 @@
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="RegistrationAddress" name="Стара адреса реєстрації громадянина" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="WhenCome" name="Коли прибув" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newCity" name="Населений пункт " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newStreet" name="Вулиця " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newApartment" name="№ Квартири" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="RegistrationDocument" name="Підставою для реєстрації місця проживання громадянина є" type="enum" writable="false">
           <activiti:value id="order" name="Ордер"></activiti:value>
           <activiti:value id="ownDoc" name="Свідоцтво про право власності"></activiti:value>

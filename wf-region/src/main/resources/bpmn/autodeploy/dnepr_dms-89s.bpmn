@@ -3,10 +3,10 @@
   <process id="dnepr_dms-89s" name="Дніпропетровськ ДМС -Зняття з реєстрації місця проживання/перебування особи" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="PrevName" name="Попереднє прізвище, ім’я та по батькові;  За наявності" type="string" default=" "></activiti:formProperty>
@@ -182,7 +182,7 @@
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги &lt;br /&gt; АБО &lt;br /&gt; Додаткові деталі для закінчення процессу реєстрації" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="meetDay" name="Призначити день зустрічі" type="date"></activiti:formProperty>
+        <activiti:formProperty id="meetDay" name="Призначити день зустрічі" type="string"></activiti:formProperty>
         <activiti:formProperty id="meetTime" name="Призначити час зустрічі" type="string"></activiti:formProperty>
         <activiti:formProperty id="taxAddress" name="Додати необхідні реквізити для сплати Державного мита" type="textArea"></activiti:formProperty>
       </extensionElements>
@@ -411,7 +411,7 @@
     <userTask id="usertask2" name="Візит громадянина" activiti:candidateGroups="dnepr_dms-89s_${district}">
       <extensionElements>
         <activiti:formProperty id="info1" name="На цьому етапі:" type="label" default="Громадянин прихордить до Вас. Ви звіряєте дані з ним, при необхідності вносите зміни. Роздруковуєте прінтформи, підписуєте їх та проставляєте штамп у паспорт громадянина."></activiti:formProperty>
-        <activiti:formProperty id="meetDay" name="Призначений день зустрічі" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="meetDay" name="Призначений день зустрічі" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="meetTime" name="Призначений час зустрічі" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -448,8 +448,8 @@
           <activiti:value id="reestr" name="Громадянин знятий з реєстрації"></activiti:value>
           <activiti:value id="nejav" name="Повернути у необроблені"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="sBody_4" name="[pattern/print/dms/talon_4(dnepr).html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_5" name="[pattern/print/dms/zajava_zn(dnepr).html]" type="invisible" default="${sBody_5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_4" name="[pattern/print/talon_4(dnepr).html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_5" name="[pattern/print/zajava_zn(dnepr).html]" type="invisible" default="${sBody_5}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
         </extensionElements>

@@ -51,8 +51,8 @@
           <activiti:value id="shiroke" name="смт. Широке (вул. К.Маркса, 1А)|0434"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="subekt" name="Тип суб'єкта правових відносин" type="enum" required="true">
-          <activiti:value id="ur" name="Юридична особа"></activiti:value>
-          <activiti:value id="fiz" name="Фізична особа"></activiti:value>
+          <activiti:value id="ur" name="Юридична особа|1"></activiti:value>
+          <activiti:value id="fiz" name="Фізична особа|2"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="organ" name="Навіщо Вам потрібна ця довідка?; наприклад: за місцем вимоги, інше" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="nomer" name="Вкажіть код ЄДРПОУ або ІНН; тільки цифрові позначення" type="long" required="true"></activiti:formProperty>
@@ -201,8 +201,8 @@
           <activiti:value id="shiroke" name="смт. Широке (вул. К.Маркса, 1А)|0434"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="subekt" name="Тип суб'єкта правових відносин" type="enum" writable="false">
-          <activiti:value id="ur" name="Юридична особа"></activiti:value>
-          <activiti:value id="fiz" name="Фізична особа"></activiti:value>
+          <activiti:value id="ur" name="Юридична особа|1"></activiti:value>
+          <activiti:value id="fiz" name="Фізична особа|2"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="organ" name="Навіщо Вам потрібна ця довідка?; наприклад: за місцем вимоги, інше" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="nomer" name="Вкажіть код ЄДРПОУ або ІНН; тільки цифрові позначення" type="long" writable="false"></activiti:formProperty>
