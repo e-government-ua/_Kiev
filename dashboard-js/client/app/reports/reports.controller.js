@@ -6,33 +6,47 @@ angular.module('dashboardJsApp')
     $scope.export.from = '2015-06-01';
     $scope.export.to = '2015-08-01';
     $scope.export.sBP = 'dnepr_spravka_o_doxodax';
-
-    $scope.exportLink = function () {
-      reports.exportLink({ from: $scope.export.from, to: $scope.export.to, sBP: $scope.export.sBP}, 
-      function (result, fileToSave) {
-        var hiddenElement = document.createElement('a');
-        hiddenElement.href = 'data:text/csv;charset=windows-1251,' + encodeURI(result.data);
-        hiddenElement.target = '_blank';
-        hiddenElement.download = fileToSave;
-        hiddenElement.click();
-      });
-    };
-
+    $scope.exportURL = "/reports";
+    
     $scope.statistic = {};
     $scope.statistic.from = '2015-06-01';
     $scope.statistic.to = '2015-08-01';
     $scope.statistic.sBP = 'dnepr_spravka_o_doxodax';
+    $scope.statisticUrl = "/reports";
+    
+     $scope.initExportUrl = function () {
+        reports.exportLink({ from: $scope.export.from, to: $scope.export.to, sBP: $scope.export.sBP, fromButton: false },
+            function (result, fileToSave) {
+                $scope.exportURL = result;
+            });       
+    }
+    
+     $scope.getExportLink = function () {
+          return $scope.exportURL;          
+      }
+      
+       
+      $scope.initStatisticUrl = function () {
+        reports.statisticLink({ from: $scope.statistic.from, to: $scope.statistic.to, sBP: $scope.statistic.sBP, fromButton: false },
+            function (result, fileToSave) {
+                $scope.statisticUrl = result;
+            });
+    }
+    
+    $scope.getStatisticLink = function () {
+          return $scope.statisticUrl;          
+      }
 
     processes.getUserProcesses().then(function (data) {
       $scope.processesList = data;
       if ($scope.processesList != '' && $scope.processesList.length > 0) {
         $scope.statistic.sBP = $scope.processesList[0].sID;
         $scope.export.sBP = $scope.processesList[0].sID;
+        $scope.initExportUrl();
+        $scope.initStatisticUrl();
       }
     }, function () {
-      $scope.processesList = [{ sID: "pomylka", sName: "Помилка при завантаженні" }];
-      $scope.statistic.sBP = $scope.processesList[0].sID;
-      $scope.export.sBP = $scope.processesList[0].sID;
+      $scope.processesList = "error";   
     });
     
     $scope.processesLoaded = function() {
@@ -41,15 +55,10 @@ angular.module('dashboardJsApp')
     return false;
     }
     
-    $scope.statisticLink = function () {
-      reports.statisticLink({ from: $scope.statistic.from, to:  $scope.statistic.to, sBP: $scope.statistic.sBP}, 
-      function (result, fileToSave) {
-        var hiddenElement = document.createElement('a');
-        hiddenElement.href = 'data:text/csv;charset=UTF-8,' + encodeURI(result);
-        hiddenElement.target = '_blank';
-        hiddenElement.download = fileToSave;
-        hiddenElement.click();
-      });
-    };
-
+     $scope.processesLoadError = function() {
+      if ($scope.processesList && $scope.processesList == "error")
+      return true;
+    return false;
+    }
+   
   });
