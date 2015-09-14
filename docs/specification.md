@@ -1514,13 +1514,13 @@ https://test.igov.org.ua/wf-central/service/services/setServicesTree
 * bDetail - Необязательный параметр. Необходим ли расширенный вариант (с полями задач). По умолчанию true.
 
 Метод возвращает .csv файл со информацией о завершенных задачах в указанном бизнес процессе за период.
-Формат выходного файла
-Assignee - кто выполнял задачу
-Start Time - Дата и время начала
-Duration in millis - Длительность выполнения задачи в миллисекундах
-Duration in hours - Длительность выполнения задачи в часах
-Name of Task - Название задачи
-FormProperty (поля из task, если bDetail=true)
+Формат выходного файла<br/>
+Assignee - кто выполнял задачу<br/>
+Start Time - Дата и время начала<br/>
+Duration in millis - Длительность выполнения задачи в миллисекундах<br/>
+Duration in hours - Длительность выполнения задачи в часах<br/>
+Name of Task - Название задачи<br/>
+Поля из FormProperty (если bDetail=true)<br/>
 
 Пример:
 https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?sID_BP_Name=lviv_mvk-1&sDateAt=2015-06-28&sDateTo=2015-07-01
