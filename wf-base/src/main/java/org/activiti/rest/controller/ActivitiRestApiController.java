@@ -390,7 +390,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
      * @return
      * @throws java.io.IOException
      */
-    @RequestMapping(value = "/file/download_bp_timing_old", method = RequestMethod.GET)
+    @RequestMapping(value = "/file/download_bp_timing", method = RequestMethod.GET)
     @Transactional
     public void getTimingForBusinessProcess(@RequestParam(value = "sID_BP_Name") String sID_BP_Name,
             @RequestParam(value = "sDateAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateAt,
@@ -466,7 +466,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
      * @return
      * @throws java.io.IOException
      */
-    @RequestMapping(value = "/file/download_bp_timing", method = RequestMethod.GET)
+    @RequestMapping(value = "/file/download_bp_timing_new", method = RequestMethod.GET)
     @Transactional
     public void getTimingForBusinessProcessNew(@RequestParam(value = "sID_BP_Name") String sID_BP_Name,
             @RequestParam(value = "sDateAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateAt,
@@ -515,18 +515,19 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         headers.addAll(Arrays.asList(headersMainField));
         log.info("headers: " + headers);
 
+        for (HistoricTaskInstance currTask : foundResults) {
+            FormData formData = formService.getTaskFormData(currTask.getId());
+            List<String> propertyIds = AbstractModelTask.getListCastomFieldName(formData);
+            headersExtra.addAll(propertyIds);
+        }
+        headers.addAll(headersExtra);
+        log.info("headers: " + headers);
+        csvWriter.writeNext((String[]) headers.toArray());
+
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
         if (foundResults != null && foundResults.size() > 0) {
             log.info(String.format("Found {0} completed tasks for business process {1} for date period {2} - {3}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt),
                     sdfDate.format(dateTo)));
-            for (HistoricTaskInstance currTask : foundResults) {
-                FormData formData = formService.getTaskFormData(currTask.getId());
-                List<String> propertyIds = AbstractModelTask.getListCastomFieldName(formData);
-                headersExtra.addAll(propertyIds);
-            }
-            headers.addAll(headersExtra);
-            log.info("headers: " + headers);
-            csvWriter.writeNext((String[]) headers.toArray());
 
             for (HistoricTaskInstance currTask : foundResults) {
                 List<String> line = new ArrayList<String>();
