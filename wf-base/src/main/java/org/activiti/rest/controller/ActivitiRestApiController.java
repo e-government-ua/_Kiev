@@ -546,7 +546,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                                 && ((HistoricFormPropertyEntity) historicDetail).getPropertyId().equalsIgnoreCase(headerExtra)) {
                             propertyValue = ((HistoricFormPropertyEntity) historicDetail).getPropertyValue();
                             log.info("headerExtra: " + headerExtra + " propertyValue: " + propertyValue);
-                            return;
+                            break;
                         }
                     }
                     line.add(propertyValue);
