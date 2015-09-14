@@ -22,13 +22,13 @@
           <activiti:value id="attr2_bank" name="на рахунок у банку"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="info_1" name="Наступні поля треба заповнити згідно обраного Вами способу перерахування коштів" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="long" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bank_name" name="Назва банку" type="string" default="    "></activiti:formProperty>
-        <activiti:formProperty id="bank_mfo" name="МФО банку" type="long" default="   "></activiti:formProperty>
-        <activiti:formProperty id="bank_okpo" name="ЄДРПОУ банку" type="long" default="   "></activiti:formProperty>
-        <activiti:formProperty id="bank_account" name="Номер рахунку" type="long" default="    "></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default="   "></activiti:formProperty>
-        <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default="  "></activiti:formProperty>
+        <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="bank_name" name="Назва банку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="bank_mfo" name="МФО банку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="bank_okpo" name="ЄДРПОУ банку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="bank_account" name="Номер рахунку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
+        <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default=" "></activiti:formProperty>
         <activiti:formProperty id="nID_Subject" name="ИД-номер субъекта" type="invisible" default="0"></activiti:formProperty>
         <activiti:formProperty id="sID_Merchant" name="ИД-строковой мерчанта (магазина)" type="invisible" default="i75116857714"></activiti:formProperty>
         <activiti:formProperty id="sSum" name="сумма платежа" type="invisible" default="17.15"></activiti:formProperty>
@@ -146,11 +146,11 @@
           <activiti:value id="attr2_bank" name="на рахунок у банку"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="info_1" name="Наступні поля треба заповнити згідно обраного Вами способу перерахування коштів" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bank_name" name="Назва банку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bank_mfo" name="МФО банку" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bank_okpo" name="ЄДРПОУ банку" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bank_account" name="Номер рахунку" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bank_mfo" name="МФО банку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bank_okpo" name="ЄДРПОУ банку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bank_account" name="Номер рахунку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sIDPayment" name="ID платежа за послугу" type="string" default="${sID_Payment}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="Перевірка документів" type="enum" required="true">
           <activiti:value id="accept" name="документи пройшли перевірку"></activiti:value>
@@ -160,7 +160,7 @@
         <activiti:formProperty id="code" name="Штрих-код відправленого листа; цей штрих-код буде надісланий громадянину на e-mail" type="string"></activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, підставу" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="opis" name="Завантажте опис прийнятих документів " type="file"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_post_98_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_post_108_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
