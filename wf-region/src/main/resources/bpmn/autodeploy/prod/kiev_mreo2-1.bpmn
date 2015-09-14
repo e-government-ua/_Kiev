@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="kiev_mreo2_1" name="Киев - Реєстрація авто з пробігом в МРЕВ" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -21,7 +21,7 @@
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-       <activiti:formProperty id="markers" name="markersForValidations" type="markers" default="{}"></activiti:formProperty>
+        <activiti:formProperty id="markers" name="markersForValidations" type="markers" default="{}"></activiti:formProperty>
         <activiti:formProperty id="date_of_visit" name="дата візиту" type="invisible"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -33,13 +33,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Реєстрація авто.</activiti:string>
+          <activiti:string><![CDATA[Реєстрація авто.]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -169,13 +169,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Реєстрація авто</activiti:string>
+          <activiti:string><![CDATA[Реєстрація авто]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -390,13 +390,13 @@
     <serviceTask id="servicetask2" name="Повідомлення громадянина сплату послуги" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Реєстрація авто: рахунок на оплату та дата/час візиту</activiti:string>
+          <activiti:string><![CDATA[Реєстрація авто: рахунок на оплату та дата/час візиту]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -496,13 +496,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Реєстрація авто: рахунок на оплату та дата/час візиту</activiti:string>
+          <activiti:string><![CDATA[Реєстрація авто: рахунок на оплату та дата/час візиту]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt; 
@@ -597,13 +597,13 @@
     <serviceTask id="mailtask4" name="Повідомлення співробітника держоргану" activiti:type="mail">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Реєстрація авто. Нове  звернення.</activiti:string>
+          <activiti:string><![CDATA[Реєстрація авто. Нове  звернення.(вул. Велика кільцева дорога. 22-А)]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -685,10 +685,10 @@
 &lt;/html&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string>Kreed21@bigmir.net,ceed_2009@ukr.net</activiti:string>
+          <activiti:string><![CDATA[Kreed21@bigmir.net,ceed_2009@ukr.net]]></activiti:string>
         </activiti:field>
         <activiti:field name="bcc">
-          <activiti:string>pavel.kurbatskij@privatbank.ua</activiti:string>
+          <activiti:string><![CDATA[pavel.kurbatskij@privatbank.ua,Kravchuk_orer@mail.ru]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>

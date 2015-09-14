@@ -32,6 +32,9 @@ public class AuthenticationTokenSelector {
 
 	public AuthenticationTokenSelector(ServletRequest request) {
 		this.request = request;
+                if(request instanceof HttpServletRequest && request != null){
+                    LOGGER.info("[AuthenticationTokenSelector] URL: " + ((HttpServletRequest)request).getRequestURL());
+                }
 	}
 
 	public final AccessKeyAuthenticationToken createToken() {

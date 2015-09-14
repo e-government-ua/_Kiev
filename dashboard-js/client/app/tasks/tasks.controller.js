@@ -4,6 +4,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   $scope.tasks = null;
   $scope.selectedTasks = {};
   $scope.sSelectedTask = "";
+  $scope.taskFormLoaded = false;
   $scope.$storage = $localStorage.$default({
     menuType: tasks.filterTypes.selfAssigned
   });
@@ -24,18 +25,28 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     type: tasks.filterTypes.finished,
     count: 0
   }];
+  $scope.selectedSortOrder = {
+    selected: "datetime_asc"
+  };
 
   $scope.predicate = 'createTime';
   $scope.reverse = false;
-  $scope.sort_order = 'order_increase';
-  $scope.order = function(predicate, reverse) {
-    $scope.reverse = reverse;
-    $scope.predicate = predicate;
-  };
-  $scope.sortOrder = function() {
-    switch($scope.sort_order) {
-      case 'order_increase': $scope.reverse = false; break;
-      case 'order_decrease': $scope.reverse = true; break;
+
+  $scope.sortOrderOptions = [{ "value": 'datetime_asc', "text": "Від найдавніших" },
+    { "value": 'datetime_desc', "text": "Від найновіших" }];
+
+  $scope.selectedSortOrderChanged = function () {
+    switch ($scope.selectedSortOrder.selected) {
+      case 'datetime_asc':
+        if ($scope.$storage.menuType == tasks.filterTypes.finished) $scope.predicate = 'startTime';
+        else $scope.predicate = 'createTime';
+        $scope.reverse = false;
+        break;
+      case 'datetime_desc':
+        if ($scope.$storage.menuType == tasks.filterTypes.finished) $scope.predicate = 'startTime';
+        else $scope.predicate = 'createTime';
+        $scope.reverse = true;
+        break;
     }
   }
 
@@ -113,7 +124,11 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     $scope.attachments = null;
     $scope.error = null;
     $scope.taskAttachments = null;
+    $scope.taskFormLoaded = false;
 
+    if (menuType == tasks.filterTypes.finished)
+      $scope.predicate = 'startTime';    
+    
     var data = {};
     if ($scope.$storage.menuType == 'tickets'){
       data.bEmployeeUnassigned = $scope.ticketsFilter.bEmployeeUnassigned;
@@ -137,6 +152,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.selectTask = function (task) {
+    $scope.taskFormLoaded = false;
     $scope.sSelectedTask = $scope.$storage.menuType;
     $scope.selectedTask = task;
     $scope.selectedTasks[$scope.$storage.menuType] = task;
@@ -153,6 +169,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           result = JSON.parse(result);
           $scope.taskForm = result.data[0].variables;
           $scope.taskForm = addIndexForFileItems($scope.taskForm);
+          $scope.taskFormLoaded = true;
         })
         .catch(defaultErrorHandler);
     }
@@ -163,6 +180,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           result = JSON.parse(result);
           $scope.taskForm = result.formProperties;
           $scope.taskForm = addIndexForFileItems($scope.taskForm);
+          $scope.taskFormLoaded = true;
         })
         .catch(defaultErrorHandler);
     }
@@ -180,6 +198,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
         $scope.taskAttachments = result;
       })
       .catch(defaultErrorHandler);
+      
+      
+     
   };
 
   $scope.submitTask = function () {
@@ -214,28 +235,32 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
         Modal.inform.error()(errorMessage);
         return;
       }
-
+      
+      $scope.taskForm.isInProcess = true;
+        
       tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm)
         .then(function (result) {
-          Modal.inform.success(function (event) {
-            $scope.selectedTasks[$scope.$storage.menuType] = null;
-            loadTaskCounters();
-            $scope.applyTaskFilter($scope.$storage.menuType);
-          })('Форму відправлено' + (result && result.length > 0 ? (': ' + result) : ''));
+          Modal.inform.success(function (result) {
+            $scope.lightweightRefreshAfterSubmit();
+          })("Форму відправлено." + (result && result.length > 0 ? (': ' + result) : ''));
+
         })
-        .catch(defaultErrorHandler);
+        .catch(defaultErrorHandler);        
     }
   };
-
+  
   $scope.assignTask = function () {
-    tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id).then(function (result) {
-      Modal.assignTask(function (event) {
-        $scope.selectedTasks[$scope.$storage.menuType] = null;
-        loadTaskCounters();
-        $scope.applyTaskFilter($scope.menus[1].type, $scope.selectedTask.id);
-      }, 'Задача у вас в роботі');
+    $scope.taskForm.isInProcess = true;    
+       
+    tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id)
+    .then(function (result) {      
+      Modal.assignTask(function (event) {        
+        $scope.applyTaskFilter($scope.menus[1].type, $scope.selectedTask.id);        
+      }, 'Задача у вас в роботі', $scope.lightweightRefreshAfterSubmit);
+
     })
-      .catch(defaultErrorHandler());
+      .catch(defaultErrorHandler());  
+             
   };
 
   $scope.upload = function (files, propertyID) {
@@ -252,6 +277,22 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     });
   };
 
+$scope.lightweightRefreshAfterSubmit = function () {
+  //lightweight refresh only deletes the submitted task from the array of current type of tasks
+  //so we don't need to refresh the whole page   
+      $scope.selectedTasks[$scope.$storage.menuType] = null;
+      loadTaskCounters();
+      $scope.tasks = $.grep($scope.tasks, function (e) {
+        return e.id != $scope.selectedTask.id;
+      });
+      $scope.taskForm.isInProcess = false;
+      $scope.taskForm.isSuccessfullySubmitted = true;
+      //$scope.selectTask($scope.tasks[0]);// - if another task should be selected
+      //The next line is commented out to prevent full refresh of the page
+      // $scope.applyTaskFilter($scope.$storage.menuType);
+    
+  }
+  
   $scope.sDateShort = function (sDateLong) {
     if (sDateLong !== null) {
       var o = new Date(sDateLong); //'2015-04-27T13:19:44.098+03:00'
@@ -373,6 +414,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   $scope.init = function () {
     loadTaskCounters();
     loadSelfAssignedTasks();
+    $scope.taskFormLoaded = false;   
   };
 
   $scope.ticketsFilter = {
@@ -493,6 +535,10 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           msg = data.code + ' ' + data.message;
       }
     } catch (e) { console.log(e); }
+    if ($scope.taskForm){
+    $scope.taskForm.isSuccessfullySubmitted = false;
+    $scope.taskForm.isInProcess = false;
+    }
     Modal.inform.error()(msg);
   }
   
@@ -515,6 +561,23 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
     $scope.isTaskSubmitted = function (item) {
     return $scope.taskForm.isSubmitted;
+  };
+  
+      $scope.isTaskSuccessfullySubmitted = function () {
+        if ($scope.selectedTask && $scope.taskForm) {
+          if ($scope.taskForm.isSuccessfullySubmitted != undefined && $scope.taskForm.isSuccessfullySubmitted)
+          return true;
+        }
+        return false;
+  };
+  
+    
+      $scope.isTaskInProcess = function () {
+        if ($scope.selectedTask && $scope.taskForm) {
+          if ($scope.taskForm.isInProcess != undefined && $scope.taskForm.isInProcess)
+          return true;
+        }
+        return false;
   };
   
 });
