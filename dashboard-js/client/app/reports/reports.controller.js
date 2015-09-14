@@ -11,7 +11,7 @@ angular.module('dashboardJsApp')
       reports.exportLink({ from: $scope.export.from, to: $scope.export.to, sBP: $scope.export.sBP}, 
       function (result, fileToSave) {
         var hiddenElement = document.createElement('a');
-        hiddenElement.href = 'data:text/csv;charset=windows-1251,' + encodeURI(result);
+        hiddenElement.href = 'data:text/csv;charset=windows-1251,' + encodeURI(result.data);
         hiddenElement.target = '_blank';
         hiddenElement.download = fileToSave;
         hiddenElement.click();
@@ -25,10 +25,14 @@ angular.module('dashboardJsApp')
 
     processes.getUserProcesses().then(function (data) {
       $scope.processesList = data;
-      if ($scope.processesList.length > 0) {
+      if ($scope.processesList != '' && $scope.processesList.length > 0) {
         $scope.statistic.sBP = $scope.processesList[0].sID;
         $scope.export.sBP = $scope.processesList[0].sID;
       }
+    }, function () {
+      $scope.processesList = [{ sID: "pomylka", sName: "Помилка при завантаженні" }];
+      $scope.statistic.sBP = $scope.processesList[0].sID;
+      $scope.export.sBP = $scope.processesList[0].sID;
     });
     
     $scope.processesLoaded = function() {
