@@ -1,41 +1,5 @@
 angular.module('dashboardJsApp').factory('reports', function tasks($http, $q) {
-      
-  return {
-      
-    exportLink: function (exportParams,callback) {
-      
-      var dataArray = {'sID_BP': exportParams.sBP,'sDateAt': exportParams.from,'sDateTo': exportParams.to};      
-      
-      var getReportParametersUrl = '/api/reports/template?sPathFile=/export/' + exportParams.sBP + '.properties';
-      $http.get(getReportParametersUrl).then(function(result){      
-
-        _.each(result.data.split("\n"), function (line) {
-            var sr = line.split("=");
-            if (!!sr && sr.length >= 2) {
-              var propKey = sr[0].trim();
-              var propValue = sr[1].trim();
-              if (!dataArray[propKey]) {
-                dataArray[propKey] = propValue;
-              }
-              
-            }
-        });
-            var getExportUrl = './api/reports/export?';
-            for(var key in dataArray) {
-              getExportUrl = getExportUrl + key+'='+dataArray[key]+'&';              
-            }
-            var fileToSave = "zvit.dat";
-            if (dataArray["sFileName"]) fileToSave = dataArray["sFileName"];  
-            
-            $http.get(getExportUrl).then(function (data, fileName) {
-              callback(data, fileToSave);
-            }, function (){
-              //if error 
-              
-            });
-            
-      }, function () {
-        //if error 403 when loading properties
+      function defaultHandler(exportParams,callback){
         var dataArray = {
           'sID_BP': exportParams.sBP, //'dnepr_spravka_o_doxodax',
           'sID_State_BP': 'usertask1',
@@ -60,6 +24,48 @@ angular.module('dashboardJsApp').factory('reports', function tasks($http, $q) {
           //if error 
               
         });
+        
+      }   
+  return {
+
+    exportLink: function (exportParams,callback) {
+      
+      var dataArray = {'sID_BP': exportParams.sBP,'sDateAt': exportParams.from,'sDateTo': exportParams.to};      
+      
+      var getReportParametersUrl = '/api/reports/template?sPathFile=/export/' + exportParams.sBP + '.properties';
+      $http.get(getReportParametersUrl).then(function(result){    
+          
+        if (result.data != ''){
+        _.each(result.data.split("\n"), function (line) {
+            var sr = line.split("=");
+            if (!!sr && sr.length >= 2) {
+              var propKey = sr[0].trim();
+              var propValue = sr[1].trim();
+              if (!dataArray[propKey]) {
+                dataArray[propKey] = propValue;
+              }
+              
+            }
+        });
+            var getExportUrl = './api/reports/export?';
+            for(var key in dataArray) {
+              getExportUrl = getExportUrl + key+'='+dataArray[key]+'&';              
+            }
+            var fileToSave = "zvit.dat";
+            if (dataArray["sFileName"]) fileToSave = dataArray["sFileName"];  
+            
+            $http.get(getExportUrl).then(function (data, fileName) {
+              callback(data, fileToSave);
+            }, function (){
+              //if error 
+              
+            });
+        }
+        else defaultHandler(exportParams,callback);
+            
+      }, function () {
+        //if error 403 when loading properties
+        defaultHandler(exportParams,callback);
       })      
 
     },
