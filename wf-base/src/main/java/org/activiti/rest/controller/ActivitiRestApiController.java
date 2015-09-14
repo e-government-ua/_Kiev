@@ -485,17 +485,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     Process.class);
         }
 
-        /*HistoricProcessInstance processInstance = historyService.createHistoricProcessInstanceQuery()
-         .processDefinitionKey(sID_BP_Name).singleResult();
-
-         BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
-         for (FlowElement flowElement : bpmnModel.getMainProcess().getFlowElements()) {
-         if (flowElement instanceof UserTask) {
-         UserTask userTask = (UserTask) flowElement.;
-
-         }
-         }*/
-
         List<HistoricTaskInstance> foundResults = historyService.createHistoricTaskInstanceQuery()
                 .taskCompletedAfter(dateAt)
                 .taskCompletedBefore(dateTo)
@@ -510,10 +499,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         httpResponse.setContentType("text/csv;charset=UTF-8");
         httpResponse.setHeader("Content-disposition", "attachment; filename=" + fileName);
-        
-        //HistoricProcessInstance processInstance = historyService.createHistoricProcessInstanceQuery()
-        // .processDefinitionKey(sID_BP_Name).singleResult();
-        //log.info("processInstance: " + processInstance != null ? processInstance.getId() : "-");
         
         CSVWriter csvWriter = new CSVWriter(httpResponse.getWriter());
 
@@ -530,9 +515,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     headersExtra.add(formEntity.getPropertyId());
                 }
             }
-            //FormData formData = formService.getTaskFormData(currTask.getId());
-            //List<String> propertyIds = AbstractModelTask.getListCastomFieldName(formData);
-            //headersExtra.addAll(propertyIds);
         }
         headers.addAll(headersExtra);
         log.info("headers: " + headers);
@@ -569,11 +551,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     }
                     line.add(propertyValue);
                 }
-                /*FormData formData = formService.getTaskFormData(currTask.getId());
-                 for (String headerExtra : headersExtra) {
-                 line.add(AbstractModelTask.getCastomFieldValue(formData, headerExtra));
-                 }*/
-
                 log.info("line: " + line);
                 csvWriter.writeNext(line.toArray(new String[line.size()]));
             }
