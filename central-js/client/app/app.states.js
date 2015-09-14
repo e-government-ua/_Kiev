@@ -6,7 +6,7 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
       abstract: true,
       url: 'service/{id:int}',
       resolve: {
-        // FIXME: Copy-pasting is bad, bad, bad
+        // TODO make sure it works stable
         service: function($stateParams, ServiceService) {
           console.log('App.states: calling get service, $stateParams.id =', $stateParams.id);
           return ServiceService.get($stateParams.id);
@@ -78,39 +78,6 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
           templateUrl: 'app/service/discussion.html',
           controller: 'ServiceDiscussionController'
         }
-      }
-    })
-    // .state('index.service.general.placefix.built-in', { // FIXME move to placefix // city
-    //   url: '/built-in',
-    //   views: {
-    //     'city-content': {
-    //       templateUrl: 'app/service/placefix/built-in/index.html',
-    //       controller: 'ServiceBuiltInController'
-    //         // controller: 'PlaceFixController'
-    //     }
-    //   }
-    // })
-    .state('index.service.general.placefix.built-in', { // FIXME-5 // region
-      url: '/built-in',
-      views: {
-        // 'content@index.service.general.placefix': { // country
-        //   templateUrl: 'app/service/placefix/built-in/index.html',
-        //   controller: 'ServiceBuiltInController'
-        // },
-        'content@index.service.general.placefix': { // region
-          // FIXME: REPLACE with Place Fix Controller
-          // templateUrl: 'app/service/placefix/built-in/index.html',
-          templateUrl: 'app/service/placefix/built-in/index.html',
-          // controller: 'ServiceBuiltInController'
-          controller: 'PlaceFixController'
-        }
-        // ,
-        // 'city-content': {
-        //   templateUrl: 'app/service/placefix/built-in/index.html',
-        //   // templateUrl: 'app/service/placefix/placefix.content.html',
-        //   controller: 'ServiceBuiltInController'
-        //     // controller: 'PlaceFixController'
-        // }
       }
     })
     .state('index.service.statistics', {

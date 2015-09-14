@@ -1,35 +1,21 @@
-<!-- city -->
-
-<!-- <div class="service-name">{{service.sName}}</div>
-<div class="operator-name">{{service.sSubjectOperatorName}}</div>
- -->
- 
-<div>FIXME placefix/content.html</div>
-
 <div class="list-group">
 
-    <!-- sample place control content was derived from the service/city/content.html and now can be seen inside the placeControl.html -->
+    <div>FIXME placefix/content.html</div>
+
+    <!-- sample place control content was derived from the service/city/content.html and now is place.html -->
     <place></place>
     
     <!-- step 2 -->
     <!-- used placeControlIsComplete() instead of ngIfStep2 -->
-    <div ng-if="placeControlIsComplete()">
-        <div class="list-group-item" ui-view="status"></div>
+    <div class="list-group-item" ui-view="status" ng-if="placeControlIsComplete()"> </div>
 
-        <!-- STATE: index.service.general.placefix.built-in -->
-        <service-auth-block ng-if="authControlIsNeeded()"
-                n-step="2" 
-                redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
-        </service-auth-block>
+    <!-- STATE: index.service.general.placefix.built-in -->
+    <service-auth-block 
+            ng-if="authControlIsNeeded()"
+            n-step="2" 
+            redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
+    </service-auth-block>
 
-        <!-- 
-        ERROR:
-        http://localhost:9000/://:/auth/bankID?link=://:/service/159/general/city/built-in/region/1/city/1/
-        instead of
-        https://localhost:9000/auth/bankID?link=https://localhost:9000:443/service/159/general/city/built-in/region/1/city/1/
-        -->
-        
-    </div>
 </div>
 
-<!-- end region -->
+<!-- region, country - merged -->

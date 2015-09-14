@@ -5,25 +5,12 @@
 
 angular.module('app').config(function($stateProvider) {
   $stateProvider
-    .state('index.service.general.placefix.built-in.region', {
-      url: '/{region:int}/region',
-      data: {
-        region: null,
-        city: null
-      },
-      resolve: {
-        region: function($state, $stateParams, PlacesService) {
-          return PlacesService.getRegion($stateParams.region).then(function(response) {
-            var currentState = $state.get('index.service.general.placefix.built-in.region');
-            currentState.data.region = response.data;
-            return response.data;
-          });
-        }
-      },
+    .state('index.service.general.placefix.built-in', { // FIXME-5 // region
+      url: '/built-in',
       views: {
-        'content@index.service.general.placefix': {
-          // FIXME: REPLACE with Place Controller
-          templateUrl: 'app/service/placefix/built-in/index.html',
+        'content@index.service.general.placefix': { // region
+          // FIXME: REPLACE with Place Fix Controller
+          templateUrl: 'app/service/placefix/content.html',
           // controller: 'ServiceBuiltInController'
           controller: 'PlaceFixController'
         }
@@ -31,6 +18,7 @@ angular.module('app').config(function($stateProvider) {
     })
     .state('index.service.general.placefix.built-in.bankid', { // city - moved from app.states
       // url: '/built-in/?code', // country
+      // url: '/{region:int}/region', // region from .state('index.service.general.placefix.built-in.region', {
       url: '/built-in/region/{region:int}/city/{city:int}/?code',
       parent: 'index.service.general.placefix',
       data: {
@@ -109,19 +97,10 @@ angular.module('app').config(function($stateProvider) {
           };
         },
         ActivitiForm: function(ActivitiService, oServiceData, processDefinitionId) {
-            return ActivitiService.getForm(oServiceData, processDefinitionId);
-          }
-          //,
-          // service: function($stateParams, ServiceService) {
-          //   return ServiceService.get($stateParams.id);
-          // }
+          return ActivitiService.getForm(oServiceData, processDefinitionId);
+        }
       },
       views: {
-        // 'city-content': {
-        //   templateUrl: 'app/service/placefix/built-in/bankid.html',
-        //   //controller: 'PlaceFixController' // 'BuiltinCityController'
-        //   controller: 'ServiceBuiltInBankIDController' // FIXME-0
-        // },
         'content@index.service.general.placefix': {
           templateUrl: 'app/service/placefix/built-in/bankid.html',
           controller: 'ServiceBuiltInBankIDController'
@@ -140,11 +119,12 @@ angular.module('app').config(function($stateProvider) {
         };
       },
       views: {
-        // FIXME resolve teh city-content
+        // FIXME resolve the city-content
         // 'city-content@index.service.general.placefix': {
         //   templateUrl: 'app/service/placefix/built-in/bankid.submitted.html',
         //   controller: 'PlaceFixController' // function moved to Places' stateStartupFunction
-        // }, // regions
+        // }, 
+        // regions
         'content@index.service.general.placefix': {
           templateUrl: 'app/service/placefix/built-in/bankid.submitted.html',
           controller: 'PlaceFixController' // function moved to Places' stateStartupFunction
@@ -152,7 +132,6 @@ angular.module('app').config(function($stateProvider) {
           // FIXME impl-t this functionality in PlaceFixController:
           // function($state, $scope, BankIDAccount) {
           //   $scope.state = $state.get('index.service.general.placefix.built-in.bankid.submitted');
-
           //   $scope.bankIDAccount = BankIDAccount;
           // }
         }
@@ -161,97 +140,5 @@ angular.module('app').config(function($stateProvider) {
 });
 
 // country
-
-angular.module('app').config(function($stateProvider) {
-  // $stateProvider.state('index.service.general.placefix.built-in', {
-  //     url: '/built-in',
-  //     views: {
-  //       'content@index.service.general.placefix': {
-  //         templateUrl: 'app/service/placefix/built-in/index.html',
-  //         controller: 'ServiceBuiltInController'
-  //       }
-  //     }
-  //   })
-    // .state('index.service.general.placefix.built-in.bankid', {
-    //   url: '/built-in/?code',
-    //   parent: 'index.service.general.placefix',
-    //   data: {
-    //     region: null,
-    //     city: null
-    //   },
-    //   resolve: {
-    //     oService: function($stateParams, service) {
-    //       return service;
-    //     },
-    //     oServiceData: function($stateParams, service) {
-    //       var aServiceData = service.aServiceData;
-    //       return aServiceData[0];
-    //     },
-    //     BankIDLogin: function($q, $state, $location, $stateParams, BankIDService) {
-    //       return BankIDService.isLoggedIn().then(function() {
-    //         return {
-    //           loggedIn: true
-    //         };
-    //       }).catch(function() {
-    //         return $q.reject(null);
-    //       });
-    //     },
-    //     BankIDAccount: function(BankIDService, BankIDLogin) {
-    //       return BankIDService.account();
-    //     },
-    //     processDefinitions: function(ServiceService, oServiceData) {
-    //       return ServiceService.getProcessDefinitions(oServiceData, true);
-    //     },
-    //     processDefinitionId: function(oServiceData, processDefinitions) {
-    //       var sProcessDefinitionKeyWithVersion = oServiceData.oData.oParams.processDefinitionId;
-    //       var sProcessDefinitionKey = sProcessDefinitionKeyWithVersion.split(':')[0];
-
-    //       var sProcessDefinitionName = 'тест';
-    //       angular.forEach(processDefinitions.data, function(value, key) {
-    //         if (value.key === sProcessDefinitionKey) {
-    //           sProcessDefinitionKeyWithVersion = value.id;
-    //           sProcessDefinitionName = '(' + value.name + ')';
-    //         }
-    //       });
-
-    //       return {
-    //         sProcessDefinitionKeyWithVersion: sProcessDefinitionKeyWithVersion,
-    //         sProcessDefinitionName: sProcessDefinitionName
-    //       };
-    //     },
-    //     ActivitiForm: function(ActivitiService, oServiceData, processDefinitionId) {
-    //       return ActivitiService.getForm(oServiceData, processDefinitionId);
-    //     }
-    //   },
-    //   views: {
-    //     'content@index.service.general.placefix': {
-    //       templateUrl: 'app/service/placefix/built-in/bankid.html',
-    //       controller: 'ServiceBuiltInBankIDController'
-    //     }
-    //   }
-    // })
-    // .state('index.service.general.placefix.built-in.bankid.submitted', {
-    //   url: null,
-    //   data: {
-    //     id: null
-    //   },
-    //   onExit: function($state) {
-    //     var state = $state.get('index.service.general.placefix.built-in.bankid.submitted');
-    //     state.data = {
-    //       id: null
-    //     };
-    //   },
-    //   views: {
-    //     'content@index.service.general.placefix': {
-    //       templateUrl: 'app/service/placefix/built-in/bankid.submitted.html',
-    //       controller: function($state, $scope, BankIDAccount) {
-    //         $scope.state = $state.get('index.service.general.placefix.built-in.bankid.submitted');
-
-  //         $scope.bankIdAccount = BankIDAccount;
-  //       }
-  //     }
-  //   }
-  // })
-});
-
+// moved to above code
 // end country
