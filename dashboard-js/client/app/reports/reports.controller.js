@@ -41,7 +41,7 @@ angular.module('dashboardJsApp')
       reports.statisticLink({ from: $scope.statistic.from, to:  $scope.statistic.to, sBP: $scope.statistic.sBP}, 
       function (result, fileToSave) {
         var hiddenElement = document.createElement('a');
-        hiddenElement.href = 'data:' + encodeURI(result);
+        hiddenElement.href = 'data:text/csv;charset=UTF-8,' + encodeURI(result);
         hiddenElement.target = '_blank';
         hiddenElement.download = fileToSave;
         hiddenElement.click();
