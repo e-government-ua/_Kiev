@@ -36,7 +36,6 @@ body {
 h1 {
   margin-top: 0px;
   margin-bottom: 20px;
-  margin-left: 15px;
 }
 
 h3 {
@@ -65,7 +64,7 @@ label {
   font-weight: normal !important;
 }
 
-a {
+a, .control-element {
   cursor: pointer;
 }
 
@@ -138,10 +137,25 @@ a {
   background-color: #87caf0;
 }
 
+.nav {
+  .menu-item {
+    a {
+      margin-top: 5px;
+    }
+  }
+}
+
+.i-nav {
+  .container {
+    min-height: 90px;
+    .navbar-brand {
+      margin-top: 10px;
+    }
+  }
+}
+
 .menu-item.selected {
-  /*background-color: #8FD3F7;*/
   background-color: #77bae0;
-  /*background-color: violet;*/
 }
 
 .navbar-default .navbar-nav > .active > a,
@@ -262,7 +276,7 @@ ul.dropdown-menu {
 }
 
 .main.full-height {
-    margin-bottom: 185px;
+  margin-bottom: 185px;
 }
 
 .footer {
@@ -284,7 +298,7 @@ ul.dropdown-menu {
   margin-bottom: 5px;
   line-height: 20px;
   .row>div{
-      padding: 0.5em;
+    padding: 0.5em;
   }
   .footer-row-2 {
     margin-top: 1em;
@@ -652,245 +666,6 @@ a.pluso-more {
   display: none !important;
 }
 
-.step {
-  font-weight: bold;
-  padding-right: 10px;
-}
-
-label em {
-  font-weight: bold;
-  color: #ee4054;
-}
-
-label .snippet {
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: none;
-  display: block;
-  padding: 6px 0;
-}
-
-.link-modal {
-  padding-top: 15px;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  font-family: 'PT Sans', sans-serif;
-
-  font-size: 160%;
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
-
-h1 {
-  margin-top: 0px;
-  margin-bottom: 20px;
-  margin-left: 15px;
-}
-
-h3 {
-  font-weight: bold
-}
-
-h4 {
-  margin: 0px 0px 0px 0px;
-  line-height: 80px;
-}
-
-hr {
-  border: 0;
-  border-top: 2px solid #b2d5e7;
-  display: block;
-  height: 2px;
-  margin: 1em 0;
-  padding: 0;
-}
-
-p {
-  margin: 0 0 0 0;
-}
-
-label {
-  font-weight: normal !important;
-}
-
-a, .control-element {
-  cursor: pointer;
-}
-
-.row {
-  margin-bottom: 10px;
-}
-
-.row li {
-  margin-top: 10px
-}
-
-.sitename {
-  color: #ffffff;
-  float: left;
-  position: absolute;
-  top: 50px;
-  margin-left: 30px;
-  margin-top: 10px;
-}
-
-.navbar-default {
-  background-color: #65abd0;
-  border-color: #65abd0;
-  border-radius: 0px;
-  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
-  moz-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
-  webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
-  min-height: 80px;
-  margin-bottom: 40px;
-}
-
-.nav > li > a {
-  padding: 0px 15px;
-}
-
-.navbar-default .navbar-brand {
-  color: #ffffff;
-  font-size: 300%;
-  font-weight: bold;
-  margin-top: -2px;
-}
-
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus {
-  color: #ffffff
-}
-
-.navbar-default .navbar-text {
-  color: #ffffff
-}
-
-.navbar-default .navbar-nav > li > a {
-  color: #ffffff
-}
-
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-  color: #ffffff
-}
-
-.nav {
-  .menu-item {
-    a {
-      margin-top: 5px;
-    }
-  }
-}
-
-.i-nav {
-  .container {
-    min-height: 90px;
-    .navbar-brand {
-      margin-top: 10px;
-    }
-  }
-}
-
-.menu-item.selected {
-  background-color: #77bae0;
-}
-
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
-  background-color: #65abd0;
-  color: #ffffff;
-}
-
-.navbar-default .navbar-nav > .open > a,
-.navbar-default .navbar-nav > .open > a:hover,
-.navbar-default .navbar-nav > .open > a:focus {
-  background-color: #65abd0;
-  color: #ffffff;
-}
-
-.navbar-default .navbar-toggle {
-  border-color: #65abd0
-}
-
-.navbar-default .navbar-toggle:hover,
-.navbar-default .navbar-toggle:focus {
-  background-color: #65abd0
-}
-
-.navbar-default .navbar-toggle .icon-bar {
-  background-color: #ffffff
-}
-
-.navbar-default .navbar-collapse,
-.navbar-default .navbar-form {
-  border-color: #65abd0;
-  border-top: 0px solid transparent;
-  -webkit-box-shadow: inset 0 0px 0 rgba(255, 255, 255, .1);
-  box-shadow: inset 0 0px 0 rgba(255, 255, 255, .1);
-}
-
-.navbar-default .navbar-link {
-  color: #ffffff
-}
-
-.navbar-default .navbar-link:hover {
-  color: #ffffff
-}
-
-@media (max-width: 767px) {
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #ffffff
-  }
-
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #ffffff
-  }
-
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    background-color: #65abd0;
-    color: #ffffff;
-  }
-
-  .navbar-default {
-    margin-bottom: 20px;
-  }
-
-  .navbar-default .navbar-brand {
-    margin-top: 10px;
-  }
-
-  .navbar-toggle {
-    margin-top: 20px;
-  }
-
-  .sitename {
-    color: #ffffff;
-    float: left;
-    position: absolute;
-    top: 50px;
-    left: 15px;
-  }
-
-  h4 {
-    margin: 0px 0px 0px 0px;
-    line-height: 40px;
-  }
-
-  .sitename {
-    display: none;
-  }
-}
-
 .add0-cat, .add0-subcat, .add0-srvc {
   color: #b8a927;
 }
@@ -1030,13 +805,30 @@ label .snippet {
 .slot-picker .slot-time {
   min-width: 85px;
 }
- .subcategory_title{
+.subcategory_title{
   padding-left:30px;
 }
 
 .site-preloader, .section-preloader {
   margin-top: 5em;
 }
+
+/**
+* Vertical spacers from bootstrap 4 https://github.com/twbs/bootstrap/issues/4286
+*/
+.spacer5 { height: 5px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer10 { height: 10px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer15 { height: 15px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer20 { height: 20px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer25 { height: 25px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer30 { height: 30px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer35 { height: 35px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer40 { height: 40px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer45 { height: 45px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer50 { height: 50px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer75 { height: 75px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer100 { height: 100px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer200 { height: 200px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
 
 /**
 * Validation Styles Start
@@ -1145,7 +937,7 @@ input.ng-touched.ng-invalid-email, input.ng-touched.ng-invalid-tel  {
   margin-right: 5px;
   margin-bottom: 3px;
   background-size: cover;
-  
+
   position:absolute;
   top:35px;
   left:100px;
@@ -1214,4 +1006,3 @@ input.ng-touched.ng-invalid-email, input.ng-touched.ng-invalid-tel  {
 }
 
 /* Dev only: uncomment to see the element scopes' visually: .ng-scope { border: 1px solid #000; padding: 5px; } */
-

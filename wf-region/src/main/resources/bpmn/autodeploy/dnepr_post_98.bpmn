@@ -14,7 +14,6 @@
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="zayava_fiz" name="Заява про згоду надавати соціальні послуги" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dovidka_health" name="Висновок лікарсько-консультаційної комісії про те, що стан Вашого здоров'я дозволяє посійно надавати соціальні послуги" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="employment_history" name="Копія трудової книжки; у разі відсутності трудової книжки - лише зазначені довідки" type="file"></activiti:formProperty>
@@ -23,18 +22,17 @@
         <activiti:formProperty id="passport_inv" name="Копія паспорта або іншого документа, що посвідчує особу, яка нездатна до самообслуговування; якщо надання соціальних послуг потребує дитина - скановану копію свідоцтва про народження дитини" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dovidka_inv" name="Копія довідки медико-соціальної експертної комісії про групу інвалідності" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="visnovok" name="Висновок лікрсько-консультаційної комісії про необхідність постійного стороннього догляду та нездатність особи (дитини) до самообслуговування" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="birthdocument_scan" name="Копія свідоцтва про народження дитини;якщо надання соціальних послуг потребує дитина" type="file"></activiti:formProperty>
         <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" required="true">
           <activiti:value id="attr1_post" name="через національного оператора поштового зв'язку"></activiti:value>
           <activiti:value id="attr2_bank" name="на рахунок у банку"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="info_1" name="Наступні поля треба заповнити згідно обраного Вами способу перерахування коштів" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="long" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bank_name" name="Назва банку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bank_mfo" name="МФО банку" type="long" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bank_okpo" name="ЄДРПОУ банку" type="long" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bank_account" name="Номер рахунку" type="long" default=" "></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="sBody" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="info_1" name="Наступні поля треба заповнити згідно обраного Вами способу перерахування коштів" type="label" default="  "></activiti:formProperty>
+        <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="long" default="  "></activiti:formProperty>
+        <activiti:formProperty id="bank_name" name="Назва банку" type="string" default="  "></activiti:formProperty>
+        <activiti:formProperty id="bank_mfo" name="МФО банку" type="long" default="  "></activiti:formProperty>
+        <activiti:formProperty id="bank_okpo" name="ЄДРПОУ банку" type="long" default="  "></activiti:formProperty>
+        <activiti:formProperty id="bank_account" name="Номер рахунку" type="long" default="  "></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default="  "></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника Укрпошти" activiti:type="mail">
@@ -135,34 +133,34 @@
     <userTask id="usertask2" name="перевірка та пересилання документів" activiti:candidateGroups="Dnepr_post_98">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdinn" name="ІПН" type="long"></activiti:formProperty>
-        <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" required="true">
+        <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Адреса проживання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" writable="false">
           <activiti:value id="attr1_post" name="через національного оператора поштового зв'язку"></activiti:value>
           <activiti:value id="attr2_bank" name="на рахунок у банку"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="info_1" name="Наступні поля треба заповнити згідно обраного Вами способу перерахування коштів" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="long" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bank_name" name="Назва банку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bank_mfo" name="МФО банку" type="long" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bank_okpo" name="ЄДРПОУ банку" type="long" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bank_account" name="Номер рахунку" type="long" default=" "></activiti:formProperty>
+        <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bank_name" name="Назва банку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bank_mfo" name="МФО банку" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bank_okpo" name="ЄДРПОУ банку" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bank_account" name="Номер рахунку" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="Перевірка документів" type="enum" required="true">
           <activiti:value id="accept" name="документи пройшли перевірку"></activiti:value>
           <activiti:value id="reject" name="відхилити запит"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, підставу" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="opis" name="Завантажте опис прийнятих документів " type="file"></activiti:formProperty>
+        <activiti:formProperty id="opis" name="Завантажте опис прийнятих документів " type="file" required="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_post_98_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport} ${zayava_fiz} ${dovidka_health} ${employment_history} ${dovidka_nalogovaya} ${zayava_inv} ${passport_inv} ${dovidka_inv} ${visnovok} ${birthdocument_scan}</activiti:expression>
+            <activiti:expression>${zayava_fiz} ${dovidka_health} ${employment_history} ${dovidka_nalogovaya} ${zayava_inv} ${passport_inv} ${dovidka_inv} ${visnovok}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -170,12 +168,12 @@
     <userTask id="usertask1" name="повідомлення громадянина про прийняте рішення" activiti:candidateGroups="Dnepr_post_98">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string"></activiti:formProperty>
         <activiti:formProperty id="decision_2" name="повідомлення громадянина про прийняте рішення" type="enum" required="true">
           <activiti:value id="accept" name="схвалено призначення компенсації"></activiti:value>
           <activiti:value id="reject" name="відмовлено у призначенні компенсації"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="rishen" name="Завантажте копію рішення" type="file"></activiti:formProperty>
+        <activiti:formProperty id="rishen" name="Завантажте копію рішення" type="file" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
@@ -233,7 +231,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
 &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-Вам відмовлено у призначенні компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування.&lt;br /&gt;
+Вам відмовлено у призначенні компенсації як фізичній особі, яка надає соціальні послуги особам, що не здатні до самообслуговування.&lt;br /&gt; &lt;/p&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа, а також буде спрямована Вам поштовим відправленням з повідомленням про вручення.&lt;br /&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -549,7 +547,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     
-Ви отримали схвалення щодо свого звернення - Призначення компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування.&lt;br /&gt;
+Ви отримали схвалення щодо свого звернення - призначення компенсації фізичним особам, які надають соціальні послуги особам, які не здатні до самообслуговування.&lt;br /&gt;
 &lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа, а також буде спрямована Вам поштовим відправленням з повідомленням про вручення.&lt;br /&gt;
 &lt;br /&gt;

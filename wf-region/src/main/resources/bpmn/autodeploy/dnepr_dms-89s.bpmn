@@ -7,42 +7,40 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="string" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="DOB" name="Дата народження" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="POB" name="Місце народження; Країна і населений пункт" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="citizenship" name="Ваше громадянство" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="oldAddress" name="Ваша стара адреса реєстрації; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="PrevName" name="Попереднє прізвище, ім’я та по батькові;  За наявності" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="Dateofbirth" name="Дата народження; Формат - ДД.ММ.PPPP" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="Areabirth" name="Місце народження; Країна, область, район і населений пункт" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="Nationality" name="Громадянство" type="string" default="Україна" required="true"></activiti:formProperty>
+        <activiti:formProperty id="district" name="Район м. Дніпропетровськ, в якому ви зареєстровані" type="enum" required="true">
+          <activiti:value id="bab" name="Бабушкінський"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстраці; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="newAddressLabel" name="Ваша нова адреса реєстрації" type="label" default="Заповніть деталі вашої нової адреси"></activiti:formProperty>
-        <activiti:formProperty id="newCity" name="Населений пункт " type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="newStreet" name="Вулиця " type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="newCity" name="Населений пункт" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="newStreet" name="Вулиця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="newHouse" name="Будинок" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="newCorp" name="Корпус" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="newApartment" name="№ Квартири" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bringDoc" name="Підставою для реєстрації місця проживання заявника є; Вкажіть документи які ви принесете держоргану для розгляду " type="enum" required="true">
-          <activiti:value id="order" name="Ордер"></activiti:value>
-          <activiti:value id="ownDoc" name="Свідоцтво про право власності"></activiti:value>
-          <activiti:value id="rentDoc" name="Договір найму / піднайму / оренди "></activiti:value>
-          <activiti:value id="other" name="Інші документи. (Вказати полем нижче)"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="bringDocOther" name="Заповніть якщо Ви вибрали опцію &quot;Інші документи&quot;" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="kids" name="Чи є у вас дитина (молодша 14 років) яку Ви бажаєте зареєструвати за цією адресою; Якщо дитині більше 14 років або її реєструвати не треба - виберіть поле НІ. Діти старші 14 років подають заяву самостійно." type="enum" required="true">
+        <activiti:formProperty id="milName" name="Найменування військомату, в якому Ви перебували на військовому обліку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="milRank" name="Військове звання" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kids" name="Чи є у вас дитина (молодша 14 років) яку Ви бажаєте зняти з реєстрації за цією адресою; Діти старші 14 років подають заяву самостійно." type="enum" required="true">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="text1" name="Зверніть увагу" type="label" default="Будь ласка, вкажіть дані Вашої дитини, якщо її вік перевищує 14 років"></activiti:formProperty>
-        <activiti:formProperty id="kidsName" name="Прізвище дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kidsFirstName" name="Ім'я дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kidsMiddleName" name="По-Батькові дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kidsPOB" name="Місце народження дитини; Країна і населений пункт" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kidsDOB" name="Дата народження дитини; Формат - ДД/ММ/РРРР" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я, по-батькові дитини" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth" name="Дата народження дитини; Формат - ДД.ММ.PPPP" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB" name="Місце народження дитини; Країна, область, район і населений пункт" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="unRegisterDoc" name="Талон зняття з реєстрації з місця проживання" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="militaryDoc" name="Військовий квиток АБО посвідчення про приписку; Для військовозобов'язенних" type="file"></activiti:formProperty>
         <activiti:formProperty id="visitDay" name="У який день Вам буде зручно зайти до відділення ДМС; ДМС необхідно поставити відмітку у Ваш паспорт для завершення цієї процедури" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="visitTime" name="У який проміжок часу Вам буде зручно зустрітися; Будь ласка, вкажіть проміжок як мінімум у 2 години" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warning" name="Зверніть увагу" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
+        <activiti:formProperty id="sBody_4" name="sBody" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="sBody_5" name="sBody" type="invisible"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow2" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
@@ -62,7 +60,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Реєстрація нового місця проживання/перебування особи]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -149,53 +147,44 @@
     <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
     <userTask id="usertask1" name="Перевірка вхідних даних" activiti:candidateGroups="dnepr_dms-89s">
       <extensionElements>
+        <activiti:formProperty id="info" name="На цьому етапі:" type="label" default="Ви перевіряєте дані громадянина і вирішуєте чи всі вони вірні. Якщо все добре, призначаєте дату та час, коли громадянин має прийти до вас для отримання штампу про зняття з реєстрації"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="DOB" name="Дата народження громадянина" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="POB" name="Місце народження громадянина" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="citizenship" name="Громадянство" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="oldAddress" name="Стара адреса реєстрації; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newCity" name="Населений пункт " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newStreet" name="Вулиця" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newApartment" name="№ Квартири" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bringDoc" name="Підставою для реєстрації місця проживання заявника є" type="enum" writable="false">
-          <activiti:value id="order" name="Ордер"></activiti:value>
-          <activiti:value id="ownDoc" name="Свідоцтво про право власності"></activiti:value>
-          <activiti:value id="rentDoc" name="Договір найму / піднайму / оренди "></activiti:value>
-          <activiti:value id="other" name="Інші документи. (Вказати полем нижче)"></activiti:value>
+        <activiti:formProperty id="PrevName" name="Попереднє ПІБ громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Dateofbirth" name="Дата народження" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Areabirth" name="Місце народження" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Nationality" name="Громадянство" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="district" name="Район м. Дніпропетровськ, в якому зареєстрований громадянин" type="enum" writable="false">
+          <activiti:value id="bab" name="Бабушкінський"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="bringDocOther" name="Інші документи;" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зареєструвати" type="enum" writable="false">
+        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації" type="textArea" default="${newCity}, ${newStreet}, ${newHouse}, корп. ${newCorp}, кв. ${newApartment}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="milName" name="Найменування військомату, в якому громадянин перебував на військовому обліку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="milRank" name="Військове звання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зняти з реєстрації" type="enum" writable="false">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="kidsName" name="Прізвище дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kidsFirstName" name="Ім'я дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kidsMiddleName" name="По-Батькові дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kidsPOB" name="Місце народження дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kidsDOB" name="Дата народження дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я і по батькові дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth" name="Дата народження дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB" name="Місце народження дитини" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="visitDay" name="Бажаний день зустрічі" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="visitTime" name="Бажаний час зустрічі" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="workerDecision" name="Рішення чиновника" type="enum" required="true">
-          <activiti:value id="accept" name="Назначити зустріч у відділенні"></activiti:value>
+        <activiti:formProperty id="workerDecision" name="Рішення працівника ДМС" type="enum" required="true">
+          <activiti:value id="accept" name="Призначити зустріч у відділенні"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги &lt;br /&gt; АБО &lt;br /&gt; Додаткові деталі для закінчення процессу реєстрації" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="taxAddress" name="Необхідні реквізити для сплати Державного мита" type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="meetDay" name="Назначити день зустрічі" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="meetTime" name="Назначити час зустрічі" type="string"></activiti:formProperty>
-        <activiti:formProperty id="unRegisterDoc" name="Талон зняття з реєстрація с місця проживання" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="militaryDoc" name="Військовий квиток АБО посвідчення про приписку; Для віськовозобов'язенних" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_dms_print.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
+        <activiti:formProperty id="meetDay" name="Призначити день зустрічі" type="string"></activiti:formProperty>
+        <activiti:formProperty id="meetTime" name="Призначити час зустрічі" type="string"></activiti:formProperty>
+        <activiti:formProperty id="taxAddress" name="Додати необхідні реквізити для сплати Державного мита" type="textArea"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow9" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
@@ -212,7 +201,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Реєстрація нового місця проживання]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -267,26 +256,17 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;&lt;/p&gt;
-										На жаль, державний орган не може надати вам цю послугу в даний момент. 
-									&lt;p&gt;&lt;/p&gt;
-										Ймовірні причини:  &lt;br /&gt;
-										&lt;ol&gt;
-										&lt;li&gt;Неправильно або неповністю заповнена заява; &lt;/li&gt;
-										&lt;li&gt;Неспроможність відкрити ваші документи;&lt;/li&gt;
-										&lt;li&gt;Ви не належите до категорії громадян, для яких ця послуга діє;&lt;/li&gt;
-										&lt;li&gt;Технічна помилка державного органу або технічні роботи на серверах iGov; &lt;li&gt;
-										&lt;/ol&gt;
-										&lt;p&gt;&lt;/p&gt;
+                                    &lt;p&gt;
+										На жаль, змушені відмовити Вам у наданні послуги: "Зняття з реєстрації місця проживання/перебування особи".&lt;/p&gt; 
+									&lt;p&gt;
 										Коментар Державного службовця: &lt;br /&gt;
-											&lt;i&gt;${decisionComment}&lt;/i&gt;
-										&lt;p&gt;&lt;/p&gt;
-										Вибачте за незручність. Спробуйте подати заяву через півгодини.
-                                    &lt;p&gt;&lt;/p&gt;
+											&lt;i&gt;${decisionComment}&lt;/i&gt;	
+                                    &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                        Бабушкінський РВ у місті Дніпропетровську,&lt;br /&gt;
+										ГУ ДМС України в Дніпропетровській області.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -320,7 +300,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Реєстрація нового місця проживання]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -378,10 +358,10 @@
                                     &lt;p&gt;&lt;/p&gt;
                                         Державний Орган успішно опрацював Вашу заяву. &lt;br /&gt;
 										&lt;p&gt;&lt;/p&gt;
-										Для того щоб закінчити процедуру реєстрації необхідно: &lt;br /&gt;
+										Для того щоб закінчити процедуру зняття з реєстрації необхідно: &lt;br /&gt;
 										&lt;li&gt;Сплатити Державне мито у розмірі 0.85 грн і отримати талон про сплату. &lt;/li&gt; &lt;br /&gt;
-										&lt;li&gt;Прийти до відділення ДМС з необхідними документами&lt;/li&gt; &lt;br /&gt;
-										&lt;li&gt;Пройти співбесіду з працівником ДМС і отримати печатку у громадянський паспорт&lt;/li&gt; &lt;br /&gt;
+										&lt;li&gt;Прийти до відділення ДМС з необхідними документами.&lt;/li&gt; &lt;br /&gt;
+										&lt;li&gt;Пройти співбесіду з працівником ДМС і отримати печатку у громадянський паспорт.&lt;/li&gt; &lt;br /&gt;
 										&lt;p&gt;&lt;/p&gt;
 										Реквізити для сплати: &lt;br /&gt;
 										&lt;i&gt;${taxAddress}&lt;/i&gt; &lt;br /&gt;
@@ -389,10 +369,11 @@
 										Деталі зустрічі: &lt;br /&gt;
 										День - ${meetDay} &lt;br /&gt;
 										Проміжок часу - ${meetTime} &lt;br /&gt;
+										Адреса: м. Дніпропетровськ, пр. Ілліча, 3.
 										&lt;p&gt;&lt;/p&gt;
 										Необхідні документи, які треба принести до відділення ДМС: &lt;br /&gt;
-										&lt;li&gt;Посвідчення особи (Паспорт)&lt;/li&gt; &lt;br /&gt;
-										&lt;li&gt;Талон про сплату Державного мита&lt;/li&gt; &lt;br /&gt;
+										&lt;li&gt;Посвідчення особи (Паспорт).&lt;/li&gt; &lt;br /&gt;
+										&lt;li&gt;Талон про сплату Державного мита.&lt;/li&gt; &lt;br /&gt;
 										&lt;li&gt;Документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації;&lt;/li&gt; &lt;br /&gt;
 										&lt;p&gt;&lt;/p&gt;
 										Коментар до рішення:
@@ -404,6 +385,8 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
+                                        Бабушкінський РВ у місті Дніпропетровську,&lt;br /&gt;
+										ГУ ДМС України в Дніпропетровській області,&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -427,44 +410,48 @@
     <sequenceFlow id="flow8" sourceRef="mailtask3" targetRef="usertask2"></sequenceFlow>
     <userTask id="usertask2" name="Візит громадянина" activiti:candidateGroups="dnepr_dms-89s">
       <extensionElements>
+        <activiti:formProperty id="info1" name="На цьому етапі:" type="label" default="Громадянин прихордить до Вас. Ви звіряєте дані з ним, при необхідності вносите зміни. Роздруковуєте прінтформи, підписуєте їх та проставляєте штамп у паспорт громадянина."></activiti:formProperty>
         <activiti:formProperty id="meetDay" name="Назначений день зустрічі" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="meetTime" name="Назначений час зустрічі" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="DOB" name="Дата народження громадянина" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="POB" name="Місце народження громадянина" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="citizenship" name="Громадянство" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="oldAddress" name="Стара адреса реєстрації; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newCity" name="Населений пункт " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newStreet" name="Вулиця" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newHouse" name="Будинок" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newCorp" name="Корпус" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newApartment" name="№ Квартири" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bringDoc" name="Підставою для реєстрації місця проживання заявника є" type="enum" writable="false">
-          <activiti:value id="order" name="Ордер"></activiti:value>
-          <activiti:value id="ownDoc" name="Свідоцтво про право власності"></activiti:value>
-          <activiti:value id="rentDoc" name="Договір найму / піднайму / оренди "></activiti:value>
-          <activiti:value id="other" name="Інші документи. (Вказати полем нижче)"></activiti:value>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="PrevName" name="Попереднє прізвище, ім’я та по батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="Dateofbirth" name="Дата народження" type="string"></activiti:formProperty>
+        <activiti:formProperty id="Areabirth" name="Місце народження; Країна, область, район і населений пункт" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="Nationality" name="Громадянство" type="string"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстраці; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="newCity" name="Населений пункт" type="string"></activiti:formProperty>
+        <activiti:formProperty id="newStreet" name="Вулиця" type="string"></activiti:formProperty>
+        <activiti:formProperty id="newHouse" name="Будинок" type="string"></activiti:formProperty>
+        <activiti:formProperty id="newCorp" name="Корпус" type="string"></activiti:formProperty>
+        <activiti:formProperty id="newApartment" name="№ Квартири" type="string"></activiti:formProperty>
+        <activiti:formProperty id="district" name="Район м. Дніпропетровськ, в якому ви зареєстровані" type="enum" writable="false">
+          <activiti:value id="bab" name="Бабушкінський"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="bringDocOther" name="Інші документи;" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зареєструвати" type="enum" writable="false">
+        <activiti:formProperty id="milName" name="Найменування військомату, в якому Ви перебували на військовому обліку" type="string"></activiti:formProperty>
+        <activiti:formProperty id="milRank" name="Військове звання" type="string"></activiti:formProperty>
+        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string"></activiti:formProperty>
+        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зняти з реєстрації" type="enum">
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="kidsName" name="Прізвище дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kidsFirstName" name="Ім'я дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kidsMiddleName" name="По-Батькові дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kidsPOB" name="Місце народження дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kidsDOB" name="Дата народження дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="result" name="Результат зустрічі" type="enum" required="true">
-          <activiti:value id="reestr" name="Громадянин зареєстрований"></activiti:value>
+        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я і по батькові дитини" type="string"></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth" name="Дата народження дитини" type="string"></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB" name="Місце народження дитини" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини" type="string"></activiti:formProperty>
+        <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string"></activiti:formProperty>
+        <activiti:formProperty id="result" name="Результат зустрічі" type="enum">
+          <activiti:value id="reestr" name="Громадянин знятий з реєстрації"></activiti:value>
           <activiti:value id="nejav" name="Повернути у необроблені"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="sBody_4" name="[pattern/print/talon_4(dnepr).html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_5" name="[pattern/print/zajava_zn(dnepr).html]" type="invisible" default="${sBody_5}" writable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
         </extensionElements>
     </userTask>
     <sequenceFlow id="flow18" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>

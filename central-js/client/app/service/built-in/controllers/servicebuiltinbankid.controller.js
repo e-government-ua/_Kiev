@@ -18,6 +18,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   FieldAttributesService,
   MarkersFactory,
   service,
+  FieldMotionService,
   regions) {
 
   'use strict';
@@ -147,7 +148,10 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
           var state = $state.$current;
 
           var submitted = $state.get(state.name + '.submitted');
-
+          if (!result.id) {
+            console.log(result);
+            return;
+          }
           //TODO: Fix Alhoritm Luna
           var nCRC = ValidationService.getLunaValue(result.id);
 
@@ -239,6 +243,12 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
             $scope.data.formData.fields[property.id]
       &&  fieldES == ES.NOT_SET
     ) || fieldES == ES.READ_ONLY;
+  };
+
+  $scope.isFieldVisible = function(property) {
+    return property.id != 'processName'
+    && (FieldMotionService.isFieldMentioned(property.id) ?
+        FieldMotionService.isFieldVisible(property.id, $scope.data.formData.params) : true);
   };
 
   // $timeout(function () {

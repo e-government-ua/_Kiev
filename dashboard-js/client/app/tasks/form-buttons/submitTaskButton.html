@@ -1,0 +1,7 @@
+ <button ng-hide="!taskFormLoaded || selectedTask.assignee == null || sSelectedTask == 'finished'"
+                    ng-click="submitTask()"
+                    class="btn btn-success"
+                    ng-disabled="isTaskSuccessfullySubmitted() || isTaskInProcess()">Опрацювати
+</button>
+<label ng-show="isTaskInProcess()&& !isTaskSuccessfullySubmitted()">&nbsp;&nbsp;Зачекайте...</label>
+<label ng-show="isTaskSuccessfullySubmitted()">&nbsp;&nbsp;Задачу опрацьовано.</label>
