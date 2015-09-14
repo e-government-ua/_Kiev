@@ -39,7 +39,7 @@
           <activiti:value id="order" name="Ордер"></activiti:value>
           <activiti:value id="ownDoc" name="Свідоцтво про право власності"></activiti:value>
           <activiti:value id="rentDoc" name="Договір найму / піднайму / оренди "></activiti:value>
-          <activiti:value id="other" name="Інші документи. (Вказати полем нижче)"></activiti:value>
+          <activiti:value id="other" name="Інші документи"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="bringDocOther" name="Заповніть якщо Ви вибрали опцію &quot;Інші документи&quot;" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="vlasn" name="Власник житла; Якщо власник не один вкажіть через кому" type="textArea" default=" "></activiti:formProperty>
@@ -446,11 +446,11 @@
           <activiti:value id="Солом’янський РВ ДМС" name="Солом’янський РВГУ ДМС України в м.Києві"></activiti:value>
           <activiti:value id="Шевченківський РВ ДМС" name="Шевченківський РВГУ ДМС України в м.Києві"></activiti:value>
         </activiti:formProperty>
-         <activiti:formProperty id="RegistrationDocument" name="Підставою для реєстрації місця проживання громадянина є" type="enum">
+        <activiti:formProperty id="RegistrationDocument" name="Підставою для реєстрації місця проживання громадянина є" type="enum">
           <activiti:value id="order" name="Ордер"></activiti:value>
           <activiti:value id="ownDoc" name="Свідоцтво про право власності"></activiti:value>
           <activiti:value id="rentDoc" name="Договір найму / піднайму / оренди "></activiti:value>
-          <activiti:value id="other" name="Інші документи. (Вказати полем нижче)"></activiti:value>
+          <activiti:value id="other" name="Інші документи"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="bringDocOther" name="Інші документи" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="vlasn" name="Власник(и) житла" type="textArea"></activiti:formProperty>
@@ -479,12 +479,12 @@
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/zajava_r(kiev).html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_2" name="[pattern/print/vidomist_4(kiev).html]" type="invisible" default="${sBody_2}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_3" name="[pattern/print/kartka(kiev).html]" type="invisible" default="${sBody_3}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_4" name="[pattern/print/talon_4(kiev).html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_5" name="[pattern/print/zajava_zn(kiev).html]" type="invisible" default="${sBody_5}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_6" name="[pattern/print/dodat12(kiev).html]" type="invisible" default="${sBody_6}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dms/zajava_r(kiev).html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_2" name="[pattern/print/dms/vidomist_4(kiev).html]" type="invisible" default="${sBody_2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_3" name="[pattern/print/dms/kartka(kiev).html]" type="invisible" default="${sBody_3}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_4" name="[pattern/print/dms/talon_4(kiev).html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_5" name="[pattern/print/dms/zajava_zn(kiev).html]" type="invisible" default="${sBody_5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_6" name="[pattern/print/dms/dodat12(kiev).html]" type="invisible" default="${sBody_6}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
@@ -625,7 +625,7 @@
           <activiti:value id="order" name="Ордер"></activiti:value>
           <activiti:value id="ownDoc" name="Свідоцтво про право власності"></activiti:value>
           <activiti:value id="rentDoc" name="Договір найму / піднайму / оренди "></activiti:value>
-          <activiti:value id="other" name="Інші документи. (Вказати полем нижче)"></activiti:value>
+          <activiti:value id="other" name="Інші документи"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="bringDocOther" name="Інші документи" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vlasn" name="Власник(и) житла" type="textArea" writable="false"></activiti:formProperty>
@@ -1009,9 +1009,8 @@
           <activiti:value id="order" name="Ордер"></activiti:value>
           <activiti:value id="ownDoc" name="Свідоцтво про право власності"></activiti:value>
           <activiti:value id="rentDoc" name="Договір найму / піднайму / оренди "></activiti:value>
-          <activiti:value id="other" name="Інші документи. (Вказати полем нижче)"></activiti:value>
+          <activiti:value id="other" name="Інші документи"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="Registrationservice" name="Орган, що оформлює реєстацію" type="enum" writable="false">
         <activiti:formProperty id="bringDocOther" name="Інші документи" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vlasn" name="Власник(и) житла" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Києва, в якому зареєстрований громадянин" type="enum" writable="false">
@@ -1019,7 +1018,8 @@
           <activiti:value id="solom" name="Солом'янський"></activiti:value>
           <activiti:value id="shev" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
-          <activiti:value id="Деснянський РВ ДМС" name="Деснянський РВГУ ДМС України в м.Києві"></activiti:value>
+        <activiti:formProperty id="Registrationservice" name="Орган, що оформлює реєстацію" type="enum" writable="false">
+         <activiti:value id="Деснянський РВ ДМС" name="Деснянський РВГУ ДМС України в м.Києві"></activiti:value>
           <activiti:value id="Солом’янський РВ ДМС" name="Солом’янський РВГУ ДМС України в м.Києві"></activiti:value>
           <activiti:value id="Шевченківський РВ ДМС" name="Шевченківський РВГУ ДМС України в м.Києві"></activiti:value>
         </activiti:formProperty>

@@ -473,8 +473,8 @@
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_4" name="[pattern/print/talon_4(kiev).html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_5" name="[pattern/print/zajava_zn(kiev).html]" type="invisible" default="${sBody_5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_4" name="[pattern/print/dms/talon_4(kiev).html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_5" name="[pattern/print/dms/zajava_zn(kiev).html]" type="invisible" default="${sBody_5}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
