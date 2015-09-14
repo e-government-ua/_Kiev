@@ -57,7 +57,7 @@ angular.module('app')
           
           bNeeded = bNeeded && $scope.placeIsUnavailable() === false;
 
-          console.log( 'authControlIsNeeded:', bNeeded, ' $scope.placeIsUnavailable()', $scope.placeIsUnavailable() )
+          console.log( 'authControlIsNeeded:', bNeeded, ' $scope.placeIsUnavailable()', $scope.placeIsUnavailable() );
 
           // STOPPEDHERE
 
@@ -91,9 +91,9 @@ angular.module('app')
           return result;
         };
 
-        $scope.controlIsDisabled = function() {
+        $scope.placeControlIsDisabled = function() {
           var isDisabled = $scope.placeControlIsComplete() && mode !== 'editMode';
-          console.log('controlIsDisabled:', $scope.placeControlIsComplete(), mode !== 'editMode', isDisabled);
+          console.log('placeControlIsDisabled:', $scope.placeControlIsComplete(), mode !== 'editMode', isDisabled);
           return isDisabled;
           // return false;
 
@@ -170,10 +170,12 @@ angular.module('app')
           PlacesService.initPlacesByScopeAndState(this, $scope, $state, $rootScope, AdminService, $location, $sce);
 
           $scope.regionList = $scope.regionList || new RegionListFactory();
-
-          console.log('$scope.regionList = ', $scope.regionList);
           $scope.localityList = $scope.localityList || new LocalityListFactory();
+          
           $scope.regionList.initialize($scope.regions);
+
+          console.log('initPlaceControls, $scope.regions.length = ', $scope.regions.length );
+
           $scope.resetPlaceData();
           $scope.recallPlaceData();
 

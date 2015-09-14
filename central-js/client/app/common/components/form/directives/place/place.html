@@ -1,4 +1,4 @@
-<div class="list-group-item place-control" ng-class="{'disabled': controlIsDisabled()}" ng-show="placeControlIsVisible()">
+<div class="list-group-item place-control" ng-class="{'disabled': placeControlIsDisabled()}" ng-show="placeControlIsVisible()">
 
     <!-- collapsed -->
 
@@ -38,11 +38,11 @@
                             typeahead-on-select="onSelectRegionList($item)" 
                             typeahead-template-url="app/service/placefix/typeahead-match-region.html" 
                             typeahead-empty 
-                            ng-disabled="controlIsDisabled()" />
+                            ng-disabled="placeControlIsDisabled()" />
                         <span class="input-group-btn">
                             <button class="btn btn-default"
                                     type="button"
-                                    ng-disabled="controlIsDisabled()"
+                                    ng-disabled="placeControlIsDisabled()"
                                     dropdown-toggle>
                                 <span class="caret"></span>
                             </button>
@@ -70,11 +70,11 @@
                             typeahead-on-select="onSelectLocalityList($item)" 
                             typeahead-template-url="app/service/placefix/typeahead-match-city.html" 
                             typeahead-empty 
-                            ng-disabled="controlIsDisabled()" />
+                            ng-disabled="placeControlIsDisabled()" />
                         <span class="input-group-btn">
                             <button class="btn btn-default"
                                     type="button"
-                                    ng-disabled="controlIsDisabled()"
+                                    ng-disabled="placeControlIsDisabled()"
                                     dropdown-toggle>
                                 <span class="caret"></span>
                             </button>

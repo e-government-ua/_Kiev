@@ -1,5 +1,5 @@
 angular.module('app').controller('PlaceFixController', function(
-  $state, AdminService, $rootScope, $scope, $location, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, serviceLocationParser, regions) {
+  $state, AdminService, $rootScope, $scope, $location, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, serviceLocationParser, regions, service) {
 
   // FIXME: preload regions and service and provide them as part of the locations service
 
@@ -11,7 +11,6 @@ angular.module('app').controller('PlaceFixController', function(
   var statesMap = {
     'index.service.general.placefix.built-in': { // city
       startupFunction: function(iPlaceController, $location, $state, $rootScope, placeCtrl) {
-        $scope.$location = $location;
         iPlaceController.isStep2 = true;
       },
       viewClass: 'state-disabled'
@@ -19,31 +18,8 @@ angular.module('app').controller('PlaceFixController', function(
     'index.service.general.placefix.built-in.bankid.submitted': { // city
       startupFunction: function(iPlaceController, $location, $state, $rootScope, placeCtrl) {
         $scope.collapse();
-        $scope.state = $state; //.get('index.service.general.placefix.built-in.bankid.submitted');
       },
       viewClass: 'state-collapsed'
-    }
-  };
-
-  var initCityService = function() {
-
-    $scope.regions = regions;
-    $scope.regionList = new RegionListFactory();
-    $scope.regionList.initialize(regions);
-
-    $scope.localityList = new LocalityListFactory();
-
-    // Each controller which uses Places Control should tell it:
-    // FIXME: preload regions and service and provide them as part of the locations service
-    console.log('initCityService. Reg-s: ', regions.length);
-
-    ///
-    ///
-    ///
-
-    var initialRegion = serviceLocationParser.getSelectedRegion(regions);
-    if (initialRegion) {
-      $scope.onSelectRegionList(initialRegion);
     }
   };
 
@@ -67,7 +43,6 @@ angular.module('app').controller('PlaceFixController', function(
 
     var stateToGo = stateByServiceType[oParams.serviceData.nID_ServiceType.nID];
 
-    console.log('PlaceFixController on Place сhange, $state:', $state.current.name, ', to go:', stateToGo /*, 'oParams =', oParams*/ );
     // FROM COUNTRY CTRL
 
     // obtain service data and it's notes
@@ -81,24 +56,43 @@ angular.module('app').controller('PlaceFixController', function(
 
     // END FROM COUNTRY
 
-    // FIXME FIXME generalize it: if cur state is step 1 and it's complete, go to step 2 and change state
+    // FIXME generalize it: if cur state is step 1 and it's complete, go to step 2 and change state
     // if (stateToGo && oParams.placeData.city) {
     // if (stateToGo && oParams.placeData) {
     // console.log('step 2:', self.isStep2);
 
-    if (stateToGo) {
-      self.isStep2 = true;
-      console.log('go state:', stateToGo);
-      $state.go(stateToGo, {
-        id: oService.nID
-      }, {
-        location: false
-      }).then(function() {
-        self.isStep2 = true;
-      });
+    $scope.service = service;
+    $scope.regions = regions;
+    $scope.$location = $location;
+    $scope.$state = $state;
+
+    console.log('initCityService. Reg-s: ', regions.length);
+
+    ///
+    // FIXME: other ServiceCityController code was here
+    ///
+
+
+    if (!stateToGo || ($state.current.name === stateToGo)) {
+      return;
     }
 
-    initCityService();
+    self.isStep2 = true;
+    $state.go(stateToGo, {
+      id: oService.nID
+    }, {
+      location: false
+    }).then(function() {
+      self.isStep2 = true;
+      
+    });
+
+    var initialRegion = serviceLocationParser.getSelectedRegion(regions);
+    if (initialRegion) {
+      $scope.onSelectRegionList(initialRegion);
+    }
+
+    console.log('PlaceFixController on Place сhange, $state:', $state.current.name, ', to go:', stateToGo /*, 'oParams =', oParams*/ );
   };
 
   $scope.getStateName = function() {
@@ -140,7 +134,7 @@ angular.module('app').controller('PlaceFixController', function(
 
   $scope.ngIfStep2 = function() {
     // console.log('ngIfStep2 =', self.isStep2);
-    // return $scope.placeControlIsComplete();
+    // return $scope.place ControlIsComplete();
     return self.isStep2;
   };
 
@@ -161,8 +155,6 @@ angular.module('app').controller('PlaceFixController', function(
     statesMap[curState].startupFunction.call(self, $location, $state, $rootScope, self.placeCtrl);
   } else {
     // default startup
-    $scope.$location = $location;
-    $scope.$state = $state;
   }
 
   /**
@@ -186,6 +178,7 @@ angular.module('app').controller('PlaceFixController', function(
     serviceData: PlacesService.getServiceDataForSelectedPlace(),
     placeData: PlacesService.getPlaceData()
   });
+
 });
 
 // angular.module('app').controller('ServiceBuiltInController', function($location, $state, $rootScope, $scope) {
@@ -346,194 +339,192 @@ angular.module('app').controller('ServiceCountryAbsentController', function($sta
 // end country
 
 
-
 // FIXME
 // city - from serviceCity.controller.js
+// moved to PlaceFixController
 
-angular.module('app').controller('ServiceCityController', function($state, AdminService, $rootScope, $scope, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, regions, service, serviceLocationParser) {
+// angular.module('app').controller('ServiceCityController', function($state, AdminService, $rootScope, $scope, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, regions, service, serviceLocationParser) {
 
-  $scope.regions = regions;
-  $scope.regionList = new RegionListFactory();
-  $scope.regionList.initialize(regions);
+// $scope.regions = regions;
+// $scope.regionList = new RegionListFactory();
+// $scope.regionList.initialize(regions);
 
-  $scope.localityList = new LocalityListFactory();
+// $scope.localityList = new LocalityListFactory();
 
-  // Each controller which uses Places Control should tell it:
-  // FIXME: preload regions and service and provide them as part of the locations service
-  console.log('ServiceCityController. Reg-s: ', regions);
+// Each controller which uses Places Control should tell it:
+// FIXME: preload regions and service and provide them as part of the locations service
+// console.log('ServiceCityController. Reg-s: ', regions);
 
-  PlacesService.setController(this);
+// PlacesService.setController(this);
 
-  // Each controller which uses Places Control should tell it:
+// Each controller which uses Places Control should tell it:
 
-  // $scope.loadRegionList = function(search) {
-  //   return $scope.regionList.load(ServiceService.oService, search);
-  // };
+// $scope.loadRegionList = function(search) {
+//   return $scope.regionList.load(ServiceService.oService, search);
+// };
 
-  // FIXME - code moved to place.js
-  //  $scope.onSelectRegionList = function($item) {
-  //    $scope.data.region = $item;
-  //    $scope.regionList.select($item);
+// FIXME - code moved to place.js
+//  $scope.onSelectRegionList = function($item) {
+//    $scope.data.region = $item;
+//    $scope.regionList.select($item);
 
-  // var serviceType = $scope.findServiceDataByRegion();
+// var serviceType = $scope.findServiceDataByRegion();
 
-  //    switch (serviceType.nID) {
-  //      case 1:
-  //        $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false}).then(function() {
-  //    isStep2 = true;
-  //  });
-  //  break;
-  //      case 4:
-  //        $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false}).then(function() {
-  //    isStep2 = true;
-  //  });
-  //  break;
-  //      default:
-  //     $scope.localityList.load(ServiceService.oService, $item.nID, null).then(function(cities) {
-  //          $scope.localityList.typeahead.defaultList = cities;
-  //          var initialCity = serviceLocationParser.getSelectedCity(cities);
-  //          if (initialCity)
-  //            $scope.onSelectLocalityList(initialCity);
-  //        });
-  //    }
-  //  };
+//    switch (serviceType.nID) {
+//      case 1:
+//        $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false}).then(function() {
+//    isStep2 = true;
+//  });
+//  break;
+//      case 4:
+//        $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false}).then(function() {
+//    isStep2 = true;
+//  });
+//  break;
+//      default:
+//     $scope.localityList.load(ServiceService.oService, $item.nID, null).then(function(cities) {
+//          $scope.localityList.typeahead.defaultList = cities;
+//          var initialCity = serviceLocationParser.getSelectedCity(cities);
+//          if (initialCity)
+//            $scope.onSelectLocalityList(initialCity);
+//        });
+//    }
+//  };
 
-  // $scope.loadLocalityList = function(search) {
-  //   return $scope.localityList.load(ServiceService.oService, $scope.data.region.nID, search);
-  // };
+// $scope.loadLocalityList = function(search) {
+//   return $scope.localityList.load(ServiceService.oService, $scope.data.region.nID, search);
+// };
 
-  //  $scope.onSelectLocalityList = function($item, $model, $label) {
-  //    $scope.data.city = $item;
-  //    $scope.localityList.select($item, $model, $label);
-  // var serviceType = $scope.findServiceDataByCity();
-  //    switch (serviceType.nID) {
-  //      case 1:
-  //        $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false}).then(function() {
-  //    isStep2 = true;
-  //  });
-  //  break;
-  //      case 4:
-  //        $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false}).then(function() {
-  //    isStep2 = true;
-  //  });
-  //  break;
-  //      default:
-  //        $state.go('index.service.general.placefix.error', {id: ServiceService.oService.nID}, {location: false}).then(function() {
-  //    isStep2 = true;
-  //  });
-  //    }
-  //  };
+//  $scope.onSelectLocalityList = function($item, $model, $label) {
+//    $scope.data.city = $item;
+//    $scope.localityList.select($item, $model, $label);
+// var serviceType = $scope.findServiceDataByCity();
+//    switch (serviceType.nID) {
+//      case 1:
+//        $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false}).then(function() {
+//    isStep2 = true;
+//  });
+//  break;
+//      case 4:
+//        $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false}).then(function() {
+//    isStep2 = true;
+//  });
+//  break;
+//      default:
+//        $state.go('index.service.general.placefix.error', {id: ServiceService.oService.nID}, {location: false}).then(function() {
+//    isStep2 = true;
+//  });
+//    }
+//  };
 
-  //  $scope.data = {
-  //    region: null,
-  //    city: null
-  //  };
+//  $scope.data = {
+//    region: null,
+//    city: null
+//  };
 
-  //  $scope.ngIfCity = function() {
-  // if($state.current.name === 'index.service.general.placefix.built-in') {
-  //  if($scope.data.city) {
-  //    return true;
-  //  } else {
-  //    return false;
-  //  }
-  // }
-  // if($state.current.name === 'index.service.general.placefix.built-in.bankid') {
-  //  if($scope.data.city) {
-  //    return true;
-  //  } else {
-  //    return false;
-  //  }
-  // }
-  // return $scope.data.region ? true: false;
-  //  };
+//  $scope.ngIfCity = function() {
+// if($state.current.name === 'index.service.general.placefix.built-in') {
+//  if($scope.data.city) {
+//    return true;
+//  } else {
+//    return false;
+//  }
+// }
+// if($state.current.name === 'index.service.general.placefix.built-in.bankid') {
+//  if($scope.data.city) {
+//    return true;
+//  } else {
+//    return false;
+//  }
+// }
+// return $scope.data.region ? true: false;
+//  };
 
-  //  $scope.getRegionId = function() {
-  // var region = $scope.data.region;
-  // return region ? region.nID: 0;
-  //  };
+//  $scope.getRegionId = function() {
+// var region = $scope.data.region;
+// return region ? region.nID: 0;
+//  };
 
-  //  $scope.getCityId = function() {
-  // var city = $scope.data.city;
-  // return city ? city.nID: 0;
-  //  };
+//  $scope.getCityId = function() {
+// var city = $scope.data.city;
+// return city ? city.nID: 0;
+//  };
 
-  //  var isStep2 = false;
-  //  $scope.ngIfStep2 = function() {
-  // return isStep2;
-  //  };
+//  var isStep2 = false;
+//  $scope.ngIfStep2 = function() {
+// return isStep2;
+//  };
 
-  //  $scope.findServiceDataByRegion = function() {
-  // var aServiceData = ServiceService.oService.aServiceData;
-  // var serviceType = {nID: 0};
-  //    angular.forEach(aServiceData, function(value, key) {
-  //      // if service is available 
-  //      if (value.nID_Region && value.nID_Region.nID == $scope.data.region.nID) {
-  //        serviceType = value.nID_ServiceType;
-  //        $scope.serviceData = value;
-  //  if($scope.serviceData.bNoteTrusted == false) {
-  //    $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
-  //    $scope.serviceData.sNoteTrusted = true;
-  //  }
-  //      }
-  //    });
-  // return serviceType;
-  //  };
+//  $scope.findServiceDataByRegion = function() {
+// var aServiceData = ServiceService.oService.aServiceData;
+// var serviceType = {nID: 0};
+//    angular.forEach(aServiceData, function(value, key) {
+//      // if service is available 
+//      if (value.nID_Region && value.nID_Region.nID == $scope.data.region.nID) {
+//        serviceType = value.nID_ServiceType;
+//        $scope.serviceData = value;
+//  if($scope.serviceData.bNoteTrusted == false) {
+//    $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
+//    $scope.serviceData.sNoteTrusted = true;
+//  }
+//      }
+//    });
+// return serviceType;
+//  };
 
-  //  $scope.findServiceDataByCity = function() {
-  // var aServiceData = ServiceService.oService.aServiceData;
-  // var serviceType = {nID: 0};
-  //    angular.forEach(aServiceData, function(value, key) {
-  //      if (value.nID_City && value.nID_City.nID == $scope.data.city.nID) {
-  //        serviceType = value.nID_ServiceType;
-  //        $scope.serviceData = value;
-  //  if($scope.serviceData.bNoteTrusted == false) {
-  //    $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
-  //    $scope.serviceData.sNoteTrusted = true;
-  //  }
-  //      }
-  //    });
-  // return serviceType;
-  //  }
+//  $scope.findServiceDataByCity = function() {
+// var aServiceData = ServiceService.oService.aServiceData;
+// var serviceType = {nID: 0};
+//    angular.forEach(aServiceData, function(value, key) {
+//      if (value.nID_City && value.nID_City.nID == $scope.data.city.nID) {
+//        serviceType = value.nID_ServiceType;
+//        $scope.serviceData = value;
+//  if($scope.serviceData.bNoteTrusted == false) {
+//    $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
+//    $scope.serviceData.sNoteTrusted = true;
+//  }
+//      }
+//    });
+// return serviceType;
+//  }
 
-  //  $scope.step1 = function() {
-  //    $scope.data = {
-  //      region: null,
-  //      city: null
-  //    };
+//  $scope.step1 = function() {
+//    $scope.data = {
+//      region: null,
+//      city: null
+//    };
 
-  //    $scope.regionList.reset();
-  //    $scope.regionList.initialize(regions);
+//    $scope.regionList.reset();
+//    $scope.regionList.initialize(regions);
 
-  //    $scope.localityList.reset();
-  //    return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID}).then(function() {
-  //  isStep2 = false;
-  // });
-  //  };
+//    $scope.localityList.reset();
+//    return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID}).then(function() {
+//  isStep2 = false;
+// });
+//  };
 
-  //  $scope.step2 = function() {
-  //    var aServiceData = ServiceService.oService.aServiceData;
-  //    var serviceType = $scope.findServiceDataByCity();
+//  $scope.step2 = function() {
+//    var aServiceData = ServiceService.oService.aServiceData;
+//    var serviceType = $scope.findServiceDataByCity();
 
-  //    switch (serviceType.nID) {
-  //      case 1:
-  //        return $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false});
-  //      case 4:
-  //        return $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false});
-  //      default:
-  //        return $state.go('index.service.general.placefix.error', {id: ServiceService.oService.nID}, {location: false});
-  //    }
-  //  };
+//    switch (serviceType.nID) {
+//      case 1:
+//        return $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false});
+//      case 4:
+//        return $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false});
+//      default:
+//        return $state.go('index.service.general.placefix.error', {id: ServiceService.oService.nID}, {location: false});
+//    }
+//  };
 
-  // if ($state.current.name == 'service.general.placefix.built-in.bankid') {
-  //  return true;
-  // }
+// if ($state.current.name == 'service.general.placefix.built-in.bankid') {
+//  return true;
+// }
 
-  var initialRegion = serviceLocationParser.getSelectedRegion(regions);
-  if (initialRegion) {
-    $scope.onSelectRegionList(initialRegion);
-  }
-});
-
-angular.module('app').controller('BuiltinCityController', function($scope) {});
+// var initialRegion = serviceLocationParser.getSelectedRegion(regions);
+// if (initialRegion) {
+//   $scope.onSelectRegionList(initialRegion);
+// }
+// });
 
 // end city

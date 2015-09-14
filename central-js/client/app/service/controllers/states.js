@@ -1,6 +1,6 @@
 angular.module('app').controller('ServiceFormController', function($scope, service, regions, AdminService, ServiceService) {
   // FIXME-4 Service Should come not from outside controller, but from ServiceService
-  // $scope.service = service;
+  $scope.service = service;
   $scope.regions = regions;
   console.log('ServiceFormController,  ServiceService.oService =', ServiceService.oService, ', regions =', regions.length );
   $scope.bAdmin = AdminService.isAdmin();

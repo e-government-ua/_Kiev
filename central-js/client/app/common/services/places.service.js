@@ -183,7 +183,7 @@ angular.module('app')
           result.isRegion = true;
         }
       });
-      console.log('getServiceAvailability, iD:', oService.nID, result);
+      console.log('getServiceAvailability, iD:', oService.nID, result.isCity, result.isRegion);
       return result;
     };
 

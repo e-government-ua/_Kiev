@@ -46,7 +46,7 @@ angular.module('app').config(function($stateProvider) {
         },
         'content@index.service': {
           templateUrl: 'app/service/placefix/content.html',
-          // controller: 'ServiceCityController'
+          // controller: 'ServiceCityAbsentController'
           controller: 'PlaceFixController'
         },
         // // moved from region and disabled

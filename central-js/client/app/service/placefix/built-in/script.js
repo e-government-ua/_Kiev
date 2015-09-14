@@ -24,7 +24,8 @@ angular.module('app').config(function($stateProvider) {
         'content@index.service.general.placefix': {
           // FIXME: REPLACE with Place Controller
           templateUrl: 'app/service/placefix/built-in/index.html',
-          controller: 'ServiceBuiltInController'
+          // controller: 'ServiceBuiltInController'
+          controller: 'PlaceFixController'
         }
       }
     })
