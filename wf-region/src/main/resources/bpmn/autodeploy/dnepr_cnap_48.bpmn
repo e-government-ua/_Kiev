@@ -177,6 +177,7 @@
         <activiti:formProperty id="country" name="Виробник (держава)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="chassis_number" name="Ідентифікаційні номери (заводський, шасі/рами)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="engine_number" name="Номер двигуна (також у дужках зазначається латинська літера «V», знак рівності та об’єм двигуна вликотонажного та іншого технологічного транспортного засобу)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string"></activiti:formProperty>
         <activiti:formProperty id="status" name="Обробка заяви" type="enum">
           <activiti:value id="attr1_wait" name="Документи передані в ТУ Держгірпромнагляду у Дніпропетровській обл."></activiti:value>
           <activiti:value id="attr2_finish" name="Відмова громадянину у разі надання неповного пакету документів"></activiti:value>
@@ -366,7 +367,7 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
@@ -403,6 +404,36 @@
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
+							&lt;tr&gt;
+                                &lt;td style="padding: 35px 120px 0 120px;"&gt;
+                                    
+									&lt;b&gt;Оцініть, будь ласка, наскільки Ви задоволені якістю надання цієї послуги, за шкалою від 2 до 5:&lt;/b&gt;
+
+                                    &lt;p style="text-align: center;"&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
+                                    &lt;/p&gt;
+
+                                    &lt;p style="font-size: 13px;"&gt;
+										Якщо Ви не задоволені якістю, прокоментуйте будь ласка що Вас не задовольнило.&lt;br /&gt;
+                                        Також Ви &lt;b style="color: #cc3333;"&gt;маєте пожливість анонімно&lt;/b&gt; подати сигнал о будь-яких правопорушеннях Державних службовців.
+										
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
+                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
+                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
+                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
                             &lt;/table&gt;
                         &lt;/form&gt;
                     &lt;/td&gt;
@@ -437,6 +468,7 @@
         <activiti:formProperty id="country" name="Виробник (держава)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="chassis_number" name="Ідентифікаційні номери (заводський, шасі/рами)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="engine_number" name="Номер двигуна (також у дужках зазначається латинська літера «V», знак рівності та об’єм двигуна вликотонажного та іншого технологічного транспортного засобу)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="status_zayavy" name="Статус заяви" type="enum">
           <activiti:value id="attr3_finish" name="Відмова громадянину Територіальним управлінням Держгірпромнагляду"></activiti:value>
           <activiti:value id="attr4_finish" name="Свідоцтво про реєстрацію та номерні знаки - готові"></activiti:value>
