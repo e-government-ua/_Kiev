@@ -6,16 +6,16 @@ exports.index = function (req, res) {
   var options = {
     path: 'rest/file/downloadTasksData',
     query: req.query,
-    contentType: 'text/csv'
+    //contentType: 'text/csv'
   };
-  if (req.query.sID_Codepage) {
-    var charset = 'windows-1251';
-    switch (req.query.sID_Codepage) {
-      case 'win1251': 'windows-1251'; break;
-    }
-    options.contentType = options.contentType + ';charset=' + charset;
-  }
-  activiti.typedfiledownload(req, res, options);
+  // if (req.query.sID_Codepage) {
+  //   var charset = 'windows-1251';
+  //   switch (req.query.sID_Codepage) {
+  //     case 'win1251': 'windows-1251'; break;
+  //   }
+  //   options.contentType = options.contentType + ';charset=' + charset;
+  // }
+  activiti.filedownload(req, res, options);
 };
 
 exports.statistic = function (req, res) {
