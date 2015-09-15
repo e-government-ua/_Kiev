@@ -295,7 +295,8 @@ public class ActivitiRestServicesController {
                         .hasNext();) {
                     Service service = serviceIterator.next();
                     boolean isPlaceMatched = false;
-                    List<ServiceData> serviceDatas = service.getServiceDataFiltered(generalConfig.bTest());
+                    //List<ServiceData> serviceDatas = service.getServiceDataFiltered(generalConfig.bTest());
+                    List<ServiceData> serviceDatas = service.getServiceDataFiltered(false);
                     if (serviceDatas != null) {
                         for (ServiceData serviceData : serviceDatas) {
                             City city = serviceData.getCity();
