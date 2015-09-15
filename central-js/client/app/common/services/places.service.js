@@ -28,9 +28,7 @@ angular.module('app')
 
     var self = this;
 
-    self.rememberMyData = false;
-
-    self.isStep2 = false;
+    var rememberMyData = false;
 
     // Зберігаємо savedPlaceData у localStorage і потім відновлюємо
     // Формат даних:
@@ -94,7 +92,7 @@ angular.module('app')
     self.getPlaceData = function() {
       var localData = JSON.parse(localStorage.getItem('igSavedPlaceData'));
 
-      if (self.rememberMyData && localData) {
+      if (rememberMyData && localData) {
         savedPlaceData = localData;
       }
 
@@ -156,7 +154,7 @@ angular.module('app')
 
     self.regionIsChosen = function() {
       var bResult = savedPlaceData && (savedPlaceData.region ? true : false);
-      console.log('region is chosen: ', bResult);
+      // console.log('region is chosen: ', bResult);
       return bResult;
     };
 
