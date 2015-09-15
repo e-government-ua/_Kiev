@@ -1,14 +1,14 @@
 angular.module('app').config(function($stateProvider) {
   $stateProvider
-    .state('index.service.general.placefix.built-in', { // FIXME-5 // region
+    .state('index.service.general.placefix.built-in', {
       url: '/built-in',
       views: {
         // 'place-content'
         'content@index.service.general.placefix': {
           // TODO: look if Place Fix Controller can work here also
           templateUrl: 'app/service/placefix/content.html',
-          // controller: 'PlaceFixController'
-          controller: 'ServiceBuiltInController'
+          // controller: 'ServiceBuiltInController'
+          controller: 'PlaceFixController'
         }
       }
     })

@@ -19,21 +19,21 @@ angular.module('app')
         };
 
         $scope.recallPlaceData = function() {
-          $scope.data = PlacesService.getPlaceData() || $scope.data;
-          // console.log('recall place data: ', $scope.data.region, $scope.data.city.sName);
+          var placeData = PlacesService.getPlaceData();
+          // console.log('recall place data: ', placeData.region, placeData.city.sName);
           if ($scope.regionList) {
-            $scope.regionList.select($scope.data.region);
+            $scope.regionList.select(placeData.region);
           }
           if ($scope.localityList) {
-            $scope.localityList.select($scope.data.city);
+            $scope.localityList.select(placeData.city);
           }
         };
 
         $scope.resetPlaceData = function() {
-          $scope.data = {
+          PlacesService.setPlaceData({
             region: null,
             city: null
-          };
+          });
         };
 
         $scope.cityIsChosen = function() {
@@ -48,9 +48,10 @@ angular.module('app')
 
         // TODO improve the logic
         $scope.authControlIsVisible = function() {
+          console.log('authControlIsVisible:', $scope.authControlIsNeeded(), _mode);
           return $scope.authControlIsNeeded() && _mode !== 'placeEditMode';
-        }
-        
+        };
+
         $scope.authControlIsNeeded = function() {
           var bNeeded = true;
           var oAvail = PlacesService.getServiceAvailability();
@@ -107,6 +108,7 @@ angular.module('app')
          * Ця функція визначає, чи заповнені всі поля, які необхідно заповнити
          */
         $scope.placeControlIsComplete = function() {
+          var result = null;
           // FIXME: передбачити випадки, коли треба вибрати тільки регіон або місто, 
           // див. https://github.com/e-government-ua/i/issues/550
           var oAvail = PlacesService.getServiceAvailability();
@@ -114,28 +116,27 @@ angular.module('app')
 
           // return false if no region or no city is chosen (usually on startup), but service is available somewhere
           if ((!$scope.regionIsChosen() || !$scope.cityIsChosen()) && (oAvail.isRegion || oAvail.isCity)) {
-            return false;
+            result = false;
           }
 
           // no region - no city, no need in choosing the place
           if (!oAvail.isRegion && !oAvail.isCity) {
-            return true;
+            result = true;
           }
           // ok region - no city
           if ((oAvail.isRegion && $scope.regionIsChosen()) && !oAvail.isCity) {
-            return true;
+            result = true;
           }
           // ok region - ok city
           if ((oAvail.isRegion && $scope.regionIsChosen()) && (oAvail.isCity && $scope.cityIsChosen())) {
-            return true;
+            result = true;
           }
           // no region - ok city
           if ((!oAvail.isRegion) && (oAvail.isCity && $scope.cityIsChosen())) {
-            return true;
+            result = true;
           }
 
-          // console.log('Place controls is complete:', result);
-          return false;
+          return result;
         };
 
         // колись це було step1
@@ -164,28 +165,33 @@ angular.module('app')
         };
 
         $scope.loadLocalityList = function(search) {
+          var placeData = PlacesService.getPlaceData();
           // from service.controller
-          // return $scope.localityList.load(null, $scope.data.region.nID, search);
-          return $scope.localityList.load(ServiceService.oService, $scope.data.region.nID, search).then(function(cities) {
+          // return $scope.localityList.load(null, placeData.region.nID, search);
+          return $scope.localityList.load(ServiceService.oService, placeData.region.nID, search).then(function(cities) {
             // console.log('loadLocalityList:', search, cities);
             $scope.localityList.typeahead.defaultList = cities;
           });
         };
 
         $scope.processPlaceSelection = function() {
-          // console.log('region is chosen: ', $scope.regionIsChosen(), ', city is chosen: ', $scope.cityIsChosen(), ' service Type:', s erviceType);
+          console.log('region is chosen: ', $scope.regionIsChosen(), ', city is chosen: ', $scope.cityIsChosen());
 
-          PlacesService.setPlaceData($scope.data);
+          console.log('Place controls is complete:', $scope.placeControlIsComplete());
+
+          console.log('AuthControlIsVisible: ', $scope.authControlIsVisible());
+         
+          // PlacesService.setPlaceData(placeData);
 
           $scope.$emit('onPlaceChange', {
             serviceData: PlacesService.getServiceDataForSelectedPlace(),
-            placeData: $scope.data
+            placeData: PlacesService.getPlaceData()
           });
         };
 
         $scope.initPlaceControls = function() {
 
-          PlacesService.initPlacesByScopeAndState(this, $scope, $state, $rootScope, AdminService, $location, $sce);
+          var regions = $scope.regions;
 
           $scope.regionList = $scope.regionList || new RegionListFactory();
           $scope.localityList = $scope.localityList || new LocalityListFactory();
@@ -197,31 +203,33 @@ angular.module('app')
           $scope.resetPlaceData();
           $scope.recallPlaceData();
 
+          // var initialRegion = serviceLocationParser.getSelectedRegion(regions);
+          // if (initialRegion) {
+          //   $scope.onSelectRegionList(initialRegion);
+          // }
+
           // Якщо форма вже заповнена після відновлення даних з localStorage, то повідомити про це
           if ($scope.placeControlIsComplete()) {
             $scope.processPlaceSelection();
           }
+
         };
 
-        // FIXME - from service.controller
-        // $scope.onSelectLocalityList = function($item, $model, $label) {
-        //   $scope.data.city = $item;
-        //   $scope.localityList.select($item, $model, $label);
-        //   $scope.search();
-        // };
 
         $scope.onSelectRegionList = function($item, $model, $label) {
-          $scope.data.region = $item;
+          PlacesService.setRegion($item);
           $scope.regionList.select($item, $model, $label);
           $scope.loadLocalityList(null);
 
+          console.info('onSelectRegionList:', $item);
+
           // FIXME - from service.controller
-          // $scope.data.city = null;
-          //   $scope.localityList.reset();
-          //   $scope.search();
-          //   $scope.localityList.load(null, $item.nID, null).then(function(cities) {
-          //     $scope.localityList.typeahead.defaultList = cities;
-          //   });
+          PlacesService.setCity(null);
+          $scope.localityList.reset();
+          // $scope.search();
+          $scope.localityList.load(null, $item.nID, null).then(function(cities) {
+            $scope.localityList.typeahead.defaultList = cities;
+          });
 
           // city - from ServiceCityController
 
@@ -237,53 +245,48 @@ angular.module('app')
                 $scope.onSelectLocalityList(initialCity);
               }
             });
+          } else {
+            $scope.processPlaceSelection();
           }
 
-          $scope.processPlaceSelection();
         };
 
         $scope.onSelectLocalityList = function($item, $model, $label) {
-          $scope.data.city = $item;
+          PlacesService.setCity($item);
+
           $scope.localityList.select($item, $model, $label);
+
+          // FIXME - from service.controller
+          // $scope.search();
 
           $scope.processPlaceSelection();
         };
 
         // city - from ServiceCityController
 
-        //  $scope.data = {
+        //  PlacesService.setPlaceData({
         //    region: null,
         //    city: null
-        //  };
+        //  });
 
-        //  $scope.ngIfCity = function() {
-        // if($state.current.name === 'index.service.general.placefix.built-in') {
-        //  if($scope.data.city) {
-        //    return true;
-        //  } else {
-        //    return false;
-        //  }
-        // }
-        // if($state.current.name === 'index.service.general.placefix.built-in.bankid') {
-        //  if($scope.data.city) {
-        //    return true;
-        //  } else {
-        //    return false;
-        //  }
-        // }
-        // return $scope.data.region ? true: false;
-        //  };
-
-        //  $scope.getRegionId = function() {
-        // var region = $scope.data.region;
-        // return region ? region.nID: 0;
-        //  };
-
-        //  $scope.getCityId = function() {
-        // var city = $scope.data.city;
-        // return city ? city.nID: 0;
-        //  };
-
+        $scope.ngIfCity = function() {
+          var placeData = PlacesService.getPlaceData();
+          if ($state.current.name === 'index.service.general.placefix.built-in') {
+            if (placeData.city) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+          if ($state.current.name === 'index.service.general.placefix.built-in.bankid') {
+            if (placeData.city) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+          return placeData.region ? true : false;
+        };
 
         $scope.initPlaceControls();
 

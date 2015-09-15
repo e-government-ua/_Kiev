@@ -3,28 +3,49 @@ angular.module('app').controller('PlaceFixController', function(
 
   var self = this;
 
-  // Each controller which uses Places Control should tell it:
-  PlacesService.setController(this);
-
   var statesMap = {
     'index.service.general.placefix.built-in': { // city
-      startupFunction: function($location, $state, $rootScope, placeCtrl) {
+      startupFunction: function($location, $state, $rootScope) {
         PlacesService.isStep2 = true;
       },
       viewClass: 'state-disabled'
     },
     'index.service.general.placefix.built-in.bankid.submitted': { // city
-      startupFunction: function($location, $state, $rootScope, placeCtrl) {
+      startupFunction: function($location, $state, $rootScope) {
         $scope.bankIDAccount = BankIDService.account();
       },
       viewClass: 'state-collapsed'
     }
   };
 
+  var oService = ServiceService.oService;
+
+  // FIXME generalize it: if cur state is step 1 and it's complete, go to step 2 and change state
+  // if (stateToGo && oParams.placeData.city) {
+  // if (stateToGo && oParams.placeData) {
+  // console.log('step 2:', PlacesService.isStep2);
+
+  // FIXME remove state dependency
+  var curState = $state.current.name;
+
+  $scope.service = service;
+  $scope.regions = regions;
+  $scope.$state = $state;
+  $scope.$location = $location;
+  $scope.bAdmin = AdminService.isAdmin();
+  $scope.state = $state.get(curState);
+
+  // console.log('PlaceFix Controller. $state name =', $state.current.name);
+
+  if (statesMap[curState] && statesMap[curState].startupFunction) {
+    console.log('PlaceFix Controller. call startup function for $state =', $state.current.name);
+    statesMap[curState].startupFunction.call($location, $state, $rootScope);
+  } else {
+    // default startup
+  }
+
   // oParams = { placeData: placeData, serviceData: serviceData } }
   self.processPlaceChange = function(oParams) {
-
-    var oService = ServiceService.oService;
 
     // due to availiablity, do next steps
     // var bAvail = PlacesService.serviceIsAvailableInPlace();
@@ -51,27 +72,18 @@ angular.module('app').controller('PlaceFixController', function(
       }
     });
 
-    // FIXME generalize it: if cur state is step 1 and it's complete, go to step 2 and change state
-    // if (stateToGo && oParams.placeData.city) {
-    // if (stateToGo && oParams.placeData) {
-    // console.log('step 2:', PlacesService.isStep2);
-
-    $scope.service = service;
-    $scope.regions = regions;
-    $scope.$location = $location;
-    $scope.$state = $state;
-    $scope.state = $state.get($state.current.name);
-
     if (!stateToGo || ($state.current.name === stateToGo)) {
       return;
     }
     // не переходити до іншого стану, якщо даний стан є кінцевим
+    // $state.current.name === 'index.service.general.placefix.built-in' ||
     if ($state.current.name === 'index.service.general.placefix.built-in.bankid' || $state.current.name === 'index.service.general.placefix.built-in.bankid.submitted') {
       // STOPPEDHERE
       return;
     }
 
     PlacesService.isStep2 = true;
+
     $state.go(stateToGo, {
       id: oService.nID
     }, {
@@ -86,10 +98,6 @@ angular.module('app').controller('PlaceFixController', function(
     }
 
     console.info('PROCESS Place сhange, $state:', $state.current.name, ', to go:', stateToGo /*, 'oParams =', oParams*/ );
-  };
-
-  $scope.getStateName = function() {
-    return $state.current.name;
   };
 
   $scope.getRegionId = function() {
@@ -109,41 +117,9 @@ angular.module('app').controller('PlaceFixController', function(
   };
 
   $scope.step2 = function() {
-    var aServiceData = ServiceService.oService.aServiceData;
-
     console.log('step 2:');
+
     PlacesService.isStep2 = true;
-
-    // region - from ServiceRegionController
-    //   var aServiceData = ServiceService.oService.aServiceData;
-    //   var serviceType = {nID: 0};
-    //   angular.forEach(aServiceData, function(value, key) {
-    //     if (value.nID_Region.nID == $scope.data.region.nID) {
-    //       serviceType = value.nID_ServiceType;
-    //       $scope.serviceData = value;
-    //       $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
-    //     }
-    //   });
-    //   switch (serviceType.nID) {
-    //     case 1:
-    //       return $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false});
-    //     case 4:
-    //       return $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false});
-    //     default:
-    //       return $state.go('index.service.general.placefix.error', {id: ServiceService.oService.nID}, {location: false});
-    //   }
-
-    // city 
-    //    var aServiceData = ServiceService.oService.aServiceData;
-    //    var serviceType = $scope.findServiceDataByCity();
-    //    switch (serviceType.nID) {
-    //      case 1:
-    //        return $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false});
-    //      case 4:
-    //        return $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false});
-    //      default:
-    //        return $state.go('index.service.general.placefix.error', {id: ServiceService.oService.nID}, {location: false});
-    //    }
   };
 
   // region
@@ -157,25 +133,9 @@ angular.module('app').controller('PlaceFixController', function(
     return PlacesService.isStep2;
   };
 
-  // moved back from places service
-
-  $scope.bAdmin = AdminService.isAdmin();
-  $scope.$state = $state;
-
-  // FIXME remove state dependency
-  var curState = $scope.getStateName();
-
-  // console.log('PlaceFix Controller. $state name =', $state.current.name);
-
-  if (statesMap[curState] && statesMap[curState].startupFunction) {
-    console.log('PlaceFix Controller. call startup function for $state name =', $state.current.name);
-    statesMap[curState].startupFunction.call($location, $state, $rootScope, self.placeCtrl);
-  } else {
-    // default startup
-  }
-
   // колись це було step1
   $scope.$on('onEditPlace', function(evt, oParams) {
+    
     PlacesService.isStep2 = false;
 
     return $state.go('index.service.general.placefix', {
@@ -192,10 +152,10 @@ angular.module('app').controller('PlaceFixController', function(
     self.processPlaceChange(oParams);
   });
 
-  self.processPlaceChange({
-    serviceData: PlacesService.getServiceDataForSelectedPlace(),
-    placeData: PlacesService.getPlaceData()
-  });
+  // self.processPlaceChange({
+  //   serviceData: PlacesService.getServiceDataForSelectedPlace(),
+  //   placeData: PlacesService.getPlaceData()
+  // });
 
 });
 

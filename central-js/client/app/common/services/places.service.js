@@ -63,14 +63,7 @@ angular.module('app')
       }
     };
 
-    var savedPlaceData = null;
-
-    self.iPlaceController = null;
-
-    // options: self
-    self.setController = function(iPlaceController) {
-      self.iPlaceController = iPlaceController;
-    };
+    var savedPlaceData = {};
 
     self.getClassByState = function($state) {
       // FIXME
@@ -92,6 +85,7 @@ angular.module('app')
      * returns saved place data
      */
     self.getPlaceData = function() {
+      
       var localData = JSON.parse(localStorage.getItem('igSavedPlaceData'));
 
       if (self.rememberMyData && localData) {
@@ -100,13 +94,6 @@ angular.module('app')
 
       // console.log('get place data:', JSON.stringify(savedPlaceData));
       return savedPlaceData;
-    };
-
-    self.initPlacesByScopeAndState = function(placeCtrl, $scope, $state, $rootScope, AdminService, $location, $sce) {
-
-      // tell controller about Place Control
-      self.iPlaceController.placeCtrl = placeCtrl;
-      // ctrllr methods moved back to PlaceFixController
     };
 
     self.getRegionsForService = function(service) {
@@ -136,6 +123,14 @@ angular.module('app')
       return $http.get('./api/places/regions');
     };
 
+    self.setRegion = function(region) {
+      savedPlaceData.region = _.clone(region);
+    };
+
+    self.setCity = function(city) {
+      savedPlaceData.city = _.clone(city);
+    };
+
     self.getRegion = function(region) {
       return $http.get('./api/places/region/' + region);
     };
@@ -156,7 +151,7 @@ angular.module('app')
 
     self.regionIsChosen = function() {
       var bResult = savedPlaceData && (savedPlaceData.region ? true : false);
-      console.log('region is chosen: ', bResult);
+      //console.log('region is chosen: ', bResult);
       return bResult;
     };
 
