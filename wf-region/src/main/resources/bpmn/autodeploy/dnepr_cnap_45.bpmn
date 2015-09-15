@@ -4,7 +4,7 @@
     <documentation>https://github.com/e-government-ua/iBP/issues/45</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="info" name="Зверніть увагу: ця послуга є платною (в розмірі  п'яти  неоподатковуваних  мінімумів  доходів громадян), при заповненні полів треба буде завантажити документ, що засвідчує внесення плати. Ви можте завантажити єлектронну квітанцію, сформовану в інтернет-банку. Детальні реквізити для оплати знаходяться за посиланням" type="label" default="https://www.dropbox.com/ow/msft/edit/home/%D0%9F%D0%9B%D0%90%D0%A2%D0%90%20%D0%97%D0%90%20%D0%9B%D0%86%D0%A6%D0%95%D0%9D%D0%97%D0%86%D0%AE.docx?hpt_click_ts=1442322548129"></activiti:formProperty>
+        <activiti:formProperty id="info" name="Зверніть увагу: ця послуга є платною (в розмірі  п'яти  неоподатковуваних  мінімумів  доходів громадян), при заповненні полів треба буде завантажити документ, що засвідчує внесення плати. Ви можте завантажити єлектронну квітанцію, сформовану в інтернет-банку. Детальні реквізити для оплати знаходяться за посиланням" type="label" default="http://bit.ly/1KQjph3"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
