@@ -9,7 +9,7 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані;серія, номер, коли і ким виданий" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта" type="file" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="Posluga" name="Оберіть які саме зміни ви бажаєте внести в ЄДР" type="enum">
+        <activiti:formProperty id="Posluga" name="Оберіть які саме зміни ви бажаєте внести в ЄДР" type="enum" required="true">
           <activiti:value id="Підтвердження відомостей про юридичну особу (форма 6)" name="Підтвердження відомостей про юридичну особу (форма 6)"></activiti:value>
           <activiti:value id="Зміна додаткової інформації про зв`язок з юридичною особою" name="Зміна додаткової інформації про зв`язок з юридичною особою"></activiti:value>
           <activiti:value id="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа" name="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа"></activiti:value>
