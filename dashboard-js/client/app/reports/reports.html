@@ -14,11 +14,16 @@
                 ng-options="processDefinition.sID as processDefinition.sName for processDefinition in processesList"
                 ng-required="true"
                 class="form-control"
-                ng-show="processesLoaded()"></select>
-          <label ng-hide="processesLoaded()" style="padding-top: 8px;">Зачекайте, завантаження послуг...</label>
+                ng-show="processesLoaded() && !processesLoadError()"
+                ng-change="initExportUrl()"></select>
+          <label ng-hide="processesLoaded() || processesLoadError()" style="padding-top: 8px;">Завантаження послуг...</label>
+          <label ng-show="processesLoadError()" style="padding-top: 8px;">Помилка при завантаженні</label>
       </div>
-      <div class="col-xs-6 col-sm-2">        
-        <button ng-click="exportLink()" class="btn btn-success">Експортувати</button>
+      <div class="col-xs-6 col-sm-2">
+                        
+         <a ng-href="{{getExportLink()}}" class="btn btn-success" target="_self"
+            ng-disabled="!processesLoaded() || processesLoadError()">Експортувати</a>
+           <!--<button ng-click="initExportUrl()" class="btn btn-success">Експортувати</button>-->
       </div>
     </div>
   </div>
@@ -37,11 +42,15 @@
                 ng-options="processDefinition.sID as processDefinition.sName for processDefinition in processesList"
                 ng-required="true"
                 class="form-control"
-                ng-show="processesLoaded()"></select>
-          <label ng-hide="processesLoaded()" style="padding-top: 8px;">Зачекайте, завантаження послуг...</label>
+                ng-show="processesLoaded() && !processesLoadError()"
+                ng-change="initStatisticUrl()"></select>
+          <label ng-hide="processesLoaded() || processesLoadError()" style="padding-top: 8px;">Завантаження послуг...</label>
+          <label ng-show="processesLoadError()" style="padding-top: 8px;">Помилка при завантаженні</label>
       </div>
       <div class="col-xs-6 col-sm-2">
-        <button ng-click="statisticLink()" class="btn btn-success" style="width: 115px;">Зберегти</button>
+        <!--<button ng-click="statisticLink()" class="btn btn-success" style="width: 115px;">Зберегти</button>-->
+         <a ng-href="{{getStatisticLink()}}" class="btn btn-success" target="_self"
+            ng-disabled="!processesLoaded() || processesLoadError()" style="width: 115px;">Зберегти</a>
       </div>
     </div>
   </div>
