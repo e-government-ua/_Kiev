@@ -2,6 +2,7 @@
 
 var request = require('request');
 var _ = require('lodash');
+var NodeCache = require("node-cache" );
 var config = require('../../config/environment');
 var activiti = config.activiti;
 
@@ -15,29 +16,43 @@ if(sHostPrefix==null){
 
 var sHost = sHostPrefix + "/wf-region/service";
 
+var cache = new NodeCache();
+var cacheTtl = 300; // 300 seconds = 5 minutes time to live for a cache
+
 var buildUrl = function(path){
   var url = activiti.protocol + '://' + activiti.hostname + activiti.path + path;
   return url;
 };
+// helper to build key for cache operations
+var buildKey = function(params) {
+  var key = 'catalog';
+  if (params) {
+    for (var k in params) {
+      key += '&' + k + '=' + params[k];
+    }
+  }
+  return key;
+};
+// remove all the keys that starts from buildKey() result from the cache
+var pruneCache = function() {
+  cache.keys( function( err, keys ){
+    if (err) {
+      return;
+    }
+    var keysToDelete = [];
+    // keyBase is a string in start of every key to delete from cache
+    var keyBase = buildKey();
+    keys.forEach(function(key) {
+      if (key.indexOf(keyBase) === 0) {
+        keysToDelete.push(key);
+      }
+    })
+    // prune cache
+    cache.del(keysToDelete);
+  });
+};
 
 module.exports.getServicesTree = function (req, res) {
-
-  //var callback = function (error, response, body) {
-  //  res.send(body);
-  //  res.end();
-  //};
-  //
-  //activiti.sendGetRequest(req,
-  //  res,
-  //  '/services/getServicesTree',
-  //  {
-  //    'sFind': req.query.sFind,
-  //    'asID_Place_UA': req.query.asIDPlaceUA
-  //  },
-  //  callback,
-  //  sHost
-  //);
-
   var options = {
     protocol: activiti.protocol,
     hostname: activiti.hostname,
@@ -50,13 +65,23 @@ module.exports.getServicesTree = function (req, res) {
       asIDPlaceUA: req.query.asIDPlaceUA || null
     }
   };
+  var cachedReply = cache.get(buildKey(options.params));
+  if (cachedReply) {
+    res.send(cachedReply);
+    res.end;
+    return;
+  }
 
   var callback = function (error, response, body) {
+    // set cache key for this particular request
+    if (!error) {
+      cache.set(buildKey(options.params), body, cacheTtl);
+    }
     res.send(body);
     res.end();
   };
 
-  var url = activiti.protocol + '://' + activiti.hostname + activiti.path + '/services/getServicesTree';
+  var url = buildUrl('/services/getServicesTree');
 
   return request.get({
     'url': url,
@@ -75,6 +100,7 @@ module.exports.setServicesTree = function(req, res) {
   activiti.sendPostRequest(req, res, '/services/setServicesTree', {
     nID_Subject : req.session.subject.nID
   }, null, sHost);
+  pruneCache();
 };
 
 var remove = function(path, req, res){
@@ -84,23 +110,7 @@ var remove = function(path, req, res){
       bRecursive: req.query.bRecursive,
       nID_Subject: req.session.subject.nID
     }, null, sHost);
-
-  //var options = {
-  //  path: path,
-  //  query: {
-  //    nID: req.query.nID,
-  //    bRecursive: req.query.bRecursive,
-  //    nID_Subject: req.session.subject.nID
-  //  }
-  //};
-
-  //activiti.del(options, function(error, statusCode, result) {
-  //  if (error) {
-  //    res.send(error);
-  //  } else {
-  //    res.status(statusCode).json(result);
-  //  }
-  //});
+  pruneCache();
 };
 
 module.exports.removeService = function(req, res) {
@@ -132,6 +142,7 @@ module.exports.removeServicesTree = function(req, res) {
       res.send(error);
     } else {
       res.status(statusCode).json(result);
+      pruneCache();
     }
   });
 };
