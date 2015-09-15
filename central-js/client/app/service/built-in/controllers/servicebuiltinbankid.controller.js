@@ -114,10 +114,20 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       field.type = 'tel';
       field.sFieldType = 'tel';
     }
-    if (field.type == 'markers' && $.trim(field.value))
-      _.merge(MarkersFactory.getMarkers(), JSON.parse(field.value), function(destVal, sourceVal) {
-        if (_.isArray(sourceVal)) return sourceVal;
-      });
+    if (field.type == 'markers' && $.trim(field.value)) {
+      var sourceObj = null;
+      try {
+        sourceObj = JSON.parse(field.value);
+      } catch (ex) {
+        alert('markers attribute ' + field.name + " contain bad formatted json\n" + ex.name + ", " + ex.message
+          + "\nfield.value: " + field.value
+        );
+      }
+      if (sourceObj !== null)
+        _.merge(MarkersFactory.getMarkers(), sourceObj, function (destVal, sourceVal) {
+          if (_.isArray(sourceVal)) return sourceVal;
+        });
+    }
   });
 
   $scope.submit = function(form) {
