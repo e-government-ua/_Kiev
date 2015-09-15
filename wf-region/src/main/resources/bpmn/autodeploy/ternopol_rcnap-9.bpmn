@@ -159,8 +159,8 @@
         <activiti:formProperty id="reason" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
         <activiti:formProperty id="vnnumb" name="Реєстраційний номер звернення" type="string"></activiti:formProperty>
         <activiti:formProperty id="doc" type="label" default="Якщо громадянин відправив Вам файли окрім копії паспорту, копії ІПН, та копії права власності на земельну ділянку, додайте їх опис у полях нижче"></activiti:formProperty>
-        <activiti:formProperty id="doc1" name="Файл 1" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="doc2" name="Файл 2" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="doc1" name="Файл 1" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="doc2" name="Файл 2" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/ternopol_rcnap-9_zayava.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
