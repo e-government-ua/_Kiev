@@ -16,7 +16,7 @@
           <activiti:value id="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту" name="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="message" name="Заповніть і відправте форму 6, або у формі 4 першу сторінку, та сторінку, що стосується ваших змін" type="label" default="для зміни інформації про зв`язок - сторінка 3; для зміни відомостей про кінцевих бенефіціарів - сторінка 4; для зміни видів економічної діяльності - сторінка 6"></activiti:formProperty>
-        <activiti:formProperty id="scan_form" name="Завантажте відскановану копію заповненої Форми-4 або Форми-6; бланк форми-4 можна знайти за посиланням http://bit.ly/1O1Yd77;форми-6 можна знайти за посиланням http://bit.ly/1KPbaQL" type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="scan_form" name="Завантажте відскановану копію заповненої Форми-4 або Форми-6; бланк форми-4 можна знайти за посиланням http://bit.ly/1O1Yd77, форми-6 можна знайти за посиланням http://bit.ly/1KPbaQL" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="scan_7" name="Завантажте довіреність;якщо документи подає  уповноважена особа" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
@@ -153,7 +153,7 @@
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <userTask id="usertask3" name="Внесення до ЄДР запису про зміну відомостей" activiti:candidateGroups="dnepr_minust_1">
       <extensionElements>
-        <activiti:formProperty id="Task2" name="На цьому етапі" type="label" default="потрібно натиснути ''взяти в роботу'', після того, як зміни в ЄДР будуть внесені, натисніть ''опрацювати'' "></activiti:formProperty>
+        <activiti:formProperty id="Task2" name="На цьому етапі" type="label" default="потрібно натиснути ''взяти в роботу'', після того, як зміни в ЄДР будуть внесені, є можливість прікріпити документ, що це підтверджує. Далі - натисніть ''опрацювати'' "></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
@@ -413,9 +413,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow24" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <sequenceFlow id="flow26" sourceRef="usertask3" targetRef="mailtask3"></sequenceFlow>
     <endEvent id="endevent6" name="End"></endEvent>
-    <sequenceFlow id="flow27" sourceRef="mailtask3" targetRef="endevent6"></sequenceFlow>
     <sequenceFlow id="flow28" sourceRef="mailtask2" targetRef="endevent6"></sequenceFlow>
     <serviceTask id="servicetask4" name="Повідомлення про реєстрацію змін" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
@@ -533,6 +531,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow29" sourceRef="usertask3" targetRef="servicetask4"></sequenceFlow>
+    <sequenceFlow id="flow30" sourceRef="servicetask4" targetRef="endevent6"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_minust_81">
     <bpmndi:BPMNPlane bpmnElement="dnepr_minust_81" id="BPMNPlane_dnepr_minust_81">
@@ -555,7 +554,7 @@
         <omgdc:Bounds height="40.0" width="40.0" x="495.0" y="327.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
-        <omgdc:Bounds height="55.0" width="191.0" x="420.0" y="420.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="191.0" x="420.0" y="430.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="55.0" width="181.0" x="287.0" y="320.0"></omgdc:Bounds>
@@ -567,13 +566,13 @@
         <omgdc:Bounds height="55.0" width="183.0" x="540.0" y="313.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="59.0" width="105.0" x="463.0" y="510.0"></omgdc:Bounds>
+        <omgdc:Bounds height="59.0" width="105.0" x="164.0" y="446.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent6" id="BPMNShape_endevent6">
         <omgdc:Bounds height="35.0" width="35.0" x="360.0" y="522.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
-        <omgdc:Bounds height="55.0" width="105.0" x="610.0" y="512.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="463.0" y="512.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="285.0" y="189.0"></omgdi:waypoint>
@@ -600,7 +599,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
         <omgdi:waypoint x="515.0" y="367.0"></omgdi:waypoint>
-        <omgdi:waypoint x="515.0" y="420.0"></omgdi:waypoint>
+        <omgdi:waypoint x="515.0" y="430.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="42.0" width="100.0" x="525.0" y="367.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
@@ -609,21 +608,17 @@
         <omgdi:waypoint x="515.0" y="260.0"></omgdi:waypoint>
         <omgdi:waypoint x="515.0" y="327.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
-        <omgdi:waypoint x="515.0" y="475.0"></omgdi:waypoint>
-        <omgdi:waypoint x="515.0" y="510.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
-        <omgdi:waypoint x="463.0" y="539.0"></omgdi:waypoint>
-        <omgdi:waypoint x="395.0" y="539.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
         <omgdi:waypoint x="377.0" y="375.0"></omgdi:waypoint>
         <omgdi:waypoint x="377.0" y="522.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
-        <omgdi:waypoint x="515.0" y="475.0"></omgdi:waypoint>
-        <omgdi:waypoint x="662.0" y="512.0"></omgdi:waypoint>
+        <omgdi:waypoint x="515.0" y="485.0"></omgdi:waypoint>
+        <omgdi:waypoint x="515.0" y="512.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
+        <omgdi:waypoint x="463.0" y="539.0"></omgdi:waypoint>
+        <omgdi:waypoint x="395.0" y="539.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
