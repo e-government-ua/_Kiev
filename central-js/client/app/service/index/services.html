@@ -20,7 +20,7 @@
                         <div class="col-md-12 column">
                             
                             
-                            <div class="form-group"> <!-- ng-if="selectedStatus == 2"-->
+                            <div style="display:none;" class="form-group"> <!-- ng-if="selectedStatus == 2"-->
                               <div style="display:inline-block">
                                 <div style="position:relative" dropdown is-open="regionList.dropdown.isOpen">
                                   <div class="input-group">
@@ -47,7 +47,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="form-group" ng-if="data.region.nID"> <!--  && selectedStatus == 2-->
+                            <div style="display:none;" class="form-group" ng-if="data.region.nID"> <!--  && selectedStatus == 2-->
                               <div style="display:inline-block">
                                 <div style="position:relative" dropdown is-open="localityList.dropdown.isOpen">
                                   <div class="input-group">
