@@ -9,14 +9,15 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані;серія, номер, коли і ким виданий" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthDate" name="Дата народження" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта" type="file" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="Posluga" name="Оберіть які саме зміни ви бажаєте внести в ЄДР" type="enum">
+        <activiti:formProperty id="Posluga" name="Оберіть які саме зміни ви бажаєте внести в ЄДР" type="enum" required="true">
           <activiti:value id="Підтвердження відомостей про юридичну особу (форма 6)" name="Підтвердження відомостей про юридичну особу (форма 6)"></activiti:value>
           <activiti:value id="Зміна додаткової інформації про зв`язок з юридичною особою" name="Зміна додаткової інформації про зв`язок з юридичною особою"></activiti:value>
           <activiti:value id="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа" name="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа"></activiti:value>
           <activiti:value id="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту" name="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="message" name="Заповніть і відправте форму 6, або у формі 4 першу сторінку, та сторінку, що стосується ваших змін" type="label" default="для зміни інформації про зв`язок - сторінка 3; для зміни відомостей про кінцевих бенефіціарів - сторінка 4; для зміни видів економічної діяльності - сторінка 6"></activiti:formProperty>
-        <activiti:formProperty id="scan_form" name="Завантажте відскановану копію заповненої Форми-4 або Форми-6; бланк форми-4 можна знайти за посиланням http://bit.ly/1O1Yd77, форми-6 можна знайти за посиланням http://bit.ly/1KPbaQL" type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="scan_form_4" name="Завантажте відскановану копію заповненої Форми-4;бланк форми-4 можна знайти за посиланням http://bit.ly/1O1Yd77" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="scan_form_6" name="Завантажте відскановану копію заповненої Форми-6;бланк форми-6 можна знайти за посиланням http://bit.ly/1KPbaQL" type="file"></activiti:formProperty>
         <activiti:formProperty id="scan_7" name="Завантажте довіреність;якщо документи подає  уповноважена особа" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
@@ -134,9 +135,9 @@
           <activiti:value id="reject" name="Послуга не може бути надана."></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Підстава для відмови" type="enum">
+          <activiti:value id="Документи подані не у повному обсязі." name="Документи подані не у повному обсязі."></activiti:value>
           <activiti:value id="Документи подані не за місцем проведення державної реєстрації." name="Документи подані не за місцем проведення державної реєстрації."></activiti:value>
           <activiti:value id="Документи не  відповідають  вимогам,  встановленим  частинами першою - п'ятою статті 8 Закону України &quot;Про державну реєстрацію юридичних осіб та фізичних осіб – підприємців&quot;. " name="Документи не  відповідають  вимогам,  встановленим  частинами першою - п'ятою статті 8 Закону України &quot;Про державну реєстрацію юридичних осіб та фізичних осіб – підприємців&quot;. "></activiti:value>
-          <activiti:value id="Документи подані не у повному обсязі." name="Документи подані не у повному обсязі."></activiti:value>
           <activiti:value id="Документи подані особою, яка не має відповідних повноважень." name="Документи подані особою, яка не має відповідних повноважень."></activiti:value>
           <activiti:value id="До державного реєстратора надійшло рішення суду щодо заборони проведення реєстраційних дій,  яке набрало законної сили." name="До державного реєстратору надійшло рішення суду щодо заборони проведення реєстраційних дій,  яке набрало законної сили."></activiti:value>
         </activiti:formProperty>
@@ -144,7 +145,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport},${scan_form},${scan_7}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport},${scan_form_4},${scan_form_6},${scan_7}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -153,7 +154,7 @@
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <userTask id="usertask3" name="Внесення до ЄДР запису про зміну відомостей" activiti:candidateGroups="dnepr_minust_1">
       <extensionElements>
-        <activiti:formProperty id="Task2" name="На цьому етапі" type="label" default="потрібно натиснути ''взяти в роботу'', після того, як зміни в ЄДР будуть внесені, є можливість прікріпити документ, що це підтверджує. Далі - натисніть ''опрацювати'' "></activiti:formProperty>
+        <activiti:formProperty id="Task2" name="На цьому етапі" type="label" default="потрібно натиснути ''взяти в роботу'', після того, як зміни в ЄДР будуть внесені, завантажте скан-копію документа, що це підтверджує. Далі - натисніть ''опрацювати'' "></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
@@ -166,11 +167,11 @@
           <activiti:value id="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа" name="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа"></activiti:value>
           <activiti:value id="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту" name="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="zmini" name="Завантажте документ з підтвердженням внесення змін" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="zmini" name="Завантажте документ з підтвердженням внесення змін" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport},${scan_form},${scan_7}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport},${scan_form_4},${scan_form_6},${scan_7}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -541,9 +542,6 @@
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="55.0" width="171.0" x="200.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
-        <omgdc:Bounds height="30.0" width="30.0" x="342.0" y="107.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="55.0" width="191.0" x="420.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -559,6 +557,9 @@
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="55.0" width="181.0" x="287.0" y="320.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="342.0" y="107.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
         <omgdc:Bounds height="35.0" width="35.0" x="339.0" y="166.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -566,13 +567,13 @@
         <omgdc:Bounds height="55.0" width="183.0" x="540.0" y="313.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="59.0" width="105.0" x="164.0" y="446.0"></omgdc:Bounds>
+        <omgdc:Bounds height="59.0" width="105.0" x="140.0" y="586.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent6" id="BPMNShape_endevent6">
-        <omgdc:Bounds height="35.0" width="35.0" x="360.0" y="522.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="360.0" y="570.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
-        <omgdc:Bounds height="55.0" width="105.0" x="463.0" y="512.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="463.0" y="560.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="285.0" y="189.0"></omgdi:waypoint>
@@ -610,15 +611,15 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
         <omgdi:waypoint x="377.0" y="375.0"></omgdi:waypoint>
-        <omgdi:waypoint x="377.0" y="522.0"></omgdi:waypoint>
+        <omgdi:waypoint x="377.0" y="570.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
         <omgdi:waypoint x="515.0" y="485.0"></omgdi:waypoint>
-        <omgdi:waypoint x="515.0" y="512.0"></omgdi:waypoint>
+        <omgdi:waypoint x="515.0" y="560.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
-        <omgdi:waypoint x="463.0" y="539.0"></omgdi:waypoint>
-        <omgdi:waypoint x="395.0" y="539.0"></omgdi:waypoint>
+        <omgdi:waypoint x="463.0" y="587.0"></omgdi:waypoint>
+        <omgdi:waypoint x="395.0" y="587.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

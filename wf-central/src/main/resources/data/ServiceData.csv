@@ -164,9 +164,6 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 248;706;1;NULL;1;{};http://dracs.minjust.gov.ua/;FALSE;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися електронно-цифровим підписом;BankID,EDS
 249;706;6;NULL;1;{};http://dracs.minjust.gov.ua/;true;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися електронно-цифровим підписом;BankID,EDS
 250;706;12;NULL;1;{};http://dracs.minjust.gov.ua/;FALSE;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися електронно-цифровим підписом;BankID,EDS
-251;707;1;NULL;1;{};http://dracs.minjust.gov.ua/;FALSE;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися електронно-цифровим підписом;BankID,EDS
-252;707;6;NULL;1;{};http://dracs.minjust.gov.ua/;true;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися електронно-цифровим підписом;BankID,EDS
-253;707;12;NULL;1;{};http://dracs.minjust.gov.ua/;FALSE;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися електронно-цифровим підписом;BankID,EDS
 254;708;1;NULL;1;{};http://dracs.minjust.gov.ua/;FALSE;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися електронно-цифровим підписом;BankID,EDS
 255;708;6;NULL;1;{};http://dracs.minjust.gov.ua/;true;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися електронно-цифровим підписом;BankID,EDS
 256;708;12;NULL;1;{};http://dracs.minjust.gov.ua/;FALSE;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися електронно-цифровим підписом;BankID,EDS
@@ -261,7 +258,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 347;750;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_52:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 348;153;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_72:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 349;751;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_datepicker:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
-350;752;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_socialhelp_kids:1:352"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,
+350;752;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_socialhelp_kids:1:352"}};https://test.region.igov.org.ua/wf-region/;false;1;false;;BankID,
 351;753;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_post_97:1:352"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 352;754;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_post_98:1:352"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 353;755;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_mailer:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
@@ -270,3 +267,5 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 356;367;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dpi_reestr_68:1:352"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 357;49;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_70:1:352"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 358;756;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_queue_cancel:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+359;654;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"demo2:1:60054"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+360;757;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_type_HTML:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
