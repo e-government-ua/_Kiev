@@ -8,13 +8,13 @@ angular.module('app').controller('PlaceFixController', function(
 
   var statesMap = {
     'index.service.general.placefix.built-in': { // city
-      startupFunction: function(iPlaceController, $location, $state, $rootScope, placeCtrl) {
-        iPlaceController.isStep2 = true;
+      startupFunction: function($location, $state, $rootScope, placeCtrl) {
+        PlacesService.isStep2 = true;
       },
       viewClass: 'state-disabled'
     },
     'index.service.general.placefix.built-in.bankid.submitted': { // city
-      startupFunction: function(iPlaceController, $location, $state, $rootScope, placeCtrl) {
+      startupFunction: function($location, $state, $rootScope, placeCtrl) {
         $scope.bankIDAccount = BankIDService.account();
       },
       viewClass: 'state-collapsed'
@@ -29,6 +29,8 @@ angular.module('app').controller('PlaceFixController', function(
     // due to availiablity, do next steps
     // var bAvail = PlacesService.serviceIsAvailableInPlace();
 
+    var serviceType = oParams.serviceData.nID_ServiceType.nID;
+
     var stateByServiceType = {
       // Сервіс за посиланням
       1: 'index.service.general.placefix.link',
@@ -38,7 +40,7 @@ angular.module('app').controller('PlaceFixController', function(
       0: 'index.service.general.placefix.error'
     };
 
-    var stateToGo = stateByServiceType[oParams.serviceData.nID_ServiceType.nID];
+    var stateToGo = stateByServiceType[serviceType];
 
     // obtain service data and it's notes
     angular.forEach(oService.aServiceData, function(service, key) {
@@ -52,7 +54,7 @@ angular.module('app').controller('PlaceFixController', function(
     // FIXME generalize it: if cur state is step 1 and it's complete, go to step 2 and change state
     // if (stateToGo && oParams.placeData.city) {
     // if (stateToGo && oParams.placeData) {
-    // console.log('step 2:', self.isStep2);
+    // console.log('step 2:', PlacesService.isStep2);
 
     $scope.service = service;
     $scope.regions = regions;
@@ -69,13 +71,13 @@ angular.module('app').controller('PlaceFixController', function(
       return;
     }
 
-    self.isStep2 = true;
+    PlacesService.isStep2 = true;
     $state.go(stateToGo, {
       id: oService.nID
     }, {
       location: false
     }).then(function() {
-      self.isStep2 = true;
+      PlacesService.isStep2 = true;
     });
 
     var initialRegion = serviceLocationParser.getSelectedRegion(regions);
@@ -106,43 +108,11 @@ angular.module('app').controller('PlaceFixController', function(
     return $sce.trustAsHtml(html);
   };
 
-  $scope.step1 = function() {
-    self.isStep2 = false;
-    // FIXME
-    // if (byState('index.service.general.placefix')) {
-    //   return $state.go('index.service.general.placefix', {
-    //     id: ServiceService.oService.nID
-    //   });
-    // }
-
-    // region - from ServiceRegionController
-    //   $scope.data = {
-    //     region: null,
-    //     city: null
-    //   };
-    //   return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID});
-
-    // city
-    //    $scope.data = {
-    //      region: null,
-    //      city: null
-    //    };
-
-    //    $scope.regionList.reset();
-    //    $scope.regionList.initialize(regions);
-
-    //    $scope.localityList.reset();
-    //    return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID}).then(function() {
-    //      isStep2 = false;
-    //    });
-  };
-
-
   $scope.step2 = function() {
     var aServiceData = ServiceService.oService.aServiceData;
 
     console.log('step 2:');
-    self.isStep2 = true;
+    PlacesService.isStep2 = true;
 
     // region - from ServiceRegionController
     //   var aServiceData = ServiceService.oService.aServiceData;
@@ -184,11 +154,10 @@ angular.module('app').controller('PlaceFixController', function(
   $scope.ngIfStep2 = function() {
     // console.log('ngIfStep2 =', self.isStep2);
     // return $scope.place ControlIsComplete();
-    return self.isStep2;
+    return PlacesService.isStep2;
   };
 
   // moved back from places service
-  self.isStep2 = self.isStep2 || false;
 
   $scope.bAdmin = AdminService.isAdmin();
   $scope.$state = $state;
@@ -200,13 +169,20 @@ angular.module('app').controller('PlaceFixController', function(
 
   if (statesMap[curState] && statesMap[curState].startupFunction) {
     console.log('PlaceFix Controller. call startup function for $state name =', $state.current.name);
-    statesMap[curState].startupFunction.call(self, $location, $state, $rootScope, self.placeCtrl);
+    statesMap[curState].startupFunction.call($location, $state, $rootScope, self.placeCtrl);
   } else {
     // default startup
   }
 
+  // колись це було step1
   $scope.$on('onEditPlace', function(evt, oParams) {
-    self.isStep2 = false;
+    PlacesService.isStep2 = false;
+
+    return $state.go('index.service.general.placefix', {
+      id: ServiceService.oService.nID
+    }).then(function() {
+      PlacesService.isStep2 = false;
+    });
   });
 
   /**
