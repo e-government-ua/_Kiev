@@ -166,7 +166,7 @@
           <activiti:value id="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа" name="Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) юридичної особи, у тому числі кінцевих бенефіціарних власників (контролерів) її учасника (засновника) юридичної особи, якщо учасник (засновник) - юридична особа"></activiti:value>
           <activiti:value id="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту" name="Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="zmini" name="Завантажте документ з підтвердженням внесення змін" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="zmini" name="Завантажте документ з підтвердженням внесення змін" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -530,7 +530,9 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow29" sourceRef="usertask3" targetRef="servicetask4"></sequenceFlow>
+    <sequenceFlow id="flow29" sourceRef="usertask3" targetRef="servicetask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide1=='reject'}]]></conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="flow30" sourceRef="servicetask4" targetRef="endevent6"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_minust_81">
@@ -566,13 +568,13 @@
         <omgdc:Bounds height="55.0" width="183.0" x="540.0" y="313.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="59.0" width="105.0" x="164.0" y="446.0"></omgdc:Bounds>
+        <omgdc:Bounds height="59.0" width="105.0" x="140.0" y="586.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent6" id="BPMNShape_endevent6">
-        <omgdc:Bounds height="35.0" width="35.0" x="360.0" y="522.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="360.0" y="570.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
-        <omgdc:Bounds height="55.0" width="105.0" x="463.0" y="512.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="463.0" y="560.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="285.0" y="189.0"></omgdi:waypoint>
@@ -610,15 +612,15 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
         <omgdi:waypoint x="377.0" y="375.0"></omgdi:waypoint>
-        <omgdi:waypoint x="377.0" y="522.0"></omgdi:waypoint>
+        <omgdi:waypoint x="377.0" y="570.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
         <omgdi:waypoint x="515.0" y="485.0"></omgdi:waypoint>
-        <omgdi:waypoint x="515.0" y="512.0"></omgdi:waypoint>
+        <omgdi:waypoint x="515.0" y="560.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
-        <omgdi:waypoint x="463.0" y="539.0"></omgdi:waypoint>
-        <omgdi:waypoint x="395.0" y="539.0"></omgdi:waypoint>
+        <omgdi:waypoint x="463.0" y="587.0"></omgdi:waypoint>
+        <omgdi:waypoint x="395.0" y="587.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
