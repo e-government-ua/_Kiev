@@ -7,7 +7,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="chapter1" name="Деталі" type="HTML" default="&lt;a href=&quot;http://iGov.org.ua&quot;&gt;iGov.org.ua&lt;/a&gt;"></activiti:formProperty>
+        <activiti:formProperty id="chapter1" name="Деталі" type="label" default="&lt;a href=&quot;http://iGov.org.ua&quot;&gt;iGov.org.ua&lt;/a&gt;"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="tester">
@@ -16,7 +16,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Им'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="chapter1" name="Деталі" type="HTML" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="chapter1" name="Деталі" type="label" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
     </userTask>
