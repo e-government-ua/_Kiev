@@ -47,9 +47,9 @@ angular.module('dashboardJsApp').factory('reports', function tasks($http) {
             if (!!sr && sr.length >= 2) {
               var propKey = sr[0].trim();
               var propValue = sr[1].trim();
-              if (dataArray[propKey]) {
-                dataArray[propKey] = propValue;
-              }
+              //if there is no such property in default properties, it should be assigned
+              //if there is already such property - it's value should be overwritten
+              dataArray[propKey] = propValue;              
             }
           });
 
