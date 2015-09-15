@@ -21,7 +21,7 @@
         <activiti:formProperty id="sSum" name="сумма платежа" type="invisible" default="17.15"></activiti:formProperty>
         <activiti:formProperty id="sID_Currency" name="ИД-строковой валюты" type="invisible" default="UAH"></activiti:formProperty>
         <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default="Реєстраційний збір за проведення державної реєстрації фізичної особи - підприємця."></activiti:formProperty>
-        <activiti:formProperty id="scan_receipt" name="Копія квітанції, виданої банком, або копія платіжного доручення з відміткою банку" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="scan_receipt" name="Копія квитанції, виданої банком, або копія платіжного доручення з відміткою банку" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="country" name="Країна громадянства" type="string" default="Україна" required="true"></activiti:formProperty>
         <activiti:formProperty id="typeRoom" name="Тип приміщення (квартира, кімната, кабінет або офіс тощо)" type="string" required="true"></activiti:formProperty>
       </extensionElements>
@@ -43,7 +43,7 @@
         <activiti:formProperty id="country" name="Країна громадянства" type="string" default="Україна"></activiti:formProperty>
         <activiti:formProperty id="typeRoom" name="Тип приміщення (квартира, кімната, кабінет або офіс тощо)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="scan_inn" name="Копія документа, що засвідчує реєстрацію у Державному реєстрі фізичних осіб - платників податків (ІПН)" type="file" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="scan_receipt" name="Копія квітанції, виданої банком, або копія платіжного доручення з відміткою банку" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="scan_receipt" name="Копія квитанції, виданої банком, або копія платіжного доручення з відміткою банку" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sIDPayment" name="ID платежа за послугу" type="string" default="${sID_Payment}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="code" name="Штрих-код відправленого листа; цей штрих-код буде надісланий громадянину на e-mail" type="string"></activiti:formProperty>
         <activiti:formProperty id="decision" name="Стан заяви" type="enum" required="true">

@@ -8,7 +8,7 @@
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="rai" name="Оберіть район" type="enum" required="true">
@@ -103,7 +103,7 @@
                                     &lt;p&gt;
                                     Ваше звернення щодо надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки успішно зареєстроване.&lt;/p&gt;
 									&lt;p&gt;
-									Ви отримаєте відповідь протягом 7 робочих днів. 
+									Ви отримаєте відповідь протягом 3 робочих днів. 
                                     &lt;/p&gt;
                             
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -135,7 +135,7 @@
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="rai" name="Оберіть район" type="enum" writable="false">
@@ -157,6 +157,10 @@
           <activiti:value id="reject" name="Відмовити у наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="reason" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="vnnumb" name="Реєстраційний номер звернення" type="string"></activiti:formProperty>
+        <activiti:formProperty id="doc" type="label" default="Якщо громадянин відправив Вам файли окрім копії паспорту, копії ІПН, та копії права власності на земельну ділянку, додайте їх опис у полях нижче"></activiti:formProperty>
+        <activiti:formProperty id="doc1" name="Файл 1" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="doc2" name="Файл 2" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/ternopol_rcnap-9_zayava.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
@@ -265,8 +269,9 @@
     </sequenceFlow>
     <userTask id="usertask2" name="Підготовка відповіді на запит" activiti:candidateGroups="cnap_rai_${rai}_1">
       <extensionElements>
+        <activiti:formProperty id="vnnumb" name="Реєстраційний номер звернення" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета звернення" type="enum" writable="false">
