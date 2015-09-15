@@ -17,7 +17,7 @@ angular.module('app').controller('PlaceFixController', function(
     },
     'index.service.general.placefix.built-in.bankid.submitted': { // city
       startupFunction: function(iPlaceController, $location, $state, $rootScope, placeCtrl) {
-        $scope.collapse();
+        $scope.bankIDAccount = BankIDService.account();
       },
       viewClass: 'state-collapsed'
     }
@@ -68,7 +68,8 @@ angular.module('app').controller('PlaceFixController', function(
     if (!stateToGo || ($state.current.name === stateToGo) ) { 
       return;
     }
-    if ( $state.current.name === 'index.service.general.placefix.built-in.bankid') {
+    // не переходити до іншого стану, якщо даний стан є кінцевим
+    if ( $state.current.name === 'index.service.general.placefix.built-in.bankid' || $state.current.name === 'index.service.general.placefix.built-in.bankid.submitted' ) {
       // STOPPEDHERE
       return;
     }

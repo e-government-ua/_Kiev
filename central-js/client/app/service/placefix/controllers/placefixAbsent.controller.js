@@ -1,10 +1,9 @@
-// city - from serviceCityAbsent.controller.js
 'use strict';
 
 angular.module('app').controller('PlaceFixAbsentController', function($state, $rootScope, $scope, service, MessagesService, AdminService, ValidationService) {
 
   $scope.bAdmin = AdminService.isAdmin();
-  
+
   (function() {
     if (window.pluso && typeof window.pluso.start === 'function') {
       return;
@@ -45,6 +44,5 @@ angular.module('app').controller('PlaceFixAbsentController', function($state, $r
 
 });
 
-// country
-// merged
-// end country
+// city - from serviceCityAbsent.controller.js
+// country, region - merged

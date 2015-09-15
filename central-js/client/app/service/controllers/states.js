@@ -6,35 +6,13 @@ angular.module('app').controller('ServiceFormController', function($scope, servi
   $scope.bAdmin = AdminService.isAdmin();
 });
 
-angular.module('app').controller('ServiceGeneralController', function($state, $scope, ServiceService) {
-  var aServiceData = ServiceService.oService.aServiceData;
-
+angular.module('app').controller('ServiceGeneralController', function($state, $scope, ServiceService, PlacesService ) {
+  var oAvail = PlacesService.getServiceAvailability();
   console.log('ServiceGeneralController');
-
-  // FIXME review this logic duplications
-
-  // This is implemented laso as processPlaceChange
-  // var isCity = false;
-  // angular.forEach(aServiceData, function(value, key) {
-  //   if (value.hasOwnProperty('nID_City')) {
-  //     isCity = true;
-  //   }
-  // });
-  // if (isCity) {
-  //   return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID}, {location: false});
-  // }
-
-  // var isRegion = false;
-  // angular.forEach(aServiceData, function(value, key) {
-  //   if (value.hasOwnProperty('nID_Region')) {
-  //     isRegion = true;
-  //   }
-  // });
-  // if (isRegion) {
-  //   return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID}, {location: false});
-  // }
-
-  return $state.go('index.service.general.placefix', {id:  ServiceService.oService.nID}, {location: false});
+  // FIXME review this logic duplications, refer also to processPlaceChange
+  if (oAvail.isCity || oAvail.isRegion) {
+    return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID}, {location: false});
+  }
 });
 
 angular.module('app').controller('ServiceInstructionController', function($state, $rootScope, $scope) {

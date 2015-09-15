@@ -18,10 +18,6 @@ angular.module('app')
           return PlacesService.getClassByState($state);
         };
 
-        $scope.collapse = function() {
-          console.log('collapse: ', this, $scope);
-        };
-
         $scope.recallPlaceData = function() {
           $scope.placeData = PlacesService.getPlaceData() || $scope.placeData;
           // console.log('recall place data: ', $scope.placeData.region, $scope.placeData.city.sName);
@@ -56,22 +52,7 @@ angular.module('app')
           var bAvail = PlacesService.serviceIsAvailableInPlace();
           bNeeded = bNeeded && bAvail === true && $scope.placeControlIsComplete();
 
-          console.info('auth control is needed:', bNeeded, ', available in this place:', bAvail);
-          console.log($scope.placeData);
-
-          // STOPPEDHERE
-
-          return bNeeded;
-        };
-
-        $scope.placeControlIsNeeded = function() {
-          var bNeeded = true;
-          var bAvail = PlacesService.serviceIsAvailableInPlace();
-          bNeeded = bNeeded && bAvail === true && $scope.placeControlIsComplete();
-          bNeeded = bNeeded && PlacesService.getServiceAvailabilityForSelectedPlace();
-
-          console.info('place control is needed:', bNeeded, ', available in this place:', bAvail);
-          console.log($scope.placeData);
+          // console.info('auth control is needed:', bNeeded, ', available in this place:', bAvail.isRegion, bAvail.isCity);
 
           // STOPPEDHERE
 
@@ -84,13 +65,29 @@ angular.module('app')
           return bComplete;
         };
 
-        $scope.placeControlIsVisible = function() {
+        $scope.placeControlIsNeeded = function() {
+          var bNeeded = false;
+          var oAvail = PlacesService.getServiceAvailability();
+          var bAvail = PlacesService.serviceIsAvailableInPlace();
+          // FIXME
+          bNeeded = bNeeded && bAvail === true && $scope.placeControlIsComplete();
+          bNeeded = bNeeded && oAvail;
 
+          if ( oAvail.isCity || oAvail.isRegion ) {
+            bNeeded = true;
+          }
+
+          console.info('place control is needed:', bNeeded, ', availability:', oAvail);
+
+          // STOPPEDHERE
+
+          return bNeeded;
+        };
+
+        $scope.placeControlIsVisible = function() {
           var result = true;
 
-          // if (!$scope.serviceIsAvailableInPlace()) {
-          //   result = false;
-          // }
+          result = $scope.placeControlIsNeeded();
 
           // console.log('placeControlIsVisible:', result );
 
@@ -98,7 +95,8 @@ angular.module('app')
         };
 
         $scope.placeControlIsDisabled = function() {
-          var isDisabled = $scope.placeControlIsComplete() && mode !== 'editMode';
+          var isDisabled = false;
+          isDisabled = $scope.placeControlIsComplete() && mode !== 'editMode';
           // console.info('placeControlIsDisabled:', $scope.placeControlIsComplete(), mode !== 'editMode', isDisabled);
           return isDisabled;
           // return false;
@@ -110,25 +108,33 @@ angular.module('app')
         $scope.placeControlIsComplete = function() {
           // FIXME: передбачити випадки, коли треба вибрати тільки регіон або місто, 
           // див. https://github.com/e-government-ua/i/issues/550
-          var oAvail = PlacesService.getServiceAvailabilityForSelectedPlace();
-          var result = false; //$scope.regionIsChosen() && $scope.cityIsChosen();
+          var oAvail = PlacesService.getServiceAvailability();
+          var bAvail = PlacesService.serviceIsAvailableInPlace();
+
+          // return false if no region or no city is chosen (usually on app startup)
+          if ( (!$scope.regionIsChosen() || !$scope.cityIsChosen()) && bAvail ) {
+            return false;
+          }
+
           // no region - no city
           // ok region - no city
           // ok region - ok city
+          // no region - ok city
           if (!oAvail.isRegion && !oAvail.isCity) {
-            result = true;
+            return true;
           }
           if ((oAvail.isRegion && $scope.regionIsChosen()) && !oAvail.isCity) {
-            result = true;
+            return true;
           }
           if ((oAvail.isRegion && $scope.regionIsChosen()) && (oAvail.isCity && $scope.cityIsChosen())) {
-            result = true;
+            return true;
           }
           if ((!oAvail.isRegion) && (oAvail.isCity && $scope.cityIsChosen())) {
-            result = true;
+            return true;
           }
+
           // console.log('Place controls is complete:', result);
-          return result;
+          return false;
         };
 
         $scope.onEditPlace = function() {
