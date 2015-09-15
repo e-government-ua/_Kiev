@@ -63,7 +63,6 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   // Each controller which uses Places Control should tell it:
   PlacesService.setController(this);
 
-  // FIXME
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount;
   $scope.ActivitiForm = ActivitiForm;

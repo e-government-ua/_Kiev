@@ -14,7 +14,7 @@ angular.module('app')
       templateUrl: 'app/common/components/form/directives/place/place.html',
       link: function($scope, element, attrs) {
 
-        $scope.getClass = function() {
+        $scope.getPlaceControlClass = function() {
           return PlacesService.getClassByState($state);
         };
 
@@ -49,12 +49,8 @@ angular.module('app')
         // TODO improve the logic
         $scope.authControlIsNeeded = function() {
           var bNeeded = true;
-          var bAvail = PlacesService.serviceIsAvailableInPlace();
-          bNeeded = bNeeded && bAvail === true && $scope.placeControlIsComplete();
-
-          // console.info('auth control is needed:', bNeeded, ', available in this place:', bAvail.isRegion, bAvail.isCity);
-
-          // STOPPEDHERE
+          var oAvail = PlacesService.getServiceAvailability();
+          bNeeded = bNeeded && (oAvail.thisRegion || oAvail.thisCity) && $scope.placeControlIsComplete();
 
           return bNeeded;
         };
@@ -68,18 +64,19 @@ angular.module('app')
         $scope.placeControlIsNeeded = function() {
           var bNeeded = false;
           var oAvail = PlacesService.getServiceAvailability();
-          var bAvail = PlacesService.serviceIsAvailableInPlace();
-          // FIXME
-          bNeeded = bNeeded && bAvail === true && $scope.placeControlIsComplete();
-          bNeeded = bNeeded && oAvail;
+          // var bAvailForPlace = PlacesService.serviceIsAvailableInPlace();
 
-          if ( oAvail.isCity || oAvail.isRegion ) {
+          // needed because service is available for some place
+          if (oAvail.isRegion || oAvail.isCity) {
             bNeeded = true;
           }
 
-          console.info('place control is needed:', bNeeded, ', availability:', oAvail);
+          // needed because is available for selected place
+          // if (bAvailForPlace === true && $scope.placeControlIsComplete()) {
+          //   bNeeded = true;
+          // }
 
-          // STOPPEDHERE
+          // console.info('place control is needed:', bNeeded, ', availability:', oAvail);
 
           return bNeeded;
         };
@@ -109,26 +106,26 @@ angular.module('app')
           // FIXME: передбачити випадки, коли треба вибрати тільки регіон або місто, 
           // див. https://github.com/e-government-ua/i/issues/550
           var oAvail = PlacesService.getServiceAvailability();
-          var bAvail = PlacesService.serviceIsAvailableInPlace();
+          // var bAvail = PlacesService.serviceIsAvailableInPlace();
 
-          // return false if no region or no city is chosen (usually on app startup)
-          if ( (!$scope.regionIsChosen() || !$scope.cityIsChosen()) && bAvail ) {
+          // return false if no region or no city is chosen (usually on startup), but service is available somewhere
+          if ((!$scope.regionIsChosen() || !$scope.cityIsChosen()) && (oAvail.isRegion || oAvail.isCity)) {
             return false;
           }
 
-          // no region - no city
-          // ok region - no city
-          // ok region - ok city
-          // no region - ok city
+          // no region - no city, no need in choosing the place
           if (!oAvail.isRegion && !oAvail.isCity) {
             return true;
           }
+          // ok region - no city
           if ((oAvail.isRegion && $scope.regionIsChosen()) && !oAvail.isCity) {
             return true;
           }
+          // ok region - ok city
           if ((oAvail.isRegion && $scope.regionIsChosen()) && (oAvail.isCity && $scope.cityIsChosen())) {
             return true;
           }
+          // no region - ok city
           if ((!oAvail.isRegion) && (oAvail.isCity && $scope.cityIsChosen())) {
             return true;
           }
@@ -162,6 +159,11 @@ angular.module('app')
             $scope.localityList.typeahead.defaultList = cities;
           });
         };
+
+        // city - from ServiceCityController
+        // $scope.loadLocalityList = function(search) {
+        //   return $scope.localityList.load(ServiceService.oService, $scope.data.region.nID, search);
+        // };
 
         $scope.processPlaceSelection = function() {
           // console.log('region is chosen: ', $scope.regionIsChosen(), ', city is chosen: ', $scope.cityIsChosen(), ' service Type:', s erviceType);
@@ -201,11 +203,106 @@ angular.module('app')
           $scope.processPlaceSelection();
         };
 
+        // region - from ServiceRegionController
+        //   $scope.onSelectRegionList = function($item, $model, $label) {
+        //     $scope.data.region = $item;
+        //     $scope.regionList.select($item, $model, $label);
+        //   };
+
+        // city - from ServiceCityController
+        //  $scope.onSelectRegionList = function($item) {
+        //    $scope.data.region = $item;
+        //    $scope.regionList.select($item);
+
+        // var serviceType = $scope.findServiceDataByRegion();
+
+        //    switch (serviceType.nID) {
+        //      case 1:
+        //        $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false}).then(function() {
+        //    isStep2 = true;
+        //  });
+        //  break;
+        //      case 4:
+        //        $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false}).then(function() {
+        //    isStep2 = true;
+        //  });
+        //  break;
+        //      default:
+        //     $scope.localityList.load(ServiceService.oService, $item.nID, null).then(function(cities) {
+        //          $scope.localityList.typeahead.defaultList = cities;
+        //          var initialCity = serviceLocationParser.getSelectedCity(cities);
+        //          if (initialCity)
+        //            $scope.onSelectLocalityList(initialCity);
+        //        });
+        //    }
+        //  };
+
         $scope.onSelectLocalityList = function($item, $model, $label) {
           $scope.placeData.city = $item;
           $scope.localityList.select($item, $model, $label);
           $scope.processPlaceSelection();
         };
+
+        // city - from ServiceCityController
+
+        //  $scope.onSelectLocalityList = function($item, $model, $label) {
+        //    $scope.data.city = $item;
+        //    $scope.localityList.select($item, $model, $label);
+        // var serviceType = $scope.findServiceDataByCity();
+        //    switch (serviceType.nID) {
+        //      case 1:
+        //        $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false}).then(function() {
+        //    isStep2 = true;
+        //  });
+        //  break;
+        //      case 4:
+        //        $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false}).then(function() {
+        //    isStep2 = true;
+        //  });
+        //  break;
+        //      default:
+        //        $state.go('index.service.general.placefix.error', {id: ServiceService.oService.nID}, {location: false}).then(function() {
+        //    isStep2 = true;
+        //  });
+        //    }
+        //  };
+
+        // city - from ServiceCityController
+
+        //  $scope.data = {
+        //    region: null,
+        //    city: null
+        //  };
+
+
+        //  $scope.ngIfCity = function() {
+        // if($state.current.name === 'index.service.general.placefix.built-in') {
+        //  if($scope.data.city) {
+        //    return true;
+        //  } else {
+        //    return false;
+        //  }
+        // }
+        // if($state.current.name === 'index.service.general.placefix.built-in.bankid') {
+        //  if($scope.data.city) {
+        //    return true;
+        //  } else {
+        //    return false;
+        //  }
+        // }
+        // return $scope.data.region ? true: false;
+        //  };
+
+        //  $scope.getRegionId = function() {
+        // var region = $scope.data.region;
+        // return region ? region.nID: 0;
+        //  };
+
+        //  $scope.getCityId = function() {
+        // var city = $scope.data.city;
+        // return city ? city.nID: 0;
+        //  };
+
 
         $scope.initPlaceControls();
 

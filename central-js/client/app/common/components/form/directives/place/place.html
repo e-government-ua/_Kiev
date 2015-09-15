@@ -1,13 +1,11 @@
 <div class="list-group-item place-control" ng-class="{'disabled': placeControlIsDisabled()}" ng-show="placeControlIsVisible()">
 
-    <!-- collapsed -->
-
     <div class="row no-margin-bottom">
 
-        <div class="col-md-11 form-inline {{getClass()}}">
+        <div class="col-md-11 form-inline {{getPlaceControlClass()}}">
             <span class="step">Крок 1. Оберіть свій регіон <sup>{{getStateName() + ':' + getRegionId() + ':' + getCityId()}}</sup></span>
             <div class="inline-wrapper">
-                <!-- FIXME from region/built-in/bankid.submitted.html: 
+                <!-- TODO check it from region/built-in/bankid.html, region/built-in/bankid.submitted.html
                                 <span>Область</span>
                                 <select class="form-control"
                                         name="region"
@@ -15,15 +13,6 @@
                                         ng-options="region as region.sName for region in [data.region] | orderBy:'sName'"
                                         ng-disabled="data.city">
                                         -->
-
-                <!-- FIXME from region/built-in/bankid.html: 
-                                <select class="form-control"
-                                        name="region"
-                                        ng-model="data.region"
-                                        ng-options="region as region.sName for region in [data.region] | orderBy:'sName'"
-                                        ng-disabled="data.city"></select>
-                                        -->
-
                 <span>Область</span>{{region.sName}}
                 <div class="dropdown-wrapper" dropdown is-open="regionList.dropdown.isOpen">
                     <div class="input-group">

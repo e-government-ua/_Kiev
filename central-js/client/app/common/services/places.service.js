@@ -71,7 +71,7 @@ angular.module('app')
     };
 
     self.getClassByState = function($state) {
-      // FIXME 
+      // FIXME
       // return statesMap[$state.current.name] && statesMap[$state.current.name].viewClass || '';
       return '';
     };
@@ -244,10 +244,10 @@ angular.module('app')
       return result;
     };
 
-    self.serviceIsAvailableInPlace = function() {
-      var oAvail = self.getServiceAvailability();
-      return (oAvail.isCity === true || oAvail.isRegion === true);
-    };
+    // self.serviceIsAvailableInPlace = function() {
+    //   var oAvail = self.getServiceAvailability();
+    //   return (oAvail.thisRegion || oAvail.thisCity);
+    // };
 
     // TODO check it again and again
     self.getServiceDataForSelectedPlace = function() {

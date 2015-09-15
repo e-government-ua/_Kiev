@@ -3,11 +3,12 @@ angular.module('app').config(function($stateProvider) {
     .state('index.service.general.placefix.built-in', { // FIXME-5 // region
       url: '/built-in',
       views: {
-        'place-content': {
-          // FIXME: REPLACE with Place Fix Controller
+        // 'place-content'
+        'content@index.service.general.placefix': {
+          // TODO: look if Place Fix Controller can work here also
           templateUrl: 'app/service/placefix/content.html',
-          controller: 'ServiceBuiltInController'
           // controller: 'PlaceFixController'
+          controller: 'ServiceBuiltInController'
         }
       }
     })
@@ -21,8 +22,7 @@ angular.module('app').config(function($stateProvider) {
         city: null
       },
       views: {
-        // 'content@index.service.general.placefix': {
-        'place-content': {
+        'content@index.service.general.placefix': {
           templateUrl: 'app/service/placefix/built-in/bankid.html',
           controller: 'ServiceBuiltInBankIDController'
         }
@@ -117,15 +117,9 @@ angular.module('app').config(function($stateProvider) {
       views: {
         'content@index.service.general.placefix': {
           templateUrl: 'app/service/placefix/built-in/bankid.submitted.html',
-          controller: 'PlaceFixController' // function moved to Places' stateStartupFunction
-            // FIXME impl-t this functionality in PlaceFixController:
-            // function($state, $scope, BankIDAccount) {
-            //   $scope.bankIDAccount = BankIDAccount;
-            // }
+          controller: 'PlaceFixController' // function moved to PlaceFixController state startupFunction
         }
       }
     });
 });
-
-// region merged
-// country merged
+// region, country - merged

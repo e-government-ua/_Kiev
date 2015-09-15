@@ -1,5 +1,3 @@
-// region - moved from service\region\serviceRegion.states.js
-
 angular.module('app').config(function($stateProvider) {
   $stateProvider
     .state('index.service.general.placefix', { // city - moved from app states
@@ -45,3 +43,5 @@ angular.module('app').config(function($stateProvider) {
       }
     });
 });
+
+// region - moved from service\region\serviceRegion.states.js

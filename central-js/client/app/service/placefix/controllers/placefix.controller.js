@@ -1,12 +1,10 @@
 angular.module('app').controller('PlaceFixController', function(
   $state, AdminService, $rootScope, $scope, $location, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, BankIDService, serviceLocationParser, regions, service) {
 
-  // FIXME: preload regions and service and provide them as part of the locations service
+  var self = this;
 
   // Each controller which uses Places Control should tell it:
   PlacesService.setController(this);
-
-  var self = this;
 
   var statesMap = {
     'index.service.general.placefix.built-in': { // city
@@ -28,7 +26,7 @@ angular.module('app').controller('PlaceFixController', function(
 
     var oService = ServiceService.oService;
 
-    // due to availiablity in city / region, do next steps
+    // due to availiablity, do next steps
     // var bAvail = PlacesService.serviceIsAvailableInPlace();
 
     var stateByServiceType = {
@@ -60,16 +58,13 @@ angular.module('app').controller('PlaceFixController', function(
     $scope.regions = regions;
     $scope.$location = $location;
     $scope.$state = $state;
-    $scope.state = $state.get( $state.current.name );
-    
-    // FIXME $scope.bankIDAccount = BankIDService.account();
+    $scope.state = $state.get($state.current.name);
 
-    // 
-    if (!stateToGo || ($state.current.name === stateToGo) ) { 
+    if (!stateToGo || ($state.current.name === stateToGo)) {
       return;
     }
     // не переходити до іншого стану, якщо даний стан є кінцевим
-    if ( $state.current.name === 'index.service.general.placefix.built-in.bankid' || $state.current.name === 'index.service.general.placefix.built-in.bankid.submitted' ) {
+    if ($state.current.name === 'index.service.general.placefix.built-in.bankid' || $state.current.name === 'index.service.general.placefix.built-in.bankid.submitted') {
       // STOPPEDHERE
       return;
     }
@@ -81,13 +76,12 @@ angular.module('app').controller('PlaceFixController', function(
       location: false
     }).then(function() {
       self.isStep2 = true;
-      
     });
 
     var initialRegion = serviceLocationParser.getSelectedRegion(regions);
     if (initialRegion) {
       $scope.onSelectRegionList(initialRegion);
-    }  
+    }
 
     console.info('PROCESS Place сhange, $state:', $state.current.name, ', to go:', stateToGo /*, 'oParams =', oParams*/ );
   };
@@ -120,14 +114,72 @@ angular.module('app').controller('PlaceFixController', function(
     //     id: ServiceService.oService.nID
     //   });
     // }
+
+    // region - from ServiceRegionController
+    //   $scope.data = {
+    //     region: null,
+    //     city: null
+    //   };
+    //   return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID});
+
+    // city
+    //    $scope.data = {
+    //      region: null,
+    //      city: null
+    //    };
+
+    //    $scope.regionList.reset();
+    //    $scope.regionList.initialize(regions);
+
+    //    $scope.localityList.reset();
+    //    return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID}).then(function() {
+    //      isStep2 = false;
+    //    });
   };
+
 
   $scope.step2 = function() {
     var aServiceData = ServiceService.oService.aServiceData;
 
     console.log('step 2:');
     self.isStep2 = true;
+
+    // region - from ServiceRegionController
+    //   var aServiceData = ServiceService.oService.aServiceData;
+    //   var serviceType = {nID: 0};
+    //   angular.forEach(aServiceData, function(value, key) {
+    //     if (value.nID_Region.nID == $scope.data.region.nID) {
+    //       serviceType = value.nID_ServiceType;
+    //       $scope.serviceData = value;
+    //       $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
+    //     }
+    //   });
+    //   switch (serviceType.nID) {
+    //     case 1:
+    //       return $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false});
+    //     case 4:
+    //       return $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false});
+    //     default:
+    //       return $state.go('index.service.general.placefix.error', {id: ServiceService.oService.nID}, {location: false});
+    //   }
+
+    // city 
+    //    var aServiceData = ServiceService.oService.aServiceData;
+    //    var serviceType = $scope.findServiceDataByCity();
+    //    switch (serviceType.nID) {
+    //      case 1:
+    //        return $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false});
+    //      case 4:
+    //        return $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false});
+    //      default:
+    //        return $state.go('index.service.general.placefix.error', {id: ServiceService.oService.nID}, {location: false});
+    //    }
   };
+
+  // region
+  // $scope.$watchCollection('data.region', function(newValue, oldValue) {
+  //   return (newValue == null) ? null : $scope.step2();
+  // });
 
   $scope.ngIfStep2 = function() {
     // console.log('ngIfStep2 =', self.isStep2);
@@ -135,7 +187,6 @@ angular.module('app').controller('PlaceFixController', function(
     return self.isStep2;
   };
 
-  // FIXME create sequencer 
   // moved back from places service
   self.isStep2 = self.isStep2 || false;
 
@@ -154,6 +205,10 @@ angular.module('app').controller('PlaceFixController', function(
     // default startup
   }
 
+  $scope.$on('onEditPlace', function(evt, oParams) {
+    self.isStep2 = false;
+  });
+
   /**
    * params: placeData, serviceData
    */
@@ -161,16 +216,6 @@ angular.module('app').controller('PlaceFixController', function(
     self.processPlaceChange(oParams);
   });
 
-  $scope.$on('onEditPlace', function(evt, oParams) {
-    //   $scope.makeStep = function(stepId) {
-    // if (stepId) {
-    // if (stepId === 'editStep') {
-    self.isStep2 = false;
-    // }
-    // }
-  });
-
-  // FIXME
   self.processPlaceChange({
     serviceData: PlacesService.getServiceDataForSelectedPlace(),
     placeData: PlacesService.getPlaceData()
@@ -178,185 +223,4 @@ angular.module('app').controller('PlaceFixController', function(
 
 });
 
-// angular.module('app').controller('ServiceRegionController', function($state, $rootScope, $scope, $sce, RegionListFactory, PlacesService, ServiceService, service, AdminService) {
-//   // FIXME - code moved to place.js
-//   $scope.onSelectRegionList = function($item, $model, $label) {
-//     $scope.data.region = $item;
-//     $scope.regionList.select($item, $model, $label);
-//   };
-// });
-
-
-
-// regions
-
-// moved from the service\region\controllers\serviceRegion.controller.js
-
-// angular.module('app').controller('ServiceRegionController', function($state, $rootScope, $scope, $sce, RegionListFactory, PlacesService, ServiceService, AdminService, serviceLocationParser) {
-
-//   // $scope.step1 = function() {
-//   //   $scope.data = {
-//   //     region: null,
-//   //     city: null
-//   //   };
-//   //   return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID});
-//   // };
-
-//   // $scope.step2 = function() {
-//   //   var aServiceData = ServiceService.oService.aServiceData;
-//   //   var serviceType = {nID: 0};
-//   //   angular.forEach(aServiceData, function(value, key) {
-//   //     if (value.nID_Region.nID == $scope.data.region.nID) {
-//   //       serviceType = value.nID_ServiceType;
-//   //       $scope.serviceData = value;
-//   //       $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
-//   //     }
-//   //   });
-//   //   switch (serviceType.nID) {
-//   //     case 1:
-//   //       return $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false});
-//   //     case 4:
-//   //       return $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false});
-//   //     default:
-//   //       return $state.go('index.service.general.placefix.error', {id: ServiceService.oService.nID}, {location: false});
-//   //   }
-//   // };
-
-//   // $scope.$watchCollection('data.region', function(newValue, oldValue) {
-//   //   return (newValue == null) ? null : $scope.step2();
-//   // });
-
-// });
-
-
-
-// city
-// from serviceCity.controller.js
-// moved to PlaceFixController
-
-// angular.module('app').controller('ServiceCityController', function($state, AdminService, $rootScope, $scope, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, regions, service, serviceLocationParser) {
-
-// FIXME - code moved to place.js
-//  $scope.onSelectRegionList = function($item) {
-//    $scope.data.region = $item;
-//    $scope.regionList.select($item);
-
-// var serviceType = $scope.findServiceDataByRegion();
-
-//    switch (serviceType.nID) {
-//      case 1:
-//        $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false}).then(function() {
-//    isStep2 = true;
-//  });
-//  break;
-//      case 4:
-//        $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false}).then(function() {
-//    isStep2 = true;
-//  });
-//  break;
-//      default:
-//     $scope.localityList.load(ServiceService.oService, $item.nID, null).then(function(cities) {
-//          $scope.localityList.typeahead.defaultList = cities;
-//          var initialCity = serviceLocationParser.getSelectedCity(cities);
-//          if (initialCity)
-//            $scope.onSelectLocalityList(initialCity);
-//        });
-//    }
-//  };
-
-// $scope.loadLocalityList = function(search) {
-//   return $scope.localityList.load(ServiceService.oService, $scope.data.region.nID, search);
-// };
-
-//  $scope.onSelectLocalityList = function($item, $model, $label) {
-//    $scope.data.city = $item;
-//    $scope.localityList.select($item, $model, $label);
-// var serviceType = $scope.findServiceDataByCity();
-//    switch (serviceType.nID) {
-//      case 1:
-//        $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false}).then(function() {
-//    isStep2 = true;
-//  });
-//  break;
-//      case 4:
-//        $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false}).then(function() {
-//    isStep2 = true;
-//  });
-//  break;
-//      default:
-//        $state.go('index.service.general.placefix.error', {id: ServiceService.oService.nID}, {location: false}).then(function() {
-//    isStep2 = true;
-//  });
-//    }
-//  };
-
-//  $scope.data = {
-//    region: null,
-//    city: null
-//  };
-
-//  $scope.ngIfCity = function() {
-// if($state.current.name === 'index.service.general.placefix.built-in') {
-//  if($scope.data.city) {
-//    return true;
-//  } else {
-//    return false;
-//  }
-// }
-// if($state.current.name === 'index.service.general.placefix.built-in.bankid') {
-//  if($scope.data.city) {
-//    return true;
-//  } else {
-//    return false;
-//  }
-// }
-// return $scope.data.region ? true: false;
-//  };
-
-//  $scope.getRegionId = function() {
-// var region = $scope.data.region;
-// return region ? region.nID: 0;
-//  };
-
-//  $scope.getCityId = function() {
-// var city = $scope.data.city;
-// return city ? city.nID: 0;
-//  };
-
-//  var isStep2 = false;
-//  $scope.ngIfStep2 = function() {
-// return isStep2;
-//  };
-
-//  $scope.step1 = function() {
-//    $scope.data = {
-//      region: null,
-//      city: null
-//    };
-
-//    $scope.regionList.reset();
-//    $scope.regionList.initialize(regions);
-
-//    $scope.localityList.reset();
-//    return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID}).then(function() {
-//  isStep2 = false;
-// });
-//  };
-
-//  $scope.step2 = function() {
-//    var aServiceData = ServiceService.oService.aServiceData;
-//    var serviceType = $scope.findServiceDataByCity();
-
-//    switch (serviceType.nID) {
-//      case 1:
-//        return $state.go('index.service.general.placefix.link', {id: ServiceService.oService.nID}, {location: false});
-//      case 4:
-//        return $state.go('index.service.general.placefix.built-in', {id: ServiceService.oService.nID}, {location: false});
-//      default:
-//        return $state.go('index.service.general.placefix.error', {id: ServiceService.oService.nID}, {location: false});
-//    }
-//  };
-
-// });
-
-// end city
+// city, region - merged
