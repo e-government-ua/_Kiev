@@ -530,9 +530,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow29" sourceRef="usertask3" targetRef="servicetask4">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide1=='reject'}]]></conditionExpression>
-    </sequenceFlow>
+    <sequenceFlow id="flow29" sourceRef="usertask3" targetRef="servicetask4"></sequenceFlow>
     <sequenceFlow id="flow30" sourceRef="servicetask4" targetRef="endevent6"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_minust_81">
