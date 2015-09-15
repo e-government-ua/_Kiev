@@ -788,6 +788,12 @@ label .snippet {
   left: -20px;
 }
 
+.igov-columns-3 {
+  columns: 350px;
+  -webkit-columns: 350px;
+  -moz-columns: 350px;
+}
+
 .s-field-notes {
   color: #aaaaaa;
   text-align: left;
