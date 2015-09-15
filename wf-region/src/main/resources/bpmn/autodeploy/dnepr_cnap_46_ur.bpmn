@@ -23,7 +23,6 @@
         <activiti:formProperty id="file1" name="Акт технічного огляду технологічного транспортного засобу" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Свідоцтво про реєстрацію технологічного транспортного засобу" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="copy_doc" name="Копії документів (завірені згідно чинного законодавства)" type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Паспорта (для повнолітніх фізичних осіб)" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="file4" name="Документів, що підтверджують правомірність придбання чи використання технологічного транспортного засобу, вузлів і агрегатів, які мають ідентифікаційні номери, у тому числі довідки про встановлення вузла або агрегату з обмінного чи резервного фонду суб'єкта господарювання, скріпленої його печаткою" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="file5" name="Документу, що підтверджує оплату вартості бланків, номерних знаків, виданих під час перереєстрації, та послуг за проведення технічного огляду" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність. Відповідальність за достовірність поданих на реєстрацію документів або їх копій несе власник технологічного транспортного засобу згідно із законодавством."></activiti:formProperty>
@@ -172,7 +171,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${file1}, ${file2}, ${file3}, ${file4}, ${file5}</activiti:expression>
+            <activiti:expression>${file1}, ${file2}, ${file4}, ${file5}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -389,13 +388,20 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-										Ваше звернення щодо переєстрації великотоннажних та інших технологічних транспортних засобів для ${name_company} - опрацьоване.&lt;/p&gt;
-										Отримати cвідоцтво про реєстрацію технологічного транспортного засобу та номерний знак може власник технологічного транспортного засобу, або уповноважена ним особа за дорученням власника, посвідченим у встановленому порядку, у державного адміністратора ЦНАП.&lt;/p&gt;
-
+										Ваше звернення щодо перереєстрації великотоннажних та інших технологічних транспортних засобів - опрацьоване.&lt;/p&gt;
+										Ви або уповноважена Вами особа (при наявності довіреності) можете отримати свідоцтво про реєстрацію технологічного транспортного засобу та номерний знак - собисто під підпис у ЦНАП.&lt;/p&gt;
+                                        При собі треба мати:&lt;/p&gt;
+										1. Документ, що посвідчує особу.&lt;/p&gt;
+										2. Для уповоноваженої особи - довіренність.&lt;/p&gt;
+										3. Акт технічного огляду.&lt;/p&gt;
+										4. Свідоцтво про реєстрацію технологічного транспортного засобу.&lt;/p&gt;
+										5. Копія документів, що підтверджують правомірність придбання чи використання технологічного транспортного засобу, вузлів і агрегатів, які мають ідентифікаційні номери, у тому числі довідки про встановлення вузла або агрегату з обмінного чи резервного фонду суб'єкта господарювання, скріпленої його печаткою.&lt;/p&gt;
+										6. Копія документу, що підтверджує оплату вартості бланків, номерних знаків, виданих під час перереєстрації, та послуг за проведення технічного огляду.&lt;/p&gt;
+									&lt;p&gt;&lt;/p&gt;
+										Зверніть увагу, що заяву, яку Ви подавали в електронному вигляді, треба буде засвідчити особистим підписом керівника юридичної особи/фізичної особи - підприємця та печаткою.
 									&lt;p&gt;&lt;/p&gt;
 										
 Центр надання адміністративних послуг Дніпропетровської міської ради &lt;br /&gt;
-&lt;br /&gt;
 Адреса: &lt;br /&gt;
 м. Дніпропетровськ, пр. К. Маркса, 75 (1-й поверх). &lt;br /&gt;
 &lt;br /&gt;
@@ -418,6 +424,34 @@
 										Центр надання адміністративних послуг Дніпропетровської міської ради,&lt;br/&gt;
                                         &lt;br&gt;Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.&lt;/br&gt;
                                     &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+							&lt;tr&gt;
+                                &lt;td style="padding: 35px 120px 0 120px;"&gt;
+                                    &lt;b&gt;Оціните, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:&lt;/b&gt;
+
+                                    &lt;p style="text-align: center;"&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
+                                    &lt;/p&gt;
+
+                                    &lt;p style="font-size: 13px;"&gt;
+                                        Якщо Ви не задоволені якістью, прокоментуйте, будь ласка.&lt;br /&gt;
+                                        Ви також&lt;b style="color: #cc3333;"&gt; маєте змогу анонімно&lt;/b&gt; подати сигнал про будь-які правопорушення державних службовців.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
+                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
+                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
+                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
                             &lt;/table&gt;
@@ -509,7 +543,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-										Ваше звернення щодо відомчої реєстрації великотоннажних та інших технологічних транспортних засобів для ${name_company} - був відправлен в ТУ Держгірпромнагляду у Дніпропетровській області також надсилаємо Вам опис присланих нам документів, який знаходиться у прекрепленному файлі.&lt;br /&gt; 
+										Ваше звернення щодо перереєстрації великотоннажних та інших технологічних транспортних засобів для ${name_company} - було направлено до ТУ Держгірпромнагляду у Дніпропетровській області. Також надсилаємо опис надісланих Вами документів, який знаходиться у прикріпленому файлі.&lt;br /&gt; 
 										 
 									&lt;p&gt;&lt;/p&gt;
 										Залишайтеся з нами. 	
