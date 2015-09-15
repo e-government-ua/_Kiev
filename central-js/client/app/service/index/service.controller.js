@@ -36,27 +36,6 @@ angular.module('app')
         messageBusService.unsubscribe(item);
       });
     });
-
-  // FIXME - code moved to place.js
-  // $scope.onSelectRegionList = function($item) {
-  //   $scope.data.region = $item;
-  //   $scope.regionList.select($item);
-  //   $scope.data.city = null;
-  //   $scope.localityList.reset();
-  //   $scope.search();
-  //   $scope.localityList.load(null, $item.nID, null).then(function(cities) {
-  //     $scope.localityList.typeahead.defaultList = cities;
-  //   });
-  // };
-  // $scope.loadLocalityList = function(search) {
-  //   return $scope.localityList.load(null, $scope.data.region.nID, search);
-  // };
-
-  // $scope.onSelectLocalityList = function($item, $model, $label) {
-  //   $scope.data.city = $item;
-  //   $scope.localityList.select($item, $model, $label);
-  //   $scope.search();
-  // };
   
     $scope.filterByStatus = function(status) {
       $scope.selectedStatus = status;
