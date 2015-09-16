@@ -536,7 +536,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                         line.add(propertyValue);
                     }
                 }
-                log.debug("line: " + line);
+                log.info("line: " + line);
                 csvWriter.writeNext(line.toArray(new String[line.size()]));
             }
         } else {
