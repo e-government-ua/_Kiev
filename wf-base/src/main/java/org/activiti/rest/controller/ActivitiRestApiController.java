@@ -514,7 +514,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             log.debug(String.format("Found {%s} completed tasks for business process {%s} for date period {%s} - {%s}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt),
                     sdfDate.format(dateTo)));
 
-            for (HistoricTaskInstance currTask : foundResults) {
+            for (HistoricTaskInstance currTask : foundResults) { 
                 List<String> line = new ArrayList<String>();
                 line.add(currTask.getProcessInstanceId());
                 line.add(currTask.getAssignee());
