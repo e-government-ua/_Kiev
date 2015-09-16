@@ -355,7 +355,7 @@ public class ActivitiRestHistoryEventController {
             log.info("[getCountFromStatisticArrayMap]am="+am);
             if(am.size()>0){
                 if(am.get(0).containsKey("nCount")){
-                    String s = (String)am.get(0).get("nCount");
+                    String s = am.get(0).get("nCount")+"";
                     if(s!=null){
                         n = new Long(s);
                         log.info("[getCountFromStatisticArrayMap]n="+n);
