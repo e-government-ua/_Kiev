@@ -236,6 +236,7 @@ public class ActivitiRestHistoryEventController {
 			  Map<String, Object> currMapWithName = new HashMap<String, Object>();
 			  
 			  currMapWithName.put("sName", region.getName());
+                            log.info("[getListOfHistoryEvents]sName="+region.getName());
                           
 			  //currMapWithName.put("nCount", currMap.get("nCount"));
                           /*
@@ -249,6 +250,9 @@ public class ActivitiRestHistoryEventController {
 
                           */
                           Long nCount = currMap.get("nCount");
+                          if(nCount==null){
+                              nCount = new Long(0);
+                          }
                           if(false){
                           }else if(nID_Service==661){
                               if("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())){
@@ -309,6 +313,11 @@ public class ActivitiRestHistoryEventController {
                           
                           
                           if(nID_Service==159){
+                              if(region.getName()==null){
+        			  currMapWithName.put("sName", "Київ");
+                              }
+                            log.info("[getListOfHistoryEvents]sName="+region.getName());
+                              
                                 log.info("[getListOfHistoryEvents]nID_Service="+nID_Service);
                                 List<Map<String, Object>> am = new LinkedList<Map<String,Object>>();
                                 am = getListOfHistoryEvents(new Long(726));
@@ -339,6 +348,7 @@ public class ActivitiRestHistoryEventController {
                                 nCount+=getCountFromStatisticArrayMap(am);
                           }
 
+                        log.info("[getListOfHistoryEvents]nCount="+nCount);
 			  currMapWithName.put("nCount", nCount);
                           
 			  listOfHistoryEventsWithMeaningfulNames.add(currMapWithName);
