@@ -496,9 +496,11 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             for (HistoricTaskInstance currTask : foundResults) {
                 
             	//List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
-                HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery().includeTaskLocalVariables().taskId(currTask.getId()).singleResult();
+                HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery()
+                		.includeTaskLocalVariables().includeProcessVariables().taskId(currTask.getId()).singleResult();
                 if (details != null) {
-                	log.info("getTaskLocalVariables: " + details.getTaskLocalVariables());
+                	log.info("getTaskLocalVariables: " + details.getTaskLocalVariables() 
+                			+ " proccessVariavles: " + details.getProcessVariables());
                     headersExtra.addAll(details.getTaskLocalVariables().keySet());
                 }
             }
