@@ -37,8 +37,7 @@ import java.util.Map;
 @RequestMapping(value = "/services")
 public class ActivitiRestHistoryEventController {
 
-	private static final Logger log = Logger
-			.getLogger(ActivitiRestHistoryEventController.class);
+	private static final Logger log = Logger.getLogger(ActivitiRestHistoryEventController.class);
 
 	@Autowired
 	private HistoryEvent_ServiceDao historyEventServiceDao;
@@ -54,11 +53,9 @@ public class ActivitiRestHistoryEventController {
 	private DocumentDao documentDao;
 	
 	/**
-	 * check the correctness of nID_Protected (by algorithm Luna) and return the
-	 * object of HistoryEvent_Service
-	 * 
-	 * @param nID_Protected
-	 *            -- string ID of event
+	 * check the correctness of nID_Protected (by algorithm Luna) and return
+	 * the object of HistoryEvent_Service
+	 * @param nID_Protected  -- string ID of event
 	 * @return the object (if nID is correct and record exists) otherwise return
 	 *         403. CRC Error (wrong nID_Protected) or 403. "Record not found"
 	 */
@@ -93,11 +90,11 @@ public class ActivitiRestHistoryEventController {
 
 	/**
 	 * add the object of HistoryEvent_Service to db
-	 * 
-	 * @param nID_Task
-	 *            -- ID of Task
-	 * @param sStatus
-	 *            -- string of status
+	 *
+	 //	 * @param nID_Task
+	 //	 *            -- ID of Task
+	 //	 * @param sStatus
+	 //	 *            -- string of status
 	 * @param nID_Subject
 	 *            -- SubjectID (optional)
 	 * @param sID_Status
@@ -130,11 +127,11 @@ public class ActivitiRestHistoryEventController {
 	/**
 	 * check the correctness of nID_Protected (by algorithm Luna) and update the
 	 * object of HistoryEvent_Service in db
-	 * 
-	 * @param nID_Protected
-	 *            -- nID_Protected of event_service
-	 * @param sStatus
-	 *            -- string of status
+	 *
+	 //	 * @param nID_Protected
+	 //	 *            -- nID_Protected of event_service
+	 //	 * @param sStatus
+	 //	 *            -- string of status
 	 * @param sID_Status
 	 *            -- string-status (optional)
 	 * @param response
@@ -207,36 +204,26 @@ public class ActivitiRestHistoryEventController {
 			@RequestParam(value = "nID_Subject") long nID_Subject) {
 		return historyEventDao.getHistoryEvents(nID_Subject);
 	}
-	
-	
-	@RequestMapping(value = "/getStatisticServiceCounts", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-	public @ResponseBody
-	String getStatisticServiceCounts(@RequestParam(value = "nID_Service") Long nID_Service) {
-		
-            
-            
-		List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String,Object>>();
-            
-                listOfHistoryEventsWithMeaningfulNames = getListOfHistoryEvents(nID_Service);
 
-                return JSONValue.toJSONString(listOfHistoryEventsWithMeaningfulNames);
+
+	@RequestMapping(value = "/getStatisticServiceCounts", method = RequestMethod.GET,
+			produces = "application/json;charset=UTF-8")
+	public @ResponseBody
+	String getStatisticServiceCounts(
+			@RequestParam(value = "nID_Service") Long nID_Service) {
+
+		List<Map<String, Object>> list = getListOfHistoryEvents(nID_Service);
+		return JSONValue.toJSONString(list);
 	}
 
 	private List<Map<String, Object>> getListOfHistoryEvents(Long nID_Service){
-                List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String,Object>>();
-            
-            
-		List<Map<String, Long>> listOfHistoryEvents = historyEventServiceDao.getHistoryEvent_ServiceBynID_Service(nID_Service);
-		
-                //Map<String, Long> m = new HashMap();
-                //m.put("Київ", nID_Service);
-		  //currMap.get("sName")
+		List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<>();
+		List<Map<String, Long>> listOfHistoryEvents =
+				historyEventServiceDao.getHistoryEvent_ServiceBynID_Service(nID_Service);
 		for (Map<String, Long> currMap : listOfHistoryEvents){
 			  Region region = regionDao.findByIdExpected(currMap.get("sName"));
 			  Map<String, Object> currMapWithName = new HashMap<String, Object>();
-			  
 			  currMapWithName.put("sName", region.getName());
-                          
 			  //currMapWithName.put("nCount", currMap.get("nCount"));
                           /*
                             https://igov.org.ua/service/661/general - 43
@@ -244,10 +231,7 @@ public class ActivitiRestHistoryEventController {
                             https://igov.org.ua/service/176/general - 546
                             https://igov.org.ua/service/654/general - 307                          
                           */
-                          /*
 
-
-                          */
                           Long nCount = currMap.get("nCount");
                           if(false){
                           }else if(nID_Service==661){

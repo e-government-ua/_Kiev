@@ -7,6 +7,7 @@ import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,24 +23,16 @@ import org.wf.dp.dniprorada.util.Util;
 
 import java.util.LinkedList;
 import java.util.List;
-import org.activiti.engine.history.HistoricProcessInstance;
-import org.activiti.engine.repository.ProcessDefinition;
 
 import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
 import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
 
 public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
-    
-    @Autowired
-    GeneralConfig generalConfig;
-    
-    @Autowired
-    Mail oMail;
-    
+
+    static final transient Logger LOG = LoggerFactory.getLogger(Abstract_MailTaskCustom.class);
     private static final String TAG_PAYMENT_BUTTON_LIQPAY = "[paymentButton_LiqPay]";
     private static final String TAG_CANCEL_TASK = "[cancelTask]";
-
     private static final String TAG_nID_Protected = "[nID_Protected]";
     private static final String TAG_nID_SUBJECT = "[nID_Subject]";
     private static final String TAG_sACCESS_KEY = "[sAccessKey]";
@@ -47,53 +40,40 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     private static final String accessKeyPattern = "&sAccessKey=%s";
     private static final String TAG_Function_AtEnum = "enum{[";
     private static final String TAG_Function_To = "]}";
-
-    
-    
     @Autowired
     public TaskService taskService;
-
     @Value("${mailServerHost}")
     public String mailServerHost;
-
     @Value("${mailServerPort}")
     public String mailServerPort;
-
     @Value("${mailServerDefaultFrom}")
     public String mailServerDefaultFrom;
-
     @Value("${mailServerUsername}")
     public String mailServerUsername;
-
     @Value("${mailServerPassword}")
     public String mailServerPassword;
-
     @Value("${mailAddressNoreply}")
     public String mailAddressNoreplay;
-
     public Expression from;
     public Expression to;
     public Expression subject;
-    public Expression text;    
-    
-    
-
-    @Autowired
-    AccessDataDao accessDataDao;
-
-    @Autowired
-    LiqBuy liqBuy;
-    @Autowired
-    private CancelTaskUtil cancelTaskUtil;
-
+    public Expression text;
     protected Expression sID_Merchant;
     protected Expression sSum;
     protected Expression sID_Currency;
     protected Expression sLanguage;
     protected Expression sDescription;
     protected Expression nID_Subject;
-
-    static final transient Logger LOG = LoggerFactory.getLogger(Abstract_MailTaskCustom.class);
+    @Autowired
+    GeneralConfig generalConfig;
+    @Autowired
+    Mail oMail;
+    @Autowired
+    AccessDataDao accessDataDao;
+    @Autowired
+    LiqBuy liqBuy;
+    @Autowired
+    private CancelTaskUtil cancelTaskUtil;
     
     protected String replaceTags(String textStr, DelegateExecution execution) throws Exception {
         String LIQPAY_CALLBACK_URL = generalConfig.sHost() + "/wf-region/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=Liqpay&sData=";
@@ -213,7 +193,8 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                     "?sAccessContract=Request&sHead=Отзыв"
                     + "&sData=" + (processDefinition != null && processDefinition.getName() != null ? processDefinition.getName().trim() : "")
                     + "&sMail= "
-                    + "&nID_SubjectMessageType=1";
+                            + "&nID_SubjectMessageType=1"
+                            + "&nID_Protected=" + nID_Protected;
             
             String queryParam = String.format(queryParamPattern);
             if(nID_Subject != null){
