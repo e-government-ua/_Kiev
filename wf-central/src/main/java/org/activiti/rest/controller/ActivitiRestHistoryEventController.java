@@ -323,19 +323,19 @@ public class ActivitiRestHistoryEventController {
                                     }
                                 }*/
                                 nCount+=getCountFromStatisticArrayMap(am);
-                                getListOfHistoryEvents(new Long(727));
+                                am = getListOfHistoryEvents(new Long(727));
                                 nCount+=getCountFromStatisticArrayMap(am);
-                                getListOfHistoryEvents(new Long(728));
+                                am = getListOfHistoryEvents(new Long(728));
                                 nCount+=getCountFromStatisticArrayMap(am);
-                                getListOfHistoryEvents(new Long(729));
+                                am = getListOfHistoryEvents(new Long(729));
                                 nCount+=getCountFromStatisticArrayMap(am);
-                                getListOfHistoryEvents(new Long(730));
+                                am = getListOfHistoryEvents(new Long(730));
                                 nCount+=getCountFromStatisticArrayMap(am);
-                                getListOfHistoryEvents(new Long(731));
+                                am = getListOfHistoryEvents(new Long(731));
                                 nCount+=getCountFromStatisticArrayMap(am);
-                                getListOfHistoryEvents(new Long(732));
+                                am = getListOfHistoryEvents(new Long(732));
                                 nCount+=getCountFromStatisticArrayMap(am);
-                                getListOfHistoryEvents(new Long(733));
+                                am = getListOfHistoryEvents(new Long(733));
                                 nCount+=getCountFromStatisticArrayMap(am);
                           }
 
