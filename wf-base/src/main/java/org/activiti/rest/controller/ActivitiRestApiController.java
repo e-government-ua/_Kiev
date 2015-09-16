@@ -497,11 +497,10 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 
             	//List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
                 HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery()
-                		.includeTaskLocalVariables().includeProcessVariables().taskId(currTask.getId()).singleResult();
+                		.includeProcessVariables().taskId(currTask.getId()).singleResult();
                 if (details != null) {
-                	log.info("getTaskLocalVariables: " + details.getTaskLocalVariables() 
-                			+ " proccessVariavles: " + details.getProcessVariables());
-                    headersExtra.addAll(details.getTaskLocalVariables().keySet());
+                	log.info(" proccessVariavles: " + details.getProcessVariables());
+                    headersExtra.addAll(details.getProcessVariables().keySet());
                 }
             }
             headers.addAll(headersExtra);
@@ -528,12 +527,12 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
                 if (bDetail) {
                     log.debug("currTask: " + currTask.getId());
-                    HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery().includeTaskLocalVariables()
+                    HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery().includeProcessVariables()
                     		.taskId(currTask.getId()).singleResult(); 
                     for (String headerExtra : headersExtra) {
                         String propertyValue = "";
-                        if (details != null) {
-                            propertyValue = (String)details.getTaskLocalVariables().get(headerExtra);
+                        if (details != null && details.getProcessVariables() != null) {
+                            propertyValue = (String)details.getProcessVariables().get(headerExtra);
                         }
                         line.add(propertyValue);
                     }
