@@ -361,7 +361,7 @@
     <serviceTask id="mailtask4" name="E-mail про відсутність оплати" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>${mail}</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -455,7 +455,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>${mail}</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Призначення тимчасової державної допомоги дітям]]></activiti:string>
