@@ -12,7 +12,8 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   ActivitiForm,
   uiUploader,
   FieldAttributesService,
-  MarkersFactory) {
+  MarkersFactory,
+  FieldMotionService) {
 
   'use strict';
 
@@ -113,10 +114,20 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       field.type = 'tel';
       field.sFieldType = 'tel';
     }
-    if (field.type == 'markers' && $.trim(field.value))
-      _.merge(MarkersFactory.getMarkers(), JSON.parse(field.value), function(destVal, sourceVal) {
-        if (_.isArray(sourceVal)) return sourceVal;
-      });
+    if (field.type == 'markers' && $.trim(field.value)) {
+      var sourceObj = null;
+      try {
+        sourceObj = JSON.parse(field.value);
+      } catch (ex) {
+        alert('markers attribute ' + field.name + " contain bad formatted json\n" + ex.name + ", " + ex.message
+          + "\nfield.value: " + field.value
+        );
+      }
+      if (sourceObj !== null)
+        _.merge(MarkersFactory.getMarkers(), sourceObj, function (destVal, sourceVal) {
+          if (_.isArray(sourceVal)) return sourceVal;
+        });
+    }
   });
 
   $scope.submit = function(form) {
@@ -136,7 +147,10 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
           var state = $state.$current;
 
           var submitted = $state.get(state.name + '.submitted');
-
+          if (!result.id) {
+            console.log(result);
+            return;
+          }
           //TODO: Fix Alhoritm Luna
           var nCRC = ValidationService.getLunaValue(result.id);
 
@@ -228,6 +242,12 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
             $scope.data.formData.fields[property.id]
       &&  fieldES == ES.NOT_SET
     ) || fieldES == ES.READ_ONLY;
+  };
+
+  $scope.isFieldVisible = function(property) {
+    return property.id != 'processName'
+    && (FieldMotionService.isFieldMentioned(property.id) ?
+        FieldMotionService.isFieldVisible(property.id, $scope.data.formData.params) : true);
   };
 
   // $timeout(function () {

@@ -451,12 +451,6 @@ https://test.igov.org.ua/wf-central/service/services/getDocumentContent?nID=1
 * nID - ИД-номер документа
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
-* sCode_DocumentAccess - строковой код доступа к документу, к которому получен доступ //опциональный
-* nID_DocumentOperator_SubjectOrgan - ИД-номер оператора документов, к которому получен доступ //опциональный
-* nID_DocumentType - ИД-номер типа документа, к которому получен доступ //опциональный
-* sPass - строковой пароль доступа к документу //опциональный
-
-
 Пример:
 https://test.igov.org.ua/wf-central/service/services/getDocumentFile?nID=1
 
@@ -465,6 +459,23 @@ https://test.igov.org.ua/wf-central/service/services/getDocumentFile?nID=1
 
 ----------------------------------------------------------------------------------------------------------------------------
 
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf-central/service/services/getDocumentAbstract** - получение документа в виде файла
+
+* sID - строковой ID документа (параметр обязателен)
+* nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя) (параметр опционален)
+* nID_DocumentOperator_SubjectOrgan - определяет класс хэндлера который будет обрабатывать запрос (параметр опционален)
+* nID_DocumentType - определяет тип документа, например 0 - "Квитанція про сплату", 1 - "Довідка про рух по картці (для візових центрів)" (параметр опционален)
+* sPass - пароль (параметр опционален)
+
+Пример:
+https://test.igov.org.ua/wf-central/service/services/getDocumentAbstract?sID=150826SV7733A36E803B
+
+**Response**
+ЗАГРУЖЕННЫЙ ФАЙЛ
+
+----------------------------------------------------------------------------------------------------------------------------
 **HTTP Metod: GET**
 
 **HTTP Context: http://server:port/wf-central/service/services/getDocuments** - получение списка загруженных субъектом документов
@@ -1500,15 +1511,16 @@ https://test.igov.org.ua/wf-central/service/services/setServicesTree
 * sDateTo - Дата окончания периода для выборки в формате yyyy-MM-dd
 * nRowsMax - необязательный параметр. Максимальное значение завершенных задач для возврата. По умолчанию 1000.
 * nRowStart - Необязательный параметр. Порядковый номер завершенной задачи в списке для возврата. По умолчанию 0.
+* bDetail - Необязательный параметр. Необходим ли расширенный вариант (с полями задач). По умолчанию true.
 
 Метод возвращает .csv файл со информацией о завершенных задачах в указанном бизнес процессе за период.
-Формат выходного файла
-Assignee - кто выполнял задачу
-Start Time - Дата и время начала
-Duration in millis - Длительность выполнения задачи в миллисекундах
-Duration in hours - Длительность выполнения задачи в часах
-Name of Task - Название задачи
-
+Формат выходного файла<br/>
+Assignee - кто выполнял задачу<br/>
+Start Time - Дата и время начала<br/>
+Duration in millis - Длительность выполнения задачи в миллисекундах<br/>
+Duration in hours - Длительность выполнения задачи в часах<br/>
+Name of Task - Название задачи<br/>
+Поля из FormProperty (если bDetail=true)<br/>
 
 Пример:
 https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?sID_BP_Name=lviv_mvk-1&sDateAt=2015-06-28&sDateTo=2015-07-01

@@ -8,7 +8,6 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="filecl" name="file" type="file"></activiti:formProperty>
-        <activiti:formProperty id="markers1" name="Мареры" type="markers" default = "{'attributes': {'Editable_Test': {'aField_ID':['bankIdlastName'], 'bValue' : false}, 'Editable_Test2': {'aField_ID':['bankIdmiddleName','bankIdfirstName'], 'bValue' : true}}" required="false"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask0" name="Видалення тікета з черги" activiti:delegateExpression="#{releaseTicketsOfQueue}"></serviceTask>
@@ -171,7 +170,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram__test_mailer">
     <bpmndi:BPMNPlane bpmnElement="_test_mailer" id="BPMNPlane__test_mailer">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="200.0" y="170.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="140.0" y="170.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask0" id="BPMNShape_servicetask0">
         <omgdc:Bounds height="55.0" width="105.0" x="300.0" y="100.0"></omgdc:Bounds>
@@ -189,7 +188,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="900.0" y="170.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow0" id="BPMNEdge_flow0">
-        <omgdi:waypoint x="217.0" y="170.0"></omgdi:waypoint>
+        <omgdi:waypoint x="157.0" y="170.0"></omgdi:waypoint>
         <omgdi:waypoint x="352.0" y="155.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
