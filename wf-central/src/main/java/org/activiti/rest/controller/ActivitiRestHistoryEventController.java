@@ -313,12 +313,19 @@ public class ActivitiRestHistoryEventController {
                           
                           
                           if(nID_Service==159){
-                              if(region.getName()==null){
-        			  currMapWithName.put("sName", "Київ");
-                              }
-                            log.info("[getListOfHistoryEvents]sName="+region.getName());
+                              //if(region.getName()==null){
                               
-                                log.info("[getListOfHistoryEvents]nID_Service="+nID_Service);
+                                log.info("[getListOfHistoryEvents]!!!nID_Service="+nID_Service);
+                            Map<String, Object> mValue = new HashMap<String, Object>();
+			  
+			  //currMapWithName.put("sName", region.getName());
+                                  Long n=new Long(0);  
+        			  mValue.put("sName", "Київ");
+                              //}
+                            log.info("[getListOfHistoryEvents]sName(real)="+region.getName());
+                            log.info("[getListOfHistoryEvents]sName(summ)=Київ");
+                            //log.info("[getListOfHistoryEvents]sName="+region.getName());
+                              
                                 List<Map<String, Object>> am = new LinkedList<Map<String,Object>>();
                                 am = getListOfHistoryEvents(new Long(726));
                                 //am.get(0).get("nCount");
@@ -331,21 +338,26 @@ public class ActivitiRestHistoryEventController {
                                         }
                                     }
                                 }*/
-                                nCount+=getCountFromStatisticArrayMap(am);
+                                n+=getCountFromStatisticArrayMap(am);
                                 am = getListOfHistoryEvents(new Long(727));
-                                nCount+=getCountFromStatisticArrayMap(am);
+                                n+=getCountFromStatisticArrayMap(am);
                                 am = getListOfHistoryEvents(new Long(728));
-                                nCount+=getCountFromStatisticArrayMap(am);
+                                n+=getCountFromStatisticArrayMap(am);
                                 am = getListOfHistoryEvents(new Long(729));
-                                nCount+=getCountFromStatisticArrayMap(am);
+                                n+=getCountFromStatisticArrayMap(am);
                                 am = getListOfHistoryEvents(new Long(730));
-                                nCount+=getCountFromStatisticArrayMap(am);
+                                n+=getCountFromStatisticArrayMap(am);
                                 am = getListOfHistoryEvents(new Long(731));
-                                nCount+=getCountFromStatisticArrayMap(am);
+                                n+=getCountFromStatisticArrayMap(am);
                                 am = getListOfHistoryEvents(new Long(732));
-                                nCount+=getCountFromStatisticArrayMap(am);
+                                n+=getCountFromStatisticArrayMap(am);
                                 am = getListOfHistoryEvents(new Long(733));
-                                nCount+=getCountFromStatisticArrayMap(am);
+                                n+=getCountFromStatisticArrayMap(am);
+                                
+                                
+                            log.info("[getListOfHistoryEvents]nCount(summ)="+n);
+                                mValue.put("nCount", n);
+                                listOfHistoryEventsWithMeaningfulNames.add(mValue);
                           }
 
                         log.info("[getListOfHistoryEvents]nCount="+nCount);
