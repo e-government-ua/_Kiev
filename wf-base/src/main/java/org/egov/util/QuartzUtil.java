@@ -28,27 +28,6 @@ public class QuartzUtil {
 			return internalStr;
 		}
 
-		public static DAY_OF_WEEK fromQuarztString(String text) {
-			if (text != null) {
-				for (DAY_OF_WEEK b : DAY_OF_WEEK.values()) {
-					if (text.equalsIgnoreCase(b.quartzStr)) {
-						return b;
-					}
-				}
-			}
-			return null;
-		}
-		
-		public static DAY_OF_WEEK fromInternalString(String text) {
-			if (text != null) {
-				for (DAY_OF_WEEK b : DAY_OF_WEEK.values()) {
-					if (text.equalsIgnoreCase(b.internalStr)) {
-						return b;
-					}
-				}
-			}
-			return null;
-		}
 	}
 	
 	private static final String QUARTZ_FORMAT = "{\"0 [START_MINUTE]/[INTERVAL] [HOURS_PERIOD] ? * [DAYS]\":\"PT[INTERVAL]M\"}";
