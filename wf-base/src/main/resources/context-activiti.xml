@@ -47,7 +47,6 @@
                 <bean class="org.wf.dp.dniprorada.form.QueueDataFormType" />
                 <bean class="org.wf.dp.dniprorada.form.InvisibleFormType"/>
                 <bean class="org.wf.dp.dniprorada.form.SelectFormType"/>
-                 <bean class="org.wf.dp.dniprorada.form.HTMLFormType" />
             </list>
         </property>
 
