@@ -90,11 +90,11 @@ public class ActivitiRestHistoryEventController {
 
 	/**
 	 * add the object of HistoryEvent_Service to db
-	 *
-	 //	 * @param nID_Task
-	 //	 *            -- ID of Task
-	 //	 * @param sStatus
-	 //	 *            -- string of status
+	 * 
+	 * @param nID_Task
+	 *            -- ID of Task
+	 * @param sStatus
+	 *            -- string of status
 	 * @param nID_Subject
 	 *            -- SubjectID (optional)
 	 * @param sID_Status
@@ -127,7 +127,7 @@ public class ActivitiRestHistoryEventController {
 	/**
 	 * check the correctness of nID_Protected (by algorithm Luna) and update the
 	 * object of HistoryEvent_Service in db
-	 *
+	 * 
 	 //	 * @param nID_Protected
 	 //	 *            -- nID_Protected of event_service
 	 //	 * @param sStatus
@@ -204,26 +204,37 @@ public class ActivitiRestHistoryEventController {
 			@RequestParam(value = "nID_Subject") long nID_Subject) {
 		return historyEventDao.getHistoryEvents(nID_Subject);
 	}
-
-
-	@RequestMapping(value = "/getStatisticServiceCounts", method = RequestMethod.GET,
-			produces = "application/json;charset=UTF-8")
+	
+	
+	@RequestMapping(value = "/getStatisticServiceCounts", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	public @ResponseBody
-	String getStatisticServiceCounts(
-			@RequestParam(value = "nID_Service") Long nID_Service) {
+	String getStatisticServiceCounts(@RequestParam(value = "nID_Service") Long nID_Service) {
+		
+            
+            
+		List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String,Object>>();
+            
+                listOfHistoryEventsWithMeaningfulNames = getListOfHistoryEvents(nID_Service);
 
-		List<Map<String, Object>> list = getListOfHistoryEvents(nID_Service);
-		return JSONValue.toJSONString(list);
+                return JSONValue.toJSONString(listOfHistoryEventsWithMeaningfulNames);
 	}
 
 	private List<Map<String, Object>> getListOfHistoryEvents(Long nID_Service){
-		List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<>();
-		List<Map<String, Long>> listOfHistoryEvents =
-				historyEventServiceDao.getHistoryEvent_ServiceBynID_Service(nID_Service);
+                List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String,Object>>();
+            
+            
+		List<Map<String, Long>> listOfHistoryEvents = historyEventServiceDao.getHistoryEvent_ServiceBynID_Service(nID_Service);
+		
+                //Map<String, Long> m = new HashMap();
+                //m.put("Київ", nID_Service);
+		  //currMap.get("sName")
 		for (Map<String, Long> currMap : listOfHistoryEvents){
 			  Region region = regionDao.findByIdExpected(currMap.get("sName"));
 			  Map<String, Object> currMapWithName = new HashMap<String, Object>();
+			  
 			  currMapWithName.put("sName", region.getName());
+                            log.info("[getListOfHistoryEvents]sName="+region.getName());
+                          
 			  //currMapWithName.put("nCount", currMap.get("nCount"));
                           /*
                             https://igov.org.ua/service/661/general - 43
@@ -231,8 +242,14 @@ public class ActivitiRestHistoryEventController {
                             https://igov.org.ua/service/176/general - 546
                             https://igov.org.ua/service/654/general - 307                          
                           */
+                          /*
 
+
+                          */
                           Long nCount = currMap.get("nCount");
+                          if(nCount==null){
+                              nCount = new Long(0);
+                          }
                           if(false){
                           }else if(nID_Service==661){
                               if("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())){
@@ -293,7 +310,19 @@ public class ActivitiRestHistoryEventController {
                           
                           
                           if(nID_Service==159){
-                                log.info("[getListOfHistoryEvents]nID_Service="+nID_Service);
+                              //if(region.getName()==null){
+                              
+                                log.info("[getListOfHistoryEvents]!!!nID_Service="+nID_Service);
+                            Map<String, Object> mValue = new HashMap<String, Object>();
+			  
+			  //currMapWithName.put("sName", region.getName());
+                                  Long n=new Long(0);  
+        			  mValue.put("sName", "Київ");
+                              //}
+                            log.info("[getListOfHistoryEvents]sName(real)="+region.getName());
+                            log.info("[getListOfHistoryEvents]sName(summ)=Київ");
+                            //log.info("[getListOfHistoryEvents]sName="+region.getName());
+                              
                                 List<Map<String, Object>> am = new LinkedList<Map<String,Object>>();
                                 am = getListOfHistoryEvents(new Long(726));
                                 //am.get(0).get("nCount");
@@ -306,23 +335,29 @@ public class ActivitiRestHistoryEventController {
                                         }
                                     }
                                 }*/
-                                nCount+=getCountFromStatisticArrayMap(am);
-                                getListOfHistoryEvents(new Long(727));
-                                nCount+=getCountFromStatisticArrayMap(am);
-                                getListOfHistoryEvents(new Long(728));
-                                nCount+=getCountFromStatisticArrayMap(am);
-                                getListOfHistoryEvents(new Long(729));
-                                nCount+=getCountFromStatisticArrayMap(am);
-                                getListOfHistoryEvents(new Long(730));
-                                nCount+=getCountFromStatisticArrayMap(am);
-                                getListOfHistoryEvents(new Long(731));
-                                nCount+=getCountFromStatisticArrayMap(am);
-                                getListOfHistoryEvents(new Long(732));
-                                nCount+=getCountFromStatisticArrayMap(am);
-                                getListOfHistoryEvents(new Long(733));
-                                nCount+=getCountFromStatisticArrayMap(am);
+                                n+=getCountFromStatisticArrayMap(am);
+                                am = getListOfHistoryEvents(new Long(727));
+                                n+=getCountFromStatisticArrayMap(am);
+                                am = getListOfHistoryEvents(new Long(728));
+                                n+=getCountFromStatisticArrayMap(am);
+                                am = getListOfHistoryEvents(new Long(729));
+                                n+=getCountFromStatisticArrayMap(am);
+                                am = getListOfHistoryEvents(new Long(730));
+                                n+=getCountFromStatisticArrayMap(am);
+                                am = getListOfHistoryEvents(new Long(731));
+                                n+=getCountFromStatisticArrayMap(am);
+                                am = getListOfHistoryEvents(new Long(732));
+                                n+=getCountFromStatisticArrayMap(am);
+                                am = getListOfHistoryEvents(new Long(733));
+                                n+=getCountFromStatisticArrayMap(am);
+                                
+                                
+                            log.info("[getListOfHistoryEvents]nCount(summ)="+n);
+                                mValue.put("nCount", n);
+                                listOfHistoryEventsWithMeaningfulNames.add(mValue);
                           }
 
+                        log.info("[getListOfHistoryEvents]nCount="+nCount);
 			  currMapWithName.put("nCount", nCount);
                           
 			  listOfHistoryEventsWithMeaningfulNames.add(currMapWithName);
@@ -339,7 +374,7 @@ public class ActivitiRestHistoryEventController {
             log.info("[getCountFromStatisticArrayMap]am="+am);
             if(am.size()>0){
                 if(am.get(0).containsKey("nCount")){
-                    String s = (String)am.get(0).get("nCount");
+                    String s = am.get(0).get("nCount")+"";
                     if(s!=null){
                         n = new Long(s);
                         log.info("[getCountFromStatisticArrayMap]n="+n);
