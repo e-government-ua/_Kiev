@@ -9,12 +9,67 @@ import org.json.simple.JSONObject;
 
 public class QuartzUtil {
 
-	private static final String QUARTZ_FORMAT = "{\"0 0/[INTERVAL] [HOURS_PERIOD] ? * [DAYS]\":\"PT[INTERVAL]M\"}";
+	private enum DAY_OF_WEEK {
+		SUN("SUN", "su"), MON("MON", "mo"), TUE("TUE", "tu"), WED("WED", "we"), THU("THU", "th"), FRI("FRI", "fr"), SAT("SAT", "sa");
+
+		private String quartzStr;
+		private String internalStr;
+
+		DAY_OF_WEEK(String quartzStr, String internalStr) {
+			this.quartzStr = quartzStr;
+			this.internalStr = internalStr;
+		}
+
+		public String getQuartzStr() {
+			return this.quartzStr;
+		}
+
+		public String getInternalStr() {
+			return internalStr;
+		}
+
+		public static DAY_OF_WEEK fromQuarztString(String text) {
+			if (text != null) {
+				for (DAY_OF_WEEK b : DAY_OF_WEEK.values()) {
+					if (text.equalsIgnoreCase(b.quartzStr)) {
+						return b;
+					}
+				}
+			}
+			return null;
+		}
+		
+		public static DAY_OF_WEEK fromInternalString(String text) {
+			if (text != null) {
+				for (DAY_OF_WEEK b : DAY_OF_WEEK.values()) {
+					if (text.equalsIgnoreCase(b.internalStr)) {
+						return b;
+					}
+				}
+			}
+			return null;
+		}
+	}
+	
+	private static final String QUARTZ_FORMAT = "{\"0 [START_MINUTE]/[INTERVAL] [HOURS_PERIOD] ? * [DAYS]\":\"PT[INTERVAL]M\"}";
 	
 	public static String getQuartzFormulaByParameters(String sRegionTime, String saRegionWeekDay, Integer nLen){
-		String res = QUARTZ_FORMAT.replaceFirst("[INTERVAL]", nLen.toString());
-		res = res.replaceAll("[HOURS_PERIOD]", sRegionTime);
-		res = res.replaceAll("[DAYS]", saRegionWeekDay);
+		// sRegionTime is in format HH:MM-HH:MM
+		// saRegionWeekDay is in format "mo,tu,we,th,fr,sa". Need to convert to MON, TUE, WED, THU, FRI, SAT, SUN
+		String startTime = StringUtils.substringBefore(sRegionTime, "-");
+		String endTime = StringUtils.substringAfter(sRegionTime, "-");
+		String startHour = StringUtils.substringBefore(startTime, ":");
+		String startMinute = StringUtils.substringAfter(startTime, ":");
+		String endHour = StringUtils.substringBefore(endTime, ":");
+		
+		for (DAY_OF_WEEK b : DAY_OF_WEEK.values()) {
+			saRegionWeekDay = saRegionWeekDay.replace(b.getInternalStr(), b.getQuartzStr());
+		}
+		
+		String res = StringUtils.replace(QUARTZ_FORMAT, "[INTERVAL]", nLen.toString());
+		res = StringUtils.replace(res, "[START_MINUTE]", startMinute);
+		res = StringUtils.replace(res, "[HOURS_PERIOD]", startHour + "-" + endHour);
+		res = StringUtils.replace(res, "[DAYS]", saRegionWeekDay);
 		
 		return res;
 	}
@@ -24,10 +79,24 @@ public class QuartzUtil {
 		
 		String arrayStrings[] = quartzExpr.split("\\s+");
 		if (arrayStrings.length == 6){
-			resMap.put("sRegionTime", arrayStrings[2]);
-			resMap.put("saRegionWeekDay", arrayStrings[5].indexOf("\"") > 0 ? StringUtils.substringBefore(arrayStrings[5], "\"") : arrayStrings[5]);
-			
+			String hours = arrayStrings[2];
 			String interval = arrayStrings[1];
+			
+			String startHour = StringUtils.substringBefore(hours, "-");
+			String endHour = StringUtils.substringAfter(hours, "-");
+			String startMinute = StringUtils.substringBefore(interval, "/");
+			String endMinute = "00";
+			StringBuilder sb = new StringBuilder();
+			sb.append(startHour).append(":").append(startMinute).append("-").append(endHour).append(":").append(endMinute);
+			resMap.put("sRegionTime", sb.toString());
+
+			String weekDays = arrayStrings[5].indexOf("\"") > 0 ? StringUtils.substringBefore(arrayStrings[5], "\"") : arrayStrings[5];
+			for (DAY_OF_WEEK b : DAY_OF_WEEK.values()) {
+				weekDays = StringUtils.replace(weekDays, b.getQuartzStr(), b.getInternalStr());
+			}
+			
+			resMap.put("saRegionWeekDay", weekDays);
+			
 			resMap.put("nLen", StringUtils.substringAfter(interval, "/"));
 		}
 		
