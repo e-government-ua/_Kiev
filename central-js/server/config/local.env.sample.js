@@ -19,7 +19,7 @@ module.exports = {
   SESSION_SECRET: 'put yor session secret here',
   SESSION_KEY_ONE: 'solt1 for session',
   SESSION_KEY_TWO: 'solt2 for session',
-  SESSION_SECURE: true,
+  SESSION_SECURE: false,//false only for local
   SESSION_MAX_AGE: 14400000, // 4h*60m*60s*1000ms
 
   ACTIVITI_PROTOCOL: 'https',
