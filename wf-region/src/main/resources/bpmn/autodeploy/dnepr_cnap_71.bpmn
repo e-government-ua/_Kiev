@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_cnap_71" name="Дніпропетровськ - надання дозволу на викиди забруднюючих речовин в атмосферне повітря стаціонарними джерелами суб`єкта господарювання (2 і 3 група)" isExecutable="true">
+  <process id="dnepr_cnap_70_71" name="Дніпропетровськ - надання дозволу на викиди забруднюючих речовин в атмосферне повітря стаціонарними джерелами суб`єкта господарювання (2 і 3 група)" isExecutable="true">
     <documentation>https://github.com/e-government-ua/iBP/issues/70</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -18,7 +18,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="tel" name="Контактний номер телефону" type="string" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="obect" name="Укажіть об’єкт, на який потрібно надати дозвіл" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="obect" name="Укажіть об’єкт, на який потрібно надати дозвіл" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="group" name="До якої групи належить об'єкт" type="enum" required="true">
           <activiti:value id="pravij" name="другої"></activiti:value>
           <activiti:value id="levij" name="третьої"></activiti:value>
@@ -147,7 +147,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="tel" name="Контактний номер телефону" type="string" default="38" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="obect" name="Укажіть об’єкт, на який потрібно надати дозвіл" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="obect" name="Укажіть об’єкт, на який потрібно надати дозвіл" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="group" name="До якої групи належить об'єкт" type="enum" writable="false">
           <activiti:value id="pravij" name="другої"></activiti:value>
           <activiti:value id="levij" name="третьої"></activiti:value>
@@ -164,7 +164,7 @@
           <activiti:value id="reject" name="відхилити запит"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, підставу" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="opis" name="Завантажте опис прийнятих документів " type="file"></activiti:formProperty>
+        <activiti:formProperty id="opis" name="Завантажте опис прийнятих документів " type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_70_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
