@@ -45,7 +45,6 @@
         <activiti:formProperty id="reg_oder" name="Завантажте довідку про реєстрацію місця проживання (перебування) одержувача" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="num_ark" name="Кількість сторінок у доданих документах" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="num_doc" name="Кількість доданих документів" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="sBody" type="invisible"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
