@@ -498,9 +498,13 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             	//List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
                 HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery()
                 		.includeProcessVariables().taskId(currTask.getId()).singleResult();
-                if (details != null) {
+                if (details != null &&  details.getProcessVariables() != null) {
                 	log.info(" proccessVariavles: " + details.getProcessVariables());
-                    headersExtra.addAll(details.getProcessVariables().keySet());
+                	for(String key : details.getProcessVariables().keySet()){
+                		if(!key.startsWith("sBody")){
+                			headersExtra.add(key);
+                		}
+                	}
                 }
             }
             headers.addAll(headersExtra);
@@ -533,8 +537,12 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                         String propertyValue = "";
                         if (details != null && details.getProcessVariables() != null) {
                         	Object variableValue = details.getProcessVariables().get(headerExtra);
-                        	if(variableValue instanceof String){
-                        		propertyValue = (String)variableValue;
+                        	if(variableValue != null){
+                        		if(variableValue instanceof String){
+                            		propertyValue = (String)variableValue;
+                            	} else {
+                            		propertyValue = String.valueOf(variableValue);
+                            	}
                         	}
                         }
                         line.add(propertyValue);
