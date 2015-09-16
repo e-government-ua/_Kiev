@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="zaporoshye_mvk_1b" name="Запорізьке МВК - Дозвіл на розміщення зовнішньої реклами (для юридичних осіб)" isExecutable="true">
+  <process id="zaporoshye_mvk_1_b_" name="Запорізьке МВК - Дозвіл на розміщення зовнішньої реклами (для юридичних осіб)" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="serviceType" name="Мета звернення" type="enum" required="true">
@@ -522,10 +522,10 @@
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow15" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_zaporoshye_mvk_1b">
-    <bpmndi:BPMNPlane bpmnElement="zaporoshye_mvk_1b" id="BPMNPlane_zaporoshye_mvk_1b">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_zaporoshye_mvk_1_b_">
+    <bpmndi:BPMNPlane bpmnElement="zaporoshye_mvk_1_b_" id="BPMNPlane_zaporoshye_mvk_1_b_">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="40.0" y="92.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="30.0" y="130.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="81.0" width="171.0" x="120.0" y="107.0"></omgdc:Bounds>
@@ -571,7 +571,7 @@
         <omgdi:waypoint x="207.0" y="260.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
-        <omgdi:waypoint x="75.0" y="109.0"></omgdi:waypoint>
+        <omgdi:waypoint x="65.0" y="147.0"></omgdi:waypoint>
         <omgdi:waypoint x="120.0" y="147.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
