@@ -169,7 +169,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${dovidka_erdpou} ${vikidi} ${plan_situation} ${plan_general} ${substance} ${other} ${dovir}</activiti:expression>
+            <activiti:expression>${dovidka_erdpou}, ${vikidi}, ${plan_situation}, ${plan_general}, ${substance}, ${other}, ${dovir}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
