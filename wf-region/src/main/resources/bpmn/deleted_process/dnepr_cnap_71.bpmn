@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_cnap_53" name="Дніпропетровськ - дозвіл на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах (їх частинах)" isExecutable="true">
-    <documentation>https://github.com/e-government-ua/iBP/issues/53</documentation>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="dnepr_cnap_71" name="Дніпропетровськ - надання дозволу на викиди забруднюючих речовин в атмосферне повітря стаціонарними джерелами суб`єкта господарювання (2 і 3 група)" isExecutable="true">
+    <documentation>https://github.com/e-government-ua/iBP/issues/70</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="subekt" name="Оберіть суб'єкт надання адміністративних послуг" type="enum" required="true">
+          <activiti:value id="subect_1" name="головне управління держсанепідслужби у Дніпроперовській області"></activiti:value>
+          <activiti:value id="subect_2" name="управління на Придніпровській залізниці Головного управління Держсанепідслужби на залізничному транспорті"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="cnap" name="Оберіть ЦНАП у якому буде зручніше забрати оригінал документу" type="enum" required="true">
           <activiti:value id="pravij" name="Правобережний"></activiti:value>
           <activiti:value id="levij" name="Лівобережний"></activiti:value>
@@ -15,15 +19,20 @@
         <activiti:formProperty id="tel" name="Контактний номер телефону" type="string" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="obect" name="Укажіть об’єкт, на який потрібно надати дозвіл" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="group" name="До якої групи належить об'єкт" type="enum" required="true">
+          <activiti:value id="pravij" name="другої"></activiti:value>
+          <activiti:value id="levij" name="третьої"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="adres_2" name="Адреса об’єкта, на який видається дозвіл" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="pidpriemci" name="Ничже вказані поля треба заповнити юридичним особам чи особам-підприємцям" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="imya_ur" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД; тільки цифрові позначення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="edrpo_inn" name="Ідентифікаційний код згідно з ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця; тільки цифрові позначення" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Місцезнаходження юридичної особи/місце проживання фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="doc_pidpriemci" name="Довідка про наявність рибальских суден, дозволених знарядь лову та рибоприймальних пунктів на визначеному рибогосподарському водному об'єкті" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="perelic" name="Програма виконання робіт, в якій визначені методи, мета та завдання робіт, типи і кількість рибальских суден, назва  і кількість необхідних знарядь лову" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dovidka_erdpou" name="Копія довідки ЄДРПОУ або копія виписки з ЄДР юридичних та фізичних осіб підприємців" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="vikidi" name="Документ, в якому обгрунтовуються обсяги викидів" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="plan_situation" name="Ситуаційний план" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="plan_general" name="Генеральний план" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="substance" name="Розрахунок розсіювання забруднюючих речовин в атмосферному повітрі" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="other" name="Приєднати інший документ; у разі необхідності" type="file"></activiti:formProperty>
         <activiti:formProperty id="dovir" name="Якщо Ви подаєте запит як довірена особа - завантажте копію довіренності" type="file"></activiti:formProperty>
         <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
@@ -32,16 +41,16 @@
     <serviceTask id="mailtask2" name="Повідомлення співробітника держоргану" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string>darja.grek@gmail.com</activiti:string>
+          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Нове  звернення. Дозвіл на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах</activiti:string>
+          <activiti:string><![CDATA[Нове  звернення. Надання дозволу на викиди забруднюючих речовин в атмосферне повітря]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -94,7 +103,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо надання дозволу на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах.&lt;br /&gt;
+У Вас в черзі на обробку зареєстровано нове звернення щодо надання дозволу на викиди забруднюючих речовин в атмосферне повітря стаціонарними джерелами суб`єкта господарювання (2 і 3 група).&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
 Відпрацюйте це звернення на &lt;a href="https://test.region.igov.org.ua:6948/" target="_blank"&gt;порталі&lt;/a&gt;
                                     &lt;/p&gt;
@@ -128,17 +137,23 @@
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="subekt" name="Оберіть суб'єкт надання адміністративних послуг" type="enum" writable="false">
+          <activiti:value id="subect_1" name="головне управління держсанепідслужби у Дніпроперовській області"></activiti:value>
+          <activiti:value id="subect_2" name="управління на Придніпровській залізниці Головного управління Держсанепідслужби на залізничному транспорті"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="cnap" name="Оберіть ЦНАП у якому буде зручніше забрати оригінал документу" type="enum" writable="false">
           <activiti:value id="pravij" name="Правобережний"></activiti:value>
           <activiti:value id="levij" name="Лівобережний"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="tel" name="Контактний номер телефону" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="tel" name="Контактний номер телефону" type="string" default="38" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="obect" name="Укажіть об’єкт, на який потрібно надати дозвіл" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="group" name="До якої групи належить об'єкт" type="enum" writable="false">
+          <activiti:value id="pravij" name="другої"></activiti:value>
+          <activiti:value id="levij" name="третьої"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="adres_2" name="Адреса об’єкта, на який видається дозвіл" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="imya_ur" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="edrpo_inn" name="Ідентифікаційний код згідно з ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Місцезнаходження юридичної особи/місце проживання фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" required="true"></activiti:formProperty>
@@ -150,11 +165,11 @@
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, підставу" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="opis" name="Завантажте опис прийнятих документів " type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_53_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_70_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${doc_pidpriemci},${perelic},${dovir}</activiti:expression>
+            <activiti:expression>${dovidka_erdpou}, ${vikidi}, ${plan_situation}, ${plan_general}, ${substance}, ${other}, ${dovir}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -230,7 +245,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
 &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-Вам відмовлено у наданні  дозвілу на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах.&lt;br /&gt;
+Вам відмовлено у наданні  дозволу на викиди забруднюючих речовин в атмосферне повітря стаціонарними джерелами суб`єкта господарювання (2 і 3 група).&lt;br /&gt;
 Підстава: ${comment_2}&lt;br /&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -256,13 +271,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: надання дозволу на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: надання дозволу на викиди забруднюючих речовин в атмосферне повітря]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -282,13 +297,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: надання дозволу на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: надання дозволу на викиди забруднюючих речовин в атмосферне повітря]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -341,7 +356,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Ваш запит щодо надання дозволу на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах відхилено.&lt;br /&gt;
+Ваш запит щодо надання дозволу на викиди забруднюючих речовин в атмосферне повітря стаціонарними джерелами суб`єкта господарювання (2 і 3 група) відхилено.&lt;br /&gt;
 &lt;br /&gt;
 Підстава: ${comment_1}    
     &lt;/pя&gt;
@@ -373,13 +388,13 @@
     <serviceTask id="servicetask2" name="Повідомлення громадянина про успішне подання зверенння" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>test_noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: надання дозволу на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: надання дозволу на викиди забруднюючих речовин в атмосферне повітря]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${opis}"</activiti:expression>
@@ -435,7 +450,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Ваш запит щодо отримання дозволу на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах успішно зареєстровано і буде опрацьовано управлінням охорони використання і відтворення водних біоресурсів та регулювання рибальства у Дніпропетровській області впродовж 30 робочих днів.&lt;br /&gt;
+Ваш запит щодо отримання дозволу на викиди забруднюючих речовин в атмосферне повітря стаціонарними джерелами суб`єкта господарювання (2 і 3 група) успішно зареєстровано і буде опрацьовано обраним Вами суб'єктом надання адміністративної послуги впродовж 15 робочих днів.&lt;br /&gt;
 &lt;br /&gt;
 Реєстраційний номер заяви: ${reestr_numb};&lt;br /&gt;
 До листа додається опис наданих Вами документів.&lt;br /&gt;
@@ -485,13 +500,13 @@
     <serviceTask id="servicetask3" name="повідомлення громадянина о наданні дозволу (Правобережний)" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>test_noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: надання дозволу на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: надання дозволу на викиди забруднюючих речовин в атмосферне повітря]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
@@ -547,15 +562,18 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     
-Ви отримали на дозвіл на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах.&lt;br /&gt;
+Ви отримали на надання дозволу на викиди забруднюючих речовин в атмосферне повітря стаціонарними джерелами суб`єкта господарювання.&lt;br /&gt;
 &lt;br /&gt;
 Ви або уповноважена Вами особа (при наявності довіреності) можете отримати дозвіл собисто під підпис у ЦНАПі.&lt;br /&gt;
 &lt;br /&gt;
 При собі треба мати:&lt;br /&gt;
 1. Документ, що посвідчує особу.&lt;br /&gt;
-2. Довідку про наявність рибальских суден, дозволених знарядь лову та рибоприймальних пунктів на визначеному рибогосподарському водному об'єкті.&lt;br /&gt;
-3. Програму виконання робіт, в якій визначені методи, мета та завдання робіт, типи і кількість рибальских суден, назва  і кількість необхідних знарядь лову.&lt;br /&gt;
-4. Для уповоноваженої особи - довіренність.&lt;br /&gt;
+2. Копію довідки ЄДРПОУ або копія виписки з ЄДР юридичних та фізичних осіб підприємців&lt;br /&gt;
+3. Документ, в яком обгрунтовуються обсяги викидів&lt;br /&gt;
+4. Ситуаційний план&lt;br /&gt;
+5. Генеральний план&lt;br /&gt;
+6. Розрахунок розсіювання забруднюючих речовин в атмосферному повітрі&lt;br /&gt;
+7. Для уповоноваженої особи - довіренність.&lt;br /&gt;
 &lt;br /&gt;
 Зверніть увагу, що заяву, яку ви подавали в електронному вигляді, треба буде засвідчити особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.
 &lt;br /&gt;
@@ -623,13 +641,13 @@
     <serviceTask id="servicetask4" name="повідомлення громадянина о наданні  дозволу (Лівобережний)" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>test_noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: надання дозволу на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: надання дозволу на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
@@ -685,15 +703,18 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     
-Ви отримали дозвіл на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах.&lt;br /&gt;
+Ви отримали надання дозволу на викиди забруднюючих речовин в атмосферне повітря стаціонарними джерелами суб`єкта господарювання.&lt;br /&gt;
 &lt;br /&gt;
 Ви або уповноважена Вами особа (при наявності довіреності) можете отримати дозвіл собисто під підпис у ЦНАПі.&lt;br /&gt;
 &lt;br /&gt;
 При собі треба мати:&lt;br /&gt;
 1. Документ, що посвідчує особу.&lt;br /&gt;
-2. Довідку про наявність рибальских суден, дозволених знарядь лову та рибоприймальних пунктів на визначеному рибогосподарському водному об'єкті.&lt;br /&gt;
-3. Програму виконання робіт, в якій визначені методи, мета та завдання робіт, типи і кількість рибальских суден, назва  і кількість необхідних знарядь лову.&lt;br /&gt;
-4. Для уповоноваженої особи - довіренність.&lt;br /&gt;
+2. Копію довідки ЄДРПОУ або копія виписки з ЄДР юридичних та фізичних осіб підприємців&lt;br /&gt;
+3. Документ, в яком обгрунтовуються обсяги викидів&lt;br /&gt;
+4. Ситуаційний план&lt;br /&gt;
+5. Генеральний план&lt;br /&gt;
+6. Розрахунок розсіювання забруднюючих речовин в атмосферному повітрі&lt;br /&gt;
+7. Для уповоноваженої особи - довіренність.&lt;br /&gt;
 &lt;br /&gt;
 Зверніть увагу, що заяву, яку ви подавали в електронному вигляді, треба буде засвідчити особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.
 &lt;br /&gt;
@@ -759,13 +780,16 @@
     <sequenceFlow id="flow25" sourceRef="servicetask3" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow26" sourceRef="servicetask4" targetRef="endevent1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_53">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_53" id="BPMNPlane_dnepr_cnap_53">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_71">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_71" id="BPMNPlane_dnepr_cnap_71">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="20.0" y="40.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="10.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="104.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="378.0"></omgdc:Bounds>
@@ -782,14 +806,11 @@
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="55.0" width="215.0" x="106.0" y="30.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
-        <omgdc:Bounds height="55.0" width="217.0" x="105.0" y="185.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
         <omgdc:Bounds height="30.0" width="30.0" x="106.0" y="58.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
-        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="104.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
+        <omgdc:Bounds height="55.0" width="217.0" x="105.0" y="185.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="435.0" y="192.0"></omgdc:Bounds>
@@ -814,14 +835,14 @@
         <omgdi:waypoint x="475.0" y="488.0"></omgdi:waypoint>
         <omgdi:waypoint x="630.0" y="488.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="97.0" x="-42.0" y="-20.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="97.0" x="433.0" y="468.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
         <omgdi:waypoint x="455.0" y="508.0"></omgdi:waypoint>
         <omgdi:waypoint x="455.0" y="548.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="42.0" x="1.0" y="7.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="42.0" x="456.0" y="515.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
@@ -829,14 +850,14 @@
         <omgdi:waypoint x="455.0" y="630.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="55.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="45.0" y="57.0"></omgdi:waypoint>
         <omgdi:waypoint x="106.0" y="57.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
         <omgdi:waypoint x="435.0" y="488.0"></omgdi:waypoint>
         <omgdi:waypoint x="322.0" y="488.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="97.0" x="-48.0" y="-20.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="97.0" x="387.0" y="468.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
@@ -851,14 +872,14 @@
         <omgdi:waypoint x="455.0" y="232.0"></omgdi:waypoint>
         <omgdi:waypoint x="455.0" y="300.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="1.0" y="-27.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="456.0" y="205.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
         <omgdi:waypoint x="435.0" y="212.0"></omgdi:waypoint>
         <omgdi:waypoint x="322.0" y="212.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="-42.0" y="-20.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="393.0" y="192.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
