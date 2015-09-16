@@ -532,7 +532,10 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     for (String headerExtra : headersExtra) {
                         String propertyValue = "";
                         if (details != null && details.getProcessVariables() != null) {
-                            propertyValue = (String)details.getProcessVariables().get(headerExtra);
+                        	Object variableValue = details.getProcessVariables().get(headerExtra);
+                        	if(variableValue instanceof String){
+                        		propertyValue = (String)variableValue;
+                        	}
                         }
                         line.add(propertyValue);
                     }
