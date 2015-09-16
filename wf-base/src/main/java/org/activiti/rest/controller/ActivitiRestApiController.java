@@ -494,18 +494,19 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         log.debug("headers: " + headers);
         if (bDetail) {
             for (HistoricTaskInstance currTask : foundResults) {
-                List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
-                for (HistoricDetail historicDetail : details) {
-                    if (historicDetail instanceof HistoricFormPropertyEntity) {
-                        HistoricFormPropertyEntity formEntity = (HistoricFormPropertyEntity) historicDetail;
-                        headersExtra.add(formEntity.getPropertyId());
-                    }
+                
+            	//List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
+                HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery()
+                		.includeProcessVariables().taskId(currTask.getId()).singleResult();
+                if (details != null) {
+                	log.info(" proccessVariavles: " + details.getProcessVariables());
+                    headersExtra.addAll(details.getProcessVariables().keySet());
                 }
             }
             headers.addAll(headersExtra);
         }
 
-        log.debug("headers: " + headers);
+        log.info("headers: " + headers);
         csvWriter.writeNext(headers.toArray(new String[headers.size()]));
 
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
@@ -526,23 +527,17 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
                 if (bDetail) {
                     log.debug("currTask: " + currTask.getId());
-                    List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
+                    HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery().includeProcessVariables()
+                    		.taskId(currTask.getId()).singleResult(); 
                     for (String headerExtra : headersExtra) {
-                        //log.info("headerExtra: " + headerExtra);
                         String propertyValue = "";
-                        for (HistoricDetail historicDetail : details) {
-                            //log.info("details: " + historicDetail.getClass());
-                            if (historicDetail instanceof HistoricFormPropertyEntity
-                                    && ((HistoricFormPropertyEntity) historicDetail).getPropertyId().equalsIgnoreCase(headerExtra)) {
-                                propertyValue = ((HistoricFormPropertyEntity) historicDetail).getPropertyValue();
-                                //log.info("headerExtra: " + headerExtra + " propertyValue: " + propertyValue);
-                                break;
-                            }
+                        if (details != null && details.getProcessVariables() != null) {
+                            propertyValue = (String)details.getProcessVariables().get(headerExtra);
                         }
                         line.add(propertyValue);
                     }
                 }
-                log.debug("line: " + line);
+                log.info("line: " + line);
                 csvWriter.writeNext(line.toArray(new String[line.size()]));
             }
         } else {
