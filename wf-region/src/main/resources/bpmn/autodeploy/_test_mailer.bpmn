@@ -8,10 +8,6 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="filecl" name="file" type="file"></activiti:formProperty>
-        <activiti:formProperty id="test" name="male/famale" type="enum">
-          <activiti:value id="1" name="male"></activiti:value>
-          <activiti:value id="2" name="famale"></activiti:value>
-        </activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask0" name="Видалення тікета з черги" activiti:delegateExpression="#{releaseTicketsOfQueue}"></serviceTask>
@@ -21,10 +17,6 @@
     <userTask id="usertask1" name="рассмотрение и загрузка" activiti:candidateGroups="sales">
       <extensionElements>
         <activiti:formProperty id="file" name="file" type="file"></activiti:formProperty>
-        <activiti:formProperty id="test" name="male/famale" type="enum">
-          <activiti:value id="1" name="1"></activiti:value>
-          <activiti:value id="2" name="2"></activiti:value>
-        </activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
