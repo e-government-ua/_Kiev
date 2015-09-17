@@ -287,11 +287,7 @@
           <activiti:string><![CDATA[Надання рішення міської ради про надання дозволів на розробку проектів землеустрою щодо відведення земельних ділянок]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head lang="ru"&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;style type="text/css"&gt;
+          <activiti:expression>    &lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -372,8 +368,7 @@
     &lt;/tr&gt;
     &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</activiti:expression>
+&lt;/body&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>${file1}</activiti:expression>
