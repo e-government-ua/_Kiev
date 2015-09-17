@@ -6,6 +6,7 @@ var controller = require('./tasks.controller');
 var router = express.Router();
 
 router.get('/', controller.index);
+router.get('/getPatternFile', controller.getPatternFile);
 router.get('/:taskId/events', controller.getAllTaskEvents);
 router.get('/:taskId/form', controller.getForm);
 router.get('/:taskId/form-from-history', controller.getFormFromHistory);

@@ -174,3 +174,13 @@ exports.getTasksByOrder = function(req, res) {
     error ? res.send(error) : res.status(statusCode).json(result);
   });
 };
+
+exports.getPatternFile = function(req, res) {
+  var options = {
+    path: '/rest/getPatternFile',
+    query: {
+      'sPathFile': req.query.sPathFile
+    }
+  };
+  activiti.filedownload(req, res, options);
+};
