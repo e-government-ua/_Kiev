@@ -44,8 +44,8 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
 
     @Override
     public HistoryEvent_Service getHistoryEvent_ServiceByID_Protected(Long nID_Protected) throws CRCInvalidException {
-        AlgorithmLuna.validateProtectedNumber(nID_Protected);
 
+        AlgorithmLuna.validateProtectedNumber(nID_Protected);
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
         criteria.add(Restrictions.eq("nID_Task", AlgorithmLuna.getOriginalNumber(nID_Protected)));
         HistoryEvent_Service event_service = (HistoryEvent_Service) criteria.uniqueResult();
@@ -63,21 +63,29 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
     public HistoryEvent_Service addHistoryEvent_Service(Long nID_task, String sStatus, Long nID_subject,
                                                         String sID_status, Long nID_Service, Long nID_Region,
                                                         String sID_UA) {
+        return addHistoryEvent_Service(nID_task, sStatus, nID_subject, sID_status, nID_Service, nID_Region, sID_UA, null);
+    }
+
+    @Override
+    public HistoryEvent_Service addHistoryEvent_Service(Long nID_Task, String sStatus, Long nID_Subject,
+                                                        String sID_Status, Long nID_Service, Long nID_Region,
+                                                        String sID_UA, Integer nRate) {
         HistoryEvent_Service event_service = new HistoryEvent_Service();
-        event_service.setnID_Task(nID_task);
+        event_service.setnID_Task(nID_Task);
         event_service.setsStatus(sStatus);
-        event_service.setsID_Status(sID_status);
-        event_service.setnID_Subject(nID_subject);
+        event_service.setsID_Status(sID_Status);
+        event_service.setnID_Subject(nID_Subject);
         event_service.setsDate(new DateTime());
         event_service.setnID_Region(nID_Region);
         event_service.setnID_Service(nID_Service);
         event_service.setsID_UA(sID_UA);
+        if (nRate != null) {
+            event_service.setnRate(nRate);
+        }
         Session session = getSession();
         session.saveOrUpdate(event_service);
-
-        long nID_Reference = nID_task;
+        long nID_Reference = nID_Task;
         event_service.setnID_Protected(AlgorithmLuna.getProtectedNumber(nID_Reference));
-        
         return event_service;
     }
 

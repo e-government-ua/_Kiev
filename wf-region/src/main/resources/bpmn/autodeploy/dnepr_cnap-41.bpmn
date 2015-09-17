@@ -12,8 +12,8 @@
         <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="rodna" name="Ступінь спорідненності з загиблим" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="FIO" name="Прізвище, ім`я, по-батькові загиблого" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="deathdate" name="Дата загибелі (дд.мм.рррр)" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="funeraldate" name="Дата поховання (дд.мм.рррр)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="deathdate" name="Дата загибелі" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="funeraldate" name="Дата поховання" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="act_no" name="Актовий запис про поховання" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="cementary" name="Адреса кладовища для перепоховання" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
@@ -48,10 +48,10 @@
         <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clzagibl" name="Прізвище, ім`я, по-батькові загиблого" type="string" default="${FIO}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clrodna" name="Ступінь спорідненості із загиблим" type="string" default="${rodna}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clfuneraldate" name="Дата поховання і актовий запис" type="string" default="${funeraldate}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clfuneraldate" name="Дата поховання і актовий запис" type="date" default="${funeraldate}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clact_no" name="Номер акта про поховання" type="string" default="${act_no}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clcementary" name="Місце перезахоронення" type="string" default="${cementary}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="cldeathdate" name="Дата загибелі" type="string" default="${deathdate}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="cldeathdate" name="Дата загибелі" type="date" default="${deathdate}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vibor" name="Оригінал довідки заявник бажає отримати через" type="enum" writable="false">
           <activiti:value id="post" name="Поштою (буде стягуватись платня за рекомендований лист)"></activiti:value>
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
@@ -578,10 +578,10 @@ ${comment} &lt;br&gt;
         <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clzagibl" name="Прізвище, ім`я, по-батькові загиблого" type="string" default="${FIO}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clrodna" name="Ступінь спорідненості із загиблим" type="string" default="${rodna}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clfuneraldate" name="Дата поховання і актовий запис" type="string" default="${funeraldate}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clfuneraldate" name="Дата поховання і актовий запис" type="date" default="${funeraldate}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clact_no" name="Номер акта про поховання" type="string" default="${act_no}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clcementary" name="Місце перезахоронення" type="string" default="${cementary}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="cldeathdate" name="Дата загибелі" type="string" default="${deathdate}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="cldeathdate" name="Дата загибелі" type="date" default="${deathdate}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vibor" name="Оригінал довідки заявник бажає отримати через" type="enum" writable="false">
           <activiti:value id="post" name="Поштою (буде стягуватись платня за рекомендований лист)"></activiti:value>
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>

@@ -494,18 +494,23 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         log.debug("headers: " + headers);
         if (bDetail) {
             for (HistoricTaskInstance currTask : foundResults) {
-                List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
-                for (HistoricDetail historicDetail : details) {
-                    if (historicDetail instanceof HistoricFormPropertyEntity) {
-                        HistoricFormPropertyEntity formEntity = (HistoricFormPropertyEntity) historicDetail;
-                        headersExtra.add(formEntity.getPropertyId());
-                    }
+                
+            	//List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
+                HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery()
+                		.includeProcessVariables().taskId(currTask.getId()).singleResult();
+                if (details != null &&  details.getProcessVariables() != null) {
+                	log.info(" proccessVariavles: " + details.getProcessVariables());
+                	for(String key : details.getProcessVariables().keySet()){
+                		if(!key.startsWith("sBody")){
+                			headersExtra.add(key);
+                		}
+                	}
                 }
             }
             headers.addAll(headersExtra);
         }
 
-        log.debug("headers: " + headers);
+        log.info("headers: " + headers);
         csvWriter.writeNext(headers.toArray(new String[headers.size()]));
 
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
@@ -513,7 +518,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             log.debug(String.format("Found {%s} completed tasks for business process {%s} for date period {%s} - {%s}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt),
                     sdfDate.format(dateTo)));
 
-            for (HistoricTaskInstance currTask : foundResults) {
+            for (HistoricTaskInstance currTask : foundResults) { 
                 List<String> line = new ArrayList<String>();
                 line.add(currTask.getProcessInstanceId());
                 line.add(currTask.getAssignee());
@@ -526,23 +531,24 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
                 if (bDetail) {
                     log.debug("currTask: " + currTask.getId());
-                    List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
+                    HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery().includeProcessVariables()
+                    		.taskId(currTask.getId()).singleResult(); 
                     for (String headerExtra : headersExtra) {
-                        //log.info("headerExtra: " + headerExtra);
                         String propertyValue = "";
-                        for (HistoricDetail historicDetail : details) {
-                            //log.info("details: " + historicDetail.getClass());
-                            if (historicDetail instanceof HistoricFormPropertyEntity
-                                    && ((HistoricFormPropertyEntity) historicDetail).getPropertyId().equalsIgnoreCase(headerExtra)) {
-                                propertyValue = ((HistoricFormPropertyEntity) historicDetail).getPropertyValue();
-                                //log.info("headerExtra: " + headerExtra + " propertyValue: " + propertyValue);
-                                break;
-                            }
+                        if (details != null && details.getProcessVariables() != null) {
+                        	Object variableValue = details.getProcessVariables().get(headerExtra);
+                        	if(variableValue != null){
+                        		if(variableValue instanceof String){
+                            		propertyValue = (String)variableValue;
+                            	} else {
+                            		propertyValue = String.valueOf(variableValue);
+                            	}
+                        	}
                         }
                         line.add(propertyValue);
                     }
                 }
-                log.debug("line: " + line);
+                log.info("line: " + line);
                 csvWriter.writeNext(line.toArray(new String[line.size()]));
             }
         } else {
