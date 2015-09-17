@@ -131,6 +131,8 @@
               <submittask-button></submittask-button>
               <br/>
               <br/>
+            </div>            
+            <div ng-hide="selectedTask.assignee == null || sSelectedTask == 'finished'"">
               <button ng-hide="!taskFormLoaded || sSelectedTask == 'finished'" ng-click="print()" class="btn btn-success">Роздрукувати
               </button>
             </div>            
