@@ -21,7 +21,6 @@
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-        <activiti:formProperty id="response" name="thank_you_page_text" type="invisible" default="&lt;strong&gt;Дякуемо, що скористались нашим сервісом!&lt;/strong&gt;"></activiti:formProperty>
         <activiti:formProperty id="markers" name="markersForValidations" type="markers" default="{}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -154,8 +153,12 @@
           <activiti:value id="reject2" name="Відмовити громадянину в наданні послуги; звернення містить невірні дані "></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="sSum" name="Розмір держ.збору за надання послуги (для генерації рахунку для сплати через LIQPAY)" type="enum" default=" ">
-          <activiti:value id="526.15" name="526.15 грн"></activiti:value>
-          <activiti:value id="488.63" name="488.63 грн"></activiti:value>
+          <activiti:value id="535.63" name="526.15 грн - Реєстрація іноземного авто з номерами і ТП"></activiti:value>
+          <activiti:value id="497.43" name="488.63 грн - Реєстрація відчизняного авто з номерами і ТП"></activiti:value>
+          <activiti:value id="506.92" name="497.95 грн - Реєстрація іноземного авто з номерами без заміни ТП "></activiti:value>
+          <activiti:value id="468.72" name="460.43 грн - Реєстрація відчизняного авто з номерами без заміни ТП "></activiti:value>
+          <activiti:value id="398.19" name="391.15 грн - Реєстрація іноземного авто з ТП без заміни номерів"></activiti:value>
+          <activiti:value id="360.00" name="353.63 грн - Реєстрація відчизняного авто з ТП без заміни номерів"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="В разі відмови в наданні послуги, вкажіть причину. (Інформація буде спрямована громадянину на e-mail)" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="billToPay" name="Завантажити реквізити для оплати (Інформація буде спрямована громадянину на e-mail)" type="file" default=" "></activiti:formProperty>
