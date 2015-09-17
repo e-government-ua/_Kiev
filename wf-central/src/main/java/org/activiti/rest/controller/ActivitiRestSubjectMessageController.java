@@ -39,7 +39,7 @@ public class ActivitiRestSubjectMessageController {
     @Qualifier("subjectMessageTypeDao")
     private EntityDao<SubjectMessageType> subjectMessageTypeDao;
 
-    @RequestMapping(value = "/setMessage", method = RequestMethod.GET)
+    @RequestMapping(value = "/setMessage", method = RequestMethod.POST)
     public
     @ResponseBody
     ResponseEntity setMessage(
