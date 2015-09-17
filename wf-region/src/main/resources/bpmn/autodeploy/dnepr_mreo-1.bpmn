@@ -21,7 +21,6 @@
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-        <activiti:formProperty id="response" name="thank_you_page_text" type="invisible" default="&lt;strong&gt;Дякуемо, що скористались нашим сервісом!&lt;/strong&gt;"></activiti:formProperty>
         <activiti:formProperty id="markers" name="markersForValidations" type="markers" default="{}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -154,8 +153,12 @@
           <activiti:value id="reject2" name="Відмовити громадянину в наданні послуги; звернення містить невірні дані "></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="sSum" name="Розмір держ.збору за надання послуги (для генерації рахунку для сплати через LIQPAY)" type="enum" default=" ">
-          <activiti:value id="526.15" name="526.15 грн"></activiti:value>
-          <activiti:value id="488.63" name="488.63 грн"></activiti:value>
+          <activiti:value id="526.15" name="526.15 грн - Регистрация иномарка с номерами и ТП"></activiti:value>
+          <activiti:value id="488.63" name="488.63 грн - Регистрация отечественного с номерами и ТП"></activiti:value>
+          <activiti:value id="497.95" name="497.95 грн - Регистрация иномарки с номерами без замены ТП "></activiti:value>
+          <activiti:value id="460.43" name="460.43 грн - Регистрация отечественного с номерами без замены ТП "></activiti:value>
+          <activiti:value id="391.15" name="391.15 грн - Регистрация иномарки с ТП без замены номера"></activiti:value>
+          <activiti:value id="353.63" name="353.63 грн - Регистрация отечественного с ТП без замены номера"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="В разі відмови в наданні послуги, вкажіть причину. (Інформація буде спрямована громадянину на e-mail)" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="billToPay" name="Завантажити реквізити для оплати (Інформація буде спрямована громадянину на e-mail)" type="file" default=" "></activiti:formProperty>
