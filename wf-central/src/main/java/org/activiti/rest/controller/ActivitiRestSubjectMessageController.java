@@ -39,7 +39,7 @@ public class ActivitiRestSubjectMessageController {
     @Qualifier("subjectMessageTypeDao")
     private EntityDao<SubjectMessageType> subjectMessageTypeDao;
 
-    @RequestMapping(value = "/setMessage", method = RequestMethod.POST)
+    @RequestMapping(value = "/setMessage", method = RequestMethod.GET)
     public
     @ResponseBody
     ResponseEntity setMessage(
@@ -51,7 +51,7 @@ public class ActivitiRestSubjectMessageController {
             @RequestParam(value = "sData", required = false) String sData,
             @RequestParam(value = "nID_SubjectMessageType", required = false) Long nID_SubjectMessageType,
             @RequestParam(value = "nID_Protected", required = false) Long nID_Protected,
-            @RequestParam(value = "sID_Rate ", required = false) String sID_Rate) throws ActivitiRestException {
+            @RequestParam(value = "sID_Rate", required = false) String sID_Rate) throws ActivitiRestException {
 
         SubjectMessage message =
                 createSubjectMessage(sHead, sBody, nID_Subject, sMail, sContacts, sData, nID_SubjectMessageType);
@@ -126,7 +126,7 @@ public class ActivitiRestSubjectMessageController {
             } catch (EntityNotFoundException e) {
                 throw new ActivitiRestException(
                         ActivitiExceptionController.BUSINESS_ERROR_CODE,
-                        e.getMessage(),
+                        "Record with nID_Protected=" + nID_Protected + " not found!",
                         HttpStatus.FORBIDDEN);
             } catch (CRCInvalidException e) {
                 throw new ActivitiRestException(
