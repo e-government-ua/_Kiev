@@ -15,16 +15,11 @@
         <activiti:formProperty id="Nationality" name="Громадянство" type="string" default="Україна" required="true"></activiti:formProperty>
         <activiti:formProperty id="RegistrationAddress" name="Звідки Ви прибули; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="WhenCome" name="Коли прибули; Формат - ДД.ММ.PPPP" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="newAddressLabel" name="Ваша нова адреса реєстрації" type="label" default="Заповніть деталі вашої нової адреси"></activiti:formProperty>
-        <activiti:formProperty id="newCity" name="Населений пункт " type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="newStreet" name="Вулиця " type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="newHouse" name="Будинок" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="newCorp" name="Корпус" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="newApartment" name="№ Квартири" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації" type="textArea" default="${newCity}, ${newStreet}, ${newHouse}, корп. ${newCorp}, кв. ${newApartment}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Дніпропетровськ, в якому ви зареєстровані" type="enum" required="true">
           <activiti:value id="bab" name="Бабушкінський"></activiti:value>
         </activiti:formProperty>
-         <activiti:formProperty id="RegistrationDocument" name="Підставою для реєстрації нового місця проживання є" type="enum" required="true">
+        <activiti:formProperty id="RegistrationDocument" name="Підставою для реєстрації нового місця проживання є" type="enum" required="true">
           <activiti:value id="order" name="Ордер"></activiti:value>
           <activiti:value id="ownDoc" name="Свідоцтво про право власності"></activiti:value>
           <activiti:value id="rentDoc" name="Договір найму / піднайму / оренди "></activiti:value>
@@ -385,13 +380,19 @@
 										Деталі зустрічі: &lt;br /&gt;
 										День - ${meetDay} &lt;br /&gt;
 										Проміжок часу - ${meetTime} &lt;br /&gt;
-										&lt;p&gt;&lt;/p&gt;
-										Необхідні документи, які треба принести до відділення ДМС: &lt;br /&gt;
-										
+										&lt;p&gt;
+										Необхідні документи, які треба принести до відділення ДМС:&lt;p&gt;
+										&lt;p&gt;
 										&lt;li&gt;Документ, до якого вносяться відомості про місце проживання&lt;/li&gt; &lt;br /&gt;
 										&lt;li&gt;Квитанцію про сплату державного мита або документ про звільнення від його сплати&lt;/li&gt; &lt;br /&gt;
-										&lt;li&gt;Документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації;&lt;/li&gt; &lt;br /&gt;
-										&lt;p&gt;&lt;/p&gt;
+										&lt;li&gt;Документи, що підтверджують: 
+											право на проживання в житлі (ордер, свідоцтво про право власності, договір найму (піднайму, оренди) або інші документи. У разі відсутності зазначених документів реєстрація здійснюється за згодою власника/співвласників житла, наймача та членів його сім’ї на реєстрацію місця проживання), &lt;br /&gt; 
+											перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту (довідка про прийняття на обслуговування в спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту особи, копія посвідчення про взяття на облік бездомної особи), &lt;br /&gt;
+											проходження служби у військовій частині (довідка про проходження служби у військовій частині, видана командиром військової частини), &lt;br /&gt; 
+											адреса яких зазначається під час реєстрації;&lt;/li&gt; &lt;br /&gt;
+										&lt;li&gt;військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку);&lt;/li&gt;
+										&lt;li&gt;свідоцтво про народження або свідоцтво про належність до громадянства України, якщо реєструється місце проживання дитини, яка не досягла 16-річного віку;&lt;/li&gt;
+										&lt;/p&gt;
 										Коментар до рішення:
 									&lt;p&gt;&lt;/p&gt;	
 									&lt;i&gt;	${decisionComment} &lt;/i&gt;
@@ -434,7 +435,7 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон громадянина" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="e-mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="PrevName" name="Попереднє прізвище, ім’я та по батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="date_of_birth" name="Дата народження" type="string"></activiti:formProperty>
         <activiti:formProperty id="Areabirth" name="Місце народження; Країна, область, район і населений пункт" type="textArea"></activiti:formProperty>

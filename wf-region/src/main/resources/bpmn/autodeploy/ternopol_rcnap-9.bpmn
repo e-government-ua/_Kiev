@@ -129,6 +129,8 @@
     <sequenceFlow id="flow10" sourceRef="mailtask3" targetRef="usertask1"></sequenceFlow>
     <userTask id="usertask1" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="cnap_rai_${rai}_1">
       <extensionElements>
+        <activiti:formProperty id="info" name="На цьому етапі:" type="label" default="Ви перевіряєте дані громадянина і вирішуєте чи всі вони вірні. Якщо все добре, присвоюєте реєстраційний номер зверненню, роздруковуєте прінтформи та відправляєте документи до Держгеокадастру. Якщо ні - відмовляєте у реєстрації звернення з обов'язковим коментарем."></activiti:formProperty>
+        <activiti:formProperty id="iGovnumb" name="Номер звернення з iGov" type="long"></activiti:formProperty>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
@@ -276,82 +278,30 @@
           <activiti:string><![CDATA[Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>&lt;style type="text/css"&gt;
-        body {margin: 0; padding: 0;}
-        #mailer-body {font: 400 18px/20px 'Calibri';}
-        #mailer-body div,
-        #mailer-body p,
-        #mailer-body span,
-        #mailer-body strong,
-        #mailer-body b,
-        #mailer-body em,
-        #mailer-body i,
-        #mailer-body a,
-        #mailer-body li,
-        #mailer-body td {-webkit-text-size-adjust: none;}
-        #mailer-body a {color: #2F70AF; text-decoration: none;}
-        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
-        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
-        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
-        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
-        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
-        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
-        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
-        #mailer-body textarea:focus {outline: 0;}
-        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановні працівники відділу Держгеокадастру у Тернопільському районі.&lt;/h3&gt;
-                                    &lt;p&gt;
-                                        Направляємо Вам документи для Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки.&lt;/p&gt;
-									&lt;/p&gt;
-                            
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        ЦНАП Тернопільського району,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                           
-                          
-
-                        &lt;/table&gt;
-                     
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;</activiti:expression>
+        	<activiti:expression>
+ 					Шановні працівники відділу Держгеокадастру у Тернопільському районі.
+                    
+                    Направляємо Вам документи для Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки.&lt;/p&gt;
+									
+					Заявник: ${clFio};
+                    Звернення на iGov.org.ua № ${iGovnumb};
+                    Реєстраційний номер ЦНАП ${vnnumb}.
+                            		
+                    З повагою,
+                    ЦНАП Тернопільського району,
+                    Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+             </activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${file1},${file2},${file3},${file4},${file5}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow15" sourceRef="servicetask2" targetRef="usertask2"></sequenceFlow>
-    <userTask id="usertask2" name="Підготовка відповіді на запит" activiti:candidateGroups="cnap_rai_${rai}_1">
+    <sequenceFlow id="flow15" sourceRef="servicetask2" targetRef="usertask2_green"></sequenceFlow>
+    <userTask id="usertask2_green" name="Підготовка відповіді на запит" activiti:candidateGroups="cnap_rai_${rai}_1">
       <extensionElements>
+        <activiti:formProperty id="info1" name="На цьому етапі:" type="label" default="Ви отримуєте результат розгляду звернення Держгеокадастром і відповідним чином інформуєте громадянина."></activiti:formProperty>
+        <activiti:formProperty id="iGovnumb" name="Номер звернення з iGov" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vnnumb" name="Реєстраційний номер звернення" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="DocumentDate" name="Дата оформлення документів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="CNAPName" name="ПІБ посадової особи" type="string" writable="false"></activiti:formProperty>
@@ -367,14 +317,13 @@
           <activiti:value id="item4" name="визначення втрат сільськогосподарського та лісогосподарського виробництва"></activiti:value>
           <activiti:value id="itme5" name="розроблення показників та механізмів економічного стимулювання раціонального використання та охорони земель"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="place_of_res" name="Місце куди направити витяг поштою; вкажіть область, місто, вулицю, дім, квартиру" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="searchResult" name="Результат, отриманий від спеціаліста" type="enum" required="true">
           <activiti:value id="found" name="Витяг готовий"></activiti:value>
           <activiti:value id="nonfound" name="Відсутня технічна документація про нормативну грошову оцінку земельної ділянки"></activiti:value>
         </activiti:formProperty>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow9" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="usertask2_green" targetRef="exclusivegateway2"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow13" name="${searchResult == 'nonfound'}" sourceRef="exclusivegateway2" targetRef="mailtask5">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult == 'nonfound'}]]></conditionExpression>
@@ -592,7 +541,7 @@
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="410.0" y="333.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+      <bpmndi:BPMNShape bpmnElement="usertask2_green" id="BPMNShape_usertask2_green">
         <omgdc:Bounds height="71.0" width="126.0" x="734.0" y="205.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
