@@ -923,11 +923,20 @@ https://test.igov.org.ua/wf-central/service/messages/getMessage?nID=76
 * sContacts - Строка контактов автора //опционально
 * sData - Строка дополнительных данных автора //опционально
 * nID_SubjectMessageType - ИД-номер типа сообщения  //опционально (по умолчанию == 0) 
+* nID_Protected - номер заявки, опционально, защищенный по алгоритму Луна
+* sID_Rate -- оценка, опционально. сейчас должно содержать число от 1 до 5
 
 nID_SubjectMessageType:
 nID;sName;sDescription
 0;ServiceNeed;Просьба добавить услугу
 1;ServiceFeedback;Отзыв о услуге
+
+При заданных обоих параметрах nID\_Protected и sID\_Rate - обновляется поле nRate в записи сущности HistoryEvent\_Service, которая находится по nID\_Protected без последней цифры, при этом приходящее значение из параметра sID_Rate должно содержать число от 1 до 5.
+т.е. возможные ошибки:
+ - nID\_Protected некорректное -- ошибка ```403. CRC Error```
+ - sID\_Rate некорректное (не число или не в промежутке от 1 до 5) -- ошибка ```403. Incorrect sID_Rate```
+ - запись заявки (по nID\_Protected без последней цифры) не найдена -- ошибка ```403. Record not found```
+проверить запись HistoryEvent\_Service можно через сервис \sevices\getHistoryEvent_Service?nID_Protected=xxx (link: <a href="#17_workWithHistoryEvent_Services">17. Работа с обьектами событий по услугам</a>)
 
 
 Примеры:
