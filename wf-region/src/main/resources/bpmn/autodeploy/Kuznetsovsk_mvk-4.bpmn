@@ -19,11 +19,11 @@
         <activiti:formProperty id="docName" name="Назва документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="deliverType" name="Який формат документів Ви бажаєте отримати" type="enum" required="true">
           <activiti:value id="digital" name="Електронна версія "></activiti:value>
-          <activiti:value id="physical" name="Фізична версія"></activiti:value>
+          <activiti:value id="physical" name="Фізична копія"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання документа" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask2"></sequenceFlow>
@@ -101,7 +101,7 @@
 									&lt;p&gt;
 										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
 										Спеціалісти з державного Органу повинні дати відповідь найближчим часом. &lt;br /&gt;
-									;&lt;/p&gt;
+									&lt;/p&gt;
 									
 									Центр надання адміністративних послуг Кузнецовської міської ради &lt;br /&gt;
 									&lt;br /&gt;
@@ -147,12 +147,12 @@
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_liv" name="Адреса проживання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="e-mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запитуваний документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
-          <activiti:value id="accept" name="Перейти до надання послуги"></activiti:value>
-          <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
+          <activiti:value id="accept" name="Передати запрос на опрацювання"></activiti:value>
+          <activiti:value id="reject" name="Відмовити у реєстрації звернення"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="string"></activiti:formProperty>
         <activiti:formProperty id="footer" name="footerToPrint" type="invisible" writable="false"></activiti:formProperty>
@@ -170,7 +170,7 @@
     <sequenceFlow id="flow6" name="${decide == 'reject'}" sourceRef="exclusivegateway3" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask2" name="Відмова в наданні послуги" activiti:type="mail">
+    <serviceTask id="mailtask2" name="Відмова у реєстрації звернення" activiti:type="mail">
       <extensionElements>
 		<activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -235,7 +235,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-										На жаль змушені Вам відмовити в наданні послуги.
+										На жаль змушені Вам відмовити у реєстрації звернення.
 									&lt;/p&gt;
 									&lt;p&gt;
 										Коментар державного службовця: &lt;br /&gt;
@@ -278,10 +278,10 @@
     </serviceTask>
     <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
-    <sequenceFlow id="flow8" name="decide == 'accept'" sourceRef="exclusivegateway3" targetRef="usertask3">
+    <sequenceFlow id="flow8" name="decide == 'accept'" sourceRef="exclusivegateway3" targetRef="usertask2_green">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask3" name="Підготовка відповіді на запит: пошук документа" activiti:candidateGroups="kuznets_mvk_2">
+    <userTask id="usertask2_green" name="Підготовка відповіді на запит: пошук документа" activiti:candidateGroups="kuznets_mvk_2">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_liv" name="Адреса проживання" type="string" writable="false"></activiti:formProperty>
@@ -291,7 +291,7 @@
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="deliverType" name="Формат відповіді" type="enum" writable="false">
           <activiti:value id="digital" name="Електронна версія"></activiti:value>
-          <activiti:value id="physical" name="Фізична версія"></activiti:value>
+          <activiti:value id="physical" name="Фізична копія"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="searchResult" name="Результат обробки запиту" type="enum" required="true">
           <activiti:value id="found" name="Документ знайдено"></activiti:value>
@@ -303,7 +303,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-	<sequenceFlow id="flow9" sourceRef="usertask3" targetRef="exclusivegateway2"></sequenceFlow>
+	<sequenceFlow id="flow9" sourceRef="usertask2_green" targetRef="exclusivegateway2"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow10" name="searchResult=='notFound'" sourceRef="exclusivegateway2" targetRef="mailtask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult=='notFound'}]]></conditionExpression>
@@ -660,7 +660,7 @@
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="863.0" y="166.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+      <bpmndi:BPMNShape bpmnElement="usertask2_green" id="BPMNShape_usertask2_green">
         <omgdc:Bounds height="64.0" width="161.0" x="680.0" y="155.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
