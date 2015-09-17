@@ -184,11 +184,7 @@
           <activiti:string><![CDATA[Виплата інвалідам війни грошової компенсації замість путівки на санаторно-курортне лікування.]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head lang="ru"&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-&lt;style type="text/css"&gt;
+          <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -252,8 +248,7 @@
         &lt;/td&gt;
     &lt;/tr&gt;
     &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/html&gt;</activiti:expression>
+&lt;/table&gt;</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
