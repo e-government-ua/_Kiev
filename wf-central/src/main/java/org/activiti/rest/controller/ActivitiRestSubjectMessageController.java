@@ -55,9 +55,9 @@ public class ActivitiRestSubjectMessageController {
 
         SubjectMessage message =
                 createSubjectMessage(sHead, sBody, nID_Subject, sMail, sContacts, sData, nID_SubjectMessageType);
-        checkRate(nID_Protected, sID_Rate);
         subjectMessagesDao.setMessage(message);
         message = subjectMessagesDao.getMessage(message.getId());
+        checkRate(nID_Protected, sID_Rate);
         return JsonRestUtils.toJsonResponse(message);
     }
 
