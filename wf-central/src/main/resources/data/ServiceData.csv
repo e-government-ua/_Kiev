@@ -275,3 +275,8 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 364;761;10;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_cnap_35:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 365;762;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_post_111:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
 366;763;43;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"uzhgorod_cnap_112:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+367;764;43;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_post_103:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+368;765;43;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_post_107:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+369;766;43;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_post_108:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+370;767;43;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_post_109:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
+371;628;43;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_post_113:1:1"}};https://test.region.igov.org.ua/wf-region/;false;1;true;;BankID,EDS
