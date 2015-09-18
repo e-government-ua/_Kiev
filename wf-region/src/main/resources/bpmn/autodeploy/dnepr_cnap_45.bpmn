@@ -4,10 +4,12 @@
     <documentation>https://github.com/e-government-ua/iBP/issues/45</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="info" name="Зверніть увагу: ця послуга є платною (в розмірі  п'яти  неоподатковуваних  мінімумів  доходів громадян), при заповненні полів треба буде завантажити документ, що засвідчує внесення плати. Ви можте завантажити єлектронну квітанцію, сформовану в інтернет-банку. Детальні реквізити для оплати знаходяться за посиланням" type="label" default="https://www.dropbox.com/ow/msft/edit/home/%D0%9F%D0%9B%D0%90%D0%A2%D0%90%20%D0%97%D0%90%20%D0%9B%D0%86%D0%A6%D0%95%D0%9D%D0%97%D0%86%D0%AE.docx?hpt_click_ts=1442322548129"></activiti:formProperty>
+        <activiti:formProperty id="info" name="Зверніть увагу: ця послуга є платною (в розмірі  п'яти  неоподатковуваних  мінімумів  доходів громадян), при заповненні полів треба буде завантажити документ, що засвідчує внесення плати. Ви можте завантажити єлектронну квітанцію, сформовану в інтернет-банку. Детальні реквізити для оплати знаходяться за посиланням" type="label" default="http://go-url.ru/license"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Серія та номер паспорту" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="string"></activiti:formProperty>
         <activiti:formProperty id="cnap" name="Оберіть ЦНАП у якому буде зручніше забрати оригінал документу" type="enum" required="true">
           <activiti:value id="pravij" name="Правобережний"></activiti:value>
           <activiti:value id="levij" name="Лівобережний"></activiti:value>
@@ -17,7 +19,7 @@
           <activiti:value id="kopia" name="видача копії або дубліката ліцензії"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="obosnov" name="У зв'язку з чим потребується надання цієї послуги" type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="tel" name="Контактний номер телефону" type="string" default="380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="zaklad" name="Найменування навчального закладу" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="ruk_posada" name="Посада керівника закладу" type="string" required="true"></activiti:formProperty>
@@ -134,6 +136,8 @@
     <userTask id="usertask2_red" name="прийняття рішення про надання послуги" activiti:candidateGroups="Dnepr_cnap_55">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Серія та номер паспорту" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="cnap" name="Оберіть ЦНАП у якому буде зручніше забрати оригінал документу" type="enum" writable="false">
           <activiti:value id="levij" name="Лівобережний"></activiti:value>
           <activiti:value id="pravij" name="Правобережний"></activiti:value>
@@ -143,7 +147,7 @@
           <activiti:value id="kopia" name="видача копії або дубліката ліцензії"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="obosnov" name="У зв'язку з чим потребується надання цієї послуги" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="tel" name="Контактний номер телефону" type="string" default="380" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="380" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="zaklad" name="Найменування навчального закладу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ruk_posada" name="Посада керівника закладу" type="string" writable="false"></activiti:formProperty>
@@ -156,15 +160,15 @@
         <activiti:formProperty id="rahunok" name="Розрахунковий рахунок" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="mfo" name="МФО" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bank" name="Найменування відділення банку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_reestr" name="Укажіть дату реєстрації" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="date_reestr" name="Укажіть дату реєстрації" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="Перевірка документів" type="enum" required="true">
           <activiti:value id="accept" name="документи пройшли перевірку, послуга може бути надана"></activiti:value>
           <activiti:value id="reject" name="відхилити запит"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, підставу" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="opis" name="Завантажте опис прийнятих документів " type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="opis" name="Завантажте опис прийнятих документів " type="file"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_45_2print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
@@ -192,95 +196,6 @@
     <sequenceFlow id="flow5" name="видача ліцензії  П" sourceRef="exclusivegateway1" targetRef="servicetask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='accept'&&cnap=='pravij'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask4" name="повідомлення громадянина про відмову у  отриманні ліцензії" activiti:type="mail">
-      <extensionElements>
-        <activiti:field name="html">
-          <activiti:expression>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head lang="ru"&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;style type="text/css"&gt;
-        body {margin: 0; padding: 0;}
-        #mailer-body {font: 400 18px/20px 'Calibri';}
-        #mailer-body div,
-        #mailer-body p,
-        #mailer-body span,
-        #mailer-body strong,
-        #mailer-body b,
-        #mailer-body em,
-        #mailer-body i,
-        #mailer-body a,
-        #mailer-body li,
-        #mailer-body td {-webkit-text-size-adjust: none;}
-        #mailer-body a {color: #2F70AF; text-decoration: none;}
-        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
-        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
-        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
-        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
-        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
-        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
-        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
-        #mailer-body textarea:focus {outline: 0;}
-        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
-&lt;p&gt;
-&lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-Вам відмовлено у переоформленні, видачі копії або дубліката ліцензії на надання освітніх послуг.&lt;br /&gt;
-Підстава: ${comment_2}&lt;br /&gt;
-                                    &lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                      &lt;/td&gt;
-                            &lt;/tr&gt;
-                           
-                          
-
-                        &lt;/table&gt;
-                     
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</activiti:expression>
-        </activiti:field>
-        <activiti:field name="to">
-          <activiti:expression>${email}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:string>Звернення на тему: переоформлення, видача копії або дубліката ліцензії на надання освітніх послуг</activiti:string>
-        </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
     <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow12" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <sequenceFlow id="flow15" name="видача ліцензії Л" sourceRef="exclusivegateway1" targetRef="servicetask4">
@@ -567,11 +482,9 @@
 При собі треба мати:&lt;br /&gt;
 1. Документ, що посвідчує особу.&lt;br /&gt;
 2. Для уповоноваженої особи - довіренність.&lt;br /&gt;
-3. Документ, що засвідчує внесення плати за переоформлення або видачу дубліката ліцензії.&lt;br /&gt;
-4. Оригінал ліцензії (у разі пошкодження ліцензії її пошкоджений оригінал).&lt;br /&gt;
-&lt;br /&gt;
-Зверніть увагу, що заяву, яку ви подавали в електронному вигляді, треба буде засвідчити особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.
-&lt;br /&gt;
+3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.&lt;br /&gt;
+4. Документ, що засвідчує внесення плати за переоформлення або видачу дубліката ліцензії.&lt;br /&gt;
+5. Оригінал ліцензії (у разі пошкодження ліцензії її пошкоджений оригінал).&lt;br /&gt;
 &lt;br /&gt;
 Адреса центру надання адміністративних послуг "Правобережний" - пр.К.Маркса 75 (1 поверх)&lt;br /&gt;&lt;br /&gt;
 Телефон для довідок (056)742-84-08&lt;br /&gt;&lt;br /&gt;
@@ -705,11 +618,9 @@
 При собі треба мати:&lt;br /&gt;
 1. Документ, що посвідчує особу.&lt;br /&gt;
 2. Для уповоноваженої особи - довіренність.&lt;br /&gt;
-3. Документ, що засвідчує внесення плати за переоформлення або видачу дубліката ліцензії.&lt;br /&gt;
-4. Оригінал ліцензії (у разі пошкодження ліцензії її пошкоджений оригінал).&lt;br /&gt;
-&lt;br /&gt;
-Зверніть увагу, що заяву, яку ви подавали в електронному вигляді, треба буде засвідчити особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.
-&lt;br /&gt;
+3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.&lt;br /&gt;
+4. Документ, що засвідчує внесення плати за переоформлення або видачу дубліката ліцензії.&lt;br /&gt;
+5. Оригінал ліцензії (у разі пошкодження ліцензії її пошкоджений оригінал).&lt;br /&gt;
 &lt;br /&gt;
 Адреса центру надання адміністративних послуг "Лівобережний" - пр.ім. Газети "Правда" 42 (5 поверх)&lt;br /&gt;&lt;br /&gt;
 Телефон для довідок (056)742-84-08&lt;br /&gt;&lt;br /&gt;
@@ -768,13 +679,99 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow25" name="відмова у видачі ліцензії " sourceRef="exclusivegateway1" targetRef="mailtask4">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='reject'}]]></conditionExpression>
-    </sequenceFlow>
     <endEvent id="endevent3" name="End"></endEvent>
-    <sequenceFlow id="flow26" sourceRef="mailtask4" targetRef="endevent3"></sequenceFlow>
     <sequenceFlow id="flow27" sourceRef="servicetask4" targetRef="endevent3"></sequenceFlow>
     <sequenceFlow id="flow28" sourceRef="servicetask3" targetRef="endevent3"></sequenceFlow>
+    <serviceTask id="servicetask5" name="повідомлення громадянина про відмову у  отриманні ліцензії" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string>noreply@igov.org.ua</activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Звернення на тему: переоформлення, видача копії або дубліката ліцензії на надання освітніх послуг</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head lang="ru"&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+    &lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+&lt;p&gt;
+&lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
+Вам відмовлено у переоформленні, видачі копії або дубліката ліцензії на надання освітніх послуг.&lt;br /&gt;
+Підстава: ${comment_2}&lt;br /&gt;
+                                    &lt;/p&gt;
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                      &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow29" name="відмова у видачі ліцензії " sourceRef="exclusivegateway1" targetRef="servicetask5">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='reject'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow30" sourceRef="servicetask5" targetRef="endevent3"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_45">
     <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_45" id="BPMNPlane_dnepr_cnap_45">
@@ -785,51 +782,51 @@
         <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="30.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
-        <omgdc:Bounds height="40.0" width="40.0" x="435.0" y="411.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
-        <omgdc:Bounds height="55.0" width="219.0" x="346.0" y="473.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="435.0" y="385.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="55.0" width="215.0" x="106.0" y="30.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
-        <omgdc:Bounds height="55.0" width="217.0" x="105.0" y="185.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="217.0" x="105.0" y="165.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
         <omgdc:Bounds height="30.0" width="30.0" x="106.0" y="58.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
-        <omgdc:Bounds height="40.0" width="40.0" x="435.0" y="192.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="435.0" y="172.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="270.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="235.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="103.0" y="114.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
-        <omgdc:Bounds height="55.0" width="231.0" x="630.0" y="404.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="231.0" x="630.0" y="378.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
-        <omgdc:Bounds height="55.0" width="216.0" x="106.0" y="404.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="216.0" x="106.0" y="378.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
-        <omgdc:Bounds height="35.0" width="35.0" x="438.0" y="544.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="438.0" y="518.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask2_red" id="BPMNShape_usertask2_red">
         <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="104.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1_yellow" id="BPMNShape_usertask1_yellow">
-        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="340.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="310.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
+        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="440.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="455.0" y="395.0"></omgdi:waypoint>
-        <omgdi:waypoint x="455.0" y="411.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="365.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="385.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="475.0" y="431.0"></omgdi:waypoint>
-        <omgdi:waypoint x="630.0" y="431.0"></omgdi:waypoint>
+        <omgdi:waypoint x="475.0" y="405.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="405.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="14.0" width="88.0" x="-42.0" y="-20.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
@@ -839,8 +836,8 @@
         <omgdi:waypoint x="106.0" y="57.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
-        <omgdi:waypoint x="435.0" y="431.0"></omgdi:waypoint>
-        <omgdi:waypoint x="322.0" y="431.0"></omgdi:waypoint>
+        <omgdi:waypoint x="435.0" y="405.0"></omgdi:waypoint>
+        <omgdi:waypoint x="322.0" y="405.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="14.0" width="85.0" x="-48.0" y="-20.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
@@ -851,18 +848,18 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
         <omgdi:waypoint x="455.0" y="159.0"></omgdi:waypoint>
-        <omgdi:waypoint x="455.0" y="192.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="172.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
-        <omgdi:waypoint x="455.0" y="232.0"></omgdi:waypoint>
-        <omgdi:waypoint x="455.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="212.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="235.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="42.0" width="100.0" x="1.0" y="-27.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
-        <omgdi:waypoint x="435.0" y="212.0"></omgdi:waypoint>
-        <omgdi:waypoint x="322.0" y="212.0"></omgdi:waypoint>
+        <omgdi:waypoint x="435.0" y="192.0"></omgdi:waypoint>
+        <omgdi:waypoint x="322.0" y="192.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="42.0" width="100.0" x="-42.0" y="-20.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
@@ -872,37 +869,37 @@
         <omgdi:waypoint x="360.0" y="57.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
-        <omgdi:waypoint x="455.0" y="325.0"></omgdi:waypoint>
-        <omgdi:waypoint x="455.0" y="340.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="290.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="310.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
         <omgdi:waypoint x="121.0" y="88.0"></omgdi:waypoint>
         <omgdi:waypoint x="120.0" y="114.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
-        <omgdi:waypoint x="213.0" y="185.0"></omgdi:waypoint>
+        <omgdi:waypoint x="213.0" y="165.0"></omgdi:waypoint>
         <omgdi:waypoint x="120.0" y="149.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
-        <omgdi:waypoint x="214.0" y="459.0"></omgdi:waypoint>
-        <omgdi:waypoint x="214.0" y="561.0"></omgdi:waypoint>
-        <omgdi:waypoint x="438.0" y="561.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
-        <omgdi:waypoint x="455.0" y="451.0"></omgdi:waypoint>
-        <omgdi:waypoint x="455.0" y="473.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="9.0" y="-30.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
-        <omgdi:waypoint x="455.0" y="528.0"></omgdi:waypoint>
-        <omgdi:waypoint x="455.0" y="544.0"></omgdi:waypoint>
+        <omgdi:waypoint x="214.0" y="433.0"></omgdi:waypoint>
+        <omgdi:waypoint x="214.0" y="535.0"></omgdi:waypoint>
+        <omgdi:waypoint x="438.0" y="535.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
-        <omgdi:waypoint x="745.0" y="459.0"></omgdi:waypoint>
-        <omgdi:waypoint x="745.0" y="561.0"></omgdi:waypoint>
-        <omgdi:waypoint x="473.0" y="561.0"></omgdi:waypoint>
+        <omgdi:waypoint x="745.0" y="433.0"></omgdi:waypoint>
+        <omgdi:waypoint x="745.0" y="535.0"></omgdi:waypoint>
+        <omgdi:waypoint x="473.0" y="535.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
+        <omgdi:waypoint x="455.0" y="425.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="440.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="9.0" y="-22.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
+        <omgdi:waypoint x="455.0" y="495.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="518.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

@@ -57,8 +57,8 @@ public class FileTaskInheritance extends AbstractModelTask implements TaskListen
 		
 		DelegateExecution execution = task.getExecution();
                 //task.getId()
-                Util.replacePatterns(execution, task, LOG);
-                LOG.info("[notify]Util.replacePatterns:Ok");
+//                Util.replacePatterns(execution, task, LOG);
+                LOG.info("[notify]Util.replacePatterns:Ok(skiped)");
                 
                 try{
                     

@@ -432,7 +432,7 @@
     </sequenceFlow>
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow13" sourceRef="mailtask4" targetRef="endevent3"></sequenceFlow>
-    <serviceTask id="servicetask2" name="E-mail про необхідність оплати" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+    <serviceTask id="servicetask2" name="E-mail про необхідність оплати" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -513,6 +513,9 @@
     &lt;/tr&gt;
     &lt;/tbody&gt;
 &lt;/table&gt;</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>" "</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
