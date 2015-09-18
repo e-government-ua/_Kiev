@@ -342,16 +342,42 @@ $scope.lightweightRefreshAfterSubmit = function () {
 
 
 
-  $scope.aPatternPrintNew = function (taskForm) {
-    var printTemplateResult = null;
+  $scope.aPatternPrintNew = function (taskForm) { 
+    var aResult = [];
     if(taskForm){//this.form
+        
+        /* НЕ ЗАРАБОТАЛО!
+        console.log("[loadSelfAssignedTasks]");
+        var aItem = taskForm;
+        _.forEach(aItem, function (n,oItem) {
+          //if (oItem.id == sID) {
+          if (oItem.id && oItem.id.indexOf('sBody') >= 0 && oItem.value !== "") {
+          
+            //s = oItem.name;
+            var sID = oItem.id;
+            var sName = oItem.name;
+            console.log("[loadSelfAssignedTasks]sID="+sID+",sName="+sName);
+            
+            if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
+                sName = oItem.value;
+                console.log("[loadSelfAssignedTasks]sName="+sName);
+            }
+            aResult = aResult.concat([{id:sID, name: sName}]);
+          }
+        });
+        */
+        
+        var printTemplateResult = null;
         printTemplateResult = taskForm.filter(function (item) {//form//this.form
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
           return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
         });
+        
     }
     //return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
-    return (printTemplateResult!==null && printTemplateResult.length !== 0) ? printTemplateResult : [];
+//    return (printTemplateResult!==null && printTemplateResult.length !== 0) ? printTemplateResult : [];
+    return aResult;
+    
   };
 
 

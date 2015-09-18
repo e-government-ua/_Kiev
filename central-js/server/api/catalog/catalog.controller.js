@@ -14,7 +14,7 @@ if(sHostPrefix==null){
   console.log('2)sHostPrefix='+sHostPrefix);
 }
 
-var sHost = sHostPrefix + "/wf-region/service";
+var sHost = sHostPrefix + "/wf/service";
 
 var cache = new NodeCache();
 var cacheTtl = 300; // 300 seconds = 5 minutes time to live for a cache

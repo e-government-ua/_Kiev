@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
@@ -357,16 +357,6 @@
         </addColumn>
     </changeSet>
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <changeSet id="issue-605" author="askosyr"> 
 	
 		<addColumn tableName="FlowProperty">
@@ -515,7 +505,19 @@
     
     <changeSet id="ServiceData_sNote_3000" author="bw"> 
         <modifyDataType tableName="ServiceData" columnName="sNote" newDataType="varchar(3000)" />
-    </changeSet>   
-    
-    
+    </changeSet>
+
+    <!-- ####################################################################################################### -->
+
+    <changeSet id="issue-777" author="LamronNu">
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="nRate" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <!-- ####################################################################################################### -->
+
+
 </databaseChangeLog>

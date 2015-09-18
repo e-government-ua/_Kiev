@@ -11,7 +11,7 @@ if(sHostPrefix==null){
     console.log('2)sHostPrefix='+sHostPrefix);
 }
 
-var sHost = sHostPrefix + "/wf-region/service";
+var sHost = sHostPrefix + "/wf/service";
 
 
 module.exports.getFlowSlots_ServiceData = function (req, res) {
@@ -19,12 +19,12 @@ module.exports.getFlowSlots_ServiceData = function (req, res) {
 };
 
 module.exports.setFlowSlot_ServiceData = function (req, res) {
-        /*var sHost = "https://test.region.igov.org.ua/wf-region/service";
+        /*var sHost = "https://test.region.igov.org.ua/wf/service";
 	var config = require('../../config/environment');
 	var sHostPrefix = config.server.sServerRegion;
 
 	sHostPrefix = "https://test.region.igov.org.ua";
-        var sHost = sHostPrefix + "/wf-region/service";*/
+        var sHost = sHostPrefix + "/wf/service";*/
         
         
 	activiti.sendPostRequest(req, res, '/flow/setFlowSlot_ServiceData', {
