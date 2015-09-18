@@ -7,9 +7,11 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="long"></activiti:formProperty>
         <activiti:formProperty id="adress" name="Ваша адреса: область, місто, вулиця, дім, квартира" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Електронна пошта" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Електронна пошта для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Вкажіть сьогодняшню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса стоянки великотоннажного та іншого технологічного транспортного засобу" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="content" name="Просимо (викладається суть справи)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="data_about" name="Дані про великотоннажний та інший технологічний транспортний засіб:" type="label" default=" "></activiti:formProperty>
@@ -39,8 +41,8 @@
         <activiti:formProperty id="label11" name="- договору про спільне володіння, користування у разі отримання ТТЗ кількома громадянами в рахунок майнових паїв у зв’язку з виходом або виключенням їх із кооперативу, рішенням органу управління господарського товариства, засвідченим в установленому порядку, про повернення засновникові (учасникові) товариства у зв’язку з його виходом або виключенням з товариства технологічного транспортного засобу, переданого ним у власність або для користування;" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="label12" name="- інших документів, що встановлюють право власності або користування транспортним засобом;" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="label1" name="- для  реєстрації технологічного транспортного засобу, що тривалий час (більше п'яти років) експлуатується суб'єктом господарювання та на який відсутні документи, що встановлюють право власності або користування, та про попередню його реєстрацію, надається копія  інвентарної  картки обліку основних засобів або витяг з балансової відомості, у яких зазначається дата введення в експлуатацію ТТЗ, скріплені підписом посадової особи  суб'єкта  господарювання та печаткою." type="label" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file9" name="Для реєстрації технологічного транспортного засобу, що раніше експлуатувався і перебував на обліку, подається разом з документами свідоцтво про реєстрацію ТТЗ з позначкою про зняття з обліку" type="file" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="file10" name="При першій реєстрації в Україні колісних транспортних засобів надається квитанція або платіжне доручення про сплату збору з відміткою банку про дату виконання платіжного доручення до податкових органів (р. VII Податкового кодексу України), а платники, звільнені від сплати збору, - надають відповідний документ, що дає право на користування такими пільгами" type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="file9" name="Для реєстрації технологічного транспортного засобу, що раніше експлуатувався і перебував на обліку, подається разом з документами свідоцтво про реєстрацію ТТЗ з позначкою про зняття з обліку" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file10" name="При першій реєстрації в Україні колісних транспортних засобів надається квитанція або платіжне доручення про сплату збору з відміткою банку про дату виконання платіжного доручення до податкових органів (р. VII Податкового кодексу України), а платники, звільнені від сплати збору, - надають відповідний документ, що дає право на користування такими пільгами" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність. Відповідальність за достовірність поданих на реєстрацію документів або їх копій несе власник технологічного транспортного засобу згідно із законодавством."></activiti:formProperty>
         <activiti:formProperty id="sBody" name="sBody" type="invisible" default=" "></activiti:formProperty>
       </extensionElements>
@@ -168,9 +170,11 @@
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress" name="Адреса заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Дата подачи заяви" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса стоянки великотоннажного та іншого технологічного транспортного засобу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="content" name="Просимо (викладається суть справи)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="data_about" name="Дані про великотоннажний та інший технологічний транспортний засіб:" type="label" default=" " writable="false"></activiti:formProperty>
@@ -181,6 +185,7 @@
         <activiti:formProperty id="chassis_number" name="Ідентифікаційні номери (заводський, шасі/рами)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="engine_number" name="Номер двигуна (також у дужках зазначається латинська літера «V», знак рівності та об’єм двигуна вликотонажного та іншого технологічного транспортного засобу)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string"></activiti:formProperty>
+        <activiti:formProperty id="date_registrastion" name="Вкажіть дату реєстрації" type="date"></activiti:formProperty>
         <activiti:formProperty id="status" name="Обробка заяви" type="enum">
           <activiti:value id="attr1_wait" name="Документи передані в ТУ Держгірпромнагляду у Дніпропетровській обл."></activiti:value>
           <activiti:value id="attr2_finish" name="Відмова громадянину у разі надання неповного пакету документів"></activiti:value>
@@ -466,9 +471,11 @@
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress" name="Адреса заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Дата подачи заяви" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса стоянки великотоннажного та іншого технологічного транспортного засобу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="content" name="Просимо (викладається суть справи)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="data_about" name="Дані про великотоннажний та інший технологічний транспортний засіб:" type="label" default=" " writable="false"></activiti:formProperty>
@@ -479,6 +486,7 @@
         <activiti:formProperty id="chassis_number" name="Ідентифікаційні номери (заводський, шасі/рами)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="engine_number" name="Номер двигуна (також у дужках зазначається латинська літера «V», знак рівності та об’єм двигуна вликотонажного та іншого технологічного транспортного засобу)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_registrastion" name="Дата реєстрації заяви" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="status_zayavy" name="Статус заяви" type="enum">
           <activiti:value id="attr3_finish" name="Відмова громадянину Територіальним управлінням Держгірпромнагляду"></activiti:value>
           <activiti:value id="attr4_finish" name="Свідоцтво про реєстрацію та номерні знаки - готові"></activiti:value>
