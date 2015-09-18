@@ -343,12 +343,13 @@ $scope.lightweightRefreshAfterSubmit = function () {
 
 
   $scope.aPatternPrintNew = function (taskForm) { 
-//    var printTemplateResult = null;
     var aResult = [];
     if(taskForm){//this.form
+        
+        /* НЕ ЗАРАБОТАЛО!
         console.log("[loadSelfAssignedTasks]");
         var aItem = taskForm;
-        _.forEach(aItem, function (oItem) {
+        _.forEach(aItem, function (n,oItem) {
           //if (oItem.id == sID) {
           if (oItem.id && oItem.id.indexOf('sBody') >= 0 && oItem.value !== "") {
           
@@ -364,13 +365,14 @@ $scope.lightweightRefreshAfterSubmit = function () {
             aResult = aResult.concat([{id:sID, name: sName}]);
           }
         });
+        */
         
-        /*
+        var printTemplateResult = null;
         printTemplateResult = taskForm.filter(function (item) {//form//this.form
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
           return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
         });
-        */
+        
     }
     //return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
 //    return (printTemplateResult!==null && printTemplateResult.length !== 0) ? printTemplateResult : [];
