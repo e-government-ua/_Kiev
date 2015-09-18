@@ -446,7 +446,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Призначення тимчасової державної допомоги дітям]]></activiti:string>
+          <activiti:string><![CDATA[Призначення компенсаційної виплати непрацюючій працездатній особі]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
