@@ -3,13 +3,14 @@
   <process id="gni_69" name="ГНИ - Надання витягу з реєстру платників єдиного податку" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
+        <activiti:formProperty id="info_1" name="Відповідно до пункту 299.9 статті 299 розділу ХІV «Спеціальні податкові режими» Податкового кодексу України (із змінами та доповненнями)  Витяг з реєстру платників єдиного податку діє до внесення змін до цього реєстру.  Тобто, якщо платником єдиного податку отримано Витяг з реєстру платників єдиного податку, то наступний Витяг можливо отримати тільки після внесення змін до реєстру.Для уникнення непорозумінь при отриманні нового Витягу з реєстру платників єдиного податку, після внесення змін до реєстру, радимо  повернути раніше отриманий Витяг. У разі якщо платник податків отримав Витяг з реєстру платників єдиного податку та не вносив зміни до реєстру платників єдиного податку, то не має  законодавчих  підстав на отримання нового Витягу." type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="по батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть відділення фіскальної служби; в якому вам буде зручно отримати довідку" type="enum" required="true">
           <activiti:value id="dnepr_and" name="Дніпропетровськ - АНД (пров. Універсальний, 12)|0461"></activiti:value>
           <activiti:value id="dnepr_babush" name="Дніпропетровськ - Бабушкінський (вул. Героїв Сталінграду, 25)|0462"></activiti:value>
@@ -18,37 +19,6 @@
           <activiti:value id="dnepr_kirov" name="Дніпропетровськ - Кіровський (вул. Горького, 22)|0465"></activiti:value>
           <activiti:value id="dnepr_red_guard" name="Дніпропетровськ - Красногвардійський (вул. Театральна, 1-А)|0466"></activiti:value>
           <activiti:value id="dnepr_lenin" name="Дніпропетровськ - Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
-          <activiti:value id="uvileine" name="смт Ювілейне (вул. Теплична, 13)|0417"></activiti:value>
-          <activiti:value id="apostol" name="Апостолове  (вул. Леніна, 63)|0414"></activiti:value>
-          <activiti:value id="varvarivka" name="с.Варварівка (вул. Пристанційна, 1)|0435"></activiti:value>
-          <activiti:value id="vasilkovka" name="смт.Васильківка (вул. Партизанська, 150)|0415"></activiti:value>
-          <activiti:value id="volnogorsk" name="Вільногірськ (б-р Миру, 15)|0401"></activiti:value>
-          <activiti:value id="verhnedneprovsk" name="Верхньодніпровськ (пл. Щербицького, 2)|0416"></activiti:value>
-          <activiti:value id="dniprodzerzhinsk" name="Дніпродзержинськ (вул. Медична, 9)|0403"></activiti:value>
-          <activiti:value id="zhovtivodi" name="Жовті Води (вул. Першотравнева, 24А)|0404"></activiti:value>
-          <activiti:value id="krrog1" name="Кривий Ріг (вул. Кобилянського, 148 а)|0418"></activiti:value>
-          <activiti:value id="krrog2" name="Кривий Ріг (пр-т. Джержинського, 42)|0481"></activiti:value>
-          <activiti:value id="krrog3" name="Кривий Ріг (пр-т. Металургів, 16)|0482"></activiti:value>
-          <activiti:value id="krrog4" name="Кривий Ріг (вул. Кремлівська, 4)|0483"></activiti:value>
-          <activiti:value id="krinichki" name="смт. Кринички (вул. Нагірна, 2)|0419"></activiti:value>
-          <activiti:value id="magdalinovka" name="смт. Магдалинівка (вул. Радянська, 44)|0420"></activiti:value>
-          <activiti:value id="marganec" name="Марганець (вул. П.Тичини, 11)|0406"></activiti:value>
-          <activiti:value id="mezhova" name="смт. Межова (вул. Фрунзе, 1)|0421"></activiti:value>
-          <activiti:value id="nikopol" name="Нікополь (пр-т. Трубників, 27)|0407"></activiti:value>
-          <activiti:value id="novomoskovsk" name="Новомосковськ (вул. М.Головко, 30)|0408"></activiti:value>
-          <activiti:value id="ordgo" name="Орджонікідзе (вул. Горького, 7)|0409"></activiti:value>
-          <activiti:value id="pavlograd" name="Павлоград (вул. Верстатобудівельників, 14-А)|0410"></activiti:value>
-          <activiti:value id="pershotravensk" name="Першотравенськ (вул. Шкільна, 35)|0411"></activiti:value>
-          <activiti:value id="petrikivka" name="смт. Петриківка (вул. Леніна, 38)|0426"></activiti:value>
-          <activiti:value id="petropavlivka" name="смт. Петропавлівка (вул. Радянська, 62)|0425"></activiti:value>
-          <activiti:value id="pokrovske" name="смт. Покровське (вул. 40 років жовтня, 13)|0427"></activiti:value>
-          <activiti:value id="5xatki" name="П'ятихатки (вул. Шевченка, 116)|0428"></activiti:value>
-          <activiti:value id="sinelnikove" name="Синельниково (вул. Воїнів-інтернаціоналістів, 2)|0412"></activiti:value>
-          <activiti:value id="solone" name="смт. Солоне (вул. Гагаріна, 12А)|0430"></activiti:value>
-          <activiti:value id="sofievka" name="смт. Софіївка (вул. Меліоративна, 3)|0431"></activiti:value>
-          <activiti:value id="ternovka" name="Тернівка (вул. Петрова, 9)|0413"></activiti:value>
-          <activiti:value id="carichanka" name="смт. Царичанка (вул. 14-ї дивізії, 8)|0433"></activiti:value>
-          <activiti:value id="shiroke" name="смт. Широке (вул. К.Маркса, 1А)|0434"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="subekt" name="Тип суб'єкта правових відносин" type="enum" required="true">
           <activiti:value id="ur" name="Юридична особа|1"></activiti:value>
@@ -57,7 +27,9 @@
         <activiti:formProperty id="organ" name="Навіщо Вам потрібна ця довідка?; наприклад: за місцем вимоги, інше" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="nomer" name="Вкажіть код ЄДРПОУ або ІНН; тільки цифрові позначення" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="naimenov" name="Найменування або ПІБ платника податку" type="string" required="true"></activiti:formProperty>
-      </extensionElements>
+        <activiti:formProperty id="info_2" name="Завантажте пустий бланк запиту за посиланням, заповніть, додайте ЄЦП, відскануйте та завантажте у полі нижче" type="label" default="ссылка"></activiti:formProperty>
+        <activiti:formProperty id="zapit" name="Заповнений запит з ЄЦП" type="file" required="true"></activiti:formProperty>
+        </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника держоргану" activiti:type="mail">
       <extensionElements>
@@ -168,37 +140,6 @@
           <activiti:value id="dnepr_kirov" name="Дніпропетровськ - Кіровський (вул. Горького, 22)|0465"></activiti:value>
           <activiti:value id="dnepr_red_guard" name="Дніпропетровськ - Красногвардійський (вул. Театральна, 1-А)|0466"></activiti:value>
           <activiti:value id="dnepr_lenin" name="Дніпропетровськ - Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
-          <activiti:value id="uvileine" name="смт Ювілейне (вул. Теплична, 13)|0417"></activiti:value>
-          <activiti:value id="apostol" name="Апостолове  (вул. Леніна, 63)|0414"></activiti:value>
-          <activiti:value id="varvarivka" name="с.Варварівка (вул. Пристанційна, 1)|0435"></activiti:value>
-          <activiti:value id="vasilkovka" name="смт.Васильківка (вул. Партизанська, 150)|0415"></activiti:value>
-          <activiti:value id="volnogorsk" name="Вільногірськ (б-р Миру, 15)|0401"></activiti:value>
-          <activiti:value id="verhnedneprovsk" name="Верхньодніпровськ (пл. Щербицького, 2)|0416"></activiti:value>
-          <activiti:value id="dniprodzerzhinsk" name="Дніпродзержинськ (вул. Медична, 9)|0403"></activiti:value>
-          <activiti:value id="zhovtivodi" name="Жовті Води (вул. Першотравнева, 24А)|0404"></activiti:value>
-          <activiti:value id="krrog1" name="Кривий Ріг (вул. Кобилянського, 148 а)|0418"></activiti:value>
-          <activiti:value id="krrog2" name="Кривий Ріг (пр-т. Джержинського, 42)|0481"></activiti:value>
-          <activiti:value id="krrog3" name="Кривий Ріг (пр-т. Металургів, 16)|0482"></activiti:value>
-          <activiti:value id="krrog4" name="Кривий Ріг (вул. Кремлівська, 4)|0483"></activiti:value>
-          <activiti:value id="krinichki" name="смт. Кринички (вул. Нагірна, 2)|0419"></activiti:value>
-          <activiti:value id="magdalinovka" name="смт. Магдалинівка (вул. Радянська, 44)|0420"></activiti:value>
-          <activiti:value id="marganec" name="Марганець (вул. П.Тичини, 11)|0406"></activiti:value>
-          <activiti:value id="mezhova" name="смт. Межова (вул. Фрунзе, 1)|0421"></activiti:value>
-          <activiti:value id="nikopol" name="Нікополь (пр-т. Трубників, 27)|0407"></activiti:value>
-          <activiti:value id="novomoskovsk" name="Новомосковськ (вул. М.Головко, 30)|0408"></activiti:value>
-          <activiti:value id="ordgo" name="Орджонікідзе (вул. Горького, 7)|0409"></activiti:value>
-          <activiti:value id="pavlograd" name="Павлоград (вул. Верстатобудівельників, 14-А)|0410"></activiti:value>
-          <activiti:value id="pershotravensk" name="Першотравенськ (вул. Шкільна, 35)|0411"></activiti:value>
-          <activiti:value id="petrikivka" name="смт. Петриківка (вул. Леніна, 38)|0426"></activiti:value>
-          <activiti:value id="petropavlivka" name="смт. Петропавлівка (вул. Радянська, 62)|0425"></activiti:value>
-          <activiti:value id="pokrovske" name="смт. Покровське (вул. 40 років жовтня, 13)|0427"></activiti:value>
-          <activiti:value id="5xatki" name="П'ятихатки (вул. Шевченка, 116)|0428"></activiti:value>
-          <activiti:value id="sinelnikove" name="Синельниково (вул. Воїнів-інтернаціоналістів, 2)|0412"></activiti:value>
-          <activiti:value id="solone" name="смт. Солоне (вул. Гагаріна, 12А)|0430"></activiti:value>
-          <activiti:value id="sofievka" name="смт. Софіївка (вул. Меліоративна, 3)|0431"></activiti:value>
-          <activiti:value id="ternovka" name="Тернівка (вул. Петрова, 9)|0413"></activiti:value>
-          <activiti:value id="carichanka" name="смт. Царичанка (вул. 14-ї дивізії, 8)|0433"></activiti:value>
-          <activiti:value id="shiroke" name="смт. Широке (вул. К.Маркса, 1А)|0434"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="subekt" name="Тип суб'єкта правових відносин" type="enum" writable="false">
           <activiti:value id="ur" name="Юридична особа|1"></activiti:value>
@@ -212,6 +153,12 @@
           <activiti:value id="reject" name="Відмовити у наданні витягу"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відмови у наданні витягу внесіть, будь ласка, причину" type="textArea"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${zapit}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="mailtask2" targetRef="usertask1"></sequenceFlow>
@@ -273,7 +220,7 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
@@ -300,10 +247,10 @@
                                     &lt;b&gt;Оцініть, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:&lt;/b&gt;
 
                                     &lt;p style="text-align: center;"&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
                                     &lt;/p&gt;
 
                                     &lt;p style="font-size: 13px;"&gt;
@@ -440,7 +387,14 @@
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow7" sourceRef="mailtask3" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow8" sourceRef="mailtask4" targetRef="endevent1"></sequenceFlow>
-    <sequenceFlow id="flow9" sourceRef="startevent1" targetRef="mailtask2"></sequenceFlow>
+    <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <sequenceFlow id="flow10" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow11" sourceRef="boundaryerror1" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="servicetask1" targetRef="mailtask2"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_gni_69">
     <bpmndi:BPMNPlane bpmnElement="gni_69" id="BPMNPlane_gni_69">
@@ -448,56 +402,73 @@
         <omgdc:Bounds height="35.0" width="35.0" x="61.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="55.0" width="162.0" x="140.0" y="30.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="162.0" x="360.0" y="30.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="55.0" width="162.0" x="140.0" y="110.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="162.0" x="360.0" y="110.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
-        <omgdc:Bounds height="40.0" width="40.0" x="200.0" y="200.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="420.0" y="200.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="58.0" width="162.0" x="140.0" y="270.0"></omgdc:Bounds>
+        <omgdc:Bounds height="58.0" width="162.0" x="360.0" y="270.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
-        <omgdc:Bounds height="55.0" width="161.0" x="361.0" y="193.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="161.0" x="581.0" y="193.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="424.0" y="281.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="644.0" y="281.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="170.0" x="131.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="130.0" y="57.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="127.0" y="120.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-        <omgdi:waypoint x="221.0" y="85.0"></omgdi:waypoint>
-        <omgdi:waypoint x="221.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="441.0" y="85.0"></omgdi:waypoint>
+        <omgdi:waypoint x="441.0" y="110.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="221.0" y="165.0"></omgdi:waypoint>
-        <omgdi:waypoint x="220.0" y="200.0"></omgdi:waypoint>
+        <omgdi:waypoint x="441.0" y="165.0"></omgdi:waypoint>
+        <omgdi:waypoint x="440.0" y="200.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="220.0" y="240.0"></omgdi:waypoint>
-        <omgdi:waypoint x="221.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="440.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="441.0" y="270.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="14.0" width="80.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
-        <omgdi:waypoint x="240.0" y="220.0"></omgdi:waypoint>
-        <omgdi:waypoint x="361.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="460.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="581.0" y="220.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="14.0" width="42.0" x="10.0" y="0.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="302.0" y="299.0"></omgdi:waypoint>
-        <omgdi:waypoint x="424.0" y="298.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="299.0"></omgdi:waypoint>
+        <omgdi:waypoint x="644.0" y="298.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="441.0" y="248.0"></omgdi:waypoint>
-        <omgdi:waypoint x="441.0" y="281.0"></omgdi:waypoint>
+        <omgdi:waypoint x="661.0" y="248.0"></omgdi:waypoint>
+        <omgdi:waypoint x="661.0" y="281.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
         <omgdi:waypoint x="96.0" y="57.0"></omgdi:waypoint>
-        <omgdi:waypoint x="140.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="131.0" y="57.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="145.0" y="87.0"></omgdi:waypoint>
+        <omgdi:waypoint x="144.0" y="120.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="301.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="57.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

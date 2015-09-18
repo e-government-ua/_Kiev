@@ -9,6 +9,7 @@
         <activiti:formProperty id="name_company" name="Повне найменування юридичної особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress" name="Юридична адреса" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="director" name="Керівник юридичної особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса стоянки великотоннажного та іншого технологічного транспортного засобу" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="content" name="Просимо (викладається суть справи)" type="string" required="true"></activiti:formProperty>
@@ -90,7 +91,7 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
@@ -149,6 +150,7 @@
         <activiti:formProperty id="name_company" name="Повне найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress" name="Юридична адреса" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="director" name="Керівник юридичної особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса стоянки великотоннажного та іншого технологічного транспортного засобу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="content" name="Просимо (викладається суть справи)" type="string" writable="false"></activiti:formProperty>
@@ -238,7 +240,7 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
@@ -303,6 +305,7 @@
         <activiti:formProperty id="adress" name="Юридична адреса" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="director" name="Керівник юридичної особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса стоянки великотоннажного та іншого технологічного транспортного засобу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="content" name="Просимо (викладається суть справи)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="data_about" name="Дані про великотоннажний та інший технологічний транспортний засіб:" type="label" default=" " writable="false"></activiti:formProperty>
@@ -389,14 +392,14 @@
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
 										Ваше звернення щодо перереєстрації великотоннажних та інших технологічних транспортних засобів - опрацьоване.&lt;/p&gt;
-										Ви або уповноважена Вами особа (при наявності довіреності) можете отримати свідоцтво про реєстрацію технологічного транспортного засобу та номерний знак - собисто під підпис у ЦНАП.&lt;/p&gt;
-                                        При собі треба мати:&lt;/p&gt;
-										1. Документ, що посвідчує особу.&lt;/p&gt;
-										2. Для уповоноваженої особи - довіренність.&lt;/p&gt;
-										3. Акт технічного огляду.&lt;/p&gt;
-										4. Свідоцтво про реєстрацію технологічного транспортного засобу.&lt;/p&gt;
-										5. Копія документів, що підтверджують правомірність придбання чи використання технологічного транспортного засобу, вузлів і агрегатів, які мають ідентифікаційні номери, у тому числі довідки про встановлення вузла або агрегату з обмінного чи резервного фонду суб'єкта господарювання, скріпленої його печаткою.&lt;/p&gt;
-										6. Копія документу, що підтверджує оплату вартості бланків, номерних знаків, виданих під час перереєстрації, та послуг за проведення технічного огляду.&lt;/p&gt;
+										Ви або уповноважена Вами особа (при наявності довіреності) можете отримати свідоцтво про реєстрацію технологічного транспортного засобу та номерний знак - собисто під підпис у ЦНАП.&lt;br /&gt;
+                                        При собі треба мати:&lt;br /&gt;
+										1. Документ, що посвідчує особу.&lt;br /&gt;
+										2. Для уповоноваженої особи - довіренність.&lt;br /&gt;
+										3. Акт технічного огляду.&lt;br /&gt;
+										4. Свідоцтво про реєстрацію технологічного транспортного засобу.&lt;br /&gt;
+										5. Копія документів, що підтверджують правомірність придбання чи використання технологічного транспортного засобу, вузлів і агрегатів, які мають ідентифікаційні номери, у тому числі довідки про встановлення вузла або агрегату з обмінного чи резервного фонду суб'єкта господарювання, скріпленої його печаткою.&lt;br /&gt;
+										6. Копія документу, що підтверджує оплату вартості бланків, номерних знаків, виданих під час перереєстрації, та послуг за проведення технічного огляду.&lt;br /&gt;
 									&lt;p&gt;&lt;/p&gt;
 										Зверніть увагу, що заяву, яку Ви подавали в електронному вигляді, треба буде засвідчити особистим підписом керівника юридичної особи/фізичної особи - підприємця та печаткою.
 									&lt;p&gt;&lt;/p&gt;
@@ -431,10 +434,10 @@
                                     &lt;b&gt;Оціните, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:&lt;/b&gt;
 
                                     &lt;p style="text-align: center;"&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
                                     &lt;/p&gt;
 
                                     &lt;p style="font-size: 13px;"&gt;
@@ -537,7 +540,7 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
