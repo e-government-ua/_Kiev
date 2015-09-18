@@ -343,21 +343,25 @@ $scope.lightweightRefreshAfterSubmit = function () {
 
 
   $scope.aPatternPrintNew = function (taskForm) { 
-    var printTemplateResult = null;
+//    var printTemplateResult = null;
     var aResult = [];
     if(taskForm){//this.form
+        console.log("[loadSelfAssignedTasks]");
         var aItem = taskForm;
         _.forEach(aItem, function (oItem) {
           //if (oItem.id == sID) {
           if (oItem.id && oItem.id.indexOf('sBody') >= 0 && oItem.value !== "") {
           
             //s = oItem.name;
-            var sID = oItem.id
-            var sName = oItem.name
+            var sID = oItem.id;
+            var sName = oItem.name;
+            console.log("[loadSelfAssignedTasks]sID="+sID+",sName="+sName);
+            
             if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
                 sName = oItem.value;
+                console.log("[loadSelfAssignedTasks]sName="+sName);
             }
-            aResult = aResult.contat([{id:sID, name: sName}]);
+            aResult = aResult.concat([{id:sID, name: sName}]);
           }
         });
         
