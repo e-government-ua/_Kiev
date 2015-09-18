@@ -44,7 +44,10 @@
         <activiti:formProperty id="nCount" name="Кількість довідок (по замовчанню - 1 максимально 10)" type="long" default="1" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон; у форматі 380...." type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text1" name="Якщо змінювались  прізвище, ім'я та по-батькові, обов'язково вкажіть попередні ПІБ  на обох мовах (укр. та рос.)" type="label" default="-------------------"></activiti:formProperty>
+        <activiti:formProperty id="text1" name="Ви змінювали коли-небудь прізвище, ім'я, по-батькові ?" type="enum">
+          <activiti:value id="attr1" name="Так"></activiti:value>
+          <activiti:value id="attr2" name="Ні"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="lastName_UA1" name="1. Попереднє прізвище (укр.)" type="string"></activiti:formProperty>
         <activiti:formProperty id="lastName_RU1" name="1. Предыдущая фамилия (рус.)" type="string"></activiti:formProperty>
         <activiti:formProperty id="firstName_UA1" name="1. Попереднє ім'я(укр.)" type="string"></activiti:formProperty>
@@ -76,6 +79,7 @@
         <activiti:formProperty id="middleName_UA5" name="5. Попереднє по-батькові(укр.)" type="string"></activiti:formProperty>
         <activiti:formProperty id="middleName_RU5" name="5. Предыдущее отчество (рус.)" type="string"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="markers2" name="Мареры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;lastName_UA1&quot;,&quot;lastName_RU1&quot;,&quot;firstName_UA1&quot;,&quot;firstName_RU1&quot;,&quot;middleName_UA1&quot;,&quot;middleName_RU1&quot;,&quot;lastName_UA2&quot;,&quot;lastName_RU2&quot;,&quot;firstName_UA2&quot;,&quot;firstName_RU2&quot;,&quot;middleName_UA2&quot;,&quot;middleName_RU2&quot;,&quot;lastName_UA3&quot;,&quot;lastName_RU3&quot;,&quot;firstName_UA3&quot;,&quot;firstName_RU3&quot;,&quot;middleName_UA3&quot;,&quot;middleName_RU3&quot;,&quot;lastName_UA4&quot;,&quot;lastName_RU4&quot;,&quot;firstName_UA4&quot;,&quot;firstName_RU4&quot;,&quot;middleName_UA4&quot;,&quot;middleName_RU4&quot;,&quot;lastName_UA5&quot;,&quot;lastName_RU5&quot;,&quot;firstName_UA5&quot;,&quot;firstName_RU5&quot;,&quot;middleName_UA5&quot;,&quot;middleName_RU5&quot;],&quot;asID_Field&quot;:{&quot;sCondit&quot;: &quot;text1&quot;},&quot;sCondition&quot;:&quot;[sCondit] == 'attr1'&quot;},}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування додаткових документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
