@@ -258,7 +258,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             logger.warn("For service operation '%s' nID_Process is null. Operation will not be called!", serviceName);
         }
         else {
-            String URL = generalConfig.sHostCentral() + "/wf-central/service/services/" + serviceName;
+            String URL = generalConfig.sHostCentral() + "/wf/service/services/" + serviceName;
             params.put("nID_Process", sID_Process);
             params.put("sID_Status", taskName);
             logger.info(URL + ": " + params);
