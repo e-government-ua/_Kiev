@@ -52,7 +52,7 @@
 
 **HTTP Metod: POST**
 
-**HTTP Context: https://server:port/wf-region/service/auth/login**
+**HTTP Context: https://server:port/wf/service/auth/login**
 
 | Name        | Value           |
 | ------------- |:-------------:|
@@ -83,7 +83,7 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: POST/DELETE**
 
-**HTTP Context: https://server:port/wf-region/service/auth/logout**
+**HTTP Context: https://server:port/wf/service/auth/logout**
 
 **Response:**
 
@@ -101,14 +101,14 @@ false - Имя пользователя или пароль не коррект�
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://server:port/wf-region/service/rest/start-process/{key}**
+**HTTP Context: https://server:port/wf/service/rest/start-process/{key}**
 
 * key - Ключ процесса
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 **Request:**
 
-https://test.region.igov.org.ua/wf-region/service/rest/start-process/citizensRequest
+https://test.region.igov.org.ua/wf/service/rest/start-process/citizensRequest
 
 **Response:**
 
@@ -125,14 +125,14 @@ https://test.region.igov.org.ua/wf-region/service/rest/start-process/citizensReq
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://server:port/wf-region/service/rest/tasks/{assignee}**
+**HTTP Context: https://server:port/wf/service/rest/tasks/{assignee}**
 
 * assignee - Владелец
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 **Request:**
 
-https://test.region.igov.org.ua/wf-region/service/rest/tasks/kermit
+https://test.region.igov.org.ua/wf/service/rest/tasks/kermit
 
 **Response:**
 
@@ -168,13 +168,13 @@ https://test.region.igov.org.ua/wf-region/service/rest/tasks/kermit
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://server:port/wf-region/service/rest/process-definitions**
+**HTTP Context: https://server:port/wf/service/rest/process-definitions**
 
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 **Request:**
 
-https://test.region.igov.org.ua/wf-region/service/rest/process-definitions
+https://test.region.igov.org.ua/wf/service/rest/process-definitions
 
 **Response:**
 
@@ -204,7 +204,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/process-definitions
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://server:port/wf-region/service/rest/download_file_from_db?taskId=XXX&attachmentId=XXX&nFile=XXX**
+**HTTP Context: https://server:port/wf/service/rest/download_file_from_db?taskId=XXX&attachmentId=XXX&nFile=XXX**
 
 * {taskId} - ид задачи
 * {attachmentID} - ID прикрепленного файла
@@ -212,7 +212,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/process-definitions
 * {nID_Subject} - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 Пример:
-https://test.igov.org.ua/wf-region/service/rest/file/download_file_from_db?taskId=82596&attachmentId=6726532&nFile=7
+https://test.igov.org.ua/wf/service/rest/file/download_file_from_db?taskId=82596&attachmentId=6726532&nFile=7
 
 
 <a name="7_workWithMerchants">
@@ -300,7 +300,7 @@ https://test.igov.org.ua/wf-central/service/merchant/removeMerchant?sID=i1017296
 
 **HTTP Metod: POST**
 
-**HTTP Context: http://server:port/wf-region/service/merchant/setMerchant** - обновить информацию мерчанта
+**HTTP Context: http://server:port/wf/service/merchant/setMerchant** - обновить информацию мерчанта
 
 | Name        | Value           |
 | ------------- |:-------------:|
@@ -992,7 +992,7 @@ https://test.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Subjec
 
 **HTTP Metod: POST**
 
-**HTTP Context: http://server:port/wf-region/service/rest/file/upload_file_as_attachment** - Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti
+**HTTP Context: http://server:port/wf/service/rest/file/upload_file_as_attachment** - Аплоад(upload) и прикрепление файла в виде атачмента к таске Activiti
 
 * taskId - ИД-номер таски
 * description - описание
@@ -1000,7 +1000,7 @@ https://test.igov.org.ua/wf-central/service/services/getHistoryEvents?nID_Subjec
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 Пример:
-http://test.igov.org.ua/wf-region/service/rest/file/upload_file_as_attachment?taskId=68&description=ololo"
+http://test.igov.org.ua/wf/service/rest/file/upload_file_as_attachment?taskId=68&description=ololo"
 
 Ответ без ошибок:
 ```json
@@ -1513,7 +1513,7 @@ https://test.igov.org.ua/wf-central/service/services/setServicesTree
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://server:port/wf-region/service/rest/download_bp_timing?sID_BP_Name=XXX&sDateAt=XXX8&sDateTo=XXX**
+**HTTP Context: https://server:port/wf/service/rest/download_bp_timing?sID_BP_Name=XXX&sDateAt=XXX8&sDateTo=XXX**
 
 * sID_BP_Name - ID бизнес процесса
 * sDateAt - Дата начала периода для выборки в формате yyyy-MM-dd
@@ -1532,7 +1532,7 @@ Name of Task - Название задачи<br/>
 Поля из FormProperty (если bDetail=true)<br/>
 
 Пример:
-https://test.region.igov.org.ua/wf-region/service/rest/file/download_bp_timing?sID_BP_Name=lviv_mvk-1&sDateAt=2015-06-28&sDateTo=2015-07-01
+https://test.region.igov.org.ua/wf/service/rest/file/download_bp_timing?sID_BP_Name=lviv_mvk-1&sDateAt=2015-06-28&sDateTo=2015-07-01
 
 Пример выходного файла
 
@@ -1625,7 +1625,7 @@ http://test.igov.org.ua/wf-central/service/services/updateHistoryEvent_Service?n
 Пример:
 https://test.igov.org.ua/wf-central/service/flow/getFlowSlots_ServiceData?nID_ServiceData=1
 или
-https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?sID_BP=kiev_mreo_1
+https://test.region.igov.org.ua/wf/service/flow/getSheduleFlowIncludes?sID_BP=kiev_mreo_1
 
 Ответ:  HTTP STATUS 200
 ```json
@@ -1954,7 +1954,7 @@ Eсли задано два ключа от разных записей -- ве�
 
 **Method: GET**
 
-**HTTP Context: https://server:port/wf-region/service/rest/file/downloadTasksData**
+**HTTP Context: https://server:port/wf/service/rest/file/downloadTasksData**
 
 Загрузка полей по задачам в виде файла.
 
@@ -1979,7 +1979,7 @@ Eсли задано два ключа от разных записей -- ве�
 * Если тип поля enum, то брать не его ИД пункта в энуме а именно значение Если тип поля enum, и в значении присутствует знак ";", то брать только то ту часть текста, которая находится справа от этого знака
 
 Пример:
-https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?&sID_BP=dnepr_spravka_o_doxodax&sID_State_BP=usertask1&sDateAt=2015-06-01&sDateTo=2015-08-01&saFields=${nID_Task};${sDateCreate};${area};;;0;${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName};4;${aim};${date_start};${date_stop};${place_living};${bankIdPassport};1;${phone};${email}&sID_Codepage=win1251&nASCI_Spliter=18&sDateCreateFormat=dd.mm.yyyy hh:MM:ss&sFileName=dohody.dat
+https://test.region.igov.org.ua/wf/service/rest/file/downloadTasksData?&sID_BP=dnepr_spravka_o_doxodax&sID_State_BP=usertask1&sDateAt=2015-06-01&sDateTo=2015-08-01&saFields=${nID_Task};${sDateCreate};${area};;;0;${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName};4;${aim};${date_start};${date_stop};${place_living};${bankIdPassport};1;${phone};${email}&sID_Codepage=win1251&nASCI_Spliter=18&sDateCreateFormat=dd.mm.yyyy hh:MM:ss&sFileName=dohody.dat
 
 Пример ответа:
 ```
@@ -1999,7 +1999,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?&s
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=[userId]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/getLoginBPs?sLogin=[userId]
 
 * sLogin - ID пользователя
 
@@ -2019,7 +2019,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?&s
 
 Пример:
 ```
-https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=kermit
+https://test.region.igov.org.ua/wf/service/rest/getLoginBPs?sLogin=kermit
 ```
 
 Пример результата
@@ -2035,13 +2035,13 @@ https://test.region.igov.org.ua/wf-region/service/rest/getLoginBPs?sLogin=kermit
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=[flowId]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=[flowId]
 
 * flowId - ID потока
 
 Пример:
 ```
-https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=1
+https://test.region.igov.org.ua/wf/service/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=1
 ```
 
 Пример результата
@@ -2057,7 +2057,7 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nI
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowInclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&sName=[sName]&sRegionTime=[sRegionTime]&sDateTimeAt=[sDateTimeAt]&sDateTimeTo=[sDateTimeTo]&saRegionWeekDay=[saRegionWeekDay]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/setSheduleFlowInclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&sName=[sName]&sRegionTime=[sRegionTime]&sDateTimeAt=[sDateTimeAt]&sDateTimeTo=[sDateTimeTo]&saRegionWeekDay=[saRegionWeekDay]
 
 * nID - ИД-номер //опциональный ,если задан - редактирование
 * nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
@@ -2073,7 +2073,7 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowIncludes?nI
 
 Пример:
 ```
-https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowInclude?nID_Flow_ServiceData=1&sName=Test&sRegionTime=%2210:30-11:30%22&sDateTimeAt=%222010-08-01%2010:10:30%22&sDateTimeTo=%222010-08-01%2018:10:00%22&saRegionWeekDay=%22mo,tu%22
+https://test.region.igov.org.ua/wf/service/flow/setSheduleFlowInclude?nID_Flow_ServiceData=1&sName=Test&sRegionTime=%2210:30-11:30%22&sDateTimeAt=%222010-08-01%2010:10:30%22&sDateTimeTo=%222010-08-01%2018:10:00%22&saRegionWeekDay=%22mo,tu%22
 ```
 
 Пример результата
@@ -2090,7 +2090,7 @@ https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowInclude?nID
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowInclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&nID=[nID]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/removeSheduleFlowInclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&nID=[nID]
 
 * nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
 * sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
@@ -2100,7 +2100,7 @@ https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowInclude?nID
 
 Пример:
 ```
-https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowInclude?nID_Flow_ServiceData=1&nID=20367
+https://test.region.igov.org.ua/wf/service/flow/removeSheduleFlowInclude?nID_Flow_ServiceData=1&nID=20367
 ```
 
 Пример результата
@@ -2116,13 +2116,13 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowInclude?
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=[flowId]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=[flowId]
 
 * flowId - ID потока
 
 Пример:
 ```
-https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=1
+https://test.region.igov.org.ua/wf/service/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=1
 ```
 
 Пример результата
@@ -2138,7 +2138,7 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nI
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&sName=[sName]&sRegionTime=[sRegionTime]&sDateTimeAt=[sDateTimeAt]&sDateTimeTo=[sDateTimeTo]&saRegionWeekDay=[saRegionWeekDay]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/setSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&sName=[sName]&sRegionTime=[sRegionTime]&sDateTimeAt=[sDateTimeAt]&sDateTimeTo=[sDateTimeTo]&saRegionWeekDay=[saRegionWeekDay]
 
 * nID - ИД-номер //опциональный ,если задан - редактирование
 * nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
@@ -2154,7 +2154,7 @@ https://test.region.igov.org.ua/wf-region/service/flow/getSheduleFlowExcludes?nI
 
 Пример:
 ```
-https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowExclude?nID_Flow_ServiceData=1&sName=Test&sRegionTime=%2210:30-11:30%22&sDateTimeAt=%222010-08-01%2010:10:30%22&sDateTimeTo=%222010-08-01%2018:10:00%22&saRegionWeekDay=%22mo,tu%22
+https://test.region.igov.org.ua/wf/service/flow/setSheduleFlowExclude?nID_Flow_ServiceData=1&sName=Test&sRegionTime=%2210:30-11:30%22&sDateTimeAt=%222010-08-01%2010:10:30%22&sDateTimeTo=%222010-08-01%2018:10:00%22&saRegionWeekDay=%22mo,tu%22
 ```
 
 Пример результата
@@ -2171,7 +2171,7 @@ https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowExclude?nID
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&nID=[nID]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/removeSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&nID=[nID]
 
 * nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
 * sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
@@ -2181,7 +2181,7 @@ https://test.region.igov.org.ua/wf-region/service/flow/setSheduleFlowExclude?nID
 
 Пример:
 ```
-https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowExclude?nID_Flow_ServiceData=1&nID=20367
+https://test.region.igov.org.ua/wf/service/flow/removeSheduleFlowExclude?nID_Flow_ServiceData=1&nID=20367
 ```
 
 Пример результата
@@ -2201,7 +2201,7 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowExclude?
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=[full-path-file]&sContentType=[content-type]**
+**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/getPatternFile?sPathFile=[full-path-file]&sContentType=[content-type]**
 --возвращает содержимое указанного файла с указанным типом контента (если он задан).
 
 * sPathFile - полный путь к файлу, например: folder/file.html.
@@ -2211,11 +2211,11 @@ https://test.region.igov.org.ua/wf-region/service/flow/removeSheduleFlowExclude?
 
 Примеры:
 
-https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=print//subsidy_zayava.html
+https://test.region.igov.org.ua/wf/service/rest/getPatternFile?sPathFile=print//subsidy_zayava.html
 
 ответ: вернется текст исходного кода файла-шаблона
 
-https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=print//subsidy_zayava.html&sContentType=text/html
+https://test.region.igov.org.ua/wf/service/rest/getPatternFile?sPathFile=print//subsidy_zayava.html&sContentType=text/html
 
 ответ: файл-шаблон будет отображаться в виде html-страницы
 
@@ -2229,7 +2229,7 @@ https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=[sLogin]&bEmployeeUnassigned=[true|false]&sDate=[yyyy-MM-dd]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/getFlowSlotTickets?sLogin=[sLogin]&bEmployeeUnassigned=[true|false]&sDate=[yyyy-MM-dd]
 -- возвращает активные тикеты, отсортированные по startDate
 
 * sLogin - имя пользоватеял для которого необходимо вернуть тикеты
@@ -2238,18 +2238,18 @@ https://test.region.igov.org.ua/wf-region/service/rest/getPatternFile?sPathFile=
 
 Примеры:
 
-https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=kermit
+https://test.region.igov.org.ua/wf/service/flow/getFlowSlotTickets?sLogin=kermit
 
 ```json
 [{"sDateStart":"2015-07-20T15:15:00","sDateEdit":"2015-07-06T11:03:52","sTaskDate":"2015-07-30T10:03:43","sDateFinish":"2015-07-20T15:30:00","nID_FlowSlot":"6","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Надання послуги: Огляд авто","nID":"20005"},{"sDateStart":"2015-07-20T15:45:00","sDateEdit":"2015-07-06T23:25:15","sTaskDate":"2015-07-06T23:27:18","sDateFinish":"2015-07-20T16:00:00","nID_FlowSlot":"7","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Надання послуги: Огляд авто","nID":"20010"}]
 ```
 
-https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=kermit&bEmployeeUnassigned=true
+https://test.region.igov.org.ua/wf/service/flow/getFlowSlotTickets?sLogin=kermit&bEmployeeUnassigned=true
 ```json
 [{"sDateStart":"2015-08-03T08:00:00","sDateEdit":"2015-07-30T23:10:58","sTaskDate":"2015-07-30T23:50:07","sDateFinish":"2015-08-03T08:15:00","nID_FlowSlot":"20086","sNameBP":"Днепропетровск - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Друк держ.номерів","nID":"20151"},{"sDateStart":"2015-08-03T08:15:00","sDateEdit":"2015-07-31T21:00:56","sTaskDate":"2015-07-31T21:01:19","sDateFinish":"2015-08-03T08:30:00","nID_FlowSlot":"20023","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Перевірка наявності обтяжень","nID":"20357"}]
 ```
 
-https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin=kermit&bEmployeeUnassigned=true&sDate=2015-07-20
+https://test.region.igov.org.ua/wf/service/flow/getFlowSlotTickets?sLogin=kermit&bEmployeeUnassigned=true&sDate=2015-07-20
 ```json
 [{"sDateStart":"2015-07-20T15:15:00","sDateEdit":"2015-07-06T11:03:52","sTaskDate":"2015-07-30T10:03:43","sDateFinish":"2015-07-20T15:30:00","nID_FlowSlot":"6","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Надання послуги: Огляд авто","nID":"20005"},{"sDateStart":"2015-07-20T15:45:00","sDateEdit":"2015-07-06T23:25:15","sTaskDate":"2015-07-06T23:27:18","sDateFinish":"2015-07-20T16:00:00","nID_FlowSlot":"7","sNameBP":"Киев - Реєстрація авто з пробігом в МРЕВ","nID_Subject":"20045","sUserTaskName":"Надання послуги: Огляд авто","nID":"20010"}]
 ```
@@ -2263,21 +2263,21 @@ https://test.region.igov.org.ua/wf-region/service/flow/getFlowSlotTickets?sLogin
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf-region/service/rest/tasks/getTasksByOrder?nID_Protected=[nID_Protected]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByOrder?nID_Protected=[nID_Protected]
 -- возвращает спискок ID пользовательских тасок по номеру заявки
 
 * nID_Protected - Номер заявки, в котором, все цифры кроме последней - ID процесса в activiti. А последняя цифра - его контрольная сумма зашифрованная по алгоритму Луна.
 
 Примеры:
 
-https://test.region.igov.org.ua/wf-region/service/rest/tasks/getTasksByOrder?nID_Protected=123452
+https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByOrder?nID_Protected=123452
 
 Responce status 403.
 ```json
 {"code":"BUSINESS_ERR","message":"CRC Error"}
 ```
 
-https://test.region.igov.org.ua/wf-region/service/rest/tasks/getTasksByOrder?nID_Protected=123451
+https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByOrder?nID_Protected=123451
 
 1) Если процесса с ID 12345 и тасками нет в базе то:
 
@@ -2325,7 +2325,7 @@ https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?n
 
 **HTTP Metod: GET**
 
-**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/setEscalationRuleFunction**
+**HTTP Context: test.region.igov.org.ua/wf/service/escalation/setEscalationRuleFunction**
 
  добавление/обновление записи функции эскалации
 
@@ -2342,19 +2342,19 @@ https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?n
 
 **HTTP Metod: GET**
 
-**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/getEscalationRuleFunction**
+**HTTP Context: test.region.igov.org.ua/wf/service/escalation/getEscalationRuleFunction**
 
 возврат одной записи функции эскалации по ее nID, если записи нету -- "403. Record not found"
 
 **HTTP Metod: GET**
 
-**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/getEscalationRuleFunctions**
+**HTTP Context: test.region.igov.org.ua/wf/service/escalation/getEscalationRuleFunctions**
 
 выборка всех записей функции эскалации 
 
 **HTTP Metod: GET**
 
-**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/removeEscalationRuleFunction**
+**HTTP Context: test.region.igov.org.ua/wf/service/escalation/removeEscalationRuleFunction**
 
 удаление записи функции эскалации по ее nID, если записи нету -- "403. Record not found"
 
@@ -2365,7 +2365,7 @@ https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?n
 
 **HTTP Metod: GET**
 
-**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/setEscalationRule**
+**HTTP Context: test.region.igov.org.ua/wf/service/escalation/setEscalationRule**
 
  добавление/обновление записи правила эскалации
 
@@ -2386,7 +2386,7 @@ https://test.igov.org.ua/wf-central/service/services/getStatisticServiceCounts?n
 
 
 ПРИМЕР:
-test.region.igov.org.ua/wf-region/service/escalation/setEscalationRule?sID_BP=zaporoshye_mvk-1a&sID_UserTask=*&sCondition=nElapsedDays==nDaysLimit&soData={nDaysLimit:3,asRecipientMail:[test@email.com]}&sPatternFile=escalation/escalation_template.html&nID_EscalationRuleFunction=1
+test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshye_mvk-1a&sID_UserTask=*&sCondition=nElapsedDays==nDaysLimit&soData={nDaysLimit:3,asRecipientMail:[test@email.com]}&sPatternFile=escalation/escalation_template.html&nID_EscalationRuleFunction=1
 
 ОТВЕТ:
 ```json
@@ -2405,19 +2405,19 @@ test.region.igov.org.ua/wf-region/service/escalation/setEscalationRule?sID_BP=za
 ```
 **HTTP Metod: GET**
 
-**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/getEscalationRule**
+**HTTP Context: test.region.igov.org.ua/wf/service/escalation/getEscalationRule**
 
 возврат одной записи правила эскалации по ее nID, если записи нету -- "403. Record not found"
 
 **HTTP Metod: GET**
 
-**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/removeEscalationRule**
+**HTTP Context: test.region.igov.org.ua/wf/service/escalation/removeEscalationRule**
 
 удаление записи правила эскалации по ее nID, если записи нету -- "403. Record not found"
 
 **HTTP Metod: GET**
 
-**HTTP Context: test.region.igov.org.ua/wf-region/service/escalation/getEscalationRules**
+**HTTP Context: test.region.igov.org.ua/wf/service/escalation/getEscalationRules**
 
 возвращает список всех записей правил ескалации
 

@@ -64,8 +64,8 @@ import org.activiti.engine.history.HistoricDetail;
 import org.activiti.engine.impl.persistence.entity.HistoricFormPropertyEntity;
 
 /**
- * ...wf-region/service/... Example:
- * .../wf-region/service/rest/startProcessByKey/citizensRequest
+ * ...wf/service/... Example:
+ * .../wf/service/rest/startProcessByKey/citizensRequest
  *
  * @author BW
  */
@@ -576,7 +576,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
      * @throws IOException in case of connection aborted with client
      *
      * example:
-     * https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?sID_BP=kiev_mreo_1&sDateAt=2015-06-28&sDateTo=2015-08-01&nASCI_Spliter=59&sID_Codepage=UTF8&saFields=nID_Task;bankIdPassport;bankIdlastName;bankIdfirstName;bankIdmiddleName;1;sDateCreate
+     * https://test.region.igov.org.ua/wf/service/rest/file/downloadTasksData?sID_BP=kiev_mreo_1&sDateAt=2015-06-28&sDateTo=2015-08-01&nASCI_Spliter=59&sID_Codepage=UTF8&saFields=nID_Task;bankIdPassport;bankIdlastName;bankIdfirstName;bankIdmiddleName;1;sDateCreate
      */
     @RequestMapping(value = "/file/downloadTasksData", method = RequestMethod.GET)
     @Transactional

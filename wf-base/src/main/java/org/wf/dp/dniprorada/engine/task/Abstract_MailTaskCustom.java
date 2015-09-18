@@ -75,7 +75,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     private CancelTaskUtil cancelTaskUtil;
     
     protected String replaceTags(String textStr, DelegateExecution execution) throws Exception {
-        String LIQPAY_CALLBACK_URL = generalConfig.sHost() + "/wf-region/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=Liqpay&sData=";
+        String LIQPAY_CALLBACK_URL = generalConfig.sHost() + "/wf/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=Liqpay&sData=";
         String URL_SERVICE_MESSAGE = generalConfig.sHostCentral() + "/wf-central/service/messages/setMessage";
         
         if (textStr == null) {

@@ -7,7 +7,7 @@ var activiti = require('../../components/activiti');
 exports.index = function(req, res) {
   var user = JSON.parse(req.cookies.user);
   var query = {};
-  //https://test.igov.org.ua/wf-region/service/runtime/tasks?size=20
+  //https://test.igov.org.ua/wf/service/runtime/tasks?size=20
   query.size = 500;
 
   var path = 'runtime/tasks';

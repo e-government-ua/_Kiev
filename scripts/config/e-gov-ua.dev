@@ -3,8 +3,8 @@ server {
 	server_name e-gov-ua.dev;
         include /etc/nginx/proxy_params;
 
-        location /wf-region/ {
-            proxy_pass http://192.168.10.10:8080/wf-region/;
+        location /wf/ {
+            proxy_pass http://192.168.10.10:8080/wf/;
         }
 
         location / {
@@ -22,8 +22,8 @@ server {
         ssl_certificate_key /etc/nginx/ssl/dev_ssl.key;
 
 # wouldn't work properly till proxied demon work through http
-#        location /wf-region/ {
-#            proxy_pass http://192.168.10.10:8080/wf-region/;
+#        location /wf/ {
+#            proxy_pass http://192.168.10.10:8080/wf/;
 #        }
 
         location / {
