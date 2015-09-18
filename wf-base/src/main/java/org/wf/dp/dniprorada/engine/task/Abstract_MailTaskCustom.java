@@ -29,7 +29,6 @@ import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
 
 public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
-
     static final transient Logger LOG = LoggerFactory.getLogger(Abstract_MailTaskCustom.class);
     private static final String TAG_PAYMENT_BUTTON_LIQPAY = "[paymentButton_LiqPay]";
     private static final String TAG_CANCEL_TASK = "[cancelTask]";
@@ -91,9 +90,8 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             if(sSum!=null){
                 sSum=sSum.replaceAll(",", ".");
             }
-            
-            
-             String sID_Currency = execution.getVariable("sID_Currency").toString();
+
+            String sID_Currency = execution.getVariable("sID_Currency").toString();
             LOG.info("sID_Currency="+sID_Currency);
             Currency oID_Currency = Currency.valueOf(sID_Currency==null?"UAH":sID_Currency);
             LOG.info("oID_Currency.name()="+oID_Currency.name());
@@ -113,7 +111,6 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             textWithoutTags = StringUtils.replace(textWithoutTags, TAG_PAYMENT_BUTTON_LIQPAY, htmlButton);
         }
 
-        
         int nLimit=10;
         boolean bCashed = false;
         List<FormProperty> aProperty=new LinkedList();
@@ -154,29 +151,22 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                 }            
             
         }
-                
-   
-        LOG.info("execution.getProcessInstanceId()="+execution.getProcessInstanceId());
+
+        LOG.info("execution.getProcessInstanceId()=" + execution.getProcessInstanceId());
         Long nID_Protected = getProtectedNumber(Long.valueOf(execution.getProcessInstanceId()));
-        LOG.info("nID_Protected="+nID_Protected);
+        LOG.info("nID_Protected=" + nID_Protected);
      
         if (textWithoutTags.contains(TAG_nID_Protected)) {
             LOG.info("TAG_nID_Protected:Found");
             textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_nID_Protected+"\\E", "" + nID_Protected);
         }
-        if (textWithoutTags.contains(TAG_CANCEL_TASK)){
+        if (textWithoutTags.contains(TAG_CANCEL_TASK)) {
             LOG.info("TAG_CANCEL_TASK:Found");
-            try{
-                String cancelTaskBtn = cancelTaskUtil.getCancelFormHTML(nID_Protected);
-
-                LOG.info(">>>>cancel button = " + cancelTaskBtn);
-                textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_CANCEL_TASK+"\\E", cancelTaskBtn);
-            } catch (Exception e){
-                LOG.error("ex during creating cancel task!", e);
-            }
-        }else{
-            LOG.info("TAG_CANCEL_TASK:Not Found");
+            String cancelTaskBtn = cancelTaskUtil.getCancelFormHTML(nID_Protected);
+            LOG.info(">>>>cancel button = " + cancelTaskBtn);
+            textWithoutTags = textWithoutTags.replace(TAG_CANCEL_TASK, cancelTaskBtn);
         }
+
         if (textWithoutTags.contains(TAG_nID_SUBJECT)) {
             textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_nID_SUBJECT+"\\E", "" + nID_Subject);
         }
@@ -188,16 +178,15 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             ProcessDefinition processDefinition = execution.getEngineServices()
                     .getRepositoryService().createProcessDefinitionQuery()
                     .processDefinitionId(execution.getProcessDefinitionId()).singleResult();
-                    
-            String queryParamPattern = 
-                    "?sAccessContract=Request&sHead=Отзыв"
+
+            String queryParamPattern = "?sAccessContract=Request&sHead=Отзыв"
                     + "&sData=" + (processDefinition != null && processDefinition.getName() != null ? processDefinition.getName().trim() : "")
                     + "&sMail= "
-                            + "&nID_SubjectMessageType=1"
-                            + "&nID_Protected=" + nID_Protected;
+                    + "&nID_SubjectMessageType=1"
+                    + "&nID_Protected=" + nID_Protected;
             
             String queryParam = String.format(queryParamPattern);
-            if(nID_Subject != null){
+            if (nID_Subject != null) {
                 queryParam = queryParam + "&nID_Subject=" + nID_Subject;
             }
             LOG.info("[setAccessData] URL: " + URI + queryParam);
@@ -239,9 +228,8 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         String sHead = getStringFromFieldExpression(this.subject, oExecution);
         String sBodySource = getStringFromFieldExpression(this.text, oExecution);
         String sBody = replaceTags(sBodySource, oExecution);
-        
-        oMail
-        .reset();
+
+        oMail.reset();
         
         oMail
         ._From(mailAddressNoreplay)

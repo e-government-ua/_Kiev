@@ -97,42 +97,38 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
 
 	@Override
 	public List<Map<String, Long>> getHistoryEvent_ServiceBynID_Service(Long nID_Service) {
-            
-            List<Map<String, Long>> resHistoryEventService = new LinkedList<Map<String, Long>>();
-            
-                          //m.put("Київ", nID_Service);
-            if(nID_Service==159){
-                Map<String, Long> currRes = new HashMap<String, Long>();
-                currRes.put("sName", new Long(5));
-                currRes.put("nCount", new Long(1));
+
+        List<Map<String, Long>> resHistoryEventService = new LinkedList<>();
+        if (nID_Service == 159) {
+            Map<String, Long> currRes = new HashMap<>();
+            currRes.put("sName", 5L);
+            currRes.put("nCount", 1L);
+            resHistoryEventService.add(currRes);
+        }
+        Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
+        criteria.add(Restrictions.eq("nID_Service", nID_Service));
+        criteria.setProjection(Projections.projectionList()
+                        .add(Projections.groupProperty("nID_Region"))
+                        .add(Projections.count("nID_Service"))
+//                .add(Projections.avg("nRate")) //for issue 777
+        );
+        Object res = criteria.list();
+        log.info("Received result in getHistoryEvent_ServiceBynID_Service:" + res);
+        if (res == null) {
+            log.warn("List of records based on nID_Service not found" + nID_Service);
+            throw new EntityNotFoundException("Record not found");
+        } else {
+            for (Object item : criteria.list()) {
+                Object[] currValue = (Object[]) item;
+                log.info("Curr value:" + currValue);
+                Map<String, Long> currRes = new HashMap<>();
+                currRes.put("sName", (Long) currValue[0]);
+                currRes.put("nCount", (Long) currValue[1]);
+                // currRes.put("nRate", new BigDecimal(Float.valueOf("" + currValue[2])).setScale(1).floatValue());//for issue 777
                 resHistoryEventService.add(currRes);
             }
-            //else{
-		Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
-                criteria.add(Restrictions.eq("nID_Service", nID_Service));
-                criteria.setProjection(Projections.projectionList()
-                        .add(Projections.groupProperty("nID_Region"))
-                        .add(Projections.count("nID_Service")));           
-                Object res = criteria.list();
-                log.info("Received result in getHistoryEvent_ServiceBynID_Service:"  + res);
-                if (res == null) {
-                    log.warn("List of records based on nID_Service not found" + nID_Service);
-                    throw new EntityNotFoundException("Record not found");
-                } else {
-                        for(Object item:criteria.list()){
-                                Object[] currValue = (Object[]) item;
-                                log.info("Curr value:"  + currValue);
-                                Map<String, Long> currRes = new HashMap<String, Long>();
-                                currRes.put("sName", (Long) currValue[0]);
-                                currRes.put("nCount", (Long) currValue[1]);
-
-                                resHistoryEventService.add(currRes);
-                        }
-                    log.info("Found " + resHistoryEventService.size() + " records based on nID_Service " + nID_Service);
-                }
-            //}
-            
-            
+            log.info("Found " + resHistoryEventService.size() + " records based on nID_Service " + nID_Service);
+        }
 
         return resHistoryEventService;
 	}

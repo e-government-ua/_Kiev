@@ -216,6 +216,13 @@ angular.module('dashboardJsApp')
             url: '/api/tasks/search/byOrder/' + nID_Protected
           }
         );
+      },
+      getPatternFile: function(sPathFile) {
+        return simpleHttpPromise({
+            method: 'GET',
+            url: '/api/tasks/getPatternFile?sPathFile=' + sPathFile
+          }
+        );
       }
     };
   });

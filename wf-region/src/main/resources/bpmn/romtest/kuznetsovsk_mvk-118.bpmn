@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="kuznetsovsk_mvk_4" name="Кузнецовськ МВК- Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом." isExecutable="true">
+  <process id="kuznetsovsk_mvk-118" name="Кузнецовськ МВК - Поновлення договору оренди земельної ділянки" isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -9,21 +9,17 @@
         <activiti:formProperty id="place_of_liv" name="Адреса проживання; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="string"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="docType" name="Тип документа" type="enum" required="true">
-          <activiti:value id="Копія рішення виконавчого комітету міської ради" name="Копія рішення виконавчого комітету міської ради"></activiti:value>
-          <activiti:value id="Копія рішення міської ради" name="Копія рішення міської ради"></activiti:value>
-          <activiti:value id="Копія розпорядження міського голови" name="Копія розпорядження міського голови"></activiti:value>
+        <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="landShape" name="Площа земельної ділянки; у гектрах" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="landGoal" name="Цільове призначення земельної ділянки; Яке вказано у договорі оренди" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="term" name="На який термін поновити договор; у роках" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="deliverType" name="Як Ви бажаєте отримати результат" type="enum" required="true">
+          <activiti:value id="digital" name="Надіслати в електронному вигляді (скан-копія)"></activiti:value>
+          <activiti:value id="physical" name="Заберу сам"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="docDate" name="Дата прийняття документа; в форматі ДД.ММ.РРРР" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="docNumber" name="Номер документа" type="long"></activiti:formProperty>
-        <activiti:formProperty id="docName" name="Назва документа" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="deliverType" name="Який формат документів Ви бажаєте отримати" type="enum" required="true">
-          <activiti:value id="digital" name="Електронна версія "></activiti:value>
-          <activiti:value id="physical" name="Фізична копія"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="goal" name="Мета отримання документа" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="dogov" name="Копія договору оренди земельної ділянки та додаткових угод (при їх наявності)" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask2"></sequenceFlow>
@@ -43,7 +39,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Поновлення договору оренди земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -101,7 +97,7 @@
 									&lt;p&gt;
 										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
 										Спеціалісти з державного Органу повинні дати відповідь найближчим часом. &lt;br /&gt;
-									&lt;/p&gt;
+									;&lt;/p&gt;
 									
 									Центр надання адміністративних послуг Кузнецовської міської ради &lt;br /&gt;
 									&lt;br /&gt;
@@ -142,25 +138,30 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
-    <userTask id="usertask1" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="kuznets_mvk_2">
+    <userTask id="usertask1" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="kuznets_mvk_118">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_liv" name="Адреса проживання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="e-mail громадянина" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="request" name="Запитуваний документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="landShape" name="Площа земельної ділянки (га)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="landGoal" name="Цільове призначення земельної ділянки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="term" name="Бажаний термін поновлення договору у роках" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="deliverType" name="Бажаний тип отриманого результату" type="enum" writable="false">
+          <activiti:value id="digital" name="Надіслати в електронному вигляді (скан-копія)"></activiti:value>
+          <activiti:value id="physical" name="Заберу сам"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
-          <activiti:value id="accept" name="Передати запрос на опрацювання"></activiti:value>
-          <activiti:value id="reject" name="Відмовити у реєстрації звернення"></activiti:value>
+          <activiti:value id="accept" name="Передати документи спеціалістам"></activiti:value>
+          <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="string"></activiti:formProperty>
-        <activiti:formProperty id="footer" name="footerToPrint" type="invisible" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорту" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/ternopol_rcnap-9_zayava.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport}</activiti:expression>
+            <activiti:expression>${dogov}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -170,7 +171,7 @@
     <sequenceFlow id="flow6" name="${decide == 'reject'}" sourceRef="exclusivegateway3" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask2" name="Відмова у реєстрації звернення" activiti:type="mail">
+    <serviceTask id="mailtask2" name="Відмова в наданні послуги" activiti:type="mail">
       <extensionElements>
 		<activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -179,7 +180,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Поновлення договору оренди земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -235,7 +236,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-										На жаль змушені Вам відмовити у реєстрації звернення.
+										На жаль змушені Вам відмовити в наданні послуги.
 									&lt;/p&gt;
 									&lt;p&gt;
 										Коментар державного службовця: &lt;br /&gt;
@@ -272,16 +273,15 @@
 &lt;/table&gt;
 &lt;/body&gt;
 &lt;/html&gt;</activiti:expression>
-        </activiti:field>
-        
+        </activiti:field>  
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
-    <sequenceFlow id="flow8" name="decide == 'accept'" sourceRef="exclusivegateway3" targetRef="usertask2_green">
+    <sequenceFlow id="flow8" name="decide == 'accept'" sourceRef="exclusivegateway3" targetRef="usertask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask2_green" name="Підготовка відповіді на запит: пошук документа" activiti:candidateGroups="kuznets_mvk_2">
+    <userTask id="usertask3" name="Підготовка відповіді на запит: пошук документа" activiti:candidateGroups="kuznets_mvk_2">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_liv" name="Адреса проживання" type="string" writable="false"></activiti:formProperty>
@@ -291,7 +291,7 @@
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="deliverType" name="Формат відповіді" type="enum" writable="false">
           <activiti:value id="digital" name="Електронна версія"></activiti:value>
-          <activiti:value id="physical" name="Фізична копія"></activiti:value>
+          <activiti:value id="physical" name="Фізична версія"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="searchResult" name="Результат обробки запиту" type="enum" required="true">
           <activiti:value id="found" name="Документ знайдено"></activiti:value>
@@ -303,7 +303,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-	<sequenceFlow id="flow9" sourceRef="usertask2_green" targetRef="exclusivegateway2"></sequenceFlow>
+	<sequenceFlow id="flow9" sourceRef="usertask3" targetRef="exclusivegateway2"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow10" name="searchResult=='notFound'" sourceRef="exclusivegateway2" targetRef="mailtask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${searchResult=='notFound'}]]></conditionExpression>
@@ -317,7 +317,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Поновлення договору оренди земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -428,7 +428,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>Звернення на тему: Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.</activiti:expression>
+          <activiti:expression>Звернення на тему: Поновлення договору оренди земельної ділянки</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${docToSend}"</activiti:expression>
@@ -535,7 +535,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Видача копій, витягів з розпоряджень міського голови, рішень, прийнятих міською радою та виконавчим комітетом.]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Поновлення договору оренди земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -635,22 +635,9 @@
       </extensionElements>
     </serviceTask>
 	<sequenceFlow id="flow15" sourceRef="mailtask4" targetRef="endevent6"></sequenceFlow>
-    <textAnnotation id="textannotation1">
-      <text>Пользователь портала  отправляет выбирает услугу:
-Надання копій рішень міської ради та її виконкому, розпоряджень міського голови за зверненням юридичних та фізичних осіб, правоохоронних органів,адвокатів</text>
-    </textAnnotation>
-    <textAnnotation id="textannotation2">
-      <text>Принимается решение обоснован ли запрос на предоставление информации</text>
-    </textAnnotation>
-    <association id="association2" sourceRef="usertask1" targetRef="textannotation2"></association>
-    <textAnnotation id="textannotation3">
-      <text>По banlID система получает необходимые данные пользователя:
-ФИО, адрес проживания, телефон</text>
-    </textAnnotation>
-    <association id="association3" sourceRef="startevent1" targetRef="textannotation1"></association>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_kuznetsovsk_mvk_4">
-    <bpmndi:BPMNPlane bpmnElement="kuznetsovsk_mvk_4" id="BPMNPlane_kuznetsovsk_mvk_4">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_kuznetsovsk_mvk-118">
+    <bpmndi:BPMNPlane bpmnElement="kuznetsovsk_mvk-118" id="BPMNPlane_kuznetsovsk_mvk-118">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="0.0" y="169.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -660,7 +647,7 @@
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="863.0" y="166.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask2_green" id="BPMNShape_usertask2_green">
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
         <omgdc:Bounds height="64.0" width="161.0" x="680.0" y="155.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
@@ -696,16 +683,7 @@
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="422.0" y="286.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
-        <omgdc:Bounds height="50.0" width="299.0" x="-40.0" y="90.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
-        <omgdc:Bounds height="50.0" width="341.0" x="330.0" y="80.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
-        <omgdc:Bounds height="50.0" width="271.0" x="5.0" y="302.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+     <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
         <omgdi:waypoint x="883.0" y="166.0"></omgdi:waypoint>
         <omgdi:waypoint x="883.0" y="79.0"></omgdi:waypoint>
         <omgdi:waypoint x="954.0" y="79.0"></omgdi:waypoint>
@@ -780,14 +758,6 @@
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="508.0" y="303.0"></omgdi:waypoint>
         <omgdi:waypoint x="457.0" y="303.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
-        <omgdi:waypoint x="440.0" y="150.0"></omgdi:waypoint>
-        <omgdi:waypoint x="500.0" y="130.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
-        <omgdi:waypoint x="17.0" y="169.0"></omgdi:waypoint>
-        <omgdi:waypoint x="109.0" y="140.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
