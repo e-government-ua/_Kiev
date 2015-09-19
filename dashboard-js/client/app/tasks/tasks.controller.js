@@ -455,8 +455,8 @@ $scope.lightweightRefreshAfterSubmit = function () {
         console.log("[aPatternPrintNew1]aResult="+aResult);
         
     }
-//    return (printTemplateResult!==null && printTemplateResult!==undefined && printTemplateResult.length !== 0) ? printTemplateResult : [];
-    return aResult;
+    return (printTemplateResult!==null && printTemplateResult!==undefined && printTemplateResult.length !== 0) ? printTemplateResult : [];
+//    return aResult;
 //    return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
     
   };
