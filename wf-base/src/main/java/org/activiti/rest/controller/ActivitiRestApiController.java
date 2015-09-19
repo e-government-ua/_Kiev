@@ -64,8 +64,8 @@ import org.activiti.engine.history.HistoricDetail;
 import org.activiti.engine.impl.persistence.entity.HistoricFormPropertyEntity;
 
 /**
- * ...wf-region/service/... Example:
- * .../wf-region/service/rest/startProcessByKey/citizensRequest
+ * ...wf/service/... Example:
+ * .../wf/service/rest/startProcessByKey/citizensRequest
  *
  * @author BW
  */
@@ -496,10 +496,15 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             for (HistoricTaskInstance currTask : foundResults) {
                 
             	//List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
-                HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery().includeTaskLocalVariables().taskId(currTask.getId()).singleResult();
-                if (details != null) {
-                	log.info("getTaskLocalVariables: " + details.getTaskLocalVariables());
-                    headersExtra.addAll(details.getTaskLocalVariables().keySet());
+                HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery()
+                		.includeProcessVariables().taskId(currTask.getId()).singleResult();
+                if (details != null &&  details.getProcessVariables() != null) {
+                	log.info(" proccessVariavles: " + details.getProcessVariables());
+                	for(String key : details.getProcessVariables().keySet()){
+                		if(!key.startsWith("sBody")){
+                			headersExtra.add(key);
+                		}
+                	}
                 }
             }
             headers.addAll(headersExtra);
@@ -513,7 +518,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             log.debug(String.format("Found {%s} completed tasks for business process {%s} for date period {%s} - {%s}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt),
                     sdfDate.format(dateTo)));
 
-            for (HistoricTaskInstance currTask : foundResults) {
+            for (HistoricTaskInstance currTask : foundResults) { 
                 List<String> line = new ArrayList<String>();
                 line.add(currTask.getProcessInstanceId());
                 line.add(currTask.getAssignee());
@@ -526,12 +531,19 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
                 if (bDetail) {
                     log.debug("currTask: " + currTask.getId());
-                    HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery().includeTaskLocalVariables()
+                    HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery().includeProcessVariables()
                     		.taskId(currTask.getId()).singleResult(); 
                     for (String headerExtra : headersExtra) {
                         String propertyValue = "";
-                        if (details != null) {
-                            propertyValue = (String)details.getTaskLocalVariables().get(headerExtra);
+                        if (details != null && details.getProcessVariables() != null) {
+                        	Object variableValue = details.getProcessVariables().get(headerExtra);
+                        	if(variableValue != null){
+                        		if(variableValue instanceof String){
+                            		propertyValue = (String)variableValue;
+                            	} else {
+                            		propertyValue = String.valueOf(variableValue);
+                            	}
+                        	}
                         }
                         line.add(propertyValue);
                     }
@@ -564,7 +576,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
      * @throws IOException in case of connection aborted with client
      *
      * example:
-     * https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?sID_BP=kiev_mreo_1&sDateAt=2015-06-28&sDateTo=2015-08-01&nASCI_Spliter=59&sID_Codepage=UTF8&saFields=nID_Task;bankIdPassport;bankIdlastName;bankIdfirstName;bankIdmiddleName;1;sDateCreate
+     * https://test.region.igov.org.ua/wf/service/rest/file/downloadTasksData?sID_BP=kiev_mreo_1&sDateAt=2015-06-28&sDateTo=2015-08-01&nASCI_Spliter=59&sID_Codepage=UTF8&saFields=nID_Task;bankIdPassport;bankIdlastName;bankIdfirstName;bankIdmiddleName;1;sDateCreate
      */
     @RequestMapping(value = "/file/downloadTasksData", method = RequestMethod.GET)
     @Transactional

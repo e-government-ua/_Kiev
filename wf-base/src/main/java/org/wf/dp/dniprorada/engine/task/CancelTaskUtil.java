@@ -17,7 +17,7 @@ public class CancelTaskUtil {
     private GeneralConfig generalConfig;
     
     private static final Logger log = LoggerFactory.getLogger(CancelTaskUtil.class);
-    private static final String sURL_CancelTask =  "/wf-region/service/rest/tasks/cancelTask";
+    private static final String sURL_CancelTask =  "/wf/service/rest/tasks/cancelTask";
 
 
 

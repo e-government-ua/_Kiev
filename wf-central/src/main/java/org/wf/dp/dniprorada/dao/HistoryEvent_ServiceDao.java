@@ -20,6 +20,9 @@ public interface HistoryEvent_ServiceDao extends EntityDao<HistoryEvent_Service>
 
     public HistoryEvent_Service addHistoryEvent_Service(Long nID_Task, String sStatus, Long nID_Subject, String sID_Status, Long nID_Service, Long nID_Region, String sID_UA);
 
+    public HistoryEvent_Service addHistoryEvent_Service(Long nID_Task, String sStatus, Long nID_Subject,
+                                                        String sID_Status, Long nID_Service, Long nID_Region, String sID_UA, Integer nRate);
+
     public HistoryEvent_Service updateHistoryEvent_Service(HistoryEvent_Service historyEvent_Service);
     
     public List<Map<String, Long>> getHistoryEvent_ServiceBynID_Service(Long nID_Service);

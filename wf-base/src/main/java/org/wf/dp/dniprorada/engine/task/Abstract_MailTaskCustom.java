@@ -7,6 +7,7 @@ import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,24 +23,15 @@ import org.wf.dp.dniprorada.util.Util;
 
 import java.util.LinkedList;
 import java.util.List;
-import org.activiti.engine.history.HistoricProcessInstance;
-import org.activiti.engine.repository.ProcessDefinition;
 
 import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
 import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
 
 public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
-    
-    @Autowired
-    GeneralConfig generalConfig;
-    
-    @Autowired
-    Mail oMail;
-    
+    static final transient Logger LOG = LoggerFactory.getLogger(Abstract_MailTaskCustom.class);
     private static final String TAG_PAYMENT_BUTTON_LIQPAY = "[paymentButton_LiqPay]";
     private static final String TAG_CANCEL_TASK = "[cancelTask]";
-
     private static final String TAG_nID_Protected = "[nID_Protected]";
     private static final String TAG_nID_SUBJECT = "[nID_Subject]";
     private static final String TAG_sACCESS_KEY = "[sAccessKey]";
@@ -47,57 +39,44 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     private static final String accessKeyPattern = "&sAccessKey=%s";
     private static final String TAG_Function_AtEnum = "enum{[";
     private static final String TAG_Function_To = "]}";
-
-    
-    
     @Autowired
     public TaskService taskService;
-
     @Value("${mailServerHost}")
     public String mailServerHost;
-
     @Value("${mailServerPort}")
     public String mailServerPort;
-
     @Value("${mailServerDefaultFrom}")
     public String mailServerDefaultFrom;
-
     @Value("${mailServerUsername}")
     public String mailServerUsername;
-
     @Value("${mailServerPassword}")
     public String mailServerPassword;
-
     @Value("${mailAddressNoreply}")
     public String mailAddressNoreplay;
-
     public Expression from;
     public Expression to;
     public Expression subject;
-    public Expression text;    
-    
-    
-
-    @Autowired
-    AccessDataDao accessDataDao;
-
-    @Autowired
-    LiqBuy liqBuy;
-    @Autowired
-    private CancelTaskUtil cancelTaskUtil;
-
+    public Expression text;
     protected Expression sID_Merchant;
     protected Expression sSum;
     protected Expression sID_Currency;
     protected Expression sLanguage;
     protected Expression sDescription;
     protected Expression nID_Subject;
-
-    static final transient Logger LOG = LoggerFactory.getLogger(Abstract_MailTaskCustom.class);
+    @Autowired
+    GeneralConfig generalConfig;
+    @Autowired
+    Mail oMail;
+    @Autowired
+    AccessDataDao accessDataDao;
+    @Autowired
+    LiqBuy liqBuy;
+    @Autowired
+    private CancelTaskUtil cancelTaskUtil;
     
     protected String replaceTags(String textStr, DelegateExecution execution) throws Exception {
-        String LIQPAY_CALLBACK_URL = generalConfig.sHost() + "/wf-region/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=Liqpay&sData=";
-        String URL_SERVICE_MESSAGE = generalConfig.sHostCentral() + "/wf-central/service/messages/setMessage";
+        String LIQPAY_CALLBACK_URL = generalConfig.sHost() + "/wf/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=Liqpay&sData=";
+        String URL_SERVICE_MESSAGE = generalConfig.sHostCentral() + "/wf/service/messages/setMessage";
         
         if (textStr == null) {
             return null;
@@ -111,9 +90,8 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             if(sSum!=null){
                 sSum=sSum.replaceAll(",", ".");
             }
-            
-            
-             String sID_Currency = execution.getVariable("sID_Currency").toString();
+
+            String sID_Currency = execution.getVariable("sID_Currency").toString();
             LOG.info("sID_Currency="+sID_Currency);
             Currency oID_Currency = Currency.valueOf(sID_Currency==null?"UAH":sID_Currency);
             LOG.info("oID_Currency.name()="+oID_Currency.name());
@@ -133,7 +111,6 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             textWithoutTags = StringUtils.replace(textWithoutTags, TAG_PAYMENT_BUTTON_LIQPAY, htmlButton);
         }
 
-        
         int nLimit=10;
         boolean bCashed = false;
         List<FormProperty> aProperty=new LinkedList();
@@ -174,29 +151,22 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                 }            
             
         }
-                
-   
-        LOG.info("execution.getProcessInstanceId()="+execution.getProcessInstanceId());
+
+        LOG.info("execution.getProcessInstanceId()=" + execution.getProcessInstanceId());
         Long nID_Protected = getProtectedNumber(Long.valueOf(execution.getProcessInstanceId()));
-        LOG.info("nID_Protected="+nID_Protected);
+        LOG.info("nID_Protected=" + nID_Protected);
      
         if (textWithoutTags.contains(TAG_nID_Protected)) {
             LOG.info("TAG_nID_Protected:Found");
             textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_nID_Protected+"\\E", "" + nID_Protected);
         }
-        if (textWithoutTags.contains(TAG_CANCEL_TASK)){
+        if (textWithoutTags.contains(TAG_CANCEL_TASK)) {
             LOG.info("TAG_CANCEL_TASK:Found");
-            try{
-                String cancelTaskBtn = cancelTaskUtil.getCancelFormHTML(nID_Protected);
-
-                LOG.info(">>>>cancel button = " + cancelTaskBtn);
-                textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_CANCEL_TASK+"\\E", cancelTaskBtn);
-            } catch (Exception e){
-                LOG.error("ex during creating cancel task!", e);
-            }
-        }else{
-            LOG.info("TAG_CANCEL_TASK:Not Found");
+            String cancelTaskBtn = cancelTaskUtil.getCancelFormHTML(nID_Protected);
+            LOG.info(">>>>cancel button = " + cancelTaskBtn);
+            textWithoutTags = textWithoutTags.replace(TAG_CANCEL_TASK, cancelTaskBtn);
         }
+
         if (textWithoutTags.contains(TAG_nID_SUBJECT)) {
             textWithoutTags = textWithoutTags.replaceAll("\\Q"+TAG_nID_SUBJECT+"\\E", "" + nID_Subject);
         }
@@ -208,15 +178,15 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             ProcessDefinition processDefinition = execution.getEngineServices()
                     .getRepositoryService().createProcessDefinitionQuery()
                     .processDefinitionId(execution.getProcessDefinitionId()).singleResult();
-                    
-            String queryParamPattern = 
-                    "?sAccessContract=Request&sHead=Отзыв"
+
+            String queryParamPattern = "?sAccessContract=Request&sHead=Отзыв"
                     + "&sData=" + (processDefinition != null && processDefinition.getName() != null ? processDefinition.getName().trim() : "")
                     + "&sMail= "
-                    + "&nID_SubjectMessageType=1";
+                    + "&nID_SubjectMessageType=1"
+                    + "&nID_Protected=" + nID_Protected;
             
             String queryParam = String.format(queryParamPattern);
-            if(nID_Subject != null){
+            if (nID_Subject != null) {
                 queryParam = queryParam + "&nID_Subject=" + nID_Subject;
             }
             LOG.info("[setAccessData] URL: " + URI + queryParam);
@@ -258,9 +228,8 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         String sHead = getStringFromFieldExpression(this.subject, oExecution);
         String sBodySource = getStringFromFieldExpression(this.text, oExecution);
         String sBody = replaceTags(sBodySource, oExecution);
-        
-        oMail
-        .reset();
+
+        oMail.reset();
         
         oMail
         ._From(mailAddressNoreplay)

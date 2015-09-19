@@ -30,7 +30,7 @@ module.exports = {
     protocol: 'https',
     hostname: 'test.igov.org.ua',
     port: '8443',
-    path: '/wf-central/service',
+    path: '/wf/service',
     username: 'activiti-master',
     password: 'UjhtJnEvf!'
   }

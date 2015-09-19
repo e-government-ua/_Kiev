@@ -113,7 +113,7 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
@@ -261,7 +261,7 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
@@ -380,17 +380,17 @@
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
 										Ваше звернення щодо відомчої реєстрації великотоннажних та інших технологічних транспортних засобів - опрацьоване.&lt;/p&gt;
-										Ви або уповноважена Вами особа (при наявності довіреності) можете отримати свідоцтво про реєстрацію технологічного транспортного засобу та номерний знак - собисто під підпис у ЦНАП.&lt;/p&gt;
-                                        При собі треба мати:&lt;/p&gt;
-										1. Документ, що посвідчує особу.&lt;/p&gt;
-										2. Для уповоноваженої особи - довіренність.&lt;/p&gt;
-										3. Акт технічного огляду.&lt;/p&gt;
-										4. Висновок експертизи, проведеної фахівцями експертно-технічного центру, на відповідність технологічного транспортного засобу нормативно-правовим актам з охорони праці України (для технологічних транспортних засобів, виготовлених за межами України чи переобладнаних або самостійно зібраних).&lt;/p&gt;
-										5. Копія наказу про призначення посадової особи, відповідальної за безпечну експлуатацію та технічний стан технологічного транспортного засобу.&lt;/p&gt;
-										6. Копія експлуатаційної документації(паспорт на транспортний засіб та/або інструкція з експлуатації).&lt;/p&gt;
-										7. Копія документів, що підтверджують оплату вартості бланків, номерних знаків, виданих під час реєстрації, та послуг за проведення технічного огляду (з відміткою банку).&lt;/p&gt;
-										8. Копія сертифікату відповідності, свідоцтва про визнання відповідності, декларації про відповідність для технологічного транспортного засобу, на який розповсюджуються відповідні вимоги (якщо транспортний засіб не підлягає обов’язковій сертифікації — лист - відмова від акредитованого органу сертифікації).&lt;/p&gt;
-										9. Копія одного будь-якого з документів що підтверджують правомірність придбання технологічного транспортного засобу.&lt;/p&gt;
+										Ви або уповноважена Вами особа (при наявності довіреності) можете отримати свідоцтво про реєстрацію технологічного транспортного засобу та номерний знак - собисто під підпис у ЦНАП.&lt;br /&gt;
+                                        При собі треба мати:&lt;br /&gt;
+										1. Документ, що посвідчує особу.&lt;br /&gt;
+										2. Для уповоноваженої особи - довіренність.&lt;br /&gt;
+										3. Акт технічного огляду.&lt;br /&gt;
+										4. Висновок експертизи, проведеної фахівцями експертно-технічного центру, на відповідність технологічного транспортного засобу нормативно-правовим актам з охорони праці України (для технологічних транспортних засобів, виготовлених за межами України чи переобладнаних або самостійно зібраних).&lt;br /&gt;
+										5. Копія наказу про призначення посадової особи, відповідальної за безпечну експлуатацію та технічний стан технологічного транспортного засобу.&lt;br /&gt;
+										6. Копія експлуатаційної документації(паспорт на транспортний засіб та/або інструкція з експлуатації).&lt;br /&gt;
+										7. Копія документів, що підтверджують оплату вартості бланків, номерних знаків, виданих під час реєстрації, та послуг за проведення технічного огляду (з відміткою банку).&lt;br /&gt;
+										8. Копія сертифікату відповідності, свідоцтва про визнання відповідності, декларації про відповідність для технологічного транспортного засобу, на який розповсюджуються відповідні вимоги (якщо транспортний засіб не підлягає обов’язковій сертифікації — лист - відмова від акредитованого органу сертифікації).&lt;br /&gt;
+										9. Копія одного будь-якого з документів що підтверджують правомірність придбання технологічного транспортного засобу.&lt;br /&gt;
 									&lt;p&gt;&lt;/p&gt;
 										Зверніть увагу, що заяву, яку Ви подавали в електронному вигляді, треба буде засвідчити особистим підписом керівника юридичної особи/фізичної особи - підприємця та печаткою.
 									&lt;p&gt;&lt;/p&gt;
@@ -425,10 +425,10 @@
                                     &lt;b&gt;Оціните, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:&lt;/b&gt;
 
                                     &lt;p style="text-align: center;"&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sHead" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
                                     &lt;/p&gt;
 
                                     &lt;p style="font-size: 13px;"&gt;
@@ -559,7 +559,7 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Название услуги&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;

@@ -9,7 +9,7 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Місце реєстрації" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Місце реєстрації (вкажіть область, місто, вулицю, будинок, квартиру)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_of_liv" name="Місце проживання (вкажіть область, місто, вулицю, будинок, квартиру)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Оберіть районний орган соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
           <activiti:value id="sobes1" name="АНД, вул. Радістів, 8"></activiti:value>
@@ -21,7 +21,7 @@
           <activiti:value id="sobes7" name="Ленінський, вул. Трудова, 1а"></activiti:value>
           <activiti:value id="sobes8" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="numobr" name="Ваше звернення до районного органу соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
           <activiti:value id="obr1" name="первинне"></activiti:value>
@@ -437,7 +437,7 @@
     </sequenceFlow>
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow13" sourceRef="mailtask4" targetRef="endevent3"></sequenceFlow>
-    <serviceTask id="servicetask2" name="E-mail про необхідність оплати" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+    <serviceTask id="servicetask2" name="E-mail про необхідність оплати" activiti:delegateExpression="#{MailTaskWithAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -446,7 +446,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Призначення тимчасової державної допомоги дітям]]></activiti:string>
+          <activiti:string><![CDATA[Призначення компенсаційної виплати непрацюючій працездатній особі]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -518,6 +518,9 @@
     &lt;/tr&gt;
     &lt;/tbody&gt;
 &lt;/table&gt;</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>" "</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

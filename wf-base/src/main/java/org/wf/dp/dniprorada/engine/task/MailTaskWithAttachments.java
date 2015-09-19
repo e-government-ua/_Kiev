@@ -89,7 +89,8 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
                     log.error("Attachment: oDataSource == null");
                 }
                 
-                oMail._Attach(oDataSource, sFileName + "." + sFileExt, sDescription);
+                //oMail._Attach(oDataSource, sFileName + "." + sFileExt, sDescription);
+                oMail._Attach(oDataSource, sFileName, sDescription);
                 
                 log.info("oMultiPartEmail.attach: Ok!");
             }
