@@ -375,6 +375,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
           //return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
 
+/*          
             if(item.id && item.id.indexOf('sBody') >= 0){
                 var oItem = item;
                 var sID = oItem.id;
@@ -387,18 +388,78 @@ $scope.lightweightRefreshAfterSubmit = function () {
                 }
                 aResult = aResult.concat([{id:sID, name: sName}]);
             }
+  */          
           
           return item.id && item.id.indexOf('sBody') >= 0;//item.id === s
         });
         console.log("[aPatternPrintNew]aResult="+aResult);
         
     }
-//=    return (printTemplateResult!==null && printTemplateResult!==undefined && printTemplateResult.length !== 0) ? printTemplateResult : [];
-    return aResult;
-    //return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
+    return (printTemplateResult!==null && printTemplateResult!==undefined && printTemplateResult.length !== 0) ? printTemplateResult : [];
+//    return aResult;
+//    return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
     
   };
 
+
+  $scope.aPatternPrintNew1 = function (taskForm) { 
+    var aResult = [];
+    if(taskForm){//this.form
+        
+        /* НЕ ЗАРАБОТАЛО!
+        console.log("[loadSelfAssignedTasks]");
+        var aItem = taskForm;
+        _.forEach(aItem, function (n,oItem) {
+          //if (oItem.id == sID) {
+          if (oItem.id && oItem.id.indexOf('sBody') >= 0 && oItem.value !== "") {
+          
+            //s = oItem.name;
+            var sID = oItem.id;
+            var sName = oItem.name;
+            console.log("[loadSelfAssignedTasks]sID="+sID+",sName="+sName);
+            
+            if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
+                sName = oItem.value;
+                console.log("[loadSelfAssignedTasks]sName="+sName);
+            }
+            aResult = aResult.concat([{id:sID, name: sName}]);
+          }
+        });
+        return aResult;
+        */
+
+        console.log("[aPatternPrintNew1]...");
+          
+        var printTemplateResult = null;
+        printTemplateResult = taskForm.filter(function (item) {//form//this.form
+            //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
+          //return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
+
+          
+            if(item.id && item.id.indexOf('sBody') >= 0){
+                var oItem = item;
+                var sID = oItem.id;
+                var sName = oItem.name;
+                console.log("[aPatternPrintNew1]sID="+sID+",sName="+sName);
+                //if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
+                if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
+                    sName = oItem.value;
+                    console.log("[aPatternPrintNew1]sName(NEW)="+sName);
+                }
+                aResult = aResult.concat([{id:sID, name: sName}]);
+            }
+            
+          
+          return item.id && item.id.indexOf('sBody') >= 0;//item.id === s
+        });
+        console.log("[aPatternPrintNew1]aResult="+aResult);
+        
+    }
+    return (printTemplateResult!==null && printTemplateResult!==undefined && printTemplateResult.length !== 0) ? printTemplateResult : [];
+//    return aResult;
+//    return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
+    
+  };
 
   $scope.nID_FlowSlotTicket_FieldQueueData = function (sValue) {
     var nAt = sValue.indexOf(":");
