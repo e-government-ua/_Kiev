@@ -367,11 +367,35 @@ $scope.lightweightRefreshAfterSubmit = function () {
         });
         return aResult;
         */
-        
+
+        console.log("[aPatternPrintNew]...");
+          
         var printTemplateResult = null;
         printTemplateResult = taskForm.filter(function (item) {//form//this.form
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
           //return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
+          
+          
+//        _.forEach(aItem, function (n,oItem) {
+            var oItem = item;
+          //if (oItem.id == sID) {
+//          if (oItem.id && oItem.id.indexOf('sBody') >= 0 && oItem.value !== "") {
+          
+            //s = oItem.name;
+            var sID = oItem.id;
+            var sName = oItem.name;
+            console.log("[aPatternPrintNew]sID="+sID+",sName="+sName);
+            
+            if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
+                sName = oItem.value;
+                console.log("[aPatternPrintNew]sName="+sName);
+            }
+            aResult = aResult.concat([{id:sID, name: sName}]);
+//          }
+//        });
+          
+            console.log("[aPatternPrintNew]aResult="+aResult);
+          
           return item.id && item.id.indexOf('sBody') >= 0;//item.id === s
         });
         
