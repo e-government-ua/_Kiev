@@ -394,10 +394,10 @@ $scope.lightweightRefreshAfterSubmit = function () {
 //          }
 //        });
           
-            console.log("[aPatternPrintNew]aResult="+aResult);
           
           return item.id && item.id.indexOf('sBody') >= 0;//item.id === s
         });
+        console.log("[aPatternPrintNew]aResult="+aResult);
         
     }
     return (printTemplateResult!==null && printTemplateResult!==undefined && printTemplateResult.length !== 0) ? printTemplateResult : [];
