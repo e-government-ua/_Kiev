@@ -371,11 +371,12 @@ $scope.lightweightRefreshAfterSubmit = function () {
         var printTemplateResult = null;
         printTemplateResult = taskForm.filter(function (item) {//form//this.form
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
-          return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
+          //return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
+          return item.id && item.id.indexOf('sBody') >= 0;//item.id === s
         });
         
     }
-    return (printTemplateResult!==null && printTemplateResult.length !== 0) ? printTemplateResult : [];
+    return (printTemplateResult!==null && printTemplateResult!==undefined && printTemplateResult.length !== 0) ? printTemplateResult : [];
     //return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
     
   };
