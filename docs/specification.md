@@ -46,12 +46,12 @@
 Для этого можно воспользоваться программой Fiddler http://www.telerik.com/fiddler или аналогами
 В ней есть вкладка Composer с помощью которой можно отправлять запросы к API
 Нужно указать три обязательных заголовка:
-
+```text
 Content-Type:  application/json
 Accept: application/json
-Authorization: Basic [логин и пароль в формате base64 в виде 'login':'password']
-
-Чтобы закодировать строку login:password в base64 можно воспользоваться онлайн генератором: https://www.base64encode.org/
+Authorization: Basic [login:password] закодированные в формате base64 
+```
+Чтобы закодировать login:password в формат base64 можно воспользоваться онлайн генератором: https://www.base64encode.org/
 
 --------------------------------------------------------------------------------------------------------------------------
 
