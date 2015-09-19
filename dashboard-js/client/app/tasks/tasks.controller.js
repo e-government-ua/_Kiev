@@ -365,6 +365,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
             aResult = aResult.concat([{id:sID, name: sName}]);
           }
         });
+        return aResult;
         */
         
         var printTemplateResult = null;
@@ -374,9 +375,8 @@ $scope.lightweightRefreshAfterSubmit = function () {
         });
         
     }
+    return (printTemplateResult!==null && printTemplateResult.length !== 0) ? printTemplateResult : [];
     //return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
-//    return (printTemplateResult!==null && printTemplateResult.length !== 0) ? printTemplateResult : [];
-    return aResult;
     
   };
 
